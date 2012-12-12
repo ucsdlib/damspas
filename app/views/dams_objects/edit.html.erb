@@ -1,0 +1,27 @@
+<h1>Edit Dams Object</h1>
+<%= form_for @dams_object do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+  <%= f.label :relatedTitle %>
+  <%= f.text_field :relatedTitle %>
+  
+  <%= f.label :relatedTitleLang %>
+  <%= f.text_field :relatedTitleLang %>
+  <br>
+  <%= f.label :relatedTitleType %>
+  <%= f.text_field :relatedTitleType %>
+  <br>
+  <%= f.label :beginDate %>
+  <%= f.text_field :beginDate %>
+  <br>
+  <%= f.label :endDate %>
+  <%= f.text_field :endDate %>
+  <br>
+  <%= f.label :date %>
+  <%= f.text_field :date %>
+  <br>
+  <%= f.submit "Save" %>
+<% end %>
+<p><%= link_to "View Dams Object", dams_object_path(@dams_object)%></p>
+
