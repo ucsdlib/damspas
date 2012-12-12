@@ -48,6 +48,10 @@ gem "bootstrap-sass"
 
 group :development, :test do
 	gem 'rspec-rails', '>=2.9.0'
+        gem 'capybara'
+        gem 'launchy'
+        gem 'simplecov'
 	gem 'jettywrapper'
 	gem 'database_cleaner'
+        gem 'unicorn'
 end

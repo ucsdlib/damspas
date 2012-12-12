@@ -1,0 +1,56 @@
+<h1><%= @dams_object.title %></h1>
+<dl>
+  <dt>Title</dt>
+  <dd>
+    <%= @dams_object.title %>
+  </dd>
+  <dt>Ark Url</dt>
+  <dd>
+    <%= @dams_object.arkUrl %>
+  </dd>
+  <dt>Related Title</dt>
+  <dd>
+    <%= @dams_object.relatedTitle %>
+  </dd>
+  <dt>Related Title Language</dt>
+  <dd>
+    <%= @dams_object.relatedTitleLang %>
+  </dd>
+  <dt>Related Title Type</dt>
+  <dd>
+    <%= @dams_object.relatedTitleType %>
+  </dd>
+  <dt>Begin Date</dt>
+  <dd>
+    <%= @dams_object.beginDate %>
+  </dd>
+  <dt>End Date</dt>
+  <dd>
+    <%= @dams_object.endDate %>
+  </dd>
+  <dt>Date</dt>
+  <dd>
+    <%= @dams_object.date %>
+  </dd>
+</dl>
+<h2>Languages</h2>
+<%= form_for @dams_language do |f| %>
+  <%= f.hidden_field :dams_object_id %>
+  <%= f.label :code %>
+  <%= f.text_field :code %> 
+ <br>
+ <%= f.label :language %>
+  <%= f.text_field :language %>
+ <br>
+  <%= f.submit "Add Language" %>
+<% end %>
+
+<dl>
+ <% @dams_object.dams_languages.each do |lang| %>
+    <b>Language:</b><%= lang.language %> -      
+    <b>Language Code:</b> <%= lang.code %>
+    <br>
+  <% end %>
+</dl>
+
+
