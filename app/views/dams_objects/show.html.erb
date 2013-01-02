@@ -53,4 +53,21 @@
   <% end %>
 </dl>
 
+<% if(@damsL) %>
+<dl>
+    <b>Language:</b><%= @damsL.language %> -----
+    <b>Language Code:</b> <%= @damsL.code %>
+</dl>
+<% end %>
+
+<dl>
+ <% @dams_langs.each do |l| %>
+    <b>ID:</b><%= l.pid %> =
+    <b>Language:</b><%= l.language %> =
+    <b>Language Code:</b> <%= l.code %>
+    <br>
+  <% end %>
+</dl>
+
+   <%= select_tag(:language_id, options_from_collection_for_select(@dams_langs, :id, :language)) %>
 

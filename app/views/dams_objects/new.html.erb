@@ -21,7 +21,9 @@
  <%= f.label :date %>
   <%= f.text_field :date %>
   <br>
-
+  <%= f.label :languageId %>
+  <%= f.select(:languageId, options_from_collection_for_select(@dams_langs, :id, :language) , :prompt => 'Select Language') %>
+  <br>
   <%= f.submit "Save" %>
 
 <% end %>

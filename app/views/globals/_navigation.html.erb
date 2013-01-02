@@ -1,0 +1,7 @@
+<ul class="nav nav-pills">
+  <li><%= link_to 'Home', '/catalog#index' %>
+  <:qi><%= link_to 'Dams', dams_objects_path %>
+  <li class="pull-right">
+  <%= render :partial => '/catalog/search_form' %>
+  </li>
+</ul>
