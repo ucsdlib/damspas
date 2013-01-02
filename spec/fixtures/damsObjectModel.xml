@@ -18,5 +18,6 @@
       <rdf:value>2012-11-29</rdf:value>
     </dams:date>
 
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bb12345678"/>
   </dams:Object>
 </rdf:RDF>

@@ -19,6 +19,9 @@ t.endDate(:path=>"dams:Object/dams:date/dams:endDate", :namespace_prefix=>nil, "
 
 t.date(:path=>"dams:Object/dams:date/rdf:value", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
 
+t.languageId(:path=>"dams:Object/dams:language/@rdf:resource", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+
  end # set_terminology
   def self.xml_template
     Nokogiri::XML::Document.parse(File.new(File.join(File.dirname(__FILE__),'..', '..', '..', 'lib', "damsObjectModel.xml")))

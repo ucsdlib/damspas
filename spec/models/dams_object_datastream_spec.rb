@@ -37,6 +37,10 @@ describe DamsObjectDatastream do
        test_attribute_xpath(@damsDS, 'date', '//dams:Object/dams:date/rdf:value')
      end
 
+    it "should have language Id " do
+       test_attribute_xpath(@damsDS, 'languageId', '//dams:Object/dams:language/@rdf:resource')
+     end
+
    end
 
    describe "with existing datastream" do
@@ -77,6 +81,10 @@ describe DamsObjectDatastream do
 
     it "should have Date" do
        test_existing_attribute(@damsDS, 'date', '2012-11-29')
+    end
+
+    it "should have language" do
+       test_existing_attribute(@damsDS, 'languageId', 'http://library.ucsd.edu/ark:/20775/bb12345678')
     end
 
   end

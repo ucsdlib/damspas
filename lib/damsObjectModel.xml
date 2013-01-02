@@ -16,5 +16,6 @@
       <dams:endDate></dams:endDate>
       <rdf:value></rdf:value>
     </dams:date>
+    <dams:language rdf:resource=""/>
   </dams:Object>
 </rdf:RDF>
