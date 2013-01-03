@@ -1,0 +1,8 @@
+<h1>Edit Dams Vocabulary</h1>
+<%= form_for @dams_vocab do |f| %>
+  <%= f.label :vocabDesc %>
+  <%= f.text_field :vocabDesc %>
+  <%= f.submit "Save" %>
+<% end %>
+<p><%= link_to "View Dams Vocabulary", dams_vocab_path(@dams_vocab)%></p>
+

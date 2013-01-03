@@ -7,6 +7,14 @@ class DamsLanguagesController < ApplicationController
     @dams_language = DamsLanguage.new(params[:dams_language])
 #    @dams_language.dams_object_id = dams_object_id
     @dams_language.valueURI = "http://id.loc.gov/vocabulary/iso639-1/"+@dams_language.code.to_s
+    @dams_vocabs = DamsVocab.find(:all, :sort=>'created_at_sort desc')
+    @dams_vocabs.each do |dams_vocab|
+         if dams_vocab.vocabDesc == "Language"
+               @dams_language.add_relationship(:has_part,dams_vocab)
+               @dams_language.vocabularyId = "info:fedora/"+dams_vocab.pid
+         end
+    end
+
     @dams_language.save!
 #   redirect_to dams_object_path(@dams_language.dams_object), :notice=>"Language Added"
     redirect_to dams_objects_path, :notice=>"Language Added"

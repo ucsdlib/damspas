@@ -9,6 +9,8 @@ df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd
 
     t.valueURI(:path=>"dams:Language/dams:valueURI/@rdf:resource", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
 
+    t.vocabularyId(:path=>"dams:Language/dams:vocabulary/@rdf:resource", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+
  end # set_terminology
   def self.xml_template
     Nokogiri::XML::Document.parse(File.new(File.join(File.dirname(__FILE__),'..', '..', '..', 'lib', "damsLanguageModel.xml")))
