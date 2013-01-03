@@ -2,6 +2,10 @@ development:
   user: fedoraAdmin
   password: fedoraAdmin
   url: http://127.0.0.1:8983/fedora
+gimili:
+  user: fedoraAdmin
+  password: fedoraAdmin
+  url: http://gimili.ucsd.edu:8080/dams/fedora
 test: &TEST  
   user: fedoraAdmin
   password: fedoraAdmin
