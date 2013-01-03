@@ -13,9 +13,8 @@ class DamsObject < ActiveFedora::Base
 
 #  delegate_to 'damsVocabLang', [:vocabDesc], :unique=>"true"
 
-   has_many :dams_languages, :property => :is_part_of
+#   has_many :dams_languages, :property => :is_part_of
 
 #   has_and_belongs_to_many :dams_languages, :property => :is_part_of
 
-#   has_relationship "members", :is_member_of, :inbound => true
 end

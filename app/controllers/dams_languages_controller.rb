@@ -3,17 +3,21 @@ class DamsLanguagesController < ApplicationController
 
   # create
   def create
-    dams_object_id = params[:dams_language].delete(:dams_object_id)
+#    dams_object_id = params[:dams_language].delete(:dams_object_id)
     @dams_language = DamsLanguage.new(params[:dams_language])
-    @dams_language.dams_object_id = dams_object_id
+#    @dams_language.dams_object_id = dams_object_id
+    @dams_language.valueURI = "http://id.loc.gov/vocabulary/iso639-1/"+@dams_language.code.to_s
     @dams_language.save!
-    redirect_to dams_object_path(@dams_language.dams_object), :notice=>"Language Added"
+#   redirect_to dams_object_path(@dams_language.dams_object), :notice=>"Language Added"
+    redirect_to dams_objects_path, :notice=>"Language Added"
   end
   
   def update
     dams_language = DamsLanguage.find(params[:id])
     dams_language.save!
-    redirect_to dams_object_path(dams_language.dams_object), :notice=>"Language Updated"
+#    redirect_to dams_object_path(dams_language.dams_object), :notice=>"Language Updated"
+    redirect_to dams_objects_path, :notice=>"Language Updated"
+
   end
 
   def index
@@ -27,7 +31,7 @@ class DamsLanguagesController < ApplicationController
 
   def show
     @dams_language = DamsLanguage.find(params[:id])
-    @dams_object = @dams_language.dams_object
+ #   @dams_object = @dams_language.dams_object
 
     respond_to do |format|
       format.html # show.html.erb

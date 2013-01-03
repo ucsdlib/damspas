@@ -4,14 +4,15 @@ class DamsObjectsController < ApplicationController
   def new
     @dams_object = DamsObject.new
     @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
+    @dams_language = DamsLanguage.new
   end
 
   def show
     @dams_object = DamsObject.find(params[:id])
-    @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
-    @dams_languages = @dams_object.dams_languages
-    @dams_language = DamsLanguage.new
-    @dams_language.dams_object = @dams_object
+#    @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
+#    @dams_languages = @dams_object.dams_languages
+#    @dams_language = DamsLanguage.new
+#    @dams_language.dams_object = @dams_object
    # @damsL = DamsLanguage.find("changeme:2")
     languageId = @dams_object.relationships(:has_part)
     if(!languageId.nil? && languageId.length > 0)

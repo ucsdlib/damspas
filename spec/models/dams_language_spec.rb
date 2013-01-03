@@ -24,5 +24,10 @@ describe DamsLanguage do
     @damsLang.language == "french"
   end
 
+  it "should have a language valueURI" do
+    @damsLang.language = "http://id.loc.gov/vocabulary/iso639-1/fr"
+    @damsLang.language == "http://id.loc.gov/vocabulary/iso639-1/fr"
+  end
+
 end
 

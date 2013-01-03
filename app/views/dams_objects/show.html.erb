@@ -32,42 +32,55 @@
   <dd>
     <%= @dams_object.date %>
   </dd>
-</dl>
-<h2>Languages</h2>
-<%= form_for @dams_language do |f| %>
-  <%= f.hidden_field :dams_object_id %>
-  <%= f.label :code %>
-  <%= f.text_field :code %> 
- <br>
- <%= f.label :language %>
-  <%= f.text_field :language %>
- <br>
-  <%= f.submit "Add Language" %>
-<% end %>
-
-<dl>
- <% @dams_object.dams_languages.each do |lang| %>
-    <b>Language:</b><%= lang.language %> -      
-    <b>Language Code:</b> <%= lang.code %>
-    <br>
-  <% end %>
-</dl>
-
 <% if(@damsL) %>
-<dl>
-    <b>Language:</b><%= @damsL.language %> -----
-    <b>Language Code:</b> <%= @damsL.code %>
-</dl>
+  <dt>Language</dt>
+  <dd>
+     <%= @damsL.language %>
+  </dd>
+  <dt>Language Code:</dt> 
+  <dd>
+     <%= @damsL.code %>
+  </dd>
 <% end %>
 
+</dl>
+<!--
+<h2>Languages</h2>
+<%#= form_for @dams_language do |f| %>
+  <%#= f.hidden_field :dams_object_id %>
+  <%#= f.label :code %>
+  <%#= f.text_field :code %> 
+ <br>
+ <%#= f.label :language %>
+  <%#= f.text_field :language %>
+ <br>
+  <%#= f.submit "Add Language" %>
+<%# end %>
+
 <dl>
- <% @dams_langs.each do |l| %>
-    <b>ID:</b><%= l.pid %> =
-    <b>Language:</b><%= l.language %> =
-    <b>Language Code:</b> <%= l.code %>
+
+ <%# @dams_object.dams_languages.each do |lang| %>
+    <b>Language:</b><%#= lang.language %> -      
+    <b>Language Code:</b> <%#= lang.code %>
     <br>
-  <% end %>
+  <%# end %>
 </dl>
 
-   <%= select_tag(:language_id, options_from_collection_for_select(@dams_langs, :id, :language)) %>
+<%# if(@damsL) %>
+<dl>
+    <b>Language:</b><#%= @damsL.language %> -----
+    <b>Language Code:</b> <%#= @damsL.code %>
+</dl>
+<%# end %>
+
+<dl>
+ <%# @dams_langs.each do |l| %>
+    <b>ID:</b><%#= l.pid %> =
+    <b>Language:</b><%#= l.language %> =
+    <b>Language Code:</b> <%#= l.code %>
+    <br>
+  <%# end %>
+</dl>
+-->
+   <%#= select_tag(:language_id, options_from_collection_for_select(@dams_langs, :id, :language)) %>
 
