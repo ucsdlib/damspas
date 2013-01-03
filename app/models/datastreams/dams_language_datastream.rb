@@ -7,6 +7,7 @@ df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd
     
     t.language(:path=>"dams:Language/rdf:value", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
 
+    t.valueURI(:path=>"dams:Language/dams:valueURI/@rdf:resource", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
 
  end # set_terminology
   def self.xml_template

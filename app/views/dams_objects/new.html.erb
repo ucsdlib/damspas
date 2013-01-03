@@ -1,29 +1,40 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <%#= f.label :title %>
+  Title<%= f.text_field :title %>
+ <br>
+ <%#= f.label :relatedTitle %>
+  Related Title<%= f.text_field :relatedTitle %>
   <br>
- <%= f.label :relatedTitle %>
-  <%= f.text_field :relatedTitle %>
+ <%#= f.label :relatedTitleLang %>Related Title Language<%= f.text_field :relatedTitleLang %>
+ <br> 
+ <%#= f.label :relatedTitleType %>
+ Related Title Type <%= f.text_field :relatedTitleType %>
   <br>
- <%= f.label :relatedTitleLang %>
-  <%= f.text_field :relatedTitleLang %>
+ <%#= f.label :beginDate %>
+ Begin Date <%= f.text_field :beginDate %>
+ <br>
+ <%#= f.label :endDate %>
+ End Date <%= f.text_field :endDate %>
   <br>
- <%= f.label :relatedTitleType %>
-  <%= f.text_field :relatedTitleType %>
+ <%#= f.label :date %>
+ Date <%= f.text_field :date %>
   <br>
- <%= f.label :beginDate %>
-  <%= f.text_field :beginDate %>
-  <br>
- <%= f.label :endDate %>
-  <%= f.text_field :endDate %>
-  <br>
- <%= f.label :date %>
-  <%= f.text_field :date %>
-  <br>
-  <%= f.label :languageId %>
-  <%= f.select(:languageId, options_from_collection_for_select(@dams_langs, :id, :language) , :prompt => 'Select Language') %>
+  <%#= f.label :languageId %>
+  Language<%= f.select(:languageId, options_from_collection_for_select(@dams_langs, :id, :language) , :prompt => 'Select Language') %>
   <br>
   <%= f.submit "Save" %>
 
 <% end %>
+
+<h3>Or create a new language</h3>
+<%= form_for @dams_language do |f| %>
+  <%#= f.label :code %>
+  Code<%= f.text_field :code %> 
+ <br>
+ <%#= f.label :language %>
+ Language<%= f.text_field :language %>
+ <br>
+  <%= f.submit "Add Language" %>
+<% end %>
+

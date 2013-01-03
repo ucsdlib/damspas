@@ -14,7 +14,10 @@ describe DamsLanguageDatastream do
      end
 
 
-   end
+    it "should have language valueURI" do
+       test_attribute_xpath(@damsDS, 'valueURI', '//dams:Language/dams:valueURI/@rdf:resource')
+     end
+end
 
    describe "with existing datastream" do
      before do
@@ -29,6 +32,9 @@ describe DamsLanguageDatastream do
        test_existing_attribute(@damsDS, 'language', 'French')
      end
 
+     it "should have language valueURI" do
+       test_existing_attribute(@damsDS, 'valueURI', 'http://id.loc.gov/vocabulary/iso639-1/fr')
+     end
 
   end
 end

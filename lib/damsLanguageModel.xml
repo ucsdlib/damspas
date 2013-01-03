@@ -11,6 +11,6 @@
     <dams:vocabulary rdf:resource="http://library.ucsd.edu/ark:/20775/bb15151515"/>
     <dams:code></dams:code>
     <rdf:value></rdf:value>
-    <dams:valueURI rdf:resource="http://id.loc.gov/vocabulary/iso639-1/fr"/>
+    <dams:valueURI rdf:resource=""/>
   </dams:Language>
 </rdf:RDF>
