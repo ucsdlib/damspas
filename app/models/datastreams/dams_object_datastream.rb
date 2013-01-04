@@ -22,6 +22,29 @@ t.date(:path=>"dams:Object/dams:date/rdf:value", :namespace_prefix=>nil, "rdf"=>
 t.languageId(:path=>"dams:Object/dams:language/@rdf:resource", :namespace_prefix=>nil, "r
 df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
 
+t.typeOfResource(:path=>"dams:Object/dams:typeOfResource", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+
+t.relatedResourceType(:path=>"dams:Object/dams:otherResource/dams:RelatedResource/dams:type", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+
+t.relatedResourceDesc(:path=>"dams:Object/dams:otherResource/dams:RelatedResource/dams:description", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+
+t.relatedResourceUri(:path=>"dams:Object/dams:otherResource/dams:RelatedResource/dams:uri", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+
+t.relationshipRole(:path=>"dams:Object/dams:relationship/dams:Relationship/dams:role/@rdf:resource", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+
+t.relationshipName(:path=>"dams:Object/dams:relationship/dams:Relationship/dams:name/@rdf:resource", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.ed
+u/ontology/dams#")
+
+t.assembledCollection(:path=>"dams:Object/dams:assembledCollection/@rdf:resource", :namespace_prefix=>nil, "r
+df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.ed
+u/ontology/dams#")
+
  end # set_terminology
   def self.xml_template
     Nokogiri::XML::Document.parse(File.new(File.join(File.dirname(__FILE__),'..', '..', '..', 'lib', "damsObjectModel.xml")))

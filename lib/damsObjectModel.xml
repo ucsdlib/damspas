@@ -17,5 +17,20 @@
       <rdf:value></rdf:value>
     </dams:date>
     <dams:language rdf:resource=""/>
+    <dams:typeOfResource></dams:typeOfResource>
+    <dams:otherResource>
+      <dams:RelatedResource>
+        <dams:type></dams:type>
+        <dams:description></dams:description>
+        <dams:uri></dams:uri>
+      </dams:RelatedResource>
+    </dams:otherResource>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:role rdf:resource=""/>
+        <dams:name rdf:resource=""/>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:assembledCollection rdf:resource=""/>
   </dams:Object>
 </rdf:RDF>

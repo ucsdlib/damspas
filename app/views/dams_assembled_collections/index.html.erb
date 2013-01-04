@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Title</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dams_assembled_collections.each do |dams_assembled_collection| %>
+
+      <tr>
+        <td class="zombie_nickname"><%= dams_assembled_collection.id%></td>
+        <td class="zombie_name"><%= link_to dams_assembled_collection.title, dams_assembled_collection_path(dams_assembled_collection) %></td>
+        <td class="zombie_edit"><%= link_to "Edit", edit_dams_assembled_collection_path(dams_assembled_collection) %></td>
+        <td>
+          <%= link_to "Delete", dams_assembled_collection_path(dams_assembled_collection), :method => "delete" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
+
+<%= link_to "Create New Dams Collection", new_dams_assembled_collection_path, class: 'btn' %>

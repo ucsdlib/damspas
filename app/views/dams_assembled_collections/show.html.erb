@@ -1,0 +1,42 @@
+<h1><%= @dams_assembled_collection.title %></h1>
+<dl>
+  <dt>Title</dt>
+  <dd>
+    <%= @dams_assembled_collection.title %>
+  </dd>
+  <dt>TitleType</dt>
+  <dd>
+    <%= @dams_assembled_collection.titleType %>
+  </dd>
+  <dt>BeginDate</dt>
+  <dd>
+    <%= @dams_assembled_collection.beginDate %>
+  </dd>
+  <dt>Note</dt>
+  <dd>
+    <%= @dams_assembled_collection.note %>
+  </dd>
+  <dt>Note Display Label</dt>
+  <dd>
+    <%= @dams_assembled_collection.noteDisplayLabel %>
+  </dd>
+  <dt>Note Type</dt>
+  <dd>
+    <%= @dams_assembled_collection.noteType %>
+  </dd>
+
+<% if(@damsL) %>
+  <dt>Language</dt>
+  <dd>
+     <%= @damsL.language %>
+  </dd>
+  <dt>Language Code:</dt>
+  <dd>
+     <%= @damsL.code %>
+  </dd>
+<% end %>
+</dl>
+
+
+
+

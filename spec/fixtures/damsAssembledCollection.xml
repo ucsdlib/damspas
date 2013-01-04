@@ -1,0 +1,36 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:iso639-1="http://id.loc.gov/vocabulary/iso639-1/"
+    xmlns:marcrel="http://id.loc.gov/vocabulary/relators/"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsrole="http://library.ucsd.edu/ontology/role#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+<dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
+    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+    <dams:title>
+      <dams:Title>
+        <dams:type>main</dams:type>
+        <rdf:value>UCSD Electronic Theses and Dissertations</rdf:value>
+      </dams:Title>
+    </dams:title>
+    <dams:date>
+      <dams:Date>
+        <dams:beginDate>2009-05-03</dams:beginDate>
+      </dams:Date>
+    </dams:date>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+    <dams:note>
+      <dams:ScopeContentNote>
+        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <dams:type>scope_and_content</dams:type>
+      </dams:ScopeContentNote>
+    </dams:note>
+    <dams:relatedCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
+    <dams:hasProvenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb28282828"/>
+  </dams:AssembledCollection>
+
+</rdf:RDF>
