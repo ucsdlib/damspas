@@ -41,7 +41,36 @@ describe DamsObjectDatastream do
        test_attribute_xpath(@damsDS, 'languageId', '//dams:Object/dams:language/@rdf:resource')
      end
 
-   end
+    it "should have typeOfResource " do
+       test_attribute_xpath(@damsDS, 'typeOfResource', '//dams:Object/dams:typeOfResource')
+     end
+
+
+   it "should have relatedResourceType " do       
+	test_attribute_xpath(@damsDS, 'relatedResourceType', '//dams:Object/dams:otherResource/dams:RelatedResource/dams:type')
+     end
+
+   it "should have relatedResourceDesc " do       
+	test_attribute_xpath(@damsDS, 'relatedResourceDesc', '//dams:Object/dams:otherResource/dams:RelatedResource/dams:description')
+     end
+
+   it "should have relatedResourceUri " do       
+	test_attribute_xpath(@damsDS, 'relatedResourceUri', '//dams:Object/dams:otherResource/dams:RelatedResource/dams:uri')
+     end
+
+   it "should have relationshipRole " do       
+	test_attribute_xpath(@damsDS, 'relationshipRole', '//dams:Object/dams:relationship/dams:Relationship/dams:role/@rdf:resource')
+     end
+
+   it "should have relationshipName " do       
+	test_attribute_xpath(@damsDS, 'relationshipName', '//dams:Object/dams:relationship/dams:Relationship/dams:name/@rdf:resource')
+     end
+
+   it "should have assembledCollection " do       
+	test_attribute_xpath(@damsDS, 'assembledCollection', '//dams:Object/dams:assembledCollection/@rdf:resource')
+     end
+
+end
 
    describe "with existing datastream" do
      before do
@@ -85,6 +114,34 @@ describe DamsObjectDatastream do
 
     it "should have language" do
        test_existing_attribute(@damsDS, 'languageId', 'http://library.ucsd.edu/ark:/20775/bb12345678')
+    end
+
+    it "should have typeOfResource" do
+       test_existing_attribute(@damsDS, 'typeOfResource', 'image')
+    end
+
+    it "should have relatedResourceType" do       
+  	test_existing_attribute(@damsDS, 'relatedResourceType', 'online exhibit')
+    end
+
+    it "should have relatedResourceDesc" do       
+	test_existing_attribute(@damsDS, 'relatedResourceDesc', 'foo')
+    end
+
+    it "should have relatedResourceUri" do       
+     	test_existing_attribute(@damsDS, 'relatedResourceUri', 'http://library.ucsd.edu/test/foo/')
+    end
+
+    it "should have relationshipRole" do       
+  	test_existing_attribute(@damsDS, 'relationshipRole', 'http://library.ucsd.edu/ark:/20775/bd55639754')
+    end
+
+    it "should have relationshipName" do       
+	test_existing_attribute(@damsDS, 'relationshipName', 'http://library.ucsd.edu/ark:/20775/bb08080808')
+    end
+
+    it "should have assembledCollection" do       
+	test_existing_attribute(@damsDS, 'assembledCollection', 'http://library.ucsd.edu/ark:/20775/bb03030303')
     end
 
   end

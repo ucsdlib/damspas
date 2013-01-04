@@ -23,6 +23,20 @@
   <%#= f.label :languageId %>
   Language<%= f.select(:languageId, options_from_collection_for_select(@dams_langs, :id, :language) , :prompt => 'Select Language') %>
   <br>
+ TypeOfResource <%= f.text_field :typeOfResource %>
+ <br>
+ RelatedResourceType <%= f.text_field :relatedResourceType %>
+ <br>
+ RelatedResourceDesc <%= f.text_field :relatedResourceDesc %>
+ <br>
+ RelatedResourceUri <%= f.text_field :relatedResourceUri %>
+ <br>
+ RelationshipRole <%= f.text_field :relationshipRole %>
+ <br>
+ RelationshipName <%= f.text_field :relationshipName %>
+ <br>
+ AssembledCollection <%= f.text_field :assembledCollection %>
+ <br>
   <%= f.submit "Save" %>
 
 <% end %>

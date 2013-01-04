@@ -43,6 +43,38 @@
   </dd>
 <% end %>
 
+  <dt>typeOfResource</dt>
+  <dd>
+    <%= @dams_object.typeOfResource %>
+  </dd>
+
+  <dt>relatedResourceType</dt>
+  <dd>
+    <%= @dams_object.relatedResourceType %>
+  </dd>
+  <dt>relatedResourceDesc</dt>
+  <dd>
+    <%= @dams_object.relatedResourceDesc %>
+  </dd>
+  <dt>relatedResourceUri</dt>
+  <dd>
+    <%= @dams_object.relatedResourceUri %>
+  </dd>
+  <dt>relationshipRole</dt>
+  <dd>
+    <%= @dams_object.relationshipRole %>
+  </dd>
+  <dt>relationshipName</dt>
+  <dd>
+    <%= @dams_object.relationshipName %>
+  </dd>
+  <dt>AssembledCollection</dt>
+  <dd>
+    <%= @dams_object.assembledCollection %>
+  </dd>
+
+
+
 </dl>
 <!--
 <h2>Languages</h2>
@@ -82,5 +114,4 @@
   <%# end %>
 </dl>
 -->
-   <%#= select_tag(:language_id, options_from_collection_for_select(@dams_langs, :id, :language)) %>
 
