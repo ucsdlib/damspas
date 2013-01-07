@@ -11,4 +11,5 @@ class DamsObject < ActiveFedora::Base
 #   has_many :dams_languages, :property => :is_part_of
 
    belongs_to :dams_assembled_collection, :property => :is_member_of
+
 end
