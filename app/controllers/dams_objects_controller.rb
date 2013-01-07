@@ -1,6 +1,7 @@
 class DamsObjectsController < ApplicationController
   #load_and_authorize_resource
-  
+  before_filter :authenticate_user!, :only=>[:create] 
+ 
   def new
     @dams_object = DamsObject.new
     @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
@@ -39,8 +40,11 @@ class DamsObjectsController < ApplicationController
   end
 
   def create
+    dams_assembled_collection_id = params[:dams_object].delete(:dams_assembled_collection_id)
     @dams_object = DamsObject.new(params[:dams_object].merge(:edit_users => [current_user.user_key ] ))
     @dams_object.arkUrl = "http://library.ucsd.edu/ark:/20775/"+@dams_object.object_id.to_s
+    #dams_assembled_collection_id = params[:dams_object].delete(:dams_assembled_collection_id)
+    @dams_object.dams_assembled_collection_id = dams_assembled_collection_id 
     #damsL = DamsLanguage.find("changeme:2")
     #@dams_object.add_relationship(:has_part,damsL)
     language_id = @dams_object.languageId.to_s

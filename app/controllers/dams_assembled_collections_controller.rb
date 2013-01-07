@@ -7,8 +7,11 @@ class DamsAssembledCollectionsController < ApplicationController
   end
 
   def show
+    @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
     @dams_assembled_collection = DamsAssembledCollection.find(params[:id])
     @dams_objects = @dams_assembled_collection.dams_objects
+    @dams_object = DamsObject.new
+    @dams_object.dams_assembled_collection = @dams_assembled_collection
     languageId = @dams_assembled_collection.relationships(:has_part)
     if(!languageId.nil? && languageId.length > 0)
          @damsL = DamsLanguage.find(languageId.first.slice(12..languageId.first.length-1))
