@@ -6,6 +6,8 @@ class DamsObjectsController < ApplicationController
     @dams_object = DamsObject.new
     @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
     @dams_language = DamsLanguage.new
+    @dams_roles = DamsRole.find(:all, :sort=>'created_at_sort desc')
+    @dams_role = DamsRole.new
   end
 
   def show
@@ -19,6 +21,12 @@ class DamsObjectsController < ApplicationController
     if(!languageId.nil? && languageId.length > 0)
          @damsL = DamsLanguage.find(languageId.first.slice(12..languageId.first.length-1))
     end
+
+    roleId = @dams_object.relationships(:has_metadata)
+    if(!roleId.nil? && roleId.length > 0)
+         @damsR = DamsRole.find(roleId.first.slice(12..roleId.first.length-1))
+    end
+
     respond_to do |format|
        format.html # show.html.erb
        format.json {render json: @dams_object }
@@ -56,6 +64,17 @@ class DamsObjectsController < ApplicationController
          	@dams_object.add_relationship(:has_part,@damsLang)
     
 	end    
+    end
+
+    role_id = @dams_object.relationshipRole.to_s
+    @dams_object.relationshipRole = "info:fedora/"+role_id
+
+    if(!role_id.nil? && role_id.length > 0)
+         @damsRole = DamsRole.find(role_id)
+         if(!@damsRole.nil?)
+                @dams_object.add_relationship(:has_metadata,@damsRole)
+
+        end
     end
 
     respond_to do |format|
