@@ -31,7 +31,8 @@
  <br>
  RelatedResourceUri <%= f.text_field :relatedResourceUri %>
  <br>
- RelationshipRole <%= f.text_field :relationshipRole %>
+ RelationshipRole <%#= f.text_field :relationshipRole %>
+  <%= f.select(:relationshipRole, options_from_collection_for_select(@dams_roles, :id, :value) , :prompt => 'Select Role') %>
  <br>
  RelationshipName <%= f.text_field :relationshipName %>
  <br>
@@ -50,5 +51,16 @@
  Language<%= f.text_field :language %>
  <br>
   <%= f.submit "Add Language" %>
+<% end %>
+
+<h3>Or create a new role</h3>
+<%= form_for @dams_role do |f| %>
+  <%#= f.label :code %>
+  Code<%= f.text_field :code %>
+ <br>
+ <%#= f.label :language %>
+ Role<%= f.text_field :value %>
+ <br>
+  <%= f.submit "Add Role" %>
 <% end %>
 
