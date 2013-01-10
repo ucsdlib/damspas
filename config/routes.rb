@@ -10,6 +10,7 @@ Hydra::Application.routes.draw do
   resources :dams_languages
   resources :dams_vocabs
   resources :dams_assembled_collections
+  resources :dams_roles
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
