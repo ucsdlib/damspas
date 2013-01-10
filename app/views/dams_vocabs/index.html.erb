@@ -12,9 +12,9 @@
     <% @dams_vocabs.each do |dams_vocab| %>
 
       <tr>
-        <td class="zombie_nickname"><%= dams_vocab.id%></td>
-        <td class="zombie_name"><%= link_to dams_vocab.vocabDesc, dams_vocab_path(dams_vocab) %></td>
-        <td class="zombie_edit"><%= link_to "Edit", edit_dams_vocab_path(dams_vocab) %></td>
+        <td class="id"><%= dams_vocab.id%></td>
+        <td class="desc"><%= link_to dams_vocab.vocabDesc, dams_vocab_path(dams_vocab) %></td>
+        <td class="edit"><%= link_to "Edit", edit_dams_vocab_path(dams_vocab) %></td>
         <td>
           <%= link_to "Delete", dams_vocab_path(dams_vocab), :method => "delete" %>
         </td>

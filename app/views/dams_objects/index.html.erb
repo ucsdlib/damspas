@@ -14,11 +14,11 @@
     <% @dams_objects.each do |dams_object| %>
 
       <tr>
-        <td class="zombie_nickname"><%= dams_object.id%></td>
-        <td class="zombie_name"><%= link_to dams_object.title, dams_object_path(dams_object) %></td>
-        <td class="zombie_name"><%= dams_object.relatedTitle%></td>
-        <td class="zombie_name"><%= dams_object.relatedTitleType%></td>
-        <td class="zombie_edit"><%= link_to "Edit", edit_dams_object_path(dams_object) %></td>
+        <td class="id"><%= dams_object.id%></td>
+        <td class="title"><%= link_to dams_object.title, dams_object_path(dams_object) %></td>
+        <td class="relatedTitle"><%= dams_object.relatedTitle%></td>
+        <td class="relatedTitleType"><%= dams_object.relatedTitleType%></td>
+        <td class="edit"><%= link_to "Edit", edit_dams_object_path(dams_object) %></td>
         <td>
           <%= link_to "Delete", dams_object_path(dams_object), :method => "delete" %>
         </td>
