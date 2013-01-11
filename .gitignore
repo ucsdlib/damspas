@@ -14,5 +14,8 @@
 /log/*.log
 /tmp
 
+# vi temp files
+.*.swp
+
 # Ignore jetty (can link to jetty instance outside of git repo)
 /jetty
