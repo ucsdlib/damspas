@@ -2,8 +2,8 @@ class DamsVocab < ActiveFedora::Base
   include Hydra::ModelMixins::CommonMetadata
   include Hydra::ModelMixins::RightsMetadata
   
-  has_metadata :name => "damsVocabulary", :type=> DamsVocabularyDatastream
+  has_metadata :name => "damsMetadata", :type=> DamsVocabularyDatastream
  
-  delegate_to 'damsVocabulary', [:vocabDesc], :unique=>"true"
+  delegate_to 'damsMetadata', [:vocabDesc], :unique=>"true"
 
 end
