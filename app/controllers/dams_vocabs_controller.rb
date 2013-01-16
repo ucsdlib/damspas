@@ -38,7 +38,7 @@ class DamsVocabsController < ApplicationController
   end
 
   def index
-    @dams_vocabs = DamsVocab.find(:all, :sort=>'created_at_sort desc')
+    @dams_vocabs = DamsVocab.find(:all)
   end
   
   def destroy

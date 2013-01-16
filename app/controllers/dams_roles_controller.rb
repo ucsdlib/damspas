@@ -5,7 +5,7 @@ class DamsRolesController < ApplicationController
   def create
     @dams_role = DamsRole.new(params[:dams_role])
     @dams_role.valueURI = "http://id.loc.gov/vocabulary/relators/"+@dams_role.code.to_s
-    @dams_vocabs = DamsVocab.find(:all, :sort=>'created_at_sort desc')
+    @dams_vocabs = DamsVocab.find(:all)
     @dams_vocabs.each do |dams_vocab|
          if dams_vocab.vocabDesc == "Role"
                @dams_role.add_relationship(:has_part,dams_vocab)
@@ -25,7 +25,7 @@ class DamsRolesController < ApplicationController
   end
 
   def index
-    @dams_roles = DamsRole.find(:all, :sort=>'created_at_sort desc')
+    @dams_roles = DamsRole.find(:all)
   end
   
   def destroy

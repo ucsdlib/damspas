@@ -3,11 +3,11 @@ class DamsAssembledCollectionsController < ApplicationController
   
   def new
     @dams_assembled_collection = DamsAssembledCollection.new
-    @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
+    @dams_langs = DamsLanguage.find(:all)
   end
 
   def show
-    @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
+    @dams_langs = DamsLanguage.find(:all)
     @dams_assembled_collection = DamsAssembledCollection.find(params[:id])
     @dams_objects = @dams_assembled_collection.dams_objects
     @dams_object = DamsObject.new
@@ -33,7 +33,7 @@ class DamsAssembledCollectionsController < ApplicationController
   end
 
   def index
-    @dams_assembled_collections = DamsAssembledCollection.find(:all, :sort=>'created_at_sort desc')
+    @dams_assembled_collections = DamsAssembledCollection.find(:all)
   end
 
   def create

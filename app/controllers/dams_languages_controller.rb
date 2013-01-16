@@ -7,7 +7,7 @@ class DamsLanguagesController < ApplicationController
     @dams_language = DamsLanguage.new(params[:dams_language])
 #    @dams_language.dams_object_id = dams_object_id
     @dams_language.valueURI = "http://id.loc.gov/vocabulary/iso639-1/"+@dams_language.code.to_s
-    @dams_vocabs = DamsVocab.find(:all, :sort=>'created_at_sort desc')
+    @dams_vocabs = DamsVocab.find(:all)
     @dams_vocabs.each do |dams_vocab|
          if dams_vocab.vocabDesc == "Language"
                @dams_language.add_relationship(:has_part,dams_vocab)
@@ -29,7 +29,7 @@ class DamsLanguagesController < ApplicationController
   end
 
   def index
-    @dams_languages = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
+    @dams_languages = DamsLanguage.find(:all)
   end
   
   def destroy

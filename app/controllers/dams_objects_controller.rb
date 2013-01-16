@@ -4,15 +4,15 @@ class DamsObjectsController < ApplicationController
  
   def new
     @dams_object = DamsObject.new
-    @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
+    @dams_langs = DamsLanguage.find(:all)
     @dams_language = DamsLanguage.new
-    @dams_roles = DamsRole.find(:all, :sort=>'created_at_sort desc')
+    @dams_roles = DamsRole.find(:all)
     @dams_role = DamsRole.new
   end
 
   def show
     @dams_object = DamsObject.find(params[:id])
-#    @dams_langs = DamsLanguage.find(:all, :sort=>'created_at_sort desc')
+#    @dams_langs = DamsLanguage.find(:all)
 #    @dams_languages = @dams_object.dams_languages
 #    @dams_language = DamsLanguage.new
 #    @dams_language.dams_object = @dams_object
@@ -44,7 +44,7 @@ class DamsObjectsController < ApplicationController
   end
 
   def index
-    @dams_objects = DamsObject.find(:all, :sort=>'created_at_sort desc')
+    @dams_objects = DamsObject.find(:all)
   end
 
   def create
