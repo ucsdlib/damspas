@@ -1,6 +1,10 @@
 class DamsLanguagesController < ApplicationController
   before_filter :authenticate_user!, :only=>[:create]
 
+  def new
+    @dams_language = DamsLanguage.new
+  end
+
   # create
   def create
 #    dams_object_id = params[:dams_language].delete(:dams_object_id)
@@ -18,6 +22,10 @@ class DamsLanguagesController < ApplicationController
     @dams_language.save!
 #   redirect_to dams_object_path(@dams_language.dams_object), :notice=>"Language Added"
     redirect_to dams_objects_path, :notice=>"Language Added"
+  end
+
+  def edit
+    @dams_language = DamsLanguage.find(params[:id])
   end
   
   def update

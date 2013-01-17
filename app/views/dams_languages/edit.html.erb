@@ -1,0 +1,15 @@
+<h1>Edit Language</h1>
+<%= form_for @dams_language do |f| %>
+  <dt><%= f.label :id %></dt>
+  <dd><%= @dams_language.id %></dd>
+  <dt><%= f.label :code %></dt>
+  <dd><%= f.text_field :code %></dd>
+  <dt><%= f.label :language %></dt>
+  <dd><%= f.text_field :language %></dd>
+  <%= f.submit "Save", :class => :btn %>
+  <%= link_to "Cancel", dams_language_path(@dams_language), :class => :btn %>
+  <%= link_to "Delete", dams_language_path(@dams_language), :method => "delete", :class => :btn %>
+  <%= link_to "View All", dams_languages_path(), :class => :btn %>
+<% end %>
+<div>
+</div>
