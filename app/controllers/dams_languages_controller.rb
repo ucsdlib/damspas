@@ -29,11 +29,20 @@ class DamsLanguagesController < ApplicationController
   end
   
   def update
-    dams_language = DamsLanguage.find(params[:id])
-    dams_language.save!
-#    redirect_to dams_object_path(dams_language.dams_object), :notice=>"Language Updated"
-    redirect_to dams_objects_path, :notice=>"Language Updated"
+    @dams_language = DamsLanguage.find(params[:id])
+    #dams_language.save!
+    #redirect_to dams_objects_path, :notice=>"Language Updated"
+    #redirect_to dams_object_path(dams_language.dams_object), :notice=>"Language Updated"
 
+    respond_to do |format|
+      if @dams_language.update_attributes(params[:dams_language])
+        format.html { redirect_to dams_language_path(@dams_language), :notice=>"Language Updated" }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @dams_language.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def index

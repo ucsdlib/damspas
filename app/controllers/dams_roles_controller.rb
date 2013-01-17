@@ -1,6 +1,11 @@
 class DamsRolesController < ApplicationController
   before_filter :authenticate_user!, :only=>[:create]
 
+  # new
+  def new
+    @dams_role = DamsRole.new
+  end
+
   # create
   def create
     @dams_role = DamsRole.new(params[:dams_role])
@@ -14,14 +19,25 @@ class DamsRolesController < ApplicationController
     end
 
     @dams_role.save!
-    redirect_to dams_objects_path, :notice=>"Role Added"
+    redirect_to dams_roles_path, :notice=>"Role Added"
   end
+
+  def edit
+    @dams_role = DamsRole.find(params[:id])
+  end
+
   
   def update
-    dams_role = DamsRole.find(params[:id])
-    dams_role.save!
-    redirect_to dams_objects_path, :notice=>"Role Updated"
-
+    @dams_role = DamsRole.find(params[:id])
+    respond_to do |format|
+    if @dams_role.update_attributes(params[:dams_role])
+        format.html { redirect_to edit_dams_role_path(@dams_role), notice: 'Dams Role was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @dams_role.errors, status: :unprocessable_entity }
+      end
+   end
   end
 
   def index
@@ -29,8 +45,8 @@ class DamsRolesController < ApplicationController
   end
   
   def destroy
-    @dams_role = DamsRole.destroy(params[:id])
-    redirect_to dams_objects_path, :notice=>"Role is deleted"
+    DamsRole.find(params[:id]).destroy
+    redirect_to dams_roles_path, :notice=>"Role is deleted"
   end
 
   def show
