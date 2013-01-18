@@ -8,8 +8,8 @@ describe DamsRole do
   end
   
   it "should have the specified datastreams" do
-    @damsRole.datastreams.keys.should include("damsRole")
-    @damsRole.damsRole.should be_kind_of DamsRoleDatastream
+    @damsRole.datastreams.keys.should include("damsMetadata")
+    @damsRole.damsMetadata.should be_kind_of DamsRoleDatastream
     @damsRole.datastreams.keys.should include("rightsMetadata")
     @damsRole.rightsMetadata.should be_kind_of Hydra::Datastream::RightsMetadata
  end
