@@ -36,7 +36,8 @@
  <br>
  RelationshipName <%= f.text_field :relationshipName %>
  <br>
- AssembledCollection <%= f.text_field :assembledCollection %>
+ AssembledCollection <%#= f.text_field :assembledCollection %>
+ <%= f.select(:assembledCollection, options_from_collection_for_select(@dams_assembled_collections, :id, :title) , :prompt => 'Select Assembled Collection') %>
  <br>
   <%= f.submit "Save" %>
 

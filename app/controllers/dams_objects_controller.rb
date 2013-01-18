@@ -8,6 +8,7 @@ class DamsObjectsController < ApplicationController
     @dams_language = DamsLanguage.new
     @dams_roles = DamsRole.find(:all)
     @dams_role = DamsRole.new
+	@dams_assembled_collections = DamsAssembledCollection.find(:all)
   end
 
   def show
@@ -50,6 +51,10 @@ class DamsObjectsController < ApplicationController
   def create
     dams_assembled_collection_id = params[:dams_object].delete(:dams_assembled_collection_id)
     @dams_object = DamsObject.new(params[:dams_object].merge(:edit_users => [current_user.user_key ] ))
+    if(dams_assembled_collection_id.nil?)
+    	dams_assembled_collection_id = @dams_object.assembledCollection
+    end
+    
     @dams_object.arkUrl = "http://library.ucsd.edu/ark:/20775/"+@dams_object.object_id.to_s
     #dams_assembled_collection_id = params[:dams_object].delete(:dams_assembled_collection_id)
     @dams_object.dams_assembled_collection_id = dams_assembled_collection_id 
@@ -63,7 +68,7 @@ class DamsObjectsController < ApplicationController
          if(!@damsLang.nil?)
          	@dams_object.add_relationship(:has_part,@damsLang)
     
-	end    
+		end    
     end
 
     role_id = @dams_object.relationshipRole.to_s
