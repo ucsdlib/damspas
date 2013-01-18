@@ -1,4 +1,8 @@
-@import 'bootstrap';
 @import 'bootstrap-responsive';
 
-@import 'blacklight/blacklight';
+@import 'blacklight/blacklight'; 
+
+div.container
+{
+	@import 'bootstrap';
+}
