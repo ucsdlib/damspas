@@ -8,6 +8,7 @@ class DamsAssembledCollectionsController < ApplicationController
 
   def show
     @dams_langs = DamsLanguage.find(:all)
+	@dams_roles = DamsRole.find(:all)
     @dams_assembled_collection = DamsAssembledCollection.find(params[:id])
     @dams_objects = @dams_assembled_collection.dams_objects
     @dams_object = DamsObject.new

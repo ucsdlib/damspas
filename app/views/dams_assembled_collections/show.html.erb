@@ -66,12 +66,14 @@
  <br>
  RelatedResourceUri <%= f.text_field :relatedResourceUri %>
  <br>
- RelationshipRole <%= f.text_field :relationshipRole %>
+RelationshipRole <%#= f.text_field :relationshipRole %>
+  <%= f.select(:relationshipRole, options_from_collection_for_select(@dams_roles, :id, :value) , :prompt => 'Select Role') %>
  <br>
  RelationshipName <%= f.text_field :relationshipName %>
  <br>
- AssembledCollection <%= f.text_field :assembledCollection %>
- <br>
+ <!--
+ AssembledCollection <%#= f.text_field :assembledCollection %>
+ <br-->
   <%= f.submit "Save" %>
 
 <% end %>
