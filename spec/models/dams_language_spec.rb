@@ -8,8 +8,8 @@ describe DamsLanguage do
   end
   
   it "should have the specified datastreams" do
-    @damsLang.datastreams.keys.should include("damsLanguage")
-    @damsLang.damsLanguage.should be_kind_of DamsLanguageDatastream
+    @damsLang.datastreams.keys.should include("damsMetadata")
+    @damsLang.damsMetadata.should be_kind_of DamsLanguageDatastream
     @damsLang.datastreams.keys.should include("rightsMetadata")
     @damsLang.rightsMetadata.should be_kind_of Hydra::Datastream::RightsMetadata
  end

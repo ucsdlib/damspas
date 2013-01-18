@@ -21,7 +21,7 @@ class DamsLanguagesController < ApplicationController
 
     @dams_language.save!
 #   redirect_to dams_object_path(@dams_language.dams_object), :notice=>"Language Added"
-    redirect_to dams_objects_path, :notice=>"Language Added"
+    redirect_to dams_languages_path, :notice=>"Language Added"
   end
 
   def edit
