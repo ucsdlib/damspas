@@ -5,6 +5,11 @@ Hydra::Application.routes.draw do
   HydraHead.add_routes(self)
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  
+  devise_scope :user do 
+    match '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
+    match '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
+  end
 
   resources :dams_objects
   resources :dams_languages
