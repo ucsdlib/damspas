@@ -18,4 +18,10 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :assembledCollection
   property :Object
   property :value
+  property :collection
+  property :scopeContentNote
+  property :displayLabel
+  property :subject
+  property :relationship
+  property :name
 end
