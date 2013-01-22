@@ -12,6 +12,8 @@ gem 'sqlite3'
 
 gem 'devise'
 gem 'debugger'
+gem 'omniauth'
+gem 'omniauth-shibboleth'
 
 # Gems used only for assets and not required
 # in production environments by default.
