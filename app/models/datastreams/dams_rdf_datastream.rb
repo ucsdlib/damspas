@@ -1,4 +1,5 @@
 require 'dams_vocabulary'
+require 'mads_vocabulary'
 
 module RDF
    # This enables RDF to respond_to? :value
@@ -12,7 +13,10 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.title(:in => DAMS, :class_name => 'Description')
-  end
+    map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
+    map.subject(:in => DAMS, :class_name => 'Subject')
+    map.relationship(:in => DAMS, :class_name => 'Relationship')
+ end
 
   rdf_subject { |ds| RDF::URI.new(ds.about) }
 
@@ -39,6 +43,36 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.value(:in=> RDF) do |index|
 	index.as :searchable
       end
+    end
+  end
+  #class AssembledCollection
+  #  include ActiveFedora::RdfObject
+  #  map_predicates do |map|
+  #    rdf_type DAMS.AssembledCollection
+  #    map.scopeContentNote(:in=> DAMS, :class_name=>'ScopeContentNote') 
+  #  end
+  #  class ScopeContentNote
+  #    include ActiveFedora::RdfObject
+  #    map_predicates do |map|
+  #      rdf_type DAMS.ScopeContentNote
+  #      map.displayLabel(:in=> DAMS)
+  #    end
+  #  end
+  #end
+
+  class Subject
+    include ActiveFedora::RdfObject
+    map_predicates do |map|
+      rdf_type MADS.ComplexSubject
+      map.authoritativeLabel(:in=> MADS)
+    end
+  end
+
+  class Relationship
+    include ActiveFedora::RdfObject
+    map_predicates do |map|
+      rdf_type DAMS.Relationship
+      map.name(:in=> DAMS)
     end
   end
 end
