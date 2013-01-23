@@ -16,12 +16,12 @@ class User < ActiveRecord::Base
     uid = access_token.uid
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
-    User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider,:email=email)
+    User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
   end
   def self.find_or_create_for_shibboleth(access_token, signed_in_resource=nil)
     uid = access_token.uid
     provider = access_token.provider
-    User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider)
+    User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider )
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your
