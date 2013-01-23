@@ -1,6 +1,3 @@
-require 'dams_vocabulary'
-require 'mads_vocabulary'
-
 module RDF
    # This enables RDF to respond_to? :value
    def self.value 
@@ -12,10 +9,11 @@ end
 class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
-    map.title(:in => DAMS, :class_name => 'Description')
+    map.title_node(:in => DAMS, :to=>'title', :class_name => 'Description')
     map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
     map.subject(:in => DAMS, :class_name => 'Subject')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.date(:in => DAMS, :class_name => 'Date')
  end
 
   rdf_subject { |ds| RDF::URI.new(ds.about) }
@@ -40,9 +38,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     include ActiveFedora::RdfObject
     map_predicates do |map|
       rdf_type DAMS.Description
-      map.value(:in=> RDF) do |index|
-	index.as :searchable
-      end
+      map.value(:in=> RDF)
     end
   end
   #class AssembledCollection
@@ -60,6 +56,15 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   #  end
   #end
 
+
+  def title
+    title_node.first.value
+  end
+
+  def title=(val)
+    title_node.build.value = val
+  end
+
   class Subject
     include ActiveFedora::RdfObject
     map_predicates do |map|
@@ -73,7 +78,30 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     map_predicates do |map|
       rdf_type DAMS.Relationship
       map.name(:in=> DAMS)
+      map.role(:in=> DAMS)
     end
+
+    def load
+      uri = name.first.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsPerson.find(md[1])
+    end
+  end
+
+  class Date
+    include ActiveFedora::RdfObject
+    map_predicates do |map|
+      rdf_type DAMS.Date
+      map.value(:in=> RDF)
+    end
+  end
+
+  def to_solr (solr_doc = {})
+    solr_doc["subject_t"] = subject.map{|subject| subject.authoritativeLabel}.flatten
+    solr_doc["title_t"] = title
+    solr_doc["date_t"] = date.map{|date| date.value}.flatten
+    solr_doc["name_t"] = relationship.map{|relationship| relationship.load.name}.flatten
+    return solr_doc
   end
 end
 

@@ -26,7 +26,7 @@ describe DamsRdfDatastream do
       
       it "should have fields" do
         subject.resource_type.should == ["text"]
-        subject.title.first.value.should == ["Chicano and black radical activism of the 1960s"]
+        subject.title.should == ["Chicano and black radical activism of the 1960s"]
       end
 
       it "should have collection" do
@@ -35,13 +35,29 @@ describe DamsRdfDatastream do
       end
 
       it "should have subject" do
-        subject.subject.first.authoritativeLabel == ["Academic dissertations"]
-        subject.subject.second.authoritativeLabel == ["African Americans--Relations with Mexican Americans--History--20th Century"]
+        subject.subject.first.authoritativeLabel.should == ["Black Panther Party--History"]
+        subject.subject.second.authoritativeLabel.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
       end
+
+      it "should have date" do
+        subject.date.first.value.should == ["2010"]
+      end
+
+      it "should create a solr document" do
+        stub_person = stub(:name => "Maria")
+        DamsPerson.should_receive(:find).with("bbXXXXXXX1").and_return(stub_person)        
+        solr_doc = subject.to_solr
+        solr_doc["subject_t"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century"]
+        solr_doc["title_t"].should == ["Chicano and black radical activism of the 1960s"]
+        solr_doc["date_t"].should == ["2010"]
+        solr_doc["name_t"].should == ["Maria"]
+      end
+
     end
   end
 end
