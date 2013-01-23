@@ -23,12 +23,12 @@ $ rvm install 1.9.3
 $ rvm list default
 ```
 
-5.1 If the version shown is not 1.9.3+, set default directly. [more information about RVM defaults](https://rvm.io/rubies/default/)
+6. If the version shown is not 1.9.3+, set default directly. [more information about RVM defaults](https://rvm.io/rubies/default/)
 ```
 $ rvm --default use 1.9.3
 ```
 
-5. Install Rails 3.2.11+ (and confirm version)
+7. Install Rails 3.2.11+ (and confirm version)
 ```
 $ gem install rails -v 3.2.9
 $ rails -v
