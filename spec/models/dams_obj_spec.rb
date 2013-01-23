@@ -27,23 +27,6 @@ describe DamsObj do
     @damsObj.subject.should == ["subject 3","subject 4"]
   end
 
-  it "should create a xml" do
-    @damsObj.name = "Maria"
-@damsObj.damsMetadata.content.should =<<END 
-    <rdf:RDF
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-            xmlns:dams="http://library.ucsd.edu/ontology/dams#"
-                xmlns:owl="http://www.w3.org/2002/07/owl#"
-                    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-                        xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
-                          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1">
-                              <mads:authoritativeLabel>Maria</mads:authoritativeLabel>
-                                                                                </mads:PersonalName>
-                                                                                </rdf:RDF>
-END
-
-  end
-
   describe "Store to a repository" do
     before do
       DamsPerson.create! pid: "damsid:bbXXXXXXX1", name: "Maria"
