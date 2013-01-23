@@ -9,10 +9,14 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
-  config.omniauth :developer,:callback_path =>lambda{|env| "#{env['SCRIPT_NAME']}/users/auth/developer/callback"} unless Rails.env.production?
-  config.omniauth :shibboleth, {:uid_field => 'cn', :info_fields => {:email => 'mail', :name => 'displayName', :givenName => 'givenName', :familyName => 'sn'} }
-
-
+  #config.omniauth :developer,:callback_path =>lambda{|env| "#{env['SCRIPT_NAME']}/users/auth/developer/callback"} unless Rails.env.production?
+  config.omniauth :shibboleth, {
+    :uid_field                 => 'cn',
+    :shib_session_id_field     => "Shib-Session-ID",
+    :shib_application_id_field => "Shib-Application-ID",
+    :debug                     => false,
+    :info_fields               => {:email => 'mail', :name => 'displayName', :givenName => 'givenName', :familyName => 'sn'}
+  }
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
