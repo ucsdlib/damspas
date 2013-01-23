@@ -297,6 +297,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   hydra-head (= 5.4.0.pre1)
+  equivalent-xml
   jettywrapper
   jquery-rails
   launchy
