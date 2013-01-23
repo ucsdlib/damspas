@@ -2,6 +2,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def developer
     find_or_create_user('developer')
   end
+  def shibboleth
+    find_or_create_user('shibboleth')
+  end
 
   def find_or_create_user(auth_type)
     find_or_create_method = "find_or_create_for_#{auth_type.downcase}".to_sym
