@@ -9,7 +9,7 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
-  config.omniauth :developer unless Rails.env.production?
+  config.omniauth :developer,:callback_path =>lambda{|env| "#{env['SCRIPT_NAME']}/users/auth/developer/callback"} unless Rails.env.production?
 
 
   # ==> ORM configuration
