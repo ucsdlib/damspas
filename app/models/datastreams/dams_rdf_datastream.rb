@@ -11,7 +11,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.title_node(:in => DAMS, :to=>'title', :class_name => 'Description')
     map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
-    map.subject(:in => DAMS, :class_name => 'Subject')
+    map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.date(:in => DAMS, :class_name => 'Date')
  end
@@ -62,9 +62,22 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def title=(val)
+    self.title_node = []
     title_node.build.value = val
   end
 
+
+  def subject
+    subject_node.map{|s| s.authoritativeLabel.first}
+  end
+
+  def subject=(val)
+    self.subject_node = []
+    val.each do |s|
+      subject_node.build.authoritativeLabel = s
+    end
+  end
+  
   class Subject
     include ActiveFedora::RdfObject
     map_predicates do |map|
@@ -97,7 +110,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
-    solr_doc["subject_t"] = subject.map{|subject| subject.authoritativeLabel}.flatten
+    solr_doc["subject_t"] = subject
     solr_doc["title_t"] = title
     solr_doc["date_t"] = date.map{|date| date.value}.flatten
     solr_doc["name_t"] = relationship.map{|relationship| relationship.load.name}.flatten
