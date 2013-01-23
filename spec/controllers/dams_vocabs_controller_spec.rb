@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DamsVocabsController do
   before do
-    @archivist = User.create!(email: "ar@eu.edu", password: "123456")
+    @archivist = User.create(:uid => "ar@eu.edu",:provider => "spec", :email => "ar@eu.edu")
     sign_in @archivist
     DamsVocab.find_each{|z| z.delete}
   end
