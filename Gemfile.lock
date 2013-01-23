@@ -106,27 +106,27 @@ GEM
     hashie (1.2.0)
     hike (1.2.1)
     hooks (0.2.2)
-    hydra-access-controls (5.3.0)
+    hydra-access-controls (5.4.0.pre1)
       active-fedora
       activesupport
       blacklight
       cancan
       deprecation
-    hydra-core (5.3.0)
+    hydra-core (5.4.0.pre1)
       RedCloth (= 4.2.9)
       active-fedora (~> 5.3)
       blacklight (~> 4.0)
       block_helpers
       deprecation (>= 0.0.5)
       devise
-      hydra-access-controls (= 5.3.0)
+      hydra-access-controls (= 5.4.0.pre1)
       hydra-mods (>= 0.0.6)
       jquery-rails
       rails (~> 3.2.3)
       sanitize
-    hydra-head (5.3.0)
-      hydra-access-controls (= 5.3.0)
-      hydra-core (= 5.3.0)
+    hydra-head (5.4.0.pre1)
+      hydra-access-controls (= 5.4.0.pre1)
+      hydra-core (= 5.4.0.pre1)
       rails (>= 3.2.6)
     hydra-mods (0.0.6)
       active-fedora (> 4.1)
@@ -305,7 +305,7 @@ DEPENDENCIES
   debugger
   devise
   devise-guests (~> 0.3)
-  hydra-head
+  hydra-head (= 5.4.0.pre1)
   jettywrapper
   jquery-rails
   launchy
