@@ -10,6 +10,8 @@ Devise.setup do |config|
   # config.mailer = "Devise::Mailer"
 
   config.omniauth :developer,:callback_path =>lambda{|env| "#{env['SCRIPT_NAME']}/users/auth/developer/callback"} unless Rails.env.production?
+  config.omniauth :shibboleth, {:uid_field => 'cn', :info_fields => {:email => 'mail', :name => 'displayName', :givenName => 'givenName', :familyName => 'sn'} }
+
 
 
   # ==> ORM configuration
