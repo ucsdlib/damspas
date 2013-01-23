@@ -11,6 +11,7 @@ describe User do
       user.should be_persisted
       user.provider.should == "developer"
       user.uid.should == "test_user"
+      user.groups.should include('developer-authenticated')
     end
 
     it "should reuse an existing User if the access token matches" do
@@ -20,6 +21,7 @@ describe User do
       user = User.find_or_create_for_developer(token)
 
       lambda { User.find_or_create_for_developer(token) }.should_not change(User, :count) 
+    
     end
   end
 
@@ -34,6 +36,14 @@ describe User do
       user.should be_persisted
       user.provider.should == "shibboleth"
       user.uid.should == "test_user"
+      
+      user.groups.should include('shibboleth-authenticated')
+    end
+  end
+
+  describe "#groups" do
+    it "should default to an empty list" do
+      subject.groups.should == []
     end
   end
 end
