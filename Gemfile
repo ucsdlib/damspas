@@ -11,7 +11,6 @@ gem 'hydra-head', "5.4.0.pre1"
 gem 'sqlite3'
 
 gem 'devise'
-gem 'debugger'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
 

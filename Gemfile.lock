@@ -76,16 +76,8 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    columnize (0.3.6)
     daemons (1.1.9)
     database_cleaner (0.9.1)
-    debugger (1.2.4)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.1.7)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.7)
     deprecation (0.0.5)
       activesupport
     devise (2.2.2)
@@ -302,7 +294,6 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   database_cleaner
-  debugger
   devise
   devise-guests (~> 0.3)
   hydra-head (= 5.4.0.pre1)
