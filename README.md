@@ -10,20 +10,24 @@ _Let's not go there._
 ```
 $ brew install automake
 ```
+
 3. Install [RVM](https://rvm.io/rvm/install/)
 4. Install Ruby 1.9.3 and set as default
 ```
 $ rvm get head && rvm reload
 $ rvm install 1.9.3
 ```
+
 5. Confirm Ruby 1.9.3+ is default ruby
 ```
 $ rvm list default
 ```
+
 5.1 If the version shown is not 1.9.3+, set default directly. [more information about RVM defaults](https://rvm.io/rubies/default/)
 ```
 $ rvm --default use 1.9.3
 ```
+
 5. Install Rails 3.2.11+ (and confirm version)
 ```
 $ gem install rails -v 3.2.9
