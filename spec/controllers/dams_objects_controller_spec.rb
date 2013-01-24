@@ -35,5 +35,15 @@ describe DamsObjectsController do
 	      assigns[:dams_object].should == @obj
 	    end
 	  end
+	  
+	  describe "Create" do
+	    it "should be successful" do
+	      before = DamsObject.count 
+	      post :create, :dams_object => {title: ["Test Title"], date: ["2013"], subject: ["Test subject"]}
+	      response.should redirect_to catalog_index_path
+	      assigns[:dams_object].should be_kind_of DamsObject
+	      DamsObject.count.should == before + 1
+	    end
+	  end
   end
 end

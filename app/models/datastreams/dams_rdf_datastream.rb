@@ -40,7 +40,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
 
 
   def title
-    title_node.first.value
+    title_node.first ? title_node.first.value : [] 
   end
 
   def title=(val)
@@ -49,7 +49,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def date
-    date_node.first.value if date_node.first
+    date_node.first ? date_node.first.value : []
   end
 
   def date=(val)

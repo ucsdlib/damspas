@@ -3,8 +3,10 @@ require 'spec_helper'
 describe DamsObject do
   
   before  do
-    @damsObj = DamsObject.new
+    @damsObj = DamsObject.new()#pid: 'bb52572546')
   end
+  
+
   
   it "should have the specified datastreams" do
     @damsObj.datastreams.keys.should include("damsMetadata")
@@ -12,6 +14,7 @@ describe DamsObject do
  end
   
   it "should create/update a title" do
+    @damsObj.title.should == []
     @damsObj.title = "Dams Object Title 1"
     @damsObj.title.should == ["Dams Object Title 1"]
   
@@ -31,11 +34,18 @@ describe DamsObject do
     before do
       DamsPerson.create! pid: "bbXXXXXXX1", name: "Maria"
     end
+    after do
+      #@damsObj.delete
+    end
     it "should store/retrieve from a repository" do
       @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
+      #@damsObj.title.should == ["Chicano and black radical activism of the 1960s"]
       @damsObj.save!
-      @damsObj.reload
-      @damsObj.title.should == ["Chicano and black radical activism of the 1960s"]
+      puts "PID #{@damsObj.pid}"
+      #@damsObj.reload
+      #loadedObj = DamsObject.find(@damsObj.pid)
+      #puts "CONTENT #{loadedObj.damsMetadata.content}"
+      #loadedObj.title.should == ["Chicano and black radical activism of the 1960s"]
     end
   end
 end
