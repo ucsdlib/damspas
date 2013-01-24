@@ -5,7 +5,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.date(:in => DAMS, :class_name => 'Date')
+    map.date_node(:in => DAMS, :to=>'date', :class_name => 'Date')
  end
 
   rdf_subject { |ds| RDF::URI.new("http://library.ucsd.edu/ark:/20775/#{ds.pid}")}
@@ -48,6 +48,14 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     title_node.build.value = val
   end
 
+  def date
+    date_node.first.value if date_node.first
+  end
+
+  def date=(val)
+    self.date_node = []
+    date_node.build.value = val
+  end
 
   def subject
     subject_node.map{|s| s.authoritativeLabel.first}
@@ -94,7 +102,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   def to_solr (solr_doc = {})
     solr_doc["subject_t"] = subject
     solr_doc["title_t"] = title
-    solr_doc["date_t"] = date.map{|date| date.value}.flatten
+    solr_doc["date_t"] = date
     solr_doc["name_t"] = relationship.map{|relationship| relationship.load.name}.flatten
     return solr_doc
   end

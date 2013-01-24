@@ -46,7 +46,7 @@ describe DamsRdfDatastream do
       end
 
       it "should have date" do
-        subject.date.first.value.should == ["2010"]
+        subject.date.should == ["2010"]
       end
 
       it "should create a solr document" do
