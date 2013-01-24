@@ -11,9 +11,9 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   rdf_subject { |ds| RDF::URI.new("http://library.ucsd.edu/ark:/20775/#{ds.pid}")}
 
 
-  after_initialize :type_resource
-  def type_resource
-    graph.insert([rdf_subject, RDF.type, DAMS.Object])
+  def serialize
+    graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
+    super
   end
 
   class Description
