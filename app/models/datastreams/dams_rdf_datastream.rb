@@ -1,11 +1,3 @@
-module RDF
-   # This enables RDF to respond_to? :value
-   def self.value 
-    self[:value]
-   end
-end
-
-
 class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
@@ -13,27 +5,17 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.date(:in => DAMS, :class_name => 'Date')
+    map.date_node(:in => DAMS, :to=>'date', :class_name => 'Date')
  end
 
-  rdf_subject { |ds| RDF::URI.new(ds.about) }
+  rdf_subject { |ds| RDF::URI.new("http://library.ucsd.edu/ark:/20775/#{ds.pid}")}
 
-  attr_reader :about
-
-  def initialize(digital_object=nil, dsid=nil, options={})
-    @about = options.delete(:about)
-    super
-  end
 
   after_initialize :type_resource
   def type_resource
-    graph.insert([RDF::URI.new(about), RDF.type, DAMS.Object])
+    graph.insert([rdf_subject, RDF.type, DAMS.Object])
   end
 
-  def content=(content)
-    super
-    @about = graph.statements.first.subject
-  end
   class Description
     include ActiveFedora::RdfObject
     map_predicates do |map|
@@ -66,6 +48,14 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     title_node.build.value = val
   end
 
+  def date
+    date_node.first.value if date_node.first
+  end
+
+  def date=(val)
+    self.date_node = []
+    date_node.build.value = val
+  end
 
   def subject
     subject_node.map{|s| s.authoritativeLabel.first}
@@ -112,7 +102,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   def to_solr (solr_doc = {})
     solr_doc["subject_t"] = subject
     solr_doc["title_t"] = title
-    solr_doc["date_t"] = date.map{|date| date.value}.flatten
+    solr_doc["date_t"] = date
     solr_doc["name_t"] = relationship.map{|relationship| relationship.load.name}.flatten
     return solr_doc
   end
