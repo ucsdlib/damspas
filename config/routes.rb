@@ -13,6 +13,9 @@ Hydra::Application.routes.draw do
     match '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
   end
 
+  resources :dams_people, :only => [:show]
+  resources :dams_subjects, :only => [:show]
+
   resources :dams_objects
   resources :dams_languages
   resources :dams_vocabs

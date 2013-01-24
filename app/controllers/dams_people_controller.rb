@@ -1,0 +1,3 @@
+class DamsPeopleController < CatalogController
+
+end
