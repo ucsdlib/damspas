@@ -1,5 +1,7 @@
 Hydra::Application.routes.draw do
-  root :to => "catalog#index"
+  resources :collections, :only => [:index, :show]
+
+  root :to => "collections#index"
 
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
