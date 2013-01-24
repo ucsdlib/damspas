@@ -18,8 +18,8 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   class Description
     include ActiveFedora::RdfObject
-    map_predicates do |map|
-      rdf_type DAMS.Description
+    rdf_type DAMS.Title
+    map_predicates do |map|   
       map.value(:in=> RDF)
     end
   end
@@ -70,16 +70,16 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   
   class Subject
     include ActiveFedora::RdfObject
-    map_predicates do |map|
-      rdf_type MADS.ComplexSubject
+    rdf_type MADS.ComplexSubject
+    map_predicates do |map|      
       map.authoritativeLabel(:in=> MADS)
     end
   end
 
   class Relationship
     include ActiveFedora::RdfObject
-    map_predicates do |map|
-      rdf_type DAMS.Relationship
+    rdf_type DAMS.Relationship
+    map_predicates do |map|     
       map.name(:in=> DAMS)
       map.role(:in=> DAMS)
     end
@@ -93,8 +93,8 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   class Date
     include ActiveFedora::RdfObject
-    map_predicates do |map|
-      rdf_type DAMS.Date
+    rdf_type DAMS.Date
+    map_predicates do |map|    
       map.value(:in=> RDF)
     end
   end

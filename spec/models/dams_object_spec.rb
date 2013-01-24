@@ -29,7 +29,7 @@ describe DamsObject do
 
   describe "Store to a repository" do
     before do
-      DamsPerson.create! pid: "damsid:bbXXXXXXX1", name: "Maria"
+      DamsPerson.create! pid: "bbXXXXXXX1", name: "Maria"
     end
     it "should store/retrieve from a repository" do
       @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read

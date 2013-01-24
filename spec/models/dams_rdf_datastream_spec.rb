@@ -61,4 +61,40 @@ describe DamsRdfDatastream do
 
     end
   end
+  
+  describe "::Date" do
+    it "should have an rdf_type" do
+      DamsRdfDatastream::Date.rdf_type.should == DAMS.Date
+    end
+  end
+  
+  describe "should store correct xml" do
+      subject { DamsRdfDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
+  
+	  before do
+	    subject.title = "Test Title"
+	    subject.date = "2013"
+	    #subject.subject = "Test subject"
+	  end
+	  it "should create a xml" do
+	    xml =<<END
+	   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#" xmlns:ns1="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb52572546">
+    <dams:date>
+      <dams:Date>
+        <ns1:value>2013</ns1:value>
+      </dams:Date>
+    </dams:date>
+    <dams:title>
+      <dams:Title>
+        <ns1:value>Test Title</ns1:value>
+      </dams:Title>
+    </dams:title>
+  </dams:Object>
+</rdf:RDF>
+END
+	    subject.content.should be_equivalent_to xml
+	
+	  end
+  end
 end

@@ -1,5 +1,8 @@
-<h1>Show DamsObject</h1>
-<h2> <%= @dams_object.title.join(", ") %></h2>
-Date: <%= @dams_object.date.join(", ") %> <br>
-Subject: <%= @dams_object.subject.join(", ") %><br>
+<h1> <%= @dams_object.title.join(", ") %></h1>
+<dl>
+  <dt>Date</dt>
+  <dd><%= @dams_object.date.join(", ") %></dd>
+  <dt>Subject</dt>
+  <dd><%= @dams_object.subject.join(", ") %></dd>
+</dl>
 <%= link_to "Edit", edit_dams_object_path(@dams_object) %>

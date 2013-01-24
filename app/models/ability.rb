@@ -1,6 +1,10 @@
 class Ability 
   include Hydra::Ability
   def custom_permissions
-    can :read, DamsObject
+  	if current_user.new_record?  #Anonymous user
+  		can [:read], DamsObject
+  	else  #login user
+    	can [:read, :create, :edit], DamsObject
+    end
   end
 end

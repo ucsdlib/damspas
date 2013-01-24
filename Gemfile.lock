@@ -15,7 +15,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (5.5.0)
+    active-fedora (5.5.1)
       activeresource (>= 3.0.0)
       activesupport (>= 3.0.0)
       builder (~> 3.0.0)
@@ -27,7 +27,7 @@ GEM
       rdf-rdfxml (~> 0.3.8)
       rsolr
       rubydora (~> 1.2)
-      solrizer (~> 2.1.0)
+      solrizer (>= 2.1.0)
     activemodel (3.2.11)
       activesupport (= 3.2.11)
       builder (~> 3.0.0)
