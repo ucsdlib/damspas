@@ -8,5 +8,39 @@ feature 'Visit wants to look at digital collections' do
     #assert repository links on home page
     expect(page).to have_selector('a', :text => 'Library Collections')
     expect(page).to have_selector('a', :text => 'RCI')
+
+    expect(page).to have_field('Search...')
+  end
+
+  scenario 'does a search for items' do
+    visit dams_repositories_path
+
+
+    expect(page).to have_selector('h2', :text => 'Search')
+
+    fill_in 'Search...', :with => "123"
+
+    click_on('Search')
+
+    # AND THERE SHOULD BE A SUCCESS CONDITION HERE
+    pending
+
+  end
+
+  scenario 'browses the collections' do
+  	pending
+    visit dams_repositories_path
+
+    expect(page).to have_selector('h2', :text => 'Browse')
+
+    expect(page).to have_selector('a', :text => 'By Topic')
+    expect(page).to have_selector('a', :text => 'By Repository')
+    expect(page).to have_selector('a', :text => 'By Format')
+  end
+
+  scenario 'uses the carousel' do
+    visit dams_repositories_path
+
+    expect(page).to have_selector('.carousel')
   end
 end
