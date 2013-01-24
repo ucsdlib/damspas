@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CollectionsController do
+describe DamsRepositoriesController do
 
   describe "GET 'index'" do
     it "returns http success" do
