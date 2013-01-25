@@ -1,9 +1,0 @@
-<h1>Create Language</h1>
-<%= form_for @dams_language do |f| %>
-  <dt><%= f.label :code %></dt>
-  <dd><%= f.text_field :code %></dd>
-  <dt><%= f.label :language %></dt>
-  <dd><%= f.text_field :language %></dd>
-  <%= f.submit "Save", :class => :btn %>
-  <%= link_to "Cancel", dams_languages_path(), :class => :btn %>
-<% end %>
