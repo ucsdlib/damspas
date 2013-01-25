@@ -3,7 +3,7 @@ require 'spec_helper'
 describe DamsObject do
   
   before  do
-    @damsObj = DamsObject.new()#pid: 'bb52572546')
+    @damsObj = DamsObject.new(pid: 'bb52572546')
   end
   
 
