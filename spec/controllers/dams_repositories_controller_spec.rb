@@ -11,7 +11,7 @@ describe DamsRepositoriesController do
 
   describe "GET 'show'" do
     it "returns http success" do
-      get 'show', :id => '123'
+      get 'show', :id => 'bbXXXXXXX6'
       response.should be_success
     end
   end
