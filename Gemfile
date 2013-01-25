@@ -6,7 +6,7 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'blacklight'
-gem 'solrizer-fedora', '3.0.0.pre1'
+#gem 'solrizer-fedora', '3.0.0.pre1'
 gem 'hydra-head', "6.0.0.pre3"
 
 gem 'sqlite3'
