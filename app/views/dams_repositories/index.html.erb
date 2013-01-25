@@ -51,4 +51,9 @@
 	Some very interesting text about repositories
 	<ul><%= render_repository_list %></ul>
 </div>
+<div>
+	<% if can? :create, DamsObject %>
+	<%= link_to "Create", new_dams_object_path %>
+	<% end %>
+</div>
 </div>

@@ -50,6 +50,14 @@
                   <div class="row">
                        <%= yield %>
                   </div>
+				<footer>
+					<% if current_user  %>
+					Welcome <%= current_user.uid %>
+					<%= link_to "Sign Out", destroy_user_session_path %>
+					<% else %>
+					<%= link_to "Sign In", new_user_session_path %>
+					<% end %>
+					</footer>
 </div>
 <!-- show debugging parameters in development -->
 <%= debug(params) if Rails.env.development? %>
