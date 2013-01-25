@@ -17,17 +17,18 @@ class CatalogController < ApplicationController
   configure_blacklight do |config|
     config.default_solr_params = { 
       :qt => 'search',
-      :rows => 10 
+      :rows => 10,
+      :qf => 'subject_tesim title_tesim date_tesim name_tesim' 
     }
 
     # solr field configuration for search results/index views
-    config.index.show_link = 'title_t'
-    config.index.record_display_type = 'has_model_s'
+    config.index.show_link = 'title_tesim'
+    config.index.record_display_type = 'has_model_sim'
 
     # solr field configuration for document/show views
-    config.show.html_title = 'title_t'
-    config.show.heading = 'title_t'
-    config.show.display_type = 'has_model_s'
+    config.show.html_title = 'title_tesim'
+    config.show.heading = 'title_tesim'
+    config.show.display_type = 'has_model_sim'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -48,9 +49,9 @@ class CatalogController < ApplicationController
     #
     # :show may be set to false if you don't want the facet to be drawn in the 
     # facet bar
-    config.add_facet_field 'object_type_facet', :label => 'Format' 
-    config.add_facet_field 'subject_topic_facet', :label => 'Topic', :limit => 20 
-    config.add_facet_field 'repository_facet', :label => 'Repository'
+    config.add_facet_field 'object_type_sim', :label => 'Format' 
+    config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20 
+    config.add_facet_field 'repository_sim', :label => 'Repository'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -62,13 +63,13 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
-    config.add_index_field 'date_t', :label => 'Date:'   
-    config.add_index_field 'subject_t', :label => 'Subject:'   
+    config.add_index_field 'date_tesim', :label => 'Date:'   
+    config.add_index_field 'subject_tesim', :label => 'Subject:'   
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
-    config.add_show_field 'date_t', :label => 'Date:'
-    config.add_show_field 'subject_t', :label => 'Subject:'
+    config.add_show_field 'date_tesim', :label => 'Date:'
+    config.add_show_field 'subject_tesim', :label => 'Subject:'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -133,10 +134,10 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, pub_date_sort desc, title_sort asc', :label => 'relevance'
-    config.add_sort_field 'pub_date_sort desc, title_sort asc', :label => 'year'
-    config.add_sort_field 'author_sort asc, title_sort asc', :label => 'author'
-    config.add_sort_field 'title_sort asc, pub_date_sort desc', :label => 'title'
+    config.add_sort_field 'score desc, pub_date_ssi desc, title_ssi asc', :label => 'relevance'
+    config.add_sort_field 'pub_date_ssi desc, title_ssi asc', :label => 'year'
+    config.add_sort_field 'author_ssi asc, title_ssi asc', :label => 'author'
+    config.add_sort_field 'title_ssi asc, pub_date_ssi desc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
