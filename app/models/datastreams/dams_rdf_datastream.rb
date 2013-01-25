@@ -8,7 +8,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.date_node(:in => DAMS, :to=>'date', :class_name => 'Date')
  end
 
-  rdf_subject { |ds| RDF::URI.new("http://library.ucsd.edu/ark:/20775/#{ds.pid}")}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
 
 
   def serialize
@@ -73,6 +73,10 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     rdf_type MADS.ComplexSubject
     map_predicates do |map|      
       map.authoritativeLabel(:in=> MADS)
+    end
+
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.repository_root
     end
   end
 

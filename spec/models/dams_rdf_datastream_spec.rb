@@ -38,7 +38,11 @@ describe DamsRdfDatastream do
         subject.subject.first.should == "Black Panther Party--History"
         subject.subject.second.should == "African Americans--Relations with Mexican Americans--History--20th Century"
       end
-      it "should have external subjects"
+      it "should have external subjects" do
+        subject.subject_node.first.should_not be_external
+        subject.subject_node.second.should_not be_external
+        subject.subject_node.third.should be_external
+      end
 
       it "should have relationship" do
         subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
