@@ -1,3 +1,8 @@
+<ul>
+  <li><a href="/">home</a></li>        
+  <%= breadcrumbs(request.path.split('?')) %> 
+</ul>
+
 <h1> <%= @dams_object.title.join(", ") %></h1>
 <dl>
   <dt>Date</dt>
@@ -8,3 +13,4 @@
 <% if can? :edit, @dams_object %>
 <%= link_to "Edit", edit_dams_object_path(@dams_object) %>
 <% end %>
+
