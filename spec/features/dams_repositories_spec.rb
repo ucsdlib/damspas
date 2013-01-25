@@ -42,4 +42,22 @@ feature 'Visit wants to look at digital collections' do
 
     expect(page).to have_selector('.carousel')
   end
+
+  scenario 'visits a repository page' do
+    visit dams_repository_path :id => 'bbXXXXXXX6'
+
+    expect(page).to have_field('Search...')
+
+    fill_in 'Search...', :with => '123'
+
+    click_on('Search')
+
+    ## This would be ideal:
+    # expect(page).to have_content("")
+
+    ##
+    # But we'll do this for now:
+    expect(page.current_url).to match /repository=bbXXXXXXX6/
+
+  end
 end

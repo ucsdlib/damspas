@@ -11,5 +11,13 @@ module DamsRepositoriesHelper
   def browse_facet_links
     CatalogController.blacklight_config.facet_fields.values
   end
+
+  def render_repository_search_bar
+    render :partial=> 'dams_repositories/search_form'
+  end
+
+  def current_repository
+    @repository
+  end
   private 
 end

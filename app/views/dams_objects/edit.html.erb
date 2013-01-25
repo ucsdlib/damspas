@@ -1,11 +1,14 @@
 <h1>Edit a Dams Object</h1>
 <%= form_for @dams_object do |f| %>
-  <%= label_tag 'dams_object[title][]', "First title" %>
+  <%= label_tag 'dams_object[title][]', "Title" %>
   <%= text_field_tag 'dams_object[title][]', @dams_object.title[0] %>
   <%= label_tag 'dams_object[date][]', "Date" %>
   <%= text_field_tag 'dams_object[date][]', @dams_object.date[0] %>
-  <%= label_tag 'dams_object[subject][]', "Subject" %>
-  <%=text_field_tag 'dams_object[subject][]', @dams_object.subject[0] %>
+  <% @dams_object.subject.each_with_index do |s,i| %>
+  	<%= label_tag "dams_object_subject_#{i}", "Subject" %>
+  		<%= text_field_tag "dams_object[subject][]", s, :id => "dams_object_subject_#{i}" %>
+  <% end %>
+	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>

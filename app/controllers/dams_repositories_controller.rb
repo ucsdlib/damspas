@@ -3,5 +3,7 @@ class DamsRepositoriesController < ApplicationController
   end
 
   def show
+    @repository = DamsRepository.find(params[:id])
   end
+
 end
