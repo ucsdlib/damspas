@@ -154,6 +154,10 @@ class CatalogController < ApplicationController
     config.spell_max = 5
   end
 
-
+  
+  def show 
+    response, document = get_solr_response_for_doc_id
+    redirect_to document
+  end
 
 end 
