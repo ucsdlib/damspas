@@ -21,6 +21,7 @@ class CatalogController < ApplicationController
   CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
 
   configure_blacklight do |config|
+
     config.default_solr_params = { 
       :qt => 'search',
       :rows => 10,
@@ -35,6 +36,9 @@ class CatalogController < ApplicationController
     config.show.html_title = 'title_tesim'
     config.show.heading = 'title_tesim'
     config.show.display_type = 'has_model_sim'
+
+
+    config.repository_id_solr_field = 'repository_sim'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display

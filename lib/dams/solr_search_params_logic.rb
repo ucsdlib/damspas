@@ -11,7 +11,7 @@ module Dams
 
     private
     def fq_for_repository repository
-      facet_value_to_fq_string('repository_id_s', repository.id)
+      facet_value_to_fq_string(blacklight_config.repository_id_solr_field, repository.id)
     end
   end
 end

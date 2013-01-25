@@ -12,6 +12,7 @@ describe Dams::SolrSearchParamsLogic do
       repository = mock(:id => 'bXXXXXXX7')
       DamsRepository.stub(:find).and_return(repository) 
       subject.stub(:fq_for_repository => 'zzz')
+      subject.stub(:blacklight_config => mock(:repository_id_solr_field => 'asdf' ))
 
       params = { :repository => 'bXXXXXXX7'}
       output = {}
