@@ -38,12 +38,24 @@ describe DamsObjectsController do
 	  
 	  describe "Create" do
 	    it "should be successful" do
-	      before = DamsObject.count 
-	      post :create, :dams_object => {title: ["Test Title"], date: ["2013"], subject: ["Test subject"]}
-	      response.should redirect_to catalog_index_path
+	      expect { 
+	        post :create, :dams_object => {title: ["Test Title"], date: ["2013"], subject: ["Test subject"]}
+        }.to change { DamsObject.count }.by(1)
+	      response.should redirect_to assigns[:dams_object]
 	      assigns[:dams_object].should be_kind_of DamsObject
-	      DamsObject.count.should == before + 1
 	    end
 	  end
+	  
+	  describe "Update" do
+	    before do
+ 	      @obj = DamsObject.create(title: "Test Title", date: "2013")
+ 	    end
+	    it "should be successful" do
+	      put :update, :id => @obj.id, :dams_object => {title: ["Test Title2"], date: ["2013"], subject: ["Test subject"]}
+	      response.should redirect_to assigns[:dams_object]
+	      @obj.reload.title.should == ["Test Title2"]
+	      flash[:notice].should == "Successfully updated object"
+	    end
+    end
   end
 end

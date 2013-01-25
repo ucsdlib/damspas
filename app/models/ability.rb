@@ -4,7 +4,7 @@ class Ability
   	if current_user.new_record?  #Anonymous user
   		can [:read], DamsObject
   	else  #login user
-    	can [:read, :create, :edit], DamsObject
+    	can [:read, :create, :update], DamsObject
     end
   end
 end

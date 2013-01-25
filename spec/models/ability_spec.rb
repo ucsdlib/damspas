@@ -19,6 +19,10 @@ describe Ability do
     it "should not be able to edit damsObject" do
       subject.can?(:edit,@obj).should be_false
     end
+    
+    it "should not be able to update damsObject" do
+      subject.can?(:update,@obj).should be_false
+    end
   end
   
   describe "a logged in user" do
@@ -37,6 +41,9 @@ describe Ability do
     end
     it "should be able to edit damsObject" do
       subject.can?(:edit,@obj).should be_true
+    end
+    it "should be able to update damsObject" do
+      subject.can?(:update,@obj).should be_true
     end
   end
 end

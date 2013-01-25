@@ -5,4 +5,6 @@
   <dt>Subject</dt>
   <dd><%= @dams_object.subject.join(", ") %></dd>
 </dl>
+<% if can? :edit, @dams_object %>
 <%= link_to "Edit", edit_dams_object_path(@dams_object) %>
+<% end %>
