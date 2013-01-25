@@ -42,10 +42,10 @@ describe DamsObject do
       #@damsObj.title.should == ["Chicano and black radical activism of the 1960s"]
       @damsObj.save!
       puts "PID #{@damsObj.pid}"
-      #@damsObj.reload
-      #loadedObj = DamsObject.find(@damsObj.pid)
-      #puts "CONTENT #{loadedObj.damsMetadata.content}"
-      #loadedObj.title.should == ["Chicano and black radical activism of the 1960s"]
+      @damsObj.reload
+      loadedObj = DamsObject.find(@damsObj.pid)
+      puts "CONTENT #{loadedObj.damsMetadata.content}"
+      loadedObj.title.should == ["Chicano and black radical activism of the 1960s"]
     end
   end
 end
