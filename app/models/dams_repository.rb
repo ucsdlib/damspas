@@ -1,7 +1,7 @@
 class DamsRepository
   include ActiveModel::Conversion
   extend ActiveModel::Naming
-  attr_accessor :id, :title, :description, :uri
+  attr_accessor :id, :name, :description, :uri
   def initialize(attributes = {})
      attributes.each do |name, value|
        send("#{name}=",value)

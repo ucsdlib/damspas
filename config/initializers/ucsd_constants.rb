@@ -1,3 +1,3 @@
-rp1 = DamsRepository.new :id => "bbXXXXXXX6",:title => "Library Collections", :description => "All UCSD stuff", :uri => "http://libraries.ucsd.edu"
-rp2 = DamsRepository.new :id => "bbXXXXXXX7",:title => "RCI", :description => "All RCI stuff", :uri => "http://rci.ucsd.edu"
-CONSTANTLY_BAD_REPOSITORIES = [rp1,rp2]
+rep1 = DamsRepository.new :id => "bbXXXXXXX6",:name => "Library Collections", :description => "All UCSD stuff", :uri => "http://libraries.ucsd.edu"
+rep2 = DamsRepository.new :id => "bbXXXXXXX7",:name => "RCI", :description => "All RCI stuff", :uri => "http://rci.ucsd.edu"
+CONSTANTLY_BAD_REPOSITORIES = [rep1,rep2]

@@ -1,5 +1,4 @@
 Hydra::Application.routes.draw do
-  resources :dams_repositories, :only => [:index, :show]
 
   root :to => "dams_repositories#index"
 
@@ -17,6 +16,7 @@ Hydra::Application.routes.draw do
   resources :dams_subjects, :only => [:show]
 
   resources :dams_objects
+  resources :dams_repositories
   resources :dams_languages
   resources :dams_vocabs
   resources :dams_assembled_collections
