@@ -12,6 +12,10 @@ Hydra::Application.routes.draw do
     match '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
     match '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
   end
+  
+  #redirect ark urls to catalog controller
+  match '/ark:/20775/:id', :to => "catalog#show", :as => :catalog
+  match '/ark:/20775/:id', :to => "catalog#show", :as => :solr_document
 
   resources :dams_people, :only => [:show]
   resources :dams_subjects, :only => [:show]
