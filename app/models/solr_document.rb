@@ -30,4 +30,18 @@ class SolrDocument
                          :language => "language_facet",
                          :format => "format"
                          )
+
+  def route_key
+    get('has_model_s').split(':').last.downcase
+  end
+
+  def to_model
+    m = ActiveFedora::Base.load_instance_from_solr(id, self)
+    if m.class == ActiveFedora::Base
+      return self
+    end
+
+    m
+  end
+
 end

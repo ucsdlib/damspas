@@ -22,3 +22,5 @@
 $(document).ready(function() {
 	$('.carousel').carousel();
 });
+
+Blacklight.do_search_context_behavior = function() {};

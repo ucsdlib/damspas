@@ -22,13 +22,12 @@ feature 'Visit wants to look at digital collections' do
 
     click_on('Search')
 
-    # AND THERE SHOULD BE A SUCCESS CONDITION HERE
-    pending
+
+    expect(page).to have_content('Search Results')
 
   end
 
   scenario 'browses the collections' do
-  	pending
     visit dams_repositories_path
 
     expect(page).to have_selector('h2', :text => 'Browse')

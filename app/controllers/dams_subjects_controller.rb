@@ -1,0 +1,3 @@
+class DamsSubjectsController < CatalogController
+
+end
