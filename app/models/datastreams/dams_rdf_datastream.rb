@@ -78,6 +78,11 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     def external?
       rdf_subject.to_s.include? Rails.configuration.repository_root
     end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsSubject.find(md[1])
+    end
   end
 
   class Relationship
@@ -104,7 +109,7 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
-    solr_doc[ActiveFedora::SolrService.solr_name("subject", type: :text)] = subject
+    solr_doc[ActiveFedora::SolrService.solr_name("subject", type: :text)] = subject_node.map { |sn| sn.external? ? sn.load.label : sn.authoritativeLabel }.flatten
     solr_doc[ActiveFedora::SolrService.solr_name("title", type: :text)] = title
     solr_doc[ActiveFedora::SolrService.solr_name("date", type: :text)] = date
     solr_doc[ActiveFedora::SolrService.solr_name("name", type: :text)] = relationship.map{|relationship| relationship.load.name}.flatten

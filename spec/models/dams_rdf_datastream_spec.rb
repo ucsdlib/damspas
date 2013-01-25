@@ -41,6 +41,7 @@ describe DamsRdfDatastream do
       it "should have external subjects" do
         subject.subject_node.first.should_not be_external
         subject.subject_node.second.should_not be_external
+#puts         subject.subject_node.third
         subject.subject_node.third.should be_external
       end
 
@@ -54,10 +55,11 @@ describe DamsRdfDatastream do
       end
 
       it "should create a solr document" do
+        DamsSubject.should_receive(:find).with('bbXXXXXXX5').and_return(stub(:label =>'stubbed'))
         stub_person = stub(:name => "Maria")
         DamsPerson.should_receive(:find).with("bbXXXXXXX1").and_return(stub_person)        
         solr_doc = subject.to_solr
-        solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century",nil]
+        solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
         solr_doc["title_tesim"].should == ["Chicano and black radical activism of the 1960s"]
         solr_doc["date_tesim"].should == ["2010"]
         solr_doc["name_tesim"].should == ["Maria"]
