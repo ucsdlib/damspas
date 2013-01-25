@@ -27,3 +27,6 @@ config/initializers/secret_token.rb
 /jetty
 
 /coverage
+
+.DS_Store
+Subl.app/
