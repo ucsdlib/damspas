@@ -34,7 +34,7 @@ class SolrDocument
   ##
   # Give our SolrDocument an ActiveModel::Naming appropriate route_key
   def route_key
-    get('has_model_s').split(':').last.downcase
+    get('has_model_ssim').split(':').last.downcase
   end
 
   ##
