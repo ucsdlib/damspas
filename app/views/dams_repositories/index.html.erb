@@ -40,17 +40,15 @@
   </div>
 </div>
 
-<div>
+<div class="well well-large">
 	<h2>Browse</h2>
 	<ul>
       <%= render_browse_facet_links %>
 	</ul>
-</div>
-
-<div>
-	Some very interesting text about repositories
+	<p>Some very interesting text about repositories</p>
 	<ul><%= render_repository_list %></ul>
 </div>
+
 <div>
 	<% if can? :create, DamsObject %>
 	<%= link_to "Create", new_dams_object_path %>
