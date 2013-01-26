@@ -1,0 +1,20 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+      <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5">
+        <mads:authoritativeLabel>African Americans--Relations with Mexican Americans--History--20th Century</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX6"/>
+          <mads:TopicElement>
+            <mads:elementValue>Relations with Mexican Americans</mads:elementValue>
+          </mads:TopicElement>
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
+          <mads:TemporalElement>
+            <mads:elementValue>20th century</mads:elementValue>
+          </mads:TemporalElement>
+        </mads:elementList>
+      </mads:ComplexSubject>
+</rdf:RDF>
