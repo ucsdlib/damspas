@@ -109,10 +109,15 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
-    solr_doc[ActiveFedora::SolrService.solr_name("subject", type: :text)] = subject_node.map { |sn| sn.external? ? sn.load.name : sn.authoritativeLabel }.flatten
-    solr_doc[ActiveFedora::SolrService.solr_name("title", type: :text)] = title
-    solr_doc[ActiveFedora::SolrService.solr_name("date", type: :text)] = date
-    solr_doc[ActiveFedora::SolrService.solr_name("name", type: :text)] = relationship.map{|relationship| relationship.load.name}.flatten
+    subject_node.map do |sn| 
+      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      Solrizer.insert_field(solr_doc, 'subject', subject_value)
+    end
+    Solrizer.insert_field(solr_doc, 'title', title)
+    Solrizer.insert_field(solr_doc, 'date', date)
+    relationship.map do |relationship| 
+      Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+    end
     return solr_doc
   end
 end
