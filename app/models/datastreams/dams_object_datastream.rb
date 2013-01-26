@@ -1,4 +1,4 @@
-class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
+class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.title_node(:in => DAMS, :to=>'title', :class_name => 'Description')
