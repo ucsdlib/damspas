@@ -2,13 +2,13 @@
 require 'spec_helper'
 
 describe DamsRepository do
-  repository do
+  subject do
     DamsRepository.new pid: "bb45454545"
   end
   it "should create a xml" do
-    repository.name = "RCI"
-    repository.description = "Research Cyberinfrastructure: the hardware, software, and people that support scientific research."
-	repository.uri = "http://library.ucsd.edu/repositories/rci/"
+    subject.name = "RCI"
+    subject.description = "Research Cyberinfrastructure: the hardware, software, and people that support scientific research."
+	subject.uri = "http://library.ucsd.edu/repositories/rci/"
     xml =<<END
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -20,7 +20,7 @@ describe DamsRepository do
   </dams:Role>
 </rdf:RDF>
 END
-    repository.damsMetadata.content.should be_equivalent_to xml
+    subject.damsMetadata.content.should be_equivalent_to xml
 
   end
 end

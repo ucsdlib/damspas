@@ -6,35 +6,35 @@ describe DamsRepositoryDatastream do
 
     describe "a new instance" do
 
-      repository { DamsRepositoryDataStream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
+      subject { DamsRepositoryDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        repository.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bbXXXXXX24"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bbXXXXXX24"
       end
 
       it "should have a name" do
-        repository.name = "Test Repository"
-        repository.name.should == ["Test Repository"]
+        subject.name = "Test Repository"
+        subject.name.should == ["Test Repository"]
       end
 
       it "should have a description" do
-        repository.description = "Test Repository Description"
-        repository.description.should == ["Test Repository Description"]
+        subject.description = "Test Repository Description"
+        subject.description.should == ["Test Repository Description"]
       end
 
       it "should have a url" do
-        repository.url = "http://library.ucsd.edu/repositories/test/"
-        repository.url.should == ["http://library.ucsd.edu/repositories/test/"]
+        subject.url = "http://library.ucsd.edu/repositories/test/"
+        subject.url.should == ["http://library.ucsd.edu/repositories/test/"]
       end
 
     end
 
     describe "an instance with content" do
 
-      repository do
-        repository = DamsRepositoryDatastream.new(stub('inner object', :pid=>'bb45454545', :new? =>true), 'damsMetadata')
-        repository.content = File.new('spec/fixtures/damsRepository.rdf.xml').read
-        repository
+      subject do
+        subject = DamsRepositoryDatastream.new(stub('inner object', :pid=>'bb45454545', :new? =>true), 'damsMetadata')
+        subject.content = File.new('spec/fixtures/damsRepository.rdf.xml').read
+        subject
       end
 
       it "should have a subject" do

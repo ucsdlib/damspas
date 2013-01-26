@@ -10,7 +10,7 @@ describe DamsObject do
   
   it "should have the specified datastreams" do
     @damsObj.datastreams.keys.should include("damsMetadata")
-    @damsObj.damsMetadata.should be_kind_of DamsRdfDatastream
+    @damsObj.damsMetadata.should be_kind_of DamsObjectDatastream
  end
   
   it "should create/update a title" do

@@ -22,4 +22,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :scopeContentNote
   property :displayLabel
   property :subject
+  property :repositoryName
+  property :repositoryURI
+  property :repositoryDescription
 end

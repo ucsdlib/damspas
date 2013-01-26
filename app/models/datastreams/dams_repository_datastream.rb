@@ -1,8 +1,8 @@
 class DamsRepositoryDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
-    map.name(:in => DAMS, :to => 'name')
-    map.description(:in => DAMS, :to => 'description')
-    map.uri(:in => DAMS, :to => 'uri')
+    map.name(:in => DAMS, :to => 'repositoryName')
+    map.description(:in => DAMS, :to => 'repositoryDescription')
+    map.uri(:in => DAMS, :to => 'repositoryURI')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
