@@ -2,6 +2,9 @@ require 'spec_helper'
 
 feature 'Visit wants to look at digital collections' do
   scenario 'is on collections landing page' do
+    @repo1 = DamsRepository.create(name: "Library Collections")
+    @repo2 = DamsRepository.create(name: "RCI")
+
     visit dams_repositories_path
     #expect(page).to have_selector('h1', :text => 'Digital Library Collections')
     expect(page).to have_selector('h1', :text => 'Digital Library Collections')

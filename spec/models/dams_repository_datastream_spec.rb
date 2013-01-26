@@ -22,9 +22,9 @@ describe DamsRepositoryDatastream do
         subject.description.should == ["Test Repository Description"]
       end
 
-      it "should have a url" do
-        subject.url = "http://library.ucsd.edu/repositories/test/"
-        subject.url.should == ["http://library.ucsd.edu/repositories/test/"]
+      it "should have a uri" do
+        subject.uri = "http://library.ucsd.edu/repositories/test/"
+        subject.uri.should == ["http://library.ucsd.edu/repositories/test/"]
       end
 
     end
@@ -38,19 +38,19 @@ describe DamsRepositoryDatastream do
       end
 
       it "should have a subject" do
-        repository.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb45454545"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb45454545"
       end
 
       it "should have a name" do
-        repository.name.should == ["RCI"]
+        subject.name.should == ["RCI"]
       end
 
       it "should have a description" do
-        repository.description.should == ["Research Cyberinfrastructure: the hardware, software, and people that support scientific research."]
+        subject.description.should == ["Research Cyberinfrastructure: the hardware, software, and people that support scientific research."]
       end
 
-      it "should have a url" do
-        repository.url.should == ["http://library.ucsd.edu/repositories/rci/"]
+      it "should have a uri" do
+        subject.uri.should == ["http://library.ucsd.edu/repositories/rci/"]
       end
 
     end
