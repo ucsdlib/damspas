@@ -8,7 +8,7 @@ gem 'rails', '3.2.11'
 gem 'blacklight'
 gem 'solrizer-fedora', '3.0.0.pre1'
 gem 'hydra-head', "6.0.0.pre3"
-gem 'active-fedora', "6.0.0.pre4"
+gem 'active-fedora', "6.0.0.pre5"
 
 gem 'sqlite3'
 
