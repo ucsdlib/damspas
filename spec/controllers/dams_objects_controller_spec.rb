@@ -8,7 +8,7 @@ describe DamsObjectsController do
 	  describe "Show" do
 	    before do
 	      @obj = DamsObject.create(title: "Test Title", date: "2013")
-	      puts @obj.id
+	      #puts @obj.id
 	    end
 	    it "should be successful" do 
 	      get :show, id: @obj.id

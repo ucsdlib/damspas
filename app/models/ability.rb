@@ -5,6 +5,7 @@ class Ability
   		can [:read], DamsObject
   	else  #login user
     	can [:read, :create, :update], DamsObject
+    	can [:read, :create, :update], DamsRepository
     end
   end
 end

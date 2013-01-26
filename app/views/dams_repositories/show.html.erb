@@ -1,4 +1,4 @@
-<h1>REPOSITORY NAME GOES HERE</h1>
+<h1><%= @dams_repository.name.first %></h1>
 
 <div id="landingCarousel" class="carousel slide span6">
   <!-- Carousel items -->
@@ -14,22 +14,27 @@
 </div>
 
 <div class="span6">
-<div class="well">
-  <h2>Search</h2>
+  <div class="well">
+    <h2>Search</h2>
+
+    <div>
+  	  <%= render_repository_search_bar  %>
+    </div>
+  </div>
 
   <div>
-  	<%= render_repository_search_bar  %>
-  </div>
-</div>
-
-<div>
 	<h2>Browse</h2>
 	<ul>
       <%= render_browse_facet_links %>
 	</ul>
-</div>
+  </div>
 
-<div>
-	SHOW THE REPOSITORY DESCRIPTION TEXT HERE
-</div>
+  <div>
+    <%= @dams_repository.description.first %>
+  </div>
+  <div>
+    <a href="<%= @dams_repository.uri.first %>">
+      <%= @dams_repository.uri.first %>
+    </a>
+  </div>
 </div>

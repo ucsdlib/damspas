@@ -43,21 +43,38 @@ feature 'Visit wants to look at digital collections' do
     expect(page).to have_selector('.carousel')
   end
 
-  scenario 'visits a repository page' do
-    visit dams_repository_path :id => 'bbXXXXXXX6'
+  scenario 'retrieve a repository record' do
+    sign_in_developer
+    DamsRepository.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://library.ucsd.edu/repo/rci/"
 
+    # can we find the repository record
     expect(page).to have_field('Search...')
-
-    fill_in 'Search...', :with => '123'
+    fill_in 'Search...', :with => 'bb45454545'
 
     click_on('Search')
 
-    ## This would be ideal:
-    # expect(page).to have_content("")
+    # Check description on the page
+    #expect(page).to have_content("bb45454545")
+    expect(page).to have_content("RCI")
 
-    ##
-    # But we'll do this for now:
-    expect(page.current_url).to match /repository=bbXXXXXXX6/
+
 
   end
+
+  scenario 'scoped search'
+    # create a repo
+    #sign_in_developer
+    #DamsRepository.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://library.ucsd.edu/repo/rci/"
+
+    # create an object in the repo
+    #DamsRepository.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://library.ucsd.edu/repo/rci/"
+    #visit dams_repository_path :id => 'bb45454545'
+    # searchfor the object inthe repo and find it
+end
+
+def sign_in_developer
+  visit new_user_session_path
+  fill_in "Name", :with => "name"
+  fill_in "Email", :with => "email@email.com"
+  click_on "Sign In"
 end
