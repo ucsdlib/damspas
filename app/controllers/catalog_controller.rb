@@ -78,8 +78,8 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
-    config.add_show_field 'date_tesim', :label => 'Date:'
-    config.add_show_field 'subject_tesim', :label => 'Subject:'
+    #config.add_show_field 'date_tesim', :label => 'Date:'
+    #config.add_show_field 'subject_tesim', :label => 'Subject:'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
