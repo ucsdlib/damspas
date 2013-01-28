@@ -4,7 +4,7 @@ describe DamsRepositoryDatastream do
 
   describe "a repository model" do
 
-    describe "a new instance" do
+    describe "instance populated in-memory" do
 
       subject { DamsRepositoryDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
@@ -29,7 +29,7 @@ describe DamsRepositoryDatastream do
 
     end
 
-    describe "an instance with content" do
+    describe "an instance loaded from fixture xml" do
 
       subject do
         subject = DamsRepositoryDatastream.new(stub('inner object', :pid=>'bb45454545', :new? =>true), 'damsMetadata')
