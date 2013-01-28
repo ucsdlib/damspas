@@ -74,10 +74,3 @@ feature 'Visit wants to look at digital collections' do
     #visit dams_repository_path :id => 'bb45454545'
     # searchfor the object inthe repo and find it
 end
-
-def sign_in_developer
-  visit new_user_session_path
-  fill_in "Name", :with => "name"
-  fill_in "Email", :with => "email@email.com"
-  click_on "Sign In"
-end
