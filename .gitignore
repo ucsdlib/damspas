@@ -24,3 +24,6 @@ config/solr.yml
 
 # Ignore jetty (can link to jetty instance outside of git repo)
 /jetty
+
+# ignore auto-generted coverage reports
+coverage
