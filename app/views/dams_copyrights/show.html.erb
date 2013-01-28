@@ -1,0 +1,10 @@
+<h1><%= @dams_copyright.status.first %></h1>
+<div>jurisdiction: <%= @dams_copyright.jurisdiction.first %></div>
+<div>purposeNote: <%= @dams_copyright.purposeNote.first %></div>
+<div>note: <%= @dams_copyright.note.first %></div>
+<div>beginDate: <%= @dams_copyright.beginDate.first %></div>
+<div>
+  <% if can? :edit, DamsCopyright then %>
+  <%= link_to "Edit", edit_dams_copyright_path(@dams_copyright), class: "btn btn-primary" %>
+  <% end %>
+</div>

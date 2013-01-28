@@ -1,0 +1,12 @@
+<h1>Digital Library Collections</h1>
+
+<div class="span6">
+	<ul><%= render_copyright_list %></ul>
+</div>
+
+<div>
+	<% if can? :create, DamsCopyright%>
+	<%= link_to "Create Copyright", new_dams_copyright_path %>
+	<% end %>
+</div>
+</div>
