@@ -1,40 +1,14 @@
-<h1>Edit Dams Object</h1>
+<h1>Edit a Dams Object</h1>
 <%= form_for @dams_object do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <%= label_tag 'dams_object[title][]', "Title" %>
+  <%= text_field_tag 'dams_object[title][]', @dams_object.title[0] %>
+  <%= label_tag 'dams_object[date][]', "Date" %>
+  <%= text_field_tag 'dams_object[date][]', @dams_object.date[0] %>
+  <% @dams_object.subject.each_with_index do |s,i| %>
+  	<%= label_tag "dams_object_subject_#{i}", "Subject" %>
+  		<%= text_field_tag "dams_object[subject][]", s, :id => "dams_object_subject_#{i}" %>
+  <% end %>
+	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
-  <%= f.label :relatedTitle %>
-  <%= f.text_field :relatedTitle %>
-  
-  <%= f.label :relatedTitleLang %>
-  <%= f.text_field :relatedTitleLang %>
-  <br>
-  <%= f.label :relatedTitleType %>
-  <%= f.text_field :relatedTitleType %>
-  <br>
-  <%= f.label :beginDate %>
-  <%= f.text_field :beginDate %>
-  <br>
-  <%= f.label :endDate %>
-  <%= f.text_field :endDate %>
-  <br>
-  <%= f.label :date %>
-  <%= f.text_field :date %>
-  <br>
-  <%= f.label :typeOfResource %>
-  <%= f.text_field :typeOfResource %>
-  <br>
-  <%= f.label :relatedResourceType %>
-  <%= f.text_field :relatedResourceType %>
-  <br>
-  <%= f.label :relatedResourceDesc %>
-  <%= f.text_field :relatedResourceDesc %>
-  <br>
-  <%= f.label :relatedResourceUri %>
-  <%= f.text_field :relatedResourceUri %>
-  <br>
-
-  <%= f.submit "Save" %>
-<% end %>
-<p><%= link_to "View Dams Object", dams_object_path(@dams_object)%></p>
-
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

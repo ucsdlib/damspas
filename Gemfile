@@ -6,11 +6,16 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'blacklight'
-gem 'hydra-head'
+gem 'solrizer-fedora', '3.0.0.pre1'
+gem 'hydra-head', "6.0.0.pre3"
+gem 'active-fedora', "6.0.0.pre5"
 
 gem 'sqlite3'
 
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-shibboleth'
+gem 'equivalent-xml'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -43,7 +48,6 @@ gem 'jquery-rails'
 
 gem "unicode", :platforms => [:mri_18, :mri_19]
 gem "devise"
-gem "devise-guests", "~> 0.3"
 gem "bootstrap-sass"
 
 group :development, :test do

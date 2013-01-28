@@ -15,4 +15,12 @@
 //
 // Required by Blacklight
 //= require blacklight/blacklight
+//= require bootstrap
 //= require_tree .
+
+
+$(document).ready(function() {
+	$('.carousel').carousel();
+});
+
+Blacklight.do_search_context_behavior = function() {};

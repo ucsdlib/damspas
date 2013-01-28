@@ -1,20 +1,15 @@
 class ApplicationController < ActionController::Base
   # Adds a few additional behaviors into the application controller 
    include Blacklight::Controller
+   include Hydra::Controller::ControllerBehavior 
   # Please be sure to impelement current_user and user_session. Blacklight depends on 
   # these methods in order to perform user specific actions. 
 
-  layout 'blacklight'
+  layout 'ucsdlib'
 
-  # Adds a few additional behaviors into the application controller 
-   include Blacklight::Controller  
+  # Adds a few additional behaviors into the application controller   
 # Adds Hydra behaviors into the application controller 
-  include Hydra::Controller::ControllerBehavior
-
-  # Please be sure to impelement current_user and user_session. Blacklight depends on 
-  # these methods in order to perform user specific actions. 
-
-  layout 'blacklight'
 
   protect_from_forgery
+#  before_filter :authenticate_user!
 end

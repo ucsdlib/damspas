@@ -3,58 +3,50 @@ require 'spec_helper'
 describe DamsObject do
   
   before  do
-    DamsObject.find_each {|z| z.delete}
-    @damsObj = DamsObject.new
+    @damsObj = DamsObject.new(pid: 'bb52572546')
   end
+  
+
   
   it "should have the specified datastreams" do
     @damsObj.datastreams.keys.should include("damsMetadata")
     @damsObj.damsMetadata.should be_kind_of DamsObjectDatastream
-    @damsObj.datastreams.keys.should include("rightsMetadata")
-    @damsObj.rightsMetadata.should be_kind_of Hydra::Datastream::RightsMetadata
  end
   
-  it "should have a title" do
+  it "should create/update a title" do
+    @damsObj.title.should == []
     @damsObj.title = "Dams Object Title 1"
-    @damsObj.title == "Dams Object Title 1"
-  end
+    @damsObj.title.should == ["Dams Object Title 1"]
   
-  it "should have ark Url" do
-    @damsObj.arkUrl = "bb1234567"
-    @damsObj.arkUrl == "bb1234567"
+    @damsObj.title = "Dams Object Title 2"
+    @damsObj.title.should == ["Dams Object Title 2"]  
   end
 
-  it "should have a related title" do
-    @damsObj.relatedTitle = "Dams Object Related Title 1"
-    @damsObj.relatedTitle == "Dams Object Related Title 1"
+  it "should create/update a subject" do
+    @damsObj.subject = ["subject 1","subject 2"]
+    @damsObj.subject.should == ["subject 1","subject 2"]
+
+    @damsObj.subject = ["subject 3","subject 4"]
+    @damsObj.subject.should == ["subject 3","subject 4"]
   end
 
-  it "should have a related title type" do
-    @damsObj.relatedTitleType = "translated"
-    @damsObj.relatedTitleType == "translated"
+  describe "Store to a repository" do
+    before do
+      DamsPerson.create! pid: "bbXXXXXXX1", name: "Maria"
+    end
+    after do
+      #@damsObj.delete
+    end
+    it "should store/retrieve from a repository" do
+      @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
+      #@damsObj.title.should == ["Chicano and black radical activism of the 1960s"]
+      @damsObj.save!
+      #puts "PID #{@damsObj.pid}"
+      @damsObj.reload
+      loadedObj = DamsObject.find(@damsObj.pid)
+      #puts "CONTENT #{loadedObj.damsMetadata.content}"
+      loadedObj.title.should == ["Chicano and black radical activism of the 1960s"]
+    end
   end
-
-  it "should have a relatedTitleLang" do
-    @damsObj.relatedTitleLang = "fr"
-    @damsObj.relatedTitleLang == "fr"
-  end
-
-  it "should have a beginDate" do
-    @damsObj.beginDate = "2012-11-27"
-    @damsObj.beginDate == "2012-11-27"
-  end
-
-  it "should have an endDate" do
-    @damsObj.endDate = "2012-11-30"
-    @damsObj.endDate == "2012-11-30"
-  end
-
-  it "should have a date" do
-    @damsObj.date = "2012-11-29"
-    @damsObj.date == "2012-11-29"
-  end
-
-
-
 end
 
