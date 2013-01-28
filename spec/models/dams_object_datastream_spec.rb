@@ -1,148 +1,106 @@
+# -*- encoding: utf-8 -*-
 require 'spec_helper'
 
 describe DamsObjectDatastream do
-   describe "with new datastream" do
-      before do
-    	@damsDS = DamsObjectDatastream.new(nil,'titleMetadata')
+
+  describe "a complex data model" do
+
+    describe "a new instance" do
+      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb52572546"
       end
-     it "should have title" do
-       test_attribute_xpath(@damsDS, 'title', '//dams:Object/dams:title/rdf:value')
-     end
-
-    it "should have ark url" do
-       test_attribute_xpath(@damsDS, 'arkUrl', '//dams:Object/@rdf:about')
-     end
-
-     it "should have relatedTitle" do
-       test_attribute_xpath(@damsDS, 'relatedTitle', '//dams:Object/dams:title/dams:relatedTitle/rdf:value')
-     end
-
-     it "should have relatedTitleType" do
-       test_attribute_xpath(@damsDS, 'relatedTitleType', '//dams:Object/dams:title/dams:relatedTitle/dams:type')
-     end
-
-     it "should have relatedTitleLanguage" do
-       test_attribute_xpath(@damsDS, 'relatedTitleLang', '//dams:Object/dams:title/dams:relatedTitle/rdf:value/@xml:lang')
-     end
-
-     it "should have begin date" do
-       test_attribute_xpath(@damsDS, 'beginDate', '//dams:Object/dams:date/dams:beginDate')
-     end
-
-     it "should have end date" do
-       test_attribute_xpath(@damsDS, 'endDate', '//dams:Object/dams:date/dams:endDate')
-     end
-
-     it "should have date" do
-       test_attribute_xpath(@damsDS, 'date', '//dams:Object/dams:date/rdf:value')
-     end
-
-    it "should have language Id " do
-       test_attribute_xpath(@damsDS, 'languageId', '//dams:Object/dams:language/@rdf:resource')
-     end
-
-    it "should have typeOfResource " do
-       test_attribute_xpath(@damsDS, 'typeOfResource', '//dams:Object/dams:typeOfResource')
-     end
-
-
-   it "should have relatedResourceType " do       
-	test_attribute_xpath(@damsDS, 'relatedResourceType', '//dams:Object/dams:otherResource/dams:RelatedResource/dams:type')
-     end
-
-   it "should have relatedResourceDesc " do       
-	test_attribute_xpath(@damsDS, 'relatedResourceDesc', '//dams:Object/dams:otherResource/dams:RelatedResource/dams:description')
-     end
-
-   it "should have relatedResourceUri " do       
-	test_attribute_xpath(@damsDS, 'relatedResourceUri', '//dams:Object/dams:otherResource/dams:RelatedResource/dams:uri')
-     end
-
-   it "should have relationshipRole " do       
-	test_attribute_xpath(@damsDS, 'relationshipRole', '//dams:Object/dams:relationship/dams:Relationship/dams:role/@rdf:resource')
-     end
-
-   it "should have relationshipName " do       
-	test_attribute_xpath(@damsDS, 'relationshipName', '//dams:Object/dams:relationship/dams:Relationship/dams:name/@rdf:resource')
-     end
-
-   it "should have assembledCollection " do       
-	test_attribute_xpath(@damsDS, 'assembledCollection', '//dams:Object/dams:assembledCollection/@rdf:resource')
-     end
-
-end
-
-   describe "with existing datastream" do
-     before do
-       file = File.new(File.join(File.dirname(__FILE__),'..' ,'fixtures', "damsObjectModel.xml"))
-       @damsDS = DamsObjectDatastream.from_xml(file)
-     end
-     it "should have title" do
-       test_existing_attribute(@damsDS, 'title', 'example title')
-     end
-
-     it "should have ark url" do
-       test_existing_attribute(@damsDS, 'arkUrl', 'http://library.ucsd.edu/ark:/20775/')
-     end
-
-     #it "should have title" do
-     #  @damsDS.title = ["example title"]
-     # end
-    it "should have relatedTitle" do
-        test_existing_attribute(@damsDS, 'relatedTitle', 'example translated relatedTitle')
-     end   
-
-    it "should have relatedTitleLanguage" do
-       test_existing_attribute(@damsDS, 'relatedTitleLang', 'fr')
+      
     end
 
-    it "should have relatedTitleType" do
-       test_existing_attribute(@damsDS, 'relatedTitleType', 'translated') 
-    end
+    describe "an instance with content" do
+      subject do
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/dissertation.rdf.xml').read
+        subject
+      end
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb52572546"
+      end
+      
+      
+      it "should have fields" do
+        subject.resource_type.should == ["text"]
+        subject.title.should == ["Chicano and black radical activism of the 1960s"]
+      end
 
-    it "should have begin Date" do
-       test_existing_attribute(@damsDS, 'beginDate', '2012-11-27')
-    end
+      it "should have collection" do
+        #subject.collection.first.scopeContentNote.first.displayLabel == ["Scope and contents"]
+        subject.collection.first.to_s.should ==  "http://library.ucsd.edu/ark:/20775/bbXXXXXXX3" 
+      end
 
-    it "should have end Date" do
-       test_existing_attribute(@damsDS, 'endDate', '2012-11-30')
-    end
+      it "should have inline subjects" do
+        subject.subject.first.should == "Black Panther Party--History"
+        subject.subject.second.should == "African Americans--Relations with Mexican Americans--History--20th Century"
+      end
+      it "should have external subjects" do
+        subject.subject_node.first.should_not be_external
+        subject.subject_node.second.should_not be_external
+#puts         subject.subject_node.third
+        subject.subject_node.third.should be_external
+      end
 
-    it "should have Date" do
-       test_existing_attribute(@damsDS, 'date', '2012-11-29')
-    end
+      it "should have relationship" do
+        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+      end
 
-    it "should have language" do
-       test_existing_attribute(@damsDS, 'languageId', 'http://library.ucsd.edu/ark:/20775/bb12345678')
-    end
+      it "should have date" do
+        subject.date.should == ["2010"]
+      end
 
-    it "should have typeOfResource" do
-       test_existing_attribute(@damsDS, 'typeOfResource', 'image')
-    end
+      it "should create a solr document" do
+        DamsSubject.should_receive(:find).with('bbXXXXXXX5').and_return(stub(:name =>'stubbed'))
+        stub_person = stub(:name => "Maria")
+        DamsPerson.should_receive(:find).with("bbXXXXXXX1").and_return(stub_person)        
+        solr_doc = subject.to_solr
+        solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
+        solr_doc["title_tesim"].should == ["Chicano and black radical activism of the 1960s"]
+        solr_doc["date_tesim"].should == ["2010"]
+        solr_doc["name_tesim"].should == ["Maria"]
+      end
 
-    it "should have relatedResourceType" do       
-  	test_existing_attribute(@damsDS, 'relatedResourceType', 'online exhibit')
     end
-
-    it "should have relatedResourceDesc" do       
-	test_existing_attribute(@damsDS, 'relatedResourceDesc', 'foo')
+  end
+  
+  describe "::Date" do
+    it "should have an rdf_type" do
+      DamsObjectDatastream::Date.rdf_type.should == DAMS.Date
     end
-
-    it "should have relatedResourceUri" do       
-     	test_existing_attribute(@damsDS, 'relatedResourceUri', 'http://library.ucsd.edu/test/foo/')
-    end
-
-    it "should have relationshipRole" do       
-  	test_existing_attribute(@damsDS, 'relationshipRole', 'http://library.ucsd.edu/ark:/20775/bd55639754')
-    end
-
-    it "should have relationshipName" do       
-	test_existing_attribute(@damsDS, 'relationshipName', 'http://library.ucsd.edu/ark:/20775/bb08080808')
-    end
-
-    it "should have assembledCollection" do       
-	test_existing_attribute(@damsDS, 'assembledCollection', 'http://library.ucsd.edu/ark:/20775/bb03030303')
-    end
-
+  end
+  
+  describe "should store correct xml" do
+      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
+  
+	  before do
+	    subject.title = "Test Title"
+	    subject.date = "2013"
+	    #subject.subject = "Test subject"
+	  end
+	  it "should create a xml" do
+	    xml =<<END
+	   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#" xmlns:ns1="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb52572546">
+    <dams:date>
+      <dams:Date>
+        <ns1:value>2013</ns1:value>
+      </dams:Date>
+    </dams:date>
+    <dams:title>
+      <dams:Title>
+        <ns1:value>Test Title</ns1:value>
+      </dams:Title>
+    </dams:title>
+  </dams:Object>
+</rdf:RDF>
+END
+	    subject.content.should be_equivalent_to xml
+	
+	  end
   end
 end

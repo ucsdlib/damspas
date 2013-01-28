@@ -8,6 +8,7 @@
 config/database.yml
 config/fedora.yml
 config/solr.yml
+config/initializers/secret_token.rb
 
 # Ignore bundler config
 /.bundle
@@ -26,4 +27,4 @@ config/solr.yml
 /jetty
 
 # ignore auto-generted coverage reports
-coverage
+/coverage

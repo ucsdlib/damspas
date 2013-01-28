@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <!-- Mobile viewport optimization h5bp.com/ad -->
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <!-- Mobile IE allows us to activate ClearType technology for smoothing fonts for easy reading -->
+    <!--[if IEMobile]>
+      <meta http-equiv="cleartype" content="on">
+    <![endif]-->
+
+    <title><%= full_title(@page_title) %></title>
+    <link href="<%= opensearch_catalog_path(:format => 'xml', :only_path => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <%= raw(render_head_content) %> 
+
+    <%= render :partial => 'layouts/html5shim' %>
+
+    <%= favicon_link_tag asset_path('favicon.ico') %>
+  </head>
+  <% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
+  
+  <body onload="<%= onload_text %>" class="<%= render_body_class %>">
+  
+
+  <div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
+
+<!-- /container -->
+  <div id="main-container" class="container">
+            <!-- Top bar -->
+            <div id="search-found" class="row hidden-phone">
+              <%= topbar_items.join('').html_safe %>
+            </div>
+            <!-- /Top bar -->
+                  <div class="row">
+                      <div class="span12">
+                        <div id="main-flashes">
+                          <%= render :partial=>'/flash_msg' %>
+                        </div>
+                      </div>    
+                  </div>              
+
+                  <div class="row">
+                       <%= yield %>
+                  </div>
+				<footer>
+					<% if current_user  %>
+					Welcome <%= current_user.uid %>
+					<%= link_to "Sign Out", destroy_user_session_path, :class => "btn btn-primary" %>
+					<% else %>
+					<%= link_to "Sign In", new_user_session_path, :class => "btn btn-primary" %>
+					<% end %>
+				</footer>
+</div>
+<!-- show debugging parameters in development -->
+<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>
+    </body>
+</html>

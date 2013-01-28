@@ -1,12 +1,26 @@
 Hydra::Application.routes.draw do
-  root :to => "catalog#index"
+
+  root :to => "dams_repositories#index"
 
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  
+  devise_scope :user do 
+    match '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
+    match '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
+  end
+
+  match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'catalog'
+  match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'solr_document'
+
+
+  resources :dams_people, :only => [:show]
+  resources :dams_subjects, :only => [:show]
 
   resources :dams_objects
+  resources :dams_repositories
   resources :dams_languages
   resources :dams_vocabs
   resources :dams_assembled_collections

@@ -1,0 +1,12 @@
+<h1>Create a new DAMS Repository</h1>
+<%= form_for @dams_repository do |f| %>
+  <%= label_tag 'dams_repository[name]', "Name" %>
+  <%= text_field_tag 'dams_repository[name]' %>
+  <%= label_tag 'dams_repository[description]', "Description" %>
+  <%= text_field_tag 'dams_repository[description]' %>
+  <%= label_tag 'dams_repository[uri]', "URI" %>
+  <%= text_field_tag 'dams_repository[uri]' %>
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

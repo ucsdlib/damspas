@@ -1,54 +1,129 @@
-class DamsObjectDatastream < ActiveFedora::NokogiriDatastream
-set_terminology do |t|
-    t.root(:path=>"rdf:RDF", :xmlns=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", :namespace_prefix=>nil,"dams"=>"http://library.ucsd.edu/ontology/dams#","mads"=>"http://www.loc.gov/mads/rdf/v1#","damsid"=>"http://library.ucsd.edu/ark:/20775/","xml"=>"http://www.w3.org/XML/1998/namespace")
+class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
+  map_predicates do |map|
+    map.resource_type(:in => DAMS, :to => 'typeOfResource')
+    map.title_node(:in => DAMS, :to=>'title', :class_name => 'Description')
+    map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
+    map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.date_node(:in => DAMS, :to=>'date', :class_name => 'Date')
+ end
 
-    t.arkUrl(:path=>"dams:Object/@rdf:about", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-    
-    t.title(:path=>"dams:Object/dams:title/rdf:value", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
 
-t.relatedTitle(:path=>"dams:Object/dams:title/dams:relatedTitle/rdf:value", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
 
-t.relatedTitleLang(:path=>"dams:Object/dams:title/dams:relatedTitle/rdf:value/@xml:lang", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#", "xml"=>"http://www.w3.org/XML/1998/namespace")
-
-t.relatedTitleType(:path=>"dams:Object/dams:title/dams:relatedTitle/dams:type", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.beginDate(:path=>"dams:Object/dams:date/dams:beginDate", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.endDate(:path=>"dams:Object/dams:date/dams:endDate", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.date(:path=>"dams:Object/dams:date/rdf:value", :namespace_prefix=>nil, "rdf"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.languageId(:path=>"dams:Object/dams:language/@rdf:resource", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.typeOfResource(:path=>"dams:Object/dams:typeOfResource", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.relatedResourceType(:path=>"dams:Object/dams:otherResource/dams:RelatedResource/dams:type", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.relatedResourceDesc(:path=>"dams:Object/dams:otherResource/dams:RelatedResource/dams:description", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.relatedResourceUri(:path=>"dams:Object/dams:otherResource/dams:RelatedResource/dams:uri", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.relationshipRole(:path=>"dams:Object/dams:relationship/dams:Relationship/dams:role/@rdf:resource", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.edu/ontology/dams#")
-
-t.relationshipName(:path=>"dams:Object/dams:relationship/dams:Relationship/dams:name/@rdf:resource", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.ed
-u/ontology/dams#")
-
-t.assembledCollection(:path=>"dams:Object/dams:assembledCollection/@rdf:resource", :namespace_prefix=>nil, "r
-df"=>"http://www.w3.org/1999/02/22-rdf-syntax-ns#", "dams"=>"http://library.ucsd.ed
-u/ontology/dams#")
-
- end # set_terminology
-  def self.xml_template
-    Nokogiri::XML::Document.parse(File.new(File.join(File.dirname(__FILE__),'..', '..', '..', 'lib', "damsObjectModel.xml")))
+  def serialize
+    graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
+    super
   end
 
+  class Description
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Title
+    map_predicates do |map|   
+      map.value(:in=> RDF)
+    end
+  end
+  #class AssembledCollection
+  #  include ActiveFedora::RdfObject
+  #  map_predicates do |map|
+  #    rdf_type DAMS.AssembledCollection
+  #    map.scopeContentNote(:in=> DAMS, :class_name=>'ScopeContentNote') 
+  #  end
+  #  class ScopeContentNote
+  #    include ActiveFedora::RdfObject
+  #    map_predicates do |map|
+  #      rdf_type DAMS.ScopeContentNote
+  #      map.displayLabel(:in=> DAMS)
+  #    end
+  #  end
+  #end
 
-end # class
+
+  def title
+    title_node.first ? title_node.first.value : [] 
+  end
+
+  def title=(val)
+    self.title_node = []
+    title_node.build.value = val
+  end
+
+  def date
+    date_node.first ? date_node.first.value : []
+  end
+
+  def date=(val)
+    self.date_node = []
+    date_node.build.value = val
+  end
+
+  def subject
+    subject_node.map{|s| s.authoritativeLabel.first}
+  end
+
+  def subject=(val)
+    self.subject_node = []
+    val.each do |s|
+      subject_node.build.authoritativeLabel = s
+    end
+  end
+  
+  class Subject
+    include ActiveFedora::RdfObject
+    rdf_type MADS.ComplexSubject
+    map_predicates do |map|      
+      map.authoritativeLabel(:in=> MADS)
+    end
+
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.repository_root
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsSubject.find(md[1])
+    end
+  end
+
+  class Relationship
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Relationship
+    map_predicates do |map|     
+      map.name(:in=> DAMS)
+      map.role(:in=> DAMS)
+    end
+
+    def load
+      uri = name.first.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsPerson.find(md[1])
+    end
+  end
+
+  class Date
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Date
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+    end
+  end
+
+  def to_solr (solr_doc = {})
+    subject_node.map do |sn| 
+      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      Solrizer.insert_field(solr_doc, 'subject', subject_value)
+    end
+    Solrizer.insert_field(solr_doc, 'title', title)
+    Solrizer.insert_field(solr_doc, 'date', date)
+    relationship.map do |relationship| 
+      Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+    end
+
+    # hack to strip "+00:00" from end of dates, because that makes solr barf
+    ['system_create_dtsi','system_modified_dtsi'].each { |f|
+      solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+    }
+    return solr_doc
+  end
+end
+

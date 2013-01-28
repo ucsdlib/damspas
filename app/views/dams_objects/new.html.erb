@@ -1,67 +1,12 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
-  <%#= f.label :title %>
-  Title<%= f.text_field :title %>
- <br>
- <%#= f.label :relatedTitle %>
-  Related Title<%= f.text_field :relatedTitle %>
+  <%= label_tag 'dams_object[title][]', "First title" %>
+  <%= text_field_tag 'dams_object[title][]' %>
+  <%= label_tag 'dams_object[date][]', "Date" %>
+  <%= text_field_tag 'dams_object[date][]' %>
+  <%= label_tag 'dams_object[subject][]', "Subject" %>
+  <%=text_field_tag 'dams_object[subject][]' %>
   <br>
- <%#= f.label :relatedTitleLang %>Related Title Language<%= f.text_field :relatedTitleLang %>
- <br> 
- <%#= f.label :relatedTitleType %>
- Related Title Type <%= f.text_field :relatedTitleType %>
-  <br>
- <%#= f.label :beginDate %>
- Begin Date <%= f.text_field :beginDate %>
- <br>
- <%#= f.label :endDate %>
- End Date <%= f.text_field :endDate %>
-  <br>
- <%#= f.label :date %>
- Date <%= f.text_field :date %>
-  <br>
-  <%#= f.label :languageId %>
-  Language<%= f.select(:languageId, options_from_collection_for_select(@dams_langs, :id, :language) , :prompt => 'Select Language') %>
-  <br>
- TypeOfResource <%= f.text_field :typeOfResource %>
- <br>
- RelatedResourceType <%= f.text_field :relatedResourceType %>
- <br>
- RelatedResourceDesc <%= f.text_field :relatedResourceDesc %>
- <br>
- RelatedResourceUri <%= f.text_field :relatedResourceUri %>
- <br>
- RelationshipRole <%#= f.text_field :relationshipRole %>
-  <%= f.select(:relationshipRole, options_from_collection_for_select(@dams_roles, :id, :value) , :prompt => 'Select Role') %>
- <br>
- RelationshipName <%= f.text_field :relationshipName %>
- <br>
- AssembledCollection <%#= f.text_field :assembledCollection %>
- <%= f.select(:assembledCollection, options_from_collection_for_select(@dams_assembled_collections, :id, :title) , :prompt => 'Select Assembled Collection') %>
- <br>
-  <%= f.submit "Save" %>
 
-<% end %>
-
-<h3>Or create a new language</h3>
-<%= form_for @dams_language do |f| %>
-  <%#= f.label :code %>
-  Code<%= f.text_field :code %> 
- <br>
- <%#= f.label :language %>
- Language<%= f.text_field :language %>
- <br>
-  <%= f.submit "Add Language" %>
-<% end %>
-
-<h3>Or create a new role</h3>
-<%= form_for @dams_role do |f| %>
-  <%#= f.label :code %>
-  Code<%= f.text_field :code %>
- <br>
- <%#= f.label :language %>
- Role<%= f.text_field :value %>
- <br>
-  <%= f.submit "Add Role" %>
-<% end %>
-
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>
