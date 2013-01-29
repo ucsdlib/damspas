@@ -1,0 +1,15 @@
+<h1><%= @dams_statute.citation.first %></h1>
+<div>jurisdiction: <%= @dams_statute.jurisdiction.first %></div>
+<div>note: <%= @dams_statute.note.first %></div>
+<div>permissionBeginDate: <%= @dams_statute.permissionBeginDate.first %></div>
+<div>permissionEndDate: <%= @dams_statute.permissionEndDate.first %></div>
+<div>permissionType: <%= @dams_statute.permissionType.first %></div>
+<div>restrictionBeginDate: <%= @dams_statute.restrictionBeginDate.first %></div>
+<div>restrictionEndDate: <%= @dams_statute.restrictionEndDate.first %></div>
+<div>restrictionType: <%= @dams_statute.restrictionType.first %></div>
+<div>
+  <% if can? :edit, DamsCopyright then %>
+  <%= link_to "Edit", edit_dams_statute_path(@dams_statute), class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to "View All", dams_statutes_path, class: "btn btn-primary" %>
+</div>

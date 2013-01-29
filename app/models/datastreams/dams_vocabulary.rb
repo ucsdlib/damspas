@@ -25,8 +25,19 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :repositoryName
   property :repositoryURI
   property :repositoryDescription
+  property :copyright
+  property :Copyright
   property :copyrightStatus
   property :copyrightJurisdiction
   property :copyrightPurposeNote
   property :copyrightNote
+  property :statute
+  property :Statute
+  property :statuteCitation
+  property :statuteJurisdiction
+  property :statuteNote
+  property :permission
+  property :restriction
+  property :Permission
+  property :Restriction
 end
