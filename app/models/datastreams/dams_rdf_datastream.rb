@@ -11,11 +11,11 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
 
 
+  end
+
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
     super
-  end
-
   class Description
     include ActiveFedora::RdfObject
     rdf_type DAMS.Title
