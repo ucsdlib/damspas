@@ -22,6 +22,7 @@ Hydra::Application.routes.draw do
   resources :dams_objects
   resources :dams_repositories
   resources :dams_copyrights
+  resources :dams_statutes
   resources :dams_languages
   resources :dams_vocabs
   resources :dams_assembled_collections
