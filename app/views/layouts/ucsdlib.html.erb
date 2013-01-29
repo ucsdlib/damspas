@@ -54,11 +54,11 @@
 				<footer>
 					<% if current_user  %>
 					Welcome <%= current_user.uid %>
-					<%= link_to "Sign Out", destroy_user_session_path %>
+					<%= link_to "Sign Out", destroy_user_session_path, :class => "btn btn-primary" %>
 					<% else %>
-					<%= link_to "Sign In", new_user_session_path %>
+					<%= link_to "Sign In", new_user_session_path, :class => "btn btn-primary" %>
 					<% end %>
-					</footer>
+				</footer>
 </div>
 <!-- show debugging parameters in development -->
 <%= debug(params) if Rails.env.development? || Rails.env.gimili? %>

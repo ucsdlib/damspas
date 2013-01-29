@@ -15,7 +15,7 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (6.0.0.pre4)
+    active-fedora (6.0.0.pre5)
       activeresource (>= 3.0.0)
       activesupport (>= 3.0.0)
       builder (~> 3.0.0)
@@ -27,7 +27,7 @@ GEM
       rdf-rdfxml (~> 0.3.8)
       rsolr
       rubydora (~> 1.2)
-      solrizer (~> 3.0.0.pre2)
+      solrizer (~> 3.0.0.pre4)
     activemodel (3.2.11)
       activesupport (= 3.2.11)
       builder (~> 3.0.0)
@@ -244,7 +244,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    solrizer (3.0.0.pre3)
+    solrizer (3.0.0.pre4)
       activesupport
       daemons
       mediashelf-loggable (~> 0.4.7)
@@ -289,7 +289,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora (= 6.0.0.pre4)
+  active-fedora (= 6.0.0.pre5)
   blacklight
   bootstrap-sass
   capybara

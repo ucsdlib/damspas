@@ -5,7 +5,7 @@ require 'daemons'
 require 'stomp'
 
 banner=<<-EOC
-Usage: solrizerd command --hydra_home PATH [options]
+Usage: damsolrizerd command --hydra_home PATH [options]
         PATH must point to a valid hydra application
 Commands:
         start         start an instance of the application
@@ -61,8 +61,4 @@ argv_array << '--'
 ARGV[1..-1].each {|ele| argv_array << ele }
 options[:ARGV] = argv_array
 
-version = '>=0'
-app = Gem.bin_path('solrizer','solrizer',version)
-
-Daemons.run(app,options)
-
+Daemons.run(File.join(ARGV[2],"bin","damsolrizer"),options)

@@ -25,7 +25,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = { 
       :qt => 'search',
       :rows => 10,
-      :qf => 'subject_tesim title_tesim date_tesim name_tesim' 
+      :qf => 'subject_tesim title_tesim date_tesim name_tesim id' 
     }
 
     # solr field configuration for search results/index views
@@ -73,13 +73,15 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display 
+    config.add_index_field 'name_tesim', :label => 'Name:'   
     config.add_index_field 'date_tesim', :label => 'Date:'   
     config.add_index_field 'subject_tesim', :label => 'Subject:'   
+    config.add_index_field 'description_tesim', :label => 'Description:'   
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
-    config.add_show_field 'date_tesim', :label => 'Date:'
-    config.add_show_field 'subject_tesim', :label => 'Subject:'
+    #config.add_show_field 'date_tesim', :label => 'Date:'
+    #config.add_show_field 'subject_tesim', :label => 'Subject:'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -154,6 +156,10 @@ class CatalogController < ApplicationController
     config.spell_max = 5
   end
 
-
+  
+  def show 
+    response, document = get_solr_response_for_doc_id
+    redirect_to document
+  end
 
 end 
