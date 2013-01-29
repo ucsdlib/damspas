@@ -1,4 +1,4 @@
-class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
+class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.title_node(:in => DAMS, :to=>'title', :class_name => 'Description')
@@ -105,14 +105,30 @@ class DamsRdfDatastream < ActiveFedora::RdfxmlRDFDatastream
     rdf_type DAMS.Date
     map_predicates do |map|    
       map.value(:in=> RDF)
+      map.beginDate(:in=>DAMS)
+      map.endDate(:in=>DAMS)
     end
   end
 
   def to_solr (solr_doc = {})
-    solr_doc[ActiveFedora::SolrService.solr_name("subject", type: :text)] = subject_node.map { |sn| sn.external? ? sn.load.name : sn.authoritativeLabel }.flatten
-    solr_doc[ActiveFedora::SolrService.solr_name("title", type: :text)] = title
-    solr_doc[ActiveFedora::SolrService.solr_name("date", type: :text)] = date
-    solr_doc[ActiveFedora::SolrService.solr_name("name", type: :text)] = relationship.map{|relationship| relationship.load.name}.flatten
+    subject_node.map do |sn| 
+      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      Solrizer.insert_field(solr_doc, 'subject', subject_value)
+    end
+    Solrizer.insert_field(solr_doc, 'title', title)
+    Solrizer.insert_field(solr_doc, 'date', date)
+    relationship.map do |relationship| 
+      Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+    end
+
+    # hack to strip "+00:00" from end of dates, because that makes solr barf
+    ['system_create_dtsi','system_modified_dtsi'].each { |f|
+      if solr_doc[f].kind_of?(Array)
+        solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+      elsif solr_doc[f] != nil
+        solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
+      end
+    }
     return solr_doc
   end
 end

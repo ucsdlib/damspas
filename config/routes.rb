@@ -1,5 +1,4 @@
 Hydra::Application.routes.draw do
-  resources :dams_repositories, :only => [:index, :show]
 
   root :to => "dams_repositories#index"
 
@@ -13,10 +12,17 @@ Hydra::Application.routes.draw do
     match '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
   end
 
+  match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'catalog'
+  match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'solr_document'
+
+
   resources :dams_people, :only => [:show]
   resources :dams_subjects, :only => [:show]
 
   resources :dams_objects
+  resources :dams_repositories
+  resources :dams_copyrights
+  resources :dams_statutes
   resources :dams_languages
   resources :dams_vocabs
   resources :dams_assembled_collections

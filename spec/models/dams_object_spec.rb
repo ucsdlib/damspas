@@ -10,7 +10,7 @@ describe DamsObject do
   
   it "should have the specified datastreams" do
     @damsObj.datastreams.keys.should include("damsMetadata")
-    @damsObj.damsMetadata.should be_kind_of DamsRdfDatastream
+    @damsObj.damsMetadata.should be_kind_of DamsObjectDatastream
  end
   
   it "should create/update a title" do
@@ -41,10 +41,10 @@ describe DamsObject do
       @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
       #@damsObj.title.should == ["Chicano and black radical activism of the 1960s"]
       @damsObj.save!
-      puts "PID #{@damsObj.pid}"
+      #puts "PID #{@damsObj.pid}"
       @damsObj.reload
       loadedObj = DamsObject.find(@damsObj.pid)
-      puts "CONTENT #{loadedObj.damsMetadata.content}"
+      #puts "CONTENT #{loadedObj.damsMetadata.content}"
       loadedObj.title.should == ["Chicano and black radical activism of the 1960s"]
     end
   end

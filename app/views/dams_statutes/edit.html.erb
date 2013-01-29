@@ -1,0 +1,15 @@
+<h1>Edit DAMS Statute</h1>
+<%= form_for @dams_statute do |f| %>
+  <%= label_tag 'dams_statute[citation]', "Citation" %><%= text_field_tag 'dams_statute[citation][]', @dams_statute.citation[0] %>
+  <%= label_tag 'dams_statute[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_statute[jurisdiction][]', @dams_statute.jurisdiction[0] %>
+  <%= label_tag 'dams_statute[note]', "Note" %><%= text_field_tag 'dams_statute[note][]', @dams_statute.note[0] %>
+  <%= label_tag 'dams_statute[permissionBeginDate]', "Permission Begin Date" %><%= text_field_tag 'dams_statute[permissionBeginDate][]', @dams_statute.permissionBeginDate[0] %>
+  <%= label_tag 'dams_statute[permissionEndDate]', "Permission End Date" %><%= text_field_tag 'dams_statute[permissionEndDate][]', @dams_statute.permissionEndDate[0] %>
+  <%= label_tag 'dams_statute[permissionType]', "Permission Type" %><%= text_field_tag 'dams_statute[permissionType][]', @dams_statute.permissionType[0] %>
+  <%= label_tag 'dams_statute[restrictionBeginDate]', "Restriction Begin Date" %><%= text_field_tag 'dams_statute[restrictionBeginDate][]', @dams_statute.restrictionBeginDate[0] %>
+  <%= label_tag 'dams_statute[restrictionEndDate]', "Restriction End Date" %><%= text_field_tag 'dams_statute[restrictionEndDate][]', @dams_statute.restrictionEndDate[0] %>
+  <%= label_tag 'dams_statute[restrictionType]', "Restriction Type" %><%= text_field_tag 'dams_statute[restrictionType][]', @dams_statute.restrictionType[0] %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_statute_path( @dams_statute ), class: "btn btn-primary" %>
+<%end%>

@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe DamsRdfDatastream do
+describe DamsObjectDatastream do
 
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsRdfDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb52572546"
       end
@@ -15,7 +15,7 @@ describe DamsRdfDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsRdfDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/dissertation.rdf.xml').read
         subject
       end
@@ -70,12 +70,12 @@ describe DamsRdfDatastream do
   
   describe "::Date" do
     it "should have an rdf_type" do
-      DamsRdfDatastream::Date.rdf_type.should == DAMS.Date
+      DamsObjectDatastream::Date.rdf_type.should == DAMS.Date
     end
   end
   
   describe "should store correct xml" do
-      subject { DamsRdfDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
   
 	  before do
 	    subject.title = "Test Title"

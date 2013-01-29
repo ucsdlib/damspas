@@ -1,0 +1,10 @@
+<h1>Create a new DAMS Copyright</h1>
+<%= form_for @dams_copyright do |f| %>
+  <%= label_tag 'dams_copyright[status]', "Status" %><%= text_field_tag 'dams_copyright[status]' %>
+  <%= label_tag 'dams_copyright[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_copyright[jurisdiction]' %>
+  <%= label_tag 'dams_copyright[purposeNote]', "Purpose Note" %><%= text_field_tag 'dams_copyright[purposeNote]' %>
+  <%= label_tag 'dams_copyright[note]', "Note" %><%= text_field_tag 'dams_copyright[note]' %>
+  <%= label_tag 'dams_copyright[beginDate]', "Begin Date" %><%= text_field_tag 'dams_copyright[beginDate]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>
