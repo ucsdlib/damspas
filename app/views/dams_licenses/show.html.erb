@@ -1,0 +1,14 @@
+<h1><%= @dams_license.note.first %></h1>
+<div>uri: <%= @dams_license.uri.first %></div>
+<div>permissionBeginDate: <%= @dams_license.permissionBeginDate.first %></div>
+<div>permissionEndDate: <%= @dams_license.permissionEndDate.first %></div>
+<div>permissionType: <%= @dams_license.permissionType.first %></div>
+<div>restrictionBeginDate: <%= @dams_license.restrictionBeginDate.first %></div>
+<div>restrictionEndDate: <%= @dams_license.restrictionEndDate.first %></div>
+<div>restrictionType: <%= @dams_license.restrictionType.first %></div>
+<div>
+  <% if can? :edit, DamsLicense then %>
+  <%= link_to "Edit", edit_dams_license_path(@dams_license), class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to "View All", dams_licenses_path, class: "btn btn-primary" %>
+</div>

@@ -1,0 +1,14 @@
+<h1>Edit DAMS License</h1>
+<%= form_for @dams_license do |f| %>
+  <%= label_tag 'dams_license[note]', "Note" %><%= text_field_tag 'dams_license[note][]', @dams_license.note[0] %>
+  <%= label_tag 'dams_license[uri]', "URI" %><%= text_field_tag 'dams_license[uri][]', @dams_license.uri[0] %>
+  <%= label_tag 'dams_license[permissionBeginDate]', "Permission Begin Date" %><%= text_field_tag 'dams_license[permissionBeginDate][]', @dams_license.permissionBeginDate[0] %>
+  <%= label_tag 'dams_license[permissionEndDate]', "Permission End Date" %><%= text_field_tag 'dams_license[permissionEndDate][]', @dams_license.permissionEndDate[0] %>
+  <%= label_tag 'dams_license[permissionType]', "Permission Type" %><%= text_field_tag 'dams_license[permissionType][]', @dams_license.permissionType[0] %>
+  <%= label_tag 'dams_license[restrictionBeginDate]', "Restriction Begin Date" %><%= text_field_tag 'dams_license[restrictionBeginDate][]', @dams_license.restrictionBeginDate[0] %>
+  <%= label_tag 'dams_license[restrictionEndDate]', "Restriction End Date" %><%= text_field_tag 'dams_license[restrictionEndDate][]', @dams_license.restrictionEndDate[0] %>
+  <%= label_tag 'dams_license[restrictionType]', "Restriction Type" %><%= text_field_tag 'dams_license[restrictionType][]', @dams_license.restrictionType[0] %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_license_path( @dams_license ), class: "btn btn-primary" %>
+<%end%>
