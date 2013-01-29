@@ -1,0 +1,12 @@
+<h1>Licenses</h1>
+
+<div class="span6">
+	<ul><%= render_license_list %></ul>
+</div>
+
+<div>
+	<% if can? :create, DamsLicense%>
+	<%= link_to "Create License", new_dams_license_path, :class => 'btn btn-primary' %>
+	<% end %>
+</div>
+</div>
