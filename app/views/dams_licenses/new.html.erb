@@ -1,0 +1,13 @@
+<h1>Create a new DAMS License</h1>
+<%= form_for @dams_license do |f| %>
+  <%= label_tag 'dams_license[note]', "Note" %><%= text_field_tag 'dams_license[note]' %>
+  <%= label_tag 'dams_license[uri]', "URI" %><%= text_field_tag 'dams_license[uri]' %>
+  <%= label_tag 'dams_license[permissionBeginDate]', "Permission Begin Date" %><%= text_field_tag 'dams_license[permissionBeginDate]' %>
+  <%= label_tag 'dams_license[permissionEndDate]', "Permission End Date" %><%= text_field_tag 'dams_license[permissionEndDate]' %>
+  <%= label_tag 'dams_license[permissionType]', "Permission Type" %><%= text_field_tag 'dams_license[permissionType]' %>
+  <%= label_tag 'dams_license[restrictionBeginDate]', "Restriction Begin Date" %><%= text_field_tag 'dams_license[restrictionBeginDate]' %>
+  <%= label_tag 'dams_license[restrictionEndDate]', "Restriction End Date" %><%= text_field_tag 'dams_license[restrictionEndDate]' %>
+  <%= label_tag 'dams_license[restrictionType]', "Restriction Type" %><%= text_field_tag 'dams_license[restrictionType]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>
