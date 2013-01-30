@@ -9,9 +9,6 @@ class DamsLanguageDatastream < ActiveFedora::RdfxmlRDFDatastream
   def valueURI
     ["http://id.loc.gov/vocabulary/iso639-1/#{code.first}"]
   end
-  def vocabulary
-    @vocab ? @vocab : []
-  end
   def vocabulary=(val)
     @vocab = RDF::Resource.new(val)
   end

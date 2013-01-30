@@ -49,7 +49,9 @@ describe DamsLanguageDatastream do
         subject.valueURI.should == ["http://id.loc.gov/vocabulary/iso639-1/fr"]
       end
 
-      # XXX: it "should have a link to vocabulary=Langauge
+      it "should have a vocabulary" do
+        subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb15151515"]
+      end
 
     end
   end
