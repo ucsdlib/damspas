@@ -5,7 +5,7 @@ class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.uri(:in => DAMS, :to => 'otherRightsURI')
     map.restriction(:in => DAMS, :to=>'restriction', :class_name => 'Restriction')
     map.permission(:in => DAMS, :to=>'permission', :class_name => 'Permission')
-#    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.relationship(:in => DAMS, :class_name => 'Relationship')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
@@ -89,37 +89,46 @@ class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-#  def decider
-#    relationship[0] ? relationship[0].name : []
-#  end
-#  def decider=(val)
-#    if relationship[0] == nil
-#      relationship[0] = relationship.build
-#    end
-#    name = MadsName.find( val )
-#    role = DamsRole.find( 'bbXXXXXXX2' )
-#    relationship[0].name = name
-#    relationship[0].role = role
-#  end
-#  class Relationship
-#    include ActiveFedora::RdfObject
-#    rdf_type DAMS.Relationship
-#    map_predicates do |map|
-#      map.name(:in=> DAMS)
-#      map.role(:in=> DAMS)
-#    end
-#
-#    def load
-#      uri = name.first.to_s
-#      md = /\/(\w*)$/.match(uri)
-#      DamsPerson.find(md[1])
-#    end
-#  end
+  def name
+    relationship[0] ? relationship[0].name : []
+  end
+  def name=(val)
+    if relationship[0] == nil
+      relationship[0] = relationship.build
+    end
+    relationship[0].name = RDF::Resource.new(val)
+  end
+  def role
+    relationship[0] ? relationship[0].role : []
+  end
+  def role=(val)
+    if relationship[0] == nil
+      relationship[0] = relationship.build
+    end
+    relationship[0].role = RDF::Resource.new(val)
+  end
+  class Relationship
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Relationship
+    map_predicates do |map|
+      map.name(:in=> DAMS, :to=>'name')
+      map.role(:in=> DAMS, :to=>'role')
+    end
+
+    def load
+      uri = name.first.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsPerson.find(md[1])
+    end
+  end
 
   def to_solr (solr_doc = {})
     solr_doc[ActiveFedora::SolrService.solr_name("basis", type: :text)] = basis
     solr_doc[ActiveFedora::SolrService.solr_name("uri", type: :text)] = uri
     solr_doc[ActiveFedora::SolrService.solr_name("note", type: :text)] = note
+    relationship.map do |relationship|
+      Solrizer.insert_field(solr_doc, 'decider', relationship.load.name )
+    end
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|

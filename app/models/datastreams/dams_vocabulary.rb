@@ -50,4 +50,5 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :otherRightsURI
   property :code
   property :valueURI
+  property :vocabulary
 end
