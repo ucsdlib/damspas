@@ -35,7 +35,7 @@ class DamsRepositoriesController < ApplicationController
   end
 
   def index
-    @repositories = DamsRepository.all
+    @repositories = DamsRepository.all( :order=>"system_create_dtsi asc" )
   end
 
 
