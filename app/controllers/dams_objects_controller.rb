@@ -2,7 +2,7 @@ class DamsObjectsController < ApplicationController
   load_and_authorize_resource
   
   def show
-
+    @dams_object = DamsObject.find(params[:id])
   end
 
   def new
