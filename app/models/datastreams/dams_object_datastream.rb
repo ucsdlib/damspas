@@ -16,12 +16,13 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
     super
+  end
+  
   class Description
     include ActiveFedora::RdfObject
     rdf_type DAMS.Title
     map_predicates do |map|   
       map.value(:in=> RDF)
-    end
   end
   #class AssembledCollection
   #  include ActiveFedora::RdfObject
