@@ -10,9 +10,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
 
-
-  end
-
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
     super
@@ -23,6 +20,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     rdf_type DAMS.Title
     map_predicates do |map|   
       map.value(:in=> RDF)
+    end
   end
   #class AssembledCollection
   #  include ActiveFedora::RdfObject
