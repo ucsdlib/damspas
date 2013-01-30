@@ -1,0 +1,9 @@
+<h1><%= @dams_language.value.first %></h1>
+<div>code: <%= @dams_language.code.first %></div>
+<div>valueURI: <%= @dams_language.valueURI.first %></div>
+<div>
+  <% if can? :edit, DamsLanguage then %>
+    <%= link_to "Edit", edit_dams_language_path(@dams_language), class: "btn btn-primary"%>
+  <% end %>
+  <%= link_to "View All", dams_languages_path, class: "btn btn-primary" %>
+</div>

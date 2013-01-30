@@ -1,0 +1,7 @@
+<h1>Create a new DAMS Language</h1>
+<%= form_for @dams_language do |f| %>
+  <%= label_tag 'dams_language[code]', "Code" %><%= text_field_tag 'dams_language[code]' %>
+  <%= label_tag 'dams_language[value]', "Value" %><%= text_field_tag 'dams_language[value]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>

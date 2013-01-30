@@ -7,12 +7,18 @@ class Ability
   		can [:read], DamsCopyright
   		can [:read], DamsLicense
   		can [:read], DamsStatute
+  		can [:read], DamsRole
+  		can [:read], DamsLanguage
+  		can [:read], DamsVocab
   	else  #login user
     	can [:read, :create, :update], DamsObject
     	can [:read, :create, :update], DamsRepository
     	can [:read, :create, :update], DamsCopyright
     	can [:read, :create, :update], DamsLicense
     	can [:read, :create, :update], DamsStatute
+    	can [:read, :create, :update], DamsRole
+    	can [:read, :create, :update], DamsLanguage
+    	can [:read, :create, :update], DamsVocab
     end
   end
 end

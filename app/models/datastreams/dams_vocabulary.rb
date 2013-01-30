@@ -17,7 +17,6 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :name
   property :assembledCollection
   property :Object
-  property :value
   property :collection
   property :scopeContentNote
   property :displayLabel
@@ -49,4 +48,6 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :otherRightsBasis
   property :otherRightsNote
   property :otherRightsURI
+  property :code
+  property :valueURI
 end
