@@ -1,0 +1,7 @@
+<h1>Create a new DAMS Role</h1>
+<%= form_for @dams_role do |f| %>
+  <%= label_tag 'dams_role[code]', "Code" %><%= text_field_tag 'dams_role[code]' %>
+  <%= label_tag 'dams_role[value]', "Value" %><%= text_field_tag 'dams_role[value]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>

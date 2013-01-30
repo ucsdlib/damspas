@@ -1,0 +1,10 @@
+<h1>Edit DAMS Role</h1>
+<%= form_for @dams_role do |f| %>
+  <%= label_tag 'dams_role[code]', "Code" %><%= text_field_tag 'dams_role[code][]', @dams_role.code[0] %>
+  <%= label_tag 'dams_role[value]', "Value" %><%= text_field_tag 'dams_role[value][]', @dams_role.value[0] %>
+  <%= label_tag 'dams_role[valueURI]', "Value URI" %><%= @dams_role.valueURI[0] %>
+
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_role_path( @dams_role ), class: "btn btn-primary" %>
+<%end%>

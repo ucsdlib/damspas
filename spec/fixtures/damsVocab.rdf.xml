@@ -1,0 +1,6 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Vocabulary rdf:about="http://library.ucsd.edu/ark:/20775/bb15151515">
+    <dams:description>Language</dams:description>
+  </dams:Vocabulary>
+</rdf:RDF>
