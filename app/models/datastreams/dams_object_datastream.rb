@@ -272,6 +272,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     repo_pid = repo_uri.gsub(/.*\//,'')
     if repo_pid != nil && repo_pid != ""
       DamsRepository.find(repo_pid)
+    else
+      nil
     end
   end
   def load_copyright
@@ -414,8 +416,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     repo = load_repository
-    Solrizer.insert_field(solr_doc, 'repository_name', repo.name)
-    Solrizer.insert_field(solr_doc, 'repository_id', repo.pid)
+    if repo.class == DamsRepository
+      Solrizer.insert_field(solr_doc, 'repository_name', repo.name)
+      Solrizer.insert_field(solr_doc, 'repository_id', repo.pid)
+    end
     component.map do |component|
       cid = component.rdf_subject.to_s
       cid = cid.match('\w+$')
