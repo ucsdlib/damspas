@@ -1,5 +1,6 @@
 class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :title
+  property :subtitle
   property :relatedTitle
   property :type
   property :date
@@ -16,11 +17,15 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :role
   property :name
   property :assembledCollection
+  property :AssembledCollection
   property :Object
   property :collection
   property :scopeContentNote
   property :displayLabel
   property :subject
+  property :rightsHolder
+  property :Repository
+  property :repository
   property :repositoryName
   property :repositoryURI
   property :repositoryDescription
@@ -50,4 +55,29 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :otherRightsURI
   property :code
   property :valueURI
+  property :vocabulary
+  property :component
+  property :Component
+  property :file
+  property :File
+  property :sourcePath
+  property :sourceFileName
+  property :formatName
+  property :formatVersion
+  property :mimeType
+  property :use
+  property :size
+  property :crc32checksum
+  property :md5checksum
+  property :sha1checksum
+  property :sha256checksum
+  property :sha512checksum
+  property :dateCreated
+  property :objectCategory
+  property :compositionLevel
+  property :preservationLevel
+  property :quality
+  property :hasComponent
+  property :hasFile
+  property :note
 end

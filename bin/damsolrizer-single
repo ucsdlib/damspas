@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+require 'stomp'
+
+options = {}
+
+optparse = OptionParser.new do|opts|
+  opts.banner = "Usage: solrizer [options]"
+
+  options[:hydra_home] = nil
+  opts.on( '--hydra_home PATH', 'Load the Hydra instance  at this path' ) do |path|
+    if File.exist?(File.join(path,"config","environment.rb"))
+      options[:hydra_home] = path
+    else 
+      puts "#{path} does not appear to be a valid rails home"
+      exit
+    end
+  end
+end
+
+optparse.parse!
+
+begin; require 'rubygems'; rescue; end
+
+if options[:hydra_home]
+  puts "Loading app..."
+  Dir.chdir(options[:hydra_home])
+  require File.join(options[:hydra_home],"config","environment.rb")
+
+  puts "app loaded"
+else
+  $stderr.puts "The --hydra_home PATH option is mandatory. Please provide the path to the root of a valid Hydra instance."
+  exit 1
+end
+
+begin
+  ARGV.each do |pid|
+    puts "\nPID: #{pid}\n"
+    solrizer = Solrizer::Fedora::Solrizer.new
+    solrizer.solrize pid
+    puts  "updated solr index for #{pid}\n"
+  end
+rescue Exception => e
+p e
+end

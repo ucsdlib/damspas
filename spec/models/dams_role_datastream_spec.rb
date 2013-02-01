@@ -48,7 +48,9 @@ describe DamsRoleDatastream do
         subject.valueURI.should == ["http://id.loc.gov/vocabulary/relators/cre"]
       end
 
-      # XXX: it "should have a link to Role vocabulary
+      it "should have a vocabulary" do
+        subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb14141414"]
+      end
 
     end
   end

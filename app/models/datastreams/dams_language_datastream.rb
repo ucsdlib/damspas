@@ -3,17 +3,21 @@ class DamsLanguageDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.code(:in => DAMS, :to => 'code')
     map.value(:in => RDF, :to => 'value')
     map.valueURI(:in => DAMS, :to => 'valueURI')
-    #map.vocabulary(:in => DAMS, :to => 'vocabulary')
+    map.vocabulary(:in => DAMS, :to => 'vocabulary')
   end
 
   def valueURI
     ["http://id.loc.gov/vocabulary/iso639-1/#{code.first}"]
+  end
+  def vocabulary=(val)
+    @vocab = RDF::Resource.new(val)
   end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Language]) if new?
+    graph.insert([rdf_subject, DAMS.vocabulary, @vocab]) if new?
     super
   end
 
