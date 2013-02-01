@@ -77,7 +77,6 @@ describe DamsObjectDatastream do
         subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb80808080"
       end
       
-      
       it "should have fields" do
         subject.resource_type.should == ["mixed material"]
         subject.title.should == ["Sample Complex Object Record #1"]
