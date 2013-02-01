@@ -34,6 +34,21 @@
 					  <dt>Subject</dt>
 					  <dd><%= @dams_object.subject.join(", ") %></dd>
 						<% end %>
+						<% if (!@dams_object.languages.empty?) %>
+					  <dt>Language</dt>
+					  <dd><%= @dams_object.languages.first.value.first %></dd>
+						<% end %>
+						<% if (!@dams_object.repositories.nil?) %>
+					  <dt>Repository</dt>
+					  <dd><%= @dams_object.repositories.name.first %></dd>
+						<% end %>
+						<% if (!@dams_object.copyrights.nil?) %>
+					  <dt>Copyright</dt>
+					  <dd>Begin Date: <%= @dams_object.copyrights.beginDate.first %></dd>
+						<dd>Status: <%= @dams_object.copyrights.status.first %></dd>
+						<dd>Purpose Note: <%= @dams_object.copyrights.purposeNote.first %></dd>
+						<% end %>
+						<!-- todo: licenses, statutes, otherRights, rightsHolders... -->
 					</dl>
 				</div>
 			</div>
