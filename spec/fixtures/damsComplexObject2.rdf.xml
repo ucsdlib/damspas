@@ -3,7 +3,7 @@
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
   <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080">
-    <dams:repository rdf:resource="http://library.ucsd.edu/ark:/20775/bb45454545"/>
+    <dams:repository rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
     <dams:collection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
     <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
     <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
