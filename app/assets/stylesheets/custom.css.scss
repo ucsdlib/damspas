@@ -1,3 +1,69 @@
-body {
-    padding-top: 0em;
-    }
+/*----------------------*/
+/* BLACKLIGHT OVERRIDES */
+/*----------------------*/
+body{padding-top:0;}/* remove blacklight's crazy top padding */
+.navbar .brand{width:inherit;background:none;display:inherit;text-indent:inherit;white-space:inherit;overflow:inherit;padding-right:0;margin:0;padding-left:0;}/* remove blacklight's branding */
+
+/*---------------------*/
+/* BOOTSTRAP OVERRIDES */
+/*---------------------*/
+.navbar-inverse .brand{text-transform:uppercase;}/* display "project name" in uppercase letters */
+.navbar .btn-navbar{margin-left:0;margin-right:0;}/* remove default side margins from mobile button */
+.navbar-inverse .navbar-inner{border-radius:0;border:none;border-bottom:1px solid #95afc9;}/* remove default rounded corners and border from navbar. set bottom border. */
+.navbar-inverse .nav-collapse .nav > li > a:hover{background:rgba(0,53,87,0.75);}/* mobile .nav link hover effect fix */
+
+/*---------------------*/
+/* UCSD LIBRARY CUSTOM */
+/*---------------------*/
+
+/* FOOTER */
+footer{margin-top:20px;border-top:1px solid #ccc;color:#999;line-height:1.5;font-size:90%;}
+footer section{margin:20px;background:url("/assets/ucsd/logo-ucsd-footer.png") no-repeat 100% 0;}
+footer address,footer p{margin:0;}
+ul.inline > li{padding-left:0;padding-right:0;}
+
+/* UCSD GOODNESS */
+.ucsd-head{background:url("/assets/ucsd/bg.jpg") repeat 0 0;border-bottom:#e8f3ff solid 1px;}
+.ucsd-head-logo{padding:20px 0;}
+.ucsd-head .brand{color:#fff;display:block;float:left;font-size:24px;margin:32px 0 0 0;padding:0;text-transform:uppercase;}
+
+/*---------------*/
+/* MEDIA QUERIES */
+/*---------------*/
+
+/* LARGE DESKTOP (BOOTSTRAP) */
+@media (min-width: 1200px) {}
+ 
+/* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
+@media (min-width: 768px) and (max-width: 979px) {}
+
+/* DESKTOP NAVBAR (CUSTOM) */
+@media (min-width: 980px)
+{
+	.navbar-inverse .navbar-inner{background-color:#bcd6e6;background-image:-webkit-linear-gradient(top,#e1ecff,#bcd6e6);background-image:linear-gradient(to bottom,#e1ecff,#bcd6e6);background-repeat:repeat-x;}/*set background of desktop navbar*/
+	.navbar-inverse .nav-collapse .nav > li > a,.navbar-inverse .nav .active > a,.navbar-inverse .nav .active > a:hover,.navbar-inverse .nav .active > a:focus,.navbar-inverse .navbar-text,.navbar-inverse .navbar-link,.navbar-inverse .navbar-link:hover{color:#004B6E;}/* set text color of desktop navbar text/links/buttons */
+	.navbar-inverse .navbar-link{font-weight:bold;}/* make desktop "logged in" links bold */
+	.navbar-inverse .nav-collapse .nav > li:first-child{border-left:1px solid #B3CBDC;}/*set desktop menu button borders (1/2)*/
+	.navbar-inverse .nav-collapse .nav > li{border-right:1px solid #B3CBDC;}/*set desktop menu button borders (2/2)*/
+	.navbar-inverse .nav-collapse .nav > li > a{background-color:#d7e6f0;text-shadow:none;}/*set bg of desktop menu buttons*/
+	.navbar-inverse .nav-collapse .nav > li > a:hover{background-color:#fff;}/*set hover effect of desktop menu buttons*/
+	.navbar-inverse .nav li.dropdown > .dropdown-toggle .caret,.navbar-inverse .nav li.dropdown > a:hover .caret{border-bottom-color:#004B6E;border-top-color:#004B6E;}/*set color of desktop menu dropdown caret*/
+}
+
+/* MOBILE NAVBAR (CUSTOM) */
+@media (max-width: 979px)
+{
+	.navbar-inverse .navbar-inner{background: url("/assets/ucsd/bg.png") repeat 0 0;}/* add campus background to mobile */
+	.navbar-inverse .navbar-text{display:none;}/* hide "username" text in mobile for now. TODO: move "username" string elsewhere. */
+}
+
+/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
+@media (max-width: 767px)
+{
+	body{padding:0;}/* remove left and right gutters from mobile (1/2) */
+	.container-fluid{padding:0 20px;}/* remove left and right gutters from mobile (2/2) */
+	footer section{background:none;}/* hide ucsd logo in mobile footer */
+}
+ 
+/* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
+@media (max-width: 480px) {}
