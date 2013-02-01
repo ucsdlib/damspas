@@ -66,6 +66,79 @@ describe DamsObjectDatastream do
       end
 
     end
+
+    describe "a complex object with flat component list" do
+      subject do
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bb80808080', :new? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
+        subject
+      end
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb80808080"
+      end
+      
+      
+      it "should have fields" do
+        subject.resource_type.should == ["mixed material"]
+        subject.title.should == ["Sample Complex Object Record #1"]
+        subject.subtitle.should == ["a dissertation with a single attached image"]
+        subject.relatedResource.first.type.should == ["online exhibit"]
+        subject.relatedResource.first.uri.should == ["http://foo.com/1234"]
+        subject.relatedResource.first.description.should == ["Sample Complex Object Record #1: The Exhibit!"]
+      end
+
+      it "should have inline subjects" do
+        subject.subject.first.should == "Black Panther Party--History"
+      end
+
+      it "should have relationship" do
+        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+      end
+
+      it "should have components with type DAMS.Component" do
+        DamsObjectDatastream::Component.rdf_type.should == DAMS.Component
+      end
+
+      it "should have a first component with basic metadata" do
+        subject.component.first.title.first.value.should == ["The Static Image"]
+        subject.component.first.title.first.subtitle.should == ["Foo!"]
+        subject.component.first.title.first.type.should == ["main"]
+        subject.component.first.date.first.value.should == ["June 24-25, 2012"]
+        subject.component.first.date.first.beginDate.should == ["2012-06-24"]
+        subject.component.first.date.first.endDate.should == ["2012-06-25"]
+        subject.component.first.note.first.value.should == ["1 PDF (xi, 111 p.)"]
+        subject.component.first.note.first.displayLabel.should == ["Extent"]
+        subject.component.first.note.first.type.should == ["dimensions"]
+      end
+      it "should have a first component with two attached files" do
+        subject.component.first.file.first.rdf_subject.should == "http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf"
+        subject.component.first.file.second.rdf_subject.should == "http://library.ucsd.edu/ark:/20775/bb80808080/1/2.jpg"
+      end
+      it "should have a first component with a first file with file metadata" do
+        subject.component.first.file.first.sourcePath.should == ["src/sample/files"]
+        subject.component.first.file.first.sourceFileName.should == ["comparison-1.pdf"]
+        subject.component.first.file.first.formatName.should == ["PDF"]
+        subject.component.first.file.first.formatVersion.should == ["1.3"]
+        subject.component.first.file.first.mimeType.should == ["application/pdf"]
+        subject.component.first.file.first.use.should == ["document-service"]
+        subject.component.first.file.first.size.should == ["20781"]
+        subject.component.first.file.first.crc32checksum.should == ["2bbbc159"]
+        subject.component.first.file.first.md5checksum.should == ["733b4bf1c94e13104dab7b6c759a4a1d"]
+        subject.component.first.file.first.sha1checksum.should == ["afe6fd487d598b158d593e8309d15178bba76332"]
+        subject.component.first.file.first.dateCreated.should == ["2012-06-24T08:38:21-0800"]
+        subject.component.first.file.first.objectCategory.should == ["file"]
+        subject.component.first.file.first.compositionLevel.should == ["0"]
+        subject.component.first.file.first.preservationLevel.should == ["full"]
+      end
+
+      it "should have solr doc" do
+        solr_doc = subject.to_solr
+        solr_doc["component_1_title_tesim"].should == ["The Static Image"]
+        solr_doc["component_2_title_tesim"].should == ["Supplementary Image"]
+#puts solr_doc
+      end
+    end
   end
   
   describe "::Date" do
@@ -84,16 +157,16 @@ describe DamsObjectDatastream do
 	  end
 	  it "should create a xml" do
 	    xml =<<END
-	   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#" xmlns:ns1="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+	   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#">
   <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb52572546">
     <dams:date>
       <dams:Date>
-        <ns1:value>2013</ns1:value>
+        <rdf:value>2013</rdf:value>
       </dams:Date>
     </dams:date>
     <dams:title>
       <dams:Title>
-        <ns1:value>Test Title</ns1:value>
+        <rdf:value>Test Title</rdf:value>
       </dams:Title>
     </dams:title>
   </dams:Object>
