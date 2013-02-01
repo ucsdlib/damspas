@@ -7,8 +7,9 @@ describe DamsRole do
   end
   it "should create xml" do
     subject.code = "cre"
-    subject.valueURI = "http://id.loc.gov/vocabulary/relators/cre"
     subject.value = "Creator"
+    subject.valueURI = "http://id.loc.gov/vocabulary/relators/cre"
+    subject.vocabulary = "http://library.ucsd.edu/ark:/20775/bb15151515"
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#">
@@ -16,11 +17,11 @@ describe DamsRole do
     <dams:code>cre</dams:code>
     <rdf:value>Creator</rdf:value>
     <dams:valueURI>http://id.loc.gov/vocabulary/relators/cre</dams:valueURI>
+    <dams:vocabulary rdf:resource="http://library.ucsd.edu/ark:/20775/bb15151515"/>
   </dams:Role>
 </rdf:RDF>
 END
 
-# <dams:vocabulary rdf:resource="http://library.ucsd.edu/ark:/20775/bb15151515"/>
 
     subject.damsMetadata.content.should be_equivalent_to xml
 

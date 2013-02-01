@@ -1,3 +1,6 @@
+<% @dams_object.languages.each do |lang| %>
+    <p><%= lang.code.first %>: <%= lang.value.first %></p>
+<% end %>
 <ul>
   <li><a href="/">home</a></li>        
  </ul>

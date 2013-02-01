@@ -57,6 +57,7 @@ describe DamsOtherRightsDatastream do
         subject
       end
 
+
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb05050505"
       end
@@ -79,10 +80,10 @@ describe DamsOtherRightsDatastream do
         subject.permissionType.should == ["display"]
       end
 
-#      it "should have relationship" do
-#        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
-#        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"
-#      end
+      it "should have relationship" do
+        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"
+      end
 
     end
   end

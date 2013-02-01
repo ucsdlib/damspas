@@ -1,0 +1,250 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080">
+    <dams:repository rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
+    <dams:collection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
+    <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
+    <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
+    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
+    <dams:typeOfResource>mixed material</dams:typeOfResource>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>Local ID</dams:displayLabel>
+        <rdf:value>b6700311</rdf:value>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>ARK ID</dams:displayLabel>
+        <rdf:value>http://libraries.ucsd.edu/ark:/20775/bb80808080</rdf:value>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:subject>
+      <mads:ComplexSubject>
+        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX7"/>
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
+        </mads:elementList>
+      </mads:ComplexSubject>
+    </dams:subject>
+    <dams:subject rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"/>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Dissertation is in English.</rdf:value>
+        <dams:displayLabel>language</dams:displayLabel>
+        <dams:type>language_of_materials</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:date>
+      <dams:Date>
+        <rdf:value>2010</rdf:value>
+        <dams:encoding>ISO8601</dams:encoding>
+        <dams:type>creation</dams:type>
+        <dams:endDate>2010-01-01</dams:endDate>
+        <dams:beginDate>2010-12-31</dams:beginDate>
+      </dams:Date>
+    </dams:date>
+    <dams:title>
+      <dams:Title>
+        <rdf:value>Sample Complex Object Record</rdf:value>
+        <dams:subtitle>a dissertation with two attached images</dams:subtitle>
+        <dams:type>main</dams:type>
+      </dams:Title>
+    </dams:title>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1">
+        <dams:note>
+          <dams:Note>
+            <rdf:value>1 PDF (xi, 111 p.)</rdf:value>
+            <dams:displayLabel>Extent</dams:displayLabel>
+            <dams:type>dimensions</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>The Comparison of Before and After</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:date>
+          <dams:Date>
+            <rdf:value>June 24, 2012</rdf:value>
+            <dams:beginDate>2012-06-24</dams:beginDate>
+            <dams:endDate>2012-06-24</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf">
+            <dams:sourcePath>src/sample/files</dams:sourcePath>
+            <dams:sourceFileName>comparison-1.pdf</dams:sourceFileName>
+            <dams:formatName>PDF</dams:formatName>
+            <dams:formatVersion>1.3</dams:formatVersion>
+            <dams:mimeType>application/pdf</dams:mimeType>
+            <dams:use>document-service</dams:use>
+            <dams:size>20781</dams:size>
+            <dams:crc32checksum>2bbbc159</dams:crc32checksum>
+            <dams:md5checksum>733b4bf1c94e13104dab7b6c759a4a1d</dams:md5checksum>
+            <dams:sha1checksum>afe6fd487d598b158d593e8309d15178bba76332</dams:sha1checksum>
+            <dams:dateCreated>2012-06-24T08:38:21-0800</dams:dateCreated>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:preservationLevel>full</dams:preservationLevel>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/2.jpg">
+            <dams:crc32checksum>4393b6cf</dams:crc32checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:md5checksum>795d1bad143b3344e8ee4350ee9a6aca</dams:md5checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:use>visual-thumbnail</dams:use>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sha1checksum>692058cb537545542b1d5fdd94e41d2250a51ba8</dams:sha1checksum>
+            <dams:sourcePath>/pub/data1/dams/localStore/bb/80/80/80/80</dams:sourcePath>
+            <dams:dateCreated>2013-01-31T09:02:33-0500</dams:dateCreated>
+            <dams:quality>154x200</dams:quality>
+            <dams:sourceFileName>20775-bb80808080-1-2.jpg</dams:sourceFileName>
+            <dams:size>115038</dams:size>
+            <dams:compositionLevel>0</dams:compositionLevel>
+          </dams:File>
+        </dams:hasFile>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/2">
+        <dams:title>
+          <dams:Title>
+            <rdf:value>Supplementary Materials</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>2 JPEGs</rdf:value>
+            <dams:displayLabel>Extent</dams:displayLabel>
+            <dams:type>dimensions</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/3">
+            <dams:title>
+              <dams:Title>
+                <rdf:value>Image 1 - Before</rdf:value>
+              </dams:Title>
+            </dams:title>
+            <dams:date>
+              <dams:Date>
+                <rdf:value>May 24, 2012</rdf:value>
+                <dams:beginDate>2012-05-24</dams:beginDate>
+                <dams:endDate>2012-05-24</dams:endDate>
+              </dams:Date>
+            </dams:date>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/3/1.jpg">
+                <dams:sourcePath>src/sample/files</dams:sourcePath>
+                <dams:sourceFileName>comparison-2a.jpg</dams:sourceFileName>
+                <dams:formatName>JPEG</dams:formatName>
+                <dams:formatVersion>1.01</dams:formatVersion>
+                <dams:mimeType>image/jpeg</dams:mimeType>
+                <dams:use>visual-service</dams:use>
+                <dams:size>103440</dams:size>
+                <dams:quality>400x400</dams:quality>
+                <dams:crc32checksum>c68da20e</dams:crc32checksum>
+                <dams:md5checksum>c332f2230f9fb0f902821993eba740f3</dams:md5checksum>
+                <dams:sha1checksum>7c03ef1630da9d3a4109f18e4fa486d1b089f9cd</dams:sha1checksum>
+                <dams:dateCreated>2012-05-24T09:00:21-0800</dams:dateCreated>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:compositionLevel>0</dams:compositionLevel>
+                <dams:preservationLevel>full</dams:preservationLevel>
+              </dams:File>
+            </dams:hasFile>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/3/2.jpg">
+                <dams:crc32checksum>7f261fc2</dams:crc32checksum>
+                <dams:formatVersion>1.01</dams:formatVersion>
+                <dams:md5checksum>3d882164cc604943f07b70fbacf7108b</dams:md5checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:formatName>JPEG</dams:formatName>
+                <dams:use>visual-thumbnail</dams:use>
+                <dams:mimeType>image/jpeg</dams:mimeType>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:sha1checksum>b6cdbfee111f984ca168f7e0a96035d836197d6b</dams:sha1checksum>
+                <dams:sourcePath>/pub/data1/dams/localStore/bb/80/80/80/80</dams:sourcePath>
+                <dams:dateCreated>2013-01-31T09:02:33-0500</dams:dateCreated>
+                <dams:quality>200x200</dams:quality>
+                <dams:sourceFileName>20775-bb80808080-3-2.jpg</dams:sourceFileName>
+                <dams:size>26516</dams:size>
+                <dams:compositionLevel>0</dams:compositionLevel>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/4">
+            <dams:title>
+              <dams:Title>
+                <rdf:value>Image 2 - After</rdf:value>
+              </dams:Title>
+            </dams:title>
+            <dams:date>
+              <dams:Date>
+                <rdf:value>June 6, 2012</rdf:value>
+                <dams:beginDate>2012-06-06</dams:beginDate>
+                <dams:endDate>2012-06-06</dams:endDate>
+              </dams:Date>
+            </dams:date>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/4/1.jpg">
+                <dams:sourcePath>src/sample/files</dams:sourcePath>
+                <dams:sourceFileName>comparison-2b.jpg</dams:sourceFileName>
+                <dams:formatName>JPEG</dams:formatName>
+                <dams:formatVersion>1.01</dams:formatVersion>
+                <dams:mimeType>image/jpeg</dams:mimeType>
+                <dams:use>visual-service</dams:use>
+                <dams:quality>400x400</dams:quality>
+                <dams:size>105840</dams:size>
+                <dams:crc32checksum>324638f1</dams:crc32checksum>
+                <dams:md5checksum>1d739503ab739912f9a35d380eac90c9</dams:md5checksum>
+                <dams:sha1checksum>571f32909e8d49eea38418c6c8ec66a3bcc7befa</dams:sha1checksum>
+                <dams:dateCreated>2012-06-06T04:45:01-0800</dams:dateCreated>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:compositionLevel>0</dams:compositionLevel>
+                <dams:preservationLevel>full</dams:preservationLevel>
+              </dams:File>
+            </dams:hasFile>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/4/2.jpg">
+                <dams:crc32checksum>56728380</dams:crc32checksum>
+                <dams:formatVersion>1.01</dams:formatVersion>
+                <dams:md5checksum>42e5eb170555524c56cf741d1475d7ea</dams:md5checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:formatName>JPEG</dams:formatName>
+                <dams:use>visual-thumbnail</dams:use>
+                <dams:mimeType>image/jpeg</dams:mimeType>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:sha1checksum>908ed35c07bd3de5471bdea993fd30afd71b704e</dams:sha1checksum>
+                <dams:sourcePath>/pub/data1/dams/localStore/bb/80/80/80/80</dams:sourcePath>
+                <dams:dateCreated>2013-01-31T09:02:33-0500</dams:dateCreated>
+                <dams:quality>200x200</dams:quality>
+                <dams:sourceFileName>20775-bb80808080-4-2.jpg</dams:sourceFileName>
+                <dams:size>27154</dams:size>
+                <dams:compositionLevel>0</dams:compositionLevel>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+      </dams:Component>
+    </dams:hasComponent>
+  </dams:Object>
+</rdf:RDF>

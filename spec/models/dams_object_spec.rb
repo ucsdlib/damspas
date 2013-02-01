@@ -6,12 +6,10 @@ describe DamsObject do
     @damsObj = DamsObject.new(pid: 'bb52572546')
   end
   
-
-  
   it "should have the specified datastreams" do
     @damsObj.datastreams.keys.should include("damsMetadata")
     @damsObj.damsMetadata.should be_kind_of DamsObjectDatastream
- end
+  end
   
   it "should create/update a title" do
     @damsObj.title.should == []
@@ -48,5 +46,15 @@ describe DamsObject do
       loadedObj.title.should == ["Chicano and black radical activism of the 1960s"]
     end
   end
-end
 
+  subject do
+    DamsObject.new pid: 'bb80808080'
+  end
+  it "should load a complex object from RDF/XML file" do
+    subject = DamsObject.new(:pid=>'bb80808080')
+
+    subject.damsMetadata.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
+    subject.title.should == ["Sample Complex Object Record #1"]
+    subject.component.first.title.first.value.should == ["The Static Image"]
+  end
+end

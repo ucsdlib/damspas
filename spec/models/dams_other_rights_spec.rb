@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
+require 'rdf'
 
 describe DamsOtherRights do
   subject do
@@ -12,7 +13,9 @@ describe DamsOtherRights do
     subject.permissionType = "display"
     subject.permissionBeginDate = "2012-01-01"
     subject.permissionEndDate = "2012-12-31"
-    #subject.decider = 'http://library.ucsd.edu/ark:/20775/bbXXXXXXX1'
+    subject.name = "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+    subject.role = "http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"
+
 
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#">
@@ -27,16 +30,15 @@ describe DamsOtherRights do
         <dams:endDate>2012-12-31</dams:endDate>
       </dams:Permission>
     </dams:permission>
+    <dams:relationship>
+      <dams:Relationship>
+       <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
+       <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"/>
+      </dams:Relationship>
+    </dams:relationship>
   </dams:OtherRights>
 </rdf:RDF>
 END
-#<dams:relationship>
-#  <dams:Relationship>
-#    <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
-#    <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"/>
-#  </dams:Relationship>
-#</dams:relationship>
-
     subject.damsMetadata.content.should be_equivalent_to xml
 
   end
