@@ -39,7 +39,7 @@
 						<% end %>
 						<% if (!@dams_object.repositories.nil?) %>
 					  <dt>Repository</dt>
-					  <dd><%= @dams_object.repositories.name.first %></dd>
+					  <dd><%= link_to @dams_object.repositories.name.first, dams_repository_path(@dams_object.repositories) %>
 						<% end %>
 						<% if (!@dams_object.copyrights.nil?) %>
 					  <dt>Copyright</dt>
