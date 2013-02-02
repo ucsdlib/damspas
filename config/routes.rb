@@ -23,6 +23,7 @@ Hydra::Application.routes.draw do
   resources :dams_subjects, :only => [:show]
 
   resources :dams_objects
+  resources :dams_assembled_collections
   resources :dams_repositories
   resources :dams_copyrights
   resources :dams_licenses

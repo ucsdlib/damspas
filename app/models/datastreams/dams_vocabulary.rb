@@ -21,6 +21,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :Object
   property :collection
   property :scopeContentNote
+  property :ScopeContentNote
   property :displayLabel
   property :subject
   property :rightsHolder

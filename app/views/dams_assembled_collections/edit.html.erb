@@ -1,0 +1,15 @@
+<h1>Edit DAMS Assembled Collection</h1>
+<%= form_for @dams_assembled_collection do |f| %>
+  <%= label_tag 'dams_assembled_collection[titleValue]', "Title" %><%= text_field_tag 'dams_assembled_collection[titleValue][]', @dams_assembled_collection.titleValue[0] %>
+  <%= label_tag 'dams_assembled_collection[titleType]', "Title Type" %><%= text_field_tag 'dams_assembled_collection[titleType][]', @dams_assembled_collection.titleType[0] %>
+  <%= label_tag 'dams_assembled_collection[dateValue]', "Date Value" %><%= text_field_tag 'dams_assembled_collection[dateValue][]', @dams_assembled_collection.dateValue[0] %>
+  <%= label_tag 'dams_assembled_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_assembled_collection[beginDate][]', @dams_assembled_collection.beginDate[0] %>
+  <%= label_tag 'dams_assembled_collection[endDate]', "End Date" %><%= text_field_tag 'dams_assembled_collection[endDate][]', @dams_assembled_collection.endDate[0] %>
+  <%= label_tag 'dams_assembled_collection[scopeContentNoteValue]', "Scope Note" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteValue][]', @dams_assembled_collection.scopeContentNoteValue[0] %>
+  <%= label_tag 'dams_assembled_collection[scopeContentNoteType]', "Scope Note Type" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteType][]', @dams_assembled_collection.scopeContentNoteType[0] %>
+  <%= label_tag 'dams_assembled_collection[scopeContentNoteDisplayLabel]', "Scope Note DisplayLabel" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteDisplayLabel][]', @dams_assembled_collection.scopeContentNoteDisplayLabel[0] %>
+
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_assembled_collection_path( @dams_assembled_collection ), class: "btn btn-primary" %>
+<%end%>
