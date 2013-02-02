@@ -2,13 +2,12 @@
 	<!-- main metadata -->
 	<div class="span12">
 		<div class="row-fluid">
-			<div class="span9">
+			<div class="span8">
 				Main Section
 				<div class="row-fluid well">
 					File goes here
 				</div>
 				<div class="row-fluid well">
-					Metadata:
 					<dl>
 						<% if (!@dams_object.title.empty?) %>
 					  <dt>Title</dt>
@@ -34,7 +33,7 @@
 					  <dt>Subject</dt>
 					  <dd><%= @dams_object.subject.join(", ") %></dd>
 						<% end %>
-						<% if (!@dams_object.languages.empty?) %>
+						<% if (!@dams_object.languages.empty? && !@dams_object.languages.first.blank?) %>
 					  <dt>Language</dt>
 					  <dd><%= @dams_object.languages.first.value.first %></dd>
 						<% end %>
@@ -48,11 +47,22 @@
 						<dd>Status: <%= @dams_object.copyrights.status.first %></dd>
 						<dd>Purpose Note: <%= @dams_object.copyrights.purposeNote.first %></dd>
 						<% end %>
-						<!-- todo: licenses, statutes, otherRights, rightsHolders... -->
+						<!-- todo: otherRights, rightsHolders... -->
+						<% if (!@dams_object.licenses.nil?) %>
+					  <dt>License</dt>
+					  <dd>Begin Date: <%= @dams_object.licenses.note.first %></dd>
+						<dd>Status: <%= @dams_object.licenses.uri.first %></dd>
+						<% end %>
+						<% if (!@dams_object.statutes.nil?) %>
+					  <dt>Statutes</dt>
+					  <dd>Citation: <%= @dams_object.statutes.citation.first %></dd>
+						<dd>Jurisdiction: <%= @dams_object.statutes.jurisdiction.first %></dd>
+						<dd>Note: <%= @dams_object.statutes.note.first %></dd>
+						<% end %>
 					</dl>
 				</div>
 			</div>
-			<div class="span3">
+			<div class="span4">
 				Sidebar widgets here
 			</div>
 		</div>
