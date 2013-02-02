@@ -1,7 +1,29 @@
-@import 'bootstrap';
-/* @import 'bootstrap-responsive'; */
-@import 'blacklight/blacklight'; 
+//-------------------------------------------------------
+// BOOTSTRAP VARIABLES -- These must come before @imports
+//-------------------------------------------------------
 
-/* Library CSS */
-/* @import url("http://ucsd.edu/common/cwp/active-cherry/base-min.css"); */
-/* @import url("http://ucsd.edu/common/cwp/active-cherry/cms-min.css"); */
+// Custom Values
+$booberry:                          rgba(0,53,87,0.75) !default;
+
+// Global Values
+$white:                             #fff !default;
+$linkColor:                         #016691 !default;
+$btnPrimaryBackgroundHighlight:     darken($linkColor, 15%) !default;
+$dropdownLinkBackgroundActive:      $booberry !default;
+$dropdownLinkBackgroundHover:       $booberry !default;
+$navbarText:                        rgba($white,0.5) !default;
+$navbarInverseBackground:           $linkColor !default;
+$navbarInverseBackgroundHighlight:  darken($navbarInverseBackground, 3%) !default;
+$navbarInverseBorder:               transparent !default;
+$navbarInverseText:                 $white !default;
+$navbarInverseLinkColor:            $white !default;
+$navbarInverseLinkBackgroundHover:  $booberry !default;
+$navbarInverseLinkBackgroundActive: $booberry !default;
+
+//---
+// @imports
+//---
+
+@import 'bootstrap';
+@import 'bootstrap-responsive';
+@import 'blacklight/blacklight';
