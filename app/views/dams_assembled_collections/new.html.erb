@@ -1,0 +1,15 @@
+<h1>New DAMS Assembled Collection</h1>
+<%= form_for @dams_assembled_collection do |f| %>
+  <%= label_tag 'dams_assembled_collection[titleValue]', "Title" %><%= text_field_tag 'dams_assembled_collection[titleValue][]'%>
+  <%= label_tag 'dams_assembled_collection[titleType]', "Title Type" %><%= text_field_tag 'dams_assembled_collection[titleType][]'%>
+  <%= label_tag 'dams_assembled_collection[dateValue]', "Date Value" %><%= text_field_tag 'dams_assembled_collection[dateValue][]'%>
+  <%= label_tag 'dams_assembled_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_assembled_collection[beginDate][]'%>
+  <%= label_tag 'dams_assembled_collection[endDate]', "End Date" %><%= text_field_tag 'dams_assembled_collection[endDate][]'%>
+  <%= label_tag 'dams_assembled_collection[scopeContentNoteValue]', "Scope Note" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteValue][]'%>
+  <%= label_tag 'dams_assembled_collection[scopeContentNoteType]', "Scope Note Type" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteType][]'%>
+  <%= label_tag 'dams_assembled_collection[scopeContentNoteDisplayLabel]', "Scope Note DisplayLabel" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteDisplayLabel][]'%>
+
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_assembled_collections_path, class: "btn btn-primary" %>
+<%end%>
