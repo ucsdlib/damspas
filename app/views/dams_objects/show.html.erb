@@ -10,67 +10,75 @@
 	<div class="span12">
 		<div class="row-fluid">
 			<div class="span8">
-				Main Section
 				<div class="row-fluid well">
-					File goes here
+					<div class="span12">
+						<!-- TODO: File Viewer implementation -->
+						File goes here
+					</div>
 				</div>
 				<div class="row-fluid well">
-					<dl>
-						<% if (!@dams_object.title.empty?) %>
-					  <dt>Title</dt>
-					  <dd><%= @dams_object.title.join(", ") %></dd>
-						<% end %>
-						<% if (!@dams_object.subtitle.empty?) %>
-					  <dt>Subtitle</dt>
-					  <dd><%= @dams_object.subtitle.join(", ") %></dd>
-						<% end %>
-						<% if (!@dams_object.date.empty?) %>
-					  <dt>Date</dt>
-					  <dd><%= @dams_object.date.join(", ") %></dd>
-						<% end %>
-						<% if (!@dams_object.beginDate.empty?) %>
-					  <dt>Begin Date</dt>
-					  <dd><%= @dams_object.beginDate.join(", ") %></dd>
-						<% end %>
-						<% if (!@dams_object.endDate.empty?) %>
-					  <dt>End Date</dt>
-					  <dd><%= @dams_object.endDate.join(", ") %></dd>
-						<% end %>
-						<% if (!@dams_object.subject.empty?) %>
-					  <dt>Subject</dt>
-					  <dd><%= @dams_object.subject.join(", ") %></dd>
-						<% end %>
-						<% if (!@dams_object.languages.empty? && !@dams_object.languages.first.blank?) %>
-					  <dt>Language</dt>
-					  <dd><%= @dams_object.languages.first.value.first %></dd>
-						<% end %>
-						<% if (!@dams_object.repositories.nil?) %>
-					  <dt>Repository</dt>
-					  <dd><%= link_to @dams_object.repositories.name.first, dams_repository_path(@dams_object.repositories) %>
-						<% end %>
-						<% if (!@dams_object.copyrights.nil?) %>
-					  <dt>Copyright</dt>
-					  <dd>Begin Date: <%= @dams_object.copyrights.beginDate.first %></dd>
-						<dd>Status: <%= @dams_object.copyrights.status.first %></dd>
-						<dd>Purpose Note: <%= @dams_object.copyrights.purposeNote.first %></dd>
-						<% end %>
-						<!-- todo: otherRights, rightsHolders... -->
-						<% if (!@dams_object.licenses.nil?) %>
-					  <dt>License</dt>
-					  <dd>Begin Date: <%= @dams_object.licenses.note.first %></dd>
-						<dd>Status: <%= @dams_object.licenses.uri.first %></dd>
-						<% end %>
-						<% if (!@dams_object.statutes.nil?) %>
-					  <dt>Statutes</dt>
-					  <dd>Citation: <%= @dams_object.statutes.citation.first %></dd>
-						<dd>Jurisdiction: <%= @dams_object.statutes.jurisdiction.first %></dd>
-						<dd>Note: <%= @dams_object.statutes.note.first %></dd>
-						<% end %>
-					</dl>
+					<div class="span12">
+						<dl>
+							<% if (!@dams_object.title.empty?) %>
+								<dt>Title</dt>
+								<dd><%= @dams_object.title.join(", ") %></dd>
+							<% end %>
+							<% if (!@dams_object.subtitle.empty?) %>
+								<dt>Subtitle</dt>
+								<dd><%= @dams_object.subtitle.join(", ") %></dd>
+							<% end %>
+							<% if (!@dams_object.date.empty?) %>
+								<dt>Date</dt>
+								<dd><%= @dams_object.date.join(", ") %></dd>
+							<% end %>
+							<% if (!@dams_object.beginDate.empty?) %>
+								<dt>Begin Date</dt>
+								<dd><%= @dams_object.beginDate.join(", ") %></dd>
+							<% end %>
+							<% if (!@dams_object.endDate.empty?) %>
+								<dt>End Date</dt>
+								<dd><%= @dams_object.endDate.join(", ") %></dd>
+							<% end %>
+							<% if (!@dams_object.subject.empty?) %>
+								<dt>Subject</dt>
+								<dd><%= @dams_object.subject.join(", ") %></dd>
+							<% end %>
+							<% if (!@dams_object.languages.empty? && !@dams_object.languages.first.blank?) %>
+								<dt>Language</dt>
+								<dd><%= @dams_object.languages.first.value.first %></dd>
+							<% end %>
+							<% if (!@dams_object.repositories.nil?) %>
+								<dt>Repository</dt>
+								<dd><%= link_to @dams_object.repositories.name.first, dams_repository_path(@dams_object.repositories) %>
+							<% end %>
+							<% if (!@dams_object.copyrights.nil?) %>
+								<dt>Copyright</dt>
+								<dd>Begin Date: <%= @dams_object.copyrights.beginDate.first %></dd>
+								<dd>Status: <%= @dams_object.copyrights.status.first %></dd>
+								<dd>Purpose Note: <%= @dams_object.copyrights.purposeNote.first %></dd>
+							<% end %>
+							<!-- TODO: otherRights, rightsHolders, components... -->
+							<% if (!@dams_object.licenses.nil?) %>
+								<dt>License</dt>
+								<dd>Begin Date: <%= @dams_object.licenses.note.first %></dd>
+								<dd>Status: <%= @dams_object.licenses.uri.first %></dd>
+							<% end %>
+							<% if (!@dams_object.statutes.nil?) %>
+								<dt>Statutes</dt>
+								<dd>Citation: <%= @dams_object.statutes.citation.first %></dd>
+								<dd>Jurisdiction: <%= @dams_object.statutes.jurisdiction.first %></dd>
+								<dd>Note: <%= @dams_object.statutes.note.first %></dd>
+							<% end %>
+							</dl>
+						</div>
 				</div>
 			</div>
 			<div class="span4">
-				Sidebar widgets here
+				<div class="row-fluid well">
+					<div class="span12">
+							Sidebar widgets here
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>	
