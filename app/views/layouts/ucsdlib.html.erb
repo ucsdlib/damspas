@@ -99,7 +99,11 @@
 		<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
 		
 		<!-- show debugging parameters in development -->
-		<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>
+		<section id="debug" class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12"><%= debug(params) if Rails.env.development? || Rails.env.gimili? %></div>
+			</div>
+		</section>
 		
 		<!-- JAVASCRIPT PLACED AT END SO PAGES LOAD FASTER -->
 		<%= javascript_include_tag "application" %>
