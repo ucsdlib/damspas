@@ -15,19 +15,19 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (6.0.0.pre10)
+    active-fedora (6.0.0.pre5)
       activeresource (>= 3.0.0)
       activesupport (>= 3.0.0)
       builder (~> 3.0.0)
       deprecation
       mediashelf-loggable
       nom-xml (>= 0.5.1)
-      om (~> 1.9.0.pre1)
+      om (~> 1.8.0)
       rdf
-      rdf-rdfxml (~> 1.0.0)
+      rdf-rdfxml (~> 0.3.8)
       rsolr
-      rubydora (~> 1.3)
-      solrizer (~> 3.0.0.pre7)
+      rubydora (~> 1.2)
+      solrizer (~> 3.0.0.pre4)
     activemodel (3.2.11)
       activesupport (= 3.2.11)
       builder (~> 3.0.0)
@@ -44,7 +44,7 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.2)
     arel (3.0.2)
-    backports (2.8.2)
+    backports (2.7.1)
     bcrypt-ruby (3.0.1)
     blacklight (4.0.1)
       bootstrap-sass (~> 2.2.0)
@@ -80,7 +80,7 @@ GEM
     database_cleaner (0.9.1)
     deprecation (0.0.5)
       activesupport
-    devise (2.2.3)
+    devise (2.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (~> 3.1)
@@ -146,20 +146,19 @@ GEM
       treetop (~> 1.4.8)
     marc (0.5.0)
     mediashelf-loggable (0.4.9)
-    mime-types (1.20.1)
+    mime-types (1.19)
     multi_json (1.5.0)
     nokogiri (1.5.6)
     nom-xml (0.5.1)
       activesupport
       i18n
       nokogiri
-    om (1.9.0.pre1)
+    om (1.8.0)
       activemodel
       activesupport
       deprecation
       mediashelf-loggable
       nokogiri (>= 1.4.2)
-      solrizer (~> 3.0.0.pre8)
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
@@ -170,7 +169,7 @@ GEM
     rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
-    rack-ssl (1.3.3)
+    rack-ssl (1.3.2)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -193,9 +192,9 @@ GEM
     rake (10.0.3)
     rdf (1.0.0)
       addressable (>= 2.2)
-    rdf-rdfxml (1.0.0)
-      rdf (>= 1.0)
-      rdf-xsd (>= 1.0)
+    rdf-rdfxml (0.3.9)
+      rdf (>= 0.3.11)
+      rdf-xsd (>= 0.3.8)
     rdf-xsd (1.0.0)
       backports
       nokogiri (>= 1.5.0)
@@ -210,7 +209,7 @@ GEM
     rspec-core (2.12.2)
     rspec-expectations (2.12.1)
       diff-lcs (~> 1.1.3)
-    rspec-mocks (2.12.2)
+    rspec-mocks (2.12.1)
     rspec-rails (2.12.2)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
@@ -218,7 +217,7 @@ GEM
       rspec-core (~> 2.12.0)
       rspec-expectations (~> 2.12.0)
       rspec-mocks (~> 2.12.0)
-    rubydora (1.3.0)
+    rubydora (1.2.1)
       activemodel
       activesupport
       deprecation
@@ -245,11 +244,12 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    solrizer (3.0.0.pre8)
+    solrizer (3.0.0.pre4)
       activesupport
       daemons
       mediashelf-loggable (~> 0.4.7)
       nokogiri
+      om (>= 1.5.0)
       stomp
       xml-simple
     solrizer-fedora (3.0.0.pre1)
@@ -280,7 +280,7 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.1)
       rack (>= 1.0)
-    websocket (1.0.7)
+    websocket (1.0.6)
     xml-simple (1.1.2)
     xpath (1.0.0)
       nokogiri (~> 1.3)
@@ -289,7 +289,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora (= 6.0.0.pre10)
+  active-fedora (= 6.0.0.pre5)
   blacklight
   bootstrap-sass
   capybara
