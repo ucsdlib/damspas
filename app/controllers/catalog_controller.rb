@@ -158,8 +158,7 @@ class CatalogController < ApplicationController
 
   
   def show 
-    response, document = get_solr_response_for_doc_id
-    redirect_to document
+    @response, @document = get_solr_response_for_doc_id
   end
 
 end 

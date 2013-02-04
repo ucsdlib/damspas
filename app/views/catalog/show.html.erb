@@ -1,0 +1,105 @@
+<div class="row">
+
+  <div id="content" class="span9 show-document">
+  <%= render 'previous_next_doc' %>
+
+
+  <%= @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name) -%>
+  <% extra_head_content << render_link_rel_alternates %>
+  <% sidebar_items << render_document_sidebar_partial %>
+
+  <%# this should be in a partial -%>
+  <div id="document" class="<%= render_document_class %>">
+    <div id="doc_<%# @document.id.to_s.parameterize -%>">
+      <%= render_document_heading(:h1).html_safe %>
+      <div class="document">
+        <p>Name: <%= @document['name_tesim'].first %></p>
+
+        <div>
+          <p>Copyright:</p>
+          <ul>
+            <li><a href="<%= @document['copyright_id_tesim'].first %>"><%= @document['copyright_status_tesim'].first %> (<%= @document['copyright_jurisdiction_tesim'].first %>)</a></li>
+            <li><%= @document['copyright_purposeNote_tesim'].first %><%= @document['copyright_note_tesim'].first %></li>
+            <li><%= @document['copyright_beginDate_tesim'].first %></li>
+          </ul>
+        </div>
+
+        <p>License</p>
+        <ul>
+        <li><%= @document['license_id_tesim'].first %></li>
+        <li><%= @document['license_note_tesim'].first %></li>
+        <li><%= @document['license_uri_tesim'].first %></li>
+        <li><%= @document['license_permissionType_tesim'].first %></li>
+        <li><%= @document['license_permissionBeginDate_tesim'].first %></li>
+        </ul>
+
+        <p>Statute</p>
+        <ul>
+        <li><%= @document['statute_id_tesim'].first %></li>
+        <li><%= @document['statute_citation_tesim'].first %></li>
+        <li><%= @document['statute_jurisdiction_tesim'].first %></li>
+        <li><%= @document['statute_note_tesim'].first %></li>
+        <li><%= @document['statute_restrictionType_tesim'].first %></li>
+        <li><%= @document['statute_restrictionBeginDate_tesim'].first %></li>
+        </ul>
+
+        <p>Other Rights</p>
+        <ul>
+        <li><%= @document['otherRights_id_tesim'].first %></li>
+        <li><%= @document['otherRights_basis_tesim'].first %></li>
+        <li><%= @document['otherRights_uri_tesim'].first %></li>
+        <li><%= @document['otherRights_permissionType_tesim'].first %></li>
+        <li><%= @document['otherRights_permissionBeginDate_tesim'].first %></li>
+        <li><%= @document['otherRights_name_tesim'].first %></li>
+        <li><%= @document['otherRights_role_tesim'].first %></li>
+        </ul>
+
+        <p>Language</p>
+        <ul>
+        <li><%= @document['language_1_id_tesim'].first %></li>
+        <li><%= @document['language_1_code_tesim'].first %></li>
+        <li><%= @document['language_1_value_tesim'].first %></li>
+        <li><%= @document['language_1_valueURI_tesim'].first %></li>
+        </ul>
+
+        <p>Rights Holder(s)</p>
+        <ul>
+        <li><%= @document['rightsHolder_1_id_tesim'].first %></li>
+        <li><%= @document['rightsHolder_1_name_tesim'].first %></li>
+        </ul>
+
+        <p>Repository</p>
+        <ul>
+        <li><%= @document['repository_name_tesim'].first %></li>
+        <li><%= @document['repository_id_tesim'].first %></li>
+        </ul>
+        
+        <p>Component 1</p>
+        <ul>
+        <li><%= @document['component_1_title_tesim'].first %></li>
+        <li><%= @document['component_1_date_tesim'].first %></li>
+        <li><%= @document['component_1_note_tesim'].first %></li>
+        </ul>
+
+        <p>Component 2</p>
+        <ul>
+        <li><%= @document['component_2_title_tesim'].first %></li>
+        <li><%= @document['component_2_date_tesim'].first %></li>
+        </ul>
+
+        <p>Related Resource</p>
+        <ul>
+        <li><%= @document['relatedResource_1_type_tesim'].first %></li>
+        <li><%= @document['relatedResource_1_uri_tesim'].first %></li>
+        <li><%= @document['relatedResource_1_description_tesim'].first %></li>
+        </ul>
+
+        <p>Subjects:</p>
+        <ul>
+        <% @document['subject_tesim'].each do |sub| %>
+          <li><%= sub %></li>
+        <% end %>
+        </ul>
+      </div>
+  </div>
+</div>
