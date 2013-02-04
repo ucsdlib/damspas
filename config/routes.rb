@@ -1,9 +1,11 @@
 Hydra::Application.routes.draw do
 
- root :to => "dams_repositories#index"
+  root :to => "dams_repositories#index"
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
+
+  match "file/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }
 
   Blacklight.add_routes(self)
   HydraHead.add_routes(self)
