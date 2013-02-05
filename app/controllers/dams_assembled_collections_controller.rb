@@ -35,7 +35,7 @@ class DamsAssembledCollectionsController < ApplicationController
   end
 
   def index
-    @repositories = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
+    @units = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
   end
 
 

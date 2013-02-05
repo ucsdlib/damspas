@@ -8,10 +8,10 @@ class CatalogController < ApplicationController
   include Hydra::Controller::ControllerBehavior
 
   ##
-  # Search requests that include a 'repository' parameter will have their
-  # search scoped to just that repository.
+  # Search requests that include a 'unit' parameter will have their
+  # search scoped to just that unit.
   include Dams::SolrSearchParamsLogic
-  CatalogController.solr_search_params_logic += [:scope_search_to_repository]
+  CatalogController.solr_search_params_logic += [:scope_search_to_unit]
 
   # These before_filters apply the hydra access controls
   #before_filter :enforce_show_permissions, :only=>:show
@@ -38,7 +38,7 @@ class CatalogController < ApplicationController
     config.show.display_type = 'has_model_sim'
 
 
-    config.repository_id_solr_field = 'repository_sim'
+    config.unit_id_solr_field = 'unit_id_tesim'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -61,7 +61,7 @@ class CatalogController < ApplicationController
     # facet bar
     config.add_facet_field 'object_type_sim', :label => 'Format' 
     config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20 
-    config.add_facet_field 'repository_sim', :label => 'Repository'
+    config.add_facet_field 'unit_sim', :label => 'Unit'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -102,6 +102,7 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise. 
     
     config.add_search_field 'all_fields', :label => 'All Fields'
+    config.add_search_field 'name', :label => 'Name'
     
 
     # Now we see how to over-ride Solr request handler defaults, in this
@@ -154,11 +155,6 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
     config.spell_max = 5
-  end
-
-  
-  def show 
-    @response, @document = get_solr_response_for_doc_id
   end
 
 end 

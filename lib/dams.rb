@@ -1,3 +1,3 @@
 module Dams
-  autoload :ScopedRepositorySearch, 'dams/scoped_repository_search'
+  autoload :ScopedUnitSearch, 'dams/scoped_unit_search'
 end

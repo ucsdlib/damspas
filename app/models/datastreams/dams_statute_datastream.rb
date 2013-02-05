@@ -7,7 +7,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'Permission')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Statute]) if new?
