@@ -3,7 +3,7 @@ class Ability
   def custom_permissions
   	if current_user.new_record?  #Anonymous user
   		can [:read], DamsObject
-  		can [:read], DamsRepository
+  		can [:read], DamsUnit
   		can [:read], DamsCopyright
   		can [:read], DamsLicense
   		can [:read], DamsStatute
@@ -13,7 +13,7 @@ class Ability
   		can [:read], DamsAssembledCollection
   	else  #login user
     	can [:read, :create, :update], DamsObject
-    	can [:read, :create, :update], DamsRepository
+    	can [:read, :create, :update], DamsUnit
     	can [:read, :create, :update], DamsCopyright
     	can [:read, :create, :update], DamsLicense
     	can [:read, :create, :update], DamsStatute

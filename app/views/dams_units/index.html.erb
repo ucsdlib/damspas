@@ -41,7 +41,7 @@
 		<div class="well">
 			<h2>Search</h2>
 			<div>         
-				<%= render_repository_search_bar  %>
+				<%= render_unit_search_bar  %>
 			</div>
 		</div>
 		
@@ -50,16 +50,16 @@
 			<ul>
 				<%= render_browse_facet_links %>
 			</ul>
-			<p>Some very interesting text about repositories</p>
+			<p>Some very interesting text about units</p>
 			<ul>
-				<%= render_repository_list %>
+				<%= render_unit_list %>
 			</ul>
 		</div>
 		
 		<div>
 			<% if can? :create, DamsObject %>
 				<%= link_to "Create Object", new_dams_object_path %>,
-				<%= link_to "Create Repository", new_dams_repository_path %>
+				<%= link_to "Create Unit", new_dams_unit_path %>
 			<% end %>
 		</div>
 	

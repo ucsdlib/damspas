@@ -6,7 +6,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.repository_node(:in => DAMS, :to=>'repository')
+    map.unit_node(:in => DAMS, :to=>'unit')
     map.copyright(:in=>DAMS)
     map.license(:in=>DAMS)
     map.otherRights(:in=>DAMS)
@@ -37,7 +37,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 #    Subject (subject 0-m)
 #    Title (title 1-m)
 #  links
-#     Repository (repository 1) bb02020202
+#     Unit (unit 1) bb02020202
 #     Copyright (copyright 1) bb05050505
 #     License (license, 0-1)  bb22222222
 #     Other Rights (otherRights, 0-1) bb06060606
@@ -45,7 +45,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 #     Language (language 1-m) bd0410344f
 #     Name (rightsHolder 0-m) bb09090909
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
@@ -55,7 +55,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class Component
     include ActiveFedora::RdfObject
     rdf_type DAMS.Component
-    rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     map_predicates do |map|     
       map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
@@ -234,7 +234,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     def external?
-      rdf_subject.to_s.include? Rails.configuration.repository_root
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
     def load
       uri = rdf_subject.to_s
@@ -267,11 +267,11 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  def load_repository
-    repo_uri = repository_node.values.first.to_s
-    repo_pid = repo_uri.gsub(/.*\//,'')
-    if repo_pid != nil && repo_pid != ""
-      DamsRepository.find(repo_pid)
+  def load_unit
+    unit_uri = unit_node.values.first.to_s
+    unit_pid = unit_uri.gsub(/.*\//,'')
+    if unit_pid != nil && unit_pid != ""
+      DamsUnit.find(unit_pid)
     else
       nil
     end
@@ -415,10 +415,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
-    repo = load_repository
-    if repo.class == DamsRepository
-      Solrizer.insert_field(solr_doc, 'repository_name', repo.name)
-      Solrizer.insert_field(solr_doc, 'repository_id', repo.pid)
+    unit = load_unit
+    if unit.class == DamsUnit
+      Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
+      Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
     end
     component.map do |component|
       cid = component.rdf_subject.to_s

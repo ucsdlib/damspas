@@ -8,7 +8,7 @@ class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.relationship(:in => DAMS, :class_name => 'Relationship')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.OtherRights]) if new?

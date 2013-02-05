@@ -1,6 +1,6 @@
 Hydra::Application.routes.draw do
 
-  root :to => "dams_repositories#index"
+  root :to => "dams_units#index"
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
@@ -26,7 +26,7 @@ Hydra::Application.routes.draw do
 
   resources :dams_objects
   resources :dams_assembled_collections
-  resources :dams_repositories
+  resources :dams_units
   resources :dams_copyrights
   resources :dams_licenses
   resources :dams_statutes

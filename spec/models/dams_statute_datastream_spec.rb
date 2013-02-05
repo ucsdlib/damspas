@@ -9,7 +9,7 @@ describe DamsStatuteDatastream do
       subject { DamsStatuteDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bbXXXXXX24"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
       end
       it "should have a citation" do
         subject.citation = "Family Education Rights and Privacy Act (FERPA)"
@@ -58,7 +58,7 @@ describe DamsStatuteDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb05050505"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb05050505"
       end
       it "should have a citation" do
         subject.citation.should == ["Family Education Rights and Privacy Act (FERPA)"]

@@ -1,14 +1,14 @@
-class DamsRepositoryDatastream < ActiveFedora::RdfxmlRDFDatastream
+class DamsUnitDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
-    map.name(:in => DAMS, :to => 'repositoryName')
-    map.description(:in => DAMS, :to => 'repositoryDescription')
-    map.uri(:in => DAMS, :to => 'repositoryURI')
+    map.name(:in => DAMS, :to => 'unitName')
+    map.description(:in => DAMS, :to => 'unitDescription')
+    map.uri(:in => DAMS, :to => 'unitURI')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
-    graph.insert([rdf_subject, RDF.type, DAMS.Repository]) if new?
+    graph.insert([rdf_subject, RDF.type, DAMS.Unit]) if new?
     super
   end
 

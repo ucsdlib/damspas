@@ -182,10 +182,10 @@ describe DamsObjectDatastream do
         solr_doc["otherRights_name_tesim"].should == ["http://library.ucsd.edu/ark:/20775/bb09090909"]
         solr_doc["otherRights_role_tesim"].should == ["http://library.ucsd.edu/ark:/20775/bd3004227d"]
       end
-      it "should index repository" do
+      it "should index unit" do
         solr_doc = subject.to_solr
-        solr_doc["repository_id_tesim"].should == ["bb02020202"]
-        solr_doc["repository_name_tesim"].should == ["Test Repository"]
+        solr_doc["unit_id_tesim"].should == ["bb02020202"]
+        solr_doc["unit_name_tesim"].should == ["Library Collections"]
       end
     end
   end

@@ -47,9 +47,9 @@
 								<dt>Language</dt>
 								<dd><%= @dams_object.languages.first.value.first %></dd>
 							<% end %>
-							<% if (!@dams_object.repositories.nil?) %>
-								<dt>Repository</dt>
-								<dd><%= link_to @dams_object.repositories.name.first, dams_repository_path(@dams_object.repositories) %>
+							<% if (!@dams_object.units.nil?) %>
+								<dt>Unit</dt>
+								<dd><%= link_to @dams_object.units.name.first, dams_unit_path(@dams_object.units) %>
 							<% end %>
 							<% if (!@dams_object.copyrights.nil?) %>
 								<dt>Copyright</dt>

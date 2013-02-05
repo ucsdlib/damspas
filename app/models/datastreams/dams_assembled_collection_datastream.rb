@@ -10,7 +10,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.language(:in=>DAMS, :class_name => 'DamsLanguage')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.AssembledCollection]) if new?
@@ -140,7 +140,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     def external?
-      rdf_subject.to_s.include? Rails.configuration.repository_root
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
     def load
       uri = rdf_subject.to_s

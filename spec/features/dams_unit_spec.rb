@@ -2,13 +2,13 @@ require 'spec_helper'
 
 feature 'Visit wants to look at digital collections' do
   scenario 'is on collections landing page' do
-    @repo1 = DamsRepository.create(name: "Library Collections")
-    @repo2 = DamsRepository.create(name: "RCI")
+    @unit1 = DamsUnit.create(name: "Library Collections")
+    @unit2 = DamsUnit.create(name: "RCI")
 
-    visit dams_repositories_path
+    visit dams_units_path
     #expect(page).to have_selector('h1', :text => 'Digital Library Collections')
     expect(page).to have_selector('h1', :text => 'Digital Library Collections')
-    #assert repository links on home page
+    #assert unit links on home page
     expect(page).to have_selector('a', :text => 'Library Collections')
     expect(page).to have_selector('a', :text => 'RCI')
 
@@ -16,7 +16,7 @@ feature 'Visit wants to look at digital collections' do
   end
 
   scenario 'does a search for items' do
-    visit dams_repositories_path
+    visit dams_units_path
 
 
     expect(page).to have_selector('h2', :text => 'Search')
@@ -31,26 +31,26 @@ feature 'Visit wants to look at digital collections' do
   end
 
   scenario 'browses the collections' do
-    visit dams_repositories_path
+    visit dams_units_path
 
     expect(page).to have_selector('h2', :text => 'Browse')
 
     expect(page).to have_selector('a', :text => 'By Topic')
-    expect(page).to have_selector('a', :text => 'By Repository')
+    expect(page).to have_selector('a', :text => 'By Unit')
     expect(page).to have_selector('a', :text => 'By Format')
   end
 
   scenario 'uses the carousel' do
-    visit dams_repositories_path
+    visit dams_units_path
 
     expect(page).to have_selector('.carousel')
   end
 
-  scenario 'retrieve a repository record' do
+  scenario 'retrieve a unit record' do
     sign_in_developer
-    DamsRepository.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://library.ucsd.edu/repo/rci/"
+    DamsUnit.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/"
 
-    # can we find the repository record
+    # can we find the unit record
     expect(page).to have_field('Search...')
     fill_in 'Search...', :with => 'bb45454545'
 
@@ -65,12 +65,12 @@ feature 'Visit wants to look at digital collections' do
   end
 
   scenario 'scoped search'
-    # create a repo
+    # create a unit
     #sign_in_developer
-    #DamsRepository.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://library.ucsd.edu/repo/rci/"
+    #DamsUnit.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/"
 
-    # create an object in the repo
-    #DamsRepository.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://library.ucsd.edu/repo/rci/"
-    #visit dams_repository_path :id => 'bb45454545'
-    # searchfor the object inthe repo and find it
+    # create an object in the unit
+    #DamsUnit.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/"
+    #visit dams_unit_path :id => 'bb45454545'
+    # search for the object in the unit and find it
 end
