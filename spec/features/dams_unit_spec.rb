@@ -51,14 +51,15 @@ feature 'Visit wants to look at digital collections' do
     DamsUnit.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/"
 
     # can we find the unit record
+    visit dams_units_path
     expect(page).to have_field('Search...')
     fill_in 'Search...', :with => 'bb45454545'
 
     click_on('Search')
 
     # Check description on the page
-    #expect(page).to have_content("bb45454545")
-    expect(page).to have_content("RCI")
+    expect(page).to have_content("bb45454545")
+    #expect(page).to have_content("RCI")
 
 
 

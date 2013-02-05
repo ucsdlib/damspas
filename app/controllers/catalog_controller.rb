@@ -38,7 +38,7 @@ class CatalogController < ApplicationController
     config.show.display_type = 'has_model_sim'
 
 
-    config.unit_id_solr_field = 'unit_sim'
+    config.unit_id_solr_field = 'unit_id_tesim'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -102,6 +102,7 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise. 
     
     config.add_search_field 'all_fields', :label => 'All Fields'
+    config.add_search_field 'name', :label => 'Name'
     
 
     # Now we see how to over-ride Solr request handler defaults, in this
@@ -154,11 +155,6 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
     config.spell_max = 5
-  end
-
-  
-  def show 
-    @response, @document = get_solr_response_for_doc_id
   end
 
 end 

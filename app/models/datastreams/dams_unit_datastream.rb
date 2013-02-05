@@ -13,9 +13,10 @@ class DamsUnitDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
-    solr_doc[ActiveFedora::SolrService.solr_name("name", type: :text)] = name
-    solr_doc[ActiveFedora::SolrService.solr_name("description", type: :text)] = description
-    solr_doc[ActiveFedora::SolrService.solr_name("uri", type: :text)] = uri
+    Solrizer.insert_field(solr_doc, 'unit_id', pid )
+    Solrizer.insert_field(solr_doc, 'unit_name', name )
+    Solrizer.insert_field(solr_doc, 'unit_uri', uri )
+    Solrizer.insert_field(solr_doc, 'unit_description', description )
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
