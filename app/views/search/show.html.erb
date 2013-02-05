@@ -1,0 +1,41 @@
+<h1><%# title %></h1>
+
+<div id="landingCarousel" class="carousel slide span6">
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><%= image_tag "http://placedog.com/g/460/500?a" %></div>
+    <div class="item"><%= image_tag "http://placedog.com/g/460/500?b" %></div>
+    <div class="item"><%= image_tag "http://placedog.com/g/460/500?c" %></div>
+  </div>
+
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#landingCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#landingCarousel" data-slide="next">&rsaquo;</a>
+</div>
+
+<div class="span6">
+  <div>
+    <h2><%= @document['unit_name_tesim'].first %></h2>
+    <div>
+      <%= @document['unit_description_tesim'].first %>
+    </div>
+    <div>
+      <a href="<%= @document['unit_uri_tesim'].first %>">
+        <%= @document['unit_uri_tesim'].first %>
+      </a>
+    </div>
+  </div>
+
+  <h2>Search</h2>
+  <div class="well">
+    <%= render_unit_search_bar  %>
+  </div>
+
+  <div>
+	<h2>Browse</h2>
+	<ul>
+      <%= render_browse_facet_links %>
+	</ul>
+  </div>
+
+</div>
