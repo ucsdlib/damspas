@@ -1,17 +1,17 @@
 module Dams
   module SolrSearchParamsLogic
-    def scope_search_to_repository solr_parameters, user_parameters
-      repository = DamsRepository.find(user_parameters[:repository]) rescue nil
+    def scope_search_to_unit solr_parameters, user_parameters
+      unit = DamsUnit.find(user_parameters[:unit]) rescue nil
 
-      if repository
+      if unit
         solr_parameters[:fq] ||= []
-        solr_parameters[:fq] << fq_for_repository(repository)
+        solr_parameters[:fq] << fq_for_unit(unit)
       end
     end
 
     private
-    def fq_for_repository repository
-      facet_value_to_fq_string(blacklight_config.repository_id_solr_field, repository.id)
+    def fq_for_unit unit
+      facet_value_to_fq_string(blacklight_config.unit_id_solr_field, unit.id)
     end
   end
 end

@@ -7,7 +7,7 @@ class DamsCopyrightDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.date_node(:in => DAMS, :to=>'date', :class_name => 'Date')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Copyright]) if new?

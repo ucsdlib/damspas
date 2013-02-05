@@ -5,7 +5,7 @@ class DamsSubjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.elementList(:in => MADS, :to => 'elementList', :class_name=>'List')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
 
   class List 
