@@ -9,7 +9,7 @@ describe DamsOtherRightsDatastream do
       subject { DamsOtherRightsDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bbXXXXXX24"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
       end
       it "should have a basis" do
         subject.basis = "fair use"
@@ -59,7 +59,7 @@ describe DamsOtherRightsDatastream do
 
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb05050505"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb05050505"
       end
       it "should have a basis" do
         subject.basis.should == ["fair use"]

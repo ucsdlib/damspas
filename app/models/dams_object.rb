@@ -4,8 +4,8 @@ class DamsObject < ActiveFedora::Base
   def languages
     damsMetadata.load_languages
   end
-  def repositories
-    damsMetadata.load_repository
+  def units
+    damsMetadata.load_unit
   end
   def copyrights
     damsMetadata.load_copyright

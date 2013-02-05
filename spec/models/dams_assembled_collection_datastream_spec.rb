@@ -9,7 +9,7 @@ describe DamsAssembledCollectionDatastream do
       subject { DamsAssembledCollectionDatastream.new(stub('inner object', :pid=>'bb03030303', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb03030303"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
       end
       it "should have a title" do
         subject.title.build.value = "UCSD Electronic Theses and Dissertations"
@@ -37,7 +37,7 @@ describe DamsAssembledCollectionDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb03030303"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
       end
       it "should have a title" do
         subject.title.first.value.should == ["UCSD Electronic Theses and Dissertations"]
