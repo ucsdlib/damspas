@@ -55,7 +55,7 @@ describe DamsObjectDatastream do
 
       it "should create a solr document" do
         DamsSubject.should_receive(:find).with('bbXXXXXXX5').and_return(stub(:name =>'stubbed'))
-        stub_person = stub(:name => "Maria")
+        #stub_person = stub(:name => "Maria")
         #DamsPerson.should_receive(:find).with("bbXXXXXXX1").and_return(stub_person)        
         solr_doc = subject.to_solr
         solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
