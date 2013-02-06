@@ -52,11 +52,13 @@
 			</ul>
 			<p>Some very interesting text about administrative units</p>
 			<ul>
-                <% @document.each do |doc| %>
-                  <li><a href="/search/<%= doc['unit_id_tesim'].first %>">
-                    <%= doc['unit_name_tesim'].first %>
-                  </a></li>
+              <% @document.each do |doc| %>
+                <% if doc['unit_code_tesim'] != nil %>
+                  <li>
+                    <%= link_to doc['unit_name_tesim'].first, unit_path(doc['unit_code_tesim']) %>
+                  </li>
                 <% end %>
+              <% end %>
 			</ul>
 		</div>
 		

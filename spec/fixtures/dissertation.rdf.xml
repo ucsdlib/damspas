@@ -4,7 +4,7 @@
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
     xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
-  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb52572546">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx1111111x">
     <dams:note>
       <dams:Note>
         <dams:displayLabel>Local ID</dams:displayLabel>

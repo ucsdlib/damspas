@@ -3,6 +3,7 @@
     xmlns:dams="http://library.ucsd.edu/ontology/dams#">
   <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb45454545">
     <dams:unitName>RCI</dams:unitName>
+    <dams:code>rci</dams:code>
     <dams:unitDescription>Research Cyberinfrastructure: the hardware, software, and people that support scientific research.</dams:unitDescription>
     <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
   </dams:Unit>

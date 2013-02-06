@@ -1,6 +1,5 @@
 Hydra::Application.routes.draw do
 
-  root :to => "search#index"
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
@@ -8,7 +7,10 @@ Hydra::Application.routes.draw do
   match "view/:id",     :to => 'object#show', :as => 'object'
   match "view/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
 
-  #resources :search, :only => [:show, :index]
+  resources :units, :only => [:index, :show]
+  root :to => "units#index"
+  match '/dlp', to: 'units#show', :id => 'dlp'
+  match '/rci', to: 'units#show', :id => 'rci'
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
   

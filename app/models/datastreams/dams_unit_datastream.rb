@@ -3,6 +3,7 @@ class DamsUnitDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.name(:in => DAMS, :to => 'unitName')
     map.description(:in => DAMS, :to => 'unitDescription')
     map.uri(:in => DAMS, :to => 'unitURI')
+    map.code(:in => DAMS, :to => 'code')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -14,6 +15,7 @@ class DamsUnitDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'unit_id', pid )
+    Solrizer.insert_field(solr_doc, 'unit_code', code )
     Solrizer.insert_field(solr_doc, 'unit_name', name )
     Solrizer.insert_field(solr_doc, 'unit_uri', uri )
     Solrizer.insert_field(solr_doc, 'unit_description', description )

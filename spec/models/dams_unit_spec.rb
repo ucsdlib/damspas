@@ -7,6 +7,7 @@ describe DamsUnit do
   end
   it "should create a xml" do
     subject.name = "RCI"
+    subject.code = "rci"
     subject.description = "Research Cyberinfrastructure: the hardware, software, and people that support scientific research."
 	subject.uri = "http://rci.ucsd.edu/"
     xml =<<END
@@ -18,6 +19,7 @@ describe DamsUnit do
       support scientific research.
     </dams:unitDescription>
     <dams:unitName>RCI</dams:unitName>
+    <dams:code>rci</dams:code>
     <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
   </dams:Unit>
 </rdf:RDF>

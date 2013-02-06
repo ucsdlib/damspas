@@ -15,14 +15,12 @@
 
 <div class="span6">
   <div>
-    <h2><%= @document['unit_name_tesim'].first %></h2>
+    <h2><%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></h2>
     <div>
-      <%= @document['unit_description_tesim'].first %>
+      <%= render_document_show_field_value(:document=>@document, :field=>"unit_description_tesim") %>
     </div>
     <div>
-      <a href="<%= @document['unit_uri_tesim'].first %>">
-        <%= @document['unit_uri_tesim'].first %>
-      </a>
+      <%= link_to @document['unit_uri_tesim'].first, @document['unit_uri_tesim'].first %>
     </div>
   </div>
 
