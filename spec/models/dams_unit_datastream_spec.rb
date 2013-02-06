@@ -22,6 +22,11 @@ describe DamsUnitDatastream do
         subject.description.should == ["Test Unit Description"]
       end
 
+      it "should have a code" do
+        subject.code = "xyz"
+        subject.code.should == ["xyz"]
+      end
+
       it "should have a uri" do
         subject.uri = "http://library.ucsd.edu/units/test/"
         subject.uri.should == ["http://library.ucsd.edu/units/test/"]
@@ -47,6 +52,10 @@ describe DamsUnitDatastream do
 
       it "should have a description" do
         subject.description.should == ["Research Cyberinfrastructure: the hardware, software, and people that support scientific research."]
+      end
+
+      it "should have a code" do
+        subject.code.should == ["rci"]
       end
 
       it "should have a uri" do

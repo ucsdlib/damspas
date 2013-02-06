@@ -1,9 +1,4 @@
 module DamsUnitsHelper
-  def render_unit_list 
-    #stub unit list
-    render :partial => "dams_units/unit_links", :collection => DamsUnit.all, :as => :dams_unit
-  end
-
   def render_browse_facet_links
     render :partial => "dams_units/browse_facet_link", :collection => browse_facet_links, :as => :facet
   end
