@@ -1,0 +1,22 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+<dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb24242424">
+    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#ProvenanceCollection"/>
+    <dams:title>
+      <dams:Title>
+        <dams:type>main</dams:type>
+        <rdf:value>Historical Dissertations</rdf:value>
+      </dams:Title>
+    </dams:title>
+    <dams:date>
+      <dams:Date>
+        <dams:beginDate>2009-05-03</dams:beginDate>
+        <dams:endDate>2010-06-30</dams:endDate>
+      </dams:Date>
+    </dams:date>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+    <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/bb25252525"/>
+    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb29292929"/>
+  </dams:ProvenanceCollection>
+</rdf:RDF>
