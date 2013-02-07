@@ -1,0 +1,27 @@
+<div id="myCarousel" class="carousel slide span6">
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><%= image_tag "http://placedog.com/g/460/500?a" %></div>
+    <div class="item">
+
+    <video width="640" height="360" controls autoplay>
+	<source src="__VIDEO__.MP4"  type="video/mp4" />
+	<source src="__VIDEO__.OGV"  type="video/ogg" />
+	<object width="640" height="360" type="application/x-shockwave-flash" data="__FLASH__.SWF">
+		<param name="movie" value="__FLASH__.SWF" />
+		<param name="flashvars" value="autostart=true&amp;controlbar=over&amp;image=__POSTER__.JPG&amp;file=__VIDEO__.MP4" />
+		<img src="__VIDEO__.JPG" width="640" height="360" alt="__TITLE__"
+		     title="No video playback capabilities, please download the video below" />
+	</object>
+   </video>
+
+
+
+    </div>
+    <div class="item"><%= image_tag "http://placedog.com/g/460/500?c" %></div>
+  </div>
+
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
