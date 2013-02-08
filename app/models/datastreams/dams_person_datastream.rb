@@ -1,7 +1,7 @@
 class DamsPersonDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
- end
+  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
