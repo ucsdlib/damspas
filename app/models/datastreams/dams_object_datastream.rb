@@ -58,6 +58,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     map_predicates do |map|     
       map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+      map.resource_type(:in => DAMS, :to => 'typeOfResource')
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
       map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
@@ -180,6 +181,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     self.title_node.build.subtitle = val
   end
 
+  # see app/models/dams_assembled_collection.rb
   #class AssembledCollection
   #  include ActiveFedora::RdfObject
   #  map_predicates do |map|
@@ -328,6 +330,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
+
+    # field types
+    storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
+
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
@@ -337,6 +343,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationship.map do |relationship| 
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
     end
+    Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
 
     copy = load_copyright
     if copy != nil
@@ -420,10 +427,16 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
       Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
     end
+
+    # component metadata
+    if component != nil && component.count > 0
+      Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
+    end
     component.map do |component|
       cid = component.rdf_subject.to_s
       cid = cid.match('\w+$')
       Solrizer.insert_field(solr_doc, "component_#{cid}_title", component.title.first.value)
+      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
       Solrizer.insert_field(solr_doc, "component_#{cid}_date",  component.date.first.value)
       if component.note.first != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_note",  component.note.first.value)
@@ -431,7 +444,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       component.file.map do |file|
         fid = file.rdf_subject.to_s
         fid = fid.gsub(/.*\//,'')
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size",  file.size)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size",  file.size, storedInt)
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
@@ -444,7 +458,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     file.map do |file|
       fid = file.rdf_subject.to_s
       fid = fid.gsub(/.*\//,'')
-      Solrizer.insert_field(solr_doc, "file_#{fid}_size",  file.size)
+      Solrizer.insert_field(solr_doc, "files", fid)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_size",  file.size, storedInt)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourcePath", file.sourcePath)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourceFileName", file.sourceFileName)
       Solrizer.insert_field(solr_doc, "file_#{fid}_formatName", file.formatName)
