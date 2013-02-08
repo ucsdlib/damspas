@@ -31,7 +31,7 @@
 						<span class="icon-bar"></span>
 					</a>
 					<a class="brand hidden-desktop" href="http://libraries.ucsd.edu/">The Library</a>
-					<div class="nav-collapse collapse">
+					<nav class="nav-collapse collapse">
 	
 						<% if current_user  %>
 						<p class="navbar-text pull-right">
@@ -61,14 +61,14 @@
 								</ul>
 							</li>
 						</ul>
-					</div>
+					</nav>
 				</div>
 			</section>
 		</header>
 
-		<div id="search-found" class="hidden-phone">
+		<section id="search-found" class="container-fluid hidden-phone">
 			<%= topbar_items.join('').html_safe %>
-		</div>
+		</section>
 
 		<section id="messages" class="container-fluid">
 			<%= render :partial=>'/flash_msg' %>
