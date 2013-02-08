@@ -1,0 +1,28 @@
+<!-- convert to video viewer -->
+
+<video controls="controls" class="video-js vjs-default-skin" data-setup="{}" preload="auto">
+    <source src="<%= sufia.download_path(@generic_file, datastream_id: 'webm') %>" type="video/webm" />
+    <source src="<%= sufia.download_path(@generic_file, datastream_id: 'mp4') %>" type="video/mp4" />
+    Your browser does not support the audio tag.
+  </video>
+
+
+function getVideoObject(arkID, filename,cachedJson)
+{
+	//bb7953483d,bb3550355p,bb96939717 collections will be 320x240
+	getmediaelementplayer();	    
+    var subject = arkID.substring(6);
+    
+    // some videos on dev is not working, so use libraries instead.
+	// var videoUrl = "https://libraries.ucsd.edu"+PAS_UTILITY.getPasAccessUrl(subject, filename);
+    var videoUrl = PAS_UTILITY.getPasAccessUrl(subject, filename);
+	var medium_image_url = PAS_UTILITY.getPasAccessUrl(subject, '1-3a.jpg'); 		
+
+    html ='';
+	html = '<div id="video" align="center">';
+//	html +='<video width="320" height="240" preload"auto" poster="'+medium_image_url+'" controls><source src="'+videoUrl+'" type="video/mp4" />Your browser does not support the video tag.</video>';
+	html +='<video  width="320" height="240" preload"auto" poster="'+medium_image_url+'" controls><source src="'+videoUrl+'" type="video/mp4" />Your browser does not support the video tag.</video>';
+	html += '</div>';
+	document.getElementById('DOV-digitalObj').innerHTML = html;
+	getmediaelementplayer();
+}
