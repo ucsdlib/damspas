@@ -7,16 +7,16 @@ describe Dams::SolrSearchParamsLogic do
 
   subject { HelperSubject.new }
   
-  describe "#scope_search_to_repository" do
-    it "should scope the search to a repository using an fq" do
-      repository = mock(:id => 'bXXXXXXX7')
-      DamsRepository.stub(:find).and_return(repository) 
-      subject.stub(:fq_for_repository => 'zzz')
-      subject.stub(:blacklight_config => mock(:repository_id_solr_field => 'asdf' ))
+  describe "#scope_search_to_unit" do
+    it "should scope the search to a unit using an fq" do
+      unit = mock(:id => 'bXXXXXXX7')
+      DamsUnit.stub(:find).and_return(unit) 
+      subject.stub(:fq_for_unit => 'zzz')
+      subject.stub(:blacklight_config => mock(:unit_id_solr_field => 'unit_id' ))
 
-      params = { :repository => 'bXXXXXXX7'}
+      params = { :unit => 'bXXXXXXX7'}
       output = {}
-      subject.scope_search_to_repository(output, params)
+      subject.scope_search_to_unit(output, params)
 
       output[:fq].should include('zzz')
     end

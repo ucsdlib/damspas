@@ -1,4 +1,4 @@
-<h1><%= @dams_repository.name.first %></h1>
+<h1><%# title %></h1>
 
 <div id="landingCarousel" class="carousel slide span6">
   <!-- Carousel items -->
@@ -14,12 +14,19 @@
 </div>
 
 <div class="span6">
-  <div class="well">
-    <h2>Search</h2>
-
+  <div>
+    <h2><%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></h2>
     <div>
-  	  <%= render_repository_search_bar  %>
+      <%= render_document_show_field_value(:document=>@document, :field=>"unit_description_tesim") %>
     </div>
+    <div>
+      <%= link_to @document['unit_uri_tesim'].first, @document['unit_uri_tesim'].first %>
+    </div>
+  </div>
+
+  <h2>Search</h2>
+  <div class="well">
+    <%= render_unit_search_bar  %>
   </div>
 
   <div>
@@ -29,12 +36,4 @@
 	</ul>
   </div>
 
-  <div>
-    <%= @dams_repository.description.first %>
-  </div>
-  <div>
-    <a href="<%= @dams_repository.uri.first %>">
-      <%= @dams_repository.uri.first %>
-    </a>
-  </div>
 </div>

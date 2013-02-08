@@ -43,5 +43,8 @@ begin
     puts  "updated solr index for #{pid}\n"
   end
 rescue Exception => e
-p e
+  p e
+  e.backtrace.each do |line|
+    p line
+  end
 end

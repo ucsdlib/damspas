@@ -2,19 +2,85 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
     map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.language(:in=>DAMS, :class_name => 'DamsLanguage')
+    map.language(:in=>DAMS)
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
-    graph.insert([rdf_subject, RDF.type, DAMS.DamsResource]) if new?
+    graph.insert([rdf_subject, RDF.type, DAMS.AssembledCollection]) if new?
     super
   end
+
+  def titleValue
+    title[0] ? title[0].value : []
+  end
+  def titleValue=(val)
+    title.build if title[0] == nil
+    title[0].value = val
+  end
+
+  def titleType
+    title[0] ? title[0].type : []
+  end
+  def titleType=(val)
+    title.build if title[0] == nil
+    title[0].type = val
+  end
+
+  def dateValue
+    date[0] ? date[0].value : []
+  end
+  def dateValue=(val)
+    date.build if date[0] == nil
+    date[0].value = val
+  end
+
+  def beginDate
+    date[0] ? date[0].beginDate : []
+  end
+  def beginDate=(val)
+    date.build if date[0] == nil
+    date[0].beginDate = val
+  end
+
+  def endDate
+    date[0] ? date[0].endDate : []
+  end
+  def endDate=(val)
+    date.build if date[0] == nil
+    date[0].endDate = val
+  end
+
+  def scopeContentNoteValue
+    scopeContentNote[0] ? scopeContentNote[0].value : []
+  end
+  def scopeContentNoteValue=(val)
+    scopeContentNote.build if scopeContentNote[0] == nil
+    scopeContentNote[0].value = val
+  end
+
+  def scopeContentNoteType
+    scopeContentNote[0] ? scopeContentNote[0].type : []
+  end
+  def scopeContentNoteType=(val)
+    scopeContentNote.build if scopeContentNote[0] == nil
+    scopeContentNote[0].type = val
+  end
+
+  def scopeContentNoteDisplayLabel
+    scopeContentNote[0] ? scopeContentNote[0].displayLabel : []
+  end
+  def scopeContentNoteDisplayLabel=(val)
+    scopeContentNote.build if scopeContentNote[0] == nil
+    scopeContentNote[0].displayLabel = val
+  end
+
 
   class Title
     include ActiveFedora::RdfObject
@@ -32,6 +98,15 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.value(:in=> RDF)
       map.beginDate(:in=>DAMS)
       map.endDate(:in=>DAMS)
+    end
+  end
+  class ScopeContentNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.ScopeContentNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
     end
   end
   class Note
@@ -65,7 +140,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     def external?
-      rdf_subject.to_s.include? Rails.configuration.repository_root
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
     def load
       uri = rdf_subject.to_s
@@ -106,8 +181,8 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   def to_solr (solr_doc = {})
     # need to make these support multiples too
-    Solrizer.insert_field(solr_doc, 'title', title)
-    Solrizer.insert_field(solr_doc, 'date', date)
+    Solrizer.insert_field(solr_doc, 'title', title.first.value)
+    Solrizer.insert_field(solr_doc, 'date', date.first.value)
 
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel

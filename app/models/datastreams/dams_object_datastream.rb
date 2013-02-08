@@ -6,7 +6,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.repository_node(:in => DAMS, :to=>'repository')
+    map.unit_node(:in => DAMS, :to=>'unit')
     map.copyright(:in=>DAMS)
     map.license(:in=>DAMS)
     map.otherRights(:in=>DAMS)
@@ -37,7 +37,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 #    Subject (subject 0-m)
 #    Title (title 1-m)
 #  links
-#     Repository (repository 1) bb02020202
+#     Unit (unit 1) bb02020202
 #     Copyright (copyright 1) bb05050505
 #     License (license, 0-1)  bb22222222
 #     Other Rights (otherRights, 0-1) bb06060606
@@ -45,7 +45,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 #     Language (language 1-m) bd0410344f
 #     Name (rightsHolder 0-m) bb09090909
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
@@ -55,9 +55,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class Component
     include ActiveFedora::RdfObject
     rdf_type DAMS.Component
-    rdf_subject { |ds| RDF::URI.new(Rails.configuration.repository_root + ds.pid)}
+    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     map_predicates do |map|     
       map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+      map.resource_type(:in => DAMS, :to => 'typeOfResource')
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
       map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
@@ -180,6 +181,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     self.title_node.build.subtitle = val
   end
 
+  # see app/models/dams_assembled_collection.rb
   #class AssembledCollection
   #  include ActiveFedora::RdfObject
   #  map_predicates do |map|
@@ -234,7 +236,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     def external?
-      rdf_subject.to_s.include? Rails.configuration.repository_root
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
     def load
       uri = rdf_subject.to_s
@@ -267,11 +269,11 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  def load_repository
-    repo_uri = repository_node.values.first.to_s
-    repo_pid = repo_uri.gsub(/.*\//,'')
-    if repo_pid != nil && repo_pid != ""
-      DamsRepository.find(repo_pid)
+  def load_unit
+    unit_uri = unit_node.values.first.to_s
+    unit_pid = unit_uri.gsub(/.*\//,'')
+    if unit_pid != nil && unit_pid != ""
+      DamsUnit.find(unit_pid)
     else
       nil
     end
@@ -328,6 +330,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
+
+    # field types
+    storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
+
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
@@ -337,6 +343,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationship.map do |relationship| 
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
     end
+    Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
 
     copy = load_copyright
     if copy != nil
@@ -415,15 +422,21 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
-    repo = load_repository
-    if repo.class == DamsRepository
-      Solrizer.insert_field(solr_doc, 'repository_name', repo.name)
-      Solrizer.insert_field(solr_doc, 'repository_id', repo.pid)
+    unit = load_unit
+    if unit.class == DamsUnit
+      Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
+      Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
+    end
+
+    # component metadata
+    if component != nil && component.count > 0
+      Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
     end
     component.map do |component|
       cid = component.rdf_subject.to_s
       cid = cid.match('\w+$')
       Solrizer.insert_field(solr_doc, "component_#{cid}_title", component.title.first.value)
+      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
       Solrizer.insert_field(solr_doc, "component_#{cid}_date",  component.date.first.value)
       if component.note.first != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_note",  component.note.first.value)
@@ -431,7 +444,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       component.file.map do |file|
         fid = file.rdf_subject.to_s
         fid = fid.gsub(/.*\//,'')
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size",  file.size)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size",  file.size, storedInt)
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
@@ -444,7 +458,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     file.map do |file|
       fid = file.rdf_subject.to_s
       fid = fid.gsub(/.*\//,'')
-      Solrizer.insert_field(solr_doc, "file_#{fid}_size",  file.size)
+      Solrizer.insert_field(solr_doc, "files", fid)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_size",  file.size, storedInt)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourcePath", file.sourcePath)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourceFileName", file.sourceFileName)
       Solrizer.insert_field(solr_doc, "file_#{fid}_formatName", file.formatName)

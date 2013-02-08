@@ -1,5 +1,5 @@
 #include Helper specs here
-#eg. include DamsRepositoriesHelper
+#eg. include DamsUnitsHelper
 
 #define methods to reuse across various tests, they are included by default in RSPEC
 

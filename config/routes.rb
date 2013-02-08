@@ -1,11 +1,36 @@
 Hydra::Application.routes.draw do
 
- root :to => "dams_repositories#index"
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
+  match '/test', to: 'static_pages#test'
 
-  Blacklight.add_routes(self)
+  match "view/:id",     :to => 'object#show', :as => 'object'
+  match "view/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
+
+  resources :units, :only => [:index, :show]
+  root :to => "units#index"
+  match '/dlp', to: 'units#show', :id => 'dlp'
+  match '/rci', to: 'units#show', :id => 'rci'
+
+  Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
+  
+  # add Blacklight catalog -> search routing
+  # Catalog stuff.
+  match 'search/opensearch', :as => "opensearch_catalog"
+  match 'search/citation', :as => "citation_catalog"
+  match 'search/email', :as => "email_catalog"
+  match 'search/sms', :as => "sms_catalog"
+  match 'search/endnote', :as => "endnote_catalog"
+  match 'search/send_email_record', :as => "send_email_record_catalog"
+  match "search/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
+  match "search", :to => 'catalog#index', :as => 'catalog_index'
+  match 'search/:id/librarian_view', :to => "catalog#librarian_view", :as => "librarian_view_catalog"
+  resources :solr_document,  :path => 'search', :controller => 'catalog', :only => [:show, :update] 
+  # :show and :update are for backwards-compatibility with catalog_url named routes
+  resources :catalog, :only => [:show, :update]
+  
+  
   HydraHead.add_routes(self)
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
@@ -23,7 +48,8 @@ Hydra::Application.routes.draw do
   resources :dams_subjects, :only => [:show]
 
   resources :dams_objects
-  resources :dams_repositories
+  resources :dams_assembled_collections
+  resources :dams_units
   resources :dams_copyrights
   resources :dams_licenses
   resources :dams_statutes

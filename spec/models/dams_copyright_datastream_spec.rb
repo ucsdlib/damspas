@@ -9,7 +9,7 @@ describe DamsCopyrightDatastream do
       subject { DamsCopyrightDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bbXXXXXX24"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
       end
       it "should have a status" do
         subject.status = "Under copyright -- 3rd Party"
@@ -42,7 +42,7 @@ describe DamsCopyrightDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bb05050505"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb05050505"
       end
       it "should have a status" do
         subject.status.should == ["Under copyright -- 3rd Party"]
