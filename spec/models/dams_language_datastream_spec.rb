@@ -9,7 +9,7 @@ describe DamsLanguageDatastream do
       subject { DamsLanguageDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bbXXXXXX24"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
       end
 
       it "should have a value" do
@@ -34,7 +34,7 @@ describe DamsLanguageDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.repository_root}bd91134949"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd91134949"
       end
 
       it "should have a value" do

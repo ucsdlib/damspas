@@ -1,0 +1,12 @@
+<h1>Create a new DAMS Unit</h1>
+<%= form_for @dams_unit do |f| %>
+  <%= label_tag 'dams_unit[name]', "Name" %>
+  <%= text_field_tag 'dams_unit[name]' %>
+  <%= label_tag 'dams_unit[description]', "Description" %>
+  <%= text_field_tag 'dams_unit[description]' %>
+  <%= label_tag 'dams_unit[uri]', "URI" %>
+  <%= text_field_tag 'dams_unit[uri]' %>
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

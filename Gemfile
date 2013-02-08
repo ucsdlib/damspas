@@ -7,6 +7,7 @@ gem 'rails', '3.2.11'
 
 gem 'blacklight'
 gem 'solrizer-fedora', '3.0.0.pre1'
+gem 'solrizer', '3.0.0.pre4'
 gem 'hydra-head', "6.0.0.pre3"
 gem 'active-fedora', "6.0.0.pre5"
 
@@ -51,11 +52,11 @@ gem "devise"
 gem "bootstrap-sass"
 
 group :development, :test do
-	gem 'rspec-rails', '>=2.9.0'
-        gem 'capybara'
-        gem 'launchy'
-        gem 'simplecov'
-	gem 'jettywrapper'
-	gem 'database_cleaner'
-        gem 'unicorn'
+  gem 'rspec-rails', '>=2.9.0'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'simplecov'
+  gem 'jettywrapper'
+  gem 'database_cleaner'
+  gem 'unicorn'
 end

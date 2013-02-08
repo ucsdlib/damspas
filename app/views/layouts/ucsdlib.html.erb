@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -46,7 +47,8 @@
 	
 						<ul class="nav">
 							<li class="active"><a href="/">Home</a></li>
-							<li><a href="#about">About</a></li>
+							<li><%= link_to "About", about_path %></li>
+							<li><%= link_to "FAQ", faq_path %></li>
 							<li><a href="#contact">Contact</a></li>
 							<li class="dropdown">
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
@@ -105,3 +107,117 @@
 
 	</body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<title><%= full_title(@page_title) %></title>
+		<link href="<%= opensearch_catalog_path(:format => 'xml', :only_path => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
+		
+		<%= favicon_link_tag asset_path('favicon.ico') %>
+		<%= stylesheet_link_tag "application", :media => "all" %>
+		<%= csrf_meta_tags %>
+		<%= raw(render_head_content) %> 
+		<%= render :partial => 'layouts/ie-conditionals' %>
+	
+	</head>
+
+	<% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
+	
+	<body onload="<%= onload_text %>" class="<%= render_body_class %>">
+
+		<header>
+			<section class="container-fluid ucsd-head visible-desktop">
+				<a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><img src="/assets/ucsd/logo-ucsd-header-xl.png" alt="UC San Diego"></a>
+				<a class="brand" href="http://libraries.ucsd.edu/">The Library</a>
+			</section>
+			<section class="navbar navbar-inverse">
+				<div class="navbar-inner">
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+					<a class="brand hidden-desktop" href="http://libraries.ucsd.edu/">The Library</a>
+					<div class="nav-collapse collapse">
+	
+						<% if current_user  %>
+						<p class="navbar-text pull-right">
+							Logged in as <a href="#" class="navbar-link"><%= current_user.uid %></a>.
+							<%= link_to "Sign out", destroy_user_session_path, :class => "navbar-link" %>.
+						</p>
+						<% else %>
+						<p class="navbar-text pull-right">
+							<%= link_to "Sign in", new_user_session_path, :class => "navbar-link" %>.
+						</p>
+						<% end %>
+	
+						<ul class="nav">
+							<li class="active"><a href="/">Home</a></li>
+							<li><%= link_to "About", about_path %></li>
+							<li><%= link_to "FAQ", faq_path %></li>
+							<li><a href="#contact">Contact</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+								<ul class="dropdown-menu">
+									<li><a href="#">Action</a></li>
+									<li><a href="#">Another action</a></li>
+									<li><a href="#">Something else here</a></li>
+									<li class="divider"></li>
+									<li class="nav-header">Nav header</li>
+									<li><a href="#">Separated link</a></li>
+									<li><a href="#">One more separated link</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</header>
+
+		<div id="search-found" class="hidden-phone">
+			<%= topbar_items.join('').html_safe %>
+		</div>
+
+		<section id="messages" class="container-fluid">
+			<%= render :partial=>'/flash_msg' %>
+		</section>
+
+		<section id="main-container" class="container-fluid">
+			<%= yield %>
+		</section>
+
+		<footer>
+			<section>
+				<address>
+					<strong>UC San Diego</strong>
+					9500 Gilman Dr.
+					La Jolla, CA 92093
+					(858) 534-2230
+				</address>
+				<p>Copyright © 2013 Regents of the University of California. All rights reserved.</p>
+				<ul class="inline">
+					<li><a href="#terms">Terms &amp; Conditions</a></li>
+					<li class="muted">|</li>
+					<li><a href="#feedback">Feedback</a></li>
+				</ul>
+			</section>
+		</footer>
+
+		<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
+		
+		<!-- show debugging parameters in development -->
+		<section id="debug" class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12"><%= debug(params) if Rails.env.development? || Rails.env.gimili? %></div>
+			</div>
+		</section>
+		
+		<!-- JAVASCRIPT PLACED AT END SO PAGES LOAD FASTER -->
+		<%= javascript_include_tag "application" %>
+
+	</body>
+</html>
+>>>>>>> a7ef6790c020adffbc4b90ef9857f13a673520f6

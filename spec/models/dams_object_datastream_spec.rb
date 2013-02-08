@@ -6,23 +6,22 @@ describe DamsObjectDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb52572546"
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/xx1111111x"
       end
       
     end
 
     describe "an instance with content" do
       subject do
-        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/dissertation.rdf.xml').read
         subject
       end
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb52572546"
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/xx1111111x"
       end
-      
       
       it "should have fields" do
         subject.resource_type.should == ["text"]
@@ -56,7 +55,7 @@ describe DamsObjectDatastream do
 
       it "should create a solr document" do
         DamsSubject.should_receive(:find).with('bbXXXXXXX5').and_return(stub(:name =>'stubbed'))
-        stub_person = stub(:name => "Maria")
+        #stub_person = stub(:name => "Maria")
         #DamsPerson.should_receive(:find).with("bbXXXXXXX1").and_return(stub_person)        
         solr_doc = subject.to_solr
         solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
@@ -182,10 +181,10 @@ describe DamsObjectDatastream do
         solr_doc["otherRights_name_tesim"].should == ["http://library.ucsd.edu/ark:/20775/bb09090909"]
         solr_doc["otherRights_role_tesim"].should == ["http://library.ucsd.edu/ark:/20775/bd3004227d"]
       end
-      it "should index repository" do
+      it "should index unit" do
         solr_doc = subject.to_solr
-        solr_doc["repository_id_tesim"].should == ["bb02020202"]
-        solr_doc["repository_name_tesim"].should == ["Test Repository"]
+        solr_doc["unit_id_tesim"].should == ["bb02020202"]
+        solr_doc["unit_name_tesim"].should == ["Library Collections"]
       end
     end
   end
@@ -197,7 +196,7 @@ describe DamsObjectDatastream do
   end
   
   describe "should store correct xml" do
-      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'bb52572546', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
   
 	  before do
 	    subject.title = "Test Title"
@@ -207,7 +206,7 @@ describe DamsObjectDatastream do
 	  it "should create a xml" do
 	    xml =<<END
 	   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb52572546">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx1111111x">
     <dams:date>
       <dams:Date>
         <rdf:value>2013</rdf:value>

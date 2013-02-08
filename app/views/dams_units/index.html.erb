@@ -1,0 +1,70 @@
+<div class="row-fluid">
+	<div class="span12 page-header">
+		<h1>Digital Library Collections</h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+	
+	<div id="landingCarousel" class="carousel slide span6">
+		<!-- Carousel items -->
+		<div class="carousel-inner">
+			<div class="active item">
+				<%= image_tag "http://placedog.com/460/500?a" %>
+				<div class="carousel-caption">
+					<h4>Title: Slide 1</h4>
+					<p>Creator: Teh Interwebs</p>
+				</div>
+			</div>
+			<div class="item">
+				<%= image_tag "http://placedog.com/460/500?b" %>
+				<div class="carousel-caption">
+					<h4>Title: Slide 2</h4>
+					<p>Creator: Teh Interwebs</p>
+				</div>
+			</div>
+			<div class="item">
+				<%= image_tag "http://placedog.com/460/500?c" %>
+				<div class="carousel-caption">
+					<h4>Title: Slide 3</h4>
+					<p>Creator: Teh Interwebs</p>
+				</div>
+			</div>
+		</div>
+		<!-- Carousel nav -->
+		<a class="carousel-control left" href="#landingCarousel" data-slide="prev">&lsaquo;</a>
+		<a class="carousel-control right" href="#landingCarousel" data-slide="next">&rsaquo;</a>
+	</div>
+	
+	<div class="span6">
+	
+		<div class="well">
+			<h2>Search</h2>
+			<div>         
+				<%= render_unit_search_bar  %>
+			</div>
+		</div>
+		
+		<div class="well well-large">
+			<h2>Browse</h2>
+			<ul>
+				<%= render_browse_facet_links %>
+			</ul>
+			<p>Some very interesting text about units</p>
+			<ul>
+              <% @units.each do |unit| %>
+                <li><%= link_to unit.name.first, unit %></li>
+              <% end %>
+			</ul>
+		</div>
+		
+		<div>
+			<% if can? :create, DamsObject %>
+				<%= link_to "Create Object", new_dams_object_path %>,
+				<%= link_to "Create Unit", new_dams_unit_path %>
+			<% end %>
+		</div>
+	
+	</div>
+
+</div>
