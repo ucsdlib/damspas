@@ -1,0 +1,9 @@
+<h1><%= @dams_provenance_collection.titleValue.first %></h1>
+<p>Date: <%= @dams_provenance_collection.dateValue.first %> (<%= @dams_provenance_collection.beginDate.first %>, <%= @dams_provenance_collection.endDate.first %>)</p>
+<p><%= @dams_provenance_collection.scopeContentNoteDisplayLabel.first %>: <%= @dams_provenance_collection.scopeContentNoteValue.first %></p>
+<div>
+  <% if can? :edit, DamsProvenanceCollection then %>
+    <%= link_to "Edit", edit_dams_provenance_collection_path(@dams_provenance_collection), class: "btn btn-primary"%>
+  <% end %>
+  <%= link_to "View All", dams_provenance_collections_path, class: "btn btn-primary" %>
+</div>
