@@ -1,132 +1,167 @@
- <%# this should be in a partial -%>
-  <div id="document" class="<%# render_document_class %>">
-    <div id="doc_<%# @document.id.to_s.parameterize -%>">
-      <%= render_document_heading(:h1).html_safe %>
-			<section class="dams-viewer">
-				<p>OBJECT VIEWER/PLAYER GOES HERE</p>
-			</section>
 
-      <section class="dams-metadata">
-    		<h2>Metadata</h2>
-         <% if @document['formatName_tesim'] != nil %>
-          <p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"formatName_tesim") %></p>
-        <% end %>
+<script>
 
-        <% if @document[''] != nil %>
-          <p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"id_t") %></p>
-        <% end %>
+$(document).ready(function(){
+	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-chevron-right").addClass("icon-chevron-down");});
+	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-chevron-down").addClass("icon-chevron-right");});
+});
 
-        <% if @document['copyright_id_tesim'] != nil %>
-          <div>
-            <p>Copyright:</p>
-            <ul>
-              <li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_id_tesim") %></li>
-              <li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_status_tesim") %> (<%= render_document_show_field_value(:document=>@document, :field=>"copyright_jurisdiction_tesim") %>)</a></li>
-              <li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_purposeNote_tesim") %><%= render_document_show_field_value(:document=>@document, :field=>"copyright_note_tesim") %></li>
-              <li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_beginDate_tesim") %></li>
-            </ul>
-          </div>
-        <% end %>
+</script>
 
-        <% if @document['license_id_tesim'] != nil %>
-          <p>License</p>
-          <ul>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"license_id_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"license_note_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"license_uri_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"license_permissionType_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"license_permissionBeginDate_tesim") %></li>
-          </ul>
-        <% end %>
 
-        <% if @document['statute_id_tesim'] != nil %>
-          <p>Statute</p>
-          <ul>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"statute_id_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"statute_citation_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"statute_jurisdiction_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"statute_note_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"statute_restrictionType_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"statute_restrictionBeginDate_tesim") %></li>
-          </ul>
-        <% end %>
+<section id="dams-metadata">
 
-        <% if @document['otherRights_id_tesim'] != nil %>
-          <p>Other Rights</p>
-          <ul>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_id_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_basis_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_uri_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_permissionType_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_permissionBeginDate_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_name_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_role_tesim") %></li>
-          </ul>
-        <% end %>
+	<div class="btn-group">
+		<button class="btn btn-primary" data-toggle="collapse" data-target="#meta"><i class="icon-info-sign icon-white"></i> Metadata</button>
+		<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+		<ul class="dropdown-menu">
+			<li><a onClick="$('#meta').collapse('show');$('[id^=meta-]').collapse('show');" href="#">Show All</a></li>
+			<li><a onClick="$('#meta').collapse('hide');$('[id^=meta-]').collapse('hide');" href="#">Hide All</a></li>
+		</ul>
+	</div>
 
-        <% if @document['language_1_id_tesim'] != nil %>
-          <p>Language</p>
-          <ul>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_id_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_code_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_value_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_valueURI_tesim") %></li>
-          </ul>
-        <% end %>
+	<!--<button type="button" class="btn btn-primary btn-block" data-toggle="collapse" data-target="#meta"><i class="icon-info-sign icon-white"></i> <strong>Metadata</strong></button>-->
 
-        <% if @document['rightsHolder_1_tesim'] != nil %>
-          <p>Rights Holder(s)</p>
-          <ul>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"rightsHolder_1_id_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"rightsHolder_1_name_tesim") %></li>
-          </ul>
-        <% end %>
+	<div id="meta" class="collapse">
 
-        <% if @document['unit_name_tesim'] != nil %>
-          <p>Unit</p>
-          <ul>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"unit_id_tesim") %></li>
-          </ul>
-        <% end %>
-        
-        <% if @document['component_1_title_tesim'] != nil %>
-          <p>Component 1</p>
-          <ul>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_title_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_date_tesim") %></li>
-            <li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_note_tesim") %></li>
-          </ul>
-        <% end %>
+		<% if @document['formatName_tesim'] != nil %>
+			<p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"formatName_tesim") %></p>
+		<% end %>
+	
+		<% if @document[''] != nil %>
+			<p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"id_t") %></p>
+		<% end %>
+	
+		<% if @document['copyright_id_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-copyright"><i class="icon-chevron-right"></i> Copyright</button>
+			<div id="meta-copyright" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_id_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_status_tesim") %> (<%= render_document_show_field_value(:document=>@document, :field=>"copyright_jurisdiction_tesim") %>)</a></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_purposeNote_tesim") %><%= render_document_show_field_value(:document=>@document, :field=>"copyright_note_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"copyright_beginDate_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['license_id_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-license"><i class="icon-chevron-right"></i> License</button>
+			<div id="meta-license" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"license_id_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"license_note_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"license_uri_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"license_permissionType_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"license_permissionBeginDate_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['statute_id_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-statute"><i class="icon-chevron-right"></i> Statute</button>
+			<div id="meta-statute" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"statute_id_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"statute_citation_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"statute_jurisdiction_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"statute_note_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"statute_restrictionType_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"statute_restrictionBeginDate_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['otherRights_id_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-other-rights"><i class="icon-chevron-right"></i> Other Rights</button>
+			<div id="meta-other-rights" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_id_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_basis_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_uri_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_permissionType_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_permissionBeginDate_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_name_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"otherRights_role_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['language_1_id_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-language"><i class="icon-chevron-right"></i> Language</button>
+			<div id="meta-language" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_id_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_code_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_value_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"language_1_valueURI_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['rightsHolder_1_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-rights-holders"><i class="icon-chevron-right"></i> Rights Holders</button>
+			<div id="meta-rights-holders" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"rightsHolder_1_id_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"rightsHolder_1_name_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['unit_name_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-unit"><i class="icon-chevron-right"></i> Unit</button>
+			<div id="meta-unit" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"unit_id_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+		
+		<% if @document['component_1_title_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-component-1"><i class="icon-chevron-right"></i> Component 1</button>
+			<div id="meta-component-1" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_title_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_date_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_note_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['component_2_title_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-component-2"><i class="icon-chevron-right"></i> Component 2</button>
+			<div id="meta-component-2" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_title_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_date_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_note_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['relatedResource_1_uri_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-related-resource"><i class="icon-chevron-right"></i> Related Resource</button>
+			<div id="meta-related-resource" class="collapse">
+				<ul>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_type_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_uri_tesim") %></li>
+					<li><%= render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_description_tesim") %></li>
+				</ul>
+			</div>
+		<% end %>
+	
+		<% if @document['subject_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-subjects"><i class="icon-chevron-right"></i> Subjects</button>
+			<div id="meta-subjects" class="collapse">
+				<ul class="inline">
+					<% @document['subject_tesim'].each do |sub| %>
+					<li><span class="label label-info"><i class="icon-tag icon-white"></i> <%= sub %></span></li>
+					<% end %>
+				</ul>
+			</div>
+		<% end %>
 
-        <% if @document['component_2_title_tesim'] != nil %>
-          <p>Component 2</p>
-          <ul>
-          <li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_title_tesim") %></li>
-          <li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_date_tesim") %></li>
-          <li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_note_tesim") %></li>
-          </ul>
-        <% end %>
+	</div>
 
-        <% if @document['relatedResource_1_uri_tesim'] != nil %>
-          <p>Related Resource</p>
-          <ul>
-          <li><%= render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_type_tesim") %></li>
-          <li><%= render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_uri_tesim") %></li>
-          <li><%= render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_description_tesim") %></li>
-          </ul>
-        <% end %>
-
-        <% if @document['subject_tesim'] != nil %>
-          <p>Subjects</p>
-          <ul>
-            <% @document['subject_tesim'].each do |sub| %>
-            <li><%= sub %></li>
-            <% end %>
-          </ul>
-        <% end %>
-      </section>
-			
-			
-  </div>
-</div>
+</section>
