@@ -2,10 +2,12 @@
   <div id="document" class="<%# render_document_class %>">
     <div id="doc_<%# @document.id.to_s.parameterize -%>">
       <%= render_document_heading(:h1).html_safe %>
-      <div class="document">
-        
+			<section class="dams-viewer">
+				<p>OBJECT VIEWER/PLAYER GOES HERE</p>
+			</section>
 
-
+      <section class="dams-metadata">
+    		<h2>Metadata</h2>
          <% if @document['formatName_tesim'] != nil %>
           <p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"formatName_tesim") %></p>
         <% end %>
@@ -116,13 +118,15 @@
         <% end %>
 
         <% if @document['subject_tesim'] != nil %>
-          <p>Subjects:</p>
+          <p>Subjects</p>
           <ul>
             <% @document['subject_tesim'].each do |sub| %>
             <li><%= sub %></li>
             <% end %>
           </ul>
         <% end %>
-      </div>
+      </section>
+			
+			
   </div>
 </div>

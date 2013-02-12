@@ -11,6 +11,7 @@ class Ability
   		can [:read], DamsLanguage
   		can [:read], DamsVocab
   		can [:read], DamsAssembledCollection
+  		can [:read], DamsProvenanceCollection
   	else  #login user
     	can [:read, :create, :update], DamsObject
     	can [:read, :create, :update], DamsUnit
@@ -21,6 +22,7 @@ class Ability
     	can [:read, :create, :update], DamsLanguage
     	can [:read, :create, :update], DamsVocab
   		can [:read, :create, :update], DamsAssembledCollection
+  		can [:read, :create, :update], DamsProvenanceCollection
     end
   end
 end
