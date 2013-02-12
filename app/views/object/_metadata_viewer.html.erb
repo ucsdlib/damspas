@@ -8,14 +8,7 @@
 
       <section class="dams-metadata">
     		<h2>Metadata</h2>
-         <% if @document['formatName_tesim'] != nil %>
-          <p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"formatName_tesim") %></p>
-        <% end %>
-
-        <% if @document[''] != nil %>
-          <p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"id_t") %></p>
-        <% end %>
-
+    
         <% if @document['copyright_id_tesim'] != nil %>
           <div>
             <p>Copyright:</p>

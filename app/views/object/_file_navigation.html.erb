@@ -21,6 +21,11 @@ component_1_file_4.jpg_quality_tesim: 106x150
  <!-- retrieve ark ID to pull files-->       
   <% if @document['id_t'] != nil %>
      <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
+      
+      <!-- retrieve resource type to determine which viewer to render -->
+      <% if @document['resource_type_tesim'] != nil %>
+          <p>resource type: <%= render_document_show_field_value(:document=>@document, :field=>"resource_type_tesim") %></p>
+        <% end %>
 
       <!-- distinguish simple object from complex object is simple object won't have component_count_isi -->
         <%if @document['component_count_isi'] != nil   %>
