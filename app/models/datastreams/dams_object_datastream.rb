@@ -278,6 +278,18 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       nil
     end
   end
+  def load_collection
+    collection_uri = collection.values.first.to_s
+    collection_pid = collection_uri.gsub(/.*\//,'')
+    if collection_pid != nil && collection_pid != ""
+      DamsAssembledCollection.find(collection_pid) 
+      if(!DamsAssembledCollection.find(collection_pid).nil?)
+      	DamsProvenanceCollection.find(collection_pid)
+      end  
+    else
+      nil
+    end
+  end
   def load_copyright
     c_uri = copyright.values.first.to_s
     c_pid = c_uri.gsub(/.*\//,'')
@@ -428,6 +440,15 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
     end
 
+    col = load_collection
+    if col.class == DamsAssembledCollection
+      Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
+      Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+    elsif col.class == DamsProvenanceCollection
+      Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
+      Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+    end
+    
     # component metadata
     if component != nil && component.count > 0
       Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
