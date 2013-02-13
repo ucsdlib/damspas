@@ -12,7 +12,7 @@ module DamsUnitsHelper
   end
 
   def current_unit
-    @unit
+    @dams_unit
   end
   private 
 end
