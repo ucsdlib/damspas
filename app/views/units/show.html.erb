@@ -23,6 +23,11 @@
     <div>
       <%= link_to @document['unit_uri_tesim'].first, @document['unit_uri_tesim'].first %>
     </div>
+  <% if can? :edit, DamsUnit then %>
+    <%= link_to "Hydra View", dams_unit_path(@document['id_t']), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_unit_path(@document['id_t']), class: "btn btn-primary"%>
+  <% end %>
+
   </div>
 
   <h2>Search</h2>
