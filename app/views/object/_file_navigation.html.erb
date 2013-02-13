@@ -14,12 +14,14 @@ component_1_file_4.jpg_quality_tesim: 106x150
 'component_2_file_3.jpg_size_isi' => 64619 
 
 @document['file_3.jpg_formatName_tesim'] == "JPEG"
-
- -->
+-->
 
  
- <!-- render different viewer based on its format type -->       
-  <% if @document['id_t'] != nil %> 
+ <!-- render different viewer based on its format type -->   
+
+ <div class="row-fluid">
+  <div class="span12">    
+      <% if @document['id_t'] != nil %> 
       
       <%= render :partial => 'image_viewer' %>
 
@@ -41,6 +43,8 @@ component_1_file_4.jpg_quality_tesim: 106x150
         <% end %>
 
   <% end %>
+  </div>
+</div>
 
         
 
