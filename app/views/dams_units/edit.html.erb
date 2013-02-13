@@ -1,11 +1,11 @@
-<h1>Edit DAMS Unit</h1>
+<h1>Edit DAMS Unit - <%= @dams_unit.name[0] %></h1>
 <%= form_for @dams_unit do |f| %>
   <%= label_tag 'dams_unit[name]', "Name" %>
   <%= text_field_tag 'dams_unit[name][]', @dams_unit.name[0] %>
   <%= label_tag 'dams_unit[description]', "Description" %>
-  <%= text_field_tag 'dams_unit[description][]', @dams_unit.description[0] %>
+  <%= text_area_tag 'dams_unit[description][]', @dams_unit.description[0], :rows => 10 %>
   <%= label_tag 'dams_unit[uri]', "URI" %>
-  <%= text_field_tag 'dams_unit[uri][]', @dams_unit.uri[0] %>
+  <%= url_field_tag 'dams_unit[uri][]', @dams_unit.uri[0] %>
   <br>
 
   <%=f.submit "Save", class: "btn btn-primary" %>
