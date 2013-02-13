@@ -7,6 +7,9 @@ class DamsObject < ActiveFedora::Base
   def units
     damsMetadata.load_unit
   end
+  def collections
+    damsMetadata.load_collection
+  end
   def copyrights
     damsMetadata.load_copyright
   end

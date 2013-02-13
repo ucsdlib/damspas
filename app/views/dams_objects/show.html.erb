@@ -51,6 +51,10 @@
 								<dt>Unit</dt>
 								<dd><%= link_to @dams_object.units.name.first, dams_unit_path(@dams_object.units) %>
 							<% end %>
+							<% if (!@dams_object.collections.nil?) %>
+								<dt>Collection</dt>
+								<dd><%= link_to @dams_object.collections.title.first.value.join(", "), dams_assembled_collection_path(@dams_object.collections) %>
+							<% end %>
 							<% if (!@dams_object.copyrights.nil?) %>
 								<dt>Copyright</dt>
 								<dd>Begin Date: <%= @dams_object.copyrights.beginDate.first %></dd>
