@@ -1,5 +1,13 @@
 /* app specific/non-theme css goes here */
 
+#dams-metadata{margin-bottom:1em;}
 #dams-metadata #meta > .btn{text-align:left;padding-left:5px;font-weight:bold;}
-#dams-metadata #meta > div{background:#fbfbfb;border:1px solid #e6e6e6;padding-right:10px;padding-left:10px;}
-#dams-metadata #meta ul{margin-top:10px;margin-bottom:10px;}
+#dams-metadata #meta > div{background:#fbfbfb;border:1px solid #e6e6e6;color:#666;line-height:1em;;}
+#dams-metadata #meta > div > div{padding:1em;}
+#dams-metadata #meta ul{margin-bottom:0;}
+
+/* TEMP MOCKUP STUFF */
+
+.dams-viewer{height:480px;background:#999;margin-bottom:1em;}
+.dams-comments{height:240px;background:#ccc;}
+.dams-sidebar{height:480px;background:#ddd;}
