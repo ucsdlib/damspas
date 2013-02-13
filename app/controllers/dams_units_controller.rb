@@ -3,7 +3,7 @@ class DamsUnitsController < ApplicationController
   skip_authorize_resource :only => :index
 
   def show
-    @unit = DamsUnit.find(params[:id])
+    @dams_unit = DamsUnit.find(params[:id])
   end
 
   def new
@@ -11,7 +11,7 @@ class DamsUnitsController < ApplicationController
   end
 
   def edit
-
+    @dams_unit = DamsUnit.find(params[:id])
   end
 
   def create
@@ -35,7 +35,7 @@ class DamsUnitsController < ApplicationController
   end
 
   def index
-    @units = DamsUnit.all( :order=>"system_create_dtsi asc" )
+    @dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
   end
 
 
