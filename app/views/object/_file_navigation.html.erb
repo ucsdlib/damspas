@@ -14,33 +14,40 @@ component_1_file_4.jpg_quality_tesim: 106x150
 'component_2_file_3.jpg_size_isi' => 64619 
 
 @document['file_3.jpg_formatName_tesim'] == "JPEG"
-
- -->
+-->
 
  
- <!-- render different viewer based on its format type -->       
-  <% if @document['id_t'] != nil %> 
+ <!-- render different viewer based on its format type -->   
+
+ <div class="row-fluid">
+  <div class="span12">    
+      <% if @document['id_t'] != nil %> 
       
-      <%= render :partial => 'image_viewer' %>
+       
 
       <!-- distinguish simple object from complex object is simple object won't have component_count_isi -->
         <%if @document['component_count_isi'] != nil   %>
-          <!-- <p>ID: <%# #ark %></p> -->
-          <%= render :partial => 'complex_object_viewer' %>
-        
+         <%= render :partial => 'complex_object_viewer' %> 
+
         <% elsif @document['file_3.jpg_formatName_tesim'] == "JPEG" %>
         <%= render :partial => 'image_viewer' %>
+
         <% elsif @document['file_2.mp3_formatName_tesim'] == "MP3" %>
         <%= render :partial => 'audio_viewer' %>
+
         <% elsif @document['file_2.mp4_formatName_tesim'] == "MP4" %>
         <%= render :partial => 'video_viewer' %>
+
         <% elsif @document['file_1.pdf_formatName_tesim'] == "PDF" %>
         <%= render :partial => 'pdf_viewer' %>
+
         <% else %>
         <%= render :partial => 'default_viewer' %>
         <% end %>
 
   <% end %>
+  </div>
+</div>
 
         
 
