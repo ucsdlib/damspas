@@ -25,8 +25,8 @@ component_1_file_4.jpg_quality_tesim: 106x150
 
       <!-- distinguish simple object from complex object is simple object won't have component_count_isi -->
         <%if @document['component_count_isi'] != nil   %>
-          <p>ID: <%= ark %></p>
-          <%= render :partial => 'complex_object_viewer' %  
+          <!-- <p>ID: <%# #ark %></p> -->
+          <%= render :partial => 'complex_object_viewer' %>
         
         <% elsif @document['file_3.jpg_formatName_tesim'] == "JPEG" %>
         <%= render :partial => 'image_viewer' %>
