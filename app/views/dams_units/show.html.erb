@@ -37,4 +37,8 @@
       <%= @dams_unit.uri.first %>
     </a>
   </div>
+  <% if can? :edit, DamsUnit then %>
+    <%= link_to "Solr View", unit_path(@dams_unit.code), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_unit_path(@dams_unit), class: "btn btn-primary"%>
+  <% end %>
 </div>
