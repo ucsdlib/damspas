@@ -1,1 +1,3 @@
-<a href="<%= sufia.download_path(@generic_file) %>" target="_new"><img src="<%= sufia.download_path(@generic_file, {:datastream_id => 'thumbnail'}) %>" width="338" height="493" /></a>
+ <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
+
+<a href="<%= "http://pontos.ucsd.edu/view/"+ark+"/_3.jpg" %>" target="_new"><%= image_tag ("http://pontos.ucsd.edu/view/"+ark+"/_3.jpg", :size=> 400x500) %> </a>
