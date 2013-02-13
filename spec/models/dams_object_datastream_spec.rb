@@ -186,6 +186,11 @@ describe DamsObjectDatastream do
         solr_doc["unit_id_tesim"].should == ["bb02020202"]
         solr_doc["unit_name_tesim"].should == ["Library Collections"]
       end
+      it "should index collection" do
+        solr_doc = subject.to_solr
+        solr_doc["collection_id_tesim"].should == ["bb03030303"]
+        solr_doc["collection_name_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
+      end
     end
   end
   
