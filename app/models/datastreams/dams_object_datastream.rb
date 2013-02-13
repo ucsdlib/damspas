@@ -283,9 +283,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     collection_pid = collection_uri.gsub(/.*\//,'')
     if collection_pid != nil && collection_pid != ""
       DamsAssembledCollection.find(collection_pid) 
-      #if(DamsAssembledCollection.find(collection_pid).nil?)
-      	#DamsProvenanceCollection.find(collection_pid)
-      #end  
+    elsif(collection_pid != nil && collection_pid != "" && DamsAssembledCollection.find(collection_pid).nil?)
+      	DamsProvenanceCollection.find(collection_pid)
     else
       nil
     end

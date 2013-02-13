@@ -53,7 +53,12 @@
 							<% end %>
 							<% if (!@dams_object.collections.nil?) %>
 								<dt>Collection</dt>
-								<dd><%= link_to @dams_object.collections.title.first.value.join(", "), dams_assembled_collection_path(@dams_object.collections) %>
+								<% col = @dams_object.collections %>
+								<% if (col.class == DamsAssembledCollection) %>
+									<dd><%= link_to @dams_object.collections.title.first.value.join(", "), dams_assembled_collection_path(@dams_object.collections) %>
+								<% elsif (col.class == DamsProvenanceCollection) %>
+									<dd><%= link_to @dams_object.collections.title.first.value.join(", "), dams_provenance_collection_path(@dams_object.collections) %>	
+								<% end %>
 							<% end %>
 							<% if (!@dams_object.copyrights.nil?) %>
 								<dt>Copyright</dt>
