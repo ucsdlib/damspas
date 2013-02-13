@@ -1,0 +1,15 @@
+<h1>Edit DAMS Provenance Collection Part</h1>
+<%= form_for @dams_provenance_collection_part do |f| %>
+  <%= label_tag 'dams_provenance_collection_part[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection_part[titleValue][]', @dams_provenance_collection_part.titleValue[0] %>
+  <%= label_tag 'dams_provenance_collection_part[titleType]', "Title Type" %><%= text_field_tag 'dams_provenance_collection_part[titleType][]', @dams_provenance_collection_part.titleType[0] %>
+  <%= label_tag 'dams_provenance_collection_part[dateValue]', "Date Value" %><%= text_field_tag 'dams_provenance_collection_part[dateValue][]', @dams_provenance_collection_part.dateValue[0] %>
+  <%= label_tag 'dams_provenance_collection_part[beginDate]', "Begin Date" %><%= text_field_tag 'dams_provenance_collection_part[beginDate][]', @dams_provenance_collection_part.beginDate[0] %>
+  <%= label_tag 'dams_provenance_collection_part[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection_part[endDate][]', @dams_provenance_collection_part.endDate[0] %>
+  <%= label_tag 'dams_provenance_collection_part[scopeContentNoteValue]', "Scope Note" %><%= text_field_tag 'dams_provenance_collection_part[scopeContentNoteValue][]', @dams_provenance_collection_part.scopeContentNoteValue[0] %>
+  <%= label_tag 'dams_provenance_collection_part[scopeContentNoteType]', "Scope Note Type" %><%= text_field_tag 'dams_provenance_collection_part[scopeContentNoteType][]', @dams_provenance_collection_part.scopeContentNoteType[0] %>
+  <%= label_tag 'dams_provenance_collection_part[scopeContentNoteDisplayLabel]', "Scope Note DisplayLabel" %><%= text_field_tag 'dams_provenance_collection_part[scopeContentNoteDisplayLabel][]', @dams_provenance_collection_part.scopeContentNoteDisplayLabel[0] %>
+
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_provenance_collection_part_path( @dams_provenance_collection_part ), class: "btn btn-primary" %>
+<%end%>
