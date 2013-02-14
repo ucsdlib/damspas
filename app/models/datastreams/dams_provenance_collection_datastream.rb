@@ -7,7 +7,8 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.language(:in=>DAMS, :class_name => 'DamsLanguage')
+    map.language(:in=>DAMS)
+    map.part_node(:in=>DAMS,:to=>'hasPart')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -179,6 +180,16 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     languages
   end
 
+  def load_part
+    part_uri = part_node.values.first.to_s
+    part_pid = part_uri.gsub(/.*\//,'')
+    if part_pid != nil && part_pid != ""
+      DamsProvenanceCollectionPart.find(part_pid)
+    else
+      nil
+    end
+  end
+  
   def to_solr (solr_doc = {})
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
@@ -209,7 +220,13 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "language_#{n}_valueURI", lang.valueURI.first.to_s)
       end
     end
-    
+
+    part = load_part
+    if part != nil && part.class == DamsProvenanceCollectionPart
+      Solrizer.insert_field(solr_doc, 'part_name', col.title.first.value)
+      Solrizer.insert_field(solr_doc, 'part_id', col.pid)
+    end
+        
     n = 0
     relatedResource.map do |resource|
       n += 1

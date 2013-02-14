@@ -5,7 +5,7 @@ module DamsProvenanceCollectionsHelper
   end
 
   def render_browse_facet_links
-    render :partial => "dams_provenance_collectiones/browse_facet_link", :collection => browse_facet_links, :as => :facet
+    render :partial => "dams_provenance_collections/browse_facet_link", :collection => browse_facet_links, :as => :facet
   end
 
   def current_provenance_collection
