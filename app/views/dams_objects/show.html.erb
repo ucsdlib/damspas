@@ -78,18 +78,12 @@
 								<dd>Jurisdiction: <%= @dams_object.statutes.jurisdiction.first %></dd>
 								<dd>Note: <%= @dams_object.statutes.note.first %></dd>
 							<% end %>
-							<% if (!@dams_object.note.empty?) %>
-								<dt>Note</dt>
-	
-								<% if (!@dams_object.noteType.empty?) %>								
-									<dd>Type: <%= @dams_object.noteType.join(", ") %></dd>
+							<% if (!@dams_object.notes.empty?) %>	
+								<dt>Note(s)</dt>						
+								<% @dams_object.notes.each do |n| %>									
+									<dd>Type: <%= n.type.first %> -- <%= n.displayLabel.first %>:  <%= n.value.first %></dd>																	
 								<% end %>
-								<% if (!@dams_object.displayLabel.empty?) %>
-									<dd>DisplayLabel: <%= @dams_object.displayLabel.join(", ") %></dd>
-								<% end %> 
-									<dd>Value:<%= @dams_object.note.join(", ") %></dd>								
-							<% end %>
-						
+							<% end %>											
 							</dl>
 						</div>
 				</div>
