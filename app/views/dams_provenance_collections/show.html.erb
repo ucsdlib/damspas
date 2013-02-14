@@ -1,7 +1,13 @@
 <h1><%= @dams_provenance_collection.titleValue.first %></h1>
 <p>Date: <%= @dams_provenance_collection.dateValue.first %> (<%= @dams_provenance_collection.beginDate.first %>, <%= @dams_provenance_collection.endDate.first %>)</p>
 <p><%= @dams_provenance_collection.scopeContentNoteDisplayLabel.first %>: <%= @dams_provenance_collection.scopeContentNoteValue.first %></p>
-<div>
+<dl>	
+	<% if (!@dams_provenance_collection.part.nil?) %>
+		<dt>Part</dt>
+		<dd><%= link_to @dams_provenance_collection.part.title.first.value.join(", "), dams_provenance_collection(@dams_provenance_collection.part) %>
+	<% end %>
+</dl>
+
   <% if can? :edit, DamsProvenanceCollection then %>
     <%= link_to "Edit", edit_dams_provenance_collection_path(@dams_provenance_collection), class: "btn btn-primary"%>
   <% end %>
