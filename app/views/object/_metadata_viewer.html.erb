@@ -22,14 +22,6 @@
 
 	<div id="meta" class="collapse111">
 
-		<% if @document['formatName_tesim'] != nil %>
-			<p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"formatName_tesim") %></p>
-		<% end %>
-	
-		<% if @document[''] != nil %>
-			<p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"id_t") %></p>
-		<% end %>
-
 		<% if @document['copyright_id_tesim'] != nil %>
 			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-copyright"><i class="icon-chevron-right"></i> Copyright</button>
 			<div id="meta-copyright" class="collapse">
