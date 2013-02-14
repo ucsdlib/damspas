@@ -7,7 +7,7 @@ class DamsProvenanceCollectionPartDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.language(:in=>DAMS, :class_name => 'DamsLanguage')
+    map.language(:in=>DAMS)
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
