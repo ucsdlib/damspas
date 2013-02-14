@@ -1,11 +1,14 @@
 <h1>Create a new DAMS Unit</h1>
 <%= form_for @dams_unit do |f| %>
+	<%= render 'error_messages' %>
   <%= label_tag 'dams_unit[name]', "Name" %>
   <%= text_field_tag 'dams_unit[name]' %>
+	<%= label_tag 'dams_unit[code]', "Code" %>
+  <%= text_field_tag 'dams_unit[code]' %>
   <%= label_tag 'dams_unit[description]', "Description" %>
-  <%= text_field_tag 'dams_unit[description]' %>
+  <%= text_area_tag 'dams_unit[description]', :rows => 10 %>
   <%= label_tag 'dams_unit[uri]', "URI" %>
-  <%= text_field_tag 'dams_unit[uri]' %>
+  <%= url_field_tag 'dams_unit[uri]' %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
