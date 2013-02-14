@@ -19,14 +19,16 @@
 				<div class="row-fluid well">
 					<div class="span12">
 						<dl>
-							<% if (!@dams_object.title.empty?) %>
-								<dt>Title</dt>
-								<dd><%= @dams_object.title.join(", ") %></dd>
-							<% end %>
-							<% if (!@dams_object.subtitle.empty?) %>
-								<dt>Subtitle</dt>
-								<dd><%= @dams_object.subtitle.join(", ") %></dd>
-							<% end %>
+							<% if (!@dams_object.titles.empty?) %>													
+								<% @dams_object.titles.each do |t| %>
+									<dt>Title</dt>										
+									<dd><%= t.value.join(", ") %></dd>	
+									<% if (!t.subtitle.empty?) %>
+										<dt>Subtitle</dt>										
+										<dd><%= t.subtitle.join(", ") %></dd>
+									<% end %>																
+								<% end %>
+							<% end %>	
 							<% if (!@dams_object.date.empty?) %>
 								<dt>Date</dt>
 								<dd><%= @dams_object.date.join(", ") %></dd>
@@ -83,7 +85,15 @@
 								<% @dams_object.notes.each do |n| %>									
 									<dd>Type: <%= n.type.first %> -- <%= n.displayLabel.first %>:  <%= n.value.first %></dd>																	
 								<% end %>
-							<% end %>											
+							<% end %>	
+							<% if (!@dams_object.components.empty?) %>															
+								<% @dams_object.component.each do |component| %>	
+									<dt>Component</dt>								
+									<dd>Title: <%= component.title.first.value.join(", ") %></dd>	
+									<dd>Date: <%= component.date.first.value.join(", ") %></dd>		
+														
+								<% end %>
+							<% end %>																			
 							</dl>
 						</div>
 				</div>
