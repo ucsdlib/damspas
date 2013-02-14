@@ -13,7 +13,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.statute(:in=>DAMS)
     map.language(:in=>DAMS)
     map.rightsHolder(:in=>DAMS)
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
+    map.note_node(:in => DAMS, :to=>'note', :class_name => 'Note')
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
@@ -123,6 +123,31 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.type(:in=>DAMS)
     end
   end
+  
+  def note
+    note_node.first ? note_node.first.value : []
+  end
+  def note=(val)
+    self.note_node = []
+    note_node.build.value = val
+  end
+  
+  def displayLabel
+    note_node.first ? note_node.first.displayLabel : []
+  end
+  def displayLabel=(val)
+    self.note_node = []
+    note_node.build.displayLabel = val
+  end
+
+  def noteType
+    note_node.first ? note_node.first.type : []
+  end
+  def noteType=(val)
+    self.note_node = []
+    note_node.build.type = val
+  end  
+    
   class RelatedResource
     include ActiveFedora::RdfObject
     rdf_type DAMS.RelatedResource
@@ -351,6 +376,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     Solrizer.insert_field(solr_doc, 'title', title)
     Solrizer.insert_field(solr_doc, 'date', date)
+     Solrizer.insert_field(solr_doc, 'note', note)
     relationship.map do |relationship| 
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
     end
