@@ -284,17 +284,38 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       nil
     end
   end
+ # def load_collection
+  #  collection_uri = collection.values.first.to_s
+   # collection_pid = collection_uri.gsub(/.*\//,'')
+   # if collection_pid != nil && collection_pid != ""
+   #   DamsAssembledCollection.find(collection_pid) 
+   # elsif(collection_pid != nil && collection_pid != "" && DamsAssembledCollection.find(collection_pid).nil?)
+   #   	DamsProvenanceCollection.find(collection_pid)
+   # else
+   #   nil
+   # end
+  #end
+
   def load_collection
-    collection_uri = collection.values.first.to_s
-    collection_pid = collection_uri.gsub(/.*\//,'')
-    if collection_pid != nil && collection_pid != ""
-      DamsAssembledCollection.find(collection_pid) 
-    elsif(collection_pid != nil && collection_pid != "" && DamsAssembledCollection.find(collection_pid).nil?)
-      	DamsProvenanceCollection.find(collection_pid)
-    else
-      nil
+    collections = []
+    collection.values.each do |col|
+      collection_uri = col.to_s
+	  collection_pid = collection_uri.gsub(/.*\//,'')
+	  hasModel = "";
+      if (collection_pid != nil && collection_pid != "")      
+         obj = DamsAssembledCollection.find(collection_pid)
+      	 hasModel = obj.relationships(:has_model).to_s
+      end
+	  if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Assembled'))
+      		collections << obj     
+      elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Provenance'))
+      		collections << DamsProvenanceCollection.find(collection_pid)     
+      end
+   	
     end
+    collections
   end
+  
   def load_copyright
     c_uri = copyright.values.first.to_s
     c_pid = c_uri.gsub(/.*\//,'')
@@ -436,17 +457,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
     
-   # notes = load_notes
-    #if notes != nil
-     # n = 0
-     # notes.each do |note|
-     #   n += 1
-     #   Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", note.displayLabel)
-     #   Solrizer.insert_field(solr_doc, "note_#{n}_type", note.type)
-     #   Solrizer.insert_field(solr_doc, "note_#{n}_value", lang.value)       
-     # end
-    #end
-    
     rightsHolders = load_rightsHolders
     if rightsHolders != nil
       n = 0
@@ -466,14 +476,24 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     col = load_collection
-    if col.class == DamsAssembledCollection
-      Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
-      Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
-    elsif col.class == DamsProvenanceCollection
-      Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
-      Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+    #if col.class == DamsAssembledCollection
+    #  Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
+    #  Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+    #elsif col.class == DamsProvenanceCollection
+     # Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
+     # Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+   # end
+
+    if col != nil
+     n = 0
+      col.each do |collection|
+        puts collection.class
+        n += 1
+        Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
+        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)      
+      end
     end
-    
+        
     # component metadata
     if component != nil && component.count > 0
       Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
