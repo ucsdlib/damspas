@@ -1,16 +1,33 @@
-<h1>Edit DAMS Unit - <%= @dams_unit.name[0] %></h1>
-<%= form_for @dams_unit do |f| %>
-	<%= render 'error_messages' %>
-  <%= label_tag 'dams_unit[name]', "Name" %>
-  <%= text_field_tag 'dams_unit[name][]', @dams_unit.name[0] %>
-	<%= label_tag 'dams_unit[code]', "Code" %>
-  <%= text_field_tag 'dams_unit[code][]', @dams_unit.code[0] %>
-  <%= label_tag 'dams_unit[description]', "Description" %>
-  <%= text_area_tag 'dams_unit[description][]', @dams_unit.description[0], :rows => 10 %>
-  <%= label_tag 'dams_unit[uri]', "URI" %>
-  <%= url_field_tag 'dams_unit[uri][]', @dams_unit.uri[0] %>
-  <br>
+<% @page_title =  "Edit DAMS Unit" %>
 
-  <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", dams_unit_path(@dams_unit), class: "btn btn-primary" %>
-<%end%>
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit DAMS Unit</h2>
+		
+		<%= form_for @dams_unit do |f| %>
+		
+			<%= render 'error_messages' %>
+		
+			<%= label_tag 'dams_unit[name]', "Name" %>
+			<%= text_field_tag 'dams_unit[name][]', @dams_unit.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'dams_unit[code]', "Code" %>
+			<%= text_field_tag 'dams_unit[code][]', @dams_unit.code[0], class: "input-block-level" %>
+		
+			<%= label_tag 'dams_unit[description]', "Description" %>
+			<%= text_area_tag 'dams_unit[description][]', @dams_unit.description[0], :rows => 10, class: "input-block-level" %>
+		
+			<%= label_tag 'dams_unit[uri]', "URI" %>
+			<%= url_field_tag 'dams_unit[uri][]', @dams_unit.uri[0], class: "input-block-level" %>
+		
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", dams_unit_path(@dams_unit), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>
