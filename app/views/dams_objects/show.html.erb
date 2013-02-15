@@ -19,8 +19,8 @@
 				<div class="row-fluid well">
 					<div class="span12">
 						<dl>
-							<% if (!@dams_object.titles.empty?) %>													
-								<% @dams_object.titles.each do |t| %>
+							<% if (!@dams_object.title_node.empty?) %>													
+								<% @dams_object.title_node.each do |t| %>
 									<dt>Title</dt>										
 									<dd><%= t.value.join(", ") %></dd>	
 									<% if (!t.subtitle.empty?) %>
@@ -80,18 +80,26 @@
 								<dd>Jurisdiction: <%= @dams_object.statutes.jurisdiction.first %></dd>
 								<dd>Note: <%= @dams_object.statutes.note.first %></dd>
 							<% end %>
-							<% if (!@dams_object.notes.empty?) %>	
+							<% if (!@dams_object.note_node.empty?) %>	
 								<dt>Note(s)</dt>						
-								<% @dams_object.notes.each do |n| %>									
+								<% @dams_object.note_node.each do |n| %>									
 									<dd>Type: <%= n.type.first %> -- <%= n.displayLabel.first %>:  <%= n.value.first %></dd>																	
 								<% end %>
 							<% end %>	
-							<% if (!@dams_object.components.empty?) %>															
+							<% if (!@dams_object.component.empty?) %>															
 								<% @dams_object.component.each do |component| %>	
 									<dt>Component</dt>								
 									<dd>Title: <%= component.title.first.value.join(", ") %></dd>	
-									<dd>Date: <%= component.date.first.value.join(", ") %></dd>		
-														
+									<dd>Date: <%= component.date.first.value.join(", ") %></dd>	
+									<% if(component.note.first != nil)%>
+										<dd>Note: <%= component.note.first.value.join(", ")%></dd>	
+									<% end %>														
+								<% end %>
+							<% end %>		
+							<% if (!@dams_object.relatedResource.empty?) %>		
+								<dt>Related Resource</dt>													
+								<% @dams_object.relatedResource.each do |resource| %>																		
+									<dd><%= link_to resource.description.join(", "), resource.uri.join(", ") %></dd>													
 								<% end %>
 							<% end %>																			
 							</dl>
