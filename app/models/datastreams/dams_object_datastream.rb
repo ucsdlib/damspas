@@ -111,7 +111,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.size(:in=>DAMS)
         map.compositionLevel(:in=>DAMS)
       end
-    end
+    end   
   end
 
   class Note
@@ -121,22 +121,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
-    end
-  end
-  
-  def components
-  	component ? component: []
-  end
-  
-  def notes
-    #note_node.map{|n| "#{n.displayLabel.first}: #{n.value.first}"}
-    note_node ? note_node: []
-  end
-  
-  def notes=(val)
-    self.note_node = []
-    val.each do |n|
-      note_node.build.value = n
     end
   end
      
@@ -178,17 +162,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.value(:in=> RDF)
       map.subtitle(:in=> DAMS)
       map.type(:in=> DAMS)
-    end
-  end
-  
-  def titles
-    title_node ? title_node: []
-  end
-  
-  def titles=(val)
-    self.title_node = []
-    val.each do |n|
-      title_node.build.value = n
     end
   end
   
