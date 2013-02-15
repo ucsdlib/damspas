@@ -23,4 +23,8 @@ $(document).ready(function() {
 	$('.carousel').carousel();
 });
 
+audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+
 Blacklight.do_search_context_behavior = function() {};
