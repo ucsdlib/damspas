@@ -91,8 +91,10 @@
 							<% end %>	
 							<% if (!@dams_object.component.empty?) %>															
 								<% @dams_object.component.each do |component| %>	
-									<dt>Component</dt>								
-									<dd>Title: <%= component.title.first.value.join(", ") %></dd>	
+									<dt>Component</dt>
+									<% component.title.each do |title| %>								
+										<dd>Title: <%= title.value.join(", ") %></dd>	
+									<% end %>
 									<dd>Date: <%= component.date.first.value.join(", ") %></dd>	
 									<% if(component.note.first != nil)%>
 										<dd>Note: <%= component.note.first.value.join(", ")%></dd>	

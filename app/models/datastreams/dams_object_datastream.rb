@@ -502,6 +502,13 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       cid = component.rdf_subject.to_s
       cid = cid.match('\w+$')
       Solrizer.insert_field(solr_doc, "component_#{cid}_title", component.title.first.value)
+      n = 0
+      component.title.map do |title|
+        n += 1
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_title", title.value)
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", title.subtitle)
+      end
+      
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
       Solrizer.insert_field(solr_doc, "component_#{cid}_date",  component.date.first.value)
       if component.note.first != nil

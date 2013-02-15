@@ -85,6 +85,14 @@ describe DamsObjectDatastream do
         subject.relatedResource.first.description.should == ["Sample Complex Object Record #1: The Exhibit!"]
       end
 
+	  it "should have repeated title" do
+	  	solr_doc = subject.to_solr
+        solr_doc["title_1_value_tesim"].should == ["Sample Complex Object Record #1"]
+        solr_doc["title_1_subtitle_tesim"].should == ["a dissertation with a single attached image"]
+         solr_doc["title_2_value_tesim"].should == ["Other Title #2"]
+        solr_doc["title_2_subtitle_tesim"].should == ["Subtitle #2"]
+	  end
+	  
       it "should have inline subjects" do
         subject.subject.first.should == "Black Panther Party--History"
       end
@@ -129,7 +137,21 @@ describe DamsObjectDatastream do
         subject.component.first.file.first.compositionLevel.should == ["0"]
         subject.component.first.file.first.preservationLevel.should == ["full"]
       end
-
+	  it "should have a first component with repeating title" do
+        solr_doc = subject.to_solr
+        solr_doc["component_1_1_title_tesim"].should == ["The Static Image"]
+        solr_doc["component_1_1_subtitle_tesim"].should == ["Foo!"] 
+        solr_doc["component_1_2_title_tesim"].should == ["The Static Image #2"]
+        solr_doc["component_1_2_subtitle_tesim"].should == ["Foo! #2"] 
+        solr_doc["component_1_3_title_tesim"].should == ["The Static Image #3"]
+        solr_doc["component_1_3_subtitle_tesim"].should == ["Foo! #3"] 
+      end
+	  it "should have a second component with repeating title" do
+        solr_doc = subject.to_solr
+        solr_doc["component_2_1_title_tesim"].should == ["Supplementary Image"]
+        solr_doc["component_2_2_title_tesim"].should == ["Supplementary Image #2"]   
+      end      
+      
       it "should index component metadata" do
         solr_doc = subject.to_solr
         solr_doc["component_1_title_tesim"].should == ["The Static Image"]
@@ -190,6 +212,8 @@ describe DamsObjectDatastream do
         solr_doc = subject.to_solr
         solr_doc["collection_1_id_tesim"].should == ["bb03030303"]
         solr_doc["collection_1_name_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
+        solr_doc["collection_2_id_tesim"].should == ["bb24242424"]
+        solr_doc["collection_2_name_tesim"].should == ["Historical Dissertations"]
       end
     end
   end
