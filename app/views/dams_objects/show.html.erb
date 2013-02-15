@@ -43,11 +43,13 @@
 							<% end %>
 							<% if (!@dams_object.subject.empty?) %>
 								<dt>Subject</dt>
-								<dd><%= @dams_object.subject.join(", ") %></dd>
+								<% @dams_object.subject.each do |subject| %>
+									<dd><%= subject%></dd>
+								<% end %>
 							<% end %>
 							<% if (!@dams_object.languages.empty? && !@dams_object.languages.first.blank?) %>
 								<dt>Language</dt>
-								<dd><%= @dams_object.languages.first.value.first %></dd>
+								<dd><%= link_to @dams_object.languages.first.value.first,  @dams_object.languages.first.valueURI.first %></dd>
 							<% end %>
 							<% if (!@dams_object.units.nil?) %>
 								<dt>Unit</dt>
@@ -55,11 +57,12 @@
 							<% end %>
 							<% if (!@dams_object.collections.nil?) %>
 								<dt>Collection</dt>
-								<% col = @dams_object.collections %>
-								<% if (col.class == DamsAssembledCollection) %>
-									<dd><%= link_to @dams_object.collections.title.first.value.join(", "), dams_assembled_collection_path(@dams_object.collections) %>
-								<% elsif (col.class == DamsProvenanceCollection) %>
-									<dd><%= link_to @dams_object.collections.title.first.value.join(", "), dams_provenance_collection_path(@dams_object.collections) %>	
+								<% @dams_object.collections.each do |col| %>
+									<% if (col.class == DamsAssembledCollection) %>
+										<dd><%= link_to col.title.first.value.join(", "), dams_assembled_collection_path(col) %>
+									<% elsif (col.class == DamsProvenanceCollection) %>
+										<dd><%= link_to col.title.first.value.join(", "), dams_provenance_collection_path(col) %>	
+									<% end %>
 								<% end %>
 							<% end %>
 							<% if (!@dams_object.copyrights.nil?) %>
