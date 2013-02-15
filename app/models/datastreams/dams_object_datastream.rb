@@ -124,30 +124,22 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   
-  def note
-    note_node.first ? note_node.first.value : []
-  end
-  def note=(val)
-    self.note_node = []
-    note_node.build.value = val
+  def components
+  	component ? component: []
   end
   
-  def displayLabel
-    note_node.first ? note_node.first.displayLabel : []
+  def notes
+    #note_node.map{|n| "#{n.displayLabel.first}: #{n.value.first}"}
+    note_node ? note_node: []
   end
-  def displayLabel=(val)
+  
+  def notes=(val)
     self.note_node = []
-    note_node.build.displayLabel = val
+    val.each do |n|
+      note_node.build.value = n
+    end
   end
-
-  def noteType
-    note_node.first ? note_node.first.type : []
-  end
-  def noteType=(val)
-    self.note_node = []
-    note_node.build.type = val
-  end  
-    
+     
   class RelatedResource
     include ActiveFedora::RdfObject
     rdf_type DAMS.RelatedResource
@@ -188,6 +180,18 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.type(:in=> DAMS)
     end
   end
+  
+  def titles
+    title_node ? title_node: []
+  end
+  
+  def titles=(val)
+    self.title_node = []
+    val.each do |n|
+      title_node.build.value = n
+    end
+  end
+  
   def title
     title_node.first ? title_node.first.value : []
   end
@@ -269,8 +273,12 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsSubject.find(md[1])
     end
   end
+  
   def subject
-    subject_node.map{|s| s.authoritativeLabel.first}
+    #subject_node.map{|s| s.authoritativeLabel.first}
+    subject_node.map do |sn| 
+    	subject_value = sn.external? ? sn.load.name.first : sn.authoritativeLabel.first
+    end
   end
   def subject=(val)
     self.subject_node = []
@@ -375,8 +383,16 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
     end
     Solrizer.insert_field(solr_doc, 'title', title)
+    n = 0
+    title_node.map do |t|
+      n += 1
+      Solrizer.insert_field(solr_doc, "title_#{n}_type", t.type)
+      Solrizer.insert_field(solr_doc, "title_#{n}_subtitle", t.subtitle)
+      Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
+    end  
+    
     Solrizer.insert_field(solr_doc, 'date', date)
-     Solrizer.insert_field(solr_doc, 'note', note)
+    
     relationship.map do |relationship| 
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
     end
@@ -446,6 +462,17 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "language_#{n}_valueURI", lang.valueURI.first.to_s)
       end
     end
+    
+   # notes = load_notes
+    #if notes != nil
+     # n = 0
+     # notes.each do |note|
+     #   n += 1
+     #   Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", note.displayLabel)
+     #   Solrizer.insert_field(solr_doc, "note_#{n}_type", note.type)
+     #   Solrizer.insert_field(solr_doc, "note_#{n}_value", lang.value)       
+     # end
+    #end
     
     rightsHolders = load_rightsHolders
     if rightsHolders != nil
@@ -521,7 +548,14 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
     end
-
+	n = 0
+    note_node.map do |no|
+      n += 1
+      Solrizer.insert_field(solr_doc, "note_#{n}_type", no.type)
+      Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", no.displayLabel)
+      Solrizer.insert_field(solr_doc, "note_#{n}_value", no.value)
+    end
+    
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
       if solr_doc[f].kind_of?(Array)
