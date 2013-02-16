@@ -18,15 +18,17 @@
 //= require bootstrap
 //= require_tree .
 
-
 $(document).ready(function() {
 	$('.carousel').carousel();
 });
 
+audiojs.events.ready(function() {
+    var as = audiojs.createAll();
+  });
+
 Blacklight.do_search_context_behavior = function() {};
 
-
-// OBJECT VIEWER PAGE
+// OBJECT VIEWER PAGE - DT
 $(document).ready(function(){
 	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-chevron-right").addClass("icon-chevron-down");});
 	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-chevron-down").addClass("icon-chevron-right");});
