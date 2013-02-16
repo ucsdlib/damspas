@@ -1,0 +1,92 @@
+<% if @document['language_1_id_tesim'] != nil %>
+	<%
+		language = render_document_show_field_value(:document=>@document, :field=>"language_1_value_tesim") 
+		language_code = render_document_show_field_value(:document=>@document, :field=>"language_1_code_tesim") 
+		language_uri = render_document_show_field_value(:document=>@document, :field=>"language_1_valueURI_tesim") 
+		language_linktext = "#{language} (#{language_code})"				
+	%>
+	<span class="label pull-right"><i class="icon-globe icon-white"></i> <%= link_to language_linktext, language_uri %></span>	
+<% end %>
+
+<%= render_document_heading(:h1).html_safe %>
+
+<% if @document['name_tesim'] != nil %>
+	<p><strong><%= render_document_show_field_value(:document=>@document, :field=>"name_tesim") %></strong> &middot; <small>mm/dd/yyyy</small></p>
+<% end %>
+
+<button class="btn btn-mini btn-link btn-block" type="button" data-toggle="collapse" data-target="#alt-fold">Show more</button>
+
+<div id="alt-fold" class="collapse">
+	
+	<dl class="dl-horizontal">
+		<% if @document['copyright_id_tesim'] != nil %>
+			<%
+				copyright_status = render_document_show_field_value(:document=>@document, :field=>"copyright_status_tesim")
+				copyright_jurisdiction = render_document_show_field_value(:document=>@document, :field=>"copyright_jurisdiction_tesim")
+				copyright_purpose = render_document_show_field_value(:document=>@document, :field=>"copyright_purposeNote_tesim")
+				copyright_note = render_document_show_field_value(:document=>@document, :field=>"copyright_note_tesim")
+			%>	
+			<dt>Copyright</dt>	
+			<dd>
+				<p><strong><%= copyright_status.sub(/--/, '–') %> (<%= copyright_jurisdiction.upcase %>)</strong></p>
+				<p><%= copyright_purpose %></p>
+				<p class="muted"><small><%= copyright_note %></small></p>
+			</dd>
+		<% end %>
+
+		<% if @document['license_id_tesim'] != nil %>
+			<%
+				license_note = render_document_show_field_value(:document=>@document, :field=>"license_note_tesim")
+				license_uri = render_document_show_field_value(:document=>@document, :field=>"license_uri_tesim")
+			%>					
+			<dt>License</dt>	
+			<dd><p><%= link_to license_note, license_uri %></p></dd>
+		<% end %>
+	
+		<% if @document['statute_id_tesim'] != nil %>
+			<%
+				statute_citation = render_document_show_field_value(:document=>@document, :field=>"statute_citation_tesim")
+				statute_note = render_document_show_field_value(:document=>@document, :field=>"statute_note_tesim")
+				statute_jurisdiction = render_document_show_field_value(:document=>@document, :field=>"statute_jurisdiction_tesim")
+			%>
+			<dt>Statute</dt>	
+			<dd>
+				<p><strong><%= statute_citation %> &ndash; <%= statute_jurisdiction.upcase %></strong></p>
+				<p><%= statute_note %></p>
+			</dd>
+		<% end %>
+	
+		<% if @document['otherRights_id_tesim'] != nil %>
+			<%
+				other_rights_basis = render_document_show_field_value(:document=>@document, :field=>"otherRights_basis_tesim")
+				other_rights_uri = render_document_show_field_value(:document=>@document, :field=>"otherRights_uri_tesim")
+			%>
+			<dt>Other Rights</dt>	
+			<dd><p><%= link_to other_rights_basis.capitalize, other_rights_uri %></p></dd>	
+		<% end %>
+		
+		<% if @document['rightsHolder_1_tesim'] != nil %>
+			<dt>Rights Holder</dt>	
+			<dd><%= render_document_show_field_value(:document=>@document, :field=>"rightsHolder_1_name_tesim") %></dd>
+		<% end %>
+	
+		<% if @document['unit_name_tesim'] != nil %>
+			<dt>Unit</dt>	
+			<dd><p class="label"><i class="icon-home icon-white"></i> <%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></p></dd>
+		<% end %>
+			
+		<% if @document['subject_tesim'] != nil %>
+			<dt>Subjects</dt>	
+			<dd>
+				<ul class="unstyled">
+				<% @document['subject_tesim'].each do |sub| %>
+					<li><span class="label"><i class="icon-tag icon-white"></i> <%= sub %></span></li>
+				<% end %>
+				</ul>
+			</dd>
+		<% end %>
+	</dl>
+		
+</div>
+
+<hr>

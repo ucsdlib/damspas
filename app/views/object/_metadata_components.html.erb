@@ -1,0 +1,31 @@
+	<button type="button" class="btn btn-block" onClick="$('[id^=meta-]').collapse('toggle');"><i class="icon-info-sign"></i> <strong>Components</strong></button>
+
+	<div class="meta">
+
+		<% if @document['component_1_title_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-component-1"><i class="icon-chevron-right"></i> Component 1</button>
+			<div id="meta-component-1" class="collapse">
+				<div>
+					<ul>
+						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_title_tesim") %></li>
+						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_date_tesim") %></li>
+						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_note_tesim") %></li>
+					</ul>
+				</div>
+			</div>
+		<% end %>
+	
+		<% if @document['component_2_title_tesim'] != nil %>
+			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-component-2"><i class="icon-chevron-right"></i> Component 2</button>
+			<div id="meta-component-2" class="collapse">
+				<div>
+					<ul>
+						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_title_tesim") %></li>
+						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_date_tesim") %></li>
+						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_note_tesim") %></li>
+					</ul>
+				</div>
+			</div>
+		<% end %>
+
+	</div>
