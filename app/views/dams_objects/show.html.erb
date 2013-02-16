@@ -29,18 +29,22 @@
 									<% end %>																
 								<% end %>
 							<% end %>	
-							<% if (!@dams_object.date.empty?) %>
-								<dt>Date</dt>
-								<dd><%= @dams_object.date.join(", ") %></dd>
-							<% end %>
-							<% if (!@dams_object.beginDate.empty?) %>
-								<dt>Begin Date</dt>
-								<dd><%= @dams_object.beginDate.join(", ") %></dd>
-							<% end %>
-							<% if (!@dams_object.endDate.empty?) %>
-								<dt>End Date</dt>
-								<dd><%= @dams_object.endDate.join(", ") %></dd>
-							<% end %>
+							<% if (!@dams_object.odate.empty?) %>	
+								<dt>Date</dt>												
+								<% @dams_object.odate.each do |date| %>
+																			
+									<dd><%= date.value.join(", ") %> --	
+									<% if (!date.beginDate.empty?) %>
+										Begin Date:										
+										<%= date.beginDate.join(", ") %> --
+									<% end %>	
+									<% if (!date.endDate.empty?) %>
+										End Date:										
+										<%= date.endDate.join(", ") %>
+									<% end %>
+									</dd>																							
+								<% end %>
+							<% end %>							
 							<% if (!@dams_object.subject.empty?) %>
 								<dt>Subject</dt>
 								<% @dams_object.subject.each do |subject| %>
@@ -95,7 +99,9 @@
 									<% component.title.each do |title| %>								
 										<dd>Title: <%= title.value.join(", ") %></dd>	
 									<% end %>
-									<dd>Date: <%= component.date.first.value.join(", ") %></dd>	
+									<% component.date.each do |date| %>								
+										<dd>Date: <%= date.value.join(", ") %></dd>	
+									<% end %>
 									<% if(component.note.first != nil)%>
 										<dd>Note: <%= component.note.first.value.join(", ")%></dd>	
 									<% end %>														

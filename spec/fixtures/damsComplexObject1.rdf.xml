@@ -71,7 +71,21 @@
         <dams:subtitle>Subtitle #2</dams:subtitle>
         <dams:type>temp</dams:type>
       </dams:Title>
-    </dams:title>    
+    </dams:title>  
+      <dams:date>
+        <dams:Date>
+          <rdf:value>2013</rdf:value>
+          <dams:beginDate>2013</dams:beginDate>
+          <dams:endDate>2013</dams:endDate>
+        </dams:Date>
+      </dams:date>
+       <dams:date>
+        <dams:Date>
+          <rdf:value>2012</rdf:value>
+          <dams:beginDate>2012</dams:beginDate>
+          <dams:endDate>2012</dams:endDate>
+        </dams:Date>
+      </dams:date>  
     <dams:hasComponent>
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1">
         <dams:note>
@@ -107,6 +121,13 @@
             <rdf:value>June 24-25, 2012</rdf:value>
             <dams:beginDate>2012-06-24</dams:beginDate>
             <dams:endDate>2012-06-25</dams:endDate>
+          </dams:Date>
+        </dams:date>
+       <dams:date>
+          <dams:Date>
+            <rdf:value>June 24-25, 2012 #2</rdf:value>
+            <dams:beginDate>2012-06-24 #2</dams:beginDate>
+            <dams:endDate>2012-06-25 #2</dams:endDate>
           </dams:Date>
         </dams:date>
         <dams:hasFile>
@@ -165,6 +186,13 @@
             <rdf:value>May 24, 2012</rdf:value>
             <dams:beginDate>2012-05-24</dams:beginDate>
             <dams:endDate>2012-05-24</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:date>
+          <dams:Date>
+            <rdf:value>May 24, 2012 #2</rdf:value>
+            <dams:beginDate>2012-05-24 #2</dams:beginDate>
+            <dams:endDate>2012-05-24 #2</dams:endDate>
           </dams:Date>
         </dams:date>
         <dams:hasFile>
