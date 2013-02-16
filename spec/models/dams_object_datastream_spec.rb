@@ -75,7 +75,15 @@ describe DamsObjectDatastream do
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bb80808080"
       end
-      
+      it "should have a repeated date" do
+        solr_doc = subject.to_solr
+        solr_doc["date_1_value_tesim"].should == ["2013"]
+        solr_doc["date_1_beginDate_tesim"].should == ["2013"]
+        solr_doc["date_1_endDate_tesim"].should == ["2013"]
+        solr_doc["date_2_value_tesim"].should == ["2012"]
+        solr_doc["date_2_beginDate_tesim"].should == ["2012"]
+        solr_doc["date_2_endDate_tesim"].should == ["2012"]
+      end     
       it "should have fields" do
         subject.resource_type.should == ["mixed material"]
         subject.title.should == ["Sample Complex Object Record #1"]
@@ -151,7 +159,24 @@ describe DamsObjectDatastream do
         solr_doc["component_2_1_title_tesim"].should == ["Supplementary Image"]
         solr_doc["component_2_2_title_tesim"].should == ["Supplementary Image #2"]   
       end      
-      
+	  it "should have a first component with repeating date" do
+        solr_doc = subject.to_solr
+        solr_doc["component_1_1_date_tesim"].should == ["June 24-25, 2012"]
+        solr_doc["component_1_1_beginDate_tesim"].should == ["2012-06-24"]   
+        solr_doc["component_1_1_endDate_tesim"].should == ["2012-06-25"]   
+        solr_doc["component_1_2_date_tesim"].should == ["June 24-25, 2012 #2"]
+        solr_doc["component_1_2_beginDate_tesim"].should == ["2012-06-24 #2"]   
+        solr_doc["component_1_2_endDate_tesim"].should == ["2012-06-25 #2"] 
+      end   
+	  it "should have a second component with repeating date" do
+        solr_doc = subject.to_solr
+        solr_doc["component_2_1_date_tesim"].should == ["May 24, 2012"]
+        solr_doc["component_2_1_beginDate_tesim"].should == ["2012-05-24"]   
+        solr_doc["component_2_1_endDate_tesim"].should == ["2012-05-24"]   
+        solr_doc["component_2_2_date_tesim"].should == ["May 24, 2012 #2"]
+        solr_doc["component_2_2_beginDate_tesim"].should == ["2012-05-24 #2"]   
+        solr_doc["component_2_2_endDate_tesim"].should == ["2012-05-24 #2"] 
+      end              
       it "should index component metadata" do
         solr_doc = subject.to_solr
         solr_doc["component_1_title_tesim"].should == ["The Static Image"]

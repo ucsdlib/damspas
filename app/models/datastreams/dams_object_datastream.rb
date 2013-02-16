@@ -384,7 +384,15 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "title_#{n}_subtitle", t.subtitle)
       Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
     end  
-    
+
+    n = 0
+    odate.map do |date|
+      n += 1
+      Solrizer.insert_field(solr_doc, "date_#{n}_beginDate", date.beginDate)
+      Solrizer.insert_field(solr_doc, "date_#{n}_endDate", date.endDate)
+      Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
+    end 
+        
     Solrizer.insert_field(solr_doc, 'date', date)
     
     relationship.map do |relationship| 
@@ -511,6 +519,13 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
       Solrizer.insert_field(solr_doc, "component_#{cid}_date",  component.date.first.value)
+      n = 0
+      component.date.map do |date|
+        n += 1
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_date", date.value)
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_beginDate", date.beginDate)
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
+      end     
       if component.note.first != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_note",  component.note.first.value)
       end
