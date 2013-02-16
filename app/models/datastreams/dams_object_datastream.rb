@@ -111,7 +111,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.size(:in=>DAMS)
         map.compositionLevel(:in=>DAMS)
       end
-    end
+    end   
   end
 
   class Note
@@ -121,18 +121,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
-    end
-  end
-  
-  def notes
-    #note_node.map{|n| "#{n.displayLabel.first}: #{n.value.first}"}
-    note_node ? note_node: []
-  end
-  
-  def notes=(val)
-    self.note_node = []
-    val.each do |n|
-      note_node.build.value = n
     end
   end
      
@@ -176,6 +164,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.type(:in=> DAMS)
     end
   end
+  
   def title
     title_node.first ? title_node.first.value : []
   end
@@ -257,8 +246,12 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsSubject.find(md[1])
     end
   end
+  
   def subject
-    subject_node.map{|s| s.authoritativeLabel.first}
+    #subject_node.map{|s| s.authoritativeLabel.first}
+    subject_node.map do |sn| 
+    	subject_value = sn.external? ? sn.load.name.first : sn.authoritativeLabel.first
+    end
   end
   def subject=(val)
     self.subject_node = []
@@ -291,17 +284,38 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       nil
     end
   end
+ # def load_collection
+  #  collection_uri = collection.values.first.to_s
+   # collection_pid = collection_uri.gsub(/.*\//,'')
+   # if collection_pid != nil && collection_pid != ""
+   #   DamsAssembledCollection.find(collection_pid) 
+   # elsif(collection_pid != nil && collection_pid != "" && DamsAssembledCollection.find(collection_pid).nil?)
+   #   	DamsProvenanceCollection.find(collection_pid)
+   # else
+   #   nil
+   # end
+  #end
+
   def load_collection
-    collection_uri = collection.values.first.to_s
-    collection_pid = collection_uri.gsub(/.*\//,'')
-    if collection_pid != nil && collection_pid != ""
-      DamsAssembledCollection.find(collection_pid) 
-    elsif(collection_pid != nil && collection_pid != "" && DamsAssembledCollection.find(collection_pid).nil?)
-      	DamsProvenanceCollection.find(collection_pid)
-    else
-      nil
+    collections = []
+    collection.values.each do |col|
+      collection_uri = col.to_s
+	  collection_pid = collection_uri.gsub(/.*\//,'')
+	  hasModel = "";
+      if (collection_pid != nil && collection_pid != "")      
+         obj = DamsAssembledCollection.find(collection_pid)
+      	 hasModel = obj.relationships(:has_model).to_s
+      end
+	  if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Assembled'))
+      		collections << obj     
+      elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Provenance'))
+      		collections << DamsProvenanceCollection.find(collection_pid)     
+      end
+   	
     end
+    collections
   end
+  
   def load_copyright
     c_uri = copyright.values.first.to_s
     c_pid = c_uri.gsub(/.*\//,'')
@@ -363,6 +377,22 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
     end
     Solrizer.insert_field(solr_doc, 'title', title)
+    n = 0
+    title_node.map do |t|
+      n += 1
+      Solrizer.insert_field(solr_doc, "title_#{n}_type", t.type)
+      Solrizer.insert_field(solr_doc, "title_#{n}_subtitle", t.subtitle)
+      Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
+    end  
+
+    n = 0
+    odate.map do |date|
+      n += 1
+      Solrizer.insert_field(solr_doc, "date_#{n}_beginDate", date.beginDate)
+      Solrizer.insert_field(solr_doc, "date_#{n}_endDate", date.endDate)
+      Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
+    end 
+        
     Solrizer.insert_field(solr_doc, 'date', date)
     
     relationship.map do |relationship| 
@@ -435,17 +465,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
     
-   # notes = load_notes
-    #if notes != nil
-     # n = 0
-     # notes.each do |note|
-     #   n += 1
-     #   Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", note.displayLabel)
-     #   Solrizer.insert_field(solr_doc, "note_#{n}_type", note.type)
-     #   Solrizer.insert_field(solr_doc, "note_#{n}_value", lang.value)       
-     # end
-    #end
-    
     rightsHolders = load_rightsHolders
     if rightsHolders != nil
       n = 0
@@ -465,14 +484,24 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     col = load_collection
-    if col.class == DamsAssembledCollection
-      Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
-      Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
-    elsif col.class == DamsProvenanceCollection
-      Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
-      Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+    #if col.class == DamsAssembledCollection
+    #  Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
+    #  Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+    #elsif col.class == DamsProvenanceCollection
+     # Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
+     # Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
+   # end
+
+    if col != nil
+     n = 0
+      col.each do |collection|
+        puts collection.class
+        n += 1
+        Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
+        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)      
+      end
     end
-    
+        
     # component metadata
     if component != nil && component.count > 0
       Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
@@ -481,8 +510,22 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       cid = component.rdf_subject.to_s
       cid = cid.match('\w+$')
       Solrizer.insert_field(solr_doc, "component_#{cid}_title", component.title.first.value)
+      n = 0
+      component.title.map do |title|
+        n += 1
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_title", title.value)
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", title.subtitle)
+      end
+      
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
       Solrizer.insert_field(solr_doc, "component_#{cid}_date",  component.date.first.value)
+      n = 0
+      component.date.map do |date|
+        n += 1
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_date", date.value)
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_beginDate", date.beginDate)
+      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
+      end     
       if component.note.first != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_note",  component.note.first.value)
       end

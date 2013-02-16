@@ -1,6 +1,7 @@
 <!--
 single object:
 file_3.jpg_formatName_tesim: JPEG
+file_3.jpg_use_tesim: visual-thumbnail
 file_1.jpg_size:6419
 
 complex object:
@@ -23,22 +24,25 @@ component_1_file_4.jpg_quality_tesim: 106x150
   <div class="span12">    
       <% if @document['id_t'] != nil %> 
       
-       
+     <%if @document['file_3.jpg_use_tesim'] != nil   %>
+      <p><%= render_document_show_field_value(:document=>@document, :field=>"file_3.jpg_use_tesim") %> </p>
+      <% end %>
+
 
       <!-- distinguish simple object from complex object is simple object won't have component_count_isi -->
         <%if @document['component_count_isi'] != nil   %>
          <%= render :partial => 'complex_object_viewer' %> 
 
-        <% elsif @document['file_3.jpg_formatName_tesim'] == "JPEG" %>
+        <% elsif render_document_show_field_value(:document=>@document, :field=>"file_3.jpg_formatName_tesim") == "JPEG" %>
         <%= render :partial => 'image_viewer' %>
 
-        <% elsif @document['file_2.mp3_formatName_tesim'] == "MP3" %>
+        <% elsif render_document_show_field_value(:document=>@document, :field=>"file_2.mp3_formatName_tesim") == "MP3" %>
         <%= render :partial => 'audio_viewer' %>
 
-        <% elsif @document['file_2.mp4_formatName_tesim'] == "MP4" %>
+        <% elsif render_document_show_field_value(:document=>@document, :field=>"file_2.mp4_formatName_tesim") == "MP4" %>
         <%= render :partial => 'video_viewer' %>
 
-        <% elsif @document['file_1.pdf_formatName_tesim'] == "PDF" %>
+        <% elsif render_document_show_field_value(:document=>@document, :field=>"file_1.pdf_formatName_tesim") == "PDF" %>
         <%= render :partial => 'pdf_viewer' %>
 
         <% else %>

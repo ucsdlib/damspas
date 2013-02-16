@@ -6,6 +6,7 @@
     <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
     <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
     <dams:collection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
+    <dams:collection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
     <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
     <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
     <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
@@ -64,6 +65,27 @@
         <dams:type>main</dams:type>
       </dams:Title>
     </dams:title>
+    <dams:title>
+      <dams:Title>
+        <rdf:value>Other Title #2</rdf:value>
+        <dams:subtitle>Subtitle #2</dams:subtitle>
+        <dams:type>temp</dams:type>
+      </dams:Title>
+    </dams:title>  
+      <dams:date>
+        <dams:Date>
+          <rdf:value>2013</rdf:value>
+          <dams:beginDate>2013</dams:beginDate>
+          <dams:endDate>2013</dams:endDate>
+        </dams:Date>
+      </dams:date>
+       <dams:date>
+        <dams:Date>
+          <rdf:value>2012</rdf:value>
+          <dams:beginDate>2012</dams:beginDate>
+          <dams:endDate>2012</dams:endDate>
+        </dams:Date>
+      </dams:date>  
     <dams:hasComponent>
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1">
         <dams:note>
@@ -80,11 +102,32 @@
             <dams:type>main</dams:type>
           </dams:Title>
         </dams:title>
+		<dams:title>
+          <dams:Title>
+            <rdf:value>The Static Image #2</rdf:value>
+            <dams:subtitle>Foo! #2</dams:subtitle>
+            <dams:type>main2</dams:type>
+          </dams:Title>
+        </dams:title> 
+        <dams:title>
+          <dams:Title>
+            <rdf:value>The Static Image #3</rdf:value>
+            <dams:subtitle>Foo! #3</dams:subtitle>
+            <dams:type>main3</dams:type>
+          </dams:Title>
+        </dams:title>       
         <dams:date>
           <dams:Date>
             <rdf:value>June 24-25, 2012</rdf:value>
             <dams:beginDate>2012-06-24</dams:beginDate>
             <dams:endDate>2012-06-25</dams:endDate>
+          </dams:Date>
+        </dams:date>
+       <dams:date>
+          <dams:Date>
+            <rdf:value>June 24-25, 2012 #2</rdf:value>
+            <dams:beginDate>2012-06-24 #2</dams:beginDate>
+            <dams:endDate>2012-06-25 #2</dams:endDate>
           </dams:Date>
         </dams:date>
         <dams:hasFile>
@@ -133,11 +176,23 @@
             <rdf:value>Supplementary Image</rdf:value>
           </dams:Title>
         </dams:title>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>Supplementary Image #2</rdf:value>
+          </dams:Title>
+        </dams:title>
         <dams:date>
           <dams:Date>
             <rdf:value>May 24, 2012</rdf:value>
             <dams:beginDate>2012-05-24</dams:beginDate>
             <dams:endDate>2012-05-24</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:date>
+          <dams:Date>
+            <rdf:value>May 24, 2012 #2</rdf:value>
+            <dams:beginDate>2012-05-24 #2</dams:beginDate>
+            <dams:endDate>2012-05-24 #2</dams:endDate>
           </dams:Date>
         </dams:date>
         <dams:hasFile>
