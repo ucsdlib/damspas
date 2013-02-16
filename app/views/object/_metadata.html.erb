@@ -1,3 +1,4 @@
+<!--
 	<script>
 	
 		$(document).ready(function(){
@@ -6,7 +7,7 @@
 		});
 	
 	</script>
-
+-->
 <!--
 	<div class="btn-group">
 		<button class="btn btn-primary" data-toggle="collapse" data-target="#meta"><i class="icon-info-sign icon-white"></i> Metadata</button>
@@ -20,7 +21,7 @@
 	<!--<button type="button" class="btn btn-block" data-toggle="collapse" data-target="#meta"><i class="icon-info-sign"></i> <strong>Metadata</strong></button>-->
 	<button type="button" class="btn btn-block" onClick="$('[id^=meta-]').collapse('toggle');"><i class="icon-info-sign"></i> <strong>Metadata</strong></button>
 
-	<div id="meta" class="collapse111">
+	<div id="meta" class="meta collapse111">
 
 		<% if @document['formatName_tesim'] != nil %>
 			<p>ID: <%= render_document_show_field_value(:document=>@document, :field=>"formatName_tesim") %></p>

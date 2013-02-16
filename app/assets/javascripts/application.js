@@ -24,3 +24,10 @@ $(document).ready(function() {
 });
 
 Blacklight.do_search_context_behavior = function() {};
+
+
+// OBJECT VIEWER PAGE
+$(document).ready(function(){
+	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-chevron-right").addClass("icon-chevron-down");});
+	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-chevron-down").addClass("icon-chevron-right");});
+});

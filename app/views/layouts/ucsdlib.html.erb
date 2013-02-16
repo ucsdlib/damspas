@@ -11,9 +11,6 @@
 		<%= csrf_meta_tags %>
 		<%= raw(render_head_content) %> 
 		<%= render :partial => 'layouts/ie-conditionals' %>
-				<!-- JAVASCRIPT PLACED AT END SO PAGES LOAD FASTER -->
-		<%= javascript_include_tag "application" %>
-
 	
 	</head>
 
@@ -104,6 +101,8 @@
 		<!-- show debugging parameters in development -->
 		<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>
 		
+		<!-- JAVASCRIPT PLACED AT END SO PAGES LOAD FASTER -->
+		<%= javascript_include_tag "application" %>
 
 	</body>
 </html>
