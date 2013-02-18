@@ -7,18 +7,18 @@
 		
 		<%= form_for @dams_unit do |f| %>
 		
-			<%= render 'error_messages' %>
+			<%= render 'shared/error_messages', object: f.object %>
 		
-			<%= label_tag 'dams_unit[name]', "Name" %>
+			<%= label_tag 'dams_unit[name][]', "Name" %>
 			<%= text_field_tag 'dams_unit[name][]', @dams_unit.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'dams_unit[code]', "Code" %>
+			<%= label_tag 'dams_unit[code][]', "Code" %>
 			<%= text_field_tag 'dams_unit[code][]', @dams_unit.code[0], class: "input-block-level" %>
 		
-			<%= label_tag 'dams_unit[description]', "Description" %>
+			<%= label_tag 'dams_unit[description][]', "Description" %>
 			<%= text_area_tag 'dams_unit[description][]', @dams_unit.description[0], :rows => 10, class: "input-block-level" %>
 		
-			<%= label_tag 'dams_unit[uri]', "URI" %>
+			<%= label_tag 'dams_unit[uri][]', "URI" %>
 			<%= url_field_tag 'dams_unit[uri][]', @dams_unit.uri[0], class: "input-block-level" %>
 		
 			<div class="form-actions">
