@@ -60,8 +60,9 @@ describe DamsObjectDatastream do
         solr_doc = subject.to_solr
         solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
         solr_doc["title_tesim"].should == ["Chicano and black radical activism of the 1960s"]
-        solr_doc["date_tesim"].should == ["2010"]
-        solr_doc["name_tesim"].should == ["Ya\xF1ez, Ang\xE9lica Mar\xEDa"]
+        solr_doc["date_1_value_tesim"].should == ["2010"]
+        #solr_doc["name_tesim"].should == ["Ya\xF1ez, Ang\xE9lica Mar\xEDa"]
+        solr_doc["name_tesim"].should == ["Maria"]
       end
 
     end
@@ -179,8 +180,8 @@ describe DamsObjectDatastream do
       end              
       it "should index component metadata" do
         solr_doc = subject.to_solr
-        solr_doc["component_1_title_tesim"].should == ["The Static Image"]
-        solr_doc["component_2_title_tesim"].should == ["Supplementary Image"]
+        solr_doc["component_1_1_title_tesim"].should == ["The Static Image"]
+        solr_doc["component_2_1_title_tesim"].should == ["Supplementary Image"]
       end
       it "should index repeating linked metadata" do
         solr_doc = subject.to_solr

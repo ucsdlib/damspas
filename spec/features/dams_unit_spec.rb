@@ -48,7 +48,7 @@ feature 'Visit wants to look at digital collections' do
 
   scenario 'retrieve a unit record' do
     sign_in_developer
-    DamsUnit.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/"
+    DamsUnit.create! pid: "bb45454545", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/", code: "rci"
 
     # can we find the unit record
     visit dams_units_path
