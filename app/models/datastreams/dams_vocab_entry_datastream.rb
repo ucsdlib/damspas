@@ -1,0 +1,38 @@
+class DamsVocabEntryDatastream < ActiveFedora::RdfxmlRDFDatastream
+  map_predicates do |map|
+    map.code(:in => DAMS, :to => 'code')
+    map.value(:in => RDF, :to => 'value')
+    map.valueURI(:in => DAMS, :to => 'valueURI')
+    map.authority(:in => DAMS, :to => 'authority')
+    map.authorityURI(:in => DAMS, :to => 'authorityURI')
+    map.vocabulary(:in => DAMS, :to => 'vocabulary')
+  end
+
+  def vocabulary=(val)
+    @vocab = RDF::Resource.new(val)
+  end
+
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+
+  def serialize
+    graph.insert([rdf_subject, RDF.type, DAMS.VocabularyEntry]) if new?
+    graph.insert([rdf_subject, DAMS.vocabulary, @vocab]) if new?
+    super
+  end
+
+  def to_solr (solr_doc = {})
+    solr_doc[ActiveFedora::SolrService.solr_name("code", type: :text)] = code
+    solr_doc[ActiveFedora::SolrService.solr_name("value", type: :text)] = value
+    solr_doc[ActiveFedora::SolrService.solr_name("valueURI", type: :text)] = valueURI
+    solr_doc[ActiveFedora::SolrService.solr_name("authority", type: :text)] = authority
+    solr_doc[ActiveFedora::SolrService.solr_name("authorityURI", type: :text)] = authorityURI
+    
+    # hack to strip "+00:00" from end of dates, because that makes solr barf
+    ['system_create_dtsi','system_modified_dtsi'].each { |f|
+      solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+    }
+    return solr_doc
+  end
+
+end
+
