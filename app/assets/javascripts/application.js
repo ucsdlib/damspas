@@ -22,9 +22,7 @@ $(document).ready(function() {
 	$('.carousel').carousel();
 });
 
-audiojs.events.ready(function() {
-    var as = audiojs.createAll();
-  });
+//audiojs.events.ready(function(){var as = audiojs.createAll();});
 
 Blacklight.do_search_context_behavior = function() {};
 
@@ -32,4 +30,9 @@ Blacklight.do_search_context_behavior = function() {};
 $(document).ready(function(){
 	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-chevron-right").addClass("icon-chevron-down");});
 	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-chevron-down").addClass("icon-chevron-right");});
+
+	$("#alt-fold").on("show",function(){$(this).prev().text("Show less");});
+	$("#alt-fold").on("hide",function(){$(this).prev().text("Show more");});
+
+
 });
