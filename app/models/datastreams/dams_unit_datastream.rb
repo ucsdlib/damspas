@@ -14,6 +14,7 @@ class DamsUnitDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
+    Solrizer.insert_field(solr_doc, 'type', 'DamsUnit' )
     Solrizer.insert_field(solr_doc, 'unit_id', pid )
     Solrizer.insert_field(solr_doc, 'unit_code', code )
     Solrizer.insert_field(solr_doc, 'unit_name', name )
