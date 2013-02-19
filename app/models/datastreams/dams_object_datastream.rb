@@ -481,9 +481,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     unit = load_unit
     if unit.class == DamsUnit
+      Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
       Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
       Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
-      Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
     end
 
     col = load_collection
@@ -528,6 +528,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
       
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
+
       n = 0
       component.date.map do |date|
         n += 1
