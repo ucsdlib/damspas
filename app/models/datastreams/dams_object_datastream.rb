@@ -373,10 +373,12 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     # field types
     storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
     storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
+      Solrizer.insert_field(solr_doc, 'subject_topic', subject_value,facetable)
     end
     Solrizer.insert_field(solr_doc, 'title', title)
     n = 0
@@ -401,6 +403,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
     end
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
+    Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)
 
     copy = load_copyright
     if copy != nil
@@ -483,6 +486,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     if unit.class == DamsUnit
       Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
       Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
+      Solrizer.insert_field(solr_doc, 'unit', unit.name, facetable)
       Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
     end
 
