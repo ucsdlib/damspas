@@ -62,6 +62,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
       map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
+      map.subcomponent(:in=>DAMS, :to=>'hasComponent')
     end
     class Title
       include ActiveFedora::RdfObject
@@ -371,6 +372,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # field types
     storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
+    storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
 
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
@@ -393,7 +395,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
     end 
         
-    Solrizer.insert_field(solr_doc, 'date', date)
+    #Solrizer.insert_field(solr_doc, 'date', date)
     
     relationship.map do |relationship| 
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
@@ -481,6 +483,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     if unit.class == DamsUnit
       Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
       Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
+      Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
     end
 
     col = load_collection
@@ -495,7 +498,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     if col != nil
      n = 0
       col.each do |collection|
-        puts collection.class
+        #puts collection.class
         n += 1
         Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
         Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)      
@@ -509,7 +512,14 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     component.map do |component|
       cid = component.rdf_subject.to_s
       cid = cid.match('\w+$')
-      Solrizer.insert_field(solr_doc, "component_#{cid}_title", component.title.first.value)
+
+      # child components
+      component.subcomponent.map do |subcomponent|
+        subid = /\/(\w*)$/.match(subcomponent.to_s)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_children", subid[1], storedIntMulti)
+      end
+
+      # titles
       n = 0
       component.title.map do |title|
         n += 1
@@ -518,7 +528,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
       
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
-      Solrizer.insert_field(solr_doc, "component_#{cid}_date",  component.date.first.value)
       n = 0
       component.date.map do |date|
         n += 1
