@@ -502,7 +502,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     if col != nil
      n = 0
       col.each do |collection|
-        #puts collection.class
         n += 1
         Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
         Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)      
