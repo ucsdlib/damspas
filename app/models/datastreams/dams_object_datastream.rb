@@ -62,7 +62,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
       map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
-      map.subcomponent(:in=>DAMS, :to=>'hasComponent')
+      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => DamsObjectDatastream::Component)
     end
     class Title
       include ActiveFedora::RdfObject
@@ -546,15 +546,17 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       component.file.map do |file|
         fid = file.rdf_subject.to_s
         fid = fid.gsub(/.*\//,'')
-        Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size",  file.size, storedInt)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_mimeType", file.mimeType)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_use", file.use)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_dateCreated", file.dateCreated)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_quality", file.quality)
+        if !fid.ends_with? ".keep"
+          Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size",  file.size, storedInt)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_mimeType", file.mimeType)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_use", file.use)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_dateCreated", file.dateCreated)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_quality", file.quality)
+        end
       end
     end
     file.map do |file|
