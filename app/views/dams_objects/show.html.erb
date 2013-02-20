@@ -93,6 +93,16 @@
 									<dd>Type: <%= n.type.first %> -- <%= n.displayLabel.first %>:  <%= n.value.first %></dd>																	
 								<% end %>
 							<% end %>	
+							<% if (!@dams_object.sourceCapture.nil?) %>
+								<dt>Source Capture</dt>
+								<dd>Scanner Manufacturer: <%= @dams_object.sourceCapture.scannerManufacturer.first %></dd>
+								<dd>Source Type: <%= @dams_object.sourceCapture.sourceType.first %></dd>
+								<dd>Scanner Model Name: <%= @dams_object.sourceCapture.scannerModelName.first %></dd>
+								<dd>Image Producer: <%= @dams_object.sourceCapture.imageProducer.first %></dd>	
+								<dd>Scanning Software Version: <%= @dams_object.sourceCapture.scanningSoftwareVersion.first %></dd>
+								<dd>Scanning Software: <%= @dams_object.sourceCapture.scanningSoftware.first %></dd>
+								<dd>Capture Source: <%= @dams_object.sourceCapture.captureSource.first %></dd>	
+							<% end %>
 							<% if (!@dams_object.component.empty?) %>															
 								<% @dams_object.component.each do |component| %>	
 									<dt>Component</dt>
