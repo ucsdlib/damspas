@@ -58,7 +58,8 @@ Hydra::Application.routes.draw do
   resources :dams_roles
   resources :dams_provenance_collections
   resources :dams_provenance_collection_parts
-
+  resources :dams_vocab_entries
+ 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
