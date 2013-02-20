@@ -83,5 +83,12 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :note
   property :hasPart
   property :authority
-  property :authorityURI
+  property :authorityURI  
+  property :scannerManufacturer
+  property :sourceType
+  property :scannerModel
+  property :imageProducer
+  property :scanningSoftwareVersion
+  property :scanningSoftware
+  property :captureSource
 end
