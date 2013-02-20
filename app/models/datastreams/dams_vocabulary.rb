@@ -86,7 +86,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :authorityURI  
   property :scannerManufacturer
   property :sourceType
-  property :scannerModel
+  property :scannerModelName
   property :imageProducer
   property :scanningSoftwareVersion
   property :scanningSoftware

@@ -1,0 +1,13 @@
+<h1>Edit DAMS Source Capture</h1>
+<%= form_for @dams_source_capture do |f| %>
+  <%= label_tag 'dams_source_capture[scannerManufacturer]', "scannerManufacturer" %><%= text_field_tag 'dams_source_capture[scannerManufacturer][]', @dams_source_capture.scannerManufacturer[0] %>
+  <%= label_tag 'dams_source_capture[sourceType]', "sourceType" %><%= text_field_tag 'dams_source_capture[sourceType][]', @dams_source_capture.sourceType[0] %>
+  <%= label_tag 'dams_source_capture[scannerModelName]', "scannerModelName" %><%= text_field_tag 'dams_source_capture[scannerModelName][]', @dams_source_capture.scannerModelName[0] %>
+  <%= label_tag 'dams_source_capture[imageProducer]', "imageProducer" %><%= text_field_tag 'dams_source_capture[imageProducer][]', @dams_source_capture.imageProducer[0] %>
+  <%= label_tag 'dams_source_capture[scanningSoftwareVersion]', "scanningSoftwareVersion" %><%= text_field_tag 'dams_source_capture[scanningSoftwareVersion][]', @dams_source_capture.scanningSoftwareVersion[0] %>
+  <%= label_tag 'dams_source_capture[scanningSoftware]', "scanningSoftware" %><%= text_field_tag 'dams_source_capture[scanningSoftware][]', @dams_source_capture.scanningSoftware[0] %>
+  <%= label_tag 'dams_source_capture[captureSource]', "captureSource" %><%= text_field_tag 'dams_source_capture[captureSource][]', @dams_source_capture.captureSource[0] %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_source_capture_path( @dams_source_capture ), class: "btn btn-primary" %>
+<%end%>
