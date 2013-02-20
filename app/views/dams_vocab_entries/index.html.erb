@@ -1,0 +1,11 @@
+<h1>DAMS Vocab Entries</h1>
+
+<div class="span6">
+  <ul><%= render_language_list %></ul>
+</div>
+
+<div>
+  <% if can? :create, DamsVocabEntry%>
+    <%= link_to "Create Vocabulary Entry", new_dams_vocab_entry_path, :class => 'btn btn-primary'%>
+  <% end %>
+</div>
