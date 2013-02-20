@@ -91,4 +91,6 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :scanningSoftwareVersion
   property :scanningSoftware
   property :captureSource
+  property :SourceCapture
+  property :sourceCapture
 end

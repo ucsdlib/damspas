@@ -194,6 +194,18 @@ describe DamsObjectDatastream do
         solr_doc["rightsHolder_1_id_tesim"].should == ["bb09090909"]
         solr_doc["rightsHolder_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
       end
+      it "should index source capture" do
+        solr_doc = subject.to_solr
+        solr_doc["source_capture_id_tesim"].should == ["bb49494949"]
+        solr_doc["source_capture_scanner_manufacturer_tesim"].should == ["Epson"]
+        solr_doc["source_capture_source_type_tesim"].should == ["transmission scanner"]
+        solr_doc["source_capture_scanner_model_name_tesim"].should == ["Expression 1600"]
+        solr_doc["source_capture_image_producer_tesim"].should == ["Luna Imaging, Inc."]
+        solr_doc["source_capture_scanning_software_version_tesim"].should == ["2.10E"]
+        solr_doc["source_capture_scanning_software_tesim"].should == ["Epson Twain Pro"]
+        solr_doc["source_capture_capture_source_tesim"].should == ["B&W negative , 2 1/2 x 2 1/2"]
+      
+      end      
       it "should index rights metadata" do
         solr_doc = subject.to_solr
 
