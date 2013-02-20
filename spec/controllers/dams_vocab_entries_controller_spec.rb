@@ -40,7 +40,7 @@ describe DamsVocabEntriesController do
 	  describe "Create" do
 	    it "should be successful" do
 	      expect { 
-	        post :create, :dams_vocab_entry => {value: ["Test Title"], vocabulary: ["http://library.ucsd.edu/ark:/20775/bb43434343"]}
+	        post :create, :dams_vocab_entry => {value: ["Test Title"]}
         }.to change { DamsVocabEntry.count }.by(1)
 	      response.should redirect_to assigns[:dams_vocab_entry]
 	      assigns[:dams_vocab_entry].should be_kind_of DamsVocabEntry

@@ -4,10 +4,11 @@ class DamsVocabEntriesController < ApplicationController
 
   def show
     @dams_vocab_entry = DamsVocabEntry.find(params[:id])
+    @dams_vocabs = DamsVocab.find(:all)
   end
 
   def new
-
+	@dams_vocabs = DamsVocab.find(:all)
   end
 
   def edit
@@ -16,7 +17,12 @@ class DamsVocabEntriesController < ApplicationController
 
   def create
     @dams_vocab_entry.attributes = params[:dams_vocab_entry]
-    @dams_vocab_entry.vocabulary = "http://library.ucsd.edu/ark:/20775/bb43434343"
+
+    if !@dams_vocab_entry.vocabulary.nil? && @dams_vocab_entry.vocabulary.to_s.length > 0
+    	@dams_vocab_entry.vocabulary = "http://library.ucsd.edu/ark:/20775/"+@dams_vocab_entry.vocabulary.to_s
+    else
+    	@dams_vocab_entry.vocabulary = "http://library.ucsd.edu/ark:/20775/bb43434343"
+    end
     if @dams_vocab_entry.save
         redirect_to @dams_vocab_entry, notice: "Vocabulary Entry has been saved"
     else
