@@ -8,7 +8,7 @@ describe DamsLanguagesController do
 	  end
 	  describe "Show" do
 	    before do
-	      @obj = DamsLanguage.create(value: "Vocab Entry value")
+	      @obj = DamsLanguage.create(value: "Vocab Entry value", vocabulary: "http://library.ucsd.edu/ark:/20775/bb43434343")
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
