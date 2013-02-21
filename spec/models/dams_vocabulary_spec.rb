@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe DamsVocab do
+describe DamsVocabulary do
   subject do
-    DamsVocab.new pid: "bb15151515"
+    DamsVocabulary.new pid: "bb15151515"
   end
   it "should create a xml" do
     subject.description = "Language"
