@@ -14,6 +14,9 @@
 		
 			<%= label_tag 'dams_unit[code][]', "Code" %>
 			<%= text_field_tag 'dams_unit[code][]', @dams_unit.code[0], class: "input-block-level" %>
+
+			<%= label_tag 'dams_unit[group][]', "Group" %>
+			<%= text_field_tag 'dams_unit[group][]', @dams_unit.group[0], class: "input-block-level" %>
 		
 			<%= label_tag 'dams_unit[description][]', "Description" %>
 			<%= text_area_tag 'dams_unit[description][]', @dams_unit.description[0], :rows => 10, class: "input-block-level" %>

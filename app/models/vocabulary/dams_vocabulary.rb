@@ -28,6 +28,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :Unit
   property :unit
   property :unitName
+  property :unitGroup
   property :unitURI
   property :unitDescription
   property :copyright
