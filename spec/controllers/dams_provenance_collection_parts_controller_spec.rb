@@ -55,6 +55,7 @@ describe DamsProvenanceCollectionPartsController do
 	      put :update, :id => @obj.id, :dams_provenance_collection_part => {title: ["Test Title2"], beginDate: ["2013"]}
 	      response.should redirect_to assigns[:dams_provenance_collection_part]
 	      #@obj.reload.title.should == ["Test Title2"]
+          pending "check title after reload #{__FILE__}"
 	      flash[:notice].should == "Successfully updated provenance_collection_part"
 	    end
     end

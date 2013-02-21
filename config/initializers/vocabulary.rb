@@ -1,5 +1,5 @@
-require 'datastreams/dams_vocabulary'
-require 'datastreams/mads_vocabulary'
+require 'vocabulary/dams_vocabulary'
+require 'vocabulary/mads_vocabulary'
 
 
 module RDF

@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe DamsPerson do
+describe DamsPersonalName do
   subject do
-    DamsPerson.new pid: "bbXXXXXXX1"
+    DamsPersonalName.new pid: "bbXXXXXXX1"
   end
   it "should create a xml" do
     subject.name = "Maria"

@@ -9,7 +9,7 @@ class Ability
   		can [:read], DamsStatute
   		can [:read], DamsRole
   		can [:read], DamsLanguage
-  		can [:read], DamsVocab
+  		can [:read], DamsVocabulary
   		can [:read], DamsAssembledCollection
   		can [:read], DamsProvenanceCollection
   		can [:read], DamsProvenanceCollectionPart
@@ -22,7 +22,7 @@ class Ability
     	can [:read, :create, :update], DamsStatute
     	can [:read, :create, :update], DamsRole
     	can [:read, :create, :update], DamsLanguage
-    	can [:read, :create, :update], DamsVocab
+    	can [:read, :create, :update], DamsVocabulary
   		can [:read, :create, :update], DamsAssembledCollection
   		can [:read, :create, :update], DamsProvenanceCollection
   		can [:read, :create, :update], DamsProvenanceCollectionPart
