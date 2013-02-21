@@ -35,7 +35,7 @@ class DamsPersonalNamesController < ApplicationController
   end
 
   def index
-    @languages = DamsLanguage.all
+    @dams_personal_name = DamsPersonalName.all
   end
 
 
