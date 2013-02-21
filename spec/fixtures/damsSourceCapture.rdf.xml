@@ -4,7 +4,7 @@
   <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/bb49494949">
     <dams:scannerManufacturer>Epson</dams:scannerManufacturer>
     <dams:sourceType>transmission scanner</dams:sourceType>
-    <dams:scannerModel>Expression 1600</dams:scannerModel>
+    <dams:scannerModelName>Expression 1600</dams:scannerModelName>
     <dams:imageProducer>Luna Imaging, Inc.</dams:imageProducer>
     <dams:scanningSoftwareVersion>2.10E</dams:scanningSoftwareVersion>
     <dams:scanningSoftware>Epson Twain Pro</dams:scanningSoftware>

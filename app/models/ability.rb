@@ -9,11 +9,13 @@ class Ability
   		can [:read], DamsStatute
   		can [:read], DamsRole
   		can [:read], DamsLanguage
-  		can [:read], DamsVocab
+  		can [:read], DamsVocabulary
   		can [:read], DamsAssembledCollection
   		can [:read], DamsProvenanceCollection
   		can [:read], DamsProvenanceCollectionPart
-  		can [:read], DamsVocabEntry
+  		can [:read], DamsVocabularyEntry
+  		can [:read], DamsSourceCapture
+  		can [:read], DamsPersonalName
   	else  #login user
     	can [:read, :create, :update], DamsObject
     	can [:read, :create, :update], DamsUnit
@@ -22,11 +24,13 @@ class Ability
     	can [:read, :create, :update], DamsStatute
     	can [:read, :create, :update], DamsRole
     	can [:read, :create, :update], DamsLanguage
-    	can [:read, :create, :update], DamsVocab
+    	can [:read, :create, :update], DamsVocabulary
   		can [:read, :create, :update], DamsAssembledCollection
   		can [:read, :create, :update], DamsProvenanceCollection
   		can [:read, :create, :update], DamsProvenanceCollectionPart
-  		can [:read, :create, :update], DamsVocabEntry
+  		can [:read, :create, :update], DamsVocabularyEntry
+  		can [:read, :create, :update], DamsSourceCapture
+  		can [:read, :create, :update], DamsPersonalName
     end
   end
 end

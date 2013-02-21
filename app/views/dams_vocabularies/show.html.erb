@@ -1,0 +1,7 @@
+<h1><%= @dams_vocabulary.description.first %></h1>
+<div>
+  <% if can? :edit, DamsVocabulary then %>
+    <%= link_to "Edit", edit_dams_vocabulary_path(@dams_vocabulary), class: "btn btn-primary"%>
+  <% end %>
+  <%= link_to "View All", dams_vocabularies_path, class: "btn btn-primary" %>
+</div>

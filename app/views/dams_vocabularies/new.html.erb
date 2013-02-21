@@ -1,0 +1,6 @@
+<h1>Create a new DAMS Vocabularies</h1>
+<%= form_for @dams_vocabulary do |f| %>
+  <%= label_tag 'dams_vocabulary[description]', "Description" %><%= text_field_tag 'dams_vocabulary[description]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>
