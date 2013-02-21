@@ -4,6 +4,7 @@ class DamsUnitDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.description(:in => DAMS, :to => 'unitDescription')
     map.uri(:in => DAMS, :to => 'unitURI')
     map.code(:in => DAMS, :to => 'code')
+    map.group(:in => DAMS, :to => 'unitGroup')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
