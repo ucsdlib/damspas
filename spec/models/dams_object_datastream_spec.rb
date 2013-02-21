@@ -61,8 +61,7 @@ describe DamsObjectDatastream do
         solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
         solr_doc["title_tesim"].should == ["Chicano and black radical activism of the 1960s"]
         solr_doc["date_1_value_tesim"].should == ["2010"]
-        #solr_doc["name_tesim"].should == ["Ya\xF1ez, Ang\xE9lica Mar\xEDa"]
-        solr_doc["name_tesim"].should == ["Maria"]
+        solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
       end
 
     end
