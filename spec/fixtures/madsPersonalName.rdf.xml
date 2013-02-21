@@ -1,0 +1,19 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+  <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb09090909">
+    <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977-</mads:authoritativeLabel>
+    <owl:sameAs rdf:resource="http://sports.org/US#SoccerTeam"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:FullNameElement>
+        <mads:elementValue>Administrator, Bob,</mads:elementValue>
+      </mads:FullNameElement>
+      <mads:DateNameElement>
+        <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+      </mads:DateNameElement>
+    </mads:elementList>
+  </mads:PersonalName>
+</rdf:RDF>
