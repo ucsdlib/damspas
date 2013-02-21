@@ -3,7 +3,7 @@ class DamsRoleDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.code(:in => DAMS, :to => 'code')
     map.value(:in => RDF, :to => 'value')
     map.valueURI(:in => DAMS, :to => 'valueURI')
-    map.vocabulary(:in => DAMS, :to => 'vocabulary')
+    map.vocab(:in => DAMS, :to => 'vocabulary')
   end
 
   def valueURI
@@ -11,6 +11,9 @@ class DamsRoleDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def vocabulary=(val)
     @vocab = RDF::Resource.new(val)
+  end
+  def vocabulary
+    @vocab
   end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}

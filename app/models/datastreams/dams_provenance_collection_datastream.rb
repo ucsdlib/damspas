@@ -130,7 +130,7 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     def load
       uri = name.first.to_s
       md = /\/(\w*)$/.match(uri)
-      DamsPerson.find(md[1])
+      DamsPersonalName.find(md[1])
     end
   end
   class Subject

@@ -1,8 +1,0 @@
-<h1>Create a new DAMS Vocabulary Entry</h1>
-<%= form_for @dams_vocab_entry do |f| %>
-  <%= label_tag 'dams_vocab_entry[code]', "Code" %><%= text_field_tag 'dams_vocab_entry[code]' %>
-  <%= label_tag 'dams_vocab_entry[value]', "Value" %><%= text_field_tag 'dams_vocab_entry[value]' %>
-  <%= label_tag 'dams_vocab_entry[vocabulary]', "Vocabulary" %><%= f.select(:vocabulary, options_from_collection_for_select(@dams_vocabs, :id, :description) , :prompt => 'Select Vocabulary') %>
-  <br>
-  <%=f.submit "Save", class: "btn btn-primary" %>
-<%end%>
