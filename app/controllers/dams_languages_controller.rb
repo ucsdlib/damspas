@@ -7,7 +7,7 @@ class DamsLanguagesController < ApplicationController
   end
 
   def new
-	@dams_vocabs = DamsVocab.find(:all)
+	@dams_vocabularies = DamsVocabulary.find(:all)
   end
 
   def edit
@@ -16,11 +16,7 @@ class DamsLanguagesController < ApplicationController
 
   def create
     @dams_language.attributes = params[:dams_language]
-    if !@dams_language.vocabulary.nil? && @dams_language.vocabulary.to_s.length > 0
-    	@dams_language.vocabulary = "http://library.ucsd.edu/ark:/20775/"+@dams_language.vocabulary.to_s
-    else
-    	@dams_language.vocabulary = "http://library.ucsd.edu/ark:/20775/bb43434343"
-    end
+    @dams_language.vocabulary = "http://library.ucsd.edu/ark:/20775/bb43434343"
     if @dams_language.save
         redirect_to @dams_language, notice: "Language has been saved"
     else

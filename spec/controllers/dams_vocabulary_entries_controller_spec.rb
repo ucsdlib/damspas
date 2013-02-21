@@ -4,7 +4,7 @@ describe DamsVocabularyEntriesController do
   describe "A login user" do
 	  before do
 	  	sign_in User.create!
-    	DamsVocabularyEntry.find_each{|z| z.delete}
+    	#DamsVocabularyEntry.find_each{|z| z.delete}
 	  end
 	  describe "Show" do
 	    before do
@@ -39,7 +39,7 @@ describe DamsVocabularyEntriesController do
 	  describe "Create" do
 	    it "should be successful" do
 	      expect { 
-	        post :create, :dams_vocabulary_entry => {value: ["Test Title"]}
+	        post :create, :dams_vocabulary_entry => {value: ["Test Title"],vocabulary: "http://library.ucsd.edu/ark:/20775/bb43434343"}
         }.to change { DamsVocabularyEntry.count }.by(1)
 	      response.should redirect_to assigns[:dams_vocabulary_entry]
 	      assigns[:dams_vocabulary_entry].should be_kind_of DamsVocabularyEntry
