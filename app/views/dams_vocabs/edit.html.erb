@@ -1,8 +1,0 @@
-<h1>Edit DAMS Vocab</h1>
-<%= form_for @dams_vocab do |f| %>
-  <%= label_tag 'dams_vocab[description]', "Description" %><%= text_field_tag 'dams_vocab[description][]', @dams_vocab.description[0] %>
-
-  <br>
-  <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", dams_vocab( @dams_vocab ), class: "btn btn-primary" %>
-<%end%>

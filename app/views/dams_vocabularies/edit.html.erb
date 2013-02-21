@@ -1,0 +1,8 @@
+<h1>Edit DAMS Vocabulary</h1>
+<%= form_for @dams_vocabulary do |f| %>
+  <%= label_tag 'dams_vocabulary[description]', "Description" %><%= text_field_tag 'dams_vocabulary[description][]', @dams_vocabulary.description[0] %>
+
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_vocabulary( @dams_vocabulary ), class: "btn btn-primary" %>
+<%end%>

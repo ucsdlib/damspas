@@ -129,7 +129,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     def load
       uri = name.first.to_s
       md = /\/(\w*)$/.match(uri)
-      DamsPerson.find(md[1])
+      DamsPersonalName.find(md[1])
     end
   end
   class Subject
@@ -182,7 +182,30 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
   def to_solr (solr_doc = {})
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
-    Solrizer.insert_field(solr_doc, 'date', date.first.value)
+
+    n = 0
+    date.map do |date|
+      n += 1
+      Solrizer.insert_field(solr_doc, "date_#{n}_beginDate", date.beginDate)
+      Solrizer.insert_field(solr_doc, "date_#{n}_endDate", date.endDate)
+      Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
+    end
+
+    n = 0
+    note.map do |note|
+      n += 1
+      Solrizer.insert_field(solr_doc, "note_#{n}_type", note.type)
+      Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", note.displayLabel)
+      Solrizer.insert_field(solr_doc, "note_#{n}_value", note.value)
+    end
+
+    n = 0
+    scopeContentNote.map do |note|
+      n += 1
+      Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_type", note.type)
+      Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_displayLabel", note.displayLabel)
+      Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_value", note.value)
+    end
 
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
