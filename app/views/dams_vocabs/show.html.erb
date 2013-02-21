@@ -1,7 +1,0 @@
-<h1><%= @dams_vocab.description.first %></h1>
-<div>
-  <% if can? :edit, DamsVocab then %>
-    <%= link_to "Edit", edit_dams_vocab_path(@dams_vocab), class: "btn btn-primary"%>
-  <% end %>
-  <%= link_to "View All", dams_vocabs_path, class: "btn btn-primary" %>
-</div>
