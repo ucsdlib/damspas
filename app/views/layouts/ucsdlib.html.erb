@@ -13,7 +13,7 @@
 		<%= csrf_meta_tags %>
 		<%= raw(render_head_content) %> 
 		<%= render :partial => 'layouts/ie-conditionals' %>
-		<%= render :partial => 'object/audio_init' %>
+		
 			
 	</head>
 
@@ -104,6 +104,7 @@
         <!-- JAVASCRIPT PLACED AT END SO PAGES LOAD FASTER -->
 		<%= javascript_include_tag "application" %>
 		<script src="http://vjs.zencdn.net/c/video.js"></script>
+		<%= render :partial => 'object/audio_init' %>
 
 		<!-- show debugging parameters in development -->
 		<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>
