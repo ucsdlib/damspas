@@ -4,7 +4,7 @@ describe DamsProvenanceCollectionPartsController do
   describe "A login user" do
 	  before do
 	  	sign_in User.create!
-    	DamsProvenanceCollectionPart.find_each{|z| z.delete}
+    	#DamsProvenanceCollectionPart.find_each{|z| z.delete}
 	  end
 	  describe "Show" do
 	    before do
