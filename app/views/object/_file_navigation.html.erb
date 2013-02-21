@@ -25,7 +25,7 @@ component_1_file_4.jpg_quality_tesim: 106x150
       <% if @document['id_t'] != nil %> 
 
 
-     <p> <%=render_document_show_field_value(:document=>@document, :field=>"file_2.mp4_formatName_tesim") %> </P>
+     <p> <%=render_document_show_field_value(:document=>@document, :field=>"file_1.pdf_formatName_tesim")%></P>
     
       <!-- distinguish simple object from complex object is simple object won't have component_count_isi -->
         <%if @document['component_count_isi'] != nil   %>
@@ -33,6 +33,10 @@ component_1_file_4.jpg_quality_tesim: 106x150
 
            <% elsif render_document_show_field_value(:document=>@document, :field=>"file_2.mp4_formatName_tesim") == "bytestream" %>
          <%= render :partial => 'video_viewer' %>
+
+         <% elsif render_document_show_field_value(:document=>@document, :field=>"file_1.pdf_formatName_tesim") == "PDF" %>
+        <%= render :partial => 'pdf_viewer' %>
+
 
         <% elsif render_document_show_field_value(:document=>@document, :field=>"file_3.jpg_formatName_tesim") == "JPEG" %>
         <%= render :partial => 'image_viewer' %>
@@ -42,8 +46,7 @@ component_1_file_4.jpg_quality_tesim: 106x150
 
 
 
-        <% elsif render_document_show_field_value(:document=>@document, :field=>"file_1.pdf_formatName_tesim") == "PDF" %>
-        <%= render :partial => 'pdf_viewer' %>
+        
 
         <% else %>
         <%= render :partial => 'default_viewer' %>
