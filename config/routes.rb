@@ -52,13 +52,14 @@ Hydra::Application.routes.draw do
   resources :dams_units
   resources :dams_copyrights
   resources :dams_licenses
+  resources :dams_other_rights
   resources :dams_statutes
   resources :dams_languages
   resources :dams_vocabs
   resources :dams_roles
   resources :dams_provenance_collections
   resources :dams_provenance_collection_parts
-  resources :dams_vocab_entries
+  resources :dams_vocabulary_entries
  
   # The priority is based upon order of creation:
   # first created -> highest priority.

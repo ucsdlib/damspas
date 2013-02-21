@@ -7,7 +7,7 @@
 		
 		<%= form_for @dams_unit do |f| %>
 		
-			<%= render 'shared/error_messages', object: f.object %>
+			<%= render 'error_messages', object: f.object %>
 		
 			<%= label_tag 'dams_unit[name][]', "Name" %>
 			<%= text_field_tag 'dams_unit[name][]', @dams_unit.name[0], class: "input-block-level" %>
