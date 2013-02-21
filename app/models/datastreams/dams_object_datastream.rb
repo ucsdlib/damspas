@@ -17,6 +17,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
+    map.source_capture_node(:in=>DAMS, :to=>'sourceCapture')
  end
 
 # DAMS Object links/properties from data dictionary
@@ -356,6 +357,16 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     languages
   end
+  def load_source_capture
+    source_capture_uri = source_capture_node.values.first.to_s
+    source_capture_pid = source_capture_uri.gsub(/.*\//,'')
+    if source_capture_pid != nil && source_capture_pid != ""
+      DamsSourceCapture.find(source_capture_pid)
+    else
+      nil
+    end
+  end 
+   
   def load_rightsHolders
     rightsHolders = []
     rightsHolder.values.each do |name|
@@ -490,6 +501,18 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
     end
 
+    source_capture = load_source_capture
+    if source_capture.class == DamsSourceCapture
+      Solrizer.insert_field(solr_doc, 'source_capture_scanner_manufacturer', source_capture.scannerManufacturer)
+      Solrizer.insert_field(solr_doc, 'source_capture_source_type', source_capture.sourceType)
+      Solrizer.insert_field(solr_doc, 'source_capture_scanner_model_name', source_capture.scannerModelName)
+      Solrizer.insert_field(solr_doc, 'source_capture_image_producer', source_capture.imageProducer)
+      Solrizer.insert_field(solr_doc, 'source_capture_scanning_software_version', source_capture.scanningSoftwareVersion)
+      Solrizer.insert_field(solr_doc, 'source_capture_scanning_software', source_capture.scanningSoftware)
+      Solrizer.insert_field(solr_doc, 'source_capture_capture_source', source_capture.captureSource)
+      Solrizer.insert_field(solr_doc, 'source_capture_id', source_capture.pid)
+    end
+    
     col = load_collection
     #if col.class == DamsAssembledCollection
     #  Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)

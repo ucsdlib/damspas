@@ -1,0 +1,12 @@
+<h1>Create a new DAMS Source Capture</h1>
+<%= form_for @dams_source_capture do |f| %>
+  <%= label_tag 'dams_source_capture[scannerManufacturer]', "scannerManufacturer" %><%= text_field_tag 'dams_source_capture[scannerManufacturer]' %>
+  <%= label_tag 'dams_source_capture[sourceType]', "sourceType" %><%= text_field_tag 'dams_source_capture[sourceType]' %>
+  <%= label_tag 'dams_source_capture[scannerModelName]', "scannerModelName" %><%= text_field_tag 'dams_source_capture[scannerModelName]' %>
+  <%= label_tag 'dams_source_capture[imageProducer]', "imageProducer" %><%= text_field_tag 'dams_source_capture[imageProducer]' %>
+  <%= label_tag 'dams_source_capture[scanningSoftwareVersion]', "scanningSoftwareVersion" %><%= text_field_tag 'dams_source_capture[scanningSoftwareVersion]' %>
+  <%= label_tag 'dams_source_capture[scanningSoftware]', "scanningSoftware" %><%= text_field_tag 'dams_source_capture[scanningSoftware]' %>
+  <%= label_tag 'dams_source_capture[captureSource]', "captureSource" %><%= text_field_tag 'dams_source_capture[captureSource]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>

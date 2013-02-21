@@ -22,9 +22,9 @@ describe DamsSourceCaptureDatastream do
         subject.sourceType.should == ["transmission scanner"]
       end
 
-      it "should have a scannerModel" do
-        subject.scannerModel = "Expression 1600"
-        subject.scannerModel.should == ["Expression 1600"]
+      it "should have a scannerModelName" do
+        subject.scannerModelName = "Expression 1600"
+        subject.scannerModelName.should == ["Expression 1600"]
       end
 
       it "should have a imageProducer" do
@@ -69,8 +69,8 @@ describe DamsSourceCaptureDatastream do
         subject.sourceType.should == ["transmission scanner"]
       end
 
-      it "should have a scannerModel" do
-        subject.scannerModel.should == ["Expression 1600"]
+      it "should have a scannerModelName" do
+        subject.scannerModelName.should == ["Expression 1600"]
       end
 
       it "should have a imageProducer" do
