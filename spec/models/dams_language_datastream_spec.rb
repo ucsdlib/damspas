@@ -50,8 +50,7 @@ describe DamsLanguageDatastream do
       end
 
       it "should have a vocabulary" do
-        #subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb15151515"]
-        pending "check vocabulary link #{__FILE__}"
+        subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb15151515"]
       end
 
     end
