@@ -26,4 +26,7 @@ class DamsObject < ActiveFedora::Base
   def rightsHolders
     damsMetadata.load_rightsHolders
   end
+  def sourceCapture
+    damsMetadata.load_source_capture
+  end
 end
