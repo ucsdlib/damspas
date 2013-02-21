@@ -12,7 +12,11 @@ class DamsVocabularyEntryDatastream < ActiveFedora::RdfxmlRDFDatastream
     @vocab = RDF::Resource.new(val)
   end
   def vocabulary
-    @vocab
+    if @vocab != nil
+      @vocab
+    else
+      vocab
+    end
   end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -24,13 +28,12 @@ class DamsVocabularyEntryDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
-    #puts "dams_vocab_entry_datastream.to_solr"
     solr_doc[ActiveFedora::SolrService.solr_name("code", type: :text)] = code
     solr_doc[ActiveFedora::SolrService.solr_name("value", type: :text)] = value
     solr_doc[ActiveFedora::SolrService.solr_name("valueURI", type: :text)] = valueURI
     solr_doc[ActiveFedora::SolrService.solr_name("authority", type: :text)] = authority
     solr_doc[ActiveFedora::SolrService.solr_name("authorityURI", type: :text)] = authorityURI
-    solr_doc[ActiveFedora::SolrService.solr_name("vocabulary", type: :text)] = vocabulary
+    solr_doc[ActiveFedora::SolrService.solr_name("vocabulary", type: :text)] = vocab.subject.to_s
     
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|

@@ -69,10 +69,9 @@ describe DamsVocabularyEntryDatastream do
         subject.authority.should == ["ISO 3166-1"]
       end
       
-      #it "should have a vocabulary" do
-        #puts "subject: #{subject.inspect}"
-        #subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb43434343"]
-      #end
+      it "should have a vocabulary" do
+        subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb43434343"]
+      end
 
     end
   end
