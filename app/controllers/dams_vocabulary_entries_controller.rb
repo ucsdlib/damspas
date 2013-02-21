@@ -4,11 +4,11 @@ class DamsVocabularyEntriesController < ApplicationController
 
   def show
     @dams_vocabulary_entry = DamsVocabularyEntry.find(params[:id])
-    @dams_vocabs = DamsVocab.find(:all)
+    @dams_vocabs = DamsVocabulary.find(:all)
   end
 
   def new
-	@dams_vocabs = DamsVocab.find(:all)
+	@dams_vocabs = DamsVocabulary.find(:all)
   end
 
   def edit

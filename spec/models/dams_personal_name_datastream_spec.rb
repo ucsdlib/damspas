@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe DamsPersonDatastream do
+describe DamsPersonalNameDatastream do
 
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsPersonDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsPersonalNameDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
       end
@@ -20,8 +20,8 @@ describe DamsPersonDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsPersonDatastream.new(stub('inner object', :pid=>'bb09090909', :new? =>true), 'damsMetadata')
-        subject.content = File.new('spec/fixtures/personalNameRdf.xml').read
+        subject = DamsPersonalNameDatastream.new(stub('inner object', :pid=>'bb09090909', :new? =>true), 'damsMetadata')
+        subject.content = File.new('spec/fixtures/damsPersonalName.rdf.xml').read
         subject
       end
       
