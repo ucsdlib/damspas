@@ -3,11 +3,11 @@ class DamsPersonalNamesController < ApplicationController
   skip_authorize_resource :only => :index
 
   def show
-    @personal_name = DamsPersonalName.find(params[:id])
+    @dams_personal_name = DamsPersonalName.find(params[:id])
   end
 
   def new
-
+	
   end
 
   def edit
@@ -35,6 +35,8 @@ class DamsPersonalNamesController < ApplicationController
   end
 
   def index
-    @dams_personal_names = DamsPersonalName.all
+    @languages = DamsLanguage.all
   end
+
+
 end
