@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe DamsVocabEntry do
+describe DamsVocabularyEntry do
   subject do
-    DamsVocabEntry.new pid: "bb47474747"
+    DamsVocabularyEntry.new pid: "bb47474747"
   end
   it "should create xml" do
   	subject.vocabulary = "http://library.ucsd.edu/ark:/20775/bb43434343"

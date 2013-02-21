@@ -12,6 +12,9 @@ class DamsLanguageDatastream < ActiveFedora::RdfxmlRDFDatastream
   def vocabulary=(val)
     @vocab = RDF::Resource.new(val)
   end
+  def vocabulary
+    @vocab
+  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
