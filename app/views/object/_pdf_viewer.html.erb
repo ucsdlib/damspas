@@ -1,4 +1,5 @@
  <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
 
-<a href="http://pontos.ucsd.edu/view/bb52525252/_1.pdf" target="_new"><%= image_tag ("http://pontos.ucsd.edu/view/"+ark+"/_3.jpg", :size=> 400x500) %> 
+<%= image_tag "/view/"+ark+"/_3.jpg" %>
+<a href="/view/bb52525252/_1.pdf" target="_new"><%= image_tag ("/view/"+ark+"/_3.jpg", :size=> 400x500) %> 
 </a>
