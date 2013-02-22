@@ -5,4 +5,6 @@ class MADS < RDF::Vocabulary("http://www.loc.gov/mads/rdf/v1#")
   property :elementValue
   property :TopicElement
   property :TemporalElement
+  property :FullNameElement
+  property :DateNameElement
 end
