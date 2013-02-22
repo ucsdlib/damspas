@@ -1,5 +1,7 @@
 <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
 
-<a href="<%= "/view/"+ark+"/_1.tar.gz" %>" target="_new">
-<%=render_document_show_field_value(:document=>@document, :field=>'title_tesim')%>
+<a class="btn" href="<%= "/view/"+ark+"/_1.tar.gz" %>" target="_new">
+<i class=" icon-download"></i>
+Click to download GZIP file
 </a>
+
