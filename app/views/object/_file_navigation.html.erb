@@ -24,8 +24,6 @@ component_1_file_4.jpg_quality_tesim: 106x150
   <div class="span12">    
       <% if @document['id_t'] != nil %> 
 
-
-     <p> <%=render_document_show_field_value(:document=>@document, :field=>"file_1.tar.gz_formatName_tesim")%></P>
     
       <!-- distinguish simple object from complex object is simple object won't have component_count_isi -->
         <%if @document['component_count_isi'] != nil   %>
