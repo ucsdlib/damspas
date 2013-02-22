@@ -17,7 +17,8 @@
 //= require blacklight/blacklight
 //= require bootstrap
 //= require_tree .
-//= require_tree ../../../vendor/assets/javascripts/.
+//= require audio.min
+//= require video
 
 
 $(document).ready(function() {
@@ -27,6 +28,8 @@ $(document).ready(function() {
 
 
 Blacklight.do_search_context_behavior = function() {};
+
+audiojs.events.ready(function(){var as = audiojs.createAll();});
 
 // OBJECT VIEWER PAGE - DT
 $(document).ready(function(){
