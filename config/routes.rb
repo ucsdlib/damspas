@@ -43,8 +43,6 @@ Hydra::Application.routes.draw do
   match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'catalog'
   match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'solr_document'
 
-
-  resources :dams_personal_names, :only => [:show]
   resources :dams_subjects, :only => [:show]
 
   resources :dams_objects
