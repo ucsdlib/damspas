@@ -61,10 +61,31 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
     Solrizer.insert_field(solr_doc, 'name', name)
 	Solrizer.insert_field(solr_doc, 'sameAs', sameAsNode.subject.to_s)
 	Solrizer.insert_field(solr_doc, 'authority', authority)
-	
-    # hack to strip "+00:00" from end of dates, because that makes solr barf
+
+	list = elementList.first
+	i = 0
+	if list != nil
+		while i < list.size  do
+		  if (list[i].class == MadsPersonalNameDatastream::List::FullNameElement)
+			Solrizer.insert_field(solr_doc, 'full_name_element', list[i].elementValue.first)
+	 	  elsif (list[i].class == MadsPersonalNameDatastream::List::FamilyNameElement)
+			Solrizer.insert_field(solr_doc, 'family_name_element', list[i].elementValue.first)		
+		  elsif (list[i].class == MadsPersonalNameDatastream::List::GivenNameElement)
+			Solrizer.insert_field(solr_doc, 'given_name_element', list[i].elementValue.first)				
+		  elsif (list[i].class == MadsPersonalNameDatastream::List::DateNameElement)
+			Solrizer.insert_field(solr_doc, 'date_name_element', list[i].elementValue.first)	
+		  end		  
+		  i +=1
+		end   
+	end 
+			
+ # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
-      solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+      if solr_doc[f].kind_of?(Array)
+        solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+      elsif solr_doc[f] != nil
+        solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
+      end
     }
     return solr_doc
   end
