@@ -49,7 +49,7 @@ describe MadsPersonalNameDatastream do
         subject.authority.should == ["naf"]
       end
            
-      it "should have field" do
+      it "should have fields" do
         list = subject.elementList.first
         list[0].should be_kind_of MadsPersonalNameDatastream::List::FullNameElement
         list[0].elementValue.should == ["Burns, Jack O."]  
@@ -59,8 +59,16 @@ describe MadsPersonalNameDatastream do
         list[2].elementValue.should == ["Jack O."]  
         list[3].should be_kind_of MadsPersonalNameDatastream::List::DateNameElement
         list[3].elementValue.should == ["1977-"]        
-        list.size.should == 4                     
-      end      
+        list.size.should == 4        
+      end  
+      
+      it "should have a fields from solr doc" do
+        solr_doc = subject.to_solr
+        solr_doc["full_name_element_tesim"].should == ["Burns, Jack O."]
+        solr_doc["family_name_element_tesim"].should == ["Burns"] 
+        solr_doc["given_name_element_tesim"].should == ["Jack O."]
+        solr_doc["date_name_element_tesim"].should == ["1977-"] 
+      end    
     end
   end
 end
