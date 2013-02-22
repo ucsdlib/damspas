@@ -2,7 +2,8 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.sameAsNode(:in => OWL, :to => 'sameAs')
-    map.elementList(:in => MADS, :to => 'elementList', :class_name => 'ElementList')
+    map.authority(:in => DAMS, :to => 'authority')
+    map.elementList(:in => MADS, :to => 'elementList', :class_name=>'List')
   end
 
   def sameAs=(val)
@@ -15,31 +16,38 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
       sameAsNode
     end
   end
- 
-  class ElementList
-  	include ActiveFedora::RdfObject
-  	rdf_type MADS.elementList
-  	map_predicates do |map|   
-    	map.fullNameElement(:in=> MADS, :to => 'FullNameElement', :class_name => 'FullNameElement')
-    	map.dateNameElement(:in=> MADS, :to => 'DateNameElement', :class_name => 'DateNameElement')        
-  	end
- 
-	class FullNameElement
-	  	include ActiveFedora::RdfObject
-	  	rdf_type MADS.FullNameElement
-	  	map_predicates do |map|   
-	    	map.elementValue(:in=> MADS, :to => 'elementValue')
-	  	end	      
-	 end       
-
-	class DateNameElement
-	  	include ActiveFedora::RdfObject
-	  	rdf_type MADS.DateNameElement
-	  	map_predicates do |map|   
-	    	map.elementValue(:in=> MADS, :to => 'elementValue')
-	  	end	      
-	 end        
-  end  
+        
+  class List 
+    include ActiveFedora::RdfList
+    class FullNameElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.FullNameElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end
+    class FamilyNameElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.FamilyNameElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end
+    class GivenNameElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.GivenNameElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end
+    class DateNameElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.DateNameElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end        
+  end
     
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
@@ -52,10 +60,32 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'name', name)
 	Solrizer.insert_field(solr_doc, 'sameAs', sameAsNode.subject.to_s)
-	
-    # hack to strip "+00:00" from end of dates, because that makes solr barf
+	Solrizer.insert_field(solr_doc, 'authority', authority)
+
+	list = elementList.first
+	i = 0
+	if list != nil
+		while i < list.size  do
+		  if (list[i].class == MadsPersonalNameDatastream::List::FullNameElement)
+			Solrizer.insert_field(solr_doc, 'full_name_element', list[i].elementValue.first)
+	 	  elsif (list[i].class == MadsPersonalNameDatastream::List::FamilyNameElement)
+			Solrizer.insert_field(solr_doc, 'family_name_element', list[i].elementValue.first)		
+		  elsif (list[i].class == MadsPersonalNameDatastream::List::GivenNameElement)
+			Solrizer.insert_field(solr_doc, 'given_name_element', list[i].elementValue.first)				
+		  elsif (list[i].class == MadsPersonalNameDatastream::List::DateNameElement)
+			Solrizer.insert_field(solr_doc, 'date_name_element', list[i].elementValue.first)	
+		  end		  
+		  i +=1
+		end   
+	end 
+			
+ # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
-      solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+      if solr_doc[f].kind_of?(Array)
+        solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+      elsif solr_doc[f] != nil
+        solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
+      end
     }
     return solr_doc
   end
