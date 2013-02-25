@@ -378,6 +378,23 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     rightsHolders
   end
+  
+  # helper method for recursing over component hierarchy
+  def find_children(p)
+    kids = @parents[p]
+    if kids != nil && kids.length > 0
+  
+      # replace children with nested hashes recursively
+      for i in 0 .. kids.length
+        cid = kids[i]
+        if @parents[cid] != nil && @parents[cid].length > 0
+          grandkids = find_children(cid)
+          kids[i] = {cid => grandkids}
+        end
+      end
+    end
+    kids
+  end
 
   def to_solr (solr_doc = {})
 
@@ -530,19 +547,24 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)      
       end
     end
-        
+
     # component metadata
+    @parents = Hash.new
+    @children = Array.new
     if component != nil && component.count > 0
       Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
     end
     component.map do |component|
       cid = component.rdf_subject.to_s
-      cid = cid.match('\w+$')
+      cid = cid.match('\w+$').to_s
+      @parents[cid] = Array.new
 
       # child components
       component.subcomponent.map do |subcomponent|
         subid = /\/(\w*)$/.match(subcomponent.to_s)
+        @children << subid[1]
         Solrizer.insert_field(solr_doc, "component_#{cid}_children", subid[1], storedIntMulti)
+        @parents[cid] << subid[1]
       end
 
       # titles
@@ -581,6 +603,18 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
       end
     end
+    
+    # build component hierarchy map
+    @cmap = Hash.new
+    @parents.keys.sort{|x,y| x.to_i <=> y.to_i}.each { |p|
+      # only process top-level objects
+      if not @children.include?(p)
+        # p is a top-level component, find direct children
+        @cmap[p] = find_children(p)
+      end
+    }
+    Solrizer.insert_field(solr_doc, "component_map", @cmap.to_json)
+
     file.map do |file|
       fid = file.rdf_subject.to_s
       fid = fid.gsub(/.*\//,'')
