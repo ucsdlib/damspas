@@ -1,0 +1,15 @@
+<rdf:RDF xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd8021352s">
+    <dams:authority>naf</dams:authority>
+    <owl:sameAs rdf:resource="http://lccn.loc.gov/n50000352"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:NameElement>
+        <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
+      </mads:NameElement>
+    </mads:elementList>
+    <mads:authoritativeLabel>Lawrence Livermore Laboratory</mads:authoritativeLabel>
+  </mads:CorporateName>
+</rdf:RDF>

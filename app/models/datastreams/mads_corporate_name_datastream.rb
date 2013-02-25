@@ -1,5 +1,5 @@
-class MadsPersonalNameDatastream < MadsDatastream
-  @@type = MADS.PersonalName
+class MadsCorporateNameDatastream < MadsDatastream
+  @@type = MADS.CorporateName
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.sameAsNode(:in => OWL, :to => 'sameAs')
