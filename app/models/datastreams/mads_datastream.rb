@@ -49,7 +49,14 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
       end
-    end        
+    end     
+    class NameElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.NameElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end         
   end
     
  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -78,6 +85,8 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 			Solrizer.insert_field(solr_doc, 'given_name_element', list[i].elementValue.first)				
 		  elsif (list[i].class == MadsDatastream::List::DateNameElement)
 			Solrizer.insert_field(solr_doc, 'date_name_element', list[i].elementValue.first)	
+		  elsif (list[i].class == MadsDatastream::List::NameElement)
+			Solrizer.insert_field(solr_doc, 'name_element', list[i].elementValue.first)		
 		  end		  
 		  i +=1
 		end   

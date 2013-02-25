@@ -9,4 +9,5 @@ class MADS < RDF::Vocabulary("http://www.loc.gov/mads/rdf/v1#")
   property :DateNameElement
   property :FamilyNameElement
   property :GivenNameElement
+  property :NameElement
 end
