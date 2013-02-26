@@ -1,12 +1,12 @@
 class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
-  @@type = ""
+  @type = ""
   
   def self.type
-    @@type
+    @type
   end
 
   def self.type(val)
-    @@type = val
+    @type = val
   end
       
   def sameAs=(val)
@@ -69,7 +69,6 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
-    graph.insert([rdf_subject, RDF.type, @@type]) if new?
     graph.insert([rdf_subject, OWL.sameAs, @sameAs]) if new?
     super
   end
