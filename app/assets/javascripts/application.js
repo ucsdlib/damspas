@@ -17,14 +17,20 @@
 //= require blacklight/blacklight
 //= require bootstrap
 //= require_tree .
+//= require audio.min
+
+
+
 
 $(document).ready(function() {
 	$('.carousel').carousel();
 });
 
-//audiojs.events.ready(function(){var as = audiojs.createAll();});
+
 
 Blacklight.do_search_context_behavior = function() {};
+
+
 
 // OBJECT VIEWER PAGE - DT
 $(document).ready(function(){
