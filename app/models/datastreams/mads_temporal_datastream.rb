@@ -1,4 +1,4 @@
-class DamsSubjectDatastream < MadsDatastream
+class MadsTemporalDatastream < MadsDatastream
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.sameAsNode(:in => OWL, :to => 'sameAs')
@@ -7,7 +7,7 @@ class DamsSubjectDatastream < MadsDatastream
   end
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
   def serialize
-    graph.insert([rdf_subject, RDF.type, MADS.ComplexSubject]) if new?
+    graph.insert([rdf_subject, RDF.type, MADS.Temporal]) if new?
     super
   end
 end
