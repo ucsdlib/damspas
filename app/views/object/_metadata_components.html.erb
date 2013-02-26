@@ -1,42 +1,97 @@
-	<button type="button" class="btn btn-block" onClick="$('[id^=meta-]').collapse('toggle');"><i class="icon-info-sign"></i> <strong>Components</strong></button>
+<%
 
-	<div class="meta">
+#---
+# METHODS
+#---
 
-		<% if @document['component_1_title_tesim'] != nil %>
-			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-component-1"><i class="icon-chevron-right"></i> Component 1</button>
-			<div id="meta-component-1" class="collapse">
-				<div>
-					<ul>
-						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_title_tesim") %></li>
-						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_date_tesim") %></li>
-						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_1_note_tesim") %></li>
-					</ul>
-				</div>
-			</div>
-		<% end %>
+	def componentTitle(index)
+		concat render_document_show_field_value(:document=>@document, :field=>"component_#{index}_1_title_tesim")
+	end
+
+	def displayFiles(index)
+		concat "<ul>".html_safe
+		@document["component_#{index}_files_tesim"].each do |sub|
+			concat "<li><a href='#'>".html_safe
+			concat sub
+			concat "</a></li>".html_safe			
+		end
+		concat "</ul>".html_safe
+	end
+
+	def displayNodes(index)
+
+		concat "<button type='button' class='btn btn-block btn-small' data-toggle='collapse' data-target='#meta-component-#{index}'><i class='icon-chevron-right'></i> ".html_safe
+		componentTitle index
+		concat "</button>".html_safe
+		concat "<div id='meta-component-#{index}' class='collapse'>".html_safe
+		concat "<div>".html_safe
+
+		case
+			
+			#BACHELOR or CHILD
+			when (@isParent[index] == false && @isChild[index] == false) || (@isParent[index] == false && @isChild[index] == true)
+
+				displayFiles index
+
+			#PARENT or WILD CHILD
+			when (@isParent[index] == true && @isChild[index] == false) || (@isParent[index] == true && @isChild[index] == true)
+
+				@document["component_#{index}_children_isim"].each do |sub|
+					displayNodes sub
+					@tempSeen.push(sub)
+				end
+
+		end
+		
+		concat "</div>".html_safe
+		concat "</div>".html_safe
+
+	end
+
+#---
+# MAIN
+#---
+
+	component_count = @document['component_count_isi']
 	
-		<% if @document['component_2_title_tesim'] != nil %>
-			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-component-2"><i class="icon-chevron-right"></i> Component 2</button>
-			<div id="meta-component-2" class="collapse">
-				<div>
-					<ul>
-						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_title_tesim") %></li>
-						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_date_tesim") %></li>
-						<li><%= render_document_show_field_value(:document=>@document, :field=>"component_2_note_tesim") %></li>
-					</ul>
-				</div>
-			</div>
-		<% end %>
+	if component_count > 0
 
-		<% if @document['component_2_children_isim'] != nil %>
-			<button type="button" class="btn btn-block btn-small" data-toggle="collapse" data-target="#meta-component-2"><i class="icon-chevron-right"></i> Component 2</button>
-			<div id="meta-component-2" class="collapse">
-				<div>
-					<ul>
-						<li>DATA GOES HERE</li>
-					</ul>
-				</div>
-			</div>
-		<% end %>
+		@isParent = []
+		@isChild = []
+		@tempSeen = [] # quick hack
 
+		for i in 1..component_count
+			@isParent[i] = false
+			@isChild[i] = false
+		end
+
+		for i in 1..component_count
+			if @document["component_#{i}_children_isim"] != nil
+				@isParent[i] = true
+				@document["component_#{i}_children_isim"].each do |j|
+					@isChild[j] = true
+				end
+			end
+		end
+
+	end
+				
+%>
+
+
+<% if component_count > 0	 %>
+
+	<button type="button" class="btn btn-block" onClick="$('[id^=meta-]').collapse('toggle');"><i class="icon-info-sign"></i> <strong>Components</strong></button>
+	<div class="meta">
+		<%
+			for i in 1..component_count
+				
+				if @tempSeen.count(i) == 0
+					displayNodes i
+				end
+
+			end
+		%>				
 	</div>
+
+<% end %>
