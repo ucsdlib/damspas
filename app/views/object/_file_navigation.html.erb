@@ -3,6 +3,7 @@ single object:
 file_3.jpg_formatName_tesim: JPEG
 file_3.jpg_use_tesim: visual-thumbnail
 file_1.jpg_size:6419
+files_tesim: 2.mp3, 1.wav 
 
 complex object:
 component_count_isi: 2
@@ -24,29 +25,31 @@ component_1_file_4.jpg_quality_tesim: 106x150
   <div class="span12">    
       <% if @document['id_t'] != nil %> 
 
-    
-      <!-- distinguish simple object from complex object is simple object won't have component_count_isi -->
-        <%if @document['component_count_isi'] != nil   %>
-         <%= render :partial => 'complex_object_viewer' %> 
+  <!--using files_tesim to handle various files type -->
+  <% fileType=render_document_show_field_value(:document=>@document, :field=>"files_tesim") %>
 
-           <% elsif render_document_show_field_value(:document=>@document, :field=>"file_2.mp4_formatName_tesim") == "bytestream" %>
-         <%= render :partial => 'video_viewer' %>
+    <% if fileType.include?('1.tif') %>
+    <%= render :partial => 'image_viewer' %>
 
-         <% elsif render_document_show_field_value(:document=>@document, :field=>"file_2.mp3_formatName_tesim") == "MP3" %>
-        <%= render :partial => 'audio_viewer' %>
+    <% elsif fileType.include?('2.mp3') %>
+    <%= render :partial => 'audio_viewer' %>
 
-         <% elsif render_document_show_field_value(:document=>@document, :field=>"file_1.pdf_formatName_tesim") == "PDF" %>
-        <%= render :partial => 'pdf_viewer' %>
-        
-        <% elsif render_document_show_field_value(:document=>@document, :field=>"file_1.tar.gz_formatName_tesim") == "GZIP" %>
-        <%= render :partial => 'data_viewer' %>
+    <% elsif fileType.include?('2.mp4') %>
+    <%= render :partial => 'video_viewer' %>
 
-        <% elsif render_document_show_field_value(:document=>@document, :field=>"file_3.jpg_formatName_tesim") == "JPEG" %>
-        <%= render :partial => 'image_viewer' %>
-        
-        <% else %>
-        <%= render :partial => 'default_viewer' %>
-        <% end %>
+    <% elsif fileType.include?('1.pdf') %>
+    <%= render :partial => 'pdf_viewer' %>
+
+ <!-- the difference between xml, tar,tar.gz or zip will be handled in data viewer -->
+    <% elsif fileType.include?('1.tar.gz')||fileType.include?('1.tar')||fileType.include?('1.zip')||fileType.include?('1.xml') %>
+    <%= render :partial => 'data_viewer' %>
+
+    <% else %>
+    <%= render :partial => 'default_viewer' %>
+    <% end %>    
+
+
+  
 
   <% end %>
   </div>
