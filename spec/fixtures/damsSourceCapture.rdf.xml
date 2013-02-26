@@ -1,0 +1,13 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/bb49494949">
+    <dams:scannerManufacturer>Epson</dams:scannerManufacturer>
+    <dams:sourceType>transmission scanner</dams:sourceType>
+    <dams:scannerModelName>Expression 1600</dams:scannerModelName>
+    <dams:imageProducer>Luna Imaging, Inc.</dams:imageProducer>
+    <dams:scanningSoftwareVersion>2.10E</dams:scanningSoftwareVersion>
+    <dams:scanningSoftware>Epson Twain Pro</dams:scanningSoftware>
+    <dams:captureSource>B&amp;W negative , 2 1/2 x 2 1/2</dams:captureSource>
+  </dams:SourceCapture>
+</rdf:RDF>

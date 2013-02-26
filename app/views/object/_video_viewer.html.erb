@@ -1,9 +1,7 @@
  <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
 
  <video id="dams_video" class="video-js vjs-default-skin" controls
-  preload="auto" width="640" height="264" poster=""
-  data-setup="{}">
-  <source src="" type='video/mp4'>
-  <source src="" type='video/webm'>
-</video>
+  preload="auto"  poster="<%="/view/"+ark+"/_3.jpg"%>" data-setup="{}" width="600" height="400">
+  <source src="<%="/view/"+ark+"/_2.mp4"%>" type='video/mp4'>
+  </video>
 

@@ -30,7 +30,7 @@ describe DamsObject do
 
   describe "Store to a repository" do
     before do
-      DamsPerson.create! pid: "bbXXXXXXX1", name: "Maria"
+      DamsPersonalName.create! pid: "zzXXXXXXX1", name: "Maria"
     end
     after do
       #@damsObj.delete
@@ -56,5 +56,6 @@ describe DamsObject do
     subject.damsMetadata.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
     subject.title.should == ["Sample Complex Object Record #1"]
     subject.component.first.title.first.value.should == ["The Static Image"]
+    subject.sourceCapture.scannerManufacturer.should == ["Epson"]
   end
 end

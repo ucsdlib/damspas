@@ -1,0 +1,24 @@
+<% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
+<% fileType=render_document_show_field_value(:document=>@document, :field=>"files_tesim") %>
+
+    <% if fileType.include?('1.tar.gz') %>
+   <a class="btn" href="<%= "/view/"+ark+"/_1.tar.gz" %>" target="_new">
+      <i class=" icon-download"></i>
+        Click to download GZIP file
+   </a>
+    <% elsif fileType.include?('1.tar') %>
+   <a class="btn" href="<%= "/view/"+ark+"/_1.tar" %>" target="_new">
+      <i class=" icon-download"></i>
+        Click to download TAR file
+   </a>
+   <% elsif fileType.include?('1.zip') %>
+   <a class="btn" href="<%= "/view/"+ark+"/_1.zip" %>" target="_new">
+      <i class=" icon-download"></i>
+        Click to download ZIP file
+   </a>
+   <% elsif fileType.include?('1.xml') %>
+   <a class="btn" href="<%= "/view/"+ark+"/_1.xml" %>" target="_new">
+      <i class=" icon-download"></i>
+        Click to download XML file
+   </a>
+   <% end %>

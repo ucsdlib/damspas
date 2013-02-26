@@ -16,6 +16,7 @@ class DamsRolesController < ApplicationController
 
   def create
     @dams_role.attributes = params[:dams_role]
+    @dams_role.vocabulary = "http://library.ucsd.edu/ark:/20775/bb14141414"
     if @dams_role.save
         redirect_to @dams_role, notice: "Role has been saved"
     else

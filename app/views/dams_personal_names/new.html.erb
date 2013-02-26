@@ -1,0 +1,6 @@
+<h1>Create a new DAMS Personal Name</h1>
+<%= form_for @dams_personal_name do |f| %>
+  <%= label_tag 'personal_name[name]', "Name" %><%= text_field_tag 'personal_name[name]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>

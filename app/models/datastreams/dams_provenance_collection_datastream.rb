@@ -130,7 +130,7 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     def load
       uri = name.first.to_s
       md = /\/(\w*)$/.match(uri)
-      DamsPerson.find(md[1])
+      DamsPersonalName.find(md[1])
     end
   end
   class Subject
@@ -223,8 +223,8 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     part = load_part
     if part != nil && part.class == DamsProvenanceCollectionPart
-      Solrizer.insert_field(solr_doc, 'part_name', col.title.first.value)
-      Solrizer.insert_field(solr_doc, 'part_id', col.pid)
+      Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
+      Solrizer.insert_field(solr_doc, 'part_id', part.pid)
     end
         
     n = 0

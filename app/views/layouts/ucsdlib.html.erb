@@ -6,12 +6,16 @@
 		<title><%= full_title(@page_title) %></title>
 		<link href="<%= opensearch_catalog_path(:format => 'xml', :only_path => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
 		
+		
 		<%= favicon_link_tag asset_path('favicon.ico') %>
 		<%= stylesheet_link_tag "application", :media => "all" %>
+		<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+
 		<%= csrf_meta_tags %>
 		<%= raw(render_head_content) %> 
 		<%= render :partial => 'layouts/ie-conditionals' %>
-	
+		
+			
 	</head>
 
 	<% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
@@ -98,11 +102,15 @@
 
 		<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
 		
+        <!-- JAVASCRIPT PLACED AT END SO PAGES LOAD FASTER -->
+		<%= javascript_include_tag "application" %>
+		<script src="http://vjs.zencdn.net/c/video.js"></script>
+		<%= render :partial => 'object/audio_init' %>
+
 		<!-- show debugging parameters in development -->
 		<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>
 		
-		<!-- JAVASCRIPT PLACED AT END SO PAGES LOAD FASTER -->
-		<%= javascript_include_tag "application" %>
+
 
 	</body>
 </html>

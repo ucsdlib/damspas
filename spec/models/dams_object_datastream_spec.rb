@@ -61,8 +61,7 @@ describe DamsObjectDatastream do
         solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
         solr_doc["title_tesim"].should == ["Chicano and black radical activism of the 1960s"]
         solr_doc["date_1_value_tesim"].should == ["2010"]
-        #solr_doc["name_tesim"].should == ["Ya\xF1ez, Ang\xE9lica Mar\xEDa"]
-        solr_doc["name_tesim"].should == ["Maria"]
+        solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
       end
 
     end
@@ -194,6 +193,18 @@ describe DamsObjectDatastream do
         solr_doc["rightsHolder_1_id_tesim"].should == ["bb09090909"]
         solr_doc["rightsHolder_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
       end
+      it "should index source capture" do
+        solr_doc = subject.to_solr
+        solr_doc["source_capture_id_tesim"].should == ["bb49494949"]
+        solr_doc["source_capture_scanner_manufacturer_tesim"].should == ["Epson"]
+        solr_doc["source_capture_source_type_tesim"].should == ["transmission scanner"]
+        solr_doc["source_capture_scanner_model_name_tesim"].should == ["Expression 1600"]
+        solr_doc["source_capture_image_producer_tesim"].should == ["Luna Imaging, Inc."]
+        solr_doc["source_capture_scanning_software_version_tesim"].should == ["2.10E"]
+        solr_doc["source_capture_scanning_software_tesim"].should == ["Epson Twain Pro"]
+        solr_doc["source_capture_capture_source_tesim"].should == ["B&W negative , 2 1/2 x 2 1/2"]
+      
+      end      
       it "should index rights metadata" do
         solr_doc = subject.to_solr
 
@@ -238,8 +249,8 @@ describe DamsObjectDatastream do
         solr_doc = subject.to_solr
         solr_doc["collection_1_id_tesim"].should == ["bb03030303"]
         solr_doc["collection_1_name_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
-        solr_doc["collection_2_id_tesim"].should == ["bb24242424"]
-        solr_doc["collection_2_name_tesim"].should == ["Historical Dissertations"]
+        #solr_doc["collection_2_id_tesim"].should == ["bb24242424"]
+        #solr_doc["collection_2_name_tesim"].should == ["Historical Dissertations"]
       end
     end
   end
