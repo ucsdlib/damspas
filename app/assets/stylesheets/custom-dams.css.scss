@@ -1,5 +1,11 @@
 /* app specific/non-theme css goes here */
 
+
+
+/*--------------------*/
+/* OBJECT VIEWER PAGE */
+/*--------------------*/
+
 #dams-metadata{margin-bottom:1em;}
 
 .meta .btn{text-align:left;padding-left:5px;font-weight:bold;}
@@ -13,14 +19,58 @@
 .dams-asset-information{margin-bottom:1em;}
 .dams-asset-information h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
 .dams-asset-information hr{border-top:1px solid #f3f3f3;margin:0 15%;}
+.dams-asset-information .btn-link{font-weight:bold;}
+
+
+
 
 .label a,.badge a,.label a:hover,.badge a:hover{color:#fff;text-decoration:none;}/*BOOTSTRAP OVERRIDE, MOVE IF YOU DECIDE TO KEEP, FOR LABLES THAT ARE LINKS*/
 
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
 
+
+
+
+
+
 /* TEMP MOCKUP STUFF */
 
-.dams-viewer{height:480px;background:#999;margin-bottom:1em;padding:5px;border:1px solid #f3f3f3;}
+.dams-viewer{margin-bottom:1em;}
 
 
+
+
+/*---------------*/
+/* MEDIA QUERIES */
+/*---------------*/
+
+/* LARGE DESKTOP (BOOTSTRAP) */
+@media (min-width: 1200px) {}
+
+/* DESKTOP TWEEN (CUSTOM) */
+@media (min-width: 980px) and (max-width:1199px) {}
+
+/* DESKTOP (CUSTOM) */
+@media (min-width: 980px)
+{
+	/* OBJECT VIEWER PAGE */
+	.dams-download-button,.dams-viewer img{width:600px;margin:0 auto;display:block;}
+}
+ 
+/* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
+@media (min-width: 768px) and (max-width: 979px) {}
+
+
+/* MOBILE (CUSTOM) */
+@media (max-width: 979px)
+{
+		 /* OBJECT VIEWER PAGE */
+		.dams-viewer img{width:100%;}
+}
+
+/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
+@media (max-width: 767px) {}
+ 
+/* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
+@media (max-width: 480px) {}
 
