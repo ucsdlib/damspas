@@ -54,23 +54,29 @@
 @media (min-width: 980px)
 {
 	/* OBJECT VIEWER PAGE */
-	.dams-viewer img{width:50%;margin:0 auto;display:block;}
+	.dams-viewer img{width:33%;margin:0 auto;display:block;}
 	.dams-download-button{width:600px;margin:0 auto;}
 }
  
 /* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
-@media (min-width: 768px) and (max-width: 979px) {}
+@media (min-width: 768px) and (max-width: 979px)
+{
+		 /* OBJECT VIEWER PAGE */
+	.dams-viewer img{width:50%;margin:0 auto;display:block;}
+	
+}
 
 
 /* MOBILE (CUSTOM) */
-@media (max-width: 979px)
+@media (max-width: 979px) {}
+
+/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
+@media (max-width: 767px)
 {
 		 /* OBJECT VIEWER PAGE */
 		.dams-viewer img{width:100%;}
+	
 }
-
-/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
-@media (max-width: 767px) {}
  
 /* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
 @media (max-width: 480px) {}
