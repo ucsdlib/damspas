@@ -51,9 +51,9 @@ describe MadsConferenceNameDatastream do
            
       it "should have fields" do
         list = subject.elementList.first
-        list[0].should be_kind_of MadsPersonalNameDatastream::List::NameElement
+        list[0].should be_kind_of MadsConferenceNameDatastream::List::NameElement
         list[0].elementValue.should == ["American Library Association."]  
-        list[1].should be_kind_of MadsPersonalNameDatastream::List::NameElement
+        list[1].should be_kind_of MadsConferenceNameDatastream::List::NameElement
         list[1].elementValue.should == ["Annual Conference"]   
         list.size.should == 2     
       end  
