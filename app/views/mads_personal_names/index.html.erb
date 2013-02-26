@@ -1,0 +1,11 @@
+<h1>Personal Names</h1>
+
+<div class="span6">
+  <ul><%= render_personal_name_list %></ul>
+</div>
+
+<div>
+  <% if can? :create, MadsPersonalName%>
+    <%= link_to "Create Personal Name", new_mads_personal_name_path, :class => 'btn btn-primary'%>
+  <% end %>
+</div>
