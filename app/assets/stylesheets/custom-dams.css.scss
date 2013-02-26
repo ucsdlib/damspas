@@ -54,7 +54,8 @@
 @media (min-width: 980px)
 {
 	/* OBJECT VIEWER PAGE */
-	.dams-download-button,.dams-viewer img{width:600px;margin:0 auto;display:block;}
+	.dams-viewer img{width:50%;margin:0 auto;display:block;}
+	.dams-download-button{width:600px;margin:0 auto;}
 }
  
 /* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
