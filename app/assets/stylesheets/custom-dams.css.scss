@@ -73,11 +73,16 @@
 /* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
 @media (max-width: 767px)
 {
-		 /* OBJECT VIEWER PAGE */
+	 /* OBJECT VIEWER PAGE */
 	.dams-viewer img{width:50%;margin:0 auto;display:block;}
 	
 }
  
 /* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
-@media (max-width: 480px) {}
+@media (max-width: 480px)
+{
+	 /* OBJECT VIEWER PAGE */
+	.dams-viewer img{width:100%;}
+	
+}
 
