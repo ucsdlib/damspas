@@ -1,7 +1,0 @@
-<h1><%= @dams_personal_name.name.first %></h1>
-<div>
-  <% if can? :edit, DamsPersonalName then %>
-    <%= link_to "Edit", edit_dams_personal_name_path(@dams_personal_name), class: "btn btn-primary"%>
-  <% end %>
-  <%= link_to "View All", dams_personal_names_path, class: "btn btn-primary" %>
-</div>
