@@ -1,14 +1,5 @@
 class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
-  @type = ""
   
-  def self.type
-    @type
-  end
-
-  def self.type(val)
-    @type = val
-  end
-      
   def sameAs=(val)
     @sameAs = RDF::Resource.new(val)
   end
