@@ -273,7 +273,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     def load
       uri = name.first.to_s
       md = /\/(\w*)$/.match(uri)
-      DamsPersonalName.find(md[1])
+      MadsPersonalName.find(md[1])
     end
   end
 
@@ -373,7 +373,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       name_uri = name.to_s
       name_pid = name_uri.gsub(/.*\//,'')
       if name_pid != nil && name_pid != ""
-        rightsHolders << DamsPersonalName.find(name_pid)
+        rightsHolders << MadsPersonalName.find(name_pid)
       end
     end
     rightsHolders
@@ -502,7 +502,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     if rightsHolders != nil
       n = 0
       rightsHolders.each do |name|
-        if name.class == DamsPersonalName
+        if name.class == MadsPersonalName
           n += 1
           Solrizer.insert_field(solr_doc, "rightsHolder_#{n}_id", name.pid)
           Solrizer.insert_field(solr_doc, "rightsHolder_#{n}_name", name.name)
