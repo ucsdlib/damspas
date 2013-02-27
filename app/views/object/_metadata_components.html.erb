@@ -8,43 +8,58 @@
 		concat render_document_show_field_value(:document=>@document, :field=>"component_#{index}_1_title_tesim")
 	end
 
-	def displayFiles(index)
-		concat "<ul>".html_safe
+	def grabFirstFile(index)
+		fileArray = []
 		@document["component_#{index}_files_tesim"].each do |sub|
-			concat "<li><a href='#'>".html_safe
-			concat sub
-			concat "</a></li>".html_safe			
+			fileArray.push(sub)
 		end
-		concat "</ul>".html_safe
+		return fileArray[0]
 	end
 
 	def displayNodes(index)
 
-		concat "<button type='button' class='btn btn-block btn-small' data-toggle='collapse' data-target='#meta-component-#{index}'><i class='icon-chevron-right'></i> ".html_safe
-		componentTitle index
-		concat "</button>".html_safe
-		concat "<div id='meta-component-#{index}' class='collapse'>".html_safe
-		concat "<div>".html_safe
+		concat "<li>".html_safe
 
 		case
 			
 			#BACHELOR or CHILD
 			when (@isParent[index] == false && @isChild[index] == false) || (@isParent[index] == false && @isChild[index] == true)
 
-				displayFiles index
+				url = grabFirstFile index
+				
+				case File.extname(url)
+					when ".jpg"
+						icon = "icon-picture"
+					when ".png"
+						icon = "icon-picture"
+					when ".mp3"
+						icon = "icon-music"
+					when ".avi"
+						icon = "icon-film"
+					else
+						icon ="icon-file"
+				end
+				
+				concat "<a class='btn btn-block btn-small btn-link' href='#{url}'><i class='#{icon}'></i> ".html_safe
+				componentTitle index
+				concat "</a>".html_safe
 
 			#PARENT or WILD CHILD
 			when (@isParent[index] == true && @isChild[index] == false) || (@isParent[index] == true && @isChild[index] == true)
 
+				concat "<button type='button' class='btn btn-block btn-small btn-link' data-toggle='collapse' data-target='#meta-component-#{index}'><i class='icon-folder-close'></i> ".html_safe
+				componentTitle index
+				concat "</button>".html_safe
+				concat "<ul id='meta-component-#{index}' class='unstyled collapse'>".html_safe
 				@document["component_#{index}_children_isim"].each do |sub|
 					displayNodes sub
 					@tempSeen.push(sub)
 				end
+				concat "</ul>".html_safe
 
 		end
 		
-		concat "</div>".html_safe
-		concat "</div>".html_safe
+		concat "</li>".html_safe
 
 	end
 
@@ -81,17 +96,19 @@
 
 <% if component_count > 0	 %>
 
-	<button type="button" class="btn btn-block" onClick="$('[id^=meta-]').collapse('toggle');"><i class="icon-info-sign"></i> <strong>Components</strong></button>
+	<button type="button" class="btn btn-block btn-link dams-components-button sidebar-header" onClick="$('[id^=meta-]').collapse('toggle');"><strong>Components</strong></button>
 	<div class="meta">
-		<%
-			for i in 1..component_count
-				
-				if @tempSeen.count(i) == 0
-					displayNodes i
+		<ul class="unstyled">
+			<%
+				for i in 1..component_count
+					
+					if @tempSeen.count(i) == 0
+						displayNodes i
+					end
+	
 				end
-
-			end
-		%>				
+			%>				
+		</ul>
 	</div>
 
 <% end %>
