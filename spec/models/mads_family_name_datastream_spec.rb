@@ -51,11 +51,11 @@ describe MadsFamilyNameDatastream do
            
       it "should have fields" do
         list = subject.elementList.first
-        list[0].should be_kind_of MadsPersonalNameDatastream::List::FamilyNameElement
+        list[0].should be_kind_of MadsFamilyNameDatastream::List::FamilyNameElement
         list[0].elementValue.should == ["Calder (Family :"]  
-        list[1].should be_kind_of MadsPersonalNameDatastream::List::DateNameElement
+        list[1].should be_kind_of MadsFamilyNameDatastream::List::DateNameElement
         list[1].elementValue.should == ["1757-1959 :"]  
-        list[2].should be_kind_of MadsPersonalNameDatastream::List::TermsOfAddressNameElement
+        list[2].should be_kind_of MadsFamilyNameDatastream::List::TermsOfAddressNameElement
         list[2].elementValue.should == ["N.C.)"]           
         list.size.should == 3     
       end  

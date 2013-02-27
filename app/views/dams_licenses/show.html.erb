@@ -7,7 +7,7 @@
 <div>restrictionEndDate: <%= @dams_license.restrictionEndDate.first %></div>
 <div>restrictionType: <%= @dams_license.restrictionType.first %></div>
 <div>
-  <% if can? :edit, DamsLicense then %>
+  <% if can? :update, @dams_license then %>
   <%= link_to "Edit", edit_dams_license_path(@dams_license), class: "btn btn-primary" %>
   <% end %>
   <%= link_to "View All", dams_licenses_path, class: "btn btn-primary" %>

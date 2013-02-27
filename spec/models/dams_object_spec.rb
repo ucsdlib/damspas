@@ -30,7 +30,7 @@ describe DamsObject do
 
   describe "Store to a repository" do
     before do
-      MadsPersonalName.create! pid: "zzXXXXXXX1", name: "Maria"
+      MadsPersonalName.create! pid: "zzXXXXXXX1", name: "Maria", sameAs: "someUrl"
     end
     after do
       #@damsObj.delete
