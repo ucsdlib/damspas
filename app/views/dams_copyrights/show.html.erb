@@ -4,7 +4,7 @@
 <div>note: <%= @dams_copyright.note.first %></div>
 <div>beginDate: <%= @dams_copyright.beginDate.first %></div>
 <div>
-  <% if can? :edit, DamsCopyright then %>
+  <% if can? :update, @dams_copyright then %>
   <%= link_to "Edit", edit_dams_copyright_path(@dams_copyright), class: "btn btn-primary" %>
   <% end %>
   <%= link_to "View All", dams_copyrights_path, class: "btn btn-primary" %>

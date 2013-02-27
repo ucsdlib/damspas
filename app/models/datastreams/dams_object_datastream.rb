@@ -3,7 +3,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
-    map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+    map.subject_node(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
     map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.unit_node(:in => DAMS, :to=>'unit')
@@ -65,6 +65,11 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
       map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => DamsObjectDatastream::Component)
     end
+    def id
+      cid = rdf_subject.to_s
+      cid = cid.match('\w+$').to_s
+      cid.to_i
+    end
     class Title
       include ActiveFedora::RdfObject
       rdf_type DAMS.Title
@@ -113,6 +118,15 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.size(:in=>DAMS)
         map.compositionLevel(:in=>DAMS)
       end
+      def id
+        fid = rdf_subject.to_s
+        fid = fid.gsub(/.*\//,'')
+        fid
+      end
+      def order
+        order = id.gsub(/\..*/,'')
+        order.to_i
+      end
     end   
   end
 
@@ -155,6 +169,15 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.sourceFileName(:in=>DAMS)
       map.size(:in=>DAMS)
       map.compositionLevel(:in=>DAMS)
+    end
+    def id
+      fid = rdf_subject.to_s
+      fid = fid.gsub(/.*\//,'')
+      fid
+    end
+    def order
+      order = id.gsub(/\..*/,'')
+      order.to_i
     end
   end
   class Title
@@ -273,7 +296,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     def load
       uri = name.first.to_s
       md = /\/(\w*)$/.match(uri)
-      DamsPersonalName.find(md[1])
+      MadsPersonalName.find(md[1])
     end
   end
 
@@ -373,7 +396,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       name_uri = name.to_s
       name_pid = name_uri.gsub(/.*\//,'')
       if name_pid != nil && name_pid != ""
-        rightsHolders << DamsPersonalName.find(name_pid)
+        rightsHolders << MadsPersonalName.find(name_pid)
       end
     end
     rightsHolders
@@ -502,7 +525,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     if rightsHolders != nil
       n = 0
       rightsHolders.each do |name|
-        if name.class == DamsPersonalName
+        if name.class == MadsPersonalName
           n += 1
           Solrizer.insert_field(solr_doc, "rightsHolder_#{n}_id", name.pid)
           Solrizer.insert_field(solr_doc, "rightsHolder_#{n}_name", name.name)
@@ -554,18 +577,17 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     if component != nil && component.count > 0
       Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
     end
-    component.map do |component|
-      cid = component.rdf_subject.to_s
-      cid = cid.match('\w+$').to_s
+    component.map.sort{ |a,b| a.id <=> b.id }.each { |component|
+      cid = component.id
       @parents[cid] = Array.new
 
       # child components
-      component.subcomponent.map do |subcomponent|
+      component.subcomponent.map.sort.each { |subcomponent|
         subid = /\/(\w*)$/.match(subcomponent.to_s)
         @children << subid[1]
         Solrizer.insert_field(solr_doc, "component_#{cid}_children", subid[1], storedIntMulti)
         @parents[cid] << subid[1]
-      end
+      }
 
       # titles
       n = 0
@@ -585,14 +607,14 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
       end     
       if component.note.first != nil
-        Solrizer.insert_field(solr_doc, "component_#{cid}_note",  component.note.first.value)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_note", component.note.first.value)
       end
-      component.file.map do |file|
-        fid = file.rdf_subject.to_s
-        fid = fid.gsub(/.*\//,'')
+      component.file.map.sort{ |a,b| a.order <=> b.order }.each { |file|
+        fid = file.id
         if !fid.ends_with? ".keep"
           Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size",  file.size, storedInt)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_label", file.value)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size", file.size, storedInt)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
@@ -601,8 +623,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_dateCreated", file.dateCreated)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_quality", file.quality)
         end
-      end
-    end
+      }
+    }
     
     # build component hierarchy map
     @cmap = Hash.new
@@ -615,11 +637,11 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     }
     Solrizer.insert_field(solr_doc, "component_map", @cmap.to_json)
 
-    file.map do |file|
-      fid = file.rdf_subject.to_s
-      fid = fid.gsub(/.*\//,'')
+    file.map.sort{ |a,b| a.order <=> b.order }.each { |file|
+      fid = file.id
       Solrizer.insert_field(solr_doc, "files", fid)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_size",  file.size, storedInt)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_label", file.value)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_size", file.size, storedInt)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourcePath", file.sourcePath)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourceFileName", file.sourceFileName)
       Solrizer.insert_field(solr_doc, "file_#{fid}_formatName", file.formatName)
@@ -627,7 +649,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "file_#{fid}_use", file.use)
       Solrizer.insert_field(solr_doc, "file_#{fid}_dateCreated", file.dateCreated)
       Solrizer.insert_field(solr_doc, "file_#{fid}_quality", file.quality)
-    end
+    }
     n = 0
     relatedResource.map do |resource|
       n += 1

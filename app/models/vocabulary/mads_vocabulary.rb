@@ -10,4 +10,8 @@ class MADS < RDF::Vocabulary("http://www.loc.gov/mads/rdf/v1#")
   property :FamilyNameElement
   property :GivenNameElement
   property :NameElement
+  property :TermsOfAddressNameElement
+  property :GenreFormElement
+  property :GeographicElement
+  property :OccupationElement
 end

@@ -1,0 +1,15 @@
+<rdf:RDF xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <mads:Occupation rdf:about="http://library.ucsd.edu/ark:/20775/bd72363644">
+    <mads:authoritativeLabel>Pharmacist</mads:authoritativeLabel>
+    <dams:authority>tgm</dams:authority>
+    <owl:sameAs rdf:resource="http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:OccupationElement>
+        <mads:elementValue>Pharmacist</mads:elementValue>
+      </mads:OccupationElement>
+    </mads:elementList>
+  </mads:Occupation>
+</rdf:RDF>
