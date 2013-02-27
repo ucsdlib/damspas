@@ -54,7 +54,42 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
       end
-    end         
+    end       
+    class GenreFormElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.GenreFormElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end   
+    class GeographicElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.GeographicElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end       
+    class OccupationElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.OccupationElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end       
+    class TemporalElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.TemporalElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end          
+    class TopicElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.TopicElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end     
   end
     
  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -84,7 +119,17 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 		  elsif (list[i].class == MadsDatastream::List::NameElement)
 			Solrizer.insert_field(solr_doc, 'name_element', list[i].elementValue.first)	
   		  elsif (list[i].class == MadsDatastream::List::TermsOfAddressNameElement)
-			Solrizer.insert_field(solr_doc, 'terms_of_address_name_element', list[i].elementValue.first)					
+			Solrizer.insert_field(solr_doc, 'terms_of_address_name_element', list[i].elementValue.first)		
+ 		  elsif (list[i].class == MadsDatastream::List::GenreFormElement)
+			Solrizer.insert_field(solr_doc, 'genre_form_element', list[i].elementValue.first)	
+		  elsif (list[i].class == MadsDatastream::List::GeographicElement)
+			Solrizer.insert_field(solr_doc, 'geographic_element', list[i].elementValue.first)		
+		  elsif (list[i].class == MadsDatastream::List::OccupationElement)
+			Solrizer.insert_field(solr_doc, 'occupation_element', list[i].elementValue.first)		
+		  elsif (list[i].class == MadsDatastream::List::TemporalElement)
+			Solrizer.insert_field(solr_doc, 'temporal_element', list[i].elementValue.first)		
+		  elsif (list[i].class == MadsDatastream::List::TopicElement)
+			Solrizer.insert_field(solr_doc, 'topic_element', list[i].elementValue.first)															
 		  end		  
 		  i +=1
 		end   

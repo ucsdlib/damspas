@@ -8,7 +8,7 @@
 <div>restrictionEndDate: <%= @dams_statute.restrictionEndDate.first %></div>
 <div>restrictionType: <%= @dams_statute.restrictionType.first %></div>
 <div>
-  <% if can? :edit, DamsStatute then %>
+  <% if can? :update, @dams_statute then %>
   <%= link_to "Edit", edit_dams_statute_path(@dams_statute), class: "btn btn-primary" %>
   <% end %>
   <%= link_to "View All", dams_statutes_path, class: "btn btn-primary" %>

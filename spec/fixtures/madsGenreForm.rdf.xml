@@ -1,0 +1,15 @@
+<rdf:RDF xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <mads:GenreForm rdf:about="http://library.ucsd.edu/ark:/20775/bd9796116g">
+    <mads:authoritativeLabel>Film and video adaptions</mads:authoritativeLabel>
+    <dams:authority>lcsh</dams:authority>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/sh2002012502"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:GenreFormElement>
+        <mads:elementValue>Film and video adaptions</mads:elementValue>
+      </mads:GenreFormElement>
+    </mads:elementList>
+  </mads:GenreForm>
+</rdf:RDF>

@@ -6,7 +6,7 @@
 <div>scanningSoftware: <%= @dams_source_capture.scanningSoftware.first %></div>
 <div>captureSource: <%= @dams_source_capture.captureSource.first %></div>
 <div>
-  <% if can? :edit, DamsSourceCapture then %>
+  <% if can? :update, @dams_source_capture then %>
     <%= link_to "Edit", edit_dams_source_capture_path(@dams_source_capture), class: "btn btn-primary"%>
   <% end %>
   <%= link_to "View All", dams_source_captures_path, class: "btn btn-primary" %>
