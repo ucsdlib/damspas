@@ -16,14 +16,35 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :Relationship
   property :role
   property :name
+  property :conferenceName
+  property :corporateName
+  property :familyName
+  property :personalName
   property :assembledCollection
   property :AssembledCollection
   property :Object
   property :collection
+  property :preferredCitationNote
+  property :PreferredCitationNote
+  property :custodialResponsibilityNote
+  property :CustodialResponsibilityNote
   property :scopeContentNote
   property :ScopeContentNote
   property :displayLabel
   property :subject
+  property :complexSubject
+  property :builtWorkPlace
+  property :culturalContext
+  property :function
+  property :genreForm
+  property :geographic
+  property :iconography
+  property :occupation
+  property :scientificName
+  property :stylePeriod
+  property :technique
+  property :temporal
+  property :topic
   property :rightsHolder
   property :Unit
   property :unit
