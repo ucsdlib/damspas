@@ -42,7 +42,7 @@ component_1_file_4.jpg_quality_tesim: 106x150
 
  <!-- the difference between xml, tar,tar.gz or zip will be handled in data viewer -->
     <% elsif fileType.include?('1.tar.gz')||fileType.include?('1.tar')||fileType.include?('1.zip')||fileType.include?('1.xml') %>
-    <%= render :partial => 'data_viewer' %>
+     <%= render :partial => 'data_viewer' %>
 
     <% else %>
     <%= render :partial => 'default_viewer' %>
