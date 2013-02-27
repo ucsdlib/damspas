@@ -6,35 +6,28 @@
 /* OBJECT VIEWER PAGE */
 /*--------------------*/
 
-#dams-metadata{margin-bottom:1em;}
+// Components Control
+.dams-components-button,.meta .btn{text-align:left;}
+.meta > ul{margin-bottom:0;}
+.meta .btn{font-weight:bold;}
+.meta a.btn{font-weight:normal;}
+.dams-components-button,.meta button.btn{color:#333;}
+.meta li ul{margin-left:10px;}
 
-.meta .btn{text-align:left;padding-left:5px;font-weight:bold;}
-.meta > div{background:#fbfbfb;border:1px solid #e6e6e6;color:#666;line-height:1em;;}
-.meta > div > div{padding:0;}
 
-.meta > div div{padding-left:3px;}
-.meta div .btn{font-weight:normal;}
-.meta ul{margin-bottom:0;}
-
+// Metadata fold
 .dams-asset-information{margin-bottom:1em;}
 .dams-asset-information h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
-.dams-asset-information hr{border-top:1px solid #f3f3f3;margin:0 15%;}
+.dams-asset-information hr{border-top:1px solid #ddd;margin:0 15%;}
 .dams-asset-information .btn-link{font-weight:bold;}
 
-
-
-
-.label a,.badge a,.label a:hover,.badge a:hover{color:#fff;text-decoration:none;}/*BOOTSTRAP OVERRIDE, MOVE IF YOU DECIDE TO KEEP, FOR LABLES THAT ARE LINKS*/
+// Metadata label link
+.label a,.badge a,.label a:hover,.badge a:hover{color:#fff;text-decoration:none;}/*BOOTSTRAP OVERRIDE, MOVE IF YOU DECIDE TO KEEP, FOR LABELS THAT ARE LINKS*/
 
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
 
 
-
-
-
-
 /* TEMP MOCKUP STUFF */
-
 .dams-viewer{margin-bottom:1em;}
 
 
