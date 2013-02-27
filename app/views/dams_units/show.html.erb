@@ -11,7 +11,7 @@
     <dt>uri:</dt>
     <dd><%= @dams_unit.uri.first %></dd>
   </dl>
-  <% if can? :edit, DamsUnit then %>
+  <% if can? :update, @dams_unit %>
     <%= link_to "Solr View", unit_path(@dams_unit.code), class: "btn btn-primary"%>
     <%= link_to "Edit", edit_dams_unit_path(@dams_unit), class: "btn btn-primary"%>
     <%= link_to "View All", dams_units_path(), class: "btn btn-primary"%>

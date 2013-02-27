@@ -2,7 +2,7 @@
 <div>code: <%= @dams_role.code.first %></div>
 <div>valueURI: <%= @dams_role.valueURI.first %></div>
 <div>
-  <% if can? :edit, DamsRole then %>
+  <% if can? :update, @dams_role then %>
     <%= link_to "Edit", edit_dams_role_path(@dams_role), class: "btn btn-primary"%>
   <% end %>
   <%= link_to "View All", dams_roles_path, class: "btn btn-primary" %>
