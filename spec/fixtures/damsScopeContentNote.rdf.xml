@@ -1,0 +1,9 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+	<dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/zz11111111">
+       <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <dams:type>scope_and_content</dams:type>
+    </dams:ScopeContentNote>   
+</rdf:RDF>

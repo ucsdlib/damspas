@@ -1,0 +1,8 @@
+<h1>Edit Personal Name</h1>
+<%= form_for @mads_personal_name do |f| %>
+  <%= label_tag 'mads_personal_name[name]', "Name" %><%= text_field_tag 'mads_personal_name[name][]', @mads_personal_name.name[0] %>
+
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", mads_personal_name_path( @mads_personal_name ), class: "btn btn-primary" %>
+<%end%>
