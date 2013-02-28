@@ -1,0 +1,40 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd6212468x">
+    <dams:iconography rdf:resource="http://library.ucsd.edu/ark:/20775/bd65537666"/>
+    <dams:scientificName rdf:resource="http://library.ucsd.edu/ark:/20775/bd2662949r"/>
+    <dams:technique rdf:resource="http://library.ucsd.edu/ark:/20775/bd8772217q"/>
+    <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd1366006j"/>
+    <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>
+    <dams:title>
+      <dams:Title>
+        <rdf:value>Sample Object Record #8</rdf:value>
+        <dams:subtitle>Name/Note/Subject Sampler</dams:subtitle>
+        <dams:type>main</dams:type>
+      </dams:Title>
+    </dams:title>
+    <dams:familyName rdf:resource="http://library.ucsd.edu/ark:/20775/bd1775562z"/>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+    <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bd7509406v"/>
+    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
+    <dams:builtWorkPlace rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707307x"/>
+    <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/bd93182924"/>
+    <dams:geographic rdf:resource="http://library.ucsd.edu/ark:/20775/bd8533304b"/>
+    <dams:temporal rdf:resource="http://library.ucsd.edu/ark:/20775/bd59394235"/>
+    <dams:culturalContext rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410365x"/>
+    <dams:stylePeriod rdf:resource="http://library.ucsd.edu/ark:/20775/bd0069066b"/>
+    <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>
+    <dams:conferenceName rdf:resource="http://library.ucsd.edu/ark:/20775/bd0478622c"/>
+    <dams:function rdf:resource="http://library.ucsd.edu/ark:/20775/bd7816576v"/>
+    <dams:corporateName rdf:resource="http://library.ucsd.edu/ark:/20775/bd8021352s"/>
+    <dams:complexSubject rdf:resource="http://library.ucsd.edu/ark:/20775/bd6724414c"/>
+    <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
+    <dams:genreForm rdf:resource="http://library.ucsd.edu/ark:/20775/bd9796116g"/>
+    <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
+    <dams:occupation rdf:resource="http://library.ucsd.edu/ark:/20775/bd72363644"/>
+  </dams:Object>
+</rdf:RDF>
