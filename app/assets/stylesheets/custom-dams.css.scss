@@ -22,7 +22,7 @@
 .dams-asset-information .btn-link{font-weight:bold;}
 
 // Metadata label link
-.label a,.badge a,.label a:hover,.badge a:hover{color:#fff;text-decoration:none;}/*BOOTSTRAP OVERRIDE, MOVE IF YOU DECIDE TO KEEP, FOR LABELS THAT ARE LINKS*/
+.label:hover,.badge:hover{background-color:darken(#999,10%)}
 
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
 
