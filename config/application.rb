@@ -65,5 +65,7 @@ module Hydra
     config.assets.version = '1.0'
     
     config.id_namespace = 'http://library.ucsd.edu/ark:/20775/'
+    config.role_vocab = "#{config.id_namespace}bb14141414#"
+    config.lang_vocab ="#{config.id_namespace}bb43434343#"
   end
 end
