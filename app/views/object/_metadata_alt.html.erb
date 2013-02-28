@@ -71,8 +71,8 @@
 		<% end %>
 	
 		<% if @document['unit_name_tesim'] != nil %>
-			<dt>Unit</dt>	
-			<dd><p class="label"><i class="icon-home icon-white"></i> <%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></p></dd>
+			<dt>Unit</dt>
+			<dd><p class="label"><i class="icon-home icon-white"></i><%= link_to_facet(render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim"), 'unit_sim') %></p></dd>
 		<% end %>
 			
 		<% if @document['subject_tesim'] != nil %>
@@ -80,7 +80,7 @@
 			<dd>
 				<ul class="unstyled">
 				<% @document['subject_tesim'].each do |sub| %>
-					<li><span class="label"><i class="icon-tag icon-white"></i> <%= sub %></span></li>
+					<li><span class="label"><i class="icon-tag icon-white"></i><%= link_to_facet(sub, 'subject_topic_sim') %></span></li>
 				<% end %>
 				</ul>
 			</dd>
