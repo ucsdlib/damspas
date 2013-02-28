@@ -19,4 +19,8 @@ module CatalogHelper
     link_to(field, add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index"}))
   end
 
+  def facet_uri(field, field_string)
+    return add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index"})
+  end
+
 end
