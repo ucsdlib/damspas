@@ -7,19 +7,19 @@
 /*--------------------*/
 
 // Components Control
-.dams-components-button,.meta .btn{text-align:left;}
-.meta > ul{margin-bottom:0;}
-.meta .btn{font-weight:bold;}
-.meta a.btn{font-weight:normal;}
-.dams-components-button,.meta button.btn{color:#333;}
-.meta li ul{margin-left:10px;}
+.dams-components-button,.components .btn{text-align:left;}
+.components > ul{margin-bottom:0;}
+.components .btn{font-weight:bold;}
+.components a.btn{font-weight:normal;}
+.dams-components-button,.components button.btn{color:#333;}
+.components li ul{margin-left:10px;}
 
 
 // Metadata fold
-.dams-asset-information{margin-bottom:1em;}
-.dams-asset-information h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
-.dams-asset-information hr{border-top:1px solid #ddd;margin:0 15%;}
-.dams-asset-information .btn-link{font-weight:bold;}
+.dams-metadata{margin-bottom:1em;}
+.dams-metadata h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
+.dams-metadata hr{border-top:1px solid #ddd;margin:0 15%;}
+.dams-metadata .btn-link{font-weight:bold;}
 
 // Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
@@ -27,7 +27,6 @@
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
 
 
-/* TEMP MOCKUP STUFF */
 .dams-viewer{margin-bottom:1em;}
 
 

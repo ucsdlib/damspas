@@ -15,7 +15,7 @@
 		</section>
 
 		<div class="row-fluid">
-			<section class="dams-asset-information span12">
+			<section class="dams-metadata span12">
 
 				<%= render :partial => 'metadata_alt' %>
 				
@@ -42,7 +42,8 @@
 			<%if @document['component_count_isi'] != nil   %>
 				<%= render :partial => 'metadata_components' %>
 			<% end %>
-			<%= render :partial => 'catalog/show_tools' %>
+			<%= render :partial => 'related_resources' %>
+			<%# render :partial => 'catalog/show_tools' %>
 		</section>
 
 	</div>
