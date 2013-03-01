@@ -10,5 +10,17 @@ module CatalogHelper
     label = render_document_index_label doc, opts
     link_to label, object_path(doc), { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :results_view].include? k  })
   end
+  
+  #use blacklight add_facet_params to construct facet link
+  #see sufia for reference if need to add more: https://github.com/psu-stewardship/sufia/blob/master/app/helpers/sufia_helper.rb
+  # field = field value (i.e. Academic Dissertations)
+  # field_string = facet defined in catalog_controller.rb
+  def link_to_facet(field, field_string)
+    link_to(field, add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index"}))
+  end
+
+  def facet_uri(field, field_string)
+    return add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index"})
+  end
 
 end
