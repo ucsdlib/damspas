@@ -39,10 +39,14 @@
 	 <div class="span3">
 
 		<section class="dams-sidebar">
+           
+
 			<%if @document['component_count_isi'] != nil   %>
 				<%= render :partial => 'metadata_components' %>
 			<% end %>
+			
 			<%= render :partial => 'catalog/show_tools' %>
+
 		</section>
 
 	</div>
