@@ -118,4 +118,5 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :captureSource
   property :SourceCapture
   property :sourceCapture
+  property :BuiltWorkPlaceElement
 end
