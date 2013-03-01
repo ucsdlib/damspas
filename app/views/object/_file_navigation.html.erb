@@ -19,16 +19,19 @@ component_1_file_4.jpg_quality_tesim: 106x150
 -->
 
  
- <!-- render different viewer based on its format type -->   
-
- <div class="row-fluid">
+<div class="row-fluid">
   <div class="span12">    
       <% if @document['id_t'] != nil %> 
 
-  <!--using files_tesim to handle various files type -->
+
+
+<!--using files_tesim to handle various files type -->
   <% fileType=render_document_show_field_value(:document=>@document, :field=>"files_tesim") %>
 
-    <% if fileType.include?('1.tif') %>
+   <%if @document['component_count_isi'] != nil   %>
+    <%= render :partial => 'complex_object_viewer' %>
+
+    <% elsif fileType.include?('1.tif') %>
     <%= render :partial => 'image_viewer' %>
 
     <% elsif fileType.include?('2.mp3') %>
