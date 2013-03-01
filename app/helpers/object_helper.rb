@@ -80,4 +80,10 @@ module ObjectHelper
    use = file_info['use_tesim']
   end
 
+  def render_service_file
+    files = select_file( :document=>@document,:quality=>450 )
+      service_file = files[:service]
+      services=service_file["file"]
+  end
+
 end
