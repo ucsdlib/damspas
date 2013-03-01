@@ -86,4 +86,22 @@ module ObjectHelper
       services=service_file["file"]
   end
 
+  def render_display_file
+    files = select_file( :document=>@document,:quality=>450 )
+    if files.has_key?(:display)
+      display_file = files[:display]
+      display=display_file["file"]
+    else
+      service_file = files[:service]
+      services=service_file["file"]
+    
+      if services.include?('mp3')
+       display = "mp3_icon"
+      elsif services.include?('tar.gz')||services.include?('tar')||services.include?('zip')||services.include?('xml')
+        display = "data_icon"
+      end
+    end
+    display
+  end
+
 end
