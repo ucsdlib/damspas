@@ -97,7 +97,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   class ScopeContentNote
     include ActiveFedora::RdfObject
-    rdf_type DAMS.Note
+    rdf_type DAMS.ScopeContentNote
     map_predicates do |map|    
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)

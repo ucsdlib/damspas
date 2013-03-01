@@ -10,4 +10,13 @@ class DamsScopeContentNoteDatastream < DamsDatastream
     graph.insert([rdf_subject, RDF.type, DAMS.ScopeContentNote]) if new?
     super
   end
+  
+  def to_solr (solr_doc = {})           
+    Solrizer.insert_field(solr_doc, 'scopeContentNote_value', value)
+	Solrizer.insert_field(solr_doc, 'scopeContentNote_displayLabel', displayLabel)
+	Solrizer.insert_field(solr_doc, 'scopeContentNote_type', type) 			
+	super
+    return solr_doc
+  end
+  
 end
