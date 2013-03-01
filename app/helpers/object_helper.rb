@@ -11,7 +11,8 @@ module ObjectHelper
 
     # identify acceptable files
     service_file = nil
-    service_file = nil
+    service_use = nil
+    service_dim = 0
     display_file = nil
     display_dim  = 0
     files.each{ |fid|
@@ -23,9 +24,12 @@ module ObjectHelper
       end
       if type == nil || use.start_with?(type)
         if use.end_with?("-service")
-          service_file = fid
-          service_dim = file_dim.to_i
-        elsif max_size == nil || file_dim == nil || file_dim < max_size
+          if (service_file == nil || service_use.start_with?("image-") )
+            service_file = fid
+            service_use = use
+            service_dim = file_dim.to_i
+          end
+        elsif max_size == nil || file_dim == nil || file_dim.to_i < max_size
           if (display_file == nil || file_dim.to_i > display_dim) && (not use.end_with?("-source") )
             display_file = fid
             display_dim  = file_dim.to_i
