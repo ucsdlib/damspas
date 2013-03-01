@@ -9,6 +9,7 @@ describe MadsTemporal do
     subject.name = "16th century"
     subject.authority = "lcsh"
     subject.sameAs =  "http://id.loc.gov/authorities/sh2002012470"
+    subject.valueURI = "http://id.loc.gov/n9999999999"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,7 @@ describe MadsTemporal do
     <mads:authoritativeLabel>16th century</mads:authoritativeLabel>
     <dams:authority>lcsh</dams:authority>
     <owl:sameAs rdf:resource="http://id.loc.gov/authorities/sh2002012470"/>
+    <dams:valueURI rdf:resource="http://id.loc.gov/n9999999999"/>
   </mads:Temporal>
 </rdf:RDF>
 END
