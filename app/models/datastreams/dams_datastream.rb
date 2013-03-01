@@ -27,6 +27,13 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.elementValue(:in=> MADS)
       end
     end
+    class ScientificNameElement
+      include ActiveFedora::RdfObject
+      rdf_type DAMS.ScientificNameElement
+      map_predicates do |map|   
+        map.elementValue(:in=> MADS)
+      end
+    end    
   end
     
   def to_solr (solr_doc = {}) 
@@ -39,7 +46,9 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
 	if list != nil
 		while i < list.size  do
 		  if (list[i].class == DamsDatastream::List::IconographyElement)
-			Solrizer.insert_field(solr_doc, 'iconography_element', list[i].elementValue.first)															
+			Solrizer.insert_field(solr_doc, 'iconography_element', list[i].elementValue.first)	
+		  elsif (list[i].class == DamsDatastream::List::ScientificNameElement)
+			Solrizer.insert_field(solr_doc, 'scientificName_element', list[i].elementValue.first)																			
 		  end		  
 		  i +=1
 		end   
