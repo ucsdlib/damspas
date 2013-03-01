@@ -9,6 +9,7 @@ describe MadsPersonalName do
     subject.name = "Maria"
     subject.authority = "naf"
     subject.sameAs =  "http://lccn.loc.gov/n90694888"
+    subject.valueURI = "http://id.loc.gov/n9999999999"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,7 @@ describe MadsPersonalName do
     <mads:authoritativeLabel>Maria</mads:authoritativeLabel>
     <dams:authority>naf</dams:authority>
     <owl:sameAs rdf:resource="http://lccn.loc.gov/n90694888"/>
+    <dams:valueURI rdf:resource="http://id.loc.gov/n9999999999"/>
   </mads:PersonalName>
 </rdf:RDF>
 END

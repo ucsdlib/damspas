@@ -45,6 +45,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :ScientificNameElement
   property :stylePeriod
   property :technique
+  property :TechniqueElement
   property :temporal
   property :topic
   property :rightsHolder
