@@ -16,7 +16,7 @@ class DamsLanguagesController < ApplicationController
 
   def create
     @dams_language.attributes = params[:dams_language]
-    @dams_language.vocabulary = "http://library.ucsd.edu/ark:/20775/bb43434343"
+    @dams_language.vocabulary = Rails.configuration.lang_vocab
     if @dams_language.save
         redirect_to @dams_language, notice: "Language has been saved"
     else

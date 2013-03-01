@@ -18,9 +18,9 @@ class DamsVocabularyEntriesController < ApplicationController
   def create
     @dams_vocabulary_entry.attributes = params[:dams_vocabulary_entry]
     if !@dams_vocabulary_entry.vocabulary.nil? && @dams_vocabulary_entry.vocabulary.to_s.length > 0
-    	@dams_vocabulary_entry.vocabulary = "http://library.ucsd.edu/ark:/20775/"+@dams_vocabulary_entry.vocabulary.to_s
+    	@dams_vocabulary_entry.vocabulary = Rails.configuration.id_namespace+@dams_vocabulary_entry.vocabulary.to_s
     else
-    	@dams_vocabulary_entry.vocabulary = "http://library.ucsd.edu/ark:/20775/bb43434343" #language is probably not a good default...
+    	@dams_vocabulary_entry.vocabulary = Rails.configuration.lang_vocab #language is probably not a good default...
     end
     if @dams_vocabulary_entry.save
         redirect_to @dams_vocabulary_entry, notice: "Vocabulary Entry has been saved"

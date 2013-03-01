@@ -3,7 +3,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
+    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')   
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
@@ -16,7 +16,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     graph.insert([rdf_subject, RDF.type, DAMS.AssembledCollection]) if new?
     super
   end
-
+  
   def titleValue
     title[0] ? title[0].value : []
   end
@@ -57,30 +57,6 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     date[0].endDate = val
   end
 
-  def scopeContentNoteValue
-    scopeContentNote[0] ? scopeContentNote[0].value : []
-  end
-  def scopeContentNoteValue=(val)
-    scopeContentNote.build if scopeContentNote[0] == nil
-    scopeContentNote[0].value = val
-  end
-
-  def scopeContentNoteType
-    scopeContentNote[0] ? scopeContentNote[0].type : []
-  end
-  def scopeContentNoteType=(val)
-    scopeContentNote.build if scopeContentNote[0] == nil
-    scopeContentNote[0].type = val
-  end
-
-  def scopeContentNoteDisplayLabel
-    scopeContentNote[0] ? scopeContentNote[0].displayLabel : []
-  end
-  def scopeContentNoteDisplayLabel=(val)
-    scopeContentNote.build if scopeContentNote[0] == nil
-    scopeContentNote[0].displayLabel = val
-  end
-
 
   class Title
     include ActiveFedora::RdfObject
@@ -100,15 +76,6 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.endDate(:in=>DAMS)
     end
   end
-  class ScopeContentNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.ScopeContentNote
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-  end
   class Note
     include ActiveFedora::RdfObject
     rdf_type DAMS.Note
@@ -117,7 +84,36 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
     end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsNote.find(md[1])
+    end
   end
+
+  class ScopeContentNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.ScopeContentNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsScopeContentNote.find(md[1])
+    end
+  end
+  
   class Relationship
     include ActiveFedora::RdfObject
     rdf_type DAMS.Relationship
@@ -191,22 +187,6 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
     end
 
-    n = 0
-    note.map do |note|
-      n += 1
-      Solrizer.insert_field(solr_doc, "note_#{n}_type", note.type)
-      Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", note.displayLabel)
-      Solrizer.insert_field(solr_doc, "note_#{n}_value", note.value)
-    end
-
-    n = 0
-    scopeContentNote.map do |note|
-      n += 1
-      Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_type", note.type)
-      Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_displayLabel", note.displayLabel)
-      Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_value", note.value)
-    end
-
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
@@ -214,12 +194,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationship.map do |relationship| 
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
     end
-    note.map do |note|
-      #map.value(:in=> RDF)
-      #map.displayLabel(:in=>DAMS)
-      #map.type(:in=>DAMS)
-    end
-
+ 
 
     langs = load_languages
     if langs != nil
@@ -232,7 +207,37 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "language_#{n}_valueURI", lang.valueURI.first.to_s)
       end
     end
-    
+
+    n = 0
+    note.map do |no| 
+      n += 1
+      if (no.external?)
+ 		Solrizer.insert_field(solr_doc, "note_#{n}_id", no.load.pid)
+        Solrizer.insert_field(solr_doc, "note_#{n}_type", no.load.type)
+        Solrizer.insert_field(solr_doc, "note_#{n}_value", no.load.value)
+        Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", no.load.displayLabel)      
+      else
+        Solrizer.insert_field(solr_doc, "note_#{n}_type", no.type)
+        Solrizer.insert_field(solr_doc, "note_#{n}_value", no.value)
+        Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", no.displayLabel)      	
+      end
+    end
+ 
+    n = 0
+    scopeContentNote.map do |no| 
+      n += 1
+      if (no.external?)
+ 		Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_id", no.load.pid)
+        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_type", no.load.type)
+        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_value", no.load.value)
+        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_displayLabel", no.load.displayLabel)      
+      else
+        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_type", no.type)
+        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_value", no.value)
+        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_displayLabel", no.displayLabel)      	
+      end
+    end    
+       
     n = 0
     relatedResource.map do |resource|
       n += 1
