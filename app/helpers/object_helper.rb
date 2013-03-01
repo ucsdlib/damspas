@@ -74,6 +74,10 @@ module ObjectHelper
     file_info
   end
   
-  
+  def render_file_type
+   files = select_file( :document=>@document, :quality=>450 )
+   file_info = files[:service]
+   use = file_info['use_tesim']
+  end
 
 end
