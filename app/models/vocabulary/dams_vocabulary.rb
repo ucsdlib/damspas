@@ -39,6 +39,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :genreForm
   property :geographic
   property :iconography
+  property :IconographyElement
   property :occupation
   property :scientificName
   property :stylePeriod
