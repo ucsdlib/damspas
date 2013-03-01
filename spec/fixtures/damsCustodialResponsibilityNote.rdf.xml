@@ -1,0 +1,8 @@
+<rdf:RDF xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd9113515d">
+    <dams:type>custodial_history</dams:type>
+    <dams:displayLabel>Digital object made available by</dams:displayLabel>
+    <rdf:value>Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)</rdf:value>
+  </dams:CustodialResponsibilityNote>
+</rdf:RDF>
