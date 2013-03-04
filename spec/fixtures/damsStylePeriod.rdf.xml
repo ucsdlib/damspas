@@ -1,0 +1,14 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  <dams:StylePeriod rdf:about="http://library.ucsd.edu/ark:/20775/bd0069066b">
+    <mads:authoritativeLabel>Impressionism</mads:authoritativeLabel>
+    <dams:authority>XXX</dams:authority>
+    <dams:valueURI rdf:resource="http://id.loc.gov/XXX05"/>
+    <mads:elementList rdf:parseType="Collection">
+      <dams:StylePeriodElement>
+        <mads:elementValue>Impressionism</mads:elementValue>
+      </dams:StylePeriodElement>
+    </mads:elementList>
+  </dams:StylePeriod>
+</rdf:RDF>
