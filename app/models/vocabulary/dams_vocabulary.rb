@@ -37,6 +37,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :culturalContext
   property :CulturalContextElement
   property :function
+  property :FunctionElement
   property :genreForm
   property :geographic
   property :iconography
