@@ -23,9 +23,17 @@ component_1_file_4.jpg_quality_tesim: 106x150
   <div class="span12">    
       <% if @document['id_t'] != nil %> 
 
-
- 
-
+      
+  <!-- Slideshow 3 -->
+  <div id="wrapper">
+    <div class="rslides_container">
+      <ul class="rslides" id="slider3">
+        <li> <%= image_tag "http://localhost:3000/view/bb90909090/_3.jpg" %></li>
+        <li> <%= image_tag "http://localhost:3000/view/bb53535353/_3.jpg" %></li>
+        <li><%= image_tag "http://placedog.com/g/460/500?c" %></li>
+      </ul>
+    </div>
+  </div>
 
 
 
@@ -33,12 +41,12 @@ component_1_file_4.jpg_quality_tesim: 106x150
  <!-- single object -->
       <% fileType=render_file_type(:component=>"0") %>
        
-       
+
 
         <% if fileType.include?('image') %>
           <%=render :partial => 'image_viewer' %>
         <% elsif fileType.include?('audio') %>
-        I'm audio
+        
           <%=render :partial => 'audio_viewer' %>
         <% elsif fileType.include?('video') %>
           <%=render :partial => 'video_viewer' %>
