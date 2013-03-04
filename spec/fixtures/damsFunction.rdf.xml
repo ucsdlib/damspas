@@ -1,0 +1,14 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  <dams:Function rdf:about="http://library.ucsd.edu/ark:/20775/bd7816576v">
+    <mads:authoritativeLabel>Sample Function</mads:authoritativeLabel>
+    <dams:authority>XXX</dams:authority>
+    <dams:valueURI rdf:resource="http://id.loc.gov/XXX02"/>
+    <mads:elementList rdf:parseType="Collection">
+      <dams:FunctionElement>
+        <mads:elementValue>Sample Function</mads:elementValue>
+      </dams:FunctionElement>
+    </mads:elementList>
+  </dams:Function>
+</rdf:RDF>
