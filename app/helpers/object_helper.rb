@@ -84,7 +84,7 @@ module ObjectHelper
    end
    
    file_info = files[:service]
-   use = file_info['use_tesim']
+   use = file_info['use_tesim'].first
   end
 
   def render_service_file( params )
