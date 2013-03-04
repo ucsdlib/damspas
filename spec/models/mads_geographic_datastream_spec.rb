@@ -40,7 +40,10 @@ describe MadsGeographicDatastream do
       it "should have an authority" do
         subject.authority.should == ["lcsh"]
       end
-           
+       it "should have an valueURI" do
+        subject.valueURI.should == ["http://id.loc.gov/authorities/sh85090955"]
+      end
+                
       it "should have fields" do
         list = subject.elementList.first
         list[0].should be_kind_of MadsGeographicDatastream::List::GeographicElement
