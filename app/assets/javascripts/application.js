@@ -18,6 +18,7 @@
 //= require bootstrap
 //= require_tree .
 //= require audio.min
+//= require responsiveslides.min
 
 
 
