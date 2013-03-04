@@ -74,20 +74,39 @@ module ObjectHelper
     file_info
   end
   
-  def render_file_type
-   files = select_file( :document=>@document, :quality=>450 )
+  def render_file_type( params )
+   component = params[:component]
+
+   if component=="0"
+      files = select_file( :document=>@document, :quality=>450 )
+   else
+      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+   end
+   
    file_info = files[:service]
    use = file_info['use_tesim']
   end
 
-  def render_service_file
+  def render_service_file( params )
+    component = params[:component]
+
+    if component=="0"
     files = select_file( :document=>@document,:quality=>450 )
+    else
+      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+    end
+
       service_file = files[:service]
       services=service_file["file"]
   end
 
-  def render_display_file
+  def render_display_file( params )
+     if component=="0"
     files = select_file( :document=>@document,:quality=>450 )
+    else
+      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+    end
+    
     if files.has_key?(:display)
       display_file = files[:display]
       display=display_file["file"]
