@@ -106,7 +106,7 @@ module ObjectHelper
     else
       files = select_file( :document=>@document, :component=>component, :quality=>450 )
     end
-    
+
     if files.has_key?(:display)
       display_file = files[:display]
       display=display_file["file"]
