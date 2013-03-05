@@ -101,6 +101,8 @@ module ObjectHelper
   end
 
   def render_display_file( params )
+     component = params[:component]
+
      if component=="0"
     files = select_file( :document=>@document,:quality=>450 )
     else
@@ -113,11 +115,14 @@ module ObjectHelper
     else
       service_file = files[:service]
       services=service_file["file"]
-    
+      
+      #---
+      # todo: replace no_display with appreciate icons"
+      #--
       if services.include?('mp3')
-       display = "mp3_icon"
+       display = "no_display" 
       elsif services.include?('tar.gz')||services.include?('tar')||services.include?('zip')||services.include?('xml')
-        display = "data_icon"
+        display = "no_display"
       end
     end
     display
