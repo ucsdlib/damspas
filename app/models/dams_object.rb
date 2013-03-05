@@ -38,4 +38,16 @@ class DamsObject < ActiveFedora::Base
   def techniques
     damsMetadata.load_techniques
   end    
+  def occupations
+    damsMetadata.load_occupations
+  end    
+  def geographics
+    damsMetadata.load_geographics
+  end 
+  def temporals
+    damsMetadata.load_temporals
+  end 
+  def culturalContexts
+    damsMetadata.load_culturalContexts
+  end   
 end

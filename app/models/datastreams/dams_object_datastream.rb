@@ -412,7 +412,23 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_occupations
 	loadObjects occupation,MadsOccupation
   end
-    
+
+  def load_builtWorkPlaces
+	loadObjects builtWorkPlace,DamsBuiltWorkPlace
+  end
+ 
+  def load_geographics
+	loadObjects geographic,MadsGeographic
+  end   
+  
+  def load_temporals
+	loadObjects temporal,MadsTemporal
+  end  
+
+  def load_culturalContexts
+	loadObjects culturalContext,DamsCulturalContext
+  end  
+         
   # helper method for recursing over component hierarchy
   def find_children(p)
     kids = @parents[p]
@@ -442,7 +458,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   	return objects
   end
   
-  def insertDamsFields (solr_doc, fieldName, objects)
+  def insertFields (solr_doc, fieldName, objects)
     if objects != nil
       n = 0
       objects.each do |obj|
@@ -701,10 +717,14 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "note_#{n}_value", no.value)
     end
     
-    insertDamsFields solr_doc, 'iconography', load_iconographies
-    insertDamsFields solr_doc, 'scientificName', load_scientificNames
-    insertDamsFields solr_doc, 'technique', load_techniques
-    insertDamsFields solr_doc, 'occupation', load_occupations
+    insertFields solr_doc, 'iconography', load_iconographies
+    insertFields solr_doc, 'scientificName', load_scientificNames
+    insertFields solr_doc, 'technique', load_techniques
+    insertFields solr_doc, 'occupation', load_occupations
+    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces
+    insertFields solr_doc, 'geographic', load_geographics
+    insertFields solr_doc, 'temporal', load_temporals
+    insertFields solr_doc, 'culturalContext', load_culturalContexts
        
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
