@@ -100,7 +100,7 @@ begin
       end
       puts  "updated solr index for #{@msg.headers["pid"]}\n"
     rescue Exception => e
-      p e
+      p e.backtrace
     end
     @conn.ack @msg.headers["message-id"]
   end
