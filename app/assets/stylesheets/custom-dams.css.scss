@@ -1,6 +1,14 @@
 /* app specific/non-theme css goes here */
 
+/*------------------*/
+/* UNITS INDEX PAGE */
+/*------------------*/
 
+.dams-search-box h4{margin:0 0 10px 0;line-height:inherit;}
+.sidebar-button-list .btn{text-align:left;}
+
+.carousel .item img{width:100%;}
+.carousel .item{max-height:600px;}
 
 /*--------------------*/
 /* OBJECT VIEWER PAGE */
@@ -29,6 +37,14 @@
 
 .dams-viewer{margin-bottom:1em;}
 
+.test1{
+@media (min-width: 1200px) {color:red;}
+	
+	}
+.test2{
+@media (min-width: 1200px) {color:blue;}
+	
+	}
 
 
 
@@ -53,11 +69,9 @@
 /* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
 @media (min-width: 768px) and (max-width: 979px)
 {
-		 /* OBJECT VIEWER PAGE */
+	/* OBJECT VIEWER PAGE */
 	.dams-viewer img{width:50%;margin:0 auto;display:block;}
-	
 }
-
 
 /* MOBILE (CUSTOM) */
 @media (max-width: 979px) {}
@@ -67,7 +81,6 @@
 {
 	 /* OBJECT VIEWER PAGE */
 	.dams-viewer img{width:50%;margin:0 auto;display:block;}
-	
 }
  
 /* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
@@ -75,6 +88,8 @@
 {
 	 /* OBJECT VIEWER PAGE */
 	.dams-viewer img{width:100%;}
-	
+
+	/* UNITS INDEX PAGE */
+	.search-query-form .btn{width:100%;}
 }
 
