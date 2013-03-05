@@ -13,7 +13,7 @@ feature 'Visitor wants to look at units' do
   scenario 'does a search for items' do
     visit units_path
 
-    expect(page).to have_selector('h2', :text => 'Search')
+    expect(page).to have_selector('h4', :text => 'Search')
     fill_in 'Search...', :with => "123"
     click_on('Search')
 
@@ -23,11 +23,11 @@ feature 'Visitor wants to look at units' do
   scenario 'browses the collections' do
     visit units_path
 
-    expect(page).to have_selector('h2', :text => 'Browse')
+    expect(page).to have_selector('p', :text => 'Browse')
 
-    expect(page).to have_selector('a', :text => 'By Topic')
-    expect(page).to have_selector('a', :text => 'By Unit')
-    expect(page).to have_selector('a', :text => 'By Format')
+    expect(page).to have_selector('a', :text => 'Topics')
+    expect(page).to have_selector('a', :text => 'Units')
+    expect(page).to have_selector('a', :text => 'Formats')
   end
 
   scenario 'uses the carousel' do
@@ -50,7 +50,7 @@ feature 'Visitor wants to look at units' do
 
   scenario 'scoped search (inclusion)' do
     visit unit_path :id => 'dlp'
-    expect(page).to have_selector('h2', :text => 'Library Collections')
+    expect(page).to have_selector('h1', :text => 'Library Collections')
 
     # search for the object in the unit and find it
 	fill_in 'Search...', :with => 'sample'
@@ -61,7 +61,7 @@ feature 'Visitor wants to look at units' do
 
   scenario 'scoped search (exclusion)' do
     visit unit_path :id => 'rci'
-    expect(page).to have_selector('h2', :text => 'RCI')
+    expect(page).to have_selector('h1', :text => 'RCI')
 
     # search for the object in the unit and find it
 	fill_in 'Search...', :with => 'sample'
