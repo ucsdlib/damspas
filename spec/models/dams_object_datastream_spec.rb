@@ -330,7 +330,42 @@ END
       it "should index culturalContext" do
         testIndexFields "culturalContext","bd0410365x","Dutch","http://id.loc.gov/XXX01","XXX","Dutch"
       end   
-      
+      it "should index stylePeriod" do
+        testIndexFields "stylePeriod","bd0069066b","Impressionism","http://id.loc.gov/XXX05","XXX","Impressionism"
+      end    
+      it "should index topic" do
+        testIndexFields "topic","bd46424836","Baseball","http://id.loc.gov/authorities/subjects/sh85012026","lcsh","Baseball"
+      end      
+      it "should index function" do
+        testIndexFields "function","bd7816576v","Sample Function","http://id.loc.gov/XXX02","XXX","Sample Function"
+      end   
+      it "should index genreForm" do
+        testIndexFields "genreForm","bd9796116g","Film and video adaptions","http://id.loc.gov/authorities/sh2002012502","lcsh","Film and video adaptions"
+      end 
+      it "should index familyName" do
+        testIndexFields "familyName","bd1775562z","Calder (Family : 1757-1959 : N.C.)","http://id.loc.gov/authorities/names/n2012026835","naf","Calder (Family :"
+      end     
+      it "should index name" do
+        testIndexFields "name","bd7509406v","Generic Name","http://id.loc.gov/n9999999999","naf","Generic Name"
+      end   
+      it "should index conferenceName" do
+        testIndexFields "conferenceName","bd0478622c","American Library Association. Annual Conference","http://id.loc.gov/authorities/names/n2009036967","naf","American Library Association."
+      end      
+      it "should index corporateName" do
+        testIndexFields "corporateName","bd8021352s","Lawrence Livermore Laboratory","http://lccn.loc.gov/n50000352","naf","Lawrence Livermore Laboratory"
+      end                    
+      it "should have scopeContentNote" do
+		testIndexNoteFields "scopeContentNote","bd1366006j","scope_and_content","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","Scope and contents"
+      end   
+      it "should have preferredCitationNote" do
+		testIndexNoteFields "preferredCitationNote","bd3959888k","citation","\\\\\"Data at Redshift=1.4 (RD0022).\\\\\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \\\\\"The Santa Fe Light Cone Simulation research project files.\\\\\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)","Citation"
+      end    
+      it "should have CustodialResponsibilityNote" do
+		testIndexNoteFields "custodialResponsibilityNote","bd9113515d","custodial_history","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)","Digital object made available by"
+      end    
+      it "should have note" do
+		testIndexNoteFields "note","bd52568274","abstract","This is some text to describe the basic contents of the object.","Abstract"
+      end                              
       def testIndexFields (fieldName,id,name,valueURI,authority,element) 
         solr_doc = subject.to_solr
         solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
@@ -338,7 +373,14 @@ END
         solr_doc["#{fieldName}_1_valueURI_tesim"].should == ["#{valueURI}"]
         solr_doc["#{fieldName}_1_authority_tesim"].should == ["#{authority}"]
         solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
-      end                            
+      end     
+      def testIndexNoteFields (fieldName,id,type,value,displayLabel) 
+        solr_doc = subject.to_solr
+        solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
+        solr_doc["#{fieldName}_1_type_tesim"].should == ["#{type}"]
+        solr_doc["#{fieldName}_1_value_tesim"].should == ["#{value}"]
+        solr_doc["#{fieldName}_1_displayLabel_tesim"].should == ["#{displayLabel}"]
+      end                                         
    end  
   
 end

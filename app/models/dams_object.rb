@@ -50,4 +50,28 @@ class DamsObject < ActiveFedora::Base
   def culturalContexts
     damsMetadata.load_culturalContexts
   end   
+  def stylePeriods
+    damsMetadata.load_stylePeriods
+  end    
+  def topics
+    damsMetadata.load_topics
+  end      
+  def functions
+    damsMetadata.load_functions
+  end   
+  def genreForms
+    damsMetadata.load_genreForms
+  end   
+  def familyNames
+    damsMetadata.load_familyNames
+  end      
+  def names
+    damsMetadata.load_names
+  end   
+  def conferenceNames
+    damsMetadata.load_conferenceNames
+  end    
+  def corporateNames
+    damsMetadata.load_corporateNames
+  end          
 end

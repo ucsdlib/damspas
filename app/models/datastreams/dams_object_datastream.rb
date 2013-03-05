@@ -13,7 +13,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.statute(:in=>DAMS)
     map.language(:in=>DAMS)
     map.rightsHolder(:in=>DAMS)
-    map.note_node(:in => DAMS, :to=>'note', :class_name => 'Note')
+    #map.note_node(:in => DAMS, :to=>'note', :class_name => 'Note')
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
@@ -21,8 +21,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.iconography(:in => DAMS)
     map.scientificName(:in => DAMS)
     map.technique(:in => DAMS)
-    map.scopeContentNote(:in => DAMS)
-    map.preferredCitationNote(:in => DAMS)
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
     map.familyName(:in => DAMS)
     map.name(:in => DAMS)
     map.builtWorkPlace(:in => DAMS)
@@ -36,9 +36,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.function(:in => DAMS)
     map.corporateName(:in => DAMS)
     map.complexSubject(:in => DAMS)
-    map.note(:in => DAMS)     
+    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')    
     map.genreForm(:in => DAMS)
-    map.custodialResponsibilityNote(:in => DAMS)
+    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
     map.occupation(:in => DAMS)            
  end
 
@@ -159,6 +159,14 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
+    end
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsNote.find(md[1])
     end
   end
      
@@ -306,6 +314,62 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
+  class ScopeContentNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.ScopeContentNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsScopeContentNote.find(md[1])
+    end
+  end
+ 
+  class PreferredCitationNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.PreferredCitationNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsPreferredCitationNote.find(md[1])
+    end
+  end  
+  
+  class CustodialResponsibilityNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.CustodialResponsibilityNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsCustodialResponsibilityNote.find(md[1])
+    end
+  end    
   def load_unit
     unit_uri = unit_node.values.first.to_s
     unit_pid = unit_uri.gsub(/.*\//,'')
@@ -408,10 +472,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_techniques
 	loadObjects technique,DamsTechnique
   end
- 
-  def load_occupations
-	loadObjects occupation,MadsOccupation
-  end
 
   def load_builtWorkPlaces
 	loadObjects builtWorkPlace,DamsBuiltWorkPlace
@@ -428,7 +488,43 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_culturalContexts
 	loadObjects culturalContext,DamsCulturalContext
   end  
-         
+
+  def load_stylePeriods
+	loadObjects stylePeriod,DamsStylePeriod
+  end  
+
+  def load_topics
+	loadObjects topic,MadsTopic
+  end  
+
+  def load_functions
+	loadObjects function,DamsFunction
+  end  
+
+  def load_genreForms
+	loadObjects genreForm,MadsGenreForm
+  end  
+
+  def load_occupations
+	loadObjects occupation,MadsOccupation
+  end
+
+  def load_familyNames
+	loadObjects familyName,MadsFamilyName
+  end
+
+  def load_names
+	loadObjects name,MadsName
+  end
+
+  def load_conferenceNames
+	loadObjects conferenceName,MadsConferenceName
+  end
+
+  def load_corporateNames
+	loadObjects corporateName,MadsCorporateName
+  end
+                           
   # helper method for recursing over component hierarchy
   def find_children(p)
     kids = @parents[p]
@@ -477,6 +573,24 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 		  end          
       end
     end        
+  end
+  
+  def insertNoteFields (solr_doc, fieldName, objects)
+    n = 0
+    objects.map do |no| 
+      n += 1
+      if (no.external?)
+ 		Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", no.load.pid)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.load.type)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.load.value)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.load.displayLabel)      
+      else
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.type)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.value)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.displayLabel)      	
+      end
+    end  
+  
   end
   
   def to_solr (solr_doc = {})
@@ -709,14 +823,19 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
     end
-	n = 0
-    note_node.map do |no|
-      n += 1
-      Solrizer.insert_field(solr_doc, "note_#{n}_type", no.type)
-      Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", no.displayLabel)
-      Solrizer.insert_field(solr_doc, "note_#{n}_value", no.value)
-    end
-    
+#	n = 0
+#    note_node.map do |no|
+#      n += 1
+#      Solrizer.insert_field(solr_doc, "note_#{n}_type", no.type)
+#      Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", no.displayLabel)
+#      Solrizer.insert_field(solr_doc, "note_#{n}_value", no.value)
+#    end
+
+    insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
+    insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
+    insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
+    insertNoteFields solr_doc, 'note',note
+           
     insertFields solr_doc, 'iconography', load_iconographies
     insertFields solr_doc, 'scientificName', load_scientificNames
     insertFields solr_doc, 'technique', load_techniques
@@ -725,7 +844,16 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'geographic', load_geographics
     insertFields solr_doc, 'temporal', load_temporals
     insertFields solr_doc, 'culturalContext', load_culturalContexts
-       
+    insertFields solr_doc, 'stylePeriod', load_stylePeriods
+    insertFields solr_doc, 'topic', load_topics
+    insertFields solr_doc, 'function', load_functions
+    insertFields solr_doc, 'genreForm', load_genreForms
+        
+    insertFields solr_doc, 'familyName', load_familyNames
+    insertFields solr_doc, 'name', load_names
+    insertFields solr_doc, 'conferenceName', load_conferenceNames
+    insertFields solr_doc, 'corporateName', load_corporateNames
+        
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
       if solr_doc[f].kind_of?(Array)
