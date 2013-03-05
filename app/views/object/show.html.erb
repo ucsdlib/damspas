@@ -7,47 +7,45 @@
 </div>
 
 <div class="row-fluid">
-
-  <div id="content" class="span9 show-document">
+  <div id="content" class="show-document span9">
 	
-		<section class="dams-viewer">
-			<%= render :partial => 'file_navigation' %>
-		</section>
+		<div class="row-fluid">
+			<section class="dams-viewer span12">
+				<%= render :partial => 'file_navigation' %>
+			</section>
+		</div>
 
 		<div class="row-fluid">
 			<section class="dams-metadata span12">
-
 				<%= render :partial => 'metadata_alt' %>
-				
 			</section>
 		</div>
+
 		<div class="row-fluid">
 			<section class="dams-comments span12">
-
 				<%= render :partial => 'comments' %>
-
 			</section>
 		</div>
 		
 		<%# render 'previous_next_doc' %>
-		<%# @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name) -%>
+		<%# @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name) %>
 		<%# extra_head_content << render_link_rel_alternates %>
 		<%# sidebar_items << render_document_sidebar_partial %>
 
 	 </div>
-
 	 <div class="span3">
 
-		<section class="dams-sidebar">
-			<%if @document['component_count_isi'] != nil   %>
-				<%= render :partial => 'metadata_components' %>
-			<% end %>
-			<%= render :partial => 'related_resources' %>
-			<%# render :partial => 'catalog/show_tools' %>
-		</section>
+		<div class="row-fluid">
+			<section class="dams-sidebar span12">
+				<%if @document['component_count_isi'] != nil   %>
+					<%= render :partial => 'metadata_components' %>
+				<% end %>
+				<%= render :partial => 'related_resources' %>
+				<%# render :partial => 'catalog/show_tools' %>
+			</section>
+		</div>
 
 	</div>
-
 </div>
 
 
