@@ -18,6 +18,28 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
     map.source_capture_node(:in=>DAMS, :to=>'sourceCapture')
+    map.iconography(:in => DAMS)
+    map.scientificName(:in => DAMS)
+    map.technique(:in => DAMS)
+    map.scopeContentNote(:in => DAMS)
+    map.preferredCitationNote(:in => DAMS)
+    map.familyName(:in => DAMS)
+    map.name(:in => DAMS)
+    map.builtWorkPlace(:in => DAMS)
+    map.personalName(:in => DAMS)         
+    map.geographic(:in => DAMS)
+    map.temporal(:in => DAMS)
+    map.culturalContext(:in => DAMS)
+    map.stylePeriod(:in => DAMS)
+    map.topic(:in => DAMS)           
+    map.conferenceName(:in => DAMS)
+    map.function(:in => DAMS)
+    map.corporateName(:in => DAMS)
+    map.complexSubject(:in => DAMS)
+    map.note(:in => DAMS)     
+    map.genreForm(:in => DAMS)
+    map.custodialResponsibilityNote(:in => DAMS)
+    map.occupation(:in => DAMS)            
  end
 
 # DAMS Object links/properties from data dictionary
@@ -208,22 +230,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     self.title_node.build.subtitle = val
   end
 
-  # see app/models/dams_assembled_collection.rb
-  #class AssembledCollection
-  #  include ActiveFedora::RdfObject
-  #  map_predicates do |map|
-  #    rdf_type DAMS.AssembledCollection
-  #    map.scopeContentNote(:in=> DAMS, :class_name=>'ScopeContentNote') 
-  #  end
-  #  class ScopeContentNote
-  #    include ActiveFedora::RdfObject
-  #    map_predicates do |map|
-  #      rdf_type DAMS.ScopeContentNote
-  #      map.displayLabel(:in=> DAMS)
-  #    end
-  #  end
-  #end
-
   class Date
     include ActiveFedora::RdfObject
     rdf_type DAMS.Date
@@ -309,17 +315,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       nil
     end
   end
- # def load_collection
-  #  collection_uri = collection.values.first.to_s
-   # collection_pid = collection_uri.gsub(/.*\//,'')
-   # if collection_pid != nil && collection_pid != ""
-   #   DamsAssembledCollection.find(collection_pid) 
-   # elsif(collection_pid != nil && collection_pid != "" && DamsAssembledCollection.find(collection_pid).nil?)
-   #   	DamsProvenanceCollection.find(collection_pid)
-   # else
-   #   nil
-   # end
-  #end
 
   def load_collection
     collections = []
@@ -401,7 +396,23 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     rightsHolders
   end
-  
+ 
+  def load_iconographies
+    loadObjects iconography,DamsIconography
+  end
+
+  def load_scientificNames
+	loadObjects scientificName,DamsScientificName
+  end
+    
+  def load_techniques
+	loadObjects technique,DamsTechnique
+  end
+ 
+  def load_occupations
+	loadObjects occupation,MadsOccupation
+  end
+    
   # helper method for recursing over component hierarchy
   def find_children(p)
     kids = @parents[p]
@@ -419,6 +430,39 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     kids
   end
 
+  def loadObjects (object,className)
+    objects = []
+    object.values.each do |name|
+      name_uri = name.to_s
+      name_pid = name_uri.gsub(/.*\//,'')
+      if name_pid != nil && name_pid != ""
+        objects << className.find(name_pid)
+      end
+    end 
+  	return objects
+  end
+  
+  def insertDamsFields (solr_doc, fieldName, objects)
+    if objects != nil
+      n = 0
+      objects.each do |obj|
+          n += 1
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", obj.pid)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_name", obj.name)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_authority", obj.authority)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
+		  list = obj.elementList.first
+		  i = 0
+		  if list != nil		 
+			while i < list.size  do		
+			  Solrizer.insert_field(solr_doc, "#{fieldName}_element_#{n}_#{i}", list[i].elementValue.first)																															
+			  i +=1
+			end   
+		  end          
+      end
+    end        
+  end
+  
   def to_solr (solr_doc = {})
 
     # field types
@@ -532,7 +576,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
       end
     end
-
+    
     unit = load_unit
     if unit.class == DamsUnit
       Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
@@ -554,14 +598,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     
     col = load_collection
-    #if col.class == DamsAssembledCollection
-    #  Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
-    #  Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
-    #elsif col.class == DamsProvenanceCollection
-     # Solrizer.insert_field(solr_doc, 'collection_name', col.title.first.value)
-     # Solrizer.insert_field(solr_doc, 'collection_id', col.pid)
-   # end
-
     if col != nil
      n = 0
       col.each do |collection|
@@ -665,6 +701,11 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "note_#{n}_value", no.value)
     end
     
+    insertDamsFields solr_doc, 'iconography', load_iconographies
+    insertDamsFields solr_doc, 'scientificName', load_scientificNames
+    insertDamsFields solr_doc, 'technique', load_techniques
+    insertDamsFields solr_doc, 'occupation', load_occupations
+       
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
       if solr_doc[f].kind_of?(Array)

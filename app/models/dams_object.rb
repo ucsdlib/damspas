@@ -29,4 +29,13 @@ class DamsObject < ActiveFedora::Base
   def sourceCapture
     damsMetadata.load_source_capture
   end
+  def iconographies
+    damsMetadata.load_iconographies
+  end
+  def scientificNames
+    damsMetadata.load_scientificNames
+  end  
+  def techniques
+    damsMetadata.load_techniques
+  end    
 end
