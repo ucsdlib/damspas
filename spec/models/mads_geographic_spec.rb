@@ -9,6 +9,7 @@ describe MadsGeographic do
     subject.name = "Ness, Loch (Scotland)"
     subject.authority = "lcsh"
     subject.sameAs =  "http://id.loc.gov/authorities/sh85090955"
+    subject.valueURI = "http://id.loc.gov/n9999999999"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,7 @@ describe MadsGeographic do
     <mads:authoritativeLabel>Ness, Loch (Scotland)</mads:authoritativeLabel>
     <dams:authority>lcsh</dams:authority>
     <owl:sameAs rdf:resource="http://id.loc.gov/authorities/sh85090955"/>
+    <dams:valueURI rdf:resource="http://id.loc.gov/n9999999999"/>
   </mads:Geographic>
 </rdf:RDF>
 END

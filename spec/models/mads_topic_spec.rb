@@ -9,6 +9,7 @@ describe MadsTopic do
     subject.name = "Baseball"
     subject.authority = "lcsh"
     subject.sameAs =  "http://id.loc.gov/authorities/subjects/sh85012026"
+    subject.valueURI = "http://id.loc.gov/n9999999999"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,7 @@ describe MadsTopic do
     <mads:authoritativeLabel>Baseball</mads:authoritativeLabel>
     <dams:authority>lcsh</dams:authority>
     <owl:sameAs rdf:resource="http://id.loc.gov/authorities/subjects/sh85012026"/>
+    <dams:valueURI rdf:resource="http://id.loc.gov/n9999999999"/>
   </mads:Topic>
 </rdf:RDF>
 END

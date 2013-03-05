@@ -1,0 +1,14 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  <dams:Iconography rdf:about="http://library.ucsd.edu/ark:/20775/bd65537666">
+    <mads:authoritativeLabel>Madonna and Child</mads:authoritativeLabel>
+    <dams:authority>XXX</dams:authority>
+    <dams:valueURI rdf:resource="http://id.loc.gov/XXX03"/>
+    <mads:elementList rdf:parseType="Collection">
+      <dams:IconographyElement>
+        <mads:elementValue>Madonna and Child</mads:elementValue>
+      </dams:IconographyElement>
+    </mads:elementList>
+  </dams:Iconography>
+</rdf:RDF>

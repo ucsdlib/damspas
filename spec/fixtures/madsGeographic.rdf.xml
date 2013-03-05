@@ -6,6 +6,7 @@
     <mads:authoritativeLabel>Ness, Loch (Scotland)</mads:authoritativeLabel>
     <dams:authority>lcsh</dams:authority>
     <owl:sameAs rdf:resource="http://id.loc.gov/authorities/sh85090955"/>
+    <dams:valueURI rdf:resource="http://id.loc.gov/authorities/sh85090955"/>
     <mads:elementList rdf:parseType="Collection">
       <mads:GeographicElement>
         <mads:elementValue>Ness, Loch (Scotland)</mads:elementValue>

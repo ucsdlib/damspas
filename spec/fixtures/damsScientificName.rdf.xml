@@ -1,0 +1,14 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+<dams:ScientificName rdf:about="http://library.ucsd.edu/ark:/20775/bd2662949r">
+    <mads:authoritativeLabel>Western lowland gorilla (Gorilla gorilla gorilla)</mads:authoritativeLabel>
+    <dams:authority>XXX</dams:authority>
+    <dams:valueURI rdf:resource="http://dbpedia.org/page/Western_lowland_gorilla"/>
+    <mads:elementList rdf:parseType="Collection">
+      <dams:ScientificNameElement>
+        <mads:elementValue>Western lowland gorilla (Gorilla gorilla gorilla)</mads:elementValue>
+      </dams:ScientificNameElement>
+    </mads:elementList>
+  </dams:ScientificName>
+</rdf:RDF>

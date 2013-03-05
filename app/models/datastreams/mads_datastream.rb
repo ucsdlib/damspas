@@ -10,7 +10,18 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       sameAsNode
     end
   end
-        
+ 
+  def valueURI=(val)
+    @valURI = RDF::Resource.new(val)
+  end
+  def valueURI
+    if @valURI != nil
+      @valURI
+    else
+      valURI
+    end
+  end
+         
   class List 
     include ActiveFedora::RdfList
     class FullNameElement
@@ -96,14 +107,15 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   def serialize
     graph.insert([rdf_subject, OWL.sameAs, @sameAs]) if new?
+    graph.insert([rdf_subject, DAMS.valueURI, @valURI]) if new?
     super
   end
   
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'name', name)
-	Solrizer.insert_field(solr_doc, 'sameAs', sameAsNode.subject.to_s)
+	Solrizer.insert_field(solr_doc, 'sameAs', sameAsNode.first.to_s)
 	Solrizer.insert_field(solr_doc, 'authority', authority)
-
+ 	Solrizer.insert_field(solr_doc, "valueURI", valURI.first.to_s)
 	list = elementList.first
 	i = 0
 	if list != nil

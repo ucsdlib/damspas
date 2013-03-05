@@ -1,1 +1,66 @@
-<p> Complex Object viewer </p>
+ <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") 
+    component_count = @document['component_count_isi']
+
+ %>
+
+
+
+ <!-- DOV complex object navigation -->
+  <div id="wrapper">
+    <div class="rslides_container">
+      <ul class="rslides" id="slider3">
+        
+<%	if component_count > 0
+	 for i in 1..component_count
+			
+%>		
+
+      <li>
+	       <% fileType=render_file_type(:component=>i) 
+              display_file=render_display_file(:component=>i)
+              service_file=render_service_file(:component=>i)
+
+              service_file_path="/view/"+ark+"/_"+i.to_s()+"_"+service_file
+
+              if (display_file=="no_display")
+                  display_file_path=""
+              else
+              	 display_file_path="/view/"+ark+"/_"+i.to_s()+"_"+display_file
+              end
+            %>
+
+           
+           
+           <% if fileType.include?('image') %>
+	          <%= image_tag display_file_path %>
+	         
+	        <% elsif fileType.include?('audio') %>
+	        
+	          <audio src="<%=service_file_path%>" type="audio/mpeg" preload="auto" />
+               Your browser does not support the audio tag.
+               </audio>
+	        <% elsif fileType.include?('video') %>
+	          <video id="dams_video" class="video-js vjs-default-skin" controls
+               preload="auto"  poster="<%=display_file_path%>" data-setup="{}" width="600" height="400">
+              <source src="<%=service_file_path%>" type='video/mp4'>
+              </video>
+	        <% elsif fileType.include?('document') %>
+	          <a href="<%=service_file_path%>" target="_new"><%=image_tag display_file_path %> 
+              </a>
+	         
+	        <% elsif fileType.include?('data') %>
+	          <a class="btn btn-large btn-block btn-danger" href="<%= service_file_path %>" target="_blank">
+			   <i class="icon-download-alt icon-white"></i>
+			    Download file
+		       </a>
+	        <% else %>
+	          <%=render :partial => 'default_viewer' %>
+	        <% end %>
+
+	      
+         </li>
+      <% end %>
+  <% end %>     
+      </ul>
+    </div>
+  </div>

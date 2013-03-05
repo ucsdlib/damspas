@@ -47,9 +47,9 @@ describe DamsScopeContentNoteDatastream do
          
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["scope_content_note_0_value_tesim"].should == ["Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."]
-        solr_doc["scope_content_note_0_type_tesim"].should == ["scope_and_content"]
-        solr_doc["scope_content_note_0_display_label_tesim"].should == ["Scope and contents"]
+        solr_doc["scopeContentNote_value_tesim"].should == ["Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."]
+        solr_doc["scopeContentNote_type_tesim"].should == ["scope_and_content"]
+        solr_doc["scopeContentNote_displayLabel_tesim"].should == ["Scope and contents"]
       end    
     end
   end

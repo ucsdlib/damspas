@@ -1,5 +1,5 @@
 class MadsConferenceName < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => MadsConferenceNameDatastream 
-  delegate_to "damsMetadata", [:name, :sameAs, :elementList, :authority, :type]
+  delegate_to "damsMetadata", [:name, :sameAs, :elementList, :authority, :type, :valueURI]
   
 end

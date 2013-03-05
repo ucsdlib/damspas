@@ -47,9 +47,9 @@ describe DamsNoteDatastream do
          
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["note_0_value_tesim"].should == ["http://libraries.ucsd.edu/ark:/20775/bb80808080"]
-        solr_doc["note_0_type_tesim"].should == ["identifier"]
-        solr_doc["note_0_display_label_tesim"].should == ["ARK ID"]
+        solr_doc["note_value_tesim"].should == ["http://libraries.ucsd.edu/ark:/20775/bb80808080"]
+        solr_doc["note_type_tesim"].should == ["identifier"]
+        solr_doc["note_displayLabel_tesim"].should == ["ARK ID"]
       end    
     end
   end
