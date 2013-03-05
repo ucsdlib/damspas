@@ -5,69 +5,115 @@
 </div>
 
 <div class="row-fluid">
-	
-	<div id="landingCarousel" class="carousel slide span6">
-		<!-- Carousel items -->
-		<div class="carousel-inner">
+
+    <div id="myCarousel" class="carousel slide span8">
+    <div class="carousel-inner">
+
 			<div class="active item">
-				<%= image_tag "http://placedog.com/460/500?a" %>
+				<%= image_tag "http://pontos.ucsd.edu/view/bd6963330m/_2.jpg" %>
 				<div class="carousel-caption">
-					<h4>Title: Slide 1</h4>
-					<p>Creator: Teh Interwebs</p>
+					<h4>Collection: Scripps Institution of Oceanography Archives</h4>
 				</div>
 			</div>
+
 			<div class="item">
-				<%= image_tag "http://placedog.com/460/500?b" %>
+				<%= image_tag "http://pontos.ucsd.edu/view/bd5666392f/_2.jpg" %>
 				<div class="carousel-caption">
-					<h4>Title: Slide 2</h4>
-					<p>Creator: Teh Interwebs</p>
+					<h4>Collection: UCSD History</h4>
 				</div>
 			</div>
+
 			<div class="item">
-				<%= image_tag "http://placedog.com/460/500?c" %>
+				<%= image_tag "http://pontos.ucsd.edu/view/bd4369453c/_2.jpg" %>
 				<div class="carousel-caption">
-					<h4>Title: Slide 3</h4>
-					<p>Creator: Teh Interwebs</p>
+					<h4>Collection: Latin American Political Campaign Ephemera Collection</h4>
 				</div>
 			</div>
-		</div>
-		<!-- Carousel nav -->
-		<a class="carousel-control left" href="#landingCarousel" data-slide="prev">&lsaquo;</a>
-		<a class="carousel-control right" href="#landingCarousel" data-slide="next">&rsaquo;</a>
-	</div>
-	
-	<div class="span6">
-	
-		<div class="well">
-			<h2>Search</h2>
-			<div>         
-				<%= render_search_bar  %>
+
+			<div class="item">
+				<%= image_tag "http://pontos.ucsd.edu/view/bd3106642r/_2.jpg" %>
+				<div class="carousel-caption">
+					<h4>Baja California Collection</h4>
+				</div>
 			</div>
-		</div>
+
+			<div class="item">
+				<%= image_tag "http://pontos.ucsd.edu/view/bd18097029/_2.jpg" %>
+				<div class="carousel-caption">
+					<h4>Collection: Tuzin Archive for Melanesian Anthropology</h4>
+				</div>
+			</div>
+
+
+			<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd3413814d/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The Brain Observatory</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd21510035/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The UCSD Levantine Archaeology Laboratory</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd08540633/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The National Science Foundation OpenTopography Facility</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd95572101/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: Scripps Institution of Oceanography Geological Collections</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd82602702/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The Laboratory for Computational Astrophysics</h4>
+					</div>
+				</div>
+
+    </div>
+
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
 		
-		<div class="well well-large">
-			<h2>Browse</h2>
-			<ul>
-				<%= render_browse_facet_links %>
-			</ul>
-			<p>Some very interesting text about administrative units</p>
-			<ul>
-              <% @document.each do |doc| %>
-                <% if doc['unit_code_tesim'] != nil %>
-                  <li>
-                    <%= link_to doc['unit_name_tesim'].first, unit_path(doc['unit_code_tesim']) %>
-                  </li>
-                <% end %>
-              <% end %>
-			</ul>
-		</div>
 		
-		<div>
-			<% if can? :create, DamsObject %>
-				<%= link_to "Create Object", new_dams_object_path %>,
-				<%= link_to "Create Administrative Unit", new_dams_unit_path %>
+	
+	<div class="span4">
+	
+		<div class="well dams-search-box">
+			<h4>Search</h4>
+			<%= render_unit_search_bar  %>
+		</div>
+			
+		<p class="sidebar-header"><strong>Administrative Units</strong></p>
+		<% @document.each do |doc| %>
+			<% if doc['unit_code_tesim'] != nil %>
+					<%= link_to doc['unit_name_tesim'].first, unit_path(doc['unit_code_tesim']), :class => "btn btn-block" %>
 			<% end %>
-		</div>
+		<% end %>
+
+		<p class="sidebar-header"><strong>Browse</strong></p>
+		<ul class="unstyled sidebar-button-list">
+			<%= render_browse_facet_links %>
+		</ul>
+		
+		<% if can? :create, DamsObject %>
+			<p class="sidebar-header"><strong>Editor Tools</strong></p>
+			<ul class="unstyled sidebar-button-list">
+			<li><%= link_to "<i class='icon-plus-sign'></i> Create Object".html_safe, new_dams_object_path, :class => "btn btn-block btn-small btn-link" %>
+			<li><%= link_to "<i class='icon-plus-sign'></i> Create Administrative Unit".html_safe, new_dams_unit_path, :class => "btn btn-block btn-small btn-link" %>
+			</ul>
+		<% end %>
 	
 	</div>
 
