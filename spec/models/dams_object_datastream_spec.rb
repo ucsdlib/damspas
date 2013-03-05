@@ -290,4 +290,54 @@ END
 	
 	  end
   end
+  
+    describe "an instance with content for new object model" do
+      subject do
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bd6212468x', :new? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/damsObjectNewModel.xml').read
+        subject
+      end
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bd6212468x"
+      end
+      
+      it "should have fields" do
+        subject.title.should == ["Sample Object Record #8"]
+        subject.subtitle.should == ["Name/Note/Subject Sampler"]
+      end
+      
+      it "should index iconography" do
+        solr_doc = subject.to_solr
+        solr_doc["iconography_1_id_tesim"].should == ["bd65537666"]
+        solr_doc["iconography_1_name_tesim"].should == ["Madonna and Child"]
+        solr_doc["iconography_1_valueURI_tesim"].should == ["http://id.loc.gov/XXX03"]
+        solr_doc["iconography_1_authority_tesim"].should == ["XXX"]
+        solr_doc["iconography_element_1_0_tesim"].should == ["Madonna and Child"]       
+      end      
+      it "should index scientificName" do
+        solr_doc = subject.to_solr
+        solr_doc["scientificName_1_id_tesim"].should == ["bd2662949r"]
+        solr_doc["scientificName_1_name_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
+        solr_doc["scientificName_1_valueURI_tesim"].should == ["http://dbpedia.org/page/Western_lowland_gorilla"]
+        solr_doc["scientificName_1_authority_tesim"].should == ["XXX"]
+        solr_doc["scientificName_element_1_0_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
+      end       
+      it "should index technique" do
+        solr_doc = subject.to_solr
+        solr_doc["technique_1_id_tesim"].should == ["bd8772217q"]
+        solr_doc["technique_1_name_tesim"].should == ["Impasto"]
+        solr_doc["technique_1_valueURI_tesim"].should == ["http://id.loc.gov/XXX04"]
+        solr_doc["technique_1_authority_tesim"].should == ["XXX"]
+        solr_doc["technique_element_1_0_tesim"].should == ["Impasto"]
+      end     
+      it "should index occupation" do
+        solr_doc = subject.to_solr
+        solr_doc["occupation_1_id_tesim"].should == ["bd72363644"]
+        solr_doc["occupation_1_name_tesim"].should == ["Pharmacist"]
+        solr_doc["occupation_1_valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"]
+        solr_doc["occupation_1_authority_tesim"].should == ["tgm"]
+        solr_doc["occupation_element_1_0_tesim"].should == ["Pharmacist"]
+      end             
+   end  
+  
 end
