@@ -1,1 +1,1 @@
-<li><%= link_to "By #{facet.label}", catalog_facet_path(facet.field, :'facet.sort' => 'index') %> </li>
+<li><%= link_to "<i class='icon-eye-open'></i> #{facet.label}s".html_safe, catalog_facet_path(facet.field, :'facet.sort' => 'index'), :class => "btn btn-block btn-small btn-link" %></li>

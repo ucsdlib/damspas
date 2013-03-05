@@ -1,48 +1,128 @@
 <% @page_title =  "Unit | #{render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim")} " %>
-<h1><%# title %></h1>
+<% adminUnit = render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %>
 <div class="row-fluid">
-<div id="landingCarousel" class="carousel slide span6">
-  <!-- Carousel items -->
-<!--
-  <div class="carousel-inner">
-    <div class="active item"><%= image_tag "http://placedog.com/g/460/500?a" %></div>
-    <div class="item"><%= image_tag "http://placedog.com/g/460/500?b" %></div>
-    <div class="item"><%= image_tag "http://placedog.com/g/460/500?c" %></div>
-  </div>
--->
-
-  <!-- Carousel nav -->
-  <a class="carousel-control left" href="#landingCarousel" data-slide="prev">&lsaquo;</a>
-  <a class="carousel-control right" href="#landingCarousel" data-slide="next">&rsaquo;</a>
+	<div class="span12">
+		<h1><%= adminUnit %></h1>
+	</div>
 </div>
 
-<div class="span6">
-  <div>
-    <h2><%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></h2>
-    <div>
-      <%= render_document_show_field_value(:document=>@document, :field=>"unit_description_tesim") %>
+<div class="row-fluid">
+
+    <div id="myCarousel" class="carousel slide span8">
+    <div class="carousel-inner">
+
+			<% if adminUnit == "Research Data Curation Program" %>
+
+				<div class="active item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd3413814d/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The Brain Observatory</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd21510035/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The UCSD Levantine Archaeology Laboratory</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd08540633/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The National Science Foundation OpenTopography Facility</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd95572101/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: Scripps Institution of Oceanography Geological Collections</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd82602702/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: The Laboratory for Computational Astrophysics</h4>
+					</div>
+				</div>
+
+			<% elsif adminUnit == "Library Digital Collections" %>
+
+	
+				<div class="active item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd6963330m/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: Scripps Institution of Oceanography Archives</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd5666392f/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: UCSD History</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd4369453c/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: Latin American Political Campaign Ephemera Collection</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd3106642r/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: Baja California</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag "http://pontos.ucsd.edu/view/bd18097029/_2.jpg" %>
+					<div class="carousel-caption">
+						<h4>Collection: Tuzin Archive for Melanesian Anthropology</h4>
+					</div>
+				</div>
+			
+			<% end %>
     </div>
-    <div>
-      <%= link_to @document['unit_uri_tesim'].first, @document['unit_uri_tesim'].first %>
+
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
     </div>
+		
+		
+	
+	<div class="span4">
+	
+		<div class="well dams-search-box">
+			<h4>Search</h4>
+			<%= render_unit_search_bar  %>
+		</div>
+
+    <p class="sidebar-header"><strong>About the <%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></strong></p>
+    <p><%= render_document_show_field_value(:document=>@document, :field=>"unit_description_tesim") %></p>
+		<ul>
+			<li><%= link_to @document['unit_uri_tesim'].first, @document['unit_uri_tesim'].first %></li>
+		</ul>
+		
+		<p class="sidebar-header"><strong>Browse</strong></p>
+		<ul class="unstyled sidebar-button-list">
+			<%= render_browse_facet_links %>
+		</ul>
+
     <% if can? :update, @document then %>
-      <%= link_to "Hydra View", dams_unit_path(@document['id_t']), class: "btn btn-primary"%>
-      <%= link_to "Edit", edit_dams_unit_path(@document['id_t']), class: "btn btn-primary"%>
+			<p class="sidebar-header"><strong>Editor Tools</strong></p>
+			<ul class="unstyled sidebar-button-list">
+      <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, dams_unit_path(@document['id_t']), class: "btn btn-block btn-small btn-link"%>
+      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_unit_path(@document['id_t']), class: "btn btn-block btn-small btn-link"%>
+			</ul>
     <% end %>
-
-  </div>
-
-  <h2>Search</h2>
-  <div class="well">
-    <%= render_unit_search_bar  %>
-  </div>
-
-  <div>
-	<h2>Browse</h2>
-	<ul>
-      <%= render_browse_facet_links %>
-	</ul>
-  </div>
+				
+	</div>
 
 </div>
-</div>
+
+

@@ -1,168 +1,18 @@
 /* app specific/non-theme css goes here */
 
+/*------------------*/
+/* UNITS INDEX PAGE */
+/*------------------*/
 
+.dams-search-box h4{margin:0 0 10px 0;line-height:inherit;}
+.sidebar-button-list .btn{text-align:left;}
+
+.carousel .item img{width:100%;}
+.carousel .item{max-height:600px;}
 
 /*--------------------*/
 /* OBJECT VIEWER PAGE */
 /*--------------------*/
-
-* {
-  margin: 0;
-  padding: 0;
-  }
-
-
-
-body {
-  color: #333;
-  font: 14px/24px sans-serif;
-  margin: 0 auto;
-  max-width: 700px;
-  _width: 700px;
-  padding: 0 30px;
-  text-align: center;
-  -webkit-font-smoothing: antialiased;
-  }
-
-#wrapper {
-  float: left;
-  width: 100%;
-  margin-bottom: 50px;
-  }
-
-.rslides {
-  margin: 0 auto;
-  }
-
-.rslides_container {
-  margin-bottom: 50px;
-  position: relative;
-  float: left;
-  width: 100%;
-  }
-
-.centered-btns_nav {
-  z-index: 3;
-  position: absolute;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  top: 50%;
-  left: 0;
-  opacity: 0.7;
-  text-indent: -9999px;
-  overflow: hidden;
-  text-decoration: none;
-  height: 61px;
-  width: 38px;
-  background: transparent url("themes.gif") no-repeat left top;
-  margin-top: -45px;
-  }
-
-.centered-btns_nav:active {
-  opacity: 1.0;
-  }
-
-.centered-btns_nav.next {
-  left: auto;
-  background-position: right top;
-  right: 0;
-  }
-
-.transparent-btns_nav {
-  z-index: 3;
-  position: absolute;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  top: 0;
-  left: 0;
-  display: block;
-  background: #fff; /* Fix for IE6-9 */
-  opacity: 0;
-  filter: alpha(opacity=1);
-  width: 48%;
-  text-indent: -9999px;
-  overflow: hidden;
-  height: 91%;
-  }
-
-.transparent-btns_nav.next {
-  left: auto;
-  right: 0;
-  }
-
-.large-btns_nav {
-  z-index: 3;
-  position: absolute;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-  opacity: 0.6;
-  text-indent: -9999px;
-  overflow: hidden;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  background: #000 url("themes.gif") no-repeat left 50%;
-  width: 38px;
-  }
-
-.large-btns_nav:active {
-  opacity: 1.0;
-  }
-
-.large-btns_nav.next {
-  left: auto;
-  background-position: right 50%;
-  right: 0;
-  }
-
-.centered-btns_nav:focus,
-.transparent-btns_nav:focus,
-.large-btns_nav:focus {
-  outline: none;
-  }
-
-.centered-btns_tabs,
-.transparent-btns_tabs,
-.large-btns_tabs {
-  margin-top: 10px;
-  text-align: center;
-  }
-
-.centered-btns_tabs li,
-.transparent-btns_tabs li,
-.large-btns_tabs li {
-  display: inline;
-  float: none;
-  _float: left;
-  *float: left;
-  margin-right: 5px;
-  }
-
-.centered-btns_tabs a,
-.transparent-btns_tabs a,
-.large-btns_tabs a {
-  text-indent: -9999px;
-  overflow: hidden;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  background: #ccc;
-  background: rgba(0,0,0, .2);
-  display: inline-block;
-  _display: block;
-  *display: block;
-  -webkit-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
-  -moz-box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
-  box-shadow: inset 0 0 2px 0 rgba(0,0,0,.3);
-  width: 9px;
-  height: 9px;
-  }
-
-.centered-btns_here a,
-.transparent-btns_here a,
-.large-btns_here a {
-  background: #222;
-  background: rgba(0,0,0, .8);
-  }
-
-
 
 // Components Control
 .dams-components-button,.components .btn{text-align:left;}
@@ -187,6 +37,14 @@ body {
 
 .dams-viewer{margin-bottom:1em;}
 
+.test1{
+@media (min-width: 1200px) {color:red;}
+	
+	}
+.test2{
+@media (min-width: 1200px) {color:blue;}
+	
+	}
 
 
 
@@ -203,17 +61,17 @@ body {
 /* DESKTOP (CUSTOM) */
 @media (min-width: 980px)
 {
+	/* OBJECT VIEWER PAGE */
+	.dams-viewer img{width:33%;margin:0 auto;display:block;}
 	.dams-download-button{width:600px;margin:0 auto;}
 }
  
 /* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
 @media (min-width: 768px) and (max-width: 979px)
 {
-		 /* OBJECT VIEWER PAGE */
-	.dams-download-button{width:600px;margin:0 auto;}
-	
+	/* OBJECT VIEWER PAGE */
+	.dams-viewer img{width:50%;margin:0 auto;display:block;}
 }
-
 
 /* MOBILE (CUSTOM) */
 @media (max-width: 979px) {}
@@ -223,7 +81,6 @@ body {
 {
 	 /* OBJECT VIEWER PAGE */
 	.dams-viewer img{width:50%;margin:0 auto;display:block;}
-	
 }
  
 /* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
@@ -231,6 +88,8 @@ body {
 {
 	 /* OBJECT VIEWER PAGE */
 	.dams-viewer img{width:100%;}
-	
+
+	/* UNITS INDEX PAGE */
+	.search-query-form .btn{width:100%;}
 }
 
