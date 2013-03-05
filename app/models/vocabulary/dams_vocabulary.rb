@@ -35,14 +35,20 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :complexSubject
   property :builtWorkPlace
   property :culturalContext
+  property :CulturalContextElement
   property :function
+  property :FunctionElement
   property :genreForm
   property :geographic
   property :iconography
+  property :IconographyElement
   property :occupation
   property :scientificName
+  property :ScientificNameElement
   property :stylePeriod
+  property :StylePeriodElement
   property :technique
+  property :TechniqueElement
   property :temporal
   property :topic
   property :rightsHolder
@@ -115,4 +121,5 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :captureSource
   property :SourceCapture
   property :sourceCapture
+  property :BuiltWorkPlaceElement
 end

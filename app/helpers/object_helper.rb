@@ -11,7 +11,8 @@ module ObjectHelper
 
     # identify acceptable files
     service_file = nil
-    service_file = nil
+    service_use = nil
+    service_dim = 0
     display_file = nil
     display_dim  = 0
     files.each{ |fid|
@@ -23,9 +24,12 @@ module ObjectHelper
       end
       if type == nil || use.start_with?(type)
         if use.end_with?("-service")
-          service_file = fid
-          service_dim = file_dim.to_i
-        elsif max_size == nil || file_dim == nil || file_dim < max_size
+          if (service_file == nil || service_use.start_with?("image-") )
+            service_file = fid
+            service_use = use
+            service_dim = file_dim.to_i
+          end
+        elsif max_size == nil || file_dim == nil || file_dim.to_i < max_size
           if (display_file == nil || file_dim.to_i > display_dim) && (not use.end_with?("-source") )
             display_file = fid
             display_dim  = file_dim.to_i
@@ -68,6 +72,60 @@ module ObjectHelper
       end
     }
     file_info
+  end
+  
+  def render_file_type( params )
+   component = params[:component]
+
+   if component=="0"
+      files = select_file( :document=>@document, :quality=>450 )
+   else
+      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+   end
+   
+   file_info = files[:service]
+   use = file_info['use_tesim'].first
+  end
+
+  def render_service_file( params )
+    component = params[:component]
+
+    if component=="0"
+    files = select_file( :document=>@document,:quality=>450 )
+    else
+      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+    end
+
+      service_file = files[:service]
+      services=service_file["file"]
+  end
+
+  def render_display_file( params )
+     component = params[:component]
+
+     if component=="0"
+    files = select_file( :document=>@document,:quality=>450 )
+    else
+      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+    end
+
+    if files.has_key?(:display)
+      display_file = files[:display]
+      display=display_file["file"]
+    else
+      service_file = files[:service]
+      services=service_file["file"]
+      
+      #---
+      # todo: replace no_display with appreciate icons"
+      #--
+      if services.include?('mp3')
+       display = "no_display" 
+      elsif services.include?('tar.gz')||services.include?('tar')||services.include?('zip')||services.include?('xml')
+        display = "no_display"
+      end
+    end
+    display
   end
 
 end

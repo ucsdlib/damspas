@@ -75,8 +75,10 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display 
     config.add_index_field 'name_tesim', :label => 'Name:'   
     config.add_index_field 'date_tesim', :label => 'Date:'   
+    config.add_index_field 'unit_name_tesim', :label => 'Unit:'
+    config.add_index_field 'collection_1_name_tesim', :label => 'Collection:'
     config.add_index_field 'subject_tesim', :label => 'Subject:'   
-    config.add_index_field 'description_tesim', :label => 'Description:'   
+    #config.add_index_field 'description_tesim', :label => 'Description:'   
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
@@ -147,10 +149,14 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, pub_date_ssi desc, title_ssi asc', :label => 'relevance'
-    config.add_sort_field 'pub_date_ssi desc, title_ssi asc', :label => 'year'
-    config.add_sort_field 'author_ssi asc, title_ssi asc', :label => 'author'
-    config.add_sort_field 'title_ssi asc, pub_date_ssi desc', :label => 'title'
+    config.add_sort_field 'score desc, system_create_dtsi desc, title_ssi asc', :label => "relevance \u25BC"
+    #config.add_sort_field 'pub_date_ssi desc, title_ssi asc', :label => 'year'
+    config.add_sort_field 'system_create_dtsi desc', :label => "date uploaded \u25BC"
+    config.add_sort_field 'system_create_dtsi asc', :label => "date uploaded \u25B2"
+    config.add_sort_field 'system_modified_dtsi desc', :label => "date modified \u25BC"
+    config.add_sort_field 'system_modified_dtsi asc', :label => "date modified \u25B2"
+    #config.add_sort_field 'author_ssi asc, title_ssi asc', :label => 'author'
+    #config.add_sort_field 'title_ssi asc, pub_date_ssi desc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
