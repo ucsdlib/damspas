@@ -307,37 +307,38 @@ END
       end
       
       it "should index iconography" do
-        solr_doc = subject.to_solr
-        solr_doc["iconography_1_id_tesim"].should == ["bd65537666"]
-        solr_doc["iconography_1_name_tesim"].should == ["Madonna and Child"]
-        solr_doc["iconography_1_valueURI_tesim"].should == ["http://id.loc.gov/XXX03"]
-        solr_doc["iconography_1_authority_tesim"].should == ["XXX"]
-        solr_doc["iconography_element_1_0_tesim"].should == ["Madonna and Child"]       
+        testIndexFields "iconography","bd65537666","Madonna and Child","http://id.loc.gov/XXX03","XXX","Madonna and Child"     
       end      
       it "should index scientificName" do
-        solr_doc = subject.to_solr
-        solr_doc["scientificName_1_id_tesim"].should == ["bd2662949r"]
-        solr_doc["scientificName_1_name_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
-        solr_doc["scientificName_1_valueURI_tesim"].should == ["http://dbpedia.org/page/Western_lowland_gorilla"]
-        solr_doc["scientificName_1_authority_tesim"].should == ["XXX"]
-        solr_doc["scientificName_element_1_0_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
+        testIndexFields "scientificName","bd2662949r","Western lowland gorilla (Gorilla gorilla gorilla)","http://dbpedia.org/page/Western_lowland_gorilla","XXX","Western lowland gorilla (Gorilla gorilla gorilla)"
       end       
       it "should index technique" do
-        solr_doc = subject.to_solr
-        solr_doc["technique_1_id_tesim"].should == ["bd8772217q"]
-        solr_doc["technique_1_name_tesim"].should == ["Impasto"]
-        solr_doc["technique_1_valueURI_tesim"].should == ["http://id.loc.gov/XXX04"]
-        solr_doc["technique_1_authority_tesim"].should == ["XXX"]
-        solr_doc["technique_element_1_0_tesim"].should == ["Impasto"]
+        testIndexFields "technique","bd8772217q","Impasto","http://id.loc.gov/XXX04","XXX","Impasto"
       end     
       it "should index occupation" do
+        testIndexFields "occupation","bd72363644","Pharmacist","http://id.loc.gov/vocabulary/graphicMaterials/tgm007681","tgm","Pharmacist"
+      end   
+      it "should index builtWorkPlace" do
+        testIndexFields "builtWorkPlace","bd1707307x","The Getty Center","http://www.getty.edu/cona/CONAFullSubject.aspx?subid=700001994","CONA","The Getty Center"
+      end    
+      it "should index geographic" do
+        testIndexFields "geographic","bd8533304b","Ness, Loch (Scotland)","http://id.loc.gov/authorities/sh85090955","lcsh","Ness, Loch (Scotland)"
+      end   
+      it "should index temporal" do
+        testIndexFields "temporal","bd59394235","16th century","http://id.loc.gov/authorities/sh2002012470","lcsh","16th century"
+      end 
+      it "should index culturalContext" do
+        testIndexFields "culturalContext","bd0410365x","Dutch","http://id.loc.gov/XXX01","XXX","Dutch"
+      end   
+      
+      def testIndexFields (fieldName,id,name,valueURI,authority,element) 
         solr_doc = subject.to_solr
-        solr_doc["occupation_1_id_tesim"].should == ["bd72363644"]
-        solr_doc["occupation_1_name_tesim"].should == ["Pharmacist"]
-        solr_doc["occupation_1_valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"]
-        solr_doc["occupation_1_authority_tesim"].should == ["tgm"]
-        solr_doc["occupation_element_1_0_tesim"].should == ["Pharmacist"]
-      end             
+        solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
+        solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
+        solr_doc["#{fieldName}_1_valueURI_tesim"].should == ["#{valueURI}"]
+        solr_doc["#{fieldName}_1_authority_tesim"].should == ["#{authority}"]
+        solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
+      end                            
    end  
   
 end
