@@ -8,7 +8,7 @@ feature 'Visitor wants to look at digital collections' do
     visit dams_units_path
     expect(page).to have_selector('h1', :text => 'DAMS Administrative Units')
     expect(page).to have_selector('a', :text => 'Library Collections')
-    expect(page).to have_selector('a', :text => 'RCI')
+    expect(page).to have_selector('a', :text => 'Research Data Curation Program')
   end
 
 end
