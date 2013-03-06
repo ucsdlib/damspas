@@ -290,4 +290,97 @@ END
 	
 	  end
   end
+  
+    describe "an instance with content for new object model" do
+      subject do
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bd6212468x', :new? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/damsObjectNewModel.xml').read
+        subject
+      end
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bd6212468x"
+      end
+      
+      it "should have fields" do
+        subject.title.should == ["Sample Object Record #8"]
+        subject.subtitle.should == ["Name/Note/Subject Sampler"]
+      end
+      
+      it "should index iconography" do
+        testIndexFields "iconography","bd65537666","Madonna and Child","http://id.loc.gov/XXX03","XXX","Madonna and Child"     
+      end      
+      it "should index scientificName" do
+        testIndexFields "scientificName","bd2662949r","Western lowland gorilla (Gorilla gorilla gorilla)","http://dbpedia.org/page/Western_lowland_gorilla","XXX","Western lowland gorilla (Gorilla gorilla gorilla)"
+      end       
+      it "should index technique" do
+        testIndexFields "technique","bd8772217q","Impasto","http://id.loc.gov/XXX04","XXX","Impasto"
+      end     
+      it "should index occupation" do
+        testIndexFields "occupation","bd72363644","Pharmacist","http://id.loc.gov/vocabulary/graphicMaterials/tgm007681","tgm","Pharmacist"
+      end   
+      it "should index builtWorkPlace" do
+        testIndexFields "builtWorkPlace","bd1707307x","The Getty Center","http://www.getty.edu/cona/CONAFullSubject.aspx?subid=700001994","CONA","The Getty Center"
+      end    
+      it "should index geographic" do
+        testIndexFields "geographic","bd8533304b","Ness, Loch (Scotland)","http://id.loc.gov/authorities/sh85090955","lcsh","Ness, Loch (Scotland)"
+      end   
+      it "should index temporal" do
+        testIndexFields "temporal","bd59394235","16th century","http://id.loc.gov/authorities/sh2002012470","lcsh","16th century"
+      end 
+      it "should index culturalContext" do
+        testIndexFields "culturalContext","bd0410365x","Dutch","http://id.loc.gov/XXX01","XXX","Dutch"
+      end   
+      it "should index stylePeriod" do
+        testIndexFields "stylePeriod","bd0069066b","Impressionism","http://id.loc.gov/XXX05","XXX","Impressionism"
+      end    
+      it "should index topic" do
+        testIndexFields "topic","bd46424836","Baseball","http://id.loc.gov/authorities/subjects/sh85012026","lcsh","Baseball"
+      end      
+      it "should index function" do
+        testIndexFields "function","bd7816576v","Sample Function","http://id.loc.gov/XXX02","XXX","Sample Function"
+      end   
+      it "should index genreForm" do
+        testIndexFields "genreForm","bd9796116g","Film and video adaptions","http://id.loc.gov/authorities/sh2002012502","lcsh","Film and video adaptions"
+      end 
+      it "should index familyName" do
+        testIndexFields "familyName","bd1775562z","Calder (Family : 1757-1959 : N.C.)","http://id.loc.gov/authorities/names/n2012026835","naf","Calder (Family :"
+      end     
+      it "should index name" do
+        testIndexFields "name","bd7509406v","Generic Name","http://id.loc.gov/n9999999999","naf","Generic Name"
+      end   
+      it "should index conferenceName" do
+        testIndexFields "conferenceName","bd0478622c","American Library Association. Annual Conference","http://id.loc.gov/authorities/names/n2009036967","naf","American Library Association."
+      end      
+      it "should index corporateName" do
+        testIndexFields "corporateName","bd8021352s","Lawrence Livermore Laboratory","http://lccn.loc.gov/n50000352","naf","Lawrence Livermore Laboratory"
+      end                    
+      it "should have scopeContentNote" do
+		testIndexNoteFields "scopeContentNote","bd1366006j","scope_and_content","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","Scope and contents"
+      end   
+      it "should have preferredCitationNote" do
+		testIndexNoteFields "preferredCitationNote","bd3959888k","citation","\\\\\"Data at Redshift=1.4 (RD0022).\\\\\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \\\\\"The Santa Fe Light Cone Simulation research project files.\\\\\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)","Citation"
+      end    
+      it "should have CustodialResponsibilityNote" do
+		testIndexNoteFields "custodialResponsibilityNote","bd9113515d","custodial_history","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)","Digital object made available by"
+      end    
+      it "should have note" do
+		testIndexNoteFields "note","bd52568274","abstract","This is some text to describe the basic contents of the object.","Abstract"
+      end                              
+      def testIndexFields (fieldName,id,name,valueURI,authority,element) 
+        solr_doc = subject.to_solr
+        solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
+        solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
+        solr_doc["#{fieldName}_1_valueURI_tesim"].should == ["#{valueURI}"]
+        solr_doc["#{fieldName}_1_authority_tesim"].should == ["#{authority}"]
+        solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
+      end     
+      def testIndexNoteFields (fieldName,id,type,value,displayLabel) 
+        solr_doc = subject.to_solr
+        solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
+        solr_doc["#{fieldName}_1_type_tesim"].should == ["#{type}"]
+        solr_doc["#{fieldName}_1_value_tesim"].should == ["#{value}"]
+        solr_doc["#{fieldName}_1_displayLabel_tesim"].should == ["#{displayLabel}"]
+      end                                         
+   end  
+  
 end

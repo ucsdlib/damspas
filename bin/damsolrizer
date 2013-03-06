@@ -83,12 +83,13 @@ begin
   
   @conn.subscribe(@destination, {:ack =>"client" })
   while true
-      @msg = @conn.receive
-      pid = @msg.headers["pid"]
-      method = @msg.headers["methodName"]
+    @msg = @conn.receive
+    pid = @msg.headers["pid"]
+    method = @msg.headers["methodName"]
 
-      puts @msg.headers.inspect
-      puts "\nPID: #{@msg.headers["pid"]}\n"
+    puts @msg.headers.inspect
+    puts "\nPID: #{@msg.headers["pid"]}\n"
+    begin
       if ["addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
         solrizer = Solrizer::Fedora::Solrizer.new
         solrizer.solrize @msg.headers["pid"]
@@ -98,11 +99,14 @@ begin
         $stderr.puts "Unknown Method: #{method}"
       end
       puts  "updated solr index for #{@msg.headers["pid"]}\n"
-      @conn.ack @msg.headers["message-id"]
+    rescue Exception => e
+      p e.backtrace
+    end
+    @conn.ack @msg.headers["message-id"]
   end
   @conn.join
 
 rescue Exception => e
-p e
+  p e
 end
 

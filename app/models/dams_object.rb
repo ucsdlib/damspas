@@ -29,4 +29,49 @@ class DamsObject < ActiveFedora::Base
   def sourceCapture
     damsMetadata.load_source_capture
   end
+  def iconographies
+    damsMetadata.load_iconographies
+  end
+  def scientificNames
+    damsMetadata.load_scientificNames
+  end  
+  def techniques
+    damsMetadata.load_techniques
+  end    
+  def occupations
+    damsMetadata.load_occupations
+  end    
+  def geographics
+    damsMetadata.load_geographics
+  end 
+  def temporals
+    damsMetadata.load_temporals
+  end 
+  def culturalContexts
+    damsMetadata.load_culturalContexts
+  end   
+  def stylePeriods
+    damsMetadata.load_stylePeriods
+  end    
+  def topics
+    damsMetadata.load_topics
+  end      
+  def functions
+    damsMetadata.load_functions
+  end   
+  def genreForms
+    damsMetadata.load_genreForms
+  end   
+  def familyNames
+    damsMetadata.load_familyNames
+  end      
+  def names
+    damsMetadata.load_names
+  end   
+  def conferenceNames
+    damsMetadata.load_conferenceNames
+  end    
+  def corporateNames
+    damsMetadata.load_corporateNames
+  end          
 end
