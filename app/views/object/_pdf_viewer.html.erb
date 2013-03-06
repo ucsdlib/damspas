@@ -1,14 +1,19 @@
- <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
+<% if defined?(source) %>
 
-<%if @document['component_count_isi'] != nil   %>
-    <% p_src="/view/"+ark+"/_3_1.pdf" %>
-    <% p_img="/view/"+ark+"/_3_3.jpg" %>
+	<a href="<%= source %>" target="_new"><%= image_tag icon %></a>
+
 <% else %>
-    <% p_src="/view/"+ark+"/_1.pdf" %>
-     <% p_img="/view/"+ark+"/_3.jpg" %>
-<% end %> 
 
+	<% ark = render_document_show_field_value(:document=>@document, :field=>"id_t") %>
 
-<a href="<%=p_src %>" target="_new"><%= image_tag p_img %> 
-</a>
+	<%if @document['component_count_isi'] != nil   %>
+		<% p_src="/view/"+ark+"/_3_1.pdf" %>
+		<% p_img="/view/"+ark+"/_3_3.jpg" %>
+	<% else %>
+		<% p_src="/view/"+ark+"/_1.pdf" %>
+		<% p_img="/view/"+ark+"/_3.jpg" %>
+	<% end %> 
 
+	<a href="<%=p_src %>" target="_new"><%= image_tag p_img %></a>
+
+<% end %>
