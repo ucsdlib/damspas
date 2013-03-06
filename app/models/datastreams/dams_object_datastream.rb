@@ -282,7 +282,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     def load
       uri = rdf_subject.to_s
       md = /\/(\w*)$/.match(uri)
-      DamsSubject.find(md[1])
+      MadsComplexSubject.find(md[1])
     end
   end
   
@@ -509,6 +509,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 	loadObjects occupation,MadsOccupation
   end
 
+  def load_personalNames
+	loadObjects personalName,MadsPersonalName
+  end
+  
   def load_familyNames
 	loadObjects familyName,MadsFamilyName
   end
@@ -524,7 +528,11 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_corporateNames
 	loadObjects corporateName,MadsCorporateName
   end
-                           
+
+  def load_complexSubjects
+	loadObjects complexSubject,MadsComplexSubject
+  end
+                             
   # helper method for recursing over component hierarchy
   def find_children(p)
     kids = @parents[p]
@@ -848,11 +856,13 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'topic', load_topics
     insertFields solr_doc, 'function', load_functions
     insertFields solr_doc, 'genreForm', load_genreForms
-        
+    
+    insertFields solr_doc, 'personalName', load_personalNames    
     insertFields solr_doc, 'familyName', load_familyNames
     insertFields solr_doc, 'name', load_names
     insertFields solr_doc, 'conferenceName', load_conferenceNames
     insertFields solr_doc, 'corporateName', load_corporateNames
+    insertFields solr_doc, 'complexSubject', load_complexSubjects
         
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
