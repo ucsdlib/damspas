@@ -54,7 +54,7 @@ describe DamsObjectDatastream do
       end
 
       it "should create a solr document" do
-        DamsSubject.should_receive(:find).with('bbXXXXXXX5').and_return(stub(:name =>'stubbed'))
+        MadsComplexSubject.should_receive(:find).with('bbXXXXXXX5').and_return(stub(:name =>'stubbed'))
         #stub_person = stub(:name => "Maria")
         #DamsPerson.should_receive(:find).with("bbXXXXXXX1").and_return(stub_person)        
         solr_doc = subject.to_solr
@@ -342,6 +342,9 @@ END
       it "should index genreForm" do
         testIndexFields "genreForm","bd9796116g","Film and video adaptions","http://id.loc.gov/authorities/sh2002012502","lcsh","Film and video adaptions"
       end 
+      it "should index personalName" do
+        testIndexFields "personalName","bd93182924","Burns, Jack O.","http://lccn.loc.gov/n90694888","naf","Burns"
+      end        
       it "should index familyName" do
         testIndexFields "familyName","bd1775562z","Calder (Family : 1757-1959 : N.C.)","http://id.loc.gov/authorities/names/n2012026835","naf","Calder (Family :"
       end     
@@ -353,7 +356,10 @@ END
       end      
       it "should index corporateName" do
         testIndexFields "corporateName","bd8021352s","Lawrence Livermore Laboratory","http://lccn.loc.gov/n50000352","naf","Lawrence Livermore Laboratory"
-      end                    
+      end    
+      it "should index complexSubject" do
+        testComplexSubjectFields "complexSubject","bd6724414c","Galaxies--Clusters","http://id.loc.gov/authorities/subjects/sh85052764","lcsh"
+      end                        
       it "should have scopeContentNote" do
 		testIndexNoteFields "scopeContentNote","bd1366006j","scope_and_content","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","Scope and contents"
       end   
@@ -380,6 +386,13 @@ END
         solr_doc["#{fieldName}_1_type_tesim"].should == ["#{type}"]
         solr_doc["#{fieldName}_1_value_tesim"].should == ["#{value}"]
         solr_doc["#{fieldName}_1_displayLabel_tesim"].should == ["#{displayLabel}"]
+      end       
+      def testComplexSubjectFields (fieldName,id,name,valueURI,authority) 
+        solr_doc = subject.to_solr
+        solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
+        solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
+        solr_doc["#{fieldName}_1_valueURI_tesim"].should == ["#{valueURI}"]
+        solr_doc["#{fieldName}_1_authority_tesim"].should == ["#{authority}"]
       end                                         
    end  
   
