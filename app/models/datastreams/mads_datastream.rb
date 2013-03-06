@@ -106,8 +106,12 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
-    graph.insert([rdf_subject, OWL.sameAs, @sameAs]) if new?
-    graph.insert([rdf_subject, DAMS.valueURI, @valURI]) if new?
+    if(!@sameAs.nil?)
+    	graph.insert([rdf_subject, OWL.sameAs, @sameAs]) if new?
+    end
+    if(!@valURI.nil?)
+    	graph.insert([rdf_subject, DAMS.valueURI, @valURI]) if new?
+    end
     super
   end
   
