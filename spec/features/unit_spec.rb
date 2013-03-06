@@ -5,7 +5,7 @@ feature 'Visitor wants to look at units' do
     visit units_path
     expect(page).to have_selector('h1', :text => 'Digital Collections')
     expect(page).to have_selector('a', :text => 'Library Collections')
-    expect(page).to have_selector('a', :text => 'RCI')
+    expect(page).to have_selector('a', :text => 'Research Data Curation Program')
 
     expect(page).to have_field('Search...')
   end
@@ -61,7 +61,7 @@ feature 'Visitor wants to look at units' do
 
   scenario 'scoped search (exclusion)' do
     visit unit_path :id => 'rci'
-    expect(page).to have_selector('h1', :text => 'RCI')
+    expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
 
     # search for the object in the unit and find it
 	fill_in 'Search...', :with => 'sample'

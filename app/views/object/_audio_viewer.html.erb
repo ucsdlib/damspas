@@ -1,11 +1,17 @@
- <% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
+<% if defined?(source) %>
 
-<%if @document['component_count_isi'] != nil   %>
-    <% a_src="/view/"+ark+"/_1_2.mp3" %>
+	<audio src="<%= source %>" type="audio/mpeg" preload="auto">Your browser does not support the audio tag.</audio>
+
 <% else %>
-    <% a_src="/view/"+ark+"/_2.mp3" %>
-<% end %>    
+	
+	<% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
 
-<audio src="<%=a_src%>" type="audio/mpeg" preload="auto" />
-    Your browser does not support the audio tag.
-    </audio>
+	<%if @document['component_count_isi'] != nil   %>
+		<% a_src="/view/"+ark+"/_1_2.mp3" %>
+	<% else %>
+		<% a_src="/view/"+ark+"/_2.mp3" %>
+	<% end %>    
+	
+	<audio src="<%=a_src%>" type="audio/mpeg" preload="auto">Your browser does not support the audio tag.</audio>
+
+<% end %>
