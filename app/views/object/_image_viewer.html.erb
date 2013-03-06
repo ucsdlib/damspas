@@ -1,6 +1,16 @@
-<% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
+<% if defined?(source) %>
+
+	<%= image_tag source %>
+
+<% else %>
+
+	<% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
+	<%= image_tag "/view/"+ark+"/_3.jpg" %>
+
+<% end %>
 
 
-		<%= image_tag "/view/"+ark+"/_3.jpg" %>
-		<%#= image_tag "http://localhost:3000/view/bb90909090/_3.jpg" %>
+
+
+
 	
