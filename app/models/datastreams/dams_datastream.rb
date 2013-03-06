@@ -14,7 +14,9 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
     
   def serialize    
-    graph.insert([rdf_subject, DAMS.valueURI, @valURI]) if new?
+    if(!@valURI.nil?)
+    	graph.insert([rdf_subject, DAMS.valueURI, @valURI]) if new?
+    end
     super
   end
   
