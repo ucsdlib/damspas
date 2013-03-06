@@ -1,5 +1,7 @@
 module ObjectHelper
-  # select files to display
+	#---
+  # select_file: Select files to display
+	#---
   def select_file( params )
     document  = params[:document]
     component = params[:component]
@@ -53,7 +55,9 @@ module ObjectHelper
     info
   end
 
-  # extract info for a single file from solr
+	#---
+  # select_file_info: Extract info for a single file from solr
+	#---
   def select_file_info( params )
     document = params[:document]
     component = params[:component]
@@ -74,6 +78,9 @@ module ObjectHelper
     file_info
   end
   
+	#---
+	# render_file_type
+	#---
   def render_file_type( params )
    component = params[:component]
 
@@ -87,6 +94,9 @@ module ObjectHelper
    use = file_info['use_tesim'].first
   end
 
+	#---
+	# render_service_file
+	#---
   def render_service_file( params )
     component = params[:component]
 
@@ -100,6 +110,9 @@ module ObjectHelper
       services=service_file["file"]
   end
 
+	#---
+	# render_display_file
+	#---
   def render_display_file( params )
      component = params[:component]
 
@@ -127,5 +140,26 @@ module ObjectHelper
     end
     display
   end
+	
+	#---
+	# Checks to see if a complex object's components have files.
+	# 
+	# @param	jsonMap	The object's JSON component map array ("component_map_tesim").
+	# @return					An array of boolean values, true if component has files, false otherwise. Array indexes coorespond to component indexes.
+	# @author					David T.
+	#---	
+	def check_for_files(jsonMap)
+		a = []
+		componentMap = JSON.parse(jsonMap[0])
+		for i in 1..componentMap.length
+			if componentMap["#{i}"].length == 0 # The component has files :-)
+				a[i] = true
+			else # The component doesn't have files :-(
+				a[i] = false
+			end
+		end
+		return a
+	end
+	
 
 end
