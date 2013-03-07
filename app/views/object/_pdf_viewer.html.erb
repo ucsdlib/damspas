@@ -1,5 +1,7 @@
 <% if defined?(source) %>
 
-	<a href="<%= source %>" target="_new"><%= image_tag display %></a>
+<% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
+
+	<a href="<%= source %>" target="_new"><%= image_tag display, :alt => title %></a>
 
 <% end %>
