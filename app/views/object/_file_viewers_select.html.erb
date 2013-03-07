@@ -1,0 +1,28 @@
+<% if fileType.include?('image') %>
+
+	<%= render :partial => 'image_viewer', :locals => {:filePath => service_file_path} %>
+
+<% elsif fileType.include?('audio') %>
+
+	<%= render :partial => 'audio_viewer', :locals => {:filePath => service_file_path} %>
+
+<% elsif fileType.include?('video') %>
+
+	<%= render :partial => 'video_viewer', :locals => {:filePath => service_file_path, :icon => display_file_path} %>
+
+<% elsif fileType.include?('document') %>
+
+	<%= render :partial => 'pdf_viewer', :locals => {:filePath => service_file_path} %>
+
+<% elsif fileType.include?('data') %>
+
+	<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path} %>
+
+<% else %>
+
+	<%=render :partial => 'default_viewer' %>
+
+<% end %>
+
+
+

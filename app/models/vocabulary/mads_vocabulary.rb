@@ -25,4 +25,5 @@ class MADS < RDF::Vocabulary("http://www.loc.gov/mads/rdf/v1#")
   property :CorporateName
   property :FamilyName
   property :PersonalName
+  property :componentList
 end

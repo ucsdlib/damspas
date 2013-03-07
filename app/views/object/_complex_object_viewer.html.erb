@@ -1,28 +1,29 @@
 <%
-	ark = render_document_show_field_value(:document=>@document, :field=>"id_t") 
+	ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
 	componentCount = @document['component_count_isi']
 	componentHasFiles = check_for_files(@document['component_map_tesim'])
-	
+
 	for i in 1..componentCount
 		if componentHasFiles[i]
-			
-				fileType = render_file_type(:component=>i) 
-				display_file = render_display_file(:component=>i)
-				service_file = render_service_file(:component=>i)
-				service_file_path = "/view/#{ark}/_#{i}_#{service_file}"
-				display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{i}_#{display_file}" : ""
+
+			fileType = render_file_type(:component=>i)
+			display_file = render_display_file(:component=>i)
+			service_file = render_service_file(:component=>i)
+			service_file_path = "/view/#{ark}/_#{i}_#{service_file}"
+			display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{i}_#{display_file}" : ""
 %>
+
 			<div id="component-<%= i %>" class="component">
-	
+
 				<% case fileType %>
 				<% when 'image-service' %>
-					<%= render :partial => 'image_viewer', :locals => {:source => service_file_path} %>
+					<%= render :partial => 'image_viewer', :locals => {:filePath => service_file_path} %>
 					<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
 				<% when 'audio-service' %>
-					<%= render :partial => 'audio_viewer', :locals => {:source => service_file_path} %>
+					<%= render :partial => 'audio_viewer', :locals => {:filePath => service_file_path} %>
 					<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
 				<% when 'video-service' %>
-					<%= render :partial => 'video_viewer', :locals => {:source => service_file_path, :icon => display_file_path} %>
+					<%= render :partial => 'video_viewer', :locals => {:filePath => service_file_path, :icon => display_file_path} %>
 					<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
 				<% when 'document-service' %>
 					<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => true} %>
@@ -37,9 +38,9 @@
 					<%= render :partial => 'default_viewer' %>
 				<% end %>
 
-
 			</div>
-<%
+
+	<%
 		end
 	end
-%>     
+%>

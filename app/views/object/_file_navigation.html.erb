@@ -1,53 +1,27 @@
-<!--
-single object:
-file_3.jpg_formatName_tesim: JPEG
-file_3.jpg_use_tesim: visual-thumbnail
-file_1.jpg_size:6419
-files_tesim: 2.mp3, 1.wav 
-
-complex object:
-component_count_isi: 2
-component_1_file_4.jpg_formatName_tesim: JPEG
-component_1_file_4.jpg_mimeType_tesim: image/jpeg
-component_1_file_4.jpg_use_tesim: visual-thumbnail
-component_1_file_4.jpg_quality_tesim: 106x150
-'component_1_resource_type_tesim' => ['text']
-'component_2_files_tesim'=>['4.jpg','5.jpg','2.jpg','3.jpg','1.jpg']
-'component_2_file_3.jpg_size_isi' => 64619 
-
-@document['file_3.jpg_formatName_tesim'] == "JPEG"
--->
-
-
 <div class="row-fluid">
-	<div class="span12">
-		<% if @document['id_t'] != nil %>
+  <div class="span12">    
+    <% if @document['id_t'] != nil %> 
 
-			<%if @document['component_count_isi'] != nil   %>
-				<%= render :partial => 'complex_object_viewer' %>
-			<%else%>
-				<!-- single object -->
-				<% fileType=render_file_type(:component=>"0") %>
-				<% if fileType.include?('image') %>
-					<%=render :partial => 'image_viewer' %>
-				<% elsif fileType.include?('audio') %>
-					<%=render :partial => 'audio_viewer' %>
-				<% elsif fileType.include?('video') %>
-					<%=render :partial => 'video_viewer' %>
-				<% elsif fileType.include?('document') %>
-					<%=render :partial => 'pdf_viewer' %>
-				<% elsif fileType.include?('data') %>
-					<%=render :partial => 'data_viewer' %>
-				<% else %>
-					<%=render :partial => 'default_viewer' %>
-				<% end %>
-			<%end%>
+      
+        <%if @document['component_count_isi'] != nil   %>
+          <%= render :partial => 'complex_object_viewer' %>
+        <%else
 
-		<% end %>
-	</div>
+
+              ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
+              fileType=render_file_type(:component=>"0")
+              display_file = render_display_file(:component=>"0")
+              service_file = render_service_file(:component=>"0")
+							service_file_path = "/view/#{ark}/_#{service_file}"
+							display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{display_file}" : ""
+         %>
+             
+              <%= render :partial => 'file_viewers_select', :locals => {:fileType=>fileType, :display_file_path=> display_file_path,:service_file_path => service_file_path} %>
+
+         <%end%>
+
+  
+
+  <% end %>
+  </div>
 </div>
-
-        
-
- 
-

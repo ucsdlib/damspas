@@ -1,7 +1,7 @@
 module ObjectHelper
-	#---
+  #---
   # select_file: Select files to display
-	#---
+  #---
   def select_file( params )
     document  = params[:document]
     component = params[:component]
@@ -17,28 +17,30 @@ module ObjectHelper
     service_dim = 0
     display_file = nil
     display_dim  = 0
-    files.each{ |fid|
-      use = document["#{prefix}file_#{fid}_use_tesim"].first
-      qual = document["#{prefix}file_#{fid}_quality_tesim"]
-      if qual != nil
-        qualArr = qual.first.split("x")
-        file_dim = qualArr.max { |a,b| a.to_i <=> b.to_i }.to_i
-      end
-      if type == nil || use.start_with?(type)
-        if use.end_with?("-service")
-          if (service_file == nil || service_use.start_with?("image-") )
-            service_file = fid
-            service_use = use
-            service_dim = file_dim.to_i
-          end
-        elsif max_size == nil || file_dim == nil || file_dim.to_i < max_size
-          if (display_file == nil || file_dim.to_i > display_dim) && (not use.end_with?("-source") )
-            display_file = fid
-            display_dim  = file_dim.to_i
+    if files != nil
+      files.each{ |fid|
+        use = document["#{prefix}file_#{fid}_use_tesim"].first
+        qual = document["#{prefix}file_#{fid}_quality_tesim"]
+        if qual != nil
+          qualArr = qual.first.split("x")
+          file_dim = qualArr.max { |a,b| a.to_i <=> b.to_i }.to_i
+        end
+        if type == nil || use.start_with?(type)
+          if use.end_with?("-service")
+            if (service_file == nil || service_use.start_with?("image-") )
+              service_file = fid
+              service_use = use
+              service_dim = file_dim.to_i
+            end
+          elsif max_size == nil || file_dim == nil || file_dim.to_i < max_size
+            if (display_file == nil || file_dim.to_i > display_dim) && (not use.end_with?("-source") )
+              display_file = fid
+              display_dim  = file_dim.to_i
+            end
           end
         end
-      end
-    }
+      }
+    end
   
     # build file metadata hash
     info = Hash.new
@@ -55,9 +57,9 @@ module ObjectHelper
     info
   end
 
-	#---
+  #---
   # select_file_info: Extract info for a single file from solr
-	#---
+  #---
   def select_file_info( params )
     document = params[:document]
     component = params[:component]
@@ -78,46 +80,50 @@ module ObjectHelper
     file_info
   end
   
-	#---
-	# render_file_type
-	#---
+  #---
+  # render_file_type
+  #---
   def render_file_type( params )
-   component = params[:component]
+    component = params[:component]
 
-   if component=="0"
+    if component=="0"
       files = select_file( :document=>@document, :quality=>450 )
-   else
+    else
       files = select_file( :document=>@document, :component=>component, :quality=>450 )
-   end
+    end
    
-   file_info = files[:service]
-   use = file_info['use_tesim'].first
+    file_info = files[:service]
+    if file_info != nil
+      use = file_info['use_tesim'].first
+    end
   end
 
-	#---
-	# render_service_file
-	#---
+  #---
+  # render_service_file
+  #---
   def render_service_file( params )
     component = params[:component]
 
     if component=="0"
-    files = select_file( :document=>@document,:quality=>450 )
+      files = select_file( :document=>@document,:quality=>450 )
     else
       files = select_file( :document=>@document, :component=>component, :quality=>450 )
     end
 
-      service_file = files[:service]
+    service_file = files[:service]
+    if service_file != nil
       services=service_file["file"]
+    end
   end
 
-	#---
-	# render_display_file
-	#---
+  #---
+  # render_display_file
+  #---
   def render_display_file( params )
-     component = params[:component]
+    component = params[:component]
 
-     if component=="0"
-    files = select_file( :document=>@document,:quality=>450 )
+    if component=="0"
+      files = select_file( :document=>@document,:quality=>450 )
     else
       files = select_file( :document=>@document, :component=>component, :quality=>450 )
     end
@@ -127,39 +133,41 @@ module ObjectHelper
       display=display_file["file"]
     else
       service_file = files[:service]
-      services=service_file["file"]
+      if service_file != nil
+        services=service_file["file"]
       
-      #---
-      # todo: replace no_display with appreciate icons"
-      #--
-      if services.include?('mp3')
-       display = "no_display" 
-      elsif services.include?('tar.gz')||services.include?('tar')||services.include?('zip')||services.include?('xml')
-        display = "no_display"
+        #---
+        # todo: replace no_display with appreciate icons"
+        #--
+        if services.include?('mp3')
+          display = "no_display" 
+        elsif services.include?('tar.gz')||services.include?('tar')||services.include?('zip')||services.include?('xml')
+          display = "no_display"
+        end
       end
     end
     display
   end
-	
-	#---
-	# Checks to see if a complex object's components have files.
-	# 
-	# @param	jsonMap	The object's JSON component map array ("component_map_tesim").
-	# @return					An array of boolean values, true if component has files, false otherwise. Array indexes coorespond to component indexes.
-	# @author					David T.
-	#---	
-	def check_for_files(jsonMap)
-		a = []
-		componentMap = JSON.parse(jsonMap[0])
-		for i in 1..componentMap.length
-			if componentMap["#{i}"].length == 0 # The component has files :-)
-				a[i] = true
-			else # The component doesn't have files :-(
-				a[i] = false
-			end
-		end
-		return a
-	end
-	
+
+  #---
+  # Checks to see if a complex object's components have files.
+  # 
+  # @param  jsonMap  The object's JSON component map array ("component_map_tesim").
+  # @return          An array of boolean values, true if component has files, false otherwise. Array indexes coorespond to component indexes.
+  # @author          David T.
+  #---
+  def check_for_files(jsonMap)
+    a = []
+    componentMap = JSON.parse(jsonMap[0])
+    for i in 1..componentMap.length
+      if componentMap["#{i}"] == nil || componentMap["#{i}"].length == 0 # The component has files :-)
+        a[i] = true
+      else # The component doesn't have files :-(
+        a[i] = false
+      end
+    end
+    return a
+  end
+
 
 end
