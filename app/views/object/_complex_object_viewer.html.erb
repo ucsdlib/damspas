@@ -14,20 +14,7 @@
 %>
 			<div class="complex-<%= i %>">
 	
-				<% case fileType %>
-				<% when 'image-service' %>
-					<%= render :partial => 'image_viewer', :locals => {:source => service_file,:display => display_file} %>
-				<% when 'audio-service' %>
-					<%= render :partial => 'audio_viewer', :locals => {:source => service_file} %>
-				<% when 'video-service' %>
-					<%= render :partial => 'video_viewer', :locals => {:source => service_file, :display => display_file} %>
-				<% when 'document-service' %>
-					<%= render :partial => 'pdf_viewer', :locals => {:source => service_file, :display => display_file} %>
-				<% when 'data-service' %>
-					<%= render :partial => 'data_viewer', :locals => {:source => service_file} %>
-				<% else %>
-					<%= render :partial => 'default_viewer' %>
-				<% end %>
+				<%= render :partial => 'file_viewers_select', :locals => {:fileType=>fileType, :service_file=> service_file,:display_file => display_file} %>
 			
 			</div>
 <%
