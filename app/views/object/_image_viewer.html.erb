@@ -1,6 +1,7 @@
-<% if defined?(display) %>
 
-	<%= image_tag display %>
+<% if defined?(source) %>
+
+	<a href="<%= source %>" target="_new"><%= image_tag display %></a>
 
 <% end %>
 
