@@ -62,6 +62,9 @@ class DamsObject < ActiveFedora::Base
   def genreForms
     damsMetadata.load_genreForms
   end   
+  def personalNames
+    damsMetadata.load_personalNames
+  end   
   def familyNames
     damsMetadata.load_familyNames
   end      

@@ -1,15 +1,7 @@
-<% if defined?(source) && defined?(icon) %>
+<% if defined?(filePath) && defined?(icon) %>
 
 	<video class="video-js vjs-default-skin" controls preload="auto" poster="<%= icon %>" data-setup="{}">
-		<source src="<%= source %>" type='video/mp4'>
-	</video>
-
-<% else %>
-
-	<% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
-	<% p_suffix="/view/"+ark+"/_3.jpg" %>
-	<video id="dams_video" class="video-js vjs-default-skin" controls preload="auto"  poster="<%=p_suffix%>" data-setup="{}" width="600" height="400">
-		<source src="<%="/view/"+ark+"/_2.mp4"%>" type='video/mp4'>
+		<source src="<%= filePath %>" type='video/mp4'>
 	</video>
 
 <% end %>
