@@ -1,19 +1,5 @@
 <% if defined?(source) %>
 
-	<a href="<%= source %>" target="_new"><%= image_tag icon %></a>
-
-<% else %>
-
-	<% ark = render_document_show_field_value(:document=>@document, :field=>"id_t") %>
-
-	<%if @document['component_count_isi'] != nil   %>
-		<% p_src="/view/"+ark+"/_3_1.pdf" %>
-		<% p_img="/view/"+ark+"/_3_3.jpg" %>
-	<% else %>
-		<% p_src="/view/"+ark+"/_1.pdf" %>
-		<% p_img="/view/"+ark+"/_3.jpg" %>
-	<% end %> 
-
-	<a href="<%=p_src %>" target="_new"><%= image_tag p_img %></a>
+	<a href="<%= source %>" target="_new"><%= image_tag display %></a>
 
 <% end %>
