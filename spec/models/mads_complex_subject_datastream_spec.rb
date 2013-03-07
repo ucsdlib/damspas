@@ -58,15 +58,28 @@ describe MadsComplexSubjectDatastream do
       cList[0].name.should == ["Galaxies"]
       cList[1].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic
       cList[1].name.should == ["Clusters"]
-      cList.size.should == 2
+      cList[2].should be_kind_of MadsComplexSubjectDatastream::ComponentList::GenreForm
+      cList[2].name.should == ["Film and video adaptions"]      
+      cList.size.should == 5
     end
     
-    it "should have a fields from solr doc" do
+    it "should have topic from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["topic_0_tesim"].should == ["Galaxies"]
-        solr_doc["topic_element_0_0_tesim"].should == ["Galaxies"]
-        solr_doc["topic_1_tesim"].should == ["Clusters"]
-        solr_doc["topic_element_1_0_tesim"].should == ["Clusters"]
-      end     
+        solr_doc["complexSubject_0_topic_tesim"].should == ["Galaxies"]
+        solr_doc["complexSubject_0_0_topic_tesim"].should == ["Galaxies"]
+        solr_doc["complexSubject_1_topic_tesim"].should == ["Clusters"]
+        solr_doc["complexSubject_1_0_topic_tesim"].should == ["Clusters"]
+         #external topic
+        solr_doc["complexSubject_4_topic_tesim"].should == ["Baseball"]  
+        solr_doc["complexSubject_4_0_topic_tesim"].should == ["Baseball"]
+    end    
+    it "should have genreForm from solr doc" do
+        solr_doc = subject.to_solr
+        solr_doc["complexSubject_2_genreForm_tesim"].should == ["Film and video adaptions"]
+        solr_doc["complexSubject_2_0_genreForm_tesim"].should == ["Film and video adaptions"]
+        #external genreForm
+        solr_doc["complexSubject_3_genreForm_tesim"].should == ["Film and video adaptions"]  
+        solr_doc["complexSubject_3_0_genreForm_tesim"].should == ["Film and video adaptions"]
+    end         
   end  
 end
