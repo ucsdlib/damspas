@@ -7,33 +7,4 @@
 		</a>
 	</div>
 
-<% else %>
-
-	<%	ark = render_document_show_field_value(:document=>@document, :field=>"id_t") %>
-	<%	fileType = render_document_show_field_value(:document=>@document, :field=>"files_tesim") %>
-	
-	<div class="well dams-download-button">
-		<% if fileType.include?('1.tar.gz') %>
-			<a class="btn btn-large btn-block btn-danger" href="<%= "/view/#{ark}/_1.tar.gz" %>" target="_blank">
-				<i class="icon-download-alt icon-white"></i>
-				Download GZIP file
-			</a>
-		<% elsif fileType.include?('1.tar') %>
-			<a class="btn btn-large btn-block btn-danger" href="<%= "/view/#{ark}/_1.tar" %>" target="_blank">
-				<i class="icon-download-alt icon-white"></i>
-				Download TAR file
-			</a>
-		<% elsif fileType.include?('1.zip') %>
-			<a class="btn btn-large btn-block btn-danger" href="<%= "/view/#{ark}/_1.zip" %>" target="_blank">
-				<i class="icon-download-alt icon-white"></i>
-				Download ZIP file
-			</a>
-		<% elsif fileType.include?('1.xml') %>
-			<a class="btn btn-large btn-block btn-danger" href="<%= "/view/#{ark}/_1.xml" %>" target="_blank">
-				<i class="icon-download-alt icon-white"></i>
-				Download XML file
-			</a>
-		<% end %>
-	</div>
-	
 <% end %>

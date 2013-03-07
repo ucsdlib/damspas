@@ -16,16 +16,14 @@
 	
 				<% case fileType %>
 				<% when 'image-service' %>
-					<%= render :partial => 'image_viewer', :locals => {:source => service_file} %>
+					<%= render :partial => 'image_viewer', :locals => {:display => display_file} %>
 				<% when 'audio-service' %>
 					<%= render :partial => 'audio_viewer', :locals => {:source => service_file} %>
 				<% when 'video-service' %>
-					<%= render :partial => 'video_viewer', :locals => {:source => service_file, :icon => display_file} %>
+					<%= render :partial => 'video_viewer', :locals => {:source => service_file, :display => display_file} %>
 				<% when 'document-service' %>
-					<%= render :partial => 'pdf_viewer', :locals => {:source => service_file, :icon => display_file} %>
+					<%= render :partial => 'pdf_viewer', :locals => {:source => service_file, :display => display_file} %>
 				<% when 'data-service' %>
-					<%= render :partial => 'data_viewer', :locals => {:source => service_file} %>
-				<% when 'application-service' %>
 					<%= render :partial => 'data_viewer', :locals => {:source => service_file} %>
 				<% else %>
 					<%= render :partial => 'default_viewer' %>
