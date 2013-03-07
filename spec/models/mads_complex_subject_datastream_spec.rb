@@ -60,26 +60,30 @@ describe MadsComplexSubjectDatastream do
       cList[1].name.should == ["Clusters"]
       cList[2].should be_kind_of MadsComplexSubjectDatastream::ComponentList::GenreForm
       cList[2].name.should == ["Film and video adaptions"]      
-      cList.size.should == 5
+      cList.size.should == 19
     end
     
-    it "should have topic from solr doc" do
+    it "should have fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["complexSubject_0_topic_tesim"].should == ["Galaxies"]
         solr_doc["complexSubject_0_0_topic_tesim"].should == ["Galaxies"]
-        solr_doc["complexSubject_1_topic_tesim"].should == ["Clusters"]
-        solr_doc["complexSubject_1_0_topic_tesim"].should == ["Clusters"]
-         #external topic
-        solr_doc["complexSubject_4_topic_tesim"].should == ["Baseball"]  
-        solr_doc["complexSubject_4_0_topic_tesim"].should == ["Baseball"]
-    end    
-    it "should have genreForm from solr doc" do
-        solr_doc = subject.to_solr
-        solr_doc["complexSubject_2_genreForm_tesim"].should == ["Film and video adaptions"]
-        solr_doc["complexSubject_2_0_genreForm_tesim"].should == ["Film and video adaptions"]
-        #external genreForm
-        solr_doc["complexSubject_3_genreForm_tesim"].should == ["Film and video adaptions"]  
-        solr_doc["complexSubject_3_0_genreForm_tesim"].should == ["Film and video adaptions"]
-    end         
+        solr_doc["complexSubject_0_1_topic_tesim"].should == ["Clusters"]
+        solr_doc["complexSubject_0_2_genreForm_tesim"].should == ["Film and video adaptions"]
+        solr_doc["complexSubject_0_3_genreForm_tesim"].should == ["Film and video adaptions"]  
+        solr_doc["complexSubject_0_4_topic_tesim"].should == ["Baseball"]          
+        solr_doc["complexSubject_0_5_iconography_tesim"].should == ["Madonna and Child"]
+        solr_doc["complexSubject_0_6_scientificName_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
+        solr_doc["complexSubject_0_7_technique_tesim"].should == ["Impasto"]
+        solr_doc["complexSubject_0_8_builtWorkPlace_tesim"].should == ["The Getty Center"]
+        solr_doc["complexSubject_0_9_personalName_tesim"].should == ["Burns, Jack O."]
+        solr_doc["complexSubject_0_10_geographic_tesim"].should == ["Ness, Loch (Scotland)"]
+        solr_doc["complexSubject_0_11_temporal_tesim"].should == ["16th century"]
+        solr_doc["complexSubject_0_12_culturalContext_tesim"].should == ["Dutch"]
+        solr_doc["complexSubject_0_13_stylePeriod_tesim"].should == ["Impressionism"]
+        solr_doc["complexSubject_0_14_conferenceName_tesim"].should == ["American Library Association. Annual Conference"]
+        solr_doc["complexSubject_0_15_function_tesim"].should == ["Sample Function"]
+        solr_doc["complexSubject_0_16_corporateName_tesim"].should == ["Lawrence Livermore Laboratory"]
+        solr_doc["complexSubject_0_17_occupation_tesim"].should == ["Pharmacist"]
+        solr_doc["complexSubject_0_18_familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)"]
+    end           
   end  
 end
