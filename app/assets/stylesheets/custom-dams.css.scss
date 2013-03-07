@@ -1,5 +1,24 @@
 /* app specific/non-theme css goes here */
 
+$linkColor: #016691 !default;
+
+/*----------------------------*/
+/* COMPLEX OBJECT VIEWER PAGE */
+/*----------------------------*/
+
+.component{display:none;}
+.component
+{
+	//background-color:#666;
+	//padding:2em;
+	@media (min-width: 1200px)
+	{
+		//min-height:600px;
+	}
+}
+
+.component video{width:100%;}
+
 /*------------------*/
 /* UNITS INDEX PAGE */
 /*------------------*/
@@ -14,38 +33,30 @@
 /* OBJECT VIEWER PAGE */
 /*--------------------*/
 
+// Viewer 
+.dams-viewer{margin-bottom:1em;}
+.dams-viewer .table{margin-top: 20px;}
+.dams-viewer h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
+
 // Components Control
 .dams-components-button,.components .btn{text-align:left;}
 .components > ul{margin-bottom:0;}
 .components .btn{font-weight:bold;}
-.components a.btn{font-weight:normal;}
-.dams-components-button,.components button.btn{color:#333;}
+.dams-components-button,.components .btn{color:#333;}
+.components .dams-file{font-weight:normal;color:$linkColor;}
 .components li ul{margin-left:10px;}
-
 
 // Metadata fold
 .dams-metadata{margin-bottom:1em;}
-.dams-metadata h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
+//.dams-metadata h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
 .dams-metadata hr{border-top:1px solid #ddd;margin:0 15%;}
 .dams-metadata .btn-link{font-weight:bold;}
 
 // Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
 
+// Sidebar
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
-
-
-.dams-viewer{margin-bottom:1em;}
-
-.test1{
-@media (min-width: 1200px) {color:red;}
-	
-	}
-.test2{
-@media (min-width: 1200px) {color:blue;}
-	
-	}
-
 
 
 /*---------------*/
@@ -53,7 +64,10 @@
 /*---------------*/
 
 /* LARGE DESKTOP (BOOTSTRAP) */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+	
+	#main-container{margin:0 15%;}
+	}
 
 /* DESKTOP TWEEN (CUSTOM) */
 @media (min-width: 980px) and (max-width:1199px) {}

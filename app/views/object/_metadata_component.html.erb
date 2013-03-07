@@ -1,0 +1,61 @@
+<% if defined?(componentIndex) && defined?(fileName) %>
+
+	<table class="table table-bordered">
+		<tbody>
+
+			<% if @document["component_#{componentIndex}_1_title_tesim"] != nil %>
+				<tr>
+					<td>Title</td>
+					<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_title_tesim") %></b></td>
+				</tr>
+			<% end %>
+
+			<% if @document["component_#{componentIndex}_1_subtitle_tesim"] != nil %>
+				<tr>
+					<td>Subtitle</td>
+					<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_subtitle_tesim") %></b></td>
+				</tr>
+			<% end %>
+
+			<% if @document["component_#{componentIndex}_1_date_tesim"] != nil %>
+				<tr>
+					<td>Date</td>
+					<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_date_tesim") %></b></td>
+				</tr>
+			<% end %>
+
+			<% if @document["component_#{componentIndex}_note_tesim"] != nil %>
+				<tr>
+					<td>Note</td>
+					<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_note_tesim") %></b></td>
+				</tr>
+			<% end %>
+
+			<% if defined?(fileMetadata) %>
+				<% if fileMetadata == true %>
+
+					<% if @document["component_#{componentIndex}_file_#{fileName}_size_isi"] != nil %>
+						<tr>
+							<td>Size</td>
+							<td><b><%= @document["component_#{componentIndex}_file_#{fileName}_size_isi"]/1024 %> KB</b></td>
+						</tr>
+					<% end %>
+
+					<% if @document["component_#{componentIndex}_file_#{fileName}_formatName_tesim"] != nil %>
+						<% fileFormat = render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_file_#{fileName}_formatName_tesim") %>
+						<tr>
+							<td>Format</td>
+							<% if fileFormat == "bytestream" %>
+								<%= fileFormat = File.extname(fileName.upcase) %>
+								<%= fileFormat[0] = '' %>
+							<% end %>
+							<td><b><%= fileFormat %></b></td>
+						</tr>
+					<% end %>
+
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+
+<% end %>

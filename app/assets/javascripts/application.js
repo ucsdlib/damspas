@@ -18,7 +18,6 @@
 //= require bootstrap
 //= require_tree .
 //= require audio.min
-//= require responsiveslides.min
 
 
 
@@ -34,29 +33,17 @@ Blacklight.do_search_context_behavior = function() {};
 
 
 // [OBJECT VIEWER PAGE]
-$(document).ready(function(){
-   $("#slider4").responsiveSlides({
-        auto: false,
-        pager: false,
-        nav: true,
-        speed: 500,
-        namespace: "callbacks",
-        before: function () {
-          $('.events').append("<li>before event fired.</li>");
-        },
-        after: function () {
-          $('.events').append("<li>after event fired.</li>");
-        }
-      });
-
-
-
-	
-	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-folder-close").addClass("icon-folder-open");});
-	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-folder-open").addClass("icon-folder-close");});
+function showComponent(index)
+{
+	$('.component').hide();
+	$("#component-"+index).show();
+}
+$(document).ready(function()
+{
+	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-chevron-right").addClass("icon-chevron-down");});
+	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-chevron-down").addClass("icon-chevron-right");});
 
 	$("#alt-fold").on("show",function(){$(this).prev().text("Show less");});
-	$("#alt-fold").on("hide",function(){$(this).prev().text("Show more");});
-	
+	$("#alt-fold").on("hide",function(){$(this).prev().text("Show more");});	
 });
 // [/OBJECT VIEWER PAGE]

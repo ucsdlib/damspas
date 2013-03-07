@@ -1,12 +1,17 @@
 <% if defined?(source) %>
 
-	<a href="<%= source %>" target="_new"><%= image_tag icon %></a>
+    <div class="well dams-download-button">
+      <a class="btn btn-large btn-block btn-danger" href="<%= source %>" target="_blank">
+        <i class="icon-download-alt icon-white"></i>
+        Download PDF
+      </a>
+    </div>
 
 <% else %>
 
 	<% ark = render_document_show_field_value(:document=>@document, :field=>"id_t") %>
 
-	<%if @document['component_count_isi'] != nil   %>
+	<% if @document['component_count_isi'] != nil %>
 		<% p_src="/view/"+ark+"/_3_1.pdf" %>
 		<% p_img="/view/"+ark+"/_3_3.jpg" %>
 	<% else %>
