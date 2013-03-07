@@ -759,9 +759,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       # child components
       component.subcomponent.map.sort.each { |subcomponent|
         subid = /\/(\w*)$/.match(subcomponent.to_s)
-        @children << subid[1]
-        Solrizer.insert_field(solr_doc, "component_#{cid}_children", subid[1], storedIntMulti)
-        @parents[cid] << subid[1]
+        gid = subid[1].to_i
+        @children << gid
+        Solrizer.insert_field(solr_doc, "component_#{cid}_children", gid, storedIntMulti)
+        @parents[cid] << gid
       }
 
       # titles
