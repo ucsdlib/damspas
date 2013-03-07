@@ -58,15 +58,32 @@ describe MadsComplexSubjectDatastream do
       cList[0].name.should == ["Galaxies"]
       cList[1].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic
       cList[1].name.should == ["Clusters"]
-      cList.size.should == 2
+      cList[2].should be_kind_of MadsComplexSubjectDatastream::ComponentList::GenreForm
+      cList[2].name.should == ["Film and video adaptions"]      
+      cList.size.should == 19
     end
     
-    it "should have a fields from solr doc" do
+    it "should have fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["topic_0_tesim"].should == ["Galaxies"]
-        solr_doc["topic_element_0_0_tesim"].should == ["Galaxies"]
-        solr_doc["topic_1_tesim"].should == ["Clusters"]
-        solr_doc["topic_element_1_0_tesim"].should == ["Clusters"]
-      end     
+        solr_doc["complexSubject_0_0_topic_tesim"].should == ["Galaxies"]
+        solr_doc["complexSubject_0_1_topic_tesim"].should == ["Clusters"]
+        solr_doc["complexSubject_0_2_genreForm_tesim"].should == ["Film and video adaptions"]
+        solr_doc["complexSubject_0_3_genreForm_tesim"].should == ["Film and video adaptions"]  
+        solr_doc["complexSubject_0_4_topic_tesim"].should == ["Baseball"]          
+        solr_doc["complexSubject_0_5_iconography_tesim"].should == ["Madonna and Child"]
+        solr_doc["complexSubject_0_6_scientificName_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
+        solr_doc["complexSubject_0_7_technique_tesim"].should == ["Impasto"]
+        solr_doc["complexSubject_0_8_builtWorkPlace_tesim"].should == ["The Getty Center"]
+        solr_doc["complexSubject_0_9_personalName_tesim"].should == ["Burns, Jack O."]
+        solr_doc["complexSubject_0_10_geographic_tesim"].should == ["Ness, Loch (Scotland)"]
+        solr_doc["complexSubject_0_11_temporal_tesim"].should == ["16th century"]
+        solr_doc["complexSubject_0_12_culturalContext_tesim"].should == ["Dutch"]
+        solr_doc["complexSubject_0_13_stylePeriod_tesim"].should == ["Impressionism"]
+        solr_doc["complexSubject_0_14_conferenceName_tesim"].should == ["American Library Association. Annual Conference"]
+        solr_doc["complexSubject_0_15_function_tesim"].should == ["Sample Function"]
+        solr_doc["complexSubject_0_16_corporateName_tesim"].should == ["Lawrence Livermore Laboratory"]
+        solr_doc["complexSubject_0_17_occupation_tesim"].should == ["Pharmacist"]
+        solr_doc["complexSubject_0_18_familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)"]
+    end           
   end  
 end
