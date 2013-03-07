@@ -6,22 +6,30 @@
       
   <%if @document['component_count_isi'] != nil   %>
     <%= render :partial => 'complex_object_viewer' %>
-  <%else%>
-      <!-- single object -->
-      <% fileType=render_file_type(:component=>"0") %>
-       <% if fileType.include?('image') %>
-          <%=render :partial => 'image_viewer' %>
+  <%else
+        ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
+        fileType=render_file_type(:component=>"0")
+        display_file = render_display_file(:component=>"0")
+        service_file = render_service_file(:component=>"0")
+        service_file = "/view/#{ark}/_#{service_file}"
+        display_file = (display_file != "no_display") ? "/view/#{ark}/_#{display_file}" : ""
+   %>
+       
+        <% if fileType.include?('image') %>
+          <%= render :partial => 'image_viewer', :locals => {:source => service_file,:display => display_file} %>
          
         <% elsif fileType.include?('audio') %>
-        
-          <%=render :partial => 'audio_viewer' %>
+         <%= render :partial => 'audio_viewer', :locals => {:source => service_file} %>
+
         <% elsif fileType.include?('video') %>
-          <%=render :partial => 'video_viewer' %>
+          <%= render :partial => 'video_viewer', :locals => {:source => service_file, :display => display_file} %>
+        
         <% elsif fileType.include?('document') %>
-          <%=render :partial => 'pdf_viewer' %>
+          <%= render :partial => 'pdf_viewer', :locals => {:source => service_file, :display => display_file} %>
          
         <% elsif fileType.include?('data') %>
-          <%=render :partial => 'data_viewer' %>
+          <%= render :partial => 'data_viewer', :locals => {:source => service_file} %>
+
         <% else %>
           <%=render :partial => 'default_viewer' %>
         <% end %>

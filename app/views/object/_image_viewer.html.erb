@@ -1,11 +1,7 @@
+
 <% if defined?(source) %>
 
-	<%= image_tag source %>
-
-<% else %>
-
-	<% ark=render_document_show_field_value(:document=>@document, :field=>"id_t") %>
-	<%= image_tag "/view/"+ark+"/_3.jpg" %>
+	<a href="<%= source %>" target="_new"><%= image_tag display %></a>
 
 <% end %>
 
