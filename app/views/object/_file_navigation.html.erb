@@ -18,39 +18,33 @@ component_1_file_4.jpg_quality_tesim: 106x150
 @document['file_3.jpg_formatName_tesim'] == "JPEG"
 -->
 
- 
+
 <div class="row-fluid">
-  <div class="span12">    
-      <% if @document['id_t'] != nil %> 
+	<div class="span12">
+		<% if @document['id_t'] != nil %>
 
-      
-  <%if @document['component_count_isi'] != nil   %>
-    <%= render :partial => 'complex_object_viewer' %>
-  <%else%>
-      <!-- single object -->
-      <% fileType=render_file_type(:component=>"0") %>
-       <% if fileType.include?('image') %>
-          <%=render :partial => 'image_viewer' %>
-         
-        <% elsif fileType.include?('audio') %>
-        
-          <%=render :partial => 'audio_viewer' %>
-        <% elsif fileType.include?('video') %>
-          <%=render :partial => 'video_viewer' %>
-        <% elsif fileType.include?('document') %>
-          <%=render :partial => 'pdf_viewer' %>
-         
-        <% elsif fileType.include?('data') %>
-          <%=render :partial => 'data_viewer' %>
-        <% else %>
-          <%=render :partial => 'default_viewer' %>
-        <% end %>
-   <%end%>
+			<%if @document['component_count_isi'] != nil   %>
+				<%= render :partial => 'complex_object_viewer' %>
+			<%else%>
+				<!-- single object -->
+				<% fileType=render_file_type(:component=>"0") %>
+				<% if fileType.include?('image') %>
+					<%=render :partial => 'image_viewer' %>
+				<% elsif fileType.include?('audio') %>
+					<%=render :partial => 'audio_viewer' %>
+				<% elsif fileType.include?('video') %>
+					<%=render :partial => 'video_viewer' %>
+				<% elsif fileType.include?('document') %>
+					<%=render :partial => 'pdf_viewer' %>
+				<% elsif fileType.include?('data') %>
+					<%=render :partial => 'data_viewer' %>
+				<% else %>
+					<%=render :partial => 'default_viewer' %>
+				<% end %>
+			<%end%>
 
-  
-
-  <% end %>
-  </div>
+		<% end %>
+	</div>
 </div>
 
         

@@ -1,4 +1,4 @@
-<% if defined?(source) %>
+<% if defined?(source) && defined?(icon) %>
 
 	<video class="video-js vjs-default-skin" controls preload="auto" poster="<%= icon %>" data-setup="{}">
 		<source src="<%= source %>" type='video/mp4'>
