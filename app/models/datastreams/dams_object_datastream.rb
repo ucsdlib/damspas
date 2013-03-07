@@ -605,6 +605,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # field types
     storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
+    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
     storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 
@@ -788,7 +789,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         if !fid.ends_with? ".keep"
           Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_label", file.value)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size", file.size, storedInt)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size", file.size, singleString)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
@@ -815,7 +816,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       fid = file.id
       Solrizer.insert_field(solr_doc, "files", fid)
       Solrizer.insert_field(solr_doc, "file_#{fid}_label", file.value)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_size", file.size, storedInt)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_size", file.size, singleString)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourcePath", file.sourcePath)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourceFileName", file.sourceFileName)
       Solrizer.insert_field(solr_doc, "file_#{fid}_formatName", file.formatName)
