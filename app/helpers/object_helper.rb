@@ -149,25 +149,4 @@ module ObjectHelper
     display
   end
 
-  #---
-  # Checks to see if a complex object's components have files.
-  # 
-  # @param  jsonMap  The object's JSON component map array ("component_map_tesim").
-  # @return          An array of boolean values, true if component has files, false otherwise. Array indexes coorespond to component indexes.
-  # @author          David T.
-  #---
-  def check_for_files(jsonMap)
-    a = []
-    componentMap = JSON.parse(jsonMap[0])
-    for i in 1..componentMap.length
-      if componentMap["#{i}"] == nil || componentMap["#{i}"].length == 0 # The component has files :-)
-        a[i] = true
-      else # The component doesn't have files :-(
-        a[i] = false
-      end
-    end
-    return a
-  end
-
-
 end

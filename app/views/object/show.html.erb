@@ -25,19 +25,13 @@
 			</section>
 		</div>
 
-		<div class="row-fluid">
-			<section class="dams-comments span12">
-				<%= render :partial => 'comments' %>
-			</section>
-		</div>
-
 	 </div>
 	 <div class="span3">
 
 		<div class="row-fluid">
 			<section class="dams-sidebar span12">
 				<%if @document['component_count_isi'] != nil   %>
-					<%= render :partial => 'metadata_components' %>
+					<%= render :partial => 'metadata_components_tree' %>
 				<% end %>
 				<%= render :partial => 'related_resources' %>
 				<%# render :partial => 'catalog/show_tools' %>
@@ -47,3 +41,8 @@
 	</div>
 </div>
 
+<div class="row-fluid">
+	<section class="dams-comments span9">
+		<%= render :partial => 'comments' %>
+	</section>
+</div>
