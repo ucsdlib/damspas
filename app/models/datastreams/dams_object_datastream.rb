@@ -574,15 +574,72 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 		  list = obj.elementList.first
 		  i = 0
 		  if list != nil		 
-			while i < list.size  do		
-			  Solrizer.insert_field(solr_doc, "#{fieldName}_element_#{n}_#{i}", list[i].elementValue.first)																															
+			while i < list.size  do	
+			  if (list[i].class == MadsDatastream::List::NameElement)
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_name", list[i].elementValue.first)
+			  elsif (list[i].class == MadsDatastream::List::FamilyNameElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_familyName", list[i].elementValue.first)
+			  elsif (list[i].class == MadsDatastream::List::DateNameElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_dateName", list[i].elementValue.first)
+			  elsif (list[i].class == MadsDatastream::List::TermsOfAddressNameElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_termsOfAddress", list[i].elementValue.first)	
+			  elsif (list[i].class == MadsDatastream::List::GivenNameElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_givenName", list[i].elementValue.first)	
+			  elsif (list[i].class == MadsDatastream::List::GenreFormElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_genreForm", list[i].elementValue.first)		
+			  elsif (list[i].class == DamsDatastream::List::FunctionElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_function", list[i].elementValue.first)	
+			  elsif (list[i].class == DamsDatastream::List::StylePeriodElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_stylePeriod", list[i].elementValue.first)	
+			  elsif (list[i].class == DamsDatastream::List::CulturalContextElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_culturalContext", list[i].elementValue.first)			
+			  elsif (list[i].class == MadsDatastream::List::TemporalElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_temporal", list[i].elementValue.first)						  	
+			  elsif (list[i].class == MadsDatastream::List::GeographicElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_geographic", list[i].elementValue.first)	
+			  elsif (list[i].class == DamsDatastream::List::BuiltWorkPlaceElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_builtWorkPlace", list[i].elementValue.first)			
+			  elsif (list[i].class == MadsDatastream::List::OccupationElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_occupation", list[i].elementValue.first)				  	
+			  elsif (list[i].class == DamsDatastream::List::TechniqueElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_technique", list[i].elementValue.first)	
+			  elsif (list[i].class == DamsDatastream::List::ScientificNameElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_scientificName", list[i].elementValue.first)			
+			  elsif (list[i].class == DamsDatastream::List::IconographyElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_iconography", list[i].elementValue.first)	
+			  elsif (list[i].class == MadsDatastream::List::TopicElement)	
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].elementValue.first)				  				  			  				  		  					  				  		  		  		  
+			  end																															
 			  i +=1
 			end   
 		  end          
       end
     end        
   end
-  
+ 
+  def insertComplexSubjectFields (solr_doc, fieldName, objects)
+    if objects != nil
+      n = 0
+      objects.each do |obj|
+          n += 1
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", obj.pid)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_name", obj.name)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_authority", obj.authority)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
+		  list = obj.componentList.first
+		  i = 0
+		  if list != nil		 
+			while i < list.size  do		
+			  if (list[i].class == MadsComplexSubjectDatastream::ComponentList::Topic)
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].name.first)	
+			  end																														
+			  i +=1
+			end   
+		  end          
+      end
+    end        
+  end
+    
   def insertNoteFields (solr_doc, fieldName, objects)
     n = 0
     objects.map do |no| 
@@ -864,7 +921,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'name', load_names
     insertFields solr_doc, 'conferenceName', load_conferenceNames
     insertFields solr_doc, 'corporateName', load_corporateNames
-    insertFields solr_doc, 'complexSubject', load_complexSubjects
+    insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects
         
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
