@@ -21,6 +21,8 @@
 
 	def displayNodes(index)
 
+		firstButton = (index == 1) ? " active-component" : ""
+
 		concat "<li>".html_safe
 
 		case
@@ -45,7 +47,7 @@
 					end
 				end
 				
-				concat "<button type='button' class='btn btn-block btn-small btn-link dams-file' onClick='showComponent(#{index});'><i class='#{icon}'></i> ".html_safe
+				concat "<button type='button' class='btn btn-block btn-small btn-link dams-file#{firstButton}' onClick='showComponent(this,#{index});'><i class='#{icon}'></i> ".html_safe
 				componentTitle index
 				concat "</button>".html_safe
 
@@ -102,7 +104,7 @@
 <% if component_count > 0   %>
 
   <button type="button" class="btn btn-block btn-link dams-components-button sidebar-header" onClick="$('[id^=meta-]').collapse('toggle');"><strong>Components</strong></button>
-  <div class="components">
+  <div class="components-tree">
     <ul class="unstyled">
       <%
         for i in 1..component_count

@@ -20,21 +20,19 @@
 //= require audio.min
 
 
-
-
 $(document).ready(function() {
 	$('.carousel').carousel();
 });
 
-
-
 Blacklight.do_search_context_behavior = function() {};
 
 
-
 // [OBJECT VIEWER PAGE]
-function showComponent(index)
+function showComponent(obj,index)
 {
+	$(".components-tree button").removeClass('active-component');
+	$(obj).addClass('active-component');
+
 	$('.component').hide();
 	$("#component-"+index).show();
 }
@@ -43,7 +41,7 @@ $(document).ready(function()
 	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-chevron-right").addClass("icon-chevron-down");});
 	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-chevron-down").addClass("icon-chevron-right");});
 
-	$("#metadata-fold").on("show",function(){$(this).prev().text("Show less");});
-	$("#metadata-fold").on("hide",function(){$(this).prev().text("Show more");});
+	$("#metadata-fold").on("show",function(){$(this).prev().text("Hide metadata");});
+	$("#metadata-fold").on("hide",function(){$(this).prev().text("Show metadata");});
 });
 // [/OBJECT VIEWER PAGE]

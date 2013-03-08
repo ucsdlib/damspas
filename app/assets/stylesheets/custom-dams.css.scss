@@ -1,14 +1,19 @@
 /* app specific/non-theme css goes here */
 
 $linkColor: #016691 !default;
-
+$objectBG: #e9e9e9 !default;
+$componentBG: #fcfcfc !default;
+$viewerPadding: 3% !default;
+$componentHighlight: #b94a48 !default;
 /*----------------------------*/
 /* COMPLEX OBJECT VIEWER PAGE */
 /*----------------------------*/
 
 .text-dulled{color: #666;}
 
-.component{display:none;}
+// COMPONENTS
+
+.component{display:none;background-color:$componentBG;margin:$viewerPadding;padding:$viewerPadding;border-radius: 10px;border: 3px solid #fff;}
 .component
 {
 	//background-color:#666;
@@ -20,7 +25,10 @@ $linkColor: #016691 !default;
 }
 
 .component video{width:100%;}
+.component img{width:100%;margin:0 auto 20px auto;display:block;}
 .first-component{display:block;}
+.component h2{font-size:125%;padding:0;margin:0 0 20px 0;line-height:100%;}
+
 
 /*------------------*/
 /* UNITS INDEX PAGE */
@@ -37,21 +45,15 @@ $linkColor: #016691 !default;
 /*--------------------*/
 
 // Viewer 
-.dams-viewer{margin-bottom:1em;}
-.dams-viewer .table{margin-top: 20px;}
+.dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;}
+.dams-viewer .table{}
 .dams-viewer h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
 
-// Components Control
-.dams-components-button,.components .btn{text-align:left;}
-.components > ul{margin-bottom:0;}
-.components .btn{font-weight:bold;}
-.dams-components-button,.components .btn{color:#333;}
-.components .dams-file{font-weight:normal;color:$linkColor;}
-.components li ul{margin-left:10px;}
+.dams-download-button{margin:0;}
+
 
 // Metadata fold
-.dams-metadata{margin-bottom:1em;}
-//.dams-metadata h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
+.dams-metadata{margin-bottom:1em;background-color:$objectBG;padding: 0 $viewerPadding $viewerPadding $viewerPadding;}
 .dams-metadata hr{border-top:1px solid #ddd;margin:0 15%;}
 .dams-metadata .btn-link{font-weight:bold;}
 
@@ -60,6 +62,18 @@ $linkColor: #016691 !default;
 
 // Sidebar
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
+
+
+//---
+// Components Control
+//--
+.dams-components-button,.components-tree .btn{text-align:left;}
+.components-tree > ul{margin-bottom:0;}
+.components-tree .btn{font-weight:bold;}
+.dams-components-button,.components-tree .btn{color:#333;}
+.components-tree .dams-file{font-weight:normal;color:$linkColor;}
+.components-tree li ul{margin-left:10px;}
+.active-component{color: $componentHighlight !important;font-weight:bold !important;}
 
 
 /*---------------*/
@@ -72,19 +86,22 @@ $linkColor: #016691 !default;
 /* DESKTOP TWEEN (CUSTOM) */
 @media (min-width: 980px) and (max-width:1199px) {}
 
-/* DESKTOP (CUSTOM) */
+//---
+// DESKTOP (CUSTOM)
+//---
 @media (min-width: 980px)
 {
-	/* OBJECT VIEWER PAGE */
-	.dams-viewer img{width:33%;margin:0 auto;display:block;}
-	.dams-download-button{width:600px;margin:0 auto;}
+	// OBJECT VIEWER PAGE
+	.dams-viewer img{width:40%;}
 }
- 
-/* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
+
+//---
+// PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP)
+//---
 @media (min-width: 768px) and (max-width: 979px)
 {
 	/* OBJECT VIEWER PAGE */
-	.dams-viewer img{width:50%;margin:0 auto;display:block;}
+	.dams-viewer img{width:50%;}
 }
 
 /* MOBILE (CUSTOM) */
@@ -94,7 +111,7 @@ $linkColor: #016691 !default;
 @media (max-width: 767px)
 {
 	 /* OBJECT VIEWER PAGE */
-	.dams-viewer img{width:50%;margin:0 auto;display:block;}
+	.dams-viewer img{width:50%;}
 }
  
 /* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
