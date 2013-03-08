@@ -75,7 +75,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.1)
+    coffee-script-source (1.5.0)
     daemons (1.1.9)
     database_cleaner (0.9.1)
     deprecation (0.0.5)
