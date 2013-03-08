@@ -343,22 +343,22 @@ END
         testIndexFields "genreForm","bd9796116g","Film and video adaptions","http://id.loc.gov/authorities/sh2002012502","lcsh","Film and video adaptions"
       end 
       it "should index personalName" do
-        testIndexFields "personalName","bd93182924","Burns, Jack O.","http://lccn.loc.gov/n90694888","naf","Burns"
+        testIndexNameFields "personalName","bd93182924","Burns, Jack O.","http://lccn.loc.gov/n90694888","naf","Burns","familyName"
       end        
       it "should index familyName" do
-        testIndexFields "familyName","bd1775562z","Calder (Family : 1757-1959 : N.C.)","http://id.loc.gov/authorities/names/n2012026835","naf","Calder (Family :"
+        testIndexNameFields "familyName","bd1775562z","Calder (Family : 1757-1959 : N.C.)","http://id.loc.gov/authorities/names/n2012026835","naf","Calder (Family :","familyName"
       end     
       it "should index name" do
-        testIndexFields "name","bd7509406v","Generic Name","http://id.loc.gov/n9999999999","naf","Generic Name"
+        testIndexNameFields "name","bd7509406v","Generic Name","http://id.loc.gov/n9999999999","naf","Generic Name","name"
       end   
       it "should index conferenceName" do
-        testIndexFields "conferenceName","bd0478622c","American Library Association. Annual Conference","http://id.loc.gov/authorities/names/n2009036967","naf","American Library Association."
+        testIndexNameFields "conferenceName","bd0478622c","American Library Association. Annual Conference","http://id.loc.gov/authorities/names/n2009036967","naf","American Library Association.","name"
       end      
       it "should index corporateName" do
-        testIndexFields "corporateName","bd8021352s","Lawrence Livermore Laboratory","http://lccn.loc.gov/n50000352","naf","Lawrence Livermore Laboratory"
+        testIndexNameFields "corporateName","bd8021352s","Lawrence Livermore Laboratory","http://lccn.loc.gov/n50000352","naf","Lawrence Livermore Laboratory","name"
       end    
       it "should index complexSubject" do
-        testComplexSubjectFields "complexSubject","bd6724414c","Galaxies--Clusters","http://id.loc.gov/authorities/subjects/sh85052764","lcsh"
+        testComplexSubjectFields "complexSubject","bd6724414c","Galaxies--Clusters","http://id.loc.gov/authorities/subjects/sh85052764","lcsh","Galaxies","Clusters"
       end                        
       it "should have scopeContentNote" do
 		testIndexNoteFields "scopeContentNote","bd1366006j","scope_and_content","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","Scope and contents"
@@ -378,8 +378,18 @@ END
         solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
         solr_doc["#{fieldName}_1_valueURI_tesim"].should == ["#{valueURI}"]
         solr_doc["#{fieldName}_1_authority_tesim"].should == ["#{authority}"]
-        solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
-      end     
+        #solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
+        solr_doc["#{fieldName}_1_0_#{fieldName}_tesim"].should == ["#{element}"]
+      end    
+      def testIndexNameFields (fieldName,id,name,valueURI,authority,element,elementName) 
+        solr_doc = subject.to_solr
+        solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
+        solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
+        solr_doc["#{fieldName}_1_valueURI_tesim"].should == ["#{valueURI}"]
+        solr_doc["#{fieldName}_1_authority_tesim"].should == ["#{authority}"]
+        #solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
+        solr_doc["#{fieldName}_1_0_#{elementName}_tesim"].should == ["#{element}"]
+      end        
       def testIndexNoteFields (fieldName,id,type,value,displayLabel) 
         solr_doc = subject.to_solr
         solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
@@ -387,12 +397,14 @@ END
         solr_doc["#{fieldName}_1_value_tesim"].should == ["#{value}"]
         solr_doc["#{fieldName}_1_displayLabel_tesim"].should == ["#{displayLabel}"]
       end       
-      def testComplexSubjectFields (fieldName,id,name,valueURI,authority) 
+      def testComplexSubjectFields (fieldName,id,name,valueURI,authority,topic0,topic1) 
         solr_doc = subject.to_solr
         solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
         solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
         solr_doc["#{fieldName}_1_valueURI_tesim"].should == ["#{valueURI}"]
         solr_doc["#{fieldName}_1_authority_tesim"].should == ["#{authority}"]
+        solr_doc["#{fieldName}_1_0_topic_tesim"].should == ["#{topic0}"]
+        solr_doc["#{fieldName}_1_1_topic_tesim"].should == ["#{topic1}"]
       end                                         
    end  
   
