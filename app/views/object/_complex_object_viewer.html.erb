@@ -11,9 +11,10 @@
 			service_file = render_service_file(:component=>i)
 			service_file_path = "/view/#{ark}/_#{i}_#{service_file}"
 			display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{i}_#{display_file}" : ""
+	 		firstOneOmg = (i == 1) ? " first-lol" : ""
 %>
 
-			<div id="component-<%= i %>" class="component">
+			<div id="component-<%= i %>" class="component<%= firstOneOmg %>">
 
 				<% case fileType %>
 				<% when 'image-service' %>

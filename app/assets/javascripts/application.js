@@ -43,7 +43,7 @@ $(document).ready(function()
 	$("[id^=meta-]").on("show",function(){$(this).prev().find("i").removeClass("icon-chevron-right").addClass("icon-chevron-down");});
 	$("[id^=meta-]").on("hide",function(){$(this).prev().find("i").removeClass("icon-chevron-down").addClass("icon-chevron-right");});
 
-	$("#alt-fold").on("show",function(){$(this).prev().text("Show less");});
-	$("#alt-fold").on("hide",function(){$(this).prev().text("Show more");});	
+	$("#metadata-fold").on("show",function(){$(this).prev().text("Show less");});
+	$("#metadata-fold").on("hide",function(){$(this).prev().text("Show more");});
 });
 // [/OBJECT VIEWER PAGE]
