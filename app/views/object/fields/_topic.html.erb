@@ -1,0 +1,18 @@
+<dt class="text-dulled">Topics</dt>	
+<dd>
+	<ul class="unstyled">
+		<%
+		#fields:
+		# topic_1_id_tesim, topic_1_name_tesim,
+		# TODO make sure facet links work
+		i = 1;
+		loop do
+		%>
+		<li><%= link_to "<i class='icon-tag icon-white'></i> #{@document["topic_#{i}_name_tesim"].first}".html_safe, facet_uri(@document["topic_#{i}_name_tesim"].first, 'subject_topic_sim'), :class => "label" %></li>
+	<%
+	i += 1 #try again
+	break unless @document["note_#{i}_value_tesim"] != nil
+	end
+	%>
+	</ul>
+</dd>

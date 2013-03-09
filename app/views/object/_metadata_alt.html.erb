@@ -78,7 +78,9 @@
 				</ul>
 			</dd>
 		<% end %>
-
+		<% if@document["topic_1_id_tesim"] != nil %>
+			<%= render :partial => 'object/fields/topic' %>
+		<% end %>
 		<% if @document['language_1_id_tesim'] != nil %>
 			<%
 				 language = render_document_show_field_value(:document=>@document, :field=>"language_1_value_tesim")
