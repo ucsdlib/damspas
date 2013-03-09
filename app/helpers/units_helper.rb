@@ -5,7 +5,10 @@ module UnitsHelper
   end
 
   def render_browse_facet_links
-    render :partial => "units/browse_facet_link", :collection => browse_facet_links, :as => :facet
+    facet_links = browse_facet_links
+    facet_links.delete_if {|x| x.field == "unit_sim" } # don't show Browse By Unit links on landing pages
+    #render :partial => "units/browse_facet_link", :collection => browse_facet_links, :as => :facet
+    render :partial => "units/browse_facet_link", :collection => facet_links, :as => :facet
   end
 
   def browse_facet_links
