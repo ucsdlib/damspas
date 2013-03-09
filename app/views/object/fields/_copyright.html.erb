@@ -1,0 +1,14 @@
+<% if @document['copyright_id_tesim'] != nil %>
+	<%
+		copyright_status = render_document_show_field_value(:document=>@document, :field=>"copyright_status_tesim")
+		copyright_jurisdiction = render_document_show_field_value(:document=>@document, :field=>"copyright_jurisdiction_tesim")
+		copyright_purpose = render_document_show_field_value(:document=>@document, :field=>"copyright_purposeNote_tesim")
+		copyright_note = render_document_show_field_value(:document=>@document, :field=>"copyright_note_tesim")
+	%>	
+	<dt class="text-dulled">Copyright</dt>	
+	<dd>
+		<p><strong><%= copyright_status.sub(/--/, '–') %> (<%= copyright_jurisdiction.upcase %>)</strong></p>
+		<p><%= copyright_purpose %></p>
+		<p class="muted"><small><%= copyright_note %></small></p>
+	</dd>
+<% end %>
