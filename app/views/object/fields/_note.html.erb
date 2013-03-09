@@ -6,7 +6,8 @@
 %>
 <dt class="text-dulled"><%=@document["note_#{i}_displayLabel_tesim"].first%></dt>	
 <dd>
-	<p><%=@document["note_#{i}_value_tesim"].first%></p>
+	<!-- using gsub to remove //" in notes. -->
+	<p><%=@document["note_#{i}_value_tesim"].first.gsub('\\\\','')%></p>
 </dd>
 <%
 	i += 1 #try again
