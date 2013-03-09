@@ -2,7 +2,11 @@
 
 <div class="row-fluid">
 	<div class="dams-breadcrumbs span12">
-		<small><a href="/">Home</a> &raquo; <%= render_document_show_field_value(:document=>@document, :field=>"title_tesim") %></small>
+		<small><a href="/">Digital Collections</a> 
+			&raquo; <a href="/<%=render_document_show_field_value(:document=>@document, :field=>"unit_code_tesim")%>"><%=render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim")%></a>
+			<!-- add collections here, when present? -->
+			&raquo; <%=render_document_show_field_value(:document=>@document, :field=>"title_tesim") %>
+		</small>
 	</div>
 </div>
 
