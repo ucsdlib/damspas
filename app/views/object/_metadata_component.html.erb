@@ -3,13 +3,6 @@
 	<table class="table">
 		<tbody>
 
-			<% if nil != nil %>
-				<tr>
-					<td>Title</td>
-					<td ><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_title_tesim") %></b></td>
-				</tr>
-			<% end %>
-
 			<% if @document["component_#{componentIndex}_1_subtitle_tesim"] != nil %>
 				<tr>
 					<td>Subtitle</td>

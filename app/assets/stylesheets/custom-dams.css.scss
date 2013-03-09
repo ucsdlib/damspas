@@ -13,21 +13,24 @@ $componentHighlight: #b94a48 !default;
 
 // COMPONENTS
 
-.component{display:none;background-color:$componentBG;margin:$viewerPadding;padding:$viewerPadding;border-radius: 10px;border: 3px solid #fff;}
-.component
-{
-	//background-color:#666;
-	//padding:2em;
-	@media (min-width: 1200px)
-	{
-		//min-height:600px;
-	}
-}
+.component{display:none;background-color:$componentBG;margin:$viewerPadding;padding:$viewerPadding;border-radius: 10px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
+.simple-object{margin:$viewerPadding;padding:$viewerPadding;background-color:#d6d6d6;border-radius: 10px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 
-.component video{width:100%;}
+.simple-object .table th,.simple-object .table td{border-color:#bbb;}
+
+.component .video-js,
+.component .audiojs,
+.simple-object .video-js,
+.simple-object .audiojs{margin: 0 auto;}
+
+
 .component img{width:100%;margin:0 auto 20px auto;display:block;}
+.simple-object img{width:100%;margin:0 auto;display:block;}
+
 .first-component{display:block;}
 .component h2{font-size:125%;padding:0;margin:0 0 20px 0;line-height:100%;}
+
+
 
 
 /*------------------*/
@@ -45,7 +48,7 @@ $componentHighlight: #b94a48 !default;
 /*--------------------*/
 
 // Viewer 
-.dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;}
+.dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: none;}
 .dams-viewer .table{}
 .dams-viewer h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
 
@@ -53,7 +56,7 @@ $componentHighlight: #b94a48 !default;
 
 
 // Metadata fold
-.dams-metadata{margin-bottom:1em;background-color:$objectBG;padding: 0 $viewerPadding $viewerPadding $viewerPadding;}
+.dams-metadata{margin-bottom:1em;background-color:$objectBG;padding: 0 $viewerPadding $viewerPadding $viewerPadding;border: 1px solid #d9d9d9;border-top: none;}
 .dams-metadata hr{border-top:1px solid #ddd;margin:0 15%;}
 .dams-metadata .btn-link{font-weight:bold;}
 

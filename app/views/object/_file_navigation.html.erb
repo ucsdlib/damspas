@@ -1,27 +1,21 @@
 <div class="row-fluid">
-  <div class="span12">    
-    <% if @document['id_t'] != nil %> 
-
-      
-        <%if @document['component_count_isi'] != nil   %>
-          <%= render :partial => 'complex_object_viewer' %>
-        <%else
-
-
-              ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
-              fileType=render_file_type(:component=>"0")
-              display_file = render_display_file(:component=>"0")
-              service_file = render_service_file(:component=>"0")
-							service_file_path = "/view/#{ark}/_#{service_file}"
-							display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{display_file}" : ""
-         %>
-             
-              <%= render :partial => 'file_viewers_select', :locals => {:fileType=>fileType, :display_file_path=> display_file_path,:service_file_path => service_file_path} %>
-
-         <%end%>
-
-  
-
-  <% end %>
-  </div>
+	<div class="span12">
+		<% if @document['id_t'] != nil %>
+			<% if @document['component_count_isi'] != nil %>
+				<%= render :partial => 'complex_object_viewer' %>
+			<% else %>
+				<%
+					ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
+					fileType=render_file_type(:component=>"0")
+					display_file = render_display_file(:component=>"0")
+					service_file = render_service_file(:component=>"0")
+					service_file_path = "/view/#{ark}/_#{service_file}"
+					display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{display_file}" : ""
+				%>
+				<div class="simple-object">
+					<%= render :partial => 'file_viewers_select', :locals => {:fileType=>fileType, :display_file_path=>display_file_path, :service_file_path=>service_file_path, :service_file=>service_file} %>
+				</div>
+			<%end%>
+		<% end %>
+	</div>
 </div>
