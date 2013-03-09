@@ -1,15 +1,16 @@
-<%
-#fields:
-# note_1_type_tesim, note_1_value_tesim, note_1_displayLabel_tesim
-i = 1;
-loop do
+<% if@document["note_1_value_tesim"] != nil
+	#fields:
+	# note_1_type_tesim, note_1_value_tesim, note_1_displayLabel_tesim
+	i = 1;
+	loop do
 %>
 <dt class="text-dulled"><%=@document["note_#{i}_displayLabel_tesim"].first%></dt>	
 <dd>
 	<p><%=@document["note_#{i}_value_tesim"].first%></p>
 </dd>
 <%
-i += 1 #try again
-break unless @document["note_#{i}_value_tesim"] != nil
+	i += 1 #try again
+	break unless @document["note_#{i}_value_tesim"] != nil
+	end
 end
 %>

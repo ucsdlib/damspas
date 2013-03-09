@@ -3,97 +3,31 @@
 <div id="metadata-fold" class="collapse in">
 	
 	<dl class="dl-horizontal">
-		<% if@document["note_1_value_tesim"] != nil %>
-			<%= render :partial => 'object/fields/note' %>
-		<% end %>
-		<% if@document["genreForm_1_id_tesim"] != nil %>
-			<%= render :partial => 'object/fields/genreForm' %>
-		<% end %>
-		<% if @document['copyright_id_tesim'] != nil %>
-			<%
-				copyright_status = render_document_show_field_value(:document=>@document, :field=>"copyright_status_tesim")
-				copyright_jurisdiction = render_document_show_field_value(:document=>@document, :field=>"copyright_jurisdiction_tesim")
-				copyright_purpose = render_document_show_field_value(:document=>@document, :field=>"copyright_purposeNote_tesim")
-				copyright_note = render_document_show_field_value(:document=>@document, :field=>"copyright_note_tesim")
-			%>	
-			<dt class="text-dulled">Copyright</dt>	
-			<dd>
-				<p><strong><%= copyright_status.sub(/--/, '–') %> (<%= copyright_jurisdiction.upcase %>)</strong></p>
-				<p><%= copyright_purpose %></p>
-				<p class="muted"><small><%= copyright_note %></small></p>
-			</dd>
-		<% end %>
-
-		<% if @document['license_id_tesim'] != nil %>
-			<%
-				license_note = render_document_show_field_value(:document=>@document, :field=>"license_note_tesim")
-				license_uri = render_document_show_field_value(:document=>@document, :field=>"license_uri_tesim")
-			%>					
-			<dt class="text-dulled">License</dt>	
-			<dd><p><%= link_to license_note, license_uri %></p></dd>
-		<% end %>
-	
-		<% if @document['statute_id_tesim'] != nil %>
-			<%
-				statute_citation = render_document_show_field_value(:document=>@document, :field=>"statute_citation_tesim")
-				statute_note = render_document_show_field_value(:document=>@document, :field=>"statute_note_tesim")
-				statute_jurisdiction = render_document_show_field_value(:document=>@document, :field=>"statute_jurisdiction_tesim")
-			%>
-			<dt class="text-dulled">Statute</dt>	
-			<dd>
-				<p><strong><%= statute_citation %> &ndash; <%= statute_jurisdiction.upcase %></strong></p>
-				<p><%= statute_note %></p>
-			</dd>
-		<% end %>
-	
-		<% if @document['otherRights_id_tesim'] != nil %>
-			<%
-				other_rights_basis = render_document_show_field_value(:document=>@document, :field=>"otherRights_basis_tesim")
-				other_rights_uri = render_document_show_field_value(:document=>@document, :field=>"otherRights_uri_tesim")
-			%>
-			<dt class="text-dulled">Other Rights</dt>	
-			<dd><p><%= link_to other_rights_basis.capitalize, other_rights_uri %></p></dd>	
-		<% end %>
 		
-		<% if @document['rightsHolder_1_tesim'] != nil %>
-			<dt class="text-dulled">Rights Holder</dt>	
-			<dd><%= render_document_show_field_value(:document=>@document, :field=>"rightsHolder_1_name_tesim") %></dd>
-		<% end %>
+		<%= render :partial => 'object/fields/note' %>
+		
+		<%= render :partial => 'object/fields/genreForm' %>
+		
+		<%= render :partial => 'object/fields/copyright' %>
+		
+		<%= render :partial => 'object/fields/license' %>
 	
-		<% if @document['unit_name_tesim'] != nil %>
-			<%
-				unit_name = render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim")
-			%>
-			<dt class="text-dulled">Unit</dt>
-			<dd><%= link_to "<i class='icon-tag icon-white'></i> #{unit_name}".html_safe, facet_uri(unit_name,'unit_sim'), :class => "label" %></dd>
-		<% end %>
+		<%= render :partial => 'object/fields/statute' %>
+		
+		<%= render :partial => 'object/fields/otherRights' %>
+		
+		<%= render :partial => 'object/fields/rightsHolder' %>
+	
+		<%= render :partial => 'object/fields/unit' %>
+		
+		<%= render :partial => 'object/fields/subject' %>
 			
-		<% if @document['subject_tesim'] != nil %>
-			<dt class="text-dulled">Subjects</dt>	
-			<dd>
-				<ul class="unstyled">
-				<% @document['subject_tesim'].each do |sub| %>
-					<li><%= link_to "<i class='icon-tag icon-white'></i> #{sub}".html_safe, facet_uri(sub, 'subject_topic_sim'), :class => "label" %></li>
-				<% end %>
-				</ul>
-			</dd>
-		<% end %>
-		<% if@document["topic_1_id_tesim"] != nil %>
-			<%= render :partial => 'object/fields/topic' %>
-		<% end %>
-		<% if @document['language_1_id_tesim'] != nil %>
-			<%
-				 language = render_document_show_field_value(:document=>@document, :field=>"language_1_value_tesim")
-				 language_code = render_document_show_field_value(:document=>@document, :field=>"language_1_code_tesim")
-				 language_uri = render_document_show_field_value(:document=>@document, :field=>"language_1_valueURI_tesim")
-				 language_linktext = "<i class='icon-globe icon-white'></i> #{language} (#{language_code})".html_safe
-			%>
-			<dt class="text-dulled">Language</dt>
-			<dd><%= link_to language_linktext, language_uri, :class => "label" %></dd>
-
-		<% end %>
-
-
+		<%= render :partial => 'object/fields/topic' %>
+		
+		<%= render :partial => 'object/fields/language' %>
+		
+		<%= render :partial => 'object/fields/corporateName' %>
+		
 	</dl>
 
 </div>

@@ -1,3 +1,4 @@
+<% if@document["topic_1_id_tesim"] != nil %>
 <dt class="text-dulled">Topics</dt>	
 <dd>
 	<ul class="unstyled">
@@ -11,8 +12,9 @@
 		<li><%= link_to "<i class='icon-tag icon-white'></i> #{@document["topic_#{i}_name_tesim"].first}".html_safe, facet_uri(@document["topic_#{i}_name_tesim"].first, 'subject_topic_sim'), :class => "label" %></li>
 	<%
 	i += 1 #try again
-	break unless @document["note_#{i}_value_tesim"] != nil
+	break unless @document["topic_#{i}_id_tesim"] != nil
 	end
 	%>
 	</ul>
 </dd>
+<% end %>

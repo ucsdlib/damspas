@@ -1,0 +1,17 @@
+<% if @document['language_1_id_tesim'] != nil %>
+	<dt class="text-dulled">Languages</dt>
+	<%
+		i = 1;
+		loop do
+		 language = render_document_show_field_value(:document=>@document, :field=>"language_#{i}_value_tesim")
+		 language_code = render_document_show_field_value(:document=>@document, :field=>"language_#{i}_code_tesim")
+		 language_uri = render_document_show_field_value(:document=>@document, :field=>"language_#{i}_valueURI_tesim")
+		 language_linktext = "<i class='icon-globe icon-white'></i> #{language} (#{language_code})".html_safe
+	%>
+	<dd><%= link_to language_linktext, language_uri, :class => "label" %></dd>
+<%
+ 	i += 1 #try again
+	break unless @document["language_#{i}_id_tesim"] != nil
+	end
+end
+%>

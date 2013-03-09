@@ -1,0 +1,8 @@
+<% if @document['otherRights_id_tesim'] != nil %>
+	<%
+		other_rights_basis = render_document_show_field_value(:document=>@document, :field=>"otherRights_basis_tesim")
+		other_rights_uri = render_document_show_field_value(:document=>@document, :field=>"otherRights_uri_tesim")
+	%>
+	<dt class="text-dulled">Other Rights</dt>	
+	<dd><p><%= link_to other_rights_basis.capitalize, other_rights_uri %></p></dd>	
+<% end %>
