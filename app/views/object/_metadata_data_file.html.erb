@@ -1,0 +1,28 @@
+<% if defined?(fileName) %>
+
+	<table class="table">
+		<tbody>
+
+				<% if @document["file_#{fileName}_size_ssi"] != nil %>
+					<tr>
+						<td>Size</td>
+						<td><b><%= @document["file_#{fileName}_size_ssi"].to_i/1024 %> KB</b></td>
+					</tr>
+				<% end %>
+
+				<% if @document["file_#{fileName}_formatName_tesim"] != nil %>
+					<% fileFormat = render_document_show_field_value(:document=>@document, :field=>"file_#{fileName}_formatName_tesim") %>
+					<tr>
+						<td>Format</td>
+						<% if fileFormat == "bytestream" %>
+							<% fileFormat = File.extname(fileName.upcase) %>
+							<% fileFormat[0] = '' %>
+						<% end %>
+						<td><b><%= fileFormat %></b></td>
+					</tr>
+				<% end %>
+
+		</tbody>
+	</table>
+
+<% end %>
