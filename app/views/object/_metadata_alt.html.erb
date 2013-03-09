@@ -3,6 +3,12 @@
 <div id="metadata-fold" class="collapse in">
 	
 	<dl class="dl-horizontal">
+		<% if@document["note_1_value_tesim"] != nil %>
+			<%= render :partial => 'object/fields/note' %>
+		<% end %>
+		<% if@document["genreForm_1_id_tesim"] != nil %>
+			<%= render :partial => 'object/fields/genreForm' %>
+		<% end %>
 		<% if @document['copyright_id_tesim'] != nil %>
 			<%
 				copyright_status = render_document_show_field_value(:document=>@document, :field=>"copyright_status_tesim")
