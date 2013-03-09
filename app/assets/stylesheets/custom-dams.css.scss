@@ -59,8 +59,10 @@ $componentHighlight: #b94a48 !default;
 .dams-metadata{margin-bottom:1em;background-color:$objectBG;padding: 0 $viewerPadding $viewerPadding $viewerPadding;border: 1px solid #d9d9d9;border-top: none;}
 .dams-metadata hr{border-top:1px solid #ddd;margin:0 15%;}
 .dams-metadata .btn-link{font-weight:bold;}
+.dams-metadata .label,.dams-metadata .badge{margin-bottom:3px;}
+#metadata-fold ul{margin-bottom:0;}
 
-// Metadata label link
+	// Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
 
 // Sidebar
