@@ -165,8 +165,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     def load
       uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsNote.find(md[1])
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsNote.find(md[1])
+      end
     end
   end
      
@@ -281,8 +283,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     def load
       uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      MadsComplexSubject.find(md[1])
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        MadsComplexSubject.find(md[1])
+      end
     end
   end
   
@@ -309,8 +313,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     def load
       uri = name.first.to_s
-      md = /\/(\w*)$/.match(uri)
-      MadsPersonalName.find(md[1])
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        MadsPersonalName.find(md[1])
+      end
     end
   end
 
@@ -328,8 +334,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     def load
       uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsScopeContentNote.find(md[1])
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsScopeContentNote.find(md[1])
+      end
     end
   end
  
@@ -347,8 +355,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     def load
       uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsPreferredCitationNote.find(md[1])
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsPreferredCitationNote.find(md[1])
+      end
     end
   end  
   
@@ -366,8 +376,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     def load
       uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsCustodialResponsibilityNote.find(md[1])
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsCustodialResponsibilityNote.find(md[1])
+      end
     end
   end    
   def load_unit
@@ -723,7 +735,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     #Solrizer.insert_field(solr_doc, 'date', date)
     
     relationship.map do |relationship| 
-      Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+      rel = relationship.load
+      if ( rel != nil )
+        Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+      end
     end
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)
