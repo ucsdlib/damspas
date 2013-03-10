@@ -290,7 +290,7 @@ PLATFORMS
 
 DEPENDENCIES
   active-fedora (= 6.0.0.pre5)
-  blacklight
+  blacklight (= 4.0.1)
   bootstrap-sass
   capybara
   coffee-rails (~> 3.2.1)
