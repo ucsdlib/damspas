@@ -608,7 +608,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 			  elsif (list[i].class == DamsDatastream::List::IconographyElement)	
 			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_iconography", list[i].elementValue.first)	
 			  elsif (list[i].class == MadsDatastream::List::TopicElement)	
-			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].elementValue.first)				  				  			  				  		  					  				  		  		  		  
+			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].elementValue.first)
+			  	Solrizer.insert_field(solr_doc, "subject_topic", list[i].elementValue.first)
 			  end																															
 			  i +=1
 			end   
