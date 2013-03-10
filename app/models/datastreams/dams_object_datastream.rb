@@ -563,6 +563,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   
   def insertFields (solr_doc, fieldName, objects)
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     if objects != nil
       n = 0
       objects.each do |obj|
@@ -609,7 +610,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_iconography", list[i].elementValue.first)	
 			  elsif (list[i].class == MadsDatastream::List::TopicElement)	
 			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].elementValue.first)
-			  	Solrizer.insert_field(solr_doc, "subject_topic", list[i].elementValue.first)
+			  	Solrizer.insert_field(solr_doc, "subject_topic", list[i].elementValue.first, facetable)
 			  end																															
 			  i +=1
 			end   
@@ -689,8 +690,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   
   end
   
-  def to_solr (solr_doc = {})
 
+  def to_solr (solr_doc = {})
     # field types
     storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
     singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
