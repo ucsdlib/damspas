@@ -4,7 +4,14 @@
 	i = 1;
 	loop do
 %>
-<dt class="text-dulled"><%=@document["note_#{i}_displayLabel_tesim"].first%></dt>	
+<dt class="text-dulled">
+	<!-- try using displayLabel, fall back on type -->
+	<% if @document["note_#{i}_displayLabel_tesim"] != nil %>
+		<%=@document["note_#{i}_displayLabel_tesim"].first%>
+	<% else %>
+		<%=@document["note_#{i}_type_tesim"].first%>
+	<% end %>
+</dt>	
 <dd>
 	<!-- using gsub to remove //" in notes. -->
 	<p><%=@document["note_#{i}_value_tesim"].first.gsub('\\\\','')%></p>
