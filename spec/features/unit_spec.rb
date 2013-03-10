@@ -6,6 +6,9 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Digital Collections')
     expect(page).to have_selector('a', :text => 'Library Collections')
     expect(page).to have_selector('a', :text => 'Research Data Curation Program')
+    expect(page).to have_selector('p', :text => 'Browse')
+    expect(page).to have_selector('a', :text => 'Topics')
+    expect(page).to have_selector('a', :text => 'Formats')
 
     expect(page).to have_field('Search...')
   end
@@ -18,16 +21,6 @@ feature 'Visitor wants to look at units' do
     click_on('Search')
 
     expect(page).to have_content('Search Results')
-  end
-
-  scenario 'browses the collections' do
-    visit units_path
-
-    expect(page).to have_selector('p', :text => 'Browse')
-
-    expect(page).to have_selector('a', :text => 'Topics')
-    expect(page).to have_selector('a', :text => 'Units')
-    expect(page).to have_selector('a', :text => 'Formats')
   end
 
   scenario 'uses the carousel' do
