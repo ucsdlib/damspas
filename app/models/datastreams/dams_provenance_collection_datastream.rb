@@ -193,7 +193,9 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
   def to_solr (solr_doc = {})
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
-    Solrizer.insert_field(solr_doc, 'date', date.first.value)
+    if date.first != nil
+      Solrizer.insert_field(solr_doc, 'date', date.first.value)
+    end
 
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
