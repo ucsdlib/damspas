@@ -7,9 +7,9 @@
 <dt class="text-dulled">
 	<!-- try using displayLabel, fall back on type -->
 	<% if @document["note_#{i}_displayLabel_tesim"] != nil %>
-		<%=@document["note_#{i}_displayLabel_tesim"].first%>
+		<%=@document["note_#{i}_displayLabel_tesim"].first.titleize%>
 	<% else %>
-		<%=@document["note_#{i}_type_tesim"].first%>
+		<%=@document["note_#{i}_type_tesim"].first.titleize%>
 	<% end %>
 </dt>	
 <dd>
