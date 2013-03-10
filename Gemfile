@@ -5,7 +5,7 @@ gem 'rails', '3.2.11'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'blacklight'
+gem 'blacklight', '4.0.1'
 gem 'solrizer-fedora', '3.0.0.pre1'
 gem 'solrizer', '3.0.0.pre4'
 gem 'hydra-head', "6.0.0.pre3"
