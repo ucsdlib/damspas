@@ -35,16 +35,24 @@ else
   exit 1
 end
 
-begin
-  ARGV.each do |pid|
+errors = Array.new
+ARGV.each do |pid|
+  begin
     puts "\nPID: #{pid}\n"
     solrizer = Solrizer::Fedora::Solrizer.new
     solrizer.solrize pid
     puts  "updated solr index for #{pid}\n"
+  rescue Exception => e
+    errors << pid
+    p e
+    e.backtrace.each do |line|
+      p line
+    end
   end
-rescue Exception => e
-  p e
-  e.backtrace.each do |line|
-    p line
+end
+if errors.size > 0
+  puts "errors:"
+  errors.each do |pid|
+    puts pid
   end
 end
