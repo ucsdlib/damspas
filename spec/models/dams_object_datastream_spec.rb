@@ -243,7 +243,7 @@ describe DamsObjectDatastream do
       it "should index unit" do
         solr_doc = subject.to_solr
         solr_doc["unit_id_tesim"].should == ["bb02020202"]
-        solr_doc["unit_name_tesim"].should == ["Library Digital Collections"]
+        solr_doc["unit_name_tesim"].should == ["Library Collections"]
       end
       it "should index collection" do
         solr_doc = subject.to_solr

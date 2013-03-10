@@ -105,7 +105,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     
     def external?
-     puts rdf_subject
+      #puts rdf_subject
       rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
     def load
