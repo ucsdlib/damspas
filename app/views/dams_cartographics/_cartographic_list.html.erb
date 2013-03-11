@@ -1,0 +1,12 @@
+<%
+  if dams_cartographic.point.first != nil
+    coords = dams_cartographic.point.first
+  elsif dams_cartographic.line.first != nil
+    coords = dams_cartographic.line.first
+  elsif dams_cartographic.polygon.first != nil
+    coords = dams_cartographic.polygon.first
+  else
+    coords = "invalid"
+  end
+%>
+<li><%= link_to coords, dams_cartographic %></li>

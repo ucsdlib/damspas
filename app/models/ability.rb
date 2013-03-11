@@ -15,6 +15,7 @@ class Ability
   		can [:read], DamsProvenanceCollectionPart
   		can [:read], DamsVocabularyEntry
   		can [:read], DamsSourceCapture
+  		can [:read], DamsCartographic
   		can [:read], MadsPersonalName
   		can [:read], SolrDocument
   	else  #login user
@@ -31,6 +32,7 @@ class Ability
   		can [:read, :create, :update], DamsProvenanceCollectionPart
   		can [:read, :create, :update], DamsVocabularyEntry
   		can [:read, :create, :update], DamsSourceCapture
+  		can [:read, :create, :update], DamsCartographic
   		can [:read, :create, :update], MadsPersonalName
   		can [:read, :create, :update], SolrDocument
     end

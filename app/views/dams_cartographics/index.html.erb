@@ -1,0 +1,12 @@
+<h1>Cartographics</h1>
+
+<div class="span6">
+	<ul><%= render_cartographic_list %></ul>
+</div>
+
+<div>
+	<% if can? :create, DamsCartographic%>
+	<%= link_to "Create Cartographics", new_dams_cartographic_path, :class => 'btn btn-primary' %>
+	<% end %>
+</div>
+</div>
