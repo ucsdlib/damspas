@@ -13,8 +13,7 @@
 	<% end %>
 </dt>	
 <dd>
-	<!-- using gsub to remove //" in notes. -->
-	<p><%=@document["note_#{i}_value_tesim"].first.gsub('\\\\','')%></p>
+	<p><%=@document["note_#{i}_value_tesim"].first%></p>
 </dd>
 <%
 	i += 1 #try again
