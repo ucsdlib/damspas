@@ -17,7 +17,7 @@ describe DamsLanguage do
     <dams:vocabulary rdf:resource="http://library.ucsd.edu/ark:/20775/bb15151515"/>
     <dams:code>fr</dams:code>
     <rdf:value>French</rdf:value>
-    <dams:valueURI>http://id.loc.gov/vocabulary/iso639-1/fr</dams:valueURI>
+    <dams:valueURI rdf:resource="http://id.loc.gov/vocabulary/iso639-1/fr"/>
   </dams:Language>
 </rdf:RDF>
 END
