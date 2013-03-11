@@ -5,7 +5,7 @@
     <dams:authority>ISO 3166-1</dams:authority>
     <dams:code>us</dams:code>
     <rdf:value>United States</rdf:value>
-    <dams:authorityURI>http://www.loc.gov/standards/mods/</dams:authorityURI>
-    <dams:valueURI>http://www.loc.gov/standards/mods/</dams:valueURI>
+    <dams:authorityURI rdf:resource="http://www.loc.gov/standards/mods/"/>
+    <dams:valueURI rdf:resource="http://www.loc.gov/standards/mods/"/>"
   </dams:VocabularyEntry>
 </rdf:RDF>
