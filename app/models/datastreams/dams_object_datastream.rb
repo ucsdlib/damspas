@@ -140,6 +140,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.sourceFileName(:in=>DAMS)
         map.size(:in=>DAMS)
         map.compositionLevel(:in=>DAMS)
+        map.filestore(:in=>DAMS)
       end
       def id
         fid = rdf_subject.to_s
@@ -202,6 +203,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.sourceFileName(:in=>DAMS)
       map.size(:in=>DAMS)
       map.compositionLevel(:in=>DAMS)
+      map.filestore(:in=>DAMS)
     end
     def id
       fid = rdf_subject.to_s
@@ -928,6 +930,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_use", file.use)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_dateCreated", file.dateCreated)
           Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_quality", file.quality)
+          Solrizer.insert_field(solr_doc, "file_#{cid}_#{fid}_filestore", file.filestore)
         end
       }
     }
@@ -955,6 +958,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "file_#{fid}_use", file.use)
       Solrizer.insert_field(solr_doc, "file_#{fid}_dateCreated", file.dateCreated)
       Solrizer.insert_field(solr_doc, "file_#{fid}_quality", file.quality)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_filestore", file.filestore)
     }
     n = 0
     relatedResource.map do |resource|
