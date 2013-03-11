@@ -30,7 +30,7 @@
 					<% if @document["component_#{componentIndex}_file_#{fileName}_size_ssi"] != nil %>
 						<tr>
 							<td>Size</td>
-							<td><b><%= @document["component_#{componentIndex}_file_#{fileName}_size_ssi"].to_i/1024 %> KB</b></td>
+							<td><b><%=number_to_human_size(@document["component_#{componentIndex}_file_#{fileName}_size_ssi"].to_i)%></b></td>
 						</tr>
 					<% end %>
 
