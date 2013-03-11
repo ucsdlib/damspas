@@ -1,7 +1,7 @@
 <% if @document['resource_type_tesim'] != nil 
 	resource_type = @document['resource_type_tesim'].first
 %>
-	<dt class="text-dulled">Format</dt>	
+	<dt>Format</dt>
 	<dd>
 			<%= link_to "<i class='icon-tag icon-white'></i> #{resource_type}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %>
 	</dd>

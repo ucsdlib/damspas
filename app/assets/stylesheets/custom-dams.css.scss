@@ -4,12 +4,11 @@ $linkColor: #016691 !default;
 $objectBG: #e9e9e9 !default;
 $componentBG: #fcfcfc !default;
 $viewerPadding: 3% !default;
-$componentHighlight: #b94a48 !default;
-/*----------------------------*/
-/* COMPLEX OBJECT VIEWER PAGE */
-/*----------------------------*/
+$componentHighlight: #AD702B !default;
 
-.text-dulled{color: #666;}
+//----------------------------------------------------------
+// COMPLEX OBJECT VIEWER PAGE
+//----------------------------------------------------------
 
 // COMPONENTS
 
@@ -17,10 +16,11 @@ $componentHighlight: #b94a48 !default;
 .simple-object{margin:$viewerPadding;padding:$viewerPadding;background-color:#d6d6d6;border-radius: 10px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 
 .simple-object .table th,.simple-object .table td{border-color:#bbb;}
+.simple-object .form-actions{background-color: #ccc; border-top-color: #bbb}
 
 .component .video-js,
 .component .audiojs,
-.simple-object .video-js,
+.simple-object .video-js{margin: 0 auto 20px auto;}
 .simple-object .audiojs{margin: 0 auto;}
 
 
@@ -28,14 +28,16 @@ $componentHighlight: #b94a48 !default;
 .simple-object img{width:100%;margin:0 auto;display:block;}
 
 .first-component{display:block;}
-.component h2{font-size:125%;padding:0;margin:0 0 20px 0;line-height:100%;}
+.component h2{font-size:125%;padding:0;margin:0 0 20px 0;line-height:100%;color: $componentHighlight;}
+.component .table,.simple-object .table{margin-bottom:0;}
+
+.component .alert,
+.simple-object .alert{margin-bottom:0;}
 
 
-
-
-/*------------------*/
-/* UNITS INDEX PAGE */
-/*------------------*/
+//----------------------------------------------------------
+// UNITS INDEX PAGE
+//----------------------------------------------------------
 
 .dams-search-box h4{margin:0 0 10px 0;line-height:inherit;}
 .sidebar-button-list .btn{text-align:left;}
@@ -43,13 +45,12 @@ $componentHighlight: #b94a48 !default;
 .carousel .item img{width:100%;}
 .carousel .item{max-height:600px;}
 
-/*--------------------*/
-/* OBJECT VIEWER PAGE */
-/*--------------------*/
+//----------------------------------------------------------
+// OBJECT VIEWER PAGE
+//----------------------------------------------------------
 
-// Viewer 
+// Viewer
 .dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: none;}
-.dams-viewer .table{}
 .dams-viewer h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
 
 .dams-download-button{margin:0;}
@@ -61,6 +62,8 @@ $componentHighlight: #b94a48 !default;
 .dams-metadata .btn-link{font-weight:bold;}
 .dams-metadata .label,.dams-metadata .badge{margin-bottom:3px;}
 #metadata-fold ul{margin-bottom:0;}
+.dams-metadata dd{color: #666;}
+.dams-metadata dd strong{color: #555;}
 
 	// Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
@@ -81,51 +84,49 @@ $componentHighlight: #b94a48 !default;
 .active-component{color: $componentHighlight !important;font-weight:bold !important;}
 
 
-/*---------------*/
-/* MEDIA QUERIES */
-/*---------------*/
+//----------------------------------------------------------
+// MEDIA QUERIES
+//----------------------------------------------------------
 
-/* LARGE DESKTOP (BOOTSTRAP) */
+// LARGE DESKTOP (BOOTSTRAP)
 @media (min-width: 1200px) {}
 
-/* DESKTOP TWEEN (CUSTOM) */
+// DESKTOP TWEEN (CUSTOM)
 @media (min-width: 980px) and (max-width:1199px) {}
 
-//---
 // DESKTOP (CUSTOM)
-//---
 @media (min-width: 980px)
 {
 	// OBJECT VIEWER PAGE
 	.dams-viewer img{width:40%;}
 }
 
-//---
 // PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP)
-//---
 @media (min-width: 768px) and (max-width: 979px)
 {
-	/* OBJECT VIEWER PAGE */
+	// OBJECT VIEWER PAGE
 	.dams-viewer img{width:50%;}
 }
 
-/* MOBILE (CUSTOM) */
+// MOBILE (CUSTOM)
 @media (max-width: 979px) {}
 
-/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
+// LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP)
 @media (max-width: 767px)
 {
-	 /* OBJECT VIEWER PAGE */
+	 // OBJECT VIEWER PAGE
 	.dams-viewer img{width:50%;}
+	.dams-download-button .btn{display:block;float:none;}
+	.component .video-js{height: 300px;}
 }
  
-/* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
+// LANDSCAPE PHONES AND DOWN (BOOTSTRAP)
 @media (max-width: 480px)
 {
-	 /* OBJECT VIEWER PAGE */
+	 // OBJECT VIEWER PAGE
 	.dams-viewer img{width:100%;}
 
-	/* UNITS INDEX PAGE */
+	// UNITS INDEX PAGE
 	.search-query-form .btn{width:100%;}
 }
 

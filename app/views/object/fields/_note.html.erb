@@ -1,24 +1,28 @@
-<% if@document["note_1_value_tesim"] != nil
-	#fields:
-	# note_1_type_tesim, note_1_value_tesim, note_1_displayLabel_tesim
-	i = 1;
-	loop do
-%>
-<dt class="text-dulled">
-	<!-- try using displayLabel, fall back on type -->
-	<% if @document["note_#{i}_displayLabel_tesim"] != nil %>
-		<%=@document["note_#{i}_displayLabel_tesim"].first.titleize%>
-	<% else %>
-		<%=@document["note_#{i}_type_tesim"].first.titleize%>
-	<% end %>
-</dt>	
-<dd>
-	<!-- temporarily remove extra escape characters with gsub. remove once data is reloaded -->
-	<p><%=@document["note_#{i}_value_tesim"].first.gsub('\\\\','')%></p>
-</dd>
-<%
-	i += 1 #try again
-	break unless @document["note_#{i}_value_tesim"] != nil
-	end
-end
-%>
+<% if@document["note_1_value_tesim"] != nil %>
+	<dt>Notes</dt>
+	<dd>
+		<%
+			#fields:
+			# note_1_type_tesim, note_1_value_tesim, note_1_displayLabel_tesim
+			i = 1;
+			loop do
+		%>
+		<p>
+			<strong>
+				<!-- try using displayLabel, fall back on type -->
+				<% if @document["note_#{i}_displayLabel_tesim"] != nil %>
+					<%=@document["note_#{i}_displayLabel_tesim"].first.titleize%>
+				<% else %>
+					<%=@document["note_#{i}_type_tesim"].first.titleize%>
+				<% end %>
+			</strong>
+		</p>
+		<!-- temporarily remove extra escape characters with gsub. remove once data is reloaded -->
+		<p><%=@document["note_#{i}_value_tesim"].first.gsub('\\\\','')%></p>
+		<%
+			i += 1 #try again
+			break unless @document["note_#{i}_value_tesim"] != nil
+			end
+		%>
+	</dd>
+<% end %>

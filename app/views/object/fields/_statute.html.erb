@@ -4,7 +4,7 @@
 		statute_note = render_document_show_field_value(:document=>@document, :field=>"statute_note_tesim")
 		statute_jurisdiction = render_document_show_field_value(:document=>@document, :field=>"statute_jurisdiction_tesim")
 	%>
-	<dt class="text-dulled">Statute</dt>	
+	<dt>Statute</dt>
 	<dd>
 		<p><strong><%= statute_citation %> &ndash; <%= statute_jurisdiction.upcase %></strong></p>
 		<p><%= statute_note %></p>
