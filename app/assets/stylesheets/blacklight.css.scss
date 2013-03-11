@@ -19,6 +19,8 @@ $navbarInverseText:                 $white !default;
 $navbarInverseLinkColor:            $white !default;
 $navbarInverseLinkBackgroundHover:  $booberry !default;
 $navbarInverseLinkBackgroundActive: $booberry !default;
+$btnInverseBackground:              #E67A00;
+$btnInverseBackgroundHighlight:     darken($btnInverseBackground, 15%) !default;
 
 //---
 // @imports

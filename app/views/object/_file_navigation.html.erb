@@ -12,9 +12,7 @@
 					service_file_path = "/view/#{ark}/_#{service_file}"
 					display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{display_file}" : ""
 				%>
-				<div class="simple-object">
-					<%= render :partial => 'file_viewers_select', :locals => {:fileType=>fileType, :display_file_path=>display_file_path, :service_file_path=>service_file_path, :service_file=>service_file} %>
-				</div>
+				<%= render :partial => 'file_viewers_select', :locals => {:fileType=>fileType, :display_file_path=>display_file_path, :service_file_path=>service_file_path, :service_file=>service_file} %>
 			<%end%>
 		<% end %>
 	</div>

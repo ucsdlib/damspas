@@ -2,6 +2,6 @@
 	<%
 		unit_name = render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim")
 	%>
-	<dt class="text-dulled">Unit</dt>
+	<dt>Unit</dt>
 	<dd><%= link_to "<i class='icon-tag icon-white'></i> #{unit_name}".html_safe, facet_uri(unit_name,'unit_sim'), :class => "label" %></dd>
 <% end %>

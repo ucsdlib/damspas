@@ -3,6 +3,6 @@
 		license_note = render_document_show_field_value(:document=>@document, :field=>"license_note_tesim")
 		license_uri = render_document_show_field_value(:document=>@document, :field=>"license_uri_tesim")
 	%>					
-	<dt class="text-dulled">License</dt>	
+	<dt>License</dt>
 	<dd><p><%= link_to license_note, license_uri %></p></dd>
 <% end %>

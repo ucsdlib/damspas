@@ -21,8 +21,6 @@
 
 	def displayNodes(index)
 
-		firstButton = (index == 1) ? " active-component" : ""
-
 		concat "<li>".html_safe
 
 		case
@@ -47,7 +45,7 @@
 					end
 				end
 				
-				concat "<button type='button' class='btn btn-block btn-small btn-link dams-file#{firstButton}' onClick='showComponent(this,#{index});'><i class='#{icon}'></i> ".html_safe
+				concat "<button type='button' class='btn btn-block btn-small btn-link dams-file#{@firstButton}' onClick='showComponent(this,#{index});'><i class='#{icon}'></i> ".html_safe
 				componentTitle index
 				concat "</button>".html_safe
 
@@ -68,15 +66,19 @@
 		
 		concat "</li>".html_safe
 
+		@firstButton = nil
+
 	end
 
 #---
 # MAIN
 #---
-
+	objectTitle = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
   component_count = @document['component_count_isi']
+	@firstButton = " first-component active-component"
 
-  if component_count > 0
+
+	if component_count > 0
 
     @isParent = []
     @isChild = []
@@ -103,7 +105,9 @@
 
 <% if component_count > 0   %>
 
-  <button type="button" class="btn btn-block btn-link dams-components-button sidebar-header" onClick="$('[id^=meta-]').collapse('toggle');"><strong>Components</strong></button>
+  <button type="button" class="btn btn-block btn-link dams-components-button sidebar-header" onClick="$('[id^=meta-]').collapse('toggle');">
+		<strong><%= @firstIndex %> Components</strong>
+	</button>
   <div class="components-tree">
     <ul class="unstyled">
       <%
