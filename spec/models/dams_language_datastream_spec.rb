@@ -20,7 +20,8 @@ describe DamsLanguageDatastream do
       it "should have a code and valueURI" do
         subject.code = "fr"
         subject.code.should == ["fr"]
-        subject.valueURI.should == ["http://id.loc.gov/vocabulary/iso639-1/fr"]
+        subject.valueURI = "http://id.loc.gov/vocabulary/iso639-1/fr"
+        subject.valueURI.to_s.should == "http://id.loc.gov/vocabulary/iso639-1/fr"
       end
 
     end
@@ -53,6 +54,13 @@ describe DamsLanguageDatastream do
         subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb15151515"]
       end
 
+      it "should have a fields from solr doc" do
+        solr_doc = subject.to_solr
+        solr_doc["code_tesim"].should == ["fr"]
+        solr_doc["value_tesim"].should == ["French"]
+        solr_doc["vocabulary_tesim"].should == ["http://library.ucsd.edu/ark:/20775/bb15151515"]
+        solr_doc["valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/iso639-1/fr"]
+      end    
     end
   end
 end
