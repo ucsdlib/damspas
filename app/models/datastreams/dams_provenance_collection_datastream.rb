@@ -9,6 +9,8 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.language(:in=>DAMS)
     map.part_node(:in=>DAMS,:to=>'hasPart')
+    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')   
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -101,24 +103,6 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.endDate(:in=>DAMS)
     end
   end
-  class ScopeContentNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.ScopeContentNote
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-  end
-  class Note
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Note
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-  end
   class Relationship
     include ActiveFedora::RdfObject
     rdf_type DAMS.Relationship
@@ -168,6 +152,87 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
+  class Note
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Note
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsNote.find(md[1])
+    end
+  end
+
+  class ScopeContentNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.ScopeContentNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      #puts rdf_subject
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      md = /\/(\w*)$/.match(uri)
+      DamsScopeContentNote.find(md[1])
+    end
+  end
+
+  class PreferredCitationNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.PreferredCitationNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsPreferredCitationNote.find(md[1])
+      end
+    end
+  end  
+  
+  class CustodialResponsibilityNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.CustodialResponsibilityNote
+    map_predicates do |map|
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsCustodialResponsibilityNote.find(md[1])
+      end
+    end
+  end  
+  
   def load_languages
     languages = []
     language.values.each do |lang|
@@ -189,7 +254,25 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       nil
     end
   end
+
+  def insertNoteFields (solr_doc, fieldName, objects)
+    n = 0
+    objects.map do |no| 
+      n += 1
+      if (no.external?)
+ 		Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", no.load.pid)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.load.type)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.load.value)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.load.displayLabel)      
+      else
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.type)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.value)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.displayLabel)      	
+      end
+    end  
   
+  end
+    
   def to_solr (solr_doc = {})
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
@@ -204,11 +287,10 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationship.map do |relationship| 
       Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
     end
-    note.map do |note|
-      #map.value(:in=> RDF)
-      #map.displayLabel(:in=>DAMS)
-      #map.type(:in=>DAMS)
-    end
+    insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
+    insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
+    insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
+    insertNoteFields solr_doc, 'note',note
 
 
     langs = load_languages
