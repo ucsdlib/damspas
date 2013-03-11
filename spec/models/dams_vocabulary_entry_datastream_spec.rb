@@ -23,17 +23,17 @@ describe DamsVocabularyEntryDatastream do
       end
 
       it "should have an authority" do
-        subject.code = "ISO 3166-1"
-        subject.code.should == ["ISO 3166-1"]
+        subject.authority = "ISO 3166-1"
+        subject.authority.should == ["ISO 3166-1"]
       end
       
       it "should have an authorityURI" do
-        subject.code = "http://www.loc.gov/standards/mods/"
-        subject.code.should == ["http://www.loc.gov/standards/mods/"]
+        subject.authorityURI = "http://www.loc.gov/standards/mods/"
+        subject.authorityURI.should == "http://www.loc.gov/standards/mods/"
       end
       it "should have a valueURI" do
-        subject.code = "http://www.loc.gov/standards/mods/"
-        subject.code.should == ["http://www.loc.gov/standards/mods/"]
+        subject.valueURI = "http://www.loc.gov/standards/mods/"
+        subject.valueURI.should == "http://www.loc.gov/standards/mods/"
       end      
     end
 
@@ -72,7 +72,15 @@ describe DamsVocabularyEntryDatastream do
       it "should have a vocabulary" do
         subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb43434343"]
       end
-
+      it "should have a fields from solr doc" do
+        solr_doc = subject.to_solr
+        solr_doc["code_tesim"].should == ["us"]
+        solr_doc["value_tesim"].should == ["United States"]
+        solr_doc["authority_tesim"].should == ["ISO 3166-1"]
+        solr_doc["vocabulary_tesim"].should == ["http://library.ucsd.edu/ark:/20775/bb43434343"]
+        solr_doc["valueURI_tesim"].should == ["http://www.loc.gov/standards/mods/"]
+        solr_doc["authorityURI_tesim"].should == ["http://www.loc.gov/standards/mods/"]
+      end 
     end
   end
 end
