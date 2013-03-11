@@ -20,6 +20,12 @@ class CatalogController < ApplicationController
   # This filters out objects that you want to exclude from search results, like FileAssets
   CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
 
+  # exclude opentopo records here
+  CatalogController.solr_search_params_logic += [:exclude_opentopo]
+  def exclude_opentopo(solr_parameters,user_parameters)
+    solr_parameters[:fq] << "-collections_tesim:bd01373201"
+  end
+
   configure_blacklight do |config|
 
     config.default_solr_params = { 
