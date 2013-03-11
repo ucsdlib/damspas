@@ -8,6 +8,8 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.language(:in=>DAMS)
+    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -114,7 +116,49 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsScopeContentNote.find(md[1])
     end
   end
+
+  class PreferredCitationNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.PreferredCitationNote
+    map_predicates do |map|    
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsPreferredCitationNote.find(md[1])
+      end
+    end
+  end  
   
+  class CustodialResponsibilityNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.CustodialResponsibilityNote
+    map_predicates do |map|
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsCustodialResponsibilityNote.find(md[1])
+      end
+    end
+  end    
+    
   class Relationship
     include ActiveFedora::RdfObject
     rdf_type DAMS.Relationship
@@ -176,6 +220,23 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     languages
   end
 
+  def insertNoteFields (solr_doc, fieldName, objects)
+    n = 0
+    objects.map do |no| 
+      n += 1
+      if (no.external?)
+ 		Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", no.load.pid)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.load.type)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.load.value)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.load.displayLabel)      
+      else
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.type)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.value)
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.displayLabel)      	
+      end
+    end  
+  
+  end
   def to_solr (solr_doc = {})
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
@@ -209,35 +270,10 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
-    n = 0
-    note.map do |no| 
-      n += 1
-      if (no.external?)
- 		Solrizer.insert_field(solr_doc, "note_#{n}_id", no.load.pid)
-        Solrizer.insert_field(solr_doc, "note_#{n}_type", no.load.type)
-        Solrizer.insert_field(solr_doc, "note_#{n}_value", no.load.value)
-        Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", no.load.displayLabel)      
-      else
-        Solrizer.insert_field(solr_doc, "note_#{n}_type", no.type)
-        Solrizer.insert_field(solr_doc, "note_#{n}_value", no.value)
-        Solrizer.insert_field(solr_doc, "note_#{n}_displayLabel", no.displayLabel)      	
-      end
-    end
- 
-    n = 0
-    scopeContentNote.map do |no| 
-      n += 1
-      if (no.external?)
- 		Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_id", no.load.pid)
-        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_type", no.load.type)
-        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_value", no.load.value)
-        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_displayLabel", no.load.displayLabel)      
-      else
-        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_type", no.type)
-        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_value", no.value)
-        Solrizer.insert_field(solr_doc, "scopeContentNote_#{n}_displayLabel", no.displayLabel)      	
-      end
-    end    
+    insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
+    insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
+    insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
+    insertNoteFields solr_doc, 'note',note
        
     n = 0
     relatedResource.map do |resource|

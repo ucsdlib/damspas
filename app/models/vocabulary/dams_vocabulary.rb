@@ -87,6 +87,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :vocabulary
   property :component
   property :Component
+  property :filestore
   property :file
   property :File
   property :sourcePath
