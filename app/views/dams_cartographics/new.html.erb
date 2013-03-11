@@ -1,0 +1,11 @@
+<h1>Create a new DAMS Cartographics</h1>
+<%= form_for @dams_cartographic do |f| %>
+  <%= label_tag 'dams_cartographic[projection]', "projection" %><%= text_field_tag 'dams_cartographic[projection]' %>
+  <%= label_tag 'dams_cartographic[referenceSystem]', "referenceSystem" %><%= text_field_tag 'dams_cartographic[referenceSystem]' %>
+  <%= label_tag 'dams_cartographic[scale]', "scale" %><%= text_field_tag 'dams_cartographic[scale]' %>
+  <%= label_tag 'dams_cartographic[point]', "point" %><%= text_field_tag 'dams_cartographic[point]' %>
+  <%= label_tag 'dams_cartographic[line]', "line" %><%= text_field_tag 'dams_cartographic[line]' %>
+  <%= label_tag 'dams_cartographic[polygon]', "polygon" %><%= text_field_tag 'dams_cartographic[polygon]' %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>

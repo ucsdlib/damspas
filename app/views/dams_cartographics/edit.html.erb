@@ -1,0 +1,12 @@
+<h1>Edit DAMS Cartographics</h1>
+<%= form_for @dams_cartographic do |f| %>
+  <%= label_tag 'dams_cartographic[projection]', "projection" %><%= text_field_tag 'dams_cartographic[projection][]', @dams_cartographic.projection[0] %>
+  <%= label_tag 'dams_cartographic[referenceSystem]', "referenceSystem" %><%= text_field_tag 'dams_cartographic[referenceSystem][]', @dams_cartographic.referenceSystem[0] %>
+  <%= label_tag 'dams_cartographic[scale]', "scale" %><%= text_field_tag 'dams_cartographic[scale][]', @dams_cartographic.scale[0] %>
+  <%= label_tag 'dams_cartographic[point]', "point" %><%= text_field_tag 'dams_cartographic[point][]', @dams_cartographic.point[0] %>
+  <%= label_tag 'dams_cartographic[line]', "line" %><%= text_field_tag 'dams_cartographic[line][]', @dams_cartographic.line[0] %>
+  <%= label_tag 'dams_cartographic[polygon]', "polygon" %><%= text_field_tag 'dams_cartographic[polygon][]', @dams_cartographic.polygon[0] %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_cartographic_path( @dams_cartographic ), class: "btn btn-primary" %>
+<%end%>
