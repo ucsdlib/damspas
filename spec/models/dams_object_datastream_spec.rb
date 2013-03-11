@@ -212,7 +212,7 @@ describe DamsObjectDatastream do
         solr_doc["copyright_id_tesim"].should == ["bb05050505"]
         solr_doc["copyright_status_tesim"].should == ["Under copyright -- 3rd Party"]
         solr_doc["copyright_jurisdiction_tesim"].should == ["us"]
-        solr_doc["copyright_note_tesim"].should == ["This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \\\\\"fair use\\\\\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."]
+        solr_doc["copyright_note_tesim"].should == ["This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."]
         solr_doc["copyright_purposeNote_tesim"].should == ["This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study."]
         solr_doc["copyright_beginDate_tesim"].should == ["1993-12-31"]
 
@@ -364,7 +364,7 @@ END
 		testIndexNoteFields "scopeContentNote","bd1366006j","scope_and_content","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","Scope and contents"
       end   
       it "should have preferredCitationNote" do
-		testIndexNoteFields "preferredCitationNote","bd3959888k","citation","\\\\\"Data at Redshift=1.4 (RD0022).\\\\\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \\\\\"The Santa Fe Light Cone Simulation research project files.\\\\\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)","Citation"
+		testIndexNoteFields "preferredCitationNote","bd3959888k","citation","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)","Citation"
       end    
       it "should have CustodialResponsibilityNote" do
 		testIndexNoteFields "custodialResponsibilityNote","bd9113515d","custodial_history","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)","Digital object made available by"
