@@ -122,4 +122,12 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :SourceCapture
   property :sourceCapture
   property :BuiltWorkPlaceElement
+  property :cartographics
+  property :Cartographics
+  property :point
+  property :line
+  property :polygon
+  property :projection
+  property :referenceSystem
+  property :scale
 end
