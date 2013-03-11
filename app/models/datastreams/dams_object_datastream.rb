@@ -40,6 +40,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.genreForm(:in => DAMS)
     map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
     map.occupation(:in => DAMS)            
+    map.cartographics(:in => DAMS, :class_name => 'Cartographics')
  end
 
 # DAMS Object links/properties from data dictionary
@@ -365,7 +366,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class CustodialResponsibilityNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.CustodialResponsibilityNote
-    map_predicates do |map|    
+    map_predicates do |map|
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
@@ -701,7 +702,22 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end  
   
   end
-  
+
+  class Cartographics
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Cartographics
+    map_predicates do |map|
+      map.point(:in=>DAMS)
+      map.line(:in=>DAMS)
+      map.polygon(:in=>DAMS)
+      map.projection(:in=>DAMS)
+      map.referenceSystem(:in=>DAMS)
+      map.scale(:in=>DAMS)
+    end
+    def to_solr (solr_doc = {})
+      super solr_doc
+    end
+  end
 
   def to_solr (solr_doc = {})
     # field types
@@ -709,6 +725,15 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
     storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+
+    cartographics.map do |cart|
+      Solrizer.insert_field(solr_doc, "cartographics_point", cart.point)
+      Solrizer.insert_field(solr_doc, "cartographics_line", cart.line)
+      Solrizer.insert_field(solr_doc, "cartographics_polygon", cart.polygon)
+      Solrizer.insert_field(solr_doc, "cartographics_projection", cart.projection)
+      Solrizer.insert_field(solr_doc, "cartographics_referenceSystem", cart.referenceSystem)
+      Solrizer.insert_field(solr_doc, "cartographics_scale", cart.scale)
+    end
 
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel

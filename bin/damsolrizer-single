@@ -44,9 +44,9 @@ ARGV.each do |pid|
     puts  "updated solr index for #{pid}\n"
   rescue Exception => e
     errors << pid
-    p e
+    puts e.to_s
     e.backtrace.each do |line|
-      p line
+      puts line
     end
   end
 end
