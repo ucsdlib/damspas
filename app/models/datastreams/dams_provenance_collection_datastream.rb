@@ -277,6 +277,8 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
 
+    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
+    Solrizer.insert_field(solr_doc, 'col_name', title.first.value, singleString)
     Solrizer.insert_field(solr_doc, 'type', 'Collection')
     Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
 
