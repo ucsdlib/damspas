@@ -24,6 +24,7 @@ class CatalogController < ApplicationController
   CatalogController.solr_search_params_logic += [:exclude_opentopo]
   def exclude_opentopo(solr_parameters,user_parameters)
     solr_parameters[:fq] << "-collections_tesim:bd6587977w"
+    solr_parameters[:fq] << "-collections_tesim:bd5905379f"
   end
 
   configure_blacklight do |config|
