@@ -106,7 +106,7 @@
 <% if component_count > 0   %>
 
   <button type="button" class="btn btn-block btn-link dams-components-button sidebar-header" onClick="$('[id^=meta-]').collapse('toggle');">
-		<strong><%= @firstIndex %> Components</strong>
+		<strong><%= @firstIndex %> <%=render_document_show_field_value(:document=>@document, :field=>'title_tesim')%> Components</strong>
 	</button>
   <div class="components-tree">
     <ul class="unstyled">

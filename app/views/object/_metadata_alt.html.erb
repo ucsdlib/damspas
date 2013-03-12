@@ -3,6 +3,8 @@
 <div id="metadata-fold" class="collapse in">
 	
 	<dl class="dl-horizontal">
+		<%= render :partial => 'object/fields/collection' %>
+		<%= render :partial => 'object/fields/unit' %>
 		<%= render :partial => 'object/fields/date' %>
 		<%= render :partial => 'object/fields/language' %>
 		<%= render :partial => 'object/fields/type_of_resource' %>
@@ -11,8 +13,6 @@
 		<%= render :partial => 'object/fields/genre_form' %>
 		<%= render :partial => 'object/fields/corporate_name' %>
 		<%= render :partial => 'object/fields/note' %>
-		<%= render :partial => 'object/fields/unit' %>
-		<%= render :partial => 'object/fields/collection' %>
 		<%= render :partial => 'object/fields/copyright' %>
 		<%= render :partial => 'object/fields/license' %>
 		<%= render :partial => 'object/fields/statute' %>
