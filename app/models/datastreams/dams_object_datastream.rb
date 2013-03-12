@@ -776,10 +776,16 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     #Solrizer.insert_field(solr_doc, 'date', date)
 
+    names = []
     relationship.map do |relationship|
       rel = relationship.load
       if ( rel != nil )
-        Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+        #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+        begin
+          names << rel.name.first.to_s
+        rescue
+          puts "error: #{rel}"
+        end
       end
       relRole = relationship.loadRole
       if ( rel != nil )
@@ -787,6 +793,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
         Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI )
       end      
+    end
+    names.sort.each do |n|
+      Solrizer.insert_field(solr_doc, 'name', n )
     end
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)
