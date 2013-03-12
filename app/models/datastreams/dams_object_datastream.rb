@@ -324,6 +324,14 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         MadsPersonalName.find(md[1])
       end
     end
+    
+    def loadRole
+      uri = role.first.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsRole.find(md[1])
+      end
+    end    
   end
 
   class ScopeContentNote
@@ -773,6 +781,12 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       if ( rel != nil )
         Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
       end
+      relRole = relationship.loadRole
+      if ( rel != nil )
+        Solrizer.insert_field(solr_doc, 'role', relationship.loadRole.value )
+        Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
+        Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI )
+      end      
     end
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)
