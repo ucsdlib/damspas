@@ -1,0 +1,20 @@
+<% if @document["collection_1_id_tesim"] != nil %>
+	<dt>Collections</dt>
+	<dd>
+		<ul class="unstyled">
+			<%
+			#fields:
+			# topic_1_id_tesim, topic_1_name_tesim,
+			# TODO make sure facet links work
+			i = 1;
+			loop do
+			%>
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{@document["collection_#{i}_name_tesim"].first}".html_safe, facet_uri(@document["collection_#{i}_name_tesim"].first, 'collection_sim'), :class => "label" %></li>
+		<%
+		i += 1 #try again
+		break unless @document["collection_#{i}_id_tesim"] != nil
+		end
+		%>
+		</ul>
+	</dd>
+<% end %>

@@ -896,6 +896,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "collections", collection.pid)
         Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
         Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)
+        Solrizer.insert_field(solr_doc, "collection", collection.title.first.value, facetable)
         if ( collection.kind_of? DamsAssembledCollection )
           Solrizer.insert_field(solr_doc, "collection_#{n}_type", "AssembledCollection")
         elsif ( collection.kind_of? DamsProvenanceCollectionPart )
