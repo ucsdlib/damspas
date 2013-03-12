@@ -791,7 +791,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       if ( rel != nil )
         Solrizer.insert_field(solr_doc, 'role', relationship.loadRole.value )
         Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
-        Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI )
+        Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI.first.to_s )
       end      
     end
     names.sort.each do |n|
