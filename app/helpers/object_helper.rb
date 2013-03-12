@@ -36,7 +36,7 @@ module ObjectHelper
               service_dim = file_dim.to_i
             end
           elsif max_size == nil || file_dim == nil || file_dim.to_i < max_size
-            if (display_file == nil || file_dim.to_i > display_dim) && (not use.end_with?("-source") )
+            if (display_file == nil || file_dim.to_i > display_dim) && use != nil && (not use.end_with?("-source") )
               display_file = fid
               display_dim  = file_dim.to_i
             end
