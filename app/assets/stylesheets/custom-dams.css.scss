@@ -77,10 +77,12 @@ $componentHighlight: #AD702B !default;
 //--
 .dams-components-button,.components-tree .btn{text-align:left;}
 .components-tree > ul{margin-bottom:0;}
-.components-tree .btn{font-weight:bold;}
 .dams-components-button,.components-tree .btn{color:#333;}
-.components-tree .dams-file{font-weight:normal;color:$linkColor;}
-.components-tree li ul{margin-left:10px;}
+.components-tree .tree-file{color:$linkColor;}
+.components-tree .tree-parent{font-weight:bold;}
+.components-tree .btn{padding-left:16px;}
+.components-tree .btn i{margin-left:-16px;}
+.components-tree li ul{margin-left:15px;}
 .active-component{color: $componentHighlight !important;font-weight:bold !important;}
 
 

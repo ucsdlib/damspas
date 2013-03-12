@@ -1,0 +1,119 @@
+<%
+	 #-------------------------------
+	 # METHODS
+	 #-------------------------------
+
+	 #---
+	 # componentTitle
+	 #---
+	 def componentTitle(index)
+		 concat render_document_show_field_value(:document=>@document, :field=>"component_#{index}_1_title_tesim")
+	 end
+
+	#---
+	# grabIcon
+	#---
+	def grabIcon(fileType)
+		icon = (fileType) ? fileType.split("-").first : 'no-files'
+		case icon
+			when 'image'
+				icon = 'icon-picture'
+			when 'audio'
+				icon = 'icon-music'
+			when 'video'
+				icon = 'icon-film'
+			when 'no-files'
+				icon = 'icon-stop'
+			else
+				icon ='icon-file'
+		end
+		return icon
+	end
+
+	#---
+	# displayNodes
+	#---
+	def displayNodes(index)
+
+		fileType = render_file_type(:component=>index)
+		btnAttrForFiles = (fileType) ? "onClick='showComponent(this,#{index});'" : ''
+		btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
+		btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileType)
+		btnCSS = (fileType) ? "tree-file #{@firstButton}" : ''
+		btnCSS += (@isParent[index]) ? " tree-parent" : ''
+
+		concat "<li>".html_safe
+		concat "<button type='button' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
+		componentTitle index
+		concat "</button>".html_safe
+
+		# Display children if parent
+		if (@isParent[index])
+
+			concat "<ul id='meta-component-#{index}' class='unstyled collapse'>".html_safe
+			@document["component_#{index}_children_isim"].each do |sub|
+				displayNodes sub
+				@seen.push(sub)
+			end
+			concat "</ul>".html_safe
+
+		end
+
+		concat "</li>".html_safe
+
+		@firstButton = nil
+
+	end
+
+	 #-------------------------------
+	 # MAIN
+	 #-------------------------------
+	 objectTitle = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	 component_count = @document['component_count_isi']
+	 @firstButton = "first-component active-component"
+
+	 if component_count > 0
+
+		 @isParent = []
+		 @isChild = []
+		 @seen = []
+
+		 for i in 1..component_count
+			 @isParent[i] = false
+			 @isChild[i] = false
+		 end
+
+		 for i in 1..component_count
+			 if @document["component_#{i}_children_isim"] != nil
+				 @isParent[i] = true
+				 @document["component_#{i}_children_isim"].each do |j|
+					 @isChild[j] = true
+				 end
+			 end
+		 end
+
+	 end
+
+%>
+
+
+<% if component_count > 0   %>
+
+	<button type="button" class="btn btn-block btn-link dams-components-button sidebar-header" onClick="$('[id^=meta-]').collapse('toggle');">
+		<strong><%= objectTitle %> Components</strong>
+	</button>
+	<div class="components-tree">
+		<ul class="unstyled">
+			<%
+				 for i in 1..component_count
+
+					 if @seen.count(i) == 0
+						 displayNodes i
+					 end
+
+				 end
+			%>
+		</ul>
+	</div>
+
+<% end %>
