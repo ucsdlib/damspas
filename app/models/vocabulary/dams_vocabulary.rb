@@ -22,6 +22,10 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :personalName
   property :assembledCollection
   property :AssembledCollection
+  property :provenanceCollection
+  property :ProvenanceCollection
+  property :provenanceCollectionPart
+  property :ProvenanceCollectionPart
   property :Object
   property :collection
   property :preferredCitationNote

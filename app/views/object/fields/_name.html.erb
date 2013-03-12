@@ -1,0 +1,22 @@
+<% if @document["name_tesim"] != nil %>
+	<dt>Names</dt>
+	<dd>
+		<%
+			#fields:
+			# arr name="name_tesim">
+			#<str>Wagner, Rick, 1972-</str>
+			#<str>Hallman, Eric J.</str>
+			#<str>So, Geoffrey</str>
+			#<str>Burns, Jack O.</str>
+			#<str>Wagner, Rick, 1972-</str>
+			#<str>Harkness, Robert</str>
+			#</arr>
+		names = @document["name_tesim"];
+		@document["name_tesim"].each { |name| 
+		%>
+			<p><%=name%></p>
+		<%
+			}
+		%>
+	</dd>
+<% end %>

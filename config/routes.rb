@@ -10,6 +10,7 @@ Hydra::Application.routes.draw do
 
   resources :units, :only => [:index, :show]
   root :to => "units#index"
+  resources :collections, :only => [:index, :show]
   match '/dlp', to: 'units#show', :id => 'dlp'
   match '/rci', to: 'units#show', :id => 'rci'
 

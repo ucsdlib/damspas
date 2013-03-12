@@ -20,7 +20,8 @@ describe DamsRoleDatastream do
       it "should have a code and valueURI" do
         subject.code = "act"
         subject.code.should == ["act"]
-        subject.valueURI.should == ["http://id.loc.gov/vocabulary/relators/act"]
+        subject.valueURI = "http://id.loc.gov/vocabulary/relators/act"
+        subject.valueURI.to_s.should == "http://id.loc.gov/vocabulary/relators/act"
       end
 
     end
@@ -52,6 +53,13 @@ describe DamsRoleDatastream do
         subject.vocabulary.should == ["http://library.ucsd.edu/ark:/20775/bb14141414"]
       end
 
+      it "should have a fields from solr doc" do
+        solr_doc = subject.to_solr
+        solr_doc["code_tesim"].should == ["cre"]
+        solr_doc["value_tesim"].should == ["Creator"]
+        solr_doc["vocabulary_tesim"].should == ["http://library.ucsd.edu/ark:/20775/bb14141414"]
+        solr_doc["valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/relators/cre"]
+      end    
     end
   end
 end
