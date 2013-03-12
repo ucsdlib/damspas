@@ -79,7 +79,10 @@ module ObjectHelper
     }
     file_info
   end
-  
+
+
+
+
   #---
   # render_file_type
   #---
@@ -97,6 +100,9 @@ module ObjectHelper
       use = file_info['use_tesim'].first
     end
   end
+
+
+
 
   #---
   # render_service_file
