@@ -265,6 +265,9 @@ class DamsProvenanceCollectionPartDatastream < ActiveFedora::RdfxmlRDFDatastream
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
     Solrizer.insert_field(solr_doc, 'date', date.first.value)
 
+    Solrizer.insert_field(solr_doc, 'type', 'Collection')
+    Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollectionPart')
+
     subject_node.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)

@@ -1,0 +1,6 @@
+<h1>Collections</h1>
+<ul>
+  <% @document.each do |col| %>
+    <li><%= link_to render_document_show_field_value(:document=>col, :field=>"title_tesim"), collection_path(col['id']) %></li>
+  <% end %>
+</ul>

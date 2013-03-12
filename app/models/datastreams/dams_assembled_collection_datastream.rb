@@ -241,6 +241,9 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
 
+    Solrizer.insert_field(solr_doc, 'type', 'Collection')
+    Solrizer.insert_field(solr_doc, 'type', 'AssembledCollection')
+
     n = 0
     date.map do |date|
       n += 1
