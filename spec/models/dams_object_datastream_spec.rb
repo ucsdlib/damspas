@@ -108,6 +108,11 @@ describe DamsObjectDatastream do
       it "should have relationship" do
         subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
         subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+        solr_doc = subject.to_solr
+        solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
+        solr_doc["role_tesim"].should == ["Creator"]
+        solr_doc["role_code_tesim"].should == ["cre"]
+        solr_doc["role_valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/relators/cre"]
       end
 
       it "should have components with type DAMS.Component" do
