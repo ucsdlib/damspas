@@ -24,6 +24,7 @@ class CatalogController < ApplicationController
   CatalogController.solr_search_params_logic += [:exclude_opentopo]
   def exclude_opentopo(solr_parameters,user_parameters)
     solr_parameters[:fq] << "-collections_tesim:bd6587977w"
+    solr_parameters[:fq] << "-collections_tesim:bd5905379f"
   end
 
   configure_blacklight do |config|
@@ -67,6 +68,7 @@ class CatalogController < ApplicationController
     # facet bar
     config.add_facet_field 'object_type_sim', :label => 'Format' 
     config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20 
+    config.add_facet_field 'collection_sim', :label => 'Collection', :limit => 20
     config.add_facet_field 'unit_sim', :label => 'Unit'
 
     # Have BL send all facet field names to Solr, which has been the default

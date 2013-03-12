@@ -16,7 +16,7 @@ describe DamsRole do
   <dams:Role rdf:about="http://library.ucsd.edu/ark:/20775/bd55639754">
     <dams:code>cre</dams:code>
     <rdf:value>Creator</rdf:value>
-    <dams:valueURI>http://id.loc.gov/vocabulary/relators/cre</dams:valueURI>
+    <dams:valueURI rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
     <dams:vocabulary rdf:resource="http://library.ucsd.edu/ark:/20775/bb15151515"/>
   </dams:Role>
 </rdf:RDF>

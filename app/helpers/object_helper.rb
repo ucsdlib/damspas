@@ -19,21 +19,24 @@ module ObjectHelper
     display_dim  = 0
     if files != nil
       files.each{ |fid|
-        use = document["#{prefix}file_#{fid}_use_tesim"].first
+        use = document["#{prefix}file_#{fid}_use_tesim"]
+        if use != nil
+          use = use.first
+        end
         qual = document["#{prefix}file_#{fid}_quality_tesim"]
         if qual != nil
           qualArr = qual.first.split("x")
           file_dim = qualArr.max { |a,b| a.to_i <=> b.to_i }.to_i
         end
         if type == nil || use.start_with?(type)
-          if use.end_with?("-service")
+          if use != nil && use.end_with?("-service")
             if (service_file == nil || service_use.start_with?("image-") )
               service_file = fid
               service_use = use
               service_dim = file_dim.to_i
             end
           elsif max_size == nil || file_dim == nil || file_dim.to_i < max_size
-            if (display_file == nil || file_dim.to_i > display_dim) && (not use.end_with?("-source") )
+            if (display_file == nil || file_dim.to_i > display_dim) && use != nil && (not use.end_with?("-source") )
               display_file = fid
               display_dim  = file_dim.to_i
             end

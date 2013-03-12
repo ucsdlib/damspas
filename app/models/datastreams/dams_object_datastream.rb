@@ -2,7 +2,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.collection(:in => DAMS)#, :class_name => 'AssembledCollection')
+    map.collection(:in => DAMS)
+    map.assembledCollection(:in => DAMS)
+    map.provenanceCollection(:in => DAMS)
+    map.provenanceCollectionPart(:in => DAMS)
     map.subject_node(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
     map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
@@ -26,20 +29,20 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.familyName(:in => DAMS)
     map.name(:in => DAMS)
     map.builtWorkPlace(:in => DAMS)
-    map.personalName(:in => DAMS)         
+    map.personalName(:in => DAMS)
     map.geographic(:in => DAMS)
     map.temporal(:in => DAMS)
     map.culturalContext(:in => DAMS)
     map.stylePeriod(:in => DAMS)
-    map.topic(:in => DAMS)           
+    map.topic(:in => DAMS)
     map.conferenceName(:in => DAMS)
     map.function(:in => DAMS)
     map.corporateName(:in => DAMS)
     map.complexSubject(:in => DAMS)
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')    
+    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
     map.genreForm(:in => DAMS)
     map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-    map.occupation(:in => DAMS)            
+    map.occupation(:in => DAMS)
     map.cartographics(:in => DAMS, :class_name => 'Cartographics')
  end
 
@@ -80,7 +83,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     include ActiveFedora::RdfObject
     rdf_type DAMS.Component
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-    map_predicates do |map|     
+    map_predicates do |map|
       map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
       map.resource_type(:in => DAMS, :to => 'typeOfResource')
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
@@ -96,7 +99,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     class Title
       include ActiveFedora::RdfObject
       rdf_type DAMS.Title
-      map_predicates do |map|   
+      map_predicates do |map|
         map.value(:in=> RDF)
         map.subtitle(:in=> DAMS, :to=>'subtitle')
         map.type(:in=> DAMS, :to=>'type')
@@ -105,7 +108,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     class Date
       include ActiveFedora::RdfObject
       rdf_type DAMS.Date
-      map_predicates do |map|    
+      map_predicates do |map|
         map.value(:in=> RDF, :to=>'value')
         map.beginDate(:in=>DAMS, :to=>'beginDate')
         map.endDate(:in=>DAMS, :to=>'endDate')
@@ -114,7 +117,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     class Note
       include ActiveFedora::RdfObject
       rdf_type DAMS.Note
-      map_predicates do |map|    
+      map_predicates do |map|
         map.value(:in=> RDF, :to=>'value')
         map.displayLabel(:in=>DAMS, :to=>'displayLabel')
         map.type(:in=>DAMS, :to=>'type')
@@ -123,7 +126,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     class File
       include ActiveFedora::RdfObject
       rdf_type DAMS.File
-      map_predicates do |map|    
+      map_predicates do |map|
         map.value(:in=> RDF)
         map.crc32checksum(:in=>DAMS)
         map.formatVersion(:in=>DAMS)
@@ -151,13 +154,13 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         order = id.gsub(/\..*/,'')
         order.to_i
       end
-    end   
+    end
   end
 
   class Note
     include ActiveFedora::RdfObject
     rdf_type DAMS.Note
-    map_predicates do |map|    
+    map_predicates do |map|
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
@@ -173,11 +176,11 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
-     
+
   class RelatedResource
     include ActiveFedora::RdfObject
     rdf_type DAMS.RelatedResource
-    map_predicates do |map|    
+    map_predicates do |map|
       map.type(:in=> DAMS)
       map.description(:in=> DAMS)
       map.uri(:in=> DAMS)
@@ -186,7 +189,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class File
     include ActiveFedora::RdfObject
     rdf_type DAMS.File
-    map_predicates do |map|    
+    map_predicates do |map|
       map.value(:in=> RDF)
       map.crc32checksum(:in=>DAMS)
       map.formatVersion(:in=>DAMS)
@@ -218,13 +221,13 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class Title
     include ActiveFedora::RdfObject
     rdf_type DAMS.Title
-    map_predicates do |map|   
+    map_predicates do |map|
       map.value(:in=> RDF)
       map.subtitle(:in=> DAMS)
       map.type(:in=> DAMS)
     end
   end
-  
+
   def title
     title_node.first ? title_node.first.value : []
   end
@@ -234,7 +237,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def subtitle
-    self.title_node.first ? self.title_node.first.subtitle : [] 
+    self.title_node.first ? self.title_node.first.subtitle : []
   end
   def subtitle=(val)
     if self.title_node == nil
@@ -246,7 +249,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class Date
     include ActiveFedora::RdfObject
     rdf_type DAMS.Date
-    map_predicates do |map|    
+    map_predicates do |map|
       map.value(:in=> RDF)
       map.beginDate(:in=>DAMS)
       map.endDate(:in=>DAMS)
@@ -277,7 +280,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class Subject
     include ActiveFedora::RdfObject
     rdf_type MADS.ComplexSubject
-    map_predicates do |map|      
+    map_predicates do |map|
       map.authoritativeLabel(:in=> MADS)
     end
 
@@ -292,10 +295,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
-  
+
   def subject
     #subject_node.map{|s| s.authoritativeLabel.first}
-    subject_node.map do |sn| 
+    subject_node.map do |sn|
     	subject_value = sn.external? ? sn.load.name.first : sn.authoritativeLabel.first
     end
   end
@@ -309,7 +312,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   class Relationship
     include ActiveFedora::RdfObject
     rdf_type DAMS.Relationship
-    map_predicates do |map|     
+    map_predicates do |map|
       map.name(:in=> DAMS)
       map.role(:in=> DAMS)
     end
@@ -321,17 +324,25 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         MadsPersonalName.find(md[1])
       end
     end
+    
+    def loadRole
+      uri = role.first.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsRole.find(md[1])
+      end
+    end    
   end
 
   class ScopeContentNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.ScopeContentNote
-    map_predicates do |map|    
+    map_predicates do |map|
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
     end
-    
+
     def external?
       rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
@@ -343,16 +354,16 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
- 
+
   class PreferredCitationNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.PreferredCitationNote
-    map_predicates do |map|    
+    map_predicates do |map|
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
     end
-    
+
     def external?
       rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
@@ -363,8 +374,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         DamsPreferredCitationNote.find(md[1])
       end
     end
-  end  
-  
+  end
+
   class CustodialResponsibilityNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.CustodialResponsibilityNote
@@ -373,7 +384,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
     end
-    
+
     def external?
       rdf_subject.to_s.include? Rails.configuration.id_namespace
     end
@@ -384,7 +395,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         DamsCustodialResponsibilityNote.find(md[1])
       end
     end
-  end    
+  end
   def load_unit
     unit_uri = unit_node.values.first.to_s
     unit_pid = unit_uri.gsub(/.*\//,'')
@@ -397,24 +408,28 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   def load_collection
     collections = []
-    collection.values.each do |col|
-      collection_uri = col.to_s
-	  collection_pid = collection_uri.gsub(/.*\//,'')
-	  hasModel = "";
-      if (collection_pid != nil && collection_pid != "")      
-         obj = DamsAssembledCollection.find(collection_pid)
-      	 hasModel = obj.relationships(:has_model).to_s
-      end
-	  if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Assembled'))
-      		collections << obj     
-      elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Provenance'))
-      		collections << DamsProvenanceCollection.find(collection_pid)     
+    [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
+      coltype.values.each do |col|
+        collection_uri = col.to_s
+	    collection_pid = collection_uri.gsub(/.*\//,'')
+	    hasModel = "";
+        if (collection_pid != nil && collection_pid != "")
+           obj = DamsAssembledCollection.find(collection_pid)
+      	   hasModel = obj.relationships(:has_model).to_s
+        end
+	    if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Assembled'))
+      		  collections << obj
+        elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'ProvenanceCollectionPart'))
+      		  collections << DamsProvenanceCollectionPart.find(collection_pid)
+        elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'ProvenanceCollection'))
+      		  collections << DamsProvenanceCollection.find(collection_pid)
+        end
       end
    	
     end
     collections
   end
-  
+
   def load_copyright
     c_uri = copyright.values.first.to_s
     c_pid = c_uri.gsub(/.*\//,'')
@@ -462,8 +477,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     else
       nil
     end
-  end 
-   
+  end
+
   def load_rightsHolders
     rightsHolders = []
     rightsHolder.values.each do |name|
@@ -475,7 +490,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     rightsHolders
   end
- 
+
   def load_iconographies
     loadObjects iconography,DamsIconography
   end
@@ -483,7 +498,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_scientificNames
 	loadObjects scientificName,DamsScientificName
   end
-    
+
   def load_techniques
 	loadObjects technique,DamsTechnique
   end
@@ -491,34 +506,34 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_builtWorkPlaces
 	loadObjects builtWorkPlace,DamsBuiltWorkPlace
   end
- 
+
   def load_geographics
 	loadObjects geographic,MadsGeographic
-  end   
-  
+  end
+
   def load_temporals
 	loadObjects temporal,MadsTemporal
-  end  
+  end
 
   def load_culturalContexts
 	loadObjects culturalContext,DamsCulturalContext
-  end  
+  end
 
   def load_stylePeriods
 	loadObjects stylePeriod,DamsStylePeriod
-  end  
+  end
 
   def load_topics
 	loadObjects topic,MadsTopic
-  end  
+  end
 
   def load_functions
 	loadObjects function,DamsFunction
-  end  
+  end
 
   def load_genreForms
 	loadObjects genreForm,MadsGenreForm
-  end  
+  end
 
   def load_occupations
 	loadObjects occupation,MadsOccupation
@@ -527,7 +542,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_personalNames
 	loadObjects personalName,MadsPersonalName
   end
-  
+
   def load_familyNames
 	loadObjects familyName,MadsFamilyName
   end
@@ -547,12 +562,12 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_complexSubjects
 	loadObjects complexSubject,MadsComplexSubject
   end
-                             
+
   # helper method for recursing over component hierarchy
   def find_children(p)
     kids = @parents[p]
     if kids != nil && kids.length > 0
-  
+
       # replace children with nested hashes recursively
       for i in 0 .. kids.length
         cid = kids[i]
@@ -573,10 +588,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       if name_pid != nil && name_pid != ""
         objects << className.find(name_pid)
       end
-    end 
+    end
   	return objects
   end
-  
+
   def insertFields (solr_doc, fieldName, objects)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     if objects != nil
@@ -589,7 +604,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
 		  list = obj.elementList.first
 		  i = 0
-		  if list != nil		 
+		  if list != nil		
 			while i < list.size  do	
 			  if (list[i].class == MadsDatastream::List::NameElement)
 			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_name", list[i].elementValue.first)
@@ -628,12 +643,12 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 			  	Solrizer.insert_field(solr_doc, "subject_topic", list[i].elementValue.first, facetable)
 			  end																															
 			  i +=1
-			end   
-		  end          
+			end
+		  end
       end
-    end        
+    end
   end
- 
+
   def insertComplexSubjectFields (solr_doc, fieldName, objects)
     if objects != nil
       n = 0
@@ -645,7 +660,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
 		  list = obj.componentList.first
 		  i = 0
-		  if list != nil		 
+		  if list != nil		
 			while i < list.size  do		
 			  if (list[i].class == MadsComplexSubjectDatastream::ComponentList::Topic)
 			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].name.first)				  	
@@ -681,28 +696,28 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 			  	Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_familyName", list[i].name.first)				  			  				  				  				  				  			  	
 			  end																														
 			  i +=1
-			end   
-		  end          
+			end
+		  end
       end
-    end        
+    end
   end
-    
+
   def insertNoteFields (solr_doc, fieldName, objects)
     n = 0
-    objects.map do |no| 
+    objects.map do |no|
       n += 1
       if (no.external?)
  		Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", no.load.pid)
         Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.load.type)
         Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.load.value)
-        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.load.displayLabel)      
+        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.load.displayLabel)
       else
         Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.type)
         Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.value)
         Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.displayLabel)      	
       end
-    end  
-  
+    end
+
   end
 
   class Cartographics
@@ -737,7 +752,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "cartographics_scale", cart.scale)
     end
 
-    subject_node.map do |sn| 
+    subject_node.map do |sn|
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
       Solrizer.insert_field(solr_doc, 'subject_topic', subject_value,facetable)
@@ -749,7 +764,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "title_#{n}_type", t.type)
       Solrizer.insert_field(solr_doc, "title_#{n}_subtitle", t.subtitle)
       Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
-    end  
+    end
 
     n = 0
     odate.map do |date|
@@ -757,15 +772,30 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date_#{n}_beginDate", date.beginDate)
       Solrizer.insert_field(solr_doc, "date_#{n}_endDate", date.endDate)
       Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
-    end 
-        
+    end
+
     #Solrizer.insert_field(solr_doc, 'date', date)
-    
-    relationship.map do |relationship| 
+
+    names = []
+    relationship.map do |relationship|
       rel = relationship.load
       if ( rel != nil )
-        Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+        #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+        begin
+          names << rel.name.first.to_s
+        rescue
+          puts "error: #{rel}"
+        end
       end
+      relRole = relationship.loadRole
+      if ( rel != nil )
+        Solrizer.insert_field(solr_doc, 'role', relationship.loadRole.value )
+        Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
+        Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI.first.to_s )
+      end      
+    end
+    names.sort.each do |n|
+      Solrizer.insert_field(solr_doc, 'name', n )
     end
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)
@@ -834,7 +864,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "language_#{n}_valueURI", lang.valueURI.first.to_s)
       end
     end
-    
+
     rightsHolders = load_rightsHolders
     if rightsHolders != nil
       n = 0
@@ -846,7 +876,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
       end
     end
-    
+
     unit = load_unit
     if unit.class == DamsUnit
       Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
@@ -866,7 +896,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'source_capture_capture_source', source_capture.captureSource)
       Solrizer.insert_field(solr_doc, 'source_capture_id', source_capture.pid)
     end
-    
+
     col = load_collection
     if col != nil
      n = 0
@@ -874,7 +904,15 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         n += 1
         Solrizer.insert_field(solr_doc, "collections", collection.pid)
         Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
-        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)      
+        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title.first.value)
+        Solrizer.insert_field(solr_doc, "collection", collection.title.first.value, facetable)
+        if ( collection.kind_of? DamsAssembledCollection )
+          Solrizer.insert_field(solr_doc, "collection_#{n}_type", "AssembledCollection")
+        elsif ( collection.kind_of? DamsProvenanceCollectionPart )
+          Solrizer.insert_field(solr_doc, "collection_#{n}_type", "ProvenanceCollectionPart")
+        elsif ( collection.kind_of? DamsProvenanceCollection )
+          Solrizer.insert_field(solr_doc, "collection_#{n}_type", "ProvenanceCollection")
+        end
       end
     end
 
@@ -904,7 +942,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_title", title.value)
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", title.subtitle)
       end
-      
+
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
 
       n = 0
@@ -913,7 +951,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_date", date.value)
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_beginDate", date.beginDate)
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
-      end     
+      end
       if component.note.first != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_note", component.note.first.value)
       end
@@ -934,7 +972,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
       }
     }
-    
+
     # build component hierarchy map
     @cmap = Hash.new
     @parents.keys.sort{|x,y| x.to_i <=> y.to_i}.each { |p|
@@ -979,7 +1017,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
     insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
     insertNoteFields solr_doc, 'note',note
-           
+
     insertFields solr_doc, 'iconography', load_iconographies
     insertFields solr_doc, 'scientificName', load_scientificNames
     insertFields solr_doc, 'technique', load_techniques
@@ -992,14 +1030,14 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'topic', load_topics
     insertFields solr_doc, 'function', load_functions
     insertFields solr_doc, 'genreForm', load_genreForms
-    
-    insertFields solr_doc, 'personalName', load_personalNames    
+
+    insertFields solr_doc, 'personalName', load_personalNames
     insertFields solr_doc, 'familyName', load_familyNames
     insertFields solr_doc, 'name', load_names
     insertFields solr_doc, 'conferenceName', load_conferenceNames
     insertFields solr_doc, 'corporateName', load_corporateNames
     insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects
-        
+
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
       if solr_doc[f].kind_of?(Array)

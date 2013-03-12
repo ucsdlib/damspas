@@ -1,0 +1,36 @@
+<% @page_title =  "Object | #{render_document_show_field_value(:document=>@document, :field=>'title_tesim')}"
+collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim');
+ %>
+
+<div class="row-fluid">
+  <div id="content" class="show-document span12">
+	
+		<div class="row-fluid">
+			<section class="dams-viewer span12">
+				<%= render_document_heading(:h1).html_safe %>
+			</section>
+		</div>
+
+		<div class="row-fluid">
+			<section class="dams-metadata span12">
+				<%= render :partial => 'object/metadata_alt' %>
+			</section>
+		</div>
+		
+		<div class="row-fluid">
+			<section class="dams-metadata span12">
+				<%= link_to "<i class='icon-tag icon-white'></i> #{collection_title}".html_safe, facet_uri(render_document_show_field_value(:document=>@document, :field=>'title_tesim'),'collection_sim'), :class => "label" %>
+			</section>
+		</div>
+	</div>
+
+	 </div>
+</div>
+
+<div class="row-fluid">
+	<section class="dams-comments span9">
+		<%= render :partial => 'object/comments' %>
+	</section>
+</div>
+
+<%= link_to "View All", collections_path %></li>
