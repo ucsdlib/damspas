@@ -276,6 +276,10 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
   def to_solr (solr_doc = {})
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
+
+    Solrizer.insert_field(solr_doc, 'type', 'Collection')
+    Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
+
     if date.first != nil
       Solrizer.insert_field(solr_doc, 'date', date.first.value)
     end
