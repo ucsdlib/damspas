@@ -1,5 +1,5 @@
 <% if @document["collection_1_id_tesim"] != nil %>
-	<dt>Collections</dt>
+	<dt><%="Collection".pluralize(@document["collections_tesim"].count)%></dt>
 	<dd>
 		<ul class="unstyled">
 			<%
