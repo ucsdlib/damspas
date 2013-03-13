@@ -115,6 +115,13 @@ class DamsProvenanceCollectionPartDatastream < ActiveFedora::RdfxmlRDFDatastream
       md = /\/(\w*)$/.match(uri)
       MadsPersonalName.find(md[1])
     end
+    def loadRole
+      uri = role.first.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsRole.find(md[1])
+      end
+    end          
   end
   class Subject
     include ActiveFedora::RdfObject
@@ -274,8 +281,26 @@ class DamsProvenanceCollectionPartDatastream < ActiveFedora::RdfxmlRDFDatastream
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
     end
-    relationship.map do |relationship| 
-      Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+    names = []
+    relationship.map do |relationship|
+      rel = relationship.load
+      if ( rel != nil )
+        #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+        begin
+          names << rel.name.first.to_s
+        rescue
+          puts "error: #{rel}"
+        end
+      end
+      relRole = relationship.loadRole
+      if ( rel != nil )
+        Solrizer.insert_field(solr_doc, 'role', relationship.loadRole.value )
+        Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
+        Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI.first.to_s )
+      end      
+    end
+    names.sort.each do |n|
+      Solrizer.insert_field(solr_doc, 'name', n )
     end
     
     insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
