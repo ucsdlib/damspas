@@ -9,7 +9,7 @@
 			i = 1;
 			loop do
 			%>
-			<li><%= link_to "<i class='icon-home icon-white'></i> #{@document["collection_#{i}_name_tesim"].first}".html_safe, collection_path(@document["collection_#{i}_id_tesim"]), :class => "label" %></li>
+			<li><p><%= link_to @document["collection_#{i}_name_tesim"].first.html_safe, collection_path(@document["collection_#{i}_id_tesim"]) %></p></li>
 		<%
 		i += 1 #try again
 		break unless @document["collection_#{i}_id_tesim"] != nil
