@@ -11,6 +11,26 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.part_node(:in=>DAMS,:to=>'hasPart')
     map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
     map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')   
+    map.occupation(:in => DAMS)
+    map.genreForm(:in => DAMS)
+    map.iconography(:in => DAMS)
+    map.scientificName(:in => DAMS)
+    map.technique(:in => DAMS)
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
+    map.familyName(:in => DAMS)
+    map.name(:in => DAMS)
+    map.builtWorkPlace(:in => DAMS)
+    map.personalName(:in => DAMS)
+    map.geographic(:in => DAMS)
+    map.temporal(:in => DAMS)
+    map.culturalContext(:in => DAMS)
+    map.stylePeriod(:in => DAMS)
+    map.topic(:in => DAMS)
+    map.conferenceName(:in => DAMS)
+    map.function(:in => DAMS)
+    map.corporateName(:in => DAMS)
+    map.complexSubject(:in => DAMS)
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -106,17 +126,42 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
   class Relationship
     include ActiveFedora::RdfObject
     rdf_type DAMS.Relationship
-    map_predicates do |map|     
+    map_predicates do |map|
       map.name(:in=> DAMS)
+      map.personalName(:in=> DAMS)
+      map.corporateName(:in=> DAMS)
       map.role(:in=> DAMS)
     end
 
     def load
-      uri = name.first.to_s
-      md = /\/(\w*)$/.match(uri)
-      MadsPersonalName.find(md[1])
+      if name.first.to_s.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(name.first.to_s)
+        MadsPersonalName.find(md[1])
+      elsif personalName.first.to_s.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(personalName.first.to_s)
+        MadsPersonalName.find(md[1])
+      elsif corporateName.first.to_s.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(corporateName.first.to_s)
+        MadsCorporateName.find(md[1])
+      end
     end
+
+    def loadRole
+      uri = role.first.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsRole.find(md[1])
+      end
+    end
+    def loadRole
+      uri = role.first.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsRole.find(md[1])
+      end
+    end      
   end
+
   class Subject
     include ActiveFedora::RdfObject
     rdf_type MADS.ComplexSubject
@@ -272,7 +317,203 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end  
   
   end
-    
+
+  # copied from DamsObjectDatastream
+  def insertComplexSubjectFields (solr_doc, fieldName, objects)
+    if objects != nil
+      n = 0
+      objects.each do |obj|
+          n += 1
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", obj.pid)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_name", obj.name)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_authority", obj.authority)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
+          list = obj.componentList.first
+          i = 0
+          if list != nil
+            while i < list.size  do
+              if (list[i].class == MadsComplexSubjectDatastream::ComponentList::Topic)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::GenreForm)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_genreForm", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::Iconography)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_iconography", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::ScientificName)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_scientificName", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::Technique)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_technique", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::BuiltWorkPlace)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_builtWorkPlace", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::PersonalName)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_personalName", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::Geographic)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_geographic", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::Temporal)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_temporal", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::CulturalContext)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_culturalContext", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::StylePeriod)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_stylePeriod", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::ConferenceName)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_conferenceName", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::Function)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_function", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::CorporateName)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_corporateName", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::Occupation)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_occupation", list[i].name.first)
+              elsif (list[i].class == MadsComplexSubjectDatastream::ComponentList::FamilyName)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_familyName", list[i].name.first)                                                   
+              end
+              i +=1
+            end
+          end
+      end
+    end
+  end
+
+  def insertFields (solr_doc, fieldName, objects)
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+    if objects != nil
+      n = 0
+      objects.each do |obj|
+          n += 1
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", obj.pid)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_name", obj.name)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_authority", obj.authority)
+          Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
+          list = obj.elementList.first
+          i = 0
+          if list != nil
+            while i < list.size  do
+              if (list[i].class == MadsDatastream::List::NameElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_name", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::FamilyNameElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_familyName", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::DateNameElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_dateName", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::TermsOfAddressNameElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_termsOfAddress", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::GivenNameElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_givenName", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::GenreFormElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_genreForm", list[i].elementValue.first)
+              elsif (list[i].class == DamsDatastream::List::FunctionElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_function", list[i].elementValue.first)
+              elsif (list[i].class == DamsDatastream::List::StylePeriodElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_stylePeriod", list[i].elementValue.first)
+              elsif (list[i].class == DamsDatastream::List::CulturalContextElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_culturalContext", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::TemporalElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_temporal", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::GeographicElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_geographic", list[i].elementValue.first)
+              elsif (list[i].class == DamsDatastream::List::BuiltWorkPlaceElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_builtWorkPlace", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::OccupationElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_occupation", list[i].elementValue.first)
+              elsif (list[i].class == DamsDatastream::List::TechniqueElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_technique", list[i].elementValue.first)
+              elsif (list[i].class == DamsDatastream::List::ScientificNameElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_scientificName", list[i].elementValue.first)
+              elsif (list[i].class == DamsDatastream::List::IconographyElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_iconography", list[i].elementValue.first)
+              elsif (list[i].class == MadsDatastream::List::TopicElement)
+                Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_#{i}_topic", list[i].elementValue.first)
+                Solrizer.insert_field(solr_doc, "subject_topic", list[i].elementValue.first, facetable)
+              end
+              i +=1
+            end
+          end
+      end
+    end
+  end
+
+  def loadObjects (object,className)
+    objects = []
+    object.values.each do |name|
+      name_uri = name.to_s
+      name_pid = name_uri.gsub(/.*\//,'')
+      if name_pid != nil && name_pid != ""
+        objects << className.find(name_pid)
+      end
+    end
+    return objects
+  end
+
+  def load_iconographies
+    loadObjects iconography,DamsIconography
+  end
+
+  def load_scientificNames
+    loadObjects scientificName,DamsScientificName
+  end
+
+  def load_techniques
+    loadObjects technique,DamsTechnique
+  end
+
+  def load_builtWorkPlaces
+    loadObjects builtWorkPlace,DamsBuiltWorkPlace
+  end
+
+  def load_geographics
+    loadObjects geographic,MadsGeographic
+  end
+
+  def load_temporals
+    loadObjects temporal,MadsTemporal
+  end
+
+  def load_culturalContexts
+    loadObjects culturalContext,DamsCulturalContext
+  end
+
+  def load_stylePeriods
+    loadObjects stylePeriod,DamsStylePeriod
+  end
+
+  def load_topics
+    loadObjects topic,MadsTopic
+  end
+
+  def load_functions
+    loadObjects function,DamsFunction
+  end
+
+  def load_genreForms
+    loadObjects genreForm,MadsGenreForm
+  end
+
+  def load_occupations
+    loadObjects occupation,MadsOccupation
+  end
+
+  def load_personalNames
+    loadObjects personalName,MadsPersonalName
+  end
+
+  def load_familyNames
+    loadObjects familyName,MadsFamilyName
+  end
+
+  def load_names
+    loadObjects name,MadsName
+  end
+
+  def load_conferenceNames
+    loadObjects conferenceName,MadsConferenceName
+  end
+
+  def load_corporateNames
+    loadObjects corporateName,MadsCorporateName
+  end
+
+  def load_complexSubjects
+    loadObjects complexSubject,MadsComplexSubject
+  end
+  # copied from DamsObjectDatastream
+
   def to_solr (solr_doc = {})
     # need to make these support multiples too
     Solrizer.insert_field(solr_doc, 'title', title.first.value)
@@ -290,8 +531,26 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
     end
-    relationship.map do |relationship| 
-      Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+    names = []
+    relationship.map do |relationship|
+      rel = relationship.load
+      if (rel != nil)
+        #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+        begin
+          names << rel.name.first.to_s
+        rescue
+          puts "error: #{rel}"
+        end
+      end
+      relRole = relationship.loadRole
+      if ( rel != nil )
+        Solrizer.insert_field(solr_doc, 'role', relationship.loadRole.value )
+        Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
+        Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI.first.to_s )
+      end      
+    end
+    names.sort.each do |n|
+      Solrizer.insert_field(solr_doc, 'name', n )
     end
     insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
     insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
@@ -324,6 +583,28 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
     end
+
+    # copied from DamsObjectDatastream
+    insertFields solr_doc, 'iconography', load_iconographies
+    insertFields solr_doc, 'scientificName', load_scientificNames
+    insertFields solr_doc, 'technique', load_techniques
+    insertFields solr_doc, 'occupation', load_occupations
+    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces
+    insertFields solr_doc, 'geographic', load_geographics
+    insertFields solr_doc, 'temporal', load_temporals
+    insertFields solr_doc, 'culturalContext', load_culturalContexts
+    insertFields solr_doc, 'stylePeriod', load_stylePeriods
+    insertFields solr_doc, 'topic', load_topics
+    insertFields solr_doc, 'function', load_functions
+    insertFields solr_doc, 'genreForm', load_genreForms
+
+    insertFields solr_doc, 'personalName', load_personalNames
+    insertFields solr_doc, 'familyName', load_familyNames
+    insertFields solr_doc, 'name', load_names
+    insertFields solr_doc, 'conferenceName', load_conferenceNames
+    insertFields solr_doc, 'corporateName', load_corporateNames
+    insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects
+    # copied from DamsObjectDatastream
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
