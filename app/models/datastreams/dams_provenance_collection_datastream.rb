@@ -551,7 +551,6 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     names.sort.each do |n|
       Solrizer.insert_field(solr_doc, 'name', n )
->>>>>>> Adding DamsRole to AssembledCollection, ProvenanceCollection and ProvenanceCollectionPart classes
     end
     insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
     insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
