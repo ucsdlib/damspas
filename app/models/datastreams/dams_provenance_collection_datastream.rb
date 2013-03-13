@@ -152,14 +152,7 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
         md = /\/(\w*)$/.match(uri)
         DamsRole.find(md[1])
       end
-    end
-    def loadRole
-      uri = role.first.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsRole.find(md[1])
-      end
-    end      
+    end   
   end
 
   class Subject

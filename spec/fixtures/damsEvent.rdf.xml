@@ -6,8 +6,8 @@
     <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
     <dams:outcome>success</dams:outcome>
     <dams:relationship rdf:parseType="Resource">
-      <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707286t"/>
-      <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb33333333"/>
+      <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+      <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb08080808"/>
     </dams:relationship>
   </dams:DAMSEvent>
 </rdf:RDF>
