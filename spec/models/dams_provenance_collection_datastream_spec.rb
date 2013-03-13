@@ -63,7 +63,15 @@ describe DamsProvenanceCollectionDatastream do
       it "should have CustodialResponsibilityNote" do
 		testIndexNoteFields "custodialResponsibilityNote","bd9113515d","custodial_history","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)","Digital object made available by"
       end  
-      
+      it "should have relationship" do
+        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bb08080808"
+        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+        solr_doc = subject.to_solr
+        solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
+        solr_doc["role_tesim"].should == ["Creator"]
+        solr_doc["role_code_tesim"].should == ["cre"]
+        solr_doc["role_valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/relators/cre"]
+      end       
       def testIndexNoteFields (fieldName,id,type,value,displayLabel) 
         solr_doc = subject.to_solr
         solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]

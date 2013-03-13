@@ -110,9 +110,9 @@
 		
 		<p class="sidebar-header"><strong>Browse</strong></p>
 		<ul class="unstyled sidebar-button-list">
-			<%= render_browse_facet_links %>
 			<!-- hack in browse by collection, for RCI demo -->
-			<li><%= link_to "<i class='icon-eye-open'></i> Collections".html_safe, collections_path, :class => "btn btn-block  btn-link" %></li>
+			<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, collections_path, :class => "btn btn-block  btn-link" %></li>
+			<%= render_browse_facet_links %>
 		</ul>
 
     <% if can? :update, @document then %>

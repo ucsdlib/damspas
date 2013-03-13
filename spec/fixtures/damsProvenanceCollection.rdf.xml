@@ -41,6 +41,12 @@
     </dams:note>    
     <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
     <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>
+        <dams:relationship>
+      <dams:Relationship>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb08080808"/>
+      </dams:Relationship>
+    </dams:relationship>   
     <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/bb25252525"/>
     <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb29292929"/>
   </dams:ProvenanceCollection>
