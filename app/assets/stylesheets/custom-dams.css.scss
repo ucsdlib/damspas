@@ -11,7 +11,6 @@ $componentHighlight: #AD702B !default;
 //----------------------------------------------------------
 
 // COMPONENTS
-
 .component{display:none;background-color:$componentBG;margin:$viewerPadding;padding:$viewerPadding;border-radius: 10px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 .simple-object{margin:$viewerPadding;padding:$viewerPadding;background-color:#d6d6d6;border-radius: 10px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 
@@ -22,7 +21,6 @@ $componentHighlight: #AD702B !default;
 .component .audiojs,
 .simple-object .video-js{margin: 0 auto 20px auto;}
 .simple-object .audiojs{margin: 0 auto;}
-
 
 .component img{width:100%;margin:0 auto 20px auto;display:block;}
 .simple-object img{width:100%;margin:0 auto;display:block;}
@@ -38,10 +36,8 @@ $componentHighlight: #AD702B !default;
 //----------------------------------------------------------
 // UNITS INDEX PAGE
 //----------------------------------------------------------
-
 .dams-search-box h4{margin:0 0 10px 0;line-height:inherit;}
 .sidebar-button-list .btn{text-align:left;}
-
 .carousel .item img{width:100%;}
 .carousel .item{max-height:600px;}
 
@@ -52,25 +48,26 @@ $componentHighlight: #AD702B !default;
 // Viewer
 .dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: none;}
 .dams-viewer h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
-
 .dams-download-button{margin:0;}
 
+// Breadcrumbs
+.dams-breadcrumbs .breadcrumb{font-size: 12px;background-color:transparent;padding: 0;}
+.dams-breadcrumbs .breadcrumb > li > .divider{padding: 0;}
 
 // Metadata fold
+#metadata-fold ul{margin-bottom:0;}
 .dams-metadata{margin-bottom:1em;background-color:$objectBG;padding: 0 $viewerPadding $viewerPadding $viewerPadding;border: 1px solid #d9d9d9;border-top: none;}
 .dams-metadata hr{border-top:1px solid #ddd;margin:0 15%;}
 .dams-metadata .btn-link{font-weight:bold;}
 .dams-metadata .label,.dams-metadata .badge{margin-bottom:3px;}
-#metadata-fold ul{margin-bottom:0;}
 .dams-metadata dd{color: #666;}
 .dams-metadata dd strong{color: #555;}
 
-	// Metadata label link
+// Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
 
 // Sidebar
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
-
 
 //---
 // Components Control

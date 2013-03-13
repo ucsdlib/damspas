@@ -159,3 +159,135 @@ module ObjectHelper
   end
 
 end
+
+#------------------------
+# COMPONENT TREE METHODS
+#------------------------
+
+#---
+# Get a component's title.
+#
+# @param index The object's component index.
+# @return A string that is the component's title.
+# @author David T.
+#---
+def componentTitle(index)
+	concat render_document_show_field_value(:document=>@document, :field=>"component_#{index}_1_title_tesim")
+end
+
+#---
+# Determines which Bootstrap icon glyph to use based on a component's file type.
+#
+# @param fileType The component's file type/role value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
+# @return A string that is the CSS class name of the icon we want to display.
+# @author David T.
+#---
+def grabIcon(fileType)
+	icon = (fileType) ? fileType.split("-").first : 'no-files'
+	case icon
+		when 'image'
+			icon = 'icon-picture'
+		when 'audio'
+			icon = 'icon-music'
+		when 'video'
+			icon = 'icon-film'
+		when 'no-files'
+			icon = 'icon-stop'
+		else
+			icon ='icon-file'
+	end
+	return icon
+end
+
+#---
+# Renders a node of the COV component tree.
+#
+# @param index The object's component index.
+# @return nil
+# @author David T.
+#---
+def displayNode(index)
+
+	fileType = render_file_type(:component=>index)
+	btnAttrForFiles = (fileType) ? "onClick='showComponent(this,#{index});'" : ''
+	btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
+	btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileType)
+	btnCSS = (fileType) ? "tree-file #{@firstButton}" : ''
+	btnCSS += (@isParent[index]) ? " tree-parent" : ''
+
+	concat "<li>".html_safe
+	concat "<button type='button' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
+	componentTitle index
+	concat "</button>".html_safe
+
+	# Display children if parent
+	if (@isParent[index])
+
+		concat "<ul id='meta-component-#{index}' class='unstyled collapse'>".html_safe
+		@document["component_#{index}_children_isim"].each do |sub|
+			displayNode sub
+			@seen.push(sub)
+		end
+		concat "</ul>".html_safe
+
+	end
+
+	concat "</li>".html_safe
+
+	@firstButton = nil
+
+end
+
+#---
+# Renders the COV component tree.
+#
+# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
+# @return nil
+# @author David T.
+#---
+def displayComponentTree(component_count)
+	if component_count != nil && component_count > 0
+		concat '<ul class="unstyled">'.html_safe
+		for i in 1..component_count
+			if @seen.count(i) == 0
+				displayNode i
+			end
+		end
+		concat '</ul>'.html_safe
+	end
+	return nil
+end
+
+#---
+# Initializes the arrays used to build the COV component tree.
+#
+# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
+# @return nil
+# @author David T.
+#---
+def initComponentTree(component_count)
+	if component_count != nil
+		@isParent = []
+		@isChild = []
+		@seen = []
+
+		for i in 1..component_count
+			@isParent[i] = false
+			@isChild[i] = false
+		end
+
+		for i in 1..component_count
+			if @document["component_#{i}_children_isim"] != nil
+				@isParent[i] = true
+				@document["component_#{i}_children_isim"].each do |j|
+					@isChild[j] = true
+				end
+			end
+		end
+	end
+	return nil
+end
+
+#-------------------------
+# /COMPONENT TREE METHODS
+#-------------------------
