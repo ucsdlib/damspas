@@ -7,8 +7,8 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('a', :text => 'Library Collections')
     expect(page).to have_selector('a', :text => 'Research Data Curation Program')
     expect(page).to have_selector('p', :text => 'Browse')
-    expect(page).to have_selector('a', :text => 'Topics')
-    expect(page).to have_selector('a', :text => 'Formats')
+    expect(page).to have_selector('a', :text => 'Topic')
+    expect(page).to have_selector('a', :text => 'Format')
 
     expect(page).to have_field('Search...')
   end
