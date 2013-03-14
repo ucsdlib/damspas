@@ -1,2 +1,4 @@
 <% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
-<%= image_tag filePath, :alt => title %>
+<a href="<%=serviceFilePath%>">
+	<%= image_tag displayFilePath, :alt => title %>
+</a>

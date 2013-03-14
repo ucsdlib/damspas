@@ -40,7 +40,7 @@
 							<td>Format</td>
 							<% if fileFormat == "bytestream" %>
 								<% fileFormat = File.extname(fileName.upcase) %>
-								<% fileFormat[0] = '' %>
+								<% fileFormat[0] = '' # Zapping the leading "." E.g., .MP3 -> MP3 %>
 							<% end %>
 							<td><b><%= fileFormat %></b></td>
 						</tr>

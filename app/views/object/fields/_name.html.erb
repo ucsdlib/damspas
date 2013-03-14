@@ -1,6 +1,7 @@
 <% if @document["name_tesim"] != nil %>
 	<dt>Names</dt>
 	<dd>
+		<ul class="unstyled">
 		<%
 			#fields:
 			# arr name="name_tesim">
@@ -13,10 +14,9 @@
 			#</arr>
 		names = @document["name_tesim"];
 		@document["name_tesim"].each { |name| 
+			concat "<li>#{name}</li>".html_safe
+		}
 		%>
-			<p><%=name%></p>
-		<%
-			}
-		%>
+		</ul>
 	</dd>
 <% end %>
