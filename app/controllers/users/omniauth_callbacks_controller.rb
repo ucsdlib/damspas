@@ -12,10 +12,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   	@user = User.send(find_or_create_method,request.env["omniauth.auth"], current_user)
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => auth_type
-      sign_in_and_redirect @user, :event => :authentication
+      #sign_in_and_redirect @user, :event => :authentication
+      sign_in @user, :event => :authentication
+      redirect_to request.env['omniauth.origin'] || root_url
     else
       session["devise.#{auth_type.downcase}_data"] = request.env["omniauth.auth"]
-      redirect_to root_url #Have this redirect someplace better like IU CAS guest account creation page
+      redirect_to request.env['omniauth.origin'] || root_url 
     end
   end
   protected :find_or_create_user
