@@ -10,6 +10,7 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.language(:in=>DAMS)
     map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
     map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
+    map.event(:in=>DAMS)
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -226,7 +227,18 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     languages
   end
-
+  def load_events
+    events = []
+    event.values.each do |e|
+      event_uri = e.to_s
+      event_pid = event_uri.gsub(/.*\//,'')
+      if event_pid != nil && event_pid != ""
+        events << DamsDAMSEvent.find(event_pid)
+      end
+    end
+    events
+  end
+  
   def insertNoteFields (solr_doc, fieldName, objects)
     n = 0
     objects.map do |no| 
@@ -271,9 +283,15 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       if ( rel != nil )
         #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
         begin
-          names << rel.name.first.to_s
-        rescue
-          puts "error: #{rel}"
+          n = rel.name.first.to_s
+          if not names.include?( n )
+            names << n
+          end
+        rescue Exception => e
+          puts e.to_s
+          e.backtrace.each do |line|
+            puts line
+          end
         end
       end
       relRole = relationship.loadRole
@@ -299,6 +317,28 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
+    events = load_events
+    if events != nil
+      n = 0
+      events.each do |e|
+        n += 1
+        Solrizer.insert_field(solr_doc, "event_#{n}_id", e.pid)
+        Solrizer.insert_field(solr_doc, "event_#{n}_type", e.type)
+        Solrizer.insert_field(solr_doc, "event_#{n}_eventDate", e.eventDate)
+        Solrizer.insert_field(solr_doc, "event_#{n}_outcome", e.outcome)
+        e.relationship.map do |relationship|
+	      rel = relationship.load
+	      if (rel != nil)
+	         Solrizer.insert_field(solr_doc, "event_#{n}_name", rel.name)
+	      end 
+	      relRole = relationship.loadRole
+	      if (relRole != nil)
+	         Solrizer.insert_field(solr_doc, "event_#{n}_role", relRole.value)
+	      end  
+	    end    
+      end
+    end
+    
     insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
     insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
     insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote

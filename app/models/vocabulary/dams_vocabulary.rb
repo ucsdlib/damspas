@@ -135,4 +135,8 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :projection
   property :referenceSystem
   property :scale
+  property :eventDate
+  property :outcome
+  property :DAMSEvent
+  property :event
 end
