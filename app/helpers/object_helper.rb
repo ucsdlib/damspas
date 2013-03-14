@@ -206,14 +206,15 @@ module ObjectHelper
 	def displayNode(index)
 
 		fileType = render_file_type(:component=>index,:quality=>450)
-		btnAttrForFiles = (fileType) ? "onClick='showComponent(this,#{index});'" : ''
+		btnID = "tree-button-#{index}"
+		btnAttrForFiles = (fileType) ? "onClick='showComponent(#{index});'" : ''
 		btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
 		btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileType)
 		btnCSS = (fileType) ? "tree-file #{@firstButton}" : ''
 		btnCSS += (@isParent[index]) ? " tree-parent" : ''
 
 		concat "<li>".html_safe
-		concat "<button type='button' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
+		concat "<button type='button' id='#{btnID}' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
 		componentTitle index
 		concat "</button>".html_safe
 
