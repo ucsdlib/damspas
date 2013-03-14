@@ -287,9 +287,15 @@ class DamsProvenanceCollectionPartDatastream < ActiveFedora::RdfxmlRDFDatastream
       if ( rel != nil )
         #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
         begin
-          names << rel.name.first.to_s
-        rescue
-          puts "error: #{rel}"
+          n = rel.name.first.to_s
+          if not names.include?( n )
+            names << n
+          end
+        rescue Exception => e
+          puts e.to_s
+          e.backtrace.each do |line|
+            puts line
+          end
         end
       end
       relRole = relationship.loadRole
