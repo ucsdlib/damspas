@@ -3,5 +3,9 @@
 		unit_name = render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim")
 	%>
 	<dt>Unit</dt>
-	<dd><p><%= link_to unit_name.html_safe, unit_path(@document["unit_code_tesim"]) %></p></dd>
+	<dd>
+		<ul class="unstyled">
+			<li><%= link_to unit_name.html_safe, unit_path(@document["unit_code_tesim"]) %></li>
+		</ul>
+	</dd>
 <% end %>
