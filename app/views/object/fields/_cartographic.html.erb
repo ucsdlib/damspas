@@ -1,8 +1,12 @@
-<% if @document['cartographics_line_tesim'] != nil
+<% if @document['cartographics_line_tesim'] != nil || @document['cartographics_point_tesim'] != nil 
 		#<arr name="cartographics_line_tesim">
 		#<str>0.34,159.38 0.34,159.38</str>
 		#</arr>
-	%>
+%>
 	<dt>Cartographics</dt>
+	<% if @document['cartographics_line_tesim'] != nil %>
 	<dd><p>Line: <%= @document["cartographics_line_tesim"].first %></p></dd>
+	<% elsif @document['cartographics_point_tesim'] != nil %>
+	<dd><p>Point: <%= @document["cartographics_point_tesim"].first %></p></dd>
+	<% end %>
 <% end %>
