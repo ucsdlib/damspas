@@ -44,6 +44,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
     map.occupation(:in => DAMS)
     map.cartographics(:in => DAMS, :class_name => 'Cartographics')
+    map.event(:in=>DAMS)
  end
 
 # DAMS Object links/properties from data dictionary
@@ -469,6 +470,24 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     languages
   end
+  def load_events
+    events = []
+    event.values.each do |e|
+      event_uri = e.to_s
+      event_pid = event_uri.gsub(/.*\//,'')
+      if event_pid != nil && event_pid != ""
+        begin
+           events << DamsDAMSEvent.find(event_pid)
+        rescue Exception => e
+          puts e.to_s
+          e.backtrace.each do |line|
+            puts line
+          end
+        end              
+      end
+    end
+    events
+  end  
   def load_source_capture
     source_capture_uri = source_capture_node.values.first.to_s
     source_capture_pid = source_capture_uri.gsub(/.*\//,'')
@@ -871,6 +890,27 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
+    events = load_events
+    if events != nil
+      n = 0
+      events.each do |e|
+        n += 1
+        Solrizer.insert_field(solr_doc, "event_#{n}_id", e.pid)
+        Solrizer.insert_field(solr_doc, "event_#{n}_type", e.type)
+        Solrizer.insert_field(solr_doc, "event_#{n}_eventDate", e.eventDate)
+        Solrizer.insert_field(solr_doc, "event_#{n}_outcome", e.outcome)
+        e.relationship.map do |relationship|
+	      rel = relationship.load
+	      if (rel != nil)
+	         Solrizer.insert_field(solr_doc, "event_#{n}_name", rel.name)
+	      end 
+	      relRole = relationship.loadRole
+	      if (relRole != nil)
+	         Solrizer.insert_field(solr_doc, "event_#{n}_role", relRole.value)
+	      end  
+	    end    
+      end
+    end
     rightsHolders = load_rightsHolders
     if rightsHolders != nil
       n = 0

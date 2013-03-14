@@ -31,6 +31,7 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.function(:in => DAMS)
     map.corporateName(:in => DAMS)
     map.complexSubject(:in => DAMS)
+    map.event(:in=>DAMS)
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -283,6 +284,25 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     languages
   end
 
+  def load_events
+    events = []
+    event.values.each do |e|
+      event_uri = e.to_s
+      event_pid = event_uri.gsub(/.*\//,'')
+      if event_pid != nil && event_pid != ""
+        begin
+           events << DamsDAMSEvent.find(event_pid)
+        rescue Exception => e
+          puts e.to_s
+          e.backtrace.each do |line|
+            puts line
+          end
+        end              
+      end
+    end
+    events
+  end 
+  
   def load_part
     part_uri = part_node.values.first.to_s
     part_pid = part_uri.gsub(/.*\//,'')
@@ -569,6 +589,27 @@ class DamsProvenanceCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
+    events = load_events
+    if events != nil
+      n = 0
+      events.each do |e|
+        n += 1
+        Solrizer.insert_field(solr_doc, "event_#{n}_id", e.pid)
+        Solrizer.insert_field(solr_doc, "event_#{n}_type", e.type)
+        Solrizer.insert_field(solr_doc, "event_#{n}_eventDate", e.eventDate)
+        Solrizer.insert_field(solr_doc, "event_#{n}_outcome", e.outcome)
+        e.relationship.map do |relationship|
+	      rel = relationship.load
+	      if (rel != nil)
+	         Solrizer.insert_field(solr_doc, "event_#{n}_name", rel.name)
+	      end 
+	      relRole = relationship.loadRole
+	      if (relRole != nil)
+	         Solrizer.insert_field(solr_doc, "event_#{n}_role", relRole.value)
+	      end  
+	    end    
+      end
+    end
     part = load_part
     if part != nil && part.class == DamsProvenanceCollectionPart
       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)

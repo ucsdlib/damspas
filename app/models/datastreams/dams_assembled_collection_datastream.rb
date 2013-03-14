@@ -233,11 +233,18 @@ class DamsAssembledCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       event_uri = e.to_s
       event_pid = event_uri.gsub(/.*\//,'')
       if event_pid != nil && event_pid != ""
-        events << DamsDAMSEvent.find(event_pid)
+        begin
+           events << DamsDAMSEvent.find(event_pid)
+        rescue Exception => e
+          puts e.to_s
+          e.backtrace.each do |line|
+            puts line
+          end
+        end              
       end
     end
     events
-  end
+  end 
   
   def insertNoteFields (solr_doc, fieldName, objects)
     n = 0
