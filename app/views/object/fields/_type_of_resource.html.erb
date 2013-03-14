@@ -3,6 +3,8 @@
 %>
 	<dt>Format</dt>
 	<dd>
-			<%= link_to "<i class='icon-tag icon-white'></i> #{resource_type}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %>
+		<ul class="unstyled">
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %></li>
+		</ul>
 	</dd>
 <% end %>

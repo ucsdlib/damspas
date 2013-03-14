@@ -1,4 +1,5 @@
 module ObjectHelper
+
   #---
   # select_file: Select files to display
   #---
@@ -83,19 +84,17 @@ module ObjectHelper
     file_info
   end
 
-
-
-
   #---
   # render_file_type
   #---
   def render_file_type( params )
     component = params[:component]
+		quality = params[:quality]
 
     if component=="0"
-      files = select_file( :document=>@document, :quality=>450 )
+      files = select_file( :document=>@document, :quality=>quality )
     else
-      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+      files = select_file( :document=>@document, :component=>component, :quality=>quality )
     end
    
     file_info = files[:service]
@@ -104,19 +103,17 @@ module ObjectHelper
     end
   end
 
-
-
-
   #---
   # render_service_file
   #---
   def render_service_file( params )
     component = params[:component]
+		quality = params[:quality]
 
     if component=="0"
-      files = select_file( :document=>@document,:quality=>450 )
+      files = select_file( :document=>@document, :quality=>quality )
     else
-      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+      files = select_file( :document=>@document, :component=>component, :quality=>quality )
     end
 
     service_file = files[:service]
@@ -130,11 +127,12 @@ module ObjectHelper
   #---
   def render_display_file( params )
     component = params[:component]
+		quality = params[:quality]
 
     if component=="0"
-      files = select_file( :document=>@document,:quality=>450 )
+      files = select_file( :document=>@document,:quality=>quality )
     else
-      files = select_file( :document=>@document, :component=>component, :quality=>450 )
+      files = select_file( :document=>@document, :component=>component, :quality=>quality )
     end
 
     if files.has_key?(:display)
@@ -158,136 +156,137 @@ module ObjectHelper
     display
   end
 
-end
+	#------------------------
+	# COMPONENT TREE METHODS
+	#------------------------
 
-#------------------------
-# COMPONENT TREE METHODS
-#------------------------
-
-#---
-# Get a component's title.
-#
-# @param index The object's component index.
-# @return A string that is the component's title.
-# @author David T.
-#---
-def componentTitle(index)
-	concat render_document_show_field_value(:document=>@document, :field=>"component_#{index}_1_title_tesim")
-end
-
-#---
-# Determines which Bootstrap icon glyph to use based on a component's file type.
-#
-# @param fileType The component's file type/role value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
-# @return A string that is the CSS class name of the icon we want to display.
-# @author David T.
-#---
-def grabIcon(fileType)
-	icon = (fileType) ? fileType.split("-").first : 'no-files'
-	case icon
-		when 'image'
-			icon = 'icon-picture'
-		when 'audio'
-			icon = 'icon-music'
-		when 'video'
-			icon = 'icon-film'
-		when 'no-files'
-			icon = 'icon-stop'
-		else
-			icon ='icon-file'
+	#---
+	# Render a component's title.
+	#
+	# @param index The object's component index.
+	# @return nil
+	# @author David T.
+	#---
+	def componentTitle(index)
+		concat render_document_show_field_value(:document=>@document, :field=>"component_#{index}_1_title_tesim")
+		return nil
 	end
-	return icon
-end
 
-#---
-# Renders a node of the COV component tree.
-#
-# @param index The object's component index.
-# @return nil
-# @author David T.
-#---
-def displayNode(index)
-
-	fileType = render_file_type(:component=>index)
-	btnAttrForFiles = (fileType) ? "onClick='showComponent(this,#{index});'" : ''
-	btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
-	btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileType)
-	btnCSS = (fileType) ? "tree-file #{@firstButton}" : ''
-	btnCSS += (@isParent[index]) ? " tree-parent" : ''
-
-	concat "<li>".html_safe
-	concat "<button type='button' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
-	componentTitle index
-	concat "</button>".html_safe
-
-	# Display children if parent
-	if (@isParent[index])
-
-		concat "<ul id='meta-component-#{index}' class='unstyled collapse'>".html_safe
-		@document["component_#{index}_children_isim"].each do |sub|
-			displayNode sub
-			@seen.push(sub)
+	#---
+	# Determines which Bootstrap icon glyph to use based on a component's file type.
+	#
+	# @param fileType The component's file type/role value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
+	# @return A string that is the CSS class name of the icon we want to display.
+	# @author David T.
+	#---
+	def grabIcon(fileType)
+		icon = (fileType) ? fileType.split("-").first : 'no-files'
+		case icon
+			when 'image'
+				icon = 'icon-picture'
+			when 'audio'
+				icon = 'icon-music'
+			when 'video'
+				icon = 'icon-film'
+			when 'no-files'
+				icon = 'icon-stop'
+			else
+				icon ='icon-file'
 		end
-		concat "</ul>".html_safe
-
+		return icon
 	end
 
-	concat "</li>".html_safe
+	#---
+	# Renders a node of the COV component tree.
+	#
+	# @param index The object's component index.
+	# @return nil
+	# @author David T.
+	#---
+	def displayNode(index)
 
-	@firstButton = nil
+		fileType = render_file_type(:component=>index,:quality=>450)
+		btnAttrForFiles = (fileType) ? "onClick='showComponent(this,#{index});'" : ''
+		btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
+		btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileType)
+		btnCSS = (fileType) ? "tree-file #{@firstButton}" : ''
+		btnCSS += (@isParent[index]) ? " tree-parent" : ''
 
-end
+		concat "<li>".html_safe
+		concat "<button type='button' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
+		componentTitle index
+		concat "</button>".html_safe
 
-#---
-# Renders the COV component tree.
-#
-# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
-# @return nil
-# @author David T.
-#---
-def displayComponentTree(component_count)
-	if component_count != nil && component_count > 0
-		concat '<ul class="unstyled">'.html_safe
-		for i in 1..component_count
-			if @seen.count(i) == 0
-				displayNode i
+		# Display children if parent
+		if (@isParent[index])
+
+			concat "<ul id='meta-component-#{index}' class='unstyled collapse'>".html_safe
+			@document["component_#{index}_children_isim"].each do |sub|
+				displayNode sub
+				@seen.push(sub)
 			end
+			concat "</ul>".html_safe
+
 		end
-		concat '</ul>'.html_safe
+
+		concat "</li>".html_safe
+
+		@firstButton = nil
+
 	end
-	return nil
-end
 
-#---
-# Initializes the arrays used to build the COV component tree.
-#
-# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
-# @return nil
-# @author David T.
-#---
-def initComponentTree(component_count)
-	if component_count != nil
-		@isParent = []
-		@isChild = []
-		@seen = []
-
-		for i in 1..component_count
-			@isParent[i] = false
-			@isChild[i] = false
+	#---
+	# Renders the COV component tree.
+	#
+	# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
+	# @return nil
+	# @author David T.
+	#---
+	def displayComponentTree(component_count)
+		if component_count != nil && component_count > 0
+			concat '<ul class="unstyled">'.html_safe
+			for i in 1..component_count
+				if @seen.count(i) == 0
+					displayNode i
+				end
+			end
+			concat '</ul>'.html_safe
 		end
+		return nil
+	end
 
-		for i in 1..component_count
-			if @document["component_#{i}_children_isim"] != nil
-				@isParent[i] = true
-				@document["component_#{i}_children_isim"].each do |j|
-					@isChild[j] = true
+	#---
+	# Initializes the arrays used to build the COV component tree.
+	#
+	# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
+	# @return nil
+	# @author David T.
+	#---
+	def initComponentTree(component_count)
+		if component_count != nil
+			@isParent = []
+			@isChild = []
+			@seen = []
+
+			for i in 1..component_count
+				@isParent[i] = false
+				@isChild[i] = false
+			end
+
+			for i in 1..component_count
+				if @document["component_#{i}_children_isim"] != nil
+					@isParent[i] = true
+					@document["component_#{i}_children_isim"].each do |j|
+						@isChild[j] = true
+					end
 				end
 			end
 		end
+		return nil
 	end
-	return nil
-end
 
-#-------------------------
-# /COMPONENT TREE METHODS
-#-------------------------
+	#-------------------------
+	# /COMPONENT TREE METHODS
+	#-------------------------
+
+end
