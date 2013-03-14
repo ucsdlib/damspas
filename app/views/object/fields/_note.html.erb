@@ -19,8 +19,7 @@
 				<% end %>
 			</strong>
 		</p>
-		<!-- temporarily remove extra escape characters with gsub. remove once data is reloaded -->
-		<p><%=@document["note_#{i}_value_tesim"].first.gsub('\\','')%></p>
+		<p><%=@document["note_#{i}_value_tesim"].first.html_safe%></p>
 		<%
 			i += 1 #try again
 			break unless @document["note_#{i}_value_tesim"] != nil
