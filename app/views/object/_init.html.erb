@@ -1,3 +1,5 @@
 <script>
-  audiojs.events.ready(function(){var as = audiojs.createAll();});
+	if (document.getElementById("simple-audio")){
+		audiojs.events.ready(function(){audiojs.create(document.getElementById("simple-audio"));});
+	}
 </script>
