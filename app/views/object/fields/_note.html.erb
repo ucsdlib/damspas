@@ -19,7 +19,7 @@
 				<% end %>
 			</strong>
 		</p>
-		<p><%=@document["note_#{i}_value_tesim"].first%></p>
+		<p><%=@document["note_#{i}_value_tesim"].first.html_safe%></p>
 		<%
 			i += 1 #try again
 			break unless @document["note_#{i}_value_tesim"] != nil
