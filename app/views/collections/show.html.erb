@@ -1,36 +1,28 @@
-<% @page_title =  "Object | #{render_document_show_field_value(:document=>@document, :field=>'title_tesim')}"
-collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim');
- %>
+<%
+	collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	@page_title = "Object | #{collection_title}"
+%>
 
 <div class="row-fluid">
-  <div id="content" class="show-document span12">
-	
-		<div class="row-fluid">
-			<section class="dams-viewer span12">
-				<%= render_document_heading(:h1).html_safe %>
-			</section>
-		</div>
-
-		<div class="row-fluid">
-			<section class="dams-metadata span12">
-				<%= render :partial => 'object/metadata_alt' %>
-			</section>
-		</div>
-		
-		<div class="row-fluid">
-			<section class="dams-metadata span12">
-				<%= link_to "<i class='icon-tag icon-white'></i> #{collection_title}".html_safe, facet_uri(render_document_show_field_value(:document=>@document, :field=>'title_tesim'),'collection_sim'), :class => "label" %>
-			</section>
-		</div>
+	<div class="dams-breadcrumbs span12">
+		<ul class="breadcrumb">
+			<li><a href="/">Digital Collections</a> <span class="divider">&raquo;</span></li>
+			<li><%= link_to "Collections", collections_path %> <span class="divider">&raquo;</span></li>
+			<li class="active"><%=collection_title%></li>
+		</ul>
 	</div>
-
-	 </div>
 </div>
 
 <div class="row-fluid">
-	<section class="dams-comments span9">
+	<div class="span8 offset2 dams-collections well well-large">
+		<%= render_document_heading(:h1) %>
+		<%= render :partial => 'metadata' %>
+		<%= link_to "<i class='icon-search icon-white'></i> Search this collection".html_safe, facet_uri(collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<section class="dams-comments span8 offset2">
 		<%= render :partial => 'object/comments' %>
 	</section>
 </div>
-
-<%= link_to "View All", collections_path %></li>

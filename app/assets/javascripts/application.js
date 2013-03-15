@@ -32,7 +32,10 @@ Blacklight.do_search_context_behavior = function() {};
 var componentloaded = [];
 function showComponent(componentIndex)
 {
-	var componentData = $("#component-"+componentIndex+" > div").attr("data");
+	var componentID = "#component-" + componentIndex;
+	var container = componentID + " > div";
+	var buttonID = "#tree-button-" + componentIndex;
+	var componentData = $(container).attr("data");
 
 	// Dynamically load images, audio files, and video files
 	if (componentData != undefined)
@@ -47,16 +50,16 @@ function showComponent(componentIndex)
 
 			if(fileType.indexOf("image") != -1)
 			{
-				$("#component-"+componentIndex+" > div").html( '<a href="'+serviceFilePath+'"><img src="'+displayFilePath+'"></a>' );
+				$(container).html( '<a href="'+serviceFilePath+'"><img src="'+serviceFilePath+'"></a>' );
 			}
 			else if(fileType.indexOf("audio") != -1)
 			{
-				$("#component-"+componentIndex+" > div").html( '<audio id="'+controlID+'" src="'+serviceFilePath+'" preload="auto"></audio>' );
+				$(container).html( '<audio id="'+controlID+'" src="'+serviceFilePath+'" preload="auto"></audio>' );
 				audiojs.events.ready(function(){audiojs.create(document.getElementById(controlID));});
 			}
 			else if(fileType.indexOf("video") != -1)
 			{
-				$("#component-"+componentIndex+" > div").html( '<video id="'+controlID+'" class="video-js vjs-default-skin" controls width="640" height="264" poster="'+displayFilePath+'" preload="auto"><source src="'+serviceFilePath+'" type="video/mp4" /></video>' );
+				$(container).html( '<video id="'+controlID+'" class="video-js vjs-default-skin" controls width="100%" height="264" poster="'+displayFilePath+'" preload="auto"><source src="'+serviceFilePath+'" type="video/mp4" /></video>' );
 				var myPlayer = _V_(controlID);
 			}
 		}
@@ -65,11 +68,11 @@ function showComponent(componentIndex)
 
 	// Highlight component tree button text of selected component
 	$(".components-tree button").removeClass('active-component');
-	$("#tree-button-"+componentIndex).addClass('active-component');
+	$(buttonID).addClass('active-component');
 
 	// Show a specific component's container and hide the others
 	$('.component').hide();
-	$("#component-"+componentIndex).show();
+	$(componentID).show();
 }
 $(document).ready(function()
 {
