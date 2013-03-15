@@ -1,10 +1,14 @@
-<div class="alert alert-info">
-  <h4>No File</h4>
-	<% if objectType == 'simple' %>
-	  There is no file associated with this object.
-	<% elsif objectType == 'complex' %>
-		There is no file associated with this component.
-	<% else %>
-		There is no file associated with this object or component.
-	<% end %>
+<div class="form-actions dams-download-button">
+	<p class="muted">
+		<small>
+			<% if objectType == 'simple' %>
+				There are no files associated with this object.
+			<% elsif objectType == 'complex' %>
+				There are no files associated with this component.
+			<% else %>
+				There are no files associated with this object or component.
+			<% end %>
+		</small>
+	</p>
 </div>
+

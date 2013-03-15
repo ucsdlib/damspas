@@ -85,9 +85,9 @@ module ObjectHelper
   end
 
   #---
-  # render_file_type
+  # render_file_use
   #---
-  def render_file_type( params )
+  def render_file_use( params )
     component = params[:component]
 		quality = params[:quality]
 
@@ -173,14 +173,25 @@ module ObjectHelper
 	end
 
 	#---
+	# Get the file type value from the component's file use value
+	#
+	# @param fileUse The component's file use (type/role) value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
+	# @return A string that is the file type value for our component.
+	# @author David T.
+	#---
+	def grabFileType(fileUse)
+		fileType = (fileUse) ? fileUse.split("-").first : 'no-files'
+	end
+
+	#---
 	# Determines which Bootstrap icon glyph to use based on a component's file type.
 	#
-	# @param fileType The component's file type/role value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
+	# @param fileUse The component's file use (type/role) value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
 	# @return A string that is the CSS class name of the icon we want to display.
 	# @author David T.
 	#---
-	def grabIcon(fileType)
-		icon = (fileType) ? fileType.split("-").first : 'no-files'
+	def grabIcon(fileUse)
+		icon = grabFileType(fileUse)
 		case icon
 			when 'image'
 				icon = 'icon-picture'
@@ -205,12 +216,12 @@ module ObjectHelper
 	#---
 	def displayNode(index)
 
-		fileType = render_file_type(:component=>index,:quality=>450)
+		fileUse = render_file_use(:component=>index,:quality=>450)
 		btnID = "tree-button-#{index}"
-		btnAttrForFiles = (fileType) ? "onClick='showComponent(#{index});'" : ''
+		btnAttrForFiles = "onClick='showComponent(#{index});'"
 		btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
-		btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileType)
-		btnCSS = (fileType) ? "tree-file #{@firstButton}" : ''
+		btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileUse)
+		btnCSS = (fileUse) ? "tree-file #{@firstButton}" : ''
 		btnCSS += (@isParent[index]) ? " tree-parent" : ''
 
 		concat "<li>".html_safe
