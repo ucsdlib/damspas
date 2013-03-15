@@ -25,6 +25,7 @@ class CatalogController < ApplicationController
   def exclude_opentopo(solr_parameters,user_parameters)
     solr_parameters[:fq] << "-collections_tesim:bd6587977w"
     solr_parameters[:fq] << "-collections_tesim:bd5905379f"
+    solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR type_tesim:Collection)"
   end
 
   configure_blacklight do |config|
