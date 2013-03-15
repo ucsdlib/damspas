@@ -48,19 +48,19 @@ function showComponent(componentIndex)
 			var serviceFilePath = componentData.service_file_path;
 			var displayFilePath = componentData.display_file_path;
 
-			if(fileType.indexOf("image") != -1)
+			switch(fileType)
 			{
-				$(container).html( '<a href="'+serviceFilePath+'"><img src="'+serviceFilePath+'"></a>' );
-			}
-			else if(fileType.indexOf("audio") != -1)
-			{
-				$(container).html( '<audio id="'+controlID+'" src="'+serviceFilePath+'" preload="auto"></audio>' );
-				audiojs.events.ready(function(){audiojs.create(document.getElementById(controlID));});
-			}
-			else if(fileType.indexOf("video") != -1)
-			{
-				$(container).html( '<video id="'+controlID+'" class="video-js vjs-default-skin" controls width="100%" height="264" poster="'+displayFilePath+'" preload="auto"><source src="'+serviceFilePath+'" type="video/mp4" /></video>' );
-				var myPlayer = _V_(controlID);
+				case "image":
+					$(container).html( '<a href="'+serviceFilePath+'" target="_blank"><img src="'+serviceFilePath+'"></a>' );
+					break;
+				case "audio":
+					$(container).html( '<audio id="'+controlID+'" src="'+serviceFilePath+'" preload="auto"></audio>' );
+					audiojs.events.ready(function(){audiojs.create(document.getElementById(controlID));});
+					break;
+				case "video":
+					$(container).html( '<video id="'+controlID+'" class="video-js vjs-default-skin" controls width="100%" height="264" poster="'+displayFilePath+'" preload="auto"><source src="'+serviceFilePath+'" type="video/mp4" /></video>' );
+					var myPlayer = _V_(controlID);
+					break;
 			}
 		}
 		componentloaded[componentIndex] = true;

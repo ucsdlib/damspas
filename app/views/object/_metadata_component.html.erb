@@ -1,62 +1,60 @@
-<% if defined?(componentIndex) && defined?(fileName) %>
+<% if defined?(componentIndex) %>
 
 	<table class="table">
 		<tbody>
 
-			<% if @document["component_#{componentIndex}_1_subtitle_tesim"] != nil %>
-				<tr>
-					<td>Subtitle</td>
-					<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_subtitle_tesim") %></b></td>
-				</tr>
-			<% end %>
+			<% if defined?(fileName) # Our component has files associated with it. %>
 
-			<% if @document["component_#{componentIndex}_1_date_tesim"] != nil %>
-				<tr>
-					<td>Date</td>
-					<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_date_tesim") %></b></td>
-				</tr>
-			<% end %>
-
-			<% if @document["component_#{componentIndex}_note_tesim"] != nil %>
-				<tr>
-					<td>Note</td>
-					<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_note_tesim") %></b></td>
-				</tr>
-			<% end %>
-
-			<% if defined?(fileMetadata) %>
-				<% if fileMetadata == true %>
-
-					<% if @document["component_#{componentIndex}_file_#{fileName}_size_ssi"] != nil %>
-						<tr>
-							<td>Size</td>
-							<td><b><%=number_to_human_size(@document["component_#{componentIndex}_file_#{fileName}_size_ssi"].to_i)%></b></td>
-						</tr>
-					<% end %>
-
-					<% if @document["component_#{componentIndex}_file_#{fileName}_formatName_tesim"] != nil %>
-						<% fileFormat = render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_file_#{fileName}_formatName_tesim") %>
-						<tr>
-							<td>Format</td>
-							<% if fileFormat == "bytestream" %>
-								<% fileFormat = File.extname(fileName.upcase) %>
-								<% fileFormat[0] = '' # Zapping the leading "." E.g., .MP3 -> MP3 %>
-							<% end %>
-							<td><b><%= fileFormat %></b></td>
-						</tr>
-					<% end %>
-
+				<% if @document["component_#{componentIndex}_1_subtitle_tesim"] != nil %>
+					<tr>
+						<td>Subtitle</td>
+						<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_subtitle_tesim") %></b></td>
+					</tr>
 				<% end %>
+
+				<% if @document["component_#{componentIndex}_1_date_tesim"] != nil %>
+					<tr>
+						<td>Date</td>
+						<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_date_tesim") %></b></td>
+					</tr>
+				<% end %>
+
+				<% if @document["component_#{componentIndex}_note_tesim"] != nil %>
+					<tr>
+						<td>Note</td>
+						<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_note_tesim") %></b></td>
+					</tr>
+				<% end %>
+
+				<% if defined?(fileMetadata) %>
+					<% if fileMetadata == true %>
+						<% if @document["component_#{componentIndex}_file_#{fileName}_size_ssi"] != nil %>
+							<tr>
+								<td>Size</td>
+								<td><b><%=number_to_human_size(@document["component_#{componentIndex}_file_#{fileName}_size_ssi"].to_i)%></b></td>
+							</tr>
+						<% end %>
+						<% if @document["component_#{componentIndex}_file_#{fileName}_formatName_tesim"] != nil %>
+							<% fileFormat = render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_file_#{fileName}_formatName_tesim") %>
+							<tr>
+								<td>Format</td>
+								<% if fileFormat == "bytestream" %>
+									<% fileFormat = File.extname(fileName.upcase) %>
+									<% fileFormat[0] = '' # Zapping the leading "." E.g., .MP3 -> MP3 %>
+								<% end %>
+								<td><b><%= fileFormat %></b></td>
+							</tr>
+						<% end %>
+					<% end %>
+				<% end %>
+
+			<% else # Our component does not have any files assocaited with it. The poor thing. %>
+				<%= render :partial => 'object/component_fields/type_of_resource', :locals => {:componentIndex => componentIndex} %>
+				<%= render :partial => 'object/component_fields/topic', :locals => {:componentIndex => componentIndex} %>
+				<%= render :partial => 'object/component_fields/note', :locals => {:componentIndex => componentIndex} %>
 			<% end %>
+
 		</tbody>
 	</table>
-<% else %>
-	<table class="table">
-		<tbody>
-			<%= render :partial => 'object/component_fields/type_of_resource', :locals => {:componentIndex => componentIndex} %>
-			<%= render :partial => 'object/component_fields/topic', :locals => {:componentIndex => componentIndex} %>
-			<%= render :partial => 'object/component_fields/note', :locals => {:componentIndex => componentIndex} %>
-			
-		</tbody>
-	</table>
+
 <% end %>

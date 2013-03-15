@@ -22,8 +22,8 @@ $componentHighlight: #AD702B !default;
 .simple-object .video-js{margin: 0 auto 20px auto;}
 .simple-object .audiojs{margin: 0 auto;}
 
-.component img{width:100%;margin:0 auto 20px auto;display:block;}
-.simple-object img{width:100%;margin:0 auto;display:block;}
+.component img{width:auto;margin:0 auto 20px auto;display:block;}
+.simple-object img{width:auto;margin:0 auto;display:block;}
 
 .first-component{display:block;}
 .component h2{font-size:125%;padding:0;margin:0 0 20px 0;line-height:100%;color: $componentHighlight;}
@@ -49,6 +49,8 @@ $componentHighlight: #AD702B !default;
 .dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: none;}
 .dams-viewer h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
 .dams-download-button{margin:0;}
+.dams-download-button p{margin: 0;text-align: center;}
+.dams-viewer img{max-width:auto;max-height:400px;}
 
 // Breadcrumbs
 .dams-breadcrumbs .breadcrumb{font-size: 12px;background-color:transparent;padding: 0;}
@@ -96,14 +98,14 @@ $componentHighlight: #AD702B !default;
 @media (min-width: 980px)
 {
 	// OBJECT VIEWER PAGE
-	.dams-viewer img{width:40%;}
+	//.dams-viewer img{width:40%;}
 }
 
 // PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP)
 @media (min-width: 768px) and (max-width: 979px)
 {
 	// OBJECT VIEWER PAGE
-	.dams-viewer img{width:50%;}
+	//.dams-viewer img{width:50%;}
 }
 
 // MOBILE (CUSTOM)
@@ -113,7 +115,7 @@ $componentHighlight: #AD702B !default;
 @media (max-width: 767px)
 {
 	 // OBJECT VIEWER PAGE
-	.dams-viewer img{width:50%;}
+	//.dams-viewer img{width:50%;}
 	.dams-download-button .btn{display:block;float:none;}
 	.component .video-js{height: 300px;}
 }
@@ -122,7 +124,7 @@ $componentHighlight: #AD702B !default;
 @media (max-width: 480px)
 {
 	 // OBJECT VIEWER PAGE
-	.dams-viewer img{width:100%;}
+	//.dams-viewer img{width:100%;}
 
 	// UNITS INDEX PAGE
 	.search-query-form .btn{width:100%;}
