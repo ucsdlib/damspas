@@ -27,7 +27,7 @@ class DamsObject < ActiveFedora::Base
     damsMetadata.load_rightsHolders
   end
   def sourceCapture
-    damsMetadata.load_source_capture
+    damsMetadata.load_source_capture damsMetadata.source_capture_node
   end
   def iconographies
     damsMetadata.load_iconographies
