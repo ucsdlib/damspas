@@ -1119,6 +1119,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         n += 1
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_title", title.value)
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", title.subtitle)
+
+        # redundant field for retrieval
+      	Solrizer.insert_field(solr_doc, "component_title", title.value)
       end
 
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
