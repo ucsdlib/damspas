@@ -22,5 +22,12 @@ module CatalogHelper
   def facet_uri(field, field_string)
     return add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index"})
   end
+  
+  #override of blacklight helper function: 
+  # https://github.com/projectblacklight/blacklight/blob/master/app/helpers/blacklight/blacklight_helper_behavior.rb#L353
+  # uses a semi-colon delimiter in for search result field values
+  def field_value_separator
+    '; '
+  end
 
 end
