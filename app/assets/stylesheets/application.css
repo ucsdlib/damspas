@@ -11,7 +11,6 @@
  *= require_self
  *= require blacklight
  *= require custom-overrides
- *= require custom-dams
-
- 
+ *= require custom-object-viewer
+ *= require custom-collections
  */

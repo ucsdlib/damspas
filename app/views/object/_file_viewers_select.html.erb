@@ -2,7 +2,7 @@
 	<div class="simple-object">
 		<% case fileType %>
 		<% when 'image-service' %>
-			<%= render :partial => 'image_viewer', :locals => {:displayFilePath => display_file_path, :serviceFilePath => service_file_path} %>
+			<%= render :partial => 'image_viewer', :locals => {:displayFilePath => service_file_path, :serviceFilePath => service_file_path} %>
 		<% when 'audio-service' %>
 			<%= render :partial => 'audio_viewer', :locals => {:filePath => service_file_path} %>
 		<% when 'video-service' %>
