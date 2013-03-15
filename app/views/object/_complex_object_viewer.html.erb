@@ -50,6 +50,14 @@
 				</div>
 
 				<% firstComponent = nil %>
+			<% else # component has no file, but still may(should) have metadata %>
+				<% loadFirstComponent = (firstComponent != nil) ? "data=#{i}" : '' %>
+				<div id="component-<%= i %>" class="component <%= firstComponent %>" <%= loadFirstComponent %>>
+					<%= render :partial => 'metadata_component_title', :locals => {:componentIndex => i} %>
+					<%= render :partial => 'default_viewer', :locals => {:objectType => 'complex'} %>
+					<%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
+				</div>
+				<% firstComponent = nil %>
 			<% end %>
 
 	<%
