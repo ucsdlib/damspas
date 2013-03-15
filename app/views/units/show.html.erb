@@ -103,9 +103,9 @@
 		</div>
 
     <p class="sidebar-header"><strong>About the <%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></strong></p>
-    <p><%= render_document_show_field_value(:document=>@document, :field=>"unit_description_tesim") %></p>
-		<ul>
-			<li><%= link_to @document['unit_uri_tesim'].first, @document['unit_uri_tesim'].first %></li>
+    <p><%= render_document_show_field_value(:document=>@document, :field=>"unit_description_tesim").html_safe %></p>
+		<ul class="unstyled sidebar-button-list">
+			<li><%= link_to "<i class='icon-globe'></i> #{@document['unit_uri_tesim'].first}".html_safe, @document['unit_uri_tesim'].first, :class => "btn btn-block  btn-link" %></li>
 		</ul>
 		
 		<p class="sidebar-header"><strong>Browse By</strong></p>
