@@ -38,8 +38,12 @@ $componentHighlight: #AD702B !default;
 //----------------------------------------------------------
 .dams-search-box h4{margin:0 0 10px 0;line-height:inherit;}
 .sidebar-button-list .btn{text-align:left;}
-.carousel .item img{width:100%;}
-.carousel .item{max-height:600px;}
+.carousel .item img{width:100%;height:420px;}
+.carousel-caption{background-color:rgba(0,0,0,0.25);}
+.carousel-caption p{font-weight:bold;text-shadow: 0 0 3px rgba(0,0,0,0.75);}
+
+.dams-au{text-align: left;}
+.dams-au img{display:inline-block;}
 
 //----------------------------------------------------------
 // OBJECT VIEWER PAGE
@@ -118,6 +122,10 @@ $componentHighlight: #AD702B !default;
 	//.dams-viewer img{width:50%;}
 	.dams-download-button .btn{display:block;float:none;}
 	.component .video-js{height: 300px;}
+
+	// UNITS INDEX PAGE
+	.carousel .item img{height:280px;}
+
 }
  
 // LANDSCAPE PHONES AND DOWN (BOOTSTRAP)
@@ -128,5 +136,7 @@ $componentHighlight: #AD702B !default;
 
 	// UNITS INDEX PAGE
 	.search-query-form .btn{width:100%;}
+	.carousel .item img{height:210px;}
+
 }
 
