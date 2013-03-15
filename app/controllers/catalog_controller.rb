@@ -33,7 +33,7 @@ class CatalogController < ApplicationController
     config.default_solr_params = { 
       :qt => 'search',
       :rows => 10,
-      :qf => 'subject_tesim title_tesim date_tesim name_tesim id' 
+      :qf => 'subject_tesim title_tesim date_tesim name_tesim id component_title_tesim' 
     }
 
     # solr field configuration for search results/index views
