@@ -89,6 +89,40 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.resource_type(:in => DAMS, :to => 'typeOfResource')
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
       map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
+      map.language(:in=>DAMS)
+      map.relationship(:in => DAMS, :class_name => 'Relationship')
+      map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+
+      map.copyright(:in=>DAMS)
+      map.license(:in=>DAMS)
+      map.otherRights(:in=>DAMS)
+      map.statute(:in=>DAMS)
+      map.rightsHolder(:in=>DAMS)
+
+      map.name(:in => DAMS)
+      map.familyName(:in => DAMS)
+      map.personalName(:in => DAMS)
+      map.conferenceName(:in => DAMS)
+      map.corporateName(:in => DAMS)
+
+      map.complexSubject(:in => DAMS)
+      map.iconography(:in => DAMS)
+      map.scientificName(:in => DAMS)
+      map.technique(:in => DAMS)
+      map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+      map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
+      map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
+      map.builtWorkPlace(:in => DAMS)
+      map.geographic(:in => DAMS)
+      map.temporal(:in => DAMS)
+      map.culturalContext(:in => DAMS)
+      map.stylePeriod(:in => DAMS)
+      map.topic(:in => DAMS)
+      map.function(:in => DAMS)
+      map.genreForm(:in => DAMS)
+      map.occupation(:in => DAMS)
+      map.cartographics(:in => DAMS, :class_name => 'Cartographics')
+
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
       map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => DamsObjectDatastream::Component)
     end
@@ -122,6 +156,16 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.value(:in=> RDF, :to=>'value')
         map.displayLabel(:in=>DAMS, :to=>'displayLabel')
         map.type(:in=>DAMS, :to=>'type')
+      end
+      def external?
+        rdf_subject.to_s.include? Rails.configuration.id_namespace
+      end
+      def load
+        uri = rdf_subject.to_s
+        if uri.start_with?(Rails.configuration.id_namespace)
+          md = /\/(\w*)$/.match(uri)
+          DamsNote.find(md[1])
+        end
       end
     end
     class File
@@ -315,14 +359,21 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     rdf_type DAMS.Relationship
     map_predicates do |map|
       map.name(:in=> DAMS)
+      map.personalName(:in=> DAMS)
+      map.corporateName(:in=> DAMS)
       map.role(:in=> DAMS)
     end
 
     def load
-      uri = name.first.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
+      if name.first.to_s.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(name.first.to_s)
         MadsPersonalName.find(md[1])
+      elsif personalName.first.to_s.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(personalName.first.to_s)
+        MadsPersonalName.find(md[1])
+      elsif corporateName.first.to_s.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(corporateName.first.to_s)
+        MadsCorporateName.find(md[1])
       end
     end
     
@@ -397,8 +448,8 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
-  def load_unit
-    unit_uri = unit_node.values.first.to_s
+  def load_unit(unit)
+    unit_uri = unit.values.first.to_s
     unit_pid = unit_uri.gsub(/.*\//,'')
     if unit_pid != nil && unit_pid != ""
       DamsUnit.find(unit_pid)
@@ -407,7 +458,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  def load_collection
+  def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
       coltype.values.each do |col|
@@ -431,35 +482,35 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     collections
   end
 
-  def load_copyright
+  def load_copyright ( copyright )
     c_uri = copyright.values.first.to_s
     c_pid = c_uri.gsub(/.*\//,'')
     if c_pid != nil && c_pid != ""
       DamsCopyright.find(c_pid)
     end
   end
-  def load_license
+  def load_license (license)
     l_uri = license.values.first.to_s
     l_pid = l_uri.gsub(/.*\//,'')
     if l_pid != nil && l_pid != ""
       DamsLicense.find(l_pid)
     end
   end
-  def load_statute
+  def load_statute (statute)
     s_uri = statute.values.first.to_s
     s_pid = s_uri.gsub(/.*\//,'')
     if s_pid != nil && s_pid != ""
       DamsStatute.find(s_pid)
     end
   end
-  def load_otherRights
+  def load_otherRights (otherRights)
     o_uri = otherRights.values.first.to_s
     o_pid = o_uri.gsub(/.*\//,'')
     if o_pid != nil && o_pid != ""
       DamsOtherRights.find(o_pid)
     end
   end
-  def load_languages
+  def load_languages(language)
     languages = []
     language.values.each do |lang|
       lang_uri = lang.to_s
@@ -488,7 +539,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     events
   end  
-  def load_source_capture
+  def load_source_capture(source_capture_node)
     source_capture_uri = source_capture_node.values.first.to_s
     source_capture_pid = source_capture_uri.gsub(/.*\//,'')
     if source_capture_pid != nil && source_capture_pid != ""
@@ -498,7 +549,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  def load_rightsHolders
+  def load_rightsHolders(rightsHolder)
     rightsHolders = []
     rightsHolder.values.each do |name|
       name_uri = name.to_s
@@ -510,75 +561,75 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     rightsHolders
   end
 
-  def load_iconographies
+  def load_iconographies(iconography)
     loadObjects iconography,DamsIconography
   end
 
-  def load_scientificNames
+  def load_scientificNames(scientificName)
 	loadObjects scientificName,DamsScientificName
   end
 
-  def load_techniques
+  def load_techniques(technique)
 	loadObjects technique,DamsTechnique
   end
 
-  def load_builtWorkPlaces
+  def load_builtWorkPlaces(builtWorkPlace)
 	loadObjects builtWorkPlace,DamsBuiltWorkPlace
   end
 
-  def load_geographics
+  def load_geographics(geographic)
 	loadObjects geographic,MadsGeographic
   end
 
-  def load_temporals
+  def load_temporals( temporal )
 	loadObjects temporal,MadsTemporal
   end
 
-  def load_culturalContexts
+  def load_culturalContexts(culturalContext)
 	loadObjects culturalContext,DamsCulturalContext
   end
 
-  def load_stylePeriods
+  def load_stylePeriods(stylePeriod)
 	loadObjects stylePeriod,DamsStylePeriod
   end
 
-  def load_topics
+  def load_topics(topic)
 	loadObjects topic,MadsTopic
   end
 
-  def load_functions
+  def load_functions(function)
 	loadObjects function,DamsFunction
   end
 
-  def load_genreForms
+  def load_genreForms(genreForm)
 	loadObjects genreForm,MadsGenreForm
   end
 
-  def load_occupations
+  def load_occupations(occupation)
 	loadObjects occupation,MadsOccupation
   end
 
-  def load_personalNames
+  def load_personalNames(personalName)
 	loadObjects personalName,MadsPersonalName
   end
 
-  def load_familyNames
+  def load_familyNames(familyName)
 	loadObjects familyName,MadsFamilyName
   end
 
-  def load_names
+  def load_names(name)
 	loadObjects name,MadsName
   end
 
-  def load_conferenceNames
+  def load_conferenceNames(conferenceName)
 	loadObjects conferenceName,MadsConferenceName
   end
 
-  def load_corporateNames
+  def load_corporateNames(corporateName)
 	loadObjects corporateName,MadsCorporateName
   end
 
-  def load_complexSubjects
+  def load_complexSubjects(complexSubject)
 	loadObjects complexSubject,MadsComplexSubject
   end
 
@@ -825,7 +876,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)
 
-    copy = load_copyright
+    copy = load_copyright copyright
     if copy != nil
       Solrizer.insert_field(solr_doc, 'copyright_status', copy.status)
       Solrizer.insert_field(solr_doc, 'copyright_jurisdiction', copy.jurisdiction)
@@ -835,7 +886,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'copyright_id', copy.pid)
     end
 
-    lic = load_license
+    lic = load_license license
     if lic != nil
       Solrizer.insert_field(solr_doc, 'license_id', lic.pid)
       Solrizer.insert_field(solr_doc, 'license_note', lic.note)
@@ -848,7 +899,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'license_restrictionEndDate', lic.restrictionEndDate)
     end
 
-    stat = load_statute
+    stat = load_statute statute
     if stat != nil
       Solrizer.insert_field(solr_doc, 'statute_id', stat.pid)
       Solrizer.insert_field(solr_doc, 'statute_citation', stat.citation)
@@ -862,7 +913,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'statute_restrictionEndDate', stat.restrictionEndDate)
     end
 
-    othr = load_otherRights
+    othr = load_otherRights otherRights
     if othr != nil
       Solrizer.insert_field(solr_doc, 'otherRights_id', othr.pid)
       Solrizer.insert_field(solr_doc, 'otherRights_basis', othr.basis)
@@ -878,7 +929,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'otherRights_role', othr.role.first.to_s)
     end
 
-    langs = load_languages
+    langs = load_languages language
     if langs != nil
       n = 0
       langs.each do |lang|
@@ -911,7 +962,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
 	    end    
       end
     end
-    rightsHolders = load_rightsHolders
+    rightsHolders = load_rightsHolders rightsHolder
     if rightsHolders != nil
       n = 0
       rightsHolders.each do |name|
@@ -923,7 +974,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
-    unit = load_unit
+    unit = load_unit unit_node
     if unit.class == DamsUnit
       Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
       Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
@@ -931,7 +982,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
     end
 
-    source_capture = load_source_capture
+    source_capture = load_source_capture source_capture_node
     if source_capture.class == DamsSourceCapture
       Solrizer.insert_field(solr_doc, 'source_capture_scanner_manufacturer', source_capture.scannerManufacturer)
       Solrizer.insert_field(solr_doc, 'source_capture_source_type', source_capture.sourceType)
@@ -943,7 +994,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'source_capture_id', source_capture.pid)
     end
 
-    col = load_collection
+    col = load_collection collection,assembledCollection,provenanceCollection,provenanceCollectionPart
     if col != nil
      n = 0
       col.each do |collection|
@@ -998,9 +1049,40 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_beginDate", date.beginDate)
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
       end
-      if component.note.first != nil
-        Solrizer.insert_field(solr_doc, "component_#{cid}_note", component.note.first.value)
-      end
+
+#      n = 0
+#      component.note.map do |note|
+#        n += 1
+#        Solrizer.insert_field(solr_doc, "component_#{cid}_note_#{n}_value", note.value.first)
+#        Solrizer.insert_field(solr_doc, "component_#{cid}_note_#{n}_label", note.displayLabel.first)
+#        Solrizer.insert_field(solr_doc, "component_#{cid}_note_#{n}_type", note.type.first)
+#      end
+
+      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
+      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
+      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
+      insertNoteFields solr_doc, "component_#{cid}_note",component.note
+
+      insertFields solr_doc, "component_#{cid}_iconography", load_iconographies(component.iconography)
+      insertFields solr_doc, "component_#{cid}_scientificName", load_scientificNames(component.scientificName)
+      insertFields solr_doc, "component_#{cid}_technique", load_techniques(component.technique)
+      insertFields solr_doc, "component_#{cid}_occupation", load_occupations(component.occupation)
+      insertFields solr_doc, "component_#{cid}_builtWorkPlace", load_builtWorkPlaces(component.builtWorkPlace)
+      insertFields solr_doc, "component_#{cid}_geographic", load_geographics(component.geographic)
+      insertFields solr_doc, "component_#{cid}_temporal", load_temporals(component.temporal)
+      insertFields solr_doc, "component_#{cid}_culturalContext", load_culturalContexts(component.culturalContext)
+      insertFields solr_doc, "component_#{cid}_stylePeriod", load_stylePeriods(component.stylePeriod)
+      insertFields solr_doc, "component_#{cid}_topic", load_topics(component.topic)
+      insertFields solr_doc, "component_#{cid}_function", load_functions(component.function)
+      insertFields solr_doc, "component_#{cid}_genreForm", load_genreForms(component.genreForm)
+
+      insertFields solr_doc, "component_#{cid}_personalName", load_personalNames(component.personalName)
+      insertFields solr_doc, "component_#{cid}_familyName", load_familyNames(component.familyName)
+      insertFields solr_doc, "component_#{cid}_name", load_names(component.name)
+      insertFields solr_doc, "component_#{cid}_conferenceName", load_conferenceNames(component.conferenceName)
+      insertFields solr_doc, "component_#{cid}_corporateName", load_corporateNames(component.corporateName)
+      insertComplexSubjectFields solr_doc, "component_#{cid}_complexSubject", load_complexSubjects(component.complexSubject)
+
       component.file.map.sort{ |a,b| a.order <=> b.order }.each { |file|
         fid = file.id
         if !fid.ends_with? ".keep"
@@ -1064,25 +1146,25 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
     insertNoteFields solr_doc, 'note',note
 
-    insertFields solr_doc, 'iconography', load_iconographies
-    insertFields solr_doc, 'scientificName', load_scientificNames
-    insertFields solr_doc, 'technique', load_techniques
-    insertFields solr_doc, 'occupation', load_occupations
-    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces
-    insertFields solr_doc, 'geographic', load_geographics
-    insertFields solr_doc, 'temporal', load_temporals
-    insertFields solr_doc, 'culturalContext', load_culturalContexts
-    insertFields solr_doc, 'stylePeriod', load_stylePeriods
-    insertFields solr_doc, 'topic', load_topics
-    insertFields solr_doc, 'function', load_functions
-    insertFields solr_doc, 'genreForm', load_genreForms
+    insertFields solr_doc, 'iconography', load_iconographies(iconography)
+    insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
+    insertFields solr_doc, 'technique', load_techniques(technique)
+    insertFields solr_doc, 'occupation', load_occupations(occupation)
+    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
+    insertFields solr_doc, 'geographic', load_geographics(geographic)
+    insertFields solr_doc, 'temporal', load_temporals(temporal)
+    insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
+    insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
+    insertFields solr_doc, 'topic', load_topics(topic)
+    insertFields solr_doc, 'function', load_functions(function)
+    insertFields solr_doc, 'genreForm', load_genreForms(genreForm)
 
-    insertFields solr_doc, 'personalName', load_personalNames
-    insertFields solr_doc, 'familyName', load_familyNames
-    insertFields solr_doc, 'name', load_names
-    insertFields solr_doc, 'conferenceName', load_conferenceNames
-    insertFields solr_doc, 'corporateName', load_corporateNames
-    insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects
+    insertFields solr_doc, 'personalName', load_personalNames(personalName)
+    insertFields solr_doc, 'familyName', load_familyNames(familyName)
+    insertFields solr_doc, 'name', load_names(name)
+    insertFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)
+    insertFields solr_doc, 'corporateName', load_corporateNames(corporateName)
+    insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects(complexSubject)
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
