@@ -448,6 +448,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
+  def load_unit
+    load_unit(unit)
+  end
   def load_unit(unit)
     unit_uri = unit.values.first.to_s
     unit_pid = unit_uri.gsub(/.*\//,'')
@@ -458,6 +461,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
+  def load_collection
+    load_collection(collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
+  end
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
@@ -482,12 +488,18 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     collections
   end
 
+  def load_copyright
+    load_copyright( copyright )
+  end
   def load_copyright ( copyright )
     c_uri = copyright.values.first.to_s
     c_pid = c_uri.gsub(/.*\//,'')
     if c_pid != nil && c_pid != ""
       DamsCopyright.find(c_pid)
     end
+  end
+  def load_license
+    load_copyright(license)
   end
   def load_license (license)
     l_uri = license.values.first.to_s
@@ -496,6 +508,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsLicense.find(l_pid)
     end
   end
+  def load_statute
+    load_statute(statute)
+  end
   def load_statute (statute)
     s_uri = statute.values.first.to_s
     s_pid = s_uri.gsub(/.*\//,'')
@@ -503,12 +518,18 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsStatute.find(s_pid)
     end
   end
+  def load_otherRights
+    load_otherRights(otherRights)
+  end
   def load_otherRights (otherRights)
     o_uri = otherRights.values.first.to_s
     o_pid = o_uri.gsub(/.*\//,'')
     if o_pid != nil && o_pid != ""
       DamsOtherRights.find(o_pid)
     end
+  end
+  def load_languages
+    load_languages(language)
   end
   def load_languages(language)
     languages = []
@@ -522,6 +543,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     languages
   end
   def load_events
+    load_events(event)
+  end
+  def load_events(event)
     events = []
     event.values.each do |e|
       event_uri = e.to_s
@@ -549,6 +573,9 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
+  def load_rightsHolders
+    load_rightsHolders(rightsHolder)
+  end
   def load_rightsHolders(rightsHolder)
     rightsHolders = []
     rightsHolder.values.each do |name|
@@ -561,74 +588,128 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     rightsHolders
   end
 
+  def load_iconographies
+    load_iconographies(iconography)
+  end
   def load_iconographies(iconography)
     loadObjects iconography,DamsIconography
   end
 
+  def load_scientificNames
+    load_scientificNames(scientificName)
+  end
   def load_scientificNames(scientificName)
 	loadObjects scientificName,DamsScientificName
   end
 
+  def load_techniques
+    load_techniques(technique)
+  end
   def load_techniques(technique)
 	loadObjects technique,DamsTechnique
   end
 
+  def load_builtWorkPlaces
+    load_builtWorkPlaces(builtWorkPlace)
+  end
   def load_builtWorkPlaces(builtWorkPlace)
 	loadObjects builtWorkPlace,DamsBuiltWorkPlace
   end
 
+  def load_geographics
+    load_geographics(geographic)
+  end
   def load_geographics(geographic)
 	loadObjects geographic,MadsGeographic
   end
 
+  def load_temporals
+    load_temporals( temporal )
+  end
   def load_temporals( temporal )
 	loadObjects temporal,MadsTemporal
   end
 
+  def load_culturalContexts
+    load_culturalContexts(culturalContext)
+  end
   def load_culturalContexts(culturalContext)
 	loadObjects culturalContext,DamsCulturalContext
   end
 
+  def load_stylePeriods
+    load_stylePeriods(stylePeriod)
+  end
   def load_stylePeriods(stylePeriod)
 	loadObjects stylePeriod,DamsStylePeriod
   end
 
+  def load_topics
+    load_topics(topic)
+  end
   def load_topics(topic)
 	loadObjects topic,MadsTopic
   end
 
+  def load_functions
+    load_functions(function)
+  end
   def load_functions(function)
 	loadObjects function,DamsFunction
   end
 
+  def load_genreForms
+    load_genreForms(genreForm)
+  end
   def load_genreForms(genreForm)
 	loadObjects genreForm,MadsGenreForm
   end
 
+  def load_occupations
+    load_occupations(occupation)
+  end
   def load_occupations(occupation)
 	loadObjects occupation,MadsOccupation
   end
 
+  def load_personalNames
+    load_personalNames(personalName)
+  end
   def load_personalNames(personalName)
 	loadObjects personalName,MadsPersonalName
   end
 
+  def load_familyNames
+    load_familyNames(familyName)
+  end
   def load_familyNames(familyName)
 	loadObjects familyName,MadsFamilyName
   end
 
+  def load_names
+    load_names(name)
+  end
   def load_names(name)
 	loadObjects name,MadsName
   end
 
+  def load_conferenceNames
+    load_conferenceNames(conferenceName)
+  end
   def load_conferenceNames(conferenceName)
 	loadObjects conferenceName,MadsConferenceName
   end
 
+  def load_corporateNames
+    load_corporateNames(corporateName)
+  end
   def load_corporateNames(corporateName)
 	loadObjects corporateName,MadsCorporateName
   end
 
+  def load_complexSubjects
+    loadComplexSubjects(complexSubject)
+  end
   def load_complexSubjects(complexSubject)
 	loadObjects complexSubject,MadsComplexSubject
   end
