@@ -8,7 +8,12 @@ module CatalogHelper
   def link_to_document(doc, opts={:label=>nil, :counter => nil, :results_view => true})
     opts[:label] ||= blacklight_config.index.show_link.to_sym
     label = render_document_index_label doc, opts
-    link_to label, object_path(doc), { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :results_view].include? k  })
+    if doc['type_tesim'] != nil && doc['type_tesim'].include?("Collection")
+      url = collection_path(doc)
+    else
+      url = object_path(doc)
+    end
+    link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :results_view].include? k  })
   end
   
   #use blacklight add_facet_params to construct facet link
