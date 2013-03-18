@@ -542,9 +542,6 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     languages
   end
-  def load_events
-    load_events(event)
-  end
   def load_events(event)
     events = []
     event.values.each do |e|
@@ -554,10 +551,10 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
         begin
            events << DamsDAMSEvent.find(event_pid)
         rescue Exception => e
-          puts e.to_s
-          e.backtrace.each do |line|
-            puts line
-          end
+          puts "Error loading event #{event_pid}: #{e.to_s}"
+          #e.backtrace.each do |line|
+            #puts line
+          #end
         end              
       end
     end
@@ -1022,7 +1019,7 @@ class DamsObjectDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
-    events = nil # load_events
+    events = load_events event
     if events != nil
       n = 0
       events.each do |e|
