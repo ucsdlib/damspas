@@ -16,7 +16,7 @@ feature 'Visitor wants to look at units' do
   scenario 'does a search for items' do
     visit units_path
 
-    expect(page).to have_selector('h4', :text => 'Search')
+    expect(page).to have_selector('p', :text => 'Search')
     fill_in 'Search...', :with => "123"
     click_on('Search')
 
