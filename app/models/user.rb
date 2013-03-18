@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
+    u.groups = ['developer-authenticated']
     u
   end
 
@@ -29,6 +30,7 @@ class User < ActiveRecord::Base
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
+    u.groups = ['shibboleth-authenticated']
     u
   end
 
