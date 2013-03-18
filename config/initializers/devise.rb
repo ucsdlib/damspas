@@ -11,11 +11,11 @@ Devise.setup do |config|
 
   if Rails.env.production? || Rails.env.pontos?
     config.omniauth :shibboleth, {
-      :uid_field                 => 'cn',
+      :uid_field                 => 'ADUSERNAME',
       :shib_session_id_field     => "Shib-Session-ID",
       :shib_application_id_field => "Shib-Application-ID",
       :debug                     => false,
-      :info_fields               => {:email => 'mail', :name => 'displayName', :givenName => 'givenName', :familyName => 'sn'}
+      :info_fields               => {:email => 'EMAIL', :name => 'FULL_NAME', :givenName => 'FIRST_NAME', :familyName => 'LAST_NAME'}
     }
   else
     config.omniauth :developer,:callback_path =>lambda{|env| "#{env['SCRIPT_NAME']}/users/auth/developer/callback"}

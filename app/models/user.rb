@@ -26,7 +26,6 @@ class User < ActiveRecord::Base
     uid = access_token.uid
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
-puts "find_or_create_for_shibboleth: u: #{uid}, p: #{provider}, e: #{email}"
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
     u.groups = ['shibboleth-authenticated']
     u
