@@ -1,3 +1,6 @@
+require 'rest-client'
+require 'json'
+
 class User < ActiveRecord::Base
 # Connects this user object to Hydra behaviors. 
  include Hydra::User
@@ -18,7 +21,6 @@ class User < ActiveRecord::Base
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
-    u.groups = ['developer-authenticated']
     u
   end
 
@@ -27,16 +29,35 @@ class User < ActiveRecord::Base
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
-    u.groups = ['shibboleth-authenticated']
     u
   end
 
   def groups
-    @groups || []
+    if @group_list == nil
+      @group_list = ldap_groups( uid )
+    end
+    @group_list || ['unknown']
+  end
+  def groups=(g)
+    @group_list = g
   end
 
-  def groups= g
-    @groups = g
+  def ldap_groups( uid )
+    begin
+      username = uid
+      if username.index("@") > -1
+        username = username.slice( 0, username.index("@") )
+      end
+      baseurl = ActiveFedora.fedora_config.credentials[:url]
+      baseurl = baseurl.gsub(/\/fedora$/,'')
+      url = "#{baseurl}/api/client/info?user=#{username}&format=json"
+      json = RestClient.get(url)
+      obj = JSON.parse(json)
+      obj['memberOf']
+    rescue Exception => e
+      logger.warn "Error looking up LDAP groups #{e.to_s}"
+      []
+    end
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your
