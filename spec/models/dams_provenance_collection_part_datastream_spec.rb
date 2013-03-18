@@ -12,12 +12,12 @@ describe DamsProvenanceCollectionPartDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb25252525"
       end
       it "should have a title" do
-        subject.title.build.value = "May 2009"
-        subject.title.first.value.should == ["May 2009"]
+        subject.title = "May 2009"
+        subject.title.should == ["May 2009"]
       end
       it "should have a date" do
-        subject.date.build.value = "2009-05-03"
-        subject.date.first.value.should == ["2009-05-03"]
+        subject.date = "2009-05-03"
+        subject.date.should == ["2009-05-03"]
       end
 #      it "should have a language" do
 #        subject.language.build.rdf_subject = "http://library.ucsd.edu/ark:/20775/bd0410344f"
@@ -36,11 +36,11 @@ describe DamsProvenanceCollectionPartDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb25252525"
       end
       it "should have a title" do
-        subject.title.first.value.should == ["May 2009"]
+        subject.title.should == ["May 2009"]
       end
       it "should have a date" do
-        subject.date.first.beginDate.should == ["2009-05-03"]
-        subject.date.first.endDate.should == ["2009-05-31"]
+        subject.beginDate.should == ["2009-05-03"]
+        subject.endDate.should == ["2009-05-31"]
       end
  	  it "should have scopeContentNote" do
 		testIndexNoteFields "scopeContentNote","bd1366006j","scope_and_content","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","Scope and contents"

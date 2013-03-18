@@ -6,10 +6,10 @@ describe DamsProvenanceCollectionPart do
   end
 
   it "should create valid xml" do
-    subject.title.build.value = "May 2009"
-    subject.title.first.type = "main"
-    subject.date.build.beginDate = "2009-05-03"
-    subject.date.first.endDate = "2009-05-31"
+    subject.title = "May 2009"
+    subject.titleType = "main"
+    subject.beginDate = "2009-05-03"
+    subject.endDate = "2009-05-31"
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#">

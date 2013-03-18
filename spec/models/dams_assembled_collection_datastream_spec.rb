@@ -12,12 +12,12 @@ describe DamsAssembledCollectionDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
       end
       it "should have a title" do
-        subject.title.build.value = "UCSD Electronic Theses and Dissertations"
-        subject.title.first.value.should == ["UCSD Electronic Theses and Dissertations"]
+        subject.title = "UCSD Electronic Theses and Dissertations"
+        subject.title.should == ["UCSD Electronic Theses and Dissertations"]
       end
       it "should have a date" do
-        subject.date.build.value = "2009-05-03"
-        subject.date.first.value.should == ["2009-05-03"]
+        subject.date = "2009-05-03"
+        subject.date.should == ["2009-05-03"]
       end
     end
 
@@ -32,12 +32,21 @@ describe DamsAssembledCollectionDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
       end
       it "should have a title" do
-        subject.title.first.value.should == ["UCSD Electronic Theses and Dissertations"]
+        subject.title.should == ["UCSD Electronic Theses and Dissertations"]
       end
       it "should have a date" do
-        subject.date.first.beginDate.should == ["2009-05-03"]
+        subject.beginDate.should == ["2009-05-03"]
       end
-      
+
+ 	  it "should index title and dates" do
+        solr_doc = subject.to_solr
+        solr_doc["title_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
+        solr_doc["title_1_value_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
+        solr_doc["date_1_beginDate_tesim"].should == ["2009-05-03"]
+     	#solr_doc["date_1_endDate_tesim"].should == ["2010-05-03"]
+     	#solr_doc["date_1_value_tesim"].should == ["2012-11-29"]
+      end
+            
  	  it "should have scopeContentNote" do
 		testIndexNoteFields "scopeContentNote","bd1366006j","scope_and_content","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","Scope and contents"
       end
@@ -65,14 +74,14 @@ describe DamsAssembledCollectionDatastream do
         solr_doc["role_code_tesim"].should == ["cre"]
         solr_doc["role_valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/relators/cre"]
       end      
-      it "should have event" do
-        solr_doc = subject.to_solr
-        solr_doc["event_1_type_tesim"].should == ["collection creation"]
-        solr_doc["event_1_eventDate_tesim"].should == ["2012-11-06T09:26:34-0500"]
-        solr_doc["event_1_outcome_tesim"].should == ["success"]
-        solr_doc["event_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
-        solr_doc["event_1_role_tesim"].should == ["Initiator"]
-      end         
+#      it "should have event" do
+#        solr_doc = subject.to_solr
+#        solr_doc["event_1_type_tesim"].should == ["collection creation"]
+#        solr_doc["event_1_eventDate_tesim"].should == ["2012-11-06T09:26:34-0500"]
+#        solr_doc["event_1_outcome_tesim"].should == ["success"]
+#        solr_doc["event_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
+#        solr_doc["event_1_role_tesim"].should == ["Initiator"]
+#      end         
       def testIndexNoteFields (fieldName,id,type,value,displayLabel) 
         solr_doc = subject.to_solr
         solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
