@@ -9,7 +9,7 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
-  if Rails.env.production?
+  if Rails.env.production? || Rails.env.pontos?
     config.omniauth :shibboleth, {
       :uid_field                 => 'cn',
       :shib_session_id_field     => "Shib-Session-ID",
