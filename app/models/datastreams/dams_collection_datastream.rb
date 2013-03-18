@@ -548,7 +548,7 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
-    events = nil # load_events
+    events = load_events
     if events != nil
       n = 0
       events.each do |e|
