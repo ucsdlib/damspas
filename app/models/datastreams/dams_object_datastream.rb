@@ -611,6 +611,9 @@ class DamsObjectDatastream < DamsResourceDatastream
     end 
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)    
+
+    Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
+
 	super
   end  
   

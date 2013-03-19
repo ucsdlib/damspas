@@ -15,6 +15,12 @@
 		<%= raw(render_head_content) %> 
 		<%= render :partial => 'layouts/ie-conditionals' %>
 
+		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
+			<%= auto_discovery_link_tag :rss, object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>
+			<% if @document['rdfxml_ssi'] %>
+				<%= auto_discovery_link_tag :rss, object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
+			<% end %>
+		<% end %> 
 	</head>
 
 	<% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
