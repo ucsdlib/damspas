@@ -1,49 +1,64 @@
 class DamsObjectDatastream < DamsResourceDatastream
   map_predicates do |map|
-    map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
+    map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.language(:in=>DAMS)
+
+    # notes
+    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
+    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+
+    # subjects
+    map.subject_node(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
+    map.complexSubject(:in => DAMS)
+    map.builtWorkPlace(:in => DAMS)
+    map.culturalContext(:in => DAMS)
+    map.function(:in => DAMS)
+    map.genreForm(:in => DAMS)
+    map.geographic(:in => DAMS)
+    map.iconography(:in => DAMS)
+    map.occupation(:in => DAMS)
+    map.scientificName(:in => DAMS)
+    map.stylePeriod(:in => DAMS)
+    map.technique(:in => DAMS)
+    map.temporal(:in => DAMS)
+    map.topic(:in => DAMS)
+
+    # subject names
+    map.name(:in => DAMS)
+    map.conferenceName(:in => DAMS)
+    map.corporateName(:in => DAMS)
+    map.familyName(:in => DAMS)
+    map.personalName(:in => DAMS)
+
+    # related resources and events
+    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+    map.event(:in=>DAMS)
+
+    # unit and collections
+    map.unit_node(:in => DAMS, :to=>'unit')
     map.collection(:in => DAMS)
     map.assembledCollection(:in => DAMS)
     map.provenanceCollection(:in => DAMS)
     map.provenanceCollectionPart(:in => DAMS)
-    map.subject_node(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
-    map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
-    map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.unit_node(:in => DAMS, :to=>'unit')
+
+    # components and files
+    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
+    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
+
+    # rights
     map.copyright(:in=>DAMS)
     map.license(:in=>DAMS)
     map.otherRights(:in=>DAMS)
     map.statute(:in=>DAMS)
-    map.language(:in=>DAMS)
     map.rightsHolder(:in=>DAMS)
-    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
-    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
-    map.source_capture_node(:in=>DAMS, :to=>'sourceCapture')
-    map.iconography(:in => DAMS)
-    map.scientificName(:in => DAMS)
-    map.technique(:in => DAMS)
-    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
-    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
-    map.familyName(:in => DAMS)
-    map.name(:in => DAMS)
-    map.builtWorkPlace(:in => DAMS)
-    map.personalName(:in => DAMS)
-    map.geographic(:in => DAMS)
-    map.temporal(:in => DAMS)
-    map.culturalContext(:in => DAMS)
-    map.stylePeriod(:in => DAMS)
-    map.topic(:in => DAMS)
-    map.conferenceName(:in => DAMS)
-    map.function(:in => DAMS)
-    map.corporateName(:in => DAMS)
-    map.complexSubject(:in => DAMS)
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
-    map.genreForm(:in => DAMS)
-    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-    map.occupation(:in => DAMS)
+
+    # resource type and cartographics
+    map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.cartographics(:in => DAMS, :class_name => 'Cartographics')
-    map.event(:in=>DAMS)
  end
  
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -53,51 +68,62 @@ class DamsObjectDatastream < DamsResourceDatastream
     super
   end
 
+# inherit from DamsResourceDatastream??
   class Component
     include ActiveFedora::RdfObject
     rdf_type DAMS.Component
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     map_predicates do |map|
       map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
-      map.resource_type(:in => DAMS, :to => 'typeOfResource')
       map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
-      map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
-      map.language(:in=>DAMS)
       map.relationship(:in => DAMS, :class_name => 'Relationship')
+      map.language(:in=>DAMS)
+
+      # notes
+      map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
+      map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+      map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
+      map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
+
+      # subjects
+      map.complexSubject(:in => DAMS)
+      map.builtWorkPlace(:in => DAMS)
+      map.culturalContext(:in => DAMS)
+      map.function(:in => DAMS)
+      map.genreForm(:in => DAMS)
+      map.geographic(:in => DAMS)
+      map.iconography(:in => DAMS)
+      map.occupation(:in => DAMS)
+      map.scientificName(:in => DAMS)
+      map.stylePeriod(:in => DAMS)
+      map.technique(:in => DAMS)
+      map.temporal(:in => DAMS)
+      map.topic(:in => DAMS)
+
+      # subject names
+      map.name(:in => DAMS)
+      map.conferenceName(:in => DAMS)
+      map.corporateName(:in => DAMS)
+      map.familyName(:in => DAMS)
+      map.personalName(:in => DAMS)
+
+      # related resources
       map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
 
+      # components and files
+      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => DamsObjectDatastream::Component)
+      map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
+
+      # rights
       map.copyright(:in=>DAMS)
       map.license(:in=>DAMS)
       map.otherRights(:in=>DAMS)
       map.statute(:in=>DAMS)
       map.rightsHolder(:in=>DAMS)
 
-      map.name(:in => DAMS)
-      map.familyName(:in => DAMS)
-      map.personalName(:in => DAMS)
-      map.conferenceName(:in => DAMS)
-      map.corporateName(:in => DAMS)
-
-      map.complexSubject(:in => DAMS)
-      map.iconography(:in => DAMS)
-      map.scientificName(:in => DAMS)
-      map.technique(:in => DAMS)
-      map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
-      map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
-      map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-      map.builtWorkPlace(:in => DAMS)
-      map.geographic(:in => DAMS)
-      map.temporal(:in => DAMS)
-      map.culturalContext(:in => DAMS)
-      map.stylePeriod(:in => DAMS)
-      map.topic(:in => DAMS)
-      map.function(:in => DAMS)
-      map.genreForm(:in => DAMS)
-      map.occupation(:in => DAMS)
+      # resource type and cartographics
+      map.resource_type(:in => DAMS, :to => 'typeOfResource')
       map.cartographics(:in => DAMS, :class_name => 'Cartographics')
-
-      map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
-      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => DamsObjectDatastream::Component)
     end
     def id
       cid = rdf_subject.to_s
@@ -145,23 +171,32 @@ class DamsObjectDatastream < DamsResourceDatastream
       include ActiveFedora::RdfObject
       rdf_type DAMS.File
       map_predicates do |map|
-        map.value(:in=> RDF)
-        map.crc32checksum(:in=>DAMS)
-        map.formatVersion(:in=>DAMS)
-        map.md5checksum(:in=>DAMS)
-        map.preservationLevel(:in=>DAMS)
-        map.formatName(:in=>DAMS)
+        map.filestore(:in=>DAMS)
+        map.quality(:in=>DAMS)
+        map.size(:in=>DAMS)
+        map.sourceFileName(:in=>DAMS)
+        map.sourcePath(:in=>DAMS)
         map.use(:in=>DAMS)
+        map.value(:in=> RDF)
+
+        # checksums
+        map.crc32checksum(:in=>DAMS)
+        map.md5checksum(:in=>DAMS)
+        map.sha1checksum(:in=>DAMS)
+        map.sha256checksum(:in=>DAMS)
+        map.sha512checksum(:in=>DAMS)
+
+        # premis
+        map.compositionLevel(:in=>DAMS)
+        map.dateCreated(:in=>DAMS)
+        map.formatName(:in=>DAMS)
+        map.formatVersion(:in=>DAMS)
         map.mimeType(:in=>DAMS)
         map.objectCategory(:in=>DAMS)
-        map.sha1checksum(:in=>DAMS)
-        map.sourcePath(:in=>DAMS)
-        map.dateCreated(:in=>DAMS)
-        map.quality(:in=>DAMS)
-        map.sourceFileName(:in=>DAMS)
-        map.size(:in=>DAMS)
-        map.compositionLevel(:in=>DAMS)
-        map.filestore(:in=>DAMS)
+        map.preservationLevel(:in=>DAMS)
+
+        # mix
+        map.source_capture(:in=>DAMS, :to => 'sourceCapture')
       end
       def id
         fid = rdf_subject.to_s
@@ -179,23 +214,32 @@ class DamsObjectDatastream < DamsResourceDatastream
     include ActiveFedora::RdfObject
     rdf_type DAMS.File
     map_predicates do |map|
-      map.value(:in=> RDF)
-      map.crc32checksum(:in=>DAMS)
-      map.formatVersion(:in=>DAMS)
-      map.md5checksum(:in=>DAMS)
-      map.preservationLevel(:in=>DAMS)
-      map.formatName(:in=>DAMS)
+      map.filestore(:in=>DAMS)
+      map.quality(:in=>DAMS)
+      map.size(:in=>DAMS)
+      map.sourceFileName(:in=>DAMS)
+      map.sourcePath(:in=>DAMS)
       map.use(:in=>DAMS)
+      map.value(:in=> RDF)
+
+      # checksums
+      map.crc32checksum(:in=>DAMS)
+      map.md5checksum(:in=>DAMS)
+      map.sha1checksum(:in=>DAMS)
+      map.sha256checksum(:in=>DAMS)
+      map.sha512checksum(:in=>DAMS)
+
+      # premis
+      map.compositionLevel(:in=>DAMS)
+      map.dateCreated(:in=>DAMS)
+      map.formatName(:in=>DAMS)
+      map.formatVersion(:in=>DAMS)
       map.mimeType(:in=>DAMS)
       map.objectCategory(:in=>DAMS)
-      map.sha1checksum(:in=>DAMS)
-      map.sourcePath(:in=>DAMS)
-      map.dateCreated(:in=>DAMS)
-      map.quality(:in=>DAMS)
-      map.sourceFileName(:in=>DAMS)
-      map.size(:in=>DAMS)
-      map.compositionLevel(:in=>DAMS)
-      map.filestore(:in=>DAMS)
+      map.preservationLevel(:in=>DAMS)
+
+      # mix
+      map.source_capture(:in=>DAMS, :to => 'sourceCapture')
     end
     def id
       fid = rdf_subject.to_s
@@ -289,11 +333,12 @@ class DamsObjectDatastream < DamsResourceDatastream
     end
   end
 
-  def load_source_capture(source_capture_node)
-    source_capture_uri = source_capture_node.values.first.to_s
-    source_capture_pid = source_capture_uri.gsub(/.*\//,'')
-    if source_capture_pid != nil && source_capture_pid != ""
-      DamsSourceCapture.find(source_capture_pid)
+  def load_source_capture(source_capture)
+    uri = source_capture.values.first.to_s
+    pid = uri.gsub(/.*\//,'')
+    if pid != nil && pid != ""
+      obj = DamsSourceCapture.find(pid)
+      obj
     else
       nil
     end
@@ -373,53 +418,56 @@ class DamsObjectDatastream < DamsResourceDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
       end
 
-#      n = 0
-#      component.note.map do |note|
-#        n += 1
-#        Solrizer.insert_field(solr_doc, "component_#{cid}_note_#{n}_value", note.value.first)
-#        Solrizer.insert_field(solr_doc, "component_#{cid}_note_#{n}_label", note.displayLabel.first)
-#        Solrizer.insert_field(solr_doc, "component_#{cid}_note_#{n}_type", note.type.first)
-#      end
-
-      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
-      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
-      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
       insertNoteFields solr_doc, "component_#{cid}_note",component.note
+      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
+      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
+      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
 
-      insertFields solr_doc, "component_#{cid}_iconography", load_iconographies(component.iconography)
-      insertFields solr_doc, "component_#{cid}_scientificName", load_scientificNames(component.scientificName)
-      insertFields solr_doc, "component_#{cid}_technique", load_techniques(component.technique)
-      insertFields solr_doc, "component_#{cid}_occupation", load_occupations(component.occupation)
+      insertComplexSubjectFields solr_doc, "component_#{cid}_complexSubject", load_complexSubjects(component.complexSubject)
       insertFields solr_doc, "component_#{cid}_builtWorkPlace", load_builtWorkPlaces(component.builtWorkPlace)
-      insertFields solr_doc, "component_#{cid}_geographic", load_geographics(component.geographic)
-      insertFields solr_doc, "component_#{cid}_temporal", load_temporals(component.temporal)
       insertFields solr_doc, "component_#{cid}_culturalContext", load_culturalContexts(component.culturalContext)
-      insertFields solr_doc, "component_#{cid}_stylePeriod", load_stylePeriods(component.stylePeriod)
-      insertFields solr_doc, "component_#{cid}_topic", load_topics(component.topic)
       insertFields solr_doc, "component_#{cid}_function", load_functions(component.function)
       insertFields solr_doc, "component_#{cid}_genreForm", load_genreForms(component.genreForm)
+      insertFields solr_doc, "component_#{cid}_geographic", load_geographics(component.geographic)
+      insertFields solr_doc, "component_#{cid}_iconography", load_iconographies(component.iconography)
+      insertFields solr_doc, "component_#{cid}_occupation", load_occupations(component.occupation)
+      insertFields solr_doc, "component_#{cid}_scientificName", load_scientificNames(component.scientificName)
+      insertFields solr_doc, "component_#{cid}_stylePeriod", load_stylePeriods(component.stylePeriod)
+      insertFields solr_doc, "component_#{cid}_technique", load_techniques(component.technique)
+      insertFields solr_doc, "component_#{cid}_temporal", load_temporals(component.temporal)
+      insertFields solr_doc, "component_#{cid}_topic", load_topics(component.topic)
 
-      insertFields solr_doc, "component_#{cid}_personalName", load_personalNames(component.personalName)
-      insertFields solr_doc, "component_#{cid}_familyName", load_familyNames(component.familyName)
       insertFields solr_doc, "component_#{cid}_name", load_names(component.name)
       insertFields solr_doc, "component_#{cid}_conferenceName", load_conferenceNames(component.conferenceName)
       insertFields solr_doc, "component_#{cid}_corporateName", load_corporateNames(component.corporateName)
-      insertComplexSubjectFields solr_doc, "component_#{cid}_complexSubject", load_complexSubjects(component.complexSubject)
+      insertFields solr_doc, "component_#{cid}_familyName", load_familyNames(component.familyName)
+      insertFields solr_doc, "component_#{cid}_personalName", load_personalNames(component.personalName)
 
       component.file.map.sort{ |a,b| a.order <=> b.order }.each { |file|
         fid = file.id
-        if !fid.ends_with? ".keep"
-          Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_label", file.value)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size", file.size, singleString)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_mimeType", file.mimeType)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_use", file.use)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_dateCreated", file.dateCreated)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_quality", file.quality)
-          Solrizer.insert_field(solr_doc, "file_#{cid}_#{fid}_filestore", file.filestore)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
+        Solrizer.insert_field(solr_doc, "file_#{cid}_#{fid}_filestore", file.filestore)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_quality", file.quality)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size", file.size, singleString)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_use", file.use)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_label", file.value)
+
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_dateCreated", file.dateCreated)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_mimeType", file.mimeType)
+
+        source_capture = load_source_capture file.source_capture
+        if source_capture.class == DamsSourceCapture
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_source_capture", source_capture.pid)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_capture_source", source_capture.captureSource)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_image_producer", source_capture.imageProducer)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanner_model_name", source_capture.scannerModelName)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanning_software", source_capture.scanningSoftware)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
+          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_source_type", source_capture.sourceType)
         end
       }
     }
@@ -438,16 +486,29 @@ class DamsObjectDatastream < DamsResourceDatastream
     file.map.sort{ |a,b| a.order <=> b.order }.each { |file|
       fid = file.id
       Solrizer.insert_field(solr_doc, "files", fid)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_label", file.value)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_filestore", file.filestore)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_quality", file.quality)
       Solrizer.insert_field(solr_doc, "file_#{fid}_size", file.size, singleString)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourcePath", file.sourcePath)
       Solrizer.insert_field(solr_doc, "file_#{fid}_sourceFileName", file.sourceFileName)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_use", file.use)
+      Solrizer.insert_field(solr_doc, "file_#{fid}_label", file.value)
+
+      Solrizer.insert_field(solr_doc, "file_#{fid}_dateCreated", file.dateCreated)
       Solrizer.insert_field(solr_doc, "file_#{fid}_formatName", file.formatName)
       Solrizer.insert_field(solr_doc, "file_#{fid}_mimeType", file.mimeType)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_use", file.use)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_dateCreated", file.dateCreated)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_quality", file.quality)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_filestore", file.filestore)
+
+      source_capture = load_source_capture file.source_capture
+      if source_capture.class == DamsSourceCapture
+        Solrizer.insert_field(solr_doc, "file_#{fid}_source_capture", source_capture.pid)
+        Solrizer.insert_field(solr_doc, "file_#{fid}_capture_source", source_capture.captureSource)
+        Solrizer.insert_field(solr_doc, "file_#{fid}_image_producer", source_capture.imageProducer)
+        Solrizer.insert_field(solr_doc, "file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
+        Solrizer.insert_field(solr_doc, "file_#{fid}_scanner_model_name", source_capture.scannerModelName)
+        Solrizer.insert_field(solr_doc, "file_#{fid}_scanning_software", source_capture.scanningSoftware)
+        Solrizer.insert_field(solr_doc, "file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
+        Solrizer.insert_field(solr_doc, "file_#{fid}_source_type", source_capture.sourceType)
+      end
     }
     
     unit = load_unit unit_node
@@ -529,17 +590,6 @@ class DamsObjectDatastream < DamsResourceDatastream
       Solrizer.insert_field(solr_doc, 'otherRights_name', othr.name.first.to_s)
       Solrizer.insert_field(solr_doc, 'otherRights_role', othr.role.first.to_s)
     end    
-    source_capture = load_source_capture source_capture_node
-    if source_capture.class == DamsSourceCapture
-      Solrizer.insert_field(solr_doc, 'source_capture_scanner_manufacturer', source_capture.scannerManufacturer)
-      Solrizer.insert_field(solr_doc, 'source_capture_source_type', source_capture.sourceType)
-      Solrizer.insert_field(solr_doc, 'source_capture_scanner_model_name', source_capture.scannerModelName)
-      Solrizer.insert_field(solr_doc, 'source_capture_image_producer', source_capture.imageProducer)
-      Solrizer.insert_field(solr_doc, 'source_capture_scanning_software_version', source_capture.scanningSoftwareVersion)
-      Solrizer.insert_field(solr_doc, 'source_capture_scanning_software', source_capture.scanningSoftware)
-      Solrizer.insert_field(solr_doc, 'source_capture_capture_source', source_capture.captureSource)
-      Solrizer.insert_field(solr_doc, 'source_capture_id', source_capture.pid)
-    end   
     rightsHolders = load_rightsHolders rightsHolder
     if rightsHolders != nil
       n = 0

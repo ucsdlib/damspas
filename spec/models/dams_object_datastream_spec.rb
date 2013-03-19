@@ -40,7 +40,6 @@ describe DamsObjectDatastream do
       it "should have external subjects" do
         subject.subject_node.first.should_not be_external
         subject.subject_node.second.should_not be_external
-#puts         subject.subject_node.third
         subject.subject_node.third.should be_external
       end
 
@@ -200,14 +199,14 @@ describe DamsObjectDatastream do
       end
       it "should index source capture" do
         solr_doc = subject.to_solr
-        solr_doc["source_capture_id_tesim"].should == ["bb49494949"]
-        solr_doc["source_capture_scanner_manufacturer_tesim"].should == ["Epson"]
-        solr_doc["source_capture_source_type_tesim"].should == ["transmission scanner"]
-        solr_doc["source_capture_scanner_model_name_tesim"].should == ["Expression 1600"]
-        solr_doc["source_capture_image_producer_tesim"].should == ["Luna Imaging, Inc."]
-        solr_doc["source_capture_scanning_software_version_tesim"].should == ["2.10E"]
-        solr_doc["source_capture_scanning_software_tesim"].should == ["Epson Twain Pro"]
-        solr_doc["source_capture_capture_source_tesim"].should == ["B&W negative , 2 1/2 x 2 1/2"]
+        solr_doc["component_1_file_1.pdf_source_capture_tesim"].should == ["bb49494949"]
+        solr_doc["component_1_file_1.pdf_scanner_manufacturer_tesim"].should == ["Epson"]
+        solr_doc["component_1_file_1.pdf_source_type_tesim"].should == ["transmission scanner"]
+        solr_doc["component_1_file_1.pdf_scanner_model_name_tesim"].should == ["Expression 1600"]
+        solr_doc["component_1_file_1.pdf_image_producer_tesim"].should == ["Luna Imaging, Inc."]
+        solr_doc["component_1_file_1.pdf_scanning_software_version_tesim"].should == ["2.10E"]
+        solr_doc["component_1_file_1.pdf_scanning_software_tesim"].should == ["Epson Twain Pro"]
+        solr_doc["component_1_file_1.pdf_capture_source_tesim"].should == ["B&W negative , 2 1/2 x 2 1/2"]
       
       end      
       it "should index rights metadata" do

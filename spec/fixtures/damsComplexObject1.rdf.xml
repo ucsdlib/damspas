@@ -12,7 +12,6 @@
     <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
     <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/bb06060606"/>
     <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
-    <dams:sourceCapture rdf:resource="http://library.ucsd.edu/ark:/20775/bb49494949"/>
     <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
     <dams:typeOfResource>mixed material</dams:typeOfResource>
     <dams:otherResource>
@@ -133,6 +132,7 @@
         </dams:date>
         <dams:hasFile>
           <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf">
+            <dams:sourceCapture rdf:resource="http://library.ucsd.edu/ark:/20775/bb49494949"/>
             <dams:sourcePath>src/sample/files</dams:sourcePath>
             <dams:sourceFileName>comparison-1.pdf</dams:sourceFileName>
             <dams:formatName>PDF</dams:formatName>

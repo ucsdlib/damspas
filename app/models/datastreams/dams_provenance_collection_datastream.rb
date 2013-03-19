@@ -2,37 +2,52 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
-    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
-    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.language(:in=>DAMS)
-    map.part_node(:in=>DAMS,:to=>'hasPart')
+
+    # notes
+    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
     map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')   
-    map.occupation(:in => DAMS)
-    map.genreForm(:in => DAMS)
-    map.iconography(:in => DAMS)
-    map.scientificName(:in => DAMS)
-    map.technique(:in => DAMS)
-    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
     map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
-    map.familyName(:in => DAMS)
-    map.name(:in => DAMS)
-    map.builtWorkPlace(:in => DAMS)
-    map.personalName(:in => DAMS)
-    map.geographic(:in => DAMS)
-    map.temporal(:in => DAMS)
-    map.culturalContext(:in => DAMS)
-    map.stylePeriod(:in => DAMS)
-    map.topic(:in => DAMS)
-    map.conferenceName(:in => DAMS)
-    map.function(:in => DAMS)
-    map.corporateName(:in => DAMS)
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+
+    # subjects
+    map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.complexSubject(:in => DAMS)
+    map.builtWorkPlace(:in => DAMS)
+    map.culturalContext(:in => DAMS)
+    map.function(:in => DAMS)
+    map.genreForm(:in => DAMS)
+    map.geographic(:in => DAMS)
+    map.iconography(:in => DAMS)
+    map.occupation(:in => DAMS)
+    map.scientificName(:in => DAMS)
+    map.stylePeriod(:in => DAMS)
+    map.technique(:in => DAMS)
+    map.temporal(:in => DAMS)
+    map.topic(:in => DAMS)
+
+    # subject names
+    map.name(:in => DAMS)
+    map.conferenceName(:in => DAMS)
+    map.corporateName(:in => DAMS)
+    map.familyName(:in => DAMS)
+    map.personalName(:in => DAMS)
+
+    # related resources and events
+    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.event(:in=>DAMS)
- end
+
+    # child parts
+    map.part_node(:in=>DAMS,:to=>'hasPart')
+
+    # related collections
+    map.relatedCollection(:in => DAMS)
+
+    # related objects
+    map.object(:in => DAMS, :to => 'hasObject')
+  end
+
   def load_part
     part_uri = part_node.values.first.to_s
     part_pid = part_uri.gsub(/.*\//,'')
@@ -42,6 +57,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
       nil
     end
   end
+
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
