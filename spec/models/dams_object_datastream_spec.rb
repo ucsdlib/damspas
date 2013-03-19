@@ -261,8 +261,8 @@ describe DamsObjectDatastream do
         solr_doc["event_1_type_tesim"].should == ["object creation"]
         solr_doc["event_1_eventDate_tesim"].should == ["2012-11-06T09:26:34-0500"]
         solr_doc["event_1_outcome_tesim"].should == ["success"]
-        solr_doc["event_1_name_tesim"].first.should == "Administrator, Bob, 1977-"
-        solr_doc["event_1_role_tesim"].first.should == "Initiator"
+        solr_doc["event_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
+        solr_doc["event_1_role_tesim"].should == ["Initiator"]
       end   
     end
   end
