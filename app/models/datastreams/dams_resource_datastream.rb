@@ -6,36 +6,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     super
   end
 
-  class Note
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Note
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsNote.find(md[1])
-      end
-    end
-  end
 
-  class RelatedResource
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.RelatedResource
-    map_predicates do |map|
-      map.type(:in=> DAMS)
-      map.description(:in=> DAMS)
-      map.uri(:in=> DAMS)
-    end
-  end
-
+  ## Title #####################################################################
   class Title
     include ActiveFedora::RdfObject
     rdf_type DAMS.Title
@@ -80,6 +52,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     title_node[0].type = val
   end
     
+
+  ## Date ######################################################################
   class Date
     include ActiveFedora::RdfObject
     rdf_type DAMS.Date
@@ -97,21 +71,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     odate.build.value = val
   end
   
-#  def beginDate
-#    odate.first ? odate.first.beginDate : []
-#  end
-#  def beginDate=(val)
-#    self.odate = []
-#    odate.build.beginDate = val
-#  end
-#  def endDate
-#    odate.first ? odate.first.endDate : []
-#  end
-#  def endDate=(val)
-#    self.odate = []
-#    odate.build.endDate = val
-#  end
-
   def beginDate
     odate[0] ? odate[0].beginDate : []
   end
@@ -128,38 +87,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     odate[0].endDate = val
   end
   
-  class Subject
-    include ActiveFedora::RdfObject
-    rdf_type MADS.ComplexSubject
-    map_predicates do |map|
-      map.authoritativeLabel(:in=> MADS)
-    end
 
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        MadsComplexSubject.find(md[1])
-      end
-    end
-  end
-
-  def subject
-    #subject_node.map{|s| s.authoritativeLabel.first}
-    subject_node.map do |sn|
-    	subject_value = sn.external? ? sn.load.name.first : sn.authoritativeLabel.first
-    end
-  end
-  def subject=(val)
-    self.subject_node = []
-    val.each do |s|
-      subject_node.build.authoritativeLabel = s
-    end
-  end
-
+  ## Relationship ##############################################################
   class Relationship
     include ActiveFedora::RdfObject
     rdf_type DAMS.Relationship
@@ -192,6 +121,64 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end    
   end
 
+
+  ## Language ##################################################################
+  def load_languages
+    load_languages(language)
+  end
+  def load_languages(language)
+    languages = []
+    language.values.each do |lang|
+      lang_uri = lang.to_s
+      lang_pid = lang_uri.gsub(/.*\//,'')
+      if lang_pid != nil && lang_pid != ""
+        languages << DamsLanguage.find(lang_pid)
+      end
+    end
+    languages
+  end
+
+
+  ## Note ######################################################################
+  class Note
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Note
+    map_predicates do |map|
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsNote.find(md[1])
+      end
+    end
+  end
+  class CustodialResponsibilityNote
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.CustodialResponsibilityNote
+    map_predicates do |map|
+      map.value(:in=> RDF)
+      map.displayLabel(:in=>DAMS)
+      map.type(:in=>DAMS)
+    end
+
+    def external?
+      rdf_subject.to_s.include? Rails.configuration.id_namespace
+    end
+    def load
+      uri = rdf_subject.to_s
+      if uri.start_with?(Rails.configuration.id_namespace)
+        md = /\/(\w*)$/.match(uri)
+        DamsCustodialResponsibilityNote.find(md[1])
+      end
+    end
+  end
   class ScopeContentNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.ScopeContentNote
@@ -212,7 +199,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
-
   class PreferredCitationNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.PreferredCitationNote
@@ -234,13 +220,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  class CustodialResponsibilityNote
+
+  ## Subject ###################################################################
+  class Subject
     include ActiveFedora::RdfObject
-    rdf_type DAMS.CustodialResponsibilityNote
+    rdf_type MADS.ComplexSubject
     map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
+      map.authoritativeLabel(:in=> MADS)
     end
 
     def external?
@@ -250,26 +236,152 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       uri = rdf_subject.to_s
       if uri.start_with?(Rails.configuration.id_namespace)
         md = /\/(\w*)$/.match(uri)
-        DamsCustodialResponsibilityNote.find(md[1])
+        MadsComplexSubject.find(md[1])
       end
     end
   end
 
-
-  def load_languages
-    load_languages(language)
-  end
-  def load_languages(language)
-    languages = []
-    language.values.each do |lang|
-      lang_uri = lang.to_s
-      lang_pid = lang_uri.gsub(/.*\//,'')
-      if lang_pid != nil && lang_pid != ""
-        languages << DamsLanguage.find(lang_pid)
-      end
+  def subject
+    #subject_node.map{|s| s.authoritativeLabel.first}
+    subject_node.map do |sn|
+    	subject_value = sn.external? ? sn.load.name.first : sn.authoritativeLabel.first
     end
-    languages
   end
+  def subject=(val)
+    self.subject_node = []
+    val.each do |s|
+      subject_node.build.authoritativeLabel = s
+    end
+  end
+
+  # MADS complex subjects
+  def load_complexSubjects
+    loadComplexSubjects(complexSubject)
+  end
+  def load_complexSubjects(complexSubject)
+	loadObjects complexSubject,MadsComplexSubject
+  end
+
+  # MADS simple subjects + extensions (VRA, etc.)
+  def load_builtWorkPlaces
+    load_builtWorkPlaces(builtWorkPlace)
+  end
+  def load_builtWorkPlaces(builtWorkPlace)
+	loadObjects builtWorkPlace,DamsBuiltWorkPlace
+  end
+  def load_culturalContexts
+    load_culturalContexts(culturalContext)
+  end
+  def load_culturalContexts(culturalContext)
+	loadObjects culturalContext,DamsCulturalContext
+  end
+  def load_functions
+    load_functions(function)
+  end
+  def load_functions(function)
+	loadObjects function,DamsFunction
+  end
+  def load_genreForms
+    load_genreForms(genreForm)
+  end
+  def load_genreForms(genreForm)
+	loadObjects genreForm,MadsGenreForm
+  end
+  def load_geographics
+    load_geographics(geographic)
+  end
+  def load_geographics(geographic)
+	loadObjects geographic,MadsGeographic
+  end
+  def load_iconographies
+    load_iconographies(iconography)
+  end
+  def load_iconographies(iconography)
+    loadObjects iconography,DamsIconography
+  end
+  def load_occupations
+    load_occupations(occupation)
+  end
+  def load_occupations(occupation)
+	loadObjects occupation,MadsOccupation
+  end
+  def load_scientificNames
+    load_scientificNames(scientificName)
+  end
+  def load_scientificNames(scientificName)
+	loadObjects scientificName,DamsScientificName
+  end
+  def load_stylePeriods
+    load_stylePeriods(stylePeriod)
+  end
+  def load_stylePeriods(stylePeriod)
+	loadObjects stylePeriod,DamsStylePeriod
+  end
+  def load_techniques
+    load_techniques(technique)
+  end
+  def load_techniques(technique)
+	loadObjects technique,DamsTechnique
+  end
+  def load_temporals
+    load_temporals( temporal )
+  end
+  def load_temporals( temporal )
+	loadObjects temporal,MadsTemporal
+  end
+  def load_topics
+    load_topics(topic)
+  end
+  def load_topics(topic)
+	loadObjects topic,MadsTopic
+  end
+
+  # MADS names
+  def load_names
+    load_names(name)
+  end
+  def load_names(name)
+	loadObjects name,MadsName
+  end
+  def load_conferenceNames
+    load_conferenceNames(conferenceName)
+  end
+  def load_conferenceNames(conferenceName)
+	loadObjects conferenceName,MadsConferenceName
+  end
+  def load_corporateNames
+    load_corporateNames(corporateName)
+  end
+  def load_corporateNames(corporateName)
+	loadObjects corporateName,MadsCorporateName
+  end
+  def load_familyNames
+    load_familyNames(familyName)
+  end
+  def load_familyNames(familyName)
+	loadObjects familyName,MadsFamilyName
+  end
+  def load_personalNames
+    load_personalNames(personalName)
+  end
+  def load_personalNames(personalName)
+	loadObjects personalName,MadsPersonalName
+  end
+
+
+  ## RelatedResource ###########################################################
+  class RelatedResource
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.RelatedResource
+    map_predicates do |map|
+      map.type(:in=> DAMS)
+      map.description(:in=> DAMS)
+      map.uri(:in=> DAMS)
+    end
+  end
+
+
+  ## Event #####################################################################
   def load_events
     load_events(event)
   end
@@ -292,131 +404,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     events
   end  
 
-  def load_iconographies
-    load_iconographies(iconography)
-  end
-  def load_iconographies(iconography)
-    loadObjects iconography,DamsIconography
-  end
 
-  def load_scientificNames
-    load_scientificNames(scientificName)
-  end
-  def load_scientificNames(scientificName)
-	loadObjects scientificName,DamsScientificName
-  end
-
-  def load_techniques
-    load_techniques(technique)
-  end
-  def load_techniques(technique)
-	loadObjects technique,DamsTechnique
-  end
-
-  def load_builtWorkPlaces
-    load_builtWorkPlaces(builtWorkPlace)
-  end
-  def load_builtWorkPlaces(builtWorkPlace)
-	loadObjects builtWorkPlace,DamsBuiltWorkPlace
-  end
-
-  def load_geographics
-    load_geographics(geographic)
-  end
-  def load_geographics(geographic)
-	loadObjects geographic,MadsGeographic
-  end
-
-  def load_temporals
-    load_temporals( temporal )
-  end
-  def load_temporals( temporal )
-	loadObjects temporal,MadsTemporal
-  end
-
-  def load_culturalContexts
-    load_culturalContexts(culturalContext)
-  end
-  def load_culturalContexts(culturalContext)
-	loadObjects culturalContext,DamsCulturalContext
-  end
-
-  def load_stylePeriods
-    load_stylePeriods(stylePeriod)
-  end
-  def load_stylePeriods(stylePeriod)
-	loadObjects stylePeriod,DamsStylePeriod
-  end
-
-  def load_topics
-    load_topics(topic)
-  end
-  def load_topics(topic)
-	loadObjects topic,MadsTopic
-  end
-
-  def load_functions
-    load_functions(function)
-  end
-  def load_functions(function)
-	loadObjects function,DamsFunction
-  end
-
-  def load_genreForms
-    load_genreForms(genreForm)
-  end
-  def load_genreForms(genreForm)
-	loadObjects genreForm,MadsGenreForm
-  end
-
-  def load_occupations
-    load_occupations(occupation)
-  end
-  def load_occupations(occupation)
-	loadObjects occupation,MadsOccupation
-  end
-
-  def load_personalNames
-    load_personalNames(personalName)
-  end
-  def load_personalNames(personalName)
-	loadObjects personalName,MadsPersonalName
-  end
-
-  def load_familyNames
-    load_familyNames(familyName)
-  end
-  def load_familyNames(familyName)
-	loadObjects familyName,MadsFamilyName
-  end
-
-  def load_names
-    load_names(name)
-  end
-  def load_names(name)
-	loadObjects name,MadsName
-  end
-
-  def load_conferenceNames
-    load_conferenceNames(conferenceName)
-  end
-  def load_conferenceNames(conferenceName)
-	loadObjects conferenceName,MadsConferenceName
-  end
-
-  def load_corporateNames
-    load_corporateNames(corporateName)
-  end
-  def load_corporateNames(corporateName)
-	loadObjects corporateName,MadsCorporateName
-  end
-
-  def load_complexSubjects
-    loadComplexSubjects(complexSubject)
-  end
-  def load_complexSubjects(complexSubject)
-	loadObjects complexSubject,MadsComplexSubject
-  end
+  ## helpers ###################################################################
 
   # helper method for recursing over component hierarchy
   def find_children(p)
@@ -435,6 +424,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     kids
   end
 
+  # helper method to load external classes
   def loadObjects (object,className)
     objects = []
     object.values.each do |name|
@@ -447,6 +437,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   	return objects
   end
 
+  ## Solr ######################################################################
   def insertFields (solr_doc, fieldName, objects)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     if objects != nil
@@ -582,11 +573,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 
-    subject_node.map do |sn|
-      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
-      Solrizer.insert_field(solr_doc, 'subject', subject_value)
-      Solrizer.insert_field(solr_doc, 'subject_topic', subject_value,facetable)
-    end
+    # title
     Solrizer.insert_field(solr_doc, 'title', title)
     n = 0
     title_node.map do |t|
@@ -596,6 +583,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
     end
 
+    # date
     n = 0
     odate.map do |date|
       n += 1
@@ -604,8 +592,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
     end
 
-    #Solrizer.insert_field(solr_doc, 'date', date)
-
+    # relationship
     names = []
     relationship.map do |relationship|
       rel = relationship.load
@@ -634,6 +621,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, 'name', n )
     end
 
+    # language
     langs = load_languages language
     if langs != nil
       n = 0
@@ -646,6 +634,53 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
+    # note
+    insertNoteFields solr_doc, 'note',note
+    insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
+    insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
+    insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
+
+    # subject - old
+    subject_node.map do |sn|
+      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      Solrizer.insert_field(solr_doc, 'subject', subject_value)
+      Solrizer.insert_field(solr_doc, 'subject_topic', subject_value,facetable)
+    end
+
+    # subject - complex
+    insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects(complexSubject)
+
+    # subject - simple
+    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
+    insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
+    insertFields solr_doc, 'function', load_functions(function)
+    insertFields solr_doc, 'genreForm', load_genreForms(genreForm)
+    insertFields solr_doc, 'geographic', load_geographics(geographic)
+    insertFields solr_doc, 'iconography', load_iconographies(iconography)
+    insertFields solr_doc, 'occupation', load_occupations(occupation)
+    insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
+    insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
+    insertFields solr_doc, 'technique', load_techniques(technique)
+    insertFields solr_doc, 'temporal', load_temporals(temporal)
+    insertFields solr_doc, 'topic', load_topics(topic)
+
+    # subject - names
+    insertFields solr_doc, 'name', load_names(name)
+    insertFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)
+    insertFields solr_doc, 'corporateName', load_corporateNames(corporateName)
+    insertFields solr_doc, 'familyName', load_familyNames(familyName)
+    insertFields solr_doc, 'personalName', load_personalNames(personalName)
+
+    # relatedResource
+    n = 0
+    relatedResource.map do |resource|
+      n += 1
+      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_type", resource.type)
+      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
+      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
+    end
+
+    # event
     events = load_events event
     if events != nil
       n = 0
@@ -668,39 +703,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
 
-    n = 0
-    relatedResource.map do |resource|
-      n += 1
-      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_type", resource.type)
-      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
-      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
-    end
-
-    insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
-    insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
-    insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
-    insertNoteFields solr_doc, 'note',note
-
-    insertFields solr_doc, 'iconography', load_iconographies(iconography)
-    insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
-    insertFields solr_doc, 'technique', load_techniques(technique)
-    insertFields solr_doc, 'occupation', load_occupations(occupation)
-    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
-    insertFields solr_doc, 'geographic', load_geographics(geographic)
-    insertFields solr_doc, 'temporal', load_temporals(temporal)
-    insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
-    insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
-    insertFields solr_doc, 'topic', load_topics(topic)
-    insertFields solr_doc, 'function', load_functions(function)
-    insertFields solr_doc, 'genreForm', load_genreForms(genreForm)
-
-    insertFields solr_doc, 'personalName', load_personalNames(personalName)
-    insertFields solr_doc, 'familyName', load_familyNames(familyName)
-    insertFields solr_doc, 'name', load_names(name)
-    insertFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)
-    insertFields solr_doc, 'corporateName', load_corporateNames(corporateName)
-    insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects(complexSubject)
-
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
       if solr_doc[f].kind_of?(Array)
@@ -712,4 +714,3 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     return solr_doc
   end
 end
-
