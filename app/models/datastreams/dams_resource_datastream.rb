@@ -565,9 +565,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", note_obj.type)
       Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", note_obj.value)
       Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", note_obj.displayLabel)      	
-      note_json.merge!( :type => note_obj.type.first,
-                       :value => note_obj.value.first,
-                :displayLabel => note_obj.displayLabel.first )
+      note_json.merge!( :type => note_obj.type.first.to_s,
+                       :value => note_obj.value.first.to_s,
+                :displayLabel => note_obj.displayLabel.first.to_s )
       Solrizer.insert_field(solr_doc, "#{fieldName}_json", note_json.to_json )
     end
 
