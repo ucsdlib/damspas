@@ -238,6 +238,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       map.mimeType(:in=>DAMS)
       map.objectCategory(:in=>DAMS)
       map.preservationLevel(:in=>DAMS)
+      map.event(:in=>DAMS)
 
       # mix
       map.source_capture(:in=>DAMS, :to => 'sourceCapture')
@@ -506,11 +507,11 @@ class DamsObjectDatastream < DamsResourceDatastream
       }
 
       # titles
-      insertTitleFields solr_doc, "component_#{cid}_", component.title
+      insertTitleFields solr_doc, cid, component.title
 
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
 
-      insertDateFields solr_doc, "component_#{cid}_date", component.date
+      insertDateFields solr_doc, cid, component.date
       insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
       insertLanguageFields solr_doc, "component_#{cid}_", component.language
 
@@ -544,7 +545,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       insertStatuteFields solr_doc, "component_#{cid}_", component.statute
       insertOtherRightsFields solr_doc, "component_#{cid}_", component.otherRights
 
-      insertFileFields solr_doc, "component_#{cid}_", component.file
+      insertFileFields solr_doc, cid, component.file
     }
 
     # build component hierarchy map
@@ -557,7 +558,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       end
     }
     Solrizer.insert_field(solr_doc, "component_map", @cmap.to_json)
-    insertFileFields solr_doc, "", file
+    insertFileFields solr_doc, nil, file
     
     unit = load_unit unit_node
     if unit.class == DamsUnit

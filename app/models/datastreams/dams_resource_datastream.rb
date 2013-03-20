@@ -578,16 +578,23 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
   end
-  def insertDateFields (solr_doc, field, dates)
+  def insertDateFields (solr_doc, cid, dates)
     n = 0
     dates.map do |date|
       n += 1
-      Solrizer.insert_field(solr_doc, "#{field}_#{n}_beginDate", date.beginDate)
-      Solrizer.insert_field(solr_doc, "#{field}_#{n}_endDate", date.endDate)
-      Solrizer.insert_field(solr_doc, "#{field}_#{n}_value", date.value)
-
-      date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
-      Solrizer.insert_field(solr_doc, "#{field}_json", date_json.to_json)
+      if cid != nil
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_beginDate", date.beginDate)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_date", date.value)
+        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
+        Solrizer.insert_field(solr_doc, "component_#{cid}_date_json", date_json.to_json)
+      else
+        Solrizer.insert_field(solr_doc, "date_#{n}_beginDate", date.beginDate)
+        Solrizer.insert_field(solr_doc, "date_#{n}_endDate", date.endDate)
+        Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
+        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
+        Solrizer.insert_field(solr_doc, "date_json", date_json.to_json)
+      end
     end
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
@@ -629,17 +636,23 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field( solr_doc, "#{prefix}relationship_json", rel.to_json )
     end
   end
-  def insertTitleFields ( solr_doc, prefix, titles )
+  def insertTitleFields ( solr_doc, cid, titles )
     n = 0
     titles.map do |t|
       n += 1
-      Solrizer.insert_field(solr_doc, "#{prefix}title_#{n}_type", t.type)
-      Solrizer.insert_field(solr_doc, "#{prefix}title_#{n}_subtitle", t.subtitle)
-      Solrizer.insert_field(solr_doc, "#{prefix}title_#{n}_value", t.value)
-      Solrizer.insert_field(solr_doc, "#{prefix}title", t.value)
-
-      title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
-      Solrizer.insert_field(solr_doc, "#{prefix}title_json", title_json.to_json)
+      if cid != nil
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_title", t.value)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", t.subtitle)
+        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
+      else
+        Solrizer.insert_field(solr_doc, "title_#{n}_type", t.type)
+        Solrizer.insert_field(solr_doc, "title_#{n}_subtitle", t.subtitle)
+        Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
+        Solrizer.insert_field(solr_doc, "title", t.value)
+        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        Solrizer.insert_field(solr_doc, "title_json", title_json.to_json)
+      end
     end
   end
   def insertLanguageFields ( solr_doc, field, languages )
@@ -708,10 +721,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 
     # title
-    insertTitleFields solr_doc, "", title_node
+    insertTitleFields solr_doc, nil, title_node
 
     # date
-    insertDateFields solr_doc, "date", odate
+    insertDateFields solr_doc, nil, odate
 
     # relationship
     insertRelationshipFields solr_doc, "", relationship
