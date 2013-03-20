@@ -1,4 +1,4 @@
-class Component2
+class Component
     include ActiveFedora::RdfObject
     rdf_type DAMS.Component
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -40,7 +40,7 @@ class Component2
       map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
 
       # components and files
-      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => Component2)
+      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => Component)
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
 
       # rights
@@ -55,12 +55,6 @@ class Component2
       map.cartographics(:in => DAMS, :class_name => 'Cartographics')
     end
 
-  def serialize
-    graph.insert([rdf_subject, RDF.type, DAMS.Component]) if new?
-    super
-  end
-
-   
     def id
       cid = rdf_subject.to_s
       cid = cid.match('\w+$').to_s
@@ -130,6 +124,7 @@ class Component2
         map.mimeType(:in=>DAMS)
         map.objectCategory(:in=>DAMS)
         map.preservationLevel(:in=>DAMS)
+        map.event(:in=>DAMS)
 
         # mix
         map.source_capture(:in=>DAMS, :to => 'sourceCapture')
@@ -145,4 +140,3 @@ class Component2
       end
     end
 end
-
