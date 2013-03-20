@@ -552,16 +552,23 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     n = 0
     objects.map do |no|
       n += 1
+      note_json = {}
+      note_obj = nil
       if (no.external?)
- 		Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", no.load.pid)
-        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.load.type)
-        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.load.value)
-        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.load.displayLabel)
+        note_obj = no.load
+ 		Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_id", note_obj.pid)
+        note_json[:id] = note_obj.pid.first
       else
-        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", no.type)
-        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", no.value)
-        Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", no.displayLabel)      	
+        note_obj = no
       end
+
+      Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_type", note_obj.type)
+      Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_value", note_obj.value)
+      Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_displayLabel", note_obj.displayLabel)      	
+      note_json.merge!( :type => note_obj.type.first,
+                       :value => note_obj.value.first,
+                :displayLabel => note_obj.displayLabel.first )
+      Solrizer.insert_field(solr_doc, "#{fieldName}_json", note_json.to_json )
     end
 
   end
@@ -596,8 +603,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     names = []
     relationship.map do |relationship|
       rel = relationship.load
+      rel_json = {}
       if ( rel != nil )
         #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
+        rel_json[ :name ] = rel.name.first.to_s
         begin
           n = rel.name.first.to_s
           if not names.include?( n )
@@ -611,14 +620,16 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
       end
       relRole = relationship.loadRole
-      if ( rel != nil )
+      if ( relRole != nil )
         begin
-          Solrizer.insert_field(solr_doc, 'role', relationship.loadRole.value )
-          Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
-          Solrizer.insert_field(solr_doc, 'role_valueURI', relationship.loadRole.valueURI.first.to_s )
+          rel_json[ :role ] = relRole.value
+          Solrizer.insert_field(solr_doc, 'role', relRole.value )
+          Solrizer.insert_field(solr_doc, 'role_code', relRole.code )
+          Solrizer.insert_field(solr_doc, 'role_valueURI', relRole.valueURI.first.to_s )
         rescue
         end
-      end      
+      end
+      Solrizer.insert_field( solr_doc, "relationship_json", rel_json.to_json )
     end
     names.sort.each do |n|
       Solrizer.insert_field(solr_doc, 'name', n )

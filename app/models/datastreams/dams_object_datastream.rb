@@ -418,6 +418,18 @@ class DamsObjectDatastream < DamsResourceDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
       end
 
+      component.relationship.map do |relationship|
+        rel = relationship.load
+        if rel != nil
+          rel_json[ :name ] = rel.name.first.to_s
+        end
+        role = rel.loadRole
+        if role != nil
+          rel_json[ :role ] = role.value
+        end
+        Solrizer.insert_field( solr_doc, "component_#{cid}_relationship_json", rel_json.to_json )
+      end
+
       insertNoteFields solr_doc, "component_#{cid}_note",component.note
       insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
       insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
