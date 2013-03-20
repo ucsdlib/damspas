@@ -1,0 +1,17 @@
+<!-- 
+sample data:
+object name: relationship
+Fields: 1 name per record, 1+ roles
+<str>
+{"name":"O'Shea, Brian W., (Brian William), 1978-","role":["Creator"]}
+</str>
+<str>{"name":"Wagner, Rick, 1972-","role":["donor"]}</str>
+<str>{"name":"Hallman, Eric J.","role":["Creator"]}</str>
+<str>{"name":"Wagner, Rick, 1972-","role":["Creator"]}</str>
+<str>{"name":"Harkness, Robert","role":["Creator"]}</str>
+<str>{"name":"So, Geoffrey","role":["Creator"]}</str>
+<str>{"name":"Burns, Jack O.","role":["Creator"]}</str>
+<str>{"name":"Norman, Michael L.","role":["Creator"]}</str>
+-->
+<% rel = JSON.parse(relationship)%>
+<li><%=rel["name"]%> <i>(<%=rel["role"].join(",")%>)</i></li>

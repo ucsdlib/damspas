@@ -9,7 +9,15 @@
 		<%= render :partial => 'object/fields/language' %>
 		<%= render :partial => 'object/fields/type_of_resource' %>
 		<%= render :partial => 'object/fields/genre_form' %>
-		<%= render :partial => 'object/fields/name' %>
+		<% if @document["relationship_json_tesim"] != nil %>
+			<dt><%="Name".pluralize(@document["relationship_json_tesim"].count)%></dt>
+			<dd>
+				<ul class="unstyled">
+					<%= render :partial => 'object/fields/relationships', :collection => @document["relationship_json_tesim"], :as => :relationship %> <!-- was: render :partial => 'object/fields/name' -->
+				</ul>
+			</dd>
+		<% end %>
+		<%= render :partial => 'object/fields/relationships_alt' %>
 		<%= render :partial => 'object/fields/corporate_name' %>
 		<%= render :partial => 'object/fields/topic' %>
 		<%= render :partial => 'object/fields/subject' %>
