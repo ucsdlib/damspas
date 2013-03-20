@@ -139,7 +139,8 @@ class DamsComponentDatastream < DamsResourceDatastream
         map.mimeType(:in=>DAMS)
         map.objectCategory(:in=>DAMS)
         map.preservationLevel(:in=>DAMS)
-
+		map.event(:in=>DAMS)
+		
         # mix
         map.source_capture(:in=>DAMS, :to => 'sourceCapture')
       end

@@ -40,7 +40,7 @@ describe DamsComponentDatastream do
 
  	  it "should index title and dates" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should == ["The Static Image"]
+        solr_doc["title_tesim"].first.should == "The Static Image"
         solr_doc["title_1_value_tesim"].should == ["The Static Image"]
         solr_doc["date_1_beginDate_tesim"].should == ["2012-06-24"]
      	#solr_doc["date_1_endDate_tesim"].should == ["2012-06-25"]
