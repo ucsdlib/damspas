@@ -586,7 +586,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "#{field}_#{n}_endDate", date.endDate)
       Solrizer.insert_field(solr_doc, "#{field}_#{n}_value", date.value)
 
-      date_json = {:beginDate=>date.beginDate, :endDate=>date.endDate, :value=>date.value}
+      date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
       Solrizer.insert_field(solr_doc, "#{field}_json", date_json.to_json)
     end
   end
@@ -667,7 +667,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
       Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
 
-      related_json = {:type=>resource.type, :uri=>resource.uri, :description=>resource.description}
+      related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
       Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
     end
   end
@@ -687,17 +687,17 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
           rel_json = {}
 	      if (rel != nil)
 	         Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_name", rel.name)
-             rel_json[:name] = rel.name
+             rel_json[:name] = rel.name.first.to_s
 	      end 
 	      relRole = relationship.loadRole
 	      if (relRole != nil)
 	         Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_role", relRole.value)
-             rel_json[:role] = relRole.value
+             rel_json[:role] = relRole.value.first.to_s
 	      end  
           rels << rel_json
 	    end    
 
-        event_json = { :pid=>e.pid, :type=>e.type, :date=>e.eventDate, :outcome=>e.outcome, :relationship=>rels }
+        event_json = { :pid=>e.pid, :type=>e.type.first.to_s, :date=>e.eventDate.first.to_s, :outcome=>e.outcome.first.to_s, :relationship=>rels }
         Solrizer.insert_field(solr_doc, "#{prefix}event_json", event_json.to_json)
       end
     end
