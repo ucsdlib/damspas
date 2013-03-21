@@ -6,7 +6,7 @@ describe DamsProvenanceCollectionPart do
   end
 
   it "should create valid xml" do
-    subject.title = "May 2009"
+    subject.titleValue = "May 2009"
     subject.titleType = "main"
     subject.beginDate = "2009-05-03"
     subject.endDate = "2009-05-31"

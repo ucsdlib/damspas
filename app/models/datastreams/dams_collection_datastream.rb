@@ -138,15 +138,6 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsSubject.find(md[1])
     end
   end
-  def subject
-    subject_node.map{|s| s.authoritativeLabel.first}
-  end
-  def subject=(val)
-    self.subject_node = []
-    val.each do |s|
-      subject_node.build.authoritativeLabel = s
-    end
-  end
   class RelatedResource
     include ActiveFedora::RdfObject
     rdf_type DAMS.RelatedResource
@@ -499,7 +490,7 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
     end
 
-    subject_node.map do |sn| 
+    subject.map do |sn| 
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
     end

@@ -12,12 +12,12 @@ describe DamsComponentDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}zz12345678"
       end
       it "should have a title" do
-        subject.title = "The Static Image"
-        subject.title.should == ["The Static Image"]
+        subject.titleValue = "The Static Image"
+        subject.titleValue.should == ["The Static Image"]
       end
       it "should have a date" do
-        subject.date = "2012-06-24"
-        subject.date.should == ["2012-06-24"]
+        subject.dateValue = "2012-06-24"
+        subject.dateValue.should == ["2012-06-24"]
       end
     end
 
@@ -32,7 +32,7 @@ describe DamsComponentDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}zz12345678"
       end
       it "should have a title" do
-        subject.title.should == ["The Static Image"]
+        subject.titleValue.should == ["The Static Image"]
       end
       it "should have a date" do
         subject.beginDate.should == ["2012-06-24"]

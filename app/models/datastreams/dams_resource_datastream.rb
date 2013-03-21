@@ -18,38 +18,30 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  def title
-    title_node.first ? title_node.first.value : []
-  end
-  def title=(val)
-    self.title_node = []
-    title_node.build.value = val
-  end
-
   def subtitle
-    self.title_node.first ? self.title_node.first.subtitle : []
+    self.title.first ? self.title.first.subtitle : []
   end
   def subtitle=(val)
-    if self.title_node == nil
-      self.title_node = []
+    if self.title == nil
+      self.title = []
     end
-    self.title_node.build.subtitle = val
+    self.title.build.subtitle = val
   end
 
   def titleValue
-    title_node[0] ? title_node[0].value : []
+    title[0] ? title[0].value : []
   end
   def titleValue=(val)
-    title_node.build if title_node[0] == nil
-    title_node[0].value = val
+    title.build if title[0] == nil
+    title[0].value = val
   end
   
   def titleType
-    title_node[0] ? title_node[0].type : []
+    title[0] ? title[0].type : []
   end
   def titleType=(val)
-    title_node.build if title_node[0] == nil
-    title_node[0].type = val
+    title.build if title[0] == nil
+    title[0].type = val
   end
     
 
@@ -63,28 +55,28 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.endDate(:in=>DAMS)
     end
   end
-  def date
-    odate.first ? odate.first.value : []
-  end
-  def date=(val)
-    self.odate = []
-    odate.build.value = val
-  end
-  
+
   def beginDate
-    odate[0] ? odate[0].beginDate : []
+    date[0] ? date[0].beginDate : []
   end
   def beginDate=(val)
-    odate.build if odate[0] == nil
-    odate[0].beginDate = val
+    date.build if date[0] == nil
+    date[0].beginDate = val
   end
 
   def endDate
-    odate[0] ? odate[0].endDate : []
+    date[0] ? date[0].endDate : []
   end
   def endDate=(val)
-    odate.build if odate[0] == nil
-    odate[0].endDate = val
+    date.build if date[0] == nil
+    date[0].endDate = val
+  end
+  def dateValue
+    date[0] ? date[0].value : []
+  end
+  def dateValue=(val)
+    date.build if date[0] == nil
+    date[0].value = val
   end
   
 
@@ -199,6 +191,35 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
+
+  def scopeContentNoteType
+    scopeContentNote.first ? scopeContentNote.first.type : []
+  end
+  def scopeContentNoteType=(val)
+    if scopeContentNote == nil
+      scopeContentNote = []
+    end
+    scopeContentNote.first.type = val
+  end
+  def scopeContentNoteDisplayLabel
+    scopeContentNote.first ? scopeContentNote.first.displayLabel : []
+  end
+  def scopeContentNoteDisplayLabel=(val)
+    if scopeContentNote == nil
+      scopeContentNote = []
+    end
+    scopeContentNote.first.displayLabel = val
+  end
+  def scopeContentNoteValue
+    scopeContentNote.first ? scopeContentNote.first.value : []
+  end
+  def scopeContentNoteValue=(val)
+    if scopeContentNote == nil
+      scopeContentNote = []
+    end
+    scopeContentNote.first.value = val
+  end
+
   class PreferredCitationNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.PreferredCitationNote
@@ -238,19 +259,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         md = /\/(\w*)$/.match(uri)
         MadsComplexSubject.find(md[1])
       end
-    end
-  end
-
-  def subject
-    #subject_node.map{|s| s.authoritativeLabel.first}
-    subject_node.map do |sn|
-    	subject_value = sn.external? ? sn.load.name.first : sn.authoritativeLabel.first
-    end
-  end
-  def subject=(val)
-    self.subject_node = []
-    val.each do |s|
-      subject_node.build.authoritativeLabel = s
     end
   end
 
@@ -721,10 +729,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 
     # title
-    insertTitleFields solr_doc, nil, title_node
+    insertTitleFields solr_doc, nil, title
 
     # date
-    insertDateFields solr_doc, nil, odate
+    insertDateFields solr_doc, nil, date
 
     # relationship
     insertRelationshipFields solr_doc, "", relationship
@@ -739,7 +747,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
 
     # subject - old
-    subject_node.map do |sn|
+    subject.map do |sn|
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
       Solrizer.insert_field(solr_doc, 'subject_topic', subject_value,facetable)

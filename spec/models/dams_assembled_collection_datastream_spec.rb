@@ -12,12 +12,12 @@ describe DamsAssembledCollectionDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
       end
       it "should have a title" do
-        subject.title = "UCSD Electronic Theses and Dissertations"
-        subject.title.should == ["UCSD Electronic Theses and Dissertations"]
+        subject.titleValue = "UCSD Electronic Theses and Dissertations"
+        subject.titleValue.should == ["UCSD Electronic Theses and Dissertations"]
       end
       it "should have a date" do
-        subject.date = "2009-05-03"
-        subject.date.should == ["2009-05-03"]
+        subject.dateValue = "2009-05-03"
+        subject.dateValue.should == ["2009-05-03"]
       end
     end
 
@@ -32,7 +32,7 @@ describe DamsAssembledCollectionDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
       end
       it "should have a title" do
-        subject.title.should == ["UCSD Electronic Theses and Dissertations"]
+        subject.titleValue.should == ["UCSD Electronic Theses and Dissertations"]
       end
       it "should have a date" do
         subject.beginDate.should == ["2009-05-03"]

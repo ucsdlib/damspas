@@ -1,7 +1,7 @@
 class DamsObjectDatastream < DamsResourceDatastream
   map_predicates do |map|
-    map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+    map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.language(:in=>DAMS)
 
@@ -12,7 +12,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
 
     # subjects
-    map.subject_node(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
+    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
     map.complexSubject(:in => DAMS)
     map.builtWorkPlace(:in => DAMS)
     map.culturalContext(:in => DAMS)
@@ -434,8 +434,8 @@ class DamsObjectDatastream < DamsResourceDatastream
         n += 1
         Solrizer.insert_field(solr_doc, "collections", collection.pid)
         Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
-        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title)
-        Solrizer.insert_field(solr_doc, "collection", collection.title, facetable)
+        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.titleValue)
+        Solrizer.insert_field(solr_doc, "collection", collection.titleValue, facetable)
         if ( collection.kind_of? DamsAssembledCollection )
           Solrizer.insert_field(solr_doc, "collection_#{n}_type", "AssembledCollection")
         elsif ( collection.kind_of? DamsProvenanceCollectionPart )
