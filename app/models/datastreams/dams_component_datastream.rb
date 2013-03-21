@@ -1,7 +1,7 @@
 class DamsComponentDatastream < DamsResourceDatastream
   map_predicates do |map|
-    map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+    map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.language(:in=>DAMS)
 
@@ -12,7 +12,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
 
     # subjects
-    map.subject_node(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
+    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
     map.complexSubject(:in => DAMS)
     map.builtWorkPlace(:in => DAMS)
     map.culturalContext(:in => DAMS)

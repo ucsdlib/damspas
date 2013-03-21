@@ -1,6 +1,6 @@
 class DamsObject < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsObjectDatastream 
-  delegate_to "damsMetadata", [:title, :typeOfResource, :subtitle, :date, :beginDate, :endDate, :subject, :component, :file, :relatedResource, :title_node, :note_node, :odate]
+  delegate_to "damsMetadata", [:title, :titleType, :titleValue, :subtitle, :typeOfResource, :date, :beginDate, :endDate, :subject, :topic, :component, :file, :relatedResource ]
   def languages
     damsMetadata.load_languages
   end

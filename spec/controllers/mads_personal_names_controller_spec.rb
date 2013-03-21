@@ -8,7 +8,7 @@ describe MadsPersonalNamesController do
 	  end
 	  describe "Show" do
 	    before do
-	      @obj = MadsPersonalName.create(name: "Personal Name Test ", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999999")
+	      @obj = MadsPersonalName.create(name: "Personal Name Test ", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999991")
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
@@ -28,7 +28,7 @@ describe MadsPersonalNamesController do
 	  
 	  describe "Edit" do
 	    before do
-	      @obj = MadsPersonalName.create(name: "Personal Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999999")
+	      @obj = MadsPersonalName.create(name: "Personal Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999992")
 	    end    
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
@@ -40,7 +40,7 @@ describe MadsPersonalNamesController do
 	  describe "Create" do
 	    it "should be successful" do
 	      expect { 
-	        post :create, :mads_personal_name => {name: ["Test Name"] , sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999999"]}
+	        post :create, :mads_personal_name => {name: ["Test Name"] , sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999993"}
         }.to change { MadsPersonalName.count }.by(1)
 	      response.should redirect_to assigns[:mads_personal_name]
 	      assigns[:mads_personal_name].should be_kind_of MadsPersonalName
@@ -49,10 +49,10 @@ describe MadsPersonalNamesController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = MadsPersonalName.create(name: "Personal Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999999")
+ 	      @obj = MadsPersonalName.create(name: "Personal Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999994")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :mads_personal_name => {name: ["Test Title2"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999999"]}
+	      put :update, :id => @obj.id, :mads_personal_name => {name: ["Test Title2"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999995"]}
 	      response.should redirect_to assigns[:mads_personal_name]
 	      #@obj.reload.name.should == ["Test Title2"]
           pending "check title after reload #{__FILE__}"

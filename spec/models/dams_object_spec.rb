@@ -12,20 +12,25 @@ describe DamsObject do
   end
   
   it "should create/update a title" do
-    @damsObj.title.should == []
-    @damsObj.title = "Dams Object Title 1"
-    @damsObj.title.should == ["Dams Object Title 1"]
+    @damsObj.titleValue.should == []
+    @damsObj.titleValue = "Dams Object Title 1"
+    @damsObj.titleValue.should == ["Dams Object Title 1"]
   
-    @damsObj.title = "Dams Object Title 2"
-    @damsObj.title.should == ["Dams Object Title 2"]  
+    @damsObj.titleValue = "Dams Object Title 2"
+    @damsObj.titleValue.should == ["Dams Object Title 2"]  
   end
 
   it "should create/update a subject" do
-    @damsObj.subject = ["subject 1","subject 2"]
-    @damsObj.subject.should == ["subject 1","subject 2"]
+    pending "should be able to create topic, temporal, stylePeriod, ..."
+    #@damsObj.subject.first.authoritativeLabel = "subject 1"
+    #@damsObj.subject.second.authoritativeLabel = "subject 2"
+    #@damsObj.subject.first.authoritativeLabel.should == ["subject 1"]
+    #@damsObj.subject.second.authoritativeLabel.should == ["subject 2"]
 
-    @damsObj.subject = ["subject 3","subject 4"]
-    @damsObj.subject.should == ["subject 3","subject 4"]
+    #@damsObj.subject.first.authoritativeLabel = "subject 3"
+    #@damsObj.subject.second.authoritativeLabel = "subject 4"
+    #@damsObj.subject.first.authoritativeLabel.should == ["subject 3"]
+    #@damsObj.subject.second.authoritativeLabel.should == ["subject 4"]
   end
 
   describe "Store to a repository" do
@@ -37,13 +42,13 @@ describe DamsObject do
     end
     it "should store/retrieve from a repository" do
       @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
-      #@damsObj.title.should == ["Chicano and black radical activism of the 1960s"]
+      #@damsObj.titleValue.should == ["Chicano and black radical activism of the 1960s"]
       @damsObj.save!
       #puts "PID #{@damsObj.pid}"
       @damsObj.reload
       loadedObj = DamsObject.find(@damsObj.pid)
       #puts "CONTENT #{loadedObj.damsMetadata.content}"
-      loadedObj.title.should == ["Chicano and black radical activism of the 1960s"]
+      loadedObj.titleValue.should == ["Chicano and black radical activism of the 1960s"]
     end
   end
 
@@ -54,7 +59,7 @@ describe DamsObject do
     subject = DamsObject.new(:pid=>'bb80808080')
 
     subject.damsMetadata.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
-    subject.title.should == ["Sample Complex Object Record #1"]
+    subject.titleValue.should == ["Sample Complex Object Record #1"]
     subject.component.first.title.first.value.should == ["The Static Image"]
     subject.source_capture.scannerManufacturer.should == ["Epson"]
   end

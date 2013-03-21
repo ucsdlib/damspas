@@ -6,7 +6,7 @@ describe DamsComponent do
   end
 
   it "should create valid xml" do
-    subject.title = "The Static Image"
+    subject.titleValue = "The Static Image"
     subject.titleType = "main"
     subject.beginDate = "2012-06-24"
     subject.endDate = "2012-06-25"

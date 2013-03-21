@@ -1,7 +1,8 @@
 class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   map_predicates do |map|
-    map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+    map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
+    
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.language(:in=>DAMS)
 
@@ -12,7 +13,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
 
     # subjects
-    map.subject_node(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+    map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
     map.complexSubject(:in => DAMS)
     map.builtWorkPlace(:in => DAMS)
     map.culturalContext(:in => DAMS)
@@ -71,7 +72,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     
     part = load_part
     if part != nil && part.class == DamsProvenanceCollectionPart
-      Solrizer.insert_field(solr_doc, 'part_name', part.title)
+      Solrizer.insert_field(solr_doc, 'part_name', part.titleValue)
       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
     end
     
