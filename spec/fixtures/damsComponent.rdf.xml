@@ -1,0 +1,88 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/zz12345678">
+        <dams:note>
+          <dams:Note>
+            <rdf:value>1 PDF (xi, 111 p.)</rdf:value>
+            <dams:displayLabel>Extent</dams:displayLabel>
+            <dams:type>dimensions</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>The Static Image</rdf:value>
+            <dams:subtitle>Foo!</dams:subtitle>
+            <dams:type>main</dams:type>
+          </dams:Title>
+        </dams:title>
+		<dams:title>
+          <dams:Title>
+            <rdf:value>The Static Image #2</rdf:value>
+            <dams:subtitle>Foo! #2</dams:subtitle>
+            <dams:type>main2</dams:type>
+          </dams:Title>
+        </dams:title> 
+        <dams:title>
+          <dams:Title>
+            <rdf:value>The Static Image #3</rdf:value>
+            <dams:subtitle>Foo! #3</dams:subtitle>
+            <dams:type>main3</dams:type>
+          </dams:Title>
+        </dams:title>       
+        <dams:date>
+          <dams:Date>
+            <rdf:value>June 24-25, 2012</rdf:value>
+            <dams:beginDate>2012-06-24</dams:beginDate>
+            <dams:endDate>2012-06-25</dams:endDate>
+          </dams:Date>
+        </dams:date>
+       <dams:date>
+          <dams:Date>
+            <rdf:value>June 24-25, 2012 #2</rdf:value>
+            <dams:beginDate>2012-06-24 #2</dams:beginDate>
+            <dams:endDate>2012-06-25 #2</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf">
+            <dams:sourceCapture rdf:resource="http://library.ucsd.edu/ark:/20775/bb49494949"/>
+            <dams:sourcePath>src/sample/files</dams:sourcePath>
+            <dams:sourceFileName>comparison-1.pdf</dams:sourceFileName>
+            <dams:formatName>PDF</dams:formatName>
+            <dams:formatVersion>1.3</dams:formatVersion>
+            <dams:mimeType>application/pdf</dams:mimeType>
+            <dams:use>document-service</dams:use>
+            <dams:size>20781</dams:size>
+            <dams:crc32checksum>2bbbc159</dams:crc32checksum>
+            <dams:md5checksum>733b4bf1c94e13104dab7b6c759a4a1d</dams:md5checksum>
+            <dams:sha1checksum>afe6fd487d598b158d593e8309d15178bba76332</dams:sha1checksum>
+            <dams:dateCreated>2012-06-24T08:38:21-0800</dams:dateCreated>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:preservationLevel>full</dams:preservationLevel>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/2.jpg">
+            <dams:crc32checksum>4393b6cf</dams:crc32checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:md5checksum>795d1bad143b3344e8ee4350ee9a6aca</dams:md5checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:use>visual-thumbnail</dams:use>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sha1checksum>692058cb537545542b1d5fdd94e41d2250a51ba8</dams:sha1checksum>
+            <dams:sourcePath>/pub/data1/dams/localStore/bb/80/80/80/80</dams:sourcePath>
+            <dams:dateCreated>2013-01-31T09:02:33-0500</dams:dateCreated>
+            <dams:quality>154x200</dams:quality>
+            <dams:sourceFileName>20775-bb80808080-1-2.jpg</dams:sourceFileName>
+            <dams:size>115038</dams:size>
+            <dams:compositionLevel>0</dams:compositionLevel>
+          </dams:File>
+        </dams:hasFile>
+      </dams:Component>
+</rdf:RDF>
