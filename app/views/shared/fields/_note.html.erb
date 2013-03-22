@@ -9,14 +9,14 @@
 		htmlClose = "</dd>"
 	end
 
-	noteData = @document["#{prefix}note_json_tesim"]
+	fieldData = @document["#{prefix}note_json_tesim"]
 
-	if noteData != nil
+	if fieldData != nil
 
-		htmlOpen %= 'Note'.pluralize(noteData.count)
+		htmlOpen %= 'Note'.pluralize(fieldData.count)
 		concat htmlOpen.html_safe
 
-		noteData.each do |datum|
+		fieldData.each do |datum|
 	 		note = JSON.parse(datum)
 %>
 			<p>
