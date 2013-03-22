@@ -1,11 +1,11 @@
 <%
 	 prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
-	 titleData = @document["#{prefix}title_json_tesim"]
+	 fieldData = @document["#{prefix}title_json_tesim"]
 %>
 
-<% if titleData != nil %>
+<% if fieldData != nil %>
 	<hgroup>
-	<% titleData.each do |datum| %>
+	<% fieldData.each do |datum| %>
 		<% title = JSON.parse(datum) %>
 		<h1><%= title['value'] %></h1>
 		<% if title['subtitle'] != '' %>

@@ -9,14 +9,14 @@
 		htmlClose = "</ul></dd>"
 	end
 
-	dateData = @document["#{prefix}date_json_tesim"]
+	fieldData = @document["#{prefix}date_json_tesim"]
 
-	if dateData != nil
+	if fieldData != nil
 
-		htmlOpen %= 'Date'.pluralize(dateData.count)
+		htmlOpen %= 'Date'.pluralize(fieldData.count)
 		concat htmlOpen.html_safe
 
-		dateData.each do |datum|
+		fieldData.each do |datum|
 			date = JSON.parse(datum)
 %>
 			<li><%= date['value'] %></li>

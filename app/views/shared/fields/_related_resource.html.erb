@@ -1,0 +1,29 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		 htmlClose = "</ul></td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		 htmlClose = "</ul></dd>"
+	 end
+
+	 fieldData = @document["#{prefix}related_resource_json_tesim"]
+
+	 if fieldData != nil
+
+		 htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
+		 concat htmlOpen.html_safe
+
+		 fieldData.each do |datum|
+			 relatedResource = JSON.parse(datum)
+%>
+		<li><%= link_to relatedResource['description'], relatedResource['uri'] %></li>
+<%
+	 end
+
+	 concat htmlClose.html_safe
+
+	 end
+%>
