@@ -3,7 +3,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.language(:in=>DAMS)
+    map.language(:in=>DAMS, :class_name => 'Language')
+    #map.language(:in=>DAMS)
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
@@ -67,8 +68,6 @@ class DamsObjectDatastream < DamsResourceDatastream
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
     super
   end
-
-# inherit from DamsResourceDatastream??
 
   class File
     include ActiveFedora::RdfObject

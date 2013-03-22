@@ -4,7 +4,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
     
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.language(:in=>DAMS)
+    map.language(:in=>DAMS, :class_name => 'Language')
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
