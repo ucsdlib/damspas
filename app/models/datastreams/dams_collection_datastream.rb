@@ -71,8 +71,6 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     scopeContentNote[0].displayLabel = val
   end
 
-
-
   class Date
     include ActiveFedora::RdfObject
     rdf_type DAMS.Date
@@ -109,86 +107,8 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  class Note
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Note
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsNote.find(md[1])
-    end
-  end
-
-  class ScopeContentNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.ScopeContentNote
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      #puts rdf_subject
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsScopeContentNote.find(md[1])
-    end
-  end
-
-  class PreferredCitationNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.PreferredCitationNote
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsPreferredCitationNote.find(md[1])
-      end
-    end
-  end  
   
-  class CustodialResponsibilityNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.CustodialResponsibilityNote
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsCustodialResponsibilityNote.find(md[1])
-      end
-    end
-  end  
+
   
   def load_languages
     languages = []

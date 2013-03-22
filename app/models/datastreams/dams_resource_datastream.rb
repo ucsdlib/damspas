@@ -112,65 +112,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
 
   ## Note ######################################################################
-  class Note
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Note
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsNote.find(md[1])
-      end
-    end
-  end
-  class CustodialResponsibilityNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.CustodialResponsibilityNote
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
 
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsCustodialResponsibilityNote.find(md[1])
-      end
-    end
-  end
-  class ScopeContentNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.ScopeContentNote
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsScopeContentNote.find(md[1])
-      end
-    end
-  end
 
   def scopeContentNoteType
     scopeContentNote.first ? scopeContentNote.first.type : []
@@ -199,28 +141,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     scopeContentNote.first.value = val
   end
-
-  class PreferredCitationNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.PreferredCitationNote
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsPreferredCitationNote.find(md[1])
-      end
-    end
-  end
-
 
   ## Subject ###################################################################
   class Subject
