@@ -60,15 +60,6 @@ class Component
       cid = cid.match('\w+$').to_s
       cid.to_i
     end
-    class Title
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.Title
-      map_predicates do |map|
-        map.value(:in=> RDF)
-        map.subtitle(:in=> DAMS, :to=>'subtitle')
-        map.type(:in=> DAMS, :to=>'type')
-      end
-    end
     class Date
       include ActiveFedora::RdfObject
       rdf_type DAMS.Date
