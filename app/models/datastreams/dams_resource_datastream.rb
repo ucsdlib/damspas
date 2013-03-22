@@ -121,14 +121,33 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_languages(language)
     languages = []
     language.values.each do |lang|
-      lang_uri = lang.to_s
-      lang_pid = lang_uri.gsub(/.*\//,'')
-      if lang_pid != nil && lang_pid != ""
-        languages << DamsLanguage.find(lang_pid)
+      if lang.value.first != nil && lang.code.first != nil
+        # use inline data if available
+        languages << lang
+      elsif lang.pid != nil
+        # load external records
+        languages << DamsLanguage.find(lang.pid)
       end
     end
     languages
   end
+  # tmp lang class
+  class Language
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Language
+
+    map_predicates do |map|
+      map.code(:in => DAMS, :to => 'code')
+      map.value(:in => RDF, :to => 'value')
+      map.valueURI(:in => DAMS, :to => 'valueURI')
+      map.vocab(:in => DAMS, :to => 'vocabulary', :class_name => 'DamsVocabulary')
+    end
+    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+    def pid
+      rdf_subject.to_s.gsub(/.*\//,'')
+    end
+  end
+  # end tmp lang class
 
 
   ## Note ######################################################################
@@ -667,8 +686,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     langs = load_languages languages
     if langs != nil
       n = 0
-      langs.each do |lang|
+      langs.map.each do |lang|
         n += 1
+
         Solrizer.insert_field(solr_doc, "#{field}_#{n}_id", lang.pid)
         Solrizer.insert_field(solr_doc, "#{field}_#{n}_code", lang.code)
         Solrizer.insert_field(solr_doc, "#{field}_#{n}_value", lang.value)
