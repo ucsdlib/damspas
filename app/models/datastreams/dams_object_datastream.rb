@@ -1,9 +1,10 @@
 class DamsObjectDatastream < DamsResourceDatastream
   map_predicates do |map|
-    map.title_node(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.odate(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+    map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.language(:in=>DAMS)
+    map.language(:in=>DAMS, :class_name => 'Language')
+    #map.language(:in=>DAMS)
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
@@ -12,7 +13,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
 
     # subjects
-    map.subject_node(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
+    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
     map.complexSubject(:in => DAMS)
     map.builtWorkPlace(:in => DAMS)
     map.culturalContext(:in => DAMS)
@@ -68,148 +69,6 @@ class DamsObjectDatastream < DamsResourceDatastream
     super
   end
 
-# inherit from DamsResourceDatastream??
-  class Component
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Component
-    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-    map_predicates do |map|
-      map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
-      map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
-      map.relationship(:in => DAMS, :class_name => 'Relationship')
-      map.language(:in=>DAMS)
-
-      # notes
-      map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
-      map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
-      map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
-      map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-
-      # subjects
-      map.complexSubject(:in => DAMS)
-      map.builtWorkPlace(:in => DAMS)
-      map.culturalContext(:in => DAMS)
-      map.function(:in => DAMS)
-      map.genreForm(:in => DAMS)
-      map.geographic(:in => DAMS)
-      map.iconography(:in => DAMS)
-      map.occupation(:in => DAMS)
-      map.scientificName(:in => DAMS)
-      map.stylePeriod(:in => DAMS)
-      map.technique(:in => DAMS)
-      map.temporal(:in => DAMS)
-      map.topic(:in => DAMS)
-
-      # subject names
-      map.name(:in => DAMS)
-      map.conferenceName(:in => DAMS)
-      map.corporateName(:in => DAMS)
-      map.familyName(:in => DAMS)
-      map.personalName(:in => DAMS)
-
-      # related resources
-      map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-
-      # components and files
-      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => DamsObjectDatastream::Component)
-      map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
-
-      # rights
-      map.copyright(:in=>DAMS)
-      map.license(:in=>DAMS)
-      map.otherRights(:in=>DAMS)
-      map.statute(:in=>DAMS)
-      map.rightsHolder(:in=>DAMS)
-
-      # resource type and cartographics
-      map.resource_type(:in => DAMS, :to => 'typeOfResource')
-      map.cartographics(:in => DAMS, :class_name => 'Cartographics')
-    end
-    def id
-      cid = rdf_subject.to_s
-      cid = cid.match('\w+$').to_s
-      cid.to_i
-    end
-    class Title
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.Title
-      map_predicates do |map|
-        map.value(:in=> RDF)
-        map.subtitle(:in=> DAMS, :to=>'subtitle')
-        map.type(:in=> DAMS, :to=>'type')
-      end
-    end
-    class Date
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.Date
-      map_predicates do |map|
-        map.value(:in=> RDF, :to=>'value')
-        map.beginDate(:in=>DAMS, :to=>'beginDate')
-        map.endDate(:in=>DAMS, :to=>'endDate')
-      end
-    end
-    class Note
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.Note
-      map_predicates do |map|
-        map.value(:in=> RDF, :to=>'value')
-        map.displayLabel(:in=>DAMS, :to=>'displayLabel')
-        map.type(:in=>DAMS, :to=>'type')
-      end
-      def external?
-        rdf_subject.to_s.include? Rails.configuration.id_namespace
-      end
-      def load
-        uri = rdf_subject.to_s
-        if uri.start_with?(Rails.configuration.id_namespace)
-          md = /\/(\w*)$/.match(uri)
-          DamsNote.find(md[1])
-        end
-      end
-    end
-    class File
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.File
-      map_predicates do |map|
-        map.filestore(:in=>DAMS)
-        map.quality(:in=>DAMS)
-        map.size(:in=>DAMS)
-        map.sourceFileName(:in=>DAMS)
-        map.sourcePath(:in=>DAMS)
-        map.use(:in=>DAMS)
-        map.value(:in=> RDF)
-
-        # checksums
-        map.crc32checksum(:in=>DAMS)
-        map.md5checksum(:in=>DAMS)
-        map.sha1checksum(:in=>DAMS)
-        map.sha256checksum(:in=>DAMS)
-        map.sha512checksum(:in=>DAMS)
-
-        # premis
-        map.compositionLevel(:in=>DAMS)
-        map.dateCreated(:in=>DAMS)
-        map.formatName(:in=>DAMS)
-        map.formatVersion(:in=>DAMS)
-        map.mimeType(:in=>DAMS)
-        map.objectCategory(:in=>DAMS)
-        map.preservationLevel(:in=>DAMS)
-
-        # mix
-        map.source_capture(:in=>DAMS, :to => 'sourceCapture')
-      end
-      def id
-        fid = rdf_subject.to_s
-        fid = fid.gsub(/.*\//,'')
-        fid
-      end
-      def order
-        order = id.gsub(/\..*/,'')
-        order.to_i
-      end
-    end
-  end
-
   class File
     include ActiveFedora::RdfObject
     rdf_type DAMS.File
@@ -237,6 +96,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       map.mimeType(:in=>DAMS)
       map.objectCategory(:in=>DAMS)
       map.preservationLevel(:in=>DAMS)
+      map.event(:in=>DAMS)
 
       # mix
       map.source_capture(:in=>DAMS, :to => 'sourceCapture')
@@ -359,27 +219,116 @@ class DamsObjectDatastream < DamsResourceDatastream
     rightsHolders
   end
 
-  class Cartographics
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Cartographics
-    map_predicates do |map|
-      map.point(:in=>DAMS)
-      map.line(:in=>DAMS)
-      map.polygon(:in=>DAMS)
-      map.projection(:in=>DAMS)
-      map.referenceSystem(:in=>DAMS)
-      map.scale(:in=>DAMS)
+  def insertFileFields( solr_doc, cid, files )
+    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
+    prefix = (cid != nil) ? "component_#{cid}_" : ""
+    altprefix = (cid != nil) ? "file_#{cid}" : "file"
+    files.map.sort{ |a,b| a.order <=> b.order }.each { |file|
+      fid = file.id
+      Solrizer.insert_field(solr_doc, "#{altprefix}_#{fid}_filestore", file.filestore)
+      Solrizer.insert_field(solr_doc, "#{prefix}files", fid)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_quality", file.quality)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_size", file.size, singleString)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_sourcePath", file.sourcePath)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_sourceFileName", file.sourceFileName)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_use", file.use)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_label", file.value)
+
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_dateCreated", file.dateCreated)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_formatName", file.formatName)
+      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_mimeType", file.mimeType)
+
+      source_capture = load_source_capture file.source_capture
+      if source_capture.class == DamsSourceCapture
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_source_capture", source_capture.pid)
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_capture_source", source_capture.captureSource)
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_image_producer", source_capture.imageProducer)
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanner_model_name", source_capture.scannerModelName)
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanning_software", source_capture.scanningSoftware)
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
+        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_source_type", source_capture.sourceType)
+      end
+
+      insertEventFields solr_doc, "#{prefix}file_#{fid}_", file.event
+    }
+  end
+  def insertCopyrightFields ( solr_doc, prefix, copyright )
+    copy = load_copyright copyright
+    if copy != nil
+      Solrizer.insert_field(solr_doc, "#{prefix}copyright_status", copy.status)
+      Solrizer.insert_field(solr_doc, "#{prefix}copyright_jurisdiction", copy.jurisdiction)
+      Solrizer.insert_field(solr_doc, "#{prefix}copyright_purposeNote", copy.purposeNote)
+      Solrizer.insert_field(solr_doc, "#{prefix}copyright_note", copy.note)
+      Solrizer.insert_field(solr_doc, "#{prefix}copyright_beginDate", copy.beginDate)
+      Solrizer.insert_field(solr_doc, "#{prefix}copyright_id", copy.pid)
     end
-    def to_solr (solr_doc = {})
-      super solr_doc
+  end
+  def insertLicenseFields( solr_doc, prefix, license )
+    lic = load_license license
+    if lic != nil
+      Solrizer.insert_field(solr_doc, "#{prefix}license_id", lic.pid)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_note", lic.note)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_uri", lic.uri.values.first.to_s)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_permissionType", lic.permissionType)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_permissionBeginDate", lic.permissionBeginDate)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_permissionEndDate", lic.permissionEndDate)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_restrictionType", lic.restrictionType)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_restrictionBeginDate", lic.restrictionBeginDate)
+      Solrizer.insert_field(solr_doc, "#{prefix}license_restrictionEndDate", lic.restrictionEndDate)
+    end
+  end
+  def insertStatuteFields( solr_doc, prefix, statute )
+    stat = load_statute statute
+    if stat != nil
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_id", stat.pid)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_citation", stat.citation)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_jurisdiction", stat.jurisdiction)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_note", stat.note)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_permissionType", stat.permissionType)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_permissionBeginDate", stat.permissionBeginDate)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_permissionEndDate", stat.permissionEndDate)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_restrictionType", stat.restrictionType)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_restrictionBeginDate", stat.restrictionBeginDate)
+      Solrizer.insert_field(solr_doc, "#{prefix}statute_restrictionEndDate", stat.restrictionEndDate)
+    end
+  end
+  def insertOtherRightsFields( solr_doc, prefix, otherRights )
+    othr = load_otherRights otherRights
+    if othr != nil
+      Solrizer.insert_field(solr_doc, "otherRights_id", othr.pid)
+      Solrizer.insert_field(solr_doc, "otherRights_basis", othr.basis)
+      Solrizer.insert_field(solr_doc, "otherRights_note", othr.note)
+      Solrizer.insert_field(solr_doc, "otherRights_uri", othr.uri.first.to_s)
+      Solrizer.insert_field(solr_doc, "otherRights_permissionType", othr.permissionType)
+      Solrizer.insert_field(solr_doc, "otherRights_permissionBeginDate", othr.permissionBeginDate)
+      Solrizer.insert_field(solr_doc, "otherRights_permissionEndDate", othr.permissionEndDate)
+      Solrizer.insert_field(solr_doc, "otherRights_restrictionType", othr.restrictionType)
+      Solrizer.insert_field(solr_doc, "otherRights_restrictionBeginDate", othr.restrictionBeginDate)
+      Solrizer.insert_field(solr_doc, "otherRights_restrictionEndDate", othr.restrictionEndDate)
+      Solrizer.insert_field(solr_doc, "otherRights_name", othr.name.first.to_s)
+      Solrizer.insert_field(solr_doc, "otherRights_role", othr.role.first.to_s)
+    end    
+  end
+  def insertRightsHolderFields( solr_doc, prefix, rightsHolder )
+    rightsHolders = load_rightsHolders rightsHolder
+    if rightsHolders != nil
+      n = 0
+      rightsHolders.each do |name|
+        if name.class == MadsPersonalName
+          n += 1
+          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder_#{n}_id", name.pid)
+          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder_#{n}_name", name.name)
+        end
+      end
     end
   end
           
   def to_solr (solr_doc = {})
- 	storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
-    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
-    storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
+    storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
+    storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
     
     # component metadata
     @parents = Hash.new
@@ -401,34 +350,13 @@ class DamsObjectDatastream < DamsResourceDatastream
       }
 
       # titles
-      n = 0
-      component.title.map do |title|
-        n += 1
-      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_title", title.value)
-      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", title.subtitle)
-      end
+      insertTitleFields solr_doc, cid, component.title
 
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
 
-      n = 0
-      component.date.map do |date|
-        n += 1
-      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_date", date.value)
-      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_beginDate", date.beginDate)
-      	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
-      end
-
-      component.relationship.map do |relationship|
-        rel = relationship.load
-        if rel != nil
-          rel_json[ :name ] = rel.name.first.to_s
-        end
-        role = rel.loadRole
-        if role != nil
-          rel_json[ :role ] = role.value
-        end
-        Solrizer.insert_field( solr_doc, "component_#{cid}_relationship_json", rel_json.to_json )
-      end
+      insertDateFields solr_doc, cid, component.date
+      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
+      insertLanguageFields solr_doc, "component_#{cid}_", component.language
 
       insertNoteFields solr_doc, "component_#{cid}_note",component.note
       insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
@@ -455,33 +383,12 @@ class DamsObjectDatastream < DamsResourceDatastream
       insertFields solr_doc, "component_#{cid}_familyName", load_familyNames(component.familyName)
       insertFields solr_doc, "component_#{cid}_personalName", load_personalNames(component.personalName)
 
-      component.file.map.sort{ |a,b| a.order <=> b.order }.each { |file|
-        fid = file.id
-        Solrizer.insert_field(solr_doc, "component_#{cid}_files", fid)
-        Solrizer.insert_field(solr_doc, "file_#{cid}_#{fid}_filestore", file.filestore)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_quality", file.quality)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_size", file.size, singleString)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourcePath", file.sourcePath)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_sourceFileName", file.sourceFileName)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_use", file.use)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_label", file.value)
+      insertCopyrightFields solr_doc, "component_#{cid}_", component.copyright
+      insertLicenseFields solr_doc, "component_#{cid}_", component.license
+      insertStatuteFields solr_doc, "component_#{cid}_", component.statute
+      insertOtherRightsFields solr_doc, "component_#{cid}_", component.otherRights
 
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_dateCreated", file.dateCreated)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
-        Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_mimeType", file.mimeType)
-
-        source_capture = load_source_capture file.source_capture
-        if source_capture.class == DamsSourceCapture
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_source_capture", source_capture.pid)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_capture_source", source_capture.captureSource)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_image_producer", source_capture.imageProducer)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanner_model_name", source_capture.scannerModelName)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanning_software", source_capture.scanningSoftware)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_source_type", source_capture.sourceType)
-        end
-      }
+      insertFileFields solr_doc, cid, component.file
     }
 
     # build component hierarchy map
@@ -494,34 +401,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       end
     }
     Solrizer.insert_field(solr_doc, "component_map", @cmap.to_json)
-
-    file.map.sort{ |a,b| a.order <=> b.order }.each { |file|
-      fid = file.id
-      Solrizer.insert_field(solr_doc, "files", fid)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_filestore", file.filestore)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_quality", file.quality)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_size", file.size, singleString)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_sourcePath", file.sourcePath)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_sourceFileName", file.sourceFileName)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_use", file.use)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_label", file.value)
-
-      Solrizer.insert_field(solr_doc, "file_#{fid}_dateCreated", file.dateCreated)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_formatName", file.formatName)
-      Solrizer.insert_field(solr_doc, "file_#{fid}_mimeType", file.mimeType)
-
-      source_capture = load_source_capture file.source_capture
-      if source_capture.class == DamsSourceCapture
-        Solrizer.insert_field(solr_doc, "file_#{fid}_source_capture", source_capture.pid)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_capture_source", source_capture.captureSource)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_image_producer", source_capture.imageProducer)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanner_model_name", source_capture.scannerModelName)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanning_software", source_capture.scanningSoftware)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_source_type", source_capture.sourceType)
-      end
-    }
+    insertFileFields solr_doc, nil, file
     
     unit = load_unit unit_node
     if unit.class == DamsUnit
@@ -538,8 +418,8 @@ class DamsObjectDatastream < DamsResourceDatastream
         n += 1
         Solrizer.insert_field(solr_doc, "collections", collection.pid)
         Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
-        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.title)
-        Solrizer.insert_field(solr_doc, "collection", collection.title, facetable)
+        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.titleValue)
+        Solrizer.insert_field(solr_doc, "collection", collection.titleValue, facetable)
         if ( collection.kind_of? DamsAssembledCollection )
           Solrizer.insert_field(solr_doc, "collection_#{n}_type", "AssembledCollection")
         elsif ( collection.kind_of? DamsProvenanceCollectionPart )
@@ -548,71 +428,14 @@ class DamsObjectDatastream < DamsResourceDatastream
           Solrizer.insert_field(solr_doc, "collection_#{n}_type", "ProvenanceCollection")
         end
       end
-    end    
+    end
+
+    insertCopyrightFields solr_doc, "", copyright
+    insertLicenseFields solr_doc, "", license
+    insertStatuteFields solr_doc, "", statute
+    insertOtherRightsFields solr_doc, "", otherRights
+    insertRightsHolderFields solr_doc, "", rightsHolder
     
-    copy = load_copyright copyright
-    if copy != nil
-      Solrizer.insert_field(solr_doc, 'copyright_status', copy.status)
-      Solrizer.insert_field(solr_doc, 'copyright_jurisdiction', copy.jurisdiction)
-      Solrizer.insert_field(solr_doc, 'copyright_purposeNote', copy.purposeNote)
-      Solrizer.insert_field(solr_doc, 'copyright_note', copy.note)
-      Solrizer.insert_field(solr_doc, 'copyright_beginDate', copy.beginDate)
-      Solrizer.insert_field(solr_doc, 'copyright_id', copy.pid)
-    end
-
-    lic = load_license license
-    if lic != nil
-      Solrizer.insert_field(solr_doc, 'license_id', lic.pid)
-      Solrizer.insert_field(solr_doc, 'license_note', lic.note)
-      Solrizer.insert_field(solr_doc, 'license_uri', lic.uri.values.first.to_s)
-      Solrizer.insert_field(solr_doc, 'license_permissionType', lic.permissionType)
-      Solrizer.insert_field(solr_doc, 'license_permissionBeginDate', lic.permissionBeginDate)
-      Solrizer.insert_field(solr_doc, 'license_permissionEndDate', lic.permissionEndDate)
-      Solrizer.insert_field(solr_doc, 'license_restrictionType', lic.restrictionType)
-      Solrizer.insert_field(solr_doc, 'license_restrictionBeginDate', lic.restrictionBeginDate)
-      Solrizer.insert_field(solr_doc, 'license_restrictionEndDate', lic.restrictionEndDate)
-    end
-
-    stat = load_statute statute
-    if stat != nil
-      Solrizer.insert_field(solr_doc, 'statute_id', stat.pid)
-      Solrizer.insert_field(solr_doc, 'statute_citation', stat.citation)
-      Solrizer.insert_field(solr_doc, 'statute_jurisdiction', stat.jurisdiction)
-      Solrizer.insert_field(solr_doc, 'statute_note', stat.note)
-      Solrizer.insert_field(solr_doc, 'statute_permissionType', stat.permissionType)
-      Solrizer.insert_field(solr_doc, 'statute_permissionBeginDate', stat.permissionBeginDate)
-      Solrizer.insert_field(solr_doc, 'statute_permissionEndDate', stat.permissionEndDate)
-      Solrizer.insert_field(solr_doc, 'statute_restrictionType', stat.restrictionType)
-      Solrizer.insert_field(solr_doc, 'statute_restrictionBeginDate', stat.restrictionBeginDate)
-      Solrizer.insert_field(solr_doc, 'statute_restrictionEndDate', stat.restrictionEndDate)
-    end
-
-    othr = load_otherRights otherRights
-    if othr != nil
-      Solrizer.insert_field(solr_doc, 'otherRights_id', othr.pid)
-      Solrizer.insert_field(solr_doc, 'otherRights_basis', othr.basis)
-      Solrizer.insert_field(solr_doc, 'otherRights_note', othr.note)
-      Solrizer.insert_field(solr_doc, 'otherRights_uri', othr.uri.first.to_s)
-      Solrizer.insert_field(solr_doc, 'otherRights_permissionType', othr.permissionType)
-      Solrizer.insert_field(solr_doc, 'otherRights_permissionBeginDate', othr.permissionBeginDate)
-      Solrizer.insert_field(solr_doc, 'otherRights_permissionEndDate', othr.permissionEndDate)
-      Solrizer.insert_field(solr_doc, 'otherRights_restrictionType', othr.restrictionType)
-      Solrizer.insert_field(solr_doc, 'otherRights_restrictionBeginDate', othr.restrictionBeginDate)
-      Solrizer.insert_field(solr_doc, 'otherRights_restrictionEndDate', othr.restrictionEndDate)
-      Solrizer.insert_field(solr_doc, 'otherRights_name', othr.name.first.to_s)
-      Solrizer.insert_field(solr_doc, 'otherRights_role', othr.role.first.to_s)
-    end    
-    rightsHolders = load_rightsHolders rightsHolder
-    if rightsHolders != nil
-      n = 0
-      rightsHolders.each do |name|
-        if name.class == MadsPersonalName
-          n += 1
-          Solrizer.insert_field(solr_doc, "rightsHolder_#{n}_id", name.pid)
-          Solrizer.insert_field(solr_doc, "rightsHolder_#{n}_name", name.name)
-        end
-      end
-    end    
     cartographics.map do |cart|
       Solrizer.insert_field(solr_doc, "cartographics_point", cart.point)
       Solrizer.insert_field(solr_doc, "cartographics_line", cart.line)

@@ -48,12 +48,12 @@ describe DamsObjectsController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = DamsObject.create(title: "Test Title", date: "2013")
+ 	      @obj = DamsObject.create(titleValue: "Test Title", date: "2013")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :dams_object => {title: ["Test Title2"], date: ["2013"], subject: ["Test subject"]}
+	      put :update, :id => @obj.id, :dams_object => {titleValue: ["Test Title2"], date: ["2013"], subject: ["Test subject"]}
 	      response.should redirect_to assigns[:dams_object]
-	      @obj.reload.title.should == ["Test Title2"]
+	      @obj.reload.titleValue.should == ["Test Title2"]
 	      flash[:notice].should == "Successfully updated object"
 	    end
     end

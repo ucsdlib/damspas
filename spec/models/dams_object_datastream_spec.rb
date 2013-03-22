@@ -25,7 +25,7 @@ describe DamsObjectDatastream do
       
       it "should have fields" do
         subject.resource_type.should == ["text"]
-        subject.title.should == ["Chicano and black radical activism of the 1960s"]
+        subject.titleValue.should == ["Chicano and black radical activism of the 1960s"]
       end
 
       it "should have collection" do
@@ -34,13 +34,13 @@ describe DamsObjectDatastream do
       end
 
       it "should have inline subjects" do
-        subject.subject.first.should == "Black Panther Party--History"
-        subject.subject.second.should == "African Americans--Relations with Mexican Americans--History--20th Century"
+        subject.subject.first.authoritativeLabel.should == ["Black Panther Party--History"]
+        subject.subject.second.authoritativeLabel.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
       end
       it "should have external subjects" do
-        subject.subject_node.first.should_not be_external
-        subject.subject_node.second.should_not be_external
-        subject.subject_node.third.should be_external
+        subject.subject.first.should_not be_external
+        subject.subject.second.should_not be_external
+        subject.subject.third.should be_external
       end
 
       it "should have relationship" do
@@ -49,7 +49,7 @@ describe DamsObjectDatastream do
       end
 
       it "should have date" do
-        subject.date.should == ["2010"]
+        subject.dateValue.should == ["2010"]
       end
 
       it "should create a solr document" do
@@ -85,7 +85,7 @@ describe DamsObjectDatastream do
       end     
       it "should have fields" do
         subject.resource_type.should == ["mixed material"]
-        subject.title.should == ["Sample Complex Object Record #1"]
+        subject.titleValue.should == ["Sample Complex Object Record #1"]
         subject.subtitle.should == ["a dissertation with a single attached image"]
         subject.relatedResource.first.type.should == ["online exhibit"]
         subject.relatedResource.first.uri.should == ["http://foo.com/1234"]
@@ -101,7 +101,7 @@ describe DamsObjectDatastream do
 	  end
 	  
       it "should have inline subjects" do
-        subject.subject.first.should == "Black Panther Party--History"
+        subject.subject.first.authoritativeLabel.should == ["Black Panther Party--History"]
       end
 
       it "should have relationship" do
@@ -114,9 +114,10 @@ describe DamsObjectDatastream do
         solr_doc["role_valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/relators/cre"]
       end
 
-      it "should have components with type DAMS.Component" do
-        DamsObjectDatastream::Component.rdf_type.should == DAMS.Component
-      end
+      pending "check component datatype"
+      #it "should have components with type DAMS.Component" do
+        #DamsObjectDatastream::Component.rdf_type.should == DAMS.Component
+      #end
 
       it "should have a first component with basic metadata" do
         subject.component.first.title.first.value.should == ["The Static Image"]
@@ -277,8 +278,8 @@ describe DamsObjectDatastream do
       subject { DamsObjectDatastream.new(stub('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
   
 	  before do
-	    subject.title = "Test Title"
-	    subject.date = "2013"
+	    subject.titleValue = "Test Title"
+	    subject.dateValue = "2013"
 	    #subject.subject = "Test subject"
 	  end
 	  it "should create a xml" do
@@ -314,7 +315,7 @@ END
       end
       
       it "should have fields" do
-        subject.title.should == ["Sample Object Record #8"]
+        subject.titleValue.should == ["Sample Object Record #8"]
         subject.subtitle.should == ["Name/Note/Subject Sampler"]
       end
       

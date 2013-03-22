@@ -8,48 +8,31 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
 
   ## Title #####################################################################
-  class Title
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Title
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.subtitle(:in=> DAMS)
-      map.type(:in=> DAMS)
-    end
-  end
-
-  def title
-    title_node.first ? title_node.first.value : []
-  end
-  def title=(val)
-    self.title_node = []
-    title_node.build.value = val
-  end
 
   def subtitle
-    self.title_node.first ? self.title_node.first.subtitle : []
+    self.title.first ? self.title.first.subtitle : []
   end
   def subtitle=(val)
-    if self.title_node == nil
-      self.title_node = []
+    if self.title == nil
+      self.title = []
     end
-    self.title_node.build.subtitle = val
+    self.title.build.subtitle = val
   end
 
   def titleValue
-    title_node[0] ? title_node[0].value : []
+    title[0] ? title[0].value : []
   end
   def titleValue=(val)
-    title_node.build if title_node[0] == nil
-    title_node[0].value = val
+    title.build if title[0] == nil
+    title[0].value = val
   end
   
   def titleType
-    title_node[0] ? title_node[0].type : []
+    title[0] ? title[0].type : []
   end
   def titleType=(val)
-    title_node.build if title_node[0] == nil
-    title_node[0].type = val
+    title.build if title[0] == nil
+    title[0].type = val
   end
     
 
@@ -63,28 +46,28 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.endDate(:in=>DAMS)
     end
   end
-  def date
-    odate.first ? odate.first.value : []
-  end
-  def date=(val)
-    self.odate = []
-    odate.build.value = val
-  end
-  
+
   def beginDate
-    odate[0] ? odate[0].beginDate : []
+    date[0] ? date[0].beginDate : []
   end
   def beginDate=(val)
-    odate.build if odate[0] == nil
-    odate[0].beginDate = val
+    date.build if date[0] == nil
+    date[0].beginDate = val
   end
 
   def endDate
-    odate[0] ? odate[0].endDate : []
+    date[0] ? date[0].endDate : []
   end
   def endDate=(val)
-    odate.build if odate[0] == nil
-    odate[0].endDate = val
+    date.build if date[0] == nil
+    date[0].endDate = val
+  end
+  def dateValue
+    date[0] ? date[0].value : []
+  end
+  def dateValue=(val)
+    date.build if date[0] == nil
+    date[0].value = val
   end
   
 
@@ -129,14 +112,33 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_languages(language)
     languages = []
     language.values.each do |lang|
-      lang_uri = lang.to_s
-      lang_pid = lang_uri.gsub(/.*\//,'')
-      if lang_pid != nil && lang_pid != ""
-        languages << DamsLanguage.find(lang_pid)
+      if lang.value.first != nil && lang.code.first != nil
+        # use inline data if available
+        languages << lang
+      elsif lang.pid != nil
+        # load external records
+        languages << DamsLanguage.find(lang.pid)
       end
     end
     languages
   end
+  # tmp lang class
+  class Language
+    include ActiveFedora::RdfObject
+    rdf_type DAMS.Language
+
+    map_predicates do |map|
+      map.code(:in => DAMS, :to => 'code')
+      map.value(:in => RDF, :to => 'value')
+      map.valueURI(:in => DAMS, :to => 'valueURI')
+      map.vocab(:in => DAMS, :to => 'vocabulary', :class_name => 'DamsVocabulary')
+    end
+    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+    def pid
+      rdf_subject.to_s.gsub(/.*\//,'')
+    end
+  end
+  # end tmp lang class
 
 
   ## Note ######################################################################
@@ -199,6 +201,35 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
+
+  def scopeContentNoteType
+    scopeContentNote.first ? scopeContentNote.first.type : []
+  end
+  def scopeContentNoteType=(val)
+    if scopeContentNote == nil
+      scopeContentNote = []
+    end
+    scopeContentNote.first.type = val
+  end
+  def scopeContentNoteDisplayLabel
+    scopeContentNote.first ? scopeContentNote.first.displayLabel : []
+  end
+  def scopeContentNoteDisplayLabel=(val)
+    if scopeContentNote == nil
+      scopeContentNote = []
+    end
+    scopeContentNote.first.displayLabel = val
+  end
+  def scopeContentNoteValue
+    scopeContentNote.first ? scopeContentNote.first.value : []
+  end
+  def scopeContentNoteValue=(val)
+    if scopeContentNote == nil
+      scopeContentNote = []
+    end
+    scopeContentNote.first.value = val
+  end
+
   class PreferredCitationNote
     include ActiveFedora::RdfObject
     rdf_type DAMS.PreferredCitationNote
@@ -238,19 +269,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         md = /\/(\w*)$/.match(uri)
         MadsComplexSubject.find(md[1])
       end
-    end
-  end
-
-  def subject
-    #subject_node.map{|s| s.authoritativeLabel.first}
-    subject_node.map do |sn|
-    	subject_value = sn.external? ? sn.load.name.first : sn.authoritativeLabel.first
-    end
-  end
-  def subject=(val)
-    self.subject_node = []
-    val.each do |s|
-      subject_node.build.authoritativeLabel = s
     end
   end
 
@@ -448,6 +466,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_name", obj.name)
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_authority", obj.authority)
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
+
+          Solrizer.insert_field(solr_doc, fieldName, obj.name)
+
 		  list = obj.elementList.first
 		  i = 0
 		  if list != nil		
@@ -504,6 +525,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_name", obj.name)
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_authority", obj.authority)
           Solrizer.insert_field(solr_doc, "#{fieldName}_#{n}_valueURI", obj.valueURI.first.to_s)
+
+          Solrizer.insert_field(solr_doc, fieldName, obj.name)
+
 		  list = obj.componentList.first
 		  i = 0
 		  if list != nil		
@@ -572,40 +596,32 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
   end
-
-  def to_solr (solr_doc = {})
-    # field types
-    storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
-    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
-    storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
-    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
-
-    # title
-    Solrizer.insert_field(solr_doc, 'title', title)
+  def insertDateFields (solr_doc, cid, dates)
     n = 0
-    title_node.map do |t|
+    dates.map do |date|
       n += 1
-      Solrizer.insert_field(solr_doc, "title_#{n}_type", t.type)
-      Solrizer.insert_field(solr_doc, "title_#{n}_subtitle", t.subtitle)
-      Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
+      if cid != nil
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_beginDate", date.beginDate)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_date", date.value)
+        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
+        Solrizer.insert_field(solr_doc, "component_#{cid}_date_json", date_json.to_json)
+      else
+        Solrizer.insert_field(solr_doc, "date_#{n}_beginDate", date.beginDate)
+        Solrizer.insert_field(solr_doc, "date_#{n}_endDate", date.endDate)
+        Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
+        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
+        Solrizer.insert_field(solr_doc, "date_json", date_json.to_json)
+      end
     end
-
-    # date
-    n = 0
-    odate.map do |date|
-      n += 1
-      Solrizer.insert_field(solr_doc, "date_#{n}_beginDate", date.beginDate)
-      Solrizer.insert_field(solr_doc, "date_#{n}_endDate", date.endDate)
-      Solrizer.insert_field(solr_doc, "date_#{n}_value", date.value)
-    end
-
-    # relationship
+  end
+  def insertRelationshipFields ( solr_doc, prefix, relationships )
     names = []
-    relationship.map do |relationship|
+    rels = []
+    relationships.map do |relationship|
       rel = relationship.load
       rel_json = {}
       if ( rel != nil )
-        #Solrizer.insert_field(solr_doc, 'name', relationship.load.name )
         rel_json[ :name ] = rel.name.first.to_s
         begin
           n = rel.name.first.to_s
@@ -623,30 +639,117 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       if ( relRole != nil )
         begin
           rel_json[ :role ] = relRole.value
-          Solrizer.insert_field(solr_doc, 'role', relRole.value )
-          Solrizer.insert_field(solr_doc, 'role_code', relRole.code )
-          Solrizer.insert_field(solr_doc, 'role_valueURI', relRole.valueURI.first.to_s )
+          Solrizer.insert_field(solr_doc, "#{prefix}role", relRole.value )
+          Solrizer.insert_field(solr_doc, "#{prefix}role_code", relRole.code )
+          Solrizer.insert_field(solr_doc, "#{prefix}role_valueURI", relRole.valueURI.first.to_s )
         rescue
         end
       end
-      Solrizer.insert_field( solr_doc, "relationship_json", rel_json.to_json )
+      rels << rel_json
     end
     names.sort.each do |n|
-      Solrizer.insert_field(solr_doc, 'name', n )
+      Solrizer.insert_field(solr_doc, "#{prefix}name", n )
     end
-
-    # language
-    langs = load_languages language
-    if langs != nil
-      n = 0
-      langs.each do |lang|
-        n += 1
-        Solrizer.insert_field(solr_doc, "language_#{n}_id", lang.pid)
-        Solrizer.insert_field(solr_doc, "language_#{n}_code", lang.code)
-        Solrizer.insert_field(solr_doc, "language_#{n}_value", lang.value)
-        Solrizer.insert_field(solr_doc, "language_#{n}_valueURI", lang.valueURI.first.to_s)
+    rels.sort{ |a,b| a[:name] <=> b[:name] }.each do |rel|
+      Solrizer.insert_field( solr_doc, "#{prefix}relationship_json", rel.to_json )
+    end
+  end
+  def insertTitleFields ( solr_doc, cid, titles )
+    n = 0
+    titles.map do |t|
+      n += 1
+      if cid != nil
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_title", t.value)
+        Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", t.subtitle)
+        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
+      else
+        Solrizer.insert_field(solr_doc, "title_#{n}_type", t.type)
+        Solrizer.insert_field(solr_doc, "title_#{n}_subtitle", t.subtitle)
+        Solrizer.insert_field(solr_doc, "title_#{n}_value", t.value)
+        Solrizer.insert_field(solr_doc, "title", t.value)
+        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        Solrizer.insert_field(solr_doc, "title_json", title_json.to_json)
       end
     end
+  end
+  def insertLanguageFields ( solr_doc, field, languages )
+    langs = load_languages languages
+    if langs != nil
+      n = 0
+      langs.map.each do |lang|
+        n += 1
+
+        Solrizer.insert_field(solr_doc, "#{field}_#{n}_id", lang.pid)
+        Solrizer.insert_field(solr_doc, "#{field}_#{n}_code", lang.code)
+        Solrizer.insert_field(solr_doc, "#{field}_#{n}_value", lang.value)
+        Solrizer.insert_field(solr_doc, "#{field}_#{n}_valueURI", lang.valueURI.first.to_s)
+
+        Solrizer.insert_field(solr_doc, field, lang.value)
+      end
+    end
+  end
+  def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
+
+    # relatedResource
+    n = 0
+    relatedResource.map do |resource|
+      n += 1
+      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_type", resource.type)
+      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
+      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
+
+      related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
+      Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
+    end
+  end
+  def insertEventFields ( solr_doc, prefix, event )
+    events = load_events event
+    if events != nil
+      n = 0
+      events.each do |e|
+        n += 1
+        Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_id", e.pid)
+        Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_type", e.type)
+        Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_eventDate", e.eventDate)
+        Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_outcome", e.outcome)
+        rels = []
+        e.relationship.map do |relationship|
+	      rel = relationship.load
+          rel_json = {}
+	      if (rel != nil)
+	         Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_name", rel.name)
+             rel_json[:name] = rel.name.first.to_s
+	      end 
+	      relRole = relationship.loadRole
+	      if (relRole != nil)
+	         Solrizer.insert_field(solr_doc, "#{prefix}event_#{n}_role", relRole.value)
+             rel_json[:role] = relRole.value.first.to_s
+	      end  
+          rels << rel_json
+	    end    
+
+        event_json = { :pid=>e.pid, :type=>e.type.first.to_s, :date=>e.eventDate.first.to_s, :outcome=>e.outcome.first.to_s, :relationship=>rels }
+        Solrizer.insert_field(solr_doc, "#{prefix}event_json", event_json.to_json)
+      end
+    end
+  end
+
+  # field types
+  def to_solr (solr_doc = {})
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+
+    # title
+    insertTitleFields solr_doc, nil, title
+
+    # date
+    insertDateFields solr_doc, nil, date
+
+    # relationship
+    insertRelationshipFields solr_doc, "", relationship
+
+    # language
+    insertLanguageFields solr_doc, "language", language
 
     # note
     insertNoteFields solr_doc, 'note',note
@@ -655,7 +758,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
 
     # subject - old
-    subject_node.map do |sn|
+    subject.map do |sn|
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
       Solrizer.insert_field(solr_doc, 'subject_topic', subject_value,facetable)
@@ -685,37 +788,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'familyName', load_familyNames(familyName)
     insertFields solr_doc, 'personalName', load_personalNames(personalName)
 
-    # relatedResource
-    n = 0
-    relatedResource.map do |resource|
-      n += 1
-      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_type", resource.type)
-      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_uri", resource.uri)
-      Solrizer.insert_field(solr_doc, "relatedResource_#{n}_description", resource.description)
-    end
+    insertRelatedResourceFields solr_doc, "", relatedResource
+
 
     # event
-    events = load_events event
-    if events != nil
-      n = 0
-      events.each do |e|
-        n += 1
-        Solrizer.insert_field(solr_doc, "event_#{n}_id", e.pid)
-        Solrizer.insert_field(solr_doc, "event_#{n}_type", e.type)
-        Solrizer.insert_field(solr_doc, "event_#{n}_eventDate", e.eventDate)
-        Solrizer.insert_field(solr_doc, "event_#{n}_outcome", e.outcome)
-        e.relationship.map do |relationship|
-	      rel = relationship.load
-	      if (rel != nil)
-	         Solrizer.insert_field(solr_doc, "event_#{n}_name", rel.name)
-	      end 
-	      relRole = relationship.loadRole
-	      if (relRole != nil)
-	         Solrizer.insert_field(solr_doc, "event_#{n}_role", relRole.value)
-	      end  
-	    end    
-      end
-    end
+    insertEventFields solr_doc, "", event
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
