@@ -22,7 +22,7 @@ for i in 1..componentCount
 
 		<div id="component-<%= i %>" class="component <%= firstComponent %>" <%= loadFirstComponent %>>
 
-			<%= render :partial => 'metadata_component_title', :locals => {:componentIndex => i} %>
+			<%= render :partial => 'shared/fields/title', :locals => {:componentIndex => i} %>
 
 			<% if fileType == 'image' || fileType == 'audio' || fileType == 'video'%>
 
@@ -32,7 +32,7 @@ for i in 1..componentCount
 			<% elsif fileType == 'document' || fileType == 'data' %>
 
 				<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => true} %>
-				<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path} %>
+				<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'complex'} %>
 
 			<% else %>
 

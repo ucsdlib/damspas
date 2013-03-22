@@ -1,0 +1,33 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td>"
+		 htmlClose = "</td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd>"
+		 htmlClose = "</dd>"
+	 end
+
+	 statute = @document["#{prefix}statute_id_tesim"]
+
+	 if statute != nil
+
+		 statute_citation = @document["#{prefix}statute_citation_tesim"].first
+		 statute_note = @document["#{prefix}statute_note_tesim"].first
+		 statute_jurisdiction = @document["#{prefix}statute_jurisdiction_tesim"].first.upcase
+
+		 htmlOpen %= 'Statute'
+		 concat htmlOpen.html_safe
+%>
+	<p><strong><%= statute_citation %> &ndash; <%= statute_jurisdiction %></strong></p>
+	<p><%= statute_note %></p>
+<%
+	 concat htmlClose.html_safe
+
+	 end
+%>
+
+
+
+

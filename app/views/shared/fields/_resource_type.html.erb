@@ -1,0 +1,28 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td>"
+		 htmlClose = "</td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd>"
+		 htmlClose = "</dd>"
+	 end
+
+	 resource_type = @document["#{prefix}resource_type_tesim"]
+
+	 if resource_type != nil
+
+		htmlOpen %= 'Format'
+		concat htmlOpen.html_safe
+%>
+		<ul class="unstyled">
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type.first.titleize}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %></li>
+		</ul>
+<%
+		concat htmlClose.html_safe
+
+	 end
+%>
+
+

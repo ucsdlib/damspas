@@ -1,0 +1,29 @@
+<%
+	if defined?(componentIndex) # Then we're working with a component
+		prefix = "component_#{componentIndex}_"
+		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		htmlClose = "</ul></td></tr>"
+	else # We're working with an object or collection
+		prefix = ''
+		htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		htmlClose = "</ul></dd>"
+	end
+
+	dateData = @document["#{prefix}date_json_tesim"]
+
+	if dateData != nil
+
+		htmlOpen %= 'Date'.pluralize(dateData.count)
+		concat htmlOpen.html_safe
+
+		dateData.each do |datum|
+			date = JSON.parse(datum)
+%>
+			<li><%= date['value'] %></li>
+<%
+		end
+
+		concat htmlClose.html_safe
+
+	end
+%>

@@ -1,5 +1,5 @@
 <div class="row-fluid">
-	<div class="span12">
+	<section class="span12">
 		<% if @document['id_t'] != nil %>
 			<% if @document['component_count_isi'] != nil %>
 				<%# THE COMPLEX OBJECT SAYS, "IPSA SCIENTIA POTESTAS EST" %>
@@ -7,15 +7,15 @@
 			<% else %>
 				<%# THE SIMPLE OBJECT SEZ, "DERP" %>
 				<%
-					ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
-					fileType=render_file_use(:component=>"0",:quality=>450)
-					display_file = render_display_file(:component=>"0",:quality=>450)
-					service_file = render_service_file(:component=>"0",:quality=>450)
-					display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{display_file}" : ""
+					ark = render_document_show_field_value(:document=>@document, :field=>'id_t')
+					fileType=render_file_use(:component=>'0',:quality=>450)
+					display_file = render_display_file(:component=>'0',:quality=>450)
+					service_file = render_service_file(:component=>'0',:quality=>450)
+					display_file_path = (display_file != 'no_display') ? "/view/#{ark}/_#{display_file}" : ''
 					service_file_path = "/view/#{ark}/_#{service_file}"
 				%>
 				<%= render :partial => 'simple_object_viewer', :locals => {:fileType=>fileType, :display_file_path=>display_file_path, :service_file_path=>service_file_path, :service_file=>service_file} %>
 			<%end%>
 		<% end %>
-	</div>
+	</section>
 </div>

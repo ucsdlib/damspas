@@ -1,9 +1,0 @@
-<% if @document["component_#{componentIndex}_resource_type_tesim"] != nil
-		#component_1_resource_type_tesim
-		resource_type = @document["component_#{componentIndex}_resource_type_tesim"].first
-%>
-	<tr>
-		<td>Format</td>
-		<td><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %></td>
-	</tr>
-<% end %>

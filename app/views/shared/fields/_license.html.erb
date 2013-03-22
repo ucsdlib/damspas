@@ -1,0 +1,27 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td>"
+		 htmlClose = "</td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd>"
+		 htmlClose = "</dd>"
+	 end
+
+	 license = @document["#{prefix}license_id_tesim"]
+
+	 if license != nil
+
+		 license_note = @document["#{prefix}license_note_tesim"].first
+		 license_uri = @document["#{prefix}license_uri_tesim"].first
+
+		 htmlOpen %= 'License'
+		 concat htmlOpen.html_safe
+%>
+	<p><%= link_to license_note, license_uri %></p>
+<%
+	 concat htmlClose.html_safe
+
+	 end
+%>

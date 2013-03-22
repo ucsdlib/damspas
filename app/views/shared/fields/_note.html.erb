@@ -1,0 +1,40 @@
+<%
+	if defined?(componentIndex) # Then we're working with a component
+		prefix = "component_#{componentIndex}_"
+		htmlOpen = "<tr><td>%s</td><td>"
+		htmlClose = "</td></tr>"
+	else # We're working with an object or collection
+		prefix = ''
+		htmlOpen = "<dt>%s</dt><dd>"
+		htmlClose = "</dd>"
+	end
+
+	noteData = @document["#{prefix}note_json_tesim"]
+
+	if noteData != nil
+
+		htmlOpen %= 'Note'.pluralize(noteData.count)
+		concat htmlOpen.html_safe
+
+		noteData.each do |datum|
+	 		note = JSON.parse(datum)
+%>
+			<p>
+				<strong>
+					<% if note['displayLabel'] != nil %>
+						<%= note['displayLabel'].upcase %>
+					<% elsif note['type'] != nil %>
+						<%= note['type'].upcase %>
+					<% else %>
+						General Note
+					<% end %>
+				</strong>
+			</p>
+			<p><%= note['value'].html_safe %></p>
+<%
+		end
+
+		concat htmlClose.html_safe
+
+	end
+%>

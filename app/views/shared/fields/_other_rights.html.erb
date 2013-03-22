@@ -1,0 +1,29 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td>"
+		 htmlClose = "</td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd>"
+		 htmlClose = "</dd>"
+	 end
+
+	 otherRights = @document["#{prefix}otherRights_id_tesim"]
+
+	 if otherRights != nil
+
+		 other_rights_basis = @document["otherRights_basis_tesim"].first
+		 other_rights_uri = @document["otherRights_uri_tesim"].first
+
+		 htmlOpen %= 'Other Rights'
+		 concat htmlOpen.html_safe
+%>
+	<p><%= link_to other_rights_basis.capitalize, other_rights_uri %></p>
+<%
+	 concat htmlClose.html_safe
+
+	 end
+%>
+
+
