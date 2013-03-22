@@ -9,10 +9,10 @@
 			<%= render :partial => 'video_viewer', :locals => {:filePath => service_file_path, :icon => display_file_path} %>
 		<% when 'document-service' %>
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
-			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path} %>
+			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'simple'} %>
 		<% when 'data-service' %>
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
-			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path} %>
+			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'simple'} %>
 		<% else %>
 			<%= render :partial => 'default_viewer', :locals => {:objectType => 'simple'} %>
 		<% end %>

@@ -1,6 +1,22 @@
-<div class="form-actions dams-download-button">
-	<a class="btn btn-inverse pull-right" href="<%= filePath %>">
-		<i class="icon-download-alt icon-white"></i>
-		Download file
-	</a>
-</div>
+<% if defined?(filePath) %>
+
+	<%
+		if defined?(objectType)
+			btnColor = case objectType
+				when 'simple' then 'btn-primary'
+				when 'complex' then 'btn-inverse'
+				else ''
+			end
+		else
+			btnColor = ''
+		end
+	%>
+
+	<div class="form-actions dams-download-button">
+		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>">
+			<i class="icon-download-alt icon-white"></i>
+			Download file
+		</a>
+	</div>
+
+<% end %>

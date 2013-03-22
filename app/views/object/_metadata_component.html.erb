@@ -5,53 +5,22 @@
 
 			<% if defined?(fileName) # Our component has files associated with it. %>
 
-				<% if @document["component_#{componentIndex}_1_subtitle_tesim"] != nil %>
-					<tr>
-						<td>Subtitle</td>
-						<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_subtitle_tesim") %></b></td>
-					</tr>
-				<% end %>
-
-				<% if @document["component_#{componentIndex}_1_date_tesim"] != nil %>
-					<tr>
-						<td>Date</td>
-						<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_1_date_tesim") %></b></td>
-					</tr>
-				<% end %>
-
-				<% if @document["component_#{componentIndex}_note_tesim"] != nil %>
-					<tr>
-						<td>Note</td>
-						<td><b><%= render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_note_tesim") %></b></td>
-					</tr>
-				<% end %>
+				<%= render :partial => 'shared/fields/date', :locals => {:componentIndex => componentIndex} %>
+				<%= render :partial => 'shared/fields/note', :locals => {:componentIndex => componentIndex} %>
 
 				<% if defined?(fileMetadata) %>
 					<% if fileMetadata == true %>
-						<% if @document["component_#{componentIndex}_file_#{fileName}_size_ssi"] != nil %>
-							<tr>
-								<td>Size</td>
-								<td><b><%=number_to_human_size(@document["component_#{componentIndex}_file_#{fileName}_size_ssi"].to_i)%></b></td>
-							</tr>
-						<% end %>
-						<% if @document["component_#{componentIndex}_file_#{fileName}_formatName_tesim"] != nil %>
-							<% fileFormat = render_document_show_field_value(:document=>@document, :field=>"component_#{componentIndex}_file_#{fileName}_formatName_tesim") %>
-							<tr>
-								<td>Format</td>
-								<% if fileFormat == "bytestream" %>
-									<% fileFormat = File.extname(fileName.upcase) %>
-									<% fileFormat[0] = '' # Zapping the leading "." E.g., .MP3 -> MP3 %>
-								<% end %>
-								<td><b><%= fileFormat %></b></td>
-							</tr>
-						<% end %>
+						<%= render :partial => 'shared/fields/file_size', :locals => {:componentIndex => componentIndex, :fileName => fileName} %>
+						<%= render :partial => 'shared/fields/file_format', :locals => {:componentIndex => componentIndex, :fileName => fileName} %>
 					<% end %>
 				<% end %>
 
-			<% else # Our component does not have any files assocaited with it. The poor thing. %>
-				<%= render :partial => 'object/component_fields/type_of_resource', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'object/component_fields/topic', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'object/component_fields/note', :locals => {:componentIndex => componentIndex} %>
+			<% else # Our component doesn't have any files assocaited with it. The poor thing. %>
+
+				<%= render :partial => 'shared/fields/resource_type', :locals => {:componentIndex => componentIndex} %>
+				<%= render :partial => 'shared/fields/topic', :locals => {:componentIndex => componentIndex} %>
+				<%= render :partial => 'shared/fields/note', :locals => {:componentIndex => componentIndex} %>
+
 			<% end %>
 
 		</tbody>

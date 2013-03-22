@@ -1,0 +1,45 @@
+<%
+=begin
+	sample data:
+	object name: relationship
+	Fields: 1 name per record, 1+ roles
+	<str>
+	{"name":"O'Shea, Brian W., (Brian William), 1978-","role":["Creator"]}
+	</str>
+	<str>{"name":"Wagner, Rick, 1972-","role":["donor"]}</str>
+	<str>{"name":"Hallman, Eric J.","role":["Creator"]}</str>
+	<str>{"name":"Wagner, Rick, 1972-","role":["Creator"]}</str>
+	<str>{"name":"Harkness, Robert","role":["Creator"]}</str>
+	<str>{"name":"So, Geoffrey","role":["Creator"]}</str>
+	<str>{"name":"Burns, Jack O.","role":["Creator"]}</str>
+	<str>{"name":"Norman, Michael L.","role":["Creator"]}</str>
+=end
+
+	if defined?(componentIndex) # Then we're working with a component
+		prefix = "component_#{componentIndex}_"
+		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		htmlClose = "</ul></td></tr>"
+	else # We're working with an object or collection
+		prefix = ''
+		htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		htmlClose = "</ul></dd>"
+	end
+
+	relationshipData = @document["#{prefix}relationship_json_tesim"]
+
+	if relationshipData != nil
+
+		htmlOpen %= 'Name'.pluralize(relationshipData.count)
+		concat htmlOpen.html_safe
+
+		relationshipData.each do |datum|
+			relationship = JSON.parse(datum)
+%>
+			<li><%=relationship["name"]%> <i>(<%=relationship["role"].join(", ")%>)</i></li>
+<%
+		end
+
+		concat htmlClose.html_safe
+
+	end
+%>

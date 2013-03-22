@@ -1,0 +1,28 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td>"
+		 htmlClose = "</td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd>"
+		 htmlClose = "</dd>"
+	 end
+
+	 subject = @document["#{prefix}subject_tesim"]
+
+	 if subject != nil
+
+		 htmlOpen %= 'Subject'.pluralize(subject.count)
+		 concat htmlOpen.html_safe
+%>
+		<ul class="unstyled">
+			<% subject.each do |s| %>
+				<li><%= link_to "<i class='icon-tag icon-white'></i> #{s}".html_safe, facet_uri(s, 'subject_topic_sim'), :class => "label" %></li>
+			<% end %>
+		</ul>
+<%
+		 concat htmlClose.html_safe
+
+	 end
+%>

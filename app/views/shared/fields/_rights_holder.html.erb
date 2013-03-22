@@ -1,0 +1,37 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td>"
+		 htmlClose = "</td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd>"
+		 htmlClose = "</dd>"
+	 end
+
+	 rightsHolder = @document["#{prefix}rightsHolder_1_tesim"]
+
+	 if rightsHolder != nil
+
+		 htmlOpen %= 'Rights Holders'
+		 concat htmlOpen.html_safe
+%>
+
+		<ul class="unstyled">
+			<%
+				 i = 1;
+				 loop do
+			%>
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"#{prefix}rightsHolder_#{i}_name_tesim") %></li>
+			<%
+				 i += 1 #try again
+				 break unless @document["#{prefix}note_#{i}_value_tesim"] != nil
+				 end
+			%>
+		</ul>
+
+<%
+		 concat htmlClose.html_safe
+
+	 end
+%>

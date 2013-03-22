@@ -1,0 +1,26 @@
+<%
+	if defined?(fileName)
+		if defined?(componentIndex) # Then we're working with a component
+			prefix = "component_#{componentIndex}_"
+			htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+			htmlClose = "</ul></td></tr>"
+		else # We're working with an object or collection
+			prefix = ''
+			htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+			htmlClose = "</ul></td></tr>"
+		end
+
+		fileSize = @document["#{prefix}file_#{fileName}_size_ssi"]
+
+		if fileSize != nil
+
+			htmlOpen %= 'File Size'
+			concat htmlOpen.html_safe
+%>
+			<li><%= number_to_human_size(fileSize.to_i) %></li>
+<%
+			concat htmlClose.html_safe
+
+		end
+	end
+%>

@@ -5,6 +5,9 @@ $objectBG: #e9e9e9 !default;
 $componentBG: #fcfcfc !default;
 $viewerPadding: 3% !default;
 $componentHighlight: #AD702B !default;
+$simpleFile: #214E61 !default;
+$complexFile: #AC6F2B !default;
+//$objectBG: rgba($simpleFile,0.1) !default;
 
 //----------------------------------------------------------
 // COMPLEX OBJECT VIEWER PAGE
@@ -12,10 +15,16 @@ $componentHighlight: #AD702B !default;
 
 // COMPONENTS
 .component{display:none;background-color:$componentBG;margin:$viewerPadding;padding:$viewerPadding;border-radius: 10px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
-.simple-object{margin:$viewerPadding;padding:$viewerPadding;background-color:#d6d6d6;border-radius: 10px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
+.simple-object{margin:$viewerPadding;padding:$viewerPadding;background-color:darken($objectBG,5%);border-radius: 10px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 
-.simple-object .table th,.simple-object .table td{border-color:#bbb;}
-.simple-object .form-actions{background-color: #ccc; border-top-color: #bbb}
+.simple-object .table th,.simple-object .table td{border-color:rgba($simpleFile,0.25)}
+.simple-object .form-actions{background-color: rgba($simpleFile,0.15); border-top-color: rgba($simpleFile,0.75)}
+.simple-object .form-actions .muted{color: rgba($simpleFile,0.5)}
+
+.component .table th,.component .table td{border-color:rgba($complexFile,0.25)}
+.component .form-actions{background-color: rgba($complexFile,0.15); border-top-color: rgba($complexFile,0.75)}
+.component .form-actions .muted{color: rgba($complexFile,0.666)}
+
 
 .component .video-js,
 .component .audiojs,
@@ -26,12 +35,19 @@ $componentHighlight: #AD702B !default;
 .simple-object img{width:auto;margin:0 auto;display:block;}
 
 .first-component{display:block;}
-.component h2{font-size:125%;padding:0;margin:0 0 20px 0;line-height:100%;color: $componentHighlight;}
+
+.component > hgroup > h1{font-size:125%;padding:0;margin:0 0 5px 0;line-height:100%;color: $componentHighlight;}
+.component > hgroup > h2{font-size:100%;padding:0;margin:0 0 5px 0;line-height:100%;color: lighten($componentHighlight,10%);}
+.component > hgroup{margin-bottom: 20px;}
+
+
 .component .table,.simple-object .table{margin-bottom:0;}
 
 .component .alert,
 .simple-object .alert{margin-bottom:0;}
 
+.component .table td p,.component .table td ul,.simple-object .table td p,.simple-object .table td ul{margin:0;}
+.component .table tr td:first-child,.simple-object .table tr td:first-child{font-weight: bold;}
 
 //----------------------------------------------------------
 // UNITS INDEX PAGE
@@ -51,7 +67,12 @@ $componentHighlight: #AD702B !default;
 
 // Viewer
 .dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: none;}
-.dams-viewer h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;}
+
+.dams-viewer > hgroup > h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;color:  #00374E;}
+.dams-viewer > hgroup > h2{font-size:110%;padding:0;margin:0 0 5px 0;line-height:100%;color: lighten(#00374E,10%);}
+.dams-viewer > hgroup{margin-bottom: 0;}
+
+
 .dams-download-button{margin:0;}
 .dams-download-button p{margin: 0;text-align: center;}
 .dams-viewer img{max-width:auto;max-height:400px;}
