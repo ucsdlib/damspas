@@ -48,7 +48,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # components and files
     map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
-    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
+    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
     # rights
     map.copyright(:in=>DAMS)
@@ -69,48 +69,48 @@ class DamsObjectDatastream < DamsResourceDatastream
     super
   end
 
-  class File
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.File
-    map_predicates do |map|
-      map.filestore(:in=>DAMS)
-      map.quality(:in=>DAMS)
-      map.size(:in=>DAMS)
-      map.sourceFileName(:in=>DAMS)
-      map.sourcePath(:in=>DAMS)
-      map.use(:in=>DAMS)
-      map.value(:in=> RDF)
-
-      # checksums
-      map.crc32checksum(:in=>DAMS)
-      map.md5checksum(:in=>DAMS)
-      map.sha1checksum(:in=>DAMS)
-      map.sha256checksum(:in=>DAMS)
-      map.sha512checksum(:in=>DAMS)
-
-      # premis
-      map.compositionLevel(:in=>DAMS)
-      map.dateCreated(:in=>DAMS)
-      map.formatName(:in=>DAMS)
-      map.formatVersion(:in=>DAMS)
-      map.mimeType(:in=>DAMS)
-      map.objectCategory(:in=>DAMS)
-      map.preservationLevel(:in=>DAMS)
-      map.event(:in=>DAMS)
-
-      # mix
-      map.source_capture(:in=>DAMS, :to => 'sourceCapture')
-    end
-    def id
-      fid = rdf_subject.to_s
-      fid = fid.gsub(/.*\//,'')
-      fid
-    end
-    def order
-      order = id.gsub(/\..*/,'')
-      order.to_i
-    end
-  end
+#  class File
+#    include ActiveFedora::RdfObject
+#    rdf_type DAMS.File
+#    map_predicates do |map|
+#      map.filestore(:in=>DAMS)
+#      map.quality(:in=>DAMS)
+#      map.size(:in=>DAMS)
+#      map.sourceFileName(:in=>DAMS)
+#      map.sourcePath(:in=>DAMS)
+#      map.use(:in=>DAMS)
+#      map.value(:in=> RDF)
+#
+#      # checksums
+#      map.crc32checksum(:in=>DAMS)
+#      map.md5checksum(:in=>DAMS)
+#      map.sha1checksum(:in=>DAMS)
+#      map.sha256checksum(:in=>DAMS)
+#      map.sha512checksum(:in=>DAMS)
+#
+#      # premis
+#      map.compositionLevel(:in=>DAMS)
+#      map.dateCreated(:in=>DAMS)
+#      map.formatName(:in=>DAMS)
+#      map.formatVersion(:in=>DAMS)
+#      map.mimeType(:in=>DAMS)
+#      map.objectCategory(:in=>DAMS)
+#      map.preservationLevel(:in=>DAMS)
+#      map.event(:in=>DAMS)
+#
+#      # mix
+#      map.source_capture(:in=>DAMS, :to => 'sourceCapture')
+#    end
+#    def id
+#      fid = rdf_subject.to_s
+#      fid = fid.gsub(/.*\//,'')
+#      fid
+#    end
+#    def order
+#      order = id.gsub(/\..*/,'')
+#      order.to_i
+#    end
+#  end
 
   def load_unit
     load_unit(unit)
