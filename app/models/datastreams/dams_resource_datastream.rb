@@ -69,11 +69,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     date.build if date[0] == nil
     date[0].value = val
   end
-  
-
-  ## Relationship ##############################################################
-
-
 
   ## Language ##################################################################
   def load_languages
@@ -143,24 +138,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   ## Subject ###################################################################
-  class Subject
-    include ActiveFedora::RdfObject
-    rdf_type MADS.ComplexSubject
-    map_predicates do |map|
-      map.authoritativeLabel(:in=> MADS)
-    end
-
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        MadsComplexSubject.find(md[1])
-      end
-    end
-  end
 
   # MADS complex subjects
   def load_complexSubjects
@@ -275,19 +252,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_personalNames(personalName)
 	loadObjects personalName,MadsPersonalName
   end
-
-
-  ## RelatedResource ###########################################################
-  class RelatedResource
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.RelatedResource
-    map_predicates do |map|
-      map.type(:in=> DAMS)
-      map.description(:in=> DAMS)
-      map.uri(:in=> DAMS)
-    end
-  end
-
 
   ## Event #####################################################################
   def load_events

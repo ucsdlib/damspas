@@ -97,19 +97,7 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsSubject.find(md[1])
     end
   end
-  class RelatedResource
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.RelatedResource
-    map_predicates do |map|    
-      map.type(:in=> DAMS)
-      map.description(:in=> DAMS)
-      map.uri(:in=> DAMS)
-    end
-  end
-
-  
-
-  
+ 
   def load_languages
     languages = []
     language.values.each do |lang|
