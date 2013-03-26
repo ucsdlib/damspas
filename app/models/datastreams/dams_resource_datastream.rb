@@ -37,16 +37,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     
 
   ## Date ######################################################################
-  class Date
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Date
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.beginDate(:in=>DAMS)
-      map.endDate(:in=>DAMS)
-    end
-  end
-
   def beginDate
     date[0] ? date[0].beginDate : []
   end
