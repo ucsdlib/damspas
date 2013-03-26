@@ -268,9 +268,9 @@ describe DamsObjectDatastream do
     end
   end
   
-  describe "::Date" do
+  describe "Date" do
     it "should have an rdf_type" do
-      DamsObjectDatastream::Date.rdf_type.should == DAMS.Date
+      DamsDate.rdf_type.should == DAMS.Date
     end
   end
   

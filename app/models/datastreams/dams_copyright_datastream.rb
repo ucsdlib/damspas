@@ -4,7 +4,7 @@ class DamsCopyrightDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.jurisdiction(:in => DAMS, :to => 'copyrightJurisdiction')
     map.purposeNote(:in => DAMS, :to => 'copyrightPurposeNote')
     map.note(:in => DAMS, :to => 'copyrightNote')
-    map.date_node(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.date_node(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -21,14 +21,6 @@ class DamsCopyrightDatastream < ActiveFedora::RdfxmlRDFDatastream
   def beginDate=(val)
     self.date_node = []
     date_node.build.beginDate = val
-  end
-
-  class Date
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Date
-    map_predicates do |map|
-      map.beginDate(:in=>DAMS)
-    end
   end
 
   def to_solr (solr_doc = {})

@@ -71,16 +71,6 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     scopeContentNote[0].displayLabel = val
   end
 
-  class Date
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Date
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.beginDate(:in=>DAMS)
-      map.endDate(:in=>DAMS)
-    end
-  end
-
   class Subject
     include ActiveFedora::RdfObject
     rdf_type MADS.ComplexSubject
