@@ -49,7 +49,7 @@ feature 'Visitor wants to look at units' do
 	fill_in 'Search...', :with => 'sample'
     click_on('Search')
     expect(page).to have_content('Search Results')
-    expect(page).to have_content('Sample Complex Object Record #1')
+    expect(page).to have_content('Sample Video Object')
   end
 
   scenario 'scoped search (exclusion)' do
