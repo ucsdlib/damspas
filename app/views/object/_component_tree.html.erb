@@ -7,7 +7,7 @@
 <% if component_count > 0   %>
 
 	<% initComponentTree component_count %>
-	<button type="button" class="btn btn-block btn-link dams-components-button sidebar-header" onClick="$('[id^=meta-]').collapse('toggle');">
+	<button type="button" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-collapsed">
 		<strong><%= objectTitle %> Components</strong>
 	</button>
 	<div class="components-tree">

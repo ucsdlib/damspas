@@ -1,50 +1,46 @@
 <%
-ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
-componentCount = @document['component_count_isi']
-firstComponent = "first-component"
-
-for i in 1..componentCount
-
-	fileUse = render_file_use(:component=>i,:quality=>450)
-	display_file = render_display_file(:component=>i,:quality=>450)
-	service_file = render_service_file(:component=>i,:quality=>450)
-
-	display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{i}_#{display_file}" : ""
-	service_file_path = "/view/#{ark}/_#{i}_#{service_file}"
-
-	fileType = grabFileType(fileUse)
-	dataForDynamicLoad = "{\"file_type\":\"#{fileType}\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{service_file_path}\"}"
+	ark = render_document_show_field_value(:document=>@document, :field=>"id_t")
+	componentCount = @document['component_count_isi']
+	firstComponent = "first-component"
 %>
 
-	<%# if fileUse %>
+<% for i in 1..componentCount %>
 
-		<% loadFirstComponent = (firstComponent != nil) ? "data=#{i}" : '' %>
+	<%
+		fileUse = render_file_use(:component=>i,:quality=>450)
+		display_file = render_display_file(:component=>i,:quality=>450)
+		service_file = render_service_file(:component=>i,:quality=>450)
+		display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{i}_#{display_file}" : ""
+		service_file_path = "/view/#{ark}/_#{i}_#{service_file}"
 
-		<div id="component-<%= i %>" class="component <%= firstComponent %>" <%= loadFirstComponent %>>
+		fileType = grabFileType(fileUse)
+		dataForDynamicLoad = "{\"file_type\":\"#{fileType}\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{service_file_path}\"}"
+		loadFirstComponent = (firstComponent != nil) ? "data=#{i}" : ''
+	%>
 
-			<%= render :partial => 'shared/fields/title', :locals => {:componentIndex => i} %>
+	<div id="component-<%= i %>" class="component <%= firstComponent %>" <%= loadFirstComponent %>>
 
-			<% if fileType == 'image' || fileType == 'audio' || fileType == 'video'%>
+		<%= render :partial => 'shared/fields/title', :locals => {:componentIndex => i} %>
 
-				<div data="<%=dataForDynamicLoad%>"></div>
-				<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
+		<% if fileType == 'image' || fileType == 'audio' || fileType == 'video'%>
 
-			<% elsif fileType == 'document' || fileType == 'data' %>
+			<div data="<%=dataForDynamicLoad%>"></div>
+			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
 
-				<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => true} %>
-				<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'complex'} %>
+		<% elsif fileType == 'document' || fileType == 'data' %>
 
-			<% else %>
+			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => true} %>
+			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'complex'} %>
 
-				<%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
-				<%= render :partial => 'default_viewer', :locals => {:objectType => 'complex'} %>
+		<% else %>
 
-			<% end %>
+			<%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
+			<%= render :partial => 'default_viewer', :locals => {:objectType => 'complex'} %>
 
-		</div>
+		<% end %>
 
-		<% firstComponent = nil %>
+	</div>
 
-	<%# end %>
+	<% firstComponent = nil %>
 
 <% end %>
