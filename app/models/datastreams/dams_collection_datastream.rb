@@ -71,49 +71,6 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
     scopeContentNote[0].displayLabel = val
   end
 
-
-
-  class Date
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Date
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.beginDate(:in=>DAMS)
-      map.endDate(:in=>DAMS)
-    end
-  end
-  class Relationship
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Relationship
-    map_predicates do |map|
-      map.name(:in=> DAMS)
-      map.personalName(:in=> DAMS)
-      map.corporateName(:in=> DAMS)
-      map.role(:in=> DAMS)
-    end
-
-    def load
-      if name.first.to_s.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(name.first.to_s)
-        MadsPersonalName.find(md[1])
-      elsif personalName.first.to_s.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(personalName.first.to_s)
-        MadsPersonalName.find(md[1])
-      elsif corporateName.first.to_s.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(corporateName.first.to_s)
-        MadsCorporateName.find(md[1])
-      end
-    end
-
-    def loadRole
-      uri = role.first.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsRole.find(md[1])
-      end
-    end   
-  end
-
   class Subject
     include ActiveFedora::RdfObject
     rdf_type MADS.ComplexSubject
@@ -130,97 +87,7 @@ class DamsCollectionDatastream < ActiveFedora::RdfxmlRDFDatastream
       DamsSubject.find(md[1])
     end
   end
-  class RelatedResource
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.RelatedResource
-    map_predicates do |map|    
-      map.type(:in=> DAMS)
-      map.description(:in=> DAMS)
-      map.uri(:in=> DAMS)
-    end
-  end
-
-  class Note
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Note
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsNote.find(md[1])
-    end
-  end
-
-  class ScopeContentNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.ScopeContentNote
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      #puts rdf_subject
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      md = /\/(\w*)$/.match(uri)
-      DamsScopeContentNote.find(md[1])
-    end
-  end
-
-  class PreferredCitationNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.PreferredCitationNote
-    map_predicates do |map|    
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsPreferredCitationNote.find(md[1])
-      end
-    end
-  end  
-  
-  class CustodialResponsibilityNote
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.CustodialResponsibilityNote
-    map_predicates do |map|
-      map.value(:in=> RDF)
-      map.displayLabel(:in=>DAMS)
-      map.type(:in=>DAMS)
-    end
-    
-    def external?
-      rdf_subject.to_s.include? Rails.configuration.id_namespace
-    end
-    def load
-      uri = rdf_subject.to_s
-      if uri.start_with?(Rails.configuration.id_namespace)
-        md = /\/(\w*)$/.match(uri)
-        DamsCustodialResponsibilityNote.find(md[1])
-      end
-    end
-  end  
-  
+ 
   def load_languages
     languages = []
     language.values.each do |lang|

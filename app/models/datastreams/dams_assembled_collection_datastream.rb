@@ -1,7 +1,7 @@
 class DamsAssembledCollectionDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.language(:in=>DAMS, :class_name => 'Language')
 
