@@ -41,7 +41,7 @@ class Component
 
       # components and files
       map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => Component)
-      map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
+      map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
       # rights
       map.copyright(:in=>DAMS)
@@ -69,65 +69,46 @@ class Component
         map.endDate(:in=>DAMS, :to=>'endDate')
       end
     end
-    class Note
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.Note
-      map_predicates do |map|
-        map.value(:in=> RDF, :to=>'value')
-        map.displayLabel(:in=>DAMS, :to=>'displayLabel')
-        map.type(:in=>DAMS, :to=>'type')
-      end
-      def external?
-        rdf_subject.to_s.include? Rails.configuration.id_namespace
-      end
-      def load
-        uri = rdf_subject.to_s
-        if uri.start_with?(Rails.configuration.id_namespace)
-          md = /\/(\w*)$/.match(uri)
-          DamsNote.find(md[1])
-        end
-      end
-    end
-    class File
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.File
-      map_predicates do |map|
-        map.filestore(:in=>DAMS)
-        map.quality(:in=>DAMS)
-        map.size(:in=>DAMS)
-        map.sourceFileName(:in=>DAMS)
-        map.sourcePath(:in=>DAMS)
-        map.use(:in=>DAMS)
-        map.value(:in=> RDF)
-
-        # checksums
-        map.crc32checksum(:in=>DAMS)
-        map.md5checksum(:in=>DAMS)
-        map.sha1checksum(:in=>DAMS)
-        map.sha256checksum(:in=>DAMS)
-        map.sha512checksum(:in=>DAMS)
-
-        # premis
-        map.compositionLevel(:in=>DAMS)
-        map.dateCreated(:in=>DAMS)
-        map.formatName(:in=>DAMS)
-        map.formatVersion(:in=>DAMS)
-        map.mimeType(:in=>DAMS)
-        map.objectCategory(:in=>DAMS)
-        map.preservationLevel(:in=>DAMS)
-        map.event(:in=>DAMS)
-
-        # mix
-        map.source_capture(:in=>DAMS, :to => 'sourceCapture')
-      end
-      def id
-        fid = rdf_subject.to_s
-        fid = fid.gsub(/.*\//,'')
-        fid
-      end
-      def order
-        order = id.gsub(/\..*/,'')
-        order.to_i
-      end
-    end
+#    class File
+#      include ActiveFedora::RdfObject
+#      rdf_type DAMS.File
+#      map_predicates do |map|
+#        map.filestore(:in=>DAMS)
+#        map.quality(:in=>DAMS)
+#        map.size(:in=>DAMS)
+#        map.sourceFileName(:in=>DAMS)
+#        map.sourcePath(:in=>DAMS)
+#        map.use(:in=>DAMS)
+#        map.value(:in=> RDF)
+#
+#        # checksums
+#        map.crc32checksum(:in=>DAMS)
+#        map.md5checksum(:in=>DAMS)
+#        map.sha1checksum(:in=>DAMS)
+#        map.sha256checksum(:in=>DAMS)
+#        map.sha512checksum(:in=>DAMS)
+#
+#        # premis
+#        map.compositionLevel(:in=>DAMS)
+#        map.dateCreated(:in=>DAMS)
+#        map.formatName(:in=>DAMS)
+#        map.formatVersion(:in=>DAMS)
+#        map.mimeType(:in=>DAMS)
+#        map.objectCategory(:in=>DAMS)
+#        map.preservationLevel(:in=>DAMS)
+#        map.event(:in=>DAMS)
+#
+#        # mix
+#        map.source_capture(:in=>DAMS, :to => 'sourceCapture')
+#      end
+#      def id
+#        fid = rdf_subject.to_s
+#        fid = fid.gsub(/.*\//,'')
+#        fid
+#      end
+#      def order
+#        order = id.gsub(/\..*/,'')
+#        order.to_i
+#      end
+#    end
 end

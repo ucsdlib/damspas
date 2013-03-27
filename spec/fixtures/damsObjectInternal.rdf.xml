@@ -1,0 +1,3236 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x">
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/4">
+        <dams:order>4</dams:order>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>110-180 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>white sediments; no visible structure</rdf:value>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd61784229">
+            <mads:authoritativeLabel>calcareous, foraminifera</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>calcareous, foraminifera</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+            <dams:displayLabel>primary lithologic composition</dams:displayLabel>
+            <dams:authority>NGDC lithologic codes</dams:authority>
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0990660f">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>success</dams:outcome>
+                <dams:eventDate>2013-03-11T08:48:40-0700</dams:eventDate>
+                <dams:type>object creation</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+          </mads:Topic>
+        </dams:topic>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:provenanceCollection>
+      <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bd24241158">
+        <dams:title>
+          <dams:Title>
+            <rdf:value>Scripps Institution of Oceanography, Geological Collections</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd36527954">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>failure</dams:outcome>
+            <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
+            <dams:eventDate>2013-03-08T11:01:13-0800</dams:eventDate>
+            <dams:type>Bulk Solr Indexing</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1161316m">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-13T10:07:02-0700</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd0888277b">
+            <mads:authoritativeLabel>Oceanography</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Oceanography</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd6997545c">
+            <mads:authoritativeLabel>Marine geology</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Marine geology</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd2185217d">
+            <mads:authoritativeLabel>Geological samples</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Geological samples</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4949734k">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-08T11:01:12-0800</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository</rdf:value>
+              </dams:Role>
+            </dams:role>
+            <dams:corporateName>
+              <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd8294487v">
+                <mads:authoritativeLabel>Scripps Institute of Oceanography, Geological Collections</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:CorporateName>
+            </dams:corporateName>
+          </dams:Relationship>
+        </dams:relationship>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
+            <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Marine sediments</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>res</dams:code>
+                <rdf:value>Researcher</rdf:value>
+              </dams:Role>
+            </dams:role>
+            <dams:personalName>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd95914293">
+                <mads:authoritativeLabel>Richard Norris</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:GivenNameElement>
+                    <mads:elementValue>Richard</mads:elementValue>
+                  </mads:GivenNameElement>
+                  <mads:FamilyNameElement>
+                    <mads:elementValue>Norris</mads:elementValue>
+                  </mads:FamilyNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+          </dams:Relationship>
+        </dams:relationship>
+        <dams:note>
+          <dams:Note>
+            <rdf:value rdf:datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"
+            >
+        &lt;p&gt;The Scripps Institution of Oceanography, Geological Collections is a growing archive of sea-floor samples and associated data supporting a diverse variety of scientific research. The SIO geological collections are supported, in part, by the National Science Foundation.&lt;/p&gt;
+        &lt;p&gt;This portal provides access to available digital records for samples held by the SIO Geological Collections, as well as related digital research data for the samples, including images, xray images and video, x-ray fluorescence data, and color data.&lt;/p&gt;
+        &lt;p&gt;The SIO collection contains nearly 6,600 cores (15,000 refrigerated core sections) collected using gravity, piston, trigger, vibra- and box-coring techniques. It is the largest collection in the US (outside that of the Ocean Drilling Program) of sediments from the Pacific Ocean and also contains extensive material from the other major ocean basins.&lt;/p&gt;
+        &lt;p&gt;The SIO dredged rocks collection consists of more than 3,500 dredge hauls and related archive materials. The collection includes rocks from a wide variety of physiographic provinces located throughout the Pacific, Indian, and Atlantic Oceans. All major tectonic features, including hot spots, island chains, seamounts, and abyssal plains are represented and rock types include drowned coral reef rocks, ice-rafted rocks, and manganese nodules, as well as very rare igneous, metamorphic, and mantle rocks.&lt;/p&gt;</rdf:value>
+            <dams:type>scopeAndContent</dams:type>
+            <dams:displayLabel>Scope &amp; Contents</dams:displayLabel>
+          </dams:Note>
+        </dams:note>
+      </dams:ProvenanceCollection>
+    </dams:provenanceCollection>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/2">
+        <dams:order>2</dams:order>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>35-100 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>pinkish sediments</rdf:value>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>water depth</dams:displayLabel>
+        <dams:type>material specific detail</dams:type>
+        <rdf:value>2547-2547 meters</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>storage method</dams:displayLabel>
+        <dams:type>material specific detail</dams:type>
+        <rdf:value>refrigerated</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/10">
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/18">
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/27">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/27/1.xls">
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:use>data-service</dams:use>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1605014b">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:27-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:sha1checksum>969e1d6125cec163afd22bb3ff0878e3e5e84695</dams:sha1checksum>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:crc32checksum>66518753</dams:crc32checksum>
+                    <dams:md5checksum>688061e851f069bf52513210bd55eef3</dams:md5checksum>
+                    <dams:sourceFileName>rndb11wt-074P_A_600-748cm_xrfdata_50kV_001.XLS</dams:sourceFileName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:size>212480</dams:size>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>18</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>600-748cm 50kV (heavy weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/28">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/28/1.xls">
+                    <dams:size>80896</dams:size>
+                    <dams:crc32checksum>0f0d26de</dams:crc32checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:md5checksum>5fad5c4b202d0d232b1d28e1b3b03f23</dams:md5checksum>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sha1checksum>ffd0cb4d8d8730b18bca8d33d7e913f71a829896</dams:sha1checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd74412436">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:48-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:sourceFileName>rndb11wt-074p_A_0-35cm_xrfdata_10kV_001.XLS</dams:sourceFileName>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:use>data-service</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>1</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>0-35cm 10kV (light weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/35">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/35/1.xls">
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:size>285696</dams:size>
+                    <dams:sha1checksum>c31c0f7bc51276b2bb4871351dbd117a6c61c3da</dams:sha1checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2287612s">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:51-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:crc32checksum>5429d7bc</dams:crc32checksum>
+                    <dams:sourceFileName>rndb11wt-074p_A_35-180cm_xrfdata_30kV_001.XLS</dams:sourceFileName>
+                    <dams:use>data-service</dams:use>
+                    <dams:md5checksum>0eea5209bb8ba1f3bd1c8c6b3f64e382</dams:md5checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>35-180cm 30kV (medium weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>5</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:title>
+              <dams:Title>
+                <rdf:value>XRF Chemical data</rdf:value>
+              </dams:Title>
+            </dams:title>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/34">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/34/1.xls">
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sourceFileName>rndb11wt-074p_A_35-180cm_xrfdata_10kV_001.XLS</dams:sourceFileName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:crc32checksum>3333273d</dams:crc32checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:use>data-service</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd64173446">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:30-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:sha1checksum>f9560918b91e3a64aec3d0889d18faebef07d3be</dams:sha1checksum>
+                    <dams:md5checksum>d05e75f52ff066c1f7ca78fff835eeb9</dams:md5checksum>
+                    <dams:size>514048</dams:size>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>35-180cm 10kV (light weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>4</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/19">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/19/1.xls">
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:size>288768</dams:size>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sha1checksum>757b7034b2eb3388fc990fa2c6eea91fd609a1fa</dams:sha1checksum>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:crc32checksum>7911e7cf</dams:crc32checksum>
+                    <dams:sourceFileName>rndb11wt-074P_A_314-458cm_xrfdata_10kV_001.XLS</dams:sourceFileName>
+                    <dams:use>data-service</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3857593z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:32-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:md5checksum>a17193280c3b98870b38e35716c7ef9e</dams:md5checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>314-458cm 10kV (light weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>10</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/20">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/20/1.xls">
+                    <dams:size>283648</dams:size>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:crc32checksum>936fbed1</dams:crc32checksum>
+                    <dams:md5checksum>3e2bd3558851bc488c9ef56d334ed98c</dams:md5checksum>
+                    <dams:sourceFileName>rndb11wt-074P_A_314-458cm_xrfdata_30kV_001.XLS</dams:sourceFileName>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:sha1checksum>a7db946e6ff93b61f6f402eb8352c935246c92b2</dams:sha1checksum>
+                    <dams:use>data-service</dams:use>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd56323537">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:36-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>11</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>314-458cm 30kV (medium weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/33">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/33/1.xls">
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:crc32checksum>706bd4d9</dams:crc32checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:use>data-service</dams:use>
+                    <dams:sourceFileName>rndb11wt-074p_A_180-314cm_xrfdata_50kV_001.XLS</dams:sourceFileName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3038471d">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:38-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:size>210944</dams:size>
+                    <dams:md5checksum>d0f37822866ce0eabd3dfd799089bebb</dams:md5checksum>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:sha1checksum>e1d012f296ed4a58a940433e8776ce9bfd6cd7ca</dams:sha1checksum>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>180-314cm 50kV (heavy weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>9</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/24">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/24/1.xls">
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:size>220160</dams:size>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sourceFileName>rndb11wt-074P_A_458-600cm_xrfdata_50kV_001.XLS</dams:sourceFileName>
+                    <dams:use>data-service</dams:use>
+                    <dams:sha1checksum>4ff838b2f5982950bebee8da9f74885e2849f037</dams:sha1checksum>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9113611s">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:51-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:crc32checksum>8d94e4e0</dams:crc32checksum>
+                    <dams:md5checksum>ba7e822bf57e71d0ac89a37b40d78d24</dams:md5checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>15</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>458-600cm 50kV (heavy weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/29">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/29/1.xls">
+                    <dams:sourceFileName>rndb11wt-074p_A_0-35cm_xrfdata_30kV_001.XLS</dams:sourceFileName>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:size>79872</dams:size>
+                    <dams:use>data-service</dams:use>
+                    <dams:crc32checksum>760d3f2f</dams:crc32checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd58712653">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:25-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sha1checksum>eb0d16cc852cacc36dcc1d11e2e25b5af6f3b188</dams:sha1checksum>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:md5checksum>d3039d77c6cf64e31aa9596577d81cf1</dams:md5checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>2</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>0-35cm 30kV (medium weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/30">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/30/1.xls">
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:sha1checksum>26a8ef5889764fd69b6df8a64ae4cba16da2d549</dams:sha1checksum>
+                    <dams:crc32checksum>465b2741</dams:crc32checksum>
+                    <dams:use>data-service</dams:use>
+                    <dams:md5checksum>102f74a3659b0c012a1ee0c3caf76b2e</dams:md5checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourceFileName>rndb11wt-074p_A_0-35cm_xrfdata_50kV_001.XLS</dams:sourceFileName>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8123844r">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:30-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:size>65024</dams:size>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>0-35cm 50kV (heavy weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>3</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/21">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/21/1.xls">
+                    <dams:sha1checksum>d8a9985cfe833c68860c54269663af3abc49fa17</dams:sha1checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd90112219">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:29-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:use>data-service</dams:use>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:md5checksum>3aca13cbca0394572a96a43eb2465ffa</dams:md5checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>rndb11wt-074P_A_314-458cm_xrfdata_50kV_001.XLS</dams:sourceFileName>
+                    <dams:size>223744</dams:size>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:crc32checksum>a998ce0e</dams:crc32checksum>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:objectCategory>file</dams:objectCategory>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>12</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>314-458cm 50kV (heavy weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/22">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/22/1.xls">
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:size>283648</dams:size>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:md5checksum>2d229374c05c8d0453f178be78b8a8d4</dams:md5checksum>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4847361h">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:49-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourceFileName>rndb11wt-074P_A_458-600cm_xrfdata_10kV_001.XLS</dams:sourceFileName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:use>data-service</dams:use>
+                    <dams:crc32checksum>19987031</dams:crc32checksum>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sha1checksum>ddc653bcd6ea8fab9d23e8e07760a8929a87f679</dams:sha1checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>13</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>458-600cm 10kV (light weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/25">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/25/1.xls">
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:size>272896</dams:size>
+                    <dams:sha1checksum>dd5c9f40b57f32698fd733598d34c17a45741242</dams:sha1checksum>
+                    <dams:sourceFileName>rndb11wt-074P_A_600-748cm_xrfdata_10kV_001.XLS</dams:sourceFileName>
+                    <dams:crc32checksum>0cf1bd31</dams:crc32checksum>
+                    <dams:md5checksum>51786f8c82534b3107033ddec7afbb69</dams:md5checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2390002f">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:17-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:use>data-service</dams:use>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>16</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>600-748cm 10kV (light weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/26">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/26/1.xls">
+                    <dams:md5checksum>c45fb35fb37ed178a712dedfa2871bfb</dams:md5checksum>
+                    <dams:size>268288</dams:size>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:sha1checksum>168b533d29e39db3a479b4f73b019f0e2005dd3f</dams:sha1checksum>
+                    <dams:sourceFileName>rndb11wt-074P_A_600-748cm_xrfdata_30kV_001.XLS</dams:sourceFileName>
+                    <dams:use>data-service</dams:use>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8226233n">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:35-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:crc32checksum>78438bf9</dams:crc32checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>17</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>600-748cm 30kV (medium weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/32">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/32/1.xls">
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sha1checksum>44cbf5c51341b312c446875ae06142123965172a</dams:sha1checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:md5checksum>a0af5e9fd7fb7b853af42a6bb51379d7</dams:md5checksum>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:crc32checksum>dcec1d1a</dams:crc32checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9796215d">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:18-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:sourceFileName>rndb11wt-074p_A_180-314cm_xrfdata_30kV_001.XLS</dams:sourceFileName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:size>266752</dams:size>
+                    <dams:use>data-service</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>180-314cm 30kV (medium weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>8</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/23">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/23/1.xls">
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3277382r">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:27-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:md5checksum>99ea98c66cf300fda79711833185814f</dams:md5checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sha1checksum>dc025f4089bd6b07371eb160a6d0aecb3379aca2</dams:sha1checksum>
+                    <dams:crc32checksum>492e17e0</dams:crc32checksum>
+                    <dams:use>data-service</dams:use>
+                    <dams:sourceFileName>rndb11wt-074P_A_458-600cm_xrfdata_30kV_001.XLS</dams:sourceFileName>
+                    <dams:size>279552</dams:size>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>14</dams:order>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>458-600cm 30kV (medium weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/31">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/31/1.xls">
+                    <dams:sha1checksum>c2ea4064edf7e4d1b1c4ea271e8f6aadad842933</dams:sha1checksum>
+                    <dams:size>270336</dams:size>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:sourceFileName>rndb11wt-074p_A_180-314cm_xrfdata_10kV_001.XLS</dams:sourceFileName>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd6519734p">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:53-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:md5checksum>5f4af3205f952af732616bb0b9f6e52d</dams:md5checksum>
+                    <dams:use>data-service</dams:use>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:crc32checksum>e3cf9705</dams:crc32checksum>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:formatName>bytestream</dams:formatName>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>180-314cm 10kV (light weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>7</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/36">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/36/1.xls">
+                    <dams:size>226304</dams:size>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:md5checksum>1de34997e9cd69191c3b8e6bcc57c11d</dams:md5checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:use>data-service</dams:use>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd06835040">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:29-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:sourceFileName>rndb11wt-074p_A_35-180cm_xrfdata_50kV_001.XLS</dams:sourceFileName>
+                    <dams:crc32checksum>34b090c0</dams:crc32checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sha1checksum>1efa85e809e5a1ba240a82adf669401bf1fc076e</dams:sha1checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>35-180cm 50kV (heavy weight elements)</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:order>6</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:typeOfResource>data</dams:typeOfResource>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/11">
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <dams:Title>
+                <rdf:value>Line scan</rdf:value>
+              </dams:Title>
+            </dams:title>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12">
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>Line scan</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/1.jpg">
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/LineScan_Photos</dams:sourcePath>
+                    <dams:dateCreated>2013-01-11T12:29:46-0800</dams:dateCreated>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sha1checksum>0cecec0f43a273f0f44450b5940482f6bcbeccee</dams:sha1checksum>
+                    <dams:sourceFileName>rndb11wt-074P_A_314-458cm_ls_001.jpg</dams:sourceFileName>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:use>image-service</dams:use>
+                    <dams:size>3973580</dams:size>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:md5checksum>4542513ab72c32cdbb65bdeb9e992b98</dams:md5checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:crc32checksum>a74f0fd0</dams:crc32checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0478722t">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:40-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:quality>20700x2048</dams:quality>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/4.jpg">
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:size>847</dams:size>
+                    <dams:sha1checksum>8f8f037f2160fe2ff45013938cff487628ffba90</dams:sha1checksum>
+                    <dams:quality>150x15</dams:quality>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sourceFileName>jhovetmp7727658955600489367.tmp</dams:sourceFileName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd6246690x">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:14-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4949750g">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:14-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-03-15T01:52:14-0700</dams:dateCreated>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:use>image-thumbnail</dams:use>
+                    <dams:md5checksum>b56c98a945e0be5e712362c6106f515d</dams:md5checksum>
+                    <dams:crc32checksum>070d20e8</dams:crc32checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/3.jpg">
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:md5checksum>ee01af006572a4d5253454c57ecb5fd5</dams:md5checksum>
+                    <dams:crc32checksum>f8dffe2c</dams:crc32checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:dateCreated>2013-03-15T01:51:44-0700</dams:dateCreated>
+                    <dams:use>image-preview</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd78849351">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:45-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:sourceFileName>jhovetmp8930613962374527789.tmp</dams:sourceFileName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9181874z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:44-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:quality>450x45</dams:quality>
+                    <dams:size>4694</dams:size>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sha1checksum>943684163e1c04d3ec51d3b70c963eb8f4369745</dams:sha1checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/2.jpg">
+                    <dams:dateCreated>2013-03-15T01:51:54-0700</dams:dateCreated>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:crc32checksum>79d58f06</dams:crc32checksum>
+                    <dams:use>image-service</dams:use>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:size>11214</dams:size>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>jhovetmp1880970178473889562.tmp</dams:sourceFileName>
+                    <dams:quality>768x76</dams:quality>
+                    <dams:sha1checksum>ec7ce75be73976c9594387db07f00136cb4e034a</dams:sha1checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd5291051b">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:55-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:md5checksum>a2ed14cfc1a515b928a7cb9db9ad652a</dams:md5checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd65879928">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:54-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/6.jpg">
+                    <dams:md5checksum>1a134184b86957e96b280bc59f8b6789</dams:md5checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd14343623">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:05-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sha1checksum>341c5d59c178b1b924959a1445c74c439a710709</dams:sha1checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:dateCreated>2013-03-15T01:52:05-0700</dams:dateCreated>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0137424j">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:06-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:size>17700</dams:size>
+                    <dams:sourceFileName>jhovetmp6245059733820889048.tmp</dams:sourceFileName>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:quality>1024x101</dams:quality>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:crc32checksum>33f3bcf8</dams:crc32checksum>
+                    <dams:use>image-large</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/7.jpg">
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3994111w">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:00-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd26971726">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:00-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:crc32checksum>6b2d058e</dams:crc32checksum>
+                    <dams:dateCreated>2013-03-15T01:51:59-0700</dams:dateCreated>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:sourceFileName>jhovetmp8078332028107840140.tmp</dams:sourceFileName>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:size>39288</dams:size>
+                    <dams:quality>1600x158</dams:quality>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sha1checksum>04b3aefe7a3678b6bdb1ae3fbc91e59a158c559c</dams:sha1checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:md5checksum>6aad324a4629a21c3674889df42ce9a2</dams:md5checksum>
+                    <dams:use>image-huge</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/5.jpg">
+                    <dams:crc32checksum>4ee75a2a</dams:crc32checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:sha1checksum>0d9ff4aee4ffbeb1b3d424fe4dd5d5f57ed5daf3</dams:sha1checksum>
+                    <dams:md5checksum>67bedde727d3e382c751b3062d5d4845</dams:md5checksum>
+                    <dams:size>430</dams:size>
+                    <dams:sourceFileName>jhovetmp8164635623113836685.tmp</dams:sourceFileName>
+                    <dams:use>image-icon</dams:use>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:dateCreated>2013-03-15T01:52:09-0700</dams:dateCreated>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8840574s">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:09-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:quality>65x6</dams:quality>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd75436325">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:10-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatName>JPEG</dams:formatName>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>1</dams:order>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13/4.jpg">
+                    <dams:crc32checksum>eb302bec</dams:crc32checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:md5checksum>83f8d825ddd88fc2f26b6168e224af36</dams:md5checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:dateCreated>2013-03-15T01:51:33-0700</dams:dateCreated>
+                    <dams:sha1checksum>02f21934c889aa02b37dc2d6ba15acf8fc2d336d</dams:sha1checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0785892t">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:33-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:size>737</dams:size>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2082831c">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:33-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:quality>150x15</dams:quality>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:use>image-thumbnail</dams:use>
+                    <dams:sourceFileName>jhovetmp2802770561500777455.tmp</dams:sourceFileName>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13/3.jpg">
+                    <dams:sha1checksum>7236bb1ffd76080a200241de903444355b32b701</dams:sha1checksum>
+                    <dams:use>image-preview</dams:use>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:quality>450x45</dams:quality>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>jhovetmp4753933812774582571.tmp</dams:sourceFileName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:crc32checksum>b17d2f7b</dams:crc32checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:md5checksum>4daf7f68dbe2f682d5d3b9f455c85abe</dams:md5checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3721073s">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:06-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:size>3821</dams:size>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd50180165">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:05-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-03-15T01:51:05-0700</dams:dateCreated>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>1</dams:order>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13/6.jpg">
+                    <dams:quality>1024x103</dams:quality>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd5973655k">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:24-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:sha1checksum>a902dac825ecef103553678a5f7582568fdd7d19</dams:sha1checksum>
+                    <dams:size>15093</dams:size>
+                    <dams:crc32checksum>17334e6b</dams:crc32checksum>
+                    <dams:md5checksum>0292c25a03dc97b5a4a2dd31b29fc8e4</dams:md5checksum>
+                    <dams:dateCreated>2013-03-15T01:51:23-0700</dams:dateCreated>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd72705930">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:23-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourceFileName>jhovetmp5130860579670072643.tmp</dams:sourceFileName>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:use>image-large</dams:use>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13/7.jpg">
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:quality>1600x161</dams:quality>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:dateCreated>2013-03-15T01:51:18-0700</dams:dateCreated>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9830342b">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:18-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:md5checksum>ad33fa16ec8c14486c9d2768bc0f668c</dams:md5checksum>
+                    <dams:use>image-huge</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8567531x">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:18-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sha1checksum>24f7a1b89c2fb8549fa80185a43b98e3c68e2fd2</dams:sha1checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>jhovetmp7189033644485152660.tmp</dams:sourceFileName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:crc32checksum>90518cd9</dams:crc32checksum>
+                    <dams:size>33466</dams:size>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13/5.jpg">
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sourceFileName>jhovetmp4607481512846503907.tmp</dams:sourceFileName>
+                    <dams:crc32checksum>2bbcd1c8</dams:crc32checksum>
+                    <dams:use>image-icon</dams:use>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4676713z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:28-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:quality>65x7</dams:quality>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3379771q">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:28-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sha1checksum>f9f9e52574f5540847fdfd5cd00bd63c3bc42db2</dams:sha1checksum>
+                    <dams:size>416</dams:size>
+                    <dams:dateCreated>2013-03-15T01:51:27-0700</dams:dateCreated>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:md5checksum>9ef080f2f223ab2176030776307e2c14</dams:md5checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:formatName>JPEG</dams:formatName>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13/2.jpg">
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:dateCreated>2013-03-15T01:51:12-0700</dams:dateCreated>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:sourceFileName>jhovetmp5975224147109056103.tmp</dams:sourceFileName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:crc32checksum>f858cd15</dams:crc32checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:size>8879</dams:size>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sha1checksum>770d487ebc9deb086a20f1c24661472eeddf8c3e</dams:sha1checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:md5checksum>f2eb0c6f202914ac1f781cb380bcb75f</dams:md5checksum>
+                    <dams:quality>768x77</dams:quality>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1127191z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:51:13-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd24241315">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:51:13-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:use>image-service</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/13/1.jpg">
+                    <dams:quality>20400x2048</dams:quality>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:md5checksum>60ccf1221cbefe602cf5cfc9c486a4da</dams:md5checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:crc32checksum>2138fe1a</dams:crc32checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:size>3190896</dams:size>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/LineScan_Photos</dams:sourcePath>
+                    <dams:use>image-service</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd63149538">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:50:58-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourceFileName>rndb11wt-074P_A_458-600cm_ls_001.jpg</dams:sourceFileName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sha1checksum>c5ccaf7fad2e1d9c2fca52e0393cb515ecebfdc5</dams:sha1checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>Line scan</rdf:value>
+                  </dams:Title>
+                </dams:title>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14">
+                <dams:order>1</dams:order>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/2.jpg">
+                    <dams:sha1checksum>023bd440c9e8aa7c098002f744cf4de0b16f9385</dams:sha1checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd5803001d">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:03-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4506062q">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:54:03-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:dateCreated>2013-03-15T01:54:03-0700</dams:dateCreated>
+                    <dams:size>11785</dams:size>
+                    <dams:md5checksum>ff50c332325b05b0aed184c660da8550</dams:md5checksum>
+                    <dams:quality>768x74</dams:quality>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:crc32checksum>bb8ecd21</dams:crc32checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sourceFileName>jhovetmp886036720077250180.tmp</dams:sourceFileName>
+                    <dams:use>image-service</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/5.jpg">
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:use>image-icon</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd6758642g">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:54:21-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sha1checksum>c80567bada82c9d127c992505591ee21ac897a68</dams:sha1checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8055582x">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:20-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:crc32checksum>3e58c387</dams:crc32checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>jhovetmp8655118115727938498.tmp</dams:sourceFileName>
+                    <dams:dateCreated>2013-03-15T01:54:20-0700</dams:dateCreated>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:size>455</dams:size>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:md5checksum>19cd5880852ddcd0e200fa946cf81fb9</dams:md5checksum>
+                    <dams:quality>65x6</dams:quality>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>Line scan</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/7.jpg">
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3243253k">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:08-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:md5checksum>f82a83b11308f319d44ae9a3fcc44a8f</dams:md5checksum>
+                    <dams:use>image-huge</dams:use>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:crc32checksum>296dc3cd</dams:crc32checksum>
+                    <dams:dateCreated>2013-03-15T01:54:08-0700</dams:dateCreated>
+                    <dams:size>40735</dams:size>
+                    <dams:quality>1600x154</dams:quality>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:sha1checksum>a35d9e993cd42943edcc44894336aed15dae193d</dams:sha1checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sourceFileName>jhovetmp4816338900688614228.tmp</dams:sourceFileName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd19463155">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:54:09-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/3.jpg">
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:crc32checksum>e83c1a33</dams:crc32checksum>
+                    <dams:sourceFileName>jhovetmp2055635119426402914.tmp</dams:sourceFileName>
+                    <dams:dateCreated>2013-03-15T01:53:57-0700</dams:dateCreated>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sha1checksum>4d5a2419d115ece7b77de64e1c89fb159721fa70</dams:sha1checksum>
+                    <dams:md5checksum>557d1d1b4df90f22a139795e0a91fbb1</dams:md5checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8396883r">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:57-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:size>4885</dams:size>
+                    <dams:quality>450x43</dams:quality>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd70999414">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:57-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:use>image-preview</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/4.jpg">
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:md5checksum>b0c0a98c075e83f43d414bdc1746d5fa</dams:md5checksum>
+                    <dams:crc32checksum>e94fc9e8</dams:crc32checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:dateCreated>2013-03-15T01:54:25-0700</dams:dateCreated>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:use>image-thumbnail</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd54617045">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:26-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd41988913">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:54:26-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:sourceFileName>jhovetmp5982060047618146494.tmp</dams:sourceFileName>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sha1checksum>89adbec90a58fe5a921941af00fb989385409b8c</dams:sha1checksum>
+                    <dams:size>916</dams:size>
+                    <dams:quality>150x14</dams:quality>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/6.jpg">
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sourceFileName>jhovetmp246628045026533803.tmp</dams:sourceFileName>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:crc32checksum>3759393f</dams:crc32checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:quality>1024x98</dams:quality>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:dateCreated>2013-03-15T01:54:16-0700</dams:dateCreated>
+                    <dams:sha1checksum>1f481653388d2013204539d6e2edfaa03a1b63b6</dams:sha1checksum>
+                    <dams:size>18990</dams:size>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9352523n">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:54:16-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:md5checksum>bc85ec6e0dc1585f683e6e8faea46012</dams:md5checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0649375z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:54:16-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:use>image-large</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/1.jpg">
+                    <dams:sourceFileName>rndb11wt-074P_A_600-748cm_ls_001.jpg</dams:sourceFileName>
+                    <dams:md5checksum>ef32587beacf833e2e6c6dc782f79dce</dams:md5checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sha1checksum>41c0b8ba3b0e92edf4383145ed653270133981f2</dams:sha1checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:size>3925354</dams:size>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd96938250">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:52-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:crc32checksum>f0f03530</dams:crc32checksum>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/LineScan_Photos</dams:sourcePath>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:quality>21300x2048</dams:quality>
+                    <dams:use>image-service</dams:use>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                  </dams:File>
+                </dams:hasFile>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15">
+                <dams:order>1</dams:order>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/6.jpg">
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd6485605z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:42-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:crc32checksum>49a125c4</dams:crc32checksum>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:dateCreated>2013-03-15T01:53:41-0700</dams:dateCreated>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:md5checksum>57ae223c8aa12394cd972f1f2f57ccde</dams:md5checksum>
+                    <dams:sourceFileName>jhovetmp1649505016885162234.tmp</dams:sourceFileName>
+                    <dams:use>image-large</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd5188663q">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:42-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:size>65705</dams:size>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:quality>1024x411</dams:quality>
+                    <dams:sha1checksum>ebfc5494c4ab614664040da51f747a1f2d8eac74</dams:sha1checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>Line scan</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/5.jpg">
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:use>image-icon</dams:use>
+                    <dams:dateCreated>2013-03-15T01:53:43-0700</dams:dateCreated>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:size>800</dams:size>
+                    <dams:quality>65x26</dams:quality>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2594784t">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:44-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sha1checksum>594f18ef36a66b71f2f8fdc8445627c773349570</dams:sha1checksum>
+                    <dams:md5checksum>8cc6d7943ca76e5e6bb7cc0e438c1c72</dams:md5checksum>
+                    <dams:crc32checksum>35496e2b</dams:crc32checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:sourceFileName>jhovetmp3852092448329063442.tmp</dams:sourceFileName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3891723h">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:44-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/3.jpg">
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:quality>450x181</dams:quality>
+                    <dams:dateCreated>2013-03-15T01:53:34-0700</dams:dateCreated>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:use>image-preview</dams:use>
+                    <dams:md5checksum>bb043686847ae6753453f7319f04b521</dams:md5checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4233022n">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:34-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2936082k">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:34-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sha1checksum>eb0a4c3819f616c676e1aa6e9f91a5a02bbc4195</dams:sha1checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:crc32checksum>1ada99e8</dams:crc32checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:size>14636</dams:size>
+                    <dams:sourceFileName>jhovetmp8913294096681217924.tmp</dams:sourceFileName>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/1.jpg">
+                    <dams:use>image-service</dams:use>
+                    <dams:quality>5100x2048</dams:quality>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd5529965m">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:32-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-01-11T12:29:46-0800</dams:dateCreated>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:size>1066545</dams:size>
+                    <dams:sourceFileName>rndb11wt-074p_A_0-35cm_ls_001.jpg</dams:sourceFileName>
+                    <dams:sha1checksum>d6c302ed9af307d630bb1dee154af14920d5891d</dams:sha1checksum>
+                    <dams:crc32checksum>6e97e41b</dams:crc32checksum>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/LineScan_Photos</dams:sourcePath>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:md5checksum>30626cc019eb4e1e0dabfd2eef5eb36d</dams:md5checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/4.jpg">
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd00350342">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:46-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1331972p">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:46-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:size>2369</dams:size>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sha1checksum>5785fe016f5ed10933f7052c0743da4e1928a16d</dams:sha1checksum>
+                    <dams:dateCreated>2013-03-15T01:53:45-0700</dams:dateCreated>
+                    <dams:use>image-thumbnail</dams:use>
+                    <dams:crc32checksum>34cf8f4f</dams:crc32checksum>
+                    <dams:quality>150x60</dams:quality>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:md5checksum>079dfbb3aebe5d23d80518e74527a4a1</dams:md5checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>jhovetmp1400080308084937743.tmp</dams:sourceFileName>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/7.jpg">
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:use>image-huge</dams:use>
+                    <dams:md5checksum>9f1225c82d31745f70ef5af3c5a281f1</dams:md5checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd77825462">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:39-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:crc32checksum>bd08ea2c</dams:crc32checksum>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:dateCreated>2013-03-15T01:53:38-0700</dams:dateCreated>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:size>145613</dams:size>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9079485r">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:39-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourceFileName>jhovetmp3032356383056795117.tmp</dams:sourceFileName>
+                    <dams:sha1checksum>bab74430a6a2d1310388e46b80f061f63806c9a6</dams:sha1checksum>
+                    <dams:quality>1600x643</dams:quality>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/2.jpg">
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:crc32checksum>a16c12d5</dams:crc32checksum>
+                    <dams:use>image-service</dams:use>
+                    <dams:sha1checksum>03c5634967ebb0e8386a0128cd481364407bb738</dams:sha1checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0376333v">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:37-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:quality>768x308</dams:quality>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:size>38557</dams:size>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:dateCreated>2013-03-15T01:53:36-0700</dams:dateCreated>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>jhovetmp5371777703942321023.tmp</dams:sourceFileName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1639143h">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:36-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:md5checksum>352309bda8e20e0b4be76e94fceafee8</dams:md5checksum>
+                  </dams:File>
+                </dams:hasFile>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16">
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/4.jpg">
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:crc32checksum>8f3d1b29</dams:crc32checksum>
+                    <dams:sourceFileName>jhovetmp4214980604598540521.tmp</dams:sourceFileName>
+                    <dams:md5checksum>2e094256a8725f0ca3afc3210e911f8b</dams:md5checksum>
+                    <dams:quality>150x16</dams:quality>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8465141f">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:24-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:use>image-thumbnail</dams:use>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9727954q">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:23-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:size>873</dams:size>
+                    <dams:dateCreated>2013-03-15T01:53:23-0700</dams:dateCreated>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sha1checksum>e2f85dff35d23bf24fd419613e199a957316a127</dams:sha1checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/6.jpg">
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:md5checksum>2f854efb998971ebd0d7c59b7328b5cd</dams:md5checksum>
+                    <dams:crc32checksum>98850fb4</dams:crc32checksum>
+                    <dams:dateCreated>2013-03-15T01:53:13-0700</dams:dateCreated>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sourceFileName>jhovetmp5904333834257087364.tmp</dams:sourceFileName>
+                    <dams:sha1checksum>aa631b69cd51d5442a7d54a17c83c56264d34429</dams:sha1checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:use>image-large</dams:use>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:quality>1024x108</dams:quality>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4915626w">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:14-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:size>18580</dams:size>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3618686p">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:14-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/5.jpg">
+                    <dams:sourceFileName>jhovetmp3157676018037768537.tmp</dams:sourceFileName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:size>435</dams:size>
+                    <dams:sha1checksum>8eac78b157a70a939af3854682208e170908bfb1</dams:sha1checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2321743s">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:19-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:md5checksum>8fb7f51d453f1e35b52f09a8c83787a8</dams:md5checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:use>image-icon</dams:use>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd10248036">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:19-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-03-15T01:53:18-0700</dams:dateCreated>
+                    <dams:quality>65x7</dams:quality>
+                    <dams:crc32checksum>1eeff219</dams:crc32checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>1</dams:order>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/2.jpg">
+                    <dams:dateCreated>2013-03-15T01:53:04-0700</dams:dateCreated>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:md5checksum>c64c30fe4af258cbe0706901eba9942a</dams:md5checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd87723133">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:05-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:crc32checksum>64e9e577</dams:crc32checksum>
+                    <dams:size>12108</dams:size>
+                    <dams:sha1checksum>b2f187e0f57f29d5e3c569962af9e3d716394189</dams:sha1checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:use>image-service</dams:use>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:quality>768x81</dams:quality>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0069162q">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:04-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourceFileName>jhovetmp1156275646879818504.tmp</dams:sourceFileName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>Line scan</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/3.jpg">
+                    <dams:sourceFileName>jhovetmp6764769131200672586.tmp</dams:sourceFileName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd26630452">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:59-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:md5checksum>f2851c1a026aad206f0922c0262e6af6</dams:md5checksum>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:sha1checksum>80a7c08ff15173ea6c3e89d85ec8f256961a0708</dams:sha1checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1366102x">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:00-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-03-15T01:52:59-0700</dams:dateCreated>
+                    <dams:size>4950</dams:size>
+                    <dams:quality>450x48</dams:quality>
+                    <dams:crc32checksum>c05b97ba</dams:crc32checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:use>image-preview</dams:use>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/1.jpg">
+                    <dams:crc32checksum>8e034a2a</dams:crc32checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3959984z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:55-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:size>3804304</dams:size>
+                    <dams:use>image-service</dams:use>
+                    <dams:quality>19400x2048</dams:quality>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sha1checksum>64df07d1a76253c7cc1bd91aa1420d18036f65e2</dams:sha1checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>rndb11wt-074p_A_180-314cm_ls_001.jpg</dams:sourceFileName>
+                    <dams:dateCreated>2013-01-11T12:29:46-0800</dams:dateCreated>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/LineScan_Photos</dams:sourcePath>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:md5checksum>03bab8c15b1f95971c7d40ee3ba88eb7</dams:md5checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/7.jpg">
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:size>42688</dams:size>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:md5checksum>6de96aefe497563984989087e2e7d4aa</dams:md5checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd62125649">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:53:09-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sha1checksum>ef3523a6b2cebfe08bab1e6f2d05e2e64738bcb6</dams:sha1checksum>
+                    <dams:use>image-huge</dams:use>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd75095027">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:53:09-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-03-15T01:53:08-0700</dams:dateCreated>
+                    <dams:quality>1600x169</dams:quality>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourceFileName>jhovetmp2995627989655984220.tmp</dams:sourceFileName>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:crc32checksum>c6396792</dams:crc32checksum>
+                  </dams:File>
+                </dams:hasFile>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17">
+                <dams:title>
+                  <dams:Title>
+                    <rdf:value>Line scan</rdf:value>
+                  </dams:Title>
+                </dams:title>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/3.jpg">
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:sourceFileName>jhovetmp7038319040134496283.tmp</dams:sourceFileName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:md5checksum>c9506fac523b205ca7f2cf92f9ee4670</dams:md5checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd59053918">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:25-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:use>image-preview</dams:use>
+                    <dams:dateCreated>2013-03-15T01:52:25-0700</dams:dateCreated>
+                    <dams:quality>450x44</dams:quality>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:crc32checksum>a9e67063</dams:crc32checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4608453q">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:25-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:size>4920</dams:size>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sha1checksum>5d1cd116a72ef53ea3774ed05a9cf09ed05e8449</dams:sha1checksum>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/6.jpg">
+                    <dams:sha1checksum>b438e90d234c19fd7196a7321c3ac16a59420950</dams:sha1checksum>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd68610324">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:40-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-03-15T01:52:40-0700</dams:dateCreated>
+                    <dams:use>image-large</dams:use>
+                    <dams:size>18668</dams:size>
+                    <dams:crc32checksum>f6ae6768</dams:crc32checksum>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:quality>1024x100</dams:quality>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:md5checksum>109bfdf70a931c2509c6eb160be31be0</dams:md5checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:sourceFileName>jhovetmp2360072552218034857.tmp</dams:sourceFileName>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8157971w">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:40-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/7.jpg">
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:crc32checksum>af42e45c</dams:crc32checksum>
+                    <dams:md5checksum>757ff450836d637ed4419a1d4ea52f9d</dams:md5checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:quality>1600x156</dams:quality>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:dateCreated>2013-03-15T01:52:35-0700</dams:dateCreated>
+                    <dams:sha1checksum>ce8e2c16979912f0bafd65594d9140e94dacf82d</dams:sha1checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd94549113">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:35-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:sourceFileName>jhovetmp5530184759954003413.tmp</dams:sourceFileName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:use>image-huge</dams:use>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd07517645">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:35-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:size>40643</dams:size>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:order>1</dams:order>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/5.jpg">
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd5564094z">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:44-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:sourceFileName>jhovetmp5943558690466594785.tmp</dams:sourceFileName>
+                    <dams:md5checksum>8ee891f05dd0046ea98d125a4c3fdab6</dams:md5checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:size>437</dams:size>
+                    <dams:dateCreated>2013-03-15T01:52:44-0700</dams:dateCreated>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:quality>65x6</dams:quality>
+                    <dams:sha1checksum>aa17d04f55f3a054b8c4e51b89a3c39b8a82159e</dams:sha1checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:crc32checksum>fd056863</dams:crc32checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd43012819">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:45-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:use>image-icon</dams:use>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/4.jpg">
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:use>image-thumbnail</dams:use>
+                    <dams:quality>150x15</dams:quality>
+                    <dams:sha1checksum>8e646b0edd4cd952f1713b32f569340cba872ef3</dams:sha1checksum>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:size>891</dams:size>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:sourceFileName>jhovetmp1757977838114116223.tmp</dams:sourceFileName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd30043448">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:49-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:md5checksum>09b787ea0243487be2b1656554ba9387</dams:md5checksum>
+                    <dams:crc32checksum>43dcd2c9</dams:crc32checksum>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1707404t">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:49-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:dateCreated>2013-03-15T01:52:48-0700</dams:dateCreated>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/1.jpg">
+                    <dams:md5checksum>2e06b7df83f647e252ffd1d21be5b3d0</dams:md5checksum>
+                    <dams:sourceFileName>rndb11wt-074p_A_35-180cm_ls_001.jpg</dams:sourceFileName>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:size>3847580</dams:size>
+                    <dams:use>image-service</dams:use>
+                    <dams:crc32checksum>00e79f46</dams:crc32checksum>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:quality>21000x2048</dams:quality>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/LineScan_Photos</dams:sourcePath>
+                    <dams:sha1checksum>1fe26b809bb27aac780e982ee2e9b7bcd94424b2</dams:sha1checksum>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd7202331b">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:20-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                  </dams:File>
+                </dams:hasFile>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/2.jpg">
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd20487040">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:eventDate>2013-03-15T01:52:31-0700</dams:eventDate>
+                        <dams:type>Derivatives Creation</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:event>
+                      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3345642j">
+                        <dams:relationship rdf:parseType="Resource">
+                          <dams:role rdf:resource="dams:initiator"/>
+                          <dams:name rdf:resource="dams:unknownUser"/>
+                        </dams:relationship>
+                        <dams:outcome>success</dams:outcome>
+                        <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                        <dams:eventDate>2013-03-15T01:52:30-0700</dams:eventDate>
+                        <dams:type>Jhove Extraction</dams:type>
+                      </dams:DAMSEvent>
+                    </dams:event>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:quality>768x75</dams:quality>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:md5checksum>ff792952da98ae4c635004ccdebe1652</dams:md5checksum>
+                    <dams:size>11369</dams:size>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:formatName>JPEG</dams:formatName>
+                    <dams:sha1checksum>00dbe4111992637477f28e76ff185d0d5fd9f526</dams:sha1checksum>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:use>image-service</dams:use>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:sourceFileName>jhovetmp4788332920485564973.tmp</dams:sourceFileName>
+                    <dams:mimeType>image/jpeg</dams:mimeType>
+                    <dams:formatVersion>1.01</dams:formatVersion>
+                    <dams:dateCreated>2013-03-15T01:52:30-0700</dams:dateCreated>
+                    <dams:crc32checksum>03d6ce95</dams:crc32checksum>
+                  </dams:File>
+                </dams:hasFile>
+              </dams:Component>
+            </dams:hasComponent>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>Files</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:order>10</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:corporateName>
+          <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd5734730p">
+            <mads:authoritativeLabel>Thomas Washington</mads:authoritativeLabel>
+            <dams:displayLabel>ship</dams:displayLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:NameElement>
+                <mads:elementValue>Thomas Washington</mads:elementValue>
+              </mads:NameElement>
+            </mads:elementList>
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd18439116">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>success</dams:outcome>
+                <dams:eventDate>2013-03-11T08:49:16-0700</dams:eventDate>
+                <dams:type>object creation</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+          </mads:CorporateName>
+        </dams:corporateName>
+        <dams:role>
+          <dams:Role rdf:about="http://library.ucsd.edu/ark:/20775/bd8533387r">
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1741517b">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>failure</dams:outcome>
+                <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
+                <dams:eventDate>2013-03-08T11:01:06-0800</dams:eventDate>
+                <dams:type>Bulk Solr Indexing</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd30384561">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>success</dams:outcome>
+                <dams:eventDate>2013-03-08T11:01:06-0800</dams:eventDate>
+                <dams:type>object creation</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+            <rdf:value>Collector</rdf:value>
+            <dams:code>col</dams:code>
+          </dams:Role>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:event>
+      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd88747022">
+        <dams:relationship rdf:parseType="Resource">
+          <dams:role rdf:resource="dams:initiator"/>
+          <dams:name rdf:resource="dams:unknownUser"/>
+        </dams:relationship>
+        <dams:outcome>success</dams:outcome>
+        <dams:eventDate>2013-03-15T01:50:56-0700</dams:eventDate>
+        <dams:type>object creation</dams:type>
+      </dams:DAMSEvent>
+    </dams:event>
+    <dams:date>
+      <dams:Date>
+        <rdf:value>1988-12-22</rdf:value>
+        <dams:endDate>1988-12-22</dams:endDate>
+        <dams:beginDate>1988-12-22</dams:beginDate>
+      </dams:Date>
+    </dams:date>
+    <dams:unit>
+      <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb48484848">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2014471p">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-02-19T10:46:30-0800</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitName>Research Data Curation Program</dams:unitName>
+        <dams:code>rci</dams:code>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9659686g">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-14T07:19:48-0700</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3720971c">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-02-19T12:56:09-0800</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
+        <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8362747n">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-14T07:21:05-0700</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitGroup>dams-rci</dams:unitGroup>
+      </dams:Unit>
+    </dams:unit>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/9">
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+        <dams:note>
+          <dams:Note>
+            <dams:type>abstract</dams:type>
+            <rdf:value>white to grey sediments; organic matter in discontinuous patches</rdf:value>
+          </dams:Note>
+        </dams:note>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>600-748 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:order>9</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:cartographics>
+      <dams:Cartographics>
+        <dams:line>0.34,159.38 0.34,159.38</dams:line>
+        <dams:referenceSystem>WGS84</dams:referenceSystem>
+      </dams:Cartographics>
+    </dams:cartographics>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/5">
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+        <dams:note>
+          <dams:Note>
+            <dams:type>abstract</dams:type>
+            <rdf:value>white to grey sediments; organic matter in discontinuous patches</rdf:value>
+          </dams:Note>
+        </dams:note>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>180-290 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:order>5</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:geographic>
+      <mads:Geographic rdf:about="http://library.ucsd.edu/ark:/20775/bd7611882v">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd37210618">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-12T09:56:53-0700</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:authority>NGDC physiographic province</dams:authority>
+        <dams:displayLabel>physiographic province</dams:displayLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GeographicElement>
+            <mads:elementValue>Equatorial Pacific</mads:elementValue>
+          </mads:GeographicElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Equatorial Pacific</mads:authoritativeLabel>
+      </mads:Geographic>
+    </dams:geographic>
+    <dams:language>
+      <dams:Language rdf:about="http://library.ucsd.edu/ark:/20775/bd0410344f">
+        <dams:vocabulary>
+          <dams:Vocabulary rdf:about="http://library.ucsd.edu/ark:/20775/bb15151515">
+            <dams:description>Language</dams:description>
+          </dams:Vocabulary>
+        </dams:vocabulary>
+        <dams:code>en</dams:code>
+        <rdf:value>English</rdf:value>
+        <dams:valueURI rdf:resource="http://id.loc.gov/vocabulary/iso639-1/en"/>
+      </dams:Language>
+    </dams:language>
+    <dams:rightsHolder>
+      <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd11271752">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1400218j">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>failure</dams:outcome>
+            <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
+            <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
+            <dams:type>Bulk Solr Indexing</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2697155s">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-08T11:01:09-0800</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>UC Regents</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>UC Regents</mads:authoritativeLabel>
+      </mads:Name>
+    </dams:rightsHolder>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/3">
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+        <dams:note>
+          <dams:Note>
+            <dams:type>abstract</dams:type>
+            <rdf:value>light grey sediments; faint traces of laminations</rdf:value>
+          </dams:Note>
+        </dams:note>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>100-110 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:order>3</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd63149428">
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd98644611">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>success</dams:outcome>
+                <dams:eventDate>2013-03-12T09:56:55-0700</dams:eventDate>
+                <dams:type>object creation</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:NameElement>
+                <mads:elementValue>E. L. Winterer</mads:elementValue>
+              </mads:NameElement>
+            </mads:elementList>
+            <mads:authoritativeLabel>E. L. Winterer</mads:authoritativeLabel>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <dams:Role rdf:about="http://library.ucsd.edu/ark:/20775/bd8328611m">
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd7987312d">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>success</dams:outcome>
+                <dams:eventDate>2013-03-11T08:49:18-0700</dams:eventDate>
+                <dams:type>object creation</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+            <rdf:value>Originator</rdf:value>
+            <dams:code>org</dams:code>
+          </dams:Role>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/6">
+        <dams:order>6</dams:order>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>290-314 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>pinkish grey sediments; patches of organic rich sediments; distrubed while opening core liner</rdf:value>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/1">
+        <dams:order>1</dams:order>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>0-35 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>light, reddish brown sediments</rdf:value>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:typeOfResource>data</dams:typeOfResource>
+    <dams:genreForm>
+      <mads:GenreForm rdf:about="http://library.ucsd.edu/ark:/20775/bd8908822t">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd24241205">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-12T09:56:54-0700</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:displayLabel>sample type</dams:displayLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GenreFormElement>
+            <mads:elementValue>core, piston</mads:elementValue>
+          </mads:GenreFormElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>core, piston</mads:authoritativeLabel>
+      </mads:GenreForm>
+    </dams:genreForm>
+    <dams:title>
+      <dams:Title>
+        <rdf:value>RNDB11WT-74P (core, piston)</rdf:value>
+      </dams:Title>
+    </dams:title>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:corporateName>
+          <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd5018004n">
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8567521f">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>success</dams:outcome>
+                <dams:eventDate>2013-03-12T09:56:55-0700</dams:eventDate>
+                <dams:type>object creation</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:NameElement>
+                <mads:elementValue>ROUNDABOUT</mads:elementValue>
+              </mads:NameElement>
+              <mads:NameElement>
+                <mads:elementValue>11</mads:elementValue>
+              </mads:NameElement>
+            </mads:elementList>
+            <dams:displayLabel>cruise</dams:displayLabel>
+            <mads:authoritativeLabel>ROUNDABOUT--11</mads:authoritativeLabel>
+          </mads:CorporateName>
+        </dams:corporateName>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd8533387r"/>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:note>
+      <dams:Note>
+        <dams:type>sample number</dams:type>
+        <rdf:value>RNDB11WT-74P</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:copyright>
+      <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/bd9830325x">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8840557c">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>failure</dams:outcome>
+            <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
+            <dams:eventDate>2013-03-08T11:01:11-0800</dams:eventDate>
+            <dams:type>Bulk Solr Indexing</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0103277t">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+        <dams:copyrightStatus>Under copyright--1st Party</dams:copyrightStatus>
+      </dams:Copyright>
+    </dams:copyright>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/7">
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+        <dams:note>
+          <dams:Note>
+            <dams:type>abstract</dams:type>
+            <rdf:value>white to grey sediments; organic matter in discontinuous patches</rdf:value>
+          </dams:Note>
+        </dams:note>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>314-458 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:order>7</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:provenanceCollection>
+      <rdf:description rdf:about="http://library.ucsd.edu/ark:/20775/bd36186703">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd29019383">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-11T09:55:52-0700</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+      </rdf:description>
+    </dams:provenanceCollection>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/8">
+        <dams:order>8</dams:order>
+        <dams:title>
+          <dams:Title>
+            <rdf:value>458-600 cm (core, piston)</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>white to grey sediments; organic matter in discontinuous patches</rdf:value>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd61784229"/>
+      </dams:Component>
+    </dams:hasComponent>
+  </dams:Object>
+</rdf:RDF>

@@ -107,20 +107,6 @@ class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     relationship[0].role = RDF::Resource.new(val)
   end
-  class Relationship
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Relationship
-    map_predicates do |map|
-      map.name(:in=> DAMS, :to=>'name')
-      map.role(:in=> DAMS, :to=>'role')
-    end
-
-    def load
-      uri = name.first.to_s
-      md = /\/(\w*)$/.match(uri)
-      MadsPersonalName.find(md[1])
-    end
-  end
 
   def to_solr (solr_doc = {})
     solr_doc[ActiveFedora::SolrService.solr_name("basis", type: :text)] = basis

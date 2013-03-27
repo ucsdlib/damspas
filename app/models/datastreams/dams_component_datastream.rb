@@ -1,7 +1,7 @@
 class DamsComponentDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.language(:in=>DAMS)
 
@@ -74,34 +74,6 @@ class DamsComponentDatastream < DamsResourceDatastream
       cid = rdf_subject.to_s
       cid = cid.match('\w+$').to_s
       cid.to_i
-    end
-    class Date
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.Date
-      map_predicates do |map|
-        map.value(:in=> RDF, :to=>'value')
-        map.beginDate(:in=>DAMS, :to=>'beginDate')
-        map.endDate(:in=>DAMS, :to=>'endDate')
-      end
-    end
-    class Note
-      include ActiveFedora::RdfObject
-      rdf_type DAMS.Note
-      map_predicates do |map|
-        map.value(:in=> RDF, :to=>'value')
-        map.displayLabel(:in=>DAMS, :to=>'displayLabel')
-        map.type(:in=>DAMS, :to=>'type')
-      end
-      def external?
-        rdf_subject.to_s.include? Rails.configuration.id_namespace
-      end
-      def load
-        uri = rdf_subject.to_s
-        if uri.start_with?(Rails.configuration.id_namespace)
-          md = /\/(\w*)$/.match(uri)
-          DamsNote.find(md[1])
-        end
-      end
     end
     class File
       include ActiveFedora::RdfObject

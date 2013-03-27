@@ -1,9 +1,9 @@
 class DamsObjectDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
-    map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
+    map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.language(:in=>DAMS, :class_name => 'Language')
+    map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
     #map.language(:in=>DAMS)
 
     # notes
@@ -48,7 +48,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # components and files
     map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
-    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
+    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
     # rights
     map.copyright(:in=>DAMS)
@@ -67,49 +67,6 @@ class DamsObjectDatastream < DamsResourceDatastream
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
     super
-  end
-
-  class File
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.File
-    map_predicates do |map|
-      map.filestore(:in=>DAMS)
-      map.quality(:in=>DAMS)
-      map.size(:in=>DAMS)
-      map.sourceFileName(:in=>DAMS)
-      map.sourcePath(:in=>DAMS)
-      map.use(:in=>DAMS)
-      map.value(:in=> RDF)
-
-      # checksums
-      map.crc32checksum(:in=>DAMS)
-      map.md5checksum(:in=>DAMS)
-      map.sha1checksum(:in=>DAMS)
-      map.sha256checksum(:in=>DAMS)
-      map.sha512checksum(:in=>DAMS)
-
-      # premis
-      map.compositionLevel(:in=>DAMS)
-      map.dateCreated(:in=>DAMS)
-      map.formatName(:in=>DAMS)
-      map.formatVersion(:in=>DAMS)
-      map.mimeType(:in=>DAMS)
-      map.objectCategory(:in=>DAMS)
-      map.preservationLevel(:in=>DAMS)
-      map.event(:in=>DAMS)
-
-      # mix
-      map.source_capture(:in=>DAMS, :to => 'sourceCapture')
-    end
-    def id
-      fid = rdf_subject.to_s
-      fid = fid.gsub(/.*\//,'')
-      fid
-    end
-    def order
-      order = id.gsub(/\..*/,'')
-      order.to_i
-    end
   end
 
   def load_unit
@@ -134,7 +91,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       coltype.values.each do |col|
         collection_uri = col.to_s
 	    collection_pid = collection_uri.gsub(/.*\//,'')
-	    hasModel = "";
+	    hasModel = ""
         if (collection_pid != nil && collection_pid != "")
            obj = DamsAssembledCollection.find(collection_pid)
       	   hasModel = obj.relationships(:has_model).to_s
@@ -220,105 +177,114 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
 
   def insertFileFields( solr_doc, cid, files )
-    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
     prefix = (cid != nil) ? "component_#{cid}_" : ""
-    altprefix = (cid != nil) ? "file_#{cid}" : "file"
     files.map.sort{ |a,b| a.order <=> b.order }.each { |file|
-      fid = file.id
-      Solrizer.insert_field(solr_doc, "#{altprefix}_#{fid}_filestore", file.filestore)
-      Solrizer.insert_field(solr_doc, "#{prefix}files", fid)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_quality", file.quality)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_size", file.size, singleString)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_sourcePath", file.sourcePath)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_sourceFileName", file.sourceFileName)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_use", file.use)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_label", file.value)
 
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_dateCreated", file.dateCreated)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_formatName", file.formatName)
-      Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_mimeType", file.mimeType)
+      # basic file info
+      file_json = {
+        :filestore => file.filestore.first.to_s,
+        :id => file.id,
+        :quality => file.quality.first.to_s,
+        :size => file.size.first.to_s,
+        :sourcePath => file.sourcePath.first.to_s,
+        :sourceFileName => file.sourceFileName.first.to_s,
+        :use => file.use.first.to_s,
+        :label => file.value.first.to_s,
+        :dateCreated => file.dateCreated.first.to_s,
+        :formatName => file.formatName.first.to_s,
+        :mimeType => file.mimeType.first.to_s }
 
+      # source capture
       source_capture = load_source_capture file.source_capture
       if source_capture.class == DamsSourceCapture
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_source_capture", source_capture.pid)
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_capture_source", source_capture.captureSource)
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_image_producer", source_capture.imageProducer)
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanner_model_name", source_capture.scannerModelName)
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanning_software", source_capture.scanningSoftware)
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
-        Solrizer.insert_field(solr_doc, "#{prefix}file_#{fid}_source_type", source_capture.sourceType)
+        file_json[:source_capture] = source_capture.pid
+        file_json[:capture_source] = source_capture.captureSource.first.to_s
+        file_json[:image_producer] = source_capture.imageProducer.first.to_s
+        file_json[:scanner_manufacturer] = source_capture.scannerManufacturer.first.to_s
+        file_json[:scanner_model_name] = source_capture.scannerModelName.first.to_s
+        file_json[:scanning_software] = source_capture.scanningSoftware.first.to_s
+        file_json[:scanning_software_version] = source_capture.scanningSoftwareVersion.first.to_s
+        file_json[:source_type] = source_capture.sourceType.first.to_s
       end
 
-      insertEventFields solr_doc, "#{prefix}file_#{fid}_", file.event
+      # events
+      event_array = events_to_json file.event
+      file_json[:events] = event_array
+
+      Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
     }
   end
   def insertCopyrightFields ( solr_doc, prefix, copyright )
     copy = load_copyright copyright
     if copy != nil
-      Solrizer.insert_field(solr_doc, "#{prefix}copyright_status", copy.status)
-      Solrizer.insert_field(solr_doc, "#{prefix}copyright_jurisdiction", copy.jurisdiction)
-      Solrizer.insert_field(solr_doc, "#{prefix}copyright_purposeNote", copy.purposeNote)
-      Solrizer.insert_field(solr_doc, "#{prefix}copyright_note", copy.note)
-      Solrizer.insert_field(solr_doc, "#{prefix}copyright_beginDate", copy.beginDate)
-      Solrizer.insert_field(solr_doc, "#{prefix}copyright_id", copy.pid)
+      copy_json = {
+        :id => copy.pid,
+        :status => copy.status.first.to_s,
+        :jurisdiction => copy.jurisdiction.first.to_s,
+        :purposeNote => copy.purposeNote.first.to_s,
+        :note => copy.note.first.to_s,
+        :beginDate => copy.beginDate.first.to_s }
+      Solrizer.insert_field(solr_doc, "#{prefix}copyright", copy_json.to_json)
     end
   end
   def insertLicenseFields( solr_doc, prefix, license )
     lic = load_license license
     if lic != nil
-      Solrizer.insert_field(solr_doc, "#{prefix}license_id", lic.pid)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_note", lic.note)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_uri", lic.uri.values.first.to_s)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_permissionType", lic.permissionType)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_permissionBeginDate", lic.permissionBeginDate)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_permissionEndDate", lic.permissionEndDate)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_restrictionType", lic.restrictionType)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_restrictionBeginDate", lic.restrictionBeginDate)
-      Solrizer.insert_field(solr_doc, "#{prefix}license_restrictionEndDate", lic.restrictionEndDate)
+      lic_json = {
+        :id => lic.pid,
+        :note => lic.note.first.to_s,
+        :uri => lic.uri.values.first.to_s,
+        :permissionType => lic.permissionType.first.to_s,
+        :permissionBeginDate => lic.permissionBeginDate.first.to_s,
+        :permissionEndDate => lic.permissionEndDate.first.to_s,
+        :restrictionType => lic.restrictionType.first.to_s,
+        :restrictionBeginDate => lic.restrictionBeginDate.first.to_s,
+        :restrictionEndDate => lic.restrictionEndDate.first.to_s }
+      Solrizer.insert_field(solr_doc, "#{prefix}license", lic_json.to_json)
     end
   end
   def insertStatuteFields( solr_doc, prefix, statute )
     stat = load_statute statute
     if stat != nil
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_id", stat.pid)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_citation", stat.citation)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_jurisdiction", stat.jurisdiction)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_note", stat.note)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_permissionType", stat.permissionType)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_permissionBeginDate", stat.permissionBeginDate)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_permissionEndDate", stat.permissionEndDate)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_restrictionType", stat.restrictionType)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_restrictionBeginDate", stat.restrictionBeginDate)
-      Solrizer.insert_field(solr_doc, "#{prefix}statute_restrictionEndDate", stat.restrictionEndDate)
+      stat_json = {
+        :id => stat.pid,
+        :citation => stat.citation.first.to_s,
+        :jurisdiction => stat.jurisdiction.first.to_s,
+        :note => stat.note.first.to_s,
+        :permissionType => stat.permissionType.first.to_s,
+        :permissionBeginDate => stat.permissionBeginDate.first.to_s,
+        :permissionEndDate => stat.permissionEndDate.first.to_s,
+        :restrictionType => stat.restrictionType.first.to_s,
+        :restrictionBeginDate => stat.restrictionBeginDate.first.to_s,
+        :restrictionEndDate => stat.restrictionEndDate.first.to_s }
+      Solrizer.insert_field(solr_doc, "#{prefix}statute", stat_json.to_json)
     end
   end
   def insertOtherRightsFields( solr_doc, prefix, otherRights )
     othr = load_otherRights otherRights
     if othr != nil
-      Solrizer.insert_field(solr_doc, "otherRights_id", othr.pid)
-      Solrizer.insert_field(solr_doc, "otherRights_basis", othr.basis)
-      Solrizer.insert_field(solr_doc, "otherRights_note", othr.note)
-      Solrizer.insert_field(solr_doc, "otherRights_uri", othr.uri.first.to_s)
-      Solrizer.insert_field(solr_doc, "otherRights_permissionType", othr.permissionType)
-      Solrizer.insert_field(solr_doc, "otherRights_permissionBeginDate", othr.permissionBeginDate)
-      Solrizer.insert_field(solr_doc, "otherRights_permissionEndDate", othr.permissionEndDate)
-      Solrizer.insert_field(solr_doc, "otherRights_restrictionType", othr.restrictionType)
-      Solrizer.insert_field(solr_doc, "otherRights_restrictionBeginDate", othr.restrictionBeginDate)
-      Solrizer.insert_field(solr_doc, "otherRights_restrictionEndDate", othr.restrictionEndDate)
-      Solrizer.insert_field(solr_doc, "otherRights_name", othr.name.first.to_s)
-      Solrizer.insert_field(solr_doc, "otherRights_role", othr.role.first.to_s)
+      othr_json = {
+        :id => othr.pid,
+        :basis => othr.basis.first.to_s,
+        :note => othr.note.first.to_s,
+        :uri => othr.uri.first.to_s,
+        :permissionType => othr.permissionType.first.to_s,
+        :permissionBeginDate => othr.permissionBeginDate.first.to_s,
+        :permissionEndDate => othr.permissionEndDate.first.to_s,
+        :restrictionType => othr.restrictionType.first.to_s,
+        :restrictionBeginDate => othr.restrictionBeginDate.first.to_s,
+        :restrictionEndDate => othr.restrictionEndDate.first.to_s,
+        :name => othr.name.first.to_s,
+        :role => othr.role.first.to_s }
+      Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
     end    
   end
   def insertRightsHolderFields( solr_doc, prefix, rightsHolder )
     rightsHolders = load_rightsHolders rightsHolder
     if rightsHolders != nil
-      n = 0
       rightsHolders.each do |name|
         if name.class == MadsPersonalName
-          n += 1
-          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder_#{n}_id", name.pid)
-          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder_#{n}_name", name.name)
+          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder", name.name.first.to_s)
         end
       end
     end
@@ -405,28 +371,33 @@ class DamsObjectDatastream < DamsResourceDatastream
     
     unit = load_unit unit_node
     if unit.class == DamsUnit
-      Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
-      Solrizer.insert_field(solr_doc, 'unit_name', unit.name)
       Solrizer.insert_field(solr_doc, 'unit', unit.name, facetable)
-      Solrizer.insert_field(solr_doc, 'unit_id', unit.pid)
+      Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
+      unit_json = {
+        :id => unit.pid,
+        :code => unit.code.first.to_s,
+        :name => unit.name.first.to_s
+      }
+      Solrizer.insert_field(solr_doc, 'unit_json', unit_json.to_json)
     end
     
     col = load_collection collection,assembledCollection,provenanceCollection,provenanceCollectionPart
     if col != nil
-     n = 0
       col.each do |collection|
-        n += 1
-        Solrizer.insert_field(solr_doc, "collections", collection.pid)
-        Solrizer.insert_field(solr_doc, "collection_#{n}_id", collection.pid)
-        Solrizer.insert_field(solr_doc, "collection_#{n}_name", collection.titleValue)
         Solrizer.insert_field(solr_doc, "collection", collection.titleValue, facetable)
+        Solrizer.insert_field(solr_doc, "collections", collection.pid)
+        col_json = {
+          :id => collection.pid,
+          :name => collection.titleValue.first.to_s
+        }
         if ( collection.kind_of? DamsAssembledCollection )
-          Solrizer.insert_field(solr_doc, "collection_#{n}_type", "AssembledCollection")
+          col_json[:type] = "AssembledCollection"
         elsif ( collection.kind_of? DamsProvenanceCollectionPart )
-          Solrizer.insert_field(solr_doc, "collection_#{n}_type", "ProvenanceCollectionPart")
+          col_json[:type] = "ProvenanceCollectionPart"
         elsif ( collection.kind_of? DamsProvenanceCollection )
-          Solrizer.insert_field(solr_doc, "collection_#{n}_type", "ProvenanceCollection")
+          col_json[:type] = "ProvenanceCollection"
         end
+        Solrizer.insert_field(solr_doc, 'collection_json', col_json.to_json)
       end
     end
 
@@ -437,12 +408,14 @@ class DamsObjectDatastream < DamsResourceDatastream
     insertRightsHolderFields solr_doc, "", rightsHolder
     
     cartographics.map do |cart|
-      Solrizer.insert_field(solr_doc, "cartographics_point", cart.point)
-      Solrizer.insert_field(solr_doc, "cartographics_line", cart.line)
-      Solrizer.insert_field(solr_doc, "cartographics_polygon", cart.polygon)
-      Solrizer.insert_field(solr_doc, "cartographics_projection", cart.projection)
-      Solrizer.insert_field(solr_doc, "cartographics_referenceSystem", cart.referenceSystem)
-      Solrizer.insert_field(solr_doc, "cartographics_scale", cart.scale)
+      carto_json = {
+        :point => cart.point,
+        :line => cart.line,
+        :polygon => cart.polygon,
+        :projection => cart.projection,
+        :referenceSystem => cart.referenceSystem,
+        :scale => cart.scale }
+      Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
     end 
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)    

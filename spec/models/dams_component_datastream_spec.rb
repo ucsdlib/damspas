@@ -40,18 +40,15 @@ describe DamsComponentDatastream do
 
  	  it "should index title and dates" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].first.should == "The Static Image"
-        solr_doc["title_1_value_tesim"].should == ["The Static Image"]
-        solr_doc["date_1_beginDate_tesim"].should == ["2012-06-24"]
-     	#solr_doc["date_1_endDate_tesim"].should == ["2012-06-25"]
-     	#solr_doc["date_1_value_tesim"].should == ["June 24-25, 2012"]
+        solr_doc["title_tesim"].should include "The Static Image"
+        solr_doc["date_tesim"].should include "2012-06-24"
+     	solr_doc["date_tesim"].should include "2012-06-25"
+     	solr_doc["date_tesim"].should include "June 24-25, 2012"
       end
 
  	  it "should have notes" do
         solr_doc = subject.to_solr
-        solr_doc["note_1_value_tesim"].should == ["1 PDF (xi, 111 p.)"]
-        solr_doc["note_1_displayLabel_tesim"].should == ["Extent"]
-        solr_doc["note_1_type_tesim"].should == ["dimensions"]
+        solr_doc["note_tesim"].should include "1 PDF (xi, 111 p.)"
       end                
 
     end

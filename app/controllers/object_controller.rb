@@ -1,5 +1,10 @@
 class ObjectController < ApplicationController
   def show
+    # check ip for unauthenticated users
+    if current_user == nil
+      current_user = User.anonymous(request.ip)
+    end
+
     @response, @document = get_solr_response_for_doc_id
     @rdfxml = @document['rdfxml_ssi']
     if @rdfxml == nil
