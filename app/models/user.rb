@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     uid = access_token.uid
+logger.warn "dev: uid=#{uid}"
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
@@ -31,6 +32,14 @@ class User < ActiveRecord::Base
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
     u.groups = ['shibboleth-authenticated']
+    u
+  end
+
+  def self.anonymous(ip)
+    u = User.where(:uid => 'anonymous',:provider => 'anonymous').first || User.create(:uid => 'anonymous',:provider => 'anonymous', :email => 'anonymous')
+    role = role_from_ip(ip)
+    logger.warn "anonymous, role from ip: #{role}"
+    u.groups = [ role ]
     u
   end
 
@@ -60,6 +69,18 @@ class User < ActiveRecord::Base
       logger.warn "Error looking up LDAP groups #{e.to_s}"
       []
     end
+  end
+  def self.role_from_ip( ip )
+    if Rails.configuration.public_ips.include? ip
+      return "public"
+    else
+      Rails.configuration.local_ip_blocks.each do |block|
+        if ip.start_with? block
+          return "local"
+        end
+      end
+    end
+    return "public"
   end
 
   # Method added by Blacklight; Blacklight uses #to_s on your
