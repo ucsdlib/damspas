@@ -69,11 +69,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     language.each do |lang|
       if lang.value.first != nil && lang.code.first != nil
         # use inline data if available
-        puts "lang: use internal"
         languages << lang
       elsif lang.pid != nil
         # load external records
-        puts "lang: load external"
         languages << DamsLanguage.find(lang.pid)
       end
     end
