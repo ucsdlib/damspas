@@ -156,6 +156,7 @@ module ObjectHelper
     display
   end
 
+
 	#------------------------
 	# COMPONENT TREE METHODS
 	#------------------------
@@ -217,22 +218,21 @@ module ObjectHelper
 	def displayNode(index)
 
 		fileUse = render_file_use(:component=>index,:quality=>450)
-		btnID = "tree-button-#{index}"
 		btnAttrForFiles = "onClick='showComponent(#{index});'"
-		btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
-		btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileUse)
-		btnCSS = (fileUse) ? "tree-file #{@firstButton}" : ''
-		btnCSS += (@isParent[index]) ? " tree-parent" : ''
+		btnID = "node-btn-#{index}"
+		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
+		btnCSS += (@isParent[index]) ? ' node-parent' : ''
+		iconCSS = (@isParent[index]) ? 'icon-chevron-right node-toggle' : grabIcon(fileUse)
 
 		concat "<li>".html_safe
-		concat "<button type='button' id='#{btnID}' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
+		concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>".html_safe
 		componentTitle index
 		concat "</button>".html_safe
 
 		# Display children if parent
 		if (@isParent[index])
 
-			concat "<ul id='meta-component-#{index}' class='unstyled collapse'>".html_safe
+			concat "<ul class='unstyled node-container'>".html_safe
 			@document["component_#{index}_children_isim"].each do |sub|
 				displayNode sub
 				@seen.push(sub)
