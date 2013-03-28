@@ -304,24 +304,32 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     if objects != nil
       objects.each do |obj|
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
+        Solrizer.insert_field(solr_doc, "fulltext", obj.name)
+      end
+    end
+  end
+  def insertFacets (solr_doc, fieldName, objects)
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+    if objects != nil
+      objects.each do |obj|
+        Solrizer.insert_field(solr_doc, fieldName, obj.name,facetable)
       end
     end
   end
 
   def insertComplexSubjectFields (solr_doc, fieldName, objects)
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     if objects != nil
-      n = 0
       objects.each do |obj|
-          n += 1
           Solrizer.insert_field(solr_doc, fieldName, obj.name)
+          Solrizer.insert_field(solr_doc, "subject_topic", obj.name, facetable)
+          Solrizer.insert_field(solr_doc, "fulltext", obj.name)
       end
     end
   end
 
   def insertNoteFields (solr_doc, fieldName, objects)
-    n = 0
     objects.map do |no|
-      n += 1
       note_json = {}
       note_obj = nil
       if (no.external?)
@@ -338,6 +346,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # retrieval
       Solrizer.insert_field(solr_doc, "#{fieldName}", note_obj.value )
+      Solrizer.insert_field(solr_doc, "note", note_obj.value )
+      Solrizer.insert_field(solr_doc, "fulltext", note_obj.value)
     end
   end
   def insertDateFields (solr_doc, cid, dates)
@@ -355,6 +365,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date", date.value.first)
       Solrizer.insert_field(solr_doc, "date", date.beginDate.first)
       Solrizer.insert_field(solr_doc, "date", date.endDate.first)
+      Solrizer.insert_field(solr_doc, "fulltext", date.value)
+      Solrizer.insert_field(solr_doc, "fulltext", date.beginDate)
+      Solrizer.insert_field(solr_doc, "fulltext", date.endDate)
     end
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
@@ -368,6 +381,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
         # retrieval
         Solrizer.insert_field( solr_doc, "name", name )
+        Solrizer.insert_field(solr_doc, "fulltext", rel.name)
 
         # display
         role = relationship.loadRole.value.first.to_s
@@ -401,6 +415,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       # retrieval
       Solrizer.insert_field(solr_doc, "title", t.value.first)
       Solrizer.insert_field(solr_doc, "title", t.subtitle.first)
+      Solrizer.insert_field(solr_doc, "fulltext", t.value)
+      Solrizer.insert_field(solr_doc, "fulltext", t.subtitle)
     end
   end
   def insertLanguageFields ( solr_doc, field, languages )
@@ -411,6 +427,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         n += 1
 
         Solrizer.insert_field(solr_doc, field, lang.value)
+        Solrizer.insert_field(solr_doc, "fulltext", lang.value)
       end
     end
   end
@@ -422,6 +439,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       n += 1
       related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
       Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
+      Solrizer.insert_field(solr_doc, "fulltext", resource.uri)
+      Solrizer.insert_field(solr_doc, "fulltext", resource.type)
+      Solrizer.insert_field(solr_doc, "fulltext", resource.description)
     end
   end
   def events_to_json( event )
@@ -483,7 +503,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     subject.map do |sn|
       subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
-      Solrizer.insert_field(solr_doc, 'subject_topic', subject_value,facetable)
+      Solrizer.insert_field(solr_doc, 'fulltext', subject_value)
+      Solrizer.insert_field(solr_doc, 'subject_topic', subject_value, facetable)
     end
 
     # subject - complex
@@ -502,6 +523,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'technique', load_techniques(technique)
     insertFields solr_doc, 'temporal', load_temporals(temporal)
     insertFields solr_doc, 'topic', load_topics(topic)
+    insertFacets solr_doc, 'subject_topic', load_topics(topic)
 
     # subject - names
     insertFields solr_doc, 'name', load_names(name)

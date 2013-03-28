@@ -212,6 +212,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       file_json[:events] = event_array
 
       Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
+      Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
     }
   end
   def insertCopyrightFields ( solr_doc, prefix, copyright )
@@ -225,6 +226,7 @@ class DamsObjectDatastream < DamsResourceDatastream
         :note => copy.note.first.to_s,
         :beginDate => copy.beginDate.first.to_s }
       Solrizer.insert_field(solr_doc, "#{prefix}copyright", copy_json.to_json)
+      Solrizer.insert_field(solr_doc, "fulltext", copy_json.to_json)
     end
   end
   def insertLicenseFields( solr_doc, prefix, license )
@@ -241,6 +243,7 @@ class DamsObjectDatastream < DamsResourceDatastream
         :restrictionBeginDate => lic.restrictionBeginDate.first.to_s,
         :restrictionEndDate => lic.restrictionEndDate.first.to_s }
       Solrizer.insert_field(solr_doc, "#{prefix}license", lic_json.to_json)
+      Solrizer.insert_field(solr_doc, "fulltext", lic_json.to_json)
     end
   end
   def insertStatuteFields( solr_doc, prefix, statute )
@@ -258,6 +261,7 @@ class DamsObjectDatastream < DamsResourceDatastream
         :restrictionBeginDate => stat.restrictionBeginDate.first.to_s,
         :restrictionEndDate => stat.restrictionEndDate.first.to_s }
       Solrizer.insert_field(solr_doc, "#{prefix}statute", stat_json.to_json)
+      Solrizer.insert_field(solr_doc, "fulltext", stat_json.to_json)
     end
   end
   def insertOtherRightsFields( solr_doc, prefix, otherRights )
@@ -277,6 +281,7 @@ class DamsObjectDatastream < DamsResourceDatastream
         :name => othr.name.first.to_s,
         :role => othr.role.first.to_s }
       Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
+      Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
     end    
   end
   def insertRightsHolderFields( solr_doc, prefix, rightsHolder )
@@ -285,6 +290,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       rightsHolders.each do |name|
         if name.class == MadsPersonalName
           Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder", name.name.first.to_s)
+          Solrizer.insert_field(solr_doc, "fulltext", name.name)
         end
       end
     end
@@ -319,6 +325,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       insertTitleFields solr_doc, cid, component.title
 
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
+      Solrizer.insert_field(solr_doc, "fulltext", component.resource_type)
 
       insertDateFields solr_doc, cid, component.date
       insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
@@ -373,6 +380,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     if unit.class == DamsUnit
       Solrizer.insert_field(solr_doc, 'unit', unit.name, facetable)
       Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
+      Solrizer.insert_field(solr_doc, 'fulltext', unit.name)
+      Solrizer.insert_field(solr_doc, 'fulltext', unit.code)
       unit_json = {
         :id => unit.pid,
         :code => unit.code.first.to_s,
@@ -385,6 +394,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     if col != nil
       col.each do |collection|
         Solrizer.insert_field(solr_doc, "collection", collection.titleValue, facetable)
+        Solrizer.insert_field(solr_doc, "fulltext", collection.titleValue)
         Solrizer.insert_field(solr_doc, "collections", collection.pid)
         col_json = {
           :id => collection.pid,
@@ -416,8 +426,10 @@ class DamsObjectDatastream < DamsResourceDatastream
         :referenceSystem => cart.referenceSystem,
         :scale => cart.scale }
       Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
+      Solrizer.insert_field(solr_doc, "fulltext", carto_json.to_json)
     end 
     Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
+    Solrizer.insert_field(solr_doc, "fulltext", resource_type)
     Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)    
 
     Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
