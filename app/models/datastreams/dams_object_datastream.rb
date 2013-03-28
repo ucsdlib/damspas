@@ -213,6 +213,8 @@ class DamsObjectDatastream < DamsResourceDatastream
 
       Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
+      pre = (cid != nil) ? "file_#{cid}_" : "file_"
+      Solrizer.insert_field(solr_doc, "#{pre}#{file.id}_filestore", file.filestore.first.to_s)
     }
   end
   def insertCopyrightFields ( solr_doc, prefix, copyright )
