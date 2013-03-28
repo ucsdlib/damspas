@@ -156,26 +156,34 @@ module ObjectHelper
     display
   end
 
+
 	#------------------------
 	# COMPONENT TREE METHODS
 	#------------------------
 
 	#---
-	# Render a component's title.
+	# Get the file use value from the component's files value. Replaces 'render_file_use'.
 	#
-	# @param index The object's component index.
-	# @return nil
+	# @param componentIndex The component's index.
+	# @return A string that is the component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
 	# @author David T.
 	#---
-	def componentTitle(index)
-		concat render_document_show_field_value(:document=>@document, :field=>"component_#{index}_1_title_tesim")
-		return nil
+	def grabFileUse(componentIndex=nil)
+
+		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+		fieldData = @document["#{prefix}files_tesim"]
+
+		if fieldData != nil
+			files = JSON.parse(fieldData.first)
+			result = (files["use"].end_with?("-source")) ? nil : files["use"]
+		end
+
 	end
 
 	#---
 	# Get the file type value from the component's file use value
 	#
-	# @param fileUse The component's file use (type/role) value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
+	# @param fileUse The component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
 	# @return A string that is the file type value for our component.
 	# @author David T.
 	#---
@@ -186,7 +194,7 @@ module ObjectHelper
 	#---
 	# Determines which Bootstrap icon glyph to use based on a component's file type.
 	#
-	# @param fileUse The component's file use (type/role) value ("component_X_file_X_use_tesim"). E.g., "image-service", "audio-service", etc.
+	# @param fileUse The component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
 	# @return A string that is the CSS class name of the icon we want to display.
 	# @author David T.
 	#---
@@ -216,23 +224,22 @@ module ObjectHelper
 	#---
 	def displayNode(index)
 
-		fileUse = render_file_use(:component=>index,:quality=>450)
-		btnID = "tree-button-#{index}"
+		fileUse = grabFileUse(index)
 		btnAttrForFiles = "onClick='showComponent(#{index});'"
-		btnAttrForParents = (@isParent[index]) ? "data-toggle='collapse' data-target='#meta-component-#{index}'" : ''
-		btnIcon = (@isParent[index]) ? "icon-chevron-right" : grabIcon(fileUse)
-		btnCSS = (fileUse) ? "tree-file #{@firstButton}" : ''
-		btnCSS += (@isParent[index]) ? " tree-parent" : ''
+		btnID = "node-btn-#{index}"
+		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
+		btnCSS += (@isParent[index]) ? ' node-parent' : ''
+		iconCSS = (@isParent[index]) ? 'icon-chevron-right node-toggle' : grabIcon(fileUse)
 
 		concat "<li>".html_safe
-		concat "<button type='button' id='#{btnID}' class='btn btn-block btn-small btn-link #{btnCSS}' #{btnAttrForFiles} #{btnAttrForParents}><i class='#{btnIcon}'></i> ".html_safe
-		componentTitle index
+		concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>".html_safe
+		concat render :partial => 'shared/fields/title_simple', :locals => {:componentIndex => index}
 		concat "</button>".html_safe
 
 		# Display children if parent
 		if (@isParent[index])
 
-			concat "<ul id='meta-component-#{index}' class='unstyled collapse'>".html_safe
+			concat "<ul class='unstyled node-container'>".html_safe
 			@document["component_#{index}_children_isim"].each do |sub|
 				displayNode sub
 				@seen.push(sub)

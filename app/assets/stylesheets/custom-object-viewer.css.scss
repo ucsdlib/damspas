@@ -25,7 +25,6 @@ $complexFile: #AC6F2B !default;
 .component .form-actions{background-color: rgba($complexFile,0.15); border-top-color: rgba($complexFile,0.75)}
 .component .form-actions .muted{color: rgba($complexFile,0.666)}
 
-
 .component .video-js,
 .component .audiojs,
 .simple-object .video-js{margin: 0 auto 20px auto;}
@@ -34,12 +33,9 @@ $complexFile: #AC6F2B !default;
 .component img{width:auto;margin:0 auto 20px auto;display:block;}
 .simple-object img{width:auto;margin:0 auto;display:block;}
 
-.first-component{display:block;}
-
 .component > hgroup > h1{font-size:125%;padding:0;margin:0 0 5px 0;line-height:100%;color: $componentHighlight;}
 .component > hgroup > h2{font-size:100%;padding:0;margin:0 0 5px 0;line-height:100%;color: lighten($componentHighlight,10%);}
 .component > hgroup{margin-bottom: 20px;}
-
 
 .component .table,.simple-object .table{margin-bottom:0;}
 
@@ -98,14 +94,20 @@ $complexFile: #AC6F2B !default;
 //---
 // Components Control
 //--
+
+.node-container{display:none;}
+
+.components-tree li{position: relative;}
+.node-icon{position:absolute;top: 3px;left: 0;}
+.components-tree .btn{margin-left:16px;}
+
 .dams-components-button,.components-tree .btn{text-align:left;}
 .components-tree > ul{margin-bottom:0;}
 .dams-components-button,.components-tree .btn{color:#333;}
-.components-tree .tree-file{color:$linkColor;}
-.components-tree .tree-parent{font-weight:bold;}
-.components-tree .btn{padding-left:16px;}
-.components-tree .btn i{margin-left:-16px;}
-.components-tree li ul{margin-left:15px;}
+.components-tree .node-file{color:$linkColor;}
+.components-tree .node-parent{font-weight:bold;}
+.components-tree .btn{padding: 0;}
+.components-tree li ul{margin-left:16px;}
 .active-component{color: $componentHighlight !important;font-weight:bold !important;}
 
 

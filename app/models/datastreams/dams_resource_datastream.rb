@@ -384,12 +384,15 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "fulltext", rel.name)
 
         # display
-        role = relationship.loadRole.value.first.to_s
-        if rels[role] == nil
-          rels[role] = [name]
-        else
-          rels[role] << name
-        end
+        role = relationship.loadRole
+		if role != nil
+		  roleValue = role.value.first.to_s
+		  if rels[roleValue] == nil
+		    rels[roleValue] = [name]
+		  else
+		    rels[roleValue] << name
+		  end
+		end
       end
     end
 
