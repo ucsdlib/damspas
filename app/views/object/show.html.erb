@@ -1,5 +1,5 @@
 <%
-	title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	title = render :partial => 'shared/fields/title_simple'
 	@page_title =  "Object | #{title}"
 %>
 
