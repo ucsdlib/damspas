@@ -1,5 +1,6 @@
 <%
-	objectTitle = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	objectTitle = render :partial => 'shared/fields/title_simple'
+
 	component_count = @document['component_count_isi']
 	@firstButton = "first-component active-component"
 %>
