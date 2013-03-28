@@ -112,14 +112,7 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise. 
     
-    config.add_search_field 'all_fields', :label => 'All Fields'
-    config.add_search_field 'name', :label => 'Name'
-    
-
-    # Now we see how to over-ride Solr request handler defaults, in this
-    # case for a BL "search field", which is really a dismax aggregate
-    # of Solr search fields. 
-    
+    config.add_search_field 'all_fields', :label => 'Keyword (Title, Name/Creator, Topic & Notes'
     config.add_search_field('title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params. 
       field.solr_parameters = { :'spellcheck.dictionary' => 'title' }
@@ -133,19 +126,8 @@ class CatalogController < ApplicationController
         :pf => '$title_pf'
       }
     end
-    
-    config.add_search_field('author') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
-      field.solr_local_parameters = { 
-        :qf => '$author_qf',
-        :pf => '$author_pf'
-      }
-    end
-    
-    # Specifying a :qt only to show it's possible, and so our internal automated
-    # tests can test it. In this case it's the same as 
-    # config[:default_solr_parameters][:qt], so isn't actually neccesary. 
-    config.add_search_field('subject') do |field|
+    config.add_search_field 'name', :label => 'Name/Creator'
+    config.add_search_field('subject', :label => 'Topic') do |field|
       field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
       field.qt = 'search'
       field.solr_local_parameters = { 
@@ -153,7 +135,17 @@ class CatalogController < ApplicationController
         :pf => '$subject_pf'
       }
     end
+    config.add_search_field 'note', :label => 'Notes'
+    config.add_search_field 'fulltext', :label => 'Fulltext'
 
+    #config.add_search_field('author') do |field|
+    #  field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
+    #  field.solr_local_parameters = { 
+    #    :qf => '$author_qf',
+    #    :pf => '$author_pf'
+    #  }
+    #end
+    
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
@@ -165,7 +157,7 @@ class CatalogController < ApplicationController
     config.add_sort_field 'system_modified_dtsi desc', :label => "date modified \u25BC"
     config.add_sort_field 'system_modified_dtsi asc', :label => "date modified \u25B2"
     #config.add_sort_field 'author_ssi asc, title_ssi asc', :label => 'author'
-    #config.add_sort_field 'title_ssi asc, pub_date_ssi desc', :label => 'title'
+    config.add_sort_field 'title_ssi asc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.

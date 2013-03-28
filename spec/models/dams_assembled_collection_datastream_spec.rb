@@ -50,7 +50,9 @@ describe DamsAssembledCollectionDatastream do
 
  	  it "should have notes" do
         solr_doc = subject.to_solr
-        solr_doc["note_tesim"].should == ["This is some text to describe the basic contents of the object.", "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.", "http://libraries.ucsd.edu/ark:/20775/bb80808080"]
+        solr_doc["note_tesim"].should include "This is some text to describe the basic contents of the object."
+        solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["note_tesim"].should include "http://libraries.ucsd.edu/ark:/20775/bb80808080"
       end
       
       it "should have preferredCitationNote" do
