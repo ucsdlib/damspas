@@ -131,29 +131,103 @@ module ObjectHelper
     display
   end
 
+	#---
+	# POST SOLR UPDATE REWRITES
+	#---
+
+	#---
+	# Get the display file id value from the component's 'files_tesim' value. Replaces 'render_display_file'.
+	#
+	# @param quality (Optional) The quality of the display file. Possible values: 'icon', 'thumbnail', 'preview' (Default), 'large' and 'huge'
+	# @param componentIndex (Optional) The component's index.
+	# @return If found, returns a string that is the component's display file id value, otherwise returns 'no_display'
+	# @author David T.
+	#---
+	def grabDisplayFile(parameters={})
+
+		p = {:componentIndex=>nil,:quality=>'preview'}.merge(parameters)
+		componentIndex = p[:componentIndex]
+		validQualities = Set.new ['icon', 'thumbnail', 'preview', 'large', 'huge']
+		quality = (validQualities.include? p[:quality].downcase) ? p[:quality].downcase : 'preview'
+
+		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+		fieldData = @document["#{prefix}files_tesim"]
+		result = 'no_display'
+
+		if fieldData != nil
+			fieldData.each do |datum|
+				files = JSON.parse(datum)
+				if files["use"].end_with?("-#{quality}")
+					result = files["id"]
+					break
+				end
+			end
+		end
+
+		return result
+	end
+
+	#---
+	# Get the service file id value from the component's 'files_tesim' value. Replaces 'render_service_file'.
+	#
+	# @param componentIndex (Optional) The component's index.
+	# @return A string that is the component's file id value
+	# @author David T.
+	#---
+	def grabServiceFile(parameters={})
+
+		p = {:componentIndex=>nil}.merge(parameters)
+		componentIndex = p[:componentIndex]
+
+		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+		fieldData = @document["#{prefix}files_tesim"]
+		result = nil
+
+		if fieldData != nil
+			fieldData.each do |datum|
+				files = JSON.parse(datum)
+				if files["use"].end_with?("-service")
+					result = files["id"]
+					break
+				end
+			end
+		end
+
+		return result
+	end
+
+	#---
+	# Get the file use value from the component's 'files_tesim' value. Replaces 'render_file_use'.
+	#
+	# @param componentIndex (Optional) The component's index.
+	# @return A string that is the component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
+	# @author David T.
+	#---
+	def grabFileUse(parameters={})
+
+		p = {:componentIndex=>nil}.merge(parameters)
+		componentIndex = p[:componentIndex]
+
+		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+		fieldData = @document["#{prefix}files_tesim"]
+		result = nil
+
+		if fieldData != nil
+			fieldData.each do |datum|
+				files = JSON.parse(datum)
+				if files["use"].end_with?("-service")
+					result = files["use"]
+					break
+				end
+			end
+		end
+
+		return result
+	end
 
 	#------------------------
 	# COMPONENT TREE METHODS
 	#------------------------
-
-	#---
-	# Get the file use value from the component's files value. Replaces 'render_file_use'.
-	#
-	# @param componentIndex The component's index.
-	# @return A string that is the component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
-	# @author David T.
-	#---
-	def grabFileUse(componentIndex=nil)
-
-		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
-		fieldData = @document["#{prefix}files_tesim"]
-
-		if fieldData != nil
-			files = JSON.parse(fieldData.first)
-			result = (files["use"].end_with?("-source")) ? nil : files["use"]
-		end
-
-	end
 
 	#---
 	# Get the file type value from the component's file use value
@@ -199,7 +273,7 @@ module ObjectHelper
 	#---
 	def displayNode(index)
 
-		fileUse = grabFileUse(index)
+		fileUse = grabFileUse(:componentIndex=>index)
 		btnAttrForFiles = "onClick='showComponent(#{index});'"
 		btnID = "node-btn-#{index}"
 		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''

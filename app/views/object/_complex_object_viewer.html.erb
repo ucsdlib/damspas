@@ -7,10 +7,10 @@
 <% for i in 1..componentCount %>
 
 	<%
-		fileUse = render_file_use(:component=>i,:quality=>450)
-		display_file = render_display_file(:component=>i,:quality=>450)
-		service_file = render_service_file(:component=>i,:quality=>450)
-		display_file_path = (display_file != "no_display") ? "/view/#{ark}/_#{i}_#{display_file}" : ""
+		fileUse = grabFileUse(:componentIndex=>i)
+		display_file = grabDisplayFile(:componentIndex=>i)
+		service_file = grabServiceFile(:componentIndex=>i)
+		display_file_path = (display_file != 'no_display') ? "/view/#{ark}/_#{i}_#{display_file}" : ""
 		service_file_path = "/view/#{ark}/_#{i}_#{service_file}"
 
 		fileType = grabFileType(fileUse)
