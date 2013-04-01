@@ -112,31 +112,40 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise. 
     
-    config.add_search_field 'all_fields', :label => 'Keyword (Title, Name/Creator, Topic & Notes'
-    config.add_search_field('title') do |field|
+    config.add_search_field ('Keyword (Title, Name/Creator, Topic, Notes etc.)') do |field|
+	  field.solr_parameters = { :'qf' => 'all_fields_tesim' }
+	end 
+    config.add_search_field('Title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params. 
-      field.solr_parameters = { :'spellcheck.dictionary' => 'title' }
-
+      field.solr_parameters = { :'spellcheck.dictionary' => 'title_tesim' }
+	  field.solr_parameters = { :'qf' => 'title_tesim' }
       # :solr_local_parameters will be sent using Solr LocalParams
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      field.solr_local_parameters = { 
-        :qf => '$title_qf',
-        :pf => '$title_pf'
-      }
+      #field.solr_local_parameters = { 
+      #  :qf => '$title_qf',
+      #  :pf => '$title_pf'
+      #}
     end
-    config.add_search_field 'name', :label => 'Name/Creator'
+    config.add_search_field ('Name/Creator') do |field|
+	  field.solr_parameters = { :'qf' => 'name_tesim' }
+	end
     config.add_search_field('subject', :label => 'Topic') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'subject' }
-      field.qt = 'search'
-      field.solr_local_parameters = { 
-        :qf => '$subject_qf',
-        :pf => '$subject_pf'
-      }
+      field.solr_parameters = { :'spellcheck.dictionary' => 'subject_tesim' }
+	  field.solr_parameters = { :'qf' => 'subject_tesim' }
+      #field.qt = 'search'
+      #field.solr_local_parameters = { 
+      #  :qf => '$subject_qf',
+      #  :pf => '$subject_pf'
+      #}
     end
-    config.add_search_field 'note', :label => 'Notes'
-    config.add_search_field 'fulltext', :label => 'Fulltext'
+    config.add_search_field ('Notes') do |field|
+	  field.solr_parameters = { :'qf' => 'note_tesim' }
+	end
+    config.add_search_field ('Fulltext') do |field|
+	  field.solr_parameters = { :'qf' => 'fulltext_tesim' }
+	end
 
     #config.add_search_field('author') do |field|
     #  field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
