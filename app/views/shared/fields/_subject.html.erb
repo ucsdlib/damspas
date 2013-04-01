@@ -9,16 +9,16 @@
 		 htmlClose = "</dd>"
 	 end
 
-	 subject = @document["#{prefix}subject_tesim"]
+	 fieldData = @document["#{prefix}subject_tesim"]
 
-	 if subject != nil
+	 if fieldData != nil
 
-		 htmlOpen %= 'Subject'.pluralize(subject.count)
+		 htmlOpen %= 'Subject'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
 %>
 		<ul class="unstyled">
-			<% subject.each do |s| %>
-				<li><%= link_to "<i class='icon-tag icon-white'></i> #{s}".html_safe, facet_uri(s, 'subject_topic_sim'), :class => "label" %></li>
+			<% fieldData.each do |subject| %>
+				<li><%= link_to "<i class='icon-tag icon-white'></i> #{subject}".html_safe, facet_uri(subject, 'subject_topic_sim'), :class => "label" %></li>
 			<% end %>
 		</ul>
 <%

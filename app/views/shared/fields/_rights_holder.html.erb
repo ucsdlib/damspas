@@ -1,37 +1,29 @@
 <%
 	 if defined?(componentIndex) # Then we're working with a component
 		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td>"
-		 htmlClose = "</td></tr>"
+		 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		 htmlClose = "</ul></td></tr>"
 	 else # We're working with an object or collection
 		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd>"
-		 htmlClose = "</dd>"
+		 htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		 htmlClose = "</ul></dd>"
 	 end
 
-	 rightsHolder = @document["#{prefix}rightsHolder_1_tesim"]
+	 fieldData = @document["#{prefix}rightsHolder_tesim"]
 
-	 if rightsHolder != nil
+	 if fieldData != nil
 
-		 htmlOpen %= 'Rights Holders'
+		 htmlOpen %= 'Rights Holder'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
+
+		 fieldData.each do |datum|
+			 rightsHolder = datum
 %>
+		<li><%= rightsHolder %></li>
+	<%
+		 end
 
-		<ul class="unstyled">
-			<%
-				 i = 1;
-				 loop do
-			%>
-				<li><%= render_document_show_field_value(:document=>@document, :field=>"#{prefix}rightsHolder_#{i}_name_tesim") %></li>
-			<%
-				 i += 1 #try again
-				 break unless @document["#{prefix}note_#{i}_value_tesim"] != nil
-				 end
-			%>
-		</ul>
-
-<%
 		 concat htmlClose.html_safe
 
-	 end
-%>
+		 end
+	%>

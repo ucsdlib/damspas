@@ -1,32 +1,45 @@
 <%
-	if defined?(fileName)
-		if defined?(componentIndex) # Then we're working with a component
-			prefix = "component_#{componentIndex}_"
-			htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
-			htmlClose = "</ul></td></tr>"
-		else # We're working with an object or collection
-			prefix = ''
-			htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
-			htmlClose = "</ul></td></tr>"
-		end
+	 if defined?(fileName)
+		 if defined?(componentIndex) # Then we're working with a component
+			 prefix = "component_#{componentIndex}_"
+			 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+			 htmlClose = "</ul></td></tr>"
+		 else # We're working with an object or collection
+			 prefix = ''
+			 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+			 htmlClose = "</ul></td></tr>"
+		 end
 
-		fileFormat = @document["#{prefix}file_#{fileName}_formatName_tesim"]
+		 fieldData = @document["#{prefix}files_tesim"]
 
-		if fileFormat != nil
+		 if fieldData != nil
 
-			fileFormat = fileFormat.first
+			 htmlOpen %= 'File Format'
+			 concat htmlOpen.html_safe
 
-			if fileFormat == 'bytestream'
-				fileFormat = File.extname(fileName.upcase)
-				fileFormat[0] = '' # Zap the leading '.' E.g., .MP3 -> MP3
-			end
+			 fieldData.each do |datum|
+				 files = JSON.parse(datum)
+				 if files["use"].end_with?("-service")
 
-			htmlOpen %= 'File Format'
-			concat htmlOpen.html_safe
+
+					 fileFormat = files['formatName']
+
+					 if fileFormat == 'bytestream'
+						 fileFormat = File.extname(fileName.upcase)
+						 fileFormat[0] = '' # Zap the leading '.' E.g., .MP3 -> MP3
+					 end
+
+
 %>
-			<li><%= fileFormat %></li>
-<%
-			concat htmlClose.html_safe
-		end
-	end
-%>
+				<li><%= fileFormat %></li>
+			<%
+				 break
+				 end
+				 end
+
+				 concat htmlClose.html_safe
+
+				 end
+				 end
+			%>
+
