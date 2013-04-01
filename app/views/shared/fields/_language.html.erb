@@ -9,7 +9,7 @@
 		 htmlClose = "</dd>"
 	 end
 
-	 language = @document["#{prefix}language_1_id_tesim"]
+	 language = @document["#{prefix}language_tesim"]
 
 	 if language != nil
 
@@ -17,25 +17,12 @@
 		 concat htmlOpen.html_safe
 %>
 
-	<ul class="unstyled">
-		<%
-			 i = 1;
-			 loop do
-				 language = @document["#{prefix}language_#{i}_value_tesim"].first
-				 language_code = @document["#{prefix}language_#{i}_code_tesim"].first
-				 language_uri = @document["#{prefix}language_#{i}_valueURI_tesim"].first
-				 language_linktext = "<i class='icon-globe icon-white'></i> #{language} (#{language_code})".html_safe
-		%>
-			<li><%= link_to language_linktext, language_uri, :class => "label" %></li>
-		<%
-			 i += 1 #try again
-			 break unless @document["language_#{i}_id_tesim"] != nil
-			 end
-		%>
-	</ul>
+		<ul class="unstyled">
+				<li><%= language.first %></li>
+		</ul>
 
 <%
-	 concat htmlClose.html_safe
+		 concat htmlClose.html_safe
 
 	 end
 %>

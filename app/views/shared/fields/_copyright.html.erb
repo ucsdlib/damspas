@@ -9,23 +9,21 @@
 		 htmlClose = "</dd>"
 	 end
 
-	 copyright = @document["#{prefix}copyright_id_tesim"]
+	 fieldData = @document["#{prefix}copyright_tesim"]
 
-	 if copyright != nil
-
-		 copyright_status = @document["#{prefix}copyright_status_tesim"].first.gsub(/--/, '–')
-		 copyright_jurisdiction = @document["#{prefix}copyright_jurisdiction_tesim"].first.upcase
-		 copyright_purpose = @document["#{prefix}copyright_purposeNote_tesim"].first
-		 copyright_note = @document["#{prefix}copyright_note_tesim"].first
+	 if fieldData != nil
 
 		 htmlOpen %= 'Copyright'
 		 concat htmlOpen.html_safe
-%>
-	<p><strong><%= copyright_status %> (<%= copyright_jurisdiction %>)</strong></p>
-	<p><%= copyright_purpose %></p>
-	<p class="muted"><small><%= copyright_note %></small></p>
-<%
-	 	concat htmlClose.html_safe
 
-	 end
+		 copyright = JSON.parse(fieldData.first)
 %>
+		<p><strong><%= copyright['status'].gsub(/--/, '–') %> (<%= copyright['jurisdiction'].upcase %>)</strong></p>
+		<p><%= copyright['purposeNote'] %></p>
+		<p class="muted"><small><%= copyright['note'] %></small></p>
+	<%
+
+		 concat htmlClose.html_safe
+
+		 end
+	%>

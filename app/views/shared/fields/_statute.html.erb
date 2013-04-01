@@ -9,24 +9,24 @@
 		 htmlClose = "</dd>"
 	 end
 
-	 statute = @document["#{prefix}statute_id_tesim"]
+	 fieldData = @document["#{prefix}statute_tesim"]
 
-	 if statute != nil
-
-		 statute_citation = @document["#{prefix}statute_citation_tesim"].first
-		 statute_note = @document["#{prefix}statute_note_tesim"].first
-		 statute_jurisdiction = @document["#{prefix}statute_jurisdiction_tesim"].first.upcase
+	 if fieldData != nil
 
 		 htmlOpen %= 'Statute'
 		 concat htmlOpen.html_safe
+
+		 statute = JSON.parse(fieldData.first)
 %>
-	<p><strong><%= statute_citation %> &ndash; <%= statute_jurisdiction %></strong></p>
-	<p><%= statute_note %></p>
+	<p><strong><%= statute['citation'] %> &ndash; <%= statute['jurisdiction'].upcase %></strong></p>
+	<p><%= statute['note'] %></p>
 <%
+
 	 concat htmlClose.html_safe
 
 	 end
 %>
+
 
 
 
