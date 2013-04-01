@@ -60,9 +60,11 @@ class DamsObjectDatastream < DamsResourceDatastream
     # resource type and cartographics
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
     map.cartographics(:in => DAMS, :class_name => 'Cartographics')
- end
+  end
  
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+  }
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
@@ -213,6 +215,23 @@ class DamsObjectDatastream < DamsResourceDatastream
 
       Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
+
+      # fulltext extraction for pdfs
+      if file.mimeType.first.to_s == "application/pdf"
+        if @parent_obj == nil
+          @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
+        end
+        begin
+          fulltext = @parent_obj.datastreams[ "fulltext_#{file.id}" ]
+          if fulltext != nil
+            Solrizer.insert_field(solr_doc, "fulltext", fulltext.content)
+          end
+        rescue Exception => e
+          puts "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
+        end
+      end
+
+      # insert solr field
       pre = (cid != nil) ? "file_#{cid}_" : "file_"
       Solrizer.insert_field(solr_doc, "#{pre}#{file.id}_filestore", file.filestore.first.to_s)
     }
