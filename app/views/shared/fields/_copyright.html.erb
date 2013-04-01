@@ -18,7 +18,7 @@
 
 		 copyright = JSON.parse(fieldData.first)
 %>
-		<p><strong><%= copyright['status'].gsub(/--/, '–') %> (<%= copyright['jurisdiction'].upcase %>)</strong></p>
+		<p><strong><%= copyright['status'].gsub(/--/, ' – ') %> (<%= copyright['jurisdiction'].upcase %>)</strong></p>
 		<p><%= copyright['purposeNote'] %></p>
 		<p class="muted"><small><%= copyright['note'] %></small></p>
 	<%
