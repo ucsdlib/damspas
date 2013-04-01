@@ -1,22 +1,29 @@
-<% if @document["name_tesim"] != nil %>
-	<dt><%="Name".pluralize(@document["name_tesim"].count)%></dt>
-	<dd>
-		<ul class="unstyled">
-		<%
-			#fields:
-			# arr name="name_tesim">
-			#<str>Wagner, Rick, 1972-</str>
-			#<str>Hallman, Eric J.</str>
-			#<str>So, Geoffrey</str>
-			#<str>Burns, Jack O.</str>
-			#<str>Wagner, Rick, 1972-</str>
-			#<str>Harkness, Robert</str>
-			#</arr>
-		names = @document["name_tesim"];
-		@document["name_tesim"].each { |name| 
-			concat "<li>#{name}</li>".html_safe
-		}
-		%>
-		</ul>
-	</dd>
-<% end %>
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		 htmlClose = "</ul></td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		 htmlClose = "</ul></dd>"
+	 end
+
+	 fieldData = @document["#{prefix}name_tesim"]
+
+	 if fieldData != nil
+
+		 htmlOpen %= 'Name'.pluralize(fieldData.count)
+		 concat htmlOpen.html_safe
+
+		 fieldData.each do |datum|
+	 		name = datum
+%>
+		<li><%= name %></li>
+<%
+		 end
+
+		 concat htmlClose.html_safe
+
+	 end
+%>
