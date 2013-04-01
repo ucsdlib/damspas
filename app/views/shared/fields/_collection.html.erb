@@ -19,7 +19,7 @@
 		 fieldData.each do |datum|
 			 collection = JSON.parse(datum)
 %>
-		<li><p><%= link_to "<i class='icon-book icon-white'></i> #{collection['name']}".html_safe, collection_path(collection['id']), :class => "label" %></p></li>
+		<li><p><%= link_to collection['name'], collection_path(collection['id']) %></p></li>
 <%
 	 end
 

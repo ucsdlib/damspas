@@ -1,37 +1,28 @@
-<% if @document['corporateName_1_id_tesim'] != nil %>
-<dt>Corporate Names</dt>
-<!-- 
-example. good one? not sure of correct structure here
-<arr name="corporateName_2_id_tesim">
-<str>bd69633288</str>
-</arr>
-<arr name="corporateName_2_name_tesim">
-<str>
-University of California, San Diego.. Center for Astrophysics and Space Sciences.
-</str>
-</arr>
-<arr name="corporateName_2_authority_tesim">
-<str>naf</str>
-</arr>
-<arr name="corporateName_element_2_0_tesim">
-<str>University of California, San Diego.</str>
-</arr>
-<arr name="corporateName_element_2_1_tesim">
-<str>Center for Astrophysics and Space Sciences</str>
-</arr>
--->
-<dd>
 <%
-i = 1;
-loop do
-%>	
-<% if @document["corporateName_#{i}_name_tesim"] != nil%>
-	<p><%=@document["corporateName_#{i}_name_tesim"].first%></p>
-<% end %>
-<%
-i += 1 #try again
-break unless @document["corporateName_#{i}_id_tesim"] != nil
-end
-end
+	if defined?(componentIndex) # Then we're working with a component
+		prefix = "component_#{componentIndex}_"
+		htmlOpen = "<tr><td>%s</td><td><ul>"
+		htmlClose = "</ul></td></tr>"
+	else # We're working with an object or collection
+		prefix = ''
+		htmlOpen = "<dt>%s</dt><dd><ul>"
+		htmlClose = "</ul></dd>"
+	end
+
+	fieldData = @document["#{prefix}corporateName_tesim"]
+
+	if fieldData != nil
+
+		htmlOpen %= 'Corporate Name'.pluralize(fieldData.count)
+		concat htmlOpen.html_safe
+
+		fieldData.each do |datum|
+			corporateName = datum
+			concat "<li>#{corporateName}</li>".html_safe
+		end
+
+		concat htmlClose.html_safe
+
+	end
 %>
-</dd>
+
