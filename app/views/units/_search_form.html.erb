@@ -6,7 +6,7 @@
 	
 	<% unless search_fields.empty? %>
 		<label for="dams-search" class="hide-text"><%= t('blacklight.search.form.search_field.label') %></label>
-		<%= select_tag("dams-search", options_for_select(search_fields, h(params[:search_field])), :class=>"input-block-level") %>
+		<%= select_tag(:search_field, options_for_select(search_fields, h(params[:search_field])), :class=>"input-block-level", :id=>"dams-search") %>
 		<span class="hide-text"><%= t('blacklight.search.form.search_field.post_label') %></span>
 	<% end %>
 
