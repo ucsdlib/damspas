@@ -113,7 +113,8 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise. 
     
     config.add_search_field ('Keyword (Title, Name/Creator, Topic, Notes etc.)') do |field|
-	  field.solr_parameters = { :'qf' => 'all_fields_tesim' }
+	  #field.solr_parameters = { :'qf' => 'all_fields_tesim' }
+	  field.solr_parameters = { :'qf' => 'subject_tesim title_tesim date_tesim name_tesim id component_title_tesim' }
 	end 
     config.add_search_field('Title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params. 
