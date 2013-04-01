@@ -1,13 +1,13 @@
 <div class="row-fluid">
 	<section class="span12">
-		<% if @document['id_t'] != nil %>
+		<% if @document['id'] != nil %>
 			<% if @document['component_count_isi'] != nil %>
 				<%# THE COMPLEX OBJECT SAYS, "IPSA SCIENTIA POTESTAS EST" %>
 				<%= render :partial => 'complex_object_viewer' %>
 			<% else %>
 				<%# THE SIMPLE OBJECT SEZ, "DERP" %>
 				<%
-					ark = render_document_show_field_value(:document=>@document, :field=>'id_t')
+					ark = render_document_show_field_value(:document=>@document, :field=>'id')
 
 					fileType = grabFileUse()
 					display_file = grabDisplayFile()

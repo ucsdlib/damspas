@@ -1,20 +1,10 @@
 <%
-	title = render :partial => 'shared/fields/title_simple'
-	@page_title =  "Object | #{title}"
+	@page_title =  "Object | #{grabTitle}"
 %>
 
 <div class="row-fluid">
 	<div class="dams-breadcrumbs span12">
-		<ul class="breadcrumb">
-			<li><a href="/">Digital Collections</a> <span class="divider">&raquo;</span></li>
-			<li>
-				<a href="/<%=render_document_show_field_value(:document=>@document, :field=>"unit_code_tesim")%>">
-					<%=render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim")%>
-				</a>
-				<span class="divider">&raquo;</span>
-			</li>
-			<li class="active"><%= title %></li>
-		</ul>
+		<%= render :partial => 'breadcrumbs' %>
 	</div>
 </div>
 
@@ -24,7 +14,7 @@
 		<div class="row-fluid">
 			<section class="dams-viewer span12">
 				<%= render :partial => 'shared/fields/title' %>
-				<%= render :partial => 'file_navigation' %>
+				<%= render :partial => 'object_viewer' %>
 			</section>
 		</div>
 

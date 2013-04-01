@@ -118,8 +118,8 @@
     <% if can? :update, @document then %>
 			<p class="sidebar-header"><strong>Editor Tools</strong></p>
 			<ul class="unstyled sidebar-button-list">
-      <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, dams_unit_path(@document['id_t']), class: "btn btn-block btn-small btn-link"%>
-      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_unit_path(@document['id_t']), class: "btn btn-block btn-small btn-link"%>
+      <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, dams_unit_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_unit_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 			</ul>
     <% end %>
 				

@@ -230,6 +230,29 @@ module ObjectHelper
 	#------------------------
 
 	#---
+	# Get the object's title
+	#
+	# @param componentIndex (Optional) The component's index.
+	# @return A string that is the title value for our object.
+	# @author David T.
+	#---
+	def grabTitle(parameters={})
+
+		p = {:componentIndex=>nil}.merge(parameters)
+		componentIndex = p[:componentIndex]
+
+		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+		fieldData = @document["#{prefix}title_json_tesim"]
+		result = nil
+
+		if fieldData != nil
+			title = JSON.parse(fieldData.first)
+			result = title['value']
+		end
+
+	end
+
+	#---
 	# Get the file type value from the component's file use value
 	#
 	# @param fileUse The component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
@@ -279,11 +302,10 @@ module ObjectHelper
 		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
 		btnCSS += (@isParent[index]) ? ' node-parent' : ''
 		iconCSS = (@isParent[index]) ? 'icon-chevron-right node-toggle' : grabIcon(fileUse)
+		btnTitle = grabTitle(:componentIndex=>index)
 
 		concat "<li>".html_safe
-		concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>".html_safe
-		concat render :partial => 'shared/fields/title_simple', :locals => {:componentIndex => index}
-		concat "</button>".html_safe
+		concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
 
 		# Display children if parent
 		if (@isParent[index])
