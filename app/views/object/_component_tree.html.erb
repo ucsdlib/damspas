@@ -1,6 +1,4 @@
 <%
-	objectTitle = render :partial => 'shared/fields/title_simple'
-
 	component_count = @document['component_count_isi']
 	@firstButton = "first-component active-component"
 %>
@@ -9,7 +7,7 @@
 
 	<% initComponentTree component_count %>
 	<button type="button" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-collapsed">
-		<strong><%= objectTitle %> Components</strong>
+		<strong><%= grabTitle %> Components</strong>
 	</button>
 	<div class="components-tree">
 		<% displayComponentTree component_count %>
