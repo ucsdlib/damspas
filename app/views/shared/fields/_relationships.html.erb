@@ -15,8 +15,9 @@
 		fieldData.each do |datum|
 			relationship = JSON.parse(datum)
 			relationship.each do |key, value|
-				htmlOpen %= key.pluralize(value.count)
-				concat htmlOpen.html_safe
+				temp = htmlOpen
+				temp %= key.pluralize(value.count).titleize
+				concat temp.html_safe
 				value.each do |name|
 					concat "<li>#{name}</li>".html_safe
 				end
