@@ -3,7 +3,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.language(:in=>DAMS, :class_name => 'Language')
+    map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
@@ -39,8 +39,8 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     map.event(:in=>DAMS)
 
     # child collections
-    map.assembledCollection(:in => DAMS, :to => 'hasAssembledCollection')
-    map.provenanceCollection(:in => DAMS, :to => 'hasProvenanceCollection')
+    map.assembledCollection(:in => DAMS, :to => 'hasAssembledCollection',:class_name => 'DamsAssembledCollectionInternal')
+    map.provenanceCollection(:in => DAMS, :to => 'hasProvenanceCollection',:class_name => 'DamsProvenanceCollectionInternal')
 
     # related collections
     map.relatedCollection(:in => DAMS)
