@@ -23,8 +23,9 @@ class CatalogController < ApplicationController
   # exclude opentopo records here
   CatalogController.solr_search_params_logic += [:exclude_opentopo]
   def exclude_opentopo(solr_parameters,user_parameters)
-    solr_parameters[:fq] << "-collections_tesim:bd6587977w"
-    solr_parameters[:fq] << "-collections_tesim:bd5905379f"
+    solr_parameters[:fq] << "-collections_tesim:bd6587977w" # ???
+    solr_parameters[:fq] << "-collections_tesim:bb13664503" # opentopo
+    solr_parameters[:fq] << "-collections_tesim:bd5905379f" # carousel images
     solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR type_tesim:Collection)"
   end
 
