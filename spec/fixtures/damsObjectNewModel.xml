@@ -36,5 +36,191 @@
     <dams:genreForm rdf:resource="http://library.ucsd.edu/ark:/20775/bd9796116g"/>
     <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
     <dams:occupation rdf:resource="http://library.ucsd.edu/ark:/20775/bd72363644"/>
+    <dams:provenanceCollection>
+      <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bd24241158">
+        <dams:title>
+          <dams:Title>
+            <rdf:value>Scripps Institution of Oceanography, Geological Collections</rdf:value>
+          </dams:Title>
+        </dams:title>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd36527954">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>failure</dams:outcome>
+            <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
+            <dams:eventDate>2013-03-08T11:01:13-0800</dams:eventDate>
+            <dams:type>Bulk Solr Indexing</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1161316m">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-13T10:07:02-0700</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd0888277b">
+            <mads:authoritativeLabel>Oceanography</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Oceanography</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd6997545c">
+            <mads:authoritativeLabel>Marine geology</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Marine geology</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd2185217d">
+            <mads:authoritativeLabel>Geological samples</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Geological samples</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd4949734k">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-08T11:01:12-0800</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository</rdf:value>
+              </dams:Role>
+            </dams:role>
+            <dams:corporateName>
+              <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd8294487v">
+                <mads:authoritativeLabel>Scripps Institute of Oceanography, Geological Collections</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:CorporateName>
+            </dams:corporateName>
+          </dams:Relationship>
+        </dams:relationship>
+        <dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
+            <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Marine sediments</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>res</dams:code>
+                <rdf:value>Researcher</rdf:value>
+              </dams:Role>
+            </dams:role>
+            <dams:personalName>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd95914293">
+                <mads:authoritativeLabel>Richard Norris</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:GivenNameElement>
+                    <mads:elementValue>Richard</mads:elementValue>
+                  </mads:GivenNameElement>
+                  <mads:FamilyNameElement>
+                    <mads:elementValue>Norris</mads:elementValue>
+                  </mads:FamilyNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+          </dams:Relationship>
+        </dams:relationship>
+        <dams:note>
+          <dams:Note>
+            <rdf:value rdf:datatype="http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral"
+            >
+        &lt;p&gt;The Scripps Institution of Oceanography, Geological Collections is a growing archive of sea-floor samples and associated data supporting a diverse variety of scientific research. The SIO geological collections are supported, in part, by the National Science Foundation.&lt;/p&gt;
+        &lt;p&gt;This portal provides access to available digital records for samples held by the SIO Geological Collections, as well as related digital research data for the samples, including images, xray images and video, x-ray fluorescence data, and color data.&lt;/p&gt;
+        &lt;p&gt;The SIO collection contains nearly 6,600 cores (15,000 refrigerated core sections) collected using gravity, piston, trigger, vibra- and box-coring techniques. It is the largest collection in the US (outside that of the Ocean Drilling Program) of sediments from the Pacific Ocean and also contains extensive material from the other major ocean basins.&lt;/p&gt;
+        &lt;p&gt;The SIO dredged rocks collection consists of more than 3,500 dredge hauls and related archive materials. The collection includes rocks from a wide variety of physiographic provinces located throughout the Pacific, Indian, and Atlantic Oceans. All major tectonic features, including hot spots, island chains, seamounts, and abyssal plains are represented and rock types include drowned coral reef rocks, ice-rafted rocks, and manganese nodules, as well as very rare igneous, metamorphic, and mantle rocks.&lt;/p&gt;</rdf:value>
+            <dams:type>scopeAndContent</dams:type>
+            <dams:displayLabel>Scope &amp; Contents</dams:displayLabel>
+          </dams:Note>
+        </dams:note>
+      </dams:ProvenanceCollection>
+    </dams:provenanceCollection>
+    <dams:assembledCollection>
+	    <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
+	    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+	    <dams:title>
+	      <dams:Title>
+	        <dams:type>main</dams:type>
+	        <rdf:value>UCSD Electronic Theses and Dissertations</rdf:value>
+	      </dams:Title>
+	    </dams:title>
+	    <dams:date>
+	      <dams:Date>
+	        <dams:beginDate>2009-05-03</dams:beginDate>
+	      </dams:Date>
+	    </dams:date>
+	    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+	    <dams:note>
+	      <dams:ScopeContentNote>
+	        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+	        <dams:displayLabel>Scope and contents</dams:displayLabel>
+	        <dams:type>scope_and_content</dams:type>
+	      </dams:ScopeContentNote>
+	    </dams:note>
+	    <dams:relatedCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
+	    <dams:hasProvenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+	    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb28282828"/>
+	  </dams:AssembledCollection>
+	</dams:assembledCollection>  
+    <dams:collection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/> 
+    <dams:provenanceCollectionPart>
+	  <dams:ProvenanceCollectionPart rdf:about="http://library.ucsd.edu/ark:/20775/bb25252525">
+	    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+	    <dams:title>
+	      <dams:Title>
+	        <dams:type>main</dams:type>
+	        <rdf:value>May 2009</rdf:value>
+	      </dams:Title>
+	    </dams:title>
+	    <dams:date>
+	      <dams:Date>
+	        <dams:beginDate>2009-05-03</dams:beginDate>
+	        <dams:endDate>2009-05-31</dams:endDate>
+	      </dams:Date>
+	    </dams:date>
+	    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+	    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+	    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb30303030"/>
+	  </dams:ProvenanceCollectionPart>  
+	</dams:provenanceCollectionPart>                   
   </dams:Object>
 </rdf:RDF>
