@@ -42,8 +42,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     # unit and collections
     map.unit_node(:in => DAMS, :to=>'unit')
     map.collection(:in => DAMS)
-    map.assembledCollection(:in => DAMS)
-    map.provenanceCollection(:in => DAMS)
+    map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
+    map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
     map.provenanceCollectionPart(:in => DAMS)
 
     # components and files
@@ -87,6 +87,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_collection
     load_collection(collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
   end
+  
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
@@ -94,9 +95,11 @@ class DamsObjectDatastream < DamsResourceDatastream
         collection_uri = col.to_s
 	    collection_pid = collection_uri.gsub(/.*\//,'')
 	    hasModel = ""
-        if (collection_pid != nil && collection_pid != "")
+        if (collection_pid != nil && collection_pid != "" && !(collection_pid.include? 'Internal'))
            obj = DamsAssembledCollection.find(collection_pid)
       	   hasModel = obj.relationships(:has_model).to_s
+      	else
+      	   collections << col
         end
 	    if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Assembled'))
       		  collections << obj
@@ -421,12 +424,20 @@ class DamsObjectDatastream < DamsResourceDatastream
           :id => collection.pid,
           :name => collection.titleValue.first.to_s
         }
-        if ( collection.kind_of? DamsAssembledCollection )
+
+ 		if ( collection.to_s.include? 'DamsProvenanceCollectionInternal' )
+          col_json[:type] = "ProvenanceCollection"  
+ 		elsif ( collection.to_s.include? 'DamsAssembledCollectionInternal' )
+          col_json[:type] = "AssembledCollection"        
+ 		elsif ( collection.to_s.include? 'DamsProvenanceCollectionPartInternal' )
+          col_json[:type] = "ProvenanceCollectionPart"               
+        elsif ( collection.kind_of? DamsAssembledCollection )
           col_json[:type] = "AssembledCollection"
         elsif ( collection.kind_of? DamsProvenanceCollectionPart )
           col_json[:type] = "ProvenanceCollectionPart"
         elsif ( collection.kind_of? DamsProvenanceCollection )
           col_json[:type] = "ProvenanceCollection"
+                       
         end
         Solrizer.insert_field(solr_doc, 'collection_json', col_json.to_json)
       end
