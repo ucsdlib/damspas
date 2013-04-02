@@ -1,4 +1,8 @@
-class DamsProvenanceCollectionDatastream < DamsResourceDatastream
+class DamsProvenanceCollectionInternal
+    include ActiveFedora::RdfObject
+    include DamsHelper
+    rdf_type DAMS.ProvenanceCollection
+    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
@@ -48,34 +52,9 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     # related objects
     map.object(:in => DAMS, :to => 'hasObject')
   end
-
-  def load_part
-    part_uri = part_node.values.first.to_s
-    part_pid = part_uri.gsub(/.*\//,'')
-    if part_pid != nil && part_pid != ""
-      DamsProvenanceCollectionPart.find(part_pid)
-    else
-      nil
-    end
+  
+  def pid
+      rdf_subject.to_s.gsub(/.*\//,'')
   end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-
-  def serialize
-    graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
-    super
-  end
-
-  def to_solr (solr_doc = {})
-    Solrizer.insert_field(solr_doc, 'type', 'Collection')
-    Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
-    
-    part = load_part
-    if part != nil && part.class == DamsProvenanceCollectionPart
-      Solrizer.insert_field(solr_doc, 'part_name', part.titleValue)
-      Solrizer.insert_field(solr_doc, 'part_id', part.pid)
-    end
-    
-    super
- end
 end

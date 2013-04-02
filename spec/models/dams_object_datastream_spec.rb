@@ -374,6 +374,14 @@ END
 		testIndexNoteFields solr_doc, "note","This is some text to describe the basic contents of the object."
       end
 
+      it "should index collection" do
+        solr_doc = subject.to_solr
+        solr_doc["collection_json_tesim"].first.should include "Historical Dissertations"
+        solr_doc["collection_json_tesim"].second.should include "UCSD Electronic Theses and Dissertations"
+        solr_doc["collection_json_tesim"].third.should include "Scripps Institution of Oceanography, Geological Collections"
+        solr_doc["collection_json_tesim"].fourth.should include "May 2009"
+      end
+      
       def testIndexFields (solr_doc,fieldName,name)
         solr_doc["#{fieldName}_tesim"].should == ["#{name}"]
         #solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
