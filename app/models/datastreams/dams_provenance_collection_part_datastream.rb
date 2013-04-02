@@ -39,7 +39,7 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
     map.event(:in=>DAMS)
 
     # parent collection
-    map.provenanceCollection(:in => DAMS)
+    map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
 
     # related collections
     map.relatedCollection(:in => DAMS)
