@@ -210,8 +210,8 @@ class DamsObjectDatastream < DamsResourceDatastream
       end
 
       # events
-      event_array = events_to_json file.event
-      file_json[:events] = event_array
+      #event_array = events_to_json file.event
+      #file_json[:events] = event_array
 
       Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
