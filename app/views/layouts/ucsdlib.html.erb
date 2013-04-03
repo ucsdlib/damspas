@@ -9,7 +9,7 @@
 		<%# YE OLDE CSS %>
 		<%= favicon_link_tag asset_path('favicon.ico') %>
 		<%= stylesheet_link_tag "application", :media => "all" %>
-		<link href="http://vjs.zencdn.net/c/video-js.css" rel="stylesheet">
+		
 
 		<%= csrf_meta_tags %>
 		<%= raw(render_head_content) %> 
@@ -97,7 +97,7 @@
 
 		<%# LE JAVASCRIPT  %>
 		<%= javascript_include_tag "application" %>
-		<script src="http://vjs.zencdn.net/c/video.js"></script>
+		
 		<%= render :partial => 'object/init' %>
 
 		<!-- show debugging parameters in development -->
