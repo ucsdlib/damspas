@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require blacklight
+ *= require video-js
  *= require custom-overrides
  *= require custom-object-viewer
  *= require custom-collections
