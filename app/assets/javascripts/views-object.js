@@ -96,7 +96,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 		var line = new google.maps.Polyline({
 			path: lineCoords,
 			icons: [{icon:symbolOne,offset:"0%"},{icon:symbolTwo,offset:"100%"}],
-			strokeColor: "#ff0000",
+			strokeColor: "#300",
 			strokeOpacity: 1.0,
 			strokeWeight: 2
 		});
