@@ -221,6 +221,19 @@
 	    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
 	    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb30303030"/>
 	  </dams:ProvenanceCollectionPart>  
-	</dams:provenanceCollectionPart>                   
+	</dams:provenanceCollectionPart>      
+	 	   
+<dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
+
+<dams:topic>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
+            <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Marine sediments</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>                       
   </dams:Object>
 </rdf:RDF>

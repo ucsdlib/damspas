@@ -305,6 +305,11 @@ END
       end
 
       it "should index mads fields" do
+        solr_doc = subject.to_solr   
+        solr_doc["topic_tesim"].should == ["Baseball", "Marine sediments"]
+      end
+      
+      it "should index mads fields" do
         solr_doc = subject.to_solr
 
         #it "should index iconography" do
@@ -335,9 +340,11 @@ END
         testIndexFields solr_doc, "stylePeriod","Impressionism"
 
         #it "should index topic" do
-        testIndexFields solr_doc, "topic","Baseball"
+        solr_doc["topic_tesim"].should == ["Baseball", "Marine sediments"]
 
         #it "should index function" do
+        puts solr_doc["function_tesim"]
+
         testIndexFields solr_doc, "function","Sample Function"
 
         #it "should index genreForm" do
