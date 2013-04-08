@@ -206,14 +206,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     object.values.each do |name|
       name_uri = name.to_s
       name_pid = name_uri.gsub(/.*\//,'')
-
       if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
       	objects << className.find(name_pid)
-      elsif name.name.first.nil? && name.pid != nil
-        puts "external class #{name.pid}"     
+      elsif name.name.first.nil? && name.pid != nil    
         objects << className.find(name.pid)      
       else 
-        puts "internal class #{name.pid}"
       	objects << name
        end
     end
@@ -223,9 +220,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   ## Solr ######################################################################
   def insertFields (solr_doc, fieldName, objects)
     if objects != nil
-      #puts objects.length
       objects.each do |obj|
-        if(fieldName == 'topic')
+        if(fieldName == 'familyName')
         	#puts "#{fieldName}=#{obj.name}"
         end
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
