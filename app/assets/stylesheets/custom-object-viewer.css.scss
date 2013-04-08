@@ -13,6 +13,12 @@ $complexFile: #AC6F2B !default;
 // COMPLEX OBJECT VIEWER PAGE
 //----------------------------------------------------------
 
+// CARTOGRAPHICS
+
+#map-canvas{width: 100%;height: 200px;margin-bottom: 20px;} // height required
+#map-canvas img{max-width:none;} // fix for bootstrap conflict
+#map-canvas label{width: auto;display:inline;} // fix for bootstrap conflict
+
 // COMPONENTS
 .component{display:none;background-color:$componentBG;margin:$viewerPadding;padding:$viewerPadding;border-radius: 10px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 .simple-object{margin:$viewerPadding;padding:$viewerPadding;background-color:darken($objectBG,5%);border-radius: 10px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
@@ -87,6 +93,12 @@ $complexFile: #AC6F2B !default;
 
 // Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
+
+.component{
+	.label{background-color: lighten($complexFile,10%);}
+	.label:hover{background-color: $complexFile;}
+}
+
 
 // Sidebar
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}

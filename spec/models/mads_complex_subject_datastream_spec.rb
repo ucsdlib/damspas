@@ -54,11 +54,11 @@ describe MadsComplexSubjectDatastream do
 
     it "should have fields" do
       cList = subject.componentList.first
-      cList[0].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic
+      #cList[0].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic
       cList[0].name.should == ["Galaxies"]
-      cList[1].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic
+      #cList[1].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic
       cList[1].name.should == ["Clusters"]
-      cList[2].should be_kind_of MadsComplexSubjectDatastream::ComponentList::GenreForm
+      #cList[2].should be_kind_of MadsComplexSubjectDatastream::ComponentList::GenreForm
       cList[2].name.should == ["Film and video adaptions"]      
       cList.size.should == 19
     end
