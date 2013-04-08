@@ -297,7 +297,7 @@ module ObjectHelper
 	def displayNode(index)
 
 		fileUse = grabFileUse(:componentIndex=>index)
-		btnAttrForFiles = "onClick='showComponent(#{index});'"
+		btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
 		btnID = "node-btn-#{index}"
 		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
 		btnCSS += (@isParent[index]) ? ' node-parent' : ''
