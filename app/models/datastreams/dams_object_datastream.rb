@@ -30,10 +30,10 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # subject names
     map.name(:in => DAMS)
-    map.conferenceName(:in => DAMS)
-    map.corporateName(:in => DAMS)
-    map.familyName(:in => DAMS)
-    map.personalName(:in => DAMS)
+    map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
+    map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
+    map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
+    map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
