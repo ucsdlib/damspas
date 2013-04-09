@@ -8,7 +8,21 @@
     <dams:scientificName rdf:resource="http://library.ucsd.edu/ark:/20775/bd2662949r"/>
     <dams:technique rdf:resource="http://library.ucsd.edu/ark:/20775/bd8772217q"/>
     <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd1366006j"/>
+    <dams:scopeContentNote>
+	  <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/zz11111111">
+	    <dams:type>scope_and_content</dams:type>
+	    <dams:displayLabel>Scope and contents</dams:displayLabel>
+	    <rdf:value>scope content note internal value</rdf:value>
+	  </dams:ScopeContentNote>
+	</dams:scopeContentNote>    
     <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>
+    <dams:preferredCitationNote>
+	  <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
+	    <dams:type>citation</dams:type>
+	    <dams:displayLabel>Citation</dams:displayLabel>
+	    <rdf:value>citation note internal value</rdf:value>
+	  </dams:PreferredCitationNote>   
+    </dams:preferredCitationNote> 
     <dams:title>
       <dams:Title>
         <rdf:value>Sample Object Record #8</rdf:value>
@@ -109,6 +123,18 @@
 	  </mads:ConferenceName>   
     </dams:conferenceName>    
     <dams:function rdf:resource="http://library.ucsd.edu/ark:/20775/bd7816576v"/>
+    <dams:function>
+	  <dams:Function rdf:about="http://library.ucsd.edu/ark:/20775/zz99999999">
+	    <mads:authoritativeLabel>internal function value</mads:authoritativeLabel>
+	    <dams:authority>XXX</dams:authority>
+	    <dams:valueURI rdf:resource="http://id.loc.gov/XXX02"/>
+	    <mads:elementList rdf:parseType="Collection">
+	      <dams:FunctionElement>
+	        <mads:elementValue>Sample Function</mads:elementValue>
+	      </dams:FunctionElement>
+	    </mads:elementList>
+	  </dams:Function>    
+	</dams:function>
     <dams:corporateName rdf:resource="http://library.ucsd.edu/ark:/20775/bd8021352s"/>
     <dams:corporateName>
 	  <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
@@ -124,8 +150,22 @@
 	</dams:corporateName>
     <dams:complexSubject rdf:resource="http://library.ucsd.edu/ark:/20775/bd6724414c"/>
     <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
+    <dams:note>
+	  <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd11111111">
+	    <dams:type>abstract</dams:type>
+	    <dams:displayLabel>Abstract</dams:displayLabel>
+	    <rdf:value>Note internal value.</rdf:value>
+	  </dams:Note>    
+	</dams:note>    
     <dams:genreForm rdf:resource="http://library.ucsd.edu/ark:/20775/bd9796116g"/>
     <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
+    <dams:custodialResponsibilityNote>
+	  <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
+	    <dams:type>custodial_history</dams:type>
+	    <dams:displayLabel>Digital object made available by</dams:displayLabel>
+	    <rdf:value>Mandeville Special Collections Library....Internal value</rdf:value>
+	  </dams:CustodialResponsibilityNote> 
+	</dams:custodialResponsibilityNote>   
     <dams:occupation rdf:resource="http://library.ucsd.edu/ark:/20775/bd72363644"/>
     <dams:provenanceCollection>
       <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bd24241158">

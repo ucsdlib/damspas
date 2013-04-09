@@ -343,9 +343,7 @@ END
         solr_doc["topic_tesim"].should == ["Baseball", "Marine sediments"]
 
         #it "should index function" do
-        puts solr_doc["function_tesim"]
-
-        testIndexFields solr_doc, "function","Sample Function"
+        solr_doc["function_tesim"].should == ["Sample Function", "internal function value"]
 
         #it "should index genreForm" do
         testIndexFields solr_doc, "genreForm","Film and video adaptions"
@@ -369,16 +367,18 @@ END
         testComplexSubjectFields solr_doc, "complexSubject","Galaxies--Clusters"
 
         #it "should have scopeContentNote" do
-		testIndexNoteFields solr_doc, "scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["scopeContentNote_tesim"].should == ["Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.", "scope content note internal value"]        
+		#testIndexNoteFields solr_doc, "scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have preferredCitationNote" do
-		testIndexNoteFields solr_doc, "preferredCitationNote","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
+        solr_doc["preferredCitationNote_tesim"].should == ["\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)", "citation note internal value"]                
+		#testIndexNoteFields solr_doc, "preferredCitationNote","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
 
         #it "should have CustodialResponsibilityNote" do
-		testIndexNoteFields solr_doc, "custodialResponsibilityNote","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"
+        solr_doc["custodialResponsibilityNote_tesim"].should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)", "Mandeville Special Collections Library....Internal value"]
 
         #it "should have note" do
-		testIndexNoteFields solr_doc, "note","This is some text to describe the basic contents of the object."
+		testIndexNoteFields solr_doc, "note","Note internal value."
       end
 
       it "should index collection" do
