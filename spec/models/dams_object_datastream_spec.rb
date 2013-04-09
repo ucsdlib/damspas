@@ -355,7 +355,7 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        testIndexNameFields solr_doc, "name","Generic Name"
+        solr_doc["name_tesim"].should == ["Generic Name", "Generic Name Internal"]
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]
