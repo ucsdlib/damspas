@@ -4,13 +4,12 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'Relationship')
     map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
-    #map.language(:in=>DAMS)
 
     # notes
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
-    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
-    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+    map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')
+    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'DamsCustodialResponsibilityNoteInternal')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'DamsPreferredCitationNoteInternal')
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
     # subjects
     map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')

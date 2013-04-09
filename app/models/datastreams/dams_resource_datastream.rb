@@ -253,13 +253,15 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     objects.map do |no|
       note_json = {}
       note_obj = nil
-      if (no.external?)
+      note_uri = no.to_s
+      note_pid = note_uri.gsub(/.*\//,'')     
+	  if no.value.first.nil? && no.pid != nil
         note_obj = no.load
-        note_json[:id] = note_obj.pid.first
-      else
-        note_obj = no
+        note_json[:id] = note_obj.pid.first      
+      else 
+      	note_obj = no
       end
-
+        
       note_json.merge!( :type => note_obj.type.first.to_s,
                        :value => note_obj.value.first.to_s,
                 :displayLabel => note_obj.displayLabel.first.to_s )
