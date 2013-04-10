@@ -427,7 +427,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # subject - old
     subject.map do |sn|
-      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      #subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      if sn != nil && sn.name.first.nil? && sn.pid != nil    
+        subject_value = sn.load.name      
+      else 
+      	subject_value = sn.name
+      end   
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
       Solrizer.insert_field(solr_doc, 'fulltext', subject_value)
       Solrizer.insert_field(solr_doc, 'subject_topic', subject_value, facetable)

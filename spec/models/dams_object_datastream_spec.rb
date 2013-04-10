@@ -34,8 +34,8 @@ describe DamsObjectDatastream do
       end
 
       it "should have inline subjects" do
-        subject.subject.first.authoritativeLabel.should == ["Black Panther Party--History"]
-        subject.subject.second.authoritativeLabel.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
+        subject.subject.first.name.should == ["Black Panther Party--History"]
+        subject.subject.second.name.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
       end
       it "should have external subjects" do
         subject.subject.first.should_not be_external
@@ -97,7 +97,7 @@ describe DamsObjectDatastream do
 	  end
 	
       it "should have inline subjects" do
-        subject.subject.first.authoritativeLabel.should == ["Black Panther Party--History"]
+        subject.subject.first.name.should == ["Black Panther Party--History"]
       end
 
       it "should have relationship" do
@@ -366,6 +366,9 @@ END
         #it "should index complexSubject" do
         testComplexSubjectFields solr_doc, "complexSubject","Galaxies--Clusters"
 
+        #it "should index subjects" do
+        solr_doc["subject_tesim"].should == ["Black Panther Party--History", "Academic dissertations"]
+        
         #it "should have scopeContentNote" do
         solr_doc["scopeContentNote_tesim"].should == ["Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.", "scope content note internal value"]        
 		#testIndexNoteFields solr_doc, "scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."

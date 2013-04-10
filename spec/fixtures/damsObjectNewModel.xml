@@ -161,6 +161,16 @@
 	  </mads:CorporateName>    
 	</dams:corporateName>
     <dams:complexSubject rdf:resource="http://library.ucsd.edu/ark:/20775/bd6724414c"/>
+    <dams:subject>
+      <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
+        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX7"/>
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
+        </mads:elementList>
+      </mads:ComplexSubject>
+    </dams:subject>
+    <dams:subject rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"/>    
     <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
     <dams:note>
 	  <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd11111111">
