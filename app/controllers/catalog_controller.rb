@@ -34,7 +34,12 @@ class CatalogController < ApplicationController
     config.default_solr_params = { 
       :qt => 'search',
       :rows => 10,
-      :qf => 'subject_tesim title_tesim date_tesim name_tesim id component_title_tesim' 
+      :qf => 'subject_tesim title_tesim date_tesim name_tesim id component_title_tesim',
+	  :'hl.fragsize' => 0,
+	  :'hl.fragListBuilder' => 'single',
+	  :'hl.boundaryScanner' => 'simple',
+	  :'hl.useFastVectorHighlighter' => 'true',
+	  :'hl.fl' => 'title_json_tesim title_tesim id name_tesim subject_tesim date_tesim unit_name_tesim collection_1_name_tesim' 
     }
 
     # solr field configuration for search results/index views
@@ -82,13 +87,15 @@ class CatalogController < ApplicationController
 
 
     # solr fields to be displayed in the index (search results) view
-    #   The ordering of the field names is the order of the display 
-    config.add_index_field 'name_tesim', :label => 'Name:'   
-    config.add_index_field 'date_tesim', :label => 'Date:'   
-    config.add_index_field 'unit_name_tesim', :label => 'Unit:'
-    config.add_index_field 'collection_1_name_tesim', :label => 'Collection:'
-    config.add_index_field 'subject_tesim', :label => 'Subject:'   
-    #config.add_index_field 'description_tesim', :label => 'Description:'   
+    #   The ordering of the field names is the order of the display
+    config.add_index_field 'name_tesim', :label => 'Name:', :highlight => true   
+    config.add_index_field 'date_tesim', :label => 'Date:', :highlight => true
+    config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => true
+    config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => true
+    config.add_index_field 'subject_tesim', :label => 'Subject:', :highlight => true   
+    #config.add_index_field 'description_tesim', :label => 'Description:' 
+	
+	#config.add_field_configuration_to_solr_request!  
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
