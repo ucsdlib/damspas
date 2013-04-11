@@ -11,10 +11,10 @@ class DamsProvenanceCollectionInternal
     map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
 
     # notes
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
-    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
-    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+    map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')
+    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'DamsCustodialResponsibilityNoteInternal')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'DamsPreferredCitationNoteInternal')
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
     # subjects
     map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
@@ -34,10 +34,20 @@ class DamsProvenanceCollectionInternal
 
     # subject names
     map.name(:in => DAMS)
-    map.conferenceName(:in => DAMS)
-    map.corporateName(:in => DAMS)
-    map.familyName(:in => DAMS)
-    map.personalName(:in => DAMS)
+    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
+    map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
+    map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
+    map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
+    map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
+    map.genreForm(:in => DAMS, :class_name => 'MadsGenreFormInternal')
+    map.geographic(:in => DAMS, :class_name => 'MadsGeographicInternal')
+    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
+    map.occupation(:in => DAMS, :class_name => 'MadsOccupationInternal')
+    map.scientificName(:in => DAMS, :class_name => 'DamsScientificNameInternal')
+    map.stylePeriod(:in => DAMS, :class_name => 'DamsStylePeriodInternal')
+    map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')
+    map.temporal(:in => DAMS, :class_name => 'MadsTemporalInternal')
+    map.topic(:in => DAMS, :class_name => 'MadsTopicInternal')
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')

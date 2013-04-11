@@ -29,9 +29,9 @@ describe DamsAssembledCollection do
     </dams:date>
     <dams:scopeContentNote>
       <dams:ScopeContentNote>
-        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
         <dams:displayLabel>Scope and contents</dams:displayLabel>
         <dams:type>scope_and_content</dams:type>
+        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>        
       </dams:ScopeContentNote>
     </dams:scopeContentNote>
   </dams:AssembledCollection>

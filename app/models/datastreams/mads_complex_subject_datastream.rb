@@ -136,8 +136,12 @@ class MadsComplexSubjectDatastream < MadsDatastream
   
   def loadExternalObject (uri)
   	md = /\/(\w*)$/.match(uri)
- 	obj = MadsTopic.find(md[1])
- 	hasModel = obj.relationships(:has_model).to_s
+  	if (!uri.include? 'Internal')
+ 		obj = MadsTopic.find(md[1])
+ 	end
+ 	if (!obj.nil?)
+ 		hasModel = obj.relationships(:has_model).to_s
+ 	end
     if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'MadsGenreForm'))
     	obj = MadsGenreForm.find(md[1]) 
     elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'DamsIconography'))
@@ -189,35 +193,35 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	i = 0
 	if cList != nil
 		while i < cList.size  do
-		  if (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Topic)
+		  if (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Topic || cList[i].class == MadsTopicInternal)
 		    insertFields solr_doc,"topic",cList[i],i		
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::GenreForm)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::GenreForm || cList[i].class == MadsGenreFormInternal)
 		    insertFields solr_doc,"genreForm",cList[i],i
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Iconography)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Iconography || cList[i].class == DamsIconographyInternal)
 		    insertFields solr_doc,"iconography",cList[i],i		
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::ScientificName)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::ScientificName || cList[i].class == DamsScientificNameInternal)
 		    insertFields solr_doc,"scientificName",cList[i],i	
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Technique)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Technique || cList[i].class == DamsTechniqueInternal)
 		    insertFields solr_doc,"technique",cList[i],i	
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::BuiltWorkPlace)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::BuiltWorkPlace || cList[i].class == DamsBuiltWorkPlaceInternal)
 		    insertFields solr_doc,"builtWorkPlace",cList[i],i	
 		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::PersonalName)
 		    insertFields solr_doc,"personalName",cList[i],i		
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Geographic)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Geographic || cList[i].class == MadsGeographicInternal)
 		    insertFields solr_doc,"geographic",cList[i],i	
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Temporal)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Temporal || cList[i].class == MadsTemporalInternal)
 		    insertFields solr_doc,"temporal",cList[i],i	
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::CulturalContext)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::CulturalContext || cList[i].class == DamsCulturalContextInternal)
 		    insertFields solr_doc,"culturalContext",cList[i],i	
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::StylePeriod)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::StylePeriod || cList[i].class == DamsStylePeriodInternal)
 		    insertFields solr_doc,"stylePeriod",cList[i],i	
 		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::ConferenceName)
 		    insertFields solr_doc,"conferenceName",cList[i],i	
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Function)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Function || cList[i].class == DamsFunctionInternal)
 		    insertFields solr_doc,"function",cList[i],i	
 		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::CorporateName)
 		    insertFields solr_doc,"corporateName",cList[i],i	
-		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Occupation)
+		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::Occupation || cList[i].class == MadsOccupationInternal)
 		    insertFields solr_doc,"occupation",cList[i],i		
 		  elsif (cList[i].class == MadsComplexSubjectDatastream::ComponentList::FamilyName)
 		    insertFields solr_doc,"familyName",cList[i],i				    	    		    	    		    		    		        

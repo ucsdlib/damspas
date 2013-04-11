@@ -39,7 +39,7 @@ describe DamsObjectsController do
 	  describe "Create" do
 	    it "should be successful" do
 	      expect { 
-	        post :create, :dams_object => {title: ["Test Title"], date: ["2013"], subject: ["Test subject"]}
+	        post :create, :dams_object => {title: ["Test Title"], date: ["2013"]}
         }.to change { DamsObject.count }.by(1)
 	      response.should redirect_to assigns[:dams_object]
 	      assigns[:dams_object].should be_kind_of DamsObject
@@ -51,7 +51,7 @@ describe DamsObjectsController do
  	      @obj = DamsObject.create(titleValue: "Test Title", date: "2013")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :dams_object => {titleValue: ["Test Title2"], date: ["2013"], subject: ["Test subject"]}
+	      put :update, :id => @obj.id, :dams_object => {titleValue: ["Test Title2"], date: ["2013"]}
 	      response.should redirect_to assigns[:dams_object]
 	      @obj.reload.titleValue.should == ["Test Title2"]
 	      flash[:notice].should == "Successfully updated object"
