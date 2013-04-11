@@ -206,9 +206,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     object.values.each do |name|
       name_uri = name.to_s
       name_pid = name_uri.gsub(/.*\//,'')
-      if name_pid != nil && name_pid != ""
-        objects << className.find(name_pid)
-      end
+      if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
+      	objects << className.find(name_pid)
+      elsif name.name.first.nil? && name.pid != nil    
+        objects << className.find(name.pid)      
+      else 
+      	objects << name
+       end
     end
   	return objects
   end
@@ -217,6 +221,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertFields (solr_doc, fieldName, objects)
     if objects != nil
       objects.each do |obj|
+        if(fieldName == 'familyName')
+        	#puts "#{fieldName}=#{obj.name}"
+        end
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
         Solrizer.insert_field(solr_doc, "fulltext", obj.name)
       end
@@ -246,13 +253,15 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     objects.map do |no|
       note_json = {}
       note_obj = nil
-      if (no.external?)
+      note_uri = no.to_s
+      note_pid = note_uri.gsub(/.*\//,'')     
+	  if no.value.first.nil? && no.pid != nil
         note_obj = no.load
-        note_json[:id] = note_obj.pid.first
-      else
-        note_obj = no
+        note_json[:id] = note_obj.pid.first      
+      else 
+      	note_obj = no
       end
-
+        
       note_json.merge!( :type => note_obj.type.first.to_s,
                        :value => note_obj.value.first.to_s,
                 :displayLabel => note_obj.displayLabel.first.to_s )
@@ -418,7 +427,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # subject - old
     subject.map do |sn|
-      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      #subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      if sn != nil && sn.name.first.nil? && sn.pid != nil    
+        subject_value = sn.load.name      
+      else 
+      	subject_value = sn.name
+      end   
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
       Solrizer.insert_field(solr_doc, 'fulltext', subject_value)
       Solrizer.insert_field(solr_doc, 'subject_topic', subject_value, facetable)
