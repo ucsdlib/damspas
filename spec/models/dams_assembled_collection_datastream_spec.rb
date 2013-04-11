@@ -63,7 +63,7 @@ describe DamsAssembledCollectionDatastream do
       end  
       it "should have relationship" do
         subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bb08080808"
-        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+       subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
       end      
