@@ -75,7 +75,10 @@
        <str name="spellcheck.extendedResults">true</str>
        <str name="spellcheck.collate">false</str>
        <str name="spellcheck.count">5</str>
-
+       
+		<!-- configure for sold highlighting -->
+		<str name="hl">true</str>
+		<str name="hl.fl">content</str>
      </lst>
     <arr name="last-components">
       <str>spellcheck</str>
@@ -122,6 +125,17 @@
     </lst>
   </requestHandler>
 
+  <searchComponent class="solr.HighlightComponent" name="highlight">
+	<highlighting>
+		<fragListBuilder name="single" class="solr.highlight.SingleFragListBuilder"/>
+		<boundaryScanner name="simple" class="solr.highlight.SimpleBoundaryScanner" default="true">
+			<lst name="defaults">
+ 				<str name="hl.bs.maxScan">10</str>
+ 				<str name="hl.bs.chars">.,!?\t\n</str>
+ 			</lst>
+		</boundaryScanner>
+	</highlighting>
+   </searchComponent>
 
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">textSpell</str>

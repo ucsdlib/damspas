@@ -1,4 +1,12 @@
 module ApplicationHelper
+
+  #Highlighting SOLR content 
+  def field_with_highlighting document, field, sep='--'
+	if(@response['highlighting'][document.get(:id)])
+		return @response['highlighting'][document.get(:id)][field].join(sep) unless @response['highlighting'][document.get(:id)][field].blank?
+	end
+  end
+  
   # render page titles for all application pages using Digital Library Collections prefix
   def full_title(page_title)
     base_title = "Digital Library Collections"
