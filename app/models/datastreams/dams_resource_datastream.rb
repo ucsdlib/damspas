@@ -298,24 +298,48 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     # build map: role => [name1,name2]
     rels = {}
     relationships.map do |relationship|
-      rel = relationship.load
-      if ( rel != nil )
-        name = rel.name.first.to_s
+      obj = relationship.name.first.to_s
+      if !obj.nil? && obj != ''     
+      	rel = relationship.load
+      else
+        rel = relationship
 
+        if !rel.corporateName.first.nil?
+          rel = rel.corporateName
+        elsif !rel.personalName.first.nil?
+          rel = rel.personalName
+        end
+      end
+
+      if ( rel != nil )
+        if(rel.to_s.include? 'Internal')
+        	name = rel.first.name.first.to_s
+        	Solrizer.insert_field(solr_doc, "fulltext", rel.first.name)
+        else
+        	name = rel.name.first.to_s
+        	Solrizer.insert_field(solr_doc, "fulltext", rel.name)
+		end
+		
         # retrieval
         Solrizer.insert_field( solr_doc, "name", name )
-        Solrizer.insert_field(solr_doc, "fulltext", rel.name)
-
-        # display
-        role = relationship.loadRole
-		if role != nil
-		  roleValue = role.value.first.to_s
+        
+        
+		relRole = relationship.role.first.value.first.to_s
+        # display     
+        
+        if !relRole.nil? && relRole != ''
+        	roleValue = relRole
+		else 
+		  role = relationship.loadRole
+		  if role != nil
+		  	roleValue = role.value.first.to_s
+		  end
+		end
 		  if rels[roleValue] == nil
 		    rels[roleValue] = [name]
 		  else
 		    rels[roleValue] << name
-		  end
-		end
+		  end		
       end
     end
 

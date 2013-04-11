@@ -376,17 +376,66 @@
 	  </dams:ProvenanceCollectionPart>  
 	</dams:provenanceCollectionPart>      
 	 	   
-<dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
+	<dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
 
-<dams:topic>
-          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
-            <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:TopicElement>
-                <mads:elementValue>Marine sediments</mads:elementValue>
-              </mads:TopicElement>
-            </mads:elementList>
-          </mads:Topic>
-        </dams:topic>                       
+	<dams:topic>
+       <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
+         <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:TopicElement>
+             <mads:elementValue>Marine sediments</mads:elementValue>
+           </mads:TopicElement>
+         </mads:elementList>
+       </mads:Topic>
+     </dams:topic>   
+     
+       <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository</rdf:value>
+              </dams:Role>
+            </dams:role>
+            <dams:corporateName>
+              <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd23456789">
+                <mads:authoritativeLabel>Scripps Institute of Oceanography, Geological Collections</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:CorporateName>
+            </dams:corporateName>
+          </dams:Relationship>
+        </dams:relationship>     
+               
+	    <dams:relationship>
+	      <dams:Relationship>
+	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
+	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+	      </dams:Relationship>
+	    </dams:relationship>    
+
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository2</rdf:value>
+              </dams:Role>
+            </dams:role>
+           <dams:personalName>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd12121212">
+                <mads:authoritativeLabel>Personal Name 2</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+          </dams:Relationship>
+        </dams:relationship>  	                            
   </dams:Object>
 </rdf:RDF>

@@ -2,7 +2,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
-    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
     map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
 
     # notes
@@ -302,7 +302,8 @@ class DamsObjectDatastream < DamsResourceDatastream
         :restrictionBeginDate => othr.restrictionBeginDate.first.to_s,
         :restrictionEndDate => othr.restrictionEndDate.first.to_s,
         :name => othr.name.first.to_s,
-        :role => othr.role.first.to_s }
+        #:role => othr.role.first.to_s }
+        :role => "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}" }
       Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
     end    
