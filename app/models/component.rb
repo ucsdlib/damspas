@@ -45,7 +45,7 @@ class Component
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
       # rights
-      map.copyright(:in=>DAMS)
+      map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
       map.license(:in=>DAMS)
       map.otherRights(:in=>DAMS)
       map.statute(:in=>DAMS)

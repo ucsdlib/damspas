@@ -304,9 +304,8 @@ END
         subject.subtitle.should == ["Name/Note/Subject Sampler"]
       end
 
-      it "should index mads fields" do
+      it "should index copyright fields" do
         solr_doc = subject.to_solr   
-        #puts solr_doc["familyName_tesim"]
       end
       
       it "should index mads fields" do
@@ -382,6 +381,8 @@ END
 
         #it "should have note" do
 		testIndexNoteFields solr_doc, "note","Note internal value."
+		
+		solr_doc["copyright_tesim"].first.should include "Under copyright -- 3rd Party"
       end
 
       it "should index collection" do
@@ -428,4 +429,20 @@ END
       end
    end
 
+    describe "a complex object with internal classes" do
+      subject do
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bd0171551x', :new? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/damsObjectInternal.rdf.xml').read
+        subject
+      end
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bd0171551x"
+      end
+      it "should have a repeated date" do
+        #solr_doc = subject.to_solr
+        #puts solr_doc["title_tesim"]
+        #puts solr_doc["title_json_tesim"]
+        #solr_doc["title_tesim"].should include "XRF Chemical data"
+      end
+    end
 end
