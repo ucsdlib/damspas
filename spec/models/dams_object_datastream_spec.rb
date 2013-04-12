@@ -304,8 +304,10 @@ END
         subject.subtitle.should == ["Name/Note/Subject Sampler"]
       end
 
-      it "should index copyright fields" do
+      it "should index both internal and external rightsHolder fields" do
         solr_doc = subject.to_solr   
+       # puts solr_doc["rightsHolder_tesim"]
+        
       end
       
       it "should index mads fields" do
@@ -383,6 +385,8 @@ END
 		testIndexNoteFields solr_doc, "note","Note internal value."
 		
 		solr_doc["copyright_tesim"].first.should include "Under copyright -- 3rd Party"
+		
+		solr_doc["rightsHolder_tesim"].should == ["Administrator, Bob, 1977- internal", "Administrator, Bob, 1977-", "UC Regents"]
       end
 
       it "should index collection" do
@@ -439,7 +443,7 @@ END
         subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bd0171551x"
       end
       it "should have a repeated date" do
-        #solr_doc = subject.to_solr
+        solr_doc = subject.to_solr
         #puts solr_doc["title_tesim"]
         #puts solr_doc["title_json_tesim"]
         #solr_doc["title_tesim"].should include "XRF Chemical data"

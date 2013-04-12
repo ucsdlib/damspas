@@ -54,7 +54,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.license(:in=>DAMS)
     map.otherRights(:in=>DAMS)
     map.statute(:in=>DAMS)
-    map.rightsHolder(:in=>DAMS)
+    map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
@@ -177,10 +177,11 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_rightsHolders(rightsHolder)
     rightsHolders = []
     rightsHolder.values.each do |name|
-      name_uri = name.to_s
-      name_pid = name_uri.gsub(/.*\//,'')
-      if name_pid != nil && name_pid != ""
-        rightsHolders << MadsPersonalName.find(name_pid)
+      if !name.name.first.nil? && name.name.first != ""
+        # use inline data if available
+        rightsHolders << name
+      elsif name.pid != nil
+        rightsHolders << MadsPersonalName.find(name.pid)
       end
     end
     rightsHolders
@@ -318,10 +319,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     rightsHolders = load_rightsHolders rightsHolder
     if rightsHolders != nil
       rightsHolders.each do |name|
-        if name.class == MadsPersonalName
           Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder", name.name.first.to_s)
           Solrizer.insert_field(solr_doc, "fulltext", name.name)
-        end
       end
     end
   end
