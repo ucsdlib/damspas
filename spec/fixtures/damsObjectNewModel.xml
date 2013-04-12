@@ -449,6 +449,54 @@
               </mads:PersonalName>
             </dams:personalName>
           </dams:Relationship>
-        </dams:relationship>  	                            
+        </dams:relationship>
+      
+    <dams:rightsHolder>
+	  <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/zz09090909">
+	    <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>
+	    <mads:elementList rdf:parseType="Collection">
+	      <mads:FullNameElement>
+	        <mads:elementValue>Administrator, Bob,</mads:elementValue>
+	      </mads:FullNameElement>
+	      <mads:DateNameElement>
+	        <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+	      </mads:DateNameElement>
+	    </mads:elementList>
+	  </mads:PersonalName>
+    </dams:rightsHolder>  
+      <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>   
+    <dams:rightsHolder>
+      <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd11271752">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1400218j">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>failure</dams:outcome>
+            <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
+            <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
+            <dams:type>Bulk Solr Indexing</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2697155s">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-08T11:01:09-0800</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>UC Regents</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>UC Regents</mads:authoritativeLabel>
+      </mads:Name>
+    </dams:rightsHolder>           	                            
   </dams:Object>
 </rdf:RDF>

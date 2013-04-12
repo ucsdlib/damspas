@@ -49,7 +49,7 @@ class Component
       map.license(:in=>DAMS)
       map.otherRights(:in=>DAMS)
       map.statute(:in=>DAMS)
-      map.rightsHolder(:in=>DAMS)
+      map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
       # resource type and cartographics
       map.resource_type(:in => DAMS, :to => 'typeOfResource')
