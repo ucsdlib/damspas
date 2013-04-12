@@ -30,17 +30,22 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
-
+	
     config.default_solr_params = { 
       :qt => 'search',
       :rows => 10,
       :qf => 'subject_tesim title_tesim date_tesim name_tesim id component_title_tesim',
-	  :'hl.fragsize' => 0,
-	  :'hl.fragListBuilder' => 'single',
-	  :'hl.boundaryScanner' => 'simple',
-	  :'hl.useFastVectorHighlighter' => 'true',
-	  :'hl.fl' => 'title_json_tesim title_tesim id name_tesim subject_tesim date_tesim unit_name_tesim collection_1_name_tesim' 
     }
+	
+	#Plugable configuration to turn on/off the highlighting feature
+	config.highlighting = true;
+	if config.highlighting
+	  config.default_solr_params[:'hl.fragsize'] = 0
+	  config.default_solr_params[:'hl.fragListBuilder'] = 'single',
+	  config.default_solr_params[:'hl.boundaryScanner'] = 'simple',
+	  config.default_solr_params[:'hl.useFastVectorHighlighter'] = 'true',
+	  config.default_solr_params[:'hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim' 
+	end
 
     # solr field configuration for search results/index views
     config.index.show_link = 'title_json_tesim'
@@ -88,11 +93,11 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'name_tesim', :label => 'Name:', :highlight => true   
-    config.add_index_field 'date_tesim', :label => 'Date:', :highlight => true
-    config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => true
-    config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => true
-    config.add_index_field 'subject_tesim', :label => 'Subject:', :highlight => true   
+    config.add_index_field 'name_tesim', :label => 'Name:', :highlight => config.highlighting   
+    config.add_index_field 'date_tesim', :label => 'Date:', :highlight => config.highlighting
+    config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => config.highlighting
+    config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => config.highlighting
+    config.add_index_field 'subject_tesim', :label => 'Subject:', :highlight => config.highlighting   
     #config.add_index_field 'description_tesim', :label => 'Description:' 
 	
 	#config.add_field_configuration_to_solr_request!  

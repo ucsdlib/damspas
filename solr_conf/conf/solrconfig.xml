@@ -76,9 +76,9 @@
        <str name="spellcheck.collate">false</str>
        <str name="spellcheck.count">5</str>
        
-		<!-- configure for sold highlighting -->
-		<str name="hl">true</str>
-		<str name="hl.fl">content</str>
+	   <!-- configure for hit highlighting -->
+	   <str name="hl">true</str>
+	   <str name="hl.fl">content</str>
      </lst>
     <arr name="last-components">
       <str>spellcheck</str>
@@ -124,7 +124,8 @@
       <str name="q">{!raw f=id v=$id}</str> <!-- use id=666 instead of q=id:666 -->
     </lst>
   </requestHandler>
-
+ 
+ <!-- Highlighting with FragListBuilder and boundaryScanner -->
   <searchComponent class="solr.HighlightComponent" name="highlight">
 	<highlighting>
 		<fragListBuilder name="single" class="solr.highlight.SingleFragListBuilder"/>
