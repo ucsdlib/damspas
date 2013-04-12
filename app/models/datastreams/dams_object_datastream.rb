@@ -50,7 +50,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
     # rights
-    map.copyright(:in=>DAMS)
+    map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
     map.license(:in=>DAMS)
     map.otherRights(:in=>DAMS)
     map.statute(:in=>DAMS)
@@ -113,15 +113,21 @@ class DamsObjectDatastream < DamsResourceDatastream
     collections
   end
   
-    def load_copyright
+  def load_copyright
     load_copyright( copyright )
   end
   def load_copyright ( copyright )
-    c_uri = copyright.values.first.to_s
-    c_pid = c_uri.gsub(/.*\//,'')
-    if c_pid != nil && c_pid != ""
-      DamsCopyright.find(c_pid)
-    end
+	if !copyright.values.first.nil?
+	    c_pid = copyright.values.first.pid
+	    
+	    if !copyright.values.first.status.nil? && copyright.values.first.status.length > 0
+	      copyright.values.first
+	    else
+	      DamsCopyright.find(c_pid)
+	    end
+	else
+		nil
+	end
   end
   def load_license
     load_copyright(license)
