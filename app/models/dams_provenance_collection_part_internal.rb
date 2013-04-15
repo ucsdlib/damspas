@@ -32,7 +32,7 @@ class DamsProvenanceCollectionPartInternal
     map.topic(:in => DAMS, :class_name => 'MadsTopicInternal')
 
     # subject names
-    map.name(:in => DAMS)
+    map.name(:in => DAMS, :class_name => 'MadsNameInternal')
     map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
     map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
     map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
