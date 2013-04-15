@@ -2818,17 +2818,6 @@
         </dams:role>
       </dams:Relationship>
     </dams:relationship>
-    <dams:event>
-      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd88747022">
-        <dams:relationship rdf:parseType="Resource">
-          <dams:role rdf:resource="dams:initiator"/>
-          <dams:name rdf:resource="dams:unknownUser"/>
-        </dams:relationship>
-        <dams:outcome>success</dams:outcome>
-        <dams:eventDate>2013-03-15T01:50:56-0700</dams:eventDate>
-        <dams:type>object creation</dams:type>
-      </dams:DAMSEvent>
-    </dams:event>
     <dams:date>
       <dams:Date>
         <rdf:value>1988-12-22</rdf:value>

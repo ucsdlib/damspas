@@ -221,9 +221,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertFields (solr_doc, fieldName, objects)
     if objects != nil
       objects.each do |obj|
-        if(fieldName == 'familyName')
-        	#puts "#{fieldName}=#{obj.name}"
-        end
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
         Solrizer.insert_field(solr_doc, "fulltext", obj.name)
       end
@@ -253,13 +250,15 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     objects.map do |no|
       note_json = {}
       note_obj = nil
-      if (no.external?)
+      note_uri = no.to_s
+      note_pid = note_uri.gsub(/.*\//,'')     
+	  if no.value.first.nil? && no.pid != nil
         note_obj = no.load
-        note_json[:id] = note_obj.pid.first
-      else
-        note_obj = no
+        note_json[:id] = note_obj.pid.first      
+      else 
+      	note_obj = no
       end
-
+        
       note_json.merge!( :type => note_obj.type.first.to_s,
                        :value => note_obj.value.first.to_s,
                 :displayLabel => note_obj.displayLabel.first.to_s )
@@ -296,24 +295,48 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     # build map: role => [name1,name2]
     rels = {}
     relationships.map do |relationship|
-      rel = relationship.load
-      if ( rel != nil )
-        name = rel.name.first.to_s
+      obj = relationship.name.first.to_s      
 
+ 	  rel = relationship
+	    if !rel.corporateName.first.nil?
+	      rel = rel.corporateName
+	    elsif !rel.personalName.first.nil?
+	      rel = rel.personalName    
+		elsif !rel.name.first.nil?
+	      rel = rel.name    
+	      if rel.first.name.first.nil?
+	      	rel = relationship.load  
+	      end
+	    end
+      if ( rel != nil )
+        if(rel.to_s.include? 'Internal')
+        	name = rel.first.name.first.to_s
+        	Solrizer.insert_field(solr_doc, "fulltext", rel.first.name)
+        else
+        	name = rel.name.first.to_s
+        	Solrizer.insert_field(solr_doc, "fulltext", rel.name)
+		end
+		
         # retrieval
         Solrizer.insert_field( solr_doc, "name", name )
-        Solrizer.insert_field(solr_doc, "fulltext", rel.name)
-
-        # display
-        role = relationship.loadRole
-		if role != nil
-		  roleValue = role.value.first.to_s
+        
+        
+		relRole = relationship.role.first.value.first.to_s
+        # display     
+        
+        if !relRole.nil? && relRole != ''
+        	roleValue = relRole
+		else 
+		  role = relationship.loadRole
+		  if role != nil
+		  	roleValue = role.value.first.to_s
+		  end
+		end
 		  if rels[roleValue] == nil
 		    rels[roleValue] = [name]
 		  else
 		    rels[roleValue] << name
-		  end
-		end
+		  end		
       end
     end
 
@@ -425,7 +448,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # subject - old
     subject.map do |sn|
-      subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      #subject_value = sn.external? ? sn.load.name : sn.authoritativeLabel
+      if sn != nil && sn.name.first.nil? && sn.pid != nil    
+        subject_value = sn.load.name      
+      else 
+      	subject_value = sn.name
+      end   
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
       Solrizer.insert_field(solr_doc, 'fulltext', subject_value)
       Solrizer.insert_field(solr_doc, 'subject_topic', subject_value, facetable)

@@ -1,4 +1,68 @@
 module ApplicationHelper
+
+  #Retrieve the highlighting content 
+  def field_with_highlighting document, field, sep=field_value_separator
+	highlighting = blacklight_config.highlighting
+	if !(field.is_a? Symbol) && !(field.is_a? String)
+		options = field
+		field = options[:'field']
+		highlighting = options[:'highlight']
+	end
+	if highlighting
+		highlight_values = document.highlight_field(field)
+		highlight_values = document[field] if (highlight_values.nil? || highlight_values.count==0)
+	elsif field.to_s.index('_json_')
+		highlight_values = document[field]
+	end
+	if highlight_values != nil && highlight_values.count > 0
+		if field.to_s.index('_json_')
+			if field.to_s.index('title_')
+				return parseJsonTitle highlight_values.first, sep 
+			elsif field.to_s.index('date_')
+				return parseJsonDate highlight_values.first, sep
+			else
+				return highlight_values.first
+			end
+		elsif (document[field].count > highlight_values.count)
+			#Merge the highlighting values for the view.
+			values = document[field].dup
+			for v in highlight_values do
+				vo = v.gsub('<em>', '').gsub('</em>', '')
+				i = 0
+				begin
+					if values[i].eql? vo
+						values[i] = v
+						break
+					end
+					i+=1
+				end while i < values.count
+			end
+			return values.map { |v|v }.join(sep).html_safe
+		else
+			return highlight_values.join(sep).html_safe
+		end
+	end
+  end
+  
+  # Parsing the json title values
+  def parseJsonTitle jsonString, sep
+	titlehash = JSON.parse jsonString
+	titles = Array.new
+	titles << titlehash['value']
+	titles << titlehash['subtitle'] if (titlehash['subtitle'] != nil && !titlehash['subtitle'].blank?)
+	return titles.map { |v|v }.join(sep).html_safe
+  end
+  
+  #Parsing the json date values
+  def parseJsonDate jsonString, sep
+	datehash = JSON.parse jsonString
+	dates = Array.new
+	dates << datehash['value'] unless datehash['value']==nil?
+	dates << datehash['beginDate'] unless datehash['beginDate']==nil?
+	dates << datehash['endDate'] unless datehash['endDate']==nil?
+	return dates.map { |v|v }.join(sep).html_safe
+  end
+  
   # render page titles for all application pages using Digital Library Collections prefix
   def full_title(page_title)
     base_title = "Digital Library Collections"

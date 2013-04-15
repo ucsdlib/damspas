@@ -75,7 +75,10 @@
        <str name="spellcheck.extendedResults">true</str>
        <str name="spellcheck.collate">false</str>
        <str name="spellcheck.count">5</str>
-
+       
+	   <!-- configure for hit highlighting -->
+	   <str name="hl">true</str>
+	   <str name="hl.fl">content</str>
      </lst>
     <arr name="last-components">
       <str>spellcheck</str>
@@ -121,7 +124,19 @@
       <str name="q">{!raw f=id v=$id}</str> <!-- use id=666 instead of q=id:666 -->
     </lst>
   </requestHandler>
-
+ 
+ <!-- Highlighting with FragListBuilder and boundaryScanner -->
+  <searchComponent class="solr.HighlightComponent" name="highlight">
+	<highlighting>
+		<fragListBuilder name="single" class="solr.highlight.SingleFragListBuilder"/>
+		<boundaryScanner name="simple" class="solr.highlight.SimpleBoundaryScanner" default="true">
+			<lst name="defaults">
+ 				<str name="hl.bs.maxScan">10</str>
+ 				<str name="hl.bs.chars">.,!?\t\n</str>
+ 			</lst>
+		</boundaryScanner>
+	</highlighting>
+   </searchComponent>
 
   <searchComponent name="spellcheck" class="solr.SpellCheckComponent">
     <str name="queryAnalyzerFieldType">textSpell</str>

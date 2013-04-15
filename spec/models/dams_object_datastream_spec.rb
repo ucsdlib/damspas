@@ -34,8 +34,8 @@ describe DamsObjectDatastream do
       end
 
       it "should have inline subjects" do
-        subject.subject.first.authoritativeLabel.should == ["Black Panther Party--History"]
-        subject.subject.second.authoritativeLabel.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
+        subject.subject.first.name.should == ["Black Panther Party--History"]
+        subject.subject.second.name.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
       end
       it "should have external subjects" do
         subject.subject.first.should_not be_external
@@ -44,8 +44,8 @@ describe DamsObjectDatastream do
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
-        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship.first.role.first.pid.should == "bd55639754"        
       end
 
       it "should have date" do
@@ -97,12 +97,12 @@ describe DamsObjectDatastream do
 	  end
 	
       it "should have inline subjects" do
-        subject.subject.first.authoritativeLabel.should == ["Black Panther Party--History"]
+        subject.subject.first.name.should == ["Black Panther Party--History"]
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
-        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
       end
@@ -304,14 +304,15 @@ END
         subject.subtitle.should == ["Name/Note/Subject Sampler"]
       end
 
-      it "should index mads fields" do
+      it "should index both internal and external rightsHolder fields" do
         solr_doc = subject.to_solr   
-        #puts solr_doc["familyName_tesim"]
+        puts solr_doc["relationship_json_tesim"]
+        
       end
       
       it "should index mads fields" do
         solr_doc = subject.to_solr
-
+		
         #it "should index iconography" do
         testIndexFields solr_doc, "iconography","Madonna and Child"
 
@@ -343,9 +344,7 @@ END
         solr_doc["topic_tesim"].should == ["Baseball", "Marine sediments"]
 
         #it "should index function" do
-        puts solr_doc["function_tesim"]
-
-        testIndexFields solr_doc, "function","Sample Function"
+        solr_doc["function_tesim"].should == ["Sample Function", "internal function value"]
 
         #it "should index genreForm" do
         testIndexFields solr_doc, "genreForm","Film and video adaptions"
@@ -357,7 +356,7 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        testIndexNameFields solr_doc, "name","Generic Name"
+        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Ya\u00f1ez, Ang\u00e9lica Mar\u00eda", "Personal Name 2", "Name 4", "Generic Name", "Generic Name Internal"]
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]
@@ -368,17 +367,26 @@ END
         #it "should index complexSubject" do
         testComplexSubjectFields solr_doc, "complexSubject","Galaxies--Clusters"
 
+        #it "should index subjects" do
+        solr_doc["subject_tesim"].should == ["Black Panther Party--History", "Academic dissertations"]
+        
         #it "should have scopeContentNote" do
-		testIndexNoteFields solr_doc, "scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["scopeContentNote_tesim"].should == ["Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.", "scope content note internal value"]        
+		#testIndexNoteFields solr_doc, "scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have preferredCitationNote" do
-		testIndexNoteFields solr_doc, "preferredCitationNote","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
+        solr_doc["preferredCitationNote_tesim"].should == ["\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)", "citation note internal value"]                
+		#testIndexNoteFields solr_doc, "preferredCitationNote","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
 
         #it "should have CustodialResponsibilityNote" do
-		testIndexNoteFields solr_doc, "custodialResponsibilityNote","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"
+        solr_doc["custodialResponsibilityNote_tesim"].should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)", "Mandeville Special Collections Library....Internal value"]
 
         #it "should have note" do
-		testIndexNoteFields solr_doc, "note","This is some text to describe the basic contents of the object."
+		testIndexNoteFields solr_doc, "note","Note internal value."
+		
+		solr_doc["copyright_tesim"].first.should include "Under copyright -- 3rd Party"
+		
+		solr_doc["rightsHolder_tesim"].should == ["Administrator, Bob, 1977- internal", "Administrator, Bob, 1977-", "UC Regents"]
       end
 
       it "should index collection" do
@@ -425,4 +433,20 @@ END
       end
    end
 
+    describe "a complex object with internal classes" do
+      subject do
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bd0171551x', :new? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/damsObjectInternal.rdf.xml').read
+        subject
+      end
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bd0171551x"
+      end
+      it "should have a repeated date" do
+        solr_doc = subject.to_solr
+        #puts solr_doc["title_tesim"]
+        #puts solr_doc["title_json_tesim"]
+        #solr_doc["title_tesim"].should include "XRF Chemical data"
+      end
+    end
 end

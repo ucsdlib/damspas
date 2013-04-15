@@ -8,7 +8,21 @@
     <dams:scientificName rdf:resource="http://library.ucsd.edu/ark:/20775/bd2662949r"/>
     <dams:technique rdf:resource="http://library.ucsd.edu/ark:/20775/bd8772217q"/>
     <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd1366006j"/>
+    <dams:scopeContentNote>
+	  <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/zz11111111">
+	    <dams:type>scope_and_content</dams:type>
+	    <dams:displayLabel>Scope and contents</dams:displayLabel>
+	    <rdf:value>scope content note internal value</rdf:value>
+	  </dams:ScopeContentNote>
+	</dams:scopeContentNote>    
     <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>
+    <dams:preferredCitationNote>
+	  <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
+	    <dams:type>citation</dams:type>
+	    <dams:displayLabel>Citation</dams:displayLabel>
+	    <rdf:value>citation note internal value</rdf:value>
+	  </dams:PreferredCitationNote>   
+    </dams:preferredCitationNote> 
     <dams:title>
       <dams:Title>
         <rdf:value>Sample Object Record #8</rdf:value>
@@ -38,7 +52,32 @@
     <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
     <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
     <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bd7509406v"/>
-    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
+    <dams:name>
+      <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/zz88888888">
+	    <mads:authoritativeLabel>Generic Name Internal</mads:authoritativeLabel>
+	    <dams:authority>naf</dams:authority>
+	    <dams:valueURI rdf:resource="http://id.loc.gov/n9999999999"/>
+	    <mads:elementList rdf:parseType="Collection">
+	      <mads:NameElement>
+	        <mads:elementValue>Generic Name</mads:elementValue>
+	      </mads:NameElement>
+	    </mads:elementList>
+	  </mads:Name>
+	</dams:name>
+    <dams:copyright>
+       <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/bb15151515">
+	    <dams:copyrightStatus>Under copyright -- 3rd Party</dams:copyrightStatus>
+	    <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+	    <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.</dams:copyrightPurposeNote>
+	    <dams:copyrightNote>This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by "fair use" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.</dams:copyrightNote>
+	    <dams:date>
+	      <dams:Date>
+	        <dams:beginDate>1993-12-31</dams:beginDate>
+	      </dams:Date>
+	    </dams:date>
+	  </dams:Copyright>
+    </dams:copyright>    
+    
     <dams:builtWorkPlace rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707307x"/>
     <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/bd93182924"/>
     <dams:personalName>
@@ -109,6 +148,18 @@
 	  </mads:ConferenceName>   
     </dams:conferenceName>    
     <dams:function rdf:resource="http://library.ucsd.edu/ark:/20775/bd7816576v"/>
+    <dams:function>
+	  <dams:Function rdf:about="http://library.ucsd.edu/ark:/20775/zz99999999">
+	    <mads:authoritativeLabel>internal function value</mads:authoritativeLabel>
+	    <dams:authority>XXX</dams:authority>
+	    <dams:valueURI rdf:resource="http://id.loc.gov/XXX02"/>
+	    <mads:elementList rdf:parseType="Collection">
+	      <dams:FunctionElement>
+	        <mads:elementValue>Sample Function</mads:elementValue>
+	      </dams:FunctionElement>
+	    </mads:elementList>
+	  </dams:Function>    
+	</dams:function>
     <dams:corporateName rdf:resource="http://library.ucsd.edu/ark:/20775/bd8021352s"/>
     <dams:corporateName>
 	  <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
@@ -123,9 +174,33 @@
 	  </mads:CorporateName>    
 	</dams:corporateName>
     <dams:complexSubject rdf:resource="http://library.ucsd.edu/ark:/20775/bd6724414c"/>
+    <dams:subject>
+      <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
+        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX7"/>
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
+        </mads:elementList>
+      </mads:ComplexSubject>
+    </dams:subject>
+    <dams:subject rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"/>    
     <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
+    <dams:note>
+	  <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd11111111">
+	    <dams:type>abstract</dams:type>
+	    <dams:displayLabel>Abstract</dams:displayLabel>
+	    <rdf:value>Note internal value.</rdf:value>
+	  </dams:Note>    
+	</dams:note>    
     <dams:genreForm rdf:resource="http://library.ucsd.edu/ark:/20775/bd9796116g"/>
     <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
+    <dams:custodialResponsibilityNote>
+	  <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
+	    <dams:type>custodial_history</dams:type>
+	    <dams:displayLabel>Digital object made available by</dams:displayLabel>
+	    <rdf:value>Mandeville Special Collections Library....Internal value</rdf:value>
+	  </dams:CustodialResponsibilityNote> 
+	</dams:custodialResponsibilityNote>   
     <dams:occupation rdf:resource="http://library.ucsd.edu/ark:/20775/bd72363644"/>
     <dams:provenanceCollection>
       <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bd24241158">
@@ -314,17 +389,135 @@
 	  </dams:ProvenanceCollectionPart>  
 	</dams:provenanceCollectionPart>      
 	 	   
-<dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
+	<dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
 
-<dams:topic>
-          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
-            <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:TopicElement>
-                <mads:elementValue>Marine sediments</mads:elementValue>
-              </mads:TopicElement>
-            </mads:elementList>
-          </mads:Topic>
-        </dams:topic>                       
+	<dams:topic>
+       <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
+         <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:TopicElement>
+             <mads:elementValue>Marine sediments</mads:elementValue>
+           </mads:TopicElement>
+         </mads:elementList>
+       </mads:Topic>
+     </dams:topic>   
+     
+       <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository</rdf:value>
+              </dams:Role>
+            </dams:role>
+            <dams:corporateName>
+              <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd23456789">
+                <mads:authoritativeLabel>Scripps Institute of Oceanography, Geological Collections</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:CorporateName>
+            </dams:corporateName>
+          </dams:Relationship>
+        </dams:relationship>     
+               
+	    <dams:relationship>
+	      <dams:Relationship>
+	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
+	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+	      </dams:Relationship>
+	    </dams:relationship>    
+
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository2</rdf:value>
+              </dams:Role>
+            </dams:role>
+           <dams:personalName>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd12121212">
+                <mads:authoritativeLabel>Personal Name 2</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+          </dams:Relationship>
+        </dams:relationship>
+
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository3</rdf:value>
+              </dams:Role>
+            </dams:role>
+           <dams:name>
+              <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd13131313">
+                <mads:authoritativeLabel>Name 4</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:Name>
+            </dams:name>
+          </dams:Relationship>
+        </dams:relationship>
+              
+    <dams:rightsHolder>
+	  <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/zz09090909">
+	    <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>
+	    <mads:elementList rdf:parseType="Collection">
+	      <mads:FullNameElement>
+	        <mads:elementValue>Administrator, Bob,</mads:elementValue>
+	      </mads:FullNameElement>
+	      <mads:DateNameElement>
+	        <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+	      </mads:DateNameElement>
+	    </mads:elementList>
+	  </mads:PersonalName>
+    </dams:rightsHolder>  
+      <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>   
+    <dams:rightsHolder>
+      <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd11271752">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1400218j">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>failure</dams:outcome>
+            <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
+            <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
+            <dams:type>Bulk Solr Indexing</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2697155s">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-08T11:01:09-0800</dams:eventDate>
+            <dams:type>object creation</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>UC Regents</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>UC Regents</mads:authoritativeLabel>
+      </mads:Name>
+    </dams:rightsHolder>           	                            
   </dams:Object>
 </rdf:RDF>
