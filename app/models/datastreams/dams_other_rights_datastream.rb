@@ -5,7 +5,7 @@ class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.uri(:in => DAMS, :to => 'otherRightsURI')
     map.restriction(:in => DAMS, :to=>'restriction', :class_name => 'Restriction')
     map.permission(:in => DAMS, :to=>'permission', :class_name => 'Permission')
-    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}

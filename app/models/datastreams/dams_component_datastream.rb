@@ -2,14 +2,14 @@ class DamsComponentDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
-    map.relationship(:in => DAMS, :class_name => 'Relationship')
-    map.language(:in=>DAMS)
+    map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
+    map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
 
     # notes
-    map.note(:in => DAMS, :to=>'note', :class_name => 'Note')
-    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'CustodialResponsibilityNote')
-    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'PreferredCitationNote')
-    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'ScopeContentNote')
+    map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')
+    map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'DamsCustodialResponsibilityNoteInternal')
+    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'DamsPreferredCitationNoteInternal')
+    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
     # subjects
     map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
@@ -29,10 +29,10 @@ class DamsComponentDatastream < DamsResourceDatastream
 
     # subject names
     map.name(:in => DAMS)
-    map.conferenceName(:in => DAMS)
-    map.corporateName(:in => DAMS)
-    map.familyName(:in => DAMS)
-    map.personalName(:in => DAMS)
+    map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
+    map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
+    map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
+    map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
@@ -51,11 +51,11 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
 
     # rights
-    map.copyright(:in=>DAMS)
+    map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
     map.license(:in=>DAMS)
     map.otherRights(:in=>DAMS)
     map.statute(:in=>DAMS)
-    map.rightsHolder(:in=>DAMS)
+    map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
     map.resource_type(:in => DAMS, :to => 'typeOfResource')

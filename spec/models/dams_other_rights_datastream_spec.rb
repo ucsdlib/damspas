@@ -81,8 +81,8 @@ describe DamsOtherRightsDatastream do
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
-        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"
+        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship.first.role.first.pid.should == "bbXXXXXXX2"
       end
 
     end
