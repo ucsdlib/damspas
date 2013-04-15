@@ -387,6 +387,13 @@ END
 		solr_doc["copyright_tesim"].first.should include "Under copyright -- 3rd Party"
 		
 		solr_doc["rightsHolder_tesim"].should == ["Administrator, Bob, 1977- internal", "Administrator, Bob, 1977-", "UC Regents"]
+		
+		#internal license
+        solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
+        solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
+        solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
+        solr_doc["license_tesim"].first.should include '"permissionType":"display"'
+        solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
       end
 
       it "should index collection" do

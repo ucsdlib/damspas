@@ -46,7 +46,7 @@ class Component
 
       # rights
       map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
-      map.license(:in=>DAMS)
+      map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
       map.otherRights(:in=>DAMS)
       map.statute(:in=>DAMS)
       map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')

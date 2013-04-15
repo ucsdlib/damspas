@@ -518,6 +518,18 @@
         </mads:elementList>
         <mads:authoritativeLabel>UC Regents</mads:authoritativeLabel>
       </mads:Name>
-    </dams:rightsHolder>           	                            
+    </dams:rightsHolder>     
+	<dams:license>
+	  <dams:License rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
+	    <dams:licenseNote>License note text here...</dams:licenseNote>
+	    <dams:licenseURI rdf:resource="http://library.ucsd.edu/licenses/lic12341.pdf"/>
+	    <dams:permission>
+	      <dams:Permission>
+	        <dams:type>display</dams:type>
+	        <dams:beginDate>2010-01-01</dams:beginDate>
+	      </dams:Permission>
+	    </dams:permission>
+	  </dams:License>
+	</dams:license>       	                            
   </dams:Object>
 </rdf:RDF>

@@ -79,5 +79,61 @@ module DamsHelper
       scopeContentNote = []
     end
     scopeContentNote.first.value = val
-  end    
+  end   
+  
+  def permissionBeginDate
+    permission_node[0] ? permission_node[0].beginDate : []
+  end
+  def permissionBeginDate=(val)
+    if permission_node[0] == nil
+      permission_node[0] = permission_node.build
+    end
+    permission_node[0].beginDate = val
+  end
+  def permissionEndDate
+    permission_node[0] ? permission_node[0].endDate : []
+  end
+  def permissionEndDate=(val)
+    if permission_node[0] == nil
+      permission_node[0] = permission_node.build
+    end
+    permission_node[0].endDate = val
+  end
+  def permissionType
+    permission_node[0] ? permission_node[0].type : []
+  end
+  def permissionType=(val)
+    if permission_node[0] == nil
+      permission_node[0] = permission_node.build
+    end
+    permission_node[0].type = val
+  end
+
+  def restrictionBeginDate
+    restriction_node[0] ? restriction_node[0].beginDate : []
+  end
+  def restrictionBeginDate=(val)
+    if restriction_node[0] == nil
+      restriction_node[0] = restriction_node.build
+    end
+    restriction_node[0].beginDate = val
+  end
+  def restrictionEndDate
+    restriction_node[0] ? restriction_node[0].endDate : []
+  end
+  def restrictionEndDate=(val)
+    if restriction_node[0] == nil
+      restriction_node[0] = restriction_node.build
+    end
+    restriction_node[0].endDate = val
+  end
+  def restrictionType
+    restriction_node[0] ? restriction_node[0].type : []
+  end
+  def restrictionType=(val)
+    if restriction_node[0] == nil
+      restriction_node[0] = restriction_node.build
+    end
+    restriction_node[0].type = val
+  end   
 end
