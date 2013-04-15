@@ -308,8 +308,9 @@ class DamsObjectDatastream < DamsResourceDatastream
         :restrictionType => othr.restrictionType.first.to_s,
         :restrictionBeginDate => othr.restrictionBeginDate.first.to_s,
         :restrictionEndDate => othr.restrictionEndDate.first.to_s,
-        :name => othr.name.first.to_s,
+        #:name => othr.name.first.to_s,
         #:role => othr.role.first.to_s }
+        :name => "http://library.ucsd.edu/ark:/20775/#{othr.name.first.pid}",
         :role => "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}" }
       Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)

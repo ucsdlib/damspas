@@ -221,9 +221,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertFields (solr_doc, fieldName, objects)
     if objects != nil
       objects.each do |obj|
-        if(fieldName == 'familyName')
-        	#puts "#{fieldName}=#{obj.name}"
-        end
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
         Solrizer.insert_field(solr_doc, "fulltext", obj.name)
       end
@@ -298,19 +295,19 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     # build map: role => [name1,name2]
     rels = {}
     relationships.map do |relationship|
-      obj = relationship.name.first.to_s
-      if !obj.nil? && obj != ''     
-      	rel = relationship.load
-      else
-        rel = relationship
+      obj = relationship.name.first.to_s      
 
-        if !rel.corporateName.first.nil?
-          rel = rel.corporateName
-        elsif !rel.personalName.first.nil?
-          rel = rel.personalName
-        end
-      end
-
+ 	  rel = relationship
+	    if !rel.corporateName.first.nil?
+	      rel = rel.corporateName
+	    elsif !rel.personalName.first.nil?
+	      rel = rel.personalName    
+		elsif !rel.name.first.nil?
+	      rel = rel.name    
+	      if rel.first.name.first.nil?
+	      	rel = relationship.load  
+	      end
+	    end
       if ( rel != nil )
         if(rel.to_s.include? 'Internal')
         	name = rel.first.name.first.to_s

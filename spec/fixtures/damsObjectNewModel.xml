@@ -450,7 +450,28 @@
             </dams:personalName>
           </dams:Relationship>
         </dams:relationship>
-      
+
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <dams:Role>
+                <dams:code>rps</dams:code>
+                <rdf:value>Repository3</rdf:value>
+              </dams:Role>
+            </dams:role>
+           <dams:name>
+              <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd13131313">
+                <mads:authoritativeLabel>Name 4</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:Name>
+            </dams:name>
+          </dams:Relationship>
+        </dams:relationship>
+              
     <dams:rightsHolder>
 	  <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/zz09090909">
 	    <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>

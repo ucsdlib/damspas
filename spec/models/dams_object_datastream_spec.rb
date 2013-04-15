@@ -44,7 +44,7 @@ describe DamsObjectDatastream do
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
         subject.relationship.first.role.first.pid.should == "bd55639754"        
       end
 
@@ -101,7 +101,7 @@ describe DamsObjectDatastream do
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
+        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
         subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
@@ -306,7 +306,7 @@ END
 
       it "should index both internal and external rightsHolder fields" do
         solr_doc = subject.to_solr   
-       # puts solr_doc["rightsHolder_tesim"]
+        puts solr_doc["relationship_json_tesim"]
         
       end
       
@@ -356,7 +356,7 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Ya\u00f1ez, Ang\u00e9lica Mar\u00eda", "Personal Name 2", "Generic Name", "Generic Name Internal"]
+        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Ya\u00f1ez, Ang\u00e9lica Mar\u00eda", "Personal Name 2", "Name 4", "Generic Name", "Generic Name Internal"]
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]
