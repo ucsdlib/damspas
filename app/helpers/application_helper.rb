@@ -27,14 +27,15 @@ module ApplicationHelper
 			#Merge the highlighting values for the view.
 			values = document[field].dup
 			for v in highlight_values do
-			vo = v.gsub('<em>', '').gsub('</em>', '')
-			i = 0
-			begin
-				if values[i].eql? vo
-					values[i] = v
-				end
-				i+=1
-			end while i < values.count
+				vo = v.gsub('<em>', '').gsub('</em>', '')
+				i = 0
+				begin
+					if values[i].eql? vo
+						values[i] = v
+						break
+					end
+					i+=1
+				end while i < values.count
 			end
 			return values.map { |v|v }.join(sep).html_safe
 		else
