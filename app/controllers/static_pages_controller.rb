@@ -4,4 +4,10 @@ class StaticPagesController < ApplicationController
 
   def faq
   end
+
+  def zotero
+  end
+
+  def mendeley
+  end
 end

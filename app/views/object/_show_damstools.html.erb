@@ -1,9 +1,9 @@
 <p>Export to:
 
- <%= link_to 'Zotero', zotero_path, {:id => 'zoteroLink', :name => 'zotero', :class => 'lightboxLink'} %>
-      &nbsp;|&nbsp;
-<%= link_to 'Mendeley' %>
+<%= link_to 'Zotero', zotero_path, {:id => 'zoteroLink', :name => 'zotero', :class => 'btn'} %>
+      &nbsp;
+<%= link_to 'Mendeley', mendeley_path, {:id => 'mendeleyLink', :name => 'mendeley', :class => 'btn'} %>
 
 
- <!-- COinS hook for Zotero -->
+ <!-- COinS hook for openurl -->
     <span class="Z3988" title="<%= export_as_openurl %>"></span>
