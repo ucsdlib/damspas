@@ -9,25 +9,26 @@ class DamsRelationshipInternal
       map.role(:in=> DAMS, :class_name => 'DamsRoleInternal')
     end
 
-	rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+	rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}  
 
     def load
-      if !name.first.pid.nil?       
+      if !name.first.nil? && !name.first.pid.nil? && !(name.first.pid.include? 'dams:')  
+        puts "name"   
         MadsName.find(name.first.pid)
-      elsif !personalName.first.pid.nil?
+      elsif !personalName.first.nil? && !personalName.first.pid.nil? && !(personalName.first.pid.include? 'dams:')  
         MadsPersonalName.find(personalName.first.pid)
-      elsif !corporateName.first.pid.nil?
+      elsif !corporateName.first.nil? && !corporateName.first.pid.nil? && !(corporateName.first.pid.include? 'dams:')  
         MadsCorporateName.find(corporateName.first.pid)
       end
     end
     
-    def loadRole
-      uri = role.first.pid
-      if !uri.nil? && uri != ''
+    def loadRole      
+      if !role.first.nil? && role.first.pid != '' && !(role.first.pid.include? 'dams:')
+        uri = role.first.pid
         DamsRole.find(uri)
       end
-    end    
-
+    end   
+    
 	def pid
 	   rdf_subject.to_s.gsub(/.*\//,'')
 	end
