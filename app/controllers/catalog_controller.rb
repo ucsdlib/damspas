@@ -38,13 +38,18 @@ class CatalogController < ApplicationController
     }
 	
 	#UCSD custom added argument config.highlighting to turn on/off hit highlighting with config.highlighting=true|false
+	#config.hlTagPre for custom highlighting fragment prefix tag
+	#config.hlTagPost for custom highlighting fragment post tag
 	config.highlighting = true;
+	config.hlTagPre = '<span class=\'search-highlight\'>'
+	config.hlTagPost = '</span>'
 	if config.highlighting
-	  config.default_solr_params[:'hl.fragsize'] = 0
-	  config.default_solr_params[:'hl.fragListBuilder'] = 'single',
-	  config.default_solr_params[:'hl.boundaryScanner'] = 'simple',
-	  config.default_solr_params[:'hl.useFastVectorHighlighter'] = 'true',
-	  config.default_solr_params[:'hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim note_tesim' 
+	  config.default_solr_params['hl.fragsize'] = 0
+	  config.default_solr_params['hl.fragListBuilder'] = 'single'
+	  config.default_solr_params['hl.boundaryScanner'] = 'simple'
+	  config.default_solr_params['hl.simple.pre'] = config.hlTagPre
+	  config.default_solr_params['hl.simple.post'] = config.hlTagPost
+	  config.default_solr_params['hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim note_tesim' 
 	end
 
     # solr field configuration for search results/index views
