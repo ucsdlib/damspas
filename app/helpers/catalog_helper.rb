@@ -44,6 +44,20 @@ module CatalogHelper
     link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :results_view].include? k  })
   end
   
+    
+  def should_render_index_field? document, solr_field
+  	if !(solr_field.is_a? Symbol) && !(solr_field.is_a? String)
+		hitsonly = solr_field.hitsonly
+	end
+	if (hitsonly)
+		return document.has_highlight_field? solr_field.field
+	else
+		return document.has?(solr_field.field) ||
+			(document.has_highlight_field? solr_field.field if solr_field.highlight)
+	end
+  end
+
+  
   #use blacklight add_facet_params to construct facet link
   #see sufia for reference if need to add more: https://github.com/psu-stewardship/sufia/blob/master/app/helpers/sufia_helper.rb
   # field = field value (i.e. Academic Dissertations)
