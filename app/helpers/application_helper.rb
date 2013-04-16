@@ -28,7 +28,7 @@ module ApplicationHelper
 			#Merge the highlighting values for the view.
 			values = document[field].dup
 			for v in highlight_values do
-				vo = v.gsub('<em>', '').gsub('</em>', '')
+				vo = v.gsub(blacklight_config.hlTagPre, '').gsub(blacklight_config.hlTagPost, '')
 				i = 0
 				begin
 					if values[i].eql? vo
