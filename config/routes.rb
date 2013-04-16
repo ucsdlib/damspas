@@ -3,7 +3,8 @@ Hydra::Application.routes.draw do
 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
-  match '/test', to: 'static_pages#test'
+  match '/zotero', to: 'static_pages#zotero'
+  match '/mendeley', to: 'static_pages#mendeley'
 
   match "view/:id",     :to => 'object#show', :as => 'object'
   match "view/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'

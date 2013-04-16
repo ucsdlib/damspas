@@ -1,5 +1,6 @@
-class Relationship
+class DamsRelationshipInternal
     include ActiveFedora::RdfObject
+    include DamsHelper
     rdf_type DAMS.Relationship
     map_predicates do |map|
       map.name(:in=> DAMS, :class_name => 'MadsNameInternal')
@@ -8,8 +9,11 @@ class Relationship
       map.role(:in=> DAMS, :class_name => 'DamsRoleInternal')
     end
 
+	rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}  
+
     def load
-      if !name.first.nil? && !name.first.pid.nil? && !(name.first.pid.include? 'dams:')     
+      if !name.first.nil? && !name.first.pid.nil? && !(name.first.pid.include? 'dams:')  
+        puts "name"   
         MadsName.find(name.first.pid)
       elsif !personalName.first.nil? && !personalName.first.pid.nil? && !(personalName.first.pid.include? 'dams:')  
         MadsPersonalName.find(personalName.first.pid)
@@ -24,4 +28,9 @@ class Relationship
         DamsRole.find(uri)
       end
     end   
+    
+	def pid
+	   rdf_subject.to_s.gsub(/.*\//,'')
+	end
+      
 end

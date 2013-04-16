@@ -2,7 +2,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
-    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
     map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
 
     # notes
@@ -50,11 +50,11 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
     # rights
-    map.copyright(:in=>DAMS)
-    map.license(:in=>DAMS)
-    map.otherRights(:in=>DAMS)
-    map.statute(:in=>DAMS)
-    map.rightsHolder(:in=>DAMS)
+    map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
+    map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
+    map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
+    map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
+    map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
@@ -113,45 +113,67 @@ class DamsObjectDatastream < DamsResourceDatastream
     collections
   end
   
-    def load_copyright
+  def load_copyright
     load_copyright( copyright )
   end
   def load_copyright ( copyright )
-    c_uri = copyright.values.first.to_s
-    c_pid = c_uri.gsub(/.*\//,'')
-    if c_pid != nil && c_pid != ""
-      DamsCopyright.find(c_pid)
-    end
+	if !copyright.values.first.nil?
+	    c_pid = copyright.values.first.pid
+	    
+	    if !copyright.values.first.status.nil? && copyright.values.first.status.length > 0
+	      copyright.values.first
+	    else
+	      DamsCopyright.find(c_pid)
+	    end
+	else
+		nil
+	end
   end
   def load_license
-    load_copyright(license)
+    load_license(license)
   end
   def load_license (license)
-    l_uri = license.values.first.to_s
-    l_pid = l_uri.gsub(/.*\//,'')
-    if l_pid != nil && l_pid != ""
-      DamsLicense.find(l_pid)
-    end
+	if !license.values.first.nil?
+	    l_pid = license.values.first.pid
+	    
+	    if !license.values.first.uri.nil? && license.values.first.uri.length > 0
+	      license.values.first
+	    else
+	      DamsLicense.find(l_pid)
+	    end
+	end    
   end
   def load_statute
     load_statute(statute)
   end
   def load_statute (statute)
-    s_uri = statute.values.first.to_s
-    s_pid = s_uri.gsub(/.*\//,'')
-    if s_pid != nil && s_pid != ""
-      DamsStatute.find(s_pid)
-    end
+#    s_uri = statute.values.first.to_s
+#    s_pid = s_uri.gsub(/.*\//,'')
+#    if s_pid != nil && s_pid != ""
+#      DamsStatute.find(s_pid)
+#    end
+    
+	if !statute.values.first.nil?
+	    s_pid = statute.values.first.pid
+	    if !statute.values.first.citation.nil? && statute.values.first.citation.length > 0
+	      statute.values.first
+	    else
+	      DamsStatute.find(s_pid)
+	    end
+	end        
   end
   def load_otherRights
     load_otherRights(otherRights)
   end
   def load_otherRights (otherRights)
-    o_uri = otherRights.values.first.to_s
-    o_pid = o_uri.gsub(/.*\//,'')
-    if o_pid != nil && o_pid != ""
-      DamsOtherRights.find(o_pid)
-    end
+	if !otherRights.values.first.nil?
+	    o_pid = otherRights.values.first.pid
+	    if !otherRights.values.first.uri.nil? && otherRights.values.first.uri.length > 0
+	      otherRights.values.first
+	    else
+	      DamsOtherRights.find(o_pid)
+	    end
+	end        
   end
 
   def load_source_capture(source_capture)
@@ -171,10 +193,11 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_rightsHolders(rightsHolder)
     rightsHolders = []
     rightsHolder.values.each do |name|
-      name_uri = name.to_s
-      name_pid = name_uri.gsub(/.*\//,'')
-      if name_pid != nil && name_pid != ""
-        rightsHolders << MadsPersonalName.find(name_pid)
+      if !name.name.first.nil? && name.name.first != ""
+        # use inline data if available
+        rightsHolders << name
+      elsif name.pid != nil
+        rightsHolders << MadsPersonalName.find(name.pid)
       end
     end
     rightsHolders
@@ -301,8 +324,10 @@ class DamsObjectDatastream < DamsResourceDatastream
         :restrictionType => othr.restrictionType.first.to_s,
         :restrictionBeginDate => othr.restrictionBeginDate.first.to_s,
         :restrictionEndDate => othr.restrictionEndDate.first.to_s,
-        :name => othr.name.first.to_s,
-        :role => othr.role.first.to_s }
+        #:name => othr.name.first.to_s,
+        #:role => othr.role.first.to_s }
+        :name => "http://library.ucsd.edu/ark:/20775/#{othr.name.first.pid}",
+        :role => "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}" }
       Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
     end    
@@ -311,10 +336,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     rightsHolders = load_rightsHolders rightsHolder
     if rightsHolders != nil
       rightsHolders.each do |name|
-        if name.class == MadsPersonalName
           Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder", name.name.first.to_s)
           Solrizer.insert_field(solr_doc, "fulltext", name.name)
-        end
       end
     end
   end

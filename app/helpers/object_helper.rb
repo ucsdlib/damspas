@@ -1,6 +1,97 @@
 module ObjectHelper
 
   #---
+    # Openurl, embedded metadata support,
+    # Get metadata from solr document, and parsing each field and produce openURL key-encoded value query strings.
+    # hweng@ucsd.edu
+  #---
+  def field_mapping(fieldName)
+       data_arr=[]
+       index = getComponentIndex
+
+     fieldData = @document["#{index}#{fieldName}"]
+     if fieldData != nil
+      fieldData.each do |value|
+        data_arr.push(value)
+        end
+     end
+     data_arr
+    end
+
+   def export_as_openurl
+        query_string = []
+        query_string << "url_ver=Z39.88-2004&ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&rfr_id=info%3Asid%2Fblacklight.rubyforge.org%3Agenerator"
+        field_map = {
+          'title' => getTitle,
+          'rights'=> getCopyright,
+          'subject'=>getSubject,
+          'creator'=>getCreator,
+          'date'=>getDate,
+          'format'=>getFormat,
+          'language'=> getLanguage
+          
+        }
+        field_map.each do |kev, values|
+          next if values.empty? or values.first.nil?
+          values.each do |value|
+            query_string << "rft.#{kev}=#{CGI::escape(value)}"
+          end
+        end
+        query_string.join('&') unless query_string.blank?
+    end
+
+    def getComponentIndex
+        index = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+     end
+    
+    def getTitle
+       fieldValue=field_mapping('title_tesim')
+    end
+
+    def getSubject
+       fieldValue=field_mapping('subject_tesim')
+    end
+
+    def getCreator
+      fieldValue=field_mapping('name_tesim')
+    end
+
+    def getDate
+      fieldValue=field_mapping('date_tesim')
+    end
+
+    def getFormat
+      fieldValue=field_mapping('resource_type_tesim')
+    end
+
+    def getLanguage
+        fieldValue=field_mapping('language_tesim')
+    end
+
+    # Parse metadata from JSON format for copyright.
+    def getCopyright
+       data_arr=[]
+       index = getComponentIndex
+     fieldData = @document["#{index}copyright_tesim"]
+     if fieldData != nil
+      fieldJSON = JSON.parse(fieldData.first)
+      temp =fieldJSON['status']
+      data_arr.push(temp)
+        temp =fieldJSON['jurisdiction']
+        data_arr.push(temp)
+        temp =fieldJSON['purposeNote']
+        data_arr.push(temp)
+        temp =fieldJSON['note']
+        data_arr.push(temp)
+     end
+     data_arr
+    end
+
+  #--
+  # End of openURL implementation
+  #    
+
+  #---
   # select_file: Select files to display
   #---
   def select_file( params )

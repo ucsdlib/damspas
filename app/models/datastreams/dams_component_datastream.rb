@@ -2,7 +2,7 @@ class DamsComponentDatastream < DamsResourceDatastream
   map_predicates do |map|
     map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
-    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
     map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
 
     # notes
@@ -28,7 +28,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.topic(:in => DAMS)
 
     # subject names
-    map.name(:in => DAMS)
+    map.name(:in => DAMS, :class_name => 'MadsNameInternal')
     map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
     map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
     map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
@@ -51,11 +51,11 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
 
     # rights
-    map.copyright(:in=>DAMS)
-    map.license(:in=>DAMS)
-    map.otherRights(:in=>DAMS)
-    map.statute(:in=>DAMS)
-    map.rightsHolder(:in=>DAMS)
+    map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
+    map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
+	map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
+    map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
+    map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
     map.resource_type(:in => DAMS, :to => 'typeOfResource')
