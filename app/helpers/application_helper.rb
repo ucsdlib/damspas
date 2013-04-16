@@ -7,6 +7,7 @@ module ApplicationHelper
 		options = field
 		field = options[:'field']
 		highlighting = options[:'highlight']
+		hitsonly = options[:'hitsonly']
 	end
 	if highlighting
 		highlight_values = document.highlight_field(field)
@@ -14,7 +15,7 @@ module ApplicationHelper
 	elsif field.to_s.index('_json_')
 		highlight_values = document[field]
 	end
-	if highlight_values != nil && highlight_values.count > 0
+	if highlight_values != nil && highlight_values.count > 0 && !hitsonly
 		if field.to_s.index('_json_')
 			if field.to_s.index('title_')
 				return parseJsonTitle highlight_values.first, sep 
