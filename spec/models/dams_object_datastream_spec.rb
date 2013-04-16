@@ -44,8 +44,8 @@ describe DamsObjectDatastream do
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
-        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship.first.role.first.pid.should == "bd55639754"        
       end
 
       it "should have date" do
@@ -101,8 +101,8 @@ describe DamsObjectDatastream do
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
-        subject.relationship.first.role.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd55639754"
+        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
       end
@@ -304,14 +304,15 @@ END
         subject.subtitle.should == ["Name/Note/Subject Sampler"]
       end
 
-      it "should index mads fields" do
+      it "should index both internal and external rightsHolder fields" do
         solr_doc = subject.to_solr   
-        #puts solr_doc["familyName_tesim"]
+        puts solr_doc["relationship_json_tesim"]
+        
       end
       
       it "should index mads fields" do
         solr_doc = subject.to_solr
-
+		
         #it "should index iconography" do
         testIndexFields solr_doc, "iconography","Madonna and Child"
 
@@ -355,7 +356,7 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        solr_doc["name_tesim"].should == ["Generic Name", "Generic Name Internal"]
+        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Ya\u00f1ez, Ang\u00e9lica Mar\u00eda", "Personal Name 2", "Name 4", "Generic Name", "Generic Name Internal"]
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]
@@ -382,6 +383,34 @@ END
 
         #it "should have note" do
 		testIndexNoteFields solr_doc, "note","Note internal value."
+		
+		solr_doc["copyright_tesim"].first.should include "Under copyright -- 3rd Party"
+		
+		solr_doc["rightsHolder_tesim"].should == ["Administrator, Bob, 1977- internal", "Administrator, Bob, 1977-", "UC Regents"]
+		
+		#internal license
+        solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
+        solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
+        solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
+        solr_doc["license_tesim"].first.should include '"permissionType":"display"'
+        solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
+        
+		# other rights
+        solr_doc["otherRights_tesim"].first.should include '"id":"zz06060606"'
+        solr_doc["otherRights_tesim"].first.should include '"basis":"fair use"'
+        solr_doc["otherRights_tesim"].first.should include '"uri":"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"'
+        solr_doc["otherRights_tesim"].first.should include '"permissionType":"display"'
+        solr_doc["otherRights_tesim"].first.should include '"permissionBeginDate":"2011-09-24"'
+        solr_doc["otherRights_tesim"].first.should include '"name":"http://library.ucsd.edu/ark:/20775/bb09090909"'
+        solr_doc["otherRights_tesim"].first.should include '"role":"http://library.ucsd.edu/ark:/20775/bd3004227d"'    
+        
+        # statute
+        solr_doc["statute_tesim"].first.should include '"id":"zz21212121"'
+        solr_doc["statute_tesim"].first.should include '"citation":"Family Education Rights and Privacy Act (FERPA)"'
+        solr_doc["statute_tesim"].first.should include '"jurisdiction":"us"'
+        solr_doc["statute_tesim"].first.should include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
+        solr_doc["statute_tesim"].first.should include '"restrictionType":"display"'
+        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'            
       end
 
       it "should index collection" do
@@ -428,4 +457,20 @@ END
       end
    end
 
+    describe "a complex object with internal classes" do
+      subject do
+        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bd0171551x', :new? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/damsObjectInternal.rdf.xml').read
+        subject
+      end
+      it "should have a subject" do
+        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bd0171551x"
+      end
+      it "should have a repeated date" do
+        solr_doc = subject.to_solr
+        #puts solr_doc["title_tesim"]
+        #puts solr_doc["title_json_tesim"]
+        #solr_doc["title_tesim"].should include "XRF Chemical data"
+      end
+    end
 end
