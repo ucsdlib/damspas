@@ -52,7 +52,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     # rights
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
     map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
-    map.otherRights(:in=>DAMS)
+    map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
     map.statute(:in=>DAMS)
     map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
@@ -157,11 +157,14 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_otherRights(otherRights)
   end
   def load_otherRights (otherRights)
-    o_uri = otherRights.values.first.to_s
-    o_pid = o_uri.gsub(/.*\//,'')
-    if o_pid != nil && o_pid != ""
-      DamsOtherRights.find(o_pid)
-    end
+	if !otherRights.values.first.nil?
+	    o_pid = otherRights.values.first.pid
+	    if !otherRights.values.first.uri.nil? && otherRights.values.first.uri.length > 0
+	      otherRights.values.first
+	    else
+	      DamsOtherRights.find(o_pid)
+	    end
+	end        
   end
 
   def load_source_capture(source_capture)

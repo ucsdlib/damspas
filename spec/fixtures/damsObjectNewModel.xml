@@ -530,6 +530,24 @@
 	      </dams:Permission>
 	    </dams:permission>
 	  </dams:License>
-	</dams:license>       	                            
+	</dams:license>    
+	<dams:otherRights>
+		<dams:OtherRights rdf:about="http://library.ucsd.edu/ark:/20775/zz06060606">
+	    <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
+	    <dams:otherRightsURI rdf:resource="http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"/>
+	    <dams:relationship>
+	      <dams:Relationship>
+	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd3004227d"/>
+	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
+	      </dams:Relationship>
+	    </dams:relationship>
+	    <dams:permission>
+	      <dams:Permission>
+	        <dams:type>display</dams:type>
+	        <dams:beginDate>2011-09-24</dams:beginDate>
+	      </dams:Permission>
+	    </dams:permission>
+	  </dams:OtherRights>	
+	</dams:otherRights>  	                            
   </dams:Object>
 </rdf:RDF>

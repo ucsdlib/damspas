@@ -394,6 +394,15 @@ END
         solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
         solr_doc["license_tesim"].first.should include '"permissionType":"display"'
         solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
+        
+		# other rights
+        solr_doc["otherRights_tesim"].first.should include '"id":"zz06060606"'
+        solr_doc["otherRights_tesim"].first.should include '"basis":"fair use"'
+        solr_doc["otherRights_tesim"].first.should include '"uri":"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"'
+        solr_doc["otherRights_tesim"].first.should include '"permissionType":"display"'
+        solr_doc["otherRights_tesim"].first.should include '"permissionBeginDate":"2011-09-24"'
+        solr_doc["otherRights_tesim"].first.should include '"name":"http://library.ucsd.edu/ark:/20775/bb09090909"'
+        solr_doc["otherRights_tesim"].first.should include '"role":"http://library.ucsd.edu/ark:/20775/bd3004227d"'        
       end
 
       it "should index collection" do
