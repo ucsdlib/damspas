@@ -402,7 +402,15 @@ END
         solr_doc["otherRights_tesim"].first.should include '"permissionType":"display"'
         solr_doc["otherRights_tesim"].first.should include '"permissionBeginDate":"2011-09-24"'
         solr_doc["otherRights_tesim"].first.should include '"name":"http://library.ucsd.edu/ark:/20775/bb09090909"'
-        solr_doc["otherRights_tesim"].first.should include '"role":"http://library.ucsd.edu/ark:/20775/bd3004227d"'        
+        solr_doc["otherRights_tesim"].first.should include '"role":"http://library.ucsd.edu/ark:/20775/bd3004227d"'    
+        
+        # statute
+        solr_doc["statute_tesim"].first.should include '"id":"zz21212121"'
+        solr_doc["statute_tesim"].first.should include '"citation":"Family Education Rights and Privacy Act (FERPA)"'
+        solr_doc["statute_tesim"].first.should include '"jurisdiction":"us"'
+        solr_doc["statute_tesim"].first.should include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
+        solr_doc["statute_tesim"].first.should include '"restrictionType":"display"'
+        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'            
       end
 
       it "should index collection" do

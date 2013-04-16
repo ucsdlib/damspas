@@ -54,7 +54,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
     map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
 	map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
-    map.statute(:in=>DAMS)
+    map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
     map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics

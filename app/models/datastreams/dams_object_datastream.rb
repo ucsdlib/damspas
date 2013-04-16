@@ -53,7 +53,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
     map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
     map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
-    map.statute(:in=>DAMS)
+    map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
     map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
@@ -147,11 +147,20 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_statute(statute)
   end
   def load_statute (statute)
-    s_uri = statute.values.first.to_s
-    s_pid = s_uri.gsub(/.*\//,'')
-    if s_pid != nil && s_pid != ""
-      DamsStatute.find(s_pid)
-    end
+#    s_uri = statute.values.first.to_s
+#    s_pid = s_uri.gsub(/.*\//,'')
+#    if s_pid != nil && s_pid != ""
+#      DamsStatute.find(s_pid)
+#    end
+    
+	if !statute.values.first.nil?
+	    s_pid = statute.values.first.pid
+	    if !statute.values.first.citation.nil? && statute.values.first.citation.length > 0
+	      statute.values.first
+	    else
+	      DamsStatute.find(s_pid)
+	    end
+	end        
   end
   def load_otherRights
     load_otherRights(otherRights)
