@@ -1,5 +1,8 @@
-class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
+class DamsOtherRightsInternal
+  include ActiveFedora::RdfObject
   include DamsHelper
+  rdf_type DAMS.OtherRights
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
   map_predicates do |map|
     map.basis(:in => DAMS, :to => 'otherRightsBasis')
     map.note(:in => DAMS, :to => 'otherRightsNote')
@@ -9,13 +12,10 @@ class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-
-  def serialize
-    graph.insert([rdf_subject, RDF.type, DAMS.OtherRights]) if new?
-    super
-  end
-
+  def pid
+      rdf_subject.to_s.gsub(/.*\//,'')
+  end  
+  
   def name
     relationship[0] ? relationship[0].name : []
   end
@@ -33,20 +33,5 @@ class DamsOtherRightsDatastream < ActiveFedora::RdfxmlRDFDatastream
       relationship[0] = relationship.build
     end
     relationship[0].role = RDF::Resource.new(val)
-  end   
-
-  def to_solr (solr_doc = {})
-    solr_doc[ActiveFedora::SolrService.solr_name("basis", type: :text)] = basis
-    solr_doc[ActiveFedora::SolrService.solr_name("uri", type: :text)] = uri
-    solr_doc[ActiveFedora::SolrService.solr_name("note", type: :text)] = note
-    relationship.map do |relationship|
-      Solrizer.insert_field(solr_doc, 'decider', relationship.load.name )
-    end
-
-    # hack to strip "+00:00" from end of dates, because that makes solr barf
-    ['system_create_dtsi','system_modified_dtsi'].each { |f|
-      solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
-    }
-    return solr_doc
-  end
+  end    
 end

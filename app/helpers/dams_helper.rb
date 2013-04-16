@@ -135,5 +135,6 @@ module DamsHelper
       restriction_node[0] = restriction_node.build
     end
     restriction_node[0].type = val
-  end   
+  end  
+
 end
