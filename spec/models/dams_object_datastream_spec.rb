@@ -469,7 +469,8 @@ END
       it "should have a repeated date" do
         solr_doc = subject.to_solr
         solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
-		#puts solr_doc["relationship_json_tesim"]        
+        solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","type":"ProvenanceCollection"'     
+		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
       end
     end
 end
