@@ -411,6 +411,8 @@ END
         solr_doc["event_json_tesim"].first.should include '"pid":"bb07070707","type":"object creation"' 
         solr_doc["event_json_tesim"].second.should include '"pid":"zz07070707","type":"object creation inline event"' 
         solr_doc["event_json_tesim"].third.should include '"name":"dams:unknownUser","role":"dams:initiator"'
+        
+        solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'
       end
 
       it "should index collection" do
@@ -471,6 +473,8 @@ END
         solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
         solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","type":"ProvenanceCollection"'     
 		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
+		
+		puts solr_doc["unit_tesim"]
       end
     end
 end

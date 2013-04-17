@@ -163,20 +163,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def load_events(event)
     events = []
-#    event.values.each do |e|
-#      event_uri = e.to_s
-#      event_pid = event_uri.gsub(/.*\//,'')
-#      if event_pid != nil && event_pid != ""
-#        begin
-#           events << DamsDAMSEvent.find(event_pid)
-#        rescue Exception => e
-#          puts e.to_s
-#          e.backtrace.each do |line|
-#            puts line
-#          end
-#        end              
-#      end
-#    end
     event.values.each do |e|
       begin
 	      if !e.outcome.first.nil? && e.outcome.first != ""
