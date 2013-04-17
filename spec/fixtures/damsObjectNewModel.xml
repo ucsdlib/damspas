@@ -562,6 +562,39 @@
 	      </dams:Restriction>
 	    </dams:restriction>
 	  </dams:Statute>
-	 </dams:statute>                            
+	 </dams:statute>      
+	<dams:cartographics>
+	  <dams:Cartographics rdf:about="http://library.ucsd.edu/ark:/20775/bb20202020">
+	    <dams:scale>1:20000</dams:scale>
+	    <dams:projection>equirectangular</dams:projection>
+	    <dams:referenceSystem>WGS84</dams:referenceSystem>
+	    <dams:point>29.67459,-82.37873</dams:point>
+	  </dams:Cartographics>  
+    </dams:cartographics>    
+	<dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
+  	<dams:event>
+	  <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/zz07070707">
+	    <dams:type>object creation inline event</dams:type>
+	    <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
+	    <dams:outcome>success</dams:outcome>
+	    <dams:relationship>
+	      <dams:Relationship>
+	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707286t"/>
+	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb56565656"/>
+	      </dams:Relationship>
+	    </dams:relationship>
+	  </dams:DAMSEvent>
+     </dams:event>
+      <dams:event>
+         <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0990660f">
+           <dams:relationship rdf:parseType="Resource">
+             <dams:role rdf:resource="dams:initiator"/>
+             <dams:name rdf:resource="dams:unknownUser"/>
+           </dams:relationship>
+           <dams:outcome>success</dams:outcome>
+           <dams:eventDate>2013-03-11T08:48:40-0700</dams:eventDate>
+           <dams:type>object creation</dams:type>
+         </dams:DAMSEvent>
+       </dams:event>                            
   </dams:Object>
 </rdf:RDF>

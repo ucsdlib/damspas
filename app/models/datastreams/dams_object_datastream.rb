@@ -36,7 +36,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.event(:in=>DAMS)
+    map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 
     # unit and collections
     map.unit_node(:in => DAMS, :to=>'unit')
@@ -146,13 +146,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_statute
     load_statute(statute)
   end
-  def load_statute (statute)
-#    s_uri = statute.values.first.to_s
-#    s_pid = s_uri.gsub(/.*\//,'')
-#    if s_pid != nil && s_pid != ""
-#      DamsStatute.find(s_pid)
-#    end
-    
+  def load_statute (statute)    
 	if !statute.values.first.nil?
 	    s_pid = statute.values.first.pid
 	    if !statute.values.first.citation.nil? && statute.values.first.citation.length > 0
