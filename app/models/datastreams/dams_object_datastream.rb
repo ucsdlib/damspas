@@ -39,7 +39,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 
     # unit and collections
-    map.unit_node(:in => DAMS, :to=>'unit')
+    map.unit_node(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
     map.collection(:in => DAMS)
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
@@ -74,13 +74,25 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_unit(unit)
   end
   def load_unit(unit)
-    unit_uri = unit.values.first.to_s
-    unit_pid = unit_uri.gsub(/.*\//,'')
-    if unit_pid != nil && unit_pid != ""
-      DamsUnit.find(unit_pid)
-    else
-      nil
-    end
+#    unit_uri = unit.values.first.to_s
+#    unit_pid = unit_uri.gsub(/.*\//,'')
+#    if unit_pid != nil && unit_pid != ""
+#      DamsUnit.find(unit_pid)
+#    else
+#      nil
+#    end
+	if !unit.values.first.nil?
+	    u_pid = unit.values.first.pid
+	    
+	    if !unit.values.first.name.nil? && unit.values.first.name.length > 0
+	      unit.values.first
+	    else
+	      DamsUnit.find(u_pid)
+	    end
+	else
+		nil
+	end
+
   end
 
   def load_collection
@@ -417,7 +429,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     insertFileFields solr_doc, nil, file
     
     unit = load_unit unit_node
-    if unit.class == DamsUnit
+    if !unit.nil?
       Solrizer.insert_field(solr_doc, 'unit', unit.name, facetable)
       Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
       Solrizer.insert_field(solr_doc, 'fulltext', unit.name)
