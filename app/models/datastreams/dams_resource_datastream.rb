@@ -163,19 +163,34 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def load_events(event)
     events = []
+#    event.values.each do |e|
+#      event_uri = e.to_s
+#      event_pid = event_uri.gsub(/.*\//,'')
+#      if event_pid != nil && event_pid != ""
+#        begin
+#           events << DamsDAMSEvent.find(event_pid)
+#        rescue Exception => e
+#          puts e.to_s
+#          e.backtrace.each do |line|
+#            puts line
+#          end
+#        end              
+#      end
+#    end
     event.values.each do |e|
-      event_uri = e.to_s
-      event_pid = event_uri.gsub(/.*\//,'')
-      if event_pid != nil && event_pid != ""
-        begin
-           events << DamsDAMSEvent.find(event_pid)
-        rescue Exception => e
+      begin
+	      if !e.outcome.first.nil? && e.outcome.first != ""
+	        # use inline data if available
+	        events << e
+	      elsif e.pid != nil
+	        events << DamsDAMSEvent.find(e.pid)
+	      end
+ 	  rescue Exception => e
           puts e.to_s
           e.backtrace.each do |line|
             puts line
           end
-        end              
-      end
+      end 	      	      
     end
     events
   end  
@@ -411,7 +426,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 			elsif !rel.name.first.nil?
 		      rel = rel.name    
 		      if rel.first.name.first.nil?
-		        puts rel.to_s
 		      	rel = relationship.load  
 		      end
 		    end
@@ -423,6 +437,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	        	name = rel.name.first.to_s			        	
 			 end	      
              rel_json[:name] = name
+          else
+            if !relationship.name.first.nil? && !relationship.name.first.pid.nil? && (relationship.name.first.pid.include? 'dams:')
+				rel_json[:name] = relationship.name.first.pid		
+			end	     
 	      end 
 	      #relRole = relationship.loadRole
 		  relRole = relationship.role.first.value.first.to_s
@@ -438,6 +456,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 			end	      
 	      if (roleValue != nil)
              rel_json[:role] = roleValue
+          else
+			if !relationship.role.first.nil? && !relationship.role.first.pid.nil? && (relationship.role.first.pid.include? 'dams:')
+				rel_json[:role] = relationship.role.first.pid		
+			end	           
 	      end  
           rels << rel_json
 	    end    

@@ -303,12 +303,6 @@ END
         subject.titleValue.should == ["Sample Object Record #8"]
         subject.subtitle.should == ["Name/Note/Subject Sampler"]
       end
-
-      it "should index both internal and external rightsHolder fields" do
-        solr_doc = subject.to_solr   
-        puts solr_doc["relationship_json_tesim"]
-        
-      end
       
       it "should index mads fields" do
         solr_doc = subject.to_solr
@@ -410,7 +404,13 @@ END
         solr_doc["statute_tesim"].first.should include '"jurisdiction":"us"'
         solr_doc["statute_tesim"].first.should include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
         solr_doc["statute_tesim"].first.should include '"restrictionType":"display"'
-        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'            
+        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'      
+        
+        solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
+        
+        solr_doc["event_json_tesim"].first.should include '"pid":"bb07070707","type":"object creation"' 
+        solr_doc["event_json_tesim"].second.should include '"pid":"zz07070707","type":"object creation inline event"' 
+        solr_doc["event_json_tesim"].third.should include '"name":"dams:unknownUser","role":"dams:initiator"'
       end
 
       it "should index collection" do
@@ -468,9 +468,8 @@ END
       end
       it "should have a repeated date" do
         solr_doc = subject.to_solr
-        #puts solr_doc["title_tesim"]
-        #puts solr_doc["title_json_tesim"]
-        #solr_doc["title_tesim"].should include "XRF Chemical data"
+        solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
+		#puts solr_doc["relationship_json_tesim"]        
       end
     end
 end
