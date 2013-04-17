@@ -5,5 +5,8 @@ class Title
       map.value(:in=> RDF)
       map.subtitle(:in=> DAMS)
       map.type(:in=> DAMS)
+      map.partNumber(:in=> DAMS)
+      map.partName(:in=> DAMS)   
+      map.nonSort(:in=> DAMS)    
     end
 end

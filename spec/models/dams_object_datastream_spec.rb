@@ -413,6 +413,8 @@ END
         solr_doc["event_json_tesim"].third.should include '"name":"dams:unknownUser","role":"dams:initiator"'
         
         solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'
+        
+        solr_doc["title_json_tesim"].first.should include '"partNumber":"sample partnumber","partName":"sample partname","nonSort":"true"'
       end
 
       it "should index collection" do
