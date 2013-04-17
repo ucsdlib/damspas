@@ -28,6 +28,9 @@
         <rdf:value>Sample Object Record #8</rdf:value>
         <dams:subtitle>Name/Note/Subject Sampler</dams:subtitle>
         <dams:type>main</dams:type>
+        <dams:partNumber>sample partnumber</dams:partNumber>
+        <dams:partName>sample partname</dams:partName>
+        <dams:nonSort>true</dams:nonSort>
       </dams:Title>
     </dams:title>
     <dams:familyName rdf:resource="http://library.ucsd.edu/ark:/20775/bd1775562z"/>

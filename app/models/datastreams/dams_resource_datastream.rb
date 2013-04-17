@@ -353,10 +353,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     titles.map do |t|
       # display
       if cid != nil
-        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s, :partNumber=>t.partNumber.first.to_s, :partName=>t.partName.first.to_s, :nonSort=>t.nonSort.first.to_s}
         Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
       else
-        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s, :partNumber=>t.partNumber.first.to_s, :partName=>t.partName.first.to_s, :nonSort=>t.nonSort.first.to_s}
         Solrizer.insert_field(solr_doc, "title_json", title_json.to_json)
       end
 
