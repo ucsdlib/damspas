@@ -36,7 +36,7 @@ class DamsComponentDatastream < DamsResourceDatastream
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.event(:in=>DAMS)
+    map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 
     # unit and collections
     map.unit_node(:in => DAMS, :to=>'unit')
@@ -102,7 +102,7 @@ class DamsComponentDatastream < DamsResourceDatastream
         map.mimeType(:in=>DAMS)
         map.objectCategory(:in=>DAMS)
         map.preservationLevel(:in=>DAMS)
-		map.event(:in=>DAMS)
+		map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 		
         # mix
         map.source_capture(:in=>DAMS, :to => 'sourceCapture')
