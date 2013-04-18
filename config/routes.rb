@@ -9,11 +9,11 @@ Hydra::Application.routes.draw do
   match "view/:id",     :to => 'object#show', :as => 'object'
   match "view/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
 
-  resources :units, :only => [:index, :show]
-  root :to => "units#index"
+  #resources :units, :only => [:index, :show]
+  root :to => "dams_units#index"
   resources :collections, :only => [:index, :show]
-  match '/dlp', to: 'units#show', :id => 'dlp'
-  match '/rci', to: 'units#show', :id => 'rci'
+  match '/dlp', to: 'dams_units#show', :id => 'dlp'
+  match '/rci', to: 'dams_units#show', :id => 'rci'
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
   
@@ -49,7 +49,9 @@ Hydra::Application.routes.draw do
 
   resources :dams_objects
   resources :dams_assembled_collections
-  resources :dams_units
+  resources :dams_units do
+    get 'view', :on => :member
+  end
   resources :dams_copyrights
   resources :dams_licenses
   resources :dams_other_rights
