@@ -1,4 +1,4 @@
-<%= form_tag search_action_url, :method => :get, :class => 'search-query-form clearfix' do %>
+<%= form_tag catalog_index_url, :method => :get, :class => 'search-query-form clearfix' do %>
 
     <% if @current_unit != nil %>
 	<%= search_as_hidden_fields(:params => { 'f[unit_sim]' => @current_unit }, :omit_keys => [:q, :search_field, :qt, :page]).html_safe %> 

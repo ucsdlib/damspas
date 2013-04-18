@@ -74,17 +74,10 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_unit(unit)
   end
   def load_unit(unit)
-#    unit_uri = unit.values.first.to_s
-#    unit_pid = unit_uri.gsub(/.*\//,'')
-#    if unit_pid != nil && unit_pid != ""
-#      DamsUnit.find(unit_pid)
-#    else
-#      nil
-#    end
 	if !unit.values.first.nil?
 	    u_pid = unit.values.first.pid
 	    
-	    if !unit.values.first.name.nil? && unit.values.first.name.length > 0
+	    if !unit.values.first.name.first.nil? && unit.values.first.name.first.to_s.length > 0
 	      unit.values.first
 	    else
 	      DamsUnit.find(u_pid)
@@ -131,8 +124,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_copyright ( copyright )
 	if !copyright.values.first.nil?
 	    c_pid = copyright.values.first.pid
-	    
-	    if !copyright.values.first.status.nil? && copyright.values.first.status.length > 0
+	    if !copyright.values.first.status.first.nil? && copyright.values.first.status.to_s.length > 0
 	      copyright.values.first
 	    else
 	      DamsCopyright.find(c_pid)
@@ -148,7 +140,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	if !license.values.first.nil?
 	    l_pid = license.values.first.pid
 	    
-	    if !license.values.first.uri.nil? && license.values.first.uri.length > 0
+	    if !license.values.first.uri.first.nil? && license.values.first.uri.first.to_s.length > 0
 	      license.values.first
 	    else
 	      DamsLicense.find(l_pid)
@@ -161,7 +153,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_statute (statute)    
 	if !statute.values.first.nil?
 	    s_pid = statute.values.first.pid
-	    if !statute.values.first.citation.nil? && statute.values.first.citation.length > 0
+	    if !statute.values.first.citation.first.nil? && statute.values.first.citation.first.to_s.length > 0
 	      statute.values.first
 	    else
 	      DamsStatute.find(s_pid)
@@ -174,7 +166,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_otherRights (otherRights)
 	if !otherRights.values.first.nil?
 	    o_pid = otherRights.values.first.pid
-	    if !otherRights.values.first.uri.nil? && otherRights.values.first.uri.length > 0
+	    if !otherRights.values.first.uri.first.nil? && otherRights.values.first.uri.first.to_s.length > 0
 	      otherRights.values.first
 	    else
 	      DamsOtherRights.find(o_pid)
@@ -329,11 +321,14 @@ class DamsObjectDatastream < DamsResourceDatastream
         :permissionEndDate => othr.permissionEndDate.first.to_s,
         :restrictionType => othr.restrictionType.first.to_s,
         :restrictionBeginDate => othr.restrictionBeginDate.first.to_s,
-        :restrictionEndDate => othr.restrictionEndDate.first.to_s,
-        #:name => othr.name.first.to_s,
-        #:role => othr.role.first.to_s }
-        :name => "http://library.ucsd.edu/ark:/20775/#{othr.name.first.pid}",
-        :role => "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}" }
+        :restrictionEndDate => othr.restrictionEndDate.first.to_s
+      }
+      if othr.name.first != nil
+        othr_json[:name] = "http://library.ucsd.edu/ark:/20775/#{othr.name.first.pid}"
+      end
+      if othr.role.first != nil
+        othr_json[:role] = "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}"
+      end
       Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
     end    
