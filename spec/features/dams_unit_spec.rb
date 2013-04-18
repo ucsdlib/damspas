@@ -1,26 +1,88 @@
 require 'spec_helper'
 
-feature 'Visitor wants to look at digital collections' do
-  scenario 'is on collections landing page' do
-    @unit1 = DamsUnit.create(name: "Library Collections")
-    @unit2 = DamsUnit.create(name: "RCI")
-
+feature 'Visitor wants to look at units' do
+  scenario 'is on units landing page' do
     visit dams_units_path
-    expect(page).to have_selector('h1', :text => 'DAMS Administrative Units')
+    expect(page).to have_selector('h1', :text => 'Digital Collections')
     expect(page).to have_selector('a', :text => 'Library Collections')
     expect(page).to have_selector('a', :text => 'Research Data Curation Program')
+    expect(page).to have_selector('p', :text => 'Browse')
+    expect(page).to have_selector('a', :text => 'Topic')
+    expect(page).to have_selector('a', :text => 'Format')
+
+    expect(page).to have_field('Search...')
   end
 
-end
+  scenario 'does a search for items' do
+    visit dams_units_path
 
+    expect(page).to have_selector('p', :text => 'Search')
+    fill_in 'Search...', :with => "123"
+    click_on('Search')
+
+    expect(page).to have_content('Search Results')
+  end
+
+  scenario 'uses the carousel' do
+    visit dams_units_path
+
+    expect(page).to have_selector('.carousel')
+  end
+
+  scenario 'retrieve a unit record' do
+    # can we find the unit record
+    visit dams_units_path
+    expect(page).to have_field('Search...')
+    fill_in 'Search...', :with => 'bb02020202'
+
+    click_on('Search')
+
+    # Check description on the page
+    expect(page).to have_content("bb02020202")
+  end
+
+  scenario 'scoped search (inclusion)' do
+    visit dams_unit_path :id => 'dlp'
+    expect(page).to have_selector('h1', :text => 'Library Collections')
+
+    # search for the object in the unit and find it
+    fill_in 'Search...', :with => 'sample'
+    click_on('Search')
+    expect(page).to have_content('Search Results')
+    expect(page).to have_content('Sample Video Object')
+  end
+
+  scenario 'scoped search (exclusion)' do
+    visit dams_unit_path :id => 'rci'
+    expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
+
+    # search for the object in the unit and find it
+    fill_in 'Search...', :with => 'sample'
+    click_on('Search')
+    expect(page).to have_content('Search Results')
+    expect(page).to have_no_content('Sample Complex Object Record #1')
+  end
+end
 feature 'Visitor should only see edit button when it will work' do
   scenario 'an anonymous user' do
-    visit dams_unit_path('bb02020202')
+    visit dams_unit_path('dlp')
     expect(page).not_to have_selector('a', :text => 'Edit')
   end
   scenario 'a logged in user' do
     sign_in_developer
-    visit dams_unit_path('bb02020202')
+    visit dams_unit_path('dlp')
+    expect(page).to have_selector('a', :text => 'Edit')
+  end
+end
+
+feature 'Visitor should only see edit button when it will work' do
+  scenario 'an anonymous user' do
+    visit dams_unit_path('dlp')
+    expect(page).not_to have_selector('a', :text => 'Edit')
+  end
+  scenario 'a logged in user' do
+    sign_in_developer
+    visit dams_unit_path('dlp')
     expect(page).to have_selector('a', :text => 'Edit')
   end
 end

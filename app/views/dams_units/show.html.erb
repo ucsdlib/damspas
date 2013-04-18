@@ -1,19 +1,130 @@
-<h1><%= @dams_unit.name.first %></h1>
-
-<div>
-  <dl>
-    <dt>code:</dt>
-    <dd><%= @dams_unit.code.first %></dd>
-    <dt>group:</dt>
-    <dd><%= @dams_unit.group.first %></dd>
-    <dt>description:</dt>
-    <dd><%= @dams_unit.description.first %></dd>
-    <dt>uri:</dt>
-    <dd><%= @dams_unit.uri.first %></dd>
-  </dl>
-  <% if can? :update, @dams_unit %>
-    <%= link_to "Solr View", unit_path(@dams_unit.code), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_dams_unit_path(@dams_unit), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_units_path(), class: "btn btn-primary"%>
-  <% end %>
+<% @page_title =  "Unit | #{render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim")} " %>
+<% adminUnit = render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %>
+<div class="row-fluid">
+	<div class="span12">
+		<h1><%= adminUnit %></h1>
+	</div>
 </div>
+
+<div class="row-fluid">
+
+    <div id="myCarousel" class="carousel slide span8">
+    <div class="carousel-inner">
+
+			<% if adminUnit == "Research Data Curation Program" %>
+
+				<div class="active item">
+					<%= image_tag file_path('bd3413814d', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: The Brain Observatory</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd21510035', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: The UCSD Levantine Archaeology Laboratory</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd08540633', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: The National Science Foundation OpenTopography Facility</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd95572101', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: Scripps Institution of Oceanography Geological Collections</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd82602702', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: The Laboratory for Computational Astrophysics</h4>
+					</div>
+				</div>
+
+			<% elsif adminUnit == "Library Digital Collections" %>
+
+	
+				<div class="active item">
+					<%= image_tag file_path('bd6963330m', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: Scripps Institution of Oceanography Archives</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd5666392f', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: UCSD History</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd4369453c', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: Latin American Political Campaign Ephemera Collection</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd3106642r', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: Baja California</h4>
+					</div>
+				</div>
+	
+				<div class="item">
+					<%= image_tag file_path('bd18097029', '_2.jpg') %>
+					<div class="carousel-caption">
+						<h4>Collection: Tuzin Archive for Melanesian Anthropology</h4>
+					</div>
+				</div>
+			
+			<% end %>
+    </div>
+
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+		
+		
+	
+	<div class="span4">
+	
+		<div class="well dams-search-box">
+			<h4>Search</h4>
+			<%= render_unit_search_bar  %>
+		</div>
+
+    <p class="sidebar-header"><strong>About the <%= render_document_show_field_value(:document=>@document, :field=>"unit_name_tesim") %></strong></p>
+    <p><%= render_document_show_field_value(:document=>@document, :field=>"unit_description_tesim").html_safe %></p>
+		<ul class="unstyled sidebar-button-list">
+			<li><%= link_to "<i class='icon-globe'></i> #{@document['unit_uri_tesim'].first}".html_safe, @document['unit_uri_tesim'].first, :class => "btn btn-block  btn-link" %></li>
+		</ul>
+		
+		<p class="sidebar-header"><strong>Browse By</strong></p>
+		<ul class="unstyled sidebar-button-list">
+			<!-- hack in browse by collection, for RCI demo -->
+			<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, collections_path, :class => "btn btn-block  btn-link" %></li>
+			<%= render_browse_facet_links %>
+		</ul>
+
+    <% if can? :update, @document then %>
+			<p class="sidebar-header"><strong>Editor Tools</strong></p>
+			<ul class="unstyled sidebar-button-list">
+      <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, view_dams_unit_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_unit_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+			</ul>
+    <% end %>
+				
+	</div>
+
+</div>
+
+
