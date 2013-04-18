@@ -1,33 +1,29 @@
 source 'https://rubygems.org'
 
-gem 'rails' #, '3.2.11'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'blacklight' #, '4.0.1'
+gem 'rails', '3.2.13'
+gem 'blacklight', '4.2.0'
 gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
-gem 'solrizer' #, '3.0.0.pre4'
-gem 'hydra-head' #, "6.0.0.pre3"
-gem 'active-fedora' #, "6.0.0.pre5"
+gem 'solrizer', '3.0.0'
+gem 'hydra-head', "6.0.0"
+gem 'active-fedora', "6.0.0"
 
-gem 'sqlite3'
+gem 'sqlite3', '1.3.7'
 
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-shibboleth'
-gem 'equivalent-xml'
+gem 'devise', '2.2.3'
+gem 'omniauth', '1.1.4'
+gem 'omniauth-shibboleth', '1.0.8'
+gem 'equivalent-xml', '0.3.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails' #,   '~> 3.2.3'
-  gem 'coffee-rails' #, '~> 3.2.1'
+  gem 'sass-rails',   '3.2.6'
+  gem 'coffee-rails', '3.2.2'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', '0.11.4', :platforms => :ruby
 
-  gem 'uglifier' #, '>= 1.0.3'
+  gem 'uglifier', '2.0.1'
 end
 
 gem 'jquery-rails'
@@ -38,25 +34,21 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-# gem 'unicorn'
-
 # Deploy with Capistrano
 # gem 'capistrano'
 
 # To use debugger
 # gem 'debugger'
 
-gem "unicode", :platforms => [:mri_18, :mri_19]
-gem "devise"
-gem "bootstrap-sass"
+gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
+gem "bootstrap-sass", '2.2.2.0'
 
 group :development, :test do
-  gem 'rspec-rails' #, '>=2.9.0'
-  gem 'capybara'
-  gem 'launchy'
-  gem 'simplecov'
-  gem 'jettywrapper'
-  gem 'database_cleaner'
-  gem 'unicorn'
+  gem 'capybara', '2.1.0'
+  gem 'database_cleaner', '0.9.1'
+  gem 'jettywrapper', '1.4.1'
+  gem 'launchy', '2.3.0'
+  gem 'rspec-rails', '2.13.0'
+  gem 'simplecov', '0.7.1'
+  gem 'unicorn', '4.6.2'
 end
