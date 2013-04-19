@@ -31,11 +31,19 @@ class DamsObject < ActiveFedora::Base
     damsMetadata.load_rightsHolders damsMetadata.rightsHolder
   end
   def sourceCapture
-    if !damsMetadata.component.first.nil? && damsMetadata.component.first.file.first.nil?
-      damsMetadata.load_sourceCapture damsMetadata.component.first.file.first.sourceCapture
-    elsif !damsMetadata.file.first.nil?
-      damsMetadata.load_sourceCapture damsMetadata.file.first.sourceCapture
+    damsMetadata.component.each do |cmp|
+      cmp.file.each do |f|
+        if f.sourceCapture != nil
+          return damsMetadata.load_sourceCapture f.sourceCapture
+        end
+      end
     end
+    damsMetadata.file.each do |f|
+      if f.sourceCapture != nil
+        return damsMetadata.load_sourceCapture f.sourceCapture
+      end
+    end
+    return nil
   end
   def iconographies
     damsMetadata.load_iconographies
