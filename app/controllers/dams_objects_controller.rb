@@ -12,7 +12,7 @@ class DamsObjectsController < ApplicationController
       current_user = User.anonymous(request.ip)
     end
 
-    @response, @document = get_search_results( :q => "id:#{params[:id]}" )
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     @rdfxml = @document['rdfxml_ssi']
     if @rdfxml == nil
       @rdfxml = "<rdf:RDF xmlns:dams='http://library.ucsd.edu/ontology/dams#'
