@@ -1,8 +1,15 @@
 class FileController < ApplicationController
   def show
     # load metadata
-    asset = ActiveFedora::Base.find(params[:id], :cast=>true)
+    begin
+      asset = ActiveFedora::Base.find(params[:id], :cast=>true)
+    rescue
+      raise ActionController::RoutingError.new('Not Found')
+    end
     ds = asset.datastreams[params[:ds]]
+    if ds.nil?
+      raise ActionController::RoutingError.new('Not Found')
+    end
 
     # set headers
     filename = params["filename"] || "#{params[:id]}#{params[:ds]}"
