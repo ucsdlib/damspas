@@ -7,9 +7,9 @@
 					<% if col['id'] == 'bd5905304g' || col['id'] == 'bd24241158' #TEMP %>
 						<li class="span3">
 							<div class="thumbnail">
-								<% tempImg = (col['id'] == 'bd5905304g')?'/view/bd82602702/_3.jpg':'/view/bd95572101/_3.jpg' %>
+								<% tempImg = (col['id'] == 'bd5905304g') ? file_path('bd82602702','_3.jpg') : file_path('bd95572101','_3.jpg') %>
 								<img alt="" src="<%=tempImg%>">
-								<%= link_to render_document_show_field_value(:document=>col, :field=>"title_tesim"), collection_path(col['id']), :class => "btn btn-block btn-link" %>
+								<%= link_to render_document_show_field_value(:document=>col, :field=>"title_tesim"), dams_collection_path(col['id']), :class => "btn btn-block btn-link" %>
 							</div>
 						</li>
 					<% end #TEMP %>

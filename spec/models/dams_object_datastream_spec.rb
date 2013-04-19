@@ -24,7 +24,7 @@ describe DamsObjectDatastream do
       end
 
       it "should have fields" do
-        subject.resource_type.should == ["text"]
+        subject.typeOfResource.should == ["text"]
         subject.titleValue.should == ["Chicano and black radical activism of the 1960s"]
       end
 
@@ -80,7 +80,7 @@ describe DamsObjectDatastream do
         solr_doc["date_tesim"].should include "2012"
       end
       it "should have fields" do
-        subject.resource_type.should == ["mixed material"]
+        subject.typeOfResource.should == ["mixed material"]
         subject.titleValue.should == ["Sample Complex Object Record #1"]
         subject.subtitle.should == ["a dissertation with a single attached image"]
         subject.relatedResource.first.type.should == ["online exhibit"]

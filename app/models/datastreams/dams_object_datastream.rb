@@ -39,7 +39,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 
     # unit and collections
-    map.unit_node(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
+    map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
     map.collection(:in => DAMS)
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
@@ -57,7 +57,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
-    map.resource_type(:in => DAMS, :to => 'typeOfResource')
+    map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
     map.cartographics(:in => DAMS, :class_name => 'Cartographics')
   end
  
@@ -70,9 +70,6 @@ class DamsObjectDatastream < DamsResourceDatastream
     super
   end
 
-  def load_unit
-    load_unit(unit)
-  end
   def load_unit(unit)
 	if !unit.values.first.nil?
 	    u_pid = unit.values.first.pid
@@ -88,10 +85,6 @@ class DamsObjectDatastream < DamsResourceDatastream
 
   end
 
-  def load_collection
-    load_collection(collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
-  end
-  
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
@@ -118,9 +111,6 @@ class DamsObjectDatastream < DamsResourceDatastream
     collections
   end
   
-  def load_copyright
-    load_copyright( copyright )
-  end
   def load_copyright ( copyright )
 	if !copyright.values.first.nil?
 	    c_pid = copyright.values.first.pid
@@ -174,8 +164,8 @@ class DamsObjectDatastream < DamsResourceDatastream
 	end        
   end
 
-  def load_source_capture(source_capture)
-    uri = source_capture.values.first.to_s
+  def load_sourceCapture(sourceCapture)
+    uri = sourceCapture.values.first.to_s
     pid = uri.gsub(/.*\//,'')
     if pid != nil && pid != ""
       obj = DamsSourceCapture.find(pid)
@@ -220,16 +210,16 @@ class DamsObjectDatastream < DamsResourceDatastream
         :mimeType => file.mimeType.first.to_s }
 
       # source capture
-      source_capture = load_source_capture file.source_capture
-      if source_capture.class == DamsSourceCapture
-        file_json[:source_capture] = source_capture.pid
-        file_json[:capture_source] = source_capture.captureSource.first.to_s
-        file_json[:image_producer] = source_capture.imageProducer.first.to_s
-        file_json[:scanner_manufacturer] = source_capture.scannerManufacturer.first.to_s
-        file_json[:scanner_model_name] = source_capture.scannerModelName.first.to_s
-        file_json[:scanning_software] = source_capture.scanningSoftware.first.to_s
-        file_json[:scanning_software_version] = source_capture.scanningSoftwareVersion.first.to_s
-        file_json[:source_type] = source_capture.sourceType.first.to_s
+      srcCap = load_sourceCapture file.sourceCapture
+      if srcCap.class == DamsSourceCapture
+        file_json[:source_capture] = srcCap.pid
+        file_json[:capture_source] = srcCap.captureSource.first.to_s
+        file_json[:image_producer] = srcCap.imageProducer.first.to_s
+        file_json[:scanner_manufacturer] = srcCap.scannerManufacturer.first.to_s
+        file_json[:scanner_model_name] = srcCap.scannerModelName.first.to_s
+        file_json[:scanning_software] = srcCap.scanningSoftware.first.to_s
+        file_json[:scanning_software_version] = srcCap.scanningSoftwareVersion.first.to_s
+        file_json[:source_type] = srcCap.sourceType.first.to_s
       end
 
       # events
@@ -371,8 +361,8 @@ class DamsObjectDatastream < DamsResourceDatastream
       # titles
       insertTitleFields solr_doc, cid, component.title
 
-      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
-      Solrizer.insert_field(solr_doc, "fulltext", component.resource_type)
+      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.typeOfResource.first)
+      Solrizer.insert_field(solr_doc, "fulltext", component.typeOfResource)
 
       insertDateFields solr_doc, cid, component.date
       insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
@@ -423,16 +413,16 @@ class DamsObjectDatastream < DamsResourceDatastream
     Solrizer.insert_field(solr_doc, "component_map", @cmap.to_json)
     insertFileFields solr_doc, nil, file
     
-    unit = load_unit unit_node
-    if !unit.nil?
-      Solrizer.insert_field(solr_doc, 'unit', unit.name, facetable)
-      Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
-      Solrizer.insert_field(solr_doc, 'fulltext', unit.name)
-      Solrizer.insert_field(solr_doc, 'fulltext', unit.code)
+    u = load_unit unit
+    if !u.nil?
+      Solrizer.insert_field(solr_doc, 'unit', u.name, facetable)
+      Solrizer.insert_field(solr_doc, 'unit_code', u.code)
+      Solrizer.insert_field(solr_doc, 'fulltext', u.name)
+      Solrizer.insert_field(solr_doc, 'fulltext', u.code)
       unit_json = {
-        :id => unit.pid,
-        :code => unit.code.first.to_s,
-        :name => unit.name.first.to_s
+        :id => u.pid,
+        :code => u.code.first.to_s,
+        :name => u.name.first.to_s
       }
       Solrizer.insert_field(solr_doc, 'unit_json', unit_json.to_json)
     end
@@ -483,9 +473,9 @@ class DamsObjectDatastream < DamsResourceDatastream
       Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", carto_json.to_json)
     end 
-    Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
-    Solrizer.insert_field(solr_doc, "fulltext", resource_type)
-    Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)    
+    Solrizer.insert_field(solr_doc, "resource_type", typeOfResource.first)
+    Solrizer.insert_field(solr_doc, "fulltext", typeOfResource)
+    Solrizer.insert_field(solr_doc, "object_type", typeOfResource.first,facetable)    
 
     Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 
