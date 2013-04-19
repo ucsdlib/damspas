@@ -5,13 +5,13 @@ describe DamsObjectsController do
 	  before do
 	  	sign_in User.create!
 	  end
-	  describe "Show" do
+	  describe "View" do
 	    before do
 	      @obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013")
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
-	      get :show, id: @obj.id
+	      get :view, id: @obj.id
 	      response.should be_successful 
 	      assigns[:dams_object].should == @obj
 	    end
