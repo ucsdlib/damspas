@@ -13,6 +13,10 @@ class DamsObjectsController < ApplicationController
     end
 
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    if @document.nil?
+      raise ActionController::RoutingError.new('Not Found')
+    end
+
     @rdfxml = @document['rdfxml_ssi']
     if @rdfxml == nil
       @rdfxml = "<rdf:RDF xmlns:dams='http://library.ucsd.edu/ontology/dams#'
