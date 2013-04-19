@@ -39,7 +39,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 
     # unit and collections
-    map.unit_node(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
+    map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
     map.collection(:in => DAMS)
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
@@ -58,7 +58,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
-    map.resource_type(:in => DAMS, :to => 'typeOfResource')
+    map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
     map.cartographics(:in => DAMS, :class_name => 'Cartographics')
  end
  
@@ -105,7 +105,7 @@ class DamsComponentDatastream < DamsResourceDatastream
 		map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 		
         # mix
-        map.source_capture(:in=>DAMS, :to => 'sourceCapture')
+        map.sourceCapture(:in=>DAMS, :to => 'sourceCapture')
       end
       def id
         fid = rdf_subject.to_s
@@ -118,14 +118,27 @@ class DamsComponentDatastream < DamsResourceDatastream
       end
     end
 
-  def load_source_capture(source_capture)
-    uri = source_capture.values.first.to_s
+  def load_sourceCapture(sourceCapture)
+    uri = sourceCapture.values.first.to_s
     pid = uri.gsub(/.*\//,'')
     if pid != nil && pid != ""
       obj = DamsSourceCapture.find(pid)
       obj
     else
       nil
+    end
+  end
+  def insertSourceCapture( solr_doc, cid, fid, sourceCapture )
+    prefix = (cid != nil) ? "component_#{cid}_file_#{fid}" : "file_#{fid}"
+    if sourceCapture.class == DamsSourceCapture
+      Solrizer.insert_field(solr_doc, "#{prefix}_source_capture", sourceCapture.pid)
+      Solrizer.insert_field(solr_doc, "#{prefix}_capture_source", sourceCapture.captureSource)
+      Solrizer.insert_field(solr_doc, "#{prefix}_image_producer", sourceCapture.imageProducer)
+      Solrizer.insert_field(solr_doc, "#{prefix}_scanner_manufacturer", sourceCapture.scannerManufacturer)
+      Solrizer.insert_field(solr_doc, "#{prefix}_scanner_model_name", sourceCapture.scannerModelName)
+      Solrizer.insert_field(solr_doc, "#{prefix}_scanning_software", sourceCapture.scanningSoftware)
+      Solrizer.insert_field(solr_doc, "#{prefix}_scanning_software_version", sourceCapture.scanningSoftwareVersion)
+      Solrizer.insert_field(solr_doc, "#{prefix}_source_type", sourceCapture.sourceType)
     end
   end
           
@@ -162,7 +175,7 @@ class DamsComponentDatastream < DamsResourceDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", title.subtitle)
       end
 
-      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
+      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.typeOfResource.first)
 
       n = 0
       component.date.map do |date|
@@ -212,17 +225,7 @@ class DamsComponentDatastream < DamsResourceDatastream
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_formatName", file.formatName)
         Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_mimeType", file.mimeType)
 
-        source_capture = load_source_capture file.source_capture
-        if source_capture.class == DamsSourceCapture
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_source_capture", source_capture.pid)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_capture_source", source_capture.captureSource)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_image_producer", source_capture.imageProducer)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanner_model_name", source_capture.scannerModelName)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanning_software", source_capture.scanningSoftware)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
-          Solrizer.insert_field(solr_doc, "component_#{cid}_file_#{fid}_source_type", source_capture.sourceType)
-        end
+        insertSourceCapture solr_doc, cid, fid, load_sourceCapture(file.sourceCapture)
       }
     }
 
@@ -252,20 +255,8 @@ class DamsComponentDatastream < DamsResourceDatastream
       Solrizer.insert_field(solr_doc, "file_#{fid}_formatName", file.formatName)
       Solrizer.insert_field(solr_doc, "file_#{fid}_mimeType", file.mimeType)
 
-      source_capture = load_source_capture file.source_capture
-      if source_capture.class == DamsSourceCapture
-        Solrizer.insert_field(solr_doc, "file_#{fid}_source_capture", source_capture.pid)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_capture_source", source_capture.captureSource)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_image_producer", source_capture.imageProducer)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanner_manufacturer", source_capture.scannerManufacturer)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanner_model_name", source_capture.scannerModelName)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanning_software", source_capture.scanningSoftware)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_scanning_software_version", source_capture.scanningSoftwareVersion)
-        Solrizer.insert_field(solr_doc, "file_#{fid}_source_type", source_capture.sourceType)
-      end
+      insertSourceCapture solr_doc, nil, fid, load_sourceCapture(file.sourceCapture)
     }
-    
-
 
     Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 

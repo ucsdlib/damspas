@@ -1,4 +1,4 @@
-class CollectionsController < ApplicationController
+class DamsCollectionsController < ApplicationController
   include Blacklight::Catalog
 
   def show

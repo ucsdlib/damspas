@@ -6,12 +6,10 @@ Hydra::Application.routes.draw do
   match '/zotero', to: 'static_pages#zotero'
   match '/mendeley', to: 'static_pages#mendeley'
 
-  match "view/:id",     :to => 'object#show', :as => 'object'
-  match "view/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
-  resources :collections, :only => [:index, :show]
+  resources :dams_collections, :only => [:index, :show]
   match '/dlp', to: 'dams_units#show', :id => 'dlp'
   match '/rci', to: 'dams_units#show', :id => 'rci'
 
@@ -47,7 +45,12 @@ Hydra::Application.routes.draw do
 
   resources :dams_subjects, :only => [:show]
 
-  resources :dams_objects
+  resources :dams_objects do
+    get 'view', :on => :member
+  end
+
+  # rename dams_objects#file ?
+  match "dams_objects/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   resources :dams_assembled_collections
   resources :dams_units do
     get 'view', :on => :member
