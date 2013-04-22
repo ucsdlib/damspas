@@ -61,6 +61,6 @@ describe DamsObject do
     subject.damsMetadata.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
     subject.titleValue.should == ["Sample Complex Object Record #1"]
     subject.component.first.title.first.value.should == ["The Static Image"]
-    subject.source_capture.scannerManufacturer.should == ["Epson"]
+    subject.sourceCapture.scannerManufacturer.should == ["Epson"]
   end
 end

@@ -24,7 +24,7 @@ describe DamsObjectDatastream do
       end
 
       it "should have fields" do
-        subject.resource_type.should == ["text"]
+        subject.typeOfResource.should == ["text"]
         subject.titleValue.should == ["Chicano and black radical activism of the 1960s"]
       end
 
@@ -34,18 +34,18 @@ describe DamsObjectDatastream do
       end
 
       it "should have inline subjects" do
-        subject.subject.first.name.should == ["Black Panther Party--History"]
-        subject.subject.second.name.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
+        subject.subject[0].name.should == ["Black Panther Party--History"]
+        subject.subject[1].name.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
       end
       it "should have external subjects" do
-        subject.subject.first.should_not be_external
-        subject.subject.second.should_not be_external
-        subject.subject.third.should be_external
+        subject.subject[0].should_not be_external
+        subject.subject[1].should_not be_external
+        subject.subject[2].should be_external
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
-        subject.relationship.first.role.first.pid.should == "bd55639754"        
+        subject.relationship[0].name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship[0].role.first.pid.should == "bd55639754"        
       end
 
       it "should have date" do
@@ -80,7 +80,7 @@ describe DamsObjectDatastream do
         solr_doc["date_tesim"].should include "2012"
       end
       it "should have fields" do
-        subject.resource_type.should == ["mixed material"]
+        subject.typeOfResource.should == ["mixed material"]
         subject.titleValue.should == ["Sample Complex Object Record #1"]
         subject.subtitle.should == ["a dissertation with a single attached image"]
         subject.relatedResource.first.type.should == ["online exhibit"]
@@ -124,8 +124,8 @@ describe DamsObjectDatastream do
         subject.component.first.note.first.type.should == ["dimensions"]
       end
       it "should have a first component with two attached files" do
-        subject.component.first.file.first.rdf_subject.should == "http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf"
-        subject.component.first.file.second.rdf_subject.should == "http://library.ucsd.edu/ark:/20775/bb80808080/1/2.jpg"
+        subject.component.first.file[0].rdf_subject.should == "http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf"
+        subject.component.first.file[1].rdf_subject.should == "http://library.ucsd.edu/ark:/20775/bb80808080/1/2.jpg"
       end
       it "should have a first component with a first file with file metadata" do
         subject.component.first.file.first.sourcePath.should == ["src/sample/files"]
@@ -239,8 +239,8 @@ describe DamsObjectDatastream do
       end
       it "should index collection" do
         solr_doc = subject.to_solr
-        solr_doc["collection_json_tesim"].first.should include "UCSD Electronic Theses and Dissertations"
-        solr_doc["collection_json_tesim"].second.should include "Historical Dissertations"
+        solr_doc["collection_json_tesim"][0].should include "UCSD Electronic Theses and Dissertations"
+        solr_doc["collection_json_tesim"][1].should include "Historical Dissertations"
       end
 #      it "should have event" do
 #        solr_doc = subject.to_solr
@@ -302,12 +302,6 @@ END
       it "should have fields" do
         subject.titleValue.should == ["Sample Object Record #8"]
         subject.subtitle.should == ["Name/Note/Subject Sampler"]
-      end
-
-      it "should index both internal and external rightsHolder fields" do
-        solr_doc = subject.to_solr   
-        puts solr_doc["relationship_json_tesim"]
-        
       end
       
       it "should index mads fields" do
@@ -410,15 +404,25 @@ END
         solr_doc["statute_tesim"].first.should include '"jurisdiction":"us"'
         solr_doc["statute_tesim"].first.should include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
         solr_doc["statute_tesim"].first.should include '"restrictionType":"display"'
-        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'            
+        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'      
+        
+        solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
+        
+        solr_doc["event_json_tesim"].first.should include '"pid":"bb07070707","type":"object creation"' 
+        solr_doc["event_json_tesim"][1].should include '"pid":"zz07070707","type":"object creation inline event"' 
+        solr_doc["event_json_tesim"][2].should include '"name":"dams:unknownUser","role":"dams:initiator"'
+        
+        solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'
+        
+        solr_doc["title_json_tesim"].first.should include '"partNumber":"sample partnumber","partName":"sample partname","nonSort":"true"'
       end
 
       it "should index collection" do
         solr_doc = subject.to_solr
-        solr_doc["collection_json_tesim"].first.should include "Historical Dissertations"
-        solr_doc["collection_json_tesim"].second.should include "UCSD Electronic Theses and Dissertations"
-        solr_doc["collection_json_tesim"].third.should include "Scripps Institution of Oceanography, Geological Collections"
-        solr_doc["collection_json_tesim"].fourth.should include "May 2009"
+        solr_doc["collection_json_tesim"][0].should include "Historical Dissertations"
+        solr_doc["collection_json_tesim"][1].should include "UCSD Electronic Theses and Dissertations"
+        solr_doc["collection_json_tesim"][2].should include "Scripps Institution of Oceanography, Geological Collections"
+        solr_doc["collection_json_tesim"][3].should include "May 2009"
       end
       
       def testIndexFields (solr_doc,fieldName,name)
@@ -468,9 +472,11 @@ END
       end
       it "should have a repeated date" do
         solr_doc = subject.to_solr
-        #puts solr_doc["title_tesim"]
-        #puts solr_doc["title_json_tesim"]
-        #solr_doc["title_tesim"].should include "XRF Chemical data"
+        solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
+        solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","type":"ProvenanceCollection"'     
+		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
+		
+		puts solr_doc["unit_tesim"]
       end
     end
 end

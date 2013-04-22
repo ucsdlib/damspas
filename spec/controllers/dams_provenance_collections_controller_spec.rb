@@ -8,7 +8,7 @@ describe DamsProvenanceCollectionsController do
       end
       describe "Show" do
         before do
-          @obj = DamsProvenanceCollection.create(title: "Provenance Collection Test Title 1", beginDate: "2012-01-01", endDate: "2013-01-01")
+          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 1", beginDate: "2012-01-01", endDate: "2013-01-01")
           #puts @obj.id
         end
         it "should be successful" do 
@@ -28,7 +28,7 @@ describe DamsProvenanceCollectionsController do
       
       describe "Edit" do
         before do
-          @obj = DamsProvenanceCollection.create(title: "Provenance Collection Test Title 2", beginDate: "2012-02-02", endDate: "2013-02-02")
+          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 2", beginDate: "2012-02-02", endDate: "2013-02-02")
         end    
         it "should be successful" do 
           get :edit, id: @obj.id
@@ -40,7 +40,7 @@ describe DamsProvenanceCollectionsController do
       describe "Create" do
         it "should be successful" do
           expect { 
-            post :create, :dams_provenance_collection => {title: "Provenance Collection Test Title 3", date: "2013-03-03"}
+            post :create, :dams_provenance_collection => {titleValue: "Provenance Collection Test Title 3", beginDate: "2013-03-03"}
         }.to change { DamsProvenanceCollection.count }.by(1)
           response.should redirect_to assigns[:dams_provenance_collection]
           assigns[:dams_provenance_collection].should be_kind_of DamsProvenanceCollection
@@ -49,10 +49,10 @@ describe DamsProvenanceCollectionsController do
       
       describe "Update" do
         before do
-           @obj = DamsProvenanceCollection.create(title: "Provenance Collection Test Title 4", beginDate: "2012-04-04", endDate: "2013-04-04")
+           @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 4", beginDate: "2012-04-04", endDate: "2013-04-04")
          end
         it "should be successful" do
-          put :update, :id => @obj.id, :dams_provenance_collection => {title: "Test Title 5", beginDate: "2012-05-05"}
+          put :update, :id => @obj.id, :dams_provenance_collection => {titleValue: "Test Title 5", beginDate: "2012-05-05"}
           response.should redirect_to assigns[:dams_provenance_collection]
           #@obj.reload.title.should == ["Test Title 5"]
           flash[:notice].should == "Successfully updated provenance_collection"

@@ -1,37 +1,49 @@
 class DamsObject < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsObjectDatastream 
-  delegate_to "damsMetadata", [:title, :titleType, :titleValue, :subtitle, :typeOfResource, :date, :beginDate, :endDate, :subject, :topic, :component, :file, :relatedResource ]
+  delegate_to "damsMetadata", [:title, :titleType, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture ]
 
   # rights metadata
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
   include Hydra::ModelMixins::RightsMetadata
 
   def languages
-    damsMetadata.load_languages
+    damsMetadata.load_languages damsMetadata.language
   end
   def units
-    damsMetadata.load_unit
+    damsMetadata.load_unit damsMetadata.unit
   end
   def collections
-    damsMetadata.load_collection
+    damsMetadata.load_collection damsMetadata.collection,damsMetadata.assembledCollection,damsMetadata.provenanceCollection,damsMetadata.provenanceCollectionPart
   end
   def copyrights
-    damsMetadata.load_copyright
+    damsMetadata.load_copyright damsMetadata.copyright
   end
   def licenses
-    damsMetadata.load_license
+    damsMetadata.load_license damsMetadata.license
   end
   def statutes
-    damsMetadata.load_statute
+    damsMetadata.load_statute damsMetadata.statute
   end
   def otherRights
-    damsMetadata.load_otherRights
+    damsMetadata.load_otherRights damsMetadata.otherRights
   end
   def rightsHolders
-    damsMetadata.load_rightsHolders
+    damsMetadata.load_rightsHolders damsMetadata.rightsHolder
   end
-  def source_capture
-    damsMetadata.load_source_capture damsMetadata.component.first.file.first.source_capture
+  def sourceCapture
+    damsMetadata.component.each do |cmp|
+      cmp.file.each do |f|
+        if f.sourceCapture != nil
+          return damsMetadata.load_sourceCapture f.sourceCapture
+        end
+      end
+    end
+    damsMetadata.file.each do |f|
+      if f.sourceCapture != nil
+        return damsMetadata.load_sourceCapture f.sourceCapture
+      end
+    end
+    return nil
   end
   def iconographies
     damsMetadata.load_iconographies

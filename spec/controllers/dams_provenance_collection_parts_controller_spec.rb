@@ -8,7 +8,7 @@ describe DamsProvenanceCollectionPartsController do
 	  end
 	  describe "Show" do
 	    before do
-	      @obj = DamsProvenanceCollectionPart.create(title: "Provenance Collection Part Test Title", beginDate: "2012", endDate: "2013")
+	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Provenance Collection Part Test Title", beginDate: "2012", endDate: "2013")
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
@@ -28,7 +28,7 @@ describe DamsProvenanceCollectionPartsController do
 	  
 	  describe "Edit" do
 	    before do
-	      @obj = DamsProvenanceCollectionPart.create(title: "Provenance Collection Test Title", beginDate: "2012", endDate: "2013")
+	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Provenance Collection Test Title", beginDate: "2012", endDate: "2013")
 	    end    
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
@@ -40,7 +40,7 @@ describe DamsProvenanceCollectionPartsController do
 	  describe "Create" do
 	    it "should be successful" do
 	      expect { 
-	        post :create, :dams_provenance_collection_part => {title: ["Test Title"], date: ["2013"]}
+	        post :create, :dams_provenance_collection_part => {titleValue: ["Test Title"], beginDate: ["2013"]}
         }.to change { DamsProvenanceCollectionPart.count }.by(1)
 	      response.should redirect_to assigns[:dams_provenance_collection_part]
 	      assigns[:dams_provenance_collection_part].should be_kind_of DamsProvenanceCollectionPart
@@ -49,10 +49,10 @@ describe DamsProvenanceCollectionPartsController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = DamsProvenanceCollectionPart.create(title: "Provenance Collection Test Title", beginDate: "2012", endDate: "2013")
+ 	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Provenance Collection Test Title", beginDate: "2012", endDate: "2013")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :dams_provenance_collection_part => {title: ["Test Title2"], beginDate: ["2013"]}
+	      put :update, :id => @obj.id, :dams_provenance_collection_part => {titleValue: ["Test Title2"], beginDate: ["2013"]}
 	      response.should redirect_to assigns[:dams_provenance_collection_part]
 	      #@obj.reload.title.should == ["Test Title2"]
           pending "check title after reload #{__FILE__}"

@@ -52,7 +52,7 @@ class Component
       map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
       # resource type and cartographics
-      map.resource_type(:in => DAMS, :to => 'typeOfResource')
+      map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
       map.cartographics(:in => DAMS, :class_name => 'Cartographics')
     end
 
@@ -97,10 +97,10 @@ class Component
 #        map.mimeType(:in=>DAMS)
 #        map.objectCategory(:in=>DAMS)
 #        map.preservationLevel(:in=>DAMS)
-#        map.event(:in=>DAMS)
+#        map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 #
 #        # mix
-#        map.source_capture(:in=>DAMS, :to => 'sourceCapture')
+#        map.sourceCapture(:in=>DAMS, :to => 'sourceCapture')
 #      end
 #      def id
 #        fid = rdf_subject.to_s

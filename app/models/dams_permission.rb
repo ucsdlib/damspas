@@ -1,4 +1,4 @@
-class Permission
+class DamsPermission
     include ActiveFedora::RdfObject
     rdf_type DAMS.Permission
     map_predicates do |map|

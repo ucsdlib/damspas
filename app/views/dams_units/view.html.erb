@@ -1,0 +1,19 @@
+<h1><%= @dams_unit.name.first %></h1>
+
+<div>
+  <dl>
+    <dt>code:</dt>
+    <dd><%= @dams_unit.code.first %></dd>
+    <dt>group:</dt>
+    <dd><%= @dams_unit.group.first %></dd>
+    <dt>description:</dt>
+    <dd><%= @dams_unit.description.first %></dd>
+    <dt>uri:</dt>
+    <dd><%= @dams_unit.uri.first %></dd>
+  </dl>
+  <% if can? :update, @dams_unit %>
+    <%= link_to "Solr View", dams_unit_path(@dams_unit.code), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_unit_path(@dams_unit), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_units_path(), class: "btn btn-primary"%>
+  <% end %>
+</div>

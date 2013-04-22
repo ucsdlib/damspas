@@ -1,0 +1,146 @@
+<!-- provide page title, is used by full_title helper in application layout -->
+<% @page_title =  "Object | #{@dams_object.title.first} " %>
+<div class="row-fluid">
+	<div class="span12">
+		<h1><%= @dams_object.titleValue.join(", ") %></h1>
+	</div>
+</div>
+<div class="row-fluid">
+	<!-- main metadata -->
+	<div class="span12">
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="row-fluid well">
+					<div class="span12">
+						<!-- TODO: File Viewer implementation -->
+						File goes here
+					</div>
+				</div>
+				<div class="row-fluid well">
+					<div class="span12">
+						<dl>
+							<% if (!@dams_object.title.empty?) %>													
+								<% @dams_object.title.each do |t| %>
+									<dt>Title</dt>										
+									<dd><%= t.value.join(", ") %></dd>	
+									<% if (!t.subtitle.empty?) %>
+										<dt>Subtitle</dt>										
+										<dd><%= t.subtitle.join(", ") %></dd>
+									<% end %>																
+								<% end %>
+							<% end %>	
+							<% if (!@dams_object.date.empty?) %>	
+								<dt>Date</dt>												
+								<% @dams_object.date.each do |date| %>
+																			
+									<dd><%= date.value.join(", ") %> --	
+									<% if (!date.beginDate.empty?) %>
+										Begin Date:										
+										<%= date.beginDate.join(", ") %> --
+									<% end %>	
+									<% if (!date.endDate.empty?) %>
+										End Date:										
+										<%= date.endDate.join(", ") %>
+									<% end %>
+									</dd>																							
+								<% end %>
+							<% end %>							
+							<% if (!@dams_object.subject.empty?) %>
+								<dt>Subject</dt>
+								<% @dams_object.subject.each do |subject| %>
+									<dd><%= subject.name.first %></dd>
+								<% end %>
+							<% end %>
+							<% if (!@dams_object.languages.empty?) %>
+								<dt>Language</dt>
+								<dd><%= link_to @dams_object.languages.first.value.first, @dams_object.languages.first.valueURI.first.to_s %></dd>
+							<% end %>
+							<% if (!@dams_object.units.nil?) %>
+								<dt>Unit</dt>
+								<dd><%= link_to @dams_object.units.name.first, dams_unit_path(@dams_object.units.code.first) %>
+							<% end %>
+							<% if (!@dams_object.collections.nil?) %>
+								<dt>Collection</dt>
+								<% @dams_object.collections.each do |col| %>
+									<% if (col.class == DamsAssembledCollection) %>
+										<dd><%= link_to col.title.first.value.join(", "), dams_assembled_collection_path(col) %>
+									<% elsif (col.class == DamsProvenanceCollection) %>
+										<dd><%= link_to col.title.first.value.join(", "), dams_provenance_collection_path(col) %>	
+									<% end %>
+								<% end %>
+							<% end %>
+							<% if (!@dams_object.copyrights.nil?) %>
+								<dt>Copyright</dt>
+								<dd>Begin Date: <%= @dams_object.copyrights.beginDate.first %></dd>
+								<dd>Status: <%= @dams_object.copyrights.status.first %></dd>
+								<dd>Purpose Note: <%= @dams_object.copyrights.purposeNote.first %></dd>
+							<% end %>
+							<!-- TODO: otherRights, rightsHolders, components... -->
+							<% if (!@dams_object.licenses.nil?) %>
+								<dt>License</dt>
+								<dd>Begin Date: <%= @dams_object.licenses.note.first %></dd>
+								<dd>Status: <%= @dams_object.licenses.uri.first %></dd>
+							<% end %>
+							<% if (!@dams_object.statutes.nil?) %>
+								<dt>Statutes</dt>
+								<dd>Citation: <%= @dams_object.statutes.citation.first %></dd>
+								<dd>Jurisdiction: <%= @dams_object.statutes.jurisdiction.first %></dd>
+								<dd>Note: <%= @dams_object.statutes.note.first %></dd>
+							<% end %>
+							<% if (!@dams_object.note.empty?) %>	
+								<dt>Note(s)</dt>						
+								<% @dams_object.note.each do |n| %>									
+									<dd>Type: <%= n.type.first %> -- <%= n.displayLabel.first %>:  <%= n.value.first %></dd>																	
+								<% end %>
+							<% end %>	
+							<% if (!@dams_object.sourceCapture.nil?) %>
+								<dt>Source Capture</dt>
+								<dd>Scanner Manufacturer: <%= @dams_object.sourceCapture.scannerManufacturer.first %></dd>
+								<dd>Source Type: <%= @dams_object.sourceCapture.sourceType.first %></dd>
+								<dd>Scanner Model Name: <%= @dams_object.sourceCapture.scannerModelName.first %></dd>
+								<dd>Image Producer: <%= @dams_object.sourceCapture.imageProducer.first %></dd>	
+								<dd>Scanning Software Version: <%= @dams_object.sourceCapture.scanningSoftwareVersion.first %></dd>
+								<dd>Scanning Software: <%= @dams_object.sourceCapture.scanningSoftware.first %></dd>
+								<dd>Capture Source: <%= @dams_object.sourceCapture.captureSource.first %></dd>	
+							<% end %>
+							<% if (!@dams_object.component.empty?) %>															
+								<% @dams_object.component.each do |component| %>	
+									<dt>Component</dt>
+									<% component.title.each do |title| %>								
+										<dd>Title: <%= title.value.join(", ") %></dd>	
+									<% end %>
+									<% component.date.each do |date| %>								
+										<dd>Date: <%= date.value.join(", ") %></dd>	
+									<% end %>
+									<% if(component.note.first != nil)%>
+										<dd>Note: <%= component.note.first.value.join(", ")%></dd>	
+									<% end %>														
+								<% end %>
+							<% end %>		
+							<% if (!@dams_object.relatedResource.empty?) %>		
+								<dt>Related Resource</dt>													
+								<% @dams_object.relatedResource.each do |resource| %>																		
+									<dd><%= link_to resource.description.join(", "), resource.uri.join(", ") %></dd>													
+								<% end %>
+							<% end %>																			
+							</dl>
+						</div>
+				</div>
+			</div>
+			<div class="span4">
+				<div class="row-fluid well">
+					<div class="span12">
+							Sidebar widgets here
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+		
+
+<% if can? :update, @dams_object %>
+<%= link_to "Solr View", dams_object_path(@dams_object), class: "btn btn-primary" %>
+<%= link_to "Edit", edit_dams_object_path(@dams_object), class: "btn btn-primary" %>
+<% end %>
+

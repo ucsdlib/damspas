@@ -21,9 +21,9 @@ module CatalogHelper
       label = render_document_index_label doc, opts
     end
     if doc['type_tesim'] != nil && doc['type_tesim'].include?("Collection")
-      url = collection_path(doc)
+      url = dams_collection_path(doc)
     else
-      url = object_path(doc)
+      url = dams_object_path(doc)
     end
     link_to label.html_safe, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :results_view].include? k  })
   end
@@ -37,9 +37,9 @@ module CatalogHelper
 	label = render_document_index_label doc, opts if (label == nil || label.blank?)
 
     if doc['type_tesim'] != nil && doc['type_tesim'].include?("Collection")
-      url = collection_path(doc)
+      url = dams_collection_path(doc)
     else
-      url = object_path(doc)
+      url = dams_object_path(doc)
     end
     link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :results_view].include? k  })
   end
