@@ -36,7 +36,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.event(:in=>DAMS)
+    map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 
     # child collections
     map.assembledCollection(:in => DAMS, :to => 'hasAssembledCollection',:class_name => 'DamsAssembledCollectionInternal')

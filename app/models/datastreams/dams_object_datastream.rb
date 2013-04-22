@@ -36,10 +36,10 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.event(:in=>DAMS)
+    map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
 
     # unit and collections
-    map.unit_node(:in => DAMS, :to=>'unit')
+    map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
     map.collection(:in => DAMS)
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
@@ -57,7 +57,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
 
     # resource type and cartographics
-    map.resource_type(:in => DAMS, :to => 'typeOfResource')
+    map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
     map.cartographics(:in => DAMS, :class_name => 'Cartographics')
   end
  
@@ -70,23 +70,21 @@ class DamsObjectDatastream < DamsResourceDatastream
     super
   end
 
-  def load_unit
-    load_unit(unit)
-  end
   def load_unit(unit)
-    unit_uri = unit.values.first.to_s
-    unit_pid = unit_uri.gsub(/.*\//,'')
-    if unit_pid != nil && unit_pid != ""
-      DamsUnit.find(unit_pid)
-    else
-      nil
-    end
+	if !unit.values.first.nil?
+	    u_pid = unit.values.first.pid
+	    
+	    if !unit.values.first.name.first.nil? && unit.values.first.name.first.to_s.length > 0
+	      unit.values.first
+	    else
+	      DamsUnit.find(u_pid)
+	    end
+	else
+		nil
+	end
+
   end
 
-  def load_collection
-    load_collection(collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
-  end
-  
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
@@ -113,14 +111,10 @@ class DamsObjectDatastream < DamsResourceDatastream
     collections
   end
   
-  def load_copyright
-    load_copyright( copyright )
-  end
   def load_copyright ( copyright )
 	if !copyright.values.first.nil?
 	    c_pid = copyright.values.first.pid
-	    
-	    if !copyright.values.first.status.nil? && copyright.values.first.status.length > 0
+	    if !copyright.values.first.status.first.nil? && copyright.values.first.status.to_s.length > 0
 	      copyright.values.first
 	    else
 	      DamsCopyright.find(c_pid)
@@ -136,7 +130,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	if !license.values.first.nil?
 	    l_pid = license.values.first.pid
 	    
-	    if !license.values.first.uri.nil? && license.values.first.uri.length > 0
+	    if !license.values.first.uri.first.nil? && license.values.first.uri.first.to_s.length > 0
 	      license.values.first
 	    else
 	      DamsLicense.find(l_pid)
@@ -146,16 +140,10 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_statute
     load_statute(statute)
   end
-  def load_statute (statute)
-#    s_uri = statute.values.first.to_s
-#    s_pid = s_uri.gsub(/.*\//,'')
-#    if s_pid != nil && s_pid != ""
-#      DamsStatute.find(s_pid)
-#    end
-    
+  def load_statute (statute)    
 	if !statute.values.first.nil?
 	    s_pid = statute.values.first.pid
-	    if !statute.values.first.citation.nil? && statute.values.first.citation.length > 0
+	    if !statute.values.first.citation.first.nil? && statute.values.first.citation.first.to_s.length > 0
 	      statute.values.first
 	    else
 	      DamsStatute.find(s_pid)
@@ -168,7 +156,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_otherRights (otherRights)
 	if !otherRights.values.first.nil?
 	    o_pid = otherRights.values.first.pid
-	    if !otherRights.values.first.uri.nil? && otherRights.values.first.uri.length > 0
+	    if !otherRights.values.first.uri.first.nil? && otherRights.values.first.uri.first.to_s.length > 0
 	      otherRights.values.first
 	    else
 	      DamsOtherRights.find(o_pid)
@@ -176,8 +164,8 @@ class DamsObjectDatastream < DamsResourceDatastream
 	end        
   end
 
-  def load_source_capture(source_capture)
-    uri = source_capture.values.first.to_s
+  def load_sourceCapture(sourceCapture)
+    uri = sourceCapture.values.first.to_s
     pid = uri.gsub(/.*\//,'')
     if pid != nil && pid != ""
       obj = DamsSourceCapture.find(pid)
@@ -222,16 +210,16 @@ class DamsObjectDatastream < DamsResourceDatastream
         :mimeType => file.mimeType.first.to_s }
 
       # source capture
-      source_capture = load_source_capture file.source_capture
-      if source_capture.class == DamsSourceCapture
-        file_json[:source_capture] = source_capture.pid
-        file_json[:capture_source] = source_capture.captureSource.first.to_s
-        file_json[:image_producer] = source_capture.imageProducer.first.to_s
-        file_json[:scanner_manufacturer] = source_capture.scannerManufacturer.first.to_s
-        file_json[:scanner_model_name] = source_capture.scannerModelName.first.to_s
-        file_json[:scanning_software] = source_capture.scanningSoftware.first.to_s
-        file_json[:scanning_software_version] = source_capture.scanningSoftwareVersion.first.to_s
-        file_json[:source_type] = source_capture.sourceType.first.to_s
+      srcCap = load_sourceCapture file.sourceCapture
+      if srcCap.class == DamsSourceCapture
+        file_json[:source_capture] = srcCap.pid
+        file_json[:capture_source] = srcCap.captureSource.first.to_s
+        file_json[:image_producer] = srcCap.imageProducer.first.to_s
+        file_json[:scanner_manufacturer] = srcCap.scannerManufacturer.first.to_s
+        file_json[:scanner_model_name] = srcCap.scannerModelName.first.to_s
+        file_json[:scanning_software] = srcCap.scanningSoftware.first.to_s
+        file_json[:scanning_software_version] = srcCap.scanningSoftwareVersion.first.to_s
+        file_json[:source_type] = srcCap.sourceType.first.to_s
       end
 
       # events
@@ -323,11 +311,14 @@ class DamsObjectDatastream < DamsResourceDatastream
         :permissionEndDate => othr.permissionEndDate.first.to_s,
         :restrictionType => othr.restrictionType.first.to_s,
         :restrictionBeginDate => othr.restrictionBeginDate.first.to_s,
-        :restrictionEndDate => othr.restrictionEndDate.first.to_s,
-        #:name => othr.name.first.to_s,
-        #:role => othr.role.first.to_s }
-        :name => "http://library.ucsd.edu/ark:/20775/#{othr.name.first.pid}",
-        :role => "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}" }
+        :restrictionEndDate => othr.restrictionEndDate.first.to_s
+      }
+      if othr.name.first != nil
+        othr_json[:name] = "http://library.ucsd.edu/ark:/20775/#{othr.name.first.pid}"
+      end
+      if othr.role.first != nil
+        othr_json[:role] = "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}"
+      end
       Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
     end    
@@ -370,8 +361,8 @@ class DamsObjectDatastream < DamsResourceDatastream
       # titles
       insertTitleFields solr_doc, cid, component.title
 
-      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.resource_type.first)
-      Solrizer.insert_field(solr_doc, "fulltext", component.resource_type)
+      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.typeOfResource.first)
+      Solrizer.insert_field(solr_doc, "fulltext", component.typeOfResource)
 
       insertDateFields solr_doc, cid, component.date
       insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
@@ -422,16 +413,16 @@ class DamsObjectDatastream < DamsResourceDatastream
     Solrizer.insert_field(solr_doc, "component_map", @cmap.to_json)
     insertFileFields solr_doc, nil, file
     
-    unit = load_unit unit_node
-    if unit.class == DamsUnit
-      Solrizer.insert_field(solr_doc, 'unit', unit.name, facetable)
-      Solrizer.insert_field(solr_doc, 'unit_code', unit.code)
-      Solrizer.insert_field(solr_doc, 'fulltext', unit.name)
-      Solrizer.insert_field(solr_doc, 'fulltext', unit.code)
+    u = load_unit unit
+    if !u.nil?
+      Solrizer.insert_field(solr_doc, 'unit', u.name, facetable)
+      Solrizer.insert_field(solr_doc, 'unit_code', u.code)
+      Solrizer.insert_field(solr_doc, 'fulltext', u.name)
+      Solrizer.insert_field(solr_doc, 'fulltext', u.code)
       unit_json = {
-        :id => unit.pid,
-        :code => unit.code.first.to_s,
-        :name => unit.name.first.to_s
+        :id => u.pid,
+        :code => u.code.first.to_s,
+        :name => u.name.first.to_s
       }
       Solrizer.insert_field(solr_doc, 'unit_json', unit_json.to_json)
     end
@@ -482,9 +473,9 @@ class DamsObjectDatastream < DamsResourceDatastream
       Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", carto_json.to_json)
     end 
-    Solrizer.insert_field(solr_doc, "resource_type", resource_type.first)
-    Solrizer.insert_field(solr_doc, "fulltext", resource_type)
-    Solrizer.insert_field(solr_doc, "object_type", resource_type.first,facetable)    
+    Solrizer.insert_field(solr_doc, "resource_type", typeOfResource.first)
+    Solrizer.insert_field(solr_doc, "fulltext", typeOfResource)
+    Solrizer.insert_field(solr_doc, "object_type", typeOfResource.first,facetable)    
 
     Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 

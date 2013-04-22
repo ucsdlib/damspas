@@ -28,6 +28,9 @@
         <rdf:value>Sample Object Record #8</rdf:value>
         <dams:subtitle>Name/Note/Subject Sampler</dams:subtitle>
         <dams:type>main</dams:type>
+        <dams:partNumber>sample partnumber</dams:partNumber>
+        <dams:partName>sample partname</dams:partName>
+        <dams:nonSort>true</dams:nonSort>
       </dams:Title>
     </dams:title>
     <dams:familyName rdf:resource="http://library.ucsd.edu/ark:/20775/bd1775562z"/>
@@ -49,7 +52,60 @@
 	    </mads:elementList>
 	  </mads:FamilyName>   
 	</dams:familyName>
-    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
+      
+   <dams:unit>
+      <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb48484848">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2014471p">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-02-19T10:46:30-0800</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitName>Research Data Curation Program</dams:unitName>
+        <dams:code>rci</dams:code>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9659686g">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-14T07:19:48-0700</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3720971c">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-02-19T12:56:09-0800</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
+        <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8362747n">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-14T07:21:05-0700</dams:eventDate>
+            <dams:type>object modification</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitGroup>dams-rci</dams:unitGroup>
+      </dams:Unit>
+    </dams:unit>    
     <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
     <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bd7509406v"/>
     <dams:name>
@@ -562,6 +618,40 @@
 	      </dams:Restriction>
 	    </dams:restriction>
 	  </dams:Statute>
-	 </dams:statute>                            
+	 </dams:statute>      
+	<dams:cartographics>
+	  <dams:Cartographics rdf:about="http://library.ucsd.edu/ark:/20775/bb20202020">
+	    <dams:scale>1:20000</dams:scale>
+	    <dams:projection>equirectangular</dams:projection>
+	    <dams:referenceSystem>WGS84</dams:referenceSystem>
+	    <dams:point>29.67459,-82.37873</dams:point>
+	  </dams:Cartographics>  
+    </dams:cartographics>    
+	<dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
+  	<dams:event>
+	  <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/zz07070707">
+	    <dams:type>object creation inline event</dams:type>
+	    <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
+	    <dams:outcome>success</dams:outcome>
+	    <dams:relationship>
+	      <dams:Relationship>
+	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707286t"/>
+	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb56565656"/>
+	      </dams:Relationship>
+	    </dams:relationship>
+	  </dams:DAMSEvent>
+     </dams:event>
+      <dams:event>
+         <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0990660f">
+           <dams:relationship rdf:parseType="Resource">
+             <dams:role rdf:resource="dams:initiator"/>
+             <dams:name rdf:resource="dams:unknownUser"/>
+           </dams:relationship>
+           <dams:outcome>success</dams:outcome>
+           <dams:eventDate>2013-03-11T08:48:40-0700</dams:eventDate>
+           <dams:type>object creation</dams:type>
+         </dams:DAMSEvent>
+       </dams:event>  
+                  
   </dams:Object>
 </rdf:RDF>

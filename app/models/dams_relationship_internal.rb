@@ -12,8 +12,7 @@ class DamsRelationshipInternal
 	rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}  
 
     def load
-      if !name.first.nil? && !name.first.pid.nil? && !(name.first.pid.include? 'dams:')  
-        puts "name"   
+      if !name.first.nil? && !name.first.pid.nil? && !(name.first.pid.include? 'dams:')   
         MadsName.find(name.first.pid)
       elsif !personalName.first.nil? && !personalName.first.pid.nil? && !(personalName.first.pid.include? 'dams:')  
         MadsPersonalName.find(personalName.first.pid)

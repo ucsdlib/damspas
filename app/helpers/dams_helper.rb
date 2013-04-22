@@ -86,7 +86,7 @@ module DamsHelper
   end
   def permissionBeginDate=(val)
     if permission_node[0] == nil
-      permission_node[0] = permission_node.build
+      permission_node.build
     end
     permission_node[0].beginDate = val
   end
@@ -95,7 +95,7 @@ module DamsHelper
   end
   def permissionEndDate=(val)
     if permission_node[0] == nil
-      permission_node[0] = permission_node.build
+      permission_node.build
     end
     permission_node[0].endDate = val
   end
@@ -104,7 +104,7 @@ module DamsHelper
   end
   def permissionType=(val)
     if permission_node[0] == nil
-      permission_node[0] = permission_node.build
+      permission_node.build
     end
     permission_node[0].type = val
   end
@@ -114,7 +114,7 @@ module DamsHelper
   end
   def restrictionBeginDate=(val)
     if restriction_node[0] == nil
-      restriction_node[0] = restriction_node.build
+      restriction_node.build
     end
     restriction_node[0].beginDate = val
   end
@@ -123,7 +123,7 @@ module DamsHelper
   end
   def restrictionEndDate=(val)
     if restriction_node[0] == nil
-      restriction_node[0] = restriction_node.build
+      restriction_node.build
     end
     restriction_node[0].endDate = val
   end
@@ -132,7 +132,7 @@ module DamsHelper
   end
   def restrictionType=(val)
     if restriction_node[0] == nil
-      restriction_node[0] = restriction_node.build
+      restriction_node.build
     end
     restriction_node[0].type = val
   end  
