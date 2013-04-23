@@ -15,8 +15,9 @@
 
 <div class="row-fluid">
 	<div class="span8 offset2 dams-collections well well-large">
+		<%= render :partial => 'show_damstools' %>
 		<%= render_document_heading(:h1) %>
-		<%= render :partial => 'metadata' %>
+        <%= render :partial => 'metadata' %>
 		<%= link_to "<i class='icon-search icon-white'></i> Search this collection".html_safe, facet_uri(collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>
 	</div>
 </div>
