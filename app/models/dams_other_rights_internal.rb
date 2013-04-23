@@ -7,8 +7,8 @@ class DamsOtherRightsInternal
     map.basis(:in => DAMS, :to => 'otherRightsBasis')
     map.note(:in => DAMS, :to => 'otherRightsNote')
     map.uri(:in => DAMS, :to => 'otherRightsURI')
-    map.restriction_node(:in => DAMS, :to=>'restriction', :class_name => 'Restriction')
-    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'Permission')
+    map.restriction_node(:in => DAMS, :to=>'restriction', :class_name => 'DamsRestriction')
+    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'DamsPermission')
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
  end
 

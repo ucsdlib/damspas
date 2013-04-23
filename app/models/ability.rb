@@ -19,8 +19,8 @@ class Ability
   		can [:read], MadsPersonalName
   		can [:read], SolrDocument
   	else  #login user
-    	can [:read, :create, :update], DamsObject
-    	can [:read, :create, :update], DamsUnit
+    	can [:read, :create, :update, :view], DamsObject
+    	can [:read, :create, :update, :view], DamsUnit
     	can [:read, :create, :update], DamsCopyright
     	can [:read, :create, :update], DamsLicense
     	can [:read, :create, :update], DamsStatute

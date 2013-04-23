@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Ability do
   describe "Anonymous user" do
     before do
-      @obj = DamsObject.create!(title: "Test Title")
+      @obj = DamsObject.create!(titleValue: "Test Title")
     end
     subject do
       Ability.new(User.new)
@@ -27,7 +27,7 @@ describe Ability do
   
   describe "a logged in user" do
     before do
-      @obj = DamsObject.create!(title: "Test Title")
+      @obj = DamsObject.create!(titleValue: "Test Title")
     end
     subject do
       Ability.new(User.create!)

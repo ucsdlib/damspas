@@ -16,9 +16,9 @@
 		<%= render :partial => 'layouts/ie-conditionals' %>
 
 		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
-			<%= auto_discovery_link_tag :rss, object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>
+			<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>
 			<% if @document['rdfxml_ssi'] %>
-				<%= auto_discovery_link_tag :rss, object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
+				<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
 			<% end %>
 		<% end %> 
 	</head>
@@ -98,7 +98,7 @@
 		<%# LE JAVASCRIPT  %>
 		<%= javascript_include_tag "application" %>
 		
-		<%= render :partial => 'object/init' %>
+		<%= render :partial => 'dams_objects/init' %>
 
 		<!-- show debugging parameters in development -->
 		<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>

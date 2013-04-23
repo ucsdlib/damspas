@@ -11,6 +11,14 @@ module ApplicationHelper
 	end
 	if highlighting
 		highlight_values = document.highlight_field(field)
+		
+		#Snippets for no default indexed fields
+		if(hitsonly && highlight_values != nil && highlight_values.count > 0)
+		puts "highlight_values: #{highlight_values.first.gsub(blacklight_config.hlTagPre, '').gsub(blacklight_config.hlTagPost, '').length}"
+			highlight_values.collect! {|m|m.slice(0,1) == m.slice(0,1).capitalize ? m:"... " + m}
+			highlight_values.collect! {|m|m.length < blacklight_config.hlMaxFragsize || m.ends_with?(".") ? m : m+ " ..."}
+			return highlight_values.join(sep).html_safe
+		end
 		highlight_values = document[field] if (highlight_values.nil? || highlight_values.count==0)
 	elsif field.to_s.index('_json_')
 		highlight_values = document[field]
@@ -22,7 +30,7 @@ module ApplicationHelper
 			elsif field.to_s.index('date_')
 				return parseJsonDate highlight_values.first, sep
 			else
-				return highlight_values.first
+				return highlight_values.join(sep).html_safe
 			end
 		elsif (document[field].count > highlight_values.count)
 			#Merge the highlighting values for the view.

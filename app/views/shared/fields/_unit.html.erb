@@ -20,7 +20,7 @@
 		 unit = JSON.parse(fieldData.first)
 %>
 	<ul class="unstyled">
-		<li><%= link_to unit['name'], unit_path(unit['code']) %></li>
+		<li><%= link_to unit['name'], dams_unit_path(unit['code']) %></li>
 	</ul>
 <%
 
