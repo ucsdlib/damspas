@@ -10,8 +10,8 @@
 		fileUse = grabFileUse(:componentIndex=>i)
 		display_file = grabDisplayFile(:componentIndex=>i)
 		service_file = grabServiceFile(:componentIndex=>i)
-		display_file_path = (display_file != 'no_display') ? "/view/#{ark}/_#{i}_#{display_file}" : ""
-		service_file_path = "/view/#{ark}/_#{i}_#{service_file}"
+		display_file_path = (display_file != 'no_display') ? file_path(ark,"_#{i}_#{display_file}") : ""
+		service_file_path = file_path(ark, "_#{i}_#{service_file}")
 
 		fileType = grabFileType(fileUse)
 		dataForDynamicLoad = "{\"file_type\":\"#{fileType}\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{service_file_path}\"}"

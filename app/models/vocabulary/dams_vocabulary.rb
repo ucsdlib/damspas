@@ -143,4 +143,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :outcome
   property :DAMSEvent
   property :event
+  property :partNumber
+  property :partName
+  property :nonSort  
 end

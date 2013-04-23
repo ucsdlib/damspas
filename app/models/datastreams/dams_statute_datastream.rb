@@ -3,8 +3,8 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.citation(:in => DAMS, :to => 'statuteCitation')
     map.jurisdiction(:in => DAMS, :to => 'statuteJurisdiction')
     map.note(:in => DAMS, :to => 'statuteNote')
-    map.restriction_node(:in => DAMS, :to=>'restriction', :class_name => 'Restriction')
-    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'Permission')
+    map.restriction_node(:in => DAMS, :to=>'restriction', :class_name => 'DamsRestriction')
+    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'DamsPermission')
  end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -19,7 +19,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def permissionBeginDate=(val)
     if permission_node[0] == nil
-      permission_node[0] = permission_node.build
+      permission_node.build
     end
     permission_node[0].beginDate = val
   end
@@ -28,7 +28,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def permissionEndDate=(val)
     if permission_node[0] == nil
-      permission_node[0] = permission_node.build
+      permission_node.build
     end
     permission_node[0].endDate = val
   end
@@ -37,7 +37,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def permissionType=(val)
     if permission_node[0] == nil
-      permission_node[0] = permission_node.build
+      permission_node.build
     end
     permission_node[0].type = val
   end
@@ -56,7 +56,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def restrictionBeginDate=(val)
     if restriction_node[0] == nil
-      restriction_node[0] = restriction_node.build
+      restriction_node.build
     end
     restriction_node[0].beginDate = val
   end
@@ -65,7 +65,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def restrictionEndDate=(val)
     if restriction_node[0] == nil
-      restriction_node[0] = restriction_node.build
+      restriction_node.build
     end
     restriction_node[0].endDate = val
   end
@@ -74,7 +74,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def restrictionType=(val)
     if restriction_node[0] == nil
-      restriction_node[0] = restriction_node.build
+      restriction_node.build
     end
     restriction_node[0].type = val
   end

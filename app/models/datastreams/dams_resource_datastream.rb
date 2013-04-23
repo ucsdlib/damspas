@@ -163,20 +163,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def load_events(event)
     events = []
-#    event.values.each do |e|
-#      event_uri = e.to_s
-#      event_pid = event_uri.gsub(/.*\//,'')
-#      if event_pid != nil && event_pid != ""
-#        begin
-#           events << DamsDAMSEvent.find(event_pid)
-#        rescue Exception => e
-#          puts e.to_s
-#          e.backtrace.each do |line|
-#            puts line
-#          end
-#        end              
-#      end
-#    end
     event.values.each do |e|
       begin
 	      if !e.outcome.first.nil? && e.outcome.first != ""
@@ -292,7 +278,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
         Solrizer.insert_field(solr_doc, "component_#{cid}_date_json", date_json.to_json)
       else
-        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
+        date_json = {
+          :beginDate=>date.beginDate.first.to_s,
+          :endDate=>date.endDate.first.to_s,
+          :value=>date.value.first.to_s
+        }
         Solrizer.insert_field(solr_doc, "date_json", date_json.to_json)
       end
 
@@ -367,10 +357,17 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     titles.map do |t|
       # display
       if cid != nil
-        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s, :partNumber=>t.partNumber.first.to_s, :partName=>t.partName.first.to_s, :nonSort=>t.nonSort.first.to_s}
         Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
       else
-        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s}
+        title_json = {
+          :type=>t.type.first.to_s,
+          :value=>t.value.first.to_s,
+          :subtitle=>t.subtitle.first.to_s,
+          :partNumber=>t.partNumber.first.to_s,
+          :partName=>t.partName.first.to_s,
+          :nonSort=>t.nonSort.first.to_s
+        }
         Solrizer.insert_field(solr_doc, "title_json", title_json.to_json)
       end
 
