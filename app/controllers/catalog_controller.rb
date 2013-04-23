@@ -47,6 +47,7 @@ class CatalogController < ApplicationController
 	config.hlMaxFragsize = 150
 	if config.highlighting
 	  config.default_solr_params['hl.fragsize'] = 0
+	  config.default_solr_params['hl.snippets'] = 100
 	  config.default_solr_params['hl.fragListBuilder'] = 'single'
 	  config.default_solr_params['hl.boundaryScanner'] = 'simple'
 	  config.default_solr_params['hl.simple.pre'] = config.hlTagPre
