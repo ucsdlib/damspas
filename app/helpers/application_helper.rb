@@ -14,8 +14,9 @@ module ApplicationHelper
 		
 		#Snippets for no default indexed fields
 		if(hitsonly && highlight_values != nil && highlight_values.count > 0)
-			highlight_values.collect! {|m|m.length > blacklight_config.hlMaxFragsize && m.slice(0,1) == m.slice(0,1).capitalize ? m:"... " + m}
-			highlight_values.collect! {|m|m.length > blacklight_config.hlMaxFragsize && m.ends_with?(".") ? m : m+ " ..."}
+		puts "highlight_values: #{highlight_values.first.gsub(blacklight_config.hlTagPre, '').gsub(blacklight_config.hlTagPost, '').length}"
+			highlight_values.collect! {|m|m.slice(0,1) == m.slice(0,1).capitalize ? m:"... " + m}
+			highlight_values.collect! {|m|m.length < blacklight_config.hlMaxFragsize || m.ends_with?(".") ? m : m+ " ..."}
 			return highlight_values.join(sep).html_safe
 		end
 		highlight_values = document[field] if (highlight_values.nil? || highlight_values.count==0)
