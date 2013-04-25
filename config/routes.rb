@@ -68,6 +68,7 @@ Hydra::Application.routes.draw do
   resources :dams_source_captures
   resources :dams_cartographics
   resources :mads_personal_names
+  resources :mads_complex_subjects
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

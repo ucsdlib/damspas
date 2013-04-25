@@ -1,0 +1,30 @@
+<% @page_title =  "Edit Complex Subject" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Complex Subject</h2>
+		
+		<%= form_for @mads_complex_subject do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'mads_complex_subject[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'mads_complex_subject[name][]', @mads_complex_subject.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'mads_complex_subject[authority][]', "Authority" %>
+			<%= text_field_tag 'mads_complex_subject[authority][]', @mads_complex_subject.authority[0], class: "input-block-level" %>
+
+			<%= label_tag 'mads_complex_subject[valueURI][]', "Authority" %>
+			<%= text_field_tag 'mads_complex_subject[valueURI][]', @mads_complex_subject.valueURI[0], class: "input-block-level" %>
+				
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>
