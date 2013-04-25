@@ -45,7 +45,19 @@ module DamsObjectsHelper
      end
     
     def getTitle
-       fieldValue=field_mapping('title_tesim')
+       data_arr=[]
+       index = getComponentIndex
+       fieldData = @document["#{index}title_json_tesim"]
+       
+       if fieldData != nil
+       	 fieldData.each do |datum|
+       	 	title = JSON.parse(datum)
+       	 	if title['value'] != ''
+       	 		data_arr.push(title['value'])
+       	 	end
+       	  end
+       	end 
+       	data_arr
     end
 
     def getSubject
@@ -57,7 +69,19 @@ module DamsObjectsHelper
     end
 
     def getDate
-      fieldValue=field_mapping('date_tesim')
+       data_arr=[]
+       index = getComponentIndex
+       fieldData = @document["#{index}date_json_tesim"]
+       
+       if fieldData != nil
+       	 fieldData.each do |datum|
+       	 	date = JSON.parse(datum)
+       	 	if date['value'] != ''
+       	 		data_arr.push(date['value'])
+       	 	end
+       	  end
+       	end 
+       	data_arr
     end
 
     def getFormat
