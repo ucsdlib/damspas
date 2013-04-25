@@ -1,0 +1,53 @@
+<%
+		htmlOpen = "<dt>%s</dt><dd>"
+		htmlClose = "</dd>"
+
+		if @document["authority_tesim"] != nil 
+		    htmlOpen %= 'Authority'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end		
+		
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["valueURI_tesim"] != nil 
+		    htmlOpen %= 'URI'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= link_to "<i class='icon-globe'></i> #{@document['valueURI_tesim'].first}".html_safe, @document['valueURI_tesim'].first, :class => "btn btn-block  btn-link" %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end						 
+
+		htmlOpen = "<dt>%s</dt><dd>"
+		fields = ['topic', 'personalName','genreForm','iconography','scientificName','technique','builtWorkPlace','geographic','temporal','culturalContext','stylePeriod','conferenceName','function','corporateName','occupation','familyName']
+		fields.each { |field|
+		    if @document["complexSubject_0_0_#{field}_tesim"] != nil
+			    htmlOpen %= field
+			    concat htmlOpen.html_safe
+%>
+			    <ul class="unstyled">
+<%
+				for i in 0..5
+				    prefix = "complexSubject_0_#{i}_#{field}"
+					fieldData = @document["#{prefix}_tesim"]
+					if fieldData != nil				 
+%> 					<li><%=fieldData.first %></li>
+<%			  
+					else
+						break
+					end
+				end
+%>
+				</ul>
+<%
+				#concat htmlClose.html_safe
+			end
+		}		
+%>
