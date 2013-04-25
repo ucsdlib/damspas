@@ -8,7 +8,7 @@
     <dd><%= @mads_complex_subject.valueURI.first %></dd>
   </dl>
   <% if can? :update, @mads_complex_subject %>
-    <%= link_to "Solr View", mads_complex_subject_path(@mads_complex_subject.code), class: "btn btn-primary"%>
+    <%= link_to "Solr View", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>
     <%= link_to "Edit", edit_mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>
     <%= link_to "View All", mads_complex_subjects_path(), class: "btn btn-primary"%>
   <% end %>
