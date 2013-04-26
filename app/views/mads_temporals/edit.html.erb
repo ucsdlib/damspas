@@ -1,0 +1,30 @@
+<% @page_title =  "Edit Temporal" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Temporal</h2>
+		
+		<%= form_for @mads_temporal do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'mads_temporal[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'mads_temporal[name][]', @mads_temporal.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'mads_temporal[authority][]', "Authority" %>
+			<%= text_field_tag 'mads_temporal[authority][]', @mads_temporal.authority[0], class: "input-block-level" %>
+
+			<%= label_tag 'mads_temporal[valueURI][]', "URI" %>
+			<%= text_field_tag 'mads_temporal[valueURI][]', @mads_temporal.valueURI[0], class: "input-block-level" %>
+				
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", mads_temporal_path(@mads_temporal), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>

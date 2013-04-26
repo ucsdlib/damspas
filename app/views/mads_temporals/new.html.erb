@@ -1,0 +1,13 @@
+<h1>Create a new MADS Temporal</h1>
+<%= form_for @mads_temporal do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'mads_temporal[name]', "Name" %>
+  <%= text_field_tag 'mads_temporal[name]' %>
+	<%= label_tag 'mads_temporal[authority]', "Code" %>
+  <%= text_field_tag 'mads_temporal[authority]' %>
+  <%= label_tag 'mads_temporal[valueURI]', "URI" %>
+  <%= url_field_tag 'mads_temporal[valueURI]' %>
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

@@ -20,6 +20,7 @@ class Ability
   		can [:read], SolrDocument
   		can [:read], MadsComplexSubject
   		can [:read], MadsTopic
+  		can [:read], MadsTemporal
   	else  #login user
     	can [:read, :create, :update, :view], DamsObject
     	can [:read, :create, :update, :view], DamsUnit
@@ -39,6 +40,7 @@ class Ability
   		can [:read, :create, :update], SolrDocument
   		can [:read, :create, :update, :view], MadsComplexSubject
   		can [:read, :create, :update, :view], MadsTopic
+  		can [:read, :create, :update, :view], MadsTemporal
     end
   end
 end
