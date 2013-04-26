@@ -1,4 +1,4 @@
-class MadsTopicsController < ApplicationController
+class MadsTemporalsController < ApplicationController
   include Blacklight::Catalog
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
@@ -9,16 +9,16 @@ class MadsTopicsController < ApplicationController
   def show
     parm={ :q => "id_t:#{params[:id]}" }
     @document = get_single_doc_via_search(1,parm)
-    @current_topic = @document['name_tesim']
+    @current_temporal = @document['name_tesim']
     #@carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel AND id_t:#{params[:id]}", :qt=>"standard")
      @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
   def index
     # hydra index
-    #@mads_topics = MadsTopic.all( :order=>"system_create_dtsi asc" )
+    #@mads_temporals = MadsTemporal.all( :order=>"system_create_dtsi asc" )
 
     # solr index
-    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsTopic"' )
+    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsTemporal"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
 
@@ -26,7 +26,7 @@ class MadsTopicsController < ApplicationController
   # hydra actions ##############################################################
   ##############################################################################
   def view
-    @mads_topic = MadsTopic.find(params[:id])
+    @mads_temporal = MadsTemporal.find(params[:id])
   end
 
   def new
@@ -34,25 +34,25 @@ class MadsTopicsController < ApplicationController
   end
 
   def edit
-    #@mads_topic = MadsTopic.find(params[:id])
+    #@mads_temporal = MadsTemporal.find(params[:id])
   end
 
   def create
-    @mads_topic.attributes = params[:mads_topic]
-    if @mads_topic.save
-        redirect_to @mads_topic, notice: "Topic has been saved"
+    @mads_temporal.attributes = params[:mads_temporal]
+    if @mads_temporal.save
+        redirect_to @mads_temporal, notice: "Temporal has been saved"
     else
-      flash[:alert] = "Unable to save Topic"
+      flash[:alert] = "Unable to save Temporal"
       render :new
     end
   end
 
   def update
-    @mads_topic.attributes = params[:mads_topic]
-    if @mads_topic.save
-        redirect_to @mads_topic, notice: "Successfully updated Topic"
+    @mads_temporal.attributes = params[:mads_temporal]
+    if @mads_temporal.save
+        redirect_to @mads_temporal, notice: "Successfully updated Temporal"
     else
-      flash[:alert] = "Unable to save Topic"
+      flash[:alert] = "Unable to save Temporal"
       render :edit
     end
   end
