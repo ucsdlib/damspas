@@ -1,14 +1,12 @@
-<h1>Create a new DAMS Unit</h1>
-<%= form_for @dams_unit do |f| %>
+<h1>Create a new MADS Complex Subject</h1>
+<%= form_for @mads_complex_subject do |f| %>
 	<%= render 'error_messages' %>
-  <%= label_tag 'dams_unit[name]', "Name" %>
-  <%= text_field_tag 'dams_unit[name]' %>
-	<%= label_tag 'dams_unit[code]', "Code" %>
-  <%= text_field_tag 'dams_unit[code]' %>
-  <%= label_tag 'dams_unit[description]', "Description" %>
-  <%= text_area_tag 'dams_unit[description]', "", :rows => 10 %>
-  <%= label_tag 'dams_unit[uri]', "URI" %>
-  <%= url_field_tag 'dams_unit[uri]' %>
+  <%= label_tag 'mads_complex_subject[name]', "Name" %>
+  <%= text_field_tag 'mads_complex_subject[name]' %>
+	<%= label_tag 'mads_complex_subject[authority]', "Code" %>
+  <%= text_field_tag 'mads_complex_subject[authority]' %>
+  <%= label_tag 'mads_complex_subject[valueURI]', "URI" %>
+  <%= url_field_tag 'mads_complex_subject[valueURI]' %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
