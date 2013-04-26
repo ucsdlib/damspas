@@ -36,7 +36,7 @@ class Ability
   		can [:read, :create, :update], DamsVocabularyEntry
   		can [:read, :create, :update], DamsSourceCapture
   		can [:read, :create, :update], DamsCartographic
-  		can [:read, :create, :update], MadsPersonalName
+  		can [:read, :create, :update, :view], MadsPersonalName
   		can [:read, :create, :update], SolrDocument
   		can [:read, :create, :update, :view], MadsComplexSubject
   		can [:read, :create, :update, :view], MadsTopic
