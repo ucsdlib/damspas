@@ -1,6 +1,13 @@
-<h1>Create a new Personal Name</h1>
+<h1>Create a new MADS Personal Name</h1>
 <%= form_for @mads_personal_name do |f| %>
-  <%= label_tag 'mads_personal_name[name]', "Name" %><%= text_field_tag 'mads_personal_name[name]' %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'mads_personal_name[name]', "Name" %>
+  <%= text_field_tag 'mads_personal_name[name]' %>
+	<%= label_tag 'mads_personal_name[authority]', "Code" %>
+  <%= text_field_tag 'mads_personal_name[authority]' %>
+  <%= label_tag 'mads_personal_name[valueURI]', "URI" %>
+  <%= url_field_tag 'mads_personal_name[valueURI]' %>
   <br>
-  <%=f.submit "Save", class: "btn btn-primary" %>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
