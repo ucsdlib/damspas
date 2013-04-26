@@ -15,9 +15,23 @@
 			<%= label_tag 'mads_complex_subject[authority][]', "Authority" %>
 			<%= text_field_tag 'mads_complex_subject[authority][]', @mads_complex_subject.authority[0], class: "input-block-level" %>
 
-			<%= label_tag 'mads_complex_subject[valueURI][]', "Authority" %>
+			<%= label_tag 'mads_complex_subject[valueURI][]', "URI" %>
 			<%= text_field_tag 'mads_complex_subject[valueURI][]', @mads_complex_subject.valueURI[0], class: "input-block-level" %>
-				
+
+<% 	cList = @mads_complex_subject.componentList.first    
+	i = 0
+	if cList != nil
+		while i < cList.size  do
+			if(!cList[i].nil?)
+%>
+				<%= label_tag 'mads_complex_subject[componentList][name][]', "Topic" %>
+	 			<%= text_field_tag 'mads_complex_subject[componentList][name][]', cList[i].name[0], class: "input-block-level" %> 			
+<%		
+			end
+			i +=1
+		end 
+	end
+%>   				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-link pull-right" %>

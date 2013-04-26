@@ -133,7 +133,9 @@ class MadsComplexSubjectDatastream < MadsDatastream
     graph.insert([rdf_subject, RDF.type, MADS.ComplexSubject]) if new?
     super
   end
-  
+#  def method_missing(method_name)
+#  	puts ("no method")
+#  end
   def loadExternalObject (uri)
   	md = /\/(\w*)$/.match(uri)
   	if (!uri.include? 'Internal')

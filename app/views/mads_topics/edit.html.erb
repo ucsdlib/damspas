@@ -1,0 +1,30 @@
+<% @page_title =  "Edit Topic" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Topic</h2>
+		
+		<%= form_for @mads_topic do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'mads_topic[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'mads_topic[name][]', @mads_topic.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'mads_topic[authority][]', "Authority" %>
+			<%= text_field_tag 'mads_topic[authority][]', @mads_topic.authority[0], class: "input-block-level" %>
+
+			<%= label_tag 'mads_topic[valueURI][]', "URI" %>
+			<%= text_field_tag 'mads_topic[valueURI][]', @mads_topic.valueURI[0], class: "input-block-level" %>
+				
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", mads_topic_path(@mads_topic), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>
