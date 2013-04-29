@@ -235,7 +235,7 @@ describe DamsObjectDatastream do
       end
       it "should index unit" do
         solr_doc = subject.to_solr
-        solr_doc["unit_json_tesim"].first.should include "Library Digital Collections"
+        solr_doc["unit_json_tesim"].first.should include "Library Collections"
       end
       it "should index collection" do
         solr_doc = subject.to_solr
@@ -476,7 +476,7 @@ END
         solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","type":"ProvenanceCollection"'     
 		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
 		
-		puts solr_doc["unit_tesim"]
+		#puts solr_doc["unit_tesim"]
       end
     end
 end
