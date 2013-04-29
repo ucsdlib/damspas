@@ -1,0 +1,30 @@
+<% @page_title =  "Edit Corporate Name" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Corporate Name</h2>
+		
+		<%= form_for @mads_corporate_name do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'mads_corporate_name[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'mads_corporate_name[name][]', @mads_corporate_name.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'mads_corporate_name[authority][]', "Authority" %>
+			<%= text_field_tag 'mads_corporate_name[authority][]', @mads_corporate_name.authority[0], class: "input-block-level" %>
+
+			<%= label_tag 'mads_corporate_name[valueURI][]', "URI" %>
+			<%= text_field_tag 'mads_corporate_name[valueURI][]', @mads_corporate_name.valueURI[0], class: "input-block-level" %>
+				
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", mads_corporate_name_path(@mads_corporate_name), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>
