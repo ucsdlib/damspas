@@ -68,6 +68,9 @@
        <str name="facet.limit">10</str>
        <str name="facet.field">active_fedora_model_ssi</str>
        <str name="facet.field">object_type_si</str>
+       <str name="facet.field">object_type_sim</str>
+       <str name="facet.field">collection_sim</str>
+       <str name="facet.field">unit_sim</str>
        
        <str name="spellcheck">true</str>
        <str name="spellcheck.dictionary">default</str>
