@@ -72,7 +72,13 @@ Hydra::Application.routes.draw do
   end    
   resources :mads_family_names do
     get 'view', :on => :member
-  end     
+  end    
+  resources :mads_corporate_names do
+    get 'view', :on => :member
+  end   
+  resources :mads_conference_names do
+    get 'view', :on => :member
+  end      
   resources :mads_complex_subjects do
     get 'view', :on => :member
   end
