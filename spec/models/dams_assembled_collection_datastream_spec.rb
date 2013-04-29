@@ -56,7 +56,7 @@ describe DamsAssembledCollectionDatastream do
       end
       
       it "should have preferredCitationNote" do
-		testIndexNoteFields "preferredCitationNote","\\\"Data at Redshift=1.4 (RD0022).\\\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \\\"The Santa Fe Light Cone Simulation research project files.\\\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
+		testIndexNoteFields "preferredCitationNote","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
       end    
       it "should have CustodialResponsibilityNote" do
 		testIndexNoteFields "custodialResponsibilityNote","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"
