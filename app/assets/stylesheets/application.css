@@ -15,4 +15,7 @@
  *= require custom-object-viewer
  *= require custom-collections
  *= require custom-search
- */
+ 
+ *= require 'blacklight_advanced_search'
+
+*/

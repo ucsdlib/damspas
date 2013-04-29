@@ -52,6 +52,11 @@ GEM
       rails (>= 3.2)
       rsolr (~> 1.0.6)
       sass-rails
+    blacklight_advanced_search (2.0.0)
+      blacklight (~> 4.0)
+      parslet
+      rails (~> 3.0)
+    blankslate (2.1.2.4)
     block_helpers (0.3.3)
       activesupport (>= 2.0)
     bootstrap-sass (2.2.2.0)
@@ -157,6 +162,8 @@ GEM
     omniauth-shibboleth (1.0.8)
       omniauth (>= 1.0.0)
     orm_adapter (0.4.0)
+    parslet (1.5.0)
+      blankslate (~> 2.0)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -273,6 +280,7 @@ PLATFORMS
 DEPENDENCIES
   active-fedora (= 6.0.0)
   blacklight (= 4.2.0)
+  blacklight_advanced_search (= 2.0.0)
   bootstrap-sass (= 2.2.2.0)
   capybara (= 2.1.0)
   coffee-rails (= 3.2.2)

@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 gem 'blacklight', '4.2.0'
+gem 'blacklight_advanced_search', '2.0.0'
 gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
 gem 'solrizer', '3.0.0'
 gem 'hydra-head', "6.0.0"
