@@ -17,21 +17,7 @@
 
 			<%= label_tag 'mads_complex_subject[valueURI][]', "URI" %>
 			<%= text_field_tag 'mads_complex_subject[valueURI][]', @mads_complex_subject.valueURI[0], class: "input-block-level" %>
-
-<% 	cList = @mads_complex_subject.componentList.first    
-	i = 0
-	if cList != nil
-		while i < cList.size  do
-			if(!cList[i].nil?)
-%>
-				<%= label_tag 'mads_complex_subject[componentList][name][]', "Topic" %>
-	 			<%= text_field_tag 'mads_complex_subject[componentList][name][]', cList[i].name[0], class: "input-block-level" %> 			
-<%		
-			end
-			i +=1
-		end 
-	end
-%>   				
+ 			
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-link pull-right" %>
@@ -39,6 +25,38 @@
 				
 		
 		<%end%>
-	
+
+			<% cList = @mads_complex_subject.componentList.first    
+				i = 0
+				if cList != nil
+					while i < cList.size  do
+						if(!cList[i].nil?)							
+			%>
+							<dt>Edit Topic</dt>
+			<%
+							if(cList[i].to_s.include? 'ark:/20775/')
+								@mads_topic = MadsTopic.find(cList[i].to_s.gsub(/.*\//,''))	
+			%>
+								<%= form_for @mads_topic do |t| %>
+		
+									<%= render 'error_messages', object: t.object %>
+								
+									<%= label_tag 'mads_topic[name][]', "Authoritative Label" %>
+									<%= text_field_tag 'mads_topic[name][]', @mads_topic.name[0], class: "input-block-level" %>							
+										
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary pull-right">Save</button>
+									</div>
+				
+									
+			<%			
+								end	
+							end
+						end
+						i +=1
+					end 
+				end
+			%> 
+				
 	</div>
 </div>

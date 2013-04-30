@@ -11,12 +11,17 @@
 	i = 0
 	if cList != nil
 		while i < cList.size  do
-			if(!cList[i].nil? && !cList[i].name.nil?)
+			#if(!cList[i].nil? && !cList[i].name.nil?)
 %>
 				<dt>topic:</dt>
-	 			<dd><%= cList[i].name.first%></dd>
-<%		
-			end
+<%
+				if(cList[i].to_s.include? 'ark:/20775/')
+					@mads_topic = MadsTopic.find(cList[i].to_s.gsub(/.*\//,''))	
+%>
+					<dd><%= link_to @mads_topic.name.first, mads_topic_path(@mads_topic)%></dd>
+<%			
+				end	
+			#end
 			i +=1
 		end 
 	end
