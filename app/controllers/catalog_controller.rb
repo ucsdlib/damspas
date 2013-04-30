@@ -7,6 +7,9 @@ class CatalogController < ApplicationController
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
 
+  # support boolean operators, even in basic search
+  include BlacklightAdvancedSearch::ParseBasicQ
+
   ##
   # Search requests that include a 'unit' parameter will have their
   # search scoped to just that unit.
@@ -179,7 +182,7 @@ class CatalogController < ApplicationController
     #    :pf => '$author_pf'
     #  }
     #end
-    
+
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
