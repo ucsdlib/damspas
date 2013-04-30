@@ -21,6 +21,9 @@ class Ability
   		can [:read], MadsComplexSubject
   		can [:read], MadsTopic
   		can [:read], MadsTemporal
+  		can [:read], MadsFamilyName
+  		can [:read], MadsCorporateName  		
+  		can [:read], MadsConferenceName    		
   	else  #login user
     	can [:read, :create, :update, :view], DamsObject
     	can [:read, :create, :update, :view], DamsUnit
