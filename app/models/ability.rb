@@ -23,7 +23,8 @@ class Ability
   		can [:read], MadsTemporal
   		can [:read], MadsFamilyName
   		can [:read], MadsCorporateName  		
-  		can [:read], MadsConferenceName    		
+  		can [:read], MadsConferenceName   
+  		can [:read], MadsName 		
   	else  #login user
     	can [:read, :create, :update, :view], DamsObject
     	can [:read, :create, :update, :view], DamsUnit
@@ -42,7 +43,8 @@ class Ability
   		can [:read, :create, :update, :view], MadsPersonalName
   		can [:read, :create, :update, :view], MadsFamilyName
   		can [:read, :create, :update, :view], MadsCorporateName  		
-  		can [:read, :create, :update, :view], MadsConferenceName  		
+  		can [:read, :create, :update, :view], MadsConferenceName  	
+  		can [:read, :create, :update, :view], MadsName  	
   		can [:read, :create, :update], SolrDocument
   		can [:read, :create, :update, :view], MadsComplexSubject
   		can [:read, :create, :update, :view], MadsTopic

@@ -87,7 +87,10 @@ Hydra::Application.routes.draw do
   end  
   resources :mads_temporals do
     get 'view', :on => :member
-  end    
+  end   
+  resources :mads_names do
+    get 'view', :on => :member
+  end     
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

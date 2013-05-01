@@ -1,0 +1,13 @@
+<h1>Create a new MADS Name</h1>
+<%= form_for @mads_name do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'mads_name[name]', "Name" %>
+  <%= text_field_tag 'mads_name[name]' %>
+	<%= label_tag 'mads_name[authority]', "Code" %>
+  <%= text_field_tag 'mads_name[authority]' %>
+  <%= label_tag 'mads_name[valueURI]', "URI" %>
+  <%= url_field_tag 'mads_name[valueURI]' %>
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>
