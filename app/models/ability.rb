@@ -24,7 +24,10 @@ class Ability
   		can [:read], MadsFamilyName
   		can [:read], MadsCorporateName  		
   		can [:read], MadsConferenceName   
-  		can [:read], MadsName 		
+  		can [:read], MadsName
+  		can [:read], MadsOccupation
+  		can [:read], MadsGenreForm
+  		can [:read], MadsGeographic
   	else  #login user
     	can [:read, :create, :update, :view], DamsObject
     	can [:read, :create, :update, :view], DamsUnit
@@ -49,6 +52,9 @@ class Ability
   		can [:read, :create, :update, :view], MadsComplexSubject
   		can [:read, :create, :update, :view], MadsTopic
   		can [:read, :create, :update, :view], MadsTemporal
+  		can [:read, :create, :update, :view], MadsOccupation
+  		can [:read, :create, :update, :view], MadsGenreForm
+  		can [:read, :create, :update, :view], MadsGeographic  		
     end
   end
 end

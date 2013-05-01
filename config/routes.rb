@@ -90,7 +90,16 @@ Hydra::Application.routes.draw do
   end   
   resources :mads_names do
     get 'view', :on => :member
-  end     
+  end    
+  resources :mads_occupations do
+    get 'view', :on => :member
+  end   
+  resources :mads_genre_forms do
+    get 'view', :on => :member
+  end   
+  resources :mads_geographics do
+    get 'view', :on => :member
+  end       
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

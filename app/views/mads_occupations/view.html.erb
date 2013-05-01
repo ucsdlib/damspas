@@ -1,0 +1,15 @@
+<h1><%= @mads_occupation.name.first %></h1>
+
+<div>
+  <dl>
+    <dt>authority:</dt>
+    <dd><%= @mads_occupation.authority.first %></dd>
+    <dt>uri:</dt>
+    <dd><%= @mads_occupation.valueURI.first %></dd>
+  </dl>
+  <% if can? :update, @mads_occupation %>
+    <%= link_to "Solr View", mads_occupation_path(@mads_occupation), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_mads_occupation_path(@mads_occupation), class: "btn btn-primary"%>
+    <%= link_to "View All", mads_occupations_path(), class: "btn btn-primary"%>
+  <% end %>
+</div>

@@ -1,0 +1,30 @@
+<% @page_title =  "Edit GenreForm" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit GenreForm</h2>
+		
+		<%= form_for @mads_genre_form do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'mads_genre_form[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'mads_genre_form[name][]', @mads_genre_form.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'mads_genre_form[authority][]', "Authority" %>
+			<%= text_field_tag 'mads_genre_form[authority][]', @mads_genre_form.authority[0], class: "input-block-level" %>
+
+			<%= label_tag 'mads_genre_form[valueURI][]', "URI" %>
+			<%= text_field_tag 'mads_genre_form[valueURI][]', @mads_genre_form.valueURI[0], class: "input-block-level" %>
+				
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", mads_genre_form_path(@mads_genre_form), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<% @page_title =  "Edit Occupation" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Occupation</h2>
+		
+		<%= form_for @mads_occupation do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'mads_occupation[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'mads_occupation[name][]', @mads_occupation.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'mads_occupation[authority][]', "Authority" %>
+			<%= text_field_tag 'mads_occupation[authority][]', @mads_occupation.authority[0], class: "input-block-level" %>
+
+			<%= label_tag 'mads_occupation[valueURI][]', "URI" %>
+			<%= text_field_tag 'mads_occupation[valueURI][]', @mads_occupation.valueURI[0], class: "input-block-level" %>
+				
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", mads_occupation_path(@mads_occupation), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>
