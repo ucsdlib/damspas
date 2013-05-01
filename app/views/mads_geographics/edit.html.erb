@@ -1,0 +1,30 @@
+<% @page_title =  "Edit Geographic" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Geopgrahic</h2>
+		
+		<%= form_for @mads_geographic do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'mads_geographic[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'mads_geographic[name][]', @mads_geographic.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'mads_geographic[authority][]', "Authority" %>
+			<%= text_field_tag 'mads_geographic[authority][]', @mads_geographic.authority[0], class: "input-block-level" %>
+
+			<%= label_tag 'mads_geographic[valueURI][]', "URI" %>
+			<%= text_field_tag 'mads_geographic[valueURI][]', @mads_geographic.valueURI[0], class: "input-block-level" %>
+				
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", mads_geographic_path(@mads_geographic), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>

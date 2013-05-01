@@ -1,4 +1,4 @@
-class MadsConferenceNamesController < ApplicationController
+class MadsGenreFormsController < ApplicationController
   include Blacklight::Catalog
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
@@ -9,16 +9,16 @@ class MadsConferenceNamesController < ApplicationController
   def show
     parm={ :q => "id_t:#{params[:id]}" }
     @document = get_single_doc_via_search(1,parm)
-    @current_conference_name = @document['name_tesim']
+    @current_genre_form = @document['name_tesim']
     #@carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel AND id_t:#{params[:id]}", :qt=>"standard")
      @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
   def index
     # hydra index
-    #@mads_conference_names = MadsConferenceName.all( :order=>"system_create_dtsi asc" )
+    #@mads_genre_forms = MadGenreForm.all( :order=>"system_create_dtsi asc" )
 
     # solr index
-    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsConferenceName"' )
+    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsGenreForm"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
 
@@ -26,7 +26,7 @@ class MadsConferenceNamesController < ApplicationController
   # hydra actions ##############################################################
   ##############################################################################
   def view
-    @mads_conference_name = MadsConferenceName.find(params[:id])
+    @mads_genre_form = MadsGenreForm.find(params[:id])
   end
 
   def new
@@ -34,25 +34,25 @@ class MadsConferenceNamesController < ApplicationController
   end
 
   def edit
-    #@mads_conference_name = MadsConferenceName.find(params[:id])
+    #@mads_genre_form = MadsGenreForm.find(params[:id])
   end
 
   def create
-    @mads_conference_name.attributes = params[:mads_conference_name]
-    if @mads_conference_name.save
-        redirect_to @mads_conference_name, notice: "conference_name has been saved"
+    @mads_genre_form.attributes = params[:mads_genre_form]
+    if @mads_genre_form.save
+        redirect_to @mads_genre_form, notice: "genre_form has been saved"
     else
-      flash[:alert] = "Unable to save conference_name"
+      flash[:alert] = "Unable to save genre_form"
       render :new
     end
   end
 
   def update
-    @mads_conference_name.attributes = params[:mads_conference_name]
-    if @mads_conference_name.save
-        redirect_to @mads_conference_name, notice: "Successfully updated conference_name"
+    @mads_genre_form.attributes = params[:mads_genre_form]
+    if @mads_genre_form.save
+        redirect_to @mads_genre_form, notice: "Successfully updated genre_form"
     else
-      flash[:alert] = "Unable to save conference_name"
+      flash[:alert] = "Unable to save genre_form"
       render :edit
     end
   end

@@ -1,0 +1,15 @@
+<h1><%= @mads_genre_form.name.first %></h1>
+
+<div>
+  <dl>
+    <dt>authority:</dt>
+    <dd><%= @mads_genre_form.authority.first %></dd>
+    <dt>uri:</dt>
+    <dd><%= @mads_genre_form.valueURI.first %></dd>
+  </dl>
+  <% if can? :update, @mads_genre_form %>
+    <%= link_to "Solr View", mads_genre_form_path(@mads_genre_form), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_mads_genre_form_path(@mads_genre_form), class: "btn btn-primary"%>
+    <%= link_to "View All", mads_genre_forms_path(), class: "btn btn-primary"%>
+  <% end %>
+</div>

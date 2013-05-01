@@ -1,0 +1,13 @@
+<h1>Create a new MADS Occupation</h1>
+<%= form_for @mads_occupation do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'mads_occupation[name]', "Name" %>
+  <%= text_field_tag 'mads_occupation[name]' %>
+	<%= label_tag 'mads_occupation[authority]', "Code" %>
+  <%= text_field_tag 'mads_occupation[authority]' %>
+  <%= label_tag 'mads_occupation[valueURI]', "URI" %>
+  <%= url_field_tag 'mads_occupation[valueURI]' %>
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>
