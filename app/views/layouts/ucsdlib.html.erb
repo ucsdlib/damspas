@@ -13,6 +13,8 @@
 
 		<%= csrf_meta_tags %>
 		<%= raw(render_head_content) %> 
+		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? %>
+
 		<%= render :partial => 'layouts/ie-conditionals' %>
 
 		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
