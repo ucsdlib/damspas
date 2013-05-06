@@ -5,7 +5,7 @@
     <dt>authority:</dt>
     <dd><%= @mads_temporal.authority.first %></dd>
     <dt>uri:</dt>
-    <dd><%= @mads_temporal.valueURI.first %></dd>
+    <dd><%= @mads_temporal.valueURI %></dd>
   </dl>
   <% if can? :update, @mads_temporal %>
     <%= link_to "Solr View", mads_temporal_path(@mads_temporal), class: "btn btn-primary"%>
