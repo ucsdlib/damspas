@@ -18,7 +18,7 @@ class MadsNamesController < ApplicationController
     #@mads_names = MadsName.all( :order=>"system_create_dtsi asc" )
 
     # solr index
-    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsName"' )
+    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsName" AND NOT name_tesim:"Name Test" AND NOT name_tesim:"Test Name"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
 

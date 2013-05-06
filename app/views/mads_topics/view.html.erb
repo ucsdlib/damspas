@@ -5,7 +5,7 @@
     <dt>authority:</dt>
     <dd><%= @mads_topic.authority.first %></dd>
     <dt>uri:</dt>
-    <dd><%= @mads_topic.valueURI.first %></dd>
+    <dd><%= @mads_topic.valueURI %></dd>
   </dl>
   <% if can? :update, @mads_topic %>
     <%= link_to "Solr View", mads_topic_path(@mads_topic), class: "btn btn-primary"%>
