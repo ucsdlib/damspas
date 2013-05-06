@@ -42,7 +42,7 @@ describe MadsFamilyNameDatastream do
       end
 
       it "should have a sameAs value" do
-        subject.sameAs.should == ["http://id.loc.gov/authorities/names/n2012026835"]
+        subject.sameAs.to_s.should == "http://id.loc.gov/authorities/names/n2012026835"
       end
  
       it "should have an authority" do
