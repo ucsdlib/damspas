@@ -239,8 +239,9 @@ describe DamsObjectDatastream do
       end
       it "should index collection" do
         solr_doc = subject.to_solr
-        solr_doc["collection_json_tesim"][0].should include "UCSD Electronic Theses and Dissertations"
-        solr_doc["collection_json_tesim"][1].should include "Historical Dissertations"
+        #puts "solr: #{solr_doc.inspect}"
+        solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
+        solr_doc["collection_json_tesim"].join(" ").should include "May 2009"
       end
 #      it "should have event" do
 #        solr_doc = subject.to_solr
@@ -419,10 +420,9 @@ END
 
       it "should index collection" do
         solr_doc = subject.to_solr
-        solr_doc["collection_json_tesim"][0].should include "Historical Dissertations"
-        solr_doc["collection_json_tesim"][1].should include "UCSD Electronic Theses and Dissertations"
-        solr_doc["collection_json_tesim"][2].should include "Scripps Institution of Oceanography, Geological Collections"
-        solr_doc["collection_json_tesim"][3].should include "May 2009"
+        solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
+        solr_doc["collection_json_tesim"].join(" ").should include "Scripps Institution of Oceanography, Geological Collections"
+        solr_doc["collection_json_tesim"].join(" ").should include "May 2009"
       end
       
       def testIndexFields (solr_doc,fieldName,name)

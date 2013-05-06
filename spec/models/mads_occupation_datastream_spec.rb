@@ -34,7 +34,7 @@ describe MadsOccupationDatastream do
       end
 
       it "should have a sameAs value" do
-        subject.sameAs.should == ["http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"]
+        subject.sameAs.to_s.should == "http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"
       end
  
       it "should have an authority" do

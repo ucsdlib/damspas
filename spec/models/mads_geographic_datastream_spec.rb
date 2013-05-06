@@ -34,14 +34,14 @@ describe MadsGeographicDatastream do
       end
 
       it "should have a sameAs value" do
-        subject.sameAs.should == ["http://id.loc.gov/authorities/sh85090955"]
+        subject.sameAs.to_s.should == "http://id.loc.gov/authorities/sh85090955"
       end
  
       it "should have an authority" do
         subject.authority.should == ["lcsh"]
       end
        it "should have an valueURI" do
-        subject.valueURI.should == ["http://id.loc.gov/authorities/sh85090955"]
+        subject.valueURI.to_s.should == "http://id.loc.gov/authorities/sh85090955"
       end
                 
       it "should have fields" do

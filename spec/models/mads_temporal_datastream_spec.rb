@@ -34,7 +34,7 @@ describe MadsTemporalDatastream do
       end
 
       it "should have a sameAs value" do
-        subject.sameAs.should == ["http://id.loc.gov/authorities/sh2002012470"]
+        subject.sameAs.to_s.should == "http://id.loc.gov/authorities/sh2002012470"
       end
  
       it "should have an authority" do

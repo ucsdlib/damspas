@@ -7,7 +7,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     if @sameAs != nil
       @sameAs
     else
-      sameAsNode
+      sameAsNode.first
     end
   end
  
@@ -18,7 +18,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     if @valURI != nil
       @valURI
     else
-      valURI
+      valURI.first
     end
   end
          
@@ -106,20 +106,28 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
-    if(!@sameAs.nil?)
-    	graph.insert([rdf_subject, OWL.sameAs, @sameAs]) if new?
+    if(!sameAs.nil?)
+      if new?
+        graph.insert([rdf_subject, OWL.sameAs, sameAs])
+      else
+        graph.update([rdf_subject, OWL.sameAs, sameAs])
+      end
     end
-    if(!@valURI.nil?)
-    	graph.insert([rdf_subject, DAMS.valueURI, @valURI]) if new?
+    if(!valueURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.valueURI, valueURI])
+      else
+        graph.update([rdf_subject, DAMS.valueURI, valueURI])
+      end
     end
     super
   end
   
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'name', name)
-	Solrizer.insert_field(solr_doc, 'sameAs', sameAsNode.first.to_s)
+	Solrizer.insert_field(solr_doc, 'sameAs', sameAs.to_s)
 	Solrizer.insert_field(solr_doc, 'authority', authority)
- 	Solrizer.insert_field(solr_doc, "valueURI", valURI.first.to_s)
+ 	Solrizer.insert_field(solr_doc, "valueURI", valueURI.to_s)
 	list = elementList.first
 	i = 0
 	if list != nil

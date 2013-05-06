@@ -35,7 +35,7 @@ describe MadsCorporateNameDatastream do
       end
 
       it "should have a sameAs value" do
-        subject.sameAs.should == ["http://lccn.loc.gov/n50000352"]
+        subject.sameAs.to_s.should == "http://lccn.loc.gov/n50000352"
       end
  
       it "should have an authority" do
