@@ -130,7 +130,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	if !license.values.first.nil?
 	    l_pid = license.values.first.pid
 	    
-	    if !license.values.first.uri.first.nil? && license.values.first.uri.first.to_s.length > 0
+	    if (!license.values.first.note.first.nil? && license.values.first.note.first.length > 0) || ( !license.values.first.uri.first.nil? && license.values.first.uri.first.to_s.length > 0)
 	      license.values.first
 	    else
 	      DamsLicense.find(l_pid)
