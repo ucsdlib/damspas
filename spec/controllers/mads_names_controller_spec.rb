@@ -54,18 +54,8 @@ describe MadsNamesController do
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :mads_name => {name: ["Test Title2"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999995"]}
 	      response.should redirect_to assigns[:mads_name]
-	      
-	      puts "heyyyyyy"
-	      puts @obj.valueURI
-	      puts "bbbbbbbbbbbbbbb"
-	      @obj.valueURI = "http://haaaaaaa"
-	      if(@obj.save!)
-	      	puts "save successfuly"
-	      	puts @obj.id
-	      end
-	      puts @obj.valueURI
-	      puts "ccccccc"
-	     # @obj.reload.name.should == ["Test Title2"]
+	      @obj.reload.name.should == ["Test Title2"]
+	      puts @obj.id
           pending "check title after reload #{__FILE__}"
 	      flash[:notice].should == "Successfully updated personal name"
 	    end
