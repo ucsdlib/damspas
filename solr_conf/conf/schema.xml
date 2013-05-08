@@ -270,7 +270,6 @@
 	<copyField source="title_tesim" dest="spell"/>
 	<copyField source="name_tesim" dest="spell"/>
 	<copyField source="subject_tesim" dest="spell"/>
-	<copyField source="note_tesim" dest="spell"/>
 	<copyField source="date_tesim" dest="spell"/>
 	<copyField source="component_title_tesim" dest="spell"/>
 	<copyField source="id" dest="spell"/>
