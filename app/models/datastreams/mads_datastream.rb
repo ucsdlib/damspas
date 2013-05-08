@@ -1,6 +1,9 @@
 class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
   
   def sameAs=(val)
+    if val.class == Array
+    	val = val.first
+    end  
     @sameAs = RDF::Resource.new(val)
   end
   def sameAs
@@ -12,6 +15,9 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
  
   def valueURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
     @valURI = RDF::Resource.new(val)
   end
   def valueURI
