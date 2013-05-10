@@ -358,7 +358,7 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Ya\u00f1ez, Ang\u00e9lica Mar\u00eda", "Personal Name 2", "Name 4", "Generic Name", "Generic Name Internal"]
+        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Ya\u00f1ez, Ang\u00e9lica Mar\u00eda", "Personal Name 2", "Name 4", "Generic Name..", "Generic Name Internal"]
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]

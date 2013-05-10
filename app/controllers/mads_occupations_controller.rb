@@ -50,7 +50,11 @@ class MadsOccupationsController < ApplicationController
   def update
     @mads_occupation.attributes = params[:mads_occupation]
     if @mads_occupation.save
-        redirect_to @mads_occupation, notice: "Successfully updated occupation"
+    	if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated occupation"
+        else  
+        	redirect_to @mads_occupation, notice: "Successfully updated occupation"
+        end
     else
       flash[:alert] = "Unable to save occupation"
       render :edit

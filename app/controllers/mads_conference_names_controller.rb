@@ -50,7 +50,11 @@ class MadsConferenceNamesController < ApplicationController
   def update
     @mads_conference_name.attributes = params[:mads_conference_name]
     if @mads_conference_name.save
-        redirect_to @mads_conference_name, notice: "Successfully updated conference_name"
+		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated confernce_name"
+        else        
+        	redirect_to @mads_conference_name, notice: "Successfully updated conference_name"
+        end
     else
       flash[:alert] = "Unable to save conference_name"
       render :edit

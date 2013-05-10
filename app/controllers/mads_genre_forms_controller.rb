@@ -50,7 +50,11 @@ class MadsGenreFormsController < ApplicationController
   def update
     @mads_genre_form.attributes = params[:mads_genre_form]
     if @mads_genre_form.save
-        redirect_to @mads_genre_form, notice: "Successfully updated genre_form"
+		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated genre_form"
+        else      
+        	redirect_to @mads_genre_form, notice: "Successfully updated genre_form"
+        end
     else
       flash[:alert] = "Unable to save genre_form"
       render :edit
