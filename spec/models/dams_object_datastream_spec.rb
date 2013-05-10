@@ -180,6 +180,13 @@ describe DamsObjectDatastream do
         solr_doc["title_tesim"].should include "The Static Image"
         solr_doc["title_tesim"].should include "Supplementary Image"
       end
+	  it "should index component topics at component and object level" do
+        solr_doc = subject.to_solr
+        solr_doc["subject_topic_sim"].should include "Subject 1"
+        solr_doc["subject_topic_sim"].should include "Topic 2--Topic 3"
+        solr_doc["component_1_subject_topic_sim"].should include "Subject 1"
+        solr_doc["component_1_subject_topic_sim"].should include "Topic 2--Topic 3"
+      end
       it "should index repeating linked metadata" do
         solr_doc = subject.to_solr
         solr_doc["language_tesim"].should == ["English"]

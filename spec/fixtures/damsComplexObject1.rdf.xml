@@ -176,6 +176,39 @@
             <dams:endDate>2012-06-25 #2</dams:endDate>
           </dams:Date>
         </dams:date>
+        <dams:topic>
+          <mads:Topic>
+            <mads:authoritativeLabel>Subject 1</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>Subject 1</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </dams:topic>
+        <dams:complexSubject>
+          <mads:ComplexSubject>
+            <mads:authoritativeLabel>Topic 2--Topic 3</mads:authoritativeLabel>
+            <mads:componentList rdf:parseType="Collection">
+              <mads:Topic>
+                <mads:authoritativeLabel>Topic 2</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:TopicElement>
+                    <mads:elementValue>Topic 2</mads:elementValue>
+                  </mads:TopicElement>
+                </mads:elementList>
+              </mads:Topic>
+              <mads:Topic>
+                <mads:authoritativeLabel>Topic 3</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:TopicElement>
+                    <mads:elementValue>Topic 3</mads:elementValue>
+                  </mads:TopicElement>
+                </mads:elementList>
+              </mads:Topic>
+            </mads:componentList>
+          </mads:ComplexSubject>
+        </dams:complexSubject>
         <dams:hasFile>
           <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf">
             <dams:sourceCapture rdf:resource="http://library.ucsd.edu/ark:/20775/bb49494949"/>
