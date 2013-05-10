@@ -99,13 +99,8 @@ module DamsObjectsHelper
      fieldData = @document["#{index}copyright_tesim"]
      if fieldData != nil
       fieldJSON = JSON.parse(fieldData.first)
-      temp =fieldJSON['status']
-      data_arr.push(temp)
-        temp =fieldJSON['jurisdiction']
-        data_arr.push(temp)
         temp =fieldJSON['purposeNote']
-        data_arr.push(temp)
-        temp =fieldJSON['note']
+        temp ='purposeNote: '+temp + ' '+'note: '+fieldJSON['note']
         data_arr.push(temp)
      end
      data_arr
