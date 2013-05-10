@@ -50,7 +50,11 @@ class MadsPersonalNamesController < ApplicationController
   def update
     @mads_personal_name.attributes = params[:mads_personal_name]
     if @mads_personal_name.save
-        redirect_to @mads_personal_name, notice: "Successfully updated personal_name"
+		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated personal_name"
+        else      
+        	redirect_to @mads_personal_name, notice: "Successfully updated personal_name"
+        end
     else
       flash[:alert] = "Unable to save personal_name"
       render :edit
