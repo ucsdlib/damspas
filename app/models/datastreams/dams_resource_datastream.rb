@@ -236,11 +236,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  def insertComplexSubjectFields (solr_doc, fieldName, objects)
+  def insertComplexSubjectFields (solr_doc, cid, objects)
+    prefix = (cid != nil) ? "component_#{cid}_" : ""
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     if objects != nil
       objects.each do |obj|
-          Solrizer.insert_field(solr_doc, fieldName, obj.name)
+          Solrizer.insert_field(solr_doc, "#{prefix}complexSubject", obj.name)
+          Solrizer.insert_field(solr_doc, "#{prefix}subject_topic", obj.name, facetable)
           Solrizer.insert_field(solr_doc, "subject_topic", obj.name, facetable)
           Solrizer.insert_field(solr_doc, "fulltext", obj.name)
       end
@@ -509,7 +511,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     # subject - complex
-    insertComplexSubjectFields solr_doc, 'complexSubject', load_complexSubjects(complexSubject)
+    insertComplexSubjectFields solr_doc, nil, load_complexSubjects(complexSubject)
 
     # subject - simple
     insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
