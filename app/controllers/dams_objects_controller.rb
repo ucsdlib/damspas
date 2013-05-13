@@ -41,11 +41,11 @@ class DamsObjectsController < ApplicationController
   end
 
   def new
-  
+  	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
   end
   
   def edit
-
+	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
   end
   
   def create

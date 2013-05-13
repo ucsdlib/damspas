@@ -1,12 +1,15 @@
 module DamsHelper
   def subtitle
-    self.title.first ? self.title.first.subtitle : []
+    #self.title.first ? self.title.first.subtitle : []
+    title[0] ? title[0].subtitle : []
   end
   def subtitle=(val)
-    if self.title == nil
-      self.title = []
-    end
-    self.title.build.subtitle = val
+    #if self.title == nil
+    #  self.title = []
+    #end
+    #self.title.build.subtitle = val
+    title.build if title[0] == nil
+    title[0].subtitle = val
   end
 
   def titleValue

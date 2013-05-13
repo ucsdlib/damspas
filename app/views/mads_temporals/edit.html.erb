@@ -17,7 +17,16 @@
 
 			<%= label_tag 'mads_temporal[valueURI][]', "URI" %>
 			<%= text_field_tag 'mads_temporal[valueURI][]', @mads_temporal.valueURI, class: "input-block-level" %>
-				
+
+			<% eList = @mads_temporal.elementList.first    
+				if eList != nil	
+			%>
+					<%#= label_tag 'mads_temporal[valueURI][]', "Temporal" %>
+					<%#= text_field_tag 'mads_temporal[valueURI][]',eList[0].elementValue.first, class: "input-block-level" %>
+			<%
+				end					
+			%> 
+							
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_temporal_path(@mads_temporal), class: "btn btn-link pull-right" %>
