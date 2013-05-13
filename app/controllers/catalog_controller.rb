@@ -208,12 +208,21 @@ class CatalogController < ApplicationController
       
       (@response, @document_list) = get_search_results
 	  if(@document_list.size == 0)
+		if(params['spellcheck.q'].nil?)
+			params['spellcheck.q'] = params[:q]
+		else
+			params.delete('spellcheck.q')
+		end
 		@suggestions = ([@response.spelling.collation] || []) | @response.spelling.words
 		@suggestions.each do |word|
-			params['spellcheck.q'] = params[:q]
 			params[:q] = word
 			(@response, @document_list) = get_search_results params
 			if(@document_list.size > 0)
+				if(params['spellcheck.q'].nil?)
+					@suggestions.each do |word|
+						@response.spelling.words << word unless word.nil?
+					end
+				end
 				break;
 			end
 		end
