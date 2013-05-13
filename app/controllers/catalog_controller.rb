@@ -226,8 +226,9 @@ class CatalogController < ApplicationController
 				break;
 			end
 		end
-		else
-			params['spellcheck.q'] = params[:q]
+	  else
+		params['spellcheck.q'] = params[:q]
+		@response.spelling.words << @response.spelling.collation unless @response.spelling.collation.nil?
 	  end
       @filters = params[:f] || []
       
