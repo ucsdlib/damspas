@@ -1,11 +1,11 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
-  <%= label_tag 'dams_object[title][]', "First title" %>
-  <%= text_field_tag 'dams_object[title][]' %>
-  <%= label_tag 'dams_object[date][]', "Date" %>
-  <%= text_field_tag 'dams_object[date][]' %>
-  <%= label_tag 'dams_object[subject][]', "Subject" %>
-  <%=text_field_tag 'dams_object[subject][]' %>
+  <%= label_tag 'dams_object[titleValue][]', "First title" %>
+  <%= text_field_tag 'dams_object[titleValue][]' %>
+  <%= label_tag 'dams_object[dateValue][]', "Date" %>
+  <%= text_field_tag 'dams_object[dateValue][]' %>
+  <%#= label_tag 'dams_object[subject][]', "Subject" %>
+  <%#=text_field_tag 'dams_object[subject][]' %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
