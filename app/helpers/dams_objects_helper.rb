@@ -28,7 +28,8 @@ module DamsObjectsHelper
           'creator'=>getCreator,
           'date'=>getDate,
           'format'=>getFormat,
-          'language'=> getLanguage
+          'language'=> getLanguage,
+          'identifier'=>getIdentifier
           
         }
         field_map.each do |kev, values|
@@ -90,6 +91,22 @@ module DamsObjectsHelper
 
     def getLanguage
         fieldValue=field_mapping('language_tesim')
+    end
+
+    def getIdentifier
+       data_arr=[]
+       index = getComponentIndex
+     fieldData = @document["#{index}note_json_tesim"]
+
+     if fieldData != nil
+       fieldData.each do |datum|
+          note = JSON.parse(datum)
+          if note['type'] == "ARK" 
+            data_arr.push(note['value'])
+          end
+       end
+      end
+     data_arr
     end
 
     # Parse metadata from JSON format for copyright.
