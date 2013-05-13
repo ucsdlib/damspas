@@ -63,4 +63,42 @@ describe DamsObject do
     subject.component.first.title.first.value.should == ["The Static Image"]
     subject.sourceCapture.scannerManufacturer.should == ["Epson"]
   end
+  
+  subject do
+    DamsObject.new pid: "xx80808080"
+  end
+  it "should create a xml" do
+    subject.titleValue = "Sample Complex Object Record #1"
+    subject.subtitle = "a newspaper PDF with a single attached image"
+    subject.titleType = "main"
+    subject.dateValue = "May 24, 1980"
+    subject.beginDate = "1980-05-24"
+    subject.endDate = "1980-05-24"
+    subject.subject = "test subject"
+    xml =<<END
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+<dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080">
+    <dams:title>
+      <dams:Title>
+        <rdf:value>Sample Complex Object Record #1</rdf:value>
+        <dams:subtitle>a newspaper PDF with a single attached image</dams:subtitle>
+        <dams:type>main</dams:type>
+      </dams:Title>
+    </dams:title>
+	<dams:date>
+      <dams:Date>
+        <rdf:value>May 24, 1980</rdf:value>
+        <dams:beginDate>1980-05-24</dams:beginDate>
+        <dams:endDate>1980-05-24</dams:endDate>
+      </dams:Date>
+    </dams:date>    
+</rdf:RDF>
+END
+    subject.damsMetadata.content.should be_equivalent_to xml
+
+  end  
 end

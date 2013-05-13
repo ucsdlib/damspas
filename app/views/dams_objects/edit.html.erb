@@ -1,14 +1,21 @@
 <h1>Edit a Dams Object</h1>
+
 <%= form_for @dams_object do |f| %>
-  <%= label_tag 'dams_object[title][]', "Title" %>
-  <%= text_field_tag 'dams_object[title][]', @dams_object.title[0] %>
-  <%= label_tag 'dams_object[date][]', "Date" %>
-  <%= text_field_tag 'dams_object[date][]', @dams_object.date[0] %>
+  <%= label_tag 'dams_object[titleValue][]', "Title" %>
+  <%= text_field_tag 'dams_object[titleValue][]', @dams_object.title[0].value, class: "input-block-level" %>
+  <%= label_tag 'dams_object[dateValue][]', "Date" %>
+  <% if !@dams_object.date[0].nil? %>
+  	<%= text_field_tag 'dams_object[dateValue][]', @dams_object.date[0].value, class: "input-block-level" %>
+  <% else %>
+  	<%= text_field_tag 'dams_object[dateValue][]', @dams_object.date[0], class: "input-block-level" %>
+  <%end %>
   <% @dams_object.subject.each_with_index do |s,i| %>
   	<%= label_tag "dams_object_subject_#{i}", "Subject" %>
-  		<%= text_field_tag "dams_object[subject][]", s, :id => "dams_object_subject_#{i}" %>
+  		<%= text_field_tag "dams_object[subject][]", s.name, :id => "dams_object_subject_#{i}", class: "input-block-level"  %>
   <% end %>
 	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
-  <%=f.submit "Submit", class: "btn btn-primary" %>
+  <%#=f.submit "Submit", class: "btn btn-primary" %>
+  <button type="submit" class="btn btn-primary pull-right">Save changes</button>
+  <%= link_to "Cancel", dams_object_path(@dams_object), class: "btn btn-link pull-right" %> 
 <%end%>
