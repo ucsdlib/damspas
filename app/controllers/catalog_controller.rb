@@ -226,6 +226,8 @@ class CatalogController < ApplicationController
 				break;
 			end
 		end
+		else
+			params['spellcheck.q'] = params[:q]
 	  end
       @filters = params[:f] || []
       
