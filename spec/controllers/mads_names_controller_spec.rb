@@ -14,7 +14,10 @@ describe MadsNamesController do
 	    it "should be successful" do 
 	      get :view, id: @obj.id
 	      response.should be_successful 
-	      assigns[:mads_name].should == @obj
+	      @newobj = assigns[:mads_name]
+          @newobj.name.should == @obj.name
+          @newobj.sameAs.should == @obj.sameAs
+          @newobj.valueURI.should == @obj.valueURI
 	    end
 	  end
 	  
@@ -33,7 +36,10 @@ describe MadsNamesController do
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
-	      assigns[:mads_name].should == @obj
+	      @newobj = assigns[:mads_name]
+          @newobj.name.should == @obj.name
+          @newobj.sameAs.should == @obj.sameAs
+          @newobj.valueURI.should == @obj.valueURI
 	    end
 	  end
 	  
