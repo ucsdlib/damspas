@@ -101,7 +101,7 @@ module DamsObjectsHelper
      if fieldData != nil
        fieldData.each do |datum|
           note = JSON.parse(datum)
-          if note['type'] == "ARK" 
+          if note['displayLabel'] == 'ARK'
             data_arr.push(note['value'])
           end
        end
