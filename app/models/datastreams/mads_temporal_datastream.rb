@@ -14,8 +14,6 @@ class MadsTemporalDatastream < MadsDatastream
   	if elementList[0] == nil
       elementList.build
     end
-    puts elementList[0]
-    puts elementList[0].first.to_s
     elementList[0].first.elementValue = val
   end     
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
