@@ -13,7 +13,9 @@ describe DamsVocabularyEntriesController do
 	    it "should be successful" do 
 	      get :show, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_vocabulary_entry].should == @obj
+	      @newobj = assigns[:dams_vocabulary_entry]
+          @newobj.value.should == @obj.value
+          @newobj.vocabulary.first.should == @obj.vocabulary
 	    end
 	  end
 	  
@@ -32,7 +34,9 @@ describe DamsVocabularyEntriesController do
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_vocabulary_entry].should == @obj
+	      @newobj = assigns[:dams_vocabulary_entry]
+          @newobj.value.should == @obj.value
+          @newobj.vocabulary.first.should == @obj.vocabulary
 	    end
 	  end
 	  
