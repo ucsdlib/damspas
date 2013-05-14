@@ -28,7 +28,14 @@ module DamsHelper
     title[0].type = val
   end
     
-
+  def subjectValue
+    subject[0] ? subject[0].name : []
+  end
+  def subjectValue=(val)
+    subject.build if subject[0] == nil
+    subject[0].name = val
+  end
+    
   ## Date ######################################################################
   def beginDate
     date[0] ? date[0].beginDate : []
