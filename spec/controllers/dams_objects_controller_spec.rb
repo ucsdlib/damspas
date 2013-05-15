@@ -13,7 +13,9 @@ describe DamsObjectsController do
 	    it "should be successful" do 
 	      get :view, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_object].should == @obj
+	      @newobj = assigns[:dams_object]
+          @newobj.titleValue.should == @obj.titleValue
+          @newobj.beginDate.should == @obj.beginDate
 	    end
 	  end
 	  
@@ -32,7 +34,9 @@ describe DamsObjectsController do
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_object].should == @obj
+	      @newobj = assigns[:dams_object]
+          @newobj.titleValue.should == @obj.titleValue
+          @newobj.beginDate.should == @obj.beginDate
 	    end
 	  end
 	  
