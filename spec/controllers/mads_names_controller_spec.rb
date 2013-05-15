@@ -55,14 +55,12 @@ describe MadsNamesController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = MadsName.create(name: "Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999994")
+ 	      @obj = MadsName.create(name: "Original Name X123", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999994")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :mads_name => {name: ["Test Title2"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999995"]}
+	      put :update, :id => @obj.id, :mads_name => {name: ["Updated Name X123"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999995"]}
 	      response.should redirect_to assigns[:mads_name]
-	      @obj.reload.name.should == ["Test Title2"]
-	      puts @obj.id
-          pending "check title after reload #{__FILE__}"
+	      @obj.reload.name.should == ["Updated Name X123"]
 	      flash[:notice].should == "Successfully updated personal name"
 	    end
     end

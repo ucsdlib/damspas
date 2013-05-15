@@ -57,6 +57,7 @@ describe DamsObjectsController do
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :dams_object => {titleValue: ["Test Title2"], beginDate: ["2013"]}
 	      response.should redirect_to assigns[:dams_object]
+          #puts "id: #{@obj.id}"
 	      @obj.reload.titleValue.should == ["Test Title2"]
 	      flash[:notice].should == "Successfully updated object"
 	    end
