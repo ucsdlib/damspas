@@ -42,6 +42,7 @@ class DamsObjectsController < ApplicationController
 
   def new
   	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
+  	@dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
   end
   
   def edit
@@ -50,8 +51,12 @@ class DamsObjectsController < ApplicationController
   
   def create
   	@dams_object.attributes = params[:dams_object]
+  	puts params[:dams_object]
+  	
   	if @dams_object.save
+  	    puts @dams_object.pid
   		redirect_to @dams_object, notice: "Object has been saved"
+  		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
     else
       flash[:alert] = "Unable to save object"
       render :new
@@ -61,7 +66,8 @@ class DamsObjectsController < ApplicationController
   def update
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save
-  		redirect_to @dams_object, notice: "Successfully updated object"
+  		redirect_to @dams_object, notice: "Successfully updated object" 	
+  		#redirect_to edit_dams_object_path(@dams_object), notice: "Successfully updated object"	
     else
       flash[:alert] = "Unable to save object"
       render :edit
