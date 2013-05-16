@@ -1,63 +1,128 @@
 module DamsHelper
   def subtitle
-    #self.title.first ? self.title.first.subtitle : []
     title[0] ? title[0].subtitle : []
   end
   def subtitle=(val)
-    #if self.title == nil
-    #  self.title = []
-    #end
-    #self.title.build.subtitle = val
-    title.build if title[0] == nil
-    title[0].subtitle = val
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	title.build if title[0] == nil
+    	title[0].subtitle = val
+    end
   end
 
   def titleValue
     title[0] ? title[0].value : []
   end
   def titleValue=(val)
-    title.build if title[0] == nil
-    title[0].value = val
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	title.build if title[0] == nil
+    	title[0].value = val
+    end
   end
   
   def titleType
     title[0] ? title[0].type : []
   end
   def titleType=(val)
-    title.build if title[0] == nil
-    title[0].type = val
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	title.build if title[0] == nil
+    	title[0].type = val
+    end
   end
     
   def subjectValue
     subject[0] ? subject[0].name : []
   end
   def subjectValue=(val)
-    subject.build if subject[0] == nil
-    subject[0].name = val
+    i = 0
+	val.each do |v| 
+		if(!v.nil? && v.length > 0)
+		    subject.build if subject[i] == nil
+		    subject[i].name = v
+		end
+		i+=1
+	end
   end
-    
+  def subjectURI=(val)
+ 	tmp = ""
+    i = 0
+    @array_subject = Array.new
+	val.each do |v| 
+		tmp = v
+	    if(!tmp.nil? && tmp.length > 0)
+	    	@subURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{v}")  
+	    	@array_subject << @subURI  	
+	    end
+		i+=1
+	end
+  end
+  def subjectURI
+    if @subURI != nil
+      @subURI
+    else
+      subURI.first
+    end
+  end 
+  def unitURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@unitURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{val}")
+    end
+  end
+  def unitURI
+    if @unitURI != nil
+      @unitURI
+    else
+      unitURI.first
+    end
+  end     
   ## Date ######################################################################
   def beginDate
     date[0] ? date[0].beginDate : []
   end
   def beginDate=(val)
-    date.build if date[0] == nil
-    date[0].beginDate = val
+    if val.class == Array
+    	val = val.first
+    end
+  	if(!val.nil? && val.length > 0)
+	    date.build if date[0] == nil
+	    date[0].beginDate = val
+    end
   end
 
   def endDate
     date[0] ? date[0].endDate : []
   end
   def endDate=(val)
-    date.build if date[0] == nil
-    date[0].endDate = val
+    if val.class == Array
+    	val = val.first
+    end  
+    if(!val.nil? && val.length > 0)
+    	date.build if date[0] == nil
+    	date[0].endDate = val
+    end
   end
   def dateValue
     date[0] ? date[0].value : []
   end
   def dateValue=(val)
-    date.build if date[0] == nil
-    date[0].value = val
+    if val.class == Array
+    	val = val.first
+    end  
+    if(!val.nil? && val.length > 0)
+    	date.build if date[0] == nil
+    	date[0].value = val
+    end
   end
 
   ## Note ######################################################################

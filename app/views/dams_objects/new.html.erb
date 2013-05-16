@@ -16,11 +16,49 @@
   <%#= label_tag 'dams_object[subject]', "Subject" %>
   <%#= select_tag 'dams_object[subject]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) %>
  
-  <%= label_tag 'dams_object[subjectValue][]', "Subject" %>
-  <%=text_field_tag 'dams_object[subjectValue][]' %> OR 
-  <%= select_tag 'dams_object[subjectURI]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select subject" %>  
+  <%= label_tag 'dams_object[subjectValue][]', "Subject 1" %>
+  <%=text_field_tag 'dams_object[subjectValue][]' %>
+   <%= label_tag 'dams_object[subjectValue][]', "Subject 2" %> 
+  <%=text_field_tag 'dams_object[subjectValue][]' %>
   <br>
-  <%#= select_tag 'dams_object[unit]', options_for_select(@dams_units.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Unit" %>  
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined subject 1" %>  
   <br>
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined subject 2" %>    
+  <br>
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Unit" %>  
+  <br>
+  <%= label_tag 'dams_object[typeOfResource][]', "Type Of Resource" %>
+  <%= text_field_tag 'dams_object[typeOfResource][]' %>   
+  <br>
+  
+  <%#= label_tag 'dams_object[subject]', "Simple Subject" %>
+    <p><select>
+      <option>BuiltWorkPlace</option>
+      <option>CulturalContext</option>
+      <option>Function</option>
+      <option>GenreForm</option>
+      <option>Geographic</option>
+      <option>Iconography</option>
+      <option>ScientificName</option>
+      <option>StylePeriod</option>
+      <option>Technique</option>
+      <option>Temporal</option>
+      <option selected>Topic</option>
+    </select>
+    <input size="30" type="text" value="Cosmology"/>
+    <p><select>
+      <option>BuiltWorkPlace</option>
+      <option>CulturalContext</option>
+      <option>Function</option>
+      <option>GenreForm</option>
+      <option>Geographic</option>
+      <option>Iconography</option>
+      <option>ScientificName</option>
+      <option>StylePeriod</option>
+      <option>Technique</option>
+      <option selected>Temporal</option>
+      <option>Topic</option>
+    </select>
+    <input size="30" type="text" value="16th Century"/>  
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
