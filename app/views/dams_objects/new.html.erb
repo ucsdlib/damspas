@@ -20,6 +20,7 @@
   <%=text_field_tag 'dams_object[subjectValue][]' %> OR 
   <%= select_tag 'dams_object[subjectURI]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select subject" %>  
   <br>
-
+  <%#= select_tag 'dams_object[unit]', options_for_select(@dams_units.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Unit" %>  
+  <br>
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
