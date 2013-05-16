@@ -53,7 +53,7 @@ class MadsTemporalsController < ApplicationController
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
         	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated Temporal"
         else      
-        	redirect_to @mads_temporal, notice: "Successfully updated Temporal"
+        	redirect_to edit_mads_temporal_path(@mads_temporal), notice: "Successfully updated Temporal"
         end
     else
       flash[:alert] = "Unable to save Temporal"
