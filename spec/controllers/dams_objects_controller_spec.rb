@@ -39,7 +39,7 @@ describe DamsObjectsController do
 	  describe "Create" do
 	    it "should be successful" do
 	      expect { 
-	        post :create, :dams_object => {titleValue: ["Test Title"], subjectURI: ["bb04040404", "zz00017108"]}	      
+	        post :create, :dams_object => {titleValue: ["Test Title"], "subjectType"=>["Topic","BuiltWorkPlace","Temporal"], "subjectTypeValue"=>["testTopicValue","testWorkplaceValue1","testTemporal"]}	      
 	       # post :create, :dams_object => {titleValue: ["Test Title"], beginDate: ["2013"], typeOfResource: ["text"], subjectValue: ["subjectValue1", "subjectValue2"]}
         }.to change { DamsObject.count }.by(1)
 	      response.should redirect_to assigns[:dams_object]

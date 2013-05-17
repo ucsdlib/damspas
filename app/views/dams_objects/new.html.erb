@@ -30,35 +30,15 @@
   <%= label_tag 'dams_object[typeOfResource][]', "Type Of Resource" %>
   <%= text_field_tag 'dams_object[typeOfResource][]' %>   
   <br>
-  
-  <%#= label_tag 'dams_object[subject]', "Simple Subject" %>
-    <p><select>
-      <option>BuiltWorkPlace</option>
-      <option>CulturalContext</option>
-      <option>Function</option>
-      <option>GenreForm</option>
-      <option>Geographic</option>
-      <option>Iconography</option>
-      <option>ScientificName</option>
-      <option>StylePeriod</option>
-      <option>Technique</option>
-      <option>Temporal</option>
-      <option selected>Topic</option>
-    </select>
-    <input size="30" type="text" value="Cosmology"/>
-    <p><select>
-      <option>BuiltWorkPlace</option>
-      <option>CulturalContext</option>
-      <option>Function</option>
-      <option>GenreForm</option>
-      <option>Geographic</option>
-      <option>Iconography</option>
-      <option>ScientificName</option>
-      <option>StylePeriod</option>
-      <option>Technique</option>
-      <option selected>Temporal</option>
-      <option>Topic</option>
-    </select>
-    <input size="30" type="text" value="16th Century"/>  
+  <%
+  	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+  %>
+  <%= label_tag 'dams_object[subjectType][]', "Simple Subject" %>
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
+  <%=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <br>
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
+  <%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
+    <br> 
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
