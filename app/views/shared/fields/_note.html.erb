@@ -21,9 +21,9 @@
 %>
 			<p>
 				<strong>
-					<% if note['displayLabel'] != nil %>
+					<% if note['displayLabel'] != nil &&  !note['displayLabel'].blank? %>
 						<%= note['displayLabel'].upcase %>
-					<% elsif note['type'] != nil %>
+					<% elsif note['type'] != nil && !note['type'].blank? %>
 						<%= note['type'].upcase %>
 					<% else %>
 						General Note
