@@ -50,7 +50,11 @@ class MadsTopicsController < ApplicationController
   def update
     @mads_topic.attributes = params[:mads_topic]
     if @mads_topic.save
-        redirect_to @mads_topic, notice: "Successfully updated Topic"
+		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated Topic."
+        else
+        	redirect_to @mads_topic, notice: "Successfully updated Topic"
+        end            
     else
       flash[:alert] = "Unable to save Topic"
       render :edit

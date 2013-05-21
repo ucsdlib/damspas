@@ -13,7 +13,9 @@ describe DamsObjectsController do
 	    it "should be successful" do 
 	      get :view, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_object].should == @obj
+	      @newobj = assigns[:dams_object]
+          @newobj.titleValue.should == @obj.titleValue
+          @newobj.beginDate.should == @obj.beginDate
 	    end
 	  end
 	  
@@ -32,7 +34,9 @@ describe DamsObjectsController do
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_object].should == @obj
+	      @newobj = assigns[:dams_object]
+          @newobj.titleValue.should == @obj.titleValue
+          @newobj.beginDate.should == @obj.beginDate
 	    end
 	  end
 	  
@@ -48,12 +52,14 @@ describe DamsObjectsController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013")
+ 	      @obj = DamsObject.create(titleValue: "Original Title", beginDate: "2012")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :dams_object => {titleValue: ["Test Title2"], beginDate: ["2013"]}
+	      put :update, :id => @obj.id, :dams_object => {titleValue: ["Updated Title"], beginDate: ["2013"]}
 	      response.should redirect_to assigns[:dams_object]
-	      @obj.reload.titleValue.should == ["Test Title2"]
+          @newobj = assigns[:dams_object]
+	      @newobj.titleValue.should == ["Updated Title"]
+	      @newobj.beginDate.should == ["2013"]
 	      flash[:notice].should == "Successfully updated object"
 	    end
     end

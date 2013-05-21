@@ -362,6 +362,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       insertTitleFields solr_doc, cid, component.title
 
       Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.typeOfResource.first)
+      Solrizer.insert_field(solr_doc, "object_type", component.typeOfResource.first,facetable)    
       Solrizer.insert_field(solr_doc, "fulltext", component.typeOfResource)
 
       insertDateFields solr_doc, cid, component.date
@@ -373,7 +374,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
       insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
 
-      insertComplexSubjectFields solr_doc, "component_#{cid}_complexSubject", load_complexSubjects(component.complexSubject)
+      insertComplexSubjectFields solr_doc, cid, load_complexSubjects(component.complexSubject)
       insertFields solr_doc, "component_#{cid}_builtWorkPlace", load_builtWorkPlaces(component.builtWorkPlace)
       insertFields solr_doc, "component_#{cid}_culturalContext", load_culturalContexts(component.culturalContext)
       insertFields solr_doc, "component_#{cid}_function", load_functions(component.function)
@@ -386,6 +387,10 @@ class DamsObjectDatastream < DamsResourceDatastream
       insertFields solr_doc, "component_#{cid}_technique", load_techniques(component.technique)
       insertFields solr_doc, "component_#{cid}_temporal", load_temporals(component.temporal)
       insertFields solr_doc, "component_#{cid}_topic", load_topics(component.topic)
+
+      # facetable topics
+      insertFacets solr_doc, "subject_topic", load_topics(component.topic)
+      insertFacets solr_doc, "component_#{cid}_subject_topic", load_topics(component.topic)
 
       insertFields solr_doc, "component_#{cid}_name", load_names(component.name)
       insertFields solr_doc, "component_#{cid}_conferenceName", load_conferenceNames(component.conferenceName)

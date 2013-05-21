@@ -13,7 +13,9 @@ describe DamsVocabularyEntriesController do
 	    it "should be successful" do 
 	      get :show, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_vocabulary_entry].should == @obj
+	      @newobj = assigns[:dams_vocabulary_entry]
+          @newobj.value.should == @obj.value
+          @newobj.vocabulary.first.should == @obj.vocabulary
 	    end
 	  end
 	  
@@ -32,7 +34,9 @@ describe DamsVocabularyEntriesController do
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_vocabulary_entry].should == @obj
+	      @newobj = assigns[:dams_vocabulary_entry]
+          @newobj.value.should == @obj.value
+          @newobj.vocabulary.first.should == @obj.vocabulary
 	    end
 	  end
 	  
@@ -53,7 +57,8 @@ describe DamsVocabularyEntriesController do
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :dams_vocabulary_entry => {value: ["Test Title2"], vocabulary: ["http://library.ucsd.edu/ark:/20775/bb43434343"]}
 	      response.should redirect_to assigns[:dams_vocabulary_entry]
-	      @obj.reload.value.should == ["Test Title2"]
+	      @newobj = assigns[:dams_vocabulary_entry]
+          @newobj.value.should == ["Test Title2"]
 	      flash[:notice].should == "Successfully updated vocabulary entry"
 	    end
     end

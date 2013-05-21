@@ -1,14 +1,12 @@
 <% @page_title =  "Edit Complex Subject" %>
-
+<% parentId =  @mads_complex_subject.pid %>
 <div class="row-fluid">
 	<div class="span10 offset1">
 	
 		<h2>Edit Complex Subject</h2>
 		
 		<%= form_for @mads_complex_subject do |f| %>
-		
 			<%= render 'error_messages', object: f.object %>
-		
 			<%= label_tag 'mads_complex_subject[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_complex_subject[name][]', @mads_complex_subject.name[0], class: "input-block-level" %>
 		
@@ -101,9 +99,10 @@
       		  					end
 			%>
 								<%= form_for @obj do |t| %>		
-									<dt><%= render 'error_messages', object: t.object %></dt>
+									<dt><%= render 'error_messages', object: t.object %></dt>									
 									<%= label_tag "#{fieldName}[name][]", "#{label}" %>
-									<%= text_field_tag "#{fieldName}[name][]", @obj.name[0]%>																	
+									<%= text_field_tag "#{fieldName}[name][]", @obj.name[0]%>
+									<%= hidden_field_tag(:parent_id, parentId) %>																	
 									<button type="submit" class="btn btn-primary">Save</button>									
 			<%			
 								end	

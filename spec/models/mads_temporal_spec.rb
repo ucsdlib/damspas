@@ -10,6 +10,8 @@ describe MadsTemporal do
     subject.authority = "lcsh"
     subject.sameAs =  "http://id.loc.gov/authorities/sh2002012470"
     subject.valueURI = "http://id.loc.gov/n9999999999"
+    #subject.elementListValue = "16th century"
+    #subject.elementList.build.value = "16th century"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
