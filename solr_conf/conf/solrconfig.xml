@@ -74,10 +74,13 @@
        
        <str name="spellcheck">true</str>
        <str name="spellcheck.dictionary">default</str>
-       <str name="spellcheck.onlyMorePopular">true</str>
+       <str name="spellcheck.dictionary">wordbreak</str>
+       <str name="spellcheck.onlyMorePopular">false</str>
        <str name="spellcheck.extendedResults">true</str>
-       <str name="spellcheck.collate">false</str>
+       <str name="spellcheck.collate">true</str>
+       <str name="spellcheck.maxCollationTries">10</str>
        <str name="spellcheck.count">5</str>
+       <str name="spellcheck.accuracy">0.7</str>
        
 	   <!-- configure for hit highlighting -->
 	   <str name="hl">true</str>
@@ -151,7 +154,18 @@
       <str name="field">spell</str>
       <str name="spellcheckIndexDir">./spell</str>
       <str name="buildOnOptimize">true</str>
+      <str name="buildOnCommit">true</str>
     </lst>
+    
+    <!-- a spellchecker that can break or combine words.  See "/spell" handler below for usage -->
+	<lst name="spellchecker">
+		<str name="name">wordbreak</str>
+		<str name="classname">solr.WordBreakSolrSpellChecker</str>
+		<str name="field">spell</str>
+		<str name="combineWords">true</str>
+		<str name="breakWords">true</str>
+		<int name="maxChanges">10</int>
+	</lst>
   </searchComponent>
   
   <requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> 
