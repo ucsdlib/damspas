@@ -33,6 +33,7 @@ describe DamsCopyrightDatastream do
       end
     end
 
+
     describe "an instance loaded from fixture xml" do
 
       subject do
@@ -59,7 +60,13 @@ describe DamsCopyrightDatastream do
       it "should have a begin date" do
         subject.beginDate.should == ["1993-12-31"]
       end
-
+      it "should have a fields from solr doc" do
+        solr_doc = subject.to_solr
+        solr_doc["status_tesim"].should == ["Under copyright -- 3rd Party"]
+        solr_doc["jurisdiction_tesim"].should == ["us"]
+        solr_doc["beginDate_tesim"].should == ["1993-12-31"]
+        solr_doc["purposeNote_tesim"].should == ["This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study."]
+      end
     end
   end
 end

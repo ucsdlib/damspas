@@ -1,11 +1,23 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
-  <%= label_tag 'dams_object[title][]', "First title" %>
-  <%= text_field_tag 'dams_object[title][]' %>
-  <%= label_tag 'dams_object[date][]', "Date" %>
-  <%= text_field_tag 'dams_object[date][]' %>
-  <%= label_tag 'dams_object[subject][]', "Subject" %>
-  <%=text_field_tag 'dams_object[subject][]' %>
+  <%= label_tag 'dams_object[titleValue][]', "First Title" %>
+  <%= text_field_tag 'dams_object[titleValue][]' %>
+  <%= label_tag 'dams_object[subtitle][]', "First SubTitle" %>
+  <%= text_field_tag 'dams_object[subtitle][]' %>  
+  <%= label_tag 'dams_object[titleType][]', "First Title Type" %>
+  <%= text_field_tag 'dams_object[titleType][]' %>   
+  <%= label_tag 'dams_object[dateValue][]', "Date" %>
+  <%= text_field_tag 'dams_object[dateValue][]' %>
+  <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
+  <%= text_field_tag 'dams_object[beginDate][]' %> 
+  <%= label_tag 'dams_object[endDate][]', "End Date" %>
+  <%= text_field_tag 'dams_object[endDate][]' %>    
+  
+  <%#= label_tag 'dams_object[subject]', "Subject" %>
+  <%#= select_tag 'dams_object[subject]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) %>
+   
+  <%#= label_tag 'dams_object[subject][]', "Subject" %>
+  <%#=text_field_tag 'dams_object[subject][]' %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

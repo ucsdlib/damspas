@@ -50,7 +50,11 @@ class MadsGeographicsController < ApplicationController
   def update
     @mads_geographic.attributes = params[:mads_geographic]
     if @mads_geographic.save
-        redirect_to @mads_geographic, notice: "Successfully updated geographic"
+		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated geographic"
+        else      
+        	redirect_to @mads_geographic, notice: "Successfully updated geographic"
+        end
     else
       flash[:alert] = "Unable to save geographic"
       render :edit

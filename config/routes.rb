@@ -1,11 +1,12 @@
 Hydra::Application.routes.draw do
 
 
+  # Static page routes 
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
   match '/zotero', to: 'static_pages#zotero'
   match '/mendeley', to: 'static_pages#mendeley'
-
+  
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"

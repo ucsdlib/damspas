@@ -14,7 +14,10 @@ describe MadsNamesController do
 	    it "should be successful" do 
 	      get :view, id: @obj.id
 	      response.should be_successful 
-	      assigns[:mads_name].should == @obj
+	      @newobj = assigns[:mads_name]
+          @newobj.name.should == @obj.name
+          @newobj.sameAs.should == @obj.sameAs
+          @newobj.valueURI.should == @obj.valueURI
 	    end
 	  end
 	  
@@ -33,7 +36,10 @@ describe MadsNamesController do
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
-	      assigns[:mads_name].should == @obj
+	      @newobj = assigns[:mads_name]
+          @newobj.name.should == @obj.name
+          @newobj.sameAs.should == @obj.sameAs
+          @newobj.valueURI.should == @obj.valueURI
 	    end
 	  end
 	  
@@ -49,23 +55,15 @@ describe MadsNamesController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = MadsName.create(name: "Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999994")
+ 	      @obj = MadsName.create(name: "Original Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999994")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :mads_name => {name: ["Test Title2"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999995"]}
+	      put :update, :id => @obj.id, :mads_name => {name: ["Updated Name"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999995"]}
 	      response.should redirect_to assigns[:mads_name]
-	      
-	      puts "heyyyyyy"
-	      puts @obj.valueURI
-	      puts "bbbbbbbbbbbbbbb"
-	      @obj.valueURI = "http://haaaaaaa"
-	      if(@obj.save!)
-	      	puts "save successfuly"
-	      	puts @obj.id
-	      end
-	      puts @obj.valueURI
-	      puts "ccccccc"
-	     # @obj.reload.name.should == ["Test Title2"]
+          @newobj = assigns[:mads_name]
+	      #@obj.reload.name.should == ["Updated Name"]
+	      @newobj.name.should == ["Updated Name"]
+	      #puts @obj.id
           pending "check title after reload #{__FILE__}"
 	      flash[:notice].should == "Successfully updated personal name"
 	    end
