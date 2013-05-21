@@ -223,8 +223,9 @@
     <dynamicField name="*_facet" type="string" indexed="true" stored="true" multiValued="true" />
     <dynamicField name="*_sort" type="string" indexed="true" stored="false" multiValued="false" />
     <dynamicField name="*_unstem_search" type="text_general" indexed="true" stored="false" multiValued="true" />
-    <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
 -->
+    <dynamicField name="*spell" type="textSpell" indexed="true" stored="false" multiValued="true" />
+
     <!-- uncomment the following to ignore any fields that don't already match an existing
          field name or dynamic field, rather than reporting them as an error.
          alternately, change the type="ignored" to some other type e.g. "text" if you want
@@ -266,6 +267,13 @@
   <copyField source="*_t" dest="spell"/>
   <copyField source="*_facet" dest="spell"/>
 -->
+	<copyField source="title_tesim" dest="spell"/>
+	<copyField source="name_tesim" dest="spell"/>
+	<copyField source="subject_tesim" dest="spell"/>
+	<copyField source="date_tesim" dest="spell"/>
+	<copyField source="component_title_tesim" dest="spell"/>
+	<copyField source="id" dest="spell"/>
+	
   <!-- title spell check;  should match fields for title request handler -->
 <!-- 
   <copyField source="title_t" dest="title_spell"/>
@@ -428,7 +436,24 @@
         <tokenizer class="solr.PathHierarchyTokenizerFactory" delimiter="/" />
       </analyzer>
     </fieldType>
-    
+
+  <!-- A text field for spell check -->
+  <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+      <filter class="solr.StandardFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+      <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+      <filter class="solr.StandardFilterFactory"/>
+      <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+    </analyzer>
+  </fieldType>
+
   </types>
   
 </schema>
