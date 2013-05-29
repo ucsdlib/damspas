@@ -378,6 +378,20 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "title", t.subtitle.first)
       Solrizer.insert_field(solr_doc, "fulltext", t.value)
       Solrizer.insert_field(solr_doc, "fulltext", t.subtitle)
+
+    end
+
+    # sorting
+    if titles.map.first != nil && cid == nil
+      sort_title = titles.map.first
+      sortval = sort_title.value.first
+      sortval += " #{sort_title.subtitle.first}" unless sort_title.subtitle.blank?
+      sortval += " #{sort_title.partNumber.first}" unless sort_title.subtitle.blank?
+      sortval += " #{sort_title.partName.first}" unless sort_title.subtitle.blank?
+      if sortval != nil
+        sortval = sortval.downcase
+      end
+      Solrizer.insert_field(solr_doc, "title", sortval, Solrizer::Descriptor.new(:string, :indexed, :stored))
     end
   end
   def insertLanguageFields ( solr_doc, field, languages )
@@ -400,9 +414,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       n += 1
       related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
       Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
-      Solrizer.insert_field(solr_doc, "fulltext", resource.uri)
-      Solrizer.insert_field(solr_doc, "fulltext", resource.type)
-      Solrizer.insert_field(solr_doc, "fulltext", resource.description)
+      Solrizer.insert_field(solr_doc, "fulltext", resource.uri.first.to_s)
+      Solrizer.insert_field(solr_doc, "fulltext", resource.type.first.to_s)
+      Solrizer.insert_field(solr_doc, "fulltext", resource.description.first.to_s)
+      if resource.type.first.to_s == "preview"
+        Solrizer.insert_field(solr_doc, "preview", resource.uri.first.to_s)
+      end
     end
   end
   def events_to_json( event )
