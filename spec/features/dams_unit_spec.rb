@@ -87,6 +87,13 @@ feature 'Visitor should only see edit button when it will work' do
   end
 end
 
+feature "Visitor wants to view the unit's collections" do
+  scenario 'an anonymous user' do
+    visit dams_unit_collections_path('dlp')
+    expect(page).to have_selector('a', :text => 'UCSD Electronic Theses and Dissertations')
+  end
+end
+
 def sign_in_developer
   visit new_user_session_path
   fill_in "Name", :with => "name"
