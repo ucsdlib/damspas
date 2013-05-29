@@ -29,7 +29,7 @@ class CatalogController < ApplicationController
     solr_parameters[:fq] << "-collections_tesim:bd6587977w" # ???
     solr_parameters[:fq] << "-collections_tesim:bb13664503" # opentopo
     solr_parameters[:fq] << "-collections_tesim:bd5905379f" # carousel images
-    solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR type_tesim:Collection)"
+    solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR has_model_ssim:\"info:fedora/afmodel:DamsUnit\" OR type_tesim:Collection)"
   end
 
   configure_blacklight do |config|

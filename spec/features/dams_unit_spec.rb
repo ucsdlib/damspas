@@ -20,7 +20,7 @@ feature 'Visitor wants to look at units' do
     fill_in 'Search...', :with => "123"
     click_on('Search')
 
-    expect(page).to have_content('Search Results')
+    expect(page).to have_content('Limit your search')
   end
 
   scenario 'uses the carousel' do
