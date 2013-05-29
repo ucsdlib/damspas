@@ -211,7 +211,7 @@ class CatalogController < ApplicationController
 		else
 			params.delete('spellcheck.q')
 		end
-		@suggestions = ([@response.spelling.collation] || []) | @response.spelling.words
+		@suggestions = ((@response.spelling.collation.nil??nil:[@response.spelling.collation]) || []) | @response.spelling.words
 		@suggestions.each do |word|
 			params[:q] = word
 			(@response, @document_list) = get_search_results params
