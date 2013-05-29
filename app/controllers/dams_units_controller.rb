@@ -15,8 +15,9 @@ logger.warn "solr: #{@document.inspect}"
   end
   def collections
     # use solr join to find collections related to objects in this unit
-    parm={ :q => "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}", :fq => "-id:#{Rails.configuration.excluded_collections}" }
-    @collections_response, @collections = get_search_results( parm )
+    q = {q:"{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"}
+    fq = {fq: "-id:#{Rails.configuration.excluded_collections}"}
+    @collections_response, @collections = get_search_results( q, fq )
   end
   def index
     # hydra index
