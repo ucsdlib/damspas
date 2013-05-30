@@ -67,6 +67,7 @@ module Hydra
     config.id_namespace = 'http://library.ucsd.edu/ark:/20775/'
     config.role_vocab = "#{config.id_namespace}bb14141414"
     config.lang_vocab ="#{config.id_namespace}bb43434343"
+    config.excluded_collections = "(bd5905379f OR bb13664503)"
 
     # ip-based role assignment
     config.public_ips = ["128.54.48.2","128.54.48.3","128.54.48.4","128.54.48.5","128.54.48.6","128.54.48.7","128.54.48.8","128.54.48.9","128.54.48.10","128.54.48.11","128.54.48.12","128.54.48.13","128.54.48.14"]

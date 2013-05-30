@@ -1,7 +1,7 @@
 class DamsUnitsController < ApplicationController
   include Blacklight::Catalog
   load_and_authorize_resource
-  skip_load_and_authorize_resource :only => [:index, :show]
+  skip_load_and_authorize_resource :only => [:index, :show, :collections]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -12,6 +12,12 @@ class DamsUnitsController < ApplicationController
 logger.warn "solr: #{@document.inspect}"
     @current_unit = @document['unit_name_tesim']
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel AND unit_code_tesim:#{params[:id]}", :qt=>"standard")
+  end
+  def collections
+    # use solr join to find collections related to objects in this unit
+    q = {q:"{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"}
+    fq = {fq: "-id:#{Rails.configuration.excluded_collections}"}
+    @collections_response, @collections = get_search_results( q, fq )
   end
   def index
     # hydra index
