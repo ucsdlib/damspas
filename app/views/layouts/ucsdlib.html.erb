@@ -22,7 +22,12 @@
 			<% if @document['rdfxml_ssi'] %>
 				<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
 			<% end %>
-		<% end %> 
+		<% end %>
+
+
+
+      <script src="//libraries.ucsd.edu/jwplayer/jwplayer.js"></script>
+      <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 	</head>
 
 	<% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
@@ -99,7 +104,8 @@
 
 		<%# LE JAVASCRIPT  %>
 		<%= javascript_include_tag "application" %>
-		
+
+
 		<%= render :partial => 'dams_objects/init' %>
 
 		<!-- show debugging parameters in development -->
