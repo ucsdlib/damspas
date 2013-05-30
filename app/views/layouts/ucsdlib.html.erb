@@ -31,7 +31,7 @@
 
 		<header>
 			<section class="container-fluid ucsd-head visible-desktop">
-				<a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><img src="/assets/ucsd/logo-ucsd-header-xl.png" alt="UC San Diego"></a>
+				<a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><%=image_tag "/assets/ucsd/logo-ucsd-header-xl.png", :alt => "UC San Diego" %></a>
 				<a class="brand" href="http://libraries.ucsd.edu/">The Library</a>
 			</section>
 			<section class="navbar navbar-inverse">
@@ -56,7 +56,7 @@
 						<% end %>
 	
 						<ul class="nav">
-							<li class="active"><a href="/">Home</a></li>
+							<li class="active"><%= link_to "Home", root_path %></li>
 							<li><%= link_to "About", about_path %></li>
 							<li><%= link_to "FAQ", faq_path %></li>
 							<li><a href="#contact">Contact</a></li>
