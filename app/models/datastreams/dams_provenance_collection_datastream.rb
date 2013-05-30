@@ -75,7 +75,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
       Solrizer.insert_field(solr_doc, 'part_name', part.titleValue)
       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
     end
-    
+
     super
  end
 end
