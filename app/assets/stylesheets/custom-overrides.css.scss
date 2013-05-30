@@ -7,6 +7,8 @@ body{padding-top:0;}/* remove blacklight's crazy top padding */
 /*---------------------*/
 /* BOOTSTRAP OVERRIDES */
 /*---------------------*/
+$iconSpritePath:      image-path("assets/glyphicons-halflings.png");
+$iconWhiteSpritePath: image-path("assets/glyphicons-halflings-white.png");
 .navbar-inverse .brand{text-transform:uppercase;}/* display "project name" in uppercase letters */
 .navbar .btn-navbar{margin-left:0;margin-right:0;}/* remove default side margins from mobile button */
 .navbar-inverse .navbar-inner{border-radius:0;border:none;border-bottom:1px solid #95afc9;}/* remove default rounded corners and border from navbar. set bottom border. */
@@ -23,12 +25,12 @@ body{padding-top:0;}/* remove blacklight's crazy top padding */
 
 /* FOOTER */
 footer{margin-top:20px;border-top:1px solid #ccc;color:#999;line-height:1.5;font-size:90%;}
-footer section{margin:20px;background:url("/assets/ucsd/logo-ucsd-footer.png") no-repeat 100% 0;}
+footer section{margin:20px;background:url("ucsd/logo-ucsd-footer.png") no-repeat 100% 0;}
 footer address,footer p{margin:0;}
 ul.inline > li{padding-left:0;padding-right:0;}
 
 /* UCSD GOODNESS */
-.ucsd-head{background:url("/assets/ucsd/bg.jpg") repeat 0 0;border-bottom:#e8f3ff solid 1px;}
+.ucsd-head{background:url("ucsd/bg.jpg") repeat 0 0;border-bottom:#e8f3ff solid 1px;}
 .ucsd-head-logo{padding:20px 0;}
 .ucsd-head .brand{color:#fff;display:block;float:left;font-size:24px;margin:32px 0 0 0;padding:0;text-transform:uppercase;}
 
@@ -58,7 +60,7 @@ ul.inline > li{padding-left:0;padding-right:0;}
 /* MOBILE NAVBAR (CUSTOM) */
 @media (max-width: 979px)
 {
-	.navbar-inverse .navbar-inner{background: url("/assets/ucsd/bg.png") repeat 0 0;}/* add campus background to mobile */
+	.navbar-inverse .navbar-inner{background: url("ucsd/bg.png") repeat 0 0;}/* add campus background to mobile */
 	.navbar-inverse .navbar-text{display:none;}/* hide "username" text in mobile for now. TODO: move "username" string elsewhere. */
 }
 
