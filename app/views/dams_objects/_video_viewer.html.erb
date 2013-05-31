@@ -8,7 +8,7 @@
        fieldData.each do |datum|
            files = JSON.parse(datum)
            if files['use'] == 'video-service'
-             videoSourcePath = files['sourcePath'].sub('/pub/data2/dams/localStore','localstore')
+             videoSourcePath = files['sourcePath'].sub('/pub/data2/dams/','')
              videoSourceFilename = files['sourceFileName']
              videoURL = 'lib-streaming.ucsd.edu:1935/dams4/_definst_/mp4:' << videoSourcePath << '/' << videoSourceFilename
            end
@@ -18,22 +18,21 @@
 
 <% if videoURL != nil %>
 
-    <div id="dams-video">Loading the player...</div>
-    
-    <script type="text/javascript">
-        jwplayer("dams-video").setup({
-            playlist: [{
-                sources: [{
-                    file: "rtmp://<%=videoURL%>"
-                },{
-                    file: "http://<%=videoURL%>/playlist.m3u8"
-                }]
-            }],
-            rtmp: {
-                bufferlength: 3
-            },
-            fallback: false
-        });
-    </script>
+	<div id="dams-video">Loading the player...</div>
+
+	<script type="text/javascript">
+		jwplayer("dams-video").setup({
+			playlist:
+			[{
+				sources:
+				[
+					{file: "rtmp://<%=videoURL%>"},
+					{file: "http://<%=videoURL%>/playlist.m3u8"}
+				]
+			}],
+			rtmp: {bufferlength: 3},
+			fallback: false
+		});
+	</script>
 
 <% end %>
