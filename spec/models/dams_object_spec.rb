@@ -76,6 +76,7 @@ describe DamsObject do
     subject.endDate = "1980-05-24"
     subject.subjectValue = ["Black Panther Party--History"]
     subject.subjectURI = ["bd6724414c"]
+    subject.topic.build.name = "test subject"
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
@@ -90,6 +91,11 @@ describe DamsObject do
         <dams:type>main</dams:type>
       </dams:Title>
     </dams:title>
+    <dams:topic>
+        <mads:Topic>
+            <mads:authoritativeLabel>test subject</ns2:authoritativeLabel>
+        </mads:Topic>
+    </dams:topic>
 	<dams:date>
       <dams:Date>
         <rdf:value>May 24, 1980</rdf:value>

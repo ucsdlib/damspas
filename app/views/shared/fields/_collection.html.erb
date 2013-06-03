@@ -18,8 +18,9 @@
 
 		 fieldData.each do |datum|
 			 collection = JSON.parse(datum)
+		   collectionName = (collection['name'] == '') ? 'MISSING_COLLECTION_NAME' : collection['name'] # TEMP FIX FOR MISSING COLLECTION NAME
 %>
-		<li><p><%= link_to collection['name'], dams_collection_path(collection['id']) %></p></li>
+		<li><p><%= link_to collectionName, dams_collection_path(collection['id']) %></p></li>
 <%
 	 end
 

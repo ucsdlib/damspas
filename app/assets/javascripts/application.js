@@ -19,7 +19,6 @@
 //
 // DAMS (3RD PARTY)
 //= require audio.min
-//= require video
 //
 // DAMS (CUSTOM)
 //= require search

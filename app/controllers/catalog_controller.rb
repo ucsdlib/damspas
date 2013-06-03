@@ -26,10 +26,8 @@ class CatalogController < ApplicationController
   # exclude opentopo records here
   CatalogController.solr_search_params_logic += [:exclude_opentopo]
   def exclude_opentopo(solr_parameters,user_parameters)
-    solr_parameters[:fq] << "-collections_tesim:bd6587977w" # ???
-    solr_parameters[:fq] << "-collections_tesim:bb13664503" # opentopo
-    solr_parameters[:fq] << "-collections_tesim:bd5905379f" # carousel images
-    solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR type_tesim:Collection)"
+    solr_parameters[:fq] << "-collections_tesim:#{Rails.configuration.excluded_collections}"
+    solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR has_model_ssim:\"info:fedora/afmodel:DamsUnit\" OR type_tesim:Collection)"
   end
 
   configure_blacklight do |config|
@@ -200,4 +198,42 @@ class CatalogController < ApplicationController
     # mean") suggestion is offered.
     config.spell_max = 5
   end
+      # get search results from the solr index
+    def index
+      
+      extra_head_content << view_context.auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') )
+      extra_head_content << view_context.auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') )
+      
+      (@response, @document_list) = get_search_results
+	  if(@document_list.size == 0)
+		if(params['spellcheck.q'].nil?)
+			params['spellcheck.q'] = params[:q]
+		else
+			params.delete('spellcheck.q')
+		end
+		@suggestions = ((@response.spelling.collation.nil??nil:[@response.spelling.collation]) || []) | @response.spelling.words
+		@suggestions.each do |word|
+			params[:q] = word
+			(@response, @document_list) = get_search_results params
+			if(@document_list.size > 0)
+				if(params['spellcheck.q'].nil?)
+					@suggestions.each do |word|
+						@response.spelling.words << word unless word.nil?
+					end
+				end
+				break;
+			end
+		end
+	  else
+		params['spellcheck.q'] = params[:q]
+		@response.spelling.words << @response.spelling.collation unless @response.spelling.collation.nil?
+	  end
+      @filters = params[:f] || []
+      
+      respond_to do |format|
+        format.html { save_current_search_params }
+        format.rss  { render :layout => false }
+        format.atom { render :layout => false }
+      end
+    end
 end 

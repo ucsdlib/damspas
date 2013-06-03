@@ -11,7 +11,7 @@ feature 'Visitor want to look at objects' do
   scenario 'view a sample data file' do
     visit file_path('bb55555555','_5_5.jpg')
     response = page.driver.response
-    expect(response.status).to equal( 200 )
+    expect(response.status).to eq( 200 )
     expect(response.header["Content-Type"]).to eq( "image/jpeg" )
   end
 

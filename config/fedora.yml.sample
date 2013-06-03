@@ -2,6 +2,10 @@ development:
   user: fedoraAdmin
   password: fedoraAdmin
   url: http://127.0.0.1:8983/fedora
+jetty:
+  user: dams
+  password: dams
+  url: http://127.0.0.1:8080/dams/fedora
 gimili:
   user: fedoraAdmin
   password: fedoraAdmin

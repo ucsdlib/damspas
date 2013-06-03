@@ -1,3 +1,38 @@
-	<video class="video-js vjs-default-skin" controls preload="auto" poster="<%= icon %>" data-setup="{}" width="100%" height="264">
-		<source src="<%= filePath %>" type='video/mp4'>
-	</video>
+<%
+   prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+   fieldData = @document["#{prefix}files_tesim"]
+
+   videoURL = nil
+
+ if fieldData != nil
+       fieldData.each do |datum|
+           files = JSON.parse(datum)
+           if files['use'] == 'video-service'
+             videoSourcePath = files['sourcePath'].sub('/pub/data2/dams/','')
+             videoSourceFilename = files['sourceFileName']
+             videoURL = 'lib-streaming.ucsd.edu:1935/dams4/_definst_/mp4:' << videoSourcePath << '/' << videoSourceFilename
+           end
+       end
+ end
+%>
+
+<% if videoURL != nil %>
+
+	<div id="dams-video">Loading the player...</div>
+
+	<script type="text/javascript">
+		jwplayer("dams-video").setup({
+			playlist:
+			[{
+				sources:
+				[
+					{file: "rtmp://<%=videoURL%>"},
+					{file: "http://<%=videoURL%>/playlist.m3u8"}
+				]
+			}],
+			rtmp: {bufferlength: 3},
+			fallback: false
+		});
+	</script>
+
+<% end %>
