@@ -11,9 +11,7 @@ body{padding-top:0;}/* remove blacklight's crazy top padding */
 .navbar .btn-navbar{margin-left:0;margin-right:0;}/* remove default side margins from mobile button */
 .navbar-inverse .navbar-inner{border-radius:0;border:none;border-bottom:1px solid #95afc9;}/* remove default rounded corners and border from navbar. set bottom border. */
 .navbar-inverse .nav-collapse .nav > li > a:hover{background:rgba(0,53,87,0.75);}/* mobile .nav link hover effect fix */
-
-
-
+.typeahead .active > a, .typeahead .active > a:hover {color: white;background-color: #999;}
 
 /*---------------------*/
 /* UCSD LIBRARY CUSTOM */
