@@ -25,7 +25,7 @@ oclc_data = {};
 		//  });
 		  
  		 // $.post(URL, {q: "cats", fl: "suggestall"},function(data,status){
-		    alert("Data: " + data + "\nStatus: " + status);
+		   // alert("Data: " + data + "\nStatus: " + status);
 		  //});		  
 		  
 	}
