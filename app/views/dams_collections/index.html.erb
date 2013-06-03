@@ -3,17 +3,7 @@
 		<h1>Collections</h1>
 		<ul class="thumbnails">
 			<% @document.each do |col| %>
-				<% if col['title_tesim'] != nil %>
-					<% if col['id'] == 'bd5905304g' || col['id'] == 'bd24241158' #TEMP %>
-						<li class="span3">
-							<div class="thumbnail">
-								<% tempImg = (col['id'] == 'bd5905304g') ? file_path('bd82602702','_3.jpg') : file_path('bd95572101','_3.jpg') %>
-								<img alt="" src="<%=tempImg%>">
-								<%= link_to render_document_show_field_value(:document=>col, :field=>"title_tesim"), dams_collection_path(col['id']), :class => "btn btn-block btn-link" %>
-							</div>
-						</li>
-					<% end #TEMP %>
-				<% end %>
+				<%= render :partial => 'preview', :locals => { :col => col } %>
 			<% end %>
 		</ul>
 	</div>
