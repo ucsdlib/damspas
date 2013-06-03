@@ -25,5 +25,6 @@
 //= require search
 //= require views-object
 //= require views-units
+//= require linked-data
 
 Blacklight.do_search_context_behavior = function() {};

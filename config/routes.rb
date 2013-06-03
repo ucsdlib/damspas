@@ -101,6 +101,12 @@ Hydra::Application.routes.draw do
   resources :mads_geographics do
     get 'view', :on => :member
   end       
+  
+  resources :linked_data do
+	get 'get_data', :on => :member
+	post 'get_data', :on => :member
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

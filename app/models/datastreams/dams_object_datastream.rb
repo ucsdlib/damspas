@@ -64,9 +64,26 @@ class DamsObjectDatastream < DamsResourceDatastream
   rdf_subject { |ds|
     RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
   }
-
+  
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
+    if(!@subURI.nil?)
+      if new?
+        @array_subject.each do |sub|
+        	graph.insert([rdf_subject, DAMS.subject, sub])
+        end
+        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+      else
+        graph.update([rdf_subject, DAMS.subject, @subURI])
+      end
+    end  
+	if(!@unitURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.unit, @unitURI])
+      else
+        graph.update([rdf_subject, DAMS.unit, @unitURI])
+      end
+    end          
     super
   end
 
