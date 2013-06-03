@@ -1,3 +1,4 @@
+<%#= javascript_tag "var autocomplete_items = #{ @autocomplete_items.to_json };" %>
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
   <%= label_tag 'dams_object[titleValue][]', "First Title" %>
@@ -30,15 +31,29 @@
   <%= label_tag 'dams_object[typeOfResource][]', "Type Of Resource" %>
   <%= text_field_tag 'dams_object[typeOfResource][]' %>   
   <br>
+  <%= select_tag 'dams_object[collection][]', options_for_select(@dams_assembled_collections.collect{ |v| [v.title, v.pid] } ) , :prompt=>"Select Collection" %>  
+  <br>  
   <%
   	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
   <%= label_tag 'dams_object[subjectType][]', "Simple Subject" %>
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
-  <%=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
+  <%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
   <br>
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type"%>
+
+  <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
+   
   <%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
     <br> 
+  
+  <input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'>
+  
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
+<%#= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %>
+
+<%= select_tag 'dams_object[subjectType][]',  options_for_select(@jdoc.collect{ |v| [v['suggestall'], v['suggestall']] } ) , :prompt=>"Select doc" %>
+
+
+
