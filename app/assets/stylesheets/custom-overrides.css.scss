@@ -7,8 +7,7 @@ body{padding-top:0;}/* remove blacklight's crazy top padding */
 /*---------------------*/
 /* BOOTSTRAP OVERRIDES */
 /*---------------------*/
-$iconSpritePath:      image-path("assets/glyphicons-halflings.png");
-$iconWhiteSpritePath: image-path("assets/glyphicons-halflings-white.png");
+
 .navbar-inverse .brand{text-transform:uppercase;}/* display "project name" in uppercase letters */
 .navbar .btn-navbar{margin-left:0;margin-right:0;}/* remove default side margins from mobile button */
 .navbar-inverse .navbar-inner{border-radius:0;border:none;border-bottom:1px solid #95afc9;}/* remove default rounded corners and border from navbar. set bottom border. */
@@ -18,8 +17,6 @@ $iconWhiteSpritePath: image-path("assets/glyphicons-halflings-white.png");
 /*---------------------*/
 /* UCSD LIBRARY CUSTOM */
 /*---------------------*/
-
-
 
 /* FOOTER */
 footer{margin-top:20px;border-top:1px solid #ccc;color:#999;line-height:1.5;font-size:90%;}
