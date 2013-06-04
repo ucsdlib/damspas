@@ -1,19 +1,21 @@
 <%
-   prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
-   fieldData = @document["#{prefix}files_tesim"]
+	videoParentDirectory = '/pub/data2/dams/'
+	videoPartialURL = 'lib-streaming.ucsd.edu:1935/dams4/_definst_/mp4:';
+	videoURL = nil
 
-   videoURL = nil
+	prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+	fieldData = @document["#{prefix}files_tesim"]
 
- if fieldData != nil
-       fieldData.each do |datum|
-           files = JSON.parse(datum)
-           if files['use'] == 'video-service'
-             videoSourcePath = files['sourcePath'].sub('/pub/data2/dams/','')
-             videoSourceFilename = files['sourceFileName']
-             videoURL = 'lib-streaming.ucsd.edu:1935/dams4/_definst_/mp4:' << videoSourcePath << '/' << videoSourceFilename
-           end
-       end
- end
+	if fieldData != nil
+		fieldData.each do |datum|
+			files = JSON.parse(datum)
+			if files['use'] == 'video-service'
+				videoPath = files['sourcePath'].sub(videoParentDirectory,'')
+				videoFilename = files['sourceFileName']
+				videoURL = videoPartialURL << videoPath << '/' << videoFilename
+			end
+		end
+	end
 %>
 
 <% if videoURL != nil %>
