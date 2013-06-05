@@ -14,7 +14,8 @@ describe DamsSourceCapturesController do
 	    it "should be successful" do 
 	      get :show, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_source_capture].should == @obj
+	      @newobj = assigns[:dams_source_capture]
+          @newobj.scannerManufacturer.should == @obj.scannerManufacturer
 	    end
 	  end
 	  
@@ -33,7 +34,8 @@ describe DamsSourceCapturesController do
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_source_capture].should == @obj
+	      @newobj = assigns[:dams_source_capture]
+          @newobj.scannerManufacturer.should == @obj.scannerManufacturer
 	    end
 	  end
 	  

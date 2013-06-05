@@ -7,6 +7,8 @@ gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
 gem 'solrizer', '3.0.0'
 gem 'hydra-head', "6.0.0"
 gem 'active-fedora', "6.0.0"
+#gem "active-fedora", :git => "git://github.com/projecthydra/active_fedora.git", :branch => "complex_rdf"
+
 
 gem 'sqlite3', '1.3.7'
 
@@ -28,6 +30,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'rails_autolink'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

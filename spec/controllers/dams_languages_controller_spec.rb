@@ -14,7 +14,9 @@ describe DamsLanguagesController do
 	    it "should be successful" do 
 	      get :show, id: @obj.id
 	      response.should be_successful 
-	      assigns[:dams_language].should == @obj
+	      #assigns[:dams_language].should == @obj
+	      @newobj = assigns[:dams_language]
+          @newobj.vocabulary.first.should == @obj.vocabulary
 	    end
 	  end	 
   end

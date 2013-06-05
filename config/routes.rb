@@ -13,6 +13,7 @@ Hydra::Application.routes.draw do
   resources :dams_collections, :only => [:index, :show]
   match '/dlp', to: 'dams_units#show', :id => 'dlp'
   match '/rci', to: 'dams_units#show', :id => 'rci'
+  match '/:id/collections', to: 'dams_units#collections', :as => "dams_unit_collections"
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
   
@@ -54,7 +55,10 @@ Hydra::Application.routes.draw do
   match "dams_objects/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   resources :dams_assembled_collections
   resources :dams_units do
-    get 'view', :on => :member
+    member do
+      get 'view'
+      get 'collections'
+    end
   end
   resources :dams_copyrights
   resources :dams_licenses
@@ -101,6 +105,12 @@ Hydra::Application.routes.draw do
   resources :mads_geographics do
     get 'view', :on => :member
   end       
+  
+  resources :linked_data do
+	get 'get_data', :on => :member
+	post 'get_data', :on => :member
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

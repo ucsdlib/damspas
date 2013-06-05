@@ -6,12 +6,13 @@ feature 'Visitor want to look at objects' do
   scenario 'view a sample object record' do
     visit dams_object_path('bb55555555')
     expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
+    expect(page).to have_link('http://libraries.ucsd.edu/ark:/20775/bb55555555', href: 'http://libraries.ucsd.edu/ark:/20775/bb55555555')
   end
 
   scenario 'view a sample data file' do
     visit file_path('bb55555555','_5_5.jpg')
     response = page.driver.response
-    expect(response.status).to equal( 200 )
+    expect(response.status).to eq( 200 )
     expect(response.header["Content-Type"]).to eq( "image/jpeg" )
   end
 
