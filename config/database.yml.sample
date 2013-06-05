@@ -8,6 +8,11 @@ development:
   database: db/development.sqlite3
   pool: 5
   timeout: 5000
+jetty:
+  adapter: sqlite3
+  database: db/development.sqlite3
+  pool: 5
+  timeout: 5000
 gimili:
   adapter: sqlite3
   database: db/development.sqlite3

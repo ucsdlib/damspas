@@ -21,8 +21,8 @@
 			<% eList = @mads_temporal.elementList.first    
 				if eList != nil	
 			%>
-					<%#= label_tag 'mads_temporal[valueURI][]', "Temporal" %>
-					<%#= text_field_tag 'mads_temporal[valueURI][]',eList[0].elementValue.first, class: "input-block-level" %>
+					<%= label_tag 'mads_temporal[elementListValue][]', "Temporal" %>
+					<%= text_field_tag 'mads_temporal[elementListValue][]',eList[0].elementValue.first, class: "input-block-level" %>
 			<%
 				end					
 			%> 

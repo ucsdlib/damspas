@@ -14,7 +14,10 @@ describe DamsProvenanceCollectionsController do
         it "should be successful" do 
           get :show, id: @obj.id
           response.should be_successful 
-          assigns[:dams_provenance_collection].should == @obj
+          @newobj = assigns[:dams_provenance_collection]
+          @newobj.titleValue.should == @obj.titleValue
+          @newobj.beginDate.should == @obj.beginDate
+          @newobj.endDate.should == @obj.endDate
         end
       end
       
@@ -33,7 +36,10 @@ describe DamsProvenanceCollectionsController do
         it "should be successful" do 
           get :edit, id: @obj.id
           response.should be_successful 
-          assigns[:dams_provenance_collection].should == @obj
+          @newobj = assigns[:dams_provenance_collection]
+          @newobj.titleValue.should == @obj.titleValue
+          @newobj.beginDate.should == @obj.beginDate
+          @newobj.endDate.should == @obj.endDate
         end
       end
       
