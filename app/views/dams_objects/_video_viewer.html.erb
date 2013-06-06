@@ -1,6 +1,4 @@
 <%
-	videoParentDirectory = '/pub/data2/dams/'
-	videoPartialURL = 'lib-streaming.ucsd.edu:1935/dams4/_definst_/mp4:';
 	videoURL = nil
 
 	prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
@@ -10,9 +8,9 @@
 		fieldData.each do |datum|
 			files = JSON.parse(datum)
 			if files['use'] == 'video-service'
-				videoPath = files['sourcePath'].sub(videoParentDirectory,'')
+				videoPath = files['sourcePath'].sub(ViewOptions::VIDEO_PARENT_DIRECTORY,'')
 				videoFilename = files['sourceFileName']
-				videoURL = videoPartialURL << videoPath << '/' << videoFilename
+				videoURL = ViewOptions::VIDEO_PARTIAL_URL + videoPath + '/' + videoFilename
 			end
 		end
 	end
@@ -22,6 +20,8 @@
 
 	<div id="dams-video">Loading the player...</div>
 
+	<script src="//libraries.ucsd.edu/jwplayer/jwplayer.js"></script>
+	<script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 	<script type="text/javascript">
 		jwplayer("dams-video").setup({
 			playlist:
