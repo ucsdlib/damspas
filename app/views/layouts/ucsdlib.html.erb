@@ -23,11 +23,6 @@
 				<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
 			<% end %>
 		<% end %>
-
-
-
-      <script src="//libraries.ucsd.edu/jwplayer/jwplayer.js"></script>
-      <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 	</head>
 
 	<% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
