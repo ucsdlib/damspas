@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Hydra::Application.config.secret_token = 'e5a55d79c3b6471665a75045b71fb796cb8d9e54349ed615f59f9b604b926ea9f1c945b8379961d0a71c3034d8aae22da6dfcba81a9dd9d0347835ab4ccf5ba7'
+Hydra::Application.config.secret_token = 'fe4dfb010631a1cd3e068178bc0ec111adfb03b51a95dd1dd5ea83787af68e71583cc3db29b2f0082984cc1a6002608201cd0cc5e2535000ebb0110ed57a9d7b'
