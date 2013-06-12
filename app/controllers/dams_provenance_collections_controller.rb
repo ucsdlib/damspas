@@ -1,3 +1,6 @@
+require 'net/http'
+require 'json'
+
 class DamsProvenanceCollectionsController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource :only => :index
@@ -7,11 +10,17 @@ class DamsProvenanceCollectionsController < ApplicationController
   end
 
   def new
+    @mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
+    @dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
+    @dams_assembled_collections = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
+    
+  
+  
 
   end
 
   def edit
-
+  @mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
   end
 
   def create
