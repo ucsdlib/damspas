@@ -1,4 +1,7 @@
 module DamsHelper
+  
+ 
+
   def subtitle
     title[0] ? title[0].subtitle : []
   end
@@ -187,19 +190,22 @@ module DamsHelper
       unitURI.first
     end
   end     
+  
+
   ## Date ######################################################################
   def beginDate
     date[0] ? date[0].beginDate : []
   end
   def beginDate=(val)
     if val.class == Array
-    	val = val.first
+      val = val.first
     end
-  	if(!val.nil? && val.length > 0)
-	    date.build if date[0] == nil
-	    date[0].beginDate = val
+    if(!val.nil? && val.length > 0)
+      date.build if date[0] == nil
+      date[0].beginDate = val
     end
   end
+
 
   def endDate
     date[0] ? date[0].endDate : []
