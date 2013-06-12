@@ -1,13 +1,13 @@
 # This is a sample config file that does not have multiple solr instances. You will also need to be sure to
 # edit the fedora.yml file to match the solr URL for active-fedora. 
 development:
-  url: http://localhost:8983/solr/development
+  url: http://localhost:8080/solr/blacklight
 jetty:
   url: http://localhost:8080/solr/blacklight
 gimili:
   url: http://gimili.ucsd.edu:8080/solr/blacklight
 test: &TEST
-  url: <%= "http://127.0.0.1:#{ENV['TEST_JETTY_PORT'] || 8983}/solr/test" %>
+  url: http://localhost:8080/solr/blacklight
 cucumber:
   <<: *TEST
 production:
