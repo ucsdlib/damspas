@@ -106,24 +106,26 @@ class DamsObjectDatastream < DamsResourceDatastream
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
       coltype.values.each do |col|
-        collection_uri = col.to_s
-	    collection_pid = collection_uri.gsub(/.*\//,'')
-	    hasModel = ""
-        if (collection_pid != nil && collection_pid != "" && !(collection_pid.include? 'Internal'))
-           obj = DamsAssembledCollection.find(collection_pid)
-      	   hasModel = obj.relationships(:has_model).to_s
-      	else
-      	   collections << col
+        begin
+          # if we have usable metadata, use as-is
+          if col.title.first != nil
+            collections << col
+            colfound = true
+          end
+        rescue
+          colfound = false
         end
-	    if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Assembled'))
-      		  collections << obj
-        elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'ProvenanceCollectionPart'))
-      		  collections << DamsProvenanceCollectionPart.find(collection_pid)
-        elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'ProvenanceCollection'))
-      		  collections << DamsProvenanceCollection.find(collection_pid)
+
+        if !colfound
+          # if we don't, find the pid and fetch colobj from repo
+          cpid = (col.class.name.include? "Collection") ? cpid = col.pid : col.to_s.gsub(/.*\//,'')
+          begin
+            collections << ActiveFedora::Base.find(cpid, :cast => true)
+          rescue
+            logger.warn "Couldn't load collection from repo: #{cpid}"
+          end
         end
       end
-   	
     end
     collections
   end
@@ -448,7 +450,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       }
       Solrizer.insert_field(solr_doc, 'unit_json', unit_json.to_json)
     end
-    
+
     col = load_collection collection,assembledCollection,provenanceCollection,provenanceCollectionPart
     if col != nil
       col.each do |collection|
