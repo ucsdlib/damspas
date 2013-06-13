@@ -72,7 +72,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     
     part = load_part
     if part != nil && part.class == DamsProvenanceCollectionPart
-      Solrizer.insert_field(solr_doc, 'part_name', part.titleValue)
+      Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
     end
 

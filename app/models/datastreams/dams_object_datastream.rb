@@ -454,12 +454,12 @@ class DamsObjectDatastream < DamsResourceDatastream
     col = load_collection collection,assembledCollection,provenanceCollection,provenanceCollectionPart
     if col != nil
       col.each do |collection|
-        Solrizer.insert_field(solr_doc, "collection", collection.titleValue, facetable)
-        Solrizer.insert_field(solr_doc, "fulltext", collection.titleValue)
+        Solrizer.insert_field(solr_doc, "collection", collection.title.first.value.first, facetable)
+        Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.value.first)
         Solrizer.insert_field(solr_doc, "collections", collection.pid)
         col_json = {
           :id => collection.pid,
-          :name => collection.titleValue.first.to_s
+          :name => collection.title.first.value.first
         }
 
  		if ( collection.to_s.include? 'DamsProvenanceCollectionInternal' )
