@@ -13,7 +13,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
     # subjects
-    map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
     map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
     map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
     map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
