@@ -1,0 +1,14 @@
+<h1>MADS Schemes</h1>
+
+<div class="span6">
+  <ul>
+    <% MadsScheme.all.each do |scheme| %>
+      <li><%= link_to scheme.name.first, scheme %></li>
+    <% end %>
+</div>
+
+<div>
+  <% if can? :create, MadsScheme%>
+    <%= link_to "Create MADS Scheme", new_mads_scheme_path, :class => 'btn btn-primary'%>
+  <% end %>
+</div>

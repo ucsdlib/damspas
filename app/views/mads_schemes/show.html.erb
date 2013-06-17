@@ -1,0 +1,17 @@
+<% name = render_document_show_field_value(:document=>@document, :field=>"name_tesim") %>
+<% code = render_document_show_field_value(:document=>@document, :field=>"code_tesim") %>
+<% @page_title =  "MADS Scheme | #{name}" %>
+<div class="row-fluid">
+  <div id="content">
+    <p>name: <%= name %></p>
+    <p>code: <%= code %></p>
+  </div>
+
+  <% if can? :update, @document then %>
+    <p><strong>Editor Tools</strong></p>
+    <ul class="unstyled sidebar-button-list">
+      <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, view_mads_scheme_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_mads_scheme_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+    </ul>
+  <% end %>
+</div>
