@@ -28,6 +28,8 @@ class Ability
   		can [:read], MadsOccupation
   		can [:read], MadsGenreForm
   		can [:read], MadsGeographic
+  		can [:read], MadsScheme
+  		can [:read], MadsAuthority
   	else  #login user
     	can [:read, :create, :update, :view], DamsObject
     	can [:read, :create, :update, :view], DamsUnit
@@ -55,6 +57,8 @@ class Ability
   		can [:read, :create, :update, :view], MadsOccupation
   		can [:read, :create, :update, :view], MadsGenreForm
   		can [:read, :create, :update, :view], MadsGeographic  		
+  		can [:read, :create, :update, :view], MadsScheme
+  		can [:read, :create, :update, :view], MadsAuthority
     end
   end
 end
