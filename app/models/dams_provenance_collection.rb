@@ -1,7 +1,11 @@
 class DamsProvenanceCollection < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsProvenanceCollectionDatastream 
-  delegate_to "damsMetadata", [:title, :date, :subject, :note, :scopeContentNote, :relatedResource, :titleValue, :titleType, :dateValue, :beginDate, :endDate, :scopeContentNoteType, :scopeContentNoteDisplayLabel, :scopeContentNoteValue]
-  def part
+  delegate_to "damsMetadata", [:title, :titleType, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, :subjectURI, :unitURI, :subjectType, :subjectTypeValue ]
+
+ def part
     damsMetadata.load_part
   end
+
+ 
+  
 end
