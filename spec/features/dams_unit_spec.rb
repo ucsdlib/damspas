@@ -4,7 +4,7 @@ feature 'Visitor wants to look at units' do
   scenario 'is on units landing page' do
     visit dams_units_path
     expect(page).to have_selector('h1', :text => 'Digital Collections')
-    expect(page).to have_selector('a', :text => 'Library Collections')
+    expect(page).to have_selector('a', :text => 'Library Digital Collections')
     expect(page).to have_selector('a', :text => 'Research Data Curation Program')
     expect(page).to have_selector('p', :text => 'Browse')
     expect(page).to have_selector('a', :text => 'Topic')
@@ -43,13 +43,13 @@ feature 'Visitor wants to look at units' do
 
   scenario 'scoped search (inclusion)' do
     visit dams_unit_path :id => 'dlp'
-    expect(page).to have_selector('h1', :text => 'Library Collections')
+    expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
     # search for the object in the unit and find it
     fill_in 'Search...', :with => 'sample'
     click_on('Search')
     expect(page).to have_content('Search Results')
-    expect(page).to have_content('Sample Video Object')
+    expect(page).to have_content('Sample Complex Object Record #3')
   end
 
   scenario 'scoped search (exclusion)' do

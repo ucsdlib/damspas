@@ -13,7 +13,7 @@ describe DamsComponentDatastream do
       end
       it "should have a title" do
         subject.titleValue = "The Static Image"
-        subject.titleValue.should == ["The Static Image"]
+        subject.titleValue.should == "The Static Image"
       end
       it "should have a date" do
         subject.dateValue = "2012-06-24"
@@ -32,7 +32,7 @@ describe DamsComponentDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}zz12345678"
       end
       it "should have a title" do
-        subject.titleValue.should == ["The Static Image"]
+        subject.titleValue.should == "The Static Image"
       end
       it "should have a date" do
         subject.beginDate.should == ["2012-06-24"]
@@ -40,7 +40,7 @@ describe DamsComponentDatastream do
 
  	  it "should index title and dates" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "The Static Image"
+        solr_doc["title_tesim"].should include "The Static Image: Foo!"
         solr_doc["date_tesim"].should include "2012-06-24"
      	solr_doc["date_tesim"].should include "2012-06-25"
      	solr_doc["date_tesim"].should include "June 24-25, 2012"

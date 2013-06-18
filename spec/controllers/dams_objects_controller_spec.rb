@@ -61,7 +61,7 @@ describe DamsObjectsController do
 	      put :update, :id => @obj.id, :dams_object => {titleValue: ["Updated Title"], beginDate: ["2013"]}
 	      response.should redirect_to assigns[:dams_object]
           @newobj = assigns[:dams_object]
-	      @newobj.titleValue.should == ["Updated Title"]
+	      @newobj.titleValue.should == "Updated Title"
 	      @newobj.beginDate.should == ["2013"]
 	      flash[:notice].should == "Successfully updated object"
 	    end

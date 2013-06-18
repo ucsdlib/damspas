@@ -6,10 +6,10 @@ describe MadsSchemeDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { MadsSchemeDatastream.new(stub('inner object', :pid=>'bd46424836', :new? => true), 'damsMetadata') }
+      subject { MadsSchemeDatastream.new(stub('inner object', :pid=>'bd9386739x', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd46424836"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd9386739x"
       end
 
       it "should have a name" do
@@ -27,13 +27,13 @@ describe MadsSchemeDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = MadsSchemeDatastream.new(stub('inner object', :pid=>'bd46424836', :new? =>true), 'damsMetadata')
+        subject = MadsSchemeDatastream.new(stub('inner object', :pid=>'bd9386739x', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsScheme.rdf.xml').read
         subject
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd46424836"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd9386739x"
       end
 
       it "should have a name" do

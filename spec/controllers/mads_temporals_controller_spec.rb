@@ -12,8 +12,7 @@ describe MadsTemporalsController do
  	    end
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :mads_temporal => {name: ["Test Title2"], elementListValue: ["2014"]}
-	      #response.should redirect_to assigns[:dams_object]
-          pending "this works in the browser but fails in rspec..."
+          # this works in the browser, but not in tests..."
 	      #response.should redirect_to edit_mads_temporal_path(@obj)
 	      @obj.reload.name.should == ["Test Title2"]
 	      flash[:notice].should == "Successfully updated Temporal"

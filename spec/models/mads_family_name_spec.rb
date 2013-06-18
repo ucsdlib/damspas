@@ -7,20 +7,18 @@ describe MadsFamilyName do
   end
   it "should create a xml" do    
     subject.name = "Calder (Family : 1757-1959 : N.C.)"
-    subject.authority = "naf"
-    subject.sameAs =  "http://id.loc.gov/authorities/names/n2012026835"
-    subject.valueURI = "http://id.loc.gov/n9999999999"
+    subject.scheme = "bd0683587d"
+    subject.externalAuthority =  "http://id.loc.gov/authorities/names/n2012026835"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
   xmlns:owl="http://www.w3.org/2002/07/owl#"
   xmlns:dams="http://library.ucsd.edu/ontology/dams#">
- <mads:FamilyName rdf:about="http://library.ucsd.edu/ark:/20775/zzXXXXXXX1">
+ <mads:FamilyName rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
     <mads:authoritativeLabel>Calder (Family : 1757-1959 : N.C.)</mads:authoritativeLabel>
-    <dams:authority>naf</dams:authority>
-    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/names/n2012026835"/>
-    <dams:valueURI rdf:resource="http://id.loc.gov/n9999999999"/>
+    <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n2012026835"/>
+    <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd0683587d"/>
   </mads:FamilyName>
 </rdf:RDF>
 END

@@ -13,7 +13,7 @@ describe DamsDAMSEvent do
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/zzXXXXXXX1">    
+  <dams:DAMSEvent rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">    
     <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
     <dams:outcome>success</dams:outcome>
     <dams:type>collection creation</dams:type>

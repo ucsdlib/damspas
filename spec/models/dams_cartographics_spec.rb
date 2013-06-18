@@ -13,7 +13,7 @@ describe DamsCartographic do
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:Cartographics rdf:about="http://library.ucsd.edu/ark:/20775/bb20202020">
+  <dams:Cartographics rdf:about="#{Rails.configuration.id_namespace}bb20202020">
     <dams:scale>1:20000</dams:scale>
     <dams:projection>equirectangular</dams:projection>
     <dams:referenceSystem>WGS84</dams:referenceSystem>

@@ -8,7 +8,7 @@ describe MadsComplexSubjectDatastream do
       subject
     end
     it "should have a subject" do
-      subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"
+      subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXX5"
     end
 
     it "should have fields" do
@@ -22,15 +22,15 @@ describe MadsComplexSubjectDatastream do
       subject
     end
     it "should have a subject" do
-      subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"
+      subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXX5"
     end
 
     it "should have fields" do
       list = subject.elementList.first
-      list.first.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX6"
+      list.first.should == "#{Rails.configuration.id_namespace}bbXXXXXXX6"
      # list[1].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic::ElementList::TopicElement
       list[1].elementValue.should == ["Relations with Mexican Americans"]
-      list[2].should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"
+      list[2].should == "#{Rails.configuration.id_namespace}bbXXXXXXX4"
       list[3].should be_kind_of MadsComplexSubjectDatastream::List::TemporalElement
       list[3].elementValue.should == ["20th century"]
       list.size.should == 4
@@ -48,8 +48,8 @@ describe MadsComplexSubjectDatastream do
         subject.name.should == ["Galaxies--Clusters"]
       end
  
-      it "should have an authority" do
-        subject.authority.should == ["lcsh"]
+      it "should have an scheme" do
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd9386739x"
       end
 
     it "should have fields" do

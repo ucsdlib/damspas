@@ -8,7 +8,7 @@ describe DamsScopeContentNoteDatastream do
     describe "a new instance" do
       subject { DamsScopeContentNoteDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a value" do

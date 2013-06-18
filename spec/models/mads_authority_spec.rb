@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe MadsScheme do
   subject do
-    MadsScheme.new pid: "bd46424836"
+    MadsScheme.new pid: "bd9386739x"
   end
   it "should create a xml" do
     subject.code = "lcsh"
@@ -12,7 +12,7 @@ describe MadsScheme do
 <rdf:RDF xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-  <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd46424836">
+  <mads:MADSScheme rdf:about="#{Rails.configuration.id_namespace}bd9386739x">
     <rdfs:label>Library of Congress Subject Headings</rdfs:label>
     <mads:code>lcsh</mads:code>
   </mads:MADSScheme>

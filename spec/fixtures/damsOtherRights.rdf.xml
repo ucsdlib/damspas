@@ -3,7 +3,7 @@
   <dams:OtherRights rdf:about="http://library.ucsd.edu/ark:/20775/bb05050505">
     <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
     <dams:otherRightsNote>Educationally important works unavailable due to unknown copyright holders</dams:otherRightsNote>
-    <dams:otherRightsURI>http://libraries.ucsd.edu/lisn/policy/4123412341/</dams:otherRightsURI>
+    <dams:otherRightsURI>http://library.ucsd.edu/lisn/policy/4123412341/</dams:otherRightsURI>
     <dams:permission>
       <dams:Permission>
         <dams:type>display</dams:type>

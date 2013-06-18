@@ -1,0 +1,15 @@
+<h1>MADS Authorities</h1>
+
+<div class="span6">
+  <ul>
+    <% @document.each do |doc| %>
+      <li><%= link_to doc['name_tesim'].first, mads_authority_path(doc['id']) %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <% if can? :create, MadsAuthority %>
+    <%= link_to "Create Authority", new_mads_authority_path, :class => 'btn btn-primary'%>
+  <% end %>
+</div>

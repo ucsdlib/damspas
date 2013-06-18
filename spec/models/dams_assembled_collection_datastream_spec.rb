@@ -13,7 +13,7 @@ describe DamsAssembledCollectionDatastream do
       end
       it "should have a title" do
         subject.titleValue = "UCSD Electronic Theses and Dissertations"
-        subject.titleValue.should == ["UCSD Electronic Theses and Dissertations"]
+        subject.titleValue.should == "UCSD Electronic Theses and Dissertations"
       end
       it "should have a date" do
         subject.dateValue = "2009-05-03"
@@ -32,7 +32,7 @@ describe DamsAssembledCollectionDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
       end
       it "should have a title" do
-        subject.titleValue.should == ["UCSD Electronic Theses and Dissertations"]
+        subject.titleValue.should == "UCSD Electronic Theses and Dissertations"
       end
       it "should have a date" do
         subject.beginDate.should == ["2009-05-03"]
@@ -43,30 +43,29 @@ describe DamsAssembledCollectionDatastream do
         solr_doc["title_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
         solr_doc["date_tesim"].should == ["2009-05-03"]
       end
-            
+
  	  it "should have scopeContentNote" do
 		testIndexNoteFields "scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end
 
  	  it "should have notes" do
         solr_doc = subject.to_solr
-        solr_doc["note_tesim"].should include "This is some text to describe the basic contents of the object."
         solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "http://libraries.ucsd.edu/ark:/20775/bb80808080"
+        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}bb80808080"
       end
-      
+
       it "should have preferredCitationNote" do
-		testIndexNoteFields "preferredCitationNote","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
-      end    
+		testIndexNoteFields "preferredCitationNote","Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+      end
       it "should have CustodialResponsibilityNote" do
-		testIndexNoteFields "custodialResponsibilityNote","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"
-      end  
+		testIndexNoteFields "custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+      end
       it "should have relationship" do
         subject.relationship.first.name.first.pid.should == "bb08080808"
-       subject.relationship.first.role.first.pid.should == "bd55639754"
+        subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
-      end      
+      end
 #      it "should have event" do
 #        solr_doc = subject.to_solr
 #        solr_doc["event_1_type_tesim"].should == ["collection creation"]
@@ -74,11 +73,11 @@ describe DamsAssembledCollectionDatastream do
 #        solr_doc["event_1_outcome_tesim"].should == ["success"]
 #        solr_doc["event_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
 #        solr_doc["event_1_role_tesim"].should == ["Initiator"]
-#      end         
-      def testIndexNoteFields (fieldName,value) 
+#      end
+      def testIndexNoteFields (fieldName,value)
         solr_doc = subject.to_solr
         solr_doc["#{fieldName}_tesim"].should include value
-      end               
+      end
 
     end
   end
