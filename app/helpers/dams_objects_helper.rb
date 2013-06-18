@@ -1,3 +1,6 @@
+require "base64"
+require "openssl"
+
 module DamsObjectsHelper
 
   #---
@@ -506,4 +509,30 @@ module DamsObjectsHelper
 	# /COMPONENT TREE METHODS
 	#-------------------------
 
+
+  ## video stream name encryption
+  def encrypt_stream_name( pid, fid, ip )
+
+    # random nonce
+    nonce=rand(36**16).to_s(36)
+    while nonce.length < 16 do
+      nonce += "x"
+    end
+
+    # load key from file
+    key= File.read ViewOptions::VIDEO_PARENT_DIRECTORY + '/streaming.key'
+
+    # encrypt
+    str="#{pid} #{fid} #{ip}"
+    cipher = OpenSSL::Cipher::AES.new(128,:CBC)
+    cipher.encrypt
+    cipher.key = key
+    cipher.iv = nonce
+    enc = cipher.update(str) + cipher.final
+
+    # base64-encode
+    b64 = Base64.encode64 enc
+    b64 = b64.gsub("+","-").gsub("/","_").gsub("\n","")
+    "#{nonce},#{b64}"
+  end
 end
