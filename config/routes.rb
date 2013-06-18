@@ -47,7 +47,7 @@ Hydra::Application.routes.draw do
 
   resources :dams_subjects, :only => [:show]
 
-  resources :dams_objects do
+  resources :object, :controller => 'dams_objects', :as => 'dams_objects' do
     get 'view', :on => :member
   end
 

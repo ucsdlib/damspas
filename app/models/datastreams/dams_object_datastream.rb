@@ -106,24 +106,26 @@ class DamsObjectDatastream < DamsResourceDatastream
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
       coltype.values.each do |col|
-        collection_uri = col.to_s
-	    collection_pid = collection_uri.gsub(/.*\//,'')
-	    hasModel = ""
-        if (collection_pid != nil && collection_pid != "" && !(collection_pid.include? 'Internal'))
-           obj = DamsAssembledCollection.find(collection_pid)
-      	   hasModel = obj.relationships(:has_model).to_s
-      	else
-      	   collections << col
+        begin
+          # if we have usable metadata, use as-is
+          if col.title.first != nil
+            collections << col
+            colfound = true
+          end
+        rescue
+          colfound = false
         end
-	    if (!obj.nil? && !hasModel.nil? && (hasModel.include? 'Assembled'))
-      		  collections << obj
-        elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'ProvenanceCollectionPart'))
-      		  collections << DamsProvenanceCollectionPart.find(collection_pid)
-        elsif (!obj.nil? && !hasModel.nil? && (hasModel.include? 'ProvenanceCollection'))
-      		  collections << DamsProvenanceCollection.find(collection_pid)
+
+        if !colfound
+          # if we don't, find the pid and fetch colobj from repo
+          cpid = (col.class.name.include? "Collection") ? cpid = col.pid : col.to_s.gsub(/.*\//,'')
+          begin
+            collections << ActiveFedora::Base.find(cpid, :cast => true)
+          rescue
+            logger.warn "Couldn't load collection from repo: #{cpid}"
+          end
         end
       end
-   	
     end
     collections
   end
@@ -448,33 +450,36 @@ class DamsObjectDatastream < DamsResourceDatastream
       }
       Solrizer.insert_field(solr_doc, 'unit_json', unit_json.to_json)
     end
-    
+
     col = load_collection collection,assembledCollection,provenanceCollection,provenanceCollectionPart
     if col != nil
       col.each do |collection|
-        Solrizer.insert_field(solr_doc, "collection", collection.titleValue, facetable)
-        Solrizer.insert_field(solr_doc, "fulltext", collection.titleValue)
-        Solrizer.insert_field(solr_doc, "collections", collection.pid)
-        col_json = {
-          :id => collection.pid,
-          :name => collection.titleValue.first.to_s
-        }
+        begin
+          Solrizer.insert_field(solr_doc, "collection", collection.title.first.value.first, facetable)
+          Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.value.first)
+          Solrizer.insert_field(solr_doc, "collections", collection.pid)
+          col_json = {
+            :id => collection.pid,
+            :name => collection.title.first.value.first
+          }
 
- 		if ( collection.to_s.include? 'DamsProvenanceCollectionInternal' )
-          col_json[:type] = "ProvenanceCollection"  
- 		elsif ( collection.to_s.include? 'DamsAssembledCollectionInternal' )
-          col_json[:type] = "AssembledCollection"        
- 		elsif ( collection.to_s.include? 'DamsProvenanceCollectionPartInternal' )
-          col_json[:type] = "ProvenanceCollectionPart"               
-        elsif ( collection.kind_of? DamsAssembledCollection )
-          col_json[:type] = "AssembledCollection"
-        elsif ( collection.kind_of? DamsProvenanceCollectionPart )
-          col_json[:type] = "ProvenanceCollectionPart"
-        elsif ( collection.kind_of? DamsProvenanceCollection )
-          col_json[:type] = "ProvenanceCollection"
-                       
+          if ( collection.to_s.include? 'DamsProvenanceCollectionInternal' )
+            col_json[:type] = "ProvenanceCollection"  
+          elsif ( collection.to_s.include? 'DamsAssembledCollectionInternal' )
+            col_json[:type] = "AssembledCollection"        
+          elsif ( collection.to_s.include? 'DamsProvenanceCollectionPartInternal' )
+            col_json[:type] = "ProvenanceCollectionPart"               
+          elsif ( collection.kind_of? DamsAssembledCollection )
+            col_json[:type] = "AssembledCollection"
+          elsif ( collection.kind_of? DamsProvenanceCollectionPart )
+            col_json[:type] = "ProvenanceCollectionPart"
+          elsif ( collection.kind_of? DamsProvenanceCollection )
+            col_json[:type] = "ProvenanceCollection"
+          end
+          Solrizer.insert_field(solr_doc, 'collection_json', col_json.to_json)
+        rescue
+          logger.warn "Error indexing collection: #{collection.inspect}"
         end
-        Solrizer.insert_field(solr_doc, 'collection_json', col_json.to_json)
       end
     end
 

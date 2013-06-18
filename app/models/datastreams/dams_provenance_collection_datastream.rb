@@ -13,7 +13,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
     # subjects
-    map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
     map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
     map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
     map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
@@ -72,7 +72,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     
     part = load_part
     if part != nil && part.class == DamsProvenanceCollectionPart
-      Solrizer.insert_field(solr_doc, 'part_name', part.titleValue)
+      Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
     end
 
