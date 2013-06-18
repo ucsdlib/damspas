@@ -1,25 +1,54 @@
 class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     
- rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-
-  def valueURI=(val)
-    @valURI = RDF::Resource.new(val)
-  end
-  def valueURI
-    if @valURI != nil
-      @valURI
-    else
-      valURI
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  def serialize
+    if(!externalAuthority.nil?)
+      if new?
+        graph.insert([rdf_subject, MADS.hasExactExternalAuthority, externalAuthority])
+      else
+        graph.update([rdf_subject, MADS.hasExactExternalAuthority, externalAuthority])
+      end
     end
-  end
-    
-  def serialize    
-    if(!@valURI.nil?)
-    	graph.insert([rdf_subject, DAMS.valueURI, @valURI]) if new?
+    if(!scheme.nil?)
+      if new?
+        graph.insert([rdf_subject, MADS.isMemberOfMADSScheme, scheme])
+      else
+        graph.update([rdf_subject, MADS.isMemberOfMADSScheme, scheme])
+      end
     end
     super
   end
-  
+
+  def scheme=(val)
+    if val.class == Array
+     val = val.first
+    end
+    @madsScheme = RDF::Resource.new(Rails.configuration.id_namespace+val)
+  end
+  def scheme
+    if @madsScheme != nil
+      @madsScheme
+    else
+      schemeNode.first
+    end
+  end
+
+  def externalAuthority=(val)
+    if val.class == Array
+     val = val.first
+    end
+    @extAuthority = RDF::Resource.new(val)
+  end
+  def externalAuthority
+    if @extAuthority != nil
+      @extAuthority
+    elsif !externalAuthorityNode.nil?
+      externalAuthorityNode.first
+    else
+        nil
+    end
+  end
+
   class List 
     include ActiveFedora::RdfList
     class IconographyElement
@@ -75,8 +104,8 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     
   def to_solr (solr_doc = {}) 
     Solrizer.insert_field(solr_doc, 'name', name)
-	Solrizer.insert_field(solr_doc, 'authority', authority)
-    Solrizer.insert_field(solr_doc, "valueURI", valueURI.first.to_s)
+	Solrizer.insert_field(solr_doc, 'scheme', scheme.to_s)
+    Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s)
 
 	list = elementList.first
 	i = 0

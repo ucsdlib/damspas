@@ -8,7 +8,7 @@ describe MadsPersonalNamesController do
 	  end
 	  describe "Show" do
 	    before do
-	      @obj = MadsPersonalName.create(name: "Personal Name Test ", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999991")
+	      @obj = MadsPersonalName.create(name: "Personal Name Test ", externalAuthority: "http://lccn.loc.gov/n90694888")
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
@@ -16,8 +16,7 @@ describe MadsPersonalNamesController do
 	      response.should be_successful 
 	      @newobj = assigns[:mads_personal_name]
           @newobj.name.should == @obj.name
-          @newobj.sameAs.should == @obj.sameAs
-          @newobj.valueURI.should == @obj.valueURI
+          @newobj.externalAuthority.should == @obj.externalAuthority
 	    end
 	  end
 	  
@@ -31,22 +30,21 @@ describe MadsPersonalNamesController do
 	  
 	  describe "Edit" do
 	    before do
-	      @obj = MadsPersonalName.create(name: "Personal Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999992")
+	      @obj = MadsPersonalName.create(name: "Personal Name", externalAuthority:  "http://lccn.loc.gov/n90694888")
 	    end    
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful 
 	      @newobj = assigns[:mads_personal_name]
           @newobj.name.should == @obj.name
-          @newobj.sameAs.should == @obj.sameAs
-          @newobj.valueURI.should == @obj.valueURI
+          @newobj.externalAuthority.should == @obj.externalAuthority
 	    end
 	  end
 	  
 	  describe "Create" do
 	    it "should be successful" do
 	      expect { 
-	        post :create, :mads_personal_name => {name: ["Test Name"] , sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999993"}
+	        post :create, :mads_personal_name => {name: ["Test Name"] , externalAuthority:  "http://lccn.loc.gov/n90694888"}
         }.to change { MadsPersonalName.count }.by(1)
 	      response.should redirect_to assigns[:mads_personal_name]
 	      assigns[:mads_personal_name].should be_kind_of MadsPersonalName
@@ -55,14 +53,13 @@ describe MadsPersonalNamesController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = MadsPersonalName.create(name: "Personal Name", sameAs:  "http://lccn.loc.gov/n90694888", valueURI: "http://id.loc.gov/n9999999994")
+ 	      @obj = MadsPersonalName.create(name: "Personal Name", externalAuthority:  "http://lccn.loc.gov/n90694888")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :mads_personal_name => {name: ["Test Title2"], sameAs:  ["http://lccn.loc.gov/n90694888"], valueURI: ["http://id.loc.gov/n9999999995"]}
+	      put :update, :id => @obj.id, :mads_personal_name => {name: ["Test Title2"], externalAuthority:  ["http://lccn.loc.gov/n90694888"]}
 	      response.should redirect_to assigns[:mads_personal_name]
-	      #@obj.reload.name.should == ["Test Title2"]
-          pending "check title after reload #{__FILE__}"
-	      flash[:notice].should == "Successfully updated personal name"
+	      @obj.reload.name.should == ["Test Title2"]
+	      flash[:notice].should == "Successfully updated personal_name"
 	    end
     end
   end

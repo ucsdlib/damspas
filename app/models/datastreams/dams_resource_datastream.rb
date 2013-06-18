@@ -12,34 +12,39 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def load_languages(language)
     languages = []
-    language.each do |lang|
-      if lang.value.first != nil && lang.code.first != nil
-        # use inline data if available
-        languages << lang
-      elsif lang.pid != nil
-        # load external records
-        languages << DamsLanguage.find(lang.pid)
+    begin
+      language.each do |lang|
+        if lang.name.first != nil && lang.code.first != nil
+          # use inline data if available
+          languages << lang
+        elsif lang.pid != nil
+          # load external records
+          languages << MadsLanguage.find(lang.pid)
+        end
       end
+    rescue Exception => e
+      puts "trapping language error"
+      puts e.backtrace
     end
     languages
   end
-  # tmp lang class
-  class Language
-    include ActiveFedora::RdfObject
-    rdf_type DAMS.Language
 
-    map_predicates do |map|
-      map.code(:in => DAMS, :to => 'code')
-      map.value(:in => RDF, :to => 'value')
-      map.valueURI(:in => DAMS, :to => 'valueURI')
-      map.vocab(:in => DAMS, :to => 'vocabulary', :class_name => 'DamsVocabulary')
-    end
-    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-    def pid
-      rdf_subject.to_s.gsub(/.*\//,'')
-    end
-  end
-  # end tmp lang class
+  # tmp lang class
+#  class Language
+#    include ActiveFedora::RdfObject
+#    rdf_type DAMS.Language
+#
+#    map_predicates do |map|
+#      map.code(:in => DAMS, :to => 'code')
+#      map.value(:in => RDF, :to => 'value')
+#      map.valueURI(:in => DAMS, :to => 'valueURI')
+#      map.vocab(:in => DAMS, :to => 'vocabulary', :class_name => 'DamsVocabulary')
+#    end
+#    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+#    def pid
+#      rdf_subject.to_s.gsub(/.*\//,'')
+#    end
+#  end
 
   ## Subject ###################################################################
 
@@ -173,9 +178,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      end
  	  rescue Exception => e
           puts e.to_s
-          e.backtrace.each do |line|
-            puts line
-          end
+          puts e.backtrace
       end 	      	      
     end
     events
@@ -305,16 +308,16 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       obj = relationship.name.first.to_s      
 
  	  rel = relationship
-	    if !rel.corporateName.first.nil?
-	      rel = rel.corporateName
-	    elsif !rel.personalName.first.nil?
-	      rel = rel.personalName    
-		elsif !rel.name.first.nil?
-	      rel = rel.name    
-	      if rel.first.name.first.nil?
-	      	rel = relationship.load  
-	      end
+	  if !rel.corporateName.first.nil?
+	    rel = rel.corporateName
+	  elsif !rel.personalName.first.nil?
+	    rel = rel.personalName    
+      elsif !rel.name.first.nil?
+	    rel = rel.name    
+	    if rel.first.name.first.nil?
+	    	rel = relationship.load  
 	    end
+	  end
       if ( rel != nil )
         if(rel.to_s.include? 'Internal')
         	name = rel.first.name.first.to_s
@@ -327,23 +330,28 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         # retrieval
         Solrizer.insert_field( solr_doc, "name", name )
         
+        begin        
+          relRole = relationship.role.first.name.first.to_s
+          
+          # display     
         
-		relRole = relationship.role.first.value.first.to_s
-        # display     
-        
-        if !relRole.nil? && relRole != ''
-        	roleValue = relRole
-		else 
-		  role = relationship.loadRole
-		  if role != nil
-		  	roleValue = role.value.first.to_s
-		  end
-		end
-		  if rels[roleValue] == nil
-		    rels[roleValue] = [name]
-		  else
-		    rels[roleValue] << name
-		  end		
+          if !relRole.nil? && relRole != ''
+            roleValue = relRole
+          else 
+            role = relationship.loadRole
+            if role != nil
+              roleValue = role.name.first.to_s
+            end
+          end
+          if rels[roleValue] == nil
+            rels[roleValue] = [name]
+          else
+            rels[roleValue] << name
+          end
+        rescue Exception => e
+          puts "trapping role error in relationship"
+          puts e.backtrace
+        end
       end
     end
 
@@ -356,42 +364,41 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     Solrizer.insert_field( solr_doc, "#{prefix}relationship_json", rels.to_json )
   end
   def insertTitleFields ( solr_doc, cid, titles )
-    titles.map do |t|
-      # display
+    sort_title = ""
+    titles.each do |t|
+      name = t.name || ""
+      external = t.externalAuthority || ""
+
+      # walk through chain of title elements
+      value = t.value || ""
+      nonSort = t.nonSort || ""
+      partName = t.partName || ""
+      partNumber = t.partNumber || ""
+      subtitle = t.subtitle || ""
+
+      # structured
+      title_json = { :name => name, :external => external, :value => value,
+                     :nonSort => nonSort, :partName => partName,
+                     :partNumber => partNumber, :subtitle => subtitle }
       if cid != nil
-        title_json = {:type=>t.type.first.to_s, :value=>t.value.first.to_s, :subtitle=>t.subtitle.first.to_s, :partNumber=>t.partNumber.first.to_s, :partName=>t.partName.first.to_s, :nonSort=>t.nonSort.first.to_s}
         Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
       else
-        title_json = {
-          :type=>t.type.first.to_s,
-          :value=>t.value.first.to_s,
-          :subtitle=>t.subtitle.first.to_s,
-          :partNumber=>t.partNumber.first.to_s,
-          :partName=>t.partName.first.to_s,
-          :nonSort=>t.nonSort.first.to_s
-        }
         Solrizer.insert_field(solr_doc, "title_json", title_json.to_json)
       end
 
       # retrieval
-      Solrizer.insert_field(solr_doc, "title", t.value.first)
-      Solrizer.insert_field(solr_doc, "title", t.subtitle.first)
-      Solrizer.insert_field(solr_doc, "fulltext", t.value)
-      Solrizer.insert_field(solr_doc, "fulltext", t.subtitle)
+      Solrizer.insert_field(solr_doc, "title", name)
+      Solrizer.insert_field(solr_doc, "fulltext", name)
 
+      # build sort title
+      if sort_title == "" && cid == nil
+        sort_title = name.first
+      end
     end
 
-    # sorting
-    if titles.map.first != nil && cid == nil
-      sort_title = titles.map.first
-      sortval = sort_title.value.first
-      sortval += " #{sort_title.subtitle.first}" unless sort_title.subtitle.blank?
-      sortval += " #{sort_title.partNumber.first}" unless sort_title.subtitle.blank?
-      sortval += " #{sort_title.partName.first}" unless sort_title.subtitle.blank?
-      if sortval != nil
-        sortval = sortval.downcase
-      end
-      Solrizer.insert_field(solr_doc, "title", sortval, Solrizer::Descriptor.new(:string, :indexed, :stored))
+    # add sort title (out of loop to make sure only once)
+    if cid == nil && !sort_title.blank?
+      Solrizer.insert_field(solr_doc, "title", sort_title.downcase, Solrizer::Descriptor.new(:string, :indexed, :stored))
     end
   end
   def insertLanguageFields ( solr_doc, field, languages )
@@ -401,8 +408,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       langs.map.each do |lang|
         n += 1
 
-        Solrizer.insert_field(solr_doc, field, lang.value)
-        Solrizer.insert_field(solr_doc, "fulltext", lang.value)
+        Solrizer.insert_field(solr_doc, field, lang.name)
+        Solrizer.insert_field(solr_doc, "fulltext", lang.name)
       end
     end
   end
@@ -459,7 +466,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 			end	     
 	      end 
 	      #relRole = relationship.loadRole
-		  relRole = relationship.role.first.value.first.to_s
+          begin
+		    relRole = relationship.role.first.name.first.to_s
 	        # display     
 	        
 	        if !relRole.nil? && relRole != ''
@@ -467,16 +475,19 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 			else 
 			  role = relationship.loadRole
 			  if role != nil
-			  	roleValue = role.value.first.to_s
+			  	roleValue = role.name.first.to_s
 			  end
 			end	      
-	      if (roleValue != nil)
-             rel_json[:role] = roleValue
-          else
-			if !relationship.role.first.nil? && !relationship.role.first.pid.nil? && (relationship.role.first.pid.include? 'dams:')
+	        if (roleValue != nil)
+               rel_json[:role] = roleValue
+            else
+			  if !relationship.role.first.nil? && !relationship.role.first.pid.nil? && (relationship.role.first.pid.include? 'dams:')
 				rel_json[:role] = relationship.role.first.pid		
-			end	           
-	      end  
+			  end	           
+	        end  
+          rescue
+            puts "trapping role error in event for name: #{name}"
+          end
           rels << rel_json
 	    end    
 
@@ -553,7 +564,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'personalName', load_personalNames(personalName)
 
     insertRelatedResourceFields solr_doc, "", relatedResource
-
 
     # event
     insertEventFields solr_doc, "", event

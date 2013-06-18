@@ -1,0 +1,9 @@
+<h1><%= @mads_authority.name.first %></h1>
+<div>code: <%= @mads_authority.code.first %></div>
+<div>scheme: <%= link_to @scheme_name, mads_scheme_path(@scheme_id) %></div>
+<div>
+  <% if can? :update, @mads_authority then %>
+    <%= link_to "Edit", edit_mads_authority_path(@mads_authority), class: "btn btn-primary"%>
+  <% end %>
+  <%= link_to "View All", mads_authority_path, class: "btn btn-primary" %>
+</div>

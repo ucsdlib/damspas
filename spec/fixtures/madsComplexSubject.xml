@@ -1,18 +1,20 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5">
     <mads:authoritativeLabel>Academic dissertations</mads:authoritativeLabel>
-    <mads:elementList>
+    <mads:elementList rdf:parseType="Collection">
       <mads:GenreFormElement>
-        <rdf:value>Academic dissertations</rdf:value>
-        <dams:authority>RBMS Controlled Vocabularies: Genre Terms</dams:authority>
-        <dams:authorityURI rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.rbms.info/committees/bibliographic_standards/controlled_vocabularies/genre/alphabetical_list.htm</dams:authorityURI>
-        <dams:valueURI rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://www.rbms.info/committees/bibliographic_standards/controlled_vocabularies/genre/tr19.htm</dams:valueURI>
+        <mads:elementValue>Academic dissertations</mads:elementValue>
+        <mads:hasExactExternalAuthority rdf:resource="http://www.rbms.info/committees/bibliographic_standards/controlled_vocabularies/genre/tr19.htm"/>
       </mads:GenreFormElement>
+      <mads:isMemberOfMADSScheme>
+        <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd1234567x">
+          <rdfs:label>RBMS Controlled Vocabularies: Genre Terms</rdfs:label>
+        </mads:MADSScheme>
+      </mads:isMemberOfMADSScheme>
     </mads:elementList>
   </mads:ComplexSubject>
 </rdf:RDF>

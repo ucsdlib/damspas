@@ -8,12 +8,12 @@ describe DamsCustodialResponsibilityNoteDatastream do
     describe "a new instance" do
       subject { DamsCustodialResponsibilityNoteDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a value" do
-        subject.value = "Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"
-        subject.value.should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"]
+        subject.value = "Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"
+        subject.value.should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"]
       end   
       it "should have type" do
         subject.type = "custodial_history"
@@ -33,7 +33,7 @@ describe DamsCustodialResponsibilityNoteDatastream do
       end
            
       it "should have value" do
-        subject.value.should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"]
+        subject.value.should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"]
       end
 
       it "should have a type" do
@@ -47,7 +47,7 @@ describe DamsCustodialResponsibilityNoteDatastream do
          
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["custodialResponsibilityNote_value_tesim"].should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"]
+        solr_doc["custodialResponsibilityNote_value_tesim"].should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"]
         solr_doc["custodialResponsibilityNote_type_tesim"].should == ["custodial_history"]
         solr_doc["custodialResponsibilityNote_displayLabel_tesim"].should == ["Digital object made available by"]
       end    

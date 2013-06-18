@@ -13,7 +13,7 @@ describe DamsUnit do
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb45454545">
+  <dams:Unit rdf:about="#{Rails.configuration.id_namespace}bb45454545">
     <dams:unitDescription>
       Research Cyberinfrastructure: the hardware, software, and people that
       support scientific research.

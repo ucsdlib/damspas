@@ -1,0 +1,10 @@
+<h1>Edit MADS Authority</h1>
+<%= form_for @mads_authority do |f| %>
+  <%= label_tag 'mads_authority[code]', "Code" %><%= text_field_tag 'mads_authority[code][]', @mads_authority.code[0] %>
+  <%= label_tag 'mads_authority[name]', "Name" %><%= text_field_tag 'mads_authority[name][]', @mads_authority.name[0] %>
+  <%= label_tag 'mads_authority[scheme]', "Scheme" %>
+  <%= select_tag 'mads_authority[scheme]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", @mads_authority, class: "btn btn-primary" %>
+<%end%>

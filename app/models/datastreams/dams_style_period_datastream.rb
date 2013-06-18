@@ -1,8 +1,8 @@
 class DamsStylePeriodDatastream < DamsDatastream
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
-    map.authority(:in => DAMS, :to => 'authority')
-    map.valURI(:in => DAMS, :to => 'valueURI')
+    map.schemeNode(:in => MADS, :to => 'isMemberOfMADSScheme')
+    map.externalAuthorityNode(:in => MADS, :to => 'hasExactExternalAuthority')
     map.elementList(:in => MADS, :to => 'elementList', :class_name=>'List')
   end
     

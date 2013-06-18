@@ -8,16 +8,16 @@ describe DamsScientificNameDatastream do
     describe "a new instance" do
       subject { DamsScientificNameDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a name" do
         subject.name = "Western lowland gorilla (Gorilla gorilla gorilla)"
         subject.name.should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
       end   
-      it "should have authority" do
-        subject.authority = "XXX"
-        subject.authority.should == ["XXX"]
+      it "should have scheme" do
+        subject.scheme = "bd6792855f"
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd6792855f"
       end          
     end
 
@@ -33,12 +33,12 @@ describe DamsScientificNameDatastream do
         subject.name.should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
       end
  
-      it "should have an authority" do
-        subject.authority.should == ["XXX"]
+      it "should have an scheme" do
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd6792855f"
       end
 
-      it "should have a valueURI" do
-        subject.valURI.should == ["http://dbpedia.org/page/Western_lowland_gorilla"]
+      it "should have a externalAuthority" do
+        subject.externalAuthority.to_s.should == "http://dbpedia.org/page/Western_lowland_gorilla"
       end
                       
       it "should have fields" do
@@ -52,8 +52,8 @@ describe DamsScientificNameDatastream do
         solr_doc = subject.to_solr
         solr_doc["scientificName_element_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
         solr_doc["name_tesim"].should == ["Western lowland gorilla (Gorilla gorilla gorilla)"]
-        solr_doc["authority_tesim"].should == ["XXX"]
-        solr_doc["valueURI_tesim"].should == ["http://dbpedia.org/page/Western_lowland_gorilla"]
+        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd6792855f"]
+        solr_doc["externalAuthority_tesim"].should == ["http://dbpedia.org/page/Western_lowland_gorilla"]
       end    
     end
   end

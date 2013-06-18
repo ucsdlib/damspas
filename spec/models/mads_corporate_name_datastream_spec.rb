@@ -8,16 +8,16 @@ describe MadsCorporateNameDatastream do
     describe "a new instance" do
       subject { MadsCorporateNameDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a name" do
         subject.name = "Lawrence Livermore Laboratory"
         subject.name.should == ["Lawrence Livermore Laboratory"]
       end   
-      it "should have authority" do
-        subject.authority = "naf"
-        subject.authority.should == ["naf"]
+      it "should have scheme" do
+        subject.scheme = "bd0683587d"
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd0683587d"
       end  
  
     end
@@ -33,13 +33,9 @@ describe MadsCorporateNameDatastream do
       it "should have name" do
         subject.name.should == ["Lawrence Livermore Laboratory"]
       end
-
-      it "should have a sameAs value" do
-        subject.sameAs.to_s.should == "http://lccn.loc.gov/n50000352"
-      end
  
-      it "should have an authority" do
-        subject.authority.should == ["naf"]
+      it "should have an scheme" do
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd0683587d"
       end
            
       it "should have fields" do

@@ -108,7 +108,12 @@ Hydra::Application.routes.draw do
   resources :mads_schemes do
     get 'view', :on => :member
   end
-
+  resources :mads_authority, :as => 'mads_authorities' do
+    get 'view', :on => :member
+  end
+  resources :mads_languages do
+    get 'view', :on => :member
+  end
   resources :linked_data do
 	get 'get_data', :on => :member
 	post 'get_data', :on => :member

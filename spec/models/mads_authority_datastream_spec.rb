@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe MadsAuthorityDatastream do
-
   describe "a MADS Authority model" do
 
     describe "instance populated in-memory" do
@@ -28,12 +27,8 @@ describe MadsAuthorityDatastream do
       end
 
       it "should have a scheme" do
-        pending "should be able to update scheme"
-        #@scheme = MadsScheme.new pid: "bd46424836", name: "Test Scheme Name", code: "Test Scheme Code"
-        #subject.scheme.name = "Test Scheme Name"
-        #subject.scheme.code = "Test Scheme Code"
-        #subject.scheme.first.name.should == ["Test Scheme Name"]
-        #subject.scheme.first.code.should == ["Test Scheme Code"]
+        subject.scheme = "bd0683587d"
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd0683587d"
       end
     end
 
@@ -58,14 +53,11 @@ describe MadsAuthorityDatastream do
       end
 
       it "should have a description" do
-        pending "this causes an 'undefined method split' error"
-        #subject.description.should == ["An organization that hosts data or material culture objects and provides services to promote long term, consistent and shared use of those data or objects."]
+        subject.description.should == ["An organization that hosts data or material culture objects and provides services to promote long term, consistent and shared use of those data or objects."]
       end
 
       it "should have a scheme" do
-        pending "should be able to update scheme"
-        #subject.scheme.name.should == ["Library of Congress Subject Headings"]
-        #subject.scheme.code.should == ["lcsh"]
+        subject.scheme.should == "#{Rails.configuration.id_namespace}bd9386739x"
       end
     end
   end

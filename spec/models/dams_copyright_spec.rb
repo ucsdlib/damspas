@@ -15,7 +15,7 @@ describe DamsCopyright do
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/bb05050505">
+  <dams:Copyright rdf:about="#{Rails.configuration.id_namespace}bb05050505">
     <dams:copyrightStatus>Under copyright -- 3rd Party</dams:copyrightStatus>
     <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
     <dams:copyrightPurposeNote>This work is available from the UC San Diego

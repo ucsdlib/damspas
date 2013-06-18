@@ -16,7 +16,7 @@ describe DamsSourceCapture do
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#">
- <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/bb49494949">
+ <dams:SourceCapture rdf:about="#{Rails.configuration.id_namespace}bb49494949">
     <dams:scannerManufacturer>Epson</dams:scannerManufacturer>
     <dams:sourceType>transmission scanner</dams:sourceType>
     <dams:scannerModelName>Expression 1600</dams:scannerModelName>

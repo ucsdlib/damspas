@@ -49,7 +49,7 @@ describe DamsDAMSEventDatastream do
         subject.eventDate.should == ["2012-11-06T09:26:34-0500"]
       end
 
-      it "should have a valueURI" do
+      it "should have an outcome" do
         subject.outcome.should == ["success"]
       end
 
@@ -67,8 +67,8 @@ describe DamsDAMSEventDatastream do
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
         solr_doc["role_tesim"].should == ["Creator"]
         solr_doc["role_code_tesim"].should == ["cre"]
-        solr_doc["role_valueURI_tesim"].should == ["http://id.loc.gov/vocabulary/relators/cre"]
-      end          
+        solr_doc["role_externalAuthority_tesim"].should == ["http://id.loc.gov/vocabulary/relators/cre"]
+      end
     end
   end
 end

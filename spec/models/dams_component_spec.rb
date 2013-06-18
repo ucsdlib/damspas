@@ -7,13 +7,14 @@ describe DamsComponent do
 
   it "should create valid xml" do
     subject.titleValue = "The Static Image"
-    subject.titleType = "main"
+    subject.title.first.name = "The Static Image"
     subject.beginDate = "2012-06-24"
     subject.endDate = "2012-06-25"
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:dams="http://library.ucsd.edu/ontology/dams#">
- <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/zz12345678">
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+ <dams:Component rdf:about="#{Rails.configuration.id_namespace}zz12345678">
          <dams:date>
           <dams:Date>
             <dams:beginDate>2012-06-24</dams:beginDate>
@@ -21,10 +22,14 @@ describe DamsComponent do
           </dams:Date>
         </dams:date>
         <dams:title>
-          <dams:Title>
-            <dams:type>main</dams:type>
-            <rdf:value>The Static Image</rdf:value>
-          </dams:Title>
+          <mads:Title>
+            <mads:authoritativeLabel>The Static Image</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>The Static Image</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
         </dams:title>     
 
       </dams:Component>

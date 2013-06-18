@@ -13,7 +13,7 @@ describe DamsScopeContentNote do
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-	<dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/zzXXXXXXX1">
+	<dams:ScopeContentNote rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
         <dams:displayLabel>Scope and contents</dams:displayLabel>
         <dams:type>scope_and_content</dams:type>
