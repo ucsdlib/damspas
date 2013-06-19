@@ -242,7 +242,7 @@ describe DamsObjectDatastream do
       end
       it "should index unit" do
         solr_doc = subject.to_solr
-        solr_doc["unit_json_tesim"].first.should include "Library Collections"
+        solr_doc["unit_json_tesim"].first.should include "Library Digital Collections"
       end
       it "should index collection" do
         solr_doc = subject.to_solr

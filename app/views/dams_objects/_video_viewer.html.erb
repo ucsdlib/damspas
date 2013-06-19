@@ -2,15 +2,17 @@
 	videoURL = nil
 
 	prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+	objid = @document['id']
+	cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
 	fieldData = @document["#{prefix}files_tesim"]
 
 	if fieldData != nil
 		fieldData.each do |datum|
 			files = JSON.parse(datum)
 			if files['use'] == 'video-service'
-				videoPath = files['sourcePath'].sub(ViewOptions::VIDEO_PARENT_DIRECTORY,'')
-				videoFilename = files['sourceFileName']
-				videoURL = ViewOptions::VIDEO_PARTIAL_URL + videoPath + '/' + videoFilename
+				fileid = cmpid + '-' + files['id']
+				encrypted = encrypt_stream_name( objid, fileid, request.ip )
+				videoURL = ViewOptions::VIDEO_PARTIAL_URL + encrypted
 			end
 		end
 	end
@@ -35,6 +37,8 @@
 			width: "100%",
 			aspectratio: "16:9",
 			rtmp: {bufferlength: 3},
+			analytics: {enabled: false},
+			primary: "flash",
 			fallback: false
 		});
 	</script>
