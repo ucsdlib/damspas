@@ -1,5 +1,48 @@
 module DamsHelper
+ 
+ ## scopeContentNote ######################################################################
+ 
+  def scopeContentNoteType
+    scopeContentNote[0] ? scopeContentNote[0].type : []
+  end
+  def scopeContentNoteType=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      scopeContentNote.build if scopeContentNote[0] == nil
+      scopeContentNote[0].type = val
+    end
+  end   
   
+ def scopeContentNoteDisplayLabel
+    scopeContentNote[0] ? scopeContentNote[0].displayLabel : []
+  end
+  def scopeContentNoteValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      scopeContentNote.build if scopeContentNote[0] == nil
+      scopeContentNote[0].displayLabel = val
+    end
+  end   
+
+  def scopeContentNoteValue
+    scopeContentNote[0] ? scopeContentNote[0].value : []
+  end
+  def scopeContentNoteValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      scopeContentNote.build if scopeContentNote[0] == nil
+      scopeContentNote[0].value = val
+    end
+  end   
+
+ 
+
  def noteValue
     note[0] ? note[0].value : []
   end
@@ -12,33 +55,6 @@ module DamsHelper
       note[0].value = val
     end
   end
-
- def relationshipName
-    relationship[0] ? relationship[0].name : []
-  end
-  def relationshipName=(val)
-    if val.class == Array
-      val = val.first
-    end
-    if(!val.nil? && val.length > 0)
-      relationship.build if relationship[0] == nil
-      relationship[0].name = val
-    end
-  end
-
- def languageValue
-    language[0] ? language[0].value : []
-  end
-  def languageValue=(val)
-    if val.class == Array
-      val = val.first
-    end
-    if(!val.nil? && val.length > 0)
-      language.build if language[0] == nil
-      language[0].value = val
-    end
-  end
-
 
   def subtitle
     title[0] ? title[0].subtitle : []
@@ -270,36 +286,7 @@ module DamsHelper
     end
   end
 
-  ## Note ######################################################################
-
-
-  def scopeContentNoteType
-    scopeContentNote.first ? scopeContentNote.first.type : []
-  end
-  def scopeContentNoteType=(val)
-    if scopeContentNote == nil
-      scopeContentNote = []
-    end
-    scopeContentNote.first.type = val
-  end
-  def scopeContentNoteDisplayLabel
-    scopeContentNote.first ? scopeContentNote.first.displayLabel : []
-  end
-  def scopeContentNoteDisplayLabel=(val)
-    if scopeContentNote == nil
-      scopeContentNote = []
-    end
-    scopeContentNote.first.displayLabel = val
-  end
-  def scopeContentNoteValue
-    scopeContentNote.first ? scopeContentNote.first.value : []
-  end
-  def scopeContentNoteValue=(val)
-    if scopeContentNote == nil
-      scopeContentNote = []
-    end
-    scopeContentNote.first.value = val
-  end   
+  
   
   def permissionBeginDate
     permission_node[0] ? permission_node[0].beginDate : []
