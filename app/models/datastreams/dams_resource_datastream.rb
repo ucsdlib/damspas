@@ -6,7 +6,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     super
   end
 
-  ## Language ##################################################################
+ ## Language ##################################################################
   def load_languages
     load_languages(language)
   end

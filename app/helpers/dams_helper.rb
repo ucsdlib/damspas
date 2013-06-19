@@ -1,6 +1,44 @@
 module DamsHelper
   
- 
+ def noteValue
+    note[0] ? note[0].value : []
+  end
+  def noteValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      note.build if note[0] == nil
+      note[0].value = val
+    end
+  end
+
+ def relationshipName
+    relationship[0] ? relationship[0].name : []
+  end
+  def relationshipName=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      relationship.build if relationship[0] == nil
+      relationship[0].name = val
+    end
+  end
+
+ def languageValue
+    language[0] ? language[0].value : []
+  end
+  def languageValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      language.build if language[0] == nil
+      language[0].value = val
+    end
+  end
+
 
   def subtitle
     title[0] ? title[0].subtitle : []
