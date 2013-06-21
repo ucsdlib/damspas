@@ -12,6 +12,17 @@
   <%= text_field_tag 'dams_provenance_collection[beginDate][]' %> 
   <%= label_tag 'dams_provenance_collection[endDate][]', "End Date" %>
   <%= text_field_tag 'dams_provenance_collection[endDate][]' %>    
+
+  <%= label_tag 'dams_provenance_collection[noteValue][]', "Note" %>
+  <%= text_field_tag 'dams_provenance_collection[noteValue][]' %>  
+  
+  <%= label_tag 'dams_provenance_collection[scopeContentNoteValue][]', "Scope Content Note" %>
+  <%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]' %>  
+
+  <%= label_tag 'dams_provenance_collection[scopeContentNoteType][]', "Scope Content Note Type" %>
+  <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]' %> 
+
+ 
   
  <%
   	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
