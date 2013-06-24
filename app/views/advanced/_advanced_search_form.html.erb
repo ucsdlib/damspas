@@ -1,35 +1,31 @@
 <%= form_tag catalog_index_path, :class => 'advanced', :method => :get do  %>
 
-	<div class="dams-form">
-	  <h2>Keywords</h2>
+  <h2>Keywords</h2>
 
-		<fieldset>
+	<fieldset>
 		<%= search_as_hidden_fields(:params => advanced_search_context ) %>
-
+		<label for="op">Matching</label>
 		<%= select_tag(:op, options_for_select({'Match all'=>'AND','Match any'=>'OR'}.sort,'all'), :class => '') %>
-
 		<%= render 'advanced/advanced_search_fields' %>
-		</fieldset>
+	</fieldset>
 
-		<h2>Attributes</h2>
+	<h2>Attributes</h2>
 
-	  <fieldset>
+  <fieldset>
 	  <%= render 'advanced_search_facets' %>
-
 	  <% unless (search_context_str = render_search_to_s( advanced_search_context)).blank? %>
 	    <h4>Within search:</h4>
 	    <%= search_context_str %>
 	  <% end %>
-	  </fieldset>
+  </fieldset>
 
-	  <h2>Sorting</h2>
+  <h2>Sorting</h2>
 
-	  <fieldset>
-	  <%= label_tag(:sort, "<b>Sort by</b>".html_safe) %>
+  <fieldset>
+	  <%= label_tag(:sort, 'Sort by') %>
 	  <%= select_tag(:sort, options_for_select(sort_fields, h(params[:sort]))) %>
 	  <%= hidden_field_tag(:search_field, blacklight_config.advanced_search[:url_key]) %>
-	  </fieldset>
-	</div>
+  </fieldset>
 
   <div class="form-actions dams-download-button">
 
