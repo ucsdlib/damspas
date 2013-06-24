@@ -18,7 +18,7 @@ module DamsHelper
  def scopeContentNoteDisplayLabel
     scopeContentNote[0] ? scopeContentNote[0].displayLabel : []
   end
-  def scopeContentNoteValue=(val)
+  def scopeContentNoteDisplayLabel=(val)
     if val.class == Array
       val = val.first
     end
@@ -42,7 +42,7 @@ module DamsHelper
   end   
 
  
-
+ ## Note ######################################################################
  def noteValue
     note[0] ? note[0].value : []
   end
@@ -53,6 +53,32 @@ module DamsHelper
     if(!val.nil? && val.length > 0)
       note.build if note[0] == nil
       note[0].value = val
+    end
+  end
+
+  def noteType
+    note[0] ? note[0].type : []
+  end
+  def noteType=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      note.build if note[0] == nil
+      note[0].type = val
+    end
+  end
+
+  def noteDisplayLabel
+    note[0] ? note[0].displayLabel : []
+  end
+  def noteDisplayLabel=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      note.build if note[0] == nil
+      note[0].displayLabel = val
     end
   end
 
