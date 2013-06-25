@@ -1,0 +1,43 @@
+
+.dams-form
+{
+  h2,h3,h4{margin-top:0;line-height: 1;}
+  fieldset{padding:1em 1.5em;}
+  label{font-weight:bold;color:#666;}
+  form{margin:0;}
+  .form-actions{padding-bottom:0;}
+}
+
+/*---------------*/
+/* MEDIA QUERIES */
+/*---------------*/
+
+/* LARGE DESKTOP (BOOTSTRAP) */
+@media (min-width: 1200px) {}
+
+/* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
+@media (min-width: 768px) and (max-width: 979px) {}
+
+/* DESKTOP NAVBAR (CUSTOM) */
+@media (min-width: 980px){}
+
+/* MOBILE NAVBAR (CUSTOM) */
+@media (max-width: 979px){}
+
+/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
+@media (max-width: 767px)
+{
+
+  #main-container h1{font-size:1.75em;}
+  .form-actions button, .dams-form select{width:100%;}
+  .form-actions{padding:1em 0 0 0;margin:1em 0 0 0;}
+  .dams-form h2{font-size: 1.5em;}
+  .dams-form fieldset{padding:0;}
+
+
+}
+
+/* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
+@media (max-width: 480px)
+{
+}

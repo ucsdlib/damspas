@@ -34,7 +34,9 @@ ul.inline > li{padding-left:0;padding-right:0;}
 /*---------------*/
 
 /* LARGE DESKTOP (BOOTSTRAP) */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+  #main-container{padding-left: 10%;padding-right: 10%;}
+}
  
 /* PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP) */
 @media (min-width: 768px) and (max-width: 979px) {}
