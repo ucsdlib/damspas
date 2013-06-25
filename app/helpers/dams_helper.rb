@@ -96,7 +96,7 @@ module DamsHelper
   end
 
   def titleValue
-    title.first.value
+    title.first != nil ? title.first.value : nil
   end
   def titleValue=(s)
     title.build if title.first.nil?
@@ -104,7 +104,7 @@ module DamsHelper
     title.first.name = title.first.label
   end
   def subtitle
-    title.first.subtitle
+    title.first != nil ? title.first.subtitle : nil
   end
   def subtitle=(s)
     title.build if title.first.nil?
