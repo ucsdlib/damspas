@@ -9,20 +9,20 @@ describe DamsOtherRights do
   it "should create a xml" do
     subject.basis = "fair use"
     subject.note = "Educationally important works unavailable due to unknown copyright holders"
-    subject.uri = "http://libraries.ucsd.edu/lisn/policy/4123412341/"
+    subject.uri = "http://library.ucsd.edu/lisn/policy/4123412341/"
     subject.permissionType = "display"
     subject.permissionBeginDate = "2012-01-01"
     subject.permissionEndDate = "2012-12-31"
-    subject.name = "http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"
-    subject.role = "http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"
+    subject.name = "#{Rails.configuration.id_namespace}bbXXXXXXX1"
+    subject.role = "#{Rails.configuration.id_namespace}bbXXXXXXX2"
 
 
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:OtherRights rdf:about="http://library.ucsd.edu/ark:/20775/bb05050505">
+  <dams:OtherRights rdf:about="#{Rails.configuration.id_namespace}bb05050505">
     <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
     <dams:otherRightsNote>Educationally important works unavailable due to unknown copyright holders</dams:otherRightsNote>
-    <dams:otherRightsURI>http://libraries.ucsd.edu/lisn/policy/4123412341/</dams:otherRightsURI>
+    <dams:otherRightsURI>http://library.ucsd.edu/lisn/policy/4123412341/</dams:otherRightsURI>
     <dams:permission>
       <dams:Permission>
         <dams:type>display</dams:type>
@@ -32,8 +32,8 @@ describe DamsOtherRights do
     </dams:permission>
     <dams:relationship>
       <dams:Relationship>
-       <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
-       <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"/>
+       <dams:name rdf:resource="#{Rails.configuration.id_namespace}bbXXXXXXX1"/>
+       <dams:role rdf:resource="#{Rails.configuration.id_namespace}bbXXXXXXX2"/>
       </dams:Relationship>
     </dams:relationship>
   </dams:OtherRights>

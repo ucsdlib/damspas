@@ -14,7 +14,7 @@ describe CatalogController do
 	
 	before do
 		sign_in User.create!
-		@obj = DamsObject.create(titleValue: "Spellcheck Test", beginDate: "2012")
+		@obj = DamsObject.create(titleValue: "Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2012")
 	end
 	it "should have search results for an appropriately poor query" do
 		get :index, :q => 'Spellchecl', :qf => 'title_tesim'

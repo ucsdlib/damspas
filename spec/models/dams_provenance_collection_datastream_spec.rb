@@ -13,15 +13,15 @@ describe DamsProvenanceCollectionDatastream do
       end
       it "should have a title" do
         subject.titleValue = "Historical Dissertations"
-        subject.titleValue.should == ["Historical Dissertations"]
+        subject.titleValue.should == "Historical Dissertations"
       end
       it "should have a date" do
         subject.dateValue = "2009-05-03"
         subject.dateValue.should == ["2009-05-03"]
       end
 #      it "should have a language" do
-#        subject.language.build.rdf_subject = "http://library.ucsd.edu/ark:/20775/bd0410344f"
-#        subject.language.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd0410344f"
+#        subject.language.build.rdf_subject = "#{Rails.configuration.id_namespace}bd0410344f"
+#        subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
 #      end
     end
 
@@ -36,21 +36,24 @@ describe DamsProvenanceCollectionDatastream do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb24242424"
       end
       it "should have a title" do
-        subject.titleValue.should == ["Historical Dissertations"]
+        subject.titleValue.should == "Historical Dissertations"
       end
       it "should have a date" do
         subject.beginDate.should == ["2009-05-03"]
         subject.endDate.should == ["2010-06-30"]
       end
 #      it "should have a language" do
-#        subject.language.first.to_s.should == "http://library.ucsd.edu/ark:/20775/bd0410344f"
+#        subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
 #      end
 
  	  it "should have notes" do
         solr_doc = subject.to_solr
-        solr_doc["note_tesim"].should include "This is some text to describe the basic contents of the object."
         solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "http://libraries.ucsd.edu/ark:/20775/bb80808080"
+        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}bb80808080"
+        solr_doc["note_tesim"].should include "Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["note_tesim"].should include "Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["note_tesim"].should include "Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["note_tesim"].should include "Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end
       
  	  it "should index notes" do
@@ -60,10 +63,10 @@ describe DamsProvenanceCollectionDatastream do
 		testIndexNoteFields solr_doc,"scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have preferredCitationNote" do
-		testIndexNoteFields solr_doc,"preferredCitationNote","\"Data at Redshift=1.4 (RD0022).\"  From: Rick Wagner, Eric J. Hallman, Brian W. O'Shea, Jack O. Burns, Michael L. Norman, Robert Harkness, and Geoffrey So.  \"The Santa Fe Light Cone Simulation research project files.\"  UC San Diego Research Cyberinfrastructure Data Curation. (Data version 1.0, published 2013; http://dx.doi.org/10.5060/&&&&&&&&)"
+		testIndexNoteFields solr_doc,"preferredCitationNote","Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have CustodialResponsibilityNote" do
-		testIndexNoteFields solr_doc,"custodialResponsibilityNote","Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://libraries.ucsd.edu/locations/mscl/)"
+		testIndexNoteFields solr_doc,"custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end  
       it "should have relationship" do
         subject.relationship.first.name.first.pid.should == "bb08080808"

@@ -1,17 +1,21 @@
 <rdf:RDF
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
-    xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x">
     <dams:hasComponent>
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/4">
         <dams:order>4</dams:order>
         <dams:title>
-          <dams:Title>
-            <rdf:value>110-180 cm (core, piston)</rdf:value>
-          </dams:Title>
+          <mads:Title>
+            <mads:authoritativeLabel>110-180 cm (core, piston)</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>110-180 cm (core, piston)</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
         </dams:title>
         <dams:note>
           <dams:Note>
@@ -28,7 +32,11 @@
               </mads:TopicElement>
             </mads:elementList>
             <dams:displayLabel>primary lithologic composition</dams:displayLabel>
-            <dams:authority>NGDC lithologic codes</dams:authority>
+            <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/xx1234567x">
+                <rdfs:label>NGDC lithologic codes</rdfs:label>
+              </mads:MADSScheme>
+            </mads:isMemberOfMADSScheme>
             <dams:event>
               <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0990660f">
                 <dams:relationship rdf:parseType="Resource">
@@ -47,9 +55,14 @@
     <dams:provenanceCollection>
       <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bd24241158">
         <dams:title>
-          <dams:Title>
-            <rdf:value>Scripps Institution of Oceanography, Geological Collections</rdf:value>
-          </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>Scripps Institution of Oceanography, Geological Collections</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Scripps Institution of Oceanography, Geological Collections</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:event>
           <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd36527954">
@@ -118,10 +131,7 @@
         <dams:relationship>
           <dams:Relationship>
             <dams:role>
-              <dams:Role>
-                <dams:code>rps</dams:code>
-                <rdf:value>Repository</rdf:value>
-              </dams:Role>
+<mads:Authority><mads:isMemberOfMADSScheme><mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p"><rdfs:label>MARC Relator Codes</rdfs:label><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/></mads:MADSScheme></mads:isMemberOfMADSScheme><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/><mads:code>rps</mads:code><mads:authoritativeLabel>Repository</mads:authoritativeLabel></mads:Authority>
             </dams:role>
             <dams:corporateName>
               <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd8294487v">
@@ -148,10 +158,7 @@
         <dams:relationship>
           <dams:Relationship>
             <dams:role>
-              <dams:Role>
-                <dams:code>res</dams:code>
-                <rdf:value>Researcher</rdf:value>
-              </dams:Role>
+<mads:Authority><mads:isMemberOfMADSScheme><mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p"><rdfs:label>MARC Relator Codes</rdfs:label><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/></mads:MADSScheme></mads:isMemberOfMADSScheme><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/res"/><mads:code>res</mads:code><mads:authoritativeLabel>Researcher</mads:authoritativeLabel></mads:Authority>
             </dams:role>
             <dams:personalName>
               <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd95914293">
@@ -186,9 +193,14 @@
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/2">
         <dams:order>2</dams:order>
         <dams:title>
-          <dams:Title>
-            <rdf:value>35-100 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>35-100 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>35-100 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:note>
           <dams:Note>
@@ -251,9 +263,14 @@
                 </dams:hasFile>
                 <dams:order>18</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>600-748cm 50kV (heavy weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>600-748cm 50kV (heavy weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>600-748cm 50kV (heavy weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -291,9 +308,14 @@
                 </dams:hasFile>
                 <dams:order>1</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>0-35cm 10kV (light weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>0-35cm 10kV (light weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>0-35cm 10kV (light weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -330,17 +352,27 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>35-180cm 30kV (medium weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>35-180cm 30kV (medium weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>35-180cm 30kV (medium weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>5</dams:order>
               </dams:Component>
             </dams:hasComponent>
             <dams:title>
-              <dams:Title>
-                <rdf:value>XRF Chemical data</rdf:value>
-              </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>XRF Chemical data</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>XRF Chemical data</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
             </dams:title>
             <dams:hasComponent>
               <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/34">
@@ -375,9 +407,14 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>35-180cm 10kV (light weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>35-180cm 10kV (light weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>35-180cm 10kV (light weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>4</dams:order>
               </dams:Component>
@@ -415,9 +452,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>314-458cm 10kV (light weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>314-458cm 10kV (light weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>314-458cm 10kV (light weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>10</dams:order>
               </dams:Component>
@@ -456,9 +497,13 @@
                 </dams:hasFile>
                 <dams:order>11</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>314-458cm 30kV (medium weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>314-458cm 30kV (medium weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>314-458cm 30kV (medium weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -495,9 +540,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>180-314cm 50kV (heavy weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>180-314cm 50kV (heavy weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>180-314cm 50kV (heavy weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>9</dams:order>
               </dams:Component>
@@ -536,9 +585,13 @@
                 </dams:hasFile>
                 <dams:order>15</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>458-600cm 50kV (heavy weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>458-600cm 50kV (heavy weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>458-600cm 50kV (heavy weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -576,9 +629,13 @@
                 </dams:hasFile>
                 <dams:order>2</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>0-35cm 30kV (medium weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>0-35cm 30kV (medium weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>0-35cm 30kV (medium weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -615,9 +672,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>0-35cm 50kV (heavy weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>0-35cm 50kV (heavy weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>0-35cm 50kV (heavy weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>3</dams:order>
               </dams:Component>
@@ -656,9 +717,13 @@
                 </dams:hasFile>
                 <dams:order>12</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>314-458cm 50kV (heavy weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>314-458cm 50kV (heavy weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>314-458cm 50kV (heavy weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -696,9 +761,13 @@
                 </dams:hasFile>
                 <dams:order>13</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>458-600cm 10kV (light weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>458-600cm 10kV (light weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>458-600cm 10kV (light weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -736,9 +805,13 @@
                 </dams:hasFile>
                 <dams:order>16</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>600-748cm 10kV (light weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>600-748cm 10kV (light weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>600-748cm 10kV (light weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -776,9 +849,13 @@
                 </dams:hasFile>
                 <dams:order>17</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>600-748cm 30kV (medium weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>600-748cm 30kV (medium weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>600-748cm 30kV (medium weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -815,9 +892,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>180-314cm 30kV (medium weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>180-314cm 30kV (medium weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>180-314cm 30kV (medium weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>8</dams:order>
               </dams:Component>
@@ -856,9 +937,13 @@
                 </dams:hasFile>
                 <dams:order>14</dams:order>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>458-600cm 30kV (medium weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>458-600cm 30kV (medium weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>458-600cm 30kV (medium weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -895,9 +980,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>180-314cm 10kV (light weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>180-314cm 10kV (light weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>180-314cm 10kV (light weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>7</dams:order>
               </dams:Component>
@@ -935,9 +1024,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>35-180cm 50kV (heavy weight elements)</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>35-180cm 50kV (heavy weight elements)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>35-180cm 50kV (heavy weight elements)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:order>6</dams:order>
               </dams:Component>
@@ -949,16 +1042,24 @@
           <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/11">
             <dams:typeOfResource>data</dams:typeOfResource>
             <dams:title>
-              <dams:Title>
-                <rdf:value>Line scan</rdf:value>
-              </dams:Title>
+<mads:Title><mads:authoritativeLabel>Line scan</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Line scan</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
             </dams:title>
             <dams:hasComponent>
               <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12">
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>Line scan</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>Line scan</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Line scan</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:hasFile>
                   <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/12/1.jpg">
@@ -1547,9 +1648,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>Line scan</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>Line scan</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Line scan</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
               </dams:Component>
             </dams:hasComponent>
@@ -1643,9 +1748,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>Line scan</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>Line scan</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Line scan</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:hasFile>
                   <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/14/7.jpg">
@@ -1900,9 +2009,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>Line scan</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>Line scan</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Line scan</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:hasFile>
                   <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/15/5.jpg">
@@ -2329,9 +2442,13 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>Line scan</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>Line scan</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Line scan</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:hasFile>
                   <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/16/3.jpg">
@@ -2456,9 +2573,13 @@
             <dams:hasComponent>
               <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17">
                 <dams:title>
-                  <dams:Title>
-                    <rdf:value>Line scan</rdf:value>
-                  </dams:Title>
+<mads:Title><mads:authoritativeLabel>Line scan</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Line scan</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
                 </dams:title>
                 <dams:hasFile>
                   <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/17/3.jpg">
@@ -2756,9 +2877,13 @@
           </dams:Component>
         </dams:hasComponent>
         <dams:title>
-          <dams:Title>
-            <rdf:value>Files</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>Files</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Files</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:order>10</dams:order>
       </dams:Component>
@@ -2788,33 +2913,7 @@
           </mads:CorporateName>
         </dams:corporateName>
         <dams:role>
-          <dams:Role rdf:about="http://library.ucsd.edu/ark:/20775/bd8533387r">
-            <dams:event>
-              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1741517b">
-                <dams:relationship rdf:parseType="Resource">
-                  <dams:role rdf:resource="dams:initiator"/>
-                  <dams:name rdf:resource="dams:unknownUser"/>
-                </dams:relationship>
-                <dams:outcome>failure</dams:outcome>
-                <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
-                <dams:eventDate>2013-03-08T11:01:06-0800</dams:eventDate>
-                <dams:type>Bulk Solr Indexing</dams:type>
-              </dams:DAMSEvent>
-            </dams:event>
-            <dams:event>
-              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd30384561">
-                <dams:relationship rdf:parseType="Resource">
-                  <dams:role rdf:resource="dams:initiator"/>
-                  <dams:name rdf:resource="dams:unknownUser"/>
-                </dams:relationship>
-                <dams:outcome>success</dams:outcome>
-                <dams:eventDate>2013-03-08T11:01:06-0800</dams:eventDate>
-                <dams:type>object creation</dams:type>
-              </dams:DAMSEvent>
-            </dams:event>
-            <rdf:value>Collector</rdf:value>
-            <dams:code>col</dams:code>
-          </dams:Role>
+<mads:Authority><mads:isMemberOfMADSScheme><mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p"><rdfs:label>MARC Relator Codes</rdfs:label><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/></mads:MADSScheme></mads:isMemberOfMADSScheme><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/col"/><mads:code>col</mads:code><mads:authoritativeLabel>Collector</mads:authoritativeLabel></mads:Authority>
         </dams:role>
       </dams:Relationship>
     </dams:relationship>
@@ -2888,9 +2987,13 @@
           </dams:Note>
         </dams:note>
         <dams:title>
-          <dams:Title>
-            <rdf:value>600-748 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>600-748 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>600-748 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:order>9</dams:order>
       </dams:Component>
@@ -2911,9 +3014,13 @@
           </dams:Note>
         </dams:note>
         <dams:title>
-          <dams:Title>
-            <rdf:value>180-290 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>180-290 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>180-290 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:order>5</dams:order>
       </dams:Component>
@@ -2931,7 +3038,11 @@
             <dams:type>object creation</dams:type>
           </dams:DAMSEvent>
         </dams:event>
-        <dams:authority>NGDC physiographic province</dams:authority>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/xx1234567y">
+            <rdfs:label>NGDC physiographic province</rdfs:label>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
         <dams:displayLabel>physiographic province</dams:displayLabel>
         <mads:elementList rdf:parseType="Collection">
           <mads:GeographicElement>
@@ -2942,16 +3053,19 @@
       </mads:Geographic>
     </dams:geographic>
     <dams:language>
-      <dams:Language rdf:about="http://library.ucsd.edu/ark:/20775/bd0410344f">
-        <dams:vocabulary>
-          <dams:Vocabulary rdf:about="http://library.ucsd.edu/ark:/20775/bb15151515">
-            <dams:description>Language</dams:description>
-          </dams:Vocabulary>
-        </dams:vocabulary>
-        <dams:code>en</dams:code>
-        <rdf:value>English</rdf:value>
-        <dams:valueURI rdf:resource="http://id.loc.gov/vocabulary/iso639-1/en"/>
-      </dams:Language>
+      <mads:Language rdf:about="http://library.ucsd.edu/ark:/20775/xx00000006">
+        <mads:authoritativeLabel>French</mads:authoritativeLabel>
+        <mads:code>fre</mads:code>
+        <mads:isMemberOfMADSScheme
+            rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000003"/>
+        <mads:hasExactExternalAuthority
+            rdf:resource="http://id.loc.gov/vocabulary/languages/fre"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:LanguageElement>
+            <mads:elementValue>French</mads:elementValue>
+          </mads:LanguageElement>
+        </mads:elementList>
+      </mads:Language>
     </dams:language>
     <dams:rightsHolder>
       <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd11271752">
@@ -2996,9 +3110,13 @@
           </dams:Note>
         </dams:note>
         <dams:title>
-          <dams:Title>
-            <rdf:value>100-110 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>100-110 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>100-110 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:order>3</dams:order>
       </dams:Component>
@@ -3027,21 +3145,7 @@
           </mads:PersonalName>
         </dams:personalName>
         <dams:role>
-          <dams:Role rdf:about="http://library.ucsd.edu/ark:/20775/bd8328611m">
-            <dams:event>
-              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd7987312d">
-                <dams:relationship rdf:parseType="Resource">
-                  <dams:role rdf:resource="dams:initiator"/>
-                  <dams:name rdf:resource="dams:unknownUser"/>
-                </dams:relationship>
-                <dams:outcome>success</dams:outcome>
-                <dams:eventDate>2013-03-11T08:49:18-0700</dams:eventDate>
-                <dams:type>object creation</dams:type>
-              </dams:DAMSEvent>
-            </dams:event>
-            <rdf:value>Originator</rdf:value>
-            <dams:code>org</dams:code>
-          </dams:Role>
+<mads:Authority><mads:isMemberOfMADSScheme><mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p"><rdfs:label>MARC Relator Codes</rdfs:label><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/></mads:MADSScheme></mads:isMemberOfMADSScheme><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/org"/><mads:code>org</mads:code><mads:authoritativeLabel>Originator</mads:authoritativeLabel></mads:Authority>
         </dams:role>
       </dams:Relationship>
     </dams:relationship>
@@ -3049,9 +3153,13 @@
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/6">
         <dams:order>6</dams:order>
         <dams:title>
-          <dams:Title>
-            <rdf:value>290-314 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>290-314 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>290-314 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:note>
           <dams:Note>
@@ -3066,9 +3174,13 @@
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/1">
         <dams:order>1</dams:order>
         <dams:title>
-          <dams:Title>
-            <rdf:value>0-35 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>0-35 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>0-35 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:note>
           <dams:Note>
@@ -3103,9 +3215,13 @@
       </mads:GenreForm>
     </dams:genreForm>
     <dams:title>
-      <dams:Title>
-        <rdf:value>RNDB11WT-74P (core, piston)</rdf:value>
-      </dams:Title>
+<mads:Title><mads:authoritativeLabel>RNDB11WT-74P (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>RNDB11WT-74P (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
     </dams:title>
     <dams:relationship>
       <dams:Relationship>
@@ -3134,7 +3250,9 @@
             <mads:authoritativeLabel>ROUNDABOUT--11</mads:authoritativeLabel>
           </mads:CorporateName>
         </dams:corporateName>
-        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd8533387r"/>
+        <dams:role>
+			<mads:Authority><mads:isMemberOfMADSScheme><mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p"><rdfs:label>MARC Relator Codes</rdfs:label><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/></mads:MADSScheme></mads:isMemberOfMADSScheme><mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/col"/><mads:code>col</mads:code><mads:authoritativeLabel>Collector</mads:authoritativeLabel></mads:Authority>			
+		</dams:role>
       </dams:Relationship>
     </dams:relationship>
     <dams:note>
@@ -3182,9 +3300,13 @@
           </dams:Note>
         </dams:note>
         <dams:title>
-          <dams:Title>
-            <rdf:value>314-458 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>314-458 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>314-458 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:order>7</dams:order>
       </dams:Component>
@@ -3208,9 +3330,13 @@
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/8">
         <dams:order>8</dams:order>
         <dams:title>
-          <dams:Title>
-            <rdf:value>458-600 cm (core, piston)</rdf:value>
-          </dams:Title>
+<mads:Title><mads:authoritativeLabel>458-600 cm (core, piston)</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>458-600 cm (core, piston)</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:note>
           <dams:Note>

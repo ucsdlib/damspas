@@ -12,43 +12,42 @@ describe DamsObject do
   end
   
   it "should create/update a title" do
-    @damsObj.titleValue.should == []
+    @damsObj.title.build
+    #@damsObj.titleValue.should == []
     @damsObj.titleValue = "Dams Object Title 1"
-    @damsObj.titleValue.should == ["Dams Object Title 1"]
+    @damsObj.titleValue.should == "Dams Object Title 1"
   
     @damsObj.titleValue = "Dams Object Title 2"
-    @damsObj.titleValue.should == ["Dams Object Title 2"]  
+    @damsObj.titleValue.should == "Dams Object Title 2"
   end
 
   it "should create/update a subject" do
-    pending "should be able to create topic, temporal, stylePeriod, ..."
-    #@damsObj.subject.first.authoritativeLabel = "subject 1"
-    #@damsObj.subject.second.authoritativeLabel = "subject 2"
-    #@damsObj.subject.first.authoritativeLabel.should == ["subject 1"]
-    #@damsObj.subject.second.authoritativeLabel.should == ["subject 2"]
+    @damsObj.topic.build
+    @damsObj.topic.first.name = "topic 1"
+    @damsObj.topic.first.name.should == ["topic 1"]
+    @damsObj.topic << MadsTopic.new( :name => "topic 2" )
+    pending "should be able to access second and subsequent topics..."
+    @damsObj.topic[1].name.should == ["topic 2"]
 
-    #@damsObj.subject.first.authoritativeLabel = "subject 3"
-    #@damsObj.subject.second.authoritativeLabel = "subject 4"
-    #@damsObj.subject.first.authoritativeLabel.should == ["subject 3"]
-    #@damsObj.subject.second.authoritativeLabel.should == ["subject 4"]
+    @damsObj.topic.first.name = "topic 3"
+    @damsObj.topic.first.name.should == ["topic 3"]
+    @damsObj.topic.second.name = "topic 4"
+    @damsObj.topic.second.name.should == ["topic 4"]
   end
 
   describe "Store to a repository" do
     before do
-      MadsPersonalName.create! pid: "zzXXXXXXX1", name: "Maria", sameAs: "someUrl"
+      MadsPersonalName.create! pid: "zzXXXXXXX1", name: "Maria", externalAuthority: "someUrl"
     end
     after do
       #@damsObj.delete
     end
     it "should store/retrieve from a repository" do
       @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
-      #@damsObj.titleValue.should == ["Chicano and black radical activism of the 1960s"]
       @damsObj.save!
-      #puts "PID #{@damsObj.pid}"
       @damsObj.reload
       loadedObj = DamsObject.find(@damsObj.pid)
-      #puts "CONTENT #{loadedObj.damsMetadata.content}"
-      loadedObj.titleValue.should == ["Chicano and black radical activism of the 1960s"]
+      loadedObj.titleValue.should == "Chicano and black radical activism of the 1960s"
     end
   end
 
@@ -59,8 +58,8 @@ describe DamsObject do
     subject = DamsObject.new(:pid=>'bb80808080')
 
     subject.damsMetadata.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
-    subject.titleValue.should == ["Sample Complex Object Record #1"]
-    subject.component.first.title.first.value.should == ["The Static Image"]
+    subject.titleValue.should == "Sample Complex Object Record #1"
+    subject.component.first.title.first.value.should == "The Static Image"
     subject.sourceCapture.scannerManufacturer.should == ["Epson"]
   end
   
@@ -70,7 +69,7 @@ describe DamsObject do
   it "should create a xml" do
     subject.titleValue = "Sample Complex Object Record #1"
     subject.subtitle = "a newspaper PDF with a single attached image"
-    subject.titleType = "main"
+    subject.title.first.name = "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
     subject.dateValue = "May 24, 1980"
     subject.beginDate = "1980-05-24"
     subject.endDate = "1980-05-24"
@@ -82,14 +81,20 @@ describe DamsObject do
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
-<dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080">
+    xmlns:damsid="#{Rails.configuration.id_namespace}">
+<dams:Object rdf:about="#{Rails.configuration.id_namespace}xx80808080">
     <dams:title>
-      <dams:Title>
-        <rdf:value>Sample Complex Object Record #1</rdf:value>
-        <dams:subtitle>a newspaper PDF with a single attached image</dams:subtitle>
-        <dams:type>main</dams:type>
-      </dams:Title>
+      <mads:Title>
+        <mads:authoritativeLabel>Sample Complex Object Record #1: a newspaper PDF with a single attached image</mads:authoritiatveLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Sample Complex Object Record #1</mads:elementValue>
+          </mads:MainTitleElement>
+          <mads:SubTitleElement>
+            <mads:elementValue>a newspaper PDF with a single attached image</mads:elementValue>
+          </mads:SubTitleElement>
+        </mads:elementList>
+      </mads:Title>
     </dams:title>
     <dams:topic>
         <mads:Topic>
@@ -108,7 +113,7 @@ describe DamsObject do
         <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
       </mads:ComplexSubject>
     </dams:subject>   
-    <dams:subject rdf:resource="http://library.ucsd.edu/ark:/20775/bd6724414c"/> 
+    <dams:subject rdf:resource="#{Rails.configuration.id_namespace}bd6724414c"/> 
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml

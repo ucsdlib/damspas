@@ -8,16 +8,16 @@ describe MadsOccupationDatastream do
     describe "a new instance" do
       subject { MadsOccupationDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a name" do
         subject.name = "Pharmacist"
         subject.name.should == ["Pharmacist"]
       end   
-      it "should have authority" do
-        subject.authority = "tgm"
-        subject.authority.should == ["tgm"]
+      it "should have scheme" do
+        subject.scheme = "bd80897986"
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd80897986"
       end          
     end
 
@@ -32,13 +32,9 @@ describe MadsOccupationDatastream do
       it "should have name" do
         subject.name.should == ["Pharmacist"]
       end
-
-      it "should have a sameAs value" do
-        subject.sameAs.to_s.should == "http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"
-      end
  
-      it "should have an authority" do
-        subject.authority.should == ["tgm"]
+      it "should have an scheme" do
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd80897986"
       end
            
       it "should have fields" do

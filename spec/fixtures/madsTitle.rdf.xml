@@ -1,0 +1,23 @@
+<rdf:RDF xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <mads:Title rdf:about="http://library.ucsd.edu/ark:/20775/bd46424836">
+    <mads:authoritativeLabel>Bible, The, Subtitle goes here, N.T., II</mads:authoritativeLabel>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:NonSortElement>
+        <mads:elementValue>The</mads:elementValue>
+      </mads:NonSortElement>
+      <mads:MainTitleElement>
+        <mads:elementValue>Bible</mads:elementValue>
+      </mads:MainTitleElement>
+      <mads:PartNameElement>
+        <mads:elementValue>N.T.</mads:elementValue>
+      </mads:PartNameElement>
+      <mads:PartNumberElement>
+        <mads:elementValue>II</mads:elementValue>
+      </mads:PartNumberElement>
+      <mads:SubTitleElement>
+        <mads:elementValue>Subtitle goes here</mads:elementValue>
+      </mads:SubTitleElement>
+    </mads:elementList>
+  </mads:Title>
+</rdf:RDF>

@@ -96,31 +96,21 @@ module DamsHelper
   end
 
   def titleValue
-    title[0] ? title[0].value : []
+    title.first.value
   end
-  def titleValue=(val)
-    if val.class == Array
-    	val = val.first
-    end
-    if(!val.nil? && val.length > 0)
-    	title.build if title[0] == nil
-    	title[0].value = val
-    end
+  def titleValue=(s)
+    title.build if title.first.nil?
+    title.first.value = s
+    title.first.name = title.first.label
   end
-  
-  def titleType
-    title[0] ? title[0].type : []
+  def subtitle
+    title.first.subtitle
   end
-  def titleType=(val)
-    if val.class == Array
-    	val = val.first
-    end
-    if(!val.nil? && val.length > 0)
-    	title.build if title[0] == nil
-    	title[0].type = val
-    end
+  def subtitle=(s)
+    title.build if title.first.nil?
+    title.first.subtitle = s
+    title.first.name = title.first.label
   end
-    
   def subjectValue
     subject[0] ? subject[0].name : []
   end

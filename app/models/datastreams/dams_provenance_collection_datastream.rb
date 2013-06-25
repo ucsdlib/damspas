@@ -1,10 +1,10 @@
 class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   map_predicates do |map|
-    map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+    map.title(:in => DAMS, :class_name => 'MadsTitle')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
-    map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
+    map.language(:in=>DAMS, :class_name => 'MadsLanguageInternal')
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')

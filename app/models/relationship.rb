@@ -5,7 +5,7 @@ class Relationship
       map.name(:in=> DAMS, :class_name => 'MadsNameInternal')
       map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')       
       map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')         
-      map.role(:in=> DAMS, :class_name => 'DamsRoleInternal')
+      map.role(:in=> DAMS, :class_name => 'MadsAuthorityInternal')
     end
 
     def load
@@ -21,7 +21,7 @@ class Relationship
     def loadRole      
       if !role.first.nil? && role.first.pid != '' && !(role.first.pid.include? 'dams:')
         uri = role.first.pid
-        DamsRole.find(uri)
+        MadsAuthority.find(uri)
       end
     end   
 end

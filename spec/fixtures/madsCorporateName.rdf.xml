@@ -1,15 +1,20 @@
 <rdf:RDF xmlns:dams="http://library.ucsd.edu/ontology/dams#"
          xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
    <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd8021352s">
-    <dams:authority>naf</dams:authority>
-    <owl:sameAs rdf:resource="http://lccn.loc.gov/n50000352"/>
+    <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n50000352"/>
     <mads:elementList rdf:parseType="Collection">
       <mads:NameElement>
         <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
       </mads:NameElement>
     </mads:elementList>
     <mads:authoritativeLabel>Lawrence Livermore Laboratory</mads:authoritativeLabel>
+    <mads:isMemberOfMADSScheme>
+      <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+        <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+        <mads:code>naf</mads:code>
+      </mads:MADSScheme>
+    </mads:isMemberOfMADSScheme>
   </mads:CorporateName>
 </rdf:RDF>

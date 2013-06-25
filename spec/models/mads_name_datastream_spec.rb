@@ -8,16 +8,16 @@ describe MadsNameDatastream do
     describe "a new instance" do
       subject { MadsNameDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a name" do
         subject.name = "Maria"
         subject.name.should == ["Maria"]
       end   
-      it "should have authority" do
-        subject.authority = "naf"
-        subject.authority.should == ["naf"]
+      it "should have scheme" do
+        subject.scheme = "bd0683587d"
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd0683587d"
       end  
  
     end
@@ -33,17 +33,9 @@ describe MadsNameDatastream do
       it "should have name" do
         subject.name.should == ["Generic Name"]
       end
-
-      it "should have a sameAs value" do
-        subject.sameAs.to_s.should == "http://id.loc.gov/authorities/names/n2012026835"
-      end
  
-      it "should have an authority" do
-        subject.authority.should == ["naf"]
-      end
-
-      it "should have a valueURI" do
-        subject.valURI.should == ["http://id.loc.gov/n9999999999"]
+      it "should have an scheme" do
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd0683587d"
       end
                  
       it "should have fields" do
@@ -56,9 +48,7 @@ describe MadsNameDatastream do
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
         solr_doc["name_element_tesim"].should == ["Generic Name"]
-        solr_doc["valueURI_tesim"].should == ["http://id.loc.gov/n9999999999"]
-        solr_doc["authority_tesim"].should == ["naf"]
-        solr_doc["sameAs_tesim"].should == ["http://id.loc.gov/authorities/names/n2012026835"]
+        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd0683587d"]
       end    
     end
   end

@@ -7,18 +7,18 @@ describe DamsStylePeriod do
   end
   it "should create a xml" do    
     subject.name = "Impressionism"
-    subject.authority = "XXX"
-    subject.valueURI =  "http://id.loc.gov/XXX05"
+    subject.scheme = "bd5495914b"
+    subject.externalAuthority =  "http://styleperiod.org/XXX05"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
   xmlns:owl="http://www.w3.org/2002/07/owl#"
   xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:StylePeriod rdf:about="http://library.ucsd.edu/ark:/20775/zzXXXXXXX1">
+  <dams:StylePeriod rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
     <mads:authoritativeLabel>Impressionism</mads:authoritativeLabel>
-    <dams:authority>XXX</dams:authority>
-    <dams:valueURI rdf:resource="http://id.loc.gov/XXX05"/>
+    <mads:hasExactExternalAuthority rdf:resource="http://styleperiod.org/XXX05"/>
+    <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd5495914b"/>
   </dams:StylePeriod>
 </rdf:RDF>
 END

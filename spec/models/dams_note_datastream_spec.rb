@@ -8,12 +8,12 @@ describe DamsNoteDatastream do
     describe "a new instance" do
       subject { DamsNoteDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a value" do
-        subject.value = "http://libraries.ucsd.edu/ark:/20775/bb80808080"
-        subject.value.should == ["http://libraries.ucsd.edu/ark:/20775/bb80808080"]
+        subject.value = "#{Rails.configuration.id_namespace}bb80808080"
+        subject.value.should == ["#{Rails.configuration.id_namespace}bb80808080"]
       end   
       it "should have type" do
         subject.type = "identifier"
@@ -33,7 +33,7 @@ describe DamsNoteDatastream do
       end
            
       it "should have value" do
-        subject.value.should == ["http://libraries.ucsd.edu/ark:/20775/bb80808080"]
+        subject.value.should == ["#{Rails.configuration.id_namespace}bb80808080"]
       end
 
       it "should have a type" do
@@ -47,7 +47,7 @@ describe DamsNoteDatastream do
          
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["note_value_tesim"].should == ["http://libraries.ucsd.edu/ark:/20775/bb80808080"]
+        solr_doc["note_value_tesim"].should == ["#{Rails.configuration.id_namespace}bb80808080"]
         solr_doc["note_type_tesim"].should == ["identifier"]
         solr_doc["note_displayLabel_tesim"].should == ["ARK ID"]
       end    

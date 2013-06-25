@@ -8,16 +8,16 @@ describe DamsTechniqueDatastream do
     describe "a new instance" do
       subject { DamsTechniqueDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "http://library.ucsd.edu/ark:/20775/bbXXXXXXXXX23"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
       it "should have a name" do
         subject.name = "Impasto"
         subject.name.should == ["Impasto"]
       end   
-      it "should have authority" do
-        subject.authority = "XXX"
-        subject.authority.should == ["XXX"]
+      it "should have scheme" do
+        subject.scheme = "bd4198975n"
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd4198975n"
       end          
     end
 
@@ -33,12 +33,12 @@ describe DamsTechniqueDatastream do
         subject.name.should == ["Impasto"]
       end
  
-      it "should have an authority" do
-        subject.authority.should == ["XXX"]
+      it "should have an scheme" do
+        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd4198975n"
       end
 
-      it "should have a valueURI" do
-        subject.valURI.should == ["http://id.loc.gov/XXX04"]
+      it "should have a externalAuthority" do
+        subject.externalAuthority.to_s.should == "http://id.loc.gov/XXX04"
       end
                       
       it "should have fields" do
@@ -52,8 +52,8 @@ describe DamsTechniqueDatastream do
         solr_doc = subject.to_solr
         solr_doc["technique_element_tesim"].should == ["Impasto"]
         solr_doc["name_tesim"].should == ["Impasto"]
-        solr_doc["authority_tesim"].should == ["XXX"]
-        solr_doc["valueURI_tesim"].should == ["http://id.loc.gov/XXX04"]
+        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd4198975n"]
+        solr_doc["externalAuthority_tesim"].should == ["http://id.loc.gov/XXX04"]
       end    
     end
   end
