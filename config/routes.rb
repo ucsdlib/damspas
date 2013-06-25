@@ -1,12 +1,12 @@
 Hydra::Application.routes.draw do
 
 
-  # Static page routes 
+  # Static page routes
   match '/faq', to: 'static_pages#faq'
   match '/about', to: 'static_pages#about'
   match '/zotero', to: 'static_pages#zotero'
   match '/mendeley', to: 'static_pages#mendeley'
-  
+
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
@@ -16,7 +16,7 @@ Hydra::Application.routes.draw do
   match '/:id/collections', to: 'dams_units#collections', :as => "dams_unit_collections"
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
-  
+
   # add Blacklight catalog -> search routing
   # Catalog stuff.
   match 'search/opensearch', :as => "opensearch_catalog"
@@ -28,16 +28,16 @@ Hydra::Application.routes.draw do
   match "search/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
   match "search", :to => 'catalog#index', :as => 'catalog_index'
   match 'search/:id/librarian_view', :to => "catalog#librarian_view", :as => "librarian_view_catalog"
-  resources :solr_document,  :path => 'search', :controller => 'catalog', :only => [:show, :update] 
+  resources :solr_document,  :path => 'search', :controller => 'catalog', :only => [:show, :update]
   # :show and :update are for backwards-compatibility with catalog_url named routes
   resources :catalog, :only => [:show, :update]
-  
-  
+
+
   HydraHead.add_routes(self)
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-  
-  devise_scope :user do 
+
+  devise_scope :user do
     match '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
     match '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
   end
@@ -74,43 +74,51 @@ Hydra::Application.routes.draw do
   resources :dams_cartographics
   resources :mads_personal_names do
     get 'view', :on => :member
-  end    
+  end
   resources :mads_family_names do
     get 'view', :on => :member
-  end    
+  end
   resources :mads_corporate_names do
     get 'view', :on => :member
-  end   
+  end
   resources :mads_conference_names do
     get 'view', :on => :member
-  end      
+  end
   resources :mads_complex_subjects do
     get 'view', :on => :member
   end
   resources :mads_topics do
     get 'view', :on => :member
-  end  
+  end
   resources :mads_temporals do
     get 'view', :on => :member
-  end   
+  end
   resources :mads_names do
     get 'view', :on => :member
-  end    
+  end
   resources :mads_occupations do
     get 'view', :on => :member
-  end   
+  end
   resources :mads_genre_forms do
     get 'view', :on => :member
-  end   
+  end
   resources :mads_geographics do
     get 'view', :on => :member
-  end       
-  
+  end
+  resources :mads_schemes do
+    get 'view', :on => :member
+  end
+  resources :mads_authority, :as => 'mads_authorities' do
+    get 'view', :on => :member
+  end
+  resources :mads_languages do
+    get 'view', :on => :member
+  end
   resources :linked_data do
 	get 'get_data', :on => :member
 	post 'get_data', :on => :member
   end
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -6,7 +6,7 @@ class DamsRelationshipInternal
       map.name(:in=> DAMS, :class_name => 'MadsNameInternal')
       map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')       
       map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')         
-      map.role(:in=> DAMS, :class_name => 'DamsRoleInternal')
+      map.role(:in=> DAMS, :class_name => 'MadsAuthorityInternal')
     end
 
 	rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}  
@@ -24,7 +24,7 @@ class DamsRelationshipInternal
     def loadRole      
       if !role.first.nil? && role.first.pid != '' && !(role.first.pid.include? 'dams:')
         uri = role.first.pid
-        DamsRole.find(uri)
+        MadsAuthority.find(uri)
       end
     end   
     

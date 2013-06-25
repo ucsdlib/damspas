@@ -60,9 +60,8 @@ describe DamsProvenanceCollectionsController do
         it "should be successful" do
           put :update, :id => @obj.id, :dams_provenance_collection => {titleValue: "Test Title 5", beginDate: "2012-05-05"}
           response.should redirect_to assigns[:dams_provenance_collection]
-          #@obj.reload.title.should == ["Test Title 5"]
+          @obj.reload.titleValue.should == "Test Title 5"
           flash[:notice].should == "Successfully updated provenance_collection"
-          pending "check title after reload #{__FILE__}"
         end
     end
   end

@@ -1,0 +1,9 @@
+<h1><%= @mads_language.name.first %></h1>
+<div>code: <%= @mads_language.code.first %></div>
+<div>scheme: <%= link_to @scheme_name, mads_scheme_path(@scheme_id) %></div>
+<div>
+  <% if can? :update, @mads_language then %>
+    <%= link_to "Edit", edit_mads_language_path(@mads_language), class: "btn btn-primary"%>
+  <% end %>
+  <%= link_to "View All", mads_language_path, class: "btn btn-primary" %>
+</div>

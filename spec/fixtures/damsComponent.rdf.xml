@@ -12,25 +12,43 @@
           </dams:Note>
         </dams:note>
         <dams:title>
-          <dams:Title>
-            <rdf:value>The Static Image</rdf:value>
-            <dams:subtitle>Foo!</dams:subtitle>
-            <dams:type>main</dams:type>
-          </dams:Title>
+          <mads:Title>
+            <mads:authoritativeLabel>The Static Image: Foo!</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>The Static Image</mads:elementValue>
+              </mads:MainTitleElement>
+              <mads:SubTitleElement>
+                <mads:elementValue>Foo!</mads:elementValue>
+              </mads:SubTitleElement>
+            </mads:elementList>
+          </mads:Title>
         </dams:title>
 		<dams:title>
-          <dams:Title>
-            <rdf:value>The Static Image #2</rdf:value>
-            <dams:subtitle>Foo! #2</dams:subtitle>
-            <dams:type>main2</dams:type>
-          </dams:Title>
+          <mads:Title>
+            <mads:authoritativeLabel>The Static Image #2: Foo! #2</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>The Static Image #2</mads:elementValue>
+              </mads:MainTitleElement>
+              <mads:SubTitleElement>
+                <mads:elementValue>Foo! #2</mads:elementValue>
+              </mads:SubTitleElement>
+            </mads:elementList>
+          </mads:Title>
         </dams:title> 
         <dams:title>
-          <dams:Title>
-            <rdf:value>The Static Image #3</rdf:value>
-            <dams:subtitle>Foo! #3</dams:subtitle>
-            <dams:type>main3</dams:type>
-          </dams:Title>
+          <mads:Title>
+            <mads:authoritativeLabel>The Static Image #3: Foo! #3</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>The Static Image #3</mads:elementValue>
+              </mads:MainTitleElement>
+              <mads:SubTitleElement>
+                <mads:elementValue>Foo! #3</mads:elementValue>
+              </mads:SubTitleElement>
+            </mads:elementList>
+          </mads:Title>
         </dams:title>       
         <dams:date>
           <dams:Date>

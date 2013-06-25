@@ -1,9 +1,0 @@
-<h1><%= @dams_vocabulary_entry.value.first %></h1>
-<div>code: <%= @dams_vocabulary_entry.code.first %></div>
-<div>valueURI: <%= @dams_vocabulary_entry.valueURI.first %></div>
-<div>
-  <% if can? :update, @dams_vocabulary then %>
-    <%= link_to "Edit", edit_dams_vocabulary_entry_path(@dams_vocabulary_entry), class: "btn btn-primary"%>
-  <% end %>
-  <%= link_to "View All", dams_vocabulary_entries_path, class: "btn btn-primary" %>
-</div>

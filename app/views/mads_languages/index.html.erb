@@ -1,0 +1,15 @@
+<h1>MADS Languages</h1>
+
+<div class="span6">
+  <ul>
+    <% @document.each do |doc| %>
+      <li><%= link_to doc['name_tesim'].first, mads_language_path(doc['id']) %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <% if can? :create, MadsLanguage %>
+    <%= link_to "Create Language", new_mads_language_path, :class => 'btn btn-primary'%>
+  <% end %>
+</div>

@@ -1,11 +1,10 @@
 <rdf:RDF xmlns:dams="http://library.ucsd.edu/ontology/dams#"
          xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd93182924">
     <mads:authoritativeLabel>Burns, Jack O., 1977-</mads:authoritativeLabel>
-    <dams:authority>naf</dams:authority>
-    <owl:sameAs rdf:resource="http://lccn.loc.gov/n90694888"/>
+    <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n90694888"/>
     <mads:elementList rdf:parseType="Collection">
       <mads:FullNameElement>
         <mads:elementValue>Burns, Jack O.</mads:elementValue>
@@ -20,5 +19,11 @@
         <mads:elementValue>1977-</mads:elementValue>
       </mads:DateNameElement>
     </mads:elementList>
+    <mads:isMemberOfMADSScheme>
+      <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+        <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+        <mads:code>naf</mads:code>
+      </mads:MADSScheme>
+    </mads:isMemberOfMADSScheme>
   </mads:PersonalName>
 </rdf:RDF>

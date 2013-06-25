@@ -16,7 +16,7 @@ describe DamsStatute do
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:Statute rdf:about="http://library.ucsd.edu/ark:/20775/bb05050505">
+  <dams:Statute rdf:about="#{Rails.configuration.id_namespace}bb05050505">
     <dams:statuteCitation>Family Education Rights and Privacy Act (FERPA)</dams:statuteCitation>
     <dams:statuteJurisdiction>us</dams:statuteJurisdiction>
     <dams:statuteNote>Limits disclosure of student information.</dams:statuteNote>

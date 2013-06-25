@@ -1,33 +1,34 @@
 class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
-  
-  def sameAs=(val)
+  def scheme=(val)
     if val.class == Array
-    	val = val.first
-    end  
-    @sameAs = RDF::Resource.new(val)
+     val = val.first
+    end
+    @madsScheme = RDF::Resource.new(Rails.configuration.id_namespace+val)
   end
-  def sameAs
-    if @sameAs != nil
-      @sameAs
+  def scheme
+    if @madsScheme != nil
+      @madsScheme
     else
-      sameAsNode.first
+      schemeNode.first
     end
   end
- 
-  def valueURI=(val)
+
+  def externalAuthority=(val)
     if val.class == Array
-    	val = val.first
+     val = val.first
     end
-    @valURI = RDF::Resource.new(val)
+    @extAuthority = RDF::Resource.new(val)
   end
-  def valueURI
-    if @valURI != nil
-      @valURI
+  def externalAuthority
+    if @extAuthority != nil
+      @extAuthority
+    elsif !externalAuthorityNode.nil? 
+      externalAuthorityNode.first
     else
-      valURI.first
+    	nil
     end
   end
-         
+           
   class List 
     include ActiveFedora::RdfList
     class FullNameElement
@@ -107,23 +108,72 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.elementValue(:in=> MADS)
       end
     end     
+
+    # language element
+    class LanguageElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.LanguageElement
+      map_predicates do |map|
+        map.elementValue(:in=> MADS)
+      end
+    end
+    
+    class MainTitleElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.MainTitleElement
+      map_predicates do |map|
+        map.elementValue(:in=> MADS)
+      end
+    end    
+    
+    class NonSortElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.NonSortElement
+      map_predicates do |map|
+        map.elementValue(:in=> MADS)
+      end
+    end        
+
+    class PartNameElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.PartNameElement
+      map_predicates do |map|
+        map.elementValue(:in=> MADS)
+      end
+    end      
+    
+    class PartNumberElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.PartNumberElement
+      map_predicates do |map|
+        map.elementValue(:in=> MADS)
+      end
+    end    
+
+    class SubTitleElement
+      include ActiveFedora::RdfObject
+      rdf_type MADS.SubTitleElement
+      map_predicates do |map|
+        map.elementValue(:in=> MADS)
+      end
+    end      
   end
     
  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def serialize
-    if(!sameAs.nil?)
+    if(!externalAuthority.nil?)
       if new?
-        graph.insert([rdf_subject, OWL.sameAs, sameAs])
+        graph.insert([rdf_subject, MADS.hasExactExternalAuthority, externalAuthority])
       else
-        graph.update([rdf_subject, OWL.sameAs, sameAs])
+        graph.update([rdf_subject, MADS.hasExactExternalAuthority, externalAuthority])
       end
-    end
-    if(!valueURI.nil?)
+    end 
+    if(!scheme.nil?)
       if new?
-        graph.insert([rdf_subject, DAMS.valueURI, valueURI])
+        graph.insert([rdf_subject, MADS.isMemberOfMADSScheme, scheme])
       else
-        graph.update([rdf_subject, DAMS.valueURI, valueURI])
+        graph.update([rdf_subject, MADS.isMemberOfMADSScheme, scheme])
       end
     end
     super
@@ -131,9 +181,9 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
   
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'name', name)
-	Solrizer.insert_field(solr_doc, 'sameAs', sameAs.to_s)
-	Solrizer.insert_field(solr_doc, 'authority', authority)
- 	Solrizer.insert_field(solr_doc, "valueURI", valueURI.to_s)
+	Solrizer.insert_field(solr_doc, 'scheme', scheme.to_s)
+ 	Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s)
+ 	
 	list = elementList.first
 	i = 0
 	if list != nil
@@ -160,6 +210,8 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 			Solrizer.insert_field(solr_doc, 'temporal_element', list[i].elementValue.first)		
 		  elsif (list[i].class == MadsDatastream::List::TopicElement)
 			Solrizer.insert_field(solr_doc, 'topic_element', list[i].elementValue.first)															
+		  elsif (list[i].class == MadsDatastream::List::LanguageElement)
+			Solrizer.insert_field(solr_doc, 'language_element', list[i].elementValue.first)																			
 		  end		  
 		  i +=1
 		end   

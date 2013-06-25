@@ -1,9 +1,9 @@
 class DamsObjectDatastream < DamsResourceDatastream
   map_predicates do |map|
-    map.title(:in => DAMS, :to=>'title', :class_name => 'Title')
+    map.title(:in => DAMS, :to => 'title', :class_name => 'MadsTitle')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
-    map.language(:in=>DAMS, :class_name => 'DamsLanguageInternal')
+    map.language(:in=>DAMS, :class_name => 'MadsLanguageInternal')
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')
@@ -333,10 +333,16 @@ class DamsObjectDatastream < DamsResourceDatastream
         :restrictionEndDate => othr.restrictionEndDate.first.to_s
       }
       if othr.name.first != nil
-        othr_json[:name] = "http://library.ucsd.edu/ark:/20775/#{othr.name.first.pid}"
+        othr_json[:name] = "#{Rails.configuration.id_namespace}#{othr.name.first.pid}"
       end
-      if othr.role.first != nil
-        othr_json[:role] = "http://library.ucsd.edu/ark:/20775/#{othr.role.first.pid}"
+       begin
+        if othr.role.first != nil
+          #othr_json[:role] = "#{Rails.configuration.id_namespace}#{othr.role.first.pid}"
+          othr_json[:role] = "#{othr.role.first.rdf_subject}"
+          othr_json[:role_name] = "#{othr.role.first.name.first}"
+        end
+      rescue
+        puts "trapping role error in otherRights"
       end
       Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
@@ -460,7 +466,7 @@ class DamsObjectDatastream < DamsResourceDatastream
           Solrizer.insert_field(solr_doc, "collections", collection.pid)
           col_json = {
             :id => collection.pid,
-            :name => collection.title.first.value.first
+            :name => collection.titleValue
           }
 
           if ( collection.to_s.include? 'DamsProvenanceCollectionInternal' )

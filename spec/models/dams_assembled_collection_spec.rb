@@ -7,20 +7,25 @@ describe DamsAssembledCollection do
 
   it "should create valid xml" do
     subject.titleValue = "UCSD Electronic Theses and Dissertations"
-    subject.titleType = "main"
+    subject.title.first.name = "UCSD Electronic Theses and Dissertations"
     subject.beginDate = "2009-05-03"
     subject.scopeContentNote.build.value = "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
     subject.scopeContentNote.first.displayLabel = "Scope and contents"
     subject.scopeContentNote.first.type = "scope_and_content"
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-<dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+<dams:AssembledCollection rdf:about="#{Rails.configuration.id_namespace}bb03030303">
     <dams:title>
-      <dams:Title>
-        <dams:type>main</dams:type>
-        <rdf:value>UCSD Electronic Theses and Dissertations</rdf:value>
-      </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>UCSD Electronic Theses and Dissertations</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>UCSD Electronic Theses and Dissertations</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
     </dams:title>
     <dams:date>
       <dams:Date>

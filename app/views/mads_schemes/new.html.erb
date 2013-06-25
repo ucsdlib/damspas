@@ -1,0 +1,8 @@
+<h1>Create a new MADS Scheme</h1>
+<%= form_for @mads_scheme do |f| %>
+  <%= label_tag 'mads_scheme[name]', "Name" %><%= text_field_tag 'mads_scheme[name]' %>
+  <br>
+  <%= label_tag 'mads_scheme[code]', "Code" %><%= text_field_tag 'mads_scheme[code]' %>
+  <br>
+  <%=f.submit "Create", class: "btn btn-primary" %>
+<%end%>

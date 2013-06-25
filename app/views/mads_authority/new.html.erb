@@ -1,0 +1,8 @@
+<h1>Create a new MADS Authority</h1>
+<%= form_for @mads_authority do |f| %>
+  <%= label_tag 'mads_authority[code]', "Code" %><%= text_field_tag 'mads_authority[code]' %>
+  <%= label_tag 'mads_authority[name]', "Name" %><%= text_field_tag 'mads_authority[name]' %>
+  <%= label_tag 'mads_authority[scheme]', "MADS Scheme" %><%= f.select(:scheme, options_from_collection_for_select(@mads_schemes, :id, :name) , :prompt => 'Select Scheme') %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>

@@ -2,56 +2,73 @@
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd6212468x">
     <dams:iconography rdf:resource="http://library.ucsd.edu/ark:/20775/bd65537666"/>
     <dams:scientificName rdf:resource="http://library.ucsd.edu/ark:/20775/bd2662949r"/>
     <dams:technique rdf:resource="http://library.ucsd.edu/ark:/20775/bd8772217q"/>
     <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd1366006j"/>
     <dams:scopeContentNote>
-	  <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/zz11111111">
-	    <dams:type>scope_and_content</dams:type>
-	    <dams:displayLabel>Scope and contents</dams:displayLabel>
-	    <rdf:value>scope content note internal value</rdf:value>
-	  </dams:ScopeContentNote>
-	</dams:scopeContentNote>    
+      <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/zz11111111">
+        <dams:type>scope_and_content</dams:type>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <rdf:value>scope content note internal value</rdf:value>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>    
     <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>
     <dams:preferredCitationNote>
-	  <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
-	    <dams:type>citation</dams:type>
-	    <dams:displayLabel>Citation</dams:displayLabel>
-	    <rdf:value>citation note internal value</rdf:value>
-	  </dams:PreferredCitationNote>   
+      <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
+        <dams:type>citation</dams:type>
+        <dams:displayLabel>Citation</dams:displayLabel>
+        <rdf:value>citation note internal value</rdf:value>
+      </dams:PreferredCitationNote>   
     </dams:preferredCitationNote> 
     <dams:title>
-      <dams:Title>
-        <rdf:value>Sample Object Record #8</rdf:value>
-        <dams:subtitle>Name/Note/Subject Sampler</dams:subtitle>
-        <dams:type>main</dams:type>
-        <dams:partNumber>sample partnumber</dams:partNumber>
-        <dams:partName>sample partname</dams:partName>
-        <dams:nonSort>true</dams:nonSort>
-      </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>Sample Object Record #8: Name/Note/Subject Sampler</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Sample Object Record #8</mads:elementValue>
+    </mads:MainTitleElement>
+    <mads:SubTitleElement>
+      <mads:elementValue>Name/Note/Subject Sampler</mads:elementValue>
+    </mads:SubTitleElement>
+    <mads:PartNameElement>
+      <mads:elementValue>sample partname</mads:elementValue>
+    </mads:PartNameElement>
+    <mads:PartNumberElement>
+      <mads:elementValue>sample partnumber</mads:elementValue>
+    </mads:PartNumberElement>
+    <mads:NonSortElement>
+      <mads:elementValue>The</mads:elementValue>
+    </mads:NonSortElement>
+  </mads:elementList>
+</mads:Title>
     </dams:title>
     <dams:familyName rdf:resource="http://library.ucsd.edu/ark:/20775/bd1775562z"/>
     <dams:familyName>
-	   <mads:FamilyName rdf:about="http://library.ucsd.edu/ark:/20775/bd22222222">
-	    <mads:authoritativeLabel>Calder (Family : 1757-1959 : N.C.)....</mads:authoritativeLabel>
-	    <dams:authority>naf</dams:authority>
-	    <dams:valueURI rdf:resource="http://id.loc.gov/authorities/names/n2012026835"/>
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:FamilyNameElement>
-	        <mads:elementValue>Calder (Family :</mads:elementValue>
-	      </mads:FamilyNameElement>
-	      <mads:DateNameElement>
-	        <mads:elementValue>1757-1959 :</mads:elementValue>
-	      </mads:DateNameElement>
-	      <mads:TermsOfAddressNameElement>
-	        <mads:elementValue>N.C.)</mads:elementValue>
-	      </mads:TermsOfAddressNameElement>
-	    </mads:elementList>
-	  </mads:FamilyName>   
-	</dams:familyName>
+       <mads:FamilyName rdf:about="http://library.ucsd.edu/ark:/20775/bd22222222">
+        <mads:authoritativeLabel>Calder (Family : 1757-1959 : N.C.)....</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n2012026835"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Calder (Family :</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:DateNameElement>
+            <mads:elementValue>1757-1959 :</mads:elementValue>
+          </mads:DateNameElement>
+          <mads:TermsOfAddressNameElement>
+            <mads:elementValue>N.C.)</mads:elementValue>
+          </mads:TermsOfAddressNameElement>
+        </mads:elementList>
+      </mads:FamilyName>   
+    </dams:familyName>
       
    <dams:unit>
       <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb48484848">
@@ -110,78 +127,93 @@
     <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bd7509406v"/>
     <dams:name>
       <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/zz88888888">
-	    <mads:authoritativeLabel>Generic Name Internal</mads:authoritativeLabel>
-	    <dams:authority>naf</dams:authority>
-	    <dams:valueURI rdf:resource="http://id.loc.gov/n9999999999"/>
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:NameElement>
-	        <mads:elementValue>Generic Name</mads:elementValue>
-	      </mads:NameElement>
-	    </mads:elementList>
-	  </mads:Name>
-	</dams:name>
+        <mads:authoritativeLabel>Generic Name Internal</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/n9999999999"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>Generic Name</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:Name>
+    </dams:name>
     <dams:copyright>
        <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/bb15151515">
-	    <dams:copyrightStatus>Under copyright -- 3rd Party</dams:copyrightStatus>
-	    <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
-	    <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.</dams:copyrightPurposeNote>
-	    <dams:copyrightNote>This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by "fair use" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.</dams:copyrightNote>
-	    <dams:date>
-	      <dams:Date>
-	        <dams:beginDate>1993-12-31</dams:beginDate>
-	      </dams:Date>
-	    </dams:date>
-	  </dams:Copyright>
+        <dams:copyrightStatus>Under copyright -- 3rd Party</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+        <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.</dams:copyrightPurposeNote>
+        <dams:copyrightNote>This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by "fair use" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.</dams:copyrightNote>
+        <dams:date>
+          <dams:Date>
+            <dams:beginDate>1993-12-31</dams:beginDate>
+          </dams:Date>
+        </dams:date>
+      </dams:Copyright>
     </dams:copyright>    
     
     <dams:builtWorkPlace rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707307x"/>
     <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/bd93182924"/>
     <dams:personalName>
-	   <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd123456789">
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:FamilyNameElement>
-	        <mads:elementValue>Burns</mads:elementValue>
-	      </mads:FamilyNameElement>
-	      <mads:GivenNameElement>
-	        <mads:elementValue>Jack O.</mads:elementValue>
-	      </mads:GivenNameElement>
-	    </mads:elementList>
-	    <dams:valueURI rdf:resource="http://lccn.loc.gov/n90694888"/>
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:FamilyNameElement>
-	        <mads:elementValue>Burns</mads:elementValue>
-	      </mads:FamilyNameElement>
-	      <mads:GivenNameElement>
-	        <mads:elementValue>Jack O.</mads:elementValue>
-	      </mads:GivenNameElement>
-	    </mads:elementList>
-	    <mads:authoritativeLabel>Burns, Jack O.....</mads:authoritativeLabel>
-	    <dams:authority>naf</dams:authority>
-	  </mads:PersonalName>
-	</dams:personalName>
+       <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd123456789">
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n90694888"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Burns, Jack O.....</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+      </mads:PersonalName>
+    </dams:personalName>
     <dams:personalName>
-	   <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd1111111">
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:FamilyNameElement>
-	        <mads:elementValue>Burns</mads:elementValue>
-	      </mads:FamilyNameElement>
-	      <mads:GivenNameElement>
-	        <mads:elementValue>Jack O.</mads:elementValue>
-	      </mads:GivenNameElement>
-	    </mads:elementList>
-	    <dams:valueURI rdf:resource="http://lccn.loc.gov/n90694888"/>
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:FamilyNameElement>
-	        <mads:elementValue>Burns</mads:elementValue>
-	      </mads:FamilyNameElement>
-	      <mads:GivenNameElement>
-	        <mads:elementValue>Jack O.</mads:elementValue>
-	      </mads:GivenNameElement>
-	    </mads:elementList>
-	    <mads:authoritativeLabel>Burns, Jack O.....2</mads:authoritativeLabel>
-	    <dams:authority>naf</dams:authority>
-	  </mads:PersonalName>
-	</dams:personalName>	
+       <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd1111111">
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n90694888"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Burns, Jack O.....2</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+      </mads:PersonalName>
+    </dams:personalName>    
     <dams:geographic rdf:resource="http://library.ucsd.edu/ark:/20775/bd8533304b"/>
     <dams:temporal rdf:resource="http://library.ucsd.edu/ark:/20775/bd59394235"/>
     <dams:culturalContext rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410365x"/>
@@ -189,46 +221,60 @@
     <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>
     <dams:conferenceName rdf:resource="http://library.ucsd.edu/ark:/20775/bd0478622c"/>
     <dams:conferenceName>
-	   <mads:ConferenceName rdf:about="http://library.ucsd.edu/ark:/20775/bd11111111">
-	    <mads:authoritativeLabel>American Library Association. Annual Conference....</mads:authoritativeLabel>
-	    <dams:authority>naf</dams:authority>
-	    <dams:valueURI rdf:resource="http://id.loc.gov/authorities/names/n2009036967"/>
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:NameElement>
-	        <mads:elementValue>American Library Association.</mads:elementValue>
-	      </mads:NameElement>
-	      <mads:NameElement>
-	        <mads:elementValue>Annual Conference</mads:elementValue>
-	      </mads:NameElement>
-	    </mads:elementList>
-	  </mads:ConferenceName>   
+       <mads:ConferenceName rdf:about="http://library.ucsd.edu/ark:/20775/bd11111111">
+        <mads:authoritativeLabel>American Library Association. Annual Conference....</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n2009036967"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>American Library Association.</mads:elementValue>
+          </mads:NameElement>
+          <mads:NameElement>
+            <mads:elementValue>Annual Conference</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:ConferenceName>   
     </dams:conferenceName>    
     <dams:function rdf:resource="http://library.ucsd.edu/ark:/20775/bd7816576v"/>
     <dams:function>
-	  <dams:Function rdf:about="http://library.ucsd.edu/ark:/20775/zz99999999">
-	    <mads:authoritativeLabel>internal function value</mads:authoritativeLabel>
-	    <dams:authority>XXX</dams:authority>
-	    <dams:valueURI rdf:resource="http://id.loc.gov/XXX02"/>
-	    <mads:elementList rdf:parseType="Collection">
-	      <dams:FunctionElement>
-	        <mads:elementValue>Sample Function</mads:elementValue>
-	      </dams:FunctionElement>
-	    </mads:elementList>
-	  </dams:Function>    
-	</dams:function>
+      <dams:Function rdf:about="http://library.ucsd.edu/ark:/20775/zz99999999">
+        <mads:authoritativeLabel>internal function value</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd32433374">
+            <rdfs:label>Functions</rdfs:label>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/XXX02"/>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:FunctionElement>
+            <mads:elementValue>Sample Function</mads:elementValue>
+          </dams:FunctionElement>
+        </mads:elementList>
+      </dams:Function>    
+    </dams:function>
     <dams:corporateName rdf:resource="http://library.ucsd.edu/ark:/20775/bd8021352s"/>
     <dams:corporateName>
-	  <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
-	    <mads:authoritativeLabel>Lawrence Livermore Laboratory......</mads:authoritativeLabel>
-	    <dams:authority>naf</dams:authority>
-	    <dams:valueURI rdf:resource="http://lccn.loc.gov/n50000352"/>
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:NameElement>
-	        <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
-	      </mads:NameElement>
-	    </mads:elementList>
-	  </mads:CorporateName>    
-	</dams:corporateName>
+      <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
+        <mads:authoritativeLabel>Lawrence Livermore Laboratory......</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n50000352"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:CorporateName>    
+    </dams:corporateName>
     <dams:complexSubject rdf:resource="http://library.ucsd.edu/ark:/20775/bd6724414c"/>
     <dams:subject>
       <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/zz22222222">
@@ -242,28 +288,33 @@
     <dams:subject rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"/>    
     <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
     <dams:note>
-	  <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd11111111">
-	    <dams:type>abstract</dams:type>
-	    <dams:displayLabel>Abstract</dams:displayLabel>
-	    <rdf:value>Note internal value.</rdf:value>
-	  </dams:Note>    
-	</dams:note>    
+      <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd11111111">
+        <dams:type>abstract</dams:type>
+        <dams:displayLabel>Abstract</dams:displayLabel>
+        <rdf:value>Note internal value.</rdf:value>
+      </dams:Note>    
+    </dams:note>    
     <dams:genreForm rdf:resource="http://library.ucsd.edu/ark:/20775/bd9796116g"/>
     <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
     <dams:custodialResponsibilityNote>
-	  <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
-	    <dams:type>custodial_history</dams:type>
-	    <dams:displayLabel>Digital object made available by</dams:displayLabel>
-	    <rdf:value>Mandeville Special Collections Library....Internal value</rdf:value>
-	  </dams:CustodialResponsibilityNote> 
-	</dams:custodialResponsibilityNote>   
+      <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd12345678">
+        <dams:type>custodial_history</dams:type>
+        <dams:displayLabel>Digital object made available by</dams:displayLabel>
+        <rdf:value>Mandeville Special Collections Library....Internal value</rdf:value>
+      </dams:CustodialResponsibilityNote> 
+    </dams:custodialResponsibilityNote>   
     <dams:occupation rdf:resource="http://library.ucsd.edu/ark:/20775/bd72363644"/>
     <dams:provenanceCollection>
       <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bd24241158">
         <dams:title>
-          <dams:Title>
-            <rdf:value>Scripps Institution of Oceanography, Geological Collections</rdf:value>
-          </dams:Title>
+<mads:Title>
+  <mads:authoritativeLabel>Scripps Institution of Oceanography, Geological Collections</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Scripps Institution of Oceanography, Geological Collections</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
         </dams:title>
         <dams:event>
           <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd36527954">
@@ -332,10 +383,17 @@
         <dams:relationship>
           <dams:Relationship>
             <dams:role>
-              <dams:Role>
-                <dams:code>rps</dams:code>
-                <rdf:value>Repository</rdf:value>
-              </dams:Role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
             </dams:role>
             <dams:corporateName>
               <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd8294487v">
@@ -362,10 +420,17 @@
         <dams:relationship>
           <dams:Relationship>
             <dams:role>
-              <dams:Role>
-                <dams:code>res</dams:code>
-                <rdf:value>Researcher</rdf:value>
-              </dams:Role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/res"/>
+              <mads:code>res</mads:code>
+              <mads:authoritativeLabel>Researcher</mads:authoritativeLabel>
+              </mads:Authority>
             </dams:role>
             <dams:personalName>
               <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd95914293">
@@ -397,57 +462,65 @@
       </dams:ProvenanceCollection>
     </dams:provenanceCollection>
     <dams:assembledCollection>
-	    <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
-	    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
-	    <dams:title>
-	      <dams:Title>
-	        <dams:type>main</dams:type>
-	        <rdf:value>UCSD Electronic Theses and Dissertations</rdf:value>
-	      </dams:Title>
-	    </dams:title>
-	    <dams:date>
-	      <dams:Date>
-	        <dams:beginDate>2009-05-03</dams:beginDate>
-	      </dams:Date>
-	    </dams:date>
-	    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
-	    <dams:note>
-	      <dams:ScopeContentNote>
-	        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
-	        <dams:displayLabel>Scope and contents</dams:displayLabel>
-	        <dams:type>scope_and_content</dams:type>
-	      </dams:ScopeContentNote>
-	    </dams:note>
-	    <dams:relatedCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
-	    <dams:hasProvenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
-	    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb28282828"/>
-	  </dams:AssembledCollection>
-	</dams:assembledCollection>  
+        <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
+        <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+        <dams:title>
+<mads:Title>
+  <mads:authoritativeLabel>UCSD Electronic Theses and Dissertations</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>UCSD Electronic Theses and Dissertations</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
+        </dams:title>
+        <dams:date>
+          <dams:Date>
+            <dams:beginDate>2009-05-03</dams:beginDate>
+          </dams:Date>
+        </dams:date>
+        <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+        <dams:note>
+          <dams:ScopeContentNote>
+            <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Scope and contents</dams:displayLabel>
+            <dams:type>scope_and_content</dams:type>
+          </dams:ScopeContentNote>
+        </dams:note>
+        <dams:relatedCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
+        <dams:hasProvenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb28282828"/>
+      </dams:AssembledCollection>
+    </dams:assembledCollection>  
     <dams:collection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/> 
     <dams:provenanceCollectionPart>
-	  <dams:ProvenanceCollectionPart rdf:about="http://library.ucsd.edu/ark:/20775/bb25252525">
-	    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
-	    <dams:title>
-	      <dams:Title>
-	        <dams:type>main</dams:type>
-	        <rdf:value>May 2009</rdf:value>
-	      </dams:Title>
-	    </dams:title>
-	    <dams:date>
-	      <dams:Date>
-	        <dams:beginDate>2009-05-03</dams:beginDate>
-	        <dams:endDate>2009-05-31</dams:endDate>
-	      </dams:Date>
-	    </dams:date>
-	    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
-	    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
-	    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb30303030"/>
-	  </dams:ProvenanceCollectionPart>  
-	</dams:provenanceCollectionPart>      
-	 	   
-	<dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
+      <dams:ProvenanceCollectionPart rdf:about="http://library.ucsd.edu/ark:/20775/bb25252525">
+        <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+        <dams:title>
+<mads:Title>
+  <mads:authoritativeLabel>May 2009</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>May 2009</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
+        </dams:title>
+        <dams:date>
+          <dams:Date>
+            <dams:beginDate>2009-05-03</dams:beginDate>
+            <dams:endDate>2009-05-31</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+        <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb30303030"/>
+      </dams:ProvenanceCollectionPart>  
+    </dams:provenanceCollectionPart>      
+            
+    <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
 
-	<dams:topic>
+    <dams:topic>
        <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd57006063">
          <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
          <mads:elementList rdf:parseType="Collection">
@@ -461,10 +534,17 @@
        <dams:relationship>
           <dams:Relationship>
             <dams:role>
-              <dams:Role>
-                <dams:code>rps</dams:code>
-                <rdf:value>Repository</rdf:value>
-              </dams:Role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
             </dams:role>
             <dams:corporateName>
               <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd23456789">
@@ -478,21 +558,45 @@
             </dams:corporateName>
           </dams:Relationship>
         </dams:relationship>     
-               
-	    <dams:relationship>
-	      <dams:Relationship>
-	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
-	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
-	      </dams:Relationship>
-	    </dams:relationship>    
-
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:personalName>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1">
+                <mads:authoritativeLabel>Yañez, Angélica María</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:GivenNameElement>
+                    <mads:elementValue>Angélica María</mads:elementValue>
+                  </mads:GivenNameElement>
+                  <mads:FamilyNameElement>
+                    <mads:elementValue>Yañez</mads:elementValue>
+                  </mads:FamilyNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+            <dams:role>
+              <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd55639754">
+                <mads:isMemberOfMADSScheme rdf:resource="http://library.ucsd.edu/ark:/20775/bd5837217p"/>
+                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
+                <mads:code>cre</mads:code>
+                <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+          </dams:Relationship>
+        </dams:relationship>    
         <dams:relationship>
           <dams:Relationship>
             <dams:role>
-              <dams:Role>
-                <dams:code>rps</dams:code>
-                <rdf:value>Repository2</rdf:value>
-              </dams:Role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
             </dams:role>
            <dams:personalName>
               <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd12121212">
@@ -510,10 +614,17 @@
         <dams:relationship>
           <dams:Relationship>
             <dams:role>
-              <dams:Role>
-                <dams:code>rps</dams:code>
-                <rdf:value>Repository3</rdf:value>
-              </dams:Role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
             </dams:role>
            <dams:name>
               <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd13131313">
@@ -529,17 +640,17 @@
         </dams:relationship>
               
     <dams:rightsHolder>
-	  <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/zz09090909">
-	    <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>
-	    <mads:elementList rdf:parseType="Collection">
-	      <mads:FullNameElement>
-	        <mads:elementValue>Administrator, Bob,</mads:elementValue>
-	      </mads:FullNameElement>
-	      <mads:DateNameElement>
-	        <mads:elementValue xml:lang="en">1977-</mads:elementValue>
-	      </mads:DateNameElement>
-	    </mads:elementList>
-	  </mads:PersonalName>
+      <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/zz09090909">
+        <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>Administrator, Bob,</mads:elementValue>
+          </mads:FullNameElement>
+          <mads:DateNameElement>
+            <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+          </mads:DateNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
     </dams:rightsHolder>  
       <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>   
     <dams:rightsHolder>
@@ -593,7 +704,19 @@
 	    <dams:otherRightsURI rdf:resource="http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"/>
 	    <dams:relationship>
 	      <dams:Relationship>
-	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd3004227d"/>
+	        <dams:role>
+	        <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd3004227d">
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+	        </dams:role>
 	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
 	      </dams:Relationship>
 	    </dams:relationship>
@@ -627,19 +750,19 @@
 	    <dams:point>29.67459,-82.37873</dams:point>
 	  </dams:Cartographics>  
     </dams:cartographics>    
-	<dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
-  	<dams:event>
-	  <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/zz07070707">
-	    <dams:type>object creation inline event</dams:type>
-	    <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
-	    <dams:outcome>success</dams:outcome>
-	    <dams:relationship>
-	      <dams:Relationship>
-	        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707286t"/>
-	        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb56565656"/>
-	      </dams:Relationship>
-	    </dams:relationship>
-	  </dams:DAMSEvent>
+    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
+    <dams:event>
+      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/zz07070707">
+        <dams:type>object creation inline event</dams:type>
+        <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
+        <dams:outcome>success</dams:outcome>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707286t"/>
+            <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb56565656"/>
+          </dams:Relationship>
+        </dams:relationship>
+      </dams:DAMSEvent>
      </dams:event>
       <dams:event>
          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0990660f">

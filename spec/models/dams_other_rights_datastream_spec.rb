@@ -20,8 +20,8 @@ describe DamsOtherRightsDatastream do
         subject.note.should == ["Educationally important works unavailable due to unknown copyright holders"]
       end
       it "should have a uri" do
-        subject.uri = "http://libraries.ucsd.edu/lisn/policy/4123412341/"
-        subject.uri.should == ["http://libraries.ucsd.edu/lisn/policy/4123412341/"]
+        subject.uri = "http://library.ucsd.edu/lisn/policy/4123412341/"
+        subject.uri.should == ["http://library.ucsd.edu/lisn/policy/4123412341/"]
       end
       it "should have a restriction begin date" do
         subject.restrictionBeginDate = "1993-12-31"
@@ -68,7 +68,7 @@ describe DamsOtherRightsDatastream do
         subject.note.should == ["Educationally important works unavailable due to unknown copyright holders"]
       end
       it "should have a uri" do
-        subject.uri.should == ["http://libraries.ucsd.edu/lisn/policy/4123412341/"]
+        subject.uri.should == ["http://library.ucsd.edu/lisn/policy/4123412341/"]
       end
       it "should have a permission begin date" do
         subject.permissionBeginDate.should == ["2012-01-01"]

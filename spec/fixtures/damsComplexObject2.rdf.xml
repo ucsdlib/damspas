@@ -25,7 +25,7 @@
     <dams:note>
       <dams:Note>
         <dams:displayLabel>ARK ID</dams:displayLabel>
-        <rdf:value>http://libraries.ucsd.edu/ark:/20775/bb80808080</rdf:value>
+        <rdf:value>http://library.ucsd.edu/ark:/20775/bb80808080</rdf:value>
         <dams:type>identifier</dams:type>
       </dams:Note>
     </dams:note>
@@ -56,11 +56,17 @@
       </dams:Date>
     </dams:date>
     <dams:title>
-      <dams:Title>
-        <rdf:value>Sample Complex Object Record</rdf:value>
-        <dams:subtitle>a dissertation with two attached images</dams:subtitle>
-        <dams:type>main</dams:type>
-      </dams:Title>
+      <mads:Title>
+        <mads:authoritativeLabel>Sample Complex Object Record: a dissertation with two attached images</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Sample Complex Object Record</mads:elementValue>
+          </mads:MainTitleElement>
+          <mads:SubTitleElement>
+            <mads:elementValue>a dissertation with two attached images</mads:elementValue>
+          </mads:SubTitleElement>
+        </mads:elementList>
+      </mads:Title>
     </dams:title>
     <dams:hasComponent>
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1">
@@ -72,9 +78,14 @@
           </dams:Note>
         </dams:note>
         <dams:title>
-          <dams:Title>
-            <rdf:value>The Comparison of Before and After</rdf:value>
-          </dams:Title>
+          <mads:Title>
+            <mads:authoritativeLabel>The Comparison of Before and After</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>The Comparison of Before and After</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
         </dams:title>
         <dams:date>
           <dams:Date>
@@ -125,9 +136,14 @@
     <dams:hasComponent>
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/2">
         <dams:title>
-          <dams:Title>
-            <rdf:value>Supplementary Materials</rdf:value>
-          </dams:Title>
+          <mads:Title>
+            <mads:authoritativeLabel>Supplementary Materials</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Supplementary Materials</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
         </dams:title>
         <dams:note>
           <dams:Note>
@@ -139,9 +155,14 @@
         <dams:hasComponent>
           <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/3">
             <dams:title>
-              <dams:Title>
-                <rdf:value>Image 1 - Before</rdf:value>
-              </dams:Title>
+              <mads:Title>
+                <mads:authoritativeLabel>Image 1 - Before</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Image 1 - Before</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
             </dams:title>
             <dams:date>
               <dams:Date>
@@ -193,9 +214,14 @@
         <dams:hasComponent>
           <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/4">
             <dams:title>
-              <dams:Title>
-                <rdf:value>Image 2 - After</rdf:value>
-              </dams:Title>
+              <mads:Title>
+                <mads:authoritativeLabel>Image 2 - After</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Image 2 - After</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
             </dams:title>
             <dams:date>
               <dams:Date>

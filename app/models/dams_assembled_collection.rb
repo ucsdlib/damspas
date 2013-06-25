@@ -1,4 +1,4 @@
 class DamsAssembledCollection < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsAssembledCollectionDatastream 
-  delegate_to "damsMetadata", [:title, :date, :subject, :note, :scopeContentNote, :relatedResource, :titleValue, :titleType, :dateValue, :beginDate, :endDate, :scopeContentNoteType, :scopeContentNoteDisplayLabel, :scopeContentNoteValue ]
+  delegate_to "damsMetadata", [:title, :titleValue, :subtitle, :date, :subject, :note, :scopeContentNote, :relatedResource, :dateValue, :beginDate, :endDate, :scopeContentNoteType, :scopeContentNoteDisplayLabel, :scopeContentNoteValue ]
 end

@@ -15,7 +15,7 @@ describe DamsLicense do
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:License rdf:about="http://library.ucsd.edu/ark:/20775/bb05050505">
+  <dams:License rdf:about="#{Rails.configuration.id_namespace}bb05050505">
     <dams:licenseNote>Creative Commons Attribution 3.0 Unported (CC BY 3.0)</dams:licenseNote>
     <dams:licenseURI>http://creativecommons.org/licenses/by/3.0/</dams:licenseURI>
     <dams:restriction>

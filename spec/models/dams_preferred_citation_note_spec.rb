@@ -13,7 +13,7 @@ describe DamsPreferredCitationNote do
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/zzXXXXXXX1">
+  <dams:PreferredCitationNote rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
     <dams:type>citation</dams:type>
     <dams:displayLabel>Citation</dams:displayLabel>
     <rdf:value>Data at Redshift=1.4 (RD0022)</rdf:value>
