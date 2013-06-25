@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe DamsCartographicDatastream do
+describe DamsCartographicsDatastream do
 
   describe "a vocabulary model" do
 
     describe "instance populated in-memory" do
 
-      subject { DamsCartographicDatastream.new(stub('inner object', :pid=>'bb20202020', :new? => true), 'damsMetadata') }
+      subject { DamsCartographicsDatastream.new(stub('inner object', :pid=>'bb20202020', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb20202020"
@@ -42,7 +42,7 @@ describe DamsCartographicDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsCartographicDatastream.new(stub('inner object', :pid=>'bb20202020', :new? =>true), 'damsMetadata')
+        subject = DamsCartographicsDatastream.new(stub('inner object', :pid=>'bb20202020', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsCartographics.rdf.xml').read
         subject
       end

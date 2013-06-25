@@ -3,7 +3,7 @@ class DamsCartographicsController < ApplicationController
   skip_authorize_resource :only => :index
 
   def show
-    @cartographic = DamsCartographic.find(params[:id])
+    @cartographic = DamsCartographics.find(params[:id])
   end
 
   def new
@@ -35,7 +35,7 @@ class DamsCartographicsController < ApplicationController
   end
 
   def index
-    @cartographics = DamsCartographic.all
+    @cartographics = DamsCartographics.all
   end
 
 end

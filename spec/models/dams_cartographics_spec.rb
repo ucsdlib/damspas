@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe DamsCartographic do
+describe DamsCartographics do
   subject do
-    DamsCartographic.new pid: "bb20202020"
+    DamsCartographics.new pid: "bb20202020"
   end
   it "should create a xml" do
     subject.scale = "1:20000"
