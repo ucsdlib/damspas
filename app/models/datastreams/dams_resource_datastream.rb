@@ -174,7 +174,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	        # use inline data if available
 	        events << e
 	      elsif e.pid != nil
-	        events << DamsDAMSEvent.find(e.pid)
+	        events << DamsEvent.find(e.pid)
 	      end
  	  rescue Exception => e
           puts e.to_s

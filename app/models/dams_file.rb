@@ -25,7 +25,7 @@
       map.mimeType(:in=>DAMS)
       map.objectCategory(:in=>DAMS)
       map.preservationLevel(:in=>DAMS)
-      #map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
+      #map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
       # mix
       map.sourceCapture(:in=>DAMS, :to => 'sourceCapture')

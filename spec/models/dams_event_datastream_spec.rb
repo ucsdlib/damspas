@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe DamsDAMSEventDatastream do
+describe DamsEventDatastream do
 
   describe "event model" do
 
     describe "instance populated in-memory" do
 
-      subject { DamsDAMSEventDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
+      subject { DamsEventDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
@@ -32,7 +32,7 @@ describe DamsDAMSEventDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsDAMSEventDatastream.new(stub('inner object', :pid=>'bb28282828', :new? =>true), 'damsMetadata')
+        subject = DamsEventDatastream.new(stub('inner object', :pid=>'bb28282828', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsEvent.rdf.xml').read
         subject
       end

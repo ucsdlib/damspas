@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 require 'spec_helper'
 
-describe DamsDAMSEvent do
+describe DamsEvent do
   subject do
-    DamsDAMSEvent.new pid: "zzXXXXXXX1"
+    DamsEvent.new pid: "zzXXXXXXX1"
   end
   it "should create xml" do
     subject.type = "collection creation"
