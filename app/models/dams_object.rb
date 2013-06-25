@@ -1,6 +1,6 @@
 class DamsObject < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsObjectDatastream 
-  delegate_to "damsMetadata", [:title, :titleType, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, :subjectURI, :unitURI, :subjectType, :subjectTypeValue ]
+  delegate_to "damsMetadata", [:title, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, :subjectURI, :unitURI, :subjectType, :subjectTypeValue, :partName, :partNumber ]
 
   # rights metadata
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
