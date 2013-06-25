@@ -1,4 +1,4 @@
-class DamsDAMSEventDatastream < ActiveFedora::RdfxmlRDFDatastream
+class DamsEventDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.type(:in => DAMS, :to => 'type')
     map.eventDate(:in => DAMS, :to => 'eventDate')

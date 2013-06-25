@@ -36,7 +36,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
+    map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # unit and collections
     map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')

@@ -40,7 +40,7 @@ class DamsProvenanceCollectionPartInternal
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
-    map.event(:in=>DAMS, :class_name => 'DamsDAMSEventInternal')
+    map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # parent collection
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')

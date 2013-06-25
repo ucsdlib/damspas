@@ -44,10 +44,13 @@ class MadsAuthorityDatastream < ActiveFedora::RdfxmlRDFDatastream
     Solrizer.insert_field(solr_doc, "name", name.first )
     Solrizer.insert_field(solr_doc, "code", code.first )
     Solrizer.insert_field(solr_doc, "description", code.first )
-    scheme_id = scheme.first.to_s.gsub /.*\//, ""
-    scheme_obj = MadsScheme.find(scheme_id)
-    Solrizer.insert_field(solr_doc, "scheme", scheme.to_s )
     Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s)
+    scheme_obj = scheme
+    if scheme_obj.class == Array
+      scheme_obj = scheme_obj.first
+    end
+    scheme_id = scheme_obj.to_s.gsub /.*\//, ""
+    Solrizer.insert_field(solr_doc, "scheme", scheme_id)
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
