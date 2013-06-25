@@ -111,6 +111,20 @@ module DamsHelper
     title.first.subtitle = s
     title.first.name = title.first.label
   end
+  def partName
+    title.first != nil ? title.first.partName : nil
+  end
+  def partName=(s)
+    title.build if title.first.nil?
+    title.first.partName = s
+  end
+  def partNumber
+    title.first != nil ? title.first.partNumber : nil
+  end
+  def partNumber=(s)
+    title.build if title.first.nil?
+    title.first.partNumber = s
+  end  
   def subjectValue
     subject[0] ? subject[0].name : []
   end
