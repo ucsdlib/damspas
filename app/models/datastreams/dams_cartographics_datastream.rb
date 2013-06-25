@@ -1,4 +1,4 @@
-class DamsCartographicDatastream < ActiveFedora::RdfxmlRDFDatastream
+class DamsCartographicsDatastream < ActiveFedora::RdfxmlRDFDatastream
   map_predicates do |map|
     map.point(:in=>DAMS)
     map.line(:in=>DAMS)
