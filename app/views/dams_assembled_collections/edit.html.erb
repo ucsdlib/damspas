@@ -1,7 +1,6 @@
 <h1>Edit DAMS Assembled Collection</h1>
 <%= form_for @dams_assembled_collection do |f| %>
   <%= label_tag 'dams_assembled_collection[titleValue]', "Title" %><%= text_field_tag 'dams_assembled_collection[titleValue][]', @dams_assembled_collection.titleValue[0] %>
-  <%= label_tag 'dams_assembled_collection[titleType]', "Title Type" %><%= text_field_tag 'dams_assembled_collection[titleType][]', @dams_assembled_collection.titleType[0] %>
   <%= label_tag 'dams_assembled_collection[dateValue]', "Date Value" %><%= text_field_tag 'dams_assembled_collection[dateValue][]', @dams_assembled_collection.dateValue[0] %>
   <%= label_tag 'dams_assembled_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_assembled_collection[beginDate][]', @dams_assembled_collection.beginDate[0] %>
   <%= label_tag 'dams_assembled_collection[endDate]', "End Date" %><%= text_field_tag 'dams_assembled_collection[endDate][]', @dams_assembled_collection.endDate[0] %>
