@@ -127,6 +127,17 @@ module DamsHelper
     title.first.partNumber = s
     title.first.name = title.first.label
   end  
+
+   def titleNonSort
+    title.first != nil ? title.first.nonSort : nil
+  end
+  def titleNonSort=(s)
+    title.build if title.first.nil?
+    title.first.nonSort = s
+    title.first.name = title.first.label
+  end  
+
+  
   def subjectValue
     subject[0] ? subject[0].name : []
   end
