@@ -34,7 +34,7 @@ class DamsProvenanceCollectionInternal
 
     # subject names
     map.name(:in => DAMS)
-    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
+    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
     map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
     map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
     map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
@@ -63,8 +63,28 @@ class DamsProvenanceCollectionInternal
     map.object(:in => DAMS, :to => 'hasObject')
   end
   
-  def pid
-      rdf_subject.to_s.gsub(/.*\//,'')
+  def load_part
+    part_uri = part_node.values.first.to_s
+    part_pid = part_uri.gsub(/.*\//,'')
+    if part_pid != nil && part_pid != ""
+      DamsProvenanceCollectionPart.find(part_pid)
+    else
+      nil
+    end
+  end
+
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+
+  def serialize
+    graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
+    if(!@langURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.language, @langURI])
+      else
+        graph.update([rdf_subject, DAMS.language, @langURI])
+      end
+    end    
+    super
   end
 
 end
