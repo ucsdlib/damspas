@@ -53,6 +53,9 @@
   <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined subject" %>  
   <br>
 
+   <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Language" %>  
+   <br>
+
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_provenance_collections_path, class: "btn btn-primary" %>
 <%end%>
