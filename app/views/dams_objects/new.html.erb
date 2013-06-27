@@ -8,14 +8,31 @@
   <%= label_tag 'dams_object[titlePartName][]', "First PartName" %>
   <%= text_field_tag 'dams_object[titlePartName][]' %>  
   <%= label_tag 'dams_object[titlePartNumber][]', "First PartNumber" %>
-  <%= text_field_tag 'dams_object[titlePartNumber][]' %>      
+  <%= text_field_tag 'dams_object[titlePartNumber][]' %>    
+   <%= label_tag 'dams_object[titleNonSort][]', "First NonSort" %>
+  <%= text_field_tag 'dams_object[titleNonSort][]' %>     
   <%= label_tag 'dams_object[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_object[dateValue][]' %>
   <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_object[beginDate][]' %> 
   <%= label_tag 'dams_object[endDate][]', "End Date" %>
   <%= text_field_tag 'dams_object[endDate][]' %>    
+
+  <%= label_tag 'dams_object[noteValue][]', "Note" %>
+  <%= text_field_tag 'dams_object[noteValue][]' %> 
+
+  <%= label_tag 'dams_object[noteType][]', "Note Type" %>
+  <%= text_field_tag 'dams_object[noteType][]' %> 
+
+  <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Displaylabel" %>
+  <%= text_field_tag 'dams_object[noteDisplayLabel][]' %> 
   
+  <%= label_tag 'dams_object[scopeContentNoteValue][]', "Scope Content Note" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteValue][]' %>  
+
+  <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Note Type" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteType][]' %> 
+    
   <%#= label_tag 'dams_object[subject]', "Subject" %>
   <%#= select_tag 'dams_object[subject]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) %>
  
