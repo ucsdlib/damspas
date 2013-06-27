@@ -52,6 +52,18 @@
 
   <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined subject" %>  
   <br>
+  
+  <%= label_tag 'dams_provenance_collection[relatedResourceType][]', "Related Resource Type" %>
+  <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]' %>
+   <br>
+
+   <%= label_tag 'dams_provenance_collection[relatedResourceUri][]', "Related Resource URI" %>
+  <%= text_field_tag 'dams_provenance_collection[relatedResourceUri][]' %>
+   <br>
+
+   <%= label_tag 'dams_provenance_collection[relatedResourceDescription][]', "Related Resource Description" %>
+  <%= text_field_tag 'dams_provenance_collection[relatedResourceDescription][]' %>
+   <br>
 
    <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Language" %>  
    <br>

@@ -1,5 +1,46 @@
 module DamsHelper
  
+## RelatedResource#############################################################
+def relatedResourceType
+    relatedResource[0] ? relatedResource[0].type: []
+  end
+  def relatedResourceType=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      relatedResource.build if relatedResource[0] == nil
+      relatedResource[0].type = val
+    end
+  end
+
+def relatedResourceDescription
+    relatedResource[0] ? relatedResource[0].description: []
+  end
+  def relatedResourceDescription=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      relatedResource.build if relatedResource[0] == nil
+      relatedResource[0].description = val
+    end
+  end
+
+def relatedResourceUri
+    relatedResource[0] ? relatedResource[0].uri: []
+  end
+  def relatedResourceUri=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      relatedResource.build if relatedResource[0] == nil
+      relatedResource[0].uri = val
+    end
+  end
+
+
  ## scopeContentNote ######################################################################
  
   def scopeContentNoteType
