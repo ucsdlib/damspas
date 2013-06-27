@@ -2,7 +2,7 @@
 <% @page_title =  "Object | #{@dams_object.title.first} " %>
 <div class="row-fluid">
 	<div class="span12">
-		<h1><%= @dams_object.titleValue.join(", ") %></h1>
+		<h1><%= @dams_object.titleValue %></h1>
 	</div>
 </div>
 <div class="row-fluid">
@@ -22,10 +22,10 @@
 							<% if (!@dams_object.title.empty?) %>													
 								<% @dams_object.title.each do |t| %>
 									<dt>Title</dt>										
-									<dd><%= t.value.join(", ") %></dd>	
+									<dd><%= t.value %></dd>	
 									<% if (!t.subtitle.empty?) %>
 										<dt>Subtitle</dt>										
-										<dd><%= t.subtitle.join(", ") %></dd>
+										<dd><%= t.subtitle %></dd>
 									<% end %>																
 								<% end %>
 							<% end %>	
@@ -53,7 +53,7 @@
 							<% end %>
 							<% if (!@dams_object.languages.empty?) %>
 								<dt>Language</dt>
-								<dd><%= link_to @dams_object.languages.first.value.first, @dams_object.languages.first.valueURI.first.to_s %></dd>
+								<dd><%= link_to @dams_object.languages.first.name.first, @dams_object.languages.first.name.first.to_s %></dd>
 							<% end %>
 							<% if (!@dams_object.units.nil?) %>
 								<dt>Unit</dt>

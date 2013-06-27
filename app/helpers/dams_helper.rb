@@ -265,13 +265,28 @@ module DamsHelper
 		i+=1
 	end
   end
+  def languageURI
+    if @langURI != nil
+      @langURI
+    else
+      langURI.first
+    end
+  end 
+  def languageURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+	 if(!val.nil? && val.first.length > 0)
+	    @langURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{val}")   	
+	  end
+  end
   def subjectURI
     if @subURI != nil
       @subURI
     else
       subURI.first
     end
-  end 
+  end   
   def unitURI=(val)
     if val.class == Array
     	val = val.first
