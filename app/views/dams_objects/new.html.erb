@@ -64,8 +64,9 @@
   <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
    
   <%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
-    <br> 
-  
+  <br>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Language" %>  
+   <br>
   <!-input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
   
   <%=f.submit "Submit", class: "btn btn-primary" %>

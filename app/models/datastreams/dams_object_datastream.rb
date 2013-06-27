@@ -83,7 +83,14 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.unit, @unitURI])
       end
-    end          
+    end      
+	if(!@langURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.language, @langURI])
+      else
+        graph.update([rdf_subject, DAMS.language, @langURI])
+      end
+    end               
     super
   end
 

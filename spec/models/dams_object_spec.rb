@@ -76,6 +76,7 @@ describe DamsObject do
     subject.subjectValue = ["Black Panther Party--History"]
     subject.subjectURI = ["bd6724414c"]
     subject.topic.build.name = "test subject"
+    subject.languageURI = ["xx00000170"]
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
@@ -113,7 +114,8 @@ describe DamsObject do
         <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
       </mads:ComplexSubject>
     </dams:subject>   
-    <dams:subject rdf:resource="#{Rails.configuration.id_namespace}bd6724414c"/> 
+    <dams:subject rdf:resource="#{Rails.configuration.id_namespace}bd6724414c"/>
+    <dams:language rdf:resource="#{Rails.configuration.id_namespace}xx00000170"/> 
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml
