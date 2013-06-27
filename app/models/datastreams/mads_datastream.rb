@@ -181,7 +181,17 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
   
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'name', name)
-	Solrizer.insert_field(solr_doc, 'scheme', scheme.to_s)
+    if scheme != nil && scheme.class.name.include?("MadsSchemeInternal")
+	  Solrizer.insert_field(solr_doc, 'scheme', scheme.rdf_subject.to_s)
+      Solrizer.insert_field(solr_doc, 'scheme_name', scheme.name.first)
+    else
+	  Solrizer.insert_field(solr_doc, 'scheme', scheme.to_s)
+      if !scheme.to_s.blank? 
+        scheme_id = scheme.to_s.gsub(/.*\//,'')
+        schobj = MadsScheme.find( scheme_id )
+        Solrizer.insert_field(solr_doc, 'scheme_name', schobj.name.first)
+      end
+    end
  	Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s)
  	
 	list = elementList.first

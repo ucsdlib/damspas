@@ -68,9 +68,8 @@ class MadsLanguageDatastream < MadsDatastream
   end
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'code', code.first)
-	insertFields solr_doc, 'scheme', load_schemes(schemeNode)
-
-    Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s )    
+	#insertFields solr_doc, 'scheme', load_schemes(schemeNode)
+    #Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s )    
     super
   end 
 end

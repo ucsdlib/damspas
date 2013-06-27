@@ -46,6 +46,8 @@ describe MadsTopicDatastream do
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
         solr_doc["topic_element_tesim"].should == ["Baseball"]
+        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd9386739x"]
+        solr_doc["scheme_name_tesim"].should == ["Library of Congress Subject Headings"]
       end
     end
   end

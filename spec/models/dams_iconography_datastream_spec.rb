@@ -53,6 +53,7 @@ describe DamsIconographyDatastream do
         solr_doc["iconography_element_tesim"].should == ["Madonna and Child"]
         solr_doc["name_tesim"].should == ["Madonna and Child"]
         solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd1980525k"]
+        solr_doc["scheme_name_tesim"].should == ["Iconography"]
         solr_doc["externalAuthority_tesim"].should == ["http://id.loc.gov/XXX03"]
       end    
     end
