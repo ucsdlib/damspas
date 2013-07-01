@@ -3,7 +3,9 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     if val.class == Array
      val = val.first
     end
-    @madsScheme = RDF::Resource.new(Rails.configuration.id_namespace+val)
+    if(val != nil && val.length > 0)
+    	@madsScheme = RDF::Resource.new(Rails.configuration.id_namespace+val)
+    end
   end
   def scheme
     if @madsScheme != nil
