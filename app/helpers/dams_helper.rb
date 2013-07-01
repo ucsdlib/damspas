@@ -350,7 +350,7 @@ def relatedResourceUri
     	val = val.first
     end
     if(!val.nil? && val.length > 0)
-    	@assembledCollURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{val}")
+    	@assembledCollURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
     end
   end
   def assembledCollectionURI
@@ -360,8 +360,23 @@ def relatedResourceUri
       asembledCollectionURI.first
     end
   end 
-    
 
+  def provenanceCollectionURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@provenanceCollURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def provenanceCollectionURI
+    if @provenanceCollURI != nil
+      @provenanceCollURI
+    else
+      provenanceCollectionURI.first
+    end
+  end     
+  
   ## Date ######################################################################
   def beginDate
     date[0] ? date[0].beginDate : []
