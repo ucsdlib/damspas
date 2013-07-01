@@ -1,6 +1,12 @@
 <h1><%= @dams_provenance_collection.titleValue %></h1>
-<p>Date: <%= @dams_provenance_collection.dateValue.first %> (<%= @dams_provenance_collection.beginDate.first %>, <%= @dams_provenance_collection.endDate.first %>)</p>
-<p><%= @dams_provenance_collection.scopeContentNoteDisplayLabel.first %>: <%= @dams_provenance_collection.scopeContentNoteValue.first %></p>
+<p>Title: <%= @dams_provenance_collection.titleValue %>,<%= @dams_provenance_collection.subtitle %>, <%= @dams_provenance_collection.titlePartName %>, <%= @dams_provenance_collection.titlePartNumber %>,
+	<%= @dams_provenance_collection.titleNonSort %></p>
+<p>Date: <%= @dams_provenance_collection.dateValue.first %>, <%= @dams_provenance_collection.beginDate.first %>, <%= @dams_provenance_collection.endDate.first %></p>
+<p>Note: <%= @dams_provenance_collection.noteValue.first %>, <%= @dams_provenance_collection.noteType.first %>  <%= @dams_provenance_collection.noteDisplayLabel.first %></p>
+<p>ScopeContentNote:<%= @dams_provenance_collection.scopeContentNoteValue.first %>: <%= @dams_provenance_collection.scopeContentNoteType.first %></p>
+
+
+<p>RelatedResourceType: <%= @dams_provenance_collection.relatedResourceType.first %>, <%= @dams_provenance_collection.relatedResourceUri.first %>, <%= @dams_provenance_collection.relatedResourceDescription.first %></p>
 <p>	
 <% if (!@dams_provenance_collection.part.nil?) %>
 	Provenance Collection Part:
