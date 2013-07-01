@@ -97,7 +97,14 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
       end
-    end                
+    end         
+	if(!@provenanceCollURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+      else
+        graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+      end
+    end                   
     super
   end
 

@@ -19,7 +19,9 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     if val.class == Array
      val = val.first
     end
-    @extAuthority = RDF::Resource.new(val)
+    if(val != nil && val.length > 0)
+     	@extAuthority = RDF::Resource.new(val)
+     end
   end
   def externalAuthority
     if @extAuthority != nil
