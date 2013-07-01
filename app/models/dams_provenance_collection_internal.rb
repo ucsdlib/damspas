@@ -63,6 +63,9 @@ class DamsProvenanceCollectionInternal
     map.object(:in => DAMS, :to => 'hasObject')
   end
   
+  def pid
+      rdf_subject.to_s.gsub(/.*\//,'') 
+  end
   def load_part
     part_uri = part_node.values.first.to_s
     part_pid = part_uri.gsub(/.*\//,'')
