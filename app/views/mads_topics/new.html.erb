@@ -3,10 +3,11 @@
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_topic[name]', "Name" %>
   <%= text_field_tag 'mads_topic[name]' %>
-	<%= label_tag 'mads_topic[authority]', "Code" %>
-  <%= text_field_tag 'mads_topic[authority]' %>
-  <%= label_tag 'mads_topic[valueURI]', "URI" %>
-  <%= url_field_tag 'mads_topic[valueURI]' %>
+  <%= label_tag 'mads_topic[externalAuthority]', "externalAuthority" %>
+  <%= url_field_tag 'mads_topic[externalAuthority]' %>  
+  <br>
+  <%= select_tag 'mads_topic[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>  
+  
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
