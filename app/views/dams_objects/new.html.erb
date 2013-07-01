@@ -50,7 +50,7 @@
   <%= label_tag 'dams_object[typeOfResource][]', "Type Of Resource" %>
   <%= text_field_tag 'dams_object[typeOfResource][]' %>   
   <br>
-  <%#= select_tag 'dams_object[collection][]', options_for_select(@dams_assembled_collections.collect{ |v| [v.title, v.pid] } ) , :prompt=>"Select Collection" %>  
+  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Assembled Collection" %>  
   <br>  
   <%
   	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
@@ -65,6 +65,17 @@
    
   <%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
   <br>
+  <%= label_tag 'dams_object[relatedResourceType][]', "Related Resource Type" %>
+  <%= text_field_tag 'dams_object[relatedResourceType][]' %>
+   <br>
+
+   <%= label_tag 'dams_object[relatedResourceUri][]', "Related Resource URI" %>
+  <%= text_field_tag 'dams_object[relatedResourceUri][]' %>
+   <br>
+
+   <%= label_tag 'dams_object[relatedResourceDescription][]', "Related Resource Description" %>
+  <%= text_field_tag 'dams_object[relatedResourceDescription][]' %>
+   <br>  
   <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Language" %>  
    <br>
   <!-input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
