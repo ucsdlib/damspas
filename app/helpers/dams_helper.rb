@@ -344,7 +344,23 @@ def relatedResourceUri
       unitURI.first
     end
   end     
-  
+
+  def assembledCollectionURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@assembledCollURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{val}")
+    end
+  end
+  def assembledCollectionURI
+    if @assembledCollURI != nil
+      @assembledCollURI
+    else
+      asembledCollectionURI.first
+    end
+  end 
+    
 
   ## Date ######################################################################
   def beginDate
