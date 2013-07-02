@@ -13,6 +13,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
     @dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
     @dams_assembled_collections = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
+    @dams_objects = DamsObject.all( :order=>"system_create_dtsi asc" )
     @mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
   
   
