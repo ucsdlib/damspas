@@ -54,13 +54,14 @@ class DamsProvenanceCollectionInternal
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # child parts
-    map.part_node(:in=>DAMS,:to=>'hasPart')
+    # map.part_node(:in=>DAMS,:to=>'hasPart', :class_name => 'DamsProvenanceCollectionInternal')
+    map.provenanceCollectionPart(:in => DAMS, :to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
 
     # related collections
     map.relatedCollection(:in => DAMS)
 
     # related objects
-    map.object(:in => DAMS, :to => 'hasObject')
+    map.object(:in => DAMS, :to => 'hasObject' :class_name => 'DamsObject')
   end
   
   def pid
