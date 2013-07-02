@@ -3,11 +3,12 @@
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_topic[name]', "Name" %>
   <%= text_field_tag 'mads_topic[name]' %>
-  <%= label_tag 'mads_topic[externalAuthority]', "externalAuthority" %>
-  <%= url_field_tag 'mads_topic[externalAuthority]' %>  
+  <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'mads_topic[externalAuthority]' %> 
+  <%= label_tag 'mads_topic[elementValue]', "TopicElement" %>
+  <%= text_field_tag 'mads_topic[elementValue]' %> 
   <br>
-  <%= select_tag 'mads_topic[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>  
-  
+  <%= select_tag 'mads_topic[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

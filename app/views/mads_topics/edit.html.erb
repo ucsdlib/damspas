@@ -12,12 +12,14 @@
 			<%= label_tag 'mads_topic[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_topic[name][]', @mads_topic.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_topic[authority][]', "Authority" %>
-			<%= text_field_tag 'mads_topic[authority][]', @mads_topic.authority[0], class: "input-block-level" %>
+			<%= label_tag 'mads_topic[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_topic[externalAuthority][]', @mads_topic.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_topic[valueURI][]', "URI" %>
-			<%= text_field_tag 'mads_topic[valueURI][]', @mads_topic.valueURI, class: "input-block-level" %>
-				
+			<%= label_tag 'mads_topic[scheme][]', "scheme" %>
+			<%= select_tag 'mads_topic[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= label_tag 'mads_topic[elementValue][]', "TopicElement" %>
+			<%= text_field_tag 'mads_topic[elementValue][]', @mads_topic.elementValue, class: "input-block-level" %>
+							
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_topic_path(@mads_topic), class: "btn btn-link pull-right" %>
