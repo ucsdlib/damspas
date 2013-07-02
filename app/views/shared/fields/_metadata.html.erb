@@ -2,24 +2,47 @@
 		htmlOpen = "<dt>%s</dt><dd>"
 		htmlClose = "</dd>"
 
-		if @document["authority_tesim"] != nil 
-		    htmlOpen %= 'Authority'
+		if @document["topic_element_tesim"] != nil 
+		    htmlOpen %= 'TopicElement'
 		    concat htmlOpen.html_safe
 %>		    
 			<ul class="unstyled sidebar-button-list">
-				<li><%= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %></li>
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"topic_element_tesim").html_safe %></li>
 			</ul>
 <%
 			concat htmlClose.html_safe			
-		end		
+		end	
 		
 		htmlOpen = "<dt>%s</dt><dd>"
-		if @document["valueURI_tesim"] != nil 
-		    htmlOpen %= 'URI'
+		if @document["scheme_name_tesim"] != nil 
+		    htmlOpen %= 'Scheme Name'
 		    concat htmlOpen.html_safe
 %>		    
 			<ul class="unstyled sidebar-button-list">
-				<li><%= link_to "<i class='icon-globe'></i> #{@document['valueURI_tesim'].first}".html_safe, @document['valueURI_tesim'].first, :class => "btn btn-block  btn-link" %></li>
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"scheme_name_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end				
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["scheme_tesim"] != nil 
+		    htmlOpen %= 'Scheme'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= link_to "<i class='icon-globe'></i> #{@document['scheme_tesim'].first}".html_safe, @document['scheme_tesim'].first, :class => "btn btn-block  btn-link" %></li>
+				
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end			
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["externalAuthority_tesim"] != nil 
+		    htmlOpen %= 'externalAuthority'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= link_to "<i class='icon-globe'></i> #{@document['externalAuthority_tesim'].first}".html_safe, @document['externalAuthority_tesim'].first, :class => "btn btn-block  btn-link" %></li>
 			</ul>
 <%
 			concat htmlClose.html_safe			

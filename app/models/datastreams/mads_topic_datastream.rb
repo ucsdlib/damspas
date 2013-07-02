@@ -1,4 +1,5 @@
 class MadsTopicDatastream < MadsDatastream
+  include DamsHelper
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.schemeNode(:in => MADS, :to => 'isMemberOfMADSScheme')
@@ -10,6 +11,15 @@ class MadsTopicDatastream < MadsDatastream
     graph.insert([rdf_subject, RDF.type, MADS.Topic]) if new?
     super
   end
+  
+  def elementValue
+    getElementValue "TopicElement"
+  end
+  
+  def elementValue=(s)
+    setElementValue( "TopicElement", s )
+  end
+  
 #  def to_solr (solr_doc = {})
 #    super
 #  end

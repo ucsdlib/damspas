@@ -124,6 +124,7 @@ def relatedResourceUri
     end
   end
 
+  ## Title ######################################################################
   def subtitle
     title[0] ? title[0].subtitle : []
   end
@@ -179,7 +180,7 @@ def relatedResourceUri
     title.first.name = title.first.label
   end  
 
-  
+  ## Subject ######################################################################
   def subjectValue
     subject[0] ? subject[0].name : []
   end
@@ -301,12 +302,22 @@ def relatedResourceUri
     @array_subject = Array.new
 	val.each do |v| 
 	    if(!v.nil? && v.length > 0)
-	    	@subURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{v}")  
+	    	@subURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{v}")  
 	    	@array_subject << @subURI  	
 	    end
 		i+=1
 	end
   end
+
+  def subjectURI
+    if @subURI != nil
+      @subURI
+    else
+      subURI.first
+    end
+  end  
+  
+  ## Language ######################################################################  
   def languageURI
     if @langURI != nil
       @langURI
@@ -319,22 +330,17 @@ def relatedResourceUri
     	val = val.first
     end
 	 if(!val.nil? && val.first.length > 0)
-	    @langURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{val}")   	
+	    @langURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
 	  end
   end
-  def subjectURI
-    if @subURI != nil
-      @subURI
-    else
-      subURI.first
-    end
-  end   
+ 
+  ## Unit ######################################################################
   def unitURI=(val)
     if val.class == Array
     	val = val.first
     end
     if(!val.nil? && val.length > 0)
-    	@unitURI = RDF::Resource.new("http://library.ucsd.edu/ark:/20775/#{val}")
+    	@unitURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
     end
   end
   def unitURI
@@ -345,6 +351,7 @@ def relatedResourceUri
     end
   end     
 
+  ## Collection ######################################################################
   def assembledCollectionURI=(val)
     if val.class == Array
     	val = val.first
@@ -475,4 +482,77 @@ def relatedResourceUri
     restriction_node[0].type = val
   end  
 
+  ## ElementListValue for MADS classes ######################################################################
+  def getElementValue(type)
+    elem = find_element type
+    if elem != nil
+      elem.elementValue.first
+    else
+      []
+    end
+  end
+  
+  def setElementValue(type,val)
+    if val.class == Array
+        val = val.first
+    end
+
+    if elementList[0] == nil
+      elementList.build
+    end
+
+    existing_elem = find_element type
+
+    #need to use eList.size to know where to insert/update the value
+    if(existing_elem != nil )
+      # set value of existing element
+      existing_elem.elementValue = val
+    else
+      # create a new element of the correct type
+      if type.include? "TopicElement"
+        elem = MadsDatastream::List::TopicElement.new(elementList.first.graph)
+      elsif type.include? "BuiltWorkPlaceElement"
+        elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
+	  elsif type.include? "BuiltWorkPlaceElement"
+        elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
+	  elsif type.include? "CulturalContextElement"
+        elem = MadsDatastream::List::CulturalContextElement.new(elementList.first.graph)
+      elsif type.include? "FunctionElement"
+        elem = MadsDatastream::List::FunctionElement.new(elementList.first.graph)
+	  elsif type.include? "GenreFormElement"
+        elem = MadsDatastream::List::GenreFormElement.new(elementList.first.graph)              
+      elsif type.include? "GeographicElement"
+        elem = MadsDatastream::List::GeographicElement.new(elementList.first.graph)
+	  elsif type.include? "IconographyElement"
+        elem = MadsDatastream::List::IconographyElement.new(elementList.first.graph)
+	  elsif type.include? "ScientificNameElement"
+        elem = MadsDatastream::List::ScientificNameElement.new(elementList.first.graph)
+      elsif type.include? "TechniqueElement"
+        elem = MadsDatastream::List::TechniqueElement.new(elementList.first.graph)
+	  elsif type.include? "TemporalElement"
+        elem = MadsDatastream::List::TemporalElement.new(elementList.first.graph)                                    
+      end
+      elem.elementValue = val
+
+      # add new element to the end of the list
+      if elementList.first.nil?
+        elementList.first.value = elem
+      else
+        elementList.first[elementList.first.size] = elem
+      end
+    end 
+  end
+  
+  def find_element( type )
+    chain = elementList.first
+    elem = nil
+    while  elem == nil && chain != nil do
+      if chain.first.class.name.include? type
+        elem = chain.first
+      else
+        chain = chain.tail
+      end
+    end
+    elem
+  end 
 end
