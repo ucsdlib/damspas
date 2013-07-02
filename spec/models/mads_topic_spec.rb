@@ -9,6 +9,7 @@ describe MadsTopic do
     subject.name = "Baseball"
     subject.scheme = "bd9386739x"
     subject.externalAuthority =  "http://id.loc.gov/authorities/subjects/sh85012026"
+    subject.elementValue = "Baseball 2"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,11 @@ describe MadsTopic do
     <mads:authoritativeLabel>Baseball</mads:authoritativeLabel>
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/subjects/sh85012026"/>
     <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd9386739x"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:TopicElement>
+        <mads:elementValue>Baseball 2</mads:elementValue>
+      </mads:TopicElement>
+    </mads:elementList>    
   </mads:Topic>
 </rdf:RDF>
 END
