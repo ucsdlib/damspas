@@ -27,6 +27,7 @@ class MadsTopicsController < ApplicationController
   ##############################################################################
   def view
     @mads_topic = MadsTopic.find(params[:id])
+   
   end
 
   def new
@@ -34,7 +35,10 @@ class MadsTopicsController < ApplicationController
   end
 
   def edit
-    #@mads_topic = MadsTopic.find(params[:id])
+    @mads_topic = MadsTopic.find(params[:id])
+    @mads_schemes = MadsScheme.find(:all)
+    @scheme_id = @mads_topic.scheme.to_s.gsub /.*\//, ""
+    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
   end
 
   def create
