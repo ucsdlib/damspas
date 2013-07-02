@@ -40,11 +40,8 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
     
     # collections
-    map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
-
+    map.provenanceCollectionPart(:in => DAMS, :to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
     
-
-
     # child parts
     map.part_node(:in=>DAMS,:to=>'hasPart')
 
@@ -52,7 +49,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.relatedCollection(:in => DAMS)
 
     # related objects
-    map.object(:in => DAMS, :to => 'hasObject')
+    map.object(:in => DAMS, :to => 'hasObject', :class_name => 'DamsObject')
   end
 
   def load_part
@@ -78,9 +75,9 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     end   
     if(!@damsObjURI.nil?)
       if new?
-        graph.insert([rdf_subject, DAMS.provenanceCollection, @damsObjURI])
+        graph.insert([rdf_subject, DAMS.object, @damsObjURI])
       else
-        graph.update([rdf_subject, DAMS.provenanceCollection, @damsObjURI])
+        graph.update([rdf_subject, DAMS.object, @damsObjURI])
       end
     end   
     super
