@@ -61,7 +61,7 @@ class DamsProvenanceCollectionInternal
     map.relatedCollection(:in => DAMS)
 
     # related objects
-    map.object(:in => DAMS, :to => 'hasObject' :class_name => 'DamsObject')
+    map.object(:in => DAMS, :to => 'hasObject', :class_name => 'DamsObject')
   end
   
   def pid
