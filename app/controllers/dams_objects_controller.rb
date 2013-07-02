@@ -50,15 +50,15 @@ class DamsObjectsController < ApplicationController
   	@dams_provenance_collections = DamsProvenanceCollection.all( :order=>"system_create_dtsi asc" )
   	@mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
   		
-	uri = URI('http://fast.oclc.org/fastSuggest/select')
-	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '10')
-	json = JSON.parse(res.body)
-	@jdoc = json.fetch("response").fetch("docs")
+	#uri = URI('http://fast.oclc.org/fastSuggest/select')
+	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '10')
+	#json = JSON.parse(res.body)
+	#@jdoc = json.fetch("response").fetch("docs")
 	
-	@autocomplete_items = Array.new
-	@jdoc.each do |value|
-		@autocomplete_items << value['suggestall']
-	end  
+	#@autocomplete_items = Array.new
+	#@jdoc.each do |value|
+	#	@autocomplete_items << value['suggestall']
+	#end  
 
   end
   
