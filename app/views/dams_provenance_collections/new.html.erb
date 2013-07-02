@@ -70,6 +70,12 @@
    <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Language" %>  
    <br>
 
+   <%= select_tag 'dams_provenance_collection[damsObjectURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Language" %>  
+   <br>
+  
+  <%= select_tag 'dams_provenance_collection[damsObjectURI][]', options_for_select(@dams_objects.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select dams objects" %>  
+  <br>
+
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_provenance_collections_path, class: "btn btn-primary" %>
 <%end%>
