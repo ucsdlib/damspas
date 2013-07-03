@@ -9,7 +9,7 @@ describe MadsTemporal do
     subject.name = "16th century"
     subject.scheme = "bd9386739x"
     subject.externalAuthority = "http://id.loc.gov/n9999999999"
-    subject.elementListValue = "16th century"
+    subject.elementValue = "16th century"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
