@@ -8,10 +8,10 @@ describe MadsTemporalsController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = MadsTemporal.create(name: "Test Title", elementListValue: "2013")
+ 	      @obj = MadsTemporal.create(name: "Test Title", elementValue: "2013")
  	    end
 	    it "should be successful" do
-	      put :update, :id => @obj.id, :mads_temporal => {name: ["Test Title2"], elementListValue: ["2014"]}
+	      put :update, :id => @obj.id, :mads_temporal => {name: ["Test Title2"], elementValue: ["2014"]}
           # this works in the browser, but not in tests..."
 	      #response.should redirect_to edit_mads_temporal_path(@obj)
 	      @obj.reload.name.should == ["Test Title2"]

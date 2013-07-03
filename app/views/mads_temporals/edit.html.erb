@@ -12,20 +12,13 @@
 			<%= label_tag 'mads_temporal[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_temporal[name][]', @mads_temporal.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_temporal[authority][]', "Authority" %>
-			<%= text_field_tag 'mads_temporal[authority][]', @mads_temporal.authority[0], class: "input-block-level" %>
+			<%= label_tag 'mads_temporal[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_temporal[externalAuthority][]', @mads_temporal.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_temporal[valueURI][]', "URI" %>
-			<%= text_field_tag 'mads_temporal[valueURI][]', @mads_temporal.valueURI, class: "input-block-level" %>
-
-			<% eList = @mads_temporal.elementList.first    
-				if eList != nil	
-			%>
-					<%= label_tag 'mads_temporal[elementListValue][]', "Temporal" %>
-					<%= text_field_tag 'mads_temporal[elementListValue][]',eList[0].elementValue.first, class: "input-block-level" %>
-			<%
-				end					
-			%> 
+			<%= label_tag 'mads_temporal[scheme][]', "scheme" %>
+			<%= select_tag 'mads_temporal[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= label_tag 'mads_temporal[elementValue][]', "TemporalElement" %>
+			<%= text_field_tag 'mads_temporal[elementValue][]', @mads_temporal.elementValue, class: "input-block-level" %>
 							
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
