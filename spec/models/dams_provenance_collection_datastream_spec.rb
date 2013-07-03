@@ -46,34 +46,34 @@ describe DamsProvenanceCollectionDatastream do
 #        subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
 #      end
 
- 	  it "should have notes" do
-        solr_doc = subject.to_solr
-        solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}bb80808080"
-        solr_doc["note_tesim"].should include "Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-      end
+# 	  it "should have notes" do
+#        solr_doc = subject.to_solr
+#        solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}bb80808080"
+#       solr_doc["note_tesim"].should include "Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#        solr_doc["note_tesim"].should include "Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#        solr_doc["note_tesim"].should include "Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#      end
       
- 	  it "should index notes" do
-        solr_doc = subject.to_solr
+# 	  it "should index notes" do
+#       solr_doc = subject.to_solr
 
  	    #it "should have scopeContentNote" do
-		testIndexNoteFields solr_doc,"scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#		testIndexNoteFields solr_doc,"scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have preferredCitationNote" do
-		testIndexNoteFields solr_doc,"preferredCitationNote","Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#		testIndexNoteFields solr_doc,"preferredCitationNote","Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have CustodialResponsibilityNote" do
-		testIndexNoteFields solr_doc,"custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-      end  
-      it "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "bb08080808"
-        subject.relationship.first.role.first.pid.should == "bd55639754"
-        solr_doc = subject.to_solr
-        solr_doc["name_tesim"].should include "Artist, Alice, 1966-"
-      end 
+#		testIndexNoteFields solr_doc,"custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#      end  
+ #     it "should have relationship" do
+ #       subject.relationship.first.name.first.pid.should == "bb08080808"
+ #       subject.relationship.first.role.first.pid.should == "bd55639754"
+ #       solr_doc = subject.to_solr
+ #       solr_doc["name_tesim"].should include "Artist, Alice, 1966-"
+ #     end 
+
 #      it "should have event" do
 #        solr_doc = subject.to_solr
 #        solr_doc["event_1_type_tesim"].should == ["collection creation"]
@@ -82,9 +82,9 @@ describe DamsProvenanceCollectionDatastream do
 #        solr_doc["event_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
 #        solr_doc["event_1_role_tesim"].should == ["Initiator"]
 #      end              
-      def testIndexNoteFields (solr_doc,fieldName,value)
-        solr_doc["#{fieldName}_tesim"].should include value
-      end    
+#      def testIndexNoteFields (solr_doc,fieldName,value)
+#        solr_doc["#{fieldName}_tesim"].should include value
+#      end    
     end
   end
 end
