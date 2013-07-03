@@ -9,6 +9,7 @@ describe MadsGeographic do
     subject.name = "Ness, Loch (Scotland)"
     subject.scheme = "bd9386739x"
     subject.externalAuthority = "http://id.loc.gov/authorities/sh85090955"
+    subject.elementValue = "Ness, Loch (Scotland)"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,11 @@ describe MadsGeographic do
     <mads:authoritativeLabel>Ness, Loch (Scotland)</mads:authoritativeLabel>
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/sh85090955"/>
     <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd9386739x"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:GeographicElement>
+        <mads:elementValue>Ness, Loch (Scotland)</mads:elementValue>
+      </mads:GeographicElement>
+    </mads:elementList>    
   </mads:Geographic>
 </rdf:RDF>
 END
