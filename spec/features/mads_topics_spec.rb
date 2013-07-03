@@ -8,13 +8,14 @@ feature 'Visitor wants to create a topic' do
 		fill_in "Name", :with => "TestLabel"
 		fill_in "ExternalAuthority", :with => "http://test.com"
 		fill_in "TopicElement", :with => "Element"
-		select("Test Scheme", :from => "mads_topic_scheme")
+		page.select('Test Scheme', match: :first) 
 		click_on "Submit"
 
 		# On TestLabel topic page
 		expect(page).to have_content ("TestLabel")
 		expect(page).to have_content ("http://test.com")
 		expect(page).to have_content ("Element")
+		expect(page).to have_content ("Test Scheme")
 
 		# Check index page for newly created topic
 		visit mads_topics_path
