@@ -1,9 +1,15 @@
 require 'spec_helper'
 
+# Class to store the path of the topic
+class Path
+	class << self
+		attr_accessor :path
+	end
+	@path = nil
+end
+
 # Variable to be used to store MADS topic path
 # Used for editing specified topic
-@@path = nil
-
 feature 'Visitor wants to create/edit a topic' do 
 	scenario 'is on mads index page' do
 		sign_in_developer
@@ -17,7 +23,8 @@ feature 'Visitor wants to create/edit a topic' do
 		click_on "Submit"
 
 		# Save path of topic for other test(s)
-		@@path = current_path
+		Path.path = current_path
+		expect(Path.path).to eq(current_path)
 		expect(page).to have_content ("TestLabel")
 		expect(page).to have_content ("http://test.com")
 		expect(page).to have_content ("TestElement")
@@ -42,7 +49,8 @@ feature 'Visitor wants to create/edit a topic' do
 
 	scenario 'is on the topic page to be edited' do
 		sign_in_developer
-		visit @@path
+
+		visit Path.path
 		click_on "Edit"
 		fill_in "Authoritative Label", :with => "Edited Test Topic"
 		fill_in "ExternalAuthority", :with => "http://edited.edu"
@@ -60,7 +68,7 @@ end
 feature 'Visitor wants to cancel unsaved edits' do
 	scenario 'is on Edit Topic page' do
 		sign_in_developer
-		visit @@path
+		visit Path.path
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
 		fill_in "Authoritative Label", :with => "CANCEL"
