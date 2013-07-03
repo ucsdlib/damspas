@@ -3,10 +3,12 @@
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_temporal[name]', "Name" %>
   <%= text_field_tag 'mads_temporal[name]' %>
-	<%= label_tag 'mads_temporal[authority]', "Code" %>
-  <%= text_field_tag 'mads_temporal[authority]' %>
-  <%= label_tag 'mads_temporal[valueURI]', "URI" %>
-  <%= url_field_tag 'mads_temporal[valueURI]' %>
+  <%= label_tag 'mads_temporal[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'mads_temporal[externalAuthority]' %> 
+  <%= label_tag 'mads_temporal[elementValue]', "TemporalElement" %>
+  <%= text_field_tag 'mads_temporal[elementValue]' %> 
+  <br>
+  <%= select_tag 'mads_temporal[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
