@@ -35,7 +35,7 @@ feature 'Visitor wants to edit a topic' do
 
 		# Click on first "TestLabel" topic name
 		all('a').select {|topic| topic.text == "TestLabel" }.last.click
-		expect(page).to have_selector ('a', :text => "Edit")
+		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
 		# Make changes
 		fill_in "Authoritative Label", :with => "Edited Test Topic"
