@@ -42,7 +42,7 @@ feature 'Visitor wants to edit a topic' do
 		fill_in "Authoritative Label", :with => "Edited Test Topic"
 		fill_in "ExternalAuthority", :with => "http://edited.edu"
 		fill_in "TopicElement", :with => "Element2"
-		select("Test Scheme 2", :from => "mads_topic_scheme_")
+		page.select('Test Scheme 2', match: :first) 
 		click_on "Save changes"
 
 		# Check that changes are saved
@@ -53,6 +53,23 @@ feature 'Visitor wants to edit a topic' do
 		expect(page).to have_content ("http://edited.edu")
 		expect(page).to have_content ("Element2")
 		expect(page).to have_content ("Test Scheme 2")
+	end
+end
+
+feature 'Visitor wants to cancel unsaved edits' do
+	scenario 'is on Edit Topic page' do
+		sign_in_developer
+		visit mads_topics_path
+		all('a').select {|topic| topic.text == "Edited Test Topic" }.last.click
+		expect(page).to have_selector('a', :text => "Edit")
+		click_on "Edit"
+		fill_in "Authoritative Label", :with => "CANCEL"
+		fill_in "ExternalAuthority", :with => "http://cancel.edu"
+		fill_in "TopicElement", :with => "Should not show"
+		select("Test Scheme 2", :from => "scheme")
+		click_on "Cancel"
+		expect(page).to_not have_content("Should not show")
+		expect(page).to have_content("Edited Test Topic")
 	end
 end
 
