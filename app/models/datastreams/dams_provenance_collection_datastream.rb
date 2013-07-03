@@ -40,9 +40,8 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
     
     # collections
-    map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
-
-
+    map.provenanceCollectionPart(:in => DAMS, :to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
+    
     # child parts
     map.part_node(:in=>DAMS,:to=>'hasPart')
 
@@ -50,7 +49,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.relatedCollection(:in => DAMS)
 
     # related objects
-    map.object(:in => DAMS, :to => 'hasObject')
+    map.object(:in => DAMS, :to => 'hasObject', :class_name => 'DamsObject')
   end
 
   def load_part
@@ -67,11 +66,35 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
+    if(!@subURI.nil?)
+      if new?
+        @array_subject.each do |sub|
+          graph.insert([rdf_subject, DAMS.subject, sub])
+        end
+        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+      else
+        graph.update([rdf_subject, DAMS.subject, @subURI])
+      end
+    end  
     if(!@langURI.nil?)
       if new?
         graph.insert([rdf_subject, DAMS.language, @langURI])
       else
         graph.update([rdf_subject, DAMS.language, @langURI])
+      end
+    end   
+    if(!@damsObjURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.object, @damsObjURI])
+      else
+        graph.update([rdf_subject, DAMS.object, @damsObjURI])
+      end
+    end  
+    if(!@provenanceCollPartURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
+      else
+        graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
       end
     end    
     super

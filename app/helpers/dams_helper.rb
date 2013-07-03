@@ -383,7 +383,39 @@ def relatedResourceUri
       provenanceCollectionURI.first
     end
   end     
+
+  def damsObjectURI=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      @damsObjURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def damsObjectURI
+    if @damsObjURI != nil
+      @damsObjURI
+    else
+      damsObjectURI.first
+    end
+  end     
   
+ def provenanceCollectionPartURI=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      @provenanceCollPartURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def provenanceCollectionPartURI
+    if @provenanceCollPartURI != nil
+      @provenanceCollPartURI
+    else
+      provenanceCollectionPartURI.first
+    end
+  end     
+
   ## Date ######################################################################
   def beginDate
     date[0] ? date[0].beginDate : []
