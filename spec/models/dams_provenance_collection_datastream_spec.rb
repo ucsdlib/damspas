@@ -42,9 +42,9 @@ describe DamsProvenanceCollectionDatastream do
         subject.beginDate.should == ["2009-05-03"]
         subject.endDate.should == ["2010-06-30"]
       end
-#      it "should have a language" do
-#        subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
-#      end
+      it "should have a language" do
+        subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
+      end
 
 # 	  it "should have notes" do
 #        solr_doc = subject.to_solr
