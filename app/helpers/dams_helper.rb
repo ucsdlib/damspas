@@ -564,7 +564,16 @@ def relatedResourceUri
 	  elsif type.include? "TemporalElement"
         elem = MadsDatastream::List::TemporalElement.new(elementList.first.graph)     
 	  elsif type.include? "OccupationElement"
-        elem = MadsDatastream::List::OccupationElement.new(elementList.first.graph)                                          
+        elem = MadsDatastream::List::OccupationElement.new(elementList.first.graph)               
+	  elsif type.include? "FullNameElement"
+        elem = MadsDatastream::List::FullNameElement.new(elementList.first.graph)
+      elsif type.include? "FamilyNameElement"
+        elem = MadsDatastream::List::FamilyNameElement.new(elementList.first.graph)
+	  elsif type.include? "GivenNameElement"
+        elem = MadsDatastream::List::GivenNameElement.new(elementList.first.graph)     
+	  elsif type.include? "DateNameElement"
+        elem = MadsDatastream::List::DateNameElement.new(elementList.first.graph)                 
+                                         
       end
       elem.elementValue = val
 
@@ -589,4 +598,59 @@ def relatedResourceUri
     end
     elem
   end 
+  
+  def fullNameValue
+    getElementValue "FullNameElement"
+  end
+  
+  def fullNameValue=(s)
+    setElementValue( "FullNameElement", s )
+  end  
+  
+  def familyNameValue
+    getElementValue "FamilyNameElement"
+  end
+  
+  def familyNameValue=(s)
+    setElementValue( "FamilyNameElement", s )
+  end    
+  
+  def givenNameValue
+    getElementValue "GivenNameElement"
+  end
+  
+  def givenNameValue=(s)
+    setElementValue( "GivenNameElement", s )
+  end    
+  
+  def dateNameValue
+    getElementValue "DateNameElement"
+  end
+  
+  def dateNameValue=(s)
+    setElementValue( "DateNameElement", s )
+  end 
+  
+  def nameLabel
+    fullName = fullNameValue
+    familyName = familyNameValue
+    givenName = givenNameValue
+    dateName = dateNameValue
+
+    # make sure we have values not arrays
+    fullName = fullName.first if fullName.class == Array
+    familyName = familyName.first if familyName.class == Array
+    givenName = givenName.first if givenName.class == Array
+    dateName = dateName.first if dateName.class == Array
+    
+    if(fullName != nil && fullName.length > 0)
+    	label = fullName
+    	label += ", " + dateName if dateName    
+    else    
+	    label = familyName if familyName
+	    label += ", " + givenName if givenName
+	    label += ", " + dateName if dateName
+    end
+    label
+  end           
 end
