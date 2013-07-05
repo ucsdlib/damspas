@@ -55,7 +55,7 @@ describe MadsPersonalNameDatastream do
         list[2].elementValue.should == ["Jack O."]  
         list[3].should be_kind_of MadsPersonalNameDatastream::List::DateNameElement
         list[3].elementValue.should == ["1977-"]        
-        list.size.should == 4        
+        list.size.should == 5        
       end  
       
       it "should have a fields from solr doc" do

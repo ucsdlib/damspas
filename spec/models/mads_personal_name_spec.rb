@@ -13,6 +13,7 @@ describe MadsPersonalName do
     subject.familyNameValue = "Burns"
     subject.givenNameValue = "Jack O."
     subject.dateNameValue = "1977-"
+    subject.termOfAddressValue = "N.C.)"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -36,6 +37,9 @@ describe MadsPersonalName do
 	  <mads:DateNameElement>
         <mads:elementValue>1977-</mads:elementValue>
       </mads:DateNameElement>
+      <mads:TermsOfAddressNameElement>
+         <mads:elementValue>N.C.)</mads:elementValue>
+      </mads:TermsOfAddressNameElement>        
     </mads:elementList>    
   </mads:PersonalName>
 </rdf:RDF>
