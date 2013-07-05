@@ -1,12 +1,28 @@
 <h1>Edit DAMS Provenance Collection</h1>
 <%= form_for @dams_provenance_collection do |f| %>
-  <%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue[0] %>
-  <%= label_tag 'dams_provenance_collection[dateValue]', "Date Value" %><%= text_field_tag 'dams_provenance_collection[dateValue][]', @dams_provenance_collection.dateValue[0] %>
+  <%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue %>
+  <%= label_tag 'dams_provenance_collection[subtitle]', "SubTitle" %><%= text_field_tag 'dams_provenance_collection[subtitle][]', @dams_provenance_collection.subtitle %>
+  
+  <%= label_tag 'dams_provenance_collection[titlePartName]', "Title PartName" %><%= text_field_tag 'dams_provenance_collection[titlePartName][]', @dams_provenance_collection.titlePartName %>
+  <%= label_tag 'dams_provenance_collection[titlePartNumber]', "Title PartNumber" %><%= text_field_tag 'dams_provenance_collection[titlePartNumber][]', @dams_provenance_collection.titlePartNumber %>
+  <%= label_tag 'dams_provenance_collection[titleNonSort]', " Title NonSort" %><%= text_field_tag 'dams_provenance_collection[titleNonSort][]', @dams_provenance_collection.titleNonSort %>
+
+  <%= label_tag 'dams_provenance_collection[dateValue]', "Date" %><%= text_field_tag 'dams_provenance_collection[dateValue][]', @dams_provenance_collection.dateValue[0] %>
   <%= label_tag 'dams_provenance_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_provenance_collection[beginDate][]', @dams_provenance_collection.beginDate[0] %>
   <%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0] %>
+
+  <%= label_tag 'dams_provenance_collection[noteValue]', "Note" %><%= text_field_tag 'dams_provenance_collection[noteValue][]', @dams_provenance_collection.noteValue[0] %>
+  <%= label_tag 'dams_provenance_collection[noteType]', "Note Type" %><%= text_field_tag 'dams_provenance_collection[noteType][]', @dams_provenance_collection.noteType[0] %>
+   <%= label_tag 'dams_provenance_collection[noteDisplayLabel]', "Note Displaylabel" %><%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]', @dams_provenance_collection.noteDisplayLabel[0] %>
+ 
   <%= label_tag 'dams_provenance_collection[scopeContentNoteValue]', "Scope Note" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', @dams_provenance_collection.scopeContentNoteValue[0] %>
+  
   <%= label_tag 'dams_provenance_collection[scopeContentNoteType]', "Scope Note Type" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]', @dams_provenance_collection.scopeContentNoteType[0] %>
-  <%= label_tag 'dams_provenance_collection[scopeContentNoteDisplayLabel]', "Scope Note DisplayLabel" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteDisplayLabel][]', @dams_provenance_collection.scopeContentNoteDisplayLabel[0] %>
+
+  
+  
+  <br>
+
 
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>
