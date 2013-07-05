@@ -63,7 +63,69 @@
 			</ul>
 <%
 			concat htmlClose.html_safe			
-		end							
+		end		
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["full_name_element_tesim"] != nil 
+		    htmlOpen %= 'FullNameElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"full_name_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["family_name_element_tesim"] != nil 
+		    htmlOpen %= 'FamilyNameElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"family_name_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+	    htmlOpen = "<dt>%s</dt><dd>"
+		if @document["given_name_element_tesim"] != nil 
+		    htmlOpen %= 'GivenNameElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"given_name_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+	    htmlOpen = "<dt>%s</dt><dd>"
+		if @document["date_name_element_tesim"] != nil 
+		    htmlOpen %= 'DateNameElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"date_name_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+ 		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["terms_of_address_name_element_tesim"] != nil 
+		    htmlOpen %= 'TermsOfAddressNameElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"terms_of_address_name_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+																	
 		htmlOpen = "<dt>%s</dt><dd>"
 		if @document["scheme_name_tesim"] != nil 
 		    htmlOpen %= 'Scheme Name'
