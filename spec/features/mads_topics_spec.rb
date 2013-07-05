@@ -5,12 +5,13 @@ class Path
 	class << self
 		attr_accessor :path
 	end
+	# Variable to be used to store MADS topic path
+	# Used for editing specified topic
 	@path = nil
 end
 
-# Variable to be used to store MADS topic path
-# Used for editing specified topic
-feature 'Visitor wants to create/edit a topic' do 
+feature 'Visitor wants to create/edit a topic' do
+
 	scenario 'is on mads index page' do
 		sign_in_developer
 		# Change to create button
@@ -25,11 +26,11 @@ feature 'Visitor wants to create/edit a topic' do
 		# Save path of topic for other test(s)
 		Path.path = current_path
 		expect(Path.path).to eq(current_path)
-		expect(page).to have_content ("TestLabel")
-		expect(page).to have_content ("http://test.com")
-		expect(page).to have_content ("TestElement")
-		expect(page).to have_content ("Test Scheme")
-		expect(page).to have_content ("http://library.ucsd.edu/ark:/20775/")
+		expect(page).to have_selector('strong', :text => "TestLabel")
+		expect(page).to have_selector('a', :text => "http://test.com")
+		expect(page).to have_selector('li', :text => "TestElement")
+		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
@@ -40,11 +41,11 @@ feature 'Visitor wants to create/edit a topic' do
 		click_on "Save changes"
 
 		# Check that changes are saved
-		expect(page).to have_content("Edit after Create")
-		expect(page).to have_content("http://editaftercreate.edu")
-		expect(page).to have_content("Test Element2")
-		expect(page).to have_content("Test Scheme 2")
-		expect(page).to have_content ("http://library.ucsd.edu/ark:/20775/")
+		expect(page).to have_selector('strong', :text => "Edit after Create")
+		expect(page).to have_selector('a', :text => "http://editaftercreate.edu")
+		expect(page).to have_selector('li', :text => "Test Element2")
+		expect(page).to have_selector('li', :text => "Test Scheme 2")
+		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 	end
 
 	scenario 'is on the topic page to be edited' do
@@ -57,15 +58,17 @@ feature 'Visitor wants to create/edit a topic' do
 		fill_in "TopicElement", :with => "Test Element"
 		page.select('Test Scheme', match: :first) 
 		click_on "Save changes"
-		expect(page).to have_content("Edited Test Topic")
-		expect(page).to have_content("http://edited.edu")
-		expect(page).to have_content("Test Element")
-		expect(page).to have_content("Test Scheme")
-		expect(page).to have_content ("http://library.ucsd.edu/ark:/20775/")
+		expect(page).to have_selector('strong', :text => "Edited Test Topic")
+		expect(page).to have_selector('a', :text => "http://edited.edu")
+		expect(page).to have_selector('li', :text => "Test Element")
+		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 	end
+
 end
 
 feature 'Visitor wants to cancel unsaved edits' do
+
 	scenario 'is on Edit Topic page' do
 		sign_in_developer
 		visit Path.path
@@ -79,6 +82,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		expect(page).to_not have_content("Should not show")
 		expect(page).to have_content("Edited Test Topic")
 	end
+	
 end
 
 def sign_in_developer
