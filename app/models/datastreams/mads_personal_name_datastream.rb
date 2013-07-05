@@ -10,4 +10,5 @@ class MadsPersonalNameDatastream < MadsDatastream
     graph.insert([rdf_subject, RDF.type, MADS.PersonalName]) if new?
     super
   end
+ 
 end
