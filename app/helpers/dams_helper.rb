@@ -574,7 +574,9 @@ def relatedResourceUri
 	  elsif type.include? "DateNameElement"
         elem = MadsDatastream::List::DateNameElement.new(elementList.first.graph)                 
 	  elsif type.include? "TermsOfAddressNameElement"
-        elem = MadsDatastream::List::TermsOfAddressNameElement.new(elementList.first.graph)                                         
+        elem = MadsDatastream::List::TermsOfAddressNameElement.new(elementList.first.graph)  
+	  elsif type.include? "NameElement"
+        elem = MadsDatastream::List::NameElement.new(elementList.first.graph)                                                  
       end
       elem.elementValue = val
 
@@ -601,7 +603,15 @@ def relatedResourceUri
   end 
   
   ##  MADS Name classes ######################################################################
+ 
+  def nameValue
+    getElementValue "NameElement"
+  end
   
+  def nameValue=(s)
+    setElementValue( "NameElement", s )
+  end
+   
   def fullNameValue
     getElementValue "FullNameElement"
   end
@@ -648,6 +658,7 @@ def relatedResourceUri
     givenName = givenNameValue
     dateName = dateNameValue
     termOfAddress = termOfAddressValue
+    nameElement = nameValue
     
     # make sure we have values not arrays
     fullName = fullName.first if fullName.class == Array
@@ -660,6 +671,10 @@ def relatedResourceUri
     	label = fullName
     	label += ", " + dateName if dateName    
     	label += " " + termOfAddress if termOfAddress 
+	elsif(nameElement != nil && nameElement.length > 0)
+    	label = nameElement
+    	label += ", " + dateName if dateName    
+    	label += " " + termOfAddress if termOfAddress     	
     else    
 	    label = familyName if familyName
 	    label += " " + givenName if givenName

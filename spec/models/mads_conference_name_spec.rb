@@ -9,6 +9,7 @@ describe MadsConferenceName do
     subject.name = "American Library Association. Annual Conference"
     subject.scheme = "bd0683587d"
     subject.externalAuthority =  "http://id.loc.gov/authorities/names/n2009036967"
+    subject.nameValue = "American Library Association."
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,11 @@ describe MadsConferenceName do
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n2009036967"/>
     <mads:authoritativeLabel>American Library Association. Annual Conference</mads:authoritativeLabel>
     <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd0683587d"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:NameElement>
+        <mads:elementValue>American Library Association.</mads:elementValue>
+      </mads:NameElement>
+    </mads:elementList>   
   </mads:ConferenceName>
 </rdf:RDF>
 END
