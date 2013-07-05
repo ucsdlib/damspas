@@ -12,7 +12,58 @@
 <%
 			concat htmlClose.html_safe			
 		end	
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["geographic_element_tesim"] != nil 
+		    htmlOpen %= 'GeographicElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"geographic_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["occupation_element_tesim"] != nil 
+		    htmlOpen %= 'OccupationElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"occupation_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["genre_form_element_tesim"] != nil 
+		    htmlOpen %= 'GenreFormElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"genre_form_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
 		
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["temporal_element_tesim"] != nil 
+		    htmlOpen %= 'TemporalElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"temporal_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end							
 		htmlOpen = "<dt>%s</dt><dd>"
 		if @document["scheme_name_tesim"] != nil 
 		    htmlOpen %= 'Scheme Name'
