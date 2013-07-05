@@ -12,12 +12,21 @@
 			<%= label_tag 'mads_personal_name[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_personal_name[name][]', @mads_personal_name.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_personal_name[authority][]', "Authority" %>
-			<%= text_field_tag 'mads_personal_name[authority][]', @mads_personal_name.authority[0], class: "input-block-level" %>
+			<%= label_tag 'mads_personal_name[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_personal_name[externalAuthority][]', @mads_personal_name.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_personal_name[valueURI][]', "URI" %>
-			<%= text_field_tag 'mads_personal_name[valueURI][]', @mads_personal_name.valueURI, class: "input-block-level" %>
-				
+			<%= label_tag 'mads_personal_name[scheme][]', "scheme" %>
+			<%= select_tag 'mads_personal_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= label_tag 'mads_personal_name[fullNameValue][]', "FullNameElement" %>
+			<%= text_field_tag 'mads_personal_name[fullNameValue][]', @mads_personal_name.fullNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_personal_name[familyNameValue][]', "FamilyNameElement" %>
+			<%= text_field_tag 'mads_personal_name[familyNameValue][]', @mads_personal_name.familyNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_personal_name[givenNameValue][]', "GivenNameElement" %>
+			<%= text_field_tag 'mads_personal_name[givenNameValue][]', @mads_personal_name.givenNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_personal_name[dateNameValue][]', "DateNameElement" %>
+			<%= text_field_tag 'mads_personal_name[dateNameValue][]', @mads_personal_name.dateNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_personal_name[termOfAddressValue][]', "TermOfAddressElement" %>
+			<%= text_field_tag 'mads_personal_name[termOfAddressValue][]', @mads_personal_name.termOfAddressValue, class: "input-block-level" %>													
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_personal_name_path(@mads_personal_name), class: "btn btn-link pull-right" %>

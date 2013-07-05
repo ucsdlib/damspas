@@ -573,7 +573,8 @@ def relatedResourceUri
         elem = MadsDatastream::List::GivenNameElement.new(elementList.first.graph)     
 	  elsif type.include? "DateNameElement"
         elem = MadsDatastream::List::DateNameElement.new(elementList.first.graph)                 
-                                         
+	  elsif type.include? "TermsOfAddressNameElement"
+        elem = MadsDatastream::List::TermsOfAddressNameElement.new(elementList.first.graph)                                         
       end
       elem.elementValue = val
 
@@ -598,6 +599,8 @@ def relatedResourceUri
     end
     elem
   end 
+  
+  ##  MADS Name classes ######################################################################
   
   def fullNameValue
     getElementValue "FullNameElement"
@@ -630,26 +633,38 @@ def relatedResourceUri
   def dateNameValue=(s)
     setElementValue( "DateNameElement", s )
   end 
+ 
+  def termOfAddressValue
+    getElementValue "TermsOfAddressNameElement"
+  end
   
+  def termOfAddressValue=(s)
+    setElementValue( "TermsOfAddressNameElement", s )
+  end 
+    
   def nameLabel
     fullName = fullNameValue
     familyName = familyNameValue
     givenName = givenNameValue
     dateName = dateNameValue
-
+    termOfAddress = termOfAddressValue
+    
     # make sure we have values not arrays
     fullName = fullName.first if fullName.class == Array
     familyName = familyName.first if familyName.class == Array
     givenName = givenName.first if givenName.class == Array
     dateName = dateName.first if dateName.class == Array
+    termOfAddress = termOfAddress.first if termOfAddress.class == Array
     
     if(fullName != nil && fullName.length > 0)
     	label = fullName
     	label += ", " + dateName if dateName    
+    	label += " " + termOfAddress if termOfAddress 
     else    
 	    label = familyName if familyName
-	    label += ", " + givenName if givenName
-	    label += ", " + dateName if dateName
+	    label += " " + givenName if givenName
+	    label += " " + dateName if dateName
+	    label += " " + termOfAddress if termOfAddress 
     end
     label
   end           
