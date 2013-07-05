@@ -3,10 +3,12 @@
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_genre_form[name]', "Name" %>
   <%= text_field_tag 'mads_genre_form[name]' %>
-	<%= label_tag 'mads_genre_form[authority]', "Code" %>
-  <%= text_field_tag 'mads_genre_form[authority]' %>
-  <%= label_tag 'mads_genre_form[valueURI]', "URI" %>
-  <%= url_field_tag 'mads_genre_form[valueURI]' %>
+  <%= label_tag 'mads_genre_form[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'mads_genre_form[externalAuthority]' %> 
+  <%= label_tag 'mads_genre_form[elementValue]', "GenreFormElement" %>
+  <%= text_field_tag 'mads_genre_form[elementValue]' %> 
+  <br>
+  <%= select_tag 'mads_genre_form[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

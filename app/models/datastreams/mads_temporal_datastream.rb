@@ -1,5 +1,4 @@
 class MadsTemporalDatastream < MadsDatastream
-  include DamsHelper
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.schemeNode(:in => MADS, :to => 'isMemberOfMADSScheme')

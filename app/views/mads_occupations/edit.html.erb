@@ -12,11 +12,13 @@
 			<%= label_tag 'mads_occupation[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_occupation[name][]', @mads_occupation.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_occupation[authority][]', "Authority" %>
-			<%= text_field_tag 'mads_occupation[authority][]', @mads_occupation.authority[0], class: "input-block-level" %>
+			<%= label_tag 'mads_occupation[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_occupation[externalAuthority][]', @mads_occupation.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_occupation[valueURI][]', "URI" %>
-			<%= text_field_tag 'mads_occupation[valueURI][]', @mads_occupation.valueURI, class: "input-block-level" %>
+			<%= label_tag 'mads_occupation[scheme][]', "scheme" %>
+			<%= select_tag 'mads_occupation[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= label_tag 'mads_occupation[elementValue][]', "OccupationElement" %>
+			<%= text_field_tag 'mads_occupation[elementValue][]', @mads_occupation.elementValue, class: "input-block-level" %>
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

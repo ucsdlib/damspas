@@ -10,4 +10,11 @@ class MadsGenreFormDatastream < MadsDatastream
     graph.insert([rdf_subject, RDF.type, MADS.GenreForm]) if new?
     super
   end
+  def elementValue
+    getElementValue "GenreFormElement"
+  end
+  
+  def elementValue=(s)
+    setElementValue( "GenreFormElement", s )
+  end  
 end

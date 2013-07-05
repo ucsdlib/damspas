@@ -2,10 +2,12 @@
 
 <div>
   <dl>
-    <dt>authority:</dt>
-    <dd><%= @mads_genre_form.authority.first %></dd>
-    <dt>uri:</dt>
-    <dd><%= @mads_genre_form.valueURI %></dd>
+    <dt>GenreFormElement:</dt>
+    <dd><%= @mads_genre_form.elementValue %></dd>
+    <dt>Scheme:</dt>
+    <dd><%= @mads_genre_form.scheme %></dd>
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @mads_genre_form.externalAuthority %></dd>
   </dl>
   <% if can? :update, @mads_genre_form %>
     <%= link_to "Solr View", mads_genre_form_path(@mads_genre_form), class: "btn btn-primary"%>
