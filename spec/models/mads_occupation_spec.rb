@@ -9,6 +9,7 @@ describe MadsOccupation do
     subject.name = "Pharmacist"
     subject.scheme = "bd80897986"
     subject.externalAuthority =  "http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"
+    subject.elementValue = "Pharmacist"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,11 @@ describe MadsOccupation do
     <mads:authoritativeLabel>Pharmacist</mads:authoritativeLabel>
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/graphicMaterials/tgm007681"/>
     <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd80897986"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:OccupationElement>
+        <mads:elementValue>Pharmacist</mads:elementValue>
+      </mads:OccupationElement>
+    </mads:elementList>    
   </mads:Occupation>
 </rdf:RDF>
 END

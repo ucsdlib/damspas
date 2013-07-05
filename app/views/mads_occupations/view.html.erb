@@ -2,10 +2,12 @@
 
 <div>
   <dl>
-    <dt>authority:</dt>
-    <dd><%= @mads_occupation.authority.first %></dd>
-    <dt>uri:</dt>
-    <dd><%= @mads_occupation.valueURI %></dd>
+    <dt>OccupationElement:</dt>
+    <dd><%= @mads_occupation.elementValue %></dd>
+    <dt>Scheme:</dt>
+    <dd><%= @mads_occupation.scheme %></dd>
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @mads_occupation.externalAuthority %></dd>
   </dl>
   <% if can? :update, @mads_occupation %>
     <%= link_to "Solr View", mads_occupation_path(@mads_occupation), class: "btn btn-primary"%>

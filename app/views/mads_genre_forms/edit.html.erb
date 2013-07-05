@@ -12,11 +12,13 @@
 			<%= label_tag 'mads_genre_form[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_genre_form[name][]', @mads_genre_form.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_genre_form[authority][]', "Authority" %>
-			<%= text_field_tag 'mads_genre_form[authority][]', @mads_genre_form.authority[0], class: "input-block-level" %>
+			<%= label_tag 'mads_genre_form[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_genre_form[externalAuthority][]', @mads_genre_form.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_genre_form[valueURI][]', "URI" %>
-			<%= text_field_tag 'mads_genre_form[valueURI][]', @mads_genre_form.valueURI, class: "input-block-level" %>
+			<%= label_tag 'mads_genre_form[scheme][]', "scheme" %>
+			<%= select_tag 'mads_genre_form[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= label_tag 'mads_genre_form[elementValue][]', "GenreFormElement" %>
+			<%= text_field_tag 'mads_genre_form[elementValue][]', @mads_genre_form.elementValue, class: "input-block-level" %>
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

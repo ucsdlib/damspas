@@ -30,11 +30,14 @@ class MadsOccupationsController < ApplicationController
   end
 
   def new
-
+	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    #@mads_occupation = MadsOccupation.find(params[:id])
+    @mads_occupation = MadsOccupation.find(params[:id])
+    @mads_schemes = MadsScheme.find(:all)
+    @scheme_id = @mads_occupation.scheme.to_s.gsub /.*\//, ""
+    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first       
   end
 
   def create

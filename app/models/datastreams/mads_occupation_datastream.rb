@@ -10,4 +10,11 @@ class MadsOccupationDatastream < MadsDatastream
     graph.insert([rdf_subject, RDF.type, MADS.Occupation]) if new?
     super
   end
+  def elementValue
+    getElementValue "OccupationElement"
+  end
+  
+  def elementValue=(s)
+    setElementValue( "OccupationElement", s )
+  end  
 end
