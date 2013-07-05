@@ -9,6 +9,7 @@ describe MadsCorporateName do
     subject.name = "Lawrence Livermore Laboratory"
     subject.scheme = "bd0683587d"
     subject.externalAuthority =  "http://id.loc.gov/authorities/names/n50000352"
+    subject.nameValue = "Lawrence Livermore Laboratory"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -19,6 +20,11 @@ describe MadsCorporateName do
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n50000352"/>
     <mads:authoritativeLabel>Lawrence Livermore Laboratory</mads:authoritativeLabel>
     <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd0683587d"/>
+    <mads:elementList rdf:parseType="Collection">
+      <mads:NameElement>
+        <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
+      </mads:NameElement>
+    </mads:elementList>    
   </mads:CorporateName>
 </rdf:RDF>
 END
