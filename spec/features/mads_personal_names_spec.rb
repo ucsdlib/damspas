@@ -93,7 +93,7 @@ end
 
 feature 'Visitor wants to cancel unsaved edits' do
 
-	scenario 'is on Edit Temporal page' do
+	scenario 'is on Edit Personal Name page' do
 		sign_in_developer
 		visit Path.path
 		expect(page).to have_selector('a', :text => "Edit")
@@ -109,6 +109,25 @@ feature 'Visitor wants to cancel unsaved edits' do
 		click_on "Cancel"
 		expect(page).to_not have_content("Can Cel")
 		expect(page).to have_content("New Name")
+	end
+
+end
+
+feature 'Visitor wants to use Hydra View' do
+	
+	scenario 'is on Corporate Name view page' do
+		sign_in_developer
+		visit Path.path
+		click_on "Hydra View"
+		expect(page).to have_selector('h1', :text => "New Name")
+		expect(page).to have_selector('dd', :text => "New Name1")
+		expect(page).to have_selector('dd', :text => "Name2")
+		expect(page).to have_selector('dd', :text => "New1")
+		expect(page).to have_selector('dd', :text => "1980")
+		expect(page).to have_selector('dd', :text => "Median")
+		expect(page).to have_selector('dd', :text => "http://library.ucsd.edu/ark:/20775/")
+		expect(page).to have_selector('dd', :text => "http://personal.com")
+		click_on "Edit"
 	end
 
 end
