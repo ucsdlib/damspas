@@ -2,10 +2,20 @@
 
 <div>
   <dl>
-    <dt>authority:</dt>
-    <dd><%= @mads_corporate_name.authority.first %></dd>
-    <dt>uri:</dt>
-    <dd><%= @mads_corporate_name.valueURI %></dd>
+    <dt>FullNameElement:</dt>
+    <dd><%= @mads_corporate_name.fullNameValue %></dd>
+    <dt>FamilyNameElement:</dt>
+    <dd><%= @mads_corporate_name.familyNameValue %></dd>
+    <dt>GivenNameElement:</dt>
+    <dd><%= @mads_corporate_name.givenNameValue %></dd>
+    <dt>DateNameElement:</dt>
+    <dd><%= @mads_corporate_name.dateNameValue %></dd>
+    <dt>TermOfAddressNameElement:</dt>
+    <dd><%= @mads_corporate_name.termOfAddressValue %></dd>                
+    <dt>Scheme:</dt>
+    <dd><%= @mads_corporate_name.scheme %></dd>
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @mads_corporate_name.externalAuthority %></dd>
   </dl>
   <% if can? :update, @mads_corporate_name %>
     <%= link_to "Solr View", mads_corporate_name_path(@mads_corporate_name), class: "btn btn-primary"%>

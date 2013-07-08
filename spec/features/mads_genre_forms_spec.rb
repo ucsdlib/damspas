@@ -69,7 +69,7 @@ end
 
 feature 'Visitor wants to cancel unsaved edits' do
 
-	scenario 'is on Edit Occupation page' do
+	scenario 'is on Edit GenreForm page' do
 		sign_in_developer
 		visit Path.path
 		expect(page).to have_selector('a', :text => "Edit")
