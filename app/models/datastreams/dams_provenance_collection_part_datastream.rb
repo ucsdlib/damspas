@@ -52,6 +52,37 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollectionPart]) if new?
+    if(!@subURI.nil?)
+      if new?
+        @array_subject.each do |sub|
+          graph.insert([rdf_subject, DAMS.subject, sub])
+        end
+        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+      else
+        graph.update([rdf_subject, DAMS.subject, @subURI])
+      end
+    end  
+    if(!@langURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.language, @langURI])
+      else
+        graph.update([rdf_subject, DAMS.language, @langURI])
+      end
+    end   
+    if(!@damsObjURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.object, @damsObjURI])
+      else
+        graph.update([rdf_subject, DAMS.object, @damsObjURI])
+      end
+    end  
+    if(!@provenanceCollURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+      else
+        graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+      end
+    end   
     super
   end
 
