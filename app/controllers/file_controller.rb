@@ -1,4 +1,5 @@
 class FileController < ApplicationController
+
   def show
     # load metadata
     begin
@@ -34,5 +35,13 @@ class FileController < ApplicationController
         end
       end
     end
+  end
+
+  def create
+    file = params[:file] if params[:file].respond_to?(:original_filename)
+    @obj = ActiveFedora::Base.find(params[:id], :cast=>true)
+    @obj.add_file( file, params[:ds], file.original_filename )
+    @obj.save!
+    redirect_to view_dams_object_path @obj, notice: "File Uploaded"
   end
 end
