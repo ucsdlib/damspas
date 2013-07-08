@@ -115,7 +115,7 @@ end
 
 feature 'Visitor wants to use Hydra View' do
 	
-	scenario 'is on Corporate Name view page' do
+	scenario 'is on Personal Name view page' do
 		sign_in_developer
 		visit Path.path
 		click_on "Hydra View"

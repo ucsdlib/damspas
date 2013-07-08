@@ -87,6 +87,20 @@ feature 'Visitor wants to cancel unsaved edits' do
 
 end
 
+feature 'Visitor wants to use Hydra View' do
+	
+	scenario 'is on GenreForm view page' do
+		sign_in_developer
+		visit Path.path
+		click_on "Hydra View"
+		expect(page).to have_selector('h1', :text => "GenreForm2")
+		expect(page).to have_selector('dd', :text => "Math")
+		expect(page).to have_selector('dd', :text => "http://editedform.edu")
+		click_on "Edit"
+	end
+
+end
+
 def sign_in_developer
   visit new_user_session_path
   fill_in "Name", :with => "name"
