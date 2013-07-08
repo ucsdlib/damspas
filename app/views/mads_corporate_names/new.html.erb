@@ -3,10 +3,20 @@
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_corporate_name[name]', "Name" %>
   <%= text_field_tag 'mads_corporate_name[name]' %>
-	<%= label_tag 'mads_corporate_name[authority]', "Code" %>
-  <%= text_field_tag 'mads_corporate_name[authority]' %>
-  <%= label_tag 'mads_corporate_name[valueURI]', "URI" %>
-  <%= url_field_tag 'mads_corporate_name[valueURI]' %>
+  <%= label_tag 'mads_corporate_name[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'mads_corporate_name[externalAuthority]' %> 
+  <%= label_tag 'mads_corporate_name[fullNameValue]', "FullNameElement" %>
+  <%= text_field_tag 'mads_corporate_name[fullNameValue]' %> 
+  <%= label_tag 'mads_corporate_name[familyNameValue]', "FamilyNameElement" %>
+  <%= text_field_tag 'mads_corporate_name[familyNameValue]' %>   
+  <%= label_tag 'mads_corporate_name[givenNameValue]', "GivenNameElement" %>
+  <%= text_field_tag 'mads_corporate_name[givenNameValue]' %>
+  <%= label_tag 'mads_corporate_name[dateNameValue]', "DateNameElement" %>
+  <%= text_field_tag 'mads_corporate_name[dateNameValue]' %>
+  <%= label_tag 'mads_corporate_name[termOfAddressValue]', "TermOfAddressElement" %>
+  <%= text_field_tag 'mads_corporate_name[termOfAddressValue]' %>         
+  <br>
+  <%= select_tag 'mads_corporate_name[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
