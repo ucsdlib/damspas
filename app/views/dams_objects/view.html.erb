@@ -63,9 +63,9 @@
 								<dt>Collection</dt>
 								<% @dams_object.collections.each do |col| %>
 									<% if (col.class == DamsAssembledCollection) %>
-										<dd><%= link_to col.title.first.value.join(", "), dams_assembled_collection_path(col) %>
+										<dd><%= link_to col.title.first.value, dams_assembled_collection_path(col) %>
 									<% elsif (col.class == DamsProvenanceCollection) %>
-										<dd><%= link_to col.title.first.value.join(", "), dams_provenance_collection_path(col) %>	
+										<dd><%= link_to col.title.first.value, dams_provenance_collection_path(col) %>	
 									<% end %>
 								<% end %>
 							<% end %>
@@ -107,7 +107,7 @@
 								<% @dams_object.component.each do |component| %>	
 									<dt>Component</dt>
 									<% component.title.each do |title| %>								
-										<dd>Title: <%= title.value.join(", ") %></dd>	
+										<dd>Title: <%= title.value %></dd>	
 									<% end %>
 									<% component.date.each do |date| %>								
 										<dd>Date: <%= date.value.join(", ") %></dd>	
@@ -142,5 +142,10 @@
 <% if can? :update, @dams_object %>
 <%= link_to "Solr View", dams_object_path(@dams_object), class: "btn btn-primary" %>
 <%= link_to "Edit", edit_dams_object_path(@dams_object), class: "btn btn-primary" %>
+  <%= form_for(@dams_object, :url => upload_path(@dams_object.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
+    <div>id: <input type="text" name="ds" value="_1.jpg"/></div>
+    <div><input type="file" name="file"/></div>
+    <div><%=f.submit "Submit", class: "btn btn-primary" %></div>
+  <% end %>
 <% end %>
 
