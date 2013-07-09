@@ -81,18 +81,15 @@
   <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type"%>
   <%#= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@mads_names.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Name" %>
   <div id="relationshipName"></div>
+  <h3>Related Resource</h3>
   <%= label_tag 'dams_object[relatedResourceType][]', "Related Resource Type" %>
   <%= text_field_tag 'dams_object[relatedResourceType][]' %>
-   <br>
-   <h3>Related Resource</h3>
    <%= label_tag 'dams_object[relatedResourceUri][]', "Related Resource URI" %>
   <%= text_field_tag 'dams_object[relatedResourceUri][]' %>
    <br>
-
    <%= label_tag 'dams_object[relatedResourceDescription][]', "Related Resource Description" %>
-  <%= text_field_tag 'dams_object[relatedResourceDescription][]' %>
+   <%= text_field_tag 'dams_object[relatedResourceDescription][]' %>
    <br>  
-
 
   <!-input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
   

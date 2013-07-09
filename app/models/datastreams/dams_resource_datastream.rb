@@ -314,10 +314,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	    rel = rel.personalName    
       elsif !rel.name.first.nil?
 	    rel = rel.name    
-	    if rel.first.name.first.nil?
-	    	rel = relationship.load  
-	    end
 	  end
+
+      if rel.first.name.first.nil?
+    	rel = relationship.load  
+      end
+	    	  
       if ( rel != nil )
         if(rel.to_s.include? 'Internal')
         	name = rel.first.name.first.to_s
