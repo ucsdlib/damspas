@@ -30,11 +30,16 @@ class MadsFamilyNamesController < ApplicationController
   end
 
   def new
-
+    @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    #@mads_family_name = MadsFamilyName.find(params[:id])
+    @mads_family_name = MadsFamilyName.find(params[:id])
+    @mads_schemes = MadsScheme.find(:all)
+    if(@mads_family_name.scheme != nil)
+      @scheme_id = @mads_family_name.scheme.to_s.gsub /.*\//, ""
+      @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
+    end
   end
 
   def create
