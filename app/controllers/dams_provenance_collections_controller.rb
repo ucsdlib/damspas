@@ -16,8 +16,6 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_objects = DamsObject.all( :order=>"system_create_dtsi asc" )
     @mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
     @dams_provenance_collection_parts=DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
-  
-
   end
 
   def edit
