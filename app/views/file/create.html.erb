@@ -1,2 +1,4 @@
 <h2>File Create</h2>
-<%= button_to "Generate Drivatives", deriv_path( @id, @ds ) %>
+<%= button_to "Generate Derivatives", deriv_path( @id, @ds ) %>
+<%= link_to "Hydra View", view_dams_object_path( @id ) %>
+<%= link_to "Solr View", dams_object_path( @id ) %>
