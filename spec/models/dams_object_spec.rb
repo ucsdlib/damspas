@@ -79,6 +79,9 @@ describe DamsObject do
     subject.languageURI = ["xx00000170"]
     subject.assembledCollectionURI = ["bb03030303"]
     subject.provenanceCollectionURI = ["bb24242424"]
+    subject.relationshipRoleURI = ["bd8396905c"]
+    subject.relationshipNameType = ["CorporateName"]
+    subject.relationshipNameURI = ["bd8294487v"]    
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
@@ -120,6 +123,12 @@ describe DamsObject do
     <dams:language rdf:resource="#{Rails.configuration.id_namespace}xx00000170"/> 
     <dams:assembledCollection rdf:resource="#{Rails.configuration.id_namespace}bb03030303"/>
     <dams:provenanceCollection rdf:resource="#{Rails.configuration.id_namespace}bb24242424"/>  
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:role rdf:resource="#{Rails.configuration.id_namespace}bd8396905c"/>
+        <dams:corporateName rdf:resource="#{Rails.configuration.id_namespace}bd8294487v"/>
+      </dams:Relationship>
+    </dams:relationship>    
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml

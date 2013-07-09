@@ -21,7 +21,8 @@ class DamsProvenanceCollectionsController < ApplicationController
   end
 
   def edit
-  @mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
+    @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
+    @mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
   end
 
   def create

@@ -5,7 +5,8 @@ class DamsObject < ActiveFedora::Base
                               :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, 
                               :subjectURI, :unitURI, :subjectType, :subjectTypeValue, :titlePartName, :titlePartNumber, :titleNonSort, 
                               :scopeContentNoteType, :scopeContentNoteDisplayLabel, :scopeContentNoteValue, :noteValue, :noteType, :noteDisplayLabel, 
-                              :languageURI, :relatedResourceType, :relatedResourceDescription, :relatedResourceUri, :assembledCollectionURI, :provenanceCollectionURI ]
+                              :languageURI, :relatedResourceType, :relatedResourceDescription, :relatedResourceUri, :assembledCollectionURI, :provenanceCollectionURI,
+                              :relationshipRoleURI, :relationshipNameURI, :relationshipNameType ]
 
   # rights metadata
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
