@@ -682,5 +682,71 @@ def relatedResourceUri
 	    label += " " + termOfAddress if termOfAddress 
     end
     label
-  end           
+  end    
+  
+  ##  Relationship ###################################################################### 
+  
+  def relationshipRoleURI
+    relationship[0] ? relationship[0].role : []
+  end 
+  def relationshipRoleURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+	if(!val.nil? && val.first.length > 0)
+	    @roleURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
+	end
+    if relationship[0] == nil
+      relationship.build
+    end
+    relationship[0].role = @roleURI	  
+  end   
+  
+  def relationshipNameURI
+    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
+    	relationship[0] ? relationship[0].corporateName : []
+    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
+        relationship[0] ? relationship[0].personalName : []
+    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
+        relationship[0] ? relationship[0].name : []        
+    else
+    	relationship[0] ? relationship[0].name : []  
+    end
+  end 
+  def relationshipNameURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+	if(!val.nil? && val.first.length > 0)
+	    @nameURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
+	end
+    if relationship[0] == nil
+      relationship.build
+    end
+    #relationship[0].corporateName = val	
+    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
+    	relationship[0].corporateName = @nameURI 
+    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
+    	relationship[0].personalName = @nameURI     
+    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
+    	relationship[0].name = @nameURI       		
+    else
+    	relationship[0].name = @nameURI    	
+    end
+  end    
+
+  def relationshipNameType
+    @nameType
+  end
+  def relationshipNameType=(val)
+    @nameType = Array.new
+    i = 0
+	val.each do |v| 
+	    if(!v.nil? && v.length > 0)
+	    	@nameType << v 	
+	    end
+		i+=1
+	end
+  end
+   
 end

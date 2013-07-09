@@ -47,8 +47,10 @@ class DamsObjectsController < ApplicationController
   	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
   	@dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
   	@dams_assembled_collections = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
-  	@dams_provenance_collections = DamsProvenanceCollection.all( :order=>"system_create_dtsi asc" )
+  	#@dams_provenance_collections = DamsProvenanceCollection.all( :order=>"system_create_dtsi asc" )
   	@mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
+  	@mads_authorities = MadsAuthority.all( :order=>"system_create_dtsi asc" )
+  	@mads_names = MadsPersonalName.all( :order=>"system_create_dtsi asc" )
   		
 	#uri = URI('http://fast.oclc.org/fastSuggest/select')
 	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '10')
@@ -70,6 +72,7 @@ class DamsObjectsController < ApplicationController
   #puts "collection = #{@dams_assembled_collections.size}"
 	  
   	@dams_object.attributes = params[:dams_object] 	
+  	
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Object has been saved"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
