@@ -1,4 +1,5 @@
 class DamsObject < ActiveFedora::Base
+  include Hydra::ModelMethods
   has_metadata 'damsMetadata', :type => DamsObjectDatastream 
   delegate_to "damsMetadata", [:title, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, 
                               :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, 
