@@ -46,7 +46,7 @@ class FileController < ApplicationController
       return
     end
 
-    @ds = "1" # TODO list ds and get next ds #
+    @ds = "_1" # TODO list ds and get next ds #
     ext = File.extname(file.original_filename)
     @ds += ext unless ext.nil?
     @obj = ActiveFedora::Base.find(@id, :cast=>true)
@@ -59,6 +59,7 @@ class FileController < ApplicationController
     mt = file.content_type
     if !mt.include?("audio") && !mt.include?("image") && !mt.include?("video")
       redirect_to view_dams_object_path @obj, notice: "File Uploaded"
+      return
     end
   end
   def deriv
@@ -73,6 +74,7 @@ class FileController < ApplicationController
         @fid = dspart[2]
       else
         redirect_to view_dams_object_path @obj, notice: "Invalid datastream name: #{params[:ds]}"
+        return
       end
 
       # add any extension stripped by rails
