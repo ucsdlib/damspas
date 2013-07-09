@@ -6,18 +6,28 @@
 		<h2>Edit Conference Name</h2>
 		
 		<%= form_for @mads_conference_name do |f| %>
-		
+			
 			<%= render 'error_messages', object: f.object %>
 		
 			<%= label_tag 'mads_conference_name[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_conference_name[name][]', @mads_conference_name.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_conference_name[authority][]', "Authority" %>
-			<%= text_field_tag 'mads_conference_name[authority][]', @mads_conference_name.authority[0], class: "input-block-level" %>
+			<%= label_tag 'mads_conference_name[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_conference_name[externalAuthority][]', @mads_conference_name.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_conference_name[valueURI][]', "URI" %>
-			<%= text_field_tag 'mads_conference_name[valueURI][]', @mads_conference_name.valueURI, class: "input-block-level" %>
-				
+			<%= label_tag 'mads_conference_name[scheme][]', "scheme" %>
+			<%= select_tag 'mads_conference_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= label_tag 'mads_conference_name[fullNameValue][]', "FullNameElement" %>
+			<%= text_field_tag 'mads_conference_name[fullNameValue][]', @mads_conference_name.fullNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_conference_name[familyNameValue][]', "FamilyNameElement" %>
+			<%= text_field_tag 'mads_conference_name[familyNameValue][]', @mads_conference_name.familyNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_conference_name[givenNameValue][]', "GivenNameElement" %>
+			<%= text_field_tag 'mads_conference_name[givenNameValue][]', @mads_conference_name.givenNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_conference_name[dateNameValue][]', "DateNameElement" %>
+			<%= text_field_tag 'mads_conference_name[dateNameValue][]', @mads_conference_name.dateNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_conference_name[termOfAddressValue][]', "TermOfAddressElement" %>
+			<%= text_field_tag 'mads_conference_name[termOfAddressValue][]', @mads_conference_name.termOfAddressValue, class: "input-block-level" %>
+			
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_conference_name_path(@mads_conference_name), class: "btn btn-link pull-right" %>
