@@ -49,9 +49,9 @@ class MadsAuthorityDatastream < ActiveFedora::RdfxmlRDFDatastream
     if scheme_obj.class == Array
       scheme_obj = scheme_obj.first
     end
-    scheme_id = scheme_obj.to_s.gsub /.*\//, ""
-    Solrizer.insert_field(solr_doc, "scheme", "#{Rails.configuration.id_namespace}#{scheme_id}")
-    if scheme_id != nil
+    scheme_id = scheme_obj.to_s.gsub /.*\//, ""   
+    if scheme_id != nil && scheme_id.length > 0
+      Solrizer.insert_field(solr_doc, "scheme", "#{Rails.configuration.id_namespace}#{scheme_id}")
       scheme_id = scheme_id.gsub(/.*\//,'')
       schobj = MadsScheme.find( scheme_id )
       Solrizer.insert_field(solr_doc, 'scheme_name', schobj.name.first)
