@@ -13,7 +13,9 @@
 					display_file = grabDisplayFile()
 					service_file = grabServiceFile()
 					display_file_path = (display_file != 'no_display') ? file_path(ark,display_file) : ''
-					service_file_path = file_path(ark,service_file)
+                    if service_file != nil 
+					  service_file_path = file_path(ark,service_file)
+                    end
 				%>
 
 				<%= render :partial => 'simple_object_viewer', :locals => {:fileType=>fileType, :display_file_path=>display_file_path, :service_file_path=>service_file_path, :service_file=>service_file} %>

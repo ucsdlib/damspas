@@ -51,8 +51,9 @@ Hydra::Application.routes.draw do
     get 'view', :on => :member
   end
 
-  # rename dams_objects#file ?
-  match "dams_objects/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
+  match "object/:id/upload", :to => 'file#create', :as => 'upload'
+  match "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
+  match "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   resources :dams_assembled_collections
   resources :dams_units do
     member do
