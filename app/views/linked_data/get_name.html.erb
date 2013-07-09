@@ -1,0 +1,5 @@
+<div>
+ <%= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@names.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Name" %>
+</div>
+
+
