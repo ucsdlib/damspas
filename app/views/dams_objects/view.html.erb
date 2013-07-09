@@ -142,10 +142,11 @@
 <% if can? :update, @dams_object %>
 <%= link_to "Solr View", dams_object_path(@dams_object), class: "btn btn-primary" %>
 <%= link_to "Edit", edit_dams_object_path(@dams_object), class: "btn btn-primary" %>
+<%= link_to "New Object", new_dams_object_path, class: "btn btn-primary" %>
+  <h2>Add File</h2>
   <%= form_for(@dams_object, :url => upload_path(@dams_object.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
-    <div>id: <input type="text" name="ds" value="_1.jpg"/></div>
-    <div><input type="file" name="file"/></div>
-    <div><%=f.submit "Submit", class: "btn btn-primary" %></div>
+    <input type="file" name="file"/>
+    <%=f.submit "Add File", class: "btn btn-primary" %>
   <% end %>
 <% end %>
 
