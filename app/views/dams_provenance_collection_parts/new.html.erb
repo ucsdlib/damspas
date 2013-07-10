@@ -77,7 +77,7 @@
   <%= select_tag 'dams_provenance_collection_part[damsObjectURI][]', options_for_select(@dams_objects.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select dams objects" %>  
   <br>
 
-  <%= select_tag 'dams_provenance_collection_part[provenanceCollectionURI][]', options_for_select(@dams_provenance_collection_part_parts.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Provenance Collection Part" %>  
+  <%= select_tag 'dams_provenance_collection_part[provenanceCollectionURI][]', options_for_select(@dams_provenance_collection.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Provenance Collection" %>  
   <br>
 
   <br>
