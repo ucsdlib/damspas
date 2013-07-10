@@ -55,6 +55,7 @@ class MadsAuthorityDatastream < ActiveFedora::RdfxmlRDFDatastream
       scheme_id = scheme_id.gsub(/.*\//,'')
       schobj = MadsScheme.find( scheme_id )
       Solrizer.insert_field(solr_doc, 'scheme_name', schobj.name.first)
+      Solrizer.insert_field(solr_doc, 'scheme_code', schobj.code.first)
     end
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf

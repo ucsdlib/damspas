@@ -66,6 +66,7 @@ describe MadsAuthorityDatastream do
         solr_doc["name_tesim"].should == ["Repository"]
         solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd9386739x"]
         solr_doc["scheme_name_tesim"].should == ["Library of Congress Subject Headings"]
+        solr_doc["scheme_code_tesim"].should == ["lcsh"]
         solr_doc["externalAuthority_tesim"].should == ["http://id.loc.gov/vocabulary/relators/rps"]
       end    
     end
