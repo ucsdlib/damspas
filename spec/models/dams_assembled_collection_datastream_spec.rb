@@ -6,7 +6,7 @@ describe DamsAssembledCollectionDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { DamsAssembledCollectionDatastream.new(stub('inner object', :pid=>'bb03030303', :new? => true), 'damsMetadata') }
+      subject { DamsAssembledCollectionDatastream.new(double('inner object', :pid=>'bb03030303', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
@@ -23,8 +23,8 @@ describe DamsAssembledCollectionDatastream do
 
     describe "an instance loaded from fixture xml" do
       subject do
-        subject = DamsAssembledCollectionDatastream.new(stub('inner object', :pid=>'bb03030303', :new? =>true), 'damsMetadata')
-        subject.content = File.new('spec/fixtures/damsAssembledCollection.rdf.xml').read
+        subject = DamsAssembledCollectionDatastream.new(double('inner object', :pid=>'bb03030303', :new? =>true), 'damsMetadata')
+        subject.content = File.new('spec/fixtures/damsAssembledCollection2.rdf.xml').read
         subject
       end
 
@@ -45,13 +45,15 @@ describe DamsAssembledCollectionDatastream do
       end
 
  	  it "should have scopeContentNote" do
-		testIndexNoteFields "scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc = subject.to_solr
+        solr_doc["scopeContentNote_tesim"].to_s.should include "Inline scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["scopeContentNote_tesim"].to_s.should include "Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end
 
  	  it "should have notes" do
         solr_doc = subject.to_solr
-        solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}bb80808080"
+        solr_doc["note_tesim"].to_s.should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        solr_doc["note_tesim"].to_s.should include "#{Rails.configuration.id_namespace}bb80808080"
       end
 
       it "should have preferredCitationNote" do
@@ -76,7 +78,7 @@ describe DamsAssembledCollectionDatastream do
 #      end
       def testIndexNoteFields (fieldName,value)
         solr_doc = subject.to_solr
-        solr_doc["#{fieldName}_tesim"].should include value
+        solr_doc["#{fieldName}_tesim"].to_s.should include value
       end
 
     end

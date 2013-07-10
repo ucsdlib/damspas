@@ -253,7 +253,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def insertNoteFields (solr_doc, fieldName, objects)
+puts "note: #{fieldName}: #{objects}"
     objects.map do |no|
+puts "  #{no.inspect}"
       note_json = {}
       note_obj = nil
       note_uri = no.to_s

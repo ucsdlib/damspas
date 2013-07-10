@@ -6,10 +6,10 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     map.language(:in=>DAMS, :class_name => 'MadsLanguageInternal')
 
     # notes
-    map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')
+    map.note(                       :in => DAMS, :to=>'note',                        :class_name => 'DamsNoteInternal')
     map.custodialResponsibilityNote(:in => DAMS, :to=>'custodialResponsibilityNote', :class_name => 'DamsCustodialResponsibilityNoteInternal')
-    map.preferredCitationNote(:in => DAMS, :to=>'preferredCitationNote', :class_name => 'DamsPreferredCitationNoteInternal')
-    map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
+    map.preferredCitationNote(      :in => DAMS, :to=>'preferredCitationNote',       :class_name => 'DamsPreferredCitationNoteInternal')
+    map.scopeContentNote(           :in => DAMS, :to=>'scopeContentNote',            :class_name => 'DamsScopeContentNoteInternal')
 
     # subjects
     map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
