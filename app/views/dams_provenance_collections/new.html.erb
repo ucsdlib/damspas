@@ -2,7 +2,7 @@
 <%= form_for @dams_provenance_collection do |f| %>
   
  
-
+  <h3>Title</h3>
   <%= label_tag 'dams_provenance_collection[titleValue][]', "First Title" %>
   <%= text_field_tag 'dams_provenance_collection[titleValue][]' %>
   <%= label_tag 'dams_provenance_collection[subtitle][]', "First SubTitle" %>
@@ -18,14 +18,16 @@
   <%= label_tag 'dams_provenance_collection[titleValue][]', "2nd Title" %>
   <%= text_field_tag 'dams_provenance_collection[titleValue][]' %>
 -->
-
+  
+  <h3>Date</h3>
   <%= label_tag 'dams_provenance_collection[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_provenance_collection[dateValue][]' %>
   <%= label_tag 'dams_provenance_collection[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_provenance_collection[beginDate][]' %> 
   <%= label_tag 'dams_provenance_collection[endDate][]', "End Date" %>
   <%= text_field_tag 'dams_provenance_collection[endDate][]' %>    
-
+  
+  <h3>Note</h3>
   <%= label_tag 'dams_provenance_collection[noteValue][]', "Note" %>
   <%= text_field_tag 'dams_provenance_collection[noteValue][]' %> 
 
@@ -42,10 +44,7 @@
   <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]' %> 
 
 
-
- 
-  
- <%
+  <%
   	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
   <%= label_tag 'dams_provenance_collection[subjectType][]', "Simple Subject" %>
@@ -82,6 +81,14 @@
 
   <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Provenance Collection Part" %>  
   <br>
+
+   <h3>Relationship</h3>
+  <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Role" %>    
+  <br>
+  <%
+     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"]]
+  %>  
+  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type"%>
 
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_provenance_collections_path, class: "btn btn-primary" %>
