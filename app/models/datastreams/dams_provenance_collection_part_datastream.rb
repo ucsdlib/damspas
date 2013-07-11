@@ -86,6 +86,9 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
     super
   end
 
+  def pid
+      rdf_subject.to_s.gsub(/.*\//,'')
+  end
  
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')   
