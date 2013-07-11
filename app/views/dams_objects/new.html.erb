@@ -1,4 +1,4 @@
-<%#= javascript_tag "var autocomplete_items = #{ @autocomplete_items.to_json };" %>
+<%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
   <%= label_tag 'dams_object[titleValue][]', "First Title" %>
