@@ -737,6 +737,40 @@ def relatedResourceUri
     end
   end    
 
+  def relationshipNameValue
+    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
+    	relationship[0] ? relationship[0].corporateName : []
+    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
+        relationship[0] ? relationship[0].personalName : []
+    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
+        relationship[0] ? relationship[0].name : []        
+    else
+    	relationship[0] ? relationship[0].name : []  
+    end
+  end 
+  def relationshipNameValue=(val)
+    if val.class == Array
+    	val = val.first
+    end
+	if(!val.nil? && val.first.length > 0)
+
+	    if relationship[0] == nil
+	      relationship.build
+	    end
+	    	
+	    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
+	    	@obj = MadsCorporateName.create(name: val)
+	    	relationship[0].corporateName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}") 
+	    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
+	    	@obj = MadsPersonalName.create(name: val)
+	    	relationship[0].personalName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")   		
+	    else
+	    	@obj = MadsPersonalName.create(name: val)
+	    	relationship[0].name = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")    	
+	    end
+    end
+  end    
+  
   def relationshipNameType
     @nameType
   end
