@@ -1,10 +1,10 @@
 require 'net/http'
 require 'json'
 
-class LinkedDataController < ApplicationController
+class GetDataController < ApplicationController
 
-  def get_data 	
-  	#http://localhost:3000/linked_data/get_data/get_data?q=dog&fl=suggestall
+  def get_linked_data 	
+  	#http://localhost:3000/get_data/get_data/get_data?q=dog&fl=suggestall
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
     if(!params[:q].nil? && params[:q] != '' && !params[:fl].nil? && params[:fl] != '')		
 		#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :cats', 'fl' => 'suggestall', 'wt' => 'json')
@@ -29,7 +29,7 @@ class LinkedDataController < ApplicationController
   end
 
   def get_name 	
-  	#http://localhost:3000/linked_data/get_name/get_name?q=PersonalName
+  	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
 		@names = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
@@ -48,6 +48,6 @@ class LinkedDataController < ApplicationController
   end
     
   def show
-	redirect_to :action => 'get_data'
+	redirect_to :action => 'get_linked_data'
   end
 end
