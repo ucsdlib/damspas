@@ -115,13 +115,13 @@ Hydra::Application.routes.draw do
   resources :mads_languages do
     get 'view', :on => :member
   end
-  resources :linked_data do
-	get 'get_data', :on => :member
-	post 'get_data', :on => :member
+
+  resources :get_data do
+	get 'get_linked_data', :on => :member
+	post 'get_linked_data', :on => :member
 	get 'get_name', :on => :member
 	post 'get_name', :on => :member	
   end
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

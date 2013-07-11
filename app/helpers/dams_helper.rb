@@ -695,14 +695,12 @@ def relatedResourceUri
     end
 	if(!val.nil? && val.first.length > 0)
 	    @roleURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
-	end
-
-    if( !@roleURI.nil? &&  @roleURI.length > 0) 
+	#end
 	    if relationship[0] == nil
-		      relationship.build
-		end    
-    	relationship[0].role = @roleURI	 
-    end 
+	      relationship.build
+	    end
+	    relationship[0].role = @roleURI
+    end	  
   end   
   
   def relationshipNameURI
@@ -722,14 +720,11 @@ def relatedResourceUri
     end
 	if(!val.nil? && val.first.length > 0)
 	    @nameURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
-	end
-
-    if relationship[0] == nil
-      relationship.build
-    end
-	    
-    if( !@nameURI.nil? &&  @nameURI.length > 0) 
-
+	#end
+	    if relationship[0] == nil
+	      relationship.build
+	    end
+	    #relationship[0].corporateName = val	
 	    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
 	    	relationship[0].corporateName = @nameURI 
 	    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
@@ -739,7 +734,7 @@ def relatedResourceUri
 	    else
 	    	relationship[0].name = @nameURI    	
 	    end
-	end
+    end
   end    
 
   def relationshipNameType
