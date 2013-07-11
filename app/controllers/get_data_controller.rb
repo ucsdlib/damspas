@@ -29,7 +29,7 @@ class GetDataController < ApplicationController
   end
 
   def get_name 	
-  	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName
+  	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
 		@names = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
@@ -43,7 +43,8 @@ class GetDataController < ApplicationController
 	else
 		@names = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
 	end
-	
+	@formType = params[:formType]
+
 	render :layout => false
   end
     

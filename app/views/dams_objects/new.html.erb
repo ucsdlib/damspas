@@ -73,7 +73,7 @@
   <%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
   <br>
   <h3>Relationship</h3>
-  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Role" %>    
+  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Role"%>    
   <br>
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"]]
@@ -81,6 +81,8 @@
   <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type"%>
   <%#= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@mads_names.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Name" %>
   <div id="relationshipName"></div>
+   OR Enter new Relationship Name
+   <%= text_field_tag 'dams_object[relationshipNameValue][]' %> 
   <h3>Related Resource</h3>
   <%= label_tag 'dams_object[relatedResourceType][]', "Related Resource Type" %>
   <%= text_field_tag 'dams_object[relatedResourceType][]' %>
