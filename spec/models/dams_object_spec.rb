@@ -81,7 +81,10 @@ describe DamsObject do
     subject.provenanceCollectionURI = ["bb24242424"]
     subject.relationshipRoleURI = ["bd8396905c"]
     subject.relationshipNameType = ["CorporateName"]
-    subject.relationshipNameURI = ["bd8294487v"]    
+    subject.relationshipNameURI = ["bd8294487v"]      
+    subject.subjectType = ["PersonalName"]
+    subject.simpleSubjectURI = ["xx11111111"]  
+    subject.subjectTypeValue = ["inline personal name"]  
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
@@ -107,6 +110,12 @@ describe DamsObject do
             <mads:authoritativeLabel>test subject</ns2:authoritativeLabel>
         </mads:Topic>
     </dams:topic>
+    <dams:personalName rdf:resource="#{Rails.configuration.id_namespace}xx11111111"/>
+    <dams:personalName>
+      <mads:PersonalName>
+        <mads:authoritativeLabel>inline personal name</ns2:authoritativeLabel>
+      </mads:PersonalName>
+    </dams:personalName>    
 	<dams:date>
       <dams:Date>
         <rdf:value>May 24, 1980</rdf:value>

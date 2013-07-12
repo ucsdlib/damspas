@@ -104,7 +104,14 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
       end
-    end                   
+    end
+	if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      end
+    end                         
     super
   end
 
