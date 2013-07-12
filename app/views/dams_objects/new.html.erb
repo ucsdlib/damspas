@@ -78,7 +78,7 @@
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getRelationshipName('dams_object',this.value,'#relationshipName');"%>
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName');"%>
   <%#= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@mads_names.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Name" %>
   <div id="relationshipName"></div>
    OR Enter new Relationship Name
