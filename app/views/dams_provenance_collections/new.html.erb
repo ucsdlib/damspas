@@ -1,4 +1,4 @@
-<%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
+
 <h1>Create a new Dams provenance collection object</h1>
 <%= form_for @dams_provenance_collection do |f| %>
   
@@ -56,10 +56,7 @@
   <%
      nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type"%>
-
-  <div id="relationshipName"></div>
-  <br>
+ 
 
   <h3>Subject</h3>
   <%
