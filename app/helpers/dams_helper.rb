@@ -233,7 +233,17 @@ def relatedResourceUri
 	elsif(!@subType.nil? && (@subType.include? 'Technique'))
 	    technique[0] ? technique[0].name : []	
 	elsif(!@subType.nil? && (@subType.include? 'Temporal'))
-	    temporal[0] ? temporal[0].name : []	    	    	    	        	    	    	    
+	    temporal[0] ? temporal[0].name : []	    	 
+	elsif(!@subType.nil? && (@subType.include? 'PersonalName'))
+	    personalName[0] ? personalName[0].name : []
+	elsif(!@subType.nil? && (@subType.include? 'CorporateName'))
+	    corporateName[0] ? corporateName[0].name : []
+	elsif(!@subType.nil? && (@subType.include? 'FamilyName'))
+	    familyName[0] ? familyName[0].name : []
+	elsif(!@subType.nil? && (@subType.include? 'ConferenceName'))
+	    conferenceName[0] ? conferenceName[0].name : []	  
+	elsif(!@subType.nil? && (@subType.include? 'Name'))
+	    name[0] ? name[0].name : []	  	    	    	  	    	  	 	    	  	       	    	        	    	    	    
     end
   end
   def subjectTypeValue=(val)
@@ -249,6 +259,12 @@ def relatedResourceUri
     stylePeriodIndex = 0
     techniqueIndex = 0
     temporalIndex = 0
+    corporateNameIndex = 0
+    personalNameIndex = 0
+    familyNameIndex = 0
+    conferenceNameIndex = 0
+    nameIndex = 0
+    
 	val.each do |v| 
 		if(!v.nil? && v.length > 0)
 			if(!@subType[i].nil? && (@subType[i].include? 'Topic'))
@@ -290,13 +306,49 @@ def relatedResourceUri
 			elsif(!@subType[i].nil? && (@subType[i].include? 'Temporal'))
 			    temporal.build if temporal[temporalIndex] == nil
 			    temporal[temporalIndex].name = v	
-			    temporalIndex+=1				    			    			    			    	    
+			    temporalIndex+=1		
+			elsif(!@subType[i].nil? && (@subType[i].include? 'PersonalName'))
+			    personalName.build if personalName[personalNameIndex] == nil
+			    personalName[personalNameIndex].name = v	
+			    personalNameIndex+=1				    
+			elsif(!@subType[i].nil? && (@subType[i].include? 'CorporateName'))
+			    corporateName.build if corporateName[corporateNameIndex] == nil
+			    corporateName[corporateNameIndex].name = v	
+			    corporateNameIndex+=1	
+			elsif(!@subType[i].nil? && (@subType[i].include? 'ConferenceName'))
+			    conferenceName.build if conferenceName[conferenceNameIndex] == nil
+			    conferenceName[conferenceNameIndex].name = v	
+			    conferenceNameIndex+=1	
+			elsif(!@subType[i].nil? && (@subType[i].include? 'FamilyName'))
+			    familyName.build if familyName[familyNameIndex] == nil
+			    familyName[familyNameIndex].name = v	
+			    familyNameIndex+=1	
+			elsif(!@subType[i].nil? && (@subType[i].include? 'Name'))
+			    name.build if name[nameIndex] == nil
+			    name[nameIndex].name = v	
+			    nameIndex+=1				    			    			    			    			    		    			    			    			    	    
 		    end
 		end
 		i+=1
 	end
   end
-    
+
+  def simpleSubjectURI
+    if @simpleSubURI != nil
+      @simpleSubURI
+    else
+      simpleSubURI.first
+    end
+  end 
+  def simpleSubjectURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+	 if(!val.nil? && val.first.length > 0)
+	    @simpleSubURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
+	  end
+  end 
+      
   def subjectURI=(val)
     i = 0
     @array_subject = Array.new

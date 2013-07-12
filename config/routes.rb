@@ -121,6 +121,8 @@ Hydra::Application.routes.draw do
 	post 'get_linked_data', :on => :member
 	get 'get_name', :on => :member
 	post 'get_name', :on => :member	
+	get 'get_subject', :on => :member
+	post 'get_subject', :on => :member		
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.
