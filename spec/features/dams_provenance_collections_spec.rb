@@ -16,11 +16,11 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# click create button
 		visit "dams_provenance_collections/new"
 		# Create new dams provenance collection
-		fill_in "First Title", :with => "TestTitle"
-		fill_in "First SubTitle", :with => "TestSubTitle"
-		fill_in "First PartName", :with => "TestPartName"
-		fill_in "First PartNumber", :with => "TestPartNumber"
-		fill_in "First NonSort", :with => "TestNonSort"
+		fill_in "Title", :with => "TestTitle"
+		fill_in "SubTitle", :with => "TestSubTitle"
+		fill_in "PartName", :with => "TestPartName"
+		fill_in "PartNumber", :with => "TestPartNumber"
+		fill_in "NonSort", :with => "TestNonSort"
         fill_in "Date", :with => "TestDate"
         fill_in "Begin Date", :with => "TestBeginDate"
 		fill_in "End Date", :with => "TestEndDate"
