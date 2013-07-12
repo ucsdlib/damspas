@@ -6,3 +6,9 @@ function getName(type,q,location)
   });	 
 }
 
+function getSimpleSubject(type,q,location)
+{
+  $.get(baseURL+"/get_subject/get_subject?formType="+type+"&q="+q,function(data,status){
+    $(location).html(data);
+  });	 
+}
