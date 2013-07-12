@@ -53,12 +53,14 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   end
 
   def load_part
-    part_uri = part_node.values.first.to_s
-    part_pid = part_uri.gsub(/.*\//,'')
-    if part_pid != nil && part_pid != ""
-      DamsProvenanceCollectionPart.find(part_pid)
+    if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
+      part_node.first
     else
-      nil
+      part_uri = part_node.first.to_s
+      part_pid = part_uri.gsub(/.*\//,'')
+      if part_pid != nil && part_pid != ""
+        DamsProvenanceCollectionPart.find(part_pid)
+      end
     end
   end
 
