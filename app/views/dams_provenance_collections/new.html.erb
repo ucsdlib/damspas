@@ -11,15 +11,15 @@
   <br>
 
   <h3>Title</h3>
-  <%= label_tag 'dams_provenance_collection[titleValue][]', "First Title" %>
+  <%= label_tag 'dams_provenance_collection[titleValue][]', "Title" %>
   <%= text_field_tag 'dams_provenance_collection[titleValue][]' %>
-  <%= label_tag 'dams_provenance_collection[subtitle][]', "First SubTitle" %>
+  <%= label_tag 'dams_provenance_collection[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_provenance_collection[subtitle][]' %> 
-  <%= label_tag 'dams_provenance_collection[titlePartName][]', "First PartName" %>
+  <%= label_tag 'dams_provenance_collection[titlePartName][]', "PartName" %>
   <%= text_field_tag 'dams_provenance_collection[titlePartName][]' %>  
-  <%= label_tag 'dams_provenance_collection[titlePartNumber][]', "First PartNumber" %>
+  <%= label_tag 'dams_provenance_collection[titlePartNumber][]', "PartNumber" %>
   <%= text_field_tag 'dams_provenance_collection[titlePartNumber][]' %> 
-  <%= label_tag 'dams_provenance_collection[titleNonSort][]', "First NonSort" %>
+  <%= label_tag 'dams_provenance_collection[titleNonSort][]', "NonSort" %>
   <%= text_field_tag 'dams_provenance_collection[titleNonSort][]' %> 
 
   <h3>Date</h3>
@@ -58,7 +58,7 @@
   %>  
    <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getName('dams_provenance_collection',this.value,'#relationshipName');"%>
    <div id="relationshipName"></div>
-   OR Enter new Relationship Name
+   Or Enter new Name
    <%= text_field_tag 'dams_provenance_collection[relationshipNameValue][]' %> 
 
   <h3>Subject</h3>
