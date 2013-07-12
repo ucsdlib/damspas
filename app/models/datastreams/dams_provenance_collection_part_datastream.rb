@@ -48,7 +48,7 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
     map.object(:in => DAMS, :to => 'hasObject')
  end
   
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+ 
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollectionPart]) if new?
@@ -86,9 +86,7 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
     super
   end
 
-  def pid
-      rdf_subject.to_s.gsub(/.*\//,'')
-  end
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
  
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')   
