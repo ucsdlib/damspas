@@ -49,7 +49,7 @@ class GetDataController < ApplicationController
   end
  
   def get_subject	
-  	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object
+  	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object&fieldName=simpleSubjectURI&label=Subject
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
 		@subjects = MadsTopic.all( :order=>"system_create_dtsi asc" )
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'BuiltWorkPlace')
@@ -84,7 +84,8 @@ class GetDataController < ApplicationController
 		@subjects = MadsTopic.all( :order=>"system_create_dtsi asc" )
 	end
 	@formType = params[:formType]
-
+	@fieldName = params[:fieldName]
+	@label = params[:label]
 	render :layout => false
   end    
   def show

@@ -1,2 +1,2 @@
-<%= select_tag "#{@formType}[simpleSubjectURI][]", options_for_select(@subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select subject" %>
+<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select #{@label}" %>
 
