@@ -64,7 +64,7 @@
   <%#= label_tag 'dams_object[subjectType][]', "Simple Subject" %>
   <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
   <%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSimpleSubject('dams_object',this.value,'#simpleSubject');"%>
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
   <br>
   <h3>Relationship</h3>
@@ -73,7 +73,7 @@
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName');"%>
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
   <%#= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@mads_names.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Name" %>
   <div id="relationshipName"></div>
    OR Enter new Relationship Name
