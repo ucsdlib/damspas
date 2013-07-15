@@ -38,6 +38,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     include ActiveFedora::RdfList
     class FullNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.FullNameElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -45,6 +46,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     class FamilyNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.FamilyNameElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -52,6 +54,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     class GivenNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.GivenNameElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -59,6 +62,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     class DateNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.DateNameElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -66,6 +70,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end     
     class NameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.NameElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -73,6 +78,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end        
     class TermsOfAddressNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.TermsOfAddressNameElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -80,6 +86,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end       
     class GenreFormElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.GenreFormElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -87,6 +94,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end   
     class GeographicElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.GeographicElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -94,6 +102,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end       
     class OccupationElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.OccupationElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -101,6 +110,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end       
     class TemporalElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.TemporalElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -108,6 +118,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end          
     class TopicElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.TopicElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -117,6 +128,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     # language element
     class LanguageElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.LanguageElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -125,6 +137,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     
     class MainTitleElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.MainTitleElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -133,6 +146,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     
     class NonSortElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.NonSortElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -141,6 +155,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     class PartNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.PartNameElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -149,6 +164,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     
     class PartNumberElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.PartNumberElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -157,6 +173,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     class SubTitleElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.SubTitleElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)

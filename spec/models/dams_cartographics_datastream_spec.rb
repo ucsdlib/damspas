@@ -6,7 +6,7 @@ describe DamsCartographicsDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { DamsCartographicsDatastream.new(stub('inner object', :pid=>'bb20202020', :new? => true), 'damsMetadata') }
+      subject { DamsCartographicsDatastream.new(double('inner object', :pid=>'bb20202020', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb20202020"
@@ -42,7 +42,7 @@ describe DamsCartographicsDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsCartographicsDatastream.new(stub('inner object', :pid=>'bb20202020', :new? =>true), 'damsMetadata')
+        subject = DamsCartographicsDatastream.new(double('inner object', :pid=>'bb20202020', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsCartographics.rdf.xml').read
         subject
       end

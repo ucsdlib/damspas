@@ -1,10 +1,11 @@
 class Component
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.Component
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     map_predicates do |map|
       map.title(:in => DAMS, :class_name => 'MadsTitle')
-      map.date(:in => DAMS, :to=>'date', :class_name => 'Date')
+      map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
       map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
       map.language(:in=>DAMS, :class_name => 'MadsLanguageInternal')
 
@@ -38,7 +39,7 @@ class Component
 	  map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
       # related resources
-      map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+      map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'DamsRelatedResource')
 
       # components and files
       map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => Component)
@@ -63,6 +64,7 @@ class Component
     end
     class Date
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.Date
       map_predicates do |map|
         map.value(:in=> RDF, :to=>'value')

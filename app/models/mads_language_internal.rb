@@ -1,5 +1,6 @@
 class MadsLanguageInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type MADS.Language
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MadsComplexSubjectDatastream do
   describe "an instance with content" do
     subject do
-      subject = MadsComplexSubjectDatastream.new(stub('inner object', :pid=>'bbXXXXXXX5', :new? =>true), 'descMetadata')
+      subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bbXXXXXXX5', :new? =>true), 'descMetadata')
       subject.content = File.new('spec/fixtures/madsComplexSubject.xml').read
       subject
     end
@@ -17,7 +17,7 @@ describe MadsComplexSubjectDatastream do
   end
   describe "an instance with an element list" do
     subject do
-      subject = MadsComplexSubjectDatastream.new(stub('inner object', :pid=>'bbXXXXXXX5', :new? =>true), 'descMetadata')
+      subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bbXXXXXXX5', :new? =>true), 'descMetadata')
       subject.content = File.new('spec/fixtures/madsMoreComplexSubject.rdf.xml').read
       subject
     end
@@ -39,7 +39,7 @@ describe MadsComplexSubjectDatastream do
   
   describe "an instance with an component list" do
      subject do
-        subject = MadsComplexSubjectDatastream.new(stub('inner object', :pid=>'bd6724414c', :new? =>true), 'damsMetadata')
+        subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bd6724414c', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsMoreComplexSubject2.rdf.xml').read
         subject
       end

@@ -32,6 +32,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   # tmp lang class
 #  class Language
 #    include ActiveFedora::RdfObject
+#    include ActiveFedora::Rdf::DefaultNodes
 #    rdf_type DAMS.Language
 #
 #    map_predicates do |map|
@@ -207,15 +208,15 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   # helper method to load external classes
   def loadObjects (object,className)
     objects = []
-    object.values.each do |name|
-      name_uri = name.to_s
+    object.values.each do |o|
+      name_uri = o.to_s
       name_pid = name_uri.gsub(/.*\//,'')
       if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
       	objects << className.find(name_pid)
-      elsif name.name.first.nil? && name.pid != nil    
-        objects << className.find(name.pid)      
+      elsif o.name.first.nil? && o.pid != nil    
+        objects << className.find(o.pid)      
       else 
-      	objects << name
+      	objects << o
        end
     end
   	return objects
@@ -245,6 +246,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     if objects != nil
       objects.each do |obj|
           Solrizer.insert_field(solr_doc, "#{prefix}complexSubject", obj.name)
+          Solrizer.insert_field(solr_doc, 'subject', obj.name)
           Solrizer.insert_field(solr_doc, "#{prefix}subject_topic", obj.name, facetable)
           Solrizer.insert_field(solr_doc, "subject_topic", obj.name, facetable)
           Solrizer.insert_field(solr_doc, "fulltext", obj.name)
@@ -253,9 +255,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def insertNoteFields (solr_doc, fieldName, objects)
-puts "note: #{fieldName}: #{objects}"
     objects.map do |no|
-puts "  #{no.inspect}"
       note_json = {}
       note_obj = nil
       note_uri = no.to_s
@@ -314,11 +314,11 @@ puts "  #{no.inspect}"
 	    rel = rel.corporateName
 	  elsif !rel.personalName.first.nil?
 	    rel = rel.personalName    
-      elsif !rel.name.first.nil?
+      else
 	    rel = rel.name    
 	  end
 
-      if rel.first.name.first.nil?
+      if rel.first.nil? || rel.first.name.first.nil?
     	rel = relationship.load  
       end
 	    	  
@@ -524,10 +524,10 @@ puts "  #{no.inspect}"
     insertLanguageFields solr_doc, "language", language
 
     # note
-    insertNoteFields solr_doc, 'note',note
-    insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
-    insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
-    insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
+    insertNoteFields solr_doc, 'note', note
+    insertNoteFields solr_doc, 'custodialResponsibilityNote', custodialResponsibilityNote
+    insertNoteFields solr_doc, 'preferredCitationNote', preferredCitationNote
+    insertNoteFields solr_doc, 'scopeContentNote', scopeContentNote
 
     # subject - old
     subject.map do |sn|

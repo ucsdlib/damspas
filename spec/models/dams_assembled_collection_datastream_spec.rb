@@ -44,26 +44,28 @@ describe DamsAssembledCollectionDatastream do
         solr_doc["date_tesim"].should == ["2009-05-03"]
       end
 
- 	  it "should have scopeContentNote" do
-        solr_doc = subject.to_solr
-        solr_doc["scopeContentNote_tesim"].to_s.should include "Inline scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["scopeContentNote_tesim"].to_s.should include "Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-      end
-
  	  it "should have notes" do
         solr_doc = subject.to_solr
-        solr_doc["note_tesim"].to_s.should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].to_s.should include "#{Rails.configuration.id_namespace}bb80808080"
+
+        # generic notes
+        solr_doc["note_tesim"].to_s.should include "Inline generic note"
+        solr_doc["note_tesim"].to_s.should include "Linked generic note"
+
+        # custodial responsibility notes
+		solr_doc["custodialResponsibilityNote_tesim"].to_s.should include "Inline custodial responsibility note"
+		solr_doc["custodialResponsibilityNote_tesim"].to_s.should include "Linked custodial responsibility note"
+
+        # preferred citation notes
+		solr_doc["preferredCitationNote_tesim"].to_s.should include "Inline preferred citation note"
+		solr_doc["preferredCitationNote_tesim"].to_s.should include "Linked preferred citation note"
+
+        # scope content notes
+        solr_doc["scopeContentNote_tesim"].to_s.should include "Inline scope content note"
+        solr_doc["scopeContentNote_tesim"].to_s.should include "Linked scope content note"
       end
 
-      it "should have preferredCitationNote" do
-		testIndexNoteFields "preferredCitationNote","Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-      end
-      it "should have CustodialResponsibilityNote" do
-		testIndexNoteFields "custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-      end
       it "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "bb08080808"
+        subject.relationship.first.personalName.first.pid.should == "bb08080808"
         subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
@@ -76,11 +78,6 @@ describe DamsAssembledCollectionDatastream do
 #        solr_doc["event_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
 #        solr_doc["event_1_role_tesim"].should == ["Initiator"]
 #      end
-      def testIndexNoteFields (fieldName,value)
-        solr_doc = subject.to_solr
-        solr_doc["#{fieldName}_tesim"].to_s.should include value
-      end
-
     end
   end
 end

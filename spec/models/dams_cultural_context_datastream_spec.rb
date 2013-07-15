@@ -6,7 +6,7 @@ describe DamsCulturalContextDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsCulturalContextDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsCulturalContextDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -23,7 +23,7 @@ describe DamsCulturalContextDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsCulturalContextDatastream.new(stub('inner object', :pid=>'bd0410365x', :new? =>true), 'damsMetadata')
+        subject = DamsCulturalContextDatastream.new(double('inner object', :pid=>'bd0410365x', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsCulturalContext.rdf.xml').read
         subject
       end

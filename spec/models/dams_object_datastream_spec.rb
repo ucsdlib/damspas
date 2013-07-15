@@ -6,7 +6,7 @@ describe DamsObjectDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx1111111x"
       end
@@ -15,7 +15,7 @@ describe DamsObjectDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/dissertation.rdf.xml').read
         subject
       end
@@ -34,17 +34,17 @@ describe DamsObjectDatastream do
       end
 
       it "should have inline subjects" do
-        subject.subject[0].name.should == ["Black Panther Party--History"]
-        subject.subject[1].name.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
+        subject.complexSubject[0].name.should == ["Black Panther Party--History"]
+        subject.complexSubject[1].name.should == ["African Americans--Relations with Mexican Americans--History--20th Century"]
       end
       it "should have external subjects" do
-        subject.subject[0].should_not be_external
-        subject.subject[1].should_not be_external
-        subject.subject[2].should be_external
+        subject.complexSubject[0].should_not be_external
+        subject.complexSubject[1].should_not be_external
+        subject.complexSubject[2].should be_external
       end
 
       it "should have relationship" do
-        subject.relationship[0].name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship[0].personalName.first.pid.should == "bbXXXXXXX1"
         subject.relationship[0].role.first.pid.should == "bd55639754"        
       end
 
@@ -53,11 +53,8 @@ describe DamsObjectDatastream do
       end
 
       it "should create a solr document" do
-        MadsComplexSubject.should_receive(:find).with('bbXXXXXXX5').and_return(stub(:name =>'stubbed'))
-        #stub_person = stub(:name => "Maria")
-        #DamsPerson.should_receive(:find).with("bbXXXXXXX1").and_return(stub_person)
         solr_doc = subject.to_solr
-        solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","stubbed"]
+        solr_doc["subject_tesim"].should == ["Black Panther Party--History","African Americans--Relations with Mexican Americans--History--20th Century","Academic dissertations"]
         solr_doc["title_tesim"].should include "Chicano and black radical activism of the 1960s: a comparison between the Brown Berets and the Black Panther Party in California"
         solr_doc["date_tesim"].should include "2010"
         solr_doc["name_tesim"].should include "Yañez, Angélica María"
@@ -67,7 +64,7 @@ describe DamsObjectDatastream do
 
     describe "a complex object with flat component list" do
       subject do
-        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bb80808080', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bb80808080', :new? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
         subject
       end
@@ -235,7 +232,6 @@ describe DamsObjectDatastream do
       end
       it "should index collection" do
         solr_doc = subject.to_solr
-        #puts "solr: #{solr_doc.inspect}"
         solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
         solr_doc["collection_json_tesim"].join(" ").should include "May 2009"
       end
@@ -257,7 +253,7 @@ describe DamsObjectDatastream do
   end
 
   describe "should store correct xml" do
-      subject { DamsObjectDatastream.new(stub('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
 
 	  before do
 	    subject.titleValue = "Test Title"
@@ -294,7 +290,7 @@ END
 
     describe "an instance with content for new object model" do
       subject do
-        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bd6212468x', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd6212468x', :new? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsObjectNewModel.xml').read
         subject
       end
@@ -363,9 +359,13 @@ END
 
         #it "should index complexSubject" do
         testComplexSubjectFields solr_doc, "complexSubject","Galaxies--Clusters"
+      end
+
+      it "should index mads fields, part 2" do
+        solr_doc = subject.to_solr
 
         #it "should index subjects" do
-        solr_doc["subject_tesim"].should == ["Black Panther Party--History", "Academic dissertations"]
+        solr_doc["subject_tesim"].should == ["Galaxies--Clusters","Test linked subject--More test"]
         
         #it "should have scopeContentNote" do
         solr_doc["scopeContentNote_tesim"].should == ["Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","scope content note internal value"]        
@@ -381,7 +381,8 @@ END
 		
 		solr_doc["copyright_tesim"].first.should include "under copyright"
 		
-		solr_doc["rightsHolder_tesim"].should == ["Administrator, Bob, 1977- internal", "Administrator, Bob, 1977-", "UC Regents"]
+		solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
+		solr_doc["rightsHolder_tesim"].should include "UC Regents"
 		
 		#internal license
         solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
@@ -408,10 +409,13 @@ END
         solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'      
         
         solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
-        
-        solr_doc["event_json_tesim"].first.should include '"pid":"bb07070707","type":"object creation"' 
-        solr_doc["event_json_tesim"][1].should include '"pid":"zz07070707","type":"object creation inline event"' 
-        solr_doc["event_json_tesim"][2].should include '"name":"dams:unknownUser","role":"dams:initiator"'
+
+      end
+
+      it "should index events" do
+        solr_doc = subject.to_solr
+        solr_doc["event_json_tesim"].first.should include '"pid":"bd0990660f","type":"object creation"' 
+        solr_doc["event_json_tesim"].first.should include '"name":"dams:unknownUser","role":"dams:initiator"'
         
         solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'
         
@@ -433,43 +437,21 @@ END
       
       def testIndexFields (solr_doc,fieldName,name)
         solr_doc["#{fieldName}_tesim"].should == ["#{name}"]
-        #solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
-        #solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
-        #solr_doc["#{fieldName}_1_externalAuthority_tesim"].should == ["#{externalAuthority}"]
-        #solr_doc["#{fieldName}_1_scheme_tesim"].should == ["#{scheme}"]
-        #solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
-        #solr_doc["#{fieldName}_1_0_#{fieldName}_tesim"].should == ["#{element}"]
       end
       def testIndexNameFields (solr_doc,fieldName,name)
         solr_doc["#{fieldName}_tesim"].should == ["#{name}"]
-        #solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
-        #solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
-        #solr_doc["#{fieldName}_1_externalAuthority_tesim"].should == ["#{externalAuthority}"]
-        #solr_doc["#{fieldName}_1_scheme_tesim"].should == ["#{scheme}"]
-        #solr_doc["#{fieldName}_element_1_0_tesim"].should == ["#{element}"]
-        #solr_doc["#{fieldName}_1_0_#{elementName}_tesim"].should == ["#{element}"]
       end
       def testIndexNoteFields (solr_doc,fieldName,value)
         solr_doc["#{fieldName}_tesim"].should include value
-        #solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
-        #solr_doc["#{fieldName}_1_type_tesim"].should == ["#{type}"]
-        #solr_doc["#{fieldName}_1_value_tesim"].should == ["#{value}"]
-        #solr_doc["#{fieldName}_1_displayLabel_tesim"].should == ["#{displayLabel}"]
       end
       def testComplexSubjectFields (solr_doc,fieldName,name)
         solr_doc["#{fieldName}_tesim"].should include name
-        #solr_doc["#{fieldName}_1_id_tesim"].should == ["#{id}"]
-        #solr_doc["#{fieldName}_1_name_tesim"].should == ["#{name}"]
-        #solr_doc["#{fieldName}_1_externalAuthority_tesim"].should == ["#{externalAuthority}"]
-        #solr_doc["#{fieldName}_1_scheme_tesim"].should == ["#{scheme}"]
-        #solr_doc["#{fieldName}_1_0_topic_tesim"].should == ["#{topic0}"]
-        #solr_doc["#{fieldName}_1_1_topic_tesim"].should == ["#{topic1}"]
       end
    end
 
     describe "a complex object with internal classes" do
       subject do
-        subject = DamsObjectDatastream.new(stub('inner object', :pid=>'bd0171551x', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd0171551x', :new? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsObjectInternal.rdf.xml').read
         subject
       end
@@ -481,8 +463,6 @@ END
         solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
         solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","type":"ProvenanceCollection"'     
 		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
-		#puts solr_doc["relationship_json_tesim"]
-		#puts solr_doc["unit_tesim"]
       end
     end
 end

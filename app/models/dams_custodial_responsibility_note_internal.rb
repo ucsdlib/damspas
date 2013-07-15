@@ -1,5 +1,6 @@
 class DamsCustodialResponsibilityNoteInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type DAMS.CustodialResponsibilityNote
     map_predicates do |map|

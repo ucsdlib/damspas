@@ -62,7 +62,19 @@
     </dams:assembledCollection>
 
     <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
-    <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
+    <dams:rightsHolder>
+      <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb58585858">
+        <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977-</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>Administrator, Bob,</mads:elementValue>
+          </mads:FullNameElement>
+          <mads:DateNameElement>
+            <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+          </mads:DateNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:rightsHolder>
     <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
     <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/bb06060606"/>
     <dams:otherRights>
@@ -82,7 +94,7 @@
                 </mads:isMemberOfMADSScheme>
               </mads:Authority>
             </dams:role>
-            <dams:name>
+            <dams:personalName>
               <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb09090909">
                 <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977-</mads:authoritativeLabel>
                 <mads:elementList rdf:parseType="Collection">
@@ -94,7 +106,7 @@
                   </mads:DateNameElement>
                 </mads:elementList>
               </mads:PersonalName>
-            </dams:name>
+            </dams:personalName>
           </dams:Relationship>
         </dams:relationship>
         <dams:permission>
