@@ -6,7 +6,7 @@ describe MadsGenreFormDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { MadsGenreFormDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { MadsGenreFormDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -23,7 +23,7 @@ describe MadsGenreFormDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = MadsGenreFormDatastream.new(stub('inner object', :pid=>'bd9796116g', :new? =>true), 'damsMetadata')
+        subject = MadsGenreFormDatastream.new(double('inner object', :pid=>'bd9796116g', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsGenreForm.rdf.xml').read
         subject
       end

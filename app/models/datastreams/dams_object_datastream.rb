@@ -54,11 +54,12 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
     map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
     map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
-    map.rightsHolder(:in=>DAMS,:class_name => 'DamsRightsHolderInternal')
+    map.rightsHolderPersonal(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsPersonalNameInternal')
+    map.rightsHolderCorporate(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsCorporateNameInternal')
 
     # resource type and cartographics
     map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
-    map.cartographics(:in => DAMS, :class_name => 'Cartographics')
+    map.cartographics(:in => DAMS, :to => 'cartographics', :class_name => 'DamsCartographicsInternal')
   end
  
   rdf_subject { |ds|
@@ -194,12 +195,11 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_otherRights(otherRights)
   end
   def load_otherRights (otherRights)
-	if !otherRights.values.first.nil?
-	    o_pid = otherRights.values.first.pid
-	    if !otherRights.values.first.uri.first.nil? && otherRights.values.first.uri.first.to_s.length > 0
-	      otherRights.values.first
+	if !otherRights.first.nil?
+	    if !otherRights.first.uri.first.nil? && otherRights.first.uri.first.to_s.length > 0
+	      otherRights.first
 	    else
-	      DamsOtherRights.find(o_pid)
+	      DamsOtherRights.find( otherRights.first.pid )
 	    end
 	end        
   end
@@ -216,11 +216,11 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
 
   def load_rightsHolders
-    load_rightsHolders(rightsHolder)
+    load_rightsHolders(rightsHolderPersonal.concat(rightsHolderCorporate))
   end
   def load_rightsHolders(rightsHolder)
     rightsHolders = []
-    rightsHolder.values.each do |name|
+    rightsHolder.each do |name|
       if !name.name.first.nil? && name.name.first != ""
         # use inline data if available
         rightsHolders << name
@@ -356,6 +356,12 @@ class DamsObjectDatastream < DamsResourceDatastream
       if othr.name.first != nil
         othr_json[:name] = "#{Rails.configuration.id_namespace}#{othr.name.first.pid}"
       end
+      if othr.relationship.first.personalName.first != nil
+        othr_json[:name] = "#{Rails.configuration.id_namespace}#{othr.relationship.first.personalName.first.pid}"
+      end
+      if othr.relationship.first.corporateName.first != nil
+        othr_json[:name] = "#{Rails.configuration.id_namespace}#{othr.relationship.first.corporateName.first.pid}"
+      end
        begin
         if othr.role.first != nil
           #othr_json[:role] = "#{Rails.configuration.id_namespace}#{othr.role.first.pid}"
@@ -373,8 +379,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     rightsHolders = load_rightsHolders rightsHolder
     if rightsHolders != nil
       rightsHolders.each do |name|
-          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder", name.name.first.to_s)
-          Solrizer.insert_field(solr_doc, "fulltext", name.name)
+          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder", name.name.first)
+          Solrizer.insert_field(solr_doc, "fulltext", name.name.first)
       end
     end
   end
@@ -514,9 +520,12 @@ class DamsObjectDatastream < DamsResourceDatastream
     insertLicenseFields solr_doc, "", license
     insertStatuteFields solr_doc, "", statute
     insertOtherRightsFields solr_doc, "", otherRights
-    insertRightsHolderFields solr_doc, "", rightsHolder
+    rh = []
+    rh = rh.concat(rightsHolderCorporate) unless rightsHolderCorporate.nil?
+    rh = rh.concat(rightsHolderPersonal) unless rightsHolderPersonal.nil?
+    insertRightsHolderFields solr_doc, "", rh
     
-    cartographics.map do |cart|
+    cartographics.each do |cart|
       carto_json = {
         :point => cart.point,
         :line => cart.line,

@@ -6,7 +6,7 @@ describe MadsTemporalDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { MadsTemporalDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { MadsTemporalDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -23,7 +23,7 @@ describe MadsTemporalDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = MadsTemporalDatastream.new(stub('inner object', :pid=>'bd59394235', :new? =>true), 'damsMetadata')
+        subject = MadsTemporalDatastream.new(double('inner object', :pid=>'bd59394235', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsTemporal.rdf.xml').read
         subject
       end

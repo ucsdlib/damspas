@@ -6,7 +6,7 @@ describe MadsOccupationDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { MadsOccupationDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { MadsOccupationDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -23,7 +23,7 @@ describe MadsOccupationDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = MadsOccupationDatastream.new(stub('inner object', :pid=>'bd72363644', :new? =>true), 'damsMetadata')
+        subject = MadsOccupationDatastream.new(double('inner object', :pid=>'bd72363644', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsOccupation.rdf.xml').read
         subject
       end

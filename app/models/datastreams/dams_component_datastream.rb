@@ -77,6 +77,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     end
     class File
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.File
       map_predicates do |map|
         map.filestore(:in=>DAMS)

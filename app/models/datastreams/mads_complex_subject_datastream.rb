@@ -11,6 +11,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 
      class Topic
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.Topic
      	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -22,6 +23,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end     
      class GenreForm
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.GenreForm
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -29,6 +31,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end    
      class Iconography
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type DAMS.Iconography
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -36,6 +39,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end 	  	 
      class ScientificName
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type DAMS.ScientificName
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -43,6 +47,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end    	 
      class Technique
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type DAMS.Technique
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -50,6 +55,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end 	 
 	 class BuiltWorkPlace
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type DAMS.BuiltWorkPlace
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -57,6 +63,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end    	 
      class PersonalName
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.PersonalName
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -64,6 +71,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end 	 
 	 class Geographic
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.Geographic
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -71,6 +79,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end    	 
      class Temporal
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.Temporal
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -78,6 +87,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end 		  
 	 class CulturalContext
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type DAMS.CulturalContext
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -85,6 +95,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end    
      class StylePeriod
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type DAMS.StylePeriod
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -92,6 +103,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end 	 
 	 class ConferenceName
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.ConferenceName
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -99,6 +111,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end    
      class Function
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type DAMS.Function
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -106,6 +119,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end 
 	 class CorporateName
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.CorporateName
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -113,6 +127,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end    
      class Occupation
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.Occupation
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -120,6 +135,7 @@ class MadsComplexSubjectDatastream < MadsDatastream
 	 end 
      class FamilyName
       	include ActiveFedora::RdfObject
+        include ActiveFedora::Rdf::DefaultNodes
       	rdf_type MADS.FamilyName
       	map_predicates do |map|   
         	map.name(:in => MADS, :to => 'authoritativeLabel')

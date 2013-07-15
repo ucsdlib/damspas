@@ -1,5 +1,6 @@
 class MadsSchemeInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type MADS.MADSScheme
   map_predicates do |map|

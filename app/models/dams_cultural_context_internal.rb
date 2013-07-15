@@ -1,5 +1,6 @@
 class DamsCulturalContextInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type DAMS.CulturalContext
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}

@@ -6,7 +6,7 @@ describe DamsPreferredCitationNoteDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsPreferredCitationNoteDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsPreferredCitationNoteDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -27,7 +27,7 @@ describe DamsPreferredCitationNoteDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsPreferredCitationNoteDatastream.new(stub('inner object', :pid=>'bd3959888k', :new? =>true), 'damsMetadata')
+        subject = DamsPreferredCitationNoteDatastream.new(double('inner object', :pid=>'bd3959888k', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsPreferredCitationNote.rdf.xml').read
         subject
       end

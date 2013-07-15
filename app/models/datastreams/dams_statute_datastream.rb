@@ -43,6 +43,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   class Permission
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.Permission
     map_predicates do |map|
       map.type(:in=>DAMS)
@@ -80,6 +81,7 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   class Restriction
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.Restriction
     map_predicates do |map|
       map.type(:in=>DAMS)

@@ -1,5 +1,6 @@
 class MadsTitle
   include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
   include DamsHelper
   rdf_type MADS.Title
   map_predicates do |map|

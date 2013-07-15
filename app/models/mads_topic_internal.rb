@@ -1,5 +1,6 @@
 class MadsTopicInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type MADS.Topic
   map_predicates do |map|

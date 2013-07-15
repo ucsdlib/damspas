@@ -1,5 +1,6 @@
 class MadsCorporateNameInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type MADS.CorporateName
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}

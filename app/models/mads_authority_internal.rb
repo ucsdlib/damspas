@@ -1,5 +1,6 @@
 class MadsAuthorityInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type MADS.Authority
   map_predicates do |map|
