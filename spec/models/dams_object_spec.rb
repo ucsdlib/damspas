@@ -137,7 +137,7 @@ describe DamsObject do
         <dams:role rdf:resource="#{Rails.configuration.id_namespace}bd8396905c"/>
         <dams:corporateName rdf:resource="#{Rails.configuration.id_namespace}bd8294487v"/>
       </dams:Relationship>
-    </dams:relationship>    
+    </dams:relationship>       
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml
