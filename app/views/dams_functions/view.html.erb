@@ -1,0 +1,17 @@
+<h1><%= @dams_function.name.first %></h1>
+
+<div>
+  <dl>
+    <dt>FunctionElement:</dt>
+    <dd><%= @dams_function.elementValue %></dd>
+    <dt>Scheme:</dt>
+    <dd><%= @dams_function.scheme %></dd>
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @dams_function.externalAuthority %></dd>
+  </dl>
+  <% if can? :update, @dams_function %>
+    <%= link_to "Solr View", dams_function_path(@dams_function), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_function_path(@dams_function), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_functions_path(), class: "btn btn-primary"%>
+  <% end %>
+</div>

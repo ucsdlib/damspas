@@ -602,7 +602,7 @@ def relatedResourceUri
 	  elsif type.include? "CulturalContextElement"
         elem = MadsDatastream::List::CulturalContextElement.new(elementList.first.graph)
       elsif type.include? "FunctionElement"
-        elem = MadsDatastream::List::FunctionElement.new(elementList.first.graph)
+        elem = DamsDatastream::List::FunctionElement.new(elementList.first.graph)
 	  elsif type.include? "GenreFormElement"
         elem = MadsDatastream::List::GenreFormElement.new(elementList.first.graph)              
       elsif type.include? "GeographicElement"
