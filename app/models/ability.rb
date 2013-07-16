@@ -31,6 +31,7 @@ class Ability
     	can [:read, :create, :update, :view], DamsObject
     	can [:read, :create, :update, :view], DamsUnit
       can [:read, :create, :update, :view], DamsFunction
+      can [:read, :create, :update, :view], DamsTechnique
     	can [:read, :create, :update], DamsCopyright
     	can [:read, :create, :update], DamsLicense
     	can [:read, :create, :update], DamsStatute
