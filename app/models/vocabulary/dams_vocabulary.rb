@@ -20,6 +20,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :corporateName
   property :familyName
   property :personalName
+  property :elementList
   property :assembledCollection
   property :AssembledCollection
   property :provenanceCollection
