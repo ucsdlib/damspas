@@ -14,13 +14,13 @@
   <%= label_tag 'dams_object[typeOfResource][]', "Type Of Resource" %>
   <%= text_field_tag 'dams_object[typeOfResource][]' %> 
   <br>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Language" %>  
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %>  
   <br>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Unit" %>  
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" %> 
   <br>
-  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Assembled Collection" %>  
+  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
   <br> 
-  <%#= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Provenance Collection" %>      
+  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>      
    <h3>Date</h3>   
   <%#= label_tag 'dams_object[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_object[dateValue][]' %>
@@ -46,17 +46,14 @@
   <%= text_field_tag 'dams_object[scopeContentNoteType][]' %> 
     
   <h3>Complex Subject</h3>
-  <%#= label_tag 'dams_object[subject]', "Subject" %>
-  <%#= select_tag 'dams_object[subject]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) %>
- 
   <%= label_tag 'dams_object[subjectValue][]', "Subject 1" %>
   <%=text_field_tag 'dams_object[subjectValue][]' %>
    <%= label_tag 'dams_object[subjectValue][]', "Subject 2" %> 
   <%=text_field_tag 'dams_object[subjectValue][]' %>
   <br>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined subject 1" %>  
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject 1" %>  
   <br>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined subject 2" %>      
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject 2" %>      
   <h3>Simple Subject</h3>
   <%
   	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
@@ -68,16 +65,16 @@
   <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
   <br>
   <h3>Relationship</h3>
-  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Role" %>    
+  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
   <br>
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
   <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
-  <%#= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@mads_names.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Relationship Name" %>
+
   <div id="relationshipName"></div>
-   OR Enter new Relationship Name
-   <%= text_field_tag 'dams_object[relationshipNameValue][]' %> 
+   <%#=OR Enter new Relationship Name %>
+   <%#= text_field_tag 'dams_object[relationshipNameValue][]' %> 
   <h3>Related Resource</h3>
   <%= label_tag 'dams_object[relatedResourceType][]', "Type" %>
   <%= text_field_tag 'dams_object[relatedResourceType][]' %>

@@ -1,2 +1,2 @@
-<%= select_tag "#{@formType}[relationshipNameURI][]", options_for_select(@names.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select Name" %>
+<%= select_tag "#{@formType}[relationshipNameURI][]", options_for_select(@names) , :prompt=>"Select Name" %>
 
