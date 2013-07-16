@@ -836,5 +836,83 @@ def relatedResourceUri
 		i+=1
 	end
   end
-   
+
+  ## Cartographics ######################################################################
+  def cartographicPoint
+    cartographics[0] ? cartographics[0].point : []
+  end
+  def cartographicPoint=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      cartographics.build if cartographics[0] == nil
+      cartographics[0].point = val
+    end
+  end
+
+  def cartographicLine
+    cartographics[0] ? cartographics[0].line : []
+  end
+  def cartographicLine=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      cartographics.build if cartographics[0] == nil
+      cartographics[0].line = val
+    end
+  end  
+  
+  def cartographicPolygon
+    cartographics[0] ? cartographics[0].polygon : []
+  end
+  def cartographicPolygon=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      cartographics.build if cartographics[0] == nil
+      cartographics[0].polygon = val
+    end
+  end  
+  
+  def cartographicProjection
+    cartographics[0] ? cartographics[0].projection : []
+  end
+  def cartographicProjection=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      cartographics.build if cartographics[0] == nil
+      cartographics[0].projection = val
+    end
+  end 
+  
+  def cartographicRefSystem
+    cartographics[0] ? cartographics[0].referenceSystem : []
+  end
+  def cartographicRefSystem=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      cartographics.build if cartographics[0] == nil
+      cartographics[0].referenceSystem = val
+    end
+  end
+  
+  def cartographicScale
+    cartographics[0] ? cartographics[0].scale : []
+  end
+  def cartographicScale=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      cartographics.build if cartographics[0] == nil
+      cartographics[0].scale = val
+    end
+  end           
 end

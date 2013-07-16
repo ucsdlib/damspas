@@ -22,7 +22,7 @@
   <br> 
   <%#= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Provenance Collection" %>      
    <h3>Date</h3>   
-  <%= label_tag 'dams_object[dateValue][]', "Date" %>
+  <%#= label_tag 'dams_object[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_object[dateValue][]' %>
   <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_object[beginDate][]' %> 
@@ -30,7 +30,7 @@
   <%= text_field_tag 'dams_object[endDate][]' %>    
 
   <h3>Note</h3>
-  <%= label_tag 'dams_object[noteValue][]', "Note" %>
+  <%#= label_tag 'dams_object[noteValue][]', "Note" %>
   <%= text_field_tag 'dams_object[noteValue][]' %> 
 
   <%= label_tag 'dams_object[noteType][]', "Note Type" %>
@@ -79,17 +79,30 @@
    OR Enter new Relationship Name
    <%= text_field_tag 'dams_object[relationshipNameValue][]' %> 
   <h3>Related Resource</h3>
-  <%= label_tag 'dams_object[relatedResourceType][]', "Related Resource Type" %>
+  <%= label_tag 'dams_object[relatedResourceType][]', "Type" %>
   <%= text_field_tag 'dams_object[relatedResourceType][]' %>
-   <%= label_tag 'dams_object[relatedResourceUri][]', "Related Resource URI" %>
+   <%= label_tag 'dams_object[relatedResourceUri][]', "URI" %>
   <%= text_field_tag 'dams_object[relatedResourceUri][]' %>
    <br>
-   <%= label_tag 'dams_object[relatedResourceDescription][]', "Related Resource Description" %>
+   <%= label_tag 'dams_object[relatedResourceDescription][]', "Description" %>
    <%= text_field_tag 'dams_object[relatedResourceDescription][]' %>
    <br>  
-
+  <h3>Cartographic</h3>
+   <%= label_tag 'dams_object[cartographicPoint][]', "Point" %>
+   <%= text_field_tag 'dams_object[cartographicPoint][]' %>
+   <%= label_tag 'dams_object[cartographicLine][]', "Line" %>
+   <%= text_field_tag 'dams_object[cartographicLine][]' %>
+   <%= label_tag 'dams_object[cartographicPolygon][]', "Polygon" %>
+   <%= text_field_tag 'dams_object[cartographicPolygon][]' %>
+   <%= label_tag 'dams_object[cartographicProjection][]', "Projection" %>
+   <%= text_field_tag 'dams_object[cartographicProjection][]' %>
+   <%= label_tag 'dams_object[cartographicRefSystem][]', "ReferenceSystem" %>
+   <%= text_field_tag 'dams_object[cartographicRefSystem][]' %>
+   <%= label_tag 'dams_object[cartographicScale][]', "Scale" %>
+   <%= text_field_tag 'dams_object[cartographicScale][]' %>            
+	<br>
   <!-input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
-  
+
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
 <%#= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %>
