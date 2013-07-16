@@ -7,6 +7,8 @@ class DamsProvenanceCollectionsController < ApplicationController
 
   def show
     @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
+    @dams_objects = DamsObject.find(params[:id])
+    
   end
 
   def new
@@ -28,7 +30,9 @@ class DamsProvenanceCollectionsController < ApplicationController
     @mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
     @mads_authorities = MadsAuthority.all( :order=>"system_create_dtsi asc" )
     @mads_names = MadsPersonalName.all( :order=>"system_create_dtsi asc" )
-    @dams_provenance_collection_parts=DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
+   # @dams_provenance_collection_parts=DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
+    @dams_provenance_collection_parts=DamsProvenanceCollectionPart.find(params[:id])
+    
   end
 
   def create
