@@ -3,6 +3,7 @@ require 'json'
 
 class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => :show
 
@@ -44,13 +45,12 @@ class DamsObjectsController < ApplicationController
   end
 
   def new
-  	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
-  	@dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
-  	@dams_assembled_collections = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
-  	#@dams_provenance_collections = DamsProvenanceCollection.all( :order=>"system_create_dtsi asc" )
-  	@mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
-  	@mads_authorities = MadsAuthority.all( :order=>"system_create_dtsi asc" )
-  	@mads_names = MadsPersonalName.all( :order=>"system_create_dtsi asc" )
+  	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+  	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
+  	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
+  	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
+  	@mads_languages =  get_objects('MadsLanguage','name_tesim')
+  	@mads_authorities = get_objects('MadsAuthority','name_tesim')
   		
 	#uri = URI('http://fast.oclc.org/fastSuggest/select')
 	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '10')
@@ -65,14 +65,11 @@ class DamsObjectsController < ApplicationController
   end
   
   def edit
-	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
+	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
   end
   
-  def create
-  #puts "collection = #{@dams_assembled_collections.size}"
-	  
-  	@dams_object.attributes = params[:dams_object] 	
-  	
+  def create	  
+  	@dams_object.attributes = params[:dams_object] 
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Object has been saved"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"

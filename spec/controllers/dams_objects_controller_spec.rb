@@ -49,6 +49,7 @@ describe DamsObjectsController do
 	       #post :create, :dams_object => {titleValue: ["Test Title"], beginDate: ["2013"], typeOfResource: ["text"], subjectValue: ["subjectValue1", "subjectValue2"]}
 	       #post :create, :dams_object => {titleValue: ["Test Title"], relationshipRoleURI: ["bb0376727p"], relationshipNameURI: ["xx00010235"], relationshipNameType: ["CorporateName"]}
 	       post :create, :dams_object => {titleValue: ["Test Title"], relationshipRoleURI: [""], relationshipNameType: [""]}
+	       #post :create, :dams_object => {titleValue: ["Test Title"], relationshipRoleURI: ["xx00000544"], relationshipNameValue: ["V6"], relationshipNameType: ["PersonalName"]}
         }.to change { DamsObject.count }.by(1)
 	      response.should redirect_to assigns[:dams_object]
 	      assigns[:dams_object].should be_kind_of DamsObject

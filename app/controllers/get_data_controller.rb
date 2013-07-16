@@ -2,7 +2,8 @@ require 'net/http'
 require 'json'
 
 class GetDataController < ApplicationController
-
+  include Blacklight::Catalog
+  include Dams::ControllerHelper
   def get_linked_data 	
   	#http://localhost:3000/get_data/get_data/get_data?q=dog&fl=suggestall
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
@@ -31,17 +32,17 @@ class GetDataController < ApplicationController
   def get_name 	
   	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
-		@names = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
+		@names = get_objects('MadsCorporateName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
-		@names = MadsPersonalName.all( :order=>"system_create_dtsi asc" )			
+		@names = get_objects('MadsPersonalName','name_tesim')			
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
-		@names = MadsConferenceName.all( :order=>"system_create_dtsi asc" )		
+		@names = get_objects('MadsConferenceName','name_tesim')		
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
-		@names = MadsFamilyName.all( :order=>"system_create_dtsi asc" )
+		@names = get_objects('FamilyName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
-		@names = MadsName.all( :order=>"system_create_dtsi asc" )							
+		@names = get_objects('MadsName','name_tesim')							
 	else
-		@names = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
+		@names = get_objects('MadsName','name_tesim')
 	end
 	@formType = params[:formType]
 
@@ -51,37 +52,37 @@ class GetDataController < ApplicationController
   def get_subject	
   	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object&fieldName=simpleSubjectURI&label=Subject
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
-		@subjects = MadsTopic.all( :order=>"system_create_dtsi asc" )
+		@subjects = get_objects('MadsTopic','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'BuiltWorkPlace')
-		@subjects = DamsBuiltWorkPlace.all( :order=>"system_create_dtsi asc" )	
+		@subjects = get_objects('DamsBuiltWorkPlace','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CulturalContext')
-		@subjects = DamsCulturalContext.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('DamsCulturalContext','name_tesim')		
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Function')
-		@subjects = DamsFunction.all( :order=>"system_create_dtsi asc" )
+		@subjects = get_objects('DamsFunction','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'GenreForm')
-		@subjects = MadsGenreForm.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('MadsGenreForm','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Geographic')
-		@subjects = MadsGeographic.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('MadsGeographic','name_tesim')	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Iconography')
-		@subjects = DamsIconography.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('DamsIconography','name_tesim')		
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ScientificName')
-		@subjects = DamsScientificName.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('DamsScientificName','name_tesim')	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Technique')
-		@subjects = DamsTechnique.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('DamsTechnique','name_tesim')	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Temporal')
-		@subjects = MadsTemporal.all( :order=>"system_create_dtsi asc" )
+		@subjects = get_objects('MadsTemporal','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
-		@subjects = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
+		@subjects = get_objects('MadsCorporateName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
-		@subjects = MadsPersonalName.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('MadsPersonalName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
-		@subjects = MadsConferenceName.all( :order=>"system_create_dtsi asc" )		
+		@subjects = get_objects('MadsConferenceName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
-		@subjects = MadsFamilyName.all( :order=>"system_create_dtsi asc" )
+		@subjects = get_objects('MadsFamilyName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
-		@subjects = MadsName.all( :order=>"system_create_dtsi asc" )																												
+		@subjects = get_objects('MadsName','name_tesim')																											
 	else
-		@subjects = MadsTopic.all( :order=>"system_create_dtsi asc" )
+		@subjects = get_objects('MadsTopic','name_tesim')
 	end
 	@formType = params[:formType]
 	@fieldName = params[:fieldName]
