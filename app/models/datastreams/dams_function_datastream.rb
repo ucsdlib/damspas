@@ -1,4 +1,5 @@
 class DamsFunctionDatastream < DamsDatastream
+  include DamsHelper
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.schemeNode(:in => MADS, :to => 'isMemberOfMADSScheme')
@@ -11,5 +12,11 @@ class DamsFunctionDatastream < DamsDatastream
     graph.insert([rdf_subject, RDF.type, DAMS.Function]) if new?
     super
   end
-    
+  def elementValue
+    getElementValue "FunctionElement"
+  end
+  
+  def elementValue=(s)
+    setElementValue( "FunctionElement", s )
+  end     
 end
