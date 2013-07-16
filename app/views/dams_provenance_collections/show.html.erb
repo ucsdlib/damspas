@@ -9,11 +9,17 @@
 <p>RelatedResourceType: <%= @dams_provenance_collection.relatedResourceType.first %>, <%= @dams_provenance_collection.relatedResourceUri.first %>, <%= @dams_provenance_collection.relatedResourceDescription.first %></p>
 <p>	
 <% if (!@dams_provenance_collection.part.nil?) %>
-	Provenance Collection Part:
+ 	Provenance Collection Part:
 	<%= link_to @dams_provenance_collection.part.title.first.value.join(", "), dams_provenance_collection_part_path(@dams_provenance_collection.part) %>
 <% end %>
 </p>
 
+<p>	
+<% if (!@dams_objects.nil?) %>
+	dams object:
+	<%= @dams_objects.titleValue %>
+<% end %>
+</p>
 
   <% if can? :update, @dams_provenance_collection then %>
     <%= link_to "Edit", edit_dams_provenance_collection_path(@dams_provenance_collection), class: "btn btn-primary"%>
