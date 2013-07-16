@@ -73,6 +73,9 @@ Hydra::Application.routes.draw do
   resources :dams_vocabulary_entries
   resources :dams_source_captures
   resources :dams_cartographics
+  resources :dams_functions do
+    get 'view', :on => :member
+  end
   resources :mads_personal_names do
     get 'view', :on => :member
   end
