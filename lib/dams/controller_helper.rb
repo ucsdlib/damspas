@@ -2,7 +2,6 @@ module Dams
   module ControllerHelper
     def get_objects(object_type_param,field)
 	  	@doc = get_search_results(:q => "has_model_ssim:info:fedora/afmodel:#{object_type_param}", :rows => '10000')
-	  	puts "has_model_ssim:info:fedora/afmodel:#{object_type_param}"
 	  	@objects = Array.new
 	  	@doc.each do |col| 
 			if col.class == Array
