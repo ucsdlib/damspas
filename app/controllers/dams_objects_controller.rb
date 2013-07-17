@@ -51,6 +51,11 @@ class DamsObjectsController < ApplicationController
   	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects('MadsLanguage','name_tesim')
   	@mads_authorities = get_objects('MadsAuthority','name_tesim')
+  	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
+  	@dams_statutes = get_objects('DamsStatute','citation_tesim')
+  	@dams_other_rights = get_objects('DamsOtherRights','basis_tesim')
+  	@dams_licenses = get_objects('DamsLicense','note_tesim')
+  	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
   		
 	#uri = URI('http://fast.oclc.org/fastSuggest/select')
 	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '10')
