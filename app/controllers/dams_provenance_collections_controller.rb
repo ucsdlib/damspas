@@ -37,7 +37,8 @@ class DamsProvenanceCollectionsController < ApplicationController
 
   def show
     @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
-    @dams_objects = DamsObject.find(params[:id])
+    #@dams_objects = DamsObject.find(params[:id])
+    #@dams_languages = MadsLanguage.find(params[:id])
     
   end
 
@@ -53,6 +54,7 @@ class DamsProvenanceCollectionsController < ApplicationController
   end
 
   def edit
+    @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
     @mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
     @dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
     @dams_assembled_collections = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
@@ -60,8 +62,8 @@ class DamsProvenanceCollectionsController < ApplicationController
     @mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
     @mads_authorities = MadsAuthority.all( :order=>"system_create_dtsi asc" )
     @mads_names = MadsPersonalName.all( :order=>"system_create_dtsi asc" )
-   # @dams_provenance_collection_parts=DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
-    @dams_provenance_collection_parts=DamsProvenanceCollectionPart.find(params[:id])
+    @dams_provenance_collection_parts=DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
+    #@dams_provenance_collection_parts=DamsProvenanceCollectionPart.find(params[:id])
     
   end
 
