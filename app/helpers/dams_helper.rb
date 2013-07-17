@@ -373,8 +373,8 @@ def relatedResourceUri
   def languageURI
     if @langURI != nil
       @langURI
-    else
-      langURI.first
+    #else
+    #  langURI.first
     end
   end 
   def languageURI=(val)
