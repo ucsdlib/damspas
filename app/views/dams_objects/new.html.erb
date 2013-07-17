@@ -1,23 +1,23 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
-  <%= label_tag 'dams_object[titleValue][]', "First Title" %>
+  <h3>Title</h3>
   <%= text_field_tag 'dams_object[titleValue][]' %>
-  <%= label_tag 'dams_object[subtitle][]', "First SubTitle" %>
+  <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]' %>  
-  <%= label_tag 'dams_object[titlePartName][]', "First PartName" %>
+  <%= label_tag 'dams_object[titlePartName][]', "PartName" %>
   <%= text_field_tag 'dams_object[titlePartName][]' %>  
-  <%= label_tag 'dams_object[titlePartNumber][]', "First PartNumber" %>
+  <%= label_tag 'dams_object[titlePartNumber][]', "PartNumber" %>
   <%= text_field_tag 'dams_object[titlePartNumber][]' %>    
-   <%= label_tag 'dams_object[titleNonSort][]', "First NonSort" %>
+   <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
   <%= text_field_tag 'dams_object[titleNonSort][]' %>  
   <%= label_tag 'dams_object[typeOfResource][]', "Type Of Resource" %>
   <%= text_field_tag 'dams_object[typeOfResource][]' %> 
-  <br>
+  <h3>Language</h3>
   <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %>  
-  <br>
+  <h3>Unit</h3>
   <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" %> 
-  <br>
+  <h3>Collection</h3>
   <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
   <br> 
   <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>      
@@ -46,14 +46,14 @@
   <%= text_field_tag 'dams_object[scopeContentNoteType][]' %> 
     
   <h3>Complex Subject</h3>
-  <%= label_tag 'dams_object[subjectValue][]', "Subject 1" %>
-  <%=text_field_tag 'dams_object[subjectValue][]' %>
-   <%= label_tag 'dams_object[subjectValue][]', "Subject 2" %> 
+  <%#= label_tag 'dams_object[subjectValue][]', "Subject 1" %>
+  <%#= label_tag 'dams_object[subjectValue][]', "Subject 2" %> 
+
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>  
   <%=text_field_tag 'dams_object[subjectValue][]' %>
   <br>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject 1" %>  
-  <br>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject 2" %>      
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
+  <%=text_field_tag 'dams_object[subjectValue][]' %>     
   <h3>Simple Subject</h3>
   <%
   	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
@@ -68,13 +68,13 @@
   <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
   <br>
   <%
-  	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"]]
+  	 nameTypeArray = [["CorporateName", "CorporateName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
   <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
 
   <div id="relationshipName"></div>
-   <%#=OR Enter new Relationship Name %>
-   <%#= text_field_tag 'dams_object[relationshipNameValue][]' %> 
+   OR Enter new Relationship Name
+   <%= text_field_tag 'dams_object[relationshipNameValue][]' %> 
   <h3>Related Resource</h3>
   <%= label_tag 'dams_object[relatedResourceType][]', "Type" %>
   <%= text_field_tag 'dams_object[relatedResourceType][]' %>
@@ -96,9 +96,9 @@
    <%= label_tag 'dams_object[cartographicRefSystem][]', "ReferenceSystem" %>
    <%= text_field_tag 'dams_object[cartographicRefSystem][]' %>
    <%= label_tag 'dams_object[cartographicScale][]', "Scale" %>
-   <%= text_field_tag 'dams_object[cartographicScale][]' %>            
+   <%= text_field_tag 'dams_object[cartographicScale][]'%>            
 	<br>
-  <!-input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
+  <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
