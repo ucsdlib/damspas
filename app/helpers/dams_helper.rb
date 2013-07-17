@@ -809,16 +809,31 @@ def relatedResourceUri
 	    if relationship[0] == nil
 	      relationship.build
 	    end
-	    	
+	    	puts "hello"
 	    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
-	    	@obj = MadsCorporateName.create(name: val)
+	    	@obj = MadsCorporateName.find(name: val)
+	    	if (@obj.class == Array && @obj.length > 0)
+	    		@obj = @obj.first
+	    	elsif (@obj.class == Array && @obj.length == 0)
+	    		@obj = MadsCorporateName.create(name: val)
+			end	    	
 	    	relationship[0].corporateName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}") 
 	    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
-	    	@obj = MadsPersonalName.create(name: val)
-	    	relationship[0].personalName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")   		
-	    else
-	    	@obj = MadsPersonalName.create(name: val)
-	    	relationship[0].name = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")    	
+	    	@obj = MadsPersonalName.find(name: val)
+	    	if (@obj.class == Array && @obj.length > 0)
+	    		@obj = @obj.first
+	    	elsif (@obj.class == Array && @obj.length == 0)
+	    		@obj = MadsPersonalName.create(name: val)
+			end
+	    	relationship[0].personalName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")   
+	    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
+	    	@obj = MadsName.find(name: val)
+	    	if (@obj.class == Array && @obj.length > 0)
+	    		@obj = @obj.first
+	    	elsif (@obj.class == Array && @obj.length == 0)
+	    		@obj = MadsName.create(name: val)
+			end
+	    	relationship[0].name = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}") 	    			
 	    end
     end
   end    

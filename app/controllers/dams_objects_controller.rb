@@ -60,8 +60,8 @@ class DamsObjectsController < ApplicationController
 	#@autocomplete_items = Array.new
 	#@jdoc.each do |value|
 	#	@autocomplete_items << value['suggestall']
-	#end  
-
+	#end 
+	@autocomplete_items = get_autocomplete_objects('MadsLanguage','name_tesim')
   end
   
   def edit
