@@ -929,5 +929,87 @@ def relatedResourceUri
       cartographics.build if cartographics[0] == nil
       cartographics[0].scale = val
     end
-  end           
+  end      
+  
+  ## Rights
+   ######################################################################
+  def copyrightURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@rightURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def copyrightURI
+    if @rightURI != nil
+      @rightURI
+    else
+      copyrightURI.first
+    end
+  end      
+
+  def statuteURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@statURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def statuteURI
+    if @statURI != nil
+      @statURI
+    else
+      statuteURI.first
+    end
+  end 
+  
+  def otherRightsURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@otherCopyRightURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def otherRightsURI
+    if @otherCopyRightURI != nil
+      @otherCopyRightURI
+    else
+      otherRightsURI.first
+    end
+  end 
+  
+  def licenseURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@licenURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def licenseURI
+    if @licenURI != nil
+      @licenURI
+    else
+      licenseURI.first
+    end
+  end 
+  
+  def rightsHolderURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+    	@holderURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def rightsHolderURI
+    if @holderURI != nil
+      @holderURI
+    else
+      rightsHolderURI.first
+    end
+  end              
 end
