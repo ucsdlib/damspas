@@ -15,10 +15,23 @@
 </p>
 
 <p>	
-<% if (!@dams_objects.nil?) %>
-	dams object:
-	<%= @dams_objects.titleValue %>
-<% end %>
+
+<% if (!@dams_provenance_collection.languages.empty?) %>
+								<dt>Language</dt>
+								<dd><%= link_to @dams_provenance_collection.languages.first.name.first, @dams_provenance_collection.languages.first.name.first.to_s %></dd>
+							<% end %>
+
+
+</p>
+
+<p>	
+
+<% if (!@dams_provenance_collection.objects.empty?) %>
+								<dt>Objects</dt>
+								<dd><%= link_to @dams_provenance_collection.objects.first.name.first, @dams_provenance_collection.objects.first.name.first.to_s %></dd>
+							<% end %>
+
+
 </p>
 
   <% if can? :update, @dams_provenance_collection then %>
