@@ -24,7 +24,7 @@
 <%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0] %>
 
 <h3>Language</h3>
-<%#= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt2=>"Select Language" %>  
+<%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt2=>"Select Language" %>  
 <br>
 
 <h3>Note</h3>
@@ -39,18 +39,18 @@
 
 
 <h3>Subject</h3>
-<%#
+<%
 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
 %>
-<%#= label_tag 'dams_provenance_collection[subjectType]', "Simple Subject" %>
-<%#= select_tag "dams_provenance_collection[subjectType][]", options_for_select(subjectTypeArray, $selected_option) %>
-<%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]', @dams_provenance_collection.subjectTypeValue %> 
+<%= label_tag 'dams_provenance_collection[subjectType]', "Simple Subject" %>
+<%= select_tag "dams_provenance_collection[subjectType][]", options_for_select(subjectTypeArray, $selected_option) %>
+<%=text_field_tag 'dams_provenance_collection[subjectTypeValue][]', @dams_provenance_collection.subjectTypeValue %> 
 <br>
 
 
 <%= label_tag 'dams_provenance_collection[subjectValue]', "Complex Subject" %>
-<%#= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined complex subject " %> 
-<%#=text_field_tag 'dams_provenance_collection[subjectValue][]', @dams_provenance_collection.subjectValue %>
+<%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined complex subject " %> 
+<%=text_field_tag 'dams_provenance_collection[subjectValue][]', @dams_provenance_collection.subjectValue %>
 <br>
 
 <h3>Related Resource</h3>
