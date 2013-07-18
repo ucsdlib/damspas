@@ -11,38 +11,43 @@
   <%= text_field_tag 'dams_object[titlePartNumber][]' %>    
    <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
   <%= text_field_tag 'dams_object[titleNonSort][]' %>  
-  <%= label_tag 'dams_object[typeOfResource][]', "Type Of Resource" %>
-  <%= text_field_tag 'dams_object[typeOfResource][]' %> 
+  
+  <h3>Type Of Resource</h3>
+  <%= text_field_tag 'dams_object[typeOfResource][]' %>
+   
   <h3>Date</h3>   
   <%#= label_tag 'dams_object[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_object[dateValue][]' %>
   <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_object[beginDate][]' %> 
   <%= label_tag 'dams_object[endDate][]', "End Date" %>
-  <%= text_field_tag 'dams_object[endDate][]' %>   
+  <%= text_field_tag 'dams_object[endDate][]' %>
+    
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" %> 
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" %>
+   
   <h3>Collection</h3>
   <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
   <br> 
-  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>        
+  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
+          
   <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %> 
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %>
+   
   <h3>Note</h3>
-  <%#= label_tag 'dams_object[noteValue][]', "Note" %>
   <%= text_field_tag 'dams_object[noteValue][]' %> 
-
   <%= label_tag 'dams_object[noteType][]', "Note Type" %>
   <%= text_field_tag 'dams_object[noteType][]' %> 
-
   <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Displaylabel" %>
   <%= text_field_tag 'dams_object[noteDisplayLabel][]' %> 
-  
+    
   <%= label_tag 'dams_object[scopeContentNoteValue][]', "Scope Content Note" %>
   <%= text_field_tag 'dams_object[scopeContentNoteValue][]' %>  
-
   <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Note Type" %>
   <%= text_field_tag 'dams_object[scopeContentNoteType][]' %> 
+  <%= label_tag 'dams_object[scopeContentNoteDisplayLabel][]', "Scope Content Note Display Label" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteDisplayLabel][]' %>
+  
   <h3>Relationship</h3>
   <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
   <br>
@@ -63,7 +68,8 @@
   <%=text_field_tag 'dams_object[subjectValue][]' %>
   <br>
   <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%=text_field_tag 'dams_object[subjectValue][]' %>     
+  <%=text_field_tag 'dams_object[subjectValue][]' %>
+       
   <h3>Simple Subject</h3>
   <%
   	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
@@ -73,6 +79,7 @@
   <%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
   <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
+  
   <h3>Rights</h3>
   <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" %>
   <br>
@@ -82,7 +89,8 @@
   <br>
   <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses) , :prompt=>"Select License" %>
   <br>
-  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %> 
+  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %>
+   
   <h3>Related Resource</h3>
   <%= label_tag 'dams_object[relatedResourceType][]', "Type" %>
   <%= text_field_tag 'dams_object[relatedResourceType][]' %>
@@ -91,8 +99,8 @@
    <br>
    <%= label_tag 'dams_object[relatedResourceDescription][]', "Description" %>
    <%= text_field_tag 'dams_object[relatedResourceDescription][]' %>
-   <br>  
-  <h3>Cartographic</h3>
+    
+   <h3>Cartographic</h3>
    <%= label_tag 'dams_object[cartographicPoint][]', "Point" %>
    <%= text_field_tag 'dams_object[cartographicPoint][]' %>
    <%= label_tag 'dams_object[cartographicLine][]', "Line" %>
