@@ -24,7 +24,7 @@
 <%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0] %>
 
 <h3>Language</h3>
-<%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages.collect{ |v| [v.name.first, v.pid] } ) , :prompt2=>"Select Language" %>  
+ <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) %> 
 <br>
 
 <h3>Note</h3>
