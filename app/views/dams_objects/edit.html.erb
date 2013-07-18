@@ -102,9 +102,8 @@
   
 	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
-  <%#=f.submit "Submit", class: "btn btn-primary" %>
-  <button type="submit" class="btn btn-primary pull-right">Save changes</button>
-  <%= link_to "Cancel", dams_object_path(@dams_object), class: "btn btn-link pull-right" %> 
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_object_path(@dams_object),  class: "btn btn-primary" %> 
 <%end%>
 
 <h2>Add File</h2>
