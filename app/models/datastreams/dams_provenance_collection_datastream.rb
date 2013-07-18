@@ -53,9 +53,9 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   end
 
   def load_part
-    if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
-      part_node.first
-    else
+     if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
+       part_node.first
+     else
       part_uri = part_node.first.to_s
       part_pid = part_uri.gsub(/.*\//,'')
       if part_pid != nil && part_pid != ""
@@ -63,6 +63,18 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
       end
     end
   end
+
+  #  def load_part
+  #   if provenanceCollectionPart.first.class.name.include? "DamsProvenanceCollectionPartInternal"
+  #     provenanceCollectionPart.first
+  #   else
+  #     part_uri = provenanceCollectionPart.first.to_s
+  #     part_pid = part_uri.gsub(/.*\//,'')
+  #     if part_pid != nil && part_pid != ""
+  #       DamsProvenanceCollectionPart.find(part_pid)
+  #     end
+  #   end
+  # end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 

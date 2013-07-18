@@ -9,9 +9,7 @@ class DamsProvenanceCollection < ActiveFedora::Base
     damsMetadata.load_languages damsMetadata.language
   end
 
-  def objects
-    damsMetadata.loadObjects damsMetadata.object, DamsObject
-  end
+  
 
   def complexSubjects
     damsMetadata.load_complexSubjects damsMetadata.subject
