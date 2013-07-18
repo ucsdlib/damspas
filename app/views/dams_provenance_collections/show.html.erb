@@ -42,14 +42,7 @@ Related Resource Description: <%= @dams_provenance_collection.relatedResourceDes
 
 
 
-<p>
-<% if (!@dams_provenance_collection.objects.empty?) %>
-								<dt>Objects</dt>
-								<dd><%= link_to @dams_provenance_collection.objects.first.title.first, @dams_provenance_collection.objects.first.title.first.to_s %></dd>
 
-							<% end %>
-
-</p>
 
 <p>
 <% if (!@dams_provenance_collection.complexSubjects.empty?) %>
