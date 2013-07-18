@@ -53,9 +53,9 @@
   <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id) %>   
   <br>
   <%
-  	 nameTypeArray = [["CorporateName", "CorporateName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+  	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray, :selected => @dams_object.relationshipNameType) , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray, :selected => @dams_object.relationshipNameType) , :onChange=>"javascript: getSubjects('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
 
   <div id="relationshipName"><%= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id) %></div>
    OR Enter new Relationship Name

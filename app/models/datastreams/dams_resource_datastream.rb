@@ -311,7 +311,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	  if !rel.corporateName.first.nil?
 	    rel = rel.corporateName
 	  elsif !rel.personalName.first.nil?
-	    rel = rel.personalName    
+	    rel = rel.personalName
+	  elsif !rel.conferenceName.first.nil?
+	    rel = rel.conferenceName
+	  elsif !rel.familyName.first.nil?
+	    rel = rel.familyName 	     	        
       elsif !rel.name.first.nil?
 	    rel = rel.name    
 	  end
