@@ -1,21 +1,114 @@
+<%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Object</h1>
 
 <%= form_for @dams_object do |f| %>
-  <%= label_tag 'dams_object[titleValue][]', "Title" %>
-  <%= text_field_tag 'dams_object[titleValue][]', @dams_object.title[0].value, class: "input-block-level" %>
-  <%= label_tag 'dams_object[dateValue][]', "Date" %>
-  <% if !@dams_object.date[0].nil? %>
-  	<%= text_field_tag 'dams_object[dateValue][]', @dams_object.date[0].value, class: "input-block-level" %>
-  <% else %>
-  	<%= text_field_tag 'dams_object[dateValue][]', @dams_object.date[0], class: "input-block-level" %>
-  <%end %>
-  <% @dams_object.subject.each_with_index do |s,i| %>
-  	<%= label_tag "dams_object_subject_#{i}", "Subject" %>
-  		<%= text_field_tag "dams_object[subject][]", s.name, :id => "dams_object_subject_#{i}", class: "input-block-level"  %>
-  <% end %>
+  <h3>Title</h3>
+  <%= text_field_tag 'dams_object[titleValue][]', @dams_object.titleValue, class: "input-block-level" %>
+  <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
+  <%= text_field_tag 'dams_object[subtitle][]', @dams_object.subtitle, class: "input-block-level" %>    
+  <%= label_tag 'dams_object[titlePartName][]', "PartName" %>
+  <%= text_field_tag 'dams_object[titlePartName][]', @dams_object.titlePartName, class: "input-block-level" %>  
+  <%= label_tag 'dams_object[titlePartNumber][]', "PartNumber" %>
+  <%= text_field_tag 'dams_object[titlePartNumber][]', @dams_object.titlePartNumber, class: "input-block-level" %>    
+  <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
+  <%= text_field_tag 'dams_object[titleNonSort][]', @dams_object.titleNonSort, class: "input-block-level" %>    
+  
+  <h3>Type Of Resource</h3>
+  <%= text_field_tag 'dams_object[typeOfResource][]',@dams_object.typeOfResource, class: "input-block-level" %>
+    
+  <h3>Date</h3>
+  <%= text_field_tag 'dams_object[dateValue][]', @dams_object.dateValue[0], class: "input-block-level" %>  	
+  <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
+  <%= text_field_tag 'dams_object[beginDate][]', @dams_object.beginDate[0], class: "input-block-level"%> 
+  <%= label_tag 'dams_object[endDate][]', "End Date" %>
+  <%= text_field_tag 'dams_object[endDate][]', @dams_object.endDate[0], class: "input-block-level"%>  	
+
+  <h3>Unit</h3>
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units , :selected => @unit_id) %>
+   
+  <h3>Collection</h3>
+  <%= label_tag 'dams_object[assembledCollectionURI][]', "Assembled Collection" %>
+  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) %> 
+  <%= label_tag 'dams_object[provenanceCollectionURI][]', "Provenance Collection" %> 
+  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) %>
+           
+  <h3>Language</h3>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) %>
+   
+  <h3>Note</h3>
+  <%= text_field_tag 'dams_object[noteValue][]' , @dams_object.noteValue[0], class: "input-block-level" %> 
+  <%= label_tag 'dams_object[noteType][]', "Note Type" %>
+  <%= text_field_tag 'dams_object[noteType][]' , @dams_object.noteType[0], class: "input-block-level" %> 
+  <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Displaylabel" %>
+  <%= text_field_tag 'dams_object[noteDisplayLabel][]' , @dams_object.noteDisplayLabel[0], class: "input-block-level" %> 
+    
+  <%= label_tag 'dams_object[scopeContentNoteValue][]', "Scope Content Note" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteValue][]', @dams_object.scopeContentNoteValue[0], class: "input-block-level" %>  
+  <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Note Type" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteType][]', @dams_object.scopeContentNoteType[0], class: "input-block-level" %>
+  <%= label_tag 'dams_object[scopeContentNoteDisplayLabel][]', "Scope Content Note Display Label" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteDisplayLabel][]', @dams_object.scopeContentNoteDisplayLabel[0], class: "input-block-level" %>
+
+  <h3>Relationship</h3>
+  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id) %>   
+  <br>
+  <%
+  	 nameTypeArray = [["CorporateName", "CorporateName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+  %>  
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray, :selected => @dams_object.relationshipNameType) , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
+
+  <div id="relationshipName"><%= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id) %></div>
+   OR Enter new Relationship Name
+   <%= text_field_tag 'dams_object[relationshipNameValue][]' , @dams_object.relationshipNameValue[0], class: "input-block-level" %>
+
+  <%# @dams_object.subject.each_with_index do |s,i| %>
+  	<%#= label_tag "dams_object_subject_#{i}", "Subject" %>
+  		<%#= text_field_tag "dams_object[subject][]", s.name, :id => "dams_object_subject_#{i}", class: "input-block-level"  %>
+  <%# end %>
+  
+  <h3>Rights</h3>
+  <%= label_tag 'dams_object[copyrightURI][]', "Copyrights" %>
+  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights)%>
+  <%= label_tag 'dams_object[statuteURI][]', "Statute" %>
+  <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes)%>
+  <%= label_tag 'dams_object[otherRightsURI][]', "Other Rights" %>
+  <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights)%>
+  <%= label_tag 'dams_object[licenseURI][]', "License" %>
+  <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses)%>
+  <%= label_tag 'dams_object[rightsHolderURI][]', "Rights Holder" %>
+  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders)%>
+   
+  <h3>Related Resource</h3>
+  <%= label_tag 'dams_object[relatedResourceType][]', "Type" %>
+  <%= text_field_tag 'dams_object[relatedResourceType][]'  , @dams_object.relatedResourceType[0], class: "input-block-level" %>
+   <%= label_tag 'dams_object[relatedResourceUri][]', "URI" %>
+  <%= text_field_tag 'dams_object[relatedResourceUri][]' , @dams_object.relatedResourceUri[0], class: "input-block-level"%>
+   <%= label_tag 'dams_object[relatedResourceDescription][]', "Description" %>
+   <%= text_field_tag 'dams_object[relatedResourceDescription][]' , @dams_object.relatedResourceDescription[0], class: "input-block-level" %>
+    
+   <h3>Cartographic</h3>
+   <%= label_tag 'dams_object[cartographicPoint][]', "Point" %>
+   <%= text_field_tag 'dams_object[cartographicPoint][]', @dams_object.cartographicPoint[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicLine][]', "Line" %>
+   <%= text_field_tag 'dams_object[cartographicLine][]', @dams_object.cartographicLine[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicPolygon][]', "Polygon" %>
+   <%= text_field_tag 'dams_object[cartographicPolygon][]', @dams_object.cartographicPolygon[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicProjection][]', "Projection" %>
+   <%= text_field_tag 'dams_object[cartographicProjection][]', @dams_object.cartographicProjection[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicRefSystem][]', "ReferenceSystem" %>
+   <%= text_field_tag 'dams_object[cartographicRefSystem][]', @dams_object.cartographicRefSystem[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicScale][]', "Scale" %>
+   <%= text_field_tag 'dams_object[cartographicScale][]', @dams_object.cartographicScale[0], class: "input-block-level" %>        
+  
 	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
   <%#=f.submit "Submit", class: "btn btn-primary" %>
   <button type="submit" class="btn btn-primary pull-right">Save changes</button>
   <%= link_to "Cancel", dams_object_path(@dams_object), class: "btn btn-link pull-right" %> 
 <%end%>
+
+<h2>Add File</h2>
+<%= form_for(@dams_object, :url => upload_path(@dams_object.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
+    <input type="file" name="file"/>
+    <%=f.submit "Add File", class: "btn btn-primary" %>
+<% end %>

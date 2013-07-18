@@ -70,7 +70,27 @@ class DamsObjectsController < ApplicationController
   end
   
   def edit
+    @dams_object = DamsObject.find(params[:id])
 	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+	@dams_units = get_objects('DamsUnit','unit_name_tesim')
+  	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
+  	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
+  	@mads_languages =  get_objects('MadsLanguage','name_tesim')
+  	@mads_authorities = get_objects('MadsAuthority','name_tesim')
+  	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
+  	@dams_statutes = get_objects('DamsStatute','citation_tesim')
+  	@dams_other_rights = get_objects('DamsOtherRights','basis_tesim')
+  	@dams_licenses = get_objects('DamsLicense','note_tesim')
+  	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
+  	@dams_names = get_objects('MadsPersonalName','name_tesim')
+  	
+  	@unit_id = @dams_object.unit.to_s.gsub(/.*\//,'')[0..9]
+  	#@assembled_collection_id = @dams_object.assembledCollectionURI.to_s.gsub(/.*\//,'')[0..9]
+  	#@provenance_collection_id = @dams_object.provenanceCollectionURI.to_s.gsub(/.*\//,'')[0..9]
+  	@language_id = @dams_object.language.to_s.gsub(/.*\//,'')[0..9]
+  	@role_id = @dams_object.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
+  	@name_id = @dams_object.relationshipNameURI.to_s.gsub(/.*\//,'')[0..9]
+  	  	
   end
   
   def create	  
