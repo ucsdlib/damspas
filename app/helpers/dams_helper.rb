@@ -143,8 +143,10 @@ def relatedResourceUri
   end
   def titleValue=(s)
     title.build if title.first.nil?
-    title.first.value = s
-    title.first.name = title.first.label
+    if(!s.nil? && s.length > 0)
+    	title.first.value = s
+    	title.first.name = title.first.label
+    end
   end
   def subtitle
     title.first != nil ? title.first.subtitle : nil
@@ -761,7 +763,11 @@ def relatedResourceUri
     elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
         relationship[0] ? relationship[0].personalName : []
     elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
-        relationship[0] ? relationship[0].name : []        
+        relationship[0] ? relationship[0].name : []  
+    elsif( !@nameType.nil? && (@nameType.include? 'ConferenceName')) 
+        relationship[0] ? relationship[0].conferenceName : []
+    elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
+        relationship[0] ? relationship[0].familyName : []                         
     else
     	relationship[0] ? relationship[0].name : []  
     end
@@ -780,7 +786,11 @@ def relatedResourceUri
 	    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
 	    	relationship[0].corporateName = @nameURI 
 	    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
-	    	relationship[0].personalName = @nameURI     
+	    	relationship[0].personalName = @nameURI
+	    elsif( !@nameType.nil? && (@nameType.include? 'ConferenceName')) 
+	    	relationship[0].conferenceName = @nameURI
+	    elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
+	    	relationship[0].familyName = @nameURI	    		    	     
 	    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
 	    	relationship[0].name = @nameURI       		
 	    else
@@ -794,6 +804,10 @@ def relatedResourceUri
     	relationship[0] ? relationship[0].corporateName : []
     elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
         relationship[0] ? relationship[0].personalName : []
+    elsif( !@nameType.nil? && (@nameType.include? 'ConferenceName')) 
+        relationship[0] ? relationship[0].conferenceName : []
+    elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
+        relationship[0] ? relationship[0].familyName : []                
     elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
         relationship[0] ? relationship[0].name : []        
     else
@@ -825,7 +839,23 @@ def relatedResourceUri
 	    	elsif (@obj.class == Array && @obj.length == 0)
 	    		@obj = MadsPersonalName.create(name: val)
 			end
-	    	relationship[0].personalName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")   
+	    	relationship[0].personalName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")
+	    elsif( !@nameType.nil? && (@nameType.include? 'ConferenceName')) 
+	    	@obj = MadsConferenceName.find(name: val)
+	    	if (@obj.class == Array && @obj.length > 0)
+	    		@obj = @obj.first
+	    	elsif (@obj.class == Array && @obj.length == 0)
+	    		@obj = MadsConferenceName.create(name: val)
+			end
+	    	relationship[0].conferenceName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")
+	    elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
+	    	@obj = MadsFamilyName.find(name: val)
+	    	if (@obj.class == Array && @obj.length > 0)
+	    		@obj = @obj.first
+	    	elsif (@obj.class == Array && @obj.length == 0)
+	    		@obj = MadsFamilyName.create(name: val)
+			end
+	    	relationship[0].familyName = RDF::Resource.new("#{Rails.configuration.id_namespace}#{@obj.id}")	    		    	   
 	    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
 	    	@obj = MadsName.find(name: val)
 	    	if (@obj.class == Array && @obj.length > 0)
