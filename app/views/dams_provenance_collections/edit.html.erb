@@ -1,3 +1,4 @@
+<%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit DAMS Provenance Collection</h1>
 
 <%= form_for @dams_provenance_collection do |f| %>
@@ -6,9 +7,7 @@
 <%#= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt=>"Select Provenance Collection Part" %>  
 <br>
 
-<h3>Object</h3>
-<%#= select_tag 'dams_provenance_collection[damsObjectURI][]', options_for_select(@dams_objects.collect{ |v| [v.title.first.name.first, v.pid] } ) , :prompt3=>"Select dams objects" %>  
-<br>
+
 
 <h3>Title</h3>
 <%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue %>
@@ -66,7 +65,17 @@ subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "Cu
 <%= text_field_tag 'dams_provenance_collection[relatedResourceDescription][]', @dams_provenance_collection.relatedResourceDescription %>
 <br>
 
+<h3>Relationship</h3>
+  <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id) %>   
+  <br>
+  <%
+  	 nameTypeArray = [["CorporateName", "CorporateName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+  %>  
+  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray, :selected => @dams_provenance_collection.relationshipNameType) , :onChange=>"javascript: getName('dams_provenance_collection', this.value, '#relationshipName','relationshipNameURI','Name');"%>
 
+  <div id="relationshipName"><%= select_tag 'dams_provenance_collection[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id) %></div>
+   OR Enter Relationship Name
+   <%= text_field_tag 'dams_provenance_collection[relationshipNameValue][]' , @dams_provenance_collection.relationshipNameValue[0], class: "input-block-level" %>
 
 
 
