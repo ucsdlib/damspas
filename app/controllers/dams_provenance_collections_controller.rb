@@ -45,9 +45,7 @@ class DamsProvenanceCollectionsController < ApplicationController
 
   def new
     
-    @mads_names = MadsPersonalName.all( :order=>"system_create_dtsi asc" )
-    @dams_provenance_collection_parts=DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
-    
+    @dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
     @mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
@@ -58,7 +56,7 @@ class DamsProvenanceCollectionsController < ApplicationController
   end
 
   def edit
-    @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
+    @dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
     @mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
@@ -66,8 +64,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
-    @dams_provenance_collection_parts=DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
-  
+    @part_id = @dams_provenance_collection.part.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection.language.to_s.gsub(/.*\//,'')[0..9]
     @name_id = @dams_provenance_collection.relationshipNameURI.to_s.gsub(/.*\//,'')[0..9]
 
