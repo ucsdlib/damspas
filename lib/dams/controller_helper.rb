@@ -17,5 +17,21 @@ module Dams
 		end
 		@objects     
     end
+    
+    def get_relationship_name_id(object)
+    	if(!object.relationshipNameURI.nil? && !object.relationshipNameURI.nil? && object.relationshipNameURI.class != Array)
+		  	if(!object.relationshipNameURI.personalName.nil? && !object.relationshipNameURI.personalName.empty?)
+		  		object.relationshipNameURI.personalName.to_s.gsub(/.*\//,'')[0..9]
+		  	elsif(!object.relationshipNameURI.name.empty?)
+		  		object.relationshipNameURI.name.to_s.gsub(/.*\//,'')[0..9]
+		  	elsif(!object.relationshipNameURI.corporateName.empty?)
+		  		object.relationshipNameURI.corporateName.to_s.gsub(/.*\//,'')[0..9] 
+		  	elsif(!object.relationshipNameURI.conferenceName.empty?)
+		  		object.relationshipNameURI.conferenceName.to_s.gsub(/.*\//,'')[0..9]
+		  	elsif(!object.relationshipNameURI.familyName.empty?)
+		  		object.relationshipNameURI.familyName.to_s.gsub(/.*\//,'')[0..9]    		  		  		 	  		
+		  	end 
+		end       
+    end
   end
 end

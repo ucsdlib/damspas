@@ -87,10 +87,15 @@ class DamsObjectsController < ApplicationController
   	@unit_id = @dams_object.unit.to_s.gsub(/.*\//,'')[0..9]
   	#@assembled_collection_id = @dams_object.assembledCollectionURI.to_s.gsub(/.*\//,'')[0..9]
   	#@provenance_collection_id = @dams_object.provenanceCollectionURI.to_s.gsub(/.*\//,'')[0..9]
+  	
   	@language_id = @dams_object.language.to_s.gsub(/.*\//,'')[0..9]
-  	@role_id = @dams_object.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
-  	@name_id = @dams_object.relationshipNameURI.to_s.gsub(/.*\//,'')[0..9]
-  	  	
+  	@role_id = @dams_object.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]  	
+  	@name_id = get_relationship_name_id(@dams_object)
+  	@copyright_id = @dams_object.copyrights.pid if !@dams_object.copyrights.nil?
+  	@statute_id = @dams_object.statutes.pid if !@dams_object.statutes.nil?
+  	@otherRight_id = @dams_object.otherRights.pid if !@dams_object.otherRights.nil?
+  	@license_id = @dams_object.licenses.pid if !@dams_object.licenses.nil?
+  	@rightsHolder_id = @dams_object.rightsHolders.first.pid if !@dams_object.rightsHolders.first.nil? 	
   end
   
   def create	  

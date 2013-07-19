@@ -769,8 +769,9 @@ def relatedResourceUri
     elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
         relationship[0] ? relationship[0].familyName : []                         
     else
-    	relationship[0] ? relationship[0].name : []  
+    	relationship[0] ? relationship[0] : []
     end
+    
   end 
   def relationshipNameURI=(val)
     if val.class == Array
@@ -881,7 +882,7 @@ def relatedResourceUri
 		i+=1
 	end
   end
-
+  
   ## Cartographics ######################################################################
   def cartographicPoint
     cartographics[0] ? cartographics[0].point : []
@@ -974,8 +975,6 @@ def relatedResourceUri
   def copyrightURI
     if @rightURI != nil
       @rightURI
-    else
-      copyrightURI.first
     end
   end      
 
