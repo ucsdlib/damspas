@@ -85,6 +85,12 @@ describe DamsObject do
     subject.subjectType = ["PersonalName"]
     subject.simpleSubjectURI = ["xx11111111"]  
     subject.subjectTypeValue = ["inline personal name"]  
+    subject.copyrightURI = ["bb05050505"]
+    subject.statuteURI = ["bb21212121"]
+    subject.otherRightsURI = ["bb06060606"]
+    subject.licenseURI = ["bb22222222"]
+    subject.rightsHolderURI = ["bb09090909"]
+
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
@@ -137,7 +143,12 @@ describe DamsObject do
         <dams:role rdf:resource="#{Rails.configuration.id_namespace}bd8396905c"/>
         <dams:corporateName rdf:resource="#{Rails.configuration.id_namespace}bd8294487v"/>
       </dams:Relationship>
-    </dams:relationship>       
+    </dams:relationship>  
+    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
+    <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
+    <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/bb06060606"/>
+    <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
+    <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>     
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml
