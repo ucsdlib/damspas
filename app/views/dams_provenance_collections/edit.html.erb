@@ -5,9 +5,7 @@
 
 
 
-<h3>Provenance Collection Part</h3>
-  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts), class: "input-block-level" %> 
-  <br>
+
 
 <h3>Title</h3>
 <%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue, class: "input-block-level" %>
