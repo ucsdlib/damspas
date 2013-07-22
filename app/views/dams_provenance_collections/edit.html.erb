@@ -8,7 +8,7 @@
 
 
 <h3>Title</h3>
-<%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue, class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue, class: "input-block-level", required: true %>
 <%= label_tag 'dams_provenance_collection[subtitle]', "SubTitle" %><%= text_field_tag 'dams_provenance_collection[subtitle][]', @dams_provenance_collection.subtitle, class: "input-block-level" %>
 
 <%= label_tag 'dams_provenance_collection[titlePartName]', "PartName" %><%= text_field_tag 'dams_provenance_collection[titlePartName][]', @dams_provenance_collection.titlePartName , class: "input-block-level" %>
@@ -21,7 +21,7 @@
 <%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0], class: "input-block-level" %>
 
 <h3>Language</h3>
- <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id), class: "input-block-level" %>
+ <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id), class: "input-block-level", required: true %>
 <br>
 
 <h3>Note</h3>
@@ -29,7 +29,7 @@
 <%= label_tag 'dams_provenance_collection[noteType]', "Note Type" %><%= text_field_tag 'dams_provenance_collection[noteType][]', @dams_provenance_collection.noteType[0], class: "input-block-level" %>
 <%= label_tag 'dams_provenance_collection[noteDisplayLabel]', "Note Displaylabel" %><%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]', @dams_provenance_collection.noteDisplayLabel[0], class: "input-block-level" %>
 
-<%= label_tag 'dams_provenance_collection[scopeContentNoteValue]', "Scope Content Note" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', @dams_provenance_collection.scopeContentNoteValue[0], class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[scopeContentNoteValue]', "Scope Content Note" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', @dams_provenance_collection.scopeContentNoteValue[0],required: true, class: "input-block-level" %>
 
 <%= label_tag 'dams_provenance_collection[scopeContentNoteType]', "Scope Content Note Type" %>
 <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]', @dams_provenance_collection.scopeContentNoteType[0], class: "input-block-level" %>
@@ -56,7 +56,7 @@ subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "Cu
 <br>
 
 <%= label_tag 'dams_provenance_collection[relatedResourceUri]', "Related Resource URI" %>
-<%= text_field_tag 'dams_provenance_collection[relatedResourceUri][]', @dams_provenance_collection.relatedResourceUri, class: "input-block-level" %>
+<%= url_field_tag 'dams_provenance_collection[relatedResourceUri][]', @dams_provenance_collection.relatedResourceUri, class: "input-block-level" %>
 <br>
 
 <%= label_tag 'dams_provenance_collection[relatedResourceDescription]', "Related Resource Description" %>
@@ -90,21 +90,6 @@ subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "Cu
   	<%#= label_tag "dams_provenance_collection_subject_#{i}", "Subject" %>
   		<%#= text_field_tag "dams_provenance_collection[subject][]", s.name, :id => "dams_provenance_collection_subject_#{i}", class: "input-block-level"  %>
   <%# end %>
-
-
-
-
-
-
-
-<!-- # <%= label_tag 'mads_topic[scheme][]', "scheme" %> -->
-<!-- # <%= select_tag 'mads_topic[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %> -->
-
-
-
-
-
-
 
 
 <%=f.submit "Save", class: "btn btn-primary" %>
