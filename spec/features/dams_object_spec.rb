@@ -50,45 +50,49 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
     visit dams_object_path('new')
     # Create new object
-    fill_in "First Title", :with => "Dams Test Object"
-    fill_in "First SubTitle", :with => "New Object"
-    fill_in "First PartName", :with => "ep1"
-    fill_in "First PartNumber", :with => "999"
-    fill_in "First NonSort", :with => "this"
-    fill_in "Type Of Resource", :with => "Book"
+    fill_in "dams_object_titleValue_", :with => "Dams Test Object"
+    fill_in "SubTitle", :with => "New Object"
+    fill_in "PartName", :with => "ep1"
+    fill_in "PartNumber", :with => "999"
+    fill_in "NonSort", :with => "this"
+    fill_in "dams_object_typeOfResource_", :with => "Mixed"
     page.select('Library Digital Collections', match: :first) 
-    page.select('UCSD Electronic Theses and Dissertations', match: :first) 
-    fill_in "Date", :with => "07/15/2013"
+    page.select('Historical Dissertations', match: :first) 
+    fill_in "dams_object_dateValue_", :with => "07/15/2013"
     fill_in "Begin Date", :with => "07/11/2013"
     fill_in "End Date", :with => "07/15/2013"
-    fill_in "Note", :with => "Test object"
+    fill_in "dams_object_noteValue_", :with => "Test object"
     fill_in "Note Displaylabel", :with => "Tester"
     fill_in "Scope Content Note", :with => "TestScope"
     fill_in "Scope Content Note Type", :with => "Current Scope"
-    fill_in "Subject 1", match: :first, :with => "Math"
-    fill_in "Subject 2", match: :first, :with => "Physics"
+    fill_in "Scope Content Note Display Label", :with => "Display This"
     fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
-    fill_in "dams_object_relationshipNameValue_", :with => "John Doe"
-    fill_in "Related Resource Type", :with => "Person"
-    fill_in "Related Resource URI", :with => "http://JohnDoe.com"
-    fill_in "Related Resource Description", :with => "Mathematician"
-    click_on "Submit"
+    fill_in "Type", :with => "Person"
+    fill_in "URI", :with => "http://JohnDoe.com"
+    fill_in "Description", :with => "Mathematician"
+    page.select('FOO', match: :first)
+    fill_in "Point", :with => "98"
+    fill_in "Scale", :with => "100%"
+
+#Add cartographics
+
+    click_on "Save"
 
     # Save path of object for other test(s)
     Path.path = current_path
     expect(page).to have_selector('h1', :text => "Dams Test Object")
     expect(page).to have_selector('h2', :text => "New Object")
-    expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
+    expect(page).to have_selector('a', :text => "Historical Dissertations")
     expect(page).to have_selector('a', :text => "Library Digital Collections")
     expect(page).to have_selector('li', :text => "07/15/2013")
-    expect(page).to have_selector('a', :text => "Book")
-    expect(page).to have_selector('a', :text => "Physics")
+    expect(page).to have_selector('a', :text => "Mixed")
 
     expect(page).to have_selector('strong', :text => "TESTER")
     expect(page).to have_selector('p', :text => "Test object")
+    expect(page).to have_selector('p', :text => "foo")
     expect(page).to have_selector('a', :text => "Mathematician")
 
-    click_on "Edit"
+    # click_on "Edit"
     # fill_in "Title", :with => "Edit Dams Object"
     # fill_in "Date", :with => "07/16/2013"
     # fill_in "Subject", :with => "Science"
@@ -121,22 +125,32 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
 end
 
-feature 'Visitor wants to cancel unsaved edits' do
+# feature 'Visitor wants to cancel unsaved objects' do
   
-  scenario 'is on Edit Object page' do
-    sign_in_developer
-    visit Path.path
-    expect(page).to have_selector('a', :text => "Edit")
-    click_on "Edit"
-    fill_in "Title", :with => "Nothing"
-    fill_in "Date", :with => "07/16/2013"
-    fill_in "Subject", :with => "Should not show"
-    click_on "Cancel"
-    expect(page).to_not have_content("Should not show")
-    expect(page).to have_content("Dams Test Object")
-  end
+#   scenario 'is on Edit Object page' do
+#     sign_in_developer
+#     visit Path.path
+#     expect(page).to have_selector('a', :text => "Edit")
+#     click_on "Edit"
+#     fill_in "Title", :with => "Nothing"
+#     fill_in "Date", :with => "07/16/2013"
+#     fill_in "Subject", :with => "Should not show"
+#     click_on "Cancel"
+#     expect(page).to_not have_content("Should not show")
+#     expect(page).to have_content("Dams Test Object")
+#   end
 
-end
+#   scenario 'is on Create Object page' do
+#     sign_in_developer
+#     visit dams_object_path('new')
+#     fill_in "dams_object_titleValue_", :with => "BROKEN"
+#     fill_in "dams_object_typeOfResource_", :with => "FAILURE"
+#     fill_in "dams_object_dateValue_", :with => "NO DATE"
+#     click_on "Cancel"
+#     expect(current_path).to eq('/dams_units')
+#   end
+
+# end
 
 def sign_in_developer
   visit new_user_session_path
