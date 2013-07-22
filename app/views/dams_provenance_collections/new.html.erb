@@ -13,9 +13,10 @@
 
   <h3>Title</h3>
   <%= label_tag 'dams_provenance_collection[titleValue][]', "Title" %>
-  <%= text_field_tag 'dams_provenance_collection[titleValue][]' %>
+  <%= text_field_tag 'dams_provenance_collection[titleValue][]', '', required: true %>
+
   <%= label_tag 'dams_provenance_collection[subtitle][]', "SubTitle" %>
-  <%= text_field_tag 'dams_provenance_collection[subtitle][]' %> 
+  <%= text_field_tag 'dams_provenance_collection[subtitle][]' %>
   <%= label_tag 'dams_provenance_collection[titlePartName][]', "PartName" %>
   <%= text_field_tag 'dams_provenance_collection[titlePartName][]' %>  
   <%= label_tag 'dams_provenance_collection[titlePartNumber][]', "PartNumber" %>
@@ -25,7 +26,7 @@
 
   <h3>Date</h3>
   <%= label_tag 'dams_provenance_collection[dateValue][]', "Date" %>
-  <%= text_field_tag 'dams_provenance_collection[dateValue][]' %>
+  <%= text_field_tag 'dams_provenance_collection[dateValue][]', '', required: true %>
   <%= label_tag 'dams_provenance_collection[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_provenance_collection[beginDate][]' %> 
   <%= label_tag 'dams_provenance_collection[endDate][]', "End Date" %>
@@ -36,8 +37,8 @@
    <br>
 
   <h3>Note</h3>
-  <%= label_tag 'dams_provenance_collection[noteValue][]', "Note" %>
-  <%= text_field_tag 'dams_provenance_collection[noteValue][]' %> 
+  <%= label_tag 'dams_provenance_collection[noteValue][]', "Note"%>
+  <%= text_field_tag 'dams_provenance_collection[noteValue][]', '', required: true  %> 
 
   <%= label_tag 'dams_provenance_collection[noteType][]', "Note Type" %>
   <%= text_field_tag 'dams_provenance_collection[noteType][]' %> 
@@ -71,8 +72,7 @@
   <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %> 
   <br>
   
-  <%= label_tag 'dams_provenance_collection[subjectValue][]', "Complex Subject" %>&nbsp;<a class="btn-mini-plus2" href="#" title="Add"><i class="icon-plus icon-black" id="plus2"></i></a>
-<a class="btn-mini-minus2" href="#" title="Remove"><i class="icon-minus icon-black" id="minus2"></i></a>
+  <%= label_tag 'dams_provenance_collection[subjectValue][]', "Complex Subject" %>&nbsp;
 <div class="well2">
 <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined complex subject " %> 
 <%=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
@@ -81,7 +81,7 @@
   
   <h3>Related Resource</h3>
   <%= label_tag 'dams_provenance_collection[relatedResourceType][]', "Related Resource Type" %>
-  <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]' %>
+  <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]' , '', required: true %>
    <br>
 
    <%= label_tag 'dams_provenance_collection[relatedResourceUri][]', "Related Resource URI" %>
