@@ -17,7 +17,7 @@
   	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
   %>   
   <h3>Type Of Resource</h3>
-  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray , :selected => @dams_object.typeOfResource), :prompt=>"Select Type of resource" %>
+  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray , :selected => @dams_object.typeOfResource), :prompt=>"Select Type of resource", required: true %>
     
   <h3>Date</h3>
   <%= text_field_tag 'dams_object[dateValue][]', @dams_object.dateValue[0], class: "input-block-level" %>  	
@@ -74,7 +74,7 @@
   <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"><%= select_tag 'dams_object[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
   <%#=text_field_tag 'dams_object[subjectTypeValue][]', @dams_object.subjectTypeValue[0] , class: "input-block-level" %>  
-    
+  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
   <%# @dams_object.subject.each_with_index do |s,i| %>
   	<%#= label_tag "dams_object_subject_#{i}", "Subject" %>
   		<%#= text_field_tag "dams_object[subject][]", s.name, :id => "dams_object_subject_#{i}", class: "input-block-level"  %>
