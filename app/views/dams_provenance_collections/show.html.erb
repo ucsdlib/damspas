@@ -1,66 +1,85 @@
-<h1><%= @dams_provenance_collection.titleValue %></h1>
-<h3>Title</h3>
-<p>Title: <%= @dams_provenance_collection.titleValue %> <br>
-Subtitle: <%= @dams_provenance_collection.subtitle %> <br> 
-PartName: <%= @dams_provenance_collection.titlePartName %> <br>
-PartNumber: <%= @dams_provenance_collection.titlePartNumber %> <br>
-NonSort: <%= @dams_provenance_collection.titleNonSort %><br></p>
+<div class="row-fluid">
+	<div id="content" class="show-document span9">
+		<div id="content" class="show-document span9">
+			<div class="row-fluid">
+				<section class="dams-metadata span12">
+					<p class="sidebar-header"><h1><strong><%= @dams_provenance_collection.titleValue %></strong></h1></p>		
+					<h3>Title</h3>
 
-<h3>Date</h3>
-<p>Date: <%= @dams_provenance_collection.dateValue.first %> <br>
-Begin Date: <%= @dams_provenance_collection.beginDate.first %> <br>
-End Date: <%= @dams_provenance_collection.endDate.first %><br></p>
+					<dl class="dl-horizontal">
+						<dt>Title</dt> <dd><%= @dams_provenance_collection.titleValue %></dd><br>
+						<dt>Subtitle</dt> <dd><%= @dams_provenance_collection.subtitle %></dd><br>
+						<dt>PartName</dt> <dd><%= @dams_provenance_collection.titlePartName %></dd><br>
+						<dt>PartNumber</dt><dd><%= @dams_provenance_collection.titlePartNumber %></dd><br>
+						<dt>NonSort</dt> <dd><%= @dams_provenance_collection.titleNonSort %></dd><br>
+					</dl>
 
-<h3>Note</h3>
-<p>Note: <%= @dams_provenance_collection.noteValue.first %> <br>
-Note Type: <%= @dams_provenance_collection.noteType.first %> <br> 
-Note Displaylabel: <%= @dams_provenance_collection.noteDisplayLabel.first %><br></p>
+					<h3>Date</h3>
+					<dl class="dl-horizontal">
+						<dt>Date</dt> <dd><%= @dams_provenance_collection.dateValue.first %></dd><br>
+						<dt>Begin Date</dt> <dd><%= @dams_provenance_collection.beginDate.first %></dd><br>
+						<dt>End Date</dt> <dd><%= @dams_provenance_collection. endDate.first %></dd><br>
+					</dl>
 
-<p>Scope Content Note: <%= @dams_provenance_collection.scopeContentNoteValue.first %> <br> 
-Scope Content Note Type: <%= @dams_provenance_collection.scopeContentNoteType.first %></p>
+					<h3>Note</h3>
+					<dl class="dl-horizontal">
+						<dt>Note</dt> <dd><%= @dams_provenance_collection.noteValue.first %></dd><br>
+						<dt>Note Type</dt> <dd><%= @dams_provenance_collection.noteType.first %></dd><br>
+						<dt>Note Displaylabel</dt> <dd><%= @dams_provenance_collection.noteDisplayLabel.first %></dd><br>
+						<dt>Scope Content Note</dt> <dd><%= @dams_provenance_collection.scopeContentNoteValue.first %></dd><br>
+						<dt>Scope Content Note Type</dt> <dd><%= @dams_provenance_collection.scopeContentNoteType.first %></dd><br>
+					</dl>
 
+					<h3>Related Resource</h3>
+					<dl class="dl-horizontal">
+						<dt>Related Resource Type</dt> <dd><%= @dams_provenance_collection.relatedResourceType.first %></dd><br>
+						<dt>Related Resource URI</dt> <dd><%= @dams_provenance_collection.relatedResourceUri.first %></dd><br>
+						<dt>Related Resource Description</dt> <dd><%= @dams_provenance_collection.relatedResourceDescription.first %></dd><br>
+					</dl>
 
-<h3>Related Resource</h3>
-<p>Related Resource Type: <%= @dams_provenance_collection.relatedResourceType.first %> <br> 
-Related Resource URI: <%= @dams_provenance_collection.relatedResourceUri.first %> <br> 
-Related Resource Description: <%= @dams_provenance_collection.relatedResourceDescription.first %><br></p>
-
-<p>	
-<% if (!@dams_provenance_collection.parts.empty?) %>
- 	Provenance Collection Part:
-	<%#= link_to @dams_provenance_collection.part.title.first.value.join(", "), dams_provenance_collection_part_path(@dams_provenance_collection.part) %>
-<% end %>
-</p>
-
-
-<h3>Language</h3>
-<% if (!@dams_provenance_collection.languages.empty?) %>
-								
-								<dd><%= link_to @dams_provenance_collection.languages.first.name.first, @dams_provenance_collection.languages.first.name.first.to_s %></dd>
-							<% end %>
-
-
+					
 
 
+					<h3>Language</h3>
+					<dd>
+						<% if (!@dams_provenance_collection.languages.empty?) %>
 
+						<%= link_to @dams_provenance_collection.languages.first.name.first, @dams_provenance_collection.languages.first.name.first.to_s %>
+						<% end %>
+					</dd>
 
-<p>
-<% if (!@dams_provenance_collection.complexSubjects.empty?) %>
-							
-							<dd><%#=@dams_provenance_collection.complexSubjects.name.first%>
-							 
+					
 
-							<% end %>
+					<dd>
+						<% if (!@dams_provenance_collection.complexSubjects.empty?) %>
 
-</p>
+						<!-- <dd><%#=@dams_provenance_collection.complexSubjects.name.first%> -->
 
+						<% end %>
+					</dd>
 
+					<% if can? :update, @dams_provenance_collection then %>
+					<%= link_to "Edit", edit_dams_provenance_collection_path(@dams_provenance_collection), class: "btn btn-primary"%>
+					<% end %>
+					<%= link_to "View All", dams_provenance_collections_path, class: "btn btn-primary" %>
+				</section>
+			</div>
+		</div>    
 
+		<div class="span3">
+			<div class="well dams-search-box">
+				<h4>Search</h4>
+				<%= render_unit_search_bar  %>
+			</div>
 
+			<p class="sidebar-header"><strong>Browse By</strong></p>
+			<ul class="unstyled sidebar-button-list">
+				<!-- hack in browse by collection, for RCI demo -->
+				<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
+				<%= render_browse_facet_links %>
+			</ul>
 
-
-  <% if can? :update, @dams_provenance_collection then %>
-    <%= link_to "Edit", edit_dams_provenance_collection_path(@dams_provenance_collection), class: "btn btn-primary"%>
-  <% end %>
-  <%= link_to "View All", dams_provenance_collections_path, class: "btn btn-primary" %>
+			
+		</div>
+	</div>
 </div>
