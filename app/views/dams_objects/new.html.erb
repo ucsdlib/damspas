@@ -2,7 +2,7 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
-  <%= text_field_tag 'dams_object[titleValue][]' %>
+  <%= text_field_tag 'dams_object[titleValue][]', '', required: true %>
   <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]' %>  
   <%= label_tag 'dams_object[titlePartName][]', "PartName" %>
@@ -20,7 +20,6 @@
   <%#= text_field_tag 'dams_object[typeOfResource][]' %>
   <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource" %> 
   <h3>Date</h3>   
-  <%#= label_tag 'dams_object[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_object[dateValue][]' %>
   <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_object[beginDate][]' %> 
@@ -28,7 +27,7 @@
   <%= text_field_tag 'dams_object[endDate][]' %>
     
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" %>
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: true%>
    
   <h3>Collection</h3>
   <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
@@ -36,7 +35,7 @@
   <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
           
   <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %>
    
   <h3>Note</h3>
   <%= text_field_tag 'dams_object[noteValue][]' %> 
@@ -81,7 +80,7 @@
   <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
   
   <h3>Rights</h3>
-  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" %>
+  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: true %>
   <br>
   <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes) , :prompt=>"Select Statute" %>
   <br>
