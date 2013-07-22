@@ -1,3 +1,5 @@
+
+
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 
 <h1>Create a new Dams provenance collection object</h1>
@@ -7,9 +9,7 @@
   <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %>  
   <br>
 
-  <h3>Language</h3> 
-  <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %> 
-   <br>
+ 
 
   <h3>Title</h3>
   <%= label_tag 'dams_provenance_collection[titleValue][]', "Title" %>
@@ -71,13 +71,13 @@
   <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %> 
   <br>
   
-  <%= label_tag 'dams_provenance_collection[subjectValue][]', "Complex Subject" %>
-  <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>  
-  <%=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
-  <br>
-  <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
-  <br>
+  <%= label_tag 'dams_provenance_collection[subjectValue][]', "Complex Subject" %>&nbsp;<a class="btn-mini-plus2" href="#" title="Add"><i class="icon-plus icon-black" id="plus2"></i></a>
+<a class="btn-mini-minus2" href="#" title="Remove"><i class="icon-minus icon-black" id="minus2"></i></a>
+<div class="well2">
+<%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined complex subject " %> 
+<%=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
+</div>
+<br>
   
   <h3>Related Resource</h3>
   <%= label_tag 'dams_provenance_collection[relatedResourceType][]', "Related Resource Type" %>
@@ -85,7 +85,7 @@
    <br>
 
    <%= label_tag 'dams_provenance_collection[relatedResourceUri][]', "Related Resource URI" %>
-  <%= text_field_tag 'dams_provenance_collection[relatedResourceUri][]' %>
+  <%= url_field_tag 'dams_provenance_collection[relatedResourceUri][]' %>
    <br>
 
    <%= label_tag 'dams_provenance_collection[relatedResourceDescription][]', "Related Resource Description" %>
