@@ -269,6 +269,7 @@ def relatedResourceUri
     familyNameIndex = 0
     conferenceNameIndex = 0
     nameIndex = 0
+    occupationIndex = 0
     
 	val.each do |v| 
 		if(!v.nil? && v.length > 0)
@@ -331,8 +332,12 @@ def relatedResourceUri
 			elsif(!@subType[i].nil? && (@subType[i].include? 'Name'))
 			    name.build if name[nameIndex] == nil
 			    name[nameIndex].name = v	
-			    nameIndex+=1				    			    			    			    			    		    			    			    			    	    
-		    end
+			    nameIndex+=1
+			elsif(!@subType[i].nil? && (@subType[i].include? 'Occupation'))
+			    occupation.build if occupation[occupationIndex] == nil
+			    occupation[occupationIndex].name = v	
+			    occupationIndex+=1				    			    			    			    			    		    			    			    			    	    
+		    end			    				    			    			    			    			    		    			    			    			    	    	    
 		end
 		i+=1
 	end
