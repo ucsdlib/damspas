@@ -33,5 +33,24 @@ module Dams
 		  	end 
 		end       
     end
+
+    def get_relationship_name_type(object)
+    	type = ""
+    	if(!object.relationshipNameURI.nil? && !object.relationshipNameURI.nil? && object.relationshipNameURI.class != Array)
+		  	if(!object.relationshipNameURI.personalName.nil? && !object.relationshipNameURI.personalName.empty?)
+		  		type = "PersonalName"
+		  	elsif(!object.relationshipNameURI.name.empty?)
+		  		type = "Name"		  	
+		  	elsif(!object.relationshipNameURI.corporateName.empty?)
+		  		type = "CorporateName"
+		  	elsif(!object.relationshipNameURI.conferenceName.empty?)
+		  		type = "ConferenceName"
+		  	elsif(!object.relationshipNameURI.familyName.empty?)
+		  		type = "FamilyName"   		  		  		 	  		
+		  	end 
+		end    
+		type   
+    end
+     
   end
 end

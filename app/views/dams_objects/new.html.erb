@@ -65,14 +65,10 @@
    <%= text_field_tag 'dams_object[relationshipNameValue][]' %>
        
   <h3>Complex Subject</h3>
-  <%#= label_tag 'dams_object[subjectValue][]', "Subject 1" %>
-  <%#= label_tag 'dams_object[subjectValue][]', "Subject 2" %> 
-
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>  
-  <%=text_field_tag 'dams_object[subjectValue][]' %>
-  <br>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%=text_field_tag 'dams_object[subjectValue][]' %>
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
+  OR Enter new subject <%=text_field_tag 'dams_object[subjectValue][]' %>
+  <%#= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
+  <%#=text_field_tag 'dams_object[subjectValue][]' %>
        
   <h3>Simple Subject</h3>
   <%
