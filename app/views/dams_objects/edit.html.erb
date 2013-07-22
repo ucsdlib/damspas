@@ -3,7 +3,7 @@
 
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
-  <%= text_field_tag 'dams_object[titleValue][]', @dams_object.titleValue, class: "input-block-level" %>
+  <%= text_field_tag 'dams_object[titleValue][]', @dams_object.titleValue, class: "input-block-level" , required: true%>
   <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]', @dams_object.subtitle, class: "input-block-level" %>    
   <%= label_tag 'dams_object[titlePartName][]', "PartName" %>
@@ -27,7 +27,7 @@
   <%= text_field_tag 'dams_object[endDate][]', @dams_object.endDate[0], class: "input-block-level"%>  	
 
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units , :selected => @unit_id) , :prompt=>"Select Unit" %>
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units , :selected => @unit_id) , :prompt=>"Select Unit" , required: true%>
    
   <h3>Collection</h3>
   <%= label_tag 'dams_object[assembledCollectionURI][]', "Assembled Collection" %>
@@ -36,7 +36,7 @@
   <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection" %>
            
   <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language"%>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language", required: true%>
    
   <h3>Note</h3>
   <%= text_field_tag 'dams_object[noteValue][]' , @dams_object.noteValue[0], class: "input-block-level" %> 
@@ -82,7 +82,7 @@
   
   <h3>Rights</h3>
   <%= label_tag 'dams_object[copyrightURI][]', "Copyrights" %>
-  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights, :selected => @copyright_id), :prompt=>"Select Copyright"%>
+  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights, :selected => @copyright_id), :prompt=>"Select Copyright", required: true%>
   <%= label_tag 'dams_object[statuteURI][]', "Statute" %>
   <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes, :selected => @statute_id) , :prompt=>"Select Statute" %>
   <%= label_tag 'dams_object[otherRightsURI][]', "Other Rights" %>
