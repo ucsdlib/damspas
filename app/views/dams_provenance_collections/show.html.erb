@@ -26,9 +26,9 @@ Related Resource URI: <%= @dams_provenance_collection.relatedResourceUri.first %
 Related Resource Description: <%= @dams_provenance_collection.relatedResourceDescription.first %><br></p>
 
 <p>	
-<% if (!@dams_provenance_collection.part.nil?) %>
+<% if (!@dams_provenance_collection.parts.empty?) %>
  	Provenance Collection Part:
-	<%= link_to @dams_provenance_collection.part.title.first.value.join(", "), dams_provenance_collection_part_path(@dams_provenance_collection.part) %>
+	<%#= link_to @dams_provenance_collection.part.title.first.value.join(", "), dams_provenance_collection_part_path(@dams_provenance_collection.part) %>
 <% end %>
 </p>
 

@@ -183,6 +183,7 @@ def relatedResourceUri
   end  
 
   ## Subject ######################################################################
+  #complex subject
   def subjectValue
     subject[0] ? subject[0].name : []
   end
@@ -196,7 +197,8 @@ def relatedResourceUri
 		i+=1
 	end
   end
-
+  
+  #simple subject
   def subjectType
     @subType
   end
@@ -212,6 +214,7 @@ def relatedResourceUri
 	end
   end
    
+  #simple subject 
   def subjectTypeValue
     #topic[0] ? topic[0].name : []
     if(!@subType.nil? && (@subType.include? 'Topic'))
@@ -350,7 +353,8 @@ def relatedResourceUri
 	    @simpleSubURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
 	  end
   end 
-      
+  
+  #complex subject    
   def subjectURI=(val)
     i = 0
     @array_subject = Array.new
