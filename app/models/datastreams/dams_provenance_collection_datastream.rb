@@ -129,7 +129,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
  #    Solrizer.insert_field(solr_doc, 'type', 'Collection')
  #    Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
     
- #    parts = load_parts 
+ #    part = load_parts 
  #    if part != nil && part.class == DamsProvenanceCollectionPart
  #      Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
  #      Solrizer.insert_field(solr_doc, 'part_id', part.pid)
