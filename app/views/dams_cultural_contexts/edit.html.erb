@@ -1,0 +1,32 @@
+<% @page_title =  "Edit Cultural Context" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Cultural Context</h2>
+		
+		<%= form_for @dams_cultural_context do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'dams_cultural_context[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'dams_cultural_context[name][]', @dams_cultural_context.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'dams_cultural_context[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'dams_cultural_context[externalAuthority][]', @dams_cultural_context.externalAuthority, class: "input-block-level" %>
+
+			<%= label_tag 'dams_cultural_context[scheme][]', "scheme" %>
+			<%= select_tag 'dams_cultural_context[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= label_tag 'dams_cultural_context[elementValue][]', "CulturalContextElement" %>
+			<%= text_field_tag 'dams_cultural_context[elementValue][]', @dams_cultural_context.elementValue, class: "input-block-level" %>
+							
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", dams_cultural_context_path(@dams_cultural_context), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>

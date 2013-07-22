@@ -80,16 +80,17 @@
 
 		htmlOpen = "<dt>%s</dt><dd>"
 
-		if @document["technique_element_tesim"] != nil 
-		    htmlOpen %= 'TechniqueElement'
+		if @document["culturalContext_element_tesim"] != nil 
+		    htmlOpen %= 'CulturalContextElement'
 		    concat htmlOpen.html_safe
 %>		    
 			<ul class="unstyled sidebar-button-list">
-				<li><%= render_document_show_field_value(:document=>@document, :field=>"technique_element_tesim").html_safe %></li>
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"culturalContext_element_tesim").html_safe %></li>
 			</ul>
 <%
 			concat htmlClose.html_safe			
-		end
+		end		
+
 
 		htmlOpen = "<dt>%s</dt><dd>"
 
