@@ -80,7 +80,9 @@ class GetDataController < ApplicationController
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
 		@subjects = get_objects('MadsFamilyName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
-		@subjects = get_objects('MadsName','name_tesim')																											
+		@subjects = get_objects('MadsName','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Occupation')
+		@subjects = get_objects('MadsOccupation','name_tesim')																													
 	else
 		@subjects = get_objects('MadsTopic','name_tesim')
 	end
