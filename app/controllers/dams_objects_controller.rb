@@ -82,15 +82,40 @@ class DamsObjectsController < ApplicationController
   	@dams_other_rights = get_objects('DamsOtherRights','basis_tesim')
   	@dams_licenses = get_objects('DamsLicense','note_tesim')
   	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
-  	@dams_names = get_objects('MadsPersonalName','name_tesim')
-  	
+  	 	
   	@unit_id = @dams_object.unit.to_s.gsub(/.*\//,'')[0..9]
   	#@assembled_collection_id = @dams_object.assembledCollectionURI.to_s.gsub(/.*\//,'')[0..9]
   	#@provenance_collection_id = @dams_object.provenanceCollectionURI.to_s.gsub(/.*\//,'')[0..9]
+  	
   	@language_id = @dams_object.language.to_s.gsub(/.*\//,'')[0..9]
-  	@role_id = @dams_object.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
-  	@name_id = @dams_object.relationshipNameURI.to_s.gsub(/.*\//,'')[0..9]
-  	  	
+  	@role_id = @dams_object.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]  	
+  	@name_id = get_relationship_name_id(@dams_object)
+  	@name_type = get_relationship_name_type(@dams_object)
+  	@dams_names = get_objects("Mads#{@name_type}",'name_tesim')
+  	@nameTypeArray = Array.new
+  	@nameTypeArray << @name_type
+  	@dams_object.relationshipNameType = @nameTypeArray
+  	
+  	@copyright_id = @dams_object.copyrights.pid if !@dams_object.copyrights.nil?
+  	@statute_id = @dams_object.statutes.pid if !@dams_object.statutes.nil?
+  	@otherRight_id = @dams_object.otherRights.pid if !@dams_object.otherRights.nil?
+  	@license_id = @dams_object.licenses.pid if !@dams_object.licenses.nil?
+  	@rightsHolder_id = @dams_object.rightsHolders.first.pid if !@dams_object.rightsHolders.first.nil?
+  	 	
+  	@simple_subject_type = "Topic"   #TO DO - add lookup function
+  	@dams_simple_subjects = get_objects('MadsTopic','name_tesim')     #TO DO - support other subject type
+  	@simpleSubject_id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.topic.nil?
+  	@complexSubject_id = @dams_object.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
+  	 
+  	@dams_object.collections.each do |col|
+  		if(col.class == DamsAssembledCollection)	
+  			@assembled_collection_id = col.pid
+  		elsif (col.class == DamsProvenanceCollection)
+  			@provenance_collection_id = col.pid
+  		end  			
+  	end
+  	
+  	 	 
   end
   
   def create	  

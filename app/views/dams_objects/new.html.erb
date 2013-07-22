@@ -11,10 +11,14 @@
   <%= text_field_tag 'dams_object[titlePartNumber][]' %>    
    <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
   <%= text_field_tag 'dams_object[titleNonSort][]' %>  
-  
-  <h3>Type Of Resource</h3>
-  <%= text_field_tag 'dams_object[typeOfResource][]' %>
-   
+
+  <%
+  	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
+  %>  
+    
+  <h3>Type Of Resource</h3>  
+  <%#= text_field_tag 'dams_object[typeOfResource][]' %>
+  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource" %> 
   <h3>Date</h3>   
   <%#= label_tag 'dams_object[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_object[dateValue][]' %>
@@ -61,14 +65,10 @@
    <%= text_field_tag 'dams_object[relationshipNameValue][]' %>
        
   <h3>Complex Subject</h3>
-  <%#= label_tag 'dams_object[subjectValue][]', "Subject 1" %>
-  <%#= label_tag 'dams_object[subjectValue][]', "Subject 2" %> 
-
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>  
-  <%=text_field_tag 'dams_object[subjectValue][]' %>
-  <br>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%=text_field_tag 'dams_object[subjectValue][]' %>
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
+  OR Enter new subject <%=text_field_tag 'dams_object[subjectValue][]' %>
+  <%#= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
+  <%#=text_field_tag 'dams_object[subjectValue][]' %>
        
   <h3>Simple Subject</h3>
   <%
