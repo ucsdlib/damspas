@@ -6,35 +6,35 @@
 
 
 <h3>Provenance Collection Part</h3>
-  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) %>  
+  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts), class: "input-block-level" %> 
   <br>
 
 <h3>Title</h3>
-<%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue %>
-<%= label_tag 'dams_provenance_collection[subtitle]', "SubTitle" %><%= text_field_tag 'dams_provenance_collection[subtitle][]', @dams_provenance_collection.subtitle %>
+<%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue, class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[subtitle]', "SubTitle" %><%= text_field_tag 'dams_provenance_collection[subtitle][]', @dams_provenance_collection.subtitle, class: "input-block-level" %>
 
-<%= label_tag 'dams_provenance_collection[titlePartName]', "PartName" %><%= text_field_tag 'dams_provenance_collection[titlePartName][]', @dams_provenance_collection.titlePartName %>
-<%= label_tag 'dams_provenance_collection[titlePartNumber]', "PartNumber" %><%= text_field_tag 'dams_provenance_collection[titlePartNumber][]', @dams_provenance_collection.titlePartNumber %>
-<%= label_tag 'dams_provenance_collection[titleNonSort]', "NonSort" %><%= text_field_tag 'dams_provenance_collection[titleNonSort][]', @dams_provenance_collection.titleNonSort %>
+<%= label_tag 'dams_provenance_collection[titlePartName]', "PartName" %><%= text_field_tag 'dams_provenance_collection[titlePartName][]', @dams_provenance_collection.titlePartName , class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[titlePartNumber]', "PartNumber" %><%= text_field_tag 'dams_provenance_collection[titlePartNumber][]', @dams_provenance_collection.titlePartNumber, class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[titleNonSort]', "NonSort" %><%= text_field_tag 'dams_provenance_collection[titleNonSort][]', @dams_provenance_collection.titleNonSort, class: "input-block-level" %>
 
 <h3>Date</h3>
-<%= label_tag 'dams_provenance_collection[dateValue]', "Date" %><%= text_field_tag 'dams_provenance_collection[dateValue][]', @dams_provenance_collection.dateValue[0] %>
-<%= label_tag 'dams_provenance_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_provenance_collection[beginDate][]', @dams_provenance_collection.beginDate[0] %>
-<%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0] %>
+<%= label_tag 'dams_provenance_collection[dateValue]', "Date" %><%= text_field_tag 'dams_provenance_collection[dateValue][]', @dams_provenance_collection.dateValue[0], class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_provenance_collection[beginDate][]', @dams_provenance_collection.beginDate[0], class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0], class: "input-block-level" %>
 
 <h3>Language</h3>
- <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) %> 
+ <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id), class: "input-block-level" %>
 <br>
 
 <h3>Note</h3>
-<%= label_tag 'dams_provenance_collection[noteValue]', "Note" %><%= text_field_tag 'dams_provenance_collection[noteValue][]', @dams_provenance_collection.noteValue[0] %>
-<%= label_tag 'dams_provenance_collection[noteType]', "Note Type" %><%= text_field_tag 'dams_provenance_collection[noteType][]', @dams_provenance_collection.noteType[0] %>
-<%= label_tag 'dams_provenance_collection[noteDisplayLabel]', "Note Displaylabel" %><%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]', @dams_provenance_collection.noteDisplayLabel[0] %>
+<%= label_tag 'dams_provenance_collection[noteValue]', "Note" %><%= text_field_tag 'dams_provenance_collection[noteValue][]', @dams_provenance_collection.noteValue[0], class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[noteType]', "Note Type" %><%= text_field_tag 'dams_provenance_collection[noteType][]', @dams_provenance_collection.noteType[0], class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[noteDisplayLabel]', "Note Displaylabel" %><%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]', @dams_provenance_collection.noteDisplayLabel[0], class: "input-block-level" %>
 
-<%= label_tag 'dams_provenance_collection[scopeContentNoteValue]', "Scope Content Note" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', @dams_provenance_collection.scopeContentNoteValue[0] %>
+<%= label_tag 'dams_provenance_collection[scopeContentNoteValue]', "Scope Content Note" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', @dams_provenance_collection.scopeContentNoteValue[0], class: "input-block-level" %>
 
 <%= label_tag 'dams_provenance_collection[scopeContentNoteType]', "Scope Content Note Type" %>
-<%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]', @dams_provenance_collection.scopeContentNoteType[0] %>
+<%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]', @dams_provenance_collection.scopeContentNoteType[0], class: "input-block-level" %>
 
 
 <!--<h3>Subject</h3>-->
@@ -54,24 +54,24 @@ subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "Cu
 
 <h3>Related Resource</h3>
 <%= label_tag 'dams_provenance_collection[relatedResourceType]', "Related Resource Type" %>
-<%= text_field_tag 'dams_provenance_collection[relatedResourceType][]', @dams_provenance_collection.relatedResourceType %>
+<%= text_field_tag 'dams_provenance_collection[relatedResourceType][]', @dams_provenance_collection.relatedResourceType, class: "input-block-level" %>
 <br>
 
 <%= label_tag 'dams_provenance_collection[relatedResourceUri]', "Related Resource URI" %>
-<%= text_field_tag 'dams_provenance_collection[relatedResourceUri][]', @dams_provenance_collection.relatedResourceUri %>
+<%= text_field_tag 'dams_provenance_collection[relatedResourceUri][]', @dams_provenance_collection.relatedResourceUri, class: "input-block-level" %>
 <br>
 
 <%= label_tag 'dams_provenance_collection[relatedResourceDescription]', "Related Resource Description" %>
-<%= text_field_tag 'dams_provenance_collection[relatedResourceDescription][]', @dams_provenance_collection.relatedResourceDescription %>
+<%= text_field_tag 'dams_provenance_collection[relatedResourceDescription][]', @dams_provenance_collection.relatedResourceDescription, class: "input-block-level" %>
 <br>
 
 <h3>Relationship</h3>
-  <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id) %>   
+  <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id), class: "input-block-level" %> 
   <br>
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray, :selected => @dams_provenance_collection.relationshipNameType) , :onChange=>"javascript: getName('dams_provenance_collection', this.value, '#relationshipName','relationshipNameURI','Name');"%>
+  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray, :selected => @dams_provenance_collection.relationshipNameType) , :onChange=>"javascript: getName('dams_provenance_collection', this.value, '#relationshipName','relationshipNameURI','Name');", class: "input-block-level" %>
 
   <div id="relationshipName"><%= select_tag 'dams_provenance_collection[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id) %></div>
    OR Enter Relationship Name

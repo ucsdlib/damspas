@@ -14,28 +14,3 @@ function getSubjects(type,q,location,fieldName,label)
 }
 
 
-$(document).ready(function(){
-  var counts = [];
-
-  for(var i = 1; i <= 5; ++i) {
-    counts[i] = 0;
-  }
-
-  $('i').click(function (e) {
-    var tempScrollTop = $(window).scrollTop();
-
-    if (e.target) {
-      if(e.target.id.substring(0,4) == 'plus') {
-        add(e.target.id.substring(4,5));
-      }
-      else {
-        subtract(e.target.id.substring(5,6));
-      }
-    }
-
-    $(window).scrollTop(tempScrollTop);
-    return false;
-  });
-
-  
-});
