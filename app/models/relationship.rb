@@ -4,7 +4,9 @@ class Relationship
     map_predicates do |map|
       map.name(:in=> DAMS, :class_name => 'MadsNameInternal')
       map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')       
-      map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')         
+      map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
+      map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')   
+      map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')                     
       map.role(:in=> DAMS, :class_name => 'MadsAuthorityInternal')
     end
 
@@ -15,6 +17,10 @@ class Relationship
         MadsPersonalName.find(personalName.first.pid)
       elsif !corporateName.first.nil? && !corporateName.first.pid.nil? && !(corporateName.first.pid.include? 'dams:')  
         MadsCorporateName.find(corporateName.first.pid)
+      elsif !conferenceName.first.nil? && !conferenceName.first.pid.nil? && !(conferenceName.first.pid.include? 'dams:')  
+        MadsConferenceName.find(conferenceName.first.pid)
+      elsif !familyName.first.nil? && !familyName.first.pid.nil? && !(familyName.first.pid.include? 'dams:')  
+        MadsFamilyNameName.find(familyName.first.pid)        
       end
     end
     

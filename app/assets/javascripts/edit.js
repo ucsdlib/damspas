@@ -12,3 +12,5 @@ function getSubjects(type,q,location,fieldName,label)
     $(location).html(data);
   });	 
 }
+
+

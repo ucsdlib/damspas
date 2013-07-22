@@ -67,16 +67,6 @@ class DamsObjectDatastream < DamsResourceDatastream
   
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
-    if(!@subURI.nil?)
-      if new?
-        @array_subject.each do |sub|
-        	graph.insert([rdf_subject, DAMS.subject, sub])
-        end
-        #graph.insert([rdf_subject, DAMS.subject, @subURI])
-      else
-        graph.update([rdf_subject, DAMS.subject, @subURI])
-      end
-    end  
 	if(!@unitURI.nil?)
       if new?
         graph.insert([rdf_subject, DAMS.unit, @unitURI])
@@ -104,17 +94,70 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
       end
-    end
+    end  
+    insertSubjectsGraph
+    insertCopyRightsInfoGraph                        
+    super
+  end
+
+  def insertCopyRightsInfoGraph
+	if(!@rightURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.copyright, @rightURI])
+      else
+        graph.update([rdf_subject, DAMS.copyright, @rightURI])
+      end
+    end    
+	if(!@statURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.statute, @statURI])
+      else
+        graph.update([rdf_subject, DAMS.statute, @statURI])
+      end
+    end   
+	if(!@otherCopyRightURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.otherRights, @otherCopyRightURI])
+      else
+        graph.update([rdf_subject, DAMS.otherRights, @otherCopyRightURI])
+      end
+    end   
+	if(!@licenURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.license, @licenURI])
+      else
+        graph.update([rdf_subject, DAMS.license, @licenURI])
+      end
+    end   
+	if(!@holderURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.rightsHolder, @holderURI])
+      else
+        graph.update([rdf_subject, DAMS.rightsHolder, @holderURI])
+      end
+    end                     
+  end
+  
+  def insertSubjectsGraph
+    if(!@subURI.nil?)
+      if new?
+        @array_subject.each do |sub|
+        	graph.insert([rdf_subject, DAMS.subject, sub])
+        end
+        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+      else
+        graph.update([rdf_subject, DAMS.subject, @subURI])
+      end
+    end    
 	if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
       if new?
         graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
       else
         graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
       end
-    end                         
-    super
+    end     
   end
-
+  
   def load_unit(unit)
 	if !unit.values.first.nil?
 	    u_pid = unit.values.first.pid

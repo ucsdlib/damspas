@@ -3,6 +3,7 @@ require 'json'
 
 class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => :show
 
@@ -44,35 +45,90 @@ class DamsObjectsController < ApplicationController
   end
 
   def new
-  	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
-  	@dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
-  	@dams_assembled_collections = DamsAssembledCollection.all( :order=>"system_create_dtsi asc" )
-  	#@dams_provenance_collections = DamsProvenanceCollection.all( :order=>"system_create_dtsi asc" )
-  	@mads_languages = MadsLanguage.all( :order=>"system_create_dtsi asc" )
-  	@mads_authorities = MadsAuthority.all( :order=>"system_create_dtsi asc" )
-  	@mads_names = MadsPersonalName.all( :order=>"system_create_dtsi asc" )
+  	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+  	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
+  	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
+  	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
+  	@mads_languages =  get_objects('MadsLanguage','name_tesim')
+  	@mads_authorities = get_objects('MadsAuthority','name_tesim')
+  	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
+  	@dams_statutes = get_objects('DamsStatute','citation_tesim')
+  	@dams_other_rights = get_objects('DamsOtherRights','basis_tesim')
+  	@dams_licenses = get_objects('DamsLicense','note_tesim')
+  	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
   		
-	#uri = URI('http://fast.oclc.org/fastSuggest/select')
-	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '10')
-	#json = JSON.parse(res.body)
-	#@jdoc = json.fetch("response").fetch("docs")
+	uri = URI('http://fast.oclc.org/fastSuggest/select')
+	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+	json = JSON.parse(res.body)
+	@jdoc = json.fetch("response").fetch("docs")
 	
-	#@autocomplete_items = Array.new
-	#@jdoc.each do |value|
-	#	@autocomplete_items << value['suggestall']
-	#end  
-
+	@autocomplete_items = Array.new
+	@jdoc.each do |value|
+		@autocomplete_items << value['suggestall']
+	end 
+	
   end
   
   def edit
-	@mads_complex_subjects = MadsComplexSubject.all( :order=>"system_create_dtsi asc" )
+    @dams_object = DamsObject.find(params[:id])
+	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+	@dams_units = get_objects('DamsUnit','unit_name_tesim')
+  	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
+  	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
+  	@mads_languages =  get_objects('MadsLanguage','name_tesim')
+  	@mads_authorities = get_objects('MadsAuthority','name_tesim')
+  	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
+  	@dams_statutes = get_objects('DamsStatute','citation_tesim')
+  	@dams_other_rights = get_objects('DamsOtherRights','basis_tesim')
+  	@dams_licenses = get_objects('DamsLicense','note_tesim')
+  	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
+  	 	
+  	@unit_id = @dams_object.unit.to_s.gsub(/.*\//,'')[0..9]
+  	#@assembled_collection_id = @dams_object.assembledCollectionURI.to_s.gsub(/.*\//,'')[0..9]
+  	#@provenance_collection_id = @dams_object.provenanceCollectionURI.to_s.gsub(/.*\//,'')[0..9]
+  	
+  	@language_id = @dams_object.language.to_s.gsub(/.*\//,'')[0..9]
+  	@role_id = @dams_object.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]  	
+  	@name_id = get_relationship_name_id(@dams_object)
+  	@name_type = get_relationship_name_type(@dams_object)
+  	@dams_names = get_objects("Mads#{@name_type}",'name_tesim')
+  	@nameTypeArray = Array.new
+  	@nameTypeArray << @name_type
+  	@dams_object.relationshipNameType = @nameTypeArray
+  	
+  	@copyright_id = @dams_object.copyrights.pid if !@dams_object.copyrights.nil?
+  	@statute_id = @dams_object.statutes.pid if !@dams_object.statutes.nil?
+  	@otherRight_id = @dams_object.otherRights.pid if !@dams_object.otherRights.nil?
+  	@license_id = @dams_object.licenses.pid if !@dams_object.licenses.nil?
+  	@rightsHolder_id = @dams_object.rightsHolders.first.pid if !@dams_object.rightsHolders.first.nil?
+  	 	
+  	@simple_subject_type = "Topic"   #TO DO - add lookup function
+  	@dams_simple_subjects = get_objects('MadsTopic','name_tesim')     #TO DO - support other subject type
+  	@simpleSubject_id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.topic.nil?
+  	@complexSubject_id = @dams_object.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
+  	 
+  	@dams_object.collections.each do |col|
+  		if(col.class == DamsAssembledCollection)	
+  			@assembled_collection_id = col.pid
+  		elsif (col.class == DamsProvenanceCollection)
+  			@provenance_collection_id = col.pid
+  		end  			
+  	end
+  	@simpleSubjectValue = @dams_object.topic.first.name.first if (!@dams_object.topic.nil? && !@dams_object.topic.first.nil?)
+
+	uri = URI('http://fast.oclc.org/fastSuggest/select')
+	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+	json = JSON.parse(res.body)
+	@jdoc = json.fetch("response").fetch("docs")
+	
+	@autocomplete_items = Array.new
+	@jdoc.each do |value|
+		@autocomplete_items << value['suggestall']
+	end   	 	 
   end
   
-  def create
-  #puts "collection = #{@dams_assembled_collections.size}"
-	  
-  	@dams_object.attributes = params[:dams_object] 	
-  	
+  def create	  
+  	@dams_object.attributes = params[:dams_object] 
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Object has been saved"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
