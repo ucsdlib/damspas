@@ -38,10 +38,7 @@ class DamsProvenanceCollectionsController < ApplicationController
 
   def show
     @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
-    #@dams_objects = DamsObject.find(params[:id])
-    #@dams_languages = MadsLanguage.find(params[:id])
-    
-  end
+   end
 
   def new
     
@@ -65,7 +62,8 @@ class DamsProvenanceCollectionsController < ApplicationController
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
-    @part_id = @dams_provenance_collection.part_node.to_s.gsub(/.*\//,'')[0..9]
+    #@part_id = @dams_provenance_collection.part_node.to_s.gsub(/.*\//,'')[0..9]
+    @provenance_collection_part_id = @dams_provenance_collection.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection.language.to_s.gsub(/.*\//,'')[0..9]
     @role_id = @dams_provenance_collection.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
     @name_id = get_relationship_name_id(@dams_provenance_collection)
@@ -74,6 +72,16 @@ class DamsProvenanceCollectionsController < ApplicationController
     @nameTypeArray = Array.new
     @nameTypeArray << @name_type
     @dams_provenance_collection.relationshipNameType = @nameTypeArray
+
+    # @dams_provenance_collection.collections.each do |col|
+    #   if(col.class == DamsProvenanceCollectionPart)  
+    #     @provenance_collection_part_id = col.pid
+    #     elsif (col.class == DamsAssembledCollection)
+    #     @assembled_collection_id = col.pid
+    #   end       
+    # end
+
+    
 
     @simple_subject_type = "Topic"   #TO DO - add lookup function
     @dams_simple_subjects = get_objects('MadsTopic','name_tesim')     #TO DO - support other subject type

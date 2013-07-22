@@ -54,7 +54,7 @@ class DamsProvenanceCollectionInternal
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # collections
-    map.provenanceCollectionPart(:in => DAMS, :to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
+    map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
     
     # child parts
     map.part_node(:in=>DAMS,:to=>'hasPart')
@@ -69,17 +69,7 @@ class DamsProvenanceCollectionInternal
   def pid
       rdf_subject.to_s.gsub(/.*\//,'') 
   end
-  def load_part
-    if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
-      part_node.first
-    else
-      part_uri = part_node.first.to_s
-      part_pid = part_uri.gsub(/.*\//,'')
-      if part_pid != nil && part_pid != ""
-        DamsProvenanceCollectionPart.find(part_pid)
-      end
-    end
-  end
+  
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 

@@ -452,8 +452,7 @@ def relatedResourceUri
   def damsObjectURI
     if @damsObjURI != nil
       @damsObjURI
-    else
-      damsObjectURI.first
+   
     end
   end     
   
@@ -468,8 +467,7 @@ def relatedResourceUri
   def provenanceCollectionPartURI
     if @provenanceCollPartURI != nil
       @provenanceCollPartURI
-    else
-      provenanceCollectionPartURI.first
+    
     end
   end     
 
