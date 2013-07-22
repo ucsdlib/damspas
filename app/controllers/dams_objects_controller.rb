@@ -106,6 +106,15 @@ class DamsObjectsController < ApplicationController
   	@dams_simple_subjects = get_objects('MadsTopic','name_tesim')     #TO DO - support other subject type
   	@simpleSubject_id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.topic.nil?
   	@complexSubject_id = @dams_object.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
+  	 
+  	@dams_object.collections.each do |col|
+  		if(col.class == DamsAssembledCollection)	
+  			@assembled_collection_id = col.pid
+  		elsif (col.class == DamsProvenanceCollection)
+  			@provenance_collection_id = col.pid
+  		end  			
+  	end
+  	
   	 	 
   end
   

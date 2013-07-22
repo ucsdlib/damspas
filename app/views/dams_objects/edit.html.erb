@@ -2,8 +2,7 @@
 <h1>Edit a Dams Object</h1>
 
 <%= form_for @dams_object do |f| %>
-  <h3>Title</h3> 
-  <%= @dams_object.subject %>
+  <h3>Title</h3>
   <%= text_field_tag 'dams_object[titleValue][]', @dams_object.titleValue, class: "input-block-level" %>
   <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]', @dams_object.subtitle, class: "input-block-level" %>    
@@ -32,9 +31,9 @@
    
   <h3>Collection</h3>
   <%= label_tag 'dams_object[assembledCollectionURI][]', "Assembled Collection" %>
-  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Collection"%> 
+  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections, :selected => @assembled_collection_id) , :prompt=>"Select Collection"%> 
   <%= label_tag 'dams_object[provenanceCollectionURI][]', "Provenance Collection" %> 
-  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections), :prompt=>"Select Collection" %>
+  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection" %>
            
   <h3>Language</h3>
   <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language"%>
