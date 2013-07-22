@@ -12,9 +12,12 @@
   <%= text_field_tag 'dams_object[titlePartNumber][]', @dams_object.titlePartNumber, class: "input-block-level" %>    
   <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
   <%= text_field_tag 'dams_object[titleNonSort][]', @dams_object.titleNonSort, class: "input-block-level" %>    
-  
+
+  <%
+  	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
+  %>   
   <h3>Type Of Resource</h3>
-  <%= text_field_tag 'dams_object[typeOfResource][]',@dams_object.typeOfResource, class: "input-block-level" %>
+  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray , :selected => @dams_object.typeOfResource), :prompt=>"Select Type of resource" %>
     
   <h3>Date</h3>
   <%= text_field_tag 'dams_object[dateValue][]', @dams_object.dateValue[0], class: "input-block-level" %>  	
@@ -24,16 +27,16 @@
   <%= text_field_tag 'dams_object[endDate][]', @dams_object.endDate[0], class: "input-block-level"%>  	
 
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units , :selected => @unit_id) %>
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units , :selected => @unit_id) , :prompt=>"Select Unit" %>
    
   <h3>Collection</h3>
   <%= label_tag 'dams_object[assembledCollectionURI][]', "Assembled Collection" %>
-  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) %> 
+  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections, :selected => @assembled_collection_id) , :prompt=>"Select Collection"%> 
   <%= label_tag 'dams_object[provenanceCollectionURI][]', "Provenance Collection" %> 
-  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) %>
+  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection" %>
            
   <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) %>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language"%>
    
   <h3>Note</h3>
   <%= text_field_tag 'dams_object[noteValue][]' , @dams_object.noteValue[0], class: "input-block-level" %> 
@@ -50,17 +53,28 @@
   <%= text_field_tag 'dams_object[scopeContentNoteDisplayLabel][]', @dams_object.scopeContentNoteDisplayLabel[0], class: "input-block-level" %>
 
   <h3>Relationship</h3>
-  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id) %>   
+  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
   <br>
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray, :selected => @dams_object.relationshipNameType) , :onChange=>"javascript: getSubjects('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray, @name_type) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
 
-  <div id="relationshipName"><%= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id) %></div>
-   OR Enter new Relationship Name
-   <%= text_field_tag 'dams_object[relationshipNameValue][]' , @dams_object.relationshipNameValue[0], class: "input-block-level" %>
+   <div id="relationshipName"><%= select_tag 'dams_object[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id), :prompt=>"Select Relationship Name" %></div>
 
+  <h3>Complex Subject</h3>
+  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select predefined subject"%>
+  <br>  
+  OR Enter new subject <%=text_field_tag 'dams_object[subjectValue][]', @dams_object.subjectValue[0] , class: "input-block-level" %>
+
+  <h3>Simple Subject</h3>
+  <%
+  	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+  %>
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <div id="simpleSubject"><%= select_tag 'dams_object[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
+  <%#=text_field_tag 'dams_object[subjectTypeValue][]', @dams_object.subjectTypeValue[0] , class: "input-block-level" %>  
+    
   <%# @dams_object.subject.each_with_index do |s,i| %>
   	<%#= label_tag "dams_object_subject_#{i}", "Subject" %>
   		<%#= text_field_tag "dams_object[subject][]", s.name, :id => "dams_object_subject_#{i}", class: "input-block-level"  %>
@@ -68,15 +82,15 @@
   
   <h3>Rights</h3>
   <%= label_tag 'dams_object[copyrightURI][]', "Copyrights" %>
-  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights)%>
+  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights, :selected => @copyright_id), :prompt=>"Select Copyright"%>
   <%= label_tag 'dams_object[statuteURI][]', "Statute" %>
-  <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes)%>
+  <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes, :selected => @statute_id) , :prompt=>"Select Statute" %>
   <%= label_tag 'dams_object[otherRightsURI][]', "Other Rights" %>
-  <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights)%>
+  <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights, :selected => @otherRight_id), :prompt=>"Select Other Rights"%>
   <%= label_tag 'dams_object[licenseURI][]', "License" %>
-  <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses)%>
+  <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses, :selected => @license_id), :prompt=>"Select License"%>
   <%= label_tag 'dams_object[rightsHolderURI][]', "Rights Holder" %>
-  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders)%>
+  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders, :selected => @rightsHolder_id), :prompt=>"Select Rights Holder"%>
    
   <h3>Related Resource</h3>
   <%= label_tag 'dams_object[relatedResourceType][]', "Type" %>
