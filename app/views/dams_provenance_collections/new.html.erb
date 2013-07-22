@@ -26,19 +26,19 @@
 
   <h3>Date</h3>
   <%= label_tag 'dams_provenance_collection[dateValue][]', "Date" %>
-  <%= text_field_tag 'dams_provenance_collection[dateValue][]', '', required: true %>
+  <%= text_field_tag 'dams_provenance_collection[dateValue][]' %>
   <%= label_tag 'dams_provenance_collection[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_provenance_collection[beginDate][]' %> 
   <%= label_tag 'dams_provenance_collection[endDate][]', "End Date" %>
   <%= text_field_tag 'dams_provenance_collection[endDate][]' %>    
 
   <h3>Language</h3> 
-  <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %> 
+  <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %> 
    <br>
 
   <h3>Note</h3>
   <%= label_tag 'dams_provenance_collection[noteValue][]', "Note"%>
-  <%= text_field_tag 'dams_provenance_collection[noteValue][]', '', required: true  %> 
+  <%= text_field_tag 'dams_provenance_collection[noteValue][]'%> 
 
   <%= label_tag 'dams_provenance_collection[noteType][]', "Note Type" %>
   <%= text_field_tag 'dams_provenance_collection[noteType][]' %> 
@@ -47,7 +47,7 @@
   <%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]' %> 
   
   <%= label_tag 'dams_provenance_collection[scopeContentNoteValue][]', "Scope Content Note" %>
-  <%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]' %>  
+  <%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', '', required: true %>  
 
   <%= label_tag 'dams_provenance_collection[scopeContentNoteType][]', "Scope Content Note Type" %>
   <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]' %> 
@@ -82,7 +82,7 @@
   
   <h3>Related Resource</h3>
   <%= label_tag 'dams_provenance_collection[relatedResourceType][]', "Related Resource Type" %>
-  <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]' , '', required: true %>
+  <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]'%>
    <br>
 
    <%= label_tag 'dams_provenance_collection[relatedResourceUri][]', "Related Resource URI" %>
