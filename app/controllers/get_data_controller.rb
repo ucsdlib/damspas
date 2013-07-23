@@ -71,6 +71,8 @@ class GetDataController < ApplicationController
 		@subjects = get_objects('DamsTechnique','name_tesim')	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Temporal')
 		@subjects = get_objects('MadsTemporal','name_tesim')
+	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'StylePeriod')
+		@subjects = get_objects('MadsStylePeriod','name_tesim')		
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
 		@subjects = get_objects('MadsCorporateName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
