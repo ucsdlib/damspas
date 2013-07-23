@@ -183,6 +183,7 @@ def relatedResourceUri
   end  
 
   ## Subject ######################################################################
+  #complex subject
   def subjectValue
     subject[0] ? subject[0].name : []
   end
@@ -196,7 +197,8 @@ def relatedResourceUri
 		i+=1
 	end
   end
-
+  
+  #simple subject
   def subjectType
     @subType
   end
@@ -212,6 +214,7 @@ def relatedResourceUri
 	end
   end
    
+  #simple subject 
   def subjectTypeValue
     #topic[0] ? topic[0].name : []
     if(!@subType.nil? && (@subType.include? 'Topic'))
@@ -266,6 +269,7 @@ def relatedResourceUri
     familyNameIndex = 0
     conferenceNameIndex = 0
     nameIndex = 0
+    occupationIndex = 0
     
 	val.each do |v| 
 		if(!v.nil? && v.length > 0)
@@ -328,8 +332,12 @@ def relatedResourceUri
 			elsif(!@subType[i].nil? && (@subType[i].include? 'Name'))
 			    name.build if name[nameIndex] == nil
 			    name[nameIndex].name = v	
-			    nameIndex+=1				    			    			    			    			    		    			    			    			    	    
-		    end
+			    nameIndex+=1
+			elsif(!@subType[i].nil? && (@subType[i].include? 'Occupation'))
+			    occupation.build if occupation[occupationIndex] == nil
+			    occupation[occupationIndex].name = v	
+			    occupationIndex+=1				    			    			    			    			    		    			    			    			    	    
+		    end			    				    			    			    			    			    		    			    			    			    	    	    
 		end
 		i+=1
 	end
@@ -338,8 +346,6 @@ def relatedResourceUri
   def simpleSubjectURI
     if @simpleSubURI != nil
       @simpleSubURI
-    else
-      simpleSubURI.first
     end
   end 
   def simpleSubjectURI=(val)
@@ -350,7 +356,8 @@ def relatedResourceUri
 	    @simpleSubURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
 	  end
   end 
-      
+  
+  #complex subject    
   def subjectURI=(val)
     i = 0
     @array_subject = Array.new
@@ -366,8 +373,6 @@ def relatedResourceUri
   def subjectURI
     if @subURI != nil
       @subURI
-    else
-      subURI.first
     end
   end  
   
@@ -375,8 +380,6 @@ def relatedResourceUri
   def languageURI
     if @langURI != nil
       @langURI
-    #else
-    #  langURI.first
     end
   end 
   def languageURI=(val)
@@ -400,8 +403,8 @@ def relatedResourceUri
   def unitURI
     if @unitURI != nil
       @unitURI
-    else
-      unitURI.first
+    #else
+    #  unitURI.first
     end
   end     
 
@@ -417,8 +420,8 @@ def relatedResourceUri
   def assembledCollectionURI
     if @assembledCollURI != nil
       @assembledCollURI
-    else
-      asembledCollectionURI.first
+    #else
+    #  asembledCollectionURI.first
     end
   end 
 
@@ -433,8 +436,8 @@ def relatedResourceUri
   def provenanceCollectionURI
     if @provenanceCollURI != nil
       @provenanceCollURI
-    else
-      provenanceCollectionURI.first
+   # else
+   #   provenanceCollectionURI.first
     end
   end     
 
@@ -612,7 +615,7 @@ def relatedResourceUri
 	  elsif type.include? "ScientificNameElement"
         elem = MadsDatastream::List::ScientificNameElement.new(elementList.first.graph)
       elsif type.include? "TechniqueElement"
-        elem = DamsDatastream::List::TechniqueElement.new(elementList.first.graph)
+        elem = DamssDatastream::List::TechniqueElement.new(elementList.first.graph)
 	  elsif type.include? "TemporalElement"
         elem = MadsDatastream::List::TemporalElement.new(elementList.first.graph)     
 	  elsif type.include? "OccupationElement"
@@ -767,8 +770,9 @@ def relatedResourceUri
     elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
         relationship[0] ? relationship[0].familyName : []                         
     else
-    	relationship[0] ? relationship[0].name : []  
+    	relationship[0] ? relationship[0] : []
     end
+    
   end 
   def relationshipNameURI=(val)
     if val.class == Array
@@ -791,8 +795,8 @@ def relatedResourceUri
 	    	relationship[0].familyName = @nameURI	    		    	     
 	    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
 	    	relationship[0].name = @nameURI       		
-	    else
-	    	relationship[0].name = @nameURI    	
+	    #else
+	    #	relationship[0].name = @nameURI    	
 	    end
     end
   end    
@@ -821,7 +825,7 @@ def relatedResourceUri
 	    if relationship[0] == nil
 	      relationship.build
 	    end
-	    	puts "hello"
+
 	    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
 	    	@obj = MadsCorporateName.find(name: val)
 	    	if (@obj.class == Array && @obj.length > 0)
@@ -879,7 +883,7 @@ def relatedResourceUri
 		i+=1
 	end
   end
-
+  
   ## Cartographics ######################################################################
   def cartographicPoint
     cartographics[0] ? cartographics[0].point : []
@@ -972,8 +976,6 @@ def relatedResourceUri
   def copyrightURI
     if @rightURI != nil
       @rightURI
-    else
-      copyrightURI.first
     end
   end      
 
@@ -988,8 +990,6 @@ def relatedResourceUri
   def statuteURI
     if @statURI != nil
       @statURI
-    else
-      statuteURI.first
     end
   end 
   
@@ -1004,8 +1004,6 @@ def relatedResourceUri
   def otherRightsURI
     if @otherCopyRightURI != nil
       @otherCopyRightURI
-    else
-      otherRightsURI.first
     end
   end 
   
@@ -1020,8 +1018,6 @@ def relatedResourceUri
   def licenseURI
     if @licenURI != nil
       @licenURI
-    else
-      licenseURI.first
     end
   end 
   
@@ -1036,8 +1032,7 @@ def relatedResourceUri
   def rightsHolderURI
     if @holderURI != nil
       @holderURI
-    else
-      rightsHolderURI.first
     end
-  end              
+  end 
+        
 end
