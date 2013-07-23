@@ -409,8 +409,8 @@ END
         
         solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
         
-        solr_doc["event_json_tesim"].first.should include '"pid":"bb07070707","type":"object creation"' 
-        solr_doc["event_json_tesim"][1].should include '"pid":"zz07070707","type":"object creation inline event"' 
+        solr_doc["event_json_tesim"].first.should include '"pid":"bb07070707","type":"record created"' 
+        solr_doc["event_json_tesim"][1].should include '"pid":"zz07070707","type":"record created"' 
         solr_doc["event_json_tesim"][2].should include '"name":"dams:unknownUser","role":"dams:initiator"'
         
         solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'

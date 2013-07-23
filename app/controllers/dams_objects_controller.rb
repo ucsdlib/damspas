@@ -57,15 +57,15 @@ class DamsObjectsController < ApplicationController
   	@dams_licenses = get_objects('DamsLicense','note_tesim')
   	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
   		
-	uri = URI('http://fast.oclc.org/fastSuggest/select')
-	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-	json = JSON.parse(res.body)
-	@jdoc = json.fetch("response").fetch("docs")
+	#uri = URI('http://fast.oclc.org/fastSuggest/select')
+	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+	#json = JSON.parse(res.body)
+	#@jdoc = json.fetch("response").fetch("docs")
 	
-	@autocomplete_items = Array.new
-	@jdoc.each do |value|
-		@autocomplete_items << value['suggestall']
-	end 
+	#@autocomplete_items = Array.new
+	#@jdoc.each do |value|
+	#	@autocomplete_items << value['suggestall']
+	#end 
 	
   end
   
@@ -102,9 +102,11 @@ class DamsObjectsController < ApplicationController
   	@license_id = @dams_object.licenses.pid if !@dams_object.licenses.nil?
   	@rightsHolder_id = @dams_object.rightsHolders.first.pid if !@dams_object.rightsHolders.first.nil?
   	 	
-  	@simple_subject_type = "Topic"   #TO DO - add lookup function
-  	@dams_simple_subjects = get_objects('MadsTopic','name_tesim')     #TO DO - support other subject type
-  	@simpleSubject_id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.topic.nil?
+  	@simple_subject_type = get_simple_subject_type(@dams_object) 	
+  	@dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
+  	#@simpleSubject_id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.topic.nil? 
+  	@simpleSubject_id = get_simple_subject_id(@dams_object)
+  	
   	@complexSubject_id = @dams_object.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
   	 
   	@dams_object.collections.each do |col|
@@ -114,17 +116,17 @@ class DamsObjectsController < ApplicationController
   			@provenance_collection_id = col.pid
   		end  			
   	end
-  	@simpleSubjectValue = @dams_object.topic.first.name.first if (!@dams_object.topic.nil? && !@dams_object.topic.first.nil?)
+  	@simpleSubjectValue = @dams_object.topic.first.name.first if (!@dams_object.topic.nil? && !@dams_object.topic.first.nil?) #TO DO - suport other simple subject type
 
-	uri = URI('http://fast.oclc.org/fastSuggest/select')
-	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-	json = JSON.parse(res.body)
-	@jdoc = json.fetch("response").fetch("docs")
+	#uri = URI('http://fast.oclc.org/fastSuggest/select')
+	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+	#json = JSON.parse(res.body)
+	#@jdoc = json.fetch("response").fetch("docs")
 	
-	@autocomplete_items = Array.new
-	@jdoc.each do |value|
-		@autocomplete_items << value['suggestall']
-	end   	 	 
+	#@autocomplete_items = Array.new
+	#@jdoc.each do |value|
+	#	@autocomplete_items << value['suggestall']
+	#end   	 	 
   end
   
   def create	  

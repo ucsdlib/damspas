@@ -42,7 +42,7 @@ describe DamsEventDatastream do
       end
 
       it "should have a type" do
-        subject.type.should == ["collection creation"]
+        subject.type.should == ["record created"]
       end
 
       it "should have an eventDate" do
@@ -55,7 +55,7 @@ describe DamsEventDatastream do
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["type_tesim"].should == ["collection creation"]
+        solr_doc["type_tesim"].should == ["record created"]
         solr_doc["eventDate_tesim"].should == ["2012-11-06T09:26:34-0500"]
         solr_doc["outcome_tesim"].should == ["success"]
       end   
