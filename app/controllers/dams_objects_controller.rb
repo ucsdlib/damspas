@@ -56,6 +56,7 @@ class DamsObjectsController < ApplicationController
   	@dams_other_rights = get_objects('DamsOtherRights','basis_tesim')
   	@dams_licenses = get_objects('DamsLicense','note_tesim')
   	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
+  	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
   		
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
 	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -72,6 +73,8 @@ class DamsObjectsController < ApplicationController
   def edit
     @dams_object = DamsObject.find(params[:id])
 	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
+	@provenance_collection_part_id = @dams_object.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.provenanceCollectionPart.nil?
 	@dams_units = get_objects('DamsUnit','unit_name_tesim')
   	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
   	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
