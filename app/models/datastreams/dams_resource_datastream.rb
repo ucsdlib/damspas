@@ -474,18 +474,18 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
     end
   end
 
-  def insertProvenanceCollectionPartFields ( solr_doc, field, provenanceCollectionParts )
-    parts = load_provenanceCollectionParts provenanceCollectionParts
-    if parts != nil
-      n = 0
-      parts.map.each do |part|
-        n += 1
+  # def insertProvenanceCollectionPartFields ( solr_doc, field, provenanceCollectionParts )
+  #   parts = load_provenanceCollectionParts provenanceCollectionParts
+  #   if parts != nil
+  #     n = 0
+  #     parts.map.each do |part|
+  #       n += 1
 
-        Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
-        Solrizer.insert_field(solr_doc, 'part_id', part.pid)
-      end
-    end
-  end
+  #       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
+  #       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
+  #     end
+  #   end
+  # end
 
 
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
@@ -595,7 +595,7 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
     insertLanguageFields solr_doc, "language", language
     
     # provenanceCollectionPart
-    insertProvenanceCollectionPartFields solr_doc, "provenanceCollectionPart", provenanceCollectionPart
+    #insertProvenanceCollectionPartFields solr_doc, "provenanceCollectionPart", provenanceCollectionPart
 
     # note
     insertNoteFields solr_doc, 'note',note
