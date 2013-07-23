@@ -125,16 +125,16 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     super
   end
 
- #  def to_solr (solr_doc = {})
- #    Solrizer.insert_field(solr_doc, 'type', 'Collection')
- #    Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
+  def to_solr (solr_doc = {})
+     Solrizer.insert_field(solr_doc, 'type', 'Collection')
+     Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
     
- #    part = load_parts 
- #    if part != nil && part.class == DamsProvenanceCollectionPart
- #      Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
- #      Solrizer.insert_field(solr_doc, 'part_id', part.pid)
- #    end
+#     part = load_parts 
+#     if part != nil && part.class == DamsProvenanceCollectionPart
+#       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
+#       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
+#     end
 
- #    super
- # end
+     super
+  end
 end

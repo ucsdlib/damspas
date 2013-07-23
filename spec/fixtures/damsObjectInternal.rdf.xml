@@ -45,7 +45,7 @@
                 </dams:relationship>
                 <dams:outcome>success</dams:outcome>
                 <dams:eventDate>2013-03-11T08:48:40-0700</dams:eventDate>
-                <dams:type>object creation</dams:type>
+                <dams:type>record created</dams:type>
               </dams:DAMSEvent>
             </dams:event>
           </mads:Topic>
@@ -73,7 +73,7 @@
             <dams:outcome>failure</dams:outcome>
             <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
             <dams:eventDate>2013-03-08T11:01:13-0800</dams:eventDate>
-            <dams:type>Bulk Solr Indexing</dams:type>
+            <dams:type>record indexed</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -84,7 +84,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-13T10:07:02-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:topic>
@@ -125,7 +125,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-08T11:01:12-0800</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:relationship>
@@ -247,7 +247,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:27-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:filestore>openStack</dams:filestore>
@@ -295,7 +295,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:48-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatName>bytestream</dams:formatName>
@@ -337,7 +337,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:51-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
@@ -394,7 +394,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:30-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
@@ -443,7 +443,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:32-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:compositionLevel>0</dams:compositionLevel>
@@ -490,7 +490,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:36-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                   </dams:File>
@@ -525,7 +525,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:38-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -575,7 +575,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:51-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
@@ -619,7 +619,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:25-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sha1checksum>eb0d16cc852cacc36dcc1d11e2e25b5af6f3b188</dams:sha1checksum>
@@ -661,7 +661,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:30-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -699,7 +699,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:29-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:use>data-service</dams:use>
@@ -745,7 +745,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:49-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourceFileName>rndb11wt-074P_A_458-600cm_xrfdata_10kV_001.XLS</dams:sourceFileName>
@@ -793,7 +793,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:17-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:use>data-service</dams:use>
@@ -840,7 +840,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:35-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -879,7 +879,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:18-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:mimeType>application/octet-stream</dams:mimeType>
@@ -916,7 +916,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:27-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:md5checksum>99ea98c66cf300fda79711833185814f</dams:md5checksum>
@@ -968,7 +968,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:53-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:md5checksum>5f4af3205f952af732616bb0b9f6e52d</dams:md5checksum>
@@ -1012,7 +1012,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:29-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
@@ -1086,7 +1086,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:40-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -1113,7 +1113,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:14-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:event>
@@ -1124,7 +1124,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:14-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-03-15T01:52:14-0700</dams:dateCreated>
@@ -1153,7 +1153,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:45-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
@@ -1167,7 +1167,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:44-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatName>JPEG</dams:formatName>
@@ -1202,7 +1202,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:55-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatName>JPEG</dams:formatName>
@@ -1217,7 +1217,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:54-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                   </dams:File>
@@ -1236,7 +1236,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:05-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sha1checksum>341c5d59c178b1b924959a1445c74c439a710709</dams:sha1checksum>
@@ -1250,7 +1250,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:06-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:compositionLevel>0</dams:compositionLevel>
@@ -1276,7 +1276,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:00-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:event>
@@ -1287,7 +1287,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:00-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -1329,7 +1329,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:09-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatVersion>1.01</dams:formatVersion>
@@ -1345,7 +1345,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:10-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatName>JPEG</dams:formatName>
@@ -1373,7 +1373,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:33-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:size>737</dams:size>
@@ -1388,7 +1388,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:33-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -1422,7 +1422,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:06-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:size>3821</dams:size>
@@ -1435,7 +1435,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:05-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-03-15T01:51:05-0700</dams:dateCreated>
@@ -1455,7 +1455,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:24-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -1474,7 +1474,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:23-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -1502,7 +1502,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:18-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:md5checksum>ad33fa16ec8c14486c9d2768bc0f668c</dams:md5checksum>
@@ -1515,7 +1515,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:18-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sha1checksum>24f7a1b89c2fb8549fa80185a43b98e3c68e2fd2</dams:sha1checksum>
@@ -1545,7 +1545,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:28-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -1559,7 +1559,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:28-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sha1checksum>f9f9e52574f5540847fdfd5cd00bd63c3bc42db2</dams:sha1checksum>
@@ -1597,7 +1597,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:51:13-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:event>
@@ -1609,7 +1609,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:51:13-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:use>image-service</dams:use>
@@ -1639,7 +1639,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:50:58-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourceFileName>rndb11wt-074P_A_458-600cm_ls_001.jpg</dams:sourceFileName>
@@ -1674,7 +1674,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:03-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:event>
@@ -1685,7 +1685,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:54:03-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -1718,7 +1718,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:54:21-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sha1checksum>c80567bada82c9d127c992505591ee21ac897a68</dams:sha1checksum>
@@ -1732,7 +1732,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:20-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:crc32checksum>3e58c387</dams:crc32checksum>
@@ -1768,7 +1768,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:08-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:md5checksum>f82a83b11308f319d44ae9a3fcc44a8f</dams:md5checksum>
@@ -1794,7 +1794,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:54:09-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                   </dams:File>
@@ -1821,7 +1821,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:57-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:mimeType>image/jpeg</dams:mimeType>
@@ -1835,7 +1835,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:57-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatName>JPEG</dams:formatName>
@@ -1863,7 +1863,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:26-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:event>
@@ -1874,7 +1874,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:54:26-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
@@ -1907,7 +1907,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:54:16-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -1922,7 +1922,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:54:16-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:use>image-large</dams:use>
@@ -1947,7 +1947,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:52-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:crc32checksum>f0f03530</dams:crc32checksum>
@@ -1976,7 +1976,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:42-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:compositionLevel>0</dams:compositionLevel>
@@ -1998,7 +1998,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:42-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:size>65705</dams:size>
@@ -2033,7 +2033,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:44-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatVersion>1.01</dams:formatVersion>
@@ -2053,7 +2053,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:44-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -2077,7 +2077,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:34-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
@@ -2089,7 +2089,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:34-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sha1checksum>eb0a4c3819f616c676e1aa6e9f91a5a02bbc4195</dams:sha1checksum>
@@ -2117,7 +2117,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:32-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-01-11T12:29:46-0800</dams:dateCreated>
@@ -2145,7 +2145,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:46-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -2159,7 +2159,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:46-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:formatName>JPEG</dams:formatName>
@@ -2192,7 +2192,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:39-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:filestore>openStack</dams:filestore>
@@ -2212,7 +2212,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:39-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourceFileName>jhovetmp3032356383056795117.tmp</dams:sourceFileName>
@@ -2235,7 +2235,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:37-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:objectCategory>file</dams:objectCategory>
@@ -2258,7 +2258,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:36-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:md5checksum>352309bda8e20e0b4be76e94fceafee8</dams:md5checksum>
@@ -2286,7 +2286,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:24-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:use>image-thumbnail</dams:use>
@@ -2301,7 +2301,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:23-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -2337,7 +2337,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:14-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:size>18580</dams:size>
@@ -2349,7 +2349,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:14-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                   </dams:File>
@@ -2370,7 +2370,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:19-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -2389,7 +2389,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:19-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-03-15T01:53:18-0700</dams:dateCreated>
@@ -2411,7 +2411,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:05-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:mimeType>image/jpeg</dams:mimeType>
@@ -2432,7 +2432,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:04-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourceFileName>jhovetmp1156275646879818504.tmp</dams:sourceFileName>
@@ -2464,7 +2464,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:59-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:md5checksum>f2851c1a026aad206f0922c0262e6af6</dams:md5checksum>
@@ -2481,7 +2481,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:00-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-03-15T01:52:59-0700</dams:dateCreated>
@@ -2506,7 +2506,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:55-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:size>3804304</dams:size>
@@ -2539,7 +2539,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:53:09-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:mimeType>image/jpeg</dams:mimeType>
@@ -2556,7 +2556,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:53:09-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-03-15T01:53:08-0700</dams:dateCreated>
@@ -2597,7 +2597,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:25-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:mimeType>image/jpeg</dams:mimeType>
@@ -2616,7 +2616,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:25-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:size>4920</dams:size>
@@ -2638,7 +2638,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:40-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-03-15T01:52:40-0700</dams:dateCreated>
@@ -2662,7 +2662,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:40-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                   </dams:File>
@@ -2688,7 +2688,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:35-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
@@ -2704,7 +2704,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:35-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:size>40643</dams:size>
@@ -2722,7 +2722,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:44-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:sourceFileName>jhovetmp5943558690466594785.tmp</dams:sourceFileName>
@@ -2746,7 +2746,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:45-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:use>image-icon</dams:use>
@@ -2776,7 +2776,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:49-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:md5checksum>09b787ea0243487be2b1656554ba9387</dams:md5checksum>
@@ -2789,7 +2789,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:49-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:dateCreated>2013-03-15T01:52:48-0700</dams:dateCreated>
@@ -2824,7 +2824,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:20-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                   </dams:File>
@@ -2839,7 +2839,7 @@
                         </dams:relationship>
                         <dams:outcome>success</dams:outcome>
                         <dams:eventDate>2013-03-15T01:52:31-0700</dams:eventDate>
-                        <dams:type>Derivatives Creation</dams:type>
+                        <dams:type>derivative created</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:event>
@@ -2851,7 +2851,7 @@
                         <dams:outcome>success</dams:outcome>
                         <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
                         <dams:eventDate>2013-03-15T01:52:30-0700</dams:eventDate>
-                        <dams:type>Jhove Extraction</dams:type>
+                        <dams:type>checksum calculated</dams:type>
                       </dams:DAMSEvent>
                     </dams:event>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -2907,7 +2907,7 @@
                 </dams:relationship>
                 <dams:outcome>success</dams:outcome>
                 <dams:eventDate>2013-03-11T08:49:16-0700</dams:eventDate>
-                <dams:type>object creation</dams:type>
+                <dams:type>record created</dams:type>
               </dams:DAMSEvent>
             </dams:event>
           </mads:CorporateName>
@@ -2934,7 +2934,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-02-19T10:46:30-0800</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitName>Research Data Curation Program</dams:unitName>
@@ -2947,7 +2947,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-14T07:19:48-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -2958,7 +2958,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-02-19T12:56:09-0800</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
@@ -2971,7 +2971,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-14T07:21:05-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitGroup>dams-rci</dams:unitGroup>
@@ -3035,7 +3035,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-12T09:56:53-0700</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <mads:isMemberOfMADSScheme>
@@ -3078,7 +3078,7 @@
             <dams:outcome>failure</dams:outcome>
             <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
             <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
-            <dams:type>Bulk Solr Indexing</dams:type>
+            <dams:type>record indexed</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -3089,7 +3089,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-08T11:01:09-0800</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <mads:elementList rdf:parseType="Collection">
@@ -3133,7 +3133,7 @@
                 </dams:relationship>
                 <dams:outcome>success</dams:outcome>
                 <dams:eventDate>2013-03-12T09:56:55-0700</dams:eventDate>
-                <dams:type>object creation</dams:type>
+                <dams:type>record created</dams:type>
               </dams:DAMSEvent>
             </dams:event>
             <mads:elementList rdf:parseType="Collection">
@@ -3202,7 +3202,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-12T09:56:54-0700</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:displayLabel>sample type</dams:displayLabel>
@@ -3235,7 +3235,7 @@
                 </dams:relationship>
                 <dams:outcome>success</dams:outcome>
                 <dams:eventDate>2013-03-12T09:56:55-0700</dams:eventDate>
-                <dams:type>object creation</dams:type>
+                <dams:type>record created</dams:type>
               </dams:DAMSEvent>
             </dams:event>
             <mads:elementList rdf:parseType="Collection">
@@ -3272,7 +3272,7 @@
             <dams:outcome>failure</dams:outcome>
             <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
             <dams:eventDate>2013-03-08T11:01:11-0800</dams:eventDate>
-            <dams:type>Bulk Solr Indexing</dams:type>
+            <dams:type>record indexed</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -3283,7 +3283,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
@@ -3321,7 +3321,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-11T09:55:52-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
       </rdf:description>
