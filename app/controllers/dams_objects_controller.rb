@@ -57,15 +57,15 @@ class DamsObjectsController < ApplicationController
   	@dams_licenses = get_objects('DamsLicense','note_tesim')
   	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
   		
-	#uri = URI('http://fast.oclc.org/fastSuggest/select')
-	#res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '10')
-	#json = JSON.parse(res.body)
-	#@jdoc = json.fetch("response").fetch("docs")
+	uri = URI('http://fast.oclc.org/fastSuggest/select')
+	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+	json = JSON.parse(res.body)
+	@jdoc = json.fetch("response").fetch("docs")
 	
-	#@autocomplete_items = Array.new
-	#@jdoc.each do |value|
-	#	@autocomplete_items << value['suggestall']
-	#end 
+	@autocomplete_items = Array.new
+	@jdoc.each do |value|
+		@autocomplete_items << value['suggestall']
+	end 
 	
   end
   
@@ -114,8 +114,17 @@ class DamsObjectsController < ApplicationController
   			@provenance_collection_id = col.pid
   		end  			
   	end
-  	
-  	 	 
+  	@simpleSubjectValue = @dams_object.topic.first.name.first if (!@dams_object.topic.nil? && !@dams_object.topic.first.nil?)
+
+	uri = URI('http://fast.oclc.org/fastSuggest/select')
+	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+	json = JSON.parse(res.body)
+	@jdoc = json.fetch("response").fetch("docs")
+	
+	@autocomplete_items = Array.new
+	@jdoc.each do |value|
+		@autocomplete_items << value['suggestall']
+	end   	 	 
   end
   
   def create	  

@@ -26,19 +26,19 @@
 
   <h3>Date</h3>
   <%= label_tag 'dams_provenance_collection[dateValue][]', "Date" %>
-  <%= text_field_tag 'dams_provenance_collection[dateValue][]', '', required: true %>
+  <%= text_field_tag 'dams_provenance_collection[dateValue][]' %>
   <%= label_tag 'dams_provenance_collection[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_provenance_collection[beginDate][]' %> 
   <%= label_tag 'dams_provenance_collection[endDate][]', "End Date" %>
   <%= text_field_tag 'dams_provenance_collection[endDate][]' %>    
 
   <h3>Language</h3> 
-  <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %> 
+  <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %> 
    <br>
 
   <h3>Note</h3>
   <%= label_tag 'dams_provenance_collection[noteValue][]', "Note"%>
-  <%= text_field_tag 'dams_provenance_collection[noteValue][]', '', required: true  %> 
+  <%= text_field_tag 'dams_provenance_collection[noteValue][]'%> 
 
   <%= label_tag 'dams_provenance_collection[noteType][]', "Note Type" %>
   <%= text_field_tag 'dams_provenance_collection[noteType][]' %> 
@@ -47,41 +47,42 @@
   <%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]' %> 
   
   <%= label_tag 'dams_provenance_collection[scopeContentNoteValue][]', "Scope Content Note" %>
-  <%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]' %>  
+  <%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', '', required: true %>  
 
   <%= label_tag 'dams_provenance_collection[scopeContentNoteType][]', "Scope Content Note Type" %>
   <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]' %> 
 
-   <h3>Relationship</h3>
+  <h3>Relationship</h3>
   <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
   <br>
   <%
      nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getName('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
+  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#relationshipName','relationshipNameURI','Name');"%>
 
   <div id="relationshipName"></div>
-   OR Enter Relationship Name
+   OR Enter new Relationship Name
    <%= text_field_tag 'dams_provenance_collection[relationshipNameValue][]' %>
 
-  <h3>Subject</h3>
+   <h3>Simple Subject</h3>
   <%
-  	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+     subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
-  <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collections',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %> 
-  <br>
+  <%#= label_tag 'dams_provenance_collection[subjectType][]', "Simple Subject" %>
+  <%#= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
+  <%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %>
+  <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %>  
   
-  <%= label_tag 'dams_provenance_collection[subjectValue][]', "Complex Subject" %>&nbsp;
-<div class="well2">
-<%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined complex subject " %> 
-<%=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
-</div>
-<br>
+   <h3>Complex Subject</h3>
+  <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
+  OR Enter new subject <%=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
+  <%#= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
+  <%#=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
   
   <h3>Related Resource</h3>
   <%= label_tag 'dams_provenance_collection[relatedResourceType][]', "Related Resource Type" %>
-  <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]' , '', required: true %>
+  <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]'%>
    <br>
 
    <%= label_tag 'dams_provenance_collection[relatedResourceUri][]', "Related Resource URI" %>
