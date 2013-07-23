@@ -45,7 +45,7 @@ end
 
 feature 'Visitor wants to create/edit a DAMS Object' do
 
-  scenario 'is on new DAMS Object page' do
+  scenario 'is on new DAMS Object Create page' do
     sign_in_developer
 
     visit dams_object_path('new')
@@ -55,26 +55,21 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "PartName", :with => "ep1"
     fill_in "PartNumber", :with => "999"
     fill_in "NonSort", :with => "this"
-    fill_in "dams_object_typeOfResource_", :with => "Mixed"
-    page.select('Library Digital Collections', match: :first) 
+    page.select('Research Data Curation Program', match: :first) 
     page.select('Historical Dissertations', match: :first) 
     fill_in "dams_object_dateValue_", :with => "07/15/2013"
     fill_in "Begin Date", :with => "07/11/2013"
     fill_in "End Date", :with => "07/15/2013"
-    fill_in "dams_object_noteValue_", :with => "Test object"
-    fill_in "Note Displaylabel", :with => "Tester"
-    fill_in "Scope Content Note", :with => "TestScope"
-    fill_in "Scope Content Note Type", :with => "Current Scope"
-    fill_in "Scope Content Note Display Label", :with => "Display This"
+    page.select('text', match: :first)
+    page.select('Test Language', match: :first)
     fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
+    page.select('under copyright')
     page.select('FOO', match: :first)
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
-
-#Add cartographics
 
     click_on "Save"
 
@@ -83,74 +78,83 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     expect(page).to have_selector('h1', :text => "Dams Test Object")
     expect(page).to have_selector('h2', :text => "New Object")
     expect(page).to have_selector('a', :text => "Historical Dissertations")
-    expect(page).to have_selector('a', :text => "Library Digital Collections")
+    expect(page).to have_selector('a', :text => "Research Data Curation Program")
     expect(page).to have_selector('li', :text => "07/15/2013")
-    expect(page).to have_selector('a', :text => "Mixed")
+    expect(page).to have_selector('a', :text => "Text")
 
-    expect(page).to have_selector('strong', :text => "TESTER")
-    expect(page).to have_selector('p', :text => "Test object")
     expect(page).to have_selector('p', :text => "foo")
     expect(page).to have_selector('a', :text => "Mathematician")
 
-    # click_on "Edit"
-    # fill_in "Title", :with => "Edit Dams Object"
-    # fill_in "Date", :with => "07/16/2013"
-    # fill_in "Subject", :with => "Science"
-    # click_on "Save changes"
+    click_on "Edit"
+    fill_in "dams_object_titleValue_", :with => "Edited Dams Object"
+    fill_in "dams_object_dateValue_", :with => "07/16/2013", match: :first
+    fill_in "dams_object_noteValue_", :with => "Science"
+    fill_in "Description", :with => "Student"
+    page.select('Library Digital Collections', match: :first)
+    click_on "Save"
 
-    # # Check that changes are saved
-    # expect(page).to have_selector('a', :text => "Science")
-    # expect(page).to have_selector('li', :text => "07/16/2013")
-    # expect(page).to have_selector('h1', :text => "Dams Test Object")
-    # expect(page).to have_selector('li', :text => "Test Scheme 2")
-    # expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
+    # Check that changes are saved
+    expect(page).to have_selector('p', :text => "Science")
+    expect(page).to have_selector('li', :text => "07/16/2013")
+    expect(page).to have_selector('h1', :text => "Edited Dams Object")
+    expect(page).to have_selector('a', :text => "Library Digital Collections")
+    expect(page).to have_selector('li', :text => "Student")
+
+    # Check Hydra View
+    click_on "Hydra View"
+    expect(page).to have_content("Begin Date: 07/11/2013")
+    expect(page).to have_content("Edited Dams Object")
+
+    click_on "New Object"
+    expect(current_path).to eq(dams_object_path('new'))
+
   end
 
-  # scenario 'is on the Object page to be edited' do
-  #   sign_in_developer
+  scenario 'is on the Object page to be edited' do
+    sign_in_developer
 
-  #   visit Path.path
-  #   click_on "Edit"
-  #   fill_in "Authoritative Label", :with => "Final Object"
-  #   fill_in "ExternalAuthority", :with => "http://finalobject.edu"
-  #   fill_in "ObjectElement", :with => "Everything"
-  #   page.select('Test Scheme', match: :first) 
-  #   click_on "Save changes"
-  #   expect(page).to have_selector('strong', :text => "Final Object")
-  #   expect(page).to have_selector('a', :text => "http://finalobject.edu")
-  #   expect(page).to have_selector('li', :text => "Everything")
-  #   expect(page).to have_selector('li', :text => "Test Scheme")
-  #   expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
-  # end
+    visit Path.path
+    click_on "Edit"
+    fill_in "dams_object_titleValue_", :with => "Final Dams Object"
+    fill_in "Note Displaylabel", :with => "Displays"
+    page.select('Test Language', match: :first)
+    page.select('still image', match: :first)
+
+
+    click_on "Save"
+    expect(page).to have_selector('h1', :text => "Final Dams Object")
+    expect(page).to have_selector('strong', :text => "DISPLAYS")
+    expect(page).to have_selector('li', :text => "Test Language")
+    expect(page).to have_selector('a', :text => "Still Image")
+  end
 
 end
 
-# feature 'Visitor wants to cancel unsaved objects' do
+feature 'Visitor wants to cancel unsaved objects' do
   
-#   scenario 'is on Edit Object page' do
-#     sign_in_developer
-#     visit Path.path
-#     expect(page).to have_selector('a', :text => "Edit")
-#     click_on "Edit"
-#     fill_in "Title", :with => "Nothing"
-#     fill_in "Date", :with => "07/16/2013"
-#     fill_in "Subject", :with => "Should not show"
-#     click_on "Cancel"
-#     expect(page).to_not have_content("Should not show")
-#     expect(page).to have_content("Dams Test Object")
-#   end
+  scenario 'is on Edit Object page' do
+    sign_in_developer
+    visit Path.path
+    expect(page).to have_selector('a', :text => "Edit")
+    click_on "Edit"
+    fill_in "Title", :with => "Nothing"
+    fill_in "Date", :with => "07/23/2013", match: :first
+    fill_in "dams_object_noteValue_", :with => "Should not show"
+    click_on "Cancel"
+    expect(page).to_not have_content("Should not show")
+    expect(page).to have_content("Final Dams Object")
+  end
 
-#   scenario 'is on Create Object page' do
-#     sign_in_developer
-#     visit dams_object_path('new')
-#     fill_in "dams_object_titleValue_", :with => "BROKEN"
-#     fill_in "dams_object_typeOfResource_", :with => "FAILURE"
-#     fill_in "dams_object_dateValue_", :with => "NO DATE"
-#     click_on "Cancel"
-#     expect(current_path).to eq('/dams_units')
-#   end
+  scenario 'is on Create Object page' do
+    sign_in_developer
+    visit dams_object_path('new')
+    fill_in "dams_object_titleValue_", :with => "BROKEN"
+    fill_in "dams_object_dateValue_", :with => "NO DATE"
+    click_on "Cancel"
+    expect(current_path).to eq('/dams_units')
+  end
 
-# end
+end
 
 def sign_in_developer
   visit new_user_session_path
