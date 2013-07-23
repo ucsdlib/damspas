@@ -80,7 +80,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-02-19T10:46:30-0800</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitName>Research Data Curation Program</dams:unitName>
@@ -93,7 +93,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-14T07:19:48-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -104,7 +104,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-02-19T12:56:09-0800</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
@@ -117,7 +117,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-14T07:21:05-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitGroup>dams-rci</dams:unitGroup>
@@ -325,7 +325,7 @@
             <dams:outcome>failure</dams:outcome>
             <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
             <dams:eventDate>2013-03-08T11:01:13-0800</dams:eventDate>
-            <dams:type>Bulk Solr Indexing</dams:type>
+            <dams:type>record indexed</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -336,7 +336,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-13T10:07:02-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:topic>
@@ -377,7 +377,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-08T11:01:12-0800</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:relationship>
@@ -718,7 +718,7 @@
             <dams:outcome>failure</dams:outcome>
             <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
             <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
-            <dams:type>Bulk Solr Indexing</dams:type>
+            <dams:type>record indexed</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -729,7 +729,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-08T11:01:09-0800</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <mads:elementList rdf:parseType="Collection">
@@ -807,7 +807,7 @@
     <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
     <dams:event>
       <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/zz07070707">
-        <dams:type>object creation inline event</dams:type>
+        <dams:type>record created</dams:type>
         <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
         <dams:outcome>success</dams:outcome>
         <dams:relationship>
@@ -826,7 +826,7 @@
            </dams:relationship>
            <dams:outcome>success</dams:outcome>
            <dams:eventDate>2013-03-11T08:48:40-0700</dams:eventDate>
-           <dams:type>object creation</dams:type>
+           <dams:type>record created</dams:type>
          </dams:DAMSEvent>
        </dams:event>  
                   

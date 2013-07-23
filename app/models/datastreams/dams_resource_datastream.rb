@@ -6,6 +6,34 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     super
   end
 
+def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
+    collections = []
+    [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
+      coltype.values.each do |col|
+        begin
+          # if we have usable metadata, use as-is
+          if col.title.first != nil
+            collections << col
+            colfound = true
+          end
+        rescue
+          colfound = false
+        end
+
+        if !colfound
+          # if we don't, find the pid and fetch colobj from repo
+          cpid = (col.class.name.include? "Collection") ? cpid = col.pid : col.to_s.gsub(/.*\//,'')
+          begin
+            collections << ActiveFedora::Base.find(cpid, :cast => true)
+          rescue
+            logger.warn "Couldn't load collection from repo: #{cpid}"
+          end
+        end
+      end
+    end
+    collections
+  end
+
  ## Language ##################################################################
   def load_languages
     load_languages(language)
@@ -28,7 +56,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     languages
   end
-
+   
   # tmp lang class
 #  class Language
 #    include ActiveFedora::RdfObject
@@ -45,6 +73,32 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 #      rdf_subject.to_s.gsub(/.*\//,'')
 #    end
 #  end
+
+
+ ## provenanceCollectionPart ##################################################################
+  def load_provenanceCollectionParts
+    load_provenanceCollectionParts(provenanceCollectionPart)
+  end
+  def load_provenanceCollectionParts(provenanceCollectionPart)
+    provenanceCollectionParts = []
+    begin
+      provenanceCollectionPart.each do |part|
+        if part.title.first != nil 
+          # use inline data if available
+          provenanceCollectionParts << part
+        elsif part.pid != nil
+          # load external records
+          provenanceCollectionParts << DamsProvenanceCollectionPart.find(part.pid)
+        end
+      end
+    rescue Exception => e
+      puts "trapping provenanceCollectionPart error"
+      puts e.backtrace
+    end
+    provenanceCollectionParts
+  end
+
+
 
   ## Subject ###################################################################
 
@@ -419,6 +473,21 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
+
+  # def insertProvenanceCollectionPartFields ( solr_doc, field, provenanceCollectionParts )
+  #   parts = load_provenanceCollectionParts provenanceCollectionParts
+  #   if parts != nil
+  #     n = 0
+  #     parts.map.each do |part|
+  #       n += 1
+
+  #       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
+  #       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
+  #     end
+  #   end
+  # end
+
+
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
 
     # relatedResource
@@ -524,6 +593,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # language
     insertLanguageFields solr_doc, "language", language
+    
+    # provenanceCollectionPart
+    #insertProvenanceCollectionPartFields solr_doc, "provenanceCollectionPart", provenanceCollectionPart
 
     # note
     insertNoteFields solr_doc, 'note',note
