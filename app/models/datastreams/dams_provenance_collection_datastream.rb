@@ -40,10 +40,14 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
     
     # collections
-    map.provenanceCollectionPart(:in => DAMS, :to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
-    
+    map.collection(:in => DAMS)
+    map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
+    map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
+    map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
+
+
     # child parts
-    map.part_node(:in=>DAMS,:to=>'hasPart',:class_name => 'DamsProvenanceCollectionPartInternal')
+    map.part_node(:in=>DAMS,:to=>'hasPart')
 
     # related collections
     map.relatedCollection(:in => DAMS)
@@ -51,41 +55,19 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     # related objects
     map.object(:in => DAMS, :to => 'hasObject', :class_name => 'DamsObject')
   end
-
-  # def load_part
-  #    if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
-  #      part_node.first
-  #    else
-  #     part_uri = part_node.first.to_s
-  #     part_pid = part_uri.gsub(/.*\//,'')
-  #     if part_pid != nil && part_pid != ""
-  #       DamsProvenanceCollectionPart.find(part_pid)
-  #     end
-  #   end
-  # end
  
-
- def load_parts
-    load_parts(part_node)
-  end
-  def load_parts(part_node)
-    part_nodes = []
-    begin
-      part_node.each do |part|
-        if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
-          # use inline data if available
-          part_nodes << part
-        elsif part.pid != nil
-          # load external records
-          part_nodes << DamsProvenanceCollectionPart.find(lang.pid)
-        end
+  def load_part
+     if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
+       part_node.first
+     else
+      part_uri = part_node.first.to_s
+      part_pid = part_uri.gsub(/.*\//,'')
+      if part_pid != nil && part_pid != ""
+        DamsProvenanceCollectionPart.find(part_pid)
       end
-    rescue Exception => e
-      puts "trapping part node error"
-      puts e.backtrace
     end
-    part_nodes
   end
+ 
 
  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
@@ -126,15 +108,15 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   end
 
   def to_solr (solr_doc = {})
-     Solrizer.insert_field(solr_doc, 'type', 'Collection')
-     Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
+    Solrizer.insert_field(solr_doc, 'type', 'Collection')
+    Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
     
-#     part = load_parts 
-#     if part != nil && part.class == DamsProvenanceCollectionPart
-#       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
-#       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
-#     end
+    part = load_part 
+    if part != nil && part.class == DamsProvenanceCollectionPart
+      Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
+      Solrizer.insert_field(solr_doc, 'part_id', part.pid)
+    end
 
-     super
-  end
+    super
+ end
 end

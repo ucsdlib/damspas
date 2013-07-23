@@ -2,7 +2,7 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
-  <%= text_field_tag 'dams_object[titleValue][]' %>
+  <%= text_field_tag 'dams_object[titleValue][]', '', required: true %>
   <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]' %>  
   <%= label_tag 'dams_object[titlePartName][]', "PartName" %>
@@ -18,9 +18,8 @@
     
   <h3>Type Of Resource</h3>  
   <%#= text_field_tag 'dams_object[typeOfResource][]' %>
-  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource" %> 
+  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %> 
   <h3>Date</h3>   
-  <%#= label_tag 'dams_object[dateValue][]', "Date" %>
   <%= text_field_tag 'dams_object[dateValue][]' %>
   <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_object[beginDate][]' %> 
@@ -28,7 +27,7 @@
   <%= text_field_tag 'dams_object[endDate][]' %>
     
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" %>
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: true%>
    
   <h3>Collection</h3>
   <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
@@ -36,7 +35,7 @@
   <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
           
   <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language" %>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %>
    
   <h3>Note</h3>
   <%= text_field_tag 'dams_object[noteValue][]' %> 
@@ -72,16 +71,17 @@
        
   <h3>Simple Subject</h3>
   <%
-  	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+  	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
   <%#= label_tag 'dams_object[subjectType][]', "Simple Subject" %>
   <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
   <%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
   <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_object[subjectTypeValue][]' %>  
+  <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
   
   <h3>Rights</h3>
-  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" %>
+  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: true %>
   <br>
   <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes) , :prompt=>"Select Statute" %>
   <br>
