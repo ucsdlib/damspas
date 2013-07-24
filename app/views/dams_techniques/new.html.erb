@@ -8,7 +8,7 @@
   <%= label_tag 'dams_technique[elementValue]', "TechniqueElement" %>
   <%= text_field_tag 'dams_technique[elementValue]' %> 
   <br>
-  <%= select_tag 'dams_technique[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= select_tag 'dams_technique[scheme]', options_for_select(@mads_schemes ) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

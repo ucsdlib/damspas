@@ -43,6 +43,9 @@ class Path
   @path = nil
 end
 
+
+# Need Test Language, Copyright, Select collection
+
 feature 'Visitor wants to create/edit a DAMS Object' do
 
   scenario 'is on new DAMS Object Create page' do
@@ -56,18 +59,16 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "PartNumber", :with => "999"
     fill_in "NonSort", :with => "this"
     page.select('Research Data Curation Program', match: :first) 
-    page.select('Historical Dissertations', match: :first) 
+    page.select('UCSD Electronic Theses and Dissertations', match: :first) 
     fill_in "dams_object_dateValue_", :with => "07/15/2013"
     fill_in "Begin Date", :with => "07/11/2013"
     fill_in "End Date", :with => "07/15/2013"
     page.select('text', match: :first)
-    page.select('Test Language', match: :first)
     fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
-    page.select('under copyright')
-    page.select('FOO', match: :first)
+    page.select('Test Copyright')
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
 
@@ -77,12 +78,11 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     Path.path = current_path
     expect(page).to have_selector('h1', :text => "Dams Test Object")
     expect(page).to have_selector('h2', :text => "New Object")
-    expect(page).to have_selector('a', :text => "Historical Dissertations")
+    expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
     expect(page).to have_selector('a', :text => "Research Data Curation Program")
     expect(page).to have_selector('li', :text => "07/15/2013")
     expect(page).to have_selector('a', :text => "Text")
-
-    expect(page).to have_selector('p', :text => "foo")
+    expect(page).to have_selector('strong', :text => "Test Copyright")
     expect(page).to have_selector('a', :text => "Mathematician")
 
     click_on "Edit"
@@ -117,14 +117,12 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     click_on "Edit"
     fill_in "dams_object_titleValue_", :with => "Final Dams Object"
     fill_in "Note Displaylabel", :with => "Displays"
-    page.select('Test Language', match: :first)
     page.select('still image', match: :first)
 
 
     click_on "Save"
     expect(page).to have_selector('h1', :text => "Final Dams Object")
     expect(page).to have_selector('strong', :text => "DISPLAYS")
-    expect(page).to have_selector('li', :text => "Test Language")
     expect(page).to have_selector('a', :text => "Still Image")
   end
 
