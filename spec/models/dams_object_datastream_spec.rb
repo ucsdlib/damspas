@@ -349,7 +349,7 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Yañez, Angélica María", "Personal Name 2", "Name 4", "Generic Name", "Generic Name Internal"]
+        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Yañez, Angélica María", "Personal Name 2", "Name 4", "Conference Name 2", "Family Name 2", "Generic Name", "Generic Name Internal"]
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]
@@ -410,10 +410,6 @@ END
         
         solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
 
-      end
-
-      it "should index events" do
-        solr_doc = subject.to_solr
         solr_doc["event_json_tesim"].first.should include '"pid":"bd0990660f","type":"object creation"' 
         solr_doc["event_json_tesim"].first.should include '"name":"dams:unknownUser","role":"dams:initiator"'
         
@@ -425,7 +421,7 @@ END
 
 	  it "should index relationship" do
 	  	solr_doc = subject.to_solr
-	  	solr_doc["relationship_json_tesim"].first.should include '"Repository":["Name 4","Personal Name 2","Scripps Institute of Oceanography, Geological Collections"]'
+	  	solr_doc["relationship_json_tesim"].first.should include '"Repository":["Conference Name 2","Family Name 2","Name 4","Personal Name 2","Scripps Institute of Oceanography, Geological Collections"]'
 	  end
 	  
       it "should index collection" do

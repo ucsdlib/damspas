@@ -39,7 +39,8 @@ class DamsEventDatastream < ActiveFedora::RdfxmlRDFDatastream
     names.sort.each do |n|
       Solrizer.insert_field(solr_doc, 'name', n )
     end
- # hack to strip "+00:00" from end of dates, because that makes solr barf
+
+    # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
       if solr_doc[f].kind_of?(Array)
         solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')

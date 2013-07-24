@@ -80,7 +80,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-02-19T10:46:30-0800</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitName>Research Data Curation Program</dams:unitName>
@@ -93,7 +93,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-14T07:19:48-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -104,7 +104,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-02-19T12:56:09-0800</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
@@ -117,7 +117,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-14T07:21:05-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:unitGroup>dams-rci</dams:unitGroup>
@@ -373,7 +373,7 @@
             <dams:outcome>failure</dams:outcome>
             <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
             <dams:eventDate>2013-03-08T11:01:13-0800</dams:eventDate>
-            <dams:type>Bulk Solr Indexing</dams:type>
+            <dams:type>record indexed</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -384,7 +384,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-13T10:07:02-0700</dams:eventDate>
-            <dams:type>object modification</dams:type>
+            <dams:type>record edited</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:topic>
@@ -425,7 +425,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-08T11:01:12-0800</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:relationship>
@@ -686,7 +686,61 @@
             </dams:name>
           </dams:Relationship>
         </dams:relationship>
-              
+
+       <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+           <dams:conferenceName>
+              <mads:ConferenceName rdf:about="http://library.ucsd.edu/ark:/20775/xx12121212">
+                <mads:authoritativeLabel>Conference Name 2</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Conference Name 2</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:ConferenceName>
+            </dams:conferenceName>
+          </dams:Relationship>
+        </dams:relationship>
+       <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+           <dams:familyName>
+              <mads:FamilyName rdf:about="http://library.ucsd.edu/ark:/20775/zz12121212">
+                <mads:authoritativeLabel>Family Name 2</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Family Name 2</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:FamilyName>
+            </dams:familyName>
+          </dams:Relationship>
+        </dams:relationship>                      
     <dams:rightsHolder>
       <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb09090909">
         <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>
@@ -711,7 +765,7 @@
             <dams:outcome>failure</dams:outcome>
             <dams:outcomeNote>java.io.IOException: Solr add failed</dams:outcomeNote>
             <dams:eventDate>2013-03-08T11:01:10-0800</dams:eventDate>
-            <dams:type>Bulk Solr Indexing</dams:type>
+            <dams:type>record indexed</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <dams:event>
@@ -722,7 +776,7 @@
             </dams:relationship>
             <dams:outcome>success</dams:outcome>
             <dams:eventDate>2013-03-08T11:01:09-0800</dams:eventDate>
-            <dams:type>object creation</dams:type>
+            <dams:type>record created</dams:type>
           </dams:DAMSEvent>
         </dams:event>
         <mads:elementList rdf:parseType="Collection">
@@ -798,15 +852,15 @@
 	  </dams:Cartographics>  
     </dams:cartographics>    
     <dams:event>
-      <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0990660f">
-        <dams:relationship rdf:parseType="Resource">
-          <dams:role rdf:resource="dams:initiator"/>
-          <dams:name rdf:resource="dams:unknownUser"/>
-        </dams:relationship>
-        <dams:outcome>success</dams:outcome>
-        <dams:eventDate>2013-03-11T08:48:40-0700</dams:eventDate>
-        <dams:type>object creation</dams:type>
-      </dams:DAMSEvent>
-    </dams:event>  
+       <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd0990660f">
+         <dams:relationship rdf:parseType="Resource">
+           <dams:role rdf:resource="dams:initiator"/>
+           <dams:name rdf:resource="dams:unknownUser"/>
+         </dams:relationship>
+         <dams:outcome>success</dams:outcome>
+         <dams:eventDate>2013-03-11T08:48:40-0700</dams:eventDate>
+         <dams:type>record created</dams:type>
+       </dams:DAMSEvent>
+     </dams:event>  
   </dams:Object>
 </rdf:RDF>
