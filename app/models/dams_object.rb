@@ -10,7 +10,7 @@ class DamsObject < ActiveFedora::Base
                               :cartographicPoint, :cartographicLine, :cartographicPolygon, :cartographicProjection, :cartographicRefSystem, :cartographicScale,
                               :copyrightURI, :statuteURI, :otherRightsURI, :licenseURI, :rightsHolderURI, :temporal, :builtWorkPlace, :culturalContext,
                               :function, :genreForm, :geographic, :iconography, :occupation, :scientificName, :stylePeriod, :technique,
-                              :name, :conferenceName, :corporateName, :familyName, :personalName ]
+                              :name, :conferenceName, :corporateName, :familyName, :personalName, :provenanceCollectionPart, :provenanceCollectionPartURI ]
 
   # rights metadata
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata

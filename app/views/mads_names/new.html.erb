@@ -17,7 +17,7 @@
   <%= label_tag 'mads_name[termOfAddressValue]', "TermOfAddressElement" %>
   <%= text_field_tag 'mads_name[termOfAddressValue]' %>         
   <br>
-  <%= select_tag 'mads_name[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= select_tag 'mads_name[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

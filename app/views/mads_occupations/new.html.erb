@@ -8,7 +8,7 @@
   <%= label_tag 'mads_occupation[elementValue]', "OccupationElement" %>
   <%= text_field_tag 'mads_occupation[elementValue]' %> 
   <br>
-  <%= select_tag 'mads_occupation[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= select_tag 'mads_occupation[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
