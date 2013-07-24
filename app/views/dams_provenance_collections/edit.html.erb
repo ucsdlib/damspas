@@ -36,21 +36,6 @@
 
 <%= label_tag 'dams_provenance_collection[scopeContentNoteType]', "Scope Content Note Type" %>
 <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]', @dams_provenance_collection.scopeContentNoteType[0], class: "input-block-level" %>
-
-
-<!--<h3>Subject</h3>-->
-<%
-subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
-%>
-<%#= label_tag 'dams_provenance_collection[subjectType]', "Simple Subject" %>
-<%#= select_tag "dams_provenance_collection[subjectType][]", options_for_select(subjectTypeArray, $selected_option) %>
-<%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]', @dams_provenance_collection.subjectTypeValue %> 
-
-
-
-<%#= label_tag 'dams_provenance_collection[subjectValue]', "Complex Subject" %>
-<%#= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select predefined complex subject " %> 
-<%#=text_field_tag 'dams_provenance_collection[subjectValue][]', @dams_provenance_collection.subjectValue %>
 <br>
 
 <h3>Related Resource</h3>
@@ -85,14 +70,11 @@ subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "Cu
   <%
   	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
-  <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"><%= select_tag 'dams_provenance_collection[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
-  <%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]', @dams_provenance_collection.subjectTypeValue[0] , class: "input-block-level" %>  
     
-  <%# @dams_provenance_collection.subject.each_with_index do |s,i| %>
-  	<%#= label_tag "dams_provenance_collection_subject_#{i}", "Subject" %>
-  		<%#= text_field_tag "dams_provenance_collection[subject][]", s.name, :id => "dams_provenance_collection_subject_#{i}", class: "input-block-level"  %>
-  <%# end %>
+  <input id="dams_provenance_collection_subjectTypeValue_" name="dams_provenance_collection[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
+  
 
 
 <%=f.submit "Save", class: "btn btn-primary" %>
