@@ -1,5 +1,6 @@
 class DamsFunctionsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
 
@@ -31,14 +32,16 @@ class DamsFunctionsController < ApplicationController
 
   def new
     #Check schemes ####################################################################
-    @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
     @dams_function = DamsFunction.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
-    @scheme_id = @dams_function.scheme.to_s.gsub /.*\//, ""
-    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    if(@dams_function.scheme != nil)
+    	@scheme_id = @dams_function.scheme.to_s.gsub /.*\//, ""
+    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
+    end   
   end
 
   def create
