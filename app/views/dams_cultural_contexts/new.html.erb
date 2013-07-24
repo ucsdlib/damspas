@@ -8,7 +8,8 @@
   <%= label_tag 'dams_cultural_context[elementValue]', "CulturalContextElement" %>
   <%= text_field_tag 'dams_cultural_context[elementValue]' %> 
   <br>
-  <%= select_tag 'dams_cultural_context[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= select_tag 'dams_cultural_context[scheme]', options_for_select(@mads_schemes ) , :prompt=>"Select MadsScheme" %>    
+   
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

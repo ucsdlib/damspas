@@ -16,7 +16,8 @@
 			<%= text_field_tag 'dams_technique[externalAuthority][]', @dams_technique.externalAuthority, class: "input-block-level" %>
 
 			<%= label_tag 'dams_technique[scheme][]', "scheme" %>
-			<%= select_tag 'dams_technique[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= select_tag 'dams_technique[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
+
 			<%= label_tag 'dams_technique[elementValue][]', "TechniqueElement" %>
 			<%= text_field_tag 'dams_technique[elementValue][]', @dams_technique.elementValue, class: "input-block-level" %>
 							
