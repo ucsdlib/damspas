@@ -9,7 +9,7 @@ describe MadsLanguage do
     subject.name = "French"
     subject.code = "fre"
     subject.externalAuthority = "http://id.loc.gov/vocabulary/languages/fre"
-    subject.elementListValue = "French"
+    subject.elementValue = "French"
     subject.scheme = "bd71341600"
     xml =<<END
 <rdf:RDF

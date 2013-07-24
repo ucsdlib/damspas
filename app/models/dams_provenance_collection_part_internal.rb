@@ -4,7 +4,7 @@ class DamsProvenanceCollectionPartInternal
     include DamsHelper
     rdf_type DAMS.ProvenanceCollectionPart
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-  map_predicates do |map|
+    map_predicates do |map|
     map.title(:in => DAMS, :class_name => 'MadsTitle')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
@@ -56,5 +56,7 @@ class DamsProvenanceCollectionPartInternal
   def pid
       rdf_subject.to_s.gsub(/.*\//,'')
   end
+
+  
 
 end

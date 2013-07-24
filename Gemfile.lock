@@ -1,3 +1,19 @@
+GIT
+  remote: git@github.com:escowles/active_fedora.git
+  revision: f679a6416829430c1452244e4808b70bc5adedce
+  branch: duplicate_rdfrest
+  specs:
+    active-fedora (6.4.3)
+      activesupport (>= 3.0.0)
+      deprecation
+      mediashelf-loggable
+      nom-xml (>= 0.5.1)
+      om (~> 3.0.0)
+      rdf
+      rdf-rdfxml (= 1.0.1)
+      rsolr
+      rubydora (~> 1.6, >= 1.6.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -14,16 +30,6 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
-    active-fedora (6.3.0)
-      activesupport (>= 3.0.0)
-      deprecation
-      mediashelf-loggable
-      nom-xml (>= 0.5.1)
-      om (~> 2.1.0)
-      rdf
-      rdf-rdfxml (~> 1.0.0)
-      rsolr
-      rubydora (~> 1.6, >= 1.6.5)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -147,13 +153,13 @@ GEM
       activesupport
       i18n
       nokogiri
-    om (2.1.0)
+    om (3.0.3)
       activemodel
       activesupport
       deprecation
       mediashelf-loggable
       nokogiri (>= 1.4.2)
-      solrizer (~> 3.0.0)
+      solrizer (~> 3.1.0)
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
@@ -234,7 +240,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    solrizer (3.0.0)
+    solrizer (3.1.1)
       activesupport
       daemons
       mediashelf-loggable (~> 0.4.7)
@@ -277,7 +283,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-fedora
+  active-fedora!
   blacklight
   blacklight_advanced_search
   bootstrap-sass
@@ -297,7 +303,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   simplecov
-  solrizer (= 3.0.0)
+  solrizer
   solrizer-fedora (= 3.0.0.pre1)
   sqlite3
   therubyracer (= 0.11.4)

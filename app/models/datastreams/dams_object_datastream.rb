@@ -13,7 +13,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # subjects
     map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
-    map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
+    map.complexSubject(:in => DAMS )#, :class_name => 'MadsComplexSubjectInternal')
     map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
     map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
     map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
@@ -32,22 +32,22 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
     map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
     map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
-    map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
+    map.personalName(:in => DAMS)#, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # unit and collections
-    map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
+    map.unit(:in => DAMS, :to=>'unit')# :class_name => 'DamsUnitInternal')
     map.collection(:in => DAMS)
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
     map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
 
     # components and files
-    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
-    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
+    map.component(:in => DAMS, :to=>'hasComponent')#, :class_name => 'Component')
+    map.file(:in => DAMS, :to=>'hasFile' )#, :class_name => 'DamsFile')
 
     # rights
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
@@ -68,16 +68,6 @@ class DamsObjectDatastream < DamsResourceDatastream
   
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
-    if(!@subURI.nil?)
-      if new?
-        @array_subject.each do |sub|
-        	graph.insert([rdf_subject, DAMS.subject, sub])
-        end
-        #graph.insert([rdf_subject, DAMS.subject, @subURI])
-      else
-        graph.update([rdf_subject, DAMS.subject, @subURI])
-      end
-    end  
 	if(!@unitURI.nil?)
       if new?
         graph.insert([rdf_subject, DAMS.unit, @unitURI])
@@ -105,16 +95,83 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
       end
-    end                   
+    end
+   if(!@provenanceCollPartURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
+      else
+        graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
+      end
+    end          
+    insertSubjectsGraph
+    insertCopyRightsInfoGraph                        
     super
   end
 
+  def insertCopyRightsInfoGraph
+	if(!@rightURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.copyright, @rightURI])
+      else
+        graph.update([rdf_subject, DAMS.copyright, @rightURI])
+      end
+    end    
+	if(!@statURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.statute, @statURI])
+      else
+        graph.update([rdf_subject, DAMS.statute, @statURI])
+      end
+    end   
+	if(!@otherCopyRightURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.otherRights, @otherCopyRightURI])
+      else
+        graph.update([rdf_subject, DAMS.otherRights, @otherCopyRightURI])
+      end
+    end   
+	if(!@licenURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.license, @licenURI])
+      else
+        graph.update([rdf_subject, DAMS.license, @licenURI])
+      end
+    end   
+	if(!@holderURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.rightsHolder, @holderURI])
+      else
+        graph.update([rdf_subject, DAMS.rightsHolder, @holderURI])
+      end
+    end                     
+  end
+  
+  def insertSubjectsGraph
+    if(!@subURI.nil?)
+      if new?
+        @array_subject.each do |sub|
+        	graph.insert([rdf_subject, DAMS.subject, sub])
+        end
+        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+      else
+        graph.update([rdf_subject, DAMS.subject, @subURI])
+      end
+    end    
+	if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      end
+    end     
+  end
+  
   def load_unit(unit)
-	if !unit.values.first.nil?
-	    u_pid = unit.values.first.pid
+	if !unit.first.nil?
+	    u_pid = unit.first.pid
 	    
-	    if !unit.values.first.name.first.nil? && unit.values.first.name.first.to_s.length > 0
-	      unit.values.first
+	    if !unit.first.name.first.nil? && unit.first.name.first.to_s.length > 0
+	      unit.first
 	    else
 	      DamsUnit.find(u_pid)
 	    end
@@ -127,7 +184,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
-      coltype.values.each do |col|
+      coltype.each do |col|
         begin
           # if we have usable metadata, use as-is
           if col.title.first != nil
@@ -153,10 +210,10 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
   
   def load_copyright ( copyright )
-	if !copyright.values.first.nil?
-	    c_pid = copyright.values.first.pid
-	    if !copyright.values.first.status.first.nil? && copyright.values.first.status.to_s.length > 0
-	      copyright.values.first
+	if !copyright.first.nil?
+	    c_pid = copyright.first.pid
+	    if !copyright.first.status.first.nil? && copyright.first.status.to_s.length > 0
+	      copyright.first
 	    else
 	      DamsCopyright.find(c_pid)
 	    end
@@ -168,11 +225,11 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_license(license)
   end
   def load_license (license)
-	if !license.values.first.nil?
-	    l_pid = license.values.first.pid
+	if !license.first.nil?
+	    l_pid = license.first.pid
 	    
-	    if (!license.values.first.note.first.nil? && license.values.first.note.first.length > 0) || ( !license.values.first.uri.first.nil? && license.values.first.uri.first.to_s.length > 0)
-	      license.values.first
+	    if (!license.first.note.first.nil? && license.first.note.first.length > 0) || ( !license.first.uri.first.nil? && license.first.uri.first.to_s.length > 0)
+	      license.first
 	    else
 	      DamsLicense.find(l_pid)
 	    end
@@ -182,10 +239,10 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_statute(statute)
   end
   def load_statute (statute)    
-	if !statute.values.first.nil?
-	    s_pid = statute.values.first.pid
-	    if !statute.values.first.citation.first.nil? && statute.values.first.citation.first.to_s.length > 0
-	      statute.values.first
+	if !statute.first.nil?
+	    s_pid = statute.first.pid
+	    if !statute.first.citation.first.nil? && statute.first.citation.first.to_s.length > 0
+	      statute.first
 	    else
 	      DamsStatute.find(s_pid)
 	    end
@@ -205,7 +262,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
 
   def load_sourceCapture(sourceCapture)
-    uri = sourceCapture.values.first.to_s
+    uri = sourceCapture.first.to_s
     pid = uri.gsub(/.*\//,'')
     if pid != nil && pid != ""
       obj = DamsSourceCapture.find(pid)
@@ -215,8 +272,11 @@ class DamsObjectDatastream < DamsResourceDatastream
     end
   end
 
+  def rightsHolder
+    rightsHolderPersonal.concat(rightsHolderCorporate)
+  end
   def load_rightsHolders
-    load_rightsHolders(rightsHolderPersonal.concat(rightsHolderCorporate))
+    load_rightsHolders(rightsHolder)
   end
   def load_rightsHolders(rightsHolder)
     rightsHolders = []
@@ -309,7 +369,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       lic_json = {
         :id => lic.pid,
         :note => lic.note.first.to_s,
-        :uri => lic.uri.values.first.to_s,
+        :uri => lic.uri.first.to_s,
         :permissionType => lic.permissionType.first.to_s,
         :permissionBeginDate => lic.permissionBeginDate.first.to_s,
         :permissionEndDate => lic.permissionEndDate.first.to_s,

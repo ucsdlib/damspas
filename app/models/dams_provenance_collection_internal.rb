@@ -4,7 +4,7 @@ class DamsProvenanceCollectionInternal
     include DamsHelper
     rdf_type DAMS.ProvenanceCollection
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-  map_predicates do |map|
+    map_predicates do |map|
     map.title(:in => DAMS, :class_name => 'MadsTitle')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     
@@ -55,7 +55,7 @@ class DamsProvenanceCollectionInternal
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # collections
-    map.provenanceCollectionPart(:in => DAMS, :to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
+    map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
     
     # child parts
     map.part_node(:in=>DAMS,:to=>'hasPart')
@@ -70,15 +70,7 @@ class DamsProvenanceCollectionInternal
   def pid
       rdf_subject.to_s.gsub(/.*\//,'') 
   end
-  def load_part
-    part_uri = part_node.values.first.to_s
-    part_pid = part_uri.gsub(/.*\//,'')
-    if part_pid != nil && part_pid != ""
-      DamsProvenanceCollectionPart.find(part_pid)
-    else
-      nil
-    end
-  end
+  
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 

@@ -54,14 +54,10 @@ describe MadsLanguageDatastream do
       
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["scheme_name_tesim"].should == ["ISO 639 languages"]
+        solr_doc["scheme_name_tesim"].should == ["ISO 639 Languages"]
         solr_doc["language_element_tesim"].should == ["French"]
       end   
 
-      it "should have a scheme" do
-        subject.scheme.name.should == ["ISO 639 languages"]
-      end
-          
     end
   end
 end
