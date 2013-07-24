@@ -10,12 +10,12 @@
 			<%= label_tag 'mads_complex_subject[name][]', "Authoritative Label" %>
 			<%= text_field_tag 'mads_complex_subject[name][]', @mads_complex_subject.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_complex_subject[authority][]', "Authority" %>
-			<%= text_field_tag 'mads_complex_subject[authority][]', @mads_complex_subject.authority[0], class: "input-block-level" %>
-
-			<%= label_tag 'mads_complex_subject[valueURI][]', "URI" %>
-			<%= text_field_tag 'mads_complex_subject[valueURI][]', @mads_complex_subject.valueURI, class: "input-block-level" %>
- 			
+			<%= label_tag 'mads_complex_subject[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_complex_subject[externalAuthority][]', @mads_complex_subject.externalAuthority, class: "input-block-level" %>
+ 
+   			<br>
+  				<%= select_tag 'mads_complex_subject[scheme]', options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>    
+  			<br>			
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-link pull-right" %>

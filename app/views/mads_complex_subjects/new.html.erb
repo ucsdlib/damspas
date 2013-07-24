@@ -6,7 +6,7 @@
   <%= label_tag 'mads_complex_subject[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_complex_subject[externalAuthority]' %>
   <br>
-  <%= select_tag 'mads_complex_subject[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= select_tag 'mads_complex_subject[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
   <br>
   
   <%=f.submit "Submit", class: "btn btn-primary" %>

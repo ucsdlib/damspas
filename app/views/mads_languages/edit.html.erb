@@ -3,7 +3,8 @@
   <%= label_tag 'mads_language[code]', "Code" %><%= text_field_tag 'mads_language[code][]', @mads_language.code[0] %>
   <%= label_tag 'mads_language[name]', "Name" %><%= text_field_tag 'mads_language[name][]', @mads_language.name[0] %>
   <%= label_tag 'mads_language[scheme]', "Scheme" %>
-  <%= select_tag 'mads_language[scheme]', options_from_collection_for_select(@mads_schemes, :id, :name, :selected => @scheme_id ) %>  
+  <%= select_tag 'mads_language[scheme]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
+  <%= label_tag 'mads_language[elementListValue]', "Language Element" %><%= text_field_tag 'mads_language[elementListValue]',@mads_language.elementListValue %>  
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", @mads_language, class: "btn btn-primary" %>
