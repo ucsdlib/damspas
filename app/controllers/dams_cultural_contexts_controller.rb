@@ -37,11 +37,10 @@ class DamsCulturalContextsController < ApplicationController
   def edit
     @dams_cultural_context = DamsCulturalContext.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@dams_technique.scheme != nil)
-      @scheme_id = @dams_technique.scheme.to_s.gsub /.*\//, ""
+    if(@dams_cultural_context.scheme != nil)
+      @scheme_id = @dams_cultural_context.scheme.to_s.gsub /.*\//, ""
       #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
     end   
-  end
   end
 
   def create
