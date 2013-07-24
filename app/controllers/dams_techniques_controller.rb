@@ -42,7 +42,6 @@ class DamsTechniquesController < ApplicationController
       @scheme_id = @dams_technique.scheme.to_s.gsub /.*\//, ""
       #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
     end   
-  end 
   end
 
   def create
