@@ -16,7 +16,7 @@
 			<%= text_field_tag 'mads_personal_name[externalAuthority][]', @mads_personal_name.externalAuthority, class: "input-block-level" %>
 
 			<%= label_tag 'mads_personal_name[scheme][]', "scheme" %>
-			<%= select_tag 'mads_personal_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= select_tag 'mads_personal_name[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
 			<%= label_tag 'mads_personal_name[fullNameValue][]', "FullNameElement" %>
 			<%= text_field_tag 'mads_personal_name[fullNameValue][]', @mads_personal_name.fullNameValue, class: "input-block-level" %>
 			<%= label_tag 'mads_personal_name[familyNameValue][]', "FamilyNameElement" %>

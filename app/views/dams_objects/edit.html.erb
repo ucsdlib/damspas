@@ -3,6 +3,7 @@
 
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
+  <%= @provenance_collection_part_id %>
   <%= text_field_tag 'dams_object[titleValue][]', @dams_object.titleValue, class: "input-block-level" , required: true%>
   <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]', @dams_object.subtitle, class: "input-block-level" %>    
@@ -34,6 +35,8 @@
   <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections, :selected => @assembled_collection_id) , :prompt=>"Select Collection"%> 
   <%= label_tag 'dams_object[provenanceCollectionURI][]', "Provenance Collection" %> 
   <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection" %>
+  <%= label_tag 'dams_object[provenanceCollectionPartURI][]', "Provenance Collection Part" %>
+  <%= select_tag 'dams_object[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts, :selected => @provenance_collection_part_id) , :prompt=>"Select Provenance Collection Part", :style => "width:250px" %>  
            
   <h3>Language</h3>
   <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language", required: true%>

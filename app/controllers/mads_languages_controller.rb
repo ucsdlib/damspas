@@ -1,5 +1,6 @@
 class MadsLanguagesController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
 
@@ -27,14 +28,14 @@ class MadsLanguagesController < ApplicationController
     end
   end
   def new
-	@mads_schemes = MadsScheme.find(:all)
+	@mads_schemes = get_objects('MadsScheme','name_tesim')
   end
   def edit
     #@scheme_id = @mads_language.scheme.first.to_s.gsub /.*\//, ""
     if(@mads_language.scheme != nil)
     	@scheme_id = @mads_language.scheme.pid
     end
-    @mads_schemes = MadsScheme.find(:all)
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def create

@@ -2,7 +2,7 @@
 <%= form_for @mads_language do |f| %>
   <%= label_tag 'mads_language[code]', "Code" %><%= text_field_tag 'mads_language[code]' %>
   <%= label_tag 'mads_language[name]', "Name" %><%= text_field_tag 'mads_language[name]' %>
-  <%= label_tag 'mads_language[scheme]', "MADS Scheme" %><%= f.select(:scheme, options_from_collection_for_select(@mads_schemes, :id, :name) , :prompt => 'Select Scheme') %>
+  <%= label_tag 'mads_language[scheme]', "MADS Scheme" %><%= f.select(:scheme, options_for_select(@mads_schemes) , :prompt => 'Select Scheme') %>
   <%= label_tag 'mads_language[elementListValue]', "Language Element" %><%= text_field_tag 'mads_language[elementListValue]' %>
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>

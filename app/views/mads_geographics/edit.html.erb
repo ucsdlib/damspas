@@ -16,10 +16,9 @@
 			<%= text_field_tag 'mads_geographic[externalAuthority][]', @mads_geographic.externalAuthority, class: "input-block-level" %>
 
 			<%= label_tag 'mads_geographic[scheme][]', "scheme" %>
-			<%= select_tag 'mads_geographic[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= select_tag 'mads_geographic[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
 			<%= label_tag 'mads_geographic[elementValue][]', "GeographicElement" %>
-			<%= text_field_tag 'mads_geographic[elementValue][]', @mads_geographic.elementValue, class: "input-block-level" %>
-				
+			<%= text_field_tag 'mads_geographic[elementValue][]', @mads_geographic.elementValue, class: "input-block-level" %>	
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_geographic_path(@mads_geographic), class: "btn btn-link pull-right" %>

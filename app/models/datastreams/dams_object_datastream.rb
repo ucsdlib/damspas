@@ -94,7 +94,14 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
       end
-    end  
+    end
+   if(!@provenanceCollPartURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
+      else
+        graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
+      end
+    end          
     insertSubjectsGraph
     insertCopyRightsInfoGraph                        
     super

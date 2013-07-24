@@ -1,5 +1,6 @@
 class MadsTemporalsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
 
@@ -30,14 +31,16 @@ class MadsTemporalsController < ApplicationController
   end
 
   def new
-	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+	@mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
     @mads_temporal = MadsTemporal.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
-    @scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, ""
-    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first     
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    if(@mads_temporal.scheme != nil)
+    	@scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, ""
+    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
+    end    
   end
 
   def create
