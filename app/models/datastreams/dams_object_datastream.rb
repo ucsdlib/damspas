@@ -13,7 +13,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     # subjects
     map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
-    map.complexSubject(:in => DAMS )#, :class_name => 'MadsComplexSubjectInternal')
+    map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
     map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
     map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
     map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
@@ -32,22 +32,22 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
     map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
     map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
-    map.personalName(:in => DAMS)#, :class_name => 'MadsPersonalNameInternal')
+    map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
     map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # unit and collections
-    map.unit(:in => DAMS, :to=>'unit')# :class_name => 'DamsUnitInternal')
+    map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
     map.collection(:in => DAMS)
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
     map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
 
     # components and files
-    map.component(:in => DAMS, :to=>'hasComponent')#, :class_name => 'Component')
-    map.file(:in => DAMS, :to=>'hasFile' )#, :class_name => 'DamsFile')
+    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
+    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
     # rights
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
