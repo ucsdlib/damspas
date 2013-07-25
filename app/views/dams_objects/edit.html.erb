@@ -3,7 +3,6 @@
 
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
-  <%= @provenance_collection_part_id %>
   <%= text_field_tag 'dams_object[titleValue][]', @dams_object.titleValue, class: "input-block-level" , required: true%>
   <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]', @dams_object.subtitle, class: "input-block-level" %>    

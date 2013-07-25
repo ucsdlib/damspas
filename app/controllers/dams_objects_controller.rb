@@ -119,7 +119,7 @@ class DamsObjectsController < ApplicationController
   			@provenance_collection_id = col.pid
   		end  			
   	end
-  	@simpleSubjectValue = @dams_object.topic.first.name.first if (!@dams_object.topic.nil? && !@dams_object.topic.first.nil?) #TO DO - suport other simple subject type
+	@simpleSubjectValue = get_simple_subject_value(@dams_object)
 
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
 	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
