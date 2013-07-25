@@ -48,7 +48,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     # components and files
     map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
     #map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => 'DamsComponent')
-    map.file(:in => DAMS, :to=>'hasFile')#, :class_name => 'File')
+    map.file(:in => DAMS, :to=>'hasFile', :class_name => 'File')
 
     # rights
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')

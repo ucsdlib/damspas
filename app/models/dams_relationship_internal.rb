@@ -6,7 +6,7 @@ class DamsRelationshipInternal
     map_predicates do |map|
       map.name(:in=> DAMS, :class_name => 'MadsNameInternal')
       map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')       
-      map.personalName(:in => DAMS, :class_name => 'MadsPersonalName')
+      map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
       map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')   
       map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')      
       map.role(:in=> DAMS, :class_name => 'MadsAuthorityInternal')
