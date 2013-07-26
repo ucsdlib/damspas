@@ -9,8 +9,6 @@
   <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %>  
   <br>
 
- 
-
   <h3>Title</h3>
   <%= label_tag 'dams_provenance_collection[titleValue][]', "Title" %>
   <%= text_field_tag 'dams_provenance_collection[titleValue][]', '', required: true %>
@@ -72,7 +70,8 @@
   <%#= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
   <%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %>
   <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %>  
+  <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <input id="dams_provenance_collection_subjectTypeValue_" name="dams_provenance_collection[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>   
   
    <h3>Complex Subject</h3>
   <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
