@@ -6,8 +6,9 @@ gem 'blacklight_advanced_search' #, '2.0.0'
 gem 'solrizer-fedora' , '3.0.0.pre1' # PRE-LOCK
 gem 'solrizer' #, '3.0.0'
 gem 'hydra-head' #, "6.0.0"
-#gem 'active-fedora' #, "6.0.0"
-gem "active-fedora", :git => "git@github.com:escowles/active_fedora.git", :branch => 'duplicate_rdfrest'
+gem 'active-fedora' #, "6.0.0"
+#gem "active-fedora", :git => "git@github.com:projecthydra/active_fedora.git"
+#gem "active-fedora", :git => "git@github.com:escowles/active_fedora.git", :branch => 'duplicate_rdfrest'
 
 gem 'sqlite3' #, '1.3.7'
 
