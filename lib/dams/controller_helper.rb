@@ -77,18 +77,8 @@ module Dams
 	  	elsif !object.stylePeriod[0].nil?
 	  		type = "MadsStylePeriod" 	  	
 	  	elsif !object.technique[0].nil?
-	  		type = "DamsTechnique" 	  	 		  		
-	  	elsif !object.name[0].nil?
-	  		type = "MadsName" 	  	
-	  	elsif !object.conferenceName[0].nil?
-	  		type = "MadsConferenceName" 	  	
-	  	elsif !object.corporateName[0].nil?
-	  		type = "MadsCorporateName" 	  	  	
-	  	elsif !object.personalName[0].nil?
-	  		type = "MadsPersonalName" 
-	  	elsif !object.familyName[0].nil?
-	  		type = "MadsFamilyName" 	
-	  	end
+	  		type = "DamsTechnique"
+	  	end 	  	 		  		
 		type   
     end
     
@@ -117,17 +107,7 @@ module Dams
 	  	elsif !object.stylePeriod[0].nil?
 	  		id = object.stylePeriod.to_s.gsub(/.*\//,'')[0..9] 	  	
 	  	elsif !object.technique[0].nil?
-	  		id = object.technique.to_s.gsub(/.*\//,'')[0..9] 	  	 		  		
-	  	elsif !object.name[0].nil?
-	  		id = object.name.to_s.gsub(/.*\//,'')[0..9]	  	
-	  	elsif !object.conferenceName[0].nil?
-	  		id = object.conferenceName.to_s.gsub(/.*\//,'')[0..9]	  	
-	  	elsif !object.corporateName[0].nil?
-	  		id = object.corporateName.to_s.gsub(/.*\//,'')[0..9] 	  	  	
-	  	elsif !object.personalName[0].nil?
-	  		id = object.personalName.to_s.gsub(/.*\//,'')[0..9] 
-	  	elsif !object.familyName[0].nil?
-	  		id = object.familyName.to_s.gsub(/.*\//,'')[0..9] 	
+	  		id = object.technique.to_s.gsub(/.*\//,'')[0..9]
 	  	end
 		id   
     end
@@ -158,7 +138,45 @@ module Dams
 	  		value = object.stylePeriod.first.name.first 	  	
 	  	elsif !object.technique[0].nil?
 	  		value = object.technique.first.name.first 	  	 		  		
-	  	elsif !object.name[0].nil?
+	  	end
+		value   
+    end  
+    
+    def get_name_type(object)
+    	type = ""
+   		if !object.name[0].nil?
+	  		type = "Name" 	  	
+	  	elsif !object.conferenceName[0].nil?
+	  		type = "ConferenceName" 	  	
+	  	elsif !object.corporateName[0].nil?
+	  		type = "CorporateName" 	  	  	
+	  	elsif !object.personalName[0].nil?
+	  		type = "PersonalName" 
+	  	elsif !object.familyName[0].nil?
+	  		type = "FamilyName" 	
+	  	end
+		type   
+    end
+    
+   def get_name_id(object)
+    	id = ""
+		if !object.name[0].nil?
+	  		id = object.name.to_s.gsub(/.*\//,'')[0..9]	  	
+	  	elsif !object.conferenceName[0].nil?
+	  		id = object.conferenceName.to_s.gsub(/.*\//,'')[0..9]	  	
+	  	elsif !object.corporateName[0].nil?
+	  		id = object.corporateName.to_s.gsub(/.*\//,'')[0..9] 	  	  	
+	  	elsif !object.personalName[0].nil?
+	  		id = object.personalName.to_s.gsub(/.*\//,'')[0..9] 
+	  	elsif !object.familyName[0].nil?
+	  		id = object.familyName.to_s.gsub(/.*\//,'')[0..9] 	
+	  	end
+		id   
+    end
+    
+    def get_name_value(object)
+    	value = ""
+    	if !object.name[0].nil?
 	  		value = object.name.first.name.first	  	
 	  	elsif !object.conferenceName[0].nil?
 	  		value = object.conferenceName.first.name.first	  	
@@ -170,6 +188,6 @@ module Dams
 	  		value = object.familyName.first.name.first 	
 	  	end
 		value   
-    end                     
+    end                               
   end
 end
