@@ -237,7 +237,7 @@ describe DamsObjectDatastream do
       end
 #      it "should have event" do
 #        solr_doc = subject.to_solr
-#        solr_doc["event_1_type_tesim"].should == ["object creation"]
+#        solr_doc["event_1_type_tesim"].should == ["record created"]
 #        solr_doc["event_1_eventDate_tesim"].should == ["2012-11-06T09:26:34-0500"]
 #        solr_doc["event_1_outcome_tesim"].should == ["success"]
 #        solr_doc["event_1_name_tesim"].should == ["Administrator, Bob, 1977-"]
@@ -410,7 +410,7 @@ END
         
         solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
 
-        solr_doc["event_json_tesim"].first.should include '"pid":"bd0990660f","type":"object creation"' 
+        solr_doc["event_json_tesim"].first.should include '"pid":"bd0990660f","type":"record created"' 
         solr_doc["event_json_tesim"].first.should include '"name":"dams:unknownUser","role":"dams:initiator"'
         
         solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'
