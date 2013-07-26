@@ -4,7 +4,7 @@ class DamsObject < ActiveFedora::Base
   delegate_to "damsMetadata", [:title, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, 
                               :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, 
                               :subjectURI, :unitURI, :subjectType, :subjectTypeValue, :simpleSubjectURI, :titlePartName, :titlePartNumber, :titleNonSort, 
-                              :scopeContentNoteType, :scopeContentNoteDisplayLabel, :scopeContentNoteValue, :noteValue, :noteType, :noteDisplayLabel, 
+                              :noteValue, :noteType, :noteDisplayLabel, :nameType, :nameTypeValue, :nameURI,
                               :languageURI, :relatedResourceType, :relatedResourceDescription, :relatedResourceUri, :assembledCollectionURI, :provenanceCollectionURI,
                               :relationshipRoleURI, :relationshipNameURI, :relationshipNameType, :relationshipNameValue,
                               :cartographicPoint, :cartographicLine, :cartographicPolygon, :cartographicProjection, :cartographicRefSystem, :cartographicScale,

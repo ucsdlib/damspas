@@ -108,9 +108,14 @@ class DamsObjectsController < ApplicationController
   	@simple_subject_type = get_simple_subject_type(@dams_object) 	
   	@dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
   	#@simpleSubject_id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.topic.nil? 
-  	@simpleSubject_id = get_simple_subject_id(@dams_object)
-  	
+  	@simpleSubject_id = get_simple_subject_id(@dams_object)  	
   	@complexSubject_id = @dams_object.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
+	@simpleSubjectValue = get_simple_subject_value(@dams_object)
+	  
+	@simple_name_type = get_name_type(@dams_object)
+	@simple_name_id = get_name_id(@dams_object) 	
+  	@simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim') 	
+  	@simple_name_value = get_name_value(@dams_object)
   	 
   	@dams_object.collections.each do |col|
   		if(col.class == DamsAssembledCollection)	
@@ -119,7 +124,7 @@ class DamsObjectsController < ApplicationController
   			@provenance_collection_id = col.pid
   		end  			
   	end
-	@simpleSubjectValue = get_simple_subject_value(@dams_object)
+
 
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
 	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
