@@ -101,9 +101,10 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
       end
-    end          
+    end             
     insertSubjectsGraph
-    insertCopyRightsInfoGraph                        
+    insertCopyRightsInfoGraph
+    insertNameGraph                      
     super
   end
 
@@ -164,7 +165,16 @@ class DamsObjectDatastream < DamsResourceDatastream
       end
     end     
   end
-  
+
+  def insertNameGraph  
+	if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      end
+    end     
+  end  
   def load_unit(unit)
 	if !unit.values.first.nil?
 	    u_pid = unit.values.first.pid
