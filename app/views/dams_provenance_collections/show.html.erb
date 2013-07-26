@@ -1,87 +1,33 @@
+<%
+	collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	@page_title = "Object | #{collection_title}"
+%>
+
 <div class="row-fluid">
-	<div id="content" class="show-document span9">
-		<div id="content" class="show-document span9">
-			<div class="row-fluid">
-				<section class="dams-metadata span12">
-					<p class="sidebar-header"><h1><strong><%= @dams_provenance_collection.titleValue %></strong></h1></p>		
-					<h3>Title</h3>
+	<div class="dams-breadcrumbs span12">
+		<ul class="breadcrumb">
+			<li><a href="/">Digital Collections</a> <span class="divider">&raquo;</span></li>
+			<li><%= link_to "Collections", dams_collections_path %> <span class="divider">&raquo;</span></li>
+			<li class="active"><%=collection_title%></li>
+		</ul>
+	</div>
+</div>
 
-					<dl class="dl-horizontal">
-						<dt>Title</dt> <dd><%= @dams_provenance_collection.titleValue %></dd><br>
-						<dt>Subtitle</dt> <dd><%= @dams_provenance_collection.subtitle %></dd><br>
-						<dt>PartName</dt> <dd><%= @dams_provenance_collection.titlePartName %></dd><br>
-						<dt>PartNumber</dt><dd><%= @dams_provenance_collection.titlePartNumber %></dd><br>
-						<dt>NonSort</dt> <dd><%= @dams_provenance_collection.titleNonSort %></dd><br>
-					</dl>
-
-					<h3>Date</h3>
-					<dl class="dl-horizontal">
-						<dt>Date</dt> <dd><%= @dams_provenance_collection.dateValue.first %></dd><br>
-						<dt>Begin Date</dt> <dd><%= @dams_provenance_collection.beginDate.first %></dd><br>
-						<dt>End Date</dt> <dd><%= @dams_provenance_collection. endDate.first %></dd><br>
-					</dl>
-
-					<h3>Note</h3>
-					<dl class="dl-horizontal">
-						<dt>Note</dt> <dd><%= @dams_provenance_collection.noteValue.first %></dd><br>
-						<dt>Note Type</dt> <dd><%= @dams_provenance_collection.noteType.first %></dd><br>
-						<dt>Note Displaylabel</dt> <dd><%= @dams_provenance_collection.noteDisplayLabel.first %></dd><br>
-						<dt>Scope Content Note</dt> <dd><%= @dams_provenance_collection.scopeContentNoteValue.first %></dd><br>
-						<dt>Scope Content Note Type</dt> <dd><%= @dams_provenance_collection.scopeContentNoteType.first %></dd><br>
-					</dl>
-
-					<h3>Related Resource</h3>
-					<dl class="dl-horizontal">
-						<dt>Related Resource Type</dt> <dd><%= @dams_provenance_collection.relatedResourceType.first %></dd><br>
-						<dt>Related Resource URI</dt> <dd><%= @dams_provenance_collection.relatedResourceUri.first %></dd><br>
-						<dt>Related Resource Description</dt> <dd><%= @dams_provenance_collection.relatedResourceDescription.first %></dd><br>
-					</dl>
-
-					
-
-
-					<h3>Language</h3>
-					<dd>
-						<% if (!@dams_provenance_collection.languages.empty?) %>
-
-						<%= link_to @dams_provenance_collection.languages.first.name.first, @dams_provenance_collection.languages.first.name.first.to_s %>
-						<% end %>
-					</dd>
-
-					
-
-					<dd>
-						<% if (!@dams_provenance_collection.complexSubjects.empty?) %>
-
-						<!-- <dd><%#=@dams_provenance_collection.complexSubjects.name.first%> -->
-
-						<% end %>
-					</dd>
-
-                 
-
-					<% if can? :update, @dams_provenance_collection then %>
+<div class="row-fluid">
+	<div class="span8 offset2 dams-collections well well-large">
+		<%#= render :partial => 'show_damstools' %>
+		<%= render :partial => 'shared/fields/title' %>
+        <%= render :partial => 'shared/fields/show' %>
+		
+		<% if can? :update, @dams_provenance_collection then %>
 					<%= link_to "Edit", edit_dams_provenance_collection_path(@dams_provenance_collection), class: "btn btn-primary"%>
 					<% end %>
 					<%= link_to "View All", dams_provenance_collections_path, class: "btn btn-primary" %>
-				</section>
-			</div>
-		</div>    
-
-		<div class="span3">
-			<div class="well dams-search-box">
-				<h4>Search</h4>
-				<%= render_unit_search_bar  %>
-			</div>
-
-			<p class="sidebar-header"><strong>Browse By</strong></p>
-			<ul class="unstyled sidebar-button-list">
-				<!-- hack in browse by collection, for RCI demo -->
-				<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
-				<%= render_browse_facet_links %>
-			</ul>
-
-			
-		</div>
 	</div>
+</div>
+
+<div class="row-fluid">
+	<section class="dams-comments span8 offset2">
+		<%= render :partial => 'dams_objects/comments' %>
+	</section>
 </div>
