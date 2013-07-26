@@ -104,6 +104,18 @@
 			concat htmlClose.html_safe			
 		end		
 
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["builtWorkPlace_element_tesim"] != nil 
+		    htmlOpen %= 'BuiltWorkPlaceElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"builtWorkPlace_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
 
 		htmlOpen = "<dt>%s</dt><dd>"
 
