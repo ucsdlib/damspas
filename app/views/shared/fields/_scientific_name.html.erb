@@ -9,7 +9,7 @@
 		htmlClose = "</ul></dd>"
 	end
 
-	fieldData = @document["#{prefix}scientific_name_tesim"]
+	fieldData = @document["#{prefix}scientificName_tesim"]
 
 	if fieldData != nil
 
@@ -17,9 +17,9 @@
 		concat htmlOpen.html_safe
 
 		fieldData.each do |datum|
-			scientific_name = datum
+			scientificName = datum
 %>
-			<li><%= link_to "<i class='icon-tag icon-white'></i> #{scientific_name}".html_safe, facet_uri(scientific_name, 'subject_scientific_name_sim'), :class => "label" %></li>
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{scientificName}".html_safe, facet_uri(scientificName, 'subject_scientificName_sim'), :class => "label" %></li>
 <%
 		end
 
