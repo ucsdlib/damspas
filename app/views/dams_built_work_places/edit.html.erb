@@ -1,0 +1,33 @@
+<% @page_title =  "Edit BuiltWorkPlace" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit BuiltWorkPlace</h2>
+		
+		<%= form_for @dams_built_work_place do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'dams_built_work_place[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'dams_built_work_place[name][]', @dams_built_work_place.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'dams_built_work_place[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'dams_built_work_place[externalAuthority][]', @dams_built_work_place.externalAuthority, class: "input-block-level" %>
+
+			<%= label_tag 'dams_built_work_place[scheme][]', "scheme" %>
+			<%= select_tag 'dams_built_work_place[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
+
+			<%= label_tag 'dams_built_work_place[elementValue][]', "BuiltWorkPlaceElement" %>
+			<%= text_field_tag 'dams_built_work_place[elementValue][]', @dams_built_work_place.elementValue, class: "input-block-level" %>
+							
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", dams_built_work_place_path(@dams_built_work_place), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>
