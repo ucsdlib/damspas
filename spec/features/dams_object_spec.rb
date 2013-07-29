@@ -144,6 +144,17 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
 end
 
+feature 'Visitor wants to view an object' do
+  scenario 'is on Object index page' do
+    visit dams_object_path('')
+    expect(page).to have_selector('a', :text => "Sample Audio Component: I need another green form")
+    click_on "Sample Audio Component: I need another green form"
+    expect(page).to have_selector('li', :text => "English")
+    expect(page).to have_selector('h1', :text => "Sample Audio Component")
+    expect(page).to have_selector('h2', :text => "I need another green form")
+  end
+end
+
 feature 'Visitor wants to cancel unsaved objects' do
   
   scenario 'is on Edit Object page' do
@@ -167,7 +178,6 @@ feature 'Visitor wants to cancel unsaved objects' do
     click_on "Cancel"
     expect('/object').to eq(current_path)
     expect(page).to have_selector('a', :text => "Sample Audio Component: I need another green form")
-    expect(page).to have_selector('a', :text => "Final Dams Object: New Object, this, ep1, 999")
     expect(page).to have_selector('a', :text => "Create Object")
   end
 
