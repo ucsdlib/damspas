@@ -298,6 +298,10 @@ def relatedResourceUri
 			    temporal.build if temporal[temporalIndex] == nil
 			    temporal[temporalIndex].name = v	
 			    temporalIndex+=1
+			elsif(!@subType[i].nil? && (@subType[i].include? 'StylePeriod'))
+			    stylePeriod.build if stylePeriod[stylePeriodIndex] == nil
+			    stylePeriod[stylePeriodIndex].name = v	
+			    stylePeriodIndex+=1				    
 			elsif(!@subType[i].nil? && (@subType[i].include? 'Occupation'))
 			    occupation.build if occupation[occupationIndex] == nil
 			    occupation[occupationIndex].name = v	
@@ -652,7 +656,7 @@ def relatedResourceUri
       elsif type.include? "GeographicElement"
         elem = MadsDatastream::List::GeographicElement.new(elementList.first.graph)
 	  elsif type.include? "IconographyElement"
-        elem = MadsDatastream::List::IconographyElement.new(elementList.first.graph)
+        elem = DamsDatastream::List::IconographyElement.new(elementList.first.graph)
 	  elsif type.include? "ScientificNameElement"
         elem = MadsDatastream::List::ScientificNameElement.new(elementList.first.graph)
       elsif type.include? "TechniqueElement"
