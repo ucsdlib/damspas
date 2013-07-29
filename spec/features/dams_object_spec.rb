@@ -81,8 +81,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
-    page.select("Test Language", match: :first)
-    page.select('Test Copyright', match: :first)
+    page.select("English", match: :first)
+    page.select('under copyright', match: :first)
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
 
@@ -98,7 +98,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     expect(page).to have_selector('a', :text => "Research Data Curation Program")
     expect(page).to have_selector('li', :text => "07/15/2013")
     expect(page).to have_selector('a', :text => "Text")
-    expect(page).to have_selector('strong', :text => "Test Copyright")
+    expect(page).to have_selector('strong', :text => "under copyright")
     expect(page).to have_selector('a', :text => "Mathematician")
 
     click_on "Edit"
