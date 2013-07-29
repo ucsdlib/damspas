@@ -646,9 +646,7 @@ def relatedResourceUri
       if type.include? "TopicElement"
         elem = MadsDatastream::List::TopicElement.new(elementList.first.graph)
       elsif type.include? "BuiltWorkPlaceElement"
-        elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
-	  elsif type.include? "BuiltWorkPlaceElement"
-        elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
+        elem = DamsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
 	  elsif type.include? "CulturalContextElement"
         elem = DamsDatastream::List::CulturalContextElement.new(elementList.first.graph)
       elsif type.include? "FunctionElement"
