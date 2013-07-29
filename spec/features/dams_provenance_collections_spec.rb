@@ -22,8 +22,8 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "PartNumber", :with => "TestPartNumber"
 		fill_in "NonSort", :with => "TestNonSort"
 		fill_in "Date", :with => "TestDate"
-		fill_in "Begin Date", :with => "TestBeginDate"
-		fill_in "End Date", :with => "TestEndDate"
+		#fill_in "Begin Date", :with => "TestBeginDate"
+		#fill_in "End Date", :with => "TestEndDate"
 		fill_in "Note", :with => "TestNote"
 		fill_in "Note Type", :with => "TestNoteType"
 		fill_in "Note Displaylabel", :with => "TestNoteDisplaylabel"
@@ -50,8 +50,8 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestPartNumber")
 		expect(page).to have_content ("TestNonSort")
 		expect(page).to have_content ("TestDate")
-		expect(page).to have_content ("TestBeginDate")
-		expect(page).to have_content ("TestEndDate")
+		#expect(page).to have_content ("TestBeginDate")
+		#expect(page).to have_content ("TestEndDate")
 		expect(page).to have_content ("TestNote")
 		expect(page).to have_content ("TestNoteType")
 		expect(page).to have_content ("TestNoteDisplaylabel")
