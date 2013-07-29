@@ -14,6 +14,7 @@ class Ability
   		can [:read], DamsCartographics
       can [:read], DamsCulturalContext
       can [:read], DamsTechnique
+      can [:read], DamsBuiltWorkPlace
   		can [:read], MadsPersonalName
   		can [:read], SolrDocument
   		can [:read], MadsComplexSubject
@@ -35,6 +36,7 @@ class Ability
       can [:read, :create, :update, :view], DamsFunction
       can [:read, :create, :update, :view], DamsCulturalContext
       can [:read, :create, :update, :view], DamsTechnique
+      can [:read, :create, :update, :view], DamsBuiltWorkPlace
     	can [:read, :create, :update], DamsCopyright
     	can [:read, :create, :update], DamsLicense
     	can [:read, :create, :update], DamsStatute
