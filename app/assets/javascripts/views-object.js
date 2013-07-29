@@ -215,4 +215,13 @@ $(document).ready(function()
 		dp.cartographics.load();
 	}
 
+	// handle derivatives generation callbacks
+	$('#generate_derivatives')
+		.bind('ajax:success', function(e) {
+			window.location = document.getElementById('hydra_view').href;
+		})
+		.bind('ajax:error', function(e) {
+			alert("Error generating derivatives!");
+		})
 });
+
