@@ -52,8 +52,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     sign_in_developer
 
     visit dams_object_path('new')
-    # Create new object
 
+    # Check if required elements exist
     if(page.has_select?('dams_object_languageURI_', :options => ['Test Language']) != true)
       visit mads_language_path('new')
       fill_in "Name", :with => "Test Language"
@@ -65,6 +65,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     if(page.has_select?('dams_object_languageURI_', :options => ['Test Copyright']) != true)
       DamsCopyright.create! pid: "bb05050506", status: "Test Copyright", jurisdiction: "us", purposeNote: "This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.", note: "This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.", beginDate: "1993-12-31"
     end
+
     fill_in "dams_object_titleValue_", :with => "Dams Test Object"
     fill_in "SubTitle", :with => "New Object"
     fill_in "PartName", :with => "ep1"
@@ -80,10 +81,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
-
     page.select("Test Language", match: :first)
-
-    page.select('Test Copyright')
+    page.select('Test Copyright', match: :first)
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
 
@@ -91,6 +90,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
     # Save path of object for other test(s)
     Path.path = current_path
+
+    # Checking the view
     expect(page).to have_selector('h1', :text => "Dams Test Object")
     expect(page).to have_selector('h2', :text => "New Object")
     expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
@@ -164,7 +165,10 @@ feature 'Visitor wants to cancel unsaved objects' do
     fill_in "dams_object_titleValue_", :with => "BROKEN"
     fill_in "dams_object_dateValue_", :with => "NO DATE"
     click_on "Cancel"
-    expect(current_path).to eq('/dams_units')
+    expect('/object').to eq(current_path)
+    expect(page).to have_selector('a', :text => "Sample Audio Component: I need another green form")
+    expect(page).to have_selector('a', :text => "Final Dams Object: New Object, this, ep1, 999")
+    expect(page).to have_selector('a', :text => "Create Object")
   end
 
 end
