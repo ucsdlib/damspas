@@ -57,9 +57,10 @@ class FileController < ApplicationController
     # if a file is audio, image or video, render view with link to generate
     # derivatives, otherwise, just go back to the object view
     mt = file.content_type
-    if !mt.include?("audio") && !mt.include?("image") && !mt.include?("video")
-      redirect_to view_dams_object_path @obj, notice: "File Uploaded"
-      return
+    if mt.include?("audio") || mt.include?("image") || mt.include?("video")
+      redirect_to view_dams_object_path @obj, flash: { notice: "File Uploaded", deriv: "bar" + @ds }
+    else
+      redirect_to view_dams_object_path @obj, flash: { notice: "File Uploaded", deriv: "foo" }
     end
   end
   def deriv

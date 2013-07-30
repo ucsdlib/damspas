@@ -2,6 +2,8 @@ require 'net/http'
 require 'json'
 
 class DamsProvenanceCollectionPartsController < ApplicationController
+  include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => :index
 
