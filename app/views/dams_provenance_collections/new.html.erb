@@ -44,11 +44,26 @@
   <%= label_tag 'dams_provenance_collection[noteDisplayLabel][]', "Note Displaylabel" %>
   <%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]' %> 
   
+  <h3>Scope Content Note</h3>
   <%= label_tag 'dams_provenance_collection[scopeContentNoteValue][]', "Scope Content Note" %>
   <%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', '', required: true %>  
 
   <%= label_tag 'dams_provenance_collection[scopeContentNoteType][]', "Scope Content Note Type" %>
   <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]' %> 
+
+  <h3>Custodial Responsibility Note</h3>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteValue][]' %>  
+  <%= label_tag 'dams_provenance_collection[responsibilityNoteType][]', "Custodial Responsibility Type" %>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteType][]' %> 
+  <%= label_tag 'dams_provenance_collection[responsibilityDisplayLabel][]', "Custodial Responsibility Display Label" %>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteDisplayLabel][]' %>
+
+  <h3>Preferred Citation Note</h3>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteValue][]' %>  
+  <%= label_tag 'dams_provenance_collection[citationNoteType][]', "Preferred Citation Type" %>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteType][]' %> 
+  <%= label_tag 'dams_provenance_collection[citationNoteDisplayLabel][]', "Preferred Citation Display Label" %>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteDisplayLabel][]' %>
 
   <h3>Relationship</h3>
   <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
