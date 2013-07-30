@@ -1,9 +1,33 @@
-<h1><%= @dams_provenance_collection_part.titleValue.first %></h1>
-<p>Date: <%= @dams_provenance_collection_part.dateValue.first %> (<%= @dams_provenance_collection_part.beginDate.first %>, <%= @dams_provenance_collection_part.endDate.first %>)</p>
-<p><%= @dams_provenance_collection_part.scopeContentNoteDisplayLabel.first %>: <%= @dams_provenance_collection_part.scopeContentNoteValue.first %></p>
-<div>
-  <% if can? :update, @dams_provenance_collection_part then %>
-    <%= link_to "Edit", edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), class: "btn btn-primary"%>
-  <% end %>
-  <%= link_to "View All", dams_provenance_collection_parts_path, class: "btn btn-primary" %>
+<%
+	collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	@page_title = "Object | #{collection_title}"
+%>
+
+<div class="row-fluid">
+	<div class="dams-breadcrumbs span12">
+		<ul class="breadcrumb">
+			<li><a href="/">Digital Collections</a> <span class="divider">&raquo;</span></li>
+			<li><%= link_to "Collections", dams_collections_path %> <span class="divider">&raquo;</span></li>
+			<li class="active"><%=collection_title%></li>
+		</ul>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<div class="span8 offset2 dams-collections well well-large">
+		<%#= render :partial => 'show_damstools' %>
+		<%= render :partial => 'shared/fields/title' %>
+        <%= render :partial => 'shared/fields/show' %>
+		
+		<% if can? :update, @dams_provenance_collection_part then %>
+					<%= link_to "Edit", edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), class: "btn btn-primary"%>
+					<% end %>
+					<%= link_to "View All", dams_provenance_collections__part_path, class: "btn btn-primary" %>
+	</div>
+</div>
+
+<div class="row-fluid">
+	<section class="dams-comments span8 offset2">
+		<%= render :partial => 'dams_objects/comments' %>
+	</section>
 </div>
