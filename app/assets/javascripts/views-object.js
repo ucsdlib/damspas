@@ -218,10 +218,17 @@ $(document).ready(function()
 	// handle derivatives generation callbacks
 	$('#generate_derivatives')
 		.bind('ajax:success', function(e) {
-			window.location = document.getElementById('hydra_view').href;
+          // update flash message
+          msg = document.getElementById('messages')
+          msg.innerHTML = '<div class="flash_messages"><div class="alert alert-info">Derivatives Generated <a class="close" data-dismiss="alert" href="#">&times;</a></div>';
+
+          // hide button
+          btn = document.getElementById('generate_derivatives')
+          btn.style.display = 'none';
 		})
 		.bind('ajax:error', function(e) {
-			alert("Error generating derivatives!");
+          msg = document.getElementById('messages')
+          msg.innerHTML = '<div class="flash_messages"><div class="alert alert-alert">Error Generating Derivatives! <a class="close" data-dismiss="alert" href="#">&times;</a></div>';
 		})
 });
 
