@@ -31,11 +31,29 @@
 <%= label_tag 'dams_provenance_collection[noteValue]', "Note" %><%= text_field_tag 'dams_provenance_collection[noteValue][]', @dams_provenance_collection.noteValue[0], class: "input-block-level" %>
 <%= label_tag 'dams_provenance_collection[noteType]', "Note Type" %><%= text_field_tag 'dams_provenance_collection[noteType][]', @dams_provenance_collection.noteType[0], class: "input-block-level" %>
 <%= label_tag 'dams_provenance_collection[noteDisplayLabel]', "Note Displaylabel" %><%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]', @dams_provenance_collection.noteDisplayLabel[0], class: "input-block-level" %>
+<br>
 
+<h3>Scope Content Note</h3>
 <%= label_tag 'dams_provenance_collection[scopeContentNoteValue]', "Scope Content Note" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', @dams_provenance_collection.scopeContentNoteValue[0],required: true, class: "input-block-level" %>
 
 <%= label_tag 'dams_provenance_collection[scopeContentNoteType]', "Scope Content Note Type" %>
 <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]', @dams_provenance_collection.scopeContentNoteType[0], class: "input-block-level" %>
+<br>
+
+<h3>Custodial Responsibility Note</h3>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteValue][]', @dams_provenance_collection.responsibilityNoteValue[0], class: "input-block-level" %>  
+  <%= label_tag 'dams_provenance_collection[responsibilityContentNoteType][]', "Custodial Responsibility Note Type" %>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteType][]', @dams_provenance_collection.responsibilityNoteType[0], class: "input-block-level" %>
+  <%= label_tag 'dams_provenance_collection[responsibilityNoteDisplayLabel][]', "Custodial Responsibility Note Display Label" %>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteDisplayLabel][]', @dams_provenance_collection.responsibilityNoteDisplayLabel[0], class: "input-block-level" %>
+<br>
+
+  <h3>Preferred Citation Note</h3>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteValue][]', @dams_provenance_collection.citationNoteValue[0], class: "input-block-level" %>  
+  <%= label_tag 'dams_provenance_collection[citationNoteType][]', "Preferred Citation Type" %>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteType][]', @dams_provenance_collection.citationNoteType[0], class: "input-block-level" %>
+  <%= label_tag 'dams_provenance_collection[citationDisplayLabel][]', "Preferred Citation Display Label" %>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteDisplayLabel][]', @dams_provenance_collection.citationNoteDisplayLabel[0], class: "input-block-level" %>
 <br>
 
 <h3>Related Resource</h3>
