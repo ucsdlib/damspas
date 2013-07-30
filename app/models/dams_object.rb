@@ -3,7 +3,10 @@ class DamsObject < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsObjectDatastream 
   delegate_to "damsMetadata", [:title, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, 
                               :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, 
-                              :subjectURI, :unitURI, :subjectType, :subjectTypeValue, :simpleSubjectURI, :titlePartName, :titlePartNumber, :titleNonSort, 
+                              :subjectURI, :unitURI, :subjectType, :subjectTypeValue, :simpleSubjectURI, :titlePartName, :titlePartNumber, :titleNonSort,
+                              :scopeContentNoteValue, :scopeContentNoteType, :scopeContentNoteDisplayLabel, 
+                              :responsibilityNoteValue, :responsibilityNoteType, :responsibilityNoteDisplayLabel, 
+                              :citationNoteValue, :citationNoteType, :citationNoteDisplayLabel,  
                               :noteValue, :noteType, :noteDisplayLabel, :nameType, :nameTypeValue, :nameURI,
                               :languageURI, :relatedResourceType, :relatedResourceDescription, :relatedResourceUri, :assembledCollectionURI, :provenanceCollectionURI,
                               :relationshipRoleURI, :relationshipNameURI, :relationshipNameType, :relationshipNameValue,
