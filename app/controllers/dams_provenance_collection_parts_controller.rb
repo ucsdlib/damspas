@@ -49,7 +49,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
     @jdoc.each do |value|
     @autocomplete_items << value['suggestall']
   end 
-
+  end
   
 def edit
     @dams_provenance_collection_part = DamsProvenanceCollectionPart.find(params[:id])
