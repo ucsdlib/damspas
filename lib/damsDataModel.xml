@@ -4,11 +4,13 @@
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
     xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
   <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb01010101">
-    <dams:otherResource rdf:parseType="Resource">
-      <dams:type></dams:type>
-      <dams:description></dams:description>
-      <dams:uri></dams:uri>
-    </dams:otherResource>
+	<dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:description>Related Resource value</dams:description>
+        <dams:type>exhibit</dams:type>
+        <dams:uri>http://relatedresource.com/</dams:uri>
+      </dams:RelatedResource>
+    </dams:relatedResource>
     <dams:relationship rdf:parseType="Resource">
       <dams:role rdf:resource="http://library.ucsd.edu/ontology/dams#creator"/>
       <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb10101010"/>

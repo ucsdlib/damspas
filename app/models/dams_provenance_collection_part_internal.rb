@@ -39,7 +39,7 @@ class DamsProvenanceCollectionPartInternal
     map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
-    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+    map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # parent collection
