@@ -7,8 +7,8 @@ class MadsSchemeInternal
     map.code( in: MADS )
     map.name( in: RDF::RDFS, to: "label" )
   end 
-  # This is never called
-  #rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
   
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')
