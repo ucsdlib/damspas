@@ -2,7 +2,7 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
   include ActiveFedora::Rdf::DefaultNodes
   rdf_type MADS.Topic
   map_predicates do |map|
-    map.label(:in => MADS, :to => 'authoritativeLabel')
+    map.name(:in => MADS, :to => 'authoritativeLabel')
     map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
     map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
     map.elementList(:in => MADS, :to => 'elementList', :class_name=>'MadsNestedElementList')
@@ -32,7 +32,7 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def to_solr (solr_doc = {})
-    Solrizer.insert_field(solr_doc, 'topic', label)
+    Solrizer.insert_field(solr_doc, 'topic', name)
     Solrizer.insert_field(solr_doc, 'scheme', scheme.first.rdf_subject.to_s)
     Solrizer.insert_field(solr_doc, 'scheme_name', scheme.first.name.first)
     Solrizer.insert_field(solr_doc, 'scheme_code', scheme.first.code.first)
