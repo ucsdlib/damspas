@@ -10,7 +10,7 @@ describe MadsTopic do
     scheme = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd9386739x"
     params = {
       topic: {
-        label: "Socialism", externalAuthority: exturi,
+        name: "Socialism", externalAuthority: exturi,
         elementList_attributes: [
           topicElement_attributes: [{ elementValue: "Socialism" }]
         ],

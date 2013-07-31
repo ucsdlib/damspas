@@ -9,7 +9,7 @@ describe MadsTopicDatastream do
       scheme = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd9386739x"
       params = {
         topic: {
-          label: "Socialism", externalAuthority: exturi,
+          name: "Socialism", externalAuthority: exturi,
           elementList_attributes: [
             topicElement_attributes: [{ elementValue: "Socialism" }]
           ],
@@ -52,9 +52,9 @@ END
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
-      it "should have a label" do
-        subject.label = "Baseball"
-        subject.label.should == ["Baseball"]
+      it "should have a name" do
+        subject.name = "Baseball"
+        subject.name.should == ["Baseball"]
       end
     end
 
@@ -66,7 +66,7 @@ END
       end
 
       it "should have name" do
-        subject.label.should == ["Baseball"]
+        subject.name.should == ["Baseball"]
       end
 
       it "should have an scheme" do
