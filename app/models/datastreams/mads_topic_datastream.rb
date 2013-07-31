@@ -1,18 +1,20 @@
 class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include ActiveFedora::RdfObject
   include ActiveFedora::Rdf::DefaultNodes
   rdf_type MADS.Topic
   map_predicates do |map|
     map.label(:in => MADS, :to => 'authoritativeLabel')
     map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
-    map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsScheme')
+    map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
     map.elementList(:in => MADS, :to => 'elementList', :class_name=>'MadsNestedElementList')
   end
-  #rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+
+  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+
   def serialize
     graph.insert([rdf_subject, RDF.type, MADS.Topic]) if new?
     super
   end
+
   accepts_nested_attributes_for :elementList, :scheme
 
   class MadsNestedElementList
