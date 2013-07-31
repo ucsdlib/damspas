@@ -1,0 +1,475 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583">
+    <dams:builtWorkPlace>
+      <dams:BuiltWorkPlace>
+        <mads:authoritativeLabel>dams:BuiltWorkPlace value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:BuiltWorkPlaceElement>
+            <mads:elementValue>dams:BuiltWorkPlace value</mads:elementValue>
+          </dams:BuiltWorkPlaceElement>
+        </mads:elementList>
+      </dams:BuiltWorkPlace>
+    </dams:builtWorkPlace>
+    <dams:temporal>
+      <mads:Temporal>
+        <mads:authoritativeLabel>mads:Temporal value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:TemporalElement>
+            <mads:elementValue>mads:Temporal value</mads:elementValue>
+          </mads:TemporalElement>
+        </mads:elementList>
+      </mads:Temporal>
+    </dams:temporal>
+    <dams:function>
+      <dams:Function>
+        <mads:authoritativeLabel>dams:Function value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:FunctionElement>
+            <mads:elementValue>dams:Function value</mads:elementValue>
+          </dams:FunctionElement>
+        </mads:elementList>
+      </dams:Function>
+    </dams:function>
+    <dams:provenanceCollectionPart rdf:resource="http://library.ucsd.edu/ark:/20775/bd6110278b"/>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>ARK ID</dams:displayLabel>
+        <rdf:value>http://library.ucsd.edu/ark:/20775/bd22194583</rdf:value>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:typeOfResource>still image</dams:typeOfResource>
+    <dams:technique>
+      <mads:Technique>
+        <mads:authoritativeLabel>mads:Technique value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:TechniqueElement>
+            <mads:elementValue>mads:Technique value</mads:elementValue>
+          </mads:TechniqueElement>
+        </mads:elementList>
+      </mads:Technique>
+    </dams:technique>
+    <dams:statute>
+      <dams:Statute>
+        <dams:statuteNote>Statute Note</dams:statuteNote>
+        <dams:statuteCitation>Statute Citation value</dams:statuteCitation>
+        <dams:statuteJurisdiction>us</dams:statuteJurisdiction>
+        <dams:restriction>
+          <dams:Restriction>
+            <dams:beginDate>2015-01-01</dams:beginDate>
+            <dams:endDate>2015-12-31</dams:endDate>
+            <dams:type>display</dams:type>
+          </dams:Restriction>
+        </dams:restriction>
+      </dams:Statute>
+    </dams:statute>
+    <dams:corporateName>
+      <mads:CorporateName>
+        <mads:authoritativeLabel>mads:CorporateName value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:CorporateName value</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:CorporateName>
+    </dams:corporateName>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583/3.jpg">
+        <dams:sourceFileName>20775-bd22194583-0-3.jpg</dams:sourceFileName>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000034"/>
+        <dams:sha1checksum>98e5c57fc8ea59840a467dd12c6948252f4dd96f</dams:sha1checksum>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:dateCreated>2013-07-31T08:42:02-0700</dams:dateCreated>
+        <dams:use>image-preview</dams:use>
+        <dams:size>41860</dams:size>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000033"/>
+        <dams:crc32checksum>f84447c2</dams:crc32checksum>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:md5checksum>333d9636e10daf35254960a57777f178</dams:md5checksum>
+        <dams:sourcePath>/home/escowles/tomcat_snapshot.IYdT/damsrepo-tomcat/dams/localStore/bd/22/19/45/83</dams:sourcePath>
+        <dams:quality>305x450</dams:quality>
+      </dams:File>
+    </dams:hasFile>
+    <dams:date>
+      <dams:Date>
+        <dams:type>creation</dams:type>
+        <rdf:value>Easter 2012</rdf:value>
+        <dams:beginDate>2012-04-08</dams:beginDate>
+        <dams:endDate>2012-04-08</dams:endDate>
+      </dams:Date>
+    </dams:date>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583/2.jpg">
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000032"/>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:sourceFileName>20775-bd22194583-0-2.jpg</dams:sourceFileName>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000031"/>
+        <dams:sourcePath>/home/escowles/tomcat_snapshot.IYdT/damsrepo-tomcat/dams/localStore/bd/22/19/45/83</dams:sourcePath>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:crc32checksum>84f446da</dams:crc32checksum>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:md5checksum>ba4be2eaa7e0f1d9ca76663012cc7be5</dams:md5checksum>
+        <dams:quality>521x768</dams:quality>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:use>image-service</dams:use>
+        <dams:sha1checksum>855aa693a7676c89af7ea9f05fa072f5a08a1b1a</dams:sha1checksum>
+        <dams:size>113916</dams:size>
+        <dams:dateCreated>2013-07-31T08:42:02-0700</dams:dateCreated>
+      </dams:File>
+    </dams:hasFile>
+    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bd48133407"/>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:uri>http://relatedresource.com/</dams:uri>
+        <dams:type>exhibit</dams:type>
+        <dams:description>Related Resource value</dams:description>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:geographic>
+      <mads:Geographic>
+        <mads:authoritativeLabel>mads:Geographic value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GeographicElement>
+            <mads:elementValue>mads:Geographic value</mads:elementValue>
+          </mads:GeographicElement>
+        </mads:elementList>
+      </mads:Geographic>
+    </dams:geographic>
+    <dams:iconography>
+      <dams:Iconography>
+        <mads:authoritativeLabel>dams:Iconography value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:IconographyElement>
+            <mads:elementValue>dams:Iconography value</mads:elementValue>
+          </dams:IconographyElement>
+        </mads:elementList>
+      </dams:Iconography>
+    </dams:iconography>
+    <dams:custodialResponsibilityNote>
+      <dams:CustodialResponsibilityNote>
+        <dams:displayLabel>Custodial Resonsibility</dams:displayLabel>
+        <rdf:value>CustodialResponsibilityNote value</rdf:value>
+        <dams:type>custodialResponsibility</dams:type>
+      </dams:CustodialResponsibilityNote>
+    </dams:custodialResponsibilityNote>
+    <dams:name>
+      <mads:Name>
+        <mads:authoritativeLabel>mads:Name value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:Name value</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:Name>
+    </dams:name>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd0785823z"/>
+        <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/bd6860945s"/>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:complexSubject>
+      <mads:ComplexSubject>
+        <mads:authoritativeLabel>mads:Topic value--mads:Temporal value</mads:authoritativeLabel>
+        <mads:componentList rdf:parseType="Collection">
+          <mads:Topic>
+            <mads:authoritativeLabel>mads:Topic value</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>mads:Topic value</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+          <mads:Temporal>
+            <mads:authoritativeLabel>mads:Temporal value</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TemporalElement>
+                <mads:elementValue>mads:Temporal value</mads:elementValue>
+              </mads:TemporalElement>
+            </mads:elementList>
+          </mads:Temporal>
+        </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:complexSubject>
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Sample Simple Object, The: An Image Object, Allegro, 1</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Sample Simple Object</mads:elementValue>
+          </mads:MainTitleElement>
+          <mads:NonSortElement>
+            <mads:elementValue>The</mads:elementValue>
+          </mads:NonSortElement>
+          <mads:SubTitleElement>
+            <mads:elementValue>An Image Object</mads:elementValue>
+          </mads:SubTitleElement>
+          <mads:PartNameElement>
+            <mads:elementValue>Allegro</mads:elementValue>
+          </mads:PartNameElement>
+          <mads:PartNumberElement>
+            <mads:elementValue>1</mads:elementValue>
+          </mads:PartNumberElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:occupation>
+      <mads:Occupation>
+        <mads:authoritativeLabel>mads:Occupation value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:OccupationElement>
+            <mads:elementValue>mads:Occupation value</mads:elementValue>
+          </mads:OccupationElement>
+        </mads:elementList>
+      </mads:Occupation>
+    </dams:occupation>
+    <dams:stylePeriod>
+      <dams:StylePeriod>
+        <mads:authoritativeLabel>dams:StylePeriod value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:StylePeriodElement>
+            <mads:elementValue>dams:StylePeriod value</mads:elementValue>
+          </dams:StylePeriodElement>
+        </mads:elementList>
+      </dams:StylePeriod>
+    </dams:stylePeriod>
+    <dams:rightsHolder>
+      <mads:PersonalName>
+        <mads:authoritativeLabel>Smithee, Alan, 1968-</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>Smithee, Alan, 1968-</mads:elementValue>
+          </mads:FullNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:rightsHolder>
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote>
+        <dams:displayLabel>Custodial Resonsibility</dams:displayLabel>
+        <rdf:value>ScopeContentNote value</rdf:value>
+        <dams:type>scopeContentNote</dams:type>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>
+    <dams:conferenceName>
+      <mads:ConferenceName>
+        <mads:authoritativeLabel>mads:ConferenceName value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:ConferenceName value</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:ConferenceName>
+    </dams:conferenceName>
+    <dams:cartographics rdf:resource="http://library.ucsd.edu/ark:/20775/bb20202020"/>
+    <dams:familyName>
+      <mads:FamilyName>
+        <mads:authoritativeLabel>mads:FamilyName value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>mads:FamilyName value</mads:elementValue>
+          </mads:FamilyNameElement>
+        </mads:elementList>
+      </mads:FamilyName>
+    </dams:familyName>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583/4.jpg">
+        <dams:size>8418</dams:size>
+        <dams:dateCreated>2013-07-31T08:42:02-0700</dams:dateCreated>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:md5checksum>412e6acd70cd40b1507d631bd5d708f9</dams:md5checksum>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000035"/>
+        <dams:sourceFileName>20775-bd22194583-0-4.jpg</dams:sourceFileName>
+        <dams:crc32checksum>8399bdc8</dams:crc32checksum>
+        <dams:quality>102x150</dams:quality>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:sourcePath>/home/escowles/tomcat_snapshot.IYdT/damsrepo-tomcat/dams/localStore/bd/22/19/45/83</dams:sourcePath>
+        <dams:use>image-thumbnail</dams:use>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000036"/>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:sha1checksum>ce116286abe4ef3d925d356665e8c383fe02b25a</dams:sha1checksum>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+      </dams:File>
+    </dams:hasFile>
+    <dams:assembledCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bd3516400n"/>
+    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583/7.jpg">
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:crc32checksum>696bff3d</dams:crc32checksum>
+        <dams:quality>1085x1600</dams:quality>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:size>265913</dams:size>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000042"/>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000041"/>
+        <dams:sourcePath>/home/escowles/tomcat_snapshot.IYdT/damsrepo-tomcat/dams/localStore/bd/22/19/45/83</dams:sourcePath>
+        <dams:sha1checksum>e0aa9a5f96fdff9eeee1e114ff772afe6ebcb9a3</dams:sha1checksum>
+        <dams:sourceFileName>20775-bd22194583-0-7.jpg</dams:sourceFileName>
+        <dams:use>image-huge</dams:use>
+        <dams:dateCreated>2013-07-31T08:42:03-0700</dams:dateCreated>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:md5checksum>3557fccb2fc9d7052dd0de45c9142544</dams:md5checksum>
+        <dams:objectCategory>file</dams:objectCategory>
+      </dams:File>
+    </dams:hasFile>
+    <dams:scientificName>
+      <dams:ScientificName>
+        <mads:authoritativeLabel>dams:ScientificName value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:ScientificNameElement>
+            <mads:elementValue>dams:ScientificName value</mads:elementValue>
+          </dams:ScientificNameElement>
+        </mads:elementList>
+      </dams:ScientificName>
+    </dams:scientificName>
+    <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
+    <dams:otherRights>
+      <dams:OtherRights>
+        <dams:otherRightsBasis>Other Rights Basis value</dams:otherRightsBasis>
+        <dams:otherRightsNote>Other Rights Note value</dams:otherRightsNote>
+        <dams:otherRightsURI>http://bar.com</dams:otherRightsURI>
+        <dams:permission>
+          <dams:Permission>
+            <dams:beginDate>2012-12-31</dams:beginDate>
+            <dams:endDate>2062-12-31</dams:endDate>
+            <dams:type>display</dams:type>
+          </dams:Permission>
+        </dams:permission>
+      </dams:OtherRights>
+    </dams:otherRights>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583/5.jpg">
+        <dams:size>3719</dams:size>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:md5checksum>37459248d2ffc3ea89d2886bf77d48a9</dams:md5checksum>
+        <dams:dateCreated>2013-07-31T08:42:02-0700</dams:dateCreated>
+        <dams:crc32checksum>25fd04c0</dams:crc32checksum>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000037"/>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:sourcePath>/home/escowles/tomcat_snapshot.IYdT/damsrepo-tomcat/dams/localStore/bd/22/19/45/83</dams:sourcePath>
+        <dams:sha1checksum>3401b23e92fccc5d9f4c76bf04083d347a1e3adf</dams:sha1checksum>
+        <dams:quality>44x65</dams:quality>
+        <dams:sourceFileName>20775-bd22194583-0-5.jpg</dams:sourceFileName>
+        <dams:use>image-icon</dams:use>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000038"/>
+      </dams:File>
+    </dams:hasFile>
+    <dams:topic>
+      <mads:Topic>
+        <mads:authoritativeLabel>mads:Topic value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:TopicElement>
+            <mads:elementValue>mads:Topic value</mads:elementValue>
+          </mads:TopicElement>
+        </mads:elementList>
+      </mads:Topic>
+    </dams:topic>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583/1.jpg">
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:use>image-service</dams:use>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:sourcePath>dams/bin/../sample/files</dams:sourcePath>
+        <dams:size>131914</dams:size>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000030"/>
+        <dams:dateCreated>2013-07-31T08:42:02-0700</dams:dateCreated>
+        <dams:quality>521x768</dams:quality>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:sha1checksum>9273cad2b086964f13168c6bf6f1079253a0925b</dams:sha1checksum>
+        <dams:crc32checksum>1ca45b7d</dams:crc32checksum>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:md5checksum>412f1eaccc1eed0e09610ca29fd66a8c</dams:md5checksum>
+        <dams:sourceFileName>20775-bb01010101-2-1.jpg</dams:sourceFileName>
+      </dams:File>
+    </dams:hasFile>
+    <dams:preferredCitationNote>
+      <dams:PreferredCitationNote>
+        <dams:displayLabel>Custodial Resonsibility</dams:displayLabel>
+        <rdf:value>PreferredCitationNote value</rdf:value>
+        <dams:type>preferredCitationNote</dams:type>
+      </dams:PreferredCitationNote>
+    </dams:preferredCitationNote>
+    <dams:culturalContext>
+      <dams:CulturalContext>
+        <mads:authoritativeLabel>dams:CulturalContext value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:CulturalContextElement>
+            <mads:elementValue>dams:CulturalContext value</mads:elementValue>
+          </dams:CulturalContextElement>
+        </mads:elementList>
+      </dams:CulturalContext>
+    </dams:culturalContext>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd22194583/6.jpg">
+        <dams:dateCreated>2013-07-31T08:42:02-0700</dams:dateCreated>
+        <dams:quality>695x1024</dams:quality>
+        <dams:sha1checksum>dbf42a9ba87f3d587dd5fbb8d235a7d364c57d54</dams:sha1checksum>
+        <dams:sourcePath>/home/escowles/tomcat_snapshot.IYdT/damsrepo-tomcat/dams/localStore/bd/22/19/45/83</dams:sourcePath>
+        <dams:sourceFileName>20775-bd22194583-0-6.jpg</dams:sourceFileName>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000040"/>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:size>142152</dams:size>
+        <dams:md5checksum>0fefdb72186de06b848b2a8d94980d77</dams:md5checksum>
+        <dams:crc32checksum>f1b7a7f6</dams:crc32checksum>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/xx00000039"/>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:use>image-large</dams:use>
+      </dams:File>
+    </dams:hasFile>
+    <dams:personalName>
+      <mads:PersonalName>
+        <mads:authoritativeLabel>Smith, John, Dr., 1965-</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Smith</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>John</mads:elementValue>
+          </mads:GivenNameElement>
+          <mads:TermsOfAddressNameElement>
+            <mads:elementValue>Dr.</mads:elementValue>
+          </mads:TermsOfAddressNameElement>
+          <mads:DateNameElement>
+            <mads:elementValue>1965-</mads:elementValue>
+          </mads:DateNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:personalName>
+    <dams:genreForm>
+      <mads:GenreForm>
+        <mads:authoritativeLabel>mads:GenreForm value</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GenreFormElement>
+            <mads:elementValue>mads:GenreForm value</mads:elementValue>
+          </mads:GenreFormElement>
+        </mads:elementList>
+      </mads:GenreForm>
+    </dams:genreForm>
+  </dams:Object>
+</rdf:RDF>
