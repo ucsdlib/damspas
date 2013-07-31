@@ -31,7 +31,9 @@ class MadsTopicsController < ApplicationController
   end
 
   def new
-	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @mads_topic.elementList.build
+    @mads_topic.elementList.first.topicElement.build
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
