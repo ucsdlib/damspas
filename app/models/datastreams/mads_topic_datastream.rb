@@ -10,12 +10,22 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
+  accepts_nested_attributes_for :elementList, :scheme
+
   def serialize
     graph.insert([rdf_subject, RDF.type, MADS.Topic]) if new?
     super
   end
 
-  accepts_nested_attributes_for :elementList, :scheme
+  def elementList_attributes_with_update_name= (attributes)
+    self.elementList_attributes_without_update_name= attributes
+    if elementList.first && elementList.first.first && elementList.first.first.elementValue.first
+      self.name = elementList.first.first.elementValue.first
+    end
+  end
+  alias_method :elementList_attributes_without_update_name=, :elementList_attributes=
+  alias_method :elementList_attributes=, :elementList_attributes_with_update_name=
+
 
   class MadsNestedElementList
     include ActiveFedora::RdfList

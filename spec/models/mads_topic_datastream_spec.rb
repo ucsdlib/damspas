@@ -56,6 +56,17 @@ END
         subject.name = "Baseball"
         subject.name.should == ["Baseball"]
       end
+
+      it "should set the name when the elementList is set" do
+        subject.name = "Original"
+        subject.elementList_attributes = [topicElement_attributes: [{ elementValue: "Test" }]]
+        subject.name.should == ["Test"]
+      end
+      it "shouldn't set the name when the elementList doesn't have an elementValue" do
+        subject.name = "Original"
+        subject.elementList_attributes = [topicElement_attributes: [{ elementValue: nil }]]
+        subject.name.should == ["Original"]
+      end
     end
 
     describe "an instance with content" do
