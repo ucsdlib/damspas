@@ -1,0 +1,49 @@
+<header>
+  <section class="container-fluid ucsd-head visible-desktop">
+    <a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><%=image_tag "/assets/ucsd/logo-ucsd-header-xl.png", :alt => "UC San Diego" %></a>
+    <a class="brand" href="http://libraries.ucsd.edu/">The Library</a>
+  </section>
+  <section class="navbar navbar-inverse">
+    <div class="navbar-inner">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand hidden-desktop" href="http://libraries.ucsd.edu/">The Library</a>
+      <nav class="nav-collapse collapse">
+
+
+
+        <ul class="nav">
+          <li class="active"><%= link_to "Home", root_path %></li>
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "FAQ", faq_path %></li>
+          <li><a href="#contact">Contact</a></li>
+
+          <% if current_user  %>
+            <li>
+              <%# Logged in as <a href="#" class="navbar-link"><%= current_user.uid %></a>.%>
+              <%= link_to "Sign Out", destroy_user_session_path %>
+            </li>
+          <% else %>
+            <li>
+              <%= link_to "Sign In", new_user_session_path %>
+            </li>
+          <% end %>
+
+        </ul>
+      </nav>
+    </div>
+  </section>
+  <section class="container-fluid search-bar clearfix">
+    <form method="get" class="form-search pull-right" action="http://localhost:8081/search" accept-charset="UTF-8">
+      <input type="hidden" value="✓" name="utf8">
+      <label class="hide-text" for="q">Search</label>
+      <input type="text" placeholder="Search" name="q" id="q" class="input-medium search-query">
+      <button class="btn btn-primary" type="submit">
+        <i class="icon-search icon-white"></i>
+      </button>
+    </form>
+  </section>
+</header>
