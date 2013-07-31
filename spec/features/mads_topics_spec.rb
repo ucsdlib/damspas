@@ -19,7 +19,7 @@ feature 'Visitor wants to create/edit a topic' do
 		# Create new topic
 		fill_in "Name", :with => "TestLabel"
 		fill_in "ExternalAuthority", :with => "http://test.com"
-		fill_in "TopicElement", :with => "TestElement"
+		fill_in "Element Value", :with => "TestElement"
 		page.select('Test Scheme', match: :first) 
 		click_on "Submit"
 
