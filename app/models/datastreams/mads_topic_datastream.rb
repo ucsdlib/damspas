@@ -1,5 +1,4 @@
 class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include ActiveFedora::RdfNode
   include ActiveFedora::RdfObject
   include ActiveFedora::Rdf::DefaultNodes
   rdf_type MADS.Topic
