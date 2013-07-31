@@ -52,13 +52,9 @@ END
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
 
-      it "should have a name" do
-        subject.name = "Baseball"
-        subject.name.should == ["Baseball"]
-      end
-      it "should have scheme" do
-        subject.scheme = "bd9386739x"
-        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd9386739x"
+      it "should have a label" do
+        subject.label = "Baseball"
+        subject.label.should == ["Baseball"]
       end
     end
 
@@ -70,22 +66,23 @@ END
       end
 
       it "should have name" do
-        subject.name.should == ["Baseball"]
+        subject.label.should == ["Baseball"]
       end
 
       it "should have an scheme" do
-        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd9386739x"
+        subject.scheme.first.pid.should == "bd9386739x"
       end
 
       it "should have fields" do
         list = subject.elementList.first
-        list[0].should be_kind_of MadsTopicDatastream::List::TopicElement
+        list[0].should be_kind_of MadsTopicDatastream::MadsTopicElement
         list[0].elementValue.should == ["Baseball"]
         list.size.should == 1
       end
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
+        solr_doc["topic_tesim"].should == ["Baseball"]
         solr_doc["topic_element_tesim"].should == ["Baseball"]
         solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd9386739x"]
         solr_doc["scheme_name_tesim"].should == ["Library of Congress Subject Headings"]

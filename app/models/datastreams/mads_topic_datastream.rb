@@ -32,6 +32,11 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def to_solr (solr_doc = {})
-    super
+    Solrizer.insert_field(solr_doc, 'topic', label)
+    Solrizer.insert_field(solr_doc, 'scheme', scheme.first.rdf_subject.to_s)
+    Solrizer.insert_field(solr_doc, 'scheme_name', scheme.first.name.first)
+    Solrizer.insert_field(solr_doc, 'scheme_code', scheme.first.code.first)
+    Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.first.to_s)
+    Solrizer.insert_field(solr_doc, "topic_element", elementList[0].first.elementValue)
   end
 end
