@@ -23,6 +23,8 @@ feature 'Visitor wants to create/edit a topic' do
 		page.select('Test Scheme', match: :first) 
 		click_on "Submit"
 
+    save_and_open_page
+
 		# Save path of topic for other test(s)
 		Path.path = current_path
 		expect(Path.path).to eq(current_path)

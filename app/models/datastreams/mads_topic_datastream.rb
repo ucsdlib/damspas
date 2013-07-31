@@ -7,7 +7,6 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
     map.elementList(:in => MADS, :to => 'elementList', :class_name=>'MadsNestedElementList')
   end
-
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   accepts_nested_attributes_for :elementList, :scheme
@@ -16,6 +15,7 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
     graph.insert([rdf_subject, RDF.type, MADS.Topic]) if new?
     super
   end
+
 
   def elementList_attributes_with_update_name= (attributes)
     self.elementList_attributes_without_update_name= attributes
@@ -33,12 +33,27 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.topicElement(:in=> MADS, :to =>"TopicElement", :class_name => "MadsTopicElement")
     end
     accepts_nested_attributes_for :topicElement
+
+    # used by fields_for, so this ought to move to ActiveFedora if it works
+    def persisted?
+      rdf_subject.kind_of? RDF::URI
+    end
+    def id
+      rdf_subject if rdf_subject.kind_of? RDF::URI
+    end
   end
   class MadsTopicElement
     include ActiveFedora::RdfObject
     rdf_type MADS.TopicElement
     map_predicates do |map|
       map.elementValue(:in=> MADS)
+    end
+    # used by fields_for, so this ought to move to ActiveFedora if it works
+    def persisted?
+      rdf_subject.kind_of? RDF::URI
+    end
+    def id
+      rdf_subject if rdf_subject.kind_of? RDF::URI
     end
   end
   def to_solr (solr_doc = {})

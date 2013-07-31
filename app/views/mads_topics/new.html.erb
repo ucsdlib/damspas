@@ -6,11 +6,13 @@
   <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_topic[externalAuthority]' %> 
   <%= f.fields_for :elementList do |el| %>
-    <%= label_tag 'mads_topic[elementList][elementValue]', "Element Value" %>
-    <%= text_field_tag 'mads_topic[elementList][elementValue]' %>
+    <%= el.fields_for :topicElement do |te| %>
+      <%= te.label :elementValue, "Element Value" %>
+      <%= te.text_field :elementValue %>
+    <% end %>
   <% end %>
   <br>
-  <%= select_tag 'mads_topic[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= select_tag 'mads_topic[scheme_attributes][][id]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>    
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
