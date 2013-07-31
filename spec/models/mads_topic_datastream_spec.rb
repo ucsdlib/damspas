@@ -14,12 +14,12 @@ describe MadsTopicDatastream do
             topicElement_attributes: [{ elementValue: "Socialism" }]
           ],
           scheme_attributes: [
-            pid: scheme, code: "lcsh", name: "Library of Congress Subject Headings"
+            id: scheme, code: "lcsh", name: "Library of Congress Subject Headings"
           ]
         }
       }
 
-      subject = MadsTopicDatastream.new( RDF::Graph.new )
+      subject = MadsTopicDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
       subject.attributes = params[:topic]
 
       xml =<<END
