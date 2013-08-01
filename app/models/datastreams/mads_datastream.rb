@@ -234,8 +234,8 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 			Solrizer.insert_field(solr_doc, 'occupation_element', list[i].elementValue.first)		
 		  elsif (list[i].class == MadsDatastream::List::TemporalElement)
 			Solrizer.insert_field(solr_doc, 'temporal_element', list[i].elementValue.first)		
-		  elsif (list[i].class == MadsDatastream::List::TopicElement)
-			Solrizer.insert_field(solr_doc, 'topic_element', list[i].elementValue.first)															
+		  # elsif (list[i].class == MadsDatastream::List::TopicElement)
+			# Solrizer.insert_field(solr_doc, 'topic_element', list[i].elementValue.first)															
 		  elsif (list[i].class == MadsDatastream::List::LanguageElement)
 			Solrizer.insert_field(solr_doc, 'language_element', list[i].elementValue.first)																			
 		  end		  
