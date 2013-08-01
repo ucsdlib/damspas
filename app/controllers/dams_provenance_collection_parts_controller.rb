@@ -114,9 +114,9 @@ def edit
     end
   end
 
-  def index
-    @dams_provenance_collection_parts = DamsProvenanceCollectionPart.all( :order=>"system_create_dtsi asc" )
+     def index
+     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsProvenanceCollectionPart"', :rows => 20 )
+   end
+
+    
   end
-
-
-end
