@@ -23,7 +23,7 @@
 
           <% if current_user  %>
             <li>
-              <%# Logged in as <a href="#" class="navbar-link"><%= current_user.uid %></a>.%>
+              <%# Logged in as <a href="#" class="navbar-link"><%= current_user.uid ></a>. %>
               <%= link_to "Sign Out", destroy_user_session_path %>
             </li>
           <% else %>
