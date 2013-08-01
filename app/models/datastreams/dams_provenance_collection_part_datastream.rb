@@ -52,16 +52,6 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollectionPart]) if new?
-    if(!@subURI.nil?)
-      if new?
-        @array_subject.each do |sub|
-          graph.insert([rdf_subject, DAMS.subject, sub])
-        end
-        #graph.insert([rdf_subject, DAMS.subject, @subURI])
-      else
-        graph.update([rdf_subject, DAMS.subject, @subURI])
-      end
-    end  
     if(!@langURI.nil?)
       if new?
         graph.insert([rdf_subject, DAMS.language, @langURI])
@@ -82,9 +72,41 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
       end
-    end   
+    end  
+    insertSubjectsGraph 
+    insertNameGraph 
     super
   end
+  
+ def insertSubjectsGraph
+    if(!@subURI.nil?)
+      if new?
+        @array_subject.each do |sub|
+          graph.insert([rdf_subject, DAMS.subject, sub])
+        end
+        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+      else
+        graph.update([rdf_subject, DAMS.subject, @subURI])
+      end
+    end    
+  if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      end
+    end     
+  end
+
+ def insertNameGraph  
+  if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      end
+    end     
+  end  
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
  
