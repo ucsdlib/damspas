@@ -26,19 +26,6 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
   alias_method :elementList_attributes_without_update_name=, :elementList_attributes=
   alias_method :elementList_attributes=, :elementList_attributes_with_update_name=
 
-  # def scheme_attributes_with_value_fetching= (attributes)
-  #   self.scheme_attributes_without_value_fetching= attributes
-  #   local_scheme = scheme.first
-  #   if local_scheme && (local_scheme.code.blank?  || local_scheme.name.blank?)
-  #     remote_scheme = Dams.resolve_object(local_scheme.rdf_subject)
-  #     raise "Expected a MadsScheme at #{local_scheme.rdf_subject}, but got #{remote_scheme.class}." unless remote_scheme.kind_of? MadsScheme
-  #     local_scheme.code = remote_scheme.code
-  #     local_scheme.name = remote_scheme.name 
-  #   end
-  # end
-  # alias_method :scheme_attributes_without_value_fetching=, :scheme_attributes=
-  # alias_method :scheme_attributes=, :scheme_attributes_with_value_fetching=
-
   class MadsNestedElementList
     include ActiveFedora::RdfList
     map_predicates do |map|
