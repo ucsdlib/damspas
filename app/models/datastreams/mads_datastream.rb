@@ -60,14 +60,14 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.elementValue(:in=> MADS)
       end
     end       
-    class TemporalElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.TemporalElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end          
+#    class TemporalElement
+#      include ActiveFedora::RdfObject
+#      include ActiveFedora::Rdf::DefaultNodes
+#      rdf_type MADS.TemporalElement
+#      map_predicates do |map|   
+#        map.elementValue(:in=> MADS)
+#      end
+#    end          
 
     # language element
     class LanguageElement
@@ -184,8 +184,8 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 			Solrizer.insert_field(solr_doc, 'geographic_element', list[i].elementValue.first)		
 		  elsif (list[i].class == MadsDatastream::List::OccupationElement)
 			Solrizer.insert_field(solr_doc, 'occupation_element', list[i].elementValue.first)		
-		  elsif (list[i].class == MadsDatastream::List::TemporalElement)
-			Solrizer.insert_field(solr_doc, 'temporal_element', list[i].elementValue.first)		
+		  #elsif (list[i].class == MadsDatastream::List::TemporalElement)
+		   #Solrizer.insert_field(solr_doc, 'temporal_element', list[i].elementValue.first)		
 		  # elsif (list[i].class == MadsDatastream::List::TopicElement)
 			# Solrizer.insert_field(solr_doc, 'topic_element', list[i].elementValue.first)															
 		  elsif (list[i].class == MadsDatastream::List::LanguageElement)

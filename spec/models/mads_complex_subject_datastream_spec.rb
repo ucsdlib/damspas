@@ -31,7 +31,7 @@ describe MadsComplexSubjectDatastream do
      # list[1].should be_kind_of MadsComplexSubjectDatastream::ComponentList::Topic::ElementList::TopicElement
       list[1].elementValue.should == ["Relations with Mexican Americans"]
       list[2].should == "#{Rails.configuration.id_namespace}bbXXXXXXX4"
-      list[3].should be_kind_of MadsComplexSubjectDatastream::List::TemporalElement
+     # list[3].should be_kind_of MadsComplexSubjectDatastream::List::TemporalElement
       list[3].elementValue.should == ["20th century"]
       list.size.should == 4
     end
