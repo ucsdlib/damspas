@@ -17,6 +17,8 @@
 
 			<%= label_tag 'mads_topic[scheme][]', "scheme" %>
 			<%= select_tag 'mads_topic[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+      <%#= select_tag 'mads_topic[scheme_attributes][][id]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+
 			<%= label_tag 'mads_topic[elementValue][]', "TopicElement" %>
 			<%= text_field_tag 'mads_topic[elementValue][]', @mads_topic.elementValue, class: "input-block-level" %>
 							
