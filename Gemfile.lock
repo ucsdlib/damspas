@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/projecthydra/active_fedora.git
-  revision: 4c4c815efb5b59203bb2dae6be2514c57dcb82ee
-  ref: 4c4c815
+  revision: 45b964d3df27a07c64d427d8e8f0faf777e7d92f
+  ref: 45b964d
   specs:
     active-fedora (6.4.4)
       activesupport (>= 3.0.0)
