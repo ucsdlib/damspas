@@ -127,7 +127,7 @@
       </dams:CustodialResponsibilityNote>
     </dams:note>
     <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
-    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050506"/>
+    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
     <dams:relationship>
       <dams:Relationship>
         <dams:personalName>

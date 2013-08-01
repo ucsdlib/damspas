@@ -5,26 +5,40 @@ describe MadsTemporal do
   subject do
     MadsTemporal.new pid: "zzXXXXXXX1"
   end
-  it "should create a xml" do    
-    subject.name = "16th century"
-    subject.scheme = "bd9386739x"
-    subject.externalAuthority = "http://id.loc.gov/n9999999999"
-    subject.elementValue = "16th century"
+  it "should create a xml" do        
+    exturi = RDF::Resource.new "http://id.loc.gov/authorities/subjects/sh85124118"
+    scheme = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd9386739x"
+    params = {
+      temporal: {
+        name: "16th century", externalAuthority: exturi,
+        elementList_attributes: [
+          temporalElement_attributes: [{ elementValue: "16th century" }]
+        ],
+        scheme_attributes: [
+          id: scheme, code: "lcsh", name: "Library of Congress Subject Headings"
+        ]
+      }
+    }
+    subject.damsMetadata.attributes = params[:temporal]    
     xml =<<END
 <rdf:RDF
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
-  xmlns:owl="http://www.w3.org/2002/07/owl#"
-  xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <mads:Temporal rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
     <mads:authoritativeLabel>16th century</mads:authoritativeLabel>
-    <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/n9999999999"/>
     <mads:elementList rdf:parseType="Collection">
       <mads:TemporalElement>
         <mads:elementValue>16th century</mads:elementValue>
       </mads:TemporalElement>
-    </mads:elementList>    
-    <mads:isMemberOfMADSScheme rdf:resource="#{Rails.configuration.id_namespace}bd9386739x"/>
+    </mads:elementList>
+    <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/subjects/sh85124118"/>
+    <mads:isMemberOfMADSScheme>
+      <mads:MADSScheme rdf:about="#{Rails.configuration.id_namespace}bd9386739x">
+        <rdfs:label>Library of Congress Subject Headings</rdfs:label>
+        <mads:code>lcsh</mads:code>
+      </mads:MADSScheme>
+    </mads:isMemberOfMADSScheme>    
   </mads:Temporal>
 </rdf:RDF>
 END
