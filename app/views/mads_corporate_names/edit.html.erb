@@ -9,24 +9,17 @@
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'mads_corporate_name[name][]', "Authoritative Label" %>
+			<%= label_tag 'mads_corporate_name[name][]', "Name" %>
 			<%= text_field_tag 'mads_corporate_name[name][]', @mads_corporate_name.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_corporate_name[externalAuthority][]', "ExternalAuthority" %>
-			<%= text_field_tag 'mads_corporate_name[externalAuthority][]', @mads_corporate_name.externalAuthority, class: "input-block-level" %>
-
-			<%= label_tag 'mads_corporate_name[scheme][]', "scheme" %>
-			<%= select_tag 'mads_corporate_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
-			<%= label_tag 'mads_corporate_name[fullNameValue][]', "FullNameElement" %>
-			<%= text_field_tag 'mads_corporate_name[fullNameValue][]', @mads_corporate_name.fullNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_corporate_name[familyNameValue][]', "FamilyNameElement" %>
-			<%= text_field_tag 'mads_corporate_name[familyNameValue][]', @mads_corporate_name.familyNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_corporate_name[givenNameValue][]', "GivenNameElement" %>
-			<%= text_field_tag 'mads_corporate_name[givenNameValue][]', @mads_corporate_name.givenNameValue, class: "input-block-level" %>
+			<%= label_tag 'mads_corporate_name[nameValue][]', "NameElement" %>
+			<%= text_field_tag 'mads_corporate_name[nameValue][]', @mads_corporate_name.nameValue, class: "input-block-level" %>
 			<%= label_tag 'mads_corporate_name[dateNameValue][]', "DateNameElement" %>
 			<%= text_field_tag 'mads_corporate_name[dateNameValue][]', @mads_corporate_name.dateNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_corporate_name[termOfAddressValue][]', "TermOfAddressElement" %>
-			<%= text_field_tag 'mads_corporate_name[termOfAddressValue][]', @mads_corporate_name.termOfAddressValue, class: "input-block-level" %>
+			<%= label_tag 'mads_corporate_name[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_corporate_name[externalAuthority][]', @mads_corporate_name.externalAuthority, class: "input-block-level" %>
+			<%= label_tag 'mads_corporate_name[scheme][]', "scheme" %>
+			<%= select_tag 'mads_corporate_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

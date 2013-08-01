@@ -30,16 +30,21 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def new
+    @mads_personal_name.elementList.build
+    @mads_personal_name.elementList.first.fullNameElement.build
+    @mads_personal_name.elementList.first.givenNameElement.build
+    @mads_personal_name.elementList.first.familyNameElement.build
+    @mads_personal_name.elementList.first.dateNameElement.build
+    @mads_personal_name.elementList.first.termsOfAddressNameElement.build
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    @mads_personal_name = MadsPersonalName.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
-    if(@mads_personal_name.scheme != nil)
-    	@scheme_id = @mads_personal_name.scheme.to_s.gsub /.*\//, ""
-   		@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
-   	end
+#    @mads_personal_name = MadsPersonalName.find(params[:id])
+#logger.warn "scheme: #{@mads_personal_name.scheme}"
+#    @mads_schemes = MadsScheme.find(:all)
+#    @scheme_id = @mads_personal_name.scheme.to_s.gsub /.*\//, ""
+#    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
   end
 
   def create

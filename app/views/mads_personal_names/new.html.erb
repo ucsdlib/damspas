@@ -1,20 +1,34 @@
 <h1>Create a new MADS Personal Name</h1>
 <%= form_for @mads_personal_name do |f| %>
-	<%= render 'error_messages' %>
+  <%= render 'error_messages' %>
   <%= label_tag 'mads_personal_name[name]', "Name" %>
   <%= text_field_tag 'mads_personal_name[name]' %>
   <%= label_tag 'mads_personal_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_personal_name[externalAuthority]' %> 
-  <%= label_tag 'mads_personal_name[fullNameValue]', "FullNameElement" %>
-  <%= text_field_tag 'mads_personal_name[fullNameValue]' %> 
-  <%= label_tag 'mads_personal_name[familyNameValue]', "FamilyNameElement" %>
-  <%= text_field_tag 'mads_personal_name[familyNameValue]' %>   
-  <%= label_tag 'mads_personal_name[givenNameValue]', "GivenNameElement" %>
-  <%= text_field_tag 'mads_personal_name[givenNameValue]' %>
-  <%= label_tag 'mads_personal_name[dateNameValue]', "DateNameElement" %>
-  <%= text_field_tag 'mads_personal_name[dateNameValue]' %>
-  <%= label_tag 'mads_personal_name[termOfAddressValue]', "TermOfAddressElement" %>
-  <%= text_field_tag 'mads_personal_name[termOfAddressValue]' %>         
+
+  <%= f.fields_for :elementList do |el| %>
+    <%= el.fields_for :fullNameElement do |full| %>
+      <%= full.label :elementValue, "Full Name" %>
+      <%= full.text_field :elementValue %>
+    <% end %>
+    <%= el.fields_for :familyNameElement do |family| %>
+      <%= family.label :elementValue, "Family Name" %>
+      <%= family.text_field :elementValue %>
+    <% end %>
+    <%= el.fields_for :givenNameElement do |given| %>
+      <%= given.label :elementValue, "Given Name" %>
+      <%= given.text_field :elementValue %>
+    <% end %>
+    <%= el.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+      <%= termsOfAddress.label :elementValue, "Terms of Address" %>
+      <%= termsOfAddress.text_field :elementValue %>
+    <% end %>
+    <%= el.fields_for :dateNameElement do |date| %>
+      <%= date.label :elementValue, "Date" %>
+      <%= date.text_field :elementValue %>
+    <% end %>
+
+  <% end %>
   <br>
   <%= select_tag 'mads_personal_name[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
   <br>
