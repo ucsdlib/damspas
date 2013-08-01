@@ -1,22 +1,33 @@
 require 'spec_helper'
 
 describe MadsTemporalsController do
-  describe "A login user" do
-	  before do
-	  	sign_in User.create!
-	  end
-	  
-	  describe "Update" do
-	    before do
- 	      @obj = MadsTemporal.create(name: "Test Title", elementValue: "2013")
- 	    end
-	    it "should be successful" do
-	      put :update, :id => @obj.id, :mads_temporal => {name: ["Test Title2"], elementValue: ["2014"]}
-          # this works in the browser, but not in tests..."
-	      #response.should redirect_to edit_mads_temporal_path(@obj)
-	      @obj.reload.name.should == ["Test Title2"]
-	      flash[:notice].should == "Successfully updated Temporal"
-	    end
+  before do
+		sign_in User.create!
+  end
+
+  describe "when signed in" do
+    describe "#new" do
+      it "should set the values needed to draw the form" do
+        get :new
+        response.should be_success
+        assigns[:mads_temporal].should be_kind_of MadsTemporal
+        assigns[:mads_temporal].elementList.first.temporalElement.size.should == 1
+      end
+    end
+
+    describe "#create" do
+      it "should set the attributes" do
+        post :create, mads_temporal: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "elementList_attributes"=>{"0"=>{"temporalElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/xx00000139"}]}
+        flash[:notice].should == "Temporal has been saved"
+        response.should redirect_to mads_temporal_path(assigns[:mads_temporal])
+
+        #puts assigns[:mads_temporal].damsMetadata.serialize
+        assigns[:mads_temporal].elementList.size.should == 1
+
+        assigns[:mads_temporal].scheme.first.code.should == ['test']
+        assigns[:mads_temporal].scheme.first.name.should == ['Test Scheme']
+
+      end
     end
   end
 end

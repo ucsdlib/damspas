@@ -1,5 +1,6 @@
 class MadsTemporalsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
 
@@ -30,18 +31,23 @@ class MadsTemporalsController < ApplicationController
   end
 
   def new
+    @mads_temporal.elementList.build
+    @mads_temporal.elementList.first.temporalElement.build
+	#@mads_schemes = get_objects('MadsScheme','name_tesim')
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_temporal = MadsTemporal.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
-    @scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, ""
-    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first     
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    if(@mads_temporal.scheme != nil)
+    	@scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, ""
+    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
+    end   
   end
 
   def create
-    @mads_temporal.attributes = params[:mads_temporal]
+
     if @mads_temporal.save
         redirect_to @mads_temporal, notice: "Temporal has been saved"
     else
