@@ -44,7 +44,7 @@ class MadsTopicsController < ApplicationController
   end
 
   def create
-    @mads_topic.attributes = params[:mads_topic]
+
     if @mads_topic.save
         redirect_to @mads_topic, notice: "Topic has been saved"
     else
