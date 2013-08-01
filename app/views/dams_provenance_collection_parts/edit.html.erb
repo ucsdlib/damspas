@@ -6,7 +6,7 @@
 
 <h3>Provenance Collection</h3>
 
-  <%= label_tag 'dams_provenance_collection_part[provenanceCollectionURI][]', "Provenance Collection" %> 
+  
   <%= select_tag 'dams_provenance_collection_part[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection", class: "input-block-level" %>
 
 
@@ -90,6 +90,7 @@
   %>
   <%= select_tag 'dams_provenance_collection_part[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"><%= select_tag 'dams_provenance_collection_part[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
+  <input id="dams_provenance_collection_part_subjectTypeValue_" name="dams_provenance_collection_part[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>
    
  <h3>Name</h3>
   <%= select_tag 'dams_provenance_collection_part[nameType][]',  options_for_select(nameTypeArray, :selected => @simple_name_type) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#name','nameURI','Name');"%>
@@ -102,10 +103,7 @@
   <div id="name"><%= select_tag 'dams_provenance_collection_part[nameURI][]', options_for_select(@simple_names, :selected => @simple_name_id), :prompt=>"Select Name" %></div>  
   <% end %>
 
-
-  <input id="dams_provenance_collection_part_subjectTypeValue_" name="dams_provenance_collection_part[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
-  
-
+<br>
 
 <%=f.submit "Save", class: "btn btn-primary" %>
 <%= link_to "Cancel", dams_provenance_collection_parts_path, class: "btn btn-primary" %>
