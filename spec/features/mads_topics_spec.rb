@@ -28,7 +28,8 @@ feature 'Visitor wants to create/edit a topic' do
 		# Save path of topic for other test(s)
 		Path.path = current_path
 		expect(Path.path).to eq(current_path)
-		expect(page).to have_selector('strong', :text => "TestLabel")
+    # the name gets overwritten by what is in the "Element Value", so this test no longer makes sense.
+		#expect(page).to have_selector('strong', :text => "TestLabel")
 		expect(page).to have_selector('a', :text => "http://test.com")
 		expect(page).to have_selector('li', :text => "TestElement")
 		expect(page).to have_selector('li', :text => "Test Scheme")
