@@ -220,4 +220,4 @@ en:
     entry_name:
       default: 'entry'
 
-    did_you_mean: 'Did you mean to type: %{options}?'
+    did_you_mean: 'Similar searches: %{options}?'
