@@ -62,16 +62,6 @@ class Component
       cid = cid.match('\w+$').to_s
       cid.to_i
     end
-    class Date
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type DAMS.Date
-      map_predicates do |map|
-        map.value(:in=> RDF, :to=>'value')
-        map.beginDate(:in=>DAMS, :to=>'beginDate')
-        map.endDate(:in=>DAMS, :to=>'endDate')
-      end
-    end
 #    class File
 #      include ActiveFedora::RdfObject
 #      rdf_type DAMS.File

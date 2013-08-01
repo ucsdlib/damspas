@@ -1,6 +1,6 @@
 class DamsCartographicsInternal
   include ActiveFedora::RdfObject
-  include ActiveFedora::Rdf::DefaultNodes
+#  include ActiveFedora::Rdf::DefaultNodes
   rdf_type DAMS.Cartographics
   map_predicates do |map|
     map.point(:in=>DAMS)

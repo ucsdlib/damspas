@@ -41,16 +41,6 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     permission_node[0].type = val
   end
-  class Permission
-    include ActiveFedora::RdfObject
-    include ActiveFedora::Rdf::DefaultNodes
-    rdf_type DAMS.Permission
-    map_predicates do |map|
-      map.type(:in=>DAMS)
-      map.beginDate(:in=>DAMS)
-      map.endDate(:in=>DAMS)
-    end
-  end
 
   def restrictionBeginDate
     restriction_node[0] ? restriction_node[0].beginDate : []
@@ -78,16 +68,6 @@ class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
       restriction_node.build
     end
     restriction_node[0].type = val
-  end
-  class Restriction
-    include ActiveFedora::RdfObject
-    include ActiveFedora::Rdf::DefaultNodes
-    rdf_type DAMS.Restriction
-    map_predicates do |map|
-      map.type(:in=>DAMS)
-      map.beginDate(:in=>DAMS)
-      map.endDate(:in=>DAMS)
-    end
   end
 
   def to_solr (solr_doc = {})
