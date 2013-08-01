@@ -63,7 +63,7 @@ def edit
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
-    @provenance_collection_id = @dams_provenance_collection_part.provenanceCollection.to_s.gsub(/.*\//,'')[0..9]
+    #@provenance_collection_id = @dams_provenance_collection_part.provenanceCollection.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection_part.language.to_s.gsub(/.*\//,'')[0..9]
     @role_id = @dams_provenance_collection_part.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
     @name_id = get_relationship_name_id(@dams_provenance_collection_part)
@@ -83,6 +83,13 @@ def edit
     @simple_name_id = get_name_id(@dams_provenance_collection_part)   
     @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
     @simple_name_value = get_name_value(@dams_provenance_collection_part)
+
+    @dams_provenance_collection_part.collections.each do |col|
+      
+      if (col.class == DamsProvenanceCollection)
+        @provenance_collection_id = col.pid
+      end       
+    end
 
 
   uri = URI('http://fast.oclc.org/fastSuggest/select')
