@@ -597,9 +597,7 @@ def relatedResourceUri
       existing_elem.elementValue = val
     else
       # create a new element of the correct type
-      if type.include? "TopicElement"
-        elem = MadsDatastream::List::TopicElement.new(elementList.first.graph)
-      elsif type.include? "BuiltWorkPlaceElement"
+      if type.include? "BuiltWorkPlaceElement"
         elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
 	  elsif type.include? "BuiltWorkPlaceElement"
         elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
@@ -623,18 +621,18 @@ def relatedResourceUri
         elem = MadsDatastream::List::TemporalElement.new(elementList.first.graph)     
 	  elsif type.include? "OccupationElement"
         elem = MadsDatastream::List::OccupationElement.new(elementList.first.graph)               
-	  elsif type.include? "FullNameElement"
-        elem = MadsDatastream::List::FullNameElement.new(elementList.first.graph)
+      elsif type.include? "DateNameElement"
+        elem = MadsDateNameElement.new(elementList.first.graph)
       elsif type.include? "FamilyNameElement"
-        elem = MadsDatastream::List::FamilyNameElement.new(elementList.first.graph)
-	  elsif type.include? "GivenNameElement"
-        elem = MadsDatastream::List::GivenNameElement.new(elementList.first.graph)     
-	  elsif type.include? "DateNameElement"
-        elem = MadsDatastream::List::DateNameElement.new(elementList.first.graph)                 
-	  elsif type.include? "TermsOfAddressNameElement"
-        elem = MadsDatastream::List::TermsOfAddressNameElement.new(elementList.first.graph)  
+        elem = MadsFamilyNameElement.new(elementList.first.graph)
+      elsif type.include? "FullNameElement"
+        elem = MadsFullNameElement.new(elementList.first.graph)
+      elsif type.include? "GivenNameElement"
+        elem = MadsGivenNameElement.new(elementList.first.graph)
+      elsif type.include? "TermsOfAddressNameElement"
+        elem = MadsTermsOfAddressNameElement.new(elementList.first.graph)
 	  elsif type.include? "NameElement"
-        elem = MadsDatastream::List::NameElement.new(elementList.first.graph)                                                  
+        elem = MadsNameElement.new(elementList.first.graph)                                                  
       end
       elem.elementValue = val
 

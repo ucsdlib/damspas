@@ -36,54 +36,6 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
            
   class List 
     include ActiveFedora::RdfList
-    class FullNameElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.FullNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end
-    class FamilyNameElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.FamilyNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end
-    class GivenNameElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.GivenNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end
-    class DateNameElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.DateNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end     
-    class NameElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.NameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end        
-    class TermsOfAddressNameElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.TermsOfAddressNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end       
     class GenreFormElement
       include ActiveFedora::RdfObject
       include ActiveFedora::Rdf::DefaultNodes
@@ -214,17 +166,17 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 	i = 0
 	if list != nil
 		while i < list.size  do
-		  if (list[i].class == MadsDatastream::List::FullNameElement)
+		  if (list[i].class == MadsFullNameElement)
 			Solrizer.insert_field(solr_doc, 'full_name_element', list[i].elementValue.first)
-	 	  elsif (list[i].class == MadsDatastream::List::FamilyNameElement)
+	 	  elsif (list[i].class == MadsFamilyNameElement)
 			Solrizer.insert_field(solr_doc, 'family_name_element', list[i].elementValue.first)		
-		  elsif (list[i].class == MadsDatastream::List::GivenNameElement)
+		  elsif (list[i].class == MadsGivenNameElement)
 			Solrizer.insert_field(solr_doc, 'given_name_element', list[i].elementValue.first)				
-		  elsif (list[i].class == MadsDatastream::List::DateNameElement)
+		  elsif (list[i].class == MadsDateNameElement)
 			Solrizer.insert_field(solr_doc, 'date_name_element', list[i].elementValue.first)	
-		  elsif (list[i].class == MadsDatastream::List::NameElement)
+		  elsif (list[i].class == MadsNameElement)
 			Solrizer.insert_field(solr_doc, 'name_element', list[i].elementValue.first)	
-  		  elsif (list[i].class == MadsDatastream::List::TermsOfAddressNameElement)
+  		  elsif (list[i].class == MadsTermsOfAddressNameElement)
 			Solrizer.insert_field(solr_doc, 'terms_of_address_name_element', list[i].elementValue.first)		
  		  elsif (list[i].class == MadsDatastream::List::GenreFormElement)
 			Solrizer.insert_field(solr_doc, 'genre_form_element', list[i].elementValue.first)	
