@@ -21,7 +21,7 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		# Create new personal name
 		fill_in "Name", :with => "John Doe"
 		fill_in "ExternalAuthority", :with => "http://johndoe.com"
-		fill_in "FullNameElement", :with => "John James Doe"
+		fill_in "Full Name", :with => "John James Doe"
 		fill_in "FamilyNameElement", :with => "Doe1"
 		fill_in "GivenNameElement", :with => "Johnson"
 		fill_in "DateNameElement", :with => "1900"
@@ -44,11 +44,11 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		fill_in "Authoritative Label", :with => "Jane Does"
 		fill_in "ExternalAuthority", :with => "http://janedoes.com"
 		page.select("Test Scheme 2", match: :first)
-		fill_in "FullNameElement", :with => "Jane Does1"
-		fill_in "FamilyNameElement", :with => "Does2"
-		fill_in "GivenNameElement", :with => "Jane1"
-		fill_in "DateNameElement", :with => "1950"
-		fill_in "TermOfAddressElement", :with => "Last"
+		fill_in "Full Name", :with => "Jane Does1"
+		fill_in "Family Name", :with => "Does2"
+		fill_in "Given Name", :with => "Jane1"
+		fill_in "Date", :with => "1950"
+		fill_in "Term Of Address", :with => "Last"
 		click_on "Save changes"
 
 		expect(page).to have_selector('strong', :text => "Jane Does")
@@ -70,11 +70,11 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		fill_in "Authoritative Label", :with => "New Name"
 		fill_in "ExternalAuthority", :with => "http://personal.com"
 		page.select("Test Scheme", match: :first)
-		fill_in "FullNameElement", :with => "New Name1"
-		fill_in "FamilyNameElement", :with => "Name2"
-		fill_in "GivenNameElement", :with => "New1"
-		fill_in "DateNameElement", :with => "1980"
-		fill_in "TermOfAddressElement", :with => "Median"
+		fill_in "Full Name", :with => "New Name1"
+		fill_in "Family Name", :with => "Name2"
+		fill_in "Given Name", :with => "New1"
+		fill_in "Dates", :with => "1980"
+		fill_in "Terms of Address", :with => "Median"
 		click_on "Save changes"
 
 		expect(page).to have_selector('strong', :text => "New Name")
@@ -101,11 +101,11 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "Authoritative Label", :with => "Cancel"
 		fill_in "ExternalAuthority", :with => "http://cancel.com"
 		page.select("Test Scheme 2", match: :first)
-		fill_in "FullNameElement", :with => "Can Cel"
-		fill_in "FamilyNameElement", :with => "Cel"
-		fill_in "GivenNameElement", :with => "Can"
-		fill_in "DateNameElement", :with => "1999"
-		fill_in "TermOfAddressElement", :with => "Not here"
+		fill_in "Full Name", :with => "Can Cel"
+		fill_in "Family Name", :with => "Cel"
+		fill_in "Given Name", :with => "Can"
+		fill_in "Dates", :with => "1999"
+		fill_in "Terms of Address", :with => "Not here"
 		click_on "Cancel"
 		expect(page).to_not have_content("Can Cel")
 		expect(page).to have_content("New Name")

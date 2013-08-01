@@ -9,7 +9,7 @@
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'mads_personal_name[name][]', "Authoritative Label" %>
+			<%= label_tag 'mads_personal_name[name][]', "Name" %>
 			<%= text_field_tag 'mads_personal_name[name][]', @mads_personal_name.name[0], class: "input-block-level" %>
 		
 			<%= label_tag 'mads_personal_name[externalAuthority][]', "ExternalAuthority" %>
@@ -17,16 +17,30 @@
 
 			<%= label_tag 'mads_personal_name[scheme][]', "scheme" %>
 			<%= select_tag 'mads_personal_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
-			<%= label_tag 'mads_personal_name[fullNameValue][]', "FullNameElement" %>
-			<%= text_field_tag 'mads_personal_name[fullNameValue][]', @mads_personal_name.fullNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_personal_name[familyNameValue][]', "FamilyNameElement" %>
-			<%= text_field_tag 'mads_personal_name[familyNameValue][]', @mads_personal_name.familyNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_personal_name[givenNameValue][]', "GivenNameElement" %>
-			<%= text_field_tag 'mads_personal_name[givenNameValue][]', @mads_personal_name.givenNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_personal_name[dateNameValue][]', "DateNameElement" %>
-			<%= text_field_tag 'mads_personal_name[dateNameValue][]', @mads_personal_name.dateNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_personal_name[termOfAddressValue][]', "TermOfAddressElement" %>
-			<%= text_field_tag 'mads_personal_name[termOfAddressValue][]', @mads_personal_name.termOfAddressValue, class: "input-block-level" %>													
+
+			<%= f.fields_for :elementList do |el| %>
+				<%= el.fields_for :fullNameElement do |full| %>
+					<%= full.label :elementValue, "Full Name" %>
+					<%= full.text_field :elementValue, @mads_personal_name.fullName %>
+				<% end %>
+				<%= el.fields_for :familyNameElement do |family| %>
+					<%= family.label :elementValue, "Family Name" %>
+					<%= family.text_field :elementValue, @mads_personal_name.familyName %>
+				<% end %>
+				<%= el.fields_for :givenNameElement do |given| %>
+					<%= given.label :elementValue, "Given Name" %>
+					<%= given.text_field :elementValue, @mads_personal_name.givenName %>
+				<% end %>
+				<%= el.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+					<%= termsOfAddress.label :elementValue, "Terms of Address" %>
+					<%= termsOfAddress.text_field :elementValue, @mads_personal_name.termsOfAddress %>
+				<% end %>
+				<%= el.fields_for :dateNameElement do |date| %>
+					<%= date.label :elementValue, "Dates" %>
+					<%= date.text_field :elementValue, @mads_personal_name.date %>
+				<% end %>
+			<% end %>
+
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_personal_name_path(@mads_personal_name), class: "btn btn-link pull-right" %>
