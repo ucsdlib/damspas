@@ -22,7 +22,6 @@ describe MadsTopicsController do
         flash[:notice].should == "Topic has been saved"
         response.should redirect_to mads_topic_path(assigns[:mads_topic])
 
-        puts assigns[:mads_topic].damsMetadata.serialize
         assigns[:mads_topic].elementList.size.should == 1
 
         assigns[:mads_topic].scheme.first.code.should == ['test']
