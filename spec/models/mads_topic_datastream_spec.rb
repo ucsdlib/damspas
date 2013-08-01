@@ -59,7 +59,7 @@ END
 
       it "should set the name when the elementList is set" do
         subject.name = "Original"
-        subject.elementList_attributes = [topicElement_attributes: [{ elementValue: "Test" }]]
+        subject.elementList_attributes = [topicElement_attributes: {'0' => { elementValue: "Test" }}]
         subject.name.should == ["Test"]
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
