@@ -1,5 +1,5 @@
 class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include ActiveFedora::Rdf::DefaultNodes
+  #include ActiveFedora::Rdf::DefaultNodes
   rdf_type MADS.Topic
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')

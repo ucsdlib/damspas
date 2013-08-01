@@ -1,8 +1,8 @@
 class MadsTopicInternal
-    include ActiveFedora::RdfObject
-    include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
-    rdf_type MADS.Topic
+  include ActiveFedora::RdfObject
+  include ActiveFedora::Rdf::DefaultNodes
+  include DamsHelper
+  rdf_type MADS.Topic
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme')
