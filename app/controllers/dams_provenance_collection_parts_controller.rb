@@ -55,7 +55,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
   
 def edit
     @dams_provenance_collection_part = DamsProvenanceCollectionPart.find(params[:id])
-    @dams_provenance_collection=get_objects('DamsProvenanceCollection','title_tesim')
+    @dams_provenance_collections=get_objects('DamsProvenanceCollection','title_tesim')
     @mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
@@ -63,7 +63,7 @@ def edit
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
-    #@provenance_collection_id = @dams_provenance_collection_part.provenanceCollection.to_s.gsub(/.*\//,'')[0..9]
+    @provenance_collection_id = @dams_provenance_collection_part.provenanceCollection.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection_part.language.to_s.gsub(/.*\//,'')[0..9]
     @role_id = @dams_provenance_collection_part.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
     @name_id = get_relationship_name_id(@dams_provenance_collection_part)
@@ -76,11 +76,14 @@ def edit
     @simple_subject_type = get_simple_subject_type(@dams_provenance_collection_part)  
     @dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
     @simpleSubject_id = get_simple_subject_id(@dams_provenance_collection_part)
-
-    
     @complexSubject_id = @dams_provenance_collection_part.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_provenance_collection_part.subject.nil?
-     
-   @simpleSubjectValue = get_simple_subject_value(@dams_provenance_collection_part)
+    @simpleSubjectValue = get_simple_subject_value(@dams_provenance_collection_part)
+
+    @simple_name_type = get_name_type(@dams_provenance_collection_part)
+    @simple_name_id = get_name_id(@dams_provenance_collection_part)   
+    @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
+    @simple_name_value = get_name_value(@dams_provenance_collection_part)
+
 
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')

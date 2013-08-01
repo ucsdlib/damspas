@@ -5,7 +5,9 @@
 <h1>Create a new Dams Provenance Collection Part Object</h1>
 <%= form_for @dams_provenance_collection_part do |f| %>
   
-  
+  <h3>Provenance Collection</h3>
+  <%= select_tag 'dams_provenance_collection_part[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
+  <br>
 
   <h3>Title</h3>
   <%= label_tag 'dams_provenance_collection_part[titleValue][]', "Title" %>
@@ -91,6 +93,10 @@
   OR Enter new subject <%=text_field_tag 'dams_provenance_collection_part[subjectValue][]' %>
   <%#= select_tag 'dams_provenance_collection_part[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
   <%#=text_field_tag 'dams_provenance_collection_part[subjectValue][]' %>
+
+   <h3>Name</h3>
+  <%= select_tag 'dams_provenance_collection_part[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#name','nameURI','Name');"%>
+  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_provenance_collection_part[nameTypeValue][]' %>
   
   <h3>Related Resource</h3>
   <%= label_tag 'dams_provenance_collection_part[relatedResourceType][]', "Related Resource Type" %>
