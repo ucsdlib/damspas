@@ -79,11 +79,14 @@ class DamsProvenanceCollectionsController < ApplicationController
     @simple_subject_type = get_simple_subject_type(@dams_provenance_collection)  
     @dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
     @simpleSubject_id = get_simple_subject_id(@dams_provenance_collection)
-
-    
     @complexSubject_id = @dams_provenance_collection.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_provenance_collection.subject.nil?
-     
-   @simpleSubjectValue = get_simple_subject_value(@dams_provenance_collection)
+    @simpleSubjectValue = get_simple_subject_value(@dams_provenance_collection)
+
+
+   @simple_name_type = get_name_type(@dams_provenance_collection)
+   @simple_name_id = get_name_id(@dams_provenance_collection)   
+    @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
+    @simple_name_value = get_name_value(@dams_provenance_collection)
 
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -118,8 +121,6 @@ class DamsProvenanceCollectionsController < ApplicationController
   end
 
   def index
-    @units = DamsProvenanceCollection.all( :order=>"system_create_dtsi asc" )
-  end
-
-
+     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsProvenanceCollection"', :rows => 20 )
+   end
 end
