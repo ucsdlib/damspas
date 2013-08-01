@@ -116,14 +116,6 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
         map.elementValue(:in=> MADS)
       end
     end          
-    class TopicElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.TopicElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end     
 
     # language element
     class LanguageElement
