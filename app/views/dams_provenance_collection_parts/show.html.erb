@@ -19,10 +19,10 @@
 		<%= render :partial => 'shared/fields/title' %>
         <%= render :partial => 'shared/fields/show' %>
 		
-		<%# if can? :update, @dams_provenance_collection_part then %>
-					<%#= link_to "Edit", edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), class: "btn btn-primary"%>
-					<%# end %>
-					<%#= link_to "View All", dams_provenance_collections__part_path, class: "btn btn-primary" %>
+		<% if can? :update, @dams_provenance_collection_part then %>
+					<%= link_to "Edit", edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), class: "btn btn-primary"%>
+					<% end %>
+					<%= link_to "View All", dams_provenance_collection_parts_path, class: "btn btn-primary" %>
 	</div>
 </div>
 

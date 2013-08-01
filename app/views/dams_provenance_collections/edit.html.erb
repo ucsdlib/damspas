@@ -90,7 +90,19 @@
   %>
   <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"><%= select_tag 'dams_provenance_collection[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
-    
+   
+ <h3>Name</h3>
+  <%= select_tag 'dams_provenance_collection[nameType][]',  options_for_select(nameTypeArray, :selected => @simple_name_type) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#name','nameURI','Name');"%>
+  <% if !@simple_name_value.nil? && @simple_name_value.length > 0%>
+    <br>
+    <%=text_field_tag 'dams_provenance_collection[nameTypeValue][]', @simple_name_value , class: "input-block-level"%>
+  <% elsif !@simple_name_type.nil? && @simple_name_type.length == 0%>
+  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_provenance_collection[nameTypeValue][]' , "", class: "input-block-level"%>    
+  <% else %>
+  <div id="name"><%= select_tag 'dams_provenance_collection[nameURI][]', options_for_select(@simple_names, :selected => @simple_name_id), :prompt=>"Select Name" %></div>  
+  <% end %>
+
+
   <input id="dams_provenance_collection_subjectTypeValue_" name="dams_provenance_collection[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
   
 
