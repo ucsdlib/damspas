@@ -13,9 +13,16 @@ class MadsSchemeInternal
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')
   end
+  # used by fields_for, so this ought to move to ActiveFedora if it works
+  def persisted?
+    rdf_subject.kind_of? RDF::URI
+  end
+  def id
+    rdf_subject if rdf_subject.kind_of? RDF::URI
+  end
 
   def attributes=(values)
-    unless values.key?('code') && values.key?('name')
+    if rdf_subject.uri? && (!values.key?('code') || !values.key?('name'))
       remote_scheme = Dams.resolve_object(rdf_subject)
       raise "Expected a MadsScheme at #{rdf_subject}, but got #{remote_scheme.class}." unless remote_scheme.kind_of? MadsScheme
       values['code'] = remote_scheme.code

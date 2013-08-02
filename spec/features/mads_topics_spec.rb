@@ -30,7 +30,7 @@ feature 'Visitor wants to create/edit a topic' do
 		fill_in "Name", :with => "TestLabel"
 		fill_in "ExternalAuthority", :with => "http://test.com"
 		fill_in "Element Value", :with => "TestElement"
-		page.select('Test Scheme', match: :first) 
+		select('Test Scheme', from: 'Select MadsScheme') 
 		click_on "Submit"
 
 
