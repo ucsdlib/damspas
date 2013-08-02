@@ -100,7 +100,7 @@
 		<p class="sidebar-header"><strong>Personal Names</strong></p>
 		<% @document.each do |doc| %>
 			<% if doc['name_tesim'] != nil %>
-				<%= link_to doc['name_tesim'].first, mads_personal_name_path(doc['id_t']), :class => "btn btn-block" %>
+				<%= link_to doc['name_tesim'].first, mads_personal_name_path(doc['id']), :class => "btn btn-block" %>
 			<% end %>
 		<% end %>
 

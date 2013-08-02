@@ -30,7 +30,6 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		click_on "Submit"
 		Path.path = current_path
 
-		expect(page).to have_selector('strong', :text => "John Doe")
 		expect(page).to have_selector('li', :text => "John James Doe")
 		expect(page).to have_selector('li', :text => "Doe1")
 		expect(page).to have_selector('li', :text => "Johnson")
@@ -39,6 +38,8 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		expect(page).to have_selector('li', :text => "Test Scheme")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('a', :text => "http://johndoe.com")
+        # overridden by element value
+		#expect(page).to have_selector('strong', :text => "John Doe")
 
 		click_on "Edit"
 		fill_in "Name", :with => "Jane Does"

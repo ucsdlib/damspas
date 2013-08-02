@@ -21,23 +21,23 @@
 			<%= f.fields_for :elementList do |el| %>
 				<%= el.fields_for :fullNameElement do |full| %>
 					<%= full.label :elementValue, "Full Name" %>
-					<%= full.text_field :elementValue, @mads_personal_name.fullName %>
+					<%= full.text_field :elementValue, @mads_personal_name.fullNameValue %>
 				<% end %>
 				<%= el.fields_for :familyNameElement do |family| %>
 					<%= family.label :elementValue, "Family Name" %>
-					<%= family.text_field :elementValue, @mads_personal_name.familyName %>
+					<%= family.text_field :elementValue, @mads_personal_name.familyNameValue %>
 				<% end %>
 				<%= el.fields_for :givenNameElement do |given| %>
 					<%= given.label :elementValue, "Given Name" %>
-					<%= given.text_field :elementValue, @mads_personal_name.givenName %>
+					<%= given.text_field :elementValue, @mads_personal_name.givenNameValue %>
 				<% end %>
 				<%= el.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
 					<%= termsOfAddress.label :elementValue, "Terms of Address" %>
-					<%= termsOfAddress.text_field :elementValue, @mads_personal_name.termsOfAddress %>
+					<%= termsOfAddress.text_field :elementValue, @mads_personal_name.termsOfAddressNameValue %>
 				<% end %>
 				<%= el.fields_for :dateNameElement do |date| %>
 					<%= date.label :elementValue, "Dates" %>
-					<%= date.text_field :elementValue, @mads_personal_name.date %>
+					<%= date.text_field :elementValue, @mads_personal_name.dateNameValue %>
 				<% end %>
 			<% end %>
 
