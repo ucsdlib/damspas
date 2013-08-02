@@ -14,6 +14,8 @@ feature 'Visitor wants to create/edit a topic' do
 
 	scenario 'is on mads index page' do
 		sign_in_developer
+		expect(page).to have_selector('a', :text => "Create Topic")
+
 		# Change to create button
 		visit "mads_topics/new"
 		# Create new topic
