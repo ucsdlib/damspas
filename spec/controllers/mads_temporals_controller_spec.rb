@@ -28,6 +28,12 @@ describe MadsTemporalsController do
         assigns[:mads_temporal].scheme.first.name.should == ['Test Scheme']
 
       end
+      it "should require a name" do  		
+	  	  temporalObject = MadsTemporal.create(name: "", externalAuthority: "http://test.com")
+	  	  temporalObject.valid?
+	      temporalObject.errors.should have_key(:label)
+	      temporalObject.errors.full_messages.should include 'Label can\'t be blank'
+	   end        
     end
   end
 end
