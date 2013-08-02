@@ -1,5 +1,5 @@
 class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include ActiveFedora::Rdf::DefaultNodes
+  #include ActiveFedora::Rdf::DefaultNodes
   rdf_type MADS.Temporal
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
@@ -30,8 +30,8 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   def temporalElement_with_update_name= (attributes)
     self.temporalElement_without_update_name= attributes
-    if elementList && elementList.first && elementList.first.elementValue.first
-      self.name = elementList.first.elementValue.first
+    if elementList && elementList.first && elementList.first.elementValue.present?
+      self.name = elementList.first.elementValue
     end
   end
   alias_method :temporalElement_without_update_name=, :temporalElement_attributes=
@@ -56,7 +56,7 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
     include ActiveFedora::RdfObject
     rdf_type MADS.TemporalElement
     map_predicates do |map|
-      map.elementValue(:in=> MADS)
+      map.elementValue(in: MADS, multivalue: false)
     end
     # used by fields_for, so this ought to move to ActiveFedora if it works
     def persisted?
@@ -79,7 +79,7 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.first.to_s)
     if elementList.first
-      Solrizer.insert_field(solr_doc, "temporal_element", elementList.first.elementValue)
+      Solrizer.insert_field(solr_doc, "temporal_element", elementList.first.elementValue.to_s)
     end
     solr_doc
   end

@@ -41,7 +41,7 @@ END
   end
   
   it "should have temporalElement" do
-    subject.temporalElement.first.elementValue.should == ['16th century']
+    subject.temporalElement.first.elementValue.should == '16th century'
   end
 
   it "should be able to build a new temporalElement" do

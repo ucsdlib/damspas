@@ -16,8 +16,11 @@ describe MadsTemporalsController do
     end
 
     describe "#create" do
+      let!(:scheme) { MadsScheme.create(code: 'test', name: 'Test Scheme')}
+      after { scheme.destroy }
+
       it "should set the attributes" do
-        post :create, mads_temporal: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "temporalElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/xx00002560"}]}
+        post :create, mads_temporal: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "temporalElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme.pid}"}]}
         flash[:notice].should == "Temporal has been saved"
         response.should redirect_to mads_temporal_path(assigns[:mads_temporal])
 

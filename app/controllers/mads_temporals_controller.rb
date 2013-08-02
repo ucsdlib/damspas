@@ -37,12 +37,8 @@ class MadsTemporalsController < ApplicationController
   end
 
   def edit
-    @mads_temporal = MadsTemporal.find(params[:id])
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@mads_temporal.scheme != nil)
-    	@scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, "" 
   end
 
   def create
@@ -56,6 +52,7 @@ class MadsTemporalsController < ApplicationController
   end
 
   def update
+    @mads_temporal.elementList.clear
     @mads_temporal.attributes = params[:mads_temporal]
     if @mads_temporal.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
