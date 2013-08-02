@@ -18,9 +18,9 @@
 			<%= label_tag 'mads_topic[scheme_attributes][0][id]', "scheme" %>
 			<%= select_tag 'mads_topic[scheme_attributes][0][id]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, Rails.configuration.id_namespace+s.pid] }, :selected => @scheme_id ) %>
 
-			<%# <%= label_tag      'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]', "Element Value" %>\
+			<%# <%= label_tag      'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]', "Element Value" %>
 
-			<%# <%= text_field_tag 'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]', @mads_topic.elementList[0].first.elementValue.first, class: "input-block-level" %>\
+			<%# <%= text_field_tag 'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]', @mads_topic.elementList[0].first.elementValue.first, class: "input-block-level" %>
 
       <%= f.fields_for :topicElement do |te| %>
         <%= te.label :elementValue, "Element Value" %>
