@@ -41,7 +41,7 @@ END
   end
 
   it "should have topicElement" do
-    subject.topicElement.first.elementValue.should == ['Socialism']
+    subject.topicElement.first.elementValue.should == 'Socialism'
   end
 
   it "should be able to build a new topicElement" do
