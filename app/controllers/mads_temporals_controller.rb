@@ -32,6 +32,7 @@ class MadsTemporalsController < ApplicationController
 
   def new
     @mads_temporal.elementList.temporalElement.build
+    @mads_temporal.scheme.build
 	#@mads_schemes = get_objects('MadsScheme','name_tesim')
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
@@ -53,6 +54,7 @@ class MadsTemporalsController < ApplicationController
 
   def update
     @mads_temporal.elementList.clear
+    @mads_temporal.scheme.clear
     @mads_temporal.attributes = params[:mads_temporal]
     if @mads_temporal.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
