@@ -18,47 +18,44 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   def elementList_attributes_with_update_name= (attributes)
     self.elementList_attributes_without_update_name= attributes
-    self.name = authLabel
+    self.name = authLabel if !authLabel.blank?
   end
   alias_method :elementList_attributes_without_update_name=, :elementList_attributes=
   alias_method :elementList_attributes=, :elementList_attributes_with_update_name=
 
   def authLabel
-    full = full_name_element
-    given = given_name_element
-    family = family_name_element
-    addr = terms_of_address_element
-    date = date_name_element
-    nameVal = name_element
+    full = fullNameValue
+    given = givenNameValue
+    family = familyNameValue
+    addr = termsOfAddressNameValue
+    date = dateNameValue
+    nameVal = nameValue
 
     authLabel = ""
-    authLabel += "#{full}, " if full
-    authLabel += "#{family}, " if family
-    authLabel += "#{given}, " if given
-    authLabel += "#{addr}, " if addr
-    authLabel += date if date
-    if nameVal
-      authLabel += ", " if authLabel
-      authLabel += nameVal
+    [full,family,given,addr,date,nameVal].each do |val|
+      if val
+        authLabel += ", " if !authLabel.blank?
+        authLabel += val
+      end
     end
     authLabel
   end
-  def full_name_element
+  def fullNameValue
     find_element "MadsFullNameElement"
   end
-  def given_name_element
+  def givenNameValue
     find_element "MadsGivenNameElement"
   end
-  def name_element
+  def nameValue
     find_element "MadsNameElement"
   end
-  def family_name_element
+  def familyNameValue
     find_element "MadsFamilyNameElement"
   end
-  def date_name_element
+  def dateNameValue
     find_element "MadsDateNameElement"
   end
-  def terms_of_address_element
+  def termsOfAddressNameValue
     find_element "MadsTermsOfAddressNameElement"
   end
   def find_element( className )
@@ -100,6 +97,7 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   def to_solr (solr_doc = {})
+    Solrizer.insert_field(solr_doc, 'name', name)
     Solrizer.insert_field(solr_doc, 'personal_name', name)
     if scheme.first
       Solrizer.insert_field(solr_doc, 'scheme', scheme.first.rdf_subject.to_s)
@@ -109,12 +107,12 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
     if externalAuthority.first
       Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.first.to_s)
     end
-    Solrizer.insert_field(solr_doc, "name_element", name_element )
-    Solrizer.insert_field(solr_doc, "date_name_element", date_name_element)
-    Solrizer.insert_field(solr_doc, "family_name_element", family_name_element)
-    Solrizer.insert_field(solr_doc, "full_name_element", full_name_element)
-    Solrizer.insert_field(solr_doc, "given_name_element", given_name_element)
-    Solrizer.insert_field(solr_doc, "terms_of_address_element", terms_of_address_element)
+    Solrizer.insert_field(solr_doc, "name_element", nameValue)
+    Solrizer.insert_field(solr_doc, "date_name_element", dateNameValue)
+    Solrizer.insert_field(solr_doc, "family_name_element", familyNameValue)
+    Solrizer.insert_field(solr_doc, "full_name_element", fullNameValue)
+    Solrizer.insert_field(solr_doc, "given_name_element", givenNameValue)
+    Solrizer.insert_field(solr_doc, "terms_of_address_element", termsOfAddressNameValue)
   end
  
 end
