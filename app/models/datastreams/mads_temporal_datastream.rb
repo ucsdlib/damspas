@@ -45,12 +45,12 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
     accepts_nested_attributes_for :temporalElement
     
     # used by fields_for, so this ought to move to ActiveFedora if it works
-    def persisted?
-      rdf_subject.kind_of? RDF::URI
-    end
-    def id
-      rdf_subject if rdf_subject.kind_of? RDF::URI
-    end   
+    #def persisted?
+    #  rdf_subject.kind_of? RDF::URI
+    #end
+    #def id
+    #  rdf_subject if rdf_subject.kind_of? RDF::URI
+    #end   
   end
   class MadsTemporalElement
     include ActiveFedora::RdfObject
