@@ -5,27 +5,37 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
     map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
-    map.elementList(:in => MADS, :to => 'elementList', :class_name=>'MadsTemporalNestedElementList')
+    map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTemporalNestedElementList')
   end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     
-  accepts_nested_attributes_for :elementList, :scheme
+  accepts_nested_attributes_for :temporalElement, :scheme
 
+  # this is conceptual, not real working code:
+  # has_one :elementList
+  # has_many :temporal_elements, :through => :elementList
+
+  def elementList
+    elem_list.first || elem_list.build
+  end
+
+  delegate :temporalElement_attributes=, to: :elementList
+  alias_method :temporalElement, :elementList
+  
   def serialize
     graph.insert([rdf_subject, RDF.type, MADS.Temporal]) if new?
     super
   end
 
-
-  def elementList_attributes_with_update_name= (attributes)
-    self.elementList_attributes_without_update_name= attributes
-    if elementList.first && elementList.first.first && elementList.first.first.elementValue.first
-      self.name = elementList.first.first.elementValue.first
+  def temporalElement_with_update_name= (attributes)
+    self.temporalElement_without_update_name= attributes
+    if elementList && elementList.first && elementList.first.elementValue.first
+      self.name = elementList.first.elementValue.first
     end
   end
-  alias_method :elementList_attributes_without_update_name=, :elementList_attributes=
-  alias_method :elementList_attributes=, :elementList_attributes_with_update_name=
+  alias_method :temporalElement_without_update_name=, :temporalElement_attributes=
+  alias_method :temporalElement_attributes=, :temporalElement_with_update_name=
   
   class MadsTemporalNestedElementList
     include ActiveFedora::RdfList
@@ -60,6 +70,7 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
 	name[0]
   end
   def to_solr (solr_doc = {})
+    Solrizer.insert_field(solr_doc, 'name', name)
     Solrizer.insert_field(solr_doc, 'temporal', name)
     if scheme.first
       Solrizer.insert_field(solr_doc, 'scheme', scheme.first.rdf_subject.to_s)
@@ -68,7 +79,7 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.first.to_s)
     if elementList.first
-      Solrizer.insert_field(solr_doc, "temporal_element", elementList[0].first.elementValue)
+      Solrizer.insert_field(solr_doc, "temporal_element", elementList.first.elementValue)
     end
     solr_doc
   end
