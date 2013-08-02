@@ -2,25 +2,19 @@
 require 'spec_helper'
 
 describe MadsTopic do
+  let(:params) {
+    {name: "Socialism", externalAuthority: RDF::Resource.new("http://id.loc.gov/authorities/subjects/sh85124118"),
+        topicElement_attributes: [{ elementValue: "Socialism" }],
+        scheme_attributes: [
+          id: "http://library.ucsd.edu/ark:/20775/bd9386739x", code: "lcsh", name: "Library of Congress Subject Headings"
+        ]
+  }}
   subject do
-    MadsTopic.new pid: 'zzXXXXXXX1'
+    MadsTopic.new(pid: 'zzXXXXXXX1').tap do |t|
+      t.attributes = params
+    end
   end
   it "should create a xml" do
-    exturi = RDF::Resource.new "http://id.loc.gov/authorities/subjects/sh85124118"
-    scheme = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd9386739x"
-    params = {
-      topic: {
-        name: "Socialism", externalAuthority: exturi,
-        elementList_attributes: [
-          topicElement_attributes: [{ elementValue: "Socialism" }]
-        ],
-        scheme_attributes: [
-          id: scheme, code: "lcsh", name: "Library of Congress Subject Headings"
-        ]
-      }
-    }
-    subject.damsMetadata.attributes = params[:topic]
-
     xml =<<END
 <rdf:RDF
   xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
@@ -44,5 +38,13 @@ describe MadsTopic do
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml
+  end
+
+  it "should have topicElement" do
+    subject.topicElement.first.elementValue.should == ['Socialism']
+  end
+
+  it "should be able to build a new topicElement" do
+    subject.elementList.topicElement.build
   end
 end

@@ -10,9 +10,7 @@ describe MadsTopicDatastream do
       params = {
         topic: {
           name: "Socialism", externalAuthority: exturi,
-          elementList_attributes: [
-            topicElement_attributes: [{ elementValue: "Socialism" }]
-          ],
+          topicElement_attributes: [{ elementValue: "Socialism" }],
           scheme_attributes: [
             id: scheme, code: "lcsh", name: "Library of Congress Subject Headings"
           ]
@@ -57,14 +55,14 @@ END
         subject.name.should == ["Baseball"]
       end
 
-      it "should set the name when the elementList is set" do
+      it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "Original"
-        subject.elementList_attributes = [topicElement_attributes: {'0' => { elementValue: "Test" }}]
+        subject.topicElement_attributes = {'0' => { elementValue: "Test" }}
         subject.name.should == ["Test"]
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
-        subject.elementList_attributes = [topicElement_attributes: [{ elementValue: nil }]]
+        subject.topicElement_attributes = [{ elementValue: nil }]
         subject.name.should == ["Original"]
       end
     end
@@ -85,7 +83,7 @@ END
       end
 
       it "should have fields" do
-        list = subject.elementList.first
+        list = subject.elementList
         list[0].should be_kind_of MadsTopicDatastream::MadsTopicElement
         list[0].elementValue.should == ["Baseball"]
         list.size.should == 1
