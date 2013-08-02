@@ -28,6 +28,7 @@ feature 'Visitor wants to create/edit a MADS Conference Name' do
 		Path.path = current_path
 
 		expect(page).to have_selector('strong', :text => "ComicCon, 2013")
+		expect(page).to have_selector('li', :text => "ComicCon")
 		expect(page).to have_selector('li', :text => "2013")
 		expect(page).to have_selector('li', :text => "Test Scheme")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
@@ -84,12 +85,9 @@ feature 'Visitor wants to use Hydra View' do
 		sign_in_developer
 		visit Path.path
 		click_on "Hydra View"
-		expect(page).to have_selector('h1', :text => "Jane Does")
+		expect(page).to have_selector('h1', :text => "Jane Does1, 1950")
 		expect(page).to have_selector('dd', :text => "Jane Does1")
-		expect(page).to have_selector('dd', :text => "Does2")
-		expect(page).to have_selector('dd', :text => "Jane1")
 		expect(page).to have_selector('dd', :text => "1950")
-		expect(page).to have_selector('dd', :text => "Last")
 		expect(page).to have_selector('dd', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('dd', :text => "http://conference.com")
 		click_on "Edit"

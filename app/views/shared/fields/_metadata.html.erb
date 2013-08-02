@@ -128,6 +128,18 @@
 		end	
 
  		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["name_element_tesim"] != nil 
+		    htmlOpen %= 'NameElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"name_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+ 		htmlOpen = "<dt>%s</dt><dd>"
 		if @document["terms_of_address_name_element_tesim"] != nil 
 		    htmlOpen %= 'TermsOfAddressNameElement'
 		    concat htmlOpen.html_safe

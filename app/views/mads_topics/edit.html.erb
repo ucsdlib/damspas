@@ -9,18 +9,17 @@
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'mads_topic[name][]', "Authoritative Label" %>
-			<%= text_field_tag 'mads_topic[name][]', @mads_topic.name[0], class: "input-block-level" %>
+			<%= label_tag 'mads_topic[name]', "Name" %>
+			<%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "input-block-level" %>
 		
-			<%= label_tag 'mads_topic[externalAuthority][]', "ExternalAuthority" %>
-			<%= text_field_tag 'mads_topic[externalAuthority][]', @mads_topic.externalAuthority, class: "input-block-level" %>
+			<%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
+			<%= text_field_tag 'mads_topic[externalAuthority]', @mads_topic.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_topic[scheme][]', "scheme" %>
-			<%= select_tag 'mads_topic[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
-      <%#= select_tag 'mads_topic[scheme_attributes][][id]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+			<%= label_tag 'mads_topic[scheme_attributes][0][id]', "scheme" %>
+			<%= select_tag 'mads_topic[scheme_attributes][0][id]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, Rails.configuration.id_namespace+s.pid] }, :selected => @scheme_id ) %>
 
-			<%= label_tag 'mads_topic[elementValue][]', "TopicElement" %>
-			<%= text_field_tag 'mads_topic[elementValue][]', @mads_topic.elementValue, class: "input-block-level" %>
+			<%= label_tag      'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]', "Element Value" %>
+			<%= text_field_tag 'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]', @mads_topic.elementList[0].first.elementValue.first, class: "input-block-level" %>
 							
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
