@@ -31,6 +31,30 @@ describe MadsTopicsController do
 
       end
     end
+
+    describe "#update" do
+      let!(:scheme1) { MadsScheme.create(code: 'test', name: 'Test Scheme')}
+      let!(:scheme2) { MadsScheme.create(code: 'test', name: 'Test Scheme')}
+      let!(:topic) { MadsTopic.create(scheme_attributes: [{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme1.pid}"}])}
+      after do
+        topic.destroy 
+        scheme1.destroy
+        scheme2.destroy
+      end
+
+      it "should set the attributes" do
+        put :update, id: topic, mads_topic: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "topicElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme2.pid}"}]}
+        flash[:notice].should == "Successfully updated Topic"
+        response.should redirect_to mads_topic_path(assigns[:mads_topic])
+
+        assigns[:mads_topic].elementList.size.should == 1
+
+        assigns[:mads_topic].scheme.size.should == 1
+        assigns[:mads_topic].scheme.first.code.should == ['test']
+        assigns[:mads_topic].scheme.first.name.should == ['Test Scheme']
+
+      end
+    end
   end
 
 end
