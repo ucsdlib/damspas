@@ -16,8 +16,11 @@ describe MadsTopicsController do
     end
 
     describe "#create" do
+      let!(:scheme) { MadsScheme.create(code: 'test', name: 'Test Scheme')}
+      after { scheme.destroy }
+
       it "should set the attributes" do
-        post :create, mads_topic: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "topicElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/xx00000282"}]}
+        post :create, mads_topic: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "topicElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme.pid}"}]}
         flash[:notice].should == "Topic has been saved"
         response.should redirect_to mads_topic_path(assigns[:mads_topic])
 
