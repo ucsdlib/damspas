@@ -5,11 +5,22 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
     map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
-    map.elementList(:in => MADS, :to => 'elementList', :class_name=>'MadsNestedElementList')
+    map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsNestedElementList')
   end
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
-  accepts_nested_attributes_for :elementList, :scheme
+  accepts_nested_attributes_for :topicElement, :scheme
+
+  # this is conceptual, not real working code:
+  # has_one :elementList
+  # has_many :topic_elements, :through => :elementList
+
+  def elementList
+    elem_list.first || elem_list.build
+  end
+
+  delegate :topicElement_attributes=, to: :elementList
+  alias_method :topicElement, :elementList
 
   def serialize
     graph.insert([rdf_subject, RDF.type, MADS.Topic]) if new?
@@ -17,14 +28,14 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
 
-  def elementList_attributes_with_update_name= (attributes)
-    self.elementList_attributes_without_update_name= attributes
-    if elementList.first && elementList.first.first && elementList.first.first.elementValue.first
-      self.name = elementList.first.first.elementValue.first
+  def topicElement_with_update_name= (attributes)
+    self.topicElement_without_update_name= attributes
+    if elementList && elementList.first && elementList.first.elementValue.first
+      self.name = elementList.first.elementValue.first
     end
   end
-  alias_method :elementList_attributes_without_update_name=, :elementList_attributes=
-  alias_method :elementList_attributes=, :elementList_attributes_with_update_name=
+  alias_method :topicElement_without_update_name=, :topicElement_attributes=
+  alias_method :topicElement_attributes=, :topicElement_with_update_name=
 
   class MadsNestedElementList
     include ActiveFedora::RdfList
@@ -65,7 +76,7 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.first.to_s)
     if elementList.first
-      Solrizer.insert_field(solr_doc, "topic_element", elementList[0].first.elementValue)
+      Solrizer.insert_field(solr_doc, "topic_element", elementList.first.elementValue)
     end
     solr_doc
   end

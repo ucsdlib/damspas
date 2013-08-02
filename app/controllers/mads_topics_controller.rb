@@ -31,14 +31,12 @@ class MadsTopicsController < ApplicationController
   end
 
   def new
-    @mads_topic.elementList.build
-    @mads_topic.elementList.first.topicElement.build
+    @mads_topic.elementList.topicElement.build
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    @mads_topic = MadsTopic.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
     @scheme_id = @mads_topic.scheme.to_s.gsub /.*\//, ""
   end
 
