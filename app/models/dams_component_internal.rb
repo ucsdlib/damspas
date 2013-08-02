@@ -42,7 +42,7 @@ class Component
       map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'DamsRelatedResource')
 
       # components and files
-      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => Component)
+      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class_name => 'Component')
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
       # rights
