@@ -56,6 +56,9 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
       rdf_subject if rdf_subject.kind_of? RDF::URI
     end    
   end
+  def label
+	name[0]
+  end
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'temporal', name)
     if scheme.first

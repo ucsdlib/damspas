@@ -12,6 +12,18 @@ end
 
 feature 'Visitor wants to create/edit a MADS Temporal' do 
 
+	scenario 'is on new invalid MADS Temporal page' do
+		sign_in_developer
+
+		visit "mads_temporals/new"
+		# Create new temporal
+		fill_in "Name", :with => ""
+		fill_in "ExternalAuthority", :with => "http://Temporal.com"
+		page.select('Test Scheme', match: :first) 
+		click_on "Submit"
+		expect(page).to have_content("can't be blank")
+	end
+	
 	scenario 'is on new MADS Temporal page' do
 		sign_in_developer
 
@@ -63,6 +75,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		expect(page).to have_selector('li', :text => "Test Scheme")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 	end
+
 
 end
 
