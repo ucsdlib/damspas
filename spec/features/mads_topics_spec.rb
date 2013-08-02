@@ -11,6 +11,13 @@ class Path
 end
 
 feature 'Visitor wants to create/edit a topic' do
+  let!(:scheme1) { MadsScheme.create!(name: 'Test Scheme') }
+  let!(:scheme2) { MadsScheme.create!(name: 'Test Scheme 2') }
+
+  after do
+    scheme1.destroy
+    scheme2.destroy
+  end
 
 	scenario 'is on mads index page' do
 		sign_in_developer
