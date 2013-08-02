@@ -56,6 +56,7 @@ class MadsTopicDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def to_solr (solr_doc = {})
+    Solrizer.insert_field(solr_doc, 'name', name)
     Solrizer.insert_field(solr_doc, 'topic', name)
     if scheme.first
       Solrizer.insert_field(solr_doc, 'scheme', scheme.first.rdf_subject.to_s)

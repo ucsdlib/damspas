@@ -31,7 +31,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		# Create new temporal
 		fill_in "Name", :with => "Test Temporal"
 		fill_in "ExternalAuthority", :with => "http://Temporal.com"
-		fill_in "TemporalElement", :with => "Hour"
+		fill_in "Element Value", :with => "Hour"
 		page.select('Test Scheme', match: :first) 
 		click_on "Submit"
 
@@ -47,7 +47,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		click_on "Edit"
 		fill_in "Authoritative Label", :with => "Edit Temporal after Create"
 		fill_in "ExternalAuthority", :with => "http://edittempaftercreate.edu"
-		fill_in "TemporalElement", :with => "Days"
+		fill_in "Element Value", :with => "Days"
 		page.select('Test Scheme 2', match: :first) 
 		click_on "Save changes"
 
@@ -66,7 +66,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		click_on "Edit"
 		fill_in "Authoritative Label", :with => "Edited Temporal"
 		fill_in "ExternalAuthority", :with => "http://editedtime.edu"
-		fill_in "TemporalElement", :with => "Year"
+		fill_in "Element Value", :with => "Year"
 		page.select('Test Scheme', match: :first) 
 		click_on "Save changes"
 		expect(page).to have_selector('strong', :text => "Edited Temporal")
@@ -88,7 +88,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		click_on "Edit"
 		fill_in "Authoritative Label", :with => "CANCEL"
 		fill_in "ExternalAuthority", :with => "http://cancel.edu"
-		fill_in "TemporalElement", :with => "Should not show"
+		fill_in "Element Value", :with => "Should not show"
 		page.select('Test Scheme 2', match: :first) 
 		click_on "Cancel"
 		expect(page).to_not have_content("Should not show")

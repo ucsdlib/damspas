@@ -82,7 +82,7 @@ class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
       map.familyNameElement(:in => MADS, :to => "FamilyNameElement",
                              :class_name => "MadsFamilyNameElement")
       map.fullNameElement(:in => MADS, :to => "FullNameElement",
-                           :class_name => "FullMadsNameElement")
+                           :class_name => "MadsFullNameElement")
       map.givenNameElement(:in => MADS, :to => "GivenNameElement",
                             :class_name => "MadsGivenNameElement")
       map.termsOfAddressNameElement(:in => MADS, :to => "TermsOfAddressNameElement",

@@ -40,11 +40,9 @@ class MadsTopicsController < ApplicationController
     @mads_topic = MadsTopic.find(params[:id])
     @mads_schemes = MadsScheme.find(:all)
     @scheme_id = @mads_topic.scheme.to_s.gsub /.*\//, ""
-    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
   end
 
   def create
-
     if @mads_topic.save
         redirect_to @mads_topic, notice: "Topic has been saved"
     else

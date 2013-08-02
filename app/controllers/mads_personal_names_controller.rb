@@ -40,17 +40,15 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def edit
-#    @mads_personal_name = MadsPersonalName.find(params[:id])
-#logger.warn "scheme: #{@mads_personal_name.scheme}"
-#    @mads_schemes = MadsScheme.find(:all)
-#    @scheme_id = @mads_personal_name.scheme.to_s.gsub /.*\//, ""
-#    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
+    @mads_personal_name = MadsPersonalName.find(params[:id])
+    @mads_schemes = MadsScheme.find(:all)
+    @scheme_id = @mads_personal_name.scheme.to_s.gsub /.*\//, ""
   end
 
   def create
     @mads_personal_name.attributes = params[:mads_personal_name]
     if @mads_personal_name.save
-        redirect_to @mads_personal_name, notice: "personal_name has been saved"
+        redirect_to @mads_personal_name, notice: "Personal Name has been saved"
     else
       flash[:alert] = "Unable to save personal_name"
       render :new

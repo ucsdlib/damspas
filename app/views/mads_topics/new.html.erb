@@ -7,8 +7,10 @@
   <%= url_field_tag 'mads_topic[externalAuthority]' %> 
   <%= f.fields_for :elementList do |el| %>
     <%= el.fields_for :topicElement do |te| %>
-      <%= te.label :elementValue, "Element Value" %>
-      <%= te.text_field :elementValue %>
+      <%# te.label :elementValue, "Element Value" %>
+      <%# te.text_field :elementValue %>
+      <%= label_tag 'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]', "Element Value" %>
+      <%= text_field_tag 'mads_topic[elementList_attributes][0][topicElement_attributes][0][elementValue][]' %>
     <% end %>
   <% end %>
   <br>

@@ -16,16 +16,16 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 	scenario 'is on new MADS Personal Name page' do
 		sign_in_developer
 
-		visit mads_personal_name_path('new')
+		visit new_mads_personal_name_path
 
 		# Create new personal name
 		fill_in "Name", :with => "John Doe"
 		fill_in "ExternalAuthority", :with => "http://johndoe.com"
 		fill_in "Full Name", :with => "John James Doe"
-		fill_in "FamilyNameElement", :with => "Doe1"
-		fill_in "GivenNameElement", :with => "Johnson"
-		fill_in "DateNameElement", :with => "1900"
-		fill_in "TermOfAddressElement", :with => "First"
+		fill_in "Family Name", :with => "Doe1"
+		fill_in "Given Name", :with => "Johnson"
+		fill_in "Dates", :with => "1900"
+		fill_in "Terms of Address", :with => "First"
 		page.select("Test Scheme", match: :first)
 		click_on "Submit"
 		Path.path = current_path
@@ -41,7 +41,7 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		expect(page).to have_selector('a', :text => "http://johndoe.com")
 
 		click_on "Edit"
-		fill_in "Authoritative Label", :with => "Jane Does"
+		fill_in "Name", :with => "Jane Does"
 		fill_in "ExternalAuthority", :with => "http://janedoes.com"
 		page.select("Test Scheme 2", match: :first)
 		fill_in "Full Name", :with => "Jane Does1"
@@ -67,7 +67,7 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		sign_in_developer
 		visit Path.path
 		click_on "Edit"
-		fill_in "Authoritative Label", :with => "New Name"
+		fill_in "Name", :with => "New Name"
 		fill_in "ExternalAuthority", :with => "http://personal.com"
 		page.select("Test Scheme", match: :first)
 		fill_in "Full Name", :with => "New Name1"
@@ -98,7 +98,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		visit Path.path
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
-		fill_in "Authoritative Label", :with => "Cancel"
+		fill_in "Name", :with => "Cancel"
 		fill_in "ExternalAuthority", :with => "http://cancel.com"
 		page.select("Test Scheme 2", match: :first)
 		fill_in "Full Name", :with => "Can Cel"
