@@ -50,6 +50,7 @@ class MadsTopicsController < ApplicationController
   end
 
   def update
+    @mads_topic.elementList.clear
     @mads_topic.attributes = params[:mads_topic]
     if @mads_topic.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
