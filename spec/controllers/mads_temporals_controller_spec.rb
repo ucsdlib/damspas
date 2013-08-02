@@ -11,13 +11,13 @@ describe MadsTemporalsController do
         get :new
         response.should be_success
         assigns[:mads_temporal].should be_kind_of MadsTemporal
-        assigns[:mads_temporal].elementList.first.temporalElement.size.should == 1
+        assigns[:mads_temporal].temporalElement.size.should == 1
       end
     end
 
     describe "#create" do
       it "should set the attributes" do
-        post :create, mads_temporal: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "elementList_attributes"=>{"0"=>{"temporalElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/xx00000139"}]}
+        post :create, mads_temporal: {"name"=>"TestLabel", "externalAuthority"=>"http://test.com", "temporalElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/xx00002560"}]}
         flash[:notice].should == "Temporal has been saved"
         response.should redirect_to mads_temporal_path(assigns[:mads_temporal])
 

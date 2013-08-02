@@ -31,8 +31,7 @@ class MadsTemporalsController < ApplicationController
   end
 
   def new
-    @mads_temporal.elementList.build
-    @mads_temporal.elementList.first.temporalElement.build
+    @mads_temporal.elementList.temporalElement.build
 	#@mads_schemes = get_objects('MadsScheme','name_tesim')
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
