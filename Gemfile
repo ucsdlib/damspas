@@ -7,7 +7,7 @@ gem 'solrizer-fedora' , '3.0.0.pre1' # PRE-LOCK
 gem 'solrizer' #, '3.0.0'
 gem 'hydra-head' #, "6.0.0"
 #gem 'active-fedora' #, "6.0.0"
-gem "active-fedora", github: 'projecthydra/active_fedora', ref: '8688347' # > 6.4.4
+gem "active-fedora", github: 'projecthydra/active_fedora', ref: '946b58c' # > 6.4.4
 #gem "active-fedora", :git => "git@github.com:projecthydra/active_fedora.git"
 #gem "active-fedora", :git => "git@github.com:escowles/active_fedora.git", :branch => 'duplicate_rdfrest'
 
