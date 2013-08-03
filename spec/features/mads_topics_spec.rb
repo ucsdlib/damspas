@@ -11,8 +11,8 @@ class Path
 end
 
 feature 'Visitor wants to create/edit a topic' do
-  let!(:scheme1) { MadsScheme.create!(name: 'Test Scheme') }
-  let!(:scheme2) { MadsScheme.create!(name: 'Test Scheme 2') }
+  let!(:scheme1) { MadsScheme.create!(name: 'Library of Congress Subject Headings') }
+  let!(:scheme2) { MadsScheme.create!(name: 'Library of Congress Name Authority File') }
 
   after do
     scheme1.destroy
@@ -30,7 +30,7 @@ feature 'Visitor wants to create/edit a topic' do
 		fill_in "Name", :with => "TestLabel"
 		fill_in "ExternalAuthority", :with => "http://test.com"
 		fill_in "Element Value", :with => "TestElement"
-		page.select('Test Scheme', match: :first) 
+		page.select('Library of Congress Subject Headings', match: :first) 
 		click_on "Submit"
 
 
@@ -41,7 +41,7 @@ feature 'Visitor wants to create/edit a topic' do
 		#expect(page).to have_selector('strong', :text => "TestLabel")
 		expect(page).to have_selector('a', :text => "http://test.com")
 		expect(page).to have_selector('li', :text => "TestElement")
-		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 
 		expect(page).to have_selector('a', :text => "Edit")
@@ -49,13 +49,13 @@ feature 'Visitor wants to create/edit a topic' do
 		fill_in "Name", :with => "Edit after Create"
 		fill_in "ExternalAuthority", :with => "http://editaftercreate.edu"
 		fill_in "Element Value", :with => "Test Element2"
-		page.select('Test Scheme 2', match: :first) 
+		page.select('Library of Congress Name Authority File', match: :first) 
 		click_on "Save changes"
 
 		# Check that changes are saved
 		expect(page).to have_selector('a', :text => "http://editaftercreate.edu")
 		expect(page).to have_selector('li', :text => "Test Element2")
-		expect(page).to have_selector('li', :text => "Test Scheme 2")
+		expect(page).to have_selector('li', :text => "Library of Congress Name Authority File")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
         # this is being overridden by element value (see https://github.com/ucsdlib/damspas/issues/21)
 		#expect(page).to have_selector('strong', :text => "Edit after Create")
@@ -70,11 +70,11 @@ feature 'Visitor wants to create/edit a topic' do
 		fill_in "Name", :with => "Edited Test Topic"
 		fill_in "ExternalAuthority", :with => "http://edited.edu"
 		fill_in "Element Value", :with => "Test Element"
-		page.select('Test Scheme', match: :first) 
+		page.select('Library of Congress Subject Headings', match: :first) 
 		click_on "Save changes"
 		expect(page).to have_selector('a', :text => "http://edited.edu")
 		expect(page).to have_selector('li', :text => "Test Element")
-		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
         # getting overriden by element value
 		#expect(page).to have_selector('strong', :text => "Edited Test Topic")
@@ -92,7 +92,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "Name", :with => "CANCEL"
 		fill_in "ExternalAuthority", :with => "http://cancel.edu"
 		fill_in "Element Value", :with => "Should not show"
-		page.select('Test Scheme 2', match: :first) 
+		page.select('Library of Congress Name Authority File', match: :first) 
 		click_on "Cancel"
 		expect(page).to_not have_content("Should not show")
 		expect(page).to have_content("Test Element")

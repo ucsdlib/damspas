@@ -46,7 +46,6 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def create
-    @mads_personal_name.attributes = params[:mads_personal_name]
     if @mads_personal_name.save
         redirect_to @mads_personal_name, notice: "Personal Name has been saved"
     else

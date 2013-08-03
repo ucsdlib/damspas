@@ -1,27 +1,72 @@
 class MadsPersonalNameDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include ActiveFedora::Rdf::DefaultNodes
+  #include ActiveFedora::Rdf::DefaultNodes
   rdf_type MADS.PersonalName
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
     map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
-    map.elementList(:in => MADS, :to => 'elementList', :class_name=>'MadsPersonalNameElementList')
+    map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsPersonalNameElementList')
   end
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
-  accepts_nested_attributes_for :elementList, :scheme
+  accepts_nested_attributes_for :fullNameElement, :givenNameElement, :familyNameElement, :termsOfAddressNameElement, :dateNameElement, :nameElement, :scheme
+  def elementList
+    elem_list.first || elem_list.build
+  end
+  delegate :fullNameElement_attributes=, to: :elementList
+  delegate :givenNameElement_attributes=, to: :elementList
+  delegate :familyNameElement_attributes=, to: :elementList
+  delegate :termsOfAddressNameElement_attributes=, to: :elementList
+  delegate :dateNameElement_attributes=, to: :elementList
+  delegate :nameElement_attributes=, to: :elementList
+  alias_method :fullNameElement, :elementList
+  alias_method :givenNameElement, :elementList
+  alias_method :familyNameElement, :elementList
+  alias_method :termsOfAddressNameElement, :elementList
+  alias_method :dateNameElement, :elementList
+  alias_method :nameElement, :elementList
 
   def serialize
     graph.insert([rdf_subject, RDF.type, MADS.PersonalName]) if new?
     super
   end
 
-  def elementList_attributes_with_update_name= (attributes)
-    self.elementList_attributes_without_update_name= attributes
+  def fullNameLabel= (attributes)
+    self.fullNameOnly= attributes
     self.name = authLabel if !authLabel.blank?
   end
-  alias_method :elementList_attributes_without_update_name=, :elementList_attributes=
-  alias_method :elementList_attributes=, :elementList_attributes_with_update_name=
+  alias_method :fullNameOnly=, :fullNameElement_attributes=
+  alias_method :fullNameElement_attributes=, :fullNameLabel=
+  def givenNameLabel= (attributes)
+    self.givenNameOnly= attributes
+    self.name = authLabel if !authLabel.blank?
+  end
+  alias_method :givenNameOnly=, :givenNameElement_attributes=
+  alias_method :givenNameElement_attributes=, :givenNameLabel=
+  def familyNameLabel= (attributes)
+    self.familyNameOnly= attributes
+    self.name = authLabel if !authLabel.blank?
+  end
+  alias_method :familyNameOnly=, :familyNameElement_attributes=
+  alias_method :familyNameElement_attributes=, :familyNameLabel=
+  def dateNameLabel= (attributes)
+    self.dateNameOnly= attributes
+    self.name = authLabel if !authLabel.blank?
+  end
+  alias_method :dateNameOnly=, :dateNameElement_attributes=
+  alias_method :dateNameElement_attributes=, :dateNameLabel=
+  def termsOfAddressNameLabel= (attributes)
+    self.termsOfAddressNameOnly= attributes
+    self.name = authLabel if !authLabel.blank?
+  end
+  alias_method :termsOfAddressNameOnly=, :termsOfAddressNameElement_attributes=
+  alias_method :termsOfAddressNameElement_attributes=, :termsOfAddressNameLabel=
+  def nameElementLabel= (attributes)
+    self.nameElementOnly= attributes
+    self.name = authLabel if !authLabel.blank?
+  end
+  alias_method :nameElementOnly=, :nameElement_attributes=
+  alias_method :nameElement_attributes=, :nameElementLabel=
 
   def authLabel
     full = fullNameValue
