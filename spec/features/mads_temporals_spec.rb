@@ -19,7 +19,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		# Create new temporal
 		fill_in "Name", :with => ""
 		fill_in "ExternalAuthority", :with => "http://Temporal.com"
-		page.select('Test Scheme', match: :first) 
+		page.select('Library of Congress Subject Headings', match: :first) 
 		click_on "Submit"
 		expect(page).to have_content("can't be blank")
 	end
@@ -32,7 +32,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		fill_in "Name", :with => "Test Temporal"
 		fill_in "ExternalAuthority", :with => "http://Temporal.com"
 		fill_in "Element Value", :with => "Hour"
-		page.select('Test Scheme', match: :first) 
+		page.select('Library of Congress Subject Headings', match: :first) 
 		click_on "Submit"
 
 		# Save path of temporal for other test(s)
@@ -40,7 +40,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		expect(page).to have_selector('strong', :text => "Test Temporal")
 		expect(page).to have_selector('a', :text => "http://Temporal.com")
 		expect(page).to have_selector('li', :text => "Hour")
-		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 
 		expect(page).to have_selector('a', :text => "Edit")
@@ -48,14 +48,14 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		fill_in "Authoritative Label", :with => "Edit Temporal after Create"
 		fill_in "ExternalAuthority", :with => "http://edittempaftercreate.edu"
 		fill_in "Element Value", :with => "Days"
-		page.select('Test Scheme 2', match: :first) 
+		page.select('Library of Congress Name Authority File', match: :first) 
 		click_on "Save changes"
 
 		# Check that changes are saved
 		expect(page).to have_selector('strong', :text => "Edit Temporal after Create")
 		expect(page).to have_selector('a', :text => "http://edittempaftercreate.edu")
 		expect(page).to have_selector('li', :text => "Days")
-		expect(page).to have_selector('li', :text => "Test Scheme 2")
+		expect(page).to have_selector('li', :text => "Library of Congress Name Authority File")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 	end
 
@@ -67,12 +67,12 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 		fill_in "Authoritative Label", :with => "Edited Temporal"
 		fill_in "ExternalAuthority", :with => "http://editedtime.edu"
 		fill_in "Element Value", :with => "Year"
-		page.select('Test Scheme', match: :first) 
+		page.select('Library of Congress Subject Headings', match: :first) 
 		click_on "Save changes"
 		expect(page).to have_selector('strong', :text => "Edited Temporal")
 		expect(page).to have_selector('a', :text => "http://editedtime.edu")
 		expect(page).to have_selector('li', :text => "Year")
-		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 	end
 
@@ -89,7 +89,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "Authoritative Label", :with => "CANCEL"
 		fill_in "ExternalAuthority", :with => "http://cancel.edu"
 		fill_in "Element Value", :with => "Should not show"
-		page.select('Test Scheme 2', match: :first) 
+		page.select('Library of Congress Name Authority File', match: :first) 
 		click_on "Cancel"
 		expect(page).to_not have_content("Should not show")
 		expect(page).to have_content("Edited Temporal")

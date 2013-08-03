@@ -8,44 +8,60 @@
   <%= label_tag 'mads_personal_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_personal_name[externalAuthority]' %> 
 
-  <%= f.fields_for :elementList do |el| %>
-
-    <%= el.fields_for :fullNameElement do |full| %>
-      <%# full.label :elementValue, "Full Name" %>
-      <%# family.text_field :elementValue %>
-      <%= label_tag 'mads_personal_name[elementList_attributes][0][fullNameElement_attributes][0][elementValue][]', 'Full Name' %>
-      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][fullNameElement_attributes][0][elementValue][]' %>
+    <%= f.fields_for :fullNameElement do |full| %>
+      <%= full.label :elementValue, "Full Name" %>
+      <%= full.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :familyNameElement do |family| %>
+      <%= family.label :elementValue, "Family Name" %>
+      <%= family.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :givenNameElement do |given| %>
+      <%= given.label :elementValue, "Given Name" %>
+      <%= given.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+      <%= termsOfAddress.label :elementValue, "Terms of Address" %>
+      <%= termsOfAddress.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :dateNameElement do |date| %>
+      <%= date.label :elementValue, "Dates" %>
+      <%= date.text_field :elementValue %>
     <% end %>
 
-    <%= el.fields_for :familyNameElement do |family| %>
-      <%# family.label :elementValue, "Family Name" %>
-      <%# family.text_field :elementValue %>
-      <%= label_tag 'mads_personal_name[elementList_attributes][0][familyNameElement_attributes][0][elementValue][]', 'Family Name' %>
-      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][familyNameElement_attributes][0][elementValue][]' %>
-    <% end %>
-
-    <%= el.fields_for :givenNameElement do |given| %>
-      <%# given.label :elementValue, "Given Name" %>
-      <%# given.text_field :elementValue %>
-      <%= label_tag 'mads_personal_name[elementList_attributes][0][givenNameElement_attributes][0][elementValue][]', 'Given Name' %>
-      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][givenNameElement_attributes][0][elementValue][]' %>
-    <% end %>
-
-    <%= el.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
-      <%# termsOfAddress.label :elementValue, "Terms of Address" %>
-      <%# termsOfAddress.text_field :elementValue %>
-      <%= label_tag 'mads_personal_name[elementList_attributes][0][termsOfAddressNameElement_attributes][0][elementValue][]', 'Terms of Address' %>
-      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][termsOfAddressNameElement_attributes][0][elementValue][]' %>
-    <% end %>
-
-    <%= el.fields_for :dateNameElement do |date| %>
-      <%# date.label :elementValue, "Dates" %>
-      <%# date.text_field :elementValue %>
-      <%= label_tag 'mads_personal_name[elementList_attributes][0][dateNameElement_attributes][0][elementValue][]', 'Dates' %>
-      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][dateNameElement_attributes][0][elementValue][]' %>
-    <% end %>
-
-  <% end %>
+<%#  <%= f.fields_for :elementList do |el| %>
+<%#
+<%#    <%= el.fields_for :fullNameElement do |full| %>
+<%#      <%# full.label :elementValue, "Full Name" %>
+<%#      <%# family.text_field :elementValue %>
+<%#      <%= label_tag 'mads_personal_name[elementList_attributes][0][fullNameElement_attributes][0][elementValue][]', 'Full Name' %>
+<%#      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][fullNameElement_attributes][0][elementValue][]' %>
+<%#    <% end %>
+<%#    <%= el.fields_for :familyNameElement do |family| %>
+<%#      <%# family.label :elementValue, "Family Name" %>
+<%#      <%# family.text_field :elementValue %>
+<%#      <%= label_tag 'mads_personal_name[elementList_attributes][0][familyNameElement_attributes][0][elementValue][]', 'Family Name' %>
+<%#      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][familyNameElement_attributes][0][elementValue][]' %>
+<%#    <% end %>
+<%#    <%= el.fields_for :givenNameElement do |given| %>
+<%#      <%# given.label :elementValue, "Given Name" %>
+<%#      <%# given.text_field :elementValue %>
+<%#      <%= label_tag 'mads_personal_name[elementList_attributes][0][givenNameElement_attributes][0][elementValue][]', 'Given Name' %>
+<%#      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][givenNameElement_attributes][0][elementValue][]' %>
+<%#    <% end %>
+<%#    <%= el.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+<%#      <%# termsOfAddress.label :elementValue, "Terms of Address" %>
+<%#      <%# termsOfAddress.text_field :elementValue %>
+<%#      <%= label_tag 'mads_personal_name[elementList_attributes][0][termsOfAddressNameElement_attributes][0][elementValue][]', 'Terms of Address' %>
+<%#      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][termsOfAddressNameElement_attributes][0][elementValue][]' %>
+<%#    <% end %>
+<%#    <%= el.fields_for :dateNameElement do |date| %>
+<%#      <%# date.label :elementValue, "Dates" %>
+<%#      <%# date.text_field :elementValue %>
+<%#      <%= label_tag 'mads_personal_name[elementList_attributes][0][dateNameElement_attributes][0][elementValue][]', 'Dates' %>
+<%#      <%= text_field_tag 'mads_personal_name[elementList_attributes][0][dateNameElement_attributes][0][elementValue][]' %>
+<%#    <% end %>
+<%#  <% end %>
   <br>
 
   <%= select_tag 'mads_personal_name[scheme_attributes][0][id]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>
