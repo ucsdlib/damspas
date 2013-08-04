@@ -15,6 +15,6 @@
     <%= se.label :id, "Scheme" %>
     <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>
   <% end %>
-
+  <br/>
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>
