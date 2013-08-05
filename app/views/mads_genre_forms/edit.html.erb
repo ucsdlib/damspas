@@ -9,16 +9,21 @@
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'mads_genre_form[name][]', "Authoritative Label" %>
+			<%= label_tag 'mads_genre_form[name][]', "Name" %>
 			<%= text_field_tag 'mads_genre_form[name][]', @mads_genre_form.name[0], class: "input-block-level" %>
 		
 			<%= label_tag 'mads_genre_form[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_genre_form[externalAuthority][]', @mads_genre_form.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_genre_form[scheme][]', "scheme" %>
-			<%= select_tag 'mads_genre_form[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
-			<%= label_tag 'mads_genre_form[elementValue][]', "GenreFormElement" %>
-			<%= text_field_tag 'mads_genre_form[elementValue][]', @mads_genre_form.elementValue, class: "input-block-level" %>
+
+		    <%= f.fields_for :scheme, include_id: false do |se| %>
+		        <%= se.label :id, "Scheme" %>
+		        <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>
+		    <% end %>
+		    <%= f.fields_for :genreFormElement do |te| %>
+		        <%= te.label :elementValue, "Element Value" %>
+		        <%= te.text_field :elementValue, class: "input-block-level" %>
+		    <% end %>
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

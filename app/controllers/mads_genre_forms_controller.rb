@@ -30,36 +30,37 @@ class MadsGenreFormsController < ApplicationController
   end
 
   def new
+    @mads_genre_form.elementList.genreFormElement.build
+    @mads_genre_form.scheme.build 
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    @mads_genre_form = MadsGenreForm.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
-    @scheme_id = @mads_genre_form.scheme.to_s.gsub /.*\//, ""
-    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first       
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = @mads_genre_form.scheme.to_s.gsub /.*\//, ""    
   end
 
   def create
-    @mads_genre_form.attributes = params[:mads_genre_form]
     if @mads_genre_form.save
-        redirect_to @mads_genre_form, notice: "genre_form has been saved"
+        redirect_to @mads_genre_form, notice: "GenreForm has been saved"
     else
-      flash[:alert] = "Unable to save genre_form"
+      flash[:alert] = "Unable to save GenreForm"
       render :new
     end
   end
 
   def update
+    @mads_genre_form.elementList.clear
+    @mads_genre_form.scheme.clear  
     @mads_genre_form.attributes = params[:mads_genre_form]
     if @mads_genre_form.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated genre_form"
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated GenreForm"
         else      
-        	redirect_to @mads_genre_form, notice: "Successfully updated genre_form"
+        	redirect_to @mads_genre_form, notice: "Successfully updated GenreForm"
         end
     else
-      flash[:alert] = "Unable to save genre_form"
+      flash[:alert] = "Unable to save GenreForm"
       render :edit
     end
   end
