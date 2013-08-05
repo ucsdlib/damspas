@@ -1,4 +1,100 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function() {
+  alert($("#dams_provenance_collection_subjectType_").val());
+
+  $('.edit_dams_provenance_collection').submit(function() {
+    if($("#dams_provenance_collection_dateValue_").val().length < 1)
+    {
+      $("#dams_provenance_collection_dateValue_").val(" ");
+    }     
+
+    if($("#dams_provenance_collection_beginDate_").val().length < 1)
+    {
+      $("#dams_provenance_collection_beginDate_").val(" ");
+    } 
+
+    if($("#dams_provenance_collection_endDate_").val().length < 1)
+    {
+      $("#dams_provenance_collection_endDate_").val(" ");
+    }     
+
+    if($("#dams_provenance_collection_noteValue_").val().length < 1)
+    {
+      $("#dams_provenance_collection_noteValue_").val(" ");
+    }    
+
+    if($("#dams_provenance_collection_noteType_").val().length < 1)
+    {
+      $("#dams_provenance_collection_noteType_").val(" ");
+    }
+
+    if($("#dams_provenance_collection_noteDisplayLabel_").val().length < 1)
+    {
+        $("#dams_provenance_collection_noteDisplayLabel_").val(" ");
+    }
+
+    if($("#dams_provenance_collection_scopeContentNoteType_").val().length < 1)
+    {
+      $("#dams_provenance_collection_scopeContentNoteType_").val(" ");
+    }
+
+    if($("#dams_provenance_collection_responsibilityNoteValue_").val().length < 1)
+    {
+      $("#dams_provenance_collection_responsibilityNoteValue_").val(" ");
+    }
+    
+    if($("#dams_provenance_collection_responsibilityNoteType_").val().length < 1)
+    {
+      $("#dams_provenance_collection_responsibilityNoteType_").val(" ");
+    } 
+       
+    if($("#dams_provenance_collection_responsibilityNoteDisplayLabel_").val().length < 1)
+    {
+      $("#dams_provenance_collection_responsibilityNoteDisplayLabel_").val(" ");
+    }
+       
+    if($("#dams_provenance_collection_citationNoteValue_").val().length < 1)
+    {
+      $("#dams_provenance_collection_citationNoteValue_").val(" ");
+    }  
+         
+    if($("#dams_provenance_collection_citationNoteType_").val().length < 1)
+    {
+      $("#dams_provenance_collection_citationNoteType_").val(" ");
+    }
+
+    if($("#dams_provenance_collection_citationNoteDisplayLabel_").val().length < 1)
+    {
+      $("#dams_provenance_collection_citationNoteDisplayLabel_").val(" ");
+    }
+
+    if($("#dams_provenance_collection_scopeContentNoteType_").val().length < 1)
+    {
+      $("#dams_provenance_collection_scopeContentNoteType_").val(" ");
+    }
+
+    if($("#dams_provenance_collection_relatedResourceType_").val().length < 1)
+    {
+      $("#dams_provenance_collection_relatedResourceType_").val(" ");
+    }
+    
+    if($("#dams_provenance_collection_relatedResourceUri_").val().length < 1)
+    {
+      $("#dams_provenance_collection_relatedResourceUri_").val(" ");
+    }    
+
+    if($("#dams_provenance_collection_relatedResourceDescription_").val().length < 1)
+    {
+      $("#dams_provenance_collection_relatedResourceDescription_").val(" ");
+    }
+
+    return true;
+  });
+});
+</script>
 <h1>Edit DAMS Provenance Collection</h1>
 
 <%= form_for @dams_provenance_collection do |f| %>
@@ -73,7 +169,7 @@
   <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
   <br>
   <%
-  	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
   <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray, @name_type) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#relationshipName','relationshipNameURI','Name');"%>
 
