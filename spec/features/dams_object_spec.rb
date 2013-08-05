@@ -66,6 +66,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
       DamsCopyright.create! pid: "bb05050506", status: "Test Copyright", jurisdiction: "us", purposeNote: "This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.", note: "This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.", beginDate: "1993-12-31"
     end
 
+    visit current_path
+
     fill_in "dams_object_titleValue_", :with => "Dams Test Object"
     fill_in "SubTitle", :with => "New Object"
     fill_in "PartName", :with => "ep1"
