@@ -1,4 +1,4 @@
 class MadsTemporalInternal
     include ActiveFedora::RdfObject
-    include Dams::MadsTopic
+    include Dams::MadsTemporal
 end
