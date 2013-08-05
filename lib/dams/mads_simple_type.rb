@@ -9,9 +9,6 @@ module Dams
         map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
         map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
       end
-      def elementList
-        elem_list.first || elem_list.build
-      end
       def solr_base (solr_doc={})
         Solrizer.insert_field(solr_doc, 'name', name)
         if scheme.first
