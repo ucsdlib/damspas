@@ -10,6 +10,9 @@ module Dams
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTopicElementList')
       end
 
+      def elementList
+        elem_list.first || elem_list.build
+      end      
       accepts_nested_attributes_for :topicElement, :scheme
       def serialize
         graph.insert([rdf_subject, RDF.type, MADS.Topic]) if new?

@@ -10,7 +10,10 @@ module Dams
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsPersonalNameElementList')
       end
-      accepts_nested_attributes_for :scheme, :nameElement, :fullNameElement, :givenNameElement, :familyNameElement, :dateNameElement, termsOfAddressNameElement
+      def elementList
+        elem_list.first || elem_list.build
+      end
+      accepts_nested_attributes_for :scheme, :nameElement, :fullNameElement, :givenNameElement, :familyNameElement, :dateNameElement#, termsOfAddressNameElement
       def serialize
         graph.insert([rdf_subject, RDF.type, MADS.PersonalName]) if new?
         super
@@ -136,7 +139,7 @@ module Dams
           map.fullNameElement(:in=> MADS, :to =>"FullNameElement", :class_name => "MadsFullNameElement")
           map.familyNameElement(:in=> MADS, :to =>"FamilyNameElement", :class_name => "MadsFamilyNameElement")
           map.dateNameElement(:in=> MADS, :to =>"DateNameElement", :class_name => "MadsDateNameElement")
-          map.termsOfAddressNameElement(:in=> MADS, :to =>"TermsOfAddressElement", :class_name => "MadsTermsOfAddressNameElement")
+          map.termsOfAddressNameElement(:in=> MADS, :to =>"TermsOfAddressNameElement", :class_name => "MadsTermsOfAddressNameElement")
         end
         accepts_nested_attributes_for :nameElement, :givenNameElement, :fullNameElement, :familyNameElement, :dateNameElement, :termsOfAddressNameElement
       end

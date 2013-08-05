@@ -11,8 +11,8 @@ class Path
 end
 
 feature 'Visitor wants to create/edit a MADS Temporal' do 
-    let!(:scheme1) { MadsScheme.create!(name: 'Test Scheme 3') }
-    let!(:scheme2) { MadsScheme.create!(name: 'Test Scheme 4') }
+    let!(:scheme1) { MadsScheme.create!(name: 'Library of Congress Subject Headings') }
+    let!(:scheme2) { MadsScheme.create!(name: 'Library of Congress Name Authority File') }
 
     after do
     	scheme1.destroy
@@ -98,8 +98,8 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
 end
 
 feature 'Visitor wants to cancel unsaved edits' do
-    let!(:scheme1) { MadsScheme.create!(name: 'Test Scheme 3') }
-    let!(:scheme2) { MadsScheme.create!(name: 'Test Scheme 4') }
+    let!(:scheme1) { MadsScheme.create!(name: 'Library of Congress Subject Headings') }
+    let!(:scheme2) { MadsScheme.create!(name: 'Library of Congress Name Authority File') }
 
     after do
     	scheme1.destroy
