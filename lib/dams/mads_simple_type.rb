@@ -8,11 +8,11 @@ module Dams
         map.name(:in => MADS, :to => 'authoritativeLabel')
         map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
         map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
-        map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTopicElementList')
+        #map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTopicElementList')
       end
-      def elementList
-        elem_list.first || elem_list.build
-      end
+      #def elementList
+      #  elem_list.first || elem_list.build
+      #end
       def solr_base (solr_doc={})
         Solrizer.insert_field(solr_doc, 'name', name)
         if scheme.first
