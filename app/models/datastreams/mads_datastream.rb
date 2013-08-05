@@ -43,15 +43,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
       end
-    end   
-    class GeographicElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.GeographicElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end       
+    end    
     class OccupationElement
       include ActiveFedora::RdfObject
       include ActiveFedora::Rdf::DefaultNodes
@@ -180,8 +172,8 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 			Solrizer.insert_field(solr_doc, 'terms_of_address_name_element', list[i].elementValue.first)		
  		  elsif (list[i].class == MadsDatastream::List::GenreFormElement)
 			Solrizer.insert_field(solr_doc, 'genre_form_element', list[i].elementValue.first)	
-		  elsif (list[i].class == MadsDatastream::List::GeographicElement)
-			Solrizer.insert_field(solr_doc, 'geographic_element', list[i].elementValue.first)		
+		  #elsif (list[i].class == MadsDatastream::List::GeographicElement)
+			#Solrizer.insert_field(solr_doc, 'geographic_element', list[i].elementValue.first)		
 		  elsif (list[i].class == MadsDatastream::List::OccupationElement)
 			Solrizer.insert_field(solr_doc, 'occupation_element', list[i].elementValue.first)		
 		  #elsif (list[i].class == MadsDatastream::List::TemporalElement)

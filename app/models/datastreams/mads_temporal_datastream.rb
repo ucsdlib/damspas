@@ -5,7 +5,7 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
     map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
-    map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTemporalNestedElementList')
+    map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTemporalElementList')
   end
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
@@ -37,7 +37,7 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
   alias_method :temporalElement_without_update_name=, :temporalElement_attributes=
   alias_method :temporalElement_attributes=, :temporalElement_with_update_name=
   
-  class MadsTemporalNestedElementList
+  class MadsTemporalElementList
     include ActiveFedora::RdfList
     map_predicates do |map|
       map.temporalElement(:in=> MADS, :to =>"TemporalElement", :class_name => "MadsTemporalElement")
@@ -51,20 +51,6 @@ class MadsTemporalDatastream < ActiveFedora::RdfxmlRDFDatastream
     #def id
     #  rdf_subject if rdf_subject.kind_of? RDF::URI
     #end   
-  end
-  class MadsTemporalElement
-    include ActiveFedora::RdfObject
-    rdf_type MADS.TemporalElement
-    map_predicates do |map|
-      map.elementValue(in: MADS, multivalue: false)
-    end
-    # used by fields_for, so this ought to move to ActiveFedora if it works
-    def persisted?
-      rdf_subject.kind_of? RDF::URI
-    end
-    def id
-      rdf_subject if rdf_subject.kind_of? RDF::URI
-    end    
   end
   def label
 	name[0]
