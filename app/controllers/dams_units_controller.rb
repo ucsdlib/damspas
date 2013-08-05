@@ -19,6 +19,7 @@ logger.warn "solr: #{@document.inspect}"
     fq = {fq: "-id:#{Rails.configuration.excluded_collections}"}
     @collections_response, @collections = get_search_results( q, fq )
   end
+  
   def index
     # hydra index
     #@dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
