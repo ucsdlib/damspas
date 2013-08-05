@@ -15,6 +15,19 @@
 
 		htmlOpen = "<dt>%s</dt><dd>"
 
+		if @document["language_element_tesim"] != nil 
+		    htmlOpen %= 'LanguageElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"language_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+		
+		htmlOpen = "<dt>%s</dt><dd>"
+
 		if @document["geographic_element_tesim"] != nil 
 		    htmlOpen %= 'GeographicElement'
 		    concat htmlOpen.html_safe
@@ -150,7 +163,19 @@
 <%
 			concat htmlClose.html_safe			
 		end	
-																	
+
+ 		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["code_tesim"] != nil 
+		    htmlOpen %= 'Code'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"code_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+																			
 		htmlOpen = "<dt>%s</dt><dd>"
 		if @document["scheme_name_tesim"] != nil 
 		    htmlOpen %= 'Scheme Name'

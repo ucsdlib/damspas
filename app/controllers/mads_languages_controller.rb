@@ -18,41 +18,35 @@ class MadsLanguagesController < ApplicationController
   # hydra actions ##############################################################
   ##############################################################################
   def view
-    @mads_language = MadsLanguage.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
-    #@scheme_id = @mads_language.scheme.first.to_s.gsub /.*\//, ""
-    if(@mads_language.scheme != nil)
-    	@scheme_id = @mads_language.scheme.pid
-    	@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end
+     @mads_language = MadsLanguage.find(params[:id])
   end
   def new
-	@mads_schemes = MadsScheme.find(:all)
+    @mads_language.elementList.languageElement.build
+    @mads_language.scheme.build
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
   def edit
-    #@scheme_id = @mads_language.scheme.first.to_s.gsub /.*\//, ""
-    if(@mads_language.scheme != nil)
-    	@scheme_id = @mads_language.scheme.pid
-    end
-    @mads_schemes = MadsScheme.find(:all)
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = @mads_language.scheme.to_s.gsub /.*\//, ""
   end
 
   def create
-    @mads_language.attributes = params[:mads_language]
     if @mads_language.save
-        redirect_to @mads_language, notice: "language has been saved"
+        redirect_to @mads_language, notice: "Language has been saved"
     else
-      flash[:alert] = "Unable to save language"
+      flash[:alert] = "Unable to save Language"
       render :new
     end
   end
 
   def update
+    @mads_language.elementList.clear
+    @mads_language.scheme.clear  
     @mads_language.attributes = params[:mads_language]
     if @mads_language.save
-        redirect_to view_mads_language_path(@mads_language), notice: "Successfully updated language"
+        redirect_to mads_language_path(@mads_language), notice: "Successfully updated Language"
     else
-      flash[:alert] = "Unable to save language"
+      flash[:alert] = "Unable to save Language"
       render :edit
     end
   end
