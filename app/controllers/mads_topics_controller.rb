@@ -32,6 +32,7 @@ class MadsTopicsController < ApplicationController
 
   def new
     @mads_topic.elementList.topicElement.build
+    @mads_topic.scheme.build
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
@@ -50,7 +51,13 @@ class MadsTopicsController < ApplicationController
   end
 
   def update
+    # Unclear if list memebers can be updated by id, so just clear the list
     @mads_topic.elementList.clear
+
+    # Since the id (rdf_subject) is what we're looking to change for a scheme, we can't update it.
+    # Must clear and re-add
+    @mads_topic.scheme.clear
+
     @mads_topic.attributes = params[:mads_topic]
     if @mads_topic.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")

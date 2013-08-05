@@ -2,24 +2,19 @@
 require 'spec_helper'
 
 describe MadsTemporal do
-  subject do
-    MadsTemporal.new pid: "zzXXXXXXX1"
-  end
-  it "should create a xml" do        
-    exturi = RDF::Resource.new "http://id.loc.gov/authorities/subjects/sh85124118"
-    scheme = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd9386739x"
-    params = {
-      temporal: {
-        name: "16th century", externalAuthority: exturi,
-        elementList_attributes: [
-          temporalElement_attributes: [{ elementValue: "16th century" }]
-        ],
+  let(:params) {
+    {name: "Socialism", externalAuthority: RDF::Resource.new("http://id.loc.gov/authorities/subjects/sh85124118"),
+        temporalElement_attributes: [{ elementValue: "16th century" }],
         scheme_attributes: [
-          id: scheme, code: "lcsh", name: "Library of Congress Subject Headings"
+          id: "http://library.ucsd.edu/ark:/20775/bd9386739x", code: "lcsh", name: "Library of Congress Subject Headings"
         ]
-      }
-    }
-    subject.damsMetadata.attributes = params[:temporal]    
+  }}
+  subject do
+    MadsTemporal.new(pid: 'zzXXXXXXX1').tap do |t|
+      t.attributes = params
+    end
+  end
+  it "should create a xml" do 
     xml =<<END
 <rdf:RDF
   xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
@@ -43,6 +38,13 @@ describe MadsTemporal do
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml
-
   end
+  
+  it "should have temporalElement" do
+    subject.temporalElement.first.elementValue.should == '16th century'
+  end
+
+  it "should be able to build a new temporalElement" do
+    subject.elementList.temporalElement.build
+  end  
 end

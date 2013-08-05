@@ -5,14 +5,15 @@
   <%= text_field_tag 'mads_temporal[name]' %>
   <%= label_tag 'mads_temporal[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_temporal[externalAuthority]' %> 
-  <%= f.fields_for :elementList do |el| %>
-    <%= el.fields_for :temporalElement do |te| %>
-      <%= te.label :elementValue, "Element Value" %>
-      <%= te.text_field :elementValue %>
-    <% end %>
-  <% end %>
+  <%= f.fields_for :temporalElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>  
   <br>
-  <%= select_tag 'mads_temporal[scheme_attributes][][id]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

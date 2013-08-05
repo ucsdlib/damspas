@@ -31,6 +31,7 @@ feature 'Visitor wants to create/edit a topic' do
 		fill_in "ExternalAuthority", :with => "http://test.com"
 		fill_in "Element Value", :with => "TestElement"
 		page.select('Library of Congress Subject Headings', match: :first) 
+		#select('Test Scheme', from: 'Scheme') 
 		click_on "Submit"
 
 
