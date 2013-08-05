@@ -36,7 +36,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
-    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+    map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
     
     # collections
@@ -95,7 +95,8 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
         graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
       end
     end 
-    insertSubjectsGraph   
+    insertSubjectsGraph 
+    insertNameGraph   
     super
   end
 
@@ -118,6 +119,16 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
       end
     end     
   end
+ 
+  def insertNameGraph  
+  if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      end
+    end     
+  end  
 
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')

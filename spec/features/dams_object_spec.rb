@@ -4,13 +4,13 @@ require 'rack/test'
 feature 'Visitor want to look at objects' do
 
   scenario 'view a sample object record' do
-    visit dams_object_path('bb55555555')
+    visit dams_object_path('bd0922518w')
     expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
-    expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bb55555555', href: 'http://library.ucsd.edu/ark:/20775/bb55555555')
+    expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
   end
 
   scenario 'view a sample data file' do
-    visit file_path('bb55555555','_5_5.jpg')
+    visit file_path('bd0922518w','_5_5.jpg')
     response = page.driver.response
     expect(response.status).to eq( 200 )
     expect(response.header["Content-Type"]).to eq( "image/jpeg" )
@@ -27,7 +27,7 @@ feature 'Visitor want to look at objects' do
   end
 
   scenario 'view a non-existing file from an existing object' do
-    expect { visit file_path('bb55555555','xxx') }.to raise_error(
+    expect { visit file_path('bd0922518w','xxx') }.to raise_error(
       ActionController::RoutingError)
   end
 
@@ -62,7 +62,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
       click_on "Save"
     end
     visit dams_object_path('new')
-    if(page.has_select?('dams_object_languageURI_', :options => ['Test Copyright']) != true)
+    if(page.has_select?('dams_object_copyrightURI_', :options => ['Test Copyright']) != true)
       DamsCopyright.create! pid: "bb05050506", status: "Test Copyright", jurisdiction: "us", purposeNote: "This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.", note: "This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.", beginDate: "1993-12-31"
     end
 

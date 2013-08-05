@@ -44,11 +44,26 @@
   <%= label_tag 'dams_provenance_collection[noteDisplayLabel][]', "Note Displaylabel" %>
   <%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]' %> 
   
+  <h3>Scope Content Note</h3>
   <%= label_tag 'dams_provenance_collection[scopeContentNoteValue][]', "Scope Content Note" %>
   <%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', '', required: true %>  
 
   <%= label_tag 'dams_provenance_collection[scopeContentNoteType][]', "Scope Content Note Type" %>
   <%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]' %> 
+
+  <h3>Custodial Responsibility Note</h3>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteValue][]' %>  
+  <%= label_tag 'dams_provenance_collection[responsibilityNoteType][]', "Custodial Responsibility Type" %>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteType][]' %> 
+  <%= label_tag 'dams_provenance_collection[responsibilityDisplayLabel][]', "Custodial Responsibility Display Label" %>
+  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteDisplayLabel][]' %>
+
+  <h3>Preferred Citation Note</h3>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteValue][]' %>  
+  <%= label_tag 'dams_provenance_collection[citationNoteType][]', "Preferred Citation Type" %>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteType][]' %> 
+  <%= label_tag 'dams_provenance_collection[citationNoteDisplayLabel][]', "Preferred Citation Display Label" %>
+  <%= text_field_tag 'dams_provenance_collection[citationNoteDisplayLabel][]' %>
 
   <h3>Relationship</h3>
   <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
@@ -64,7 +79,7 @@
 
    <h3>Simple Subject</h3>
   <%
-     subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+     subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
   <%#= label_tag 'dams_provenance_collection[subjectType][]', "Simple Subject" %>
   <%#= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
@@ -79,6 +94,11 @@
   <%#= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
   <%#=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
   
+
+ <h3>Name</h3>
+  <%= select_tag 'dams_provenance_collection[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#name','nameURI','Name');"%>
+  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_provenance_collection[nameTypeValue][]' %>
+
   <h3>Related Resource</h3>
   <%= label_tag 'dams_provenance_collection[relatedResourceType][]', "Related Resource Type" %>
   <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]'%>

@@ -215,4 +215,20 @@ $(document).ready(function()
 		dp.cartographics.load();
 	}
 
+	// handle derivatives generation callbacks
+	$('#generate_derivatives')
+		.bind('ajax:success', function(e) {
+          // update flash message
+          msg = document.getElementById('messages')
+          msg.innerHTML = '<div class="flash_messages"><div class="alert alert-info">Derivatives Generated <a class="close" data-dismiss="alert" href="#">&times;</a></div>';
+
+          // hide button
+          btn = document.getElementById('generate_derivatives')
+          btn.style.display = 'none';
+		})
+		.bind('ajax:error', function(e) {
+          msg = document.getElementById('messages')
+          msg.innerHTML = '<div class="flash_messages"><div class="alert alert-alert">Error Generating Derivatives! <a class="close" data-dismiss="alert" href="#">&times;</a></div>';
+		})
 });
+

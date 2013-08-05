@@ -18,13 +18,13 @@
     </dams:date>
     <dams:language rdf:resource=""/>
     <dams:typeOfResource></dams:typeOfResource>
-    <dams:otherResource>
+    <dams:relatedResource>
       <dams:RelatedResource>
         <dams:type></dams:type>
         <dams:description></dams:description>
         <dams:uri></dams:uri>
       </dams:RelatedResource>
-    </dams:otherResource>
+    </dams:relatedResource>
     <dams:relationship>
       <dams:Relationship>
         <dams:role rdf:resource=""/>
