@@ -43,24 +43,6 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
       end
-    end       
-#    class TemporalElement
-#      include ActiveFedora::RdfObject
-#      include ActiveFedora::Rdf::DefaultNodes
-#      rdf_type MADS.TemporalElement
-#      map_predicates do |map|   
-#        map.elementValue(:in=> MADS)
-#      end
-#    end          
-
-    # language element
-    class LanguageElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type MADS.LanguageElement
-      map_predicates do |map|
-        map.elementValue(:in=> MADS)
-      end
     end
     
     class MainTitleElement
@@ -172,8 +154,8 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 		   #Solrizer.insert_field(solr_doc, 'temporal_element', list[i].elementValue.first)		
 		  # elsif (list[i].class == MadsDatastream::List::TopicElement)
 			# Solrizer.insert_field(solr_doc, 'topic_element', list[i].elementValue.first)															
-		  elsif (list[i].class == MadsDatastream::List::LanguageElement)
-			Solrizer.insert_field(solr_doc, 'language_element', list[i].elementValue.first)																			
+		  #elsif (list[i].class == MadsDatastream::List::LanguageElement)
+		  #	Solrizer.insert_field(solr_doc, 'language_element', list[i].elementValue.first)																			
 		  end		  
 		  i +=1
 		end   
