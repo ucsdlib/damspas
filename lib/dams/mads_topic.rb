@@ -9,6 +9,7 @@ module Dams
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTopicElementList')
       end
+
       def elementList
         elem_list.first || elem_list.build
       end      
