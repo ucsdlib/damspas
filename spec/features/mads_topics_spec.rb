@@ -93,7 +93,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "Name", :with => "CANCEL"
 		fill_in "ExternalAuthority", :with => "http://cancel.edu"
 		fill_in "Element Value", :with => "Should not show"
-		page.select('Library of Congress Name Authority File', match: :first) 
+		page.select('Test Scheme', match: :first) 
 		click_on "Cancel"
 		expect(page).to_not have_content("Should not show")
 		expect(page).to have_content("Test Element")
