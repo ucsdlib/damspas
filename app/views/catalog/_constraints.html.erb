@@ -2,7 +2,9 @@
       <div id="appliedParams" class="constraints-container">
         <span class="constraints-label"><%= t('blacklight.search.filters.title') %></span>
   
-        <%=link_to t('blacklight.search.start_over'), url_for(:action=>'index'), :class => "catalog_startOverLink", :id=>"startOverLink" %>
+        <%#link_to t('blacklight.search.start_over'), url_for(:action=>'index'), :class => "catalog_startOverLink", :id=>"startOverLink" %>
+        <%=link_to "Advanced Search", advanced_path, :class => "catalog_startOverLink" %>
+
         <%= render_constraints(params) %><br>
         <% if params['spellcheck.q'] != params['q'] %>
 			<span class="constraints-label" style="font-weight:normal;">Instead for <i><%= link_to_query(params['spellcheck.q'])%></i></span>

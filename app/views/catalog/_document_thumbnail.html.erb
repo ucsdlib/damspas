@@ -1,0 +1,6 @@
+<% files = select_file( :document => document, :quality => 200 ) %>
+<% if files[:display] != nil %>
+  <div class="thumbnail pull-right">
+    <%= image_tag file_path document[:id], '_' + files[:display]['id'] %>
+  </div>
+<% end %>

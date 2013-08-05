@@ -19,6 +19,15 @@
 		 fieldData.each do |datum|
 			 relatedResource = JSON.parse(datum)
 %>
+		<p>
+			<strong>
+				<% if relatedResource['type'] != nil && !relatedResource['type'].blank? %>
+				<%= relatedResource['type'].upcase %>
+				<% else %>
+				General Related Resource
+				<% end %>
+			</strong>
+		</p>
 		<li><%= link_to relatedResource['description'], relatedResource['uri'] %></li>
 <%
 	 end

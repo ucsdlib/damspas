@@ -124,6 +124,88 @@ def relatedResourceUri
     end
   end
 
+ ## custodialResponsibilityNote ######################################################################
+ 
+  def responsibilityNoteType
+    custodialResponsibilityNote[0] ? custodialResponsibilityNote[0].type : []
+  end
+  def responsibilityNoteType=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      custodialResponsibilityNote.build if custodialResponsibilityNote[0] == nil
+      custodialResponsibilityNote[0].type = val
+    end
+  end   
+  
+ def responsibilityNoteDisplayLabel
+    custodialResponsibilityNote[0] ? custodialResponsibilityNote[0].displayLabel : []
+  end
+  def responsibilityNoteDisplayLabel=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      custodialResponsibilityNote.build if custodialResponsibilityNote[0] == nil
+      custodialResponsibilityNote[0].displayLabel = val
+    end
+  end   
+
+  def responsibilityNoteValue
+    custodialResponsibilityNote[0] ? custodialResponsibilityNote[0].value : []
+  end
+  def responsibilityNoteValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      custodialResponsibilityNote.build if custodialResponsibilityNote[0] == nil
+      custodialResponsibilityNote[0].value = val
+    end
+  end   
+
+ ## preferredCitationNote ######################################################################
+ 
+  def citationNoteType
+    preferredCitationNote[0] ? preferredCitationNote[0].type : []
+  end
+  def citationNoteType=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      preferredCitationNote.build if preferredCitationNote[0] == nil
+      preferredCitationNote[0].type = val
+    end
+  end   
+  
+ def citationNoteDisplayLabel
+    preferredCitationNote[0] ? preferredCitationNote[0].displayLabel : []
+  end
+  def citationNoteDisplayLabel=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      preferredCitationNote.build if preferredCitationNote[0] == nil
+      preferredCitationNote[0].displayLabel = val
+    end
+  end   
+
+  def citationNoteValue
+    preferredCitationNote[0] ? preferredCitationNote[0].value : []
+  end
+  def citationNoteValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      preferredCitationNote.build if preferredCitationNote[0] == nil
+      preferredCitationNote[0].value = val
+    end
+  end
+    
   ## Title ######################################################################
   def subtitle
     title[0] ? title[0].subtitle : []
@@ -345,7 +427,7 @@ def relatedResourceUri
     end
   end  
 
-  #Name 
+  ## Name ###########################################################################
   def nameType
     @nameTypeArray
   end

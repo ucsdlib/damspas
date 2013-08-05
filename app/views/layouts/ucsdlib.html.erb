@@ -9,7 +9,6 @@
 		<%# YE OLDE CSS %>
 		<%= favicon_link_tag asset_path('favicon.ico') %>
 		<%= stylesheet_link_tag "application", :media => "all" %>
-		
 
 		<%= csrf_meta_tags %>
 		<%= raw(render_head_content) %> 
@@ -29,42 +28,7 @@
 	
 	<body onload="<%= onload_text %>" class="<%= render_body_class %>">
 
-		<header>
-			<section class="container-fluid ucsd-head visible-desktop">
-				<a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><%=image_tag "/assets/ucsd/logo-ucsd-header-xl.png", :alt => "UC San Diego" %></a>
-				<a class="brand" href="http://libraries.ucsd.edu/">The Library</a>
-			</section>
-			<section class="navbar navbar-inverse">
-				<div class="navbar-inner">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</a>
-					<a class="brand hidden-desktop" href="http://libraries.ucsd.edu/">The Library</a>
-					<nav class="nav-collapse collapse">
-	
-						<% if current_user  %>
-						<p class="navbar-text pull-right">
-							Logged in as <a href="#" class="navbar-link"><%= current_user.uid %></a>.
-							<%= link_to "Sign out", destroy_user_session_path, :class => "navbar-link" %>.
-						</p>
-						<% else %>
-						<p class="navbar-text pull-right">
-							<%= link_to "Sign in", new_user_session_path, :class => "navbar-link" %>.
-						</p>
-						<% end %>
-	
-						<ul class="nav">
-							<li class="active"><%= link_to "Home", root_path %></li>
-							<li><%= link_to "About", about_path %></li>
-							<li><%= link_to "FAQ", faq_path %></li>
-							<li><a href="#contact">Contact</a></li>
-						</ul>
-					</nav>
-				</div>
-			</section>
-		</header>
+		<%= render :partial => 'layouts/header' %>
 
 		<section id="search-found" class="container-fluid hidden-phone">
 			<%= topbar_items.join('').html_safe %>
@@ -99,7 +63,6 @@
 
 		<%# LE JAVASCRIPT  %>
 		<%= javascript_include_tag "application" %>
-
 
 		<%= render :partial => 'dams_objects/init' %>
 

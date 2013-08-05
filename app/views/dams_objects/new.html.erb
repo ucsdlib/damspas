@@ -43,9 +43,30 @@
   <%= text_field_tag 'dams_object[noteValue][]' %> 
   <%= label_tag 'dams_object[noteType][]', "Note Type" %>
   <%= text_field_tag 'dams_object[noteType][]' %> 
-  <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Displaylabel" %>
+  <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Display label" %>
   <%= text_field_tag 'dams_object[noteDisplayLabel][]' %>
-  
+
+  <h3>Scope Content Note</h3>
+  <%= text_field_tag 'dams_object[scopeContentNoteValue][]' %>  
+  <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Type" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteType][]' %> 
+  <%= label_tag 'dams_object[scopeContentNoteDisplayLabel][]', "Scope Content Display Label" %>
+  <%= text_field_tag 'dams_object[scopeContentNoteDisplayLabel][]' %>
+
+  <h3>Custodial Responsibility Note</h3>
+  <%= text_field_tag 'dams_object[responsibilityNoteValue][]' %>  
+  <%= label_tag 'dams_object[responsibilityNoteType][]', "Custodial Responsibility Type" %>
+  <%= text_field_tag 'dams_object[responsibilityNoteType][]' %> 
+  <%= label_tag 'dams_object[responsibilityDisplayLabel][]', "Custodial Responsibility Display Label" %>
+  <%= text_field_tag 'dams_object[responsibilityNoteDisplayLabel][]' %>
+
+  <h3>Preferred Citation Note</h3>
+  <%= text_field_tag 'dams_object[citationNoteValue][]' %>  
+  <%= label_tag 'dams_object[citationNoteType][]', "Preferred Citation Type" %>
+  <%= text_field_tag 'dams_object[citationNoteType][]' %> 
+  <%= label_tag 'dams_object[citationNoteDisplayLabel][]', "Preferred Citation Display Label" %>
+  <%= text_field_tag 'dams_object[citationNoteDisplayLabel][]' %>
+    
   <h3>Relationship</h3>
   <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
   <br>
@@ -116,7 +137,7 @@
   <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
 
   <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", dams_units_path, class: "btn btn-primary" %>   
+  <%= link_to "Cancel", dams_objects_path, class: "btn btn-primary" %>   
 <%end%>
   
 <%#= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %>
