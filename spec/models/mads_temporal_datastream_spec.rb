@@ -10,9 +10,7 @@ describe MadsTemporalDatastream do
       params = {
         temporal: {
           name: "16th century", externalAuthority: exturi,
-          elementList_attributes: [
-            temporalElement_attributes: [{ elementValue: "16th century" }]
-          ],
+          temporalElement_attributes: [{ elementValue: "16th century" }],
           scheme_attributes: [
             id: scheme, code: "lcsh", name: "Library of Congress Subject Headings"
           ]
@@ -60,14 +58,14 @@ END
         subject.name.should == ["16th century"]
       end
         
-      it "should set the name when the elementList is set" do
+      it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "Original"
-        subject.elementList_attributes = [temporalElement_attributes: [{ elementValue: "Test" }]]
+        subject.temporalElement_attributes = {'0' => { elementValue: "Test" }}
         subject.name.should == ["Test"]
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
-        subject.elementList_attributes = [temporalElement_attributes: [{ elementValue: nil }]]
+        subject.temporalElement_attributes = [{ elementValue: nil }]
         subject.name.should == ["Original"]
       end      
     end
@@ -89,9 +87,9 @@ END
       end
            
       it "should have fields" do
-        list = subject.elementList.first
+        list = subject.elementList
         list[0].should be_kind_of MadsTemporalDatastream::MadsTemporalElement
-        list[0].elementValue.should == ["16th century"]       
+        list[0].elementValue.should == "16th century"       
         list.size.should == 1       
       end  
       
