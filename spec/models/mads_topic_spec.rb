@@ -14,7 +14,7 @@ describe MadsTopic do
       t.attributes = params
     end
   end
-  it "should create a xml" do
+  it "should create rdf/xml" do
     xml =<<END
 <rdf:RDF
   xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
