@@ -1,0 +1,40 @@
+<%
+	if defined?(componentIndex) # Then we're working with a component
+		prefix = "component_#{componentIndex}_"
+		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		htmlClose = "</ul></td></tr>"
+	else # We're working with an object or collection
+		prefix = ''
+		htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		htmlClose = "</ul></dd>"
+	end
+
+	fieldData = @document["#{prefix}custodialResponsibilityNote_json_tesim"]
+
+	if fieldData != nil
+
+		htmlOpen %= 'Custodial Responsibility Note'.pluralize(fieldData.count)
+		concat htmlOpen.html_safe
+
+		fieldData.each do |datum|
+	 		custodialResponsibilityNote = JSON.parse(datum)
+%>
+			<p>
+				<strong>
+					<% if custodialResponsibilityNote['displayLabel'] != nil &&  !custodialResponsibilityNote['displayLabel'].blank? %>
+						<%= custodialResponsibilityNote['displayLabel'].upcase %>
+					<% elsif custodialResponsibilityNote['type'] != nil && !custodialResponsibilityNote['type'].blank? %>
+						<%= custodialResponsibilityNote['type'].upcase %>
+					<% else %>
+						Note
+					<% end %>
+				</strong>
+			</p>
+			<p><%= auto_link(custodialResponsibilityNote['value']) %></p>
+<%
+		end
+
+		concat htmlClose.html_safe
+
+	end
+%>

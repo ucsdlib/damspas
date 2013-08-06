@@ -1,0 +1,17 @@
+<h1><%= @dams_iconography.name.first %></h1>
+
+<div>
+  <dl>
+    <dt>IconographyElement:</dt>
+    <dd><%= @dams_iconography.elementValue %></dd>
+    <dt>Scheme:</dt>
+    <dd><%= @dams_iconography.scheme %></dd>
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @dams_iconography.externalAuthority %></dd>
+  </dl>
+  <% if can? :update, @dams_iconography %>
+    <%= link_to "Solr View", dams_iconographies_path(@dams_iconography), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_iconography_path(@dams_iconography), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_iconographies_path(), class: "btn btn-primary"%>
+  <% end %>
+</div>
