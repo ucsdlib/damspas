@@ -42,10 +42,10 @@ module Dams
         end
         accepts_nested_attributes_for :topicElement
       end
-      class MadsTopicElement
-        include Dams::MadsElement
-        rdf_type MADS.TopicElement
-      end
+      #class MadsTopicElement
+      #  include Dams::MadsElement
+      #  rdf_type MADS.TopicElement
+      #end
     end
   end
 end
