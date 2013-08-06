@@ -68,7 +68,6 @@ feature 'Visitor wants to create/edit a topic' do
 		visit Path.path
 		click_on "Edit"
 		fill_in "Name", :with => "Edited Test Topic"
-		fill_in "Name", :with => "Edited Test Topic"
 		fill_in "ExternalAuthority", :with => "http://edited.edu"
 		fill_in "Element Value", :with => "Test Element"
 		page.select('Library of Congress Subject Headings', match: :first) 
@@ -84,7 +83,13 @@ feature 'Visitor wants to create/edit a topic' do
 end
 
 feature 'Visitor wants to cancel unsaved edits' do
+    let!(:scheme1) { MadsScheme.create!(name: 'Library of Congress Subject Headings') }
+    let!(:scheme2) { MadsScheme.create!(name: 'Library of Congress Name Authority File') }
 
+    after do
+    	scheme1.destroy
+    	scheme2.destroy
+    end	
 	scenario 'is on Edit Topic page' do
 		sign_in_developer
 		visit Path.path
@@ -93,7 +98,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "Name", :with => "CANCEL"
 		fill_in "ExternalAuthority", :with => "http://cancel.edu"
 		fill_in "Element Value", :with => "Should not show"
-		page.select('Test Scheme', match: :first) 
+		page.select('Library of Congress Name Authority File', match: :first) 
 		click_on "Cancel"
 		expect(page).to_not have_content("Should not show")
 		expect(page).to have_content("Test Element")
