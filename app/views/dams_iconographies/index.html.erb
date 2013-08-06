@@ -1,0 +1,122 @@
+<div class="row-fluid">
+	<div class="span12">
+		<h1>Digital Collections</h1>
+	</div>
+</div>
+
+<div class="row-fluid">
+
+    <div id="myCarousel" class="carousel slide span8">
+    <div class="carousel-inner">
+
+			
+			<div class="item">
+				<%= image_tag file_path 'bd95572101', '_2.jpg' %>
+				<div class="carousel-caption">
+					<p>Collection: Scripps Institution of Oceanography Geological Collections</p>
+				</div>
+			</div>
+			
+			<div class="item">
+				<%= image_tag file_path 'bd21510035', '_2.jpg' %>
+				<div class="carousel-caption">
+					<p>Collection: The UCSD Levantine Archaeology Laboratory</p>
+				</div>
+			</div>
+
+			<div class="item">
+				<%= image_tag file_path 'bd5666392f', '_2.jpg' %>
+				<div class="carousel-caption">
+					<p>Collection: UCSD History</p>
+				</div>
+			</div>
+			
+			<div class="item">
+				<%= image_tag file_path 'bd82602702', '_2.jpg' %>
+				<div class="carousel-caption">
+					<p>Collection: The Laboratory for Computational Astrophysics</p>
+				</div>
+			</div>
+			
+			<div class="item">
+					<%= image_tag file_path 'bd3413814d', '_2.jpg' %>
+					<div class="carousel-caption">
+						<p>Collection: The Brain Observatory</p>
+					</div>
+				</div>
+
+			<div class="item">
+				<%= image_tag file_path 'bd4369453c', '_2.jpg' %>
+				<div class="carousel-caption">
+					<p>Collection: Latin American Political Campaign Ephemera Collection</p>
+				</div>
+			</div>
+
+			<div class="item">
+				<%= image_tag file_path 'bd3106642r', '_2.jpg' %>
+				<div class="carousel-caption">
+					<p>Baja California Collection</p>
+				</div>
+			</div>
+
+			<div class="item">
+				<%= image_tag file_path 'bd18097029', '_2.jpg' %>
+				<div class="carousel-caption">
+					<p>Collection: Tuzin Archive for Melanesian Anthropology</p>
+				</div>
+			</div>
+	
+				<div class="item">
+					<%= image_tag file_path 'bd08540633', '_2.jpg' %>
+					<div class="carousel-caption">
+						<p>Collection: The National Science Foundation OpenTopography Facility</p>
+					</div>
+				</div>
+	
+				<div class="active item">
+					<%= image_tag file_path 'bd6963330m', '_2.jpg' %>
+					<div class="carousel-caption">
+						<p>Collection: Scripps Institution of Oceanography Archives</p>
+					</div>
+				</div>
+	
+				
+
+    </div>
+
+    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+    </div>
+		
+		
+	
+	<div class="span4">
+	
+		<div class="well dams-search-box">
+			<p>Search</p>
+			<%= render_unit_search_bar  %>
+		</div>
+			
+		<p class="sidebar-header"><strong>Iconographies</strong></p>
+		<% @document.each do |doc| %>
+			<% if doc['name_tesim'] != nil %>
+				<%= link_to doc['name_tesim'].first, dams_iconography_path(doc['id_t']), :class => "btn btn-block" %>
+			<% end %>
+		<% end %>
+
+		<p class="sidebar-header"><strong>Browse By</strong></p>
+		<ul class="unstyled sidebar-button-list">
+			<%= render_browse_facet_links %>
+		</ul>
+		
+		<% if can? :create, DamsObject %>
+			<p class="sidebar-header"><strong>Editor Tools</strong></p>
+			<ul class="unstyled sidebar-button-list">
+			<li><%= link_to "<i class='icon-plus-sign'></i> Create Object".html_safe, new_dams_object_path, :class => "btn btn-block btn-small btn-link" %>
+			<li><%= link_to "<i class='icon-plus-sign'></i> Create Administrative Unit".html_safe, new_dams_unit_path, :class => "btn btn-block btn-small btn-link" %>
+			</ul>
+		<% end %>
+	
+	</div>
+
+</div>
