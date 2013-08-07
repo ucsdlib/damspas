@@ -5,11 +5,26 @@
    <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd8021352s">
     <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n50000352"/>
     <mads:elementList rdf:parseType="Collection">
+       <mads:FullNameElement>
+        <mads:elementValue>Burns, Jack O.</mads:elementValue>
+      </mads:FullNameElement>
+      <mads:FamilyNameElement>
+        <mads:elementValue>Burns</mads:elementValue>
+      </mads:FamilyNameElement>
+      <mads:GivenNameElement>
+        <mads:elementValue>Jack O.</mads:elementValue>
+      </mads:GivenNameElement>
+	  <mads:DateNameElement>
+        <mads:elementValue>1977-</mads:elementValue>
+      </mads:DateNameElement>
+      <mads:TermsOfAddressNameElement>
+         <mads:elementValue>Dr.</mads:elementValue>
+      </mads:TermsOfAddressNameElement>    
       <mads:NameElement>
         <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
-      </mads:NameElement>
+      </mads:NameElement>           
     </mads:elementList>
-    <mads:authoritativeLabel>Lawrence Livermore Laboratory</mads:authoritativeLabel>
+    <mads:authoritativeLabel>Burns, Jack O., Dr., 1977-, Lawrence Livermore Laboratory</mads:authoritativeLabel>
     <mads:isMemberOfMADSScheme>
       <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
         <rdfs:label>Library of Congress Name Authority File</rdfs:label>

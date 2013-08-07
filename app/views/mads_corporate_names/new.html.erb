@@ -2,15 +2,31 @@
 <%= form_for @mads_corporate_name do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'mads_corporate_name[name]', "Name" %>
-  <%= text_field_tag 'mads_corporate_name[name]' %>         
-  <%= label_tag 'mads_corporate_name[nameValue]', "NameElement" %>
-  <%= text_field_tag 'mads_corporate_name[nameValue]' %>         
+  <%= text_field_tag 'mads_corporate_name[name]' %>               
   <%= label_tag 'mads_corporate_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_corporate_name[externalAuthority]' %> 
-  <%= label_tag 'mads_corporate_name[dateNameValue]', "DateNameElement" %>
-  <%= text_field_tag 'mads_corporate_name[dateNameValue]' %>
+    <%= f.fields_for :fullNameElement do |full| %>
+      <%= full.label :elementValue, "Full Name" %>
+      <%= full.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :familyNameElement do |family| %>
+      <%= family.label :elementValue, "Family Name" %>
+      <%= family.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :givenNameElement do |given| %>
+      <%= given.label :elementValue, "Given Name" %>
+      <%= given.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+      <%= termsOfAddress.label :elementValue, "Terms of Address" %>
+      <%= termsOfAddress.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :dateNameElement do |date| %>
+      <%= date.label :elementValue, "Dates" %>
+      <%= date.text_field :elementValue %>
+    <% end %>
   <br>
-  <%= select_tag 'mads_corporate_name[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= select_tag 'mads_corporate_name[scheme_attributes][0][id]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

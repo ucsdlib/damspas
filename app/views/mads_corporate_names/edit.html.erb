@@ -11,15 +11,33 @@
 		
 			<%= label_tag 'mads_corporate_name[name][]', "Name" %>
 			<%= text_field_tag 'mads_corporate_name[name][]', @mads_corporate_name.name[0], class: "input-block-level" %>
-		
-			<%= label_tag 'mads_corporate_name[nameValue][]', "NameElement" %>
-			<%= text_field_tag 'mads_corporate_name[nameValue][]', @mads_corporate_name.nameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_corporate_name[dateNameValue][]', "DateNameElement" %>
-			<%= text_field_tag 'mads_corporate_name[dateNameValue][]', @mads_corporate_name.dateNameValue, class: "input-block-level" %>
 			<%= label_tag 'mads_corporate_name[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_corporate_name[externalAuthority][]', @mads_corporate_name.externalAuthority, class: "input-block-level" %>
 			<%= label_tag 'mads_corporate_name[scheme][]', "scheme" %>
 			<%= select_tag 'mads_corporate_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+
+			<%= f.fields_for :elementList do |el| %>
+				<%= el.fields_for :fullNameElement do |full| %>
+					<%= full.label :elementValue, "Full Name" %>
+					<%= full.text_field :elementValue, @mads_corporate_name.fullNameValue %>
+				<% end %>
+				<%= el.fields_for :familyNameElement do |family| %>
+					<%= family.label :elementValue, "Family Name" %>
+					<%= family.text_field :elementValue, @mads_corporate_name.familyNameValue %>
+				<% end %>
+				<%= el.fields_for :givenNameElement do |given| %>
+					<%= given.label :elementValue, "Given Name" %>
+					<%= given.text_field :elementValue, @mads_corporate_name.givenNameValue %>
+				<% end %>
+				<%= el.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+					<%= termsOfAddress.label :elementValue, "Terms of Address" %>
+					<%= termsOfAddress.text_field :elementValue, @mads_corporate_name.termsOfAddressNameValue %>
+				<% end %>
+				<%= el.fields_for :dateNameElement do |date| %>
+					<%= date.label :elementValue, "Dates" %>
+					<%= date.text_field :elementValue, @mads_corporate_name.dateNameValue %>
+				<% end %>
+			<% end %>
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
