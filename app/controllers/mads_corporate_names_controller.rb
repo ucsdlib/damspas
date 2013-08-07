@@ -30,35 +30,45 @@ class MadsCorporateNamesController < ApplicationController
   end
 
   def new
-  @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    #@mads_corporate_name.elementList.build
+   #@mads_corporate_name.elementList.first.fullNameElement.build
+    #@mads_corporate_name.elementList.first.givenNameElement.build
+    #@mads_corporate_name.elementList.first.familyNameElement.build
+    #@mads_corporate_name.elementList.first.dateNameElement.build
+    #@mads_corporate_name.elementList.first.termsOfAddressNameElement.build
+    @mads_corporate_name.elementList.fullNameElement.build
+    @mads_corporate_name.elementList.givenNameElement.build
+    @mads_corporate_name.elementList.familyNameElement.build
+    @mads_corporate_name.elementList.dateNameElement.build
+    @mads_corporate_name.elementList.termsOfAddressNameElement.build
+    @mads_corporate_name.elementList.nameElement.build           
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_corporate_name = MadsCorporateName.find(params[:id])
     @mads_schemes = MadsScheme.find(:all)
-    if(@mads_corporate_name.scheme != nil)
-      @scheme_id = @mads_corporate_name.scheme.to_s.gsub /.*\//, ""
-      @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
-    end
+    @scheme_id = @mads_corporate_name.scheme.to_s.gsub /.*\//, ""
   end
 
   def create
-    @mads_corporate_name.attributes = params[:mads_corporate_name]
     if @mads_corporate_name.save
-        redirect_to @mads_corporate_name, notice: "corporate_name has been saved"
+        redirect_to @mads_corporate_name, notice: "CorporateName has been saved"
     else
-      flash[:alert] = "Unable to save corporate_name"
+      flash[:alert] = "Unable to save CorporateName"
       render :new
     end
   end
 
   def update
+    @mads_corporate_name.elementList.clear
+    @mads_corporate_name.scheme.clear  
     @mads_corporate_name.attributes = params[:mads_corporate_name]
     if @mads_corporate_name.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated corporate_name"
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated CorporateName"
         else      
-        	redirect_to @mads_corporate_name, notice: "Successfully updated corporate_name"
+        	redirect_to @mads_corporate_name, notice: "Successfully updated CorporateName"
         end
     else
       flash[:alert] = "Unable to save corporate_name"
