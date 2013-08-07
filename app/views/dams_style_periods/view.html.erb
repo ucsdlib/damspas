@@ -1,0 +1,17 @@
+<h1><%= @dams_style_period.name.first %></h1>
+
+<div>
+  <dl>
+    <dt>StylePeriodElement:</dt>
+    <dd><%= @dams_style_period.elementValue %></dd>
+    <dt>Scheme:</dt>
+    <dd><%= @dams_style_period.scheme %></dd>
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @dams_style_period.externalAuthority %></dd>
+  </dl>
+  <% if can? :update, @dams_style_period %>
+    <%= link_to "Solr View", dams_style_period_path(@dams_style_period), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_style_period_path(@dams_style_period), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_style_periods_path(), class: "btn btn-primary"%>
+  <% end %>
+</div>

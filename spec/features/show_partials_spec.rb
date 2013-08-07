@@ -173,4 +173,5 @@ feature 'Visitor wants to view an object\'s' do
 		visit dams_object_path('bd22194583')
 		expect(page).to have_link('Library Digital Collections', href:"/dams_units/dlp")
 	end
+	
 end
