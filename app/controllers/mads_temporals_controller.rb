@@ -39,7 +39,7 @@ class MadsTemporalsController < ApplicationController
 
   def edit
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
-    @scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, "" 
+    @scheme_id = Rails.configuration.id_namespace+@mads_temporal.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create

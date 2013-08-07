@@ -27,7 +27,7 @@ class MadsLanguagesController < ApplicationController
   end
   def edit
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
-    @scheme_id = @mads_language.scheme.to_s.gsub /.*\//, ""
+    @scheme_id = Rails.configuration.id_namespace+@mads_language.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create

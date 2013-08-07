@@ -17,7 +17,7 @@
 
 		     <%= f.fields_for :scheme, include_id: false do |se| %>
 		        <%= se.label :id, "Scheme" %>
-		        <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>
+		        <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
 		      <% end %>
 	        <%= f.fields_for :temporalElement do |te| %>
 	         	<%= te.label :elementValue, "Element Value" %>
