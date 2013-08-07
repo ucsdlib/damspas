@@ -3,7 +3,7 @@
 </script>
 <script>
 $(document).ready(function() {
-  alert($("#dams_provenance_collection_subjectType_").val());
+  
 
   $('.edit_dams_provenance_collection').submit(function() {
     if($("#dams_provenance_collection_dateValue_").val().length < 1)
@@ -69,11 +69,6 @@ $(document).ready(function() {
     if($("#dams_provenance_collection_citationNoteDisplayLabel_").val().length < 1)
     {
       $("#dams_provenance_collection_citationNoteDisplayLabel_").val(" ");
-    }
-
-    if($("#dams_provenance_collection_scopeContentNoteType_").val().length < 1)
-    {
-      $("#dams_provenance_collection_scopeContentNoteType_").val(" ");
     }
 
     if($("#dams_provenance_collection_relatedResourceType_").val().length < 1)
