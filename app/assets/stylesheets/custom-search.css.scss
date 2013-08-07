@@ -4,3 +4,35 @@
 
 // highlighted results
 .search-highlight {background-color:#F5DA81;font-style:normal}
+
+
+
+/* TOP NAV SEARCH BAR */
+.search-bar
+{
+  background-color: #F3B46D;
+  background-image: linear-gradient(to bottom, #F39D3D, #F3B46D);
+  /*height:26px;*/
+  margin:0 20px 20px 0;
+  padding: 10px 20px;
+  border: 1px solid #964F00;
+  border-top: none;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,0.25);
+}
+
+.search-bar input[type=text],
+.mobile-search-bar input[type=text]{border-color: #E67A00;}
+.search-bar form,
+.mobile-search-bar form{padding:4px 0;margin:0;}
+
+.btn-navsearch{padding:4px 12px 3px 12px !important;margin-right:10px !important;}
+
+.mobile-search-bar{
+  background-color: #F3B46D;
+  background-image: linear-gradient(to bottom, #F39D3D, #F3B46D);
+  margin-bottom: 20px;
+  border-bottom: 1px solid #964F00;
+
+}
+.mobile-search-bar .input-append{width:100%;text-align: center;}
