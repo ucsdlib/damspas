@@ -17,10 +17,12 @@ feature 'Visitor wants to look at units' do
     visit dams_units_path
 
     expect(page).to have_selector('p', :text => 'Search')
-    fill_in 'Search...', :with => "123"
+    fill_in 'Search...', :with => "sample", :match => :prefer_exact
     click_on('Search')
 
     expect(page).to have_content('Search Results')
+    expect(page).to have_content('Limit your search')
+    expect(page).to have_content('Sample Complex Object Record #3: Format Sampler')
   end
 
   scenario 'uses the carousel' do
@@ -33,7 +35,7 @@ feature 'Visitor wants to look at units' do
     # can we find the unit record
     visit dams_units_path
     expect(page).to have_field('Search...')
-    fill_in 'Search...', :with => 'bb02020202'
+    fill_in 'Search...', :with => 'bb02020202', :match => :prefer_exact
 
     click_on('Search')
 
@@ -46,7 +48,7 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
     # search for the object in the unit and find it
-    fill_in 'Search...', :with => 'sample'
+    fill_in 'Search...', :with => 'sample', :match => :prefer_exact
     click_on('Search')
     expect(page).to have_content('Search Results')
     expect(page).to have_content('Sample Complex Object Record #3')
@@ -57,7 +59,7 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
 
     # search for the object in the unit and find it
-    fill_in 'Search...', :with => 'sample'
+    fill_in 'Search...', :with => 'sample', :match => :prefer_exact
     click_on('Search')
     expect(page).to have_content('Search Results')
     expect(page).to have_no_content('Sample Complex Object Record #1')
