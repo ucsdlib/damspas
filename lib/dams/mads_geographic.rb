@@ -41,6 +41,10 @@ module Dams
         end
         accepts_nested_attributes_for :geographicElement
       end
+	  class MadsGeographicElement
+	    include Dams::MadsElement
+	    rdf_type MADS.GeographicElement
+	  end      
     end
   end
 end

@@ -113,7 +113,7 @@ END
         list[3].elementValue.should == ["1977-"]
         list[4].should be_kind_of MadsTermsOfAddressNameElement
         list[4].elementValue.should == ["Dr."]
-        list[5].should be_kind_of MadsNameElement
+        list[5].should be_kind_of MadsCorporateNameDatastream::MadsNameElement
         list[5].elementValue.should == "Lawrence Livermore Laboratory"                                 
         list.size.should == 6        
       end  

@@ -44,6 +44,10 @@ module Dams
         end
         accepts_nested_attributes_for :temporalElement
       end
+	  class MadsTemporalElement
+		include Dams::MadsElement
+		rdf_type MADS.TemporalElement
+	  end      
     end
   end
 end

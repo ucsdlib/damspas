@@ -4,7 +4,7 @@ module Dams
   module MadsCorporateName
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
-    #include Dams::MadsNameElements
+    include Dams::MadsNameElements
     included do
       rdf_type MADS.CorporateName
       map_predicates do |map|

@@ -84,7 +84,7 @@ END
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of MadsGenreFormElement
+        list[0].should be_kind_of MadsGenreFormDatastream::MadsGenreFormElement
         list[0].elementValue.should == "Film and video adaptions"
         list.size.should == 1
       end

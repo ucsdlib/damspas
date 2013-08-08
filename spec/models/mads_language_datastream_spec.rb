@@ -94,7 +94,7 @@ END
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of MadsLanguageElement
+        list[0].should be_kind_of MadsLanguageDatastream::MadsLanguageElement
         list[0].elementValue.should == "French"
         list.size.should == 1
       end

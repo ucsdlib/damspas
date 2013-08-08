@@ -41,6 +41,10 @@ module Dams
         end
         accepts_nested_attributes_for :occupationElement
       end
+	  class MadsOccupationElement
+    	include Dams::MadsElement
+    	rdf_type MADS.OccupationElement
+	  end      
     end
   end
 end
