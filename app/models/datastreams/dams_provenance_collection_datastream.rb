@@ -138,6 +138,8 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     if part != nil && part.class == DamsProvenanceCollectionPart
       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
+      pj = { :id => part.pid, :name => part.title.first.value }
+      Solrizer.insert_field(solr_doc, 'part_json', pj.to_json)
     end
 
     super
