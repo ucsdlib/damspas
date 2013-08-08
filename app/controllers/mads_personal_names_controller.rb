@@ -30,7 +30,6 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def new
-    @mads_personal_name.elementList.build
     @mads_personal_name.elementList.first.fullNameElement.build
     @mads_personal_name.elementList.first.givenNameElement.build
     @mads_personal_name.elementList.first.familyNameElement.build

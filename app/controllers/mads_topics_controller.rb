@@ -31,12 +31,14 @@ class MadsTopicsController < ApplicationController
   end
 
   def new
-    @mads_topic.elementList.topicElement.build
     @mads_topic.scheme.build
+    @mads_topic.elementList.topicElement.build
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
+logger.warn "XXX: #{@mads_topic.elementList.topicElement.first}"
+    #@mads_topic.elementList.topicElement.build unless @mads_topic.elementList.topicElement
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
     @scheme_id = Rails.configuration.id_namespace+@mads_topic.scheme.to_s.gsub(/.*\//,'')[0..9]
   end

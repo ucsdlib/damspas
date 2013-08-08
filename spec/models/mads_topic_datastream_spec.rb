@@ -84,7 +84,7 @@ END
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of MadsTopicElement
+        list[0].should be_kind_of Dams::MadsTopic::MadsTopicElement
         list[0].elementValue.should == "Baseball"
         list.size.should == 1
       end

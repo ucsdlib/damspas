@@ -35,17 +35,17 @@ module Dams
         end
         solr_base solr_doc
       end
-      class MadsTopicElementList
-        include ActiveFedora::RdfList
-        map_predicates do |map|
-          map.topicElement(:in=> MADS, :to =>"TopicElement", :class_name => "MadsTopicElement")
-        end
-        accepts_nested_attributes_for :topicElement
+    end
+    class MadsTopicElementList
+      include ActiveFedora::RdfList
+      map_predicates do |map|
+        map.topicElement(:in=> MADS, :to =>"TopicElement", :class_name => "MadsTopicElement")
       end
-      #class MadsTopicElement
-      #  include Dams::MadsElement
-      #  rdf_type MADS.TopicElement
-      #end
+      accepts_nested_attributes_for :topicElement
+    end
+    class MadsTopicElement
+      include Dams::MadsElement
+      rdf_type MADS.TopicElement
     end
   end
 end
