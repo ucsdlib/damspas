@@ -25,8 +25,15 @@
       <%= date.label :elementValue, "Dates" %>
       <%= date.text_field :elementValue %>
     <% end %>
+    <%= f.fields_for :nameElement do |na| %>
+      <%= na.label :elementValue, "Name" %>
+      <%= na.text_field :elementValue %>
+    <% end %>    
   <br>
-  <%= select_tag 'mads_corporate_name[scheme_attributes][0][id]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

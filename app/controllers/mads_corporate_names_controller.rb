@@ -36,19 +36,21 @@ class MadsCorporateNamesController < ApplicationController
     #@mads_corporate_name.elementList.first.familyNameElement.build
     #@mads_corporate_name.elementList.first.dateNameElement.build
     #@mads_corporate_name.elementList.first.termsOfAddressNameElement.build
+    
     @mads_corporate_name.elementList.fullNameElement.build
-    @mads_corporate_name.elementList.givenNameElement.build
-    @mads_corporate_name.elementList.familyNameElement.build
-    @mads_corporate_name.elementList.dateNameElement.build
-    @mads_corporate_name.elementList.termsOfAddressNameElement.build
-    @mads_corporate_name.elementList.nameElement.build           
+    #@mads_corporate_name.elementList.givenNameElement.build
+    #@mads_corporate_name.elementList.familyNameElement.build
+    #@mads_corporate_name.elementList.dateNameElement.build
+    #@mads_corporate_name.elementList.termsOfAddressNameElement.build
+    #@mads_corporate_name.elementList.nameElement.build
+    @mads_corporate_name.scheme.build           
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_corporate_name = MadsCorporateName.find(params[:id])
     @mads_schemes = MadsScheme.find(:all)
-    @scheme_id = @mads_corporate_name.scheme.to_s.gsub /.*\//, ""
+    @scheme_id = Rails.configuration.id_namespace+@mads_corporate_name.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
