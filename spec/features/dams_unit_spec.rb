@@ -17,7 +17,7 @@ feature 'Visitor wants to look at units' do
     visit dams_units_path
 
     expect(page).to have_selector('p', :text => 'Search')
-    fill_in 'Search...', :with => "sample", :match => :prefer_exact
+    fill_in 'For keywords...', :with => "sample", :match => :prefer_exact
     click_on('Search')
 
     expect(page).to have_content('Search Results')
@@ -34,8 +34,8 @@ feature 'Visitor wants to look at units' do
   scenario 'retrieve a unit record' do
     # can we find the unit record
     visit dams_units_path
-    expect(page).to have_field('Search...')
-    fill_in 'Search...', :with => 'bb02020202', :match => :prefer_exact
+    expect(page).to have_field('For keywords...')
+    fill_in 'For keywords...', :with => 'bb02020202', :match => :prefer_exact
 
     click_on('Search')
 
