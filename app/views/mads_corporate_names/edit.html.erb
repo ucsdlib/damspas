@@ -13,31 +13,53 @@
 			<%= text_field_tag 'mads_corporate_name[name][]', @mads_corporate_name.name[0], class: "input-block-level" %>
 			<%= label_tag 'mads_corporate_name[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_corporate_name[externalAuthority][]', @mads_corporate_name.externalAuthority, class: "input-block-level" %>
-			<%= label_tag 'mads_corporate_name[scheme][]', "scheme" %>
-			<%= select_tag 'mads_corporate_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+		      <%= f.fields_for :scheme, include_id: false do |se| %>
+		        <%= se.label :id, "Scheme" %>
+		        <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+		      <% end %>
 
-			<%= f.fields_for :elementList do |el| %>
-				<%= el.fields_for :fullNameElement do |full| %>
-					<%= full.label :elementValue, "Full Name" %>
-					<%= full.text_field :elementValue, @mads_corporate_name.fullNameValue %>
-				<% end %>
-				<%= el.fields_for :familyNameElement do |family| %>
-					<%= family.label :elementValue, "Family Name" %>
-					<%= family.text_field :elementValue, @mads_corporate_name.familyNameValue %>
-				<% end %>
-				<%= el.fields_for :givenNameElement do |given| %>
-					<%= given.label :elementValue, "Given Name" %>
-					<%= given.text_field :elementValue, @mads_corporate_name.givenNameValue %>
-				<% end %>
-				<%= el.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
-					<%= termsOfAddress.label :elementValue, "Terms of Address" %>
-					<%= termsOfAddress.text_field :elementValue, @mads_corporate_name.termsOfAddressNameValue %>
-				<% end %>
-				<%= el.fields_for :dateNameElement do |date| %>
-					<%= date.label :elementValue, "Dates" %>
-					<%= date.text_field :elementValue, @mads_corporate_name.dateNameValue %>
-				<% end %>
-			<% end %>
+			<%= label_tag 'mads_corporate_name[fullNameElement_attributes][0][elementValue]', "Full Name" %>
+			<%= text_field_tag '[fullNameElement_attributes][0][elementValue]', @mads_corporate_name.fullNameValue[0], class: "input-block-level" %>		      
+
+			<%= label_tag 'mads_corporate_name[familyNameElement_attributes][0][elementValue]', "Family Name" %>
+			<%= text_field_tag '[familyNameElement_attributes][0][elementValue]', @mads_corporate_name.familyNameValue[0], class: "input-block-level" %>		      
+
+			<%= label_tag 'mads_corporate_name[givenNameElement_attributes][0][elementValue]', "Given Name" %>
+			<%= text_field_tag '[givenNameElement_attributes][0][elementValue]', @mads_corporate_name.givenNameValue[0], class: "input-block-level" %>		      
+
+			<%= label_tag 'mads_corporate_name[termsOfAddressNameElement_attributes][0][elementValue]', "Terms Of Address" %>
+			<%= text_field_tag '[termsOfAddressNameElement_attributes][0][elementValue]', @mads_corporate_name.termsOfAddressNameValue[0], class: "input-block-level" %>		      
+
+			<%= label_tag 'mads_corporate_name[dateNameElement_attributes][0][elementValue]', "Dates" %>
+			<%= text_field_tag '[dateNameElement_attributes][0][elementValue]', @mads_corporate_name.dateNameValue[0], class: "input-block-level" %>		      
+
+			<%= label_tag 'mads_corporate_name[nameElement_attributes][0][elementValue]', "Name" %>
+			<%= text_field_tag '[nameElement_attributes][0][elementValue]', @mads_corporate_name.nameValue[0], class: "input-block-level" %>		      
+		      		      
+		    <%#= f.fields_for :fullNameElement do |full| %>
+		      <%#= full.label :elementValue, "Full Name" %>
+		      <%#= full.text_field :elementValue %>
+		    <%# end %>
+		    <%#= f.fields_for :familyNameElement do |family| %>
+		      <%#= family.label :elementValue, "Family Name" %>
+		      <%#= family.text_field :elementValue %>
+		    <%# end %>
+		    <%#= f.fields_for :givenNameElement do |given| %>
+		      <%#= given.label :elementValue, "Given Name" %>
+		      <%#= given.text_field :elementValue %>
+		    <%# end %>
+		    <%#= f.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+		      <%#= termsOfAddress.label :elementValue, "Terms of Address" %>
+		      <%#= termsOfAddress.text_field :elementValue %>
+		    <%# end %>
+		    <%#= f.fields_for :dateNameElement do |date| %>
+		      <%#= date.label :elementValue, "Dates" %>
+		      <%#= date.text_field :elementValue %>
+		    <%# end %>
+		    <%#= f.fields_for :nameElement do |na| %>
+		      <%#= na.label :elementValue, "Name" %>
+		      <%#= na.text_field :elementValue %>
+		    <%# end %>    				
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
