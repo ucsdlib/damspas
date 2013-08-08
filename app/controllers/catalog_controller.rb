@@ -235,8 +235,8 @@ class CatalogController < ApplicationController
 	  else
 		params['spellcheck.q'] = params[:q]
 		@response.spelling.words << @response.spelling.collation unless @response.spelling.collation.nil?
-		@response.spelling.words.uniq
 	  end
+	  @response.spelling.words.uniq
       @filters = params[:f] || []
       
       respond_to do |format|
