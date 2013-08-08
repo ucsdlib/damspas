@@ -83,7 +83,7 @@ END
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of MadsOccupationElement
+        list[0].should be_kind_of MadsOccupationDatastream::MadsOccupationElement
         list[0].elementValue.should == "Pharmacist"
         list.size.should == 1
       end

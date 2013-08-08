@@ -41,6 +41,10 @@ module Dams
         end
         accepts_nested_attributes_for :genreFormElement
       end
+	  class MadsGenreFormElement
+	    include Dams::MadsElement
+	    rdf_type MADS.GenreFormElement
+	  end      
     end
   end
 end

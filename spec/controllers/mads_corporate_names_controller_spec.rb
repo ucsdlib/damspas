@@ -11,7 +11,7 @@ describe MadsCorporateNamesController do
         get :new
         response.should be_success
         assigns[:mads_corporate_name].should be_kind_of MadsCorporateName
-        assigns[:mads_corporate_name].fullNameElement.size.should == 6
+        assigns[:mads_corporate_name].fullNameElement.size.should == 1
       end
     end
 
