@@ -15,6 +15,13 @@
         <% end %>
       <% end %>  
 	</ul>	
+
+	<h1>Assembled Collections</h1>
+	 <ul>
+	 <% @AssembledDocument.each do |doc| %>
+      <li><%= link_to doc['title_tesim'].first, dams_assembled_collection_path(doc['id']) %></li>
+      <% end %>   
+	</ul>	
 	</div>
 </div>
 
