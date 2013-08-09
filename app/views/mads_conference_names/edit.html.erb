@@ -8,15 +8,31 @@
 			<%= render 'error_messages', object: f.object %>
 			<%= label_tag 'mads_conference_name[name][]', "Name" %>
 			<%= text_field_tag 'mads_conference_name[name][]', @mads_conference_name.name[0], class: "input-block-level" %>
-			<%= label_tag 'mads_conference_name[nameValue][]', "NameElement" %>
-			<%= text_field_tag 'mads_conference_name[nameValue][]', @mads_conference_name.nameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_conference_name[dateNameValue][]', "DateNameElement" %>
-			<%= text_field_tag 'mads_conference_name[dateNameValue][]', @mads_conference_name.dateNameValue, class: "input-block-level" %>
-
 			<%= label_tag 'mads_conference_name[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_conference_name[externalAuthority][]', @mads_conference_name.externalAuthority, class: "input-block-level" %>
-			<%= label_tag 'mads_conference_name[scheme][]', "scheme" %>
-			<%= select_tag 'mads_conference_name[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			     <%= f.fields_for :scheme, include_id: false do |se| %>
+		      <%= se.label :id, "Scheme" %>
+		        <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+		      <% end %>
+		
+		      <%= label_tag 'mads_conference_name[fullNameElement_attributes][0][elementValue]', "Full Name" %>
+		      <%= text_field_tag 'mads_conference_name[fullNameElement_attributes][0][elementValue]', @mads_conference_name.fullNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_conference_name[familyNameElement_attributes][0][elementValue]', "Family Name" %>
+		      <%= text_field_tag 'mads_conference_name[familyNameElement_attributes][0][elementValue]', @mads_conference_name.familyNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_conference_name[givenNameElement_attributes][0][elementValue]', "Given Name" %>
+		      <%= text_field_tag 'mads_conference_name[givenNameElement_attributes][0][elementValue]', @mads_conference_name.givenNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_conference_name[termsOfAddressNameElement_attributes][0][elementValue]', "Terms of Address" %>
+		      <%= text_field_tag 'mads_conference_name[termsOfAddressNameElement_attributes][0][elementValue]', @mads_conference_name.termsOfAddressNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_conference_name[dateNameElement_attributes][0][elementValue]', "Dates" %>
+		      <%= text_field_tag 'mads_conference_name[dateNameElement_attributes][0][elementValue]', @mads_conference_name.dateNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_conference_name[nameElement_attributes][0][elementValue]', "Other Name" %>
+		      <%= text_field_tag 'mads_conference_name[nameElement_attributes][0][elementValue]', @mads_conference_name.nameValue, class: "input-block-level" %>          
+
 			
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

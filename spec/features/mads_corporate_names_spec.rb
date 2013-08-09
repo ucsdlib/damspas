@@ -15,7 +15,9 @@ feature 'Visitor wants to create/edit a MADS Corporate Name' do
 
 	scenario 'is on new MADS Corporate Name page' do
 		sign_in_developer
-
+		visit "mads_corporate_names"
+		expect(page).to have_selector('a', :text => "Create Corporate Name")
+		
 		visit mads_corporate_name_path('new')
 
 		# Create new corporate name

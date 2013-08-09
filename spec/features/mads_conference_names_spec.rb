@@ -15,49 +15,63 @@ feature 'Visitor wants to create/edit a MADS Conference Name' do
 
 	scenario 'is on new MADS Conference Name page' do
 		sign_in_developer
-
+		visit "mads_conference_names"
+		expect(page).to have_selector('a', :text => "Create Conference Name")
+		
 		visit mads_conference_name_path('new')
 
 		# Create new conference name
-		fill_in "ExternalAuthority", :with => "http://johndoe.com"
-		fill_in "Name", :with => "ComicCon, 2013"
-		fill_in "NameElement", :with => "ComicCon"
-		fill_in "DateNameElement", :with => "2013"
+		fill_in "Other Name", :with => "FooCorp"
+		fill_in "Dates", :with => "1920"
+		fill_in "ExternalAuthority", :with => "http://misterdoe.com"
 		page.select("Test Scheme", match: :first)
-		click_on "Submit"
+		click_on "Save"
 		Path.path = current_path
 
-		expect(page).to have_selector('strong', :text => "ComicCon, 2013")
-		expect(page).to have_selector('li', :text => "ComicCon")
-		expect(page).to have_selector('li', :text => "2013")
+		###expect(page).to have_selector('strong', :text => "FooCorp, 1920")
+		expect(page).to have_selector('li', :text => "FooCorp")
+		expect(page).to have_selector('li', :text => "1920")
 		expect(page).to have_selector('li', :text => "Test Scheme")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
-		expect(page).to have_selector('a', :text => "http://johndoe.com")
+		expect(page).to have_selector('a', :text => "http://misterdoe.com")
 
+		click_on "Edit"
+		fill_in "Name", :with => "Last1, 1970"
+		fill_in "Other Name", :with => "Last1"
+		fill_in "Dates", :with => "1970"
+		fill_in "ExternalAuthority", :with => "http://missdoes.com"
+		page.select("Test Scheme 2", match: :first)
+		click_on "Save changes"
+
+		###expect(page).to have_selector('strong', :text => "Last1, 1970")
+		expect(page).to have_selector('li', :text => "Last1")
+		expect(page).to have_selector('li', :text => "1970")
+		expect(page).to have_selector('li', :text => "Test Scheme 2")
+		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
+		expect(page).to have_selector('a', :text => "http://missdoes.com")
 
 	end
 
 	scenario 'is on Edit Conference Name page' do
 		sign_in_developer
 		visit Path.path
-
 		click_on "Edit"
-		fill_in "Name", :with => "Jane Does1, 1950"
-		fill_in "ExternalAuthority", :with => "http://conference.com"
-		page.select("Test Scheme 2", match: :first)
-		fill_in "NameElement", :with => "Jane Does1"
-		fill_in "DateNameElement", :with => "1950"
+		#fill_in "Name", :with => "Newer Name"
+		fill_in "ExternalAuthority", :with => "http://conferencename.com"
+		page.select("Test Scheme", match: :first)
+		fill_in "Other Name", :with => "New Conference Name"
+		fill_in "Dates", :with => "1990"
 		click_on "Save changes"
 
-		expect(page).to have_selector('strong', :text => "Jane Does1, 1950")
-		expect(page).to have_selector('li', :text => "Jane Does1")
-		expect(page).to have_selector('li', :text => "1950")
-		expect(page).to have_selector('li', :text => "Test Scheme 2")
+		###expect(page).to have_selector('strong', :text => "New Conference Name, 1990")
+		expect(page).to have_selector('li', :text => "New Conference Name")
+		expect(page).to have_selector('li', :text => "1990")
+		expect(page).to have_selector('li', :text => "Test Scheme")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
-		expect(page).to have_selector('a', :text => "http://conference.com")
+		expect(page).to have_selector('a', :text => "http://conferencename.com")
 
 	end
-
+	
 end
 
 feature 'Visitor wants to cancel unsaved edits' do
@@ -67,14 +81,14 @@ feature 'Visitor wants to cancel unsaved edits' do
 		visit Path.path
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
-		fill_in "Name", :with => "Cancel"
+		#fill_in "Name", :with => "Cancel"
 		fill_in "ExternalAuthority", :with => "http://cancel.com"
 		page.select("Test Scheme 2", match: :first)
-		fill_in "NameElement", :with => "Can Cel"
-		fill_in "DateNameElement", :with => "1999"
+		fill_in "Other Name", :with => "Can Cel"
+		fill_in "Dates", :with => "1999"
 		click_on "Cancel"
 		expect(page).to_not have_content("Can Cel")
-		expect(page).to have_content("Jane Does")
+		expect(page).to have_content("New Conference Name")
 	end
 
 end
@@ -85,11 +99,11 @@ feature 'Visitor wants to use Hydra View' do
 		sign_in_developer
 		visit Path.path
 		click_on "Hydra View"
-		expect(page).to have_selector('h1', :text => "Jane Does1, 1950")
-		expect(page).to have_selector('dd', :text => "Jane Does1")
-		expect(page).to have_selector('dd', :text => "1950")
+		#expect(page).to have_selector('h1', :text => "New Conference Name, 1920")
+		expect(page).to have_selector('dd', :text => "New Conference Name")
+		expect(page).to have_selector('dd', :text => "1990")
 		expect(page).to have_selector('dd', :text => "http://library.ucsd.edu/ark:/20775/")
-		expect(page).to have_selector('dd', :text => "http://conference.com")
+		expect(page).to have_selector('dd', :text => "http://conferencename.com")
 		click_on "Edit"
 	end
 

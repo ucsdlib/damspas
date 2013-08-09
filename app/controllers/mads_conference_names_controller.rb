@@ -30,38 +30,38 @@ class MadsConferenceNamesController < ApplicationController
   end
 
   def new
+    @mads_conference_name.elementList.fullNameElement.build
+    @mads_conference_name.scheme.build 
     @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_conference_name = MadsConferenceName.find(params[:id])
     @mads_schemes = MadsScheme.find(:all)
-    if(@mads_conference_name.scheme != nil)
-      @scheme_id = @mads_conference_name.scheme.to_s.gsub /.*\//, ""
-      @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end  
+    @scheme_id = Rails.configuration.id_namespace+@mads_conference_name.scheme.to_s.gsub(/.*\//,'')[0..9] 
   end
 
   def create
-    @mads_conference_name.attributes = params[:mads_conference_name]
     if @mads_conference_name.save
-        redirect_to @mads_conference_name, notice: "conference_name has been saved"
+        redirect_to @mads_conference_name, notice: "ConferenceName has been saved"
     else
-      flash[:alert] = "Unable to save conference_name"
+      flash[:alert] = "Unable to save ConferenceName"
       render :new
     end
   end
 
   def update
+    @mads_conference_name.elementList.clear
+    @mads_conference_name.scheme.clear  
     @mads_conference_name.attributes = params[:mads_conference_name]
     if @mads_conference_name.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated confernce_name"
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated ConfernceName"
         else        
-        	redirect_to @mads_conference_name, notice: "Successfully updated conference_name"
+        	redirect_to @mads_conference_name, notice: "Successfully updated ConferenceName"
         end
     else
-      flash[:alert] = "Unable to save conference_name"
+      flash[:alert] = "Unable to save ConferenceName"
       render :edit
     end
   end
