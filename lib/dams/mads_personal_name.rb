@@ -13,7 +13,7 @@ module Dams
       def elementList
         elem_list.first || elem_list.build
       end
-      accepts_nested_attributes_for :scheme, :nameElement, :fullNameElement, :givenNameElement, :familyNameElement, :dateNameElement#, termsOfAddressNameElement XXX: termsOfAddressNameElement is broken...
+      accepts_nested_attributes_for :scheme, :nameElement, :fullNameElement, :givenNameElement, :familyNameElement, :dateNameElement, :termsOfAddressNameElement
       def serialize
         graph.insert([rdf_subject, RDF.type, MADS.PersonalName]) if new?
         super
@@ -23,7 +23,7 @@ module Dams
       alias_method :nameElement, :elementList
       def nameElement_and_name= (attributes)
         self.nameElement_only= attributes
-        self.name = authLabel #if attributes['name'].blank? && authLabel
+        self.name = authLabel if authLabel
       end
       alias_method :nameElement_only=, :nameElement_attributes=
       alias_method :nameElement_attributes=, :nameElement_and_name=
@@ -32,7 +32,7 @@ module Dams
       alias_method :fullNameElement, :elementList
       def fullNameElement_and_name= (attributes)
         self.fullNameElement_only= attributes
-        self.name = authLabel #if attributes['name'].blank? && authLabel
+        self.name = authLabel if authLabel
       end
       alias_method :fullNameElement_only=, :fullNameElement_attributes=
       alias_method :fullNameElement_attributes=, :fullNameElement_and_name=
@@ -41,7 +41,7 @@ module Dams
       alias_method :givenNameElement, :elementList
       def givenNameElement_and_name= (attributes)
         self.givenNameElement_only= attributes
-        self.name = authLabel #if attributes['name'].blank? && authLabel
+        self.name = authLabel if authLabel
       end
       alias_method :givenNameElement_only=, :givenNameElement_attributes=
       alias_method :givenNameElement_attributes=, :givenNameElement_and_name=
@@ -50,7 +50,7 @@ module Dams
       alias_method :familyNameElement, :elementList
       def familyNameElement_and_name= (attributes)
         self.familyNameElement_only= attributes
-        self.name = authLabel #if attributes['name'].blank? && authLabel
+        self.name = authLabel if authLabel
       end
       alias_method :familyNameElement_only=, :familyNameElement_attributes=
       alias_method :familyNameElement_attributes=, :familyNameElement_and_name=
@@ -59,7 +59,7 @@ module Dams
       alias_method :dateNameElement, :elementList
       def dateNameElement_and_name= (attributes)
         self.dateNameElement_only= attributes
-        self.name = authLabel #if attributes['name'].blank? && authLabel
+        self.name = authLabel if authLabel
       end
       alias_method :dateNameElement_only=, :dateNameElement_attributes=
       alias_method :dateNameElement_attributes=, :dateNameElement_and_name=
@@ -68,7 +68,7 @@ module Dams
       alias_method :termsOfAddressNameElement, :elementList
       def termsOfAddressNameElement_and_name= (attributes)
         self.termsOfAddressNameElement_only= attributes
-        self.name = authLabel #if attributes['name'].blank? && authLabel
+        self.name = authLabel if authLabel
       end
       alias_method :termsOfAddressNameElement_only=, :termsOfAddressNameElement_attributes=
       alias_method :termsOfAddressNameElement_attributes=, :termsOfAddressNameElement_and_name=
@@ -88,7 +88,7 @@ module Dams
             authLabel += val
           end
         end
-        authLabel
+        authLabel if !authLabel.blank?
       end
       def nameValue
         get_value "MadsNameElement"

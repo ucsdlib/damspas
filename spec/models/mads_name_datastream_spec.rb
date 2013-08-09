@@ -40,7 +40,7 @@ describe MadsNameDatastream do
                  
       it "should have fields" do
         list = subject.elementList.first
-        list[0].should be_kind_of MadsNameElement
+        list[0].should be_kind_of Dams::MadsNameElements::MadsNameElement
         list[0].elementValue.should == "Generic Name"
         list.size.should == 1     
       end  

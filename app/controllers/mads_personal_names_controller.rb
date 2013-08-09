@@ -30,11 +30,11 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def new
-    @mads_personal_name.elementList.first.fullNameElement.build
-    @mads_personal_name.elementList.first.givenNameElement.build
-    @mads_personal_name.elementList.first.familyNameElement.build
-    @mads_personal_name.elementList.first.dateNameElement.build
-    @mads_personal_name.elementList.first.termsOfAddressNameElement.build
+    @mads_personal_name.elementList.fullNameElement.build
+    @mads_personal_name.elementList.givenNameElement.build
+    @mads_personal_name.elementList.familyNameElement.build
+    @mads_personal_name.elementList.dateNameElement.build
+    @mads_personal_name.elementList.termsOfAddressNameElement.build
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
