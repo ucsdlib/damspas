@@ -24,7 +24,7 @@
         <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
       </mads:NameElement>           
     </mads:elementList>
-    <mads:authoritativeLabel>Burns, Jack O., Dr., 1977-, Lawrence Livermore Laboratory</mads:authoritativeLabel>
+    <mads:authoritativeLabel>Burns, Jack O., Dr., 1977-</mads:authoritativeLabel>
     <mads:isMemberOfMADSScheme>
       <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
         <rdfs:label>Library of Congress Name Authority File</rdfs:label>
