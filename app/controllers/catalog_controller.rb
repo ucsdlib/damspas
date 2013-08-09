@@ -205,6 +205,7 @@ class CatalogController < ApplicationController
       extra_head_content << view_context.auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') )
       
       (@response, @document_list) = get_search_results
+	  spelling_words = @response.spelling.words
 	  if(@document_list.size == 0)
 		if(params['spellcheck.q'].nil?)
 			params['spellcheck.q'] = params[:q]
@@ -213,11 +214,13 @@ class CatalogController < ApplicationController
 		end
 		
 		i = 0
-		@suggestions = ([@response.spelling.collation] | @response.spelling.words).compact
+
+		@suggestions = ([@response.spelling.collation] | spelling_words).compact
 		@suggestions.each do |word|
 			i = i + 1
 			params[:q] = word
 			(@response, @document_list) = get_search_results params
+			spelling_words = @response.spelling.words
 			if(@document_list.size > 0)
 				#if(params['spellcheck.q'].nil?)
 				j = 0
@@ -225,7 +228,7 @@ class CatalogController < ApplicationController
 					j = j + 1
 					#Exclude those that have no results
 					if j > i
-						@response.spelling.words << word unless word.nil?
+						spelling_words << word if !word.nil? && !spelling_words.include?(word)
 					end
 				end
 				#end
@@ -234,9 +237,10 @@ class CatalogController < ApplicationController
 		end
 	  else
 		params['spellcheck.q'] = params[:q]
-		@response.spelling.words << @response.spelling.collation unless @response.spelling.collation.nil?
-		@response.spelling.words.uniq
+		spelling_collation = @response.spelling.collation
+		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
+	  @response.spelling.words.uniq
       @filters = params[:f] || []
       
       respond_to do |format|

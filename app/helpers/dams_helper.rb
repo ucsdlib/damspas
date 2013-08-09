@@ -739,6 +739,8 @@ def relatedResourceUri
         elem = MadsDatastream::List::GeographicElement.new(elementList.first.graph)
 	  elsif type.include? "IconographyElement"
         elem = DamsDatastream::List::IconographyElement.new(elementList.first.graph)
+    elsif type.include? "StylePeriodElement"
+        elem = DamsDatastream::List::StylePeriodElement.new(elementList.first.graph)
 	  elsif type.include? "ScientificNameElement"
         elem = MadsDatastream::List::ScientificNameElement.new(elementList.first.graph)
       elsif type.include? "TechniqueElement"

@@ -91,17 +91,21 @@
 		
 	
 	<div class="span4">
-
-		<p class="sidebar-header"><strong>Administrative Units</strong></p>
+	
+		<div class="well dams-search-box">
+			<p>Search</p>
+			<%= render_unit_search_bar  %>
+		</div>
+			
+		<p class="sidebar-header"><strong>Style Periods</strong></p>
 		<% @document.each do |doc| %>
-			<% if doc['unit_code_tesim'] != nil %>
-				<%= link_to doc['unit_name_tesim'].first, dams_unit_path(doc['unit_code_tesim']), :class => "btn btn-block" %>
+			<% if doc['name_tesim'] != nil %>
+				<%= link_to doc['name_tesim'].first, dams_style_period_path(doc['id_t']), :class => "btn btn-block" %>
 			<% end %>
 		<% end %>
 
 		<p class="sidebar-header"><strong>Browse By</strong></p>
 		<ul class="unstyled sidebar-button-list">
-			<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
 			<%= render_browse_facet_links %>
 		</ul>
 		
