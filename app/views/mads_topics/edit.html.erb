@@ -1,19 +1,19 @@
 <% @page_title =  "Edit Topic" %>
 
 <div class="row-fluid">
-	<div class="span10 offset1">
-	
-		<h2>Edit Topic</h2>
-		
-		<%= form_for @mads_topic do |f| %>
-		
-			<%= render 'error_messages', object: f.object %>
-		
-			<%= label_tag 'mads_topic[name]', "Name" %>
-			<%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "input-block-level" %>
-		
-			<%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
-			<%= text_field_tag 'mads_topic[externalAuthority]', @mads_topic.externalAuthority, class: "input-block-level" %>
+  <div class="span10 offset1">
+  
+    <h2>Edit Topic</h2>
+    
+    <%= form_for @mads_topic do |f| %>
+    
+      <%= render 'error_messages', object: f.object %>
+    
+      <%= label_tag 'mads_topic[name]', "Name" %>
+      <%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "input-block-level" %>
+    
+      <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
+      <%= text_field_tag 'mads_topic[externalAuthority]', @mads_topic.externalAuthority, class: "input-block-level" %>
 
       <%= f.fields_for :scheme, include_id: false do |se| %>
         <%= se.label :id, "Scheme" %>
@@ -23,14 +23,14 @@
         <%= te.label :elementValue, "Element Value" %>
         <%= te.text_field :elementValue, class: "input-block-level" %>
       <% end %>
-							
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
-				<%= link_to "Cancel", mads_topic_path(@mads_topic), class: "btn btn-link pull-right" %>
-			</div>
-				
-		
-		<%end%>
-	
-	</div>
+              
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary pull-right">Save changes</button>
+        <%= link_to "Cancel", mads_topic_path(@mads_topic), class: "btn btn-link pull-right" %>
+      </div>
+        
+    
+    <% end %>
+  
+  </div>
 </div>
