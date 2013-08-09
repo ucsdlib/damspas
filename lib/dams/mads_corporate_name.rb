@@ -27,15 +27,6 @@ module Dams
       end
       alias_method :nameElement_only=, :nameElement_attributes=
       alias_method :nameElement_attributes=, :nameElement_and_name=
-
-      delegate :fullNameElement_attributes=, to: :elementList
-      alias_method :fullNameElement, :elementList
-      def fullNameElement_and_name= (attributes)
-        self.fullNameElement_only= attributes
-        self.name = authLabel if authLabel
-      end
-      alias_method :fullNameElement_only=, :fullNameElement_attributes=
-      alias_method :fullNameElement_attributes=, :fullNameElement_and_name=
       
       delegate :fullNameElement_attributes=, to: :elementList
       alias_method :fullNameElement, :elementList
@@ -124,7 +115,9 @@ module Dams
           elem = el[idx]
           
           if elem.class.name.include? name
-          	if(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
+            if(elem.elementValue.nil?)
+          		return nil
+          	elsif(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
             	return elem.elementValue.first
           	else
           		return elem.elementValue.to_s

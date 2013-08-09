@@ -103,16 +103,16 @@ END
            
       it "should have fields" do
         list = subject.elementList
-        "#{list[0].class.name}".should == "MadsFullNameElement"
-        list[0].elementValue.should == ["Burns, Jack O."]  
-        "#{list[1].class.name}".should == "MadsFamilyNameElement"
-        list[1].elementValue.should == ["Burns"]   
-        "#{list[2].class.name}".should == "MadsGivenNameElement"
-        list[2].elementValue.should == ["Jack O."]  
-        "#{list[3].class.name}".should == "MadsDateNameElement"
-        list[3].elementValue.should == ["1977-"]
-        "#{list[4].class.name}".should == "MadsTermsOfAddressNameElement"
-        list[4].elementValue.should == ["Dr."]
+        "#{list[0].class.name}".should == "Dams::MadsNameElements::MadsFullNameElement"
+        list[0].elementValue.should == "Burns, Jack O."  
+        "#{list[1].class.name}".should == "Dams::MadsNameElements::MadsFamilyNameElement"
+        list[1].elementValue.should == "Burns"   
+        "#{list[2].class.name}".should == "Dams::MadsNameElements::MadsGivenNameElement"
+        list[2].elementValue.should == "Jack O."  
+        "#{list[3].class.name}".should == "Dams::MadsNameElements::MadsDateNameElement"
+        list[3].elementValue.should == "1977-"
+        "#{list[4].class.name}".should == "Dams::MadsNameElements::MadsTermsOfAddressNameElement"
+        list[4].elementValue.should == "Dr."
         "#{list[5].class.name}".should == "Dams::MadsNameElements::MadsNameElement"
         list[5].elementValue.should == "Lawrence Livermore Laboratory"                                 
         list.size.should == 6        
