@@ -81,7 +81,7 @@ END
       it "should set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
         subject.fullNameElement_attributes = [{ elementValue: nil }]
-        subject.name.should == [""]       
+        subject.name.should == ["Original"]       
       end
     end
 
@@ -103,17 +103,17 @@ END
            
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of MadsFullNameElement
+        "#{list[0].class.name}".should == "MadsFullNameElement"
         list[0].elementValue.should == ["Burns, Jack O."]  
-        list[1].should be_kind_of MadsFamilyNameElement
+        "#{list[1].class.name}".should == "MadsFamilyNameElement"
         list[1].elementValue.should == ["Burns"]   
-        list[2].should be_kind_of MadsGivenNameElement
+        "#{list[2].class.name}".should == "MadsGivenNameElement"
         list[2].elementValue.should == ["Jack O."]  
-        list[3].should be_kind_of MadsDateNameElement
+        "#{list[3].class.name}".should == "MadsDateNameElement"
         list[3].elementValue.should == ["1977-"]
-        list[4].should be_kind_of MadsTermsOfAddressNameElement
+        "#{list[4].class.name}".should == "MadsTermsOfAddressNameElement"
         list[4].elementValue.should == ["Dr."]
-        list[5].should be_kind_of MadsCorporateNameDatastream::MadsNameElement
+        "#{list[5].class.name}".should == "Dams::MadsNameElements::MadsNameElement"
         list[5].elementValue.should == "Lawrence Livermore Laboratory"                                 
         list.size.should == 6        
       end  

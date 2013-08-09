@@ -622,17 +622,17 @@ def relatedResourceUri
 	  elsif type.include? "OccupationElement"
         elem = MadsDatastream::List::OccupationElement.new(elementList.first.graph)               
       elsif type.include? "DateNameElement"
-        elem = MadsDateNameElement.new(elementList.first.graph)
+        elem = Dams::MadsNameElements::MadsDateNameElement.new(elementList.first.graph)
       elsif type.include? "FamilyNameElement"
-        elem = MadsFamilyNameElement.new(elementList.first.graph)
+        elem = Dams::MadsNameElements::MadsFamilyNameElement.new(elementList.first.graph)
       elsif type.include? "FullNameElement"
-        elem = MadsFullNameElement.new(elementList.first.graph)
+        elem = Dams::MadsNameElements::MadsFullNameElement.new(elementList.first.graph)
       elsif type.include? "GivenNameElement"
-        elem = MadsGivenNameElement.new(elementList.first.graph)
+        elem = Dams::MadsNameElements::MadsGivenNameElement.new(elementList.first.graph)
       elsif type.include? "TermsOfAddressNameElement"
-        elem = MadsTermsOfAddressNameElement.new(elementList.first.graph)
+        elem = Dams::MadsNameElements::MadsTermsOfAddressNameElement.new(elementList.first.graph)
 	  elsif type.include? "NameElement"
-        elem = MadsNameElement.new(elementList.first.graph)                                                  
+        elem = Dams::MadsNameElements::MadsNameElement.new(elementList.first.graph)                                                  
       end
       elem.elementValue = val
 

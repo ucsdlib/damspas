@@ -10,12 +10,10 @@ describe MadsPersonalNameDatastream do
       params = {
         personalName: {
           name: "Burns, Jack O., Dr., 1977-", externalAuthority: exturi,
-          elementList_attributes: [
-            familyNameElement_attributes: [{ elementValue: "Burns" }],
-            givenNameElement_attributes: [{ elementValue: "Jack O." }],
-            termsOfAddressNameElement_attributes: [{ elementValue: "Dr." }],
-            dateNameElement_attributes: [{ elementValue: "1977-" }]
-          ],
+          familyNameElement_attributes: [{ elementValue: "Burns" }],
+          givenNameElement_attributes: [{ elementValue: "Jack O." }],
+          termsOfAddressNameElement_attributes: [{ elementValue: "Dr." }],
+          dateNameElement_attributes: [{ elementValue: "1977-" }],
           scheme_attributes: [
             id: scheme, code: "naf", name: "Library of Congress Name Authority File"
           ]
@@ -70,12 +68,12 @@ END
  
       it "should set the name when the elementList is set" do
         subject.name = "Original"
-        subject.elementList_attributes = [fullNameElement_attributes: [{ elementValue: "Test" }]]
+        subject.fullNameElement_attributes = [{ elementValue: "Test" }]
         subject.name.should == ["Test"]
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
-        subject.elementList_attributes = [fullNameElement_attributes: [{ elementValue: nil }]]
+        subject.fullNameElement_attributes = [{ elementValue: nil }]
         subject.name.should == ["Original"]
       end
     end
@@ -97,14 +95,14 @@ END
       end
            
       it "should have fields" do
-        list = subject.elementList.first
-        list[0].should be_kind_of MadsFullNameElement
+        list = subject.elementList
+        "#{list[0].class.name}".should == "MadsFullNameElement"
         list[0].elementValue.should == ["Burns, Jack O."]  
-        list[1].should be_kind_of MadsFamilyNameElement
+        "#{list[1].class.name}".should == "MadsFamilyNameElement"
         list[1].elementValue.should == ["Burns"]   
-        list[2].should be_kind_of MadsGivenNameElement
+        "#{list[2].class.name}".should == "MadsGivenNameElement"
         list[2].elementValue.should == ["Jack O."]  
-        list[3].should be_kind_of MadsDateNameElement
+        "#{list[3].class.name}".should == "MadsDateNameElement"
         list[3].elementValue.should == ["1977-"]        
         list.size.should == 5        
       end  
