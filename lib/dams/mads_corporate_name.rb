@@ -29,9 +29,6 @@ module Dams
       delegate :fullNameElement_attributes=, to: :elementList
       alias_method :fullNameElement, :elementList
       
-      delegate :fullNameElement_attributes=, to: :elementList
-      alias_method :fullNameElement, :elementList
-
       delegate :givenNameElement_attributes=, to: :elementList
       alias_method :givenNameElement, :elementList
 
@@ -92,7 +89,9 @@ module Dams
           elem = el[idx]
           
           if elem.class.name.include? name
-          	if(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
+            if(elem.elementValue.nil?)
+          		return nil
+          	elsif(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
             	return elem.elementValue.first
           	else
           		return elem.elementValue.to_s

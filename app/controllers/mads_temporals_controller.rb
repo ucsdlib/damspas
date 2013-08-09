@@ -33,12 +33,13 @@ class MadsTemporalsController < ApplicationController
   def new
     @mads_temporal.elementList.temporalElement.build
     @mads_temporal.scheme.build
-	#@mads_schemes = get_objects('MadsScheme','name_tesim')
-	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+	@mads_schemes = get_objects('MadsScheme','name_tesim')
+	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+  	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
     @scheme_id = Rails.configuration.id_namespace+@mads_temporal.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
