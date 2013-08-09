@@ -28,7 +28,7 @@ describe MadsCorporateNameDatastream do
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd93182924">
-    <mads:authoritativeLabel>FullNameValue, Burns, Jack O., Dr., 1977-, NameElementValue</mads:authoritativeLabel>
+    <mads:authoritativeLabel>FullNameValue, Burns, Jack O., Dr., NameElementValue, 1977-</mads:authoritativeLabel>
     <mads:elementList rdf:parseType="Collection">  
       <mads:FamilyNameElement>
         <mads:elementValue>Burns</mads:elementValue>

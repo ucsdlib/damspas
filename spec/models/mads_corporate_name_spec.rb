@@ -4,7 +4,7 @@ require 'spec_helper'
 describe MadsCorporateName do
   let(:params) {
     {
-      name: "FullNameValue, Burns, Jack O., Dr., 1977-, NameElementValue",
+      name: "FullNameValue, Burns, Jack O., Dr., NameElementValue, 1977-",
       externalAuthority: RDF::Resource.new("http://id.loc.gov/authorities/names/n90694888"),
       scheme_attributes: [
         id: "http://library.ucsd.edu/ark:/20775/bd0683587d", code: "naf", name: "Library of Congress Name Authority File"
@@ -26,7 +26,7 @@ describe MadsCorporateName do
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
   <mads:CorporateName rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
-    <mads:authoritativeLabel>FullNameValue, Burns, Jack O., Dr., 1977-, NameElementValue</mads:authoritativeLabel>
+    <mads:authoritativeLabel>FullNameValue, Burns, Jack O., Dr., NameElementValue, 1977-</mads:authoritativeLabel>
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n90694888"/>
     <mads:elementList rdf:parseType="Collection">
       <mads:FamilyNameElement>
