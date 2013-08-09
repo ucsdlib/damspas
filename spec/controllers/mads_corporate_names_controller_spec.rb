@@ -48,9 +48,8 @@ describe MadsCorporateNamesController do
         response.should redirect_to mads_corporate_name_path(assigns[:mads_corporate_name])
 
         assigns[:mads_corporate_name].elementList.size.should == 2
-        puts assigns[:mads_corporate_name].elementList[0].class
-		assigns[:mads_corporate_name].elementList[0].elementValue.should == ["BaseBall"]
-		assigns[:mads_corporate_name].elementList[1].elementValue.should == ["given Name value"]
+		assigns[:mads_corporate_name].elementList[0].elementValue.should == "BaseBall"
+		assigns[:mads_corporate_name].elementList[1].elementValue.should == "given Name value"
 		assigns[:mads_corporate_name].fullNameValue.should == "BaseBall"
 		assigns[:mads_corporate_name].givenNameValue.should == "given Name value"
 				
