@@ -28,7 +28,7 @@ describe MadsNameDatastream do
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/bd93182924">
-    <mads:authoritativeLabel>FullNameValue, Burns, Jack O., Dr., NameElementValue, 1977-</mads:authoritativeLabel>
+    <mads:authoritativeLabel>Burns, Jack O., Dr., 1977-</mads:authoritativeLabel>
     <mads:elementList rdf:parseType="Collection">  
       <mads:FamilyNameElement>
         <mads:elementValue>Burns</mads:elementValue>
@@ -73,15 +73,20 @@ END
         subject.name.should == ["Maria"]
       end   
  
-      it "should set the name when the elementList is set" do
+      it "element should update name" do
+        subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
+        subject.authLabel.should == "Test"
+      end
+      it "element should not update name if name is already set" do
         subject.name = "Original"
         subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Test"]
+        subject.name.should == ["Original"]
+        subject.authLabel.should == "Original"
       end
-      it "should set the name when the elementList doesn't have an elementValue" do
+      it "element should not update name if element is blank" do
         subject.name = "Original"
         subject.fullNameElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["Original"]       
+        subject.authLabel.should == "Original"
       end
     end
 
