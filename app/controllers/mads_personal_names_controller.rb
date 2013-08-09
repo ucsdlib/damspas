@@ -31,17 +31,14 @@ class MadsPersonalNamesController < ApplicationController
 
   def new
     @mads_personal_name.elementList.fullNameElement.build
-    @mads_personal_name.elementList.givenNameElement.build
-    @mads_personal_name.elementList.familyNameElement.build
-    @mads_personal_name.elementList.dateNameElement.build
-    @mads_personal_name.elementList.termsOfAddressNameElement.build
+    @mads_personal_name.scheme.build
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    #@mads_personal_name = MadsPersonalName.find(params[:id])
+    @mads_personal_name = MadsPersonalName.find(params[:id])
     @mads_schemes = MadsScheme.find(:all)
-    @scheme_id = @mads_personal_name.scheme.to_s.gsub /.*\//, ""
+    @scheme_id = Rails.configuration.id_namespace+@mads_personal_name.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
@@ -54,6 +51,8 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def update
+    @mads_personal_name.elementList.clear
+    @mads_personal_name.scheme.clear   
     @mads_personal_name.attributes = params[:mads_personal_name]
     if @mads_personal_name.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")

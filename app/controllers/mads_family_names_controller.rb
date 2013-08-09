@@ -30,38 +30,38 @@ class MadsFamilyNamesController < ApplicationController
   end
 
   def new
-    @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @mads_family_name.elementList.fullNameElement.build
+    @mads_family_name.scheme.build           
+  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_family_name = MadsFamilyName.find(params[:id])
     @mads_schemes = MadsScheme.find(:all)
-    if(@mads_family_name.scheme != nil)
-      @scheme_id = @mads_family_name.scheme.to_s.gsub /.*\//, ""
-      @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
-    end
+    @scheme_id = Rails.configuration.id_namespace+@mads_family_name.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_family_name.attributes = params[:mads_family_name]
     if @mads_family_name.save
-        redirect_to @mads_family_name, notice: "family_name has been saved"
+        redirect_to @mads_family_name, notice: "FamilyName has been saved"
     else
-      flash[:alert] = "Unable to save family_name"
+      flash[:alert] = "Unable to save FamilyName"
       render :new
     end
   end
 
   def update
+    @mads_family_name.elementList.clear
+    @mads_family_name.scheme.clear 
     @mads_family_name.attributes = params[:mads_family_name]
     if @mads_family_name.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated family_name"
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated FamilyName"
         else      
-        	redirect_to @mads_family_name, notice: "Successfully updated family_name"
+        	redirect_to @mads_family_name, notice: "Successfully updated FamilyName"
         end
     else
-      flash[:alert] = "Unable to save family_name"
+      flash[:alert] = "Unable to save FamilyName"
       render :edit
     end
   end

@@ -5,20 +5,38 @@
   <%= label_tag 'mads_name[name]', "Name" %>
   <%= text_field_tag 'mads_name[name]' %>
   <%= label_tag 'mads_name[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'mads_name[externalAuthority]' %> 
-  <%= label_tag 'mads_name[fullNameValue]', "FullNameElement" %>
-  <%= text_field_tag 'mads_name[fullNameValue]' %> 
-  <%= label_tag 'mads_name[familyNameValue]', "FamilyNameElement" %>
-  <%= text_field_tag 'mads_name[familyNameValue]' %>   
-  <%= label_tag 'mads_name[givenNameValue]', "GivenNameElement" %>
-  <%= text_field_tag 'mads_name[givenNameValue]' %>
-  <%= label_tag 'mads_name[dateNameValue]', "DateNameElement" %>
-  <%= text_field_tag 'mads_name[dateNameValue]' %>
-  <%= label_tag 'mads_name[termOfAddressValue]', "TermOfAddressElement" %>
-  <%= text_field_tag 'mads_name[termOfAddressValue]' %>         
+  <%= url_field_tag 'mads_name[externalAuthority]' %>
+    <%= f.fields_for :fullNameElement do |full| %>
+      <%= full.label :elementValue, "Full Name" %>
+      <%= full.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :familyNameElement do |family| %>
+      <%= family.label :elementValue, "Family Name" %>
+      <%= family.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :givenNameElement do |given| %>
+      <%= given.label :elementValue, "Given Name" %>
+      <%= given.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
+      <%= termsOfAddress.label :elementValue, "Terms of Address" %>
+      <%= termsOfAddress.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :dateNameElement do |date| %>
+      <%= date.label :elementValue, "Dates" %>
+      <%= date.text_field :elementValue %>
+    <% end %>
+    <%= f.fields_for :nameElement do |na| %>
+      <%= na.label :elementValue, "Other Name" %>
+      <%= na.text_field :elementValue %>
+    <% end %>    
   <br>
-  <%= select_tag 'mads_name[scheme]', options_for_select(@mads_schemes.collect{ |v| [v.name.first, v.pid] } ) , :prompt=>"Select MadsScheme" %>    
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } ) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
-  <%=f.submit "Submit", class: "btn btn-primary" %>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", mads_names_path, class: "btn btn-link pull-right" %>
 <%end%>
