@@ -26,7 +26,7 @@
       <%= date.text_field :elementValue %>
     <% end %>
     <%= f.fields_for :nameElement do |na| %>
-      <%= na.label :elementValue, "Name" %>
+      <%= na.label :elementValue, "Other Name" %>
       <%= na.text_field :elementValue %>
     <% end %>    
   <br>
@@ -36,5 +36,6 @@
   <% end %>
   <br>
 
-  <%=f.submit "Submit", class: "btn btn-primary" %>
-<%end%>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", mads_corporate_names_path, class: "btn btn-link pull-right" %>
+<% end %>

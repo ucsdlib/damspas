@@ -11,11 +11,13 @@
     <dt>DateNameElement:</dt>
     <dd><%= @mads_corporate_name.dateNameValue %></dd>
     <dt>TermOfAddressNameElement:</dt>
-    <dd><%= @mads_corporate_name.termOfAddressValue %></dd>                
+    <dd><%= @mads_corporate_name.termsOfAddressNameValue %></dd>                
+    <dt>NameElement:</dt>
+    <dd><%= @mads_corporate_name.nameValue %></dd>                
     <dt>Scheme:</dt>
-    <dd><%= @mads_corporate_name.scheme %></dd>
+    <dd><%= link_to Rails.configuration.id_namespace + @mads_corporate_name.scheme.first.pid, mads_scheme_path(@mads_corporate_name.scheme.first.pid) %></dd>
     <dt>ExternalAuthority:</dt>
-    <dd><%= @mads_corporate_name.externalAuthority %></dd>
+    <dd><%= link_to @mads_corporate_name.externalAuthority.first %></dd>
   </dl>
   <% if can? :update, @mads_corporate_name %>
     <%= link_to "Solr View", mads_corporate_name_path(@mads_corporate_name), class: "btn btn-primary"%>
