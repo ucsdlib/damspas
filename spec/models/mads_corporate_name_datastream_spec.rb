@@ -8,7 +8,7 @@ describe MadsCorporateNameDatastream do
       scheme = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd0683587d"
       params = {
         corporateName: {
-          name: "Burns, Jack O., Dr., 1977-", externalAuthority: exturi,         
+          name: "Burns, Jack O., 1977-", externalAuthority: exturi,
           familyNameElement_attributes: [{ elementValue: "Burns" }],
           givenNameElement_attributes: [{ elementValue: "Jack O." }],
           termsOfAddressNameElement_attributes: [{ elementValue: "Dr." }],
@@ -28,8 +28,8 @@ describe MadsCorporateNameDatastream do
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd93182924">
-    <mads:authoritativeLabel>FullNameValue, Burns, Jack O., Dr., NameElementValue, 1977-</mads:authoritativeLabel>
-    <mads:elementList rdf:parseType="Collection">  
+    <mads:authoritativeLabel>Burns, Jack O., 1977-</mads:authoritativeLabel>
+    <mads:elementList rdf:parseType="Collection">
       <mads:FamilyNameElement>
         <mads:elementValue>Burns</mads:elementValue>
       </mads:FamilyNameElement>
@@ -47,7 +47,7 @@ describe MadsCorporateNameDatastream do
       </mads:FullNameElement>
       <mads:NameElement>
         <mads:elementValue>NameElementValue</mads:elementValue>
-      </mads:NameElement>            
+      </mads:NameElement>
     </mads:elementList>
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n90694888"/>
     <mads:isMemberOfMADSScheme>
@@ -71,17 +71,22 @@ END
       it "should have a name" do
         subject.name = "Maria"
         subject.name.should == ["Maria"]
-      end   
- 
-      it "should set the name when the elementList is set" do
+      end
+
+      it "element should update name" do
+        subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
+        subject.authLabel.should == "Test"
+      end
+      it "element should not update name if name is already set" do
         subject.name = "Original"
         subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Test"]
+        subject.name.should == ["Original"]
+        subject.authLabel.should == "Original"
       end
-      it "should set the name when the elementList doesn't have an elementValue" do
+      it "element should not update name if element is blank" do
         subject.name = "Original"
         subject.fullNameElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["Original"]       
+        subject.authLabel.should == "Original"
       end
     end
 
@@ -91,16 +96,15 @@ END
         subject.content = File.new('spec/fixtures/madsCorporateName.rdf.xml').read
         subject
       end
-      
-      
+
       it "should have name" do
-        subject.name.should == ["Burns, Jack O., Dr., 1977-, Lawrence Livermore Laboratory"]
+        subject.name.should == ["Burns, Jack O., Dr., 1977-"]
       end
- 
+
       it "should have an scheme" do
         subject.scheme.first.pid.should == "bd0683587d"
       end
-           
+
       it "should have fields" do
         list = subject.elementList
         "#{list[0].class.name}".should == "Dams::MadsNameElements::MadsFullNameElement"
@@ -114,19 +118,19 @@ END
         "#{list[4].class.name}".should == "Dams::MadsNameElements::MadsTermsOfAddressNameElement"
         list[4].elementValue.should == "Dr."
         "#{list[5].class.name}".should == "Dams::MadsNameElements::MadsNameElement"
-        list[5].elementValue.should == "Lawrence Livermore Laboratory"                                 
-        list.size.should == 6        
-      end  
-      
+        list[5].elementValue.should == "Lawrence Livermore Laboratory"
+        list.size.should == 6
+      end
+
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["corporate_name_tesim"].should == ["Burns, Jack O., Dr., 1977-, Lawrence Livermore Laboratory"]
+        solr_doc["corporate_name_tesim"].should == ["Burns, Jack O., Dr., 1977-"]
         solr_doc["full_name_element_tesim"].should == ["Burns, Jack O."]
-        solr_doc["family_name_element_tesim"].should == ["Burns"] 
+        solr_doc["family_name_element_tesim"].should == ["Burns"]
         solr_doc["given_name_element_tesim"].should == ["Jack O."]
         solr_doc["date_name_element_tesim"].should == ["1977-"]
-        solr_doc["name_element_tesim"].should == ["Lawrence Livermore Laboratory"]          
-      end    
+        solr_doc["name_element_tesim"].should == ["Lawrence Livermore Laboratory"]
+      end
     end
   end
 end
