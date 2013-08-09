@@ -1,21 +1,21 @@
 require 'active_support/concern'
 
 module Dams
-  module MadsPersonalName
+  module MadsName
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     include Dams::MadsNameElements
     included do
-      rdf_type MADS.PersonalName
+      rdf_type MADS.Name
       map_predicates do |map|
-        map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsPersonalNameElementList')
+        map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsNameElementList')
       end
       def elementList
         elem_list.first || elem_list.build
       end
       accepts_nested_attributes_for :scheme, :nameElement, :fullNameElement, :givenNameElement, :familyNameElement, :dateNameElement, :termsOfAddressNameElement
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.PersonalName]) if new?
+        graph.insert([rdf_subject, RDF.type, MADS.Name]) if new?
         super
       end
 
@@ -115,8 +115,8 @@ module Dams
           elem = el[idx]
           
           if elem.class.name.include? name
-            if(elem.elementValue.nil?)
-          		return nil
+          	if(elem.elementValue.nil?)
+          		return nil          
           	elsif(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
             	return elem.elementValue.first
           	else
@@ -127,7 +127,7 @@ module Dams
         end
       end
       def to_solr (solr_doc={})
-        Solrizer.insert_field(solr_doc, 'personal_name', name)
+        #Solrizer.insert_field(solr_doc, 'name', name)
         if elementList.first
           Solrizer.insert_field(solr_doc, "name_element", nameValue)
           Solrizer.insert_field(solr_doc, "given_name_element", givenNameValue)
@@ -138,7 +138,7 @@ module Dams
         end
         solr_base solr_doc
       end
-      class MadsPersonalNameElementList
+      class MadsNameElementList
         include ActiveFedora::RdfList
         map_predicates do |map|
           map.nameElement(:in=> MADS, :to =>"NameElement", :class_name => "MadsNameElement")
