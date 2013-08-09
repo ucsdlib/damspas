@@ -66,15 +66,20 @@ END
         subject.name.should == ["Maria"]
       end   
  
-      it "should set the name when the elementList is set" do
-        subject.name = "Original"
-        subject.fullNameElement_attributes = [{ elementValue: "Test" }]
-        subject.name.should == ["Test"]
+      it "element should update name" do
+        subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
+        subject.authLabel.should == "Test"
       end
-      it "shouldn't set the name when the elementList doesn't have an elementValue" do
+      it "element should not update name if name is already set" do
+        subject.name = "Original"
+        subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
+        subject.name.should == ["Original"]
+        subject.authLabel.should == "Original"
+      end
+      it "element should not update name if element is blank" do
         subject.name = "Original"
         subject.fullNameElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["Original"]
+        subject.authLabel.should == "Original"
       end
     end
 
