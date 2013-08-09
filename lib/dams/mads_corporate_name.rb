@@ -91,8 +91,8 @@ module Dams
         nameVal = nameValue
 
         authLabel = ""
-        [full,family,given,addr,date,nameVal].each do |val|
-          if val
+        [full,family,given,addr,nameVal,date].each do |val|
+          if !val.blank?
             authLabel += ", " if !authLabel.blank?
             authLabel += val
           end
@@ -100,7 +100,7 @@ module Dams
         authLabel if !authLabel.blank?
       end
       def nameValue
-        get_value "MadsNameElement"
+        get_value "MadsNameElements::MadsNameElement"
       end
       def familyNameValue
         get_value "MadsFamilyNameElement"
@@ -124,10 +124,10 @@ module Dams
           elem = el[idx]
           
           if elem.class.name.include? name
-          	if(name.include? "MadsNameElement")
-          		return elem.elementValue.to_s
-          	else
+          	if(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
             	return elem.elementValue.first
+          	else
+          		return elem.elementValue.to_s
             end
           end
           idx += 1

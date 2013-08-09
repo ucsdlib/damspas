@@ -39,7 +39,7 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def edit
-    @mads_personal_name = MadsPersonalName.find(params[:id])
+    #@mads_personal_name = MadsPersonalName.find(params[:id])
     @mads_schemes = MadsScheme.find(:all)
     @scheme_id = @mads_personal_name.scheme.to_s.gsub /.*\//, ""
   end

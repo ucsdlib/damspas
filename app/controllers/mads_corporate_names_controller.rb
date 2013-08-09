@@ -10,13 +10,9 @@ class MadsCorporateNamesController < ApplicationController
     parm={ :q => "id_t:#{params[:id]}" }
     @document = get_single_doc_via_search(1,parm)
     @current_corporate_name = @document['name_tesim']
-    #@carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel AND id_t:#{params[:id]}", :qt=>"standard")
-     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
+    @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
   def index
-    # hydra index
-    #@mads_corporate_names = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
-
     # solr index
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsCorporateName"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
@@ -26,23 +22,10 @@ class MadsCorporateNamesController < ApplicationController
   # hydra actions ##############################################################
   ##############################################################################
   def view
-    @mads_corporate_name = MadsCorporateName.find(params[:id])
   end
 
   def new
-    #@mads_corporate_name.elementList.build
-   #@mads_corporate_name.elementList.first.fullNameElement.build
-    #@mads_corporate_name.elementList.first.givenNameElement.build
-    #@mads_corporate_name.elementList.first.familyNameElement.build
-    #@mads_corporate_name.elementList.first.dateNameElement.build
-    #@mads_corporate_name.elementList.first.termsOfAddressNameElement.build
-    
     @mads_corporate_name.elementList.fullNameElement.build
-    #@mads_corporate_name.elementList.givenNameElement.build
-    #@mads_corporate_name.elementList.familyNameElement.build
-    #@mads_corporate_name.elementList.dateNameElement.build
-    #@mads_corporate_name.elementList.termsOfAddressNameElement.build
-    #@mads_corporate_name.elementList.nameElement.build
     @mads_corporate_name.scheme.build           
   	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
