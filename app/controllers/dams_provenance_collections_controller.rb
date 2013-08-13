@@ -120,6 +120,8 @@ class DamsProvenanceCollectionsController < ApplicationController
     end
   end
 
+  
+
   def index
      @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsProvenanceCollection"', :rows => 20 )
    end

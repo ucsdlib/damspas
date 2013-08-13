@@ -1,11 +1,33 @@
 <div class="row">
-	<div class="span12">
-		<h1>Collections</h1>
-		<ul class="thumbnails">
-			<% @document.each do |col| %>
-				<%= render :partial => 'preview', :locals => { :col => col } %>
-			<% end %>
-		</ul>
+	<div class="span6">
+		
+     <h3>Provenance Collections</h3>
+	 <ul>
+	 <% @ProvenanceDocument.each do |doc| %>
+      <li><%= link_to doc['title_tesim'].first, dams_provenance_collection_path(doc['id']) %></li>
+        <%if doc['part_json_tesim']!= nil %>
+           <% doc['part_json_tesim'].each do |datum| %>
+		      <% part = JSON.parse(datum) %>
+		        <% if part['name'] != '' && part['id'] !=''%>
+			    <ul> <%= link_to part['name'], dams_provenance_collection_part_path(part['id']) %></ul>
+		      <% end %>
+	       <% end %>
+        <% end %>
+      <% end %>  
+	</ul>	
+
+	<h3>Assembled Collections</h3>
+	 <ul>
+	 <% @AssembledDocument.each do |doc| %>
+      <li><%= link_to doc['title_tesim'].first, dams_assembled_collection_path(doc['id']) %></li>
+      <% end %>   
+	</ul>	
 	</div>
 </div>
+
+
+
+
+
+
 
