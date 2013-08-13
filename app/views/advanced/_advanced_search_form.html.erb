@@ -1,6 +1,6 @@
 <%= form_tag catalog_index_path, :class => 'advanced', :method => :get do  %>
 
-  <h2>Keywords</h2>
+  <h2>Advanced Search</h2>
 
 	<fieldset>
 		<%= search_as_hidden_fields(:params => advanced_search_context ) %>
@@ -9,7 +9,7 @@
 		<%= render 'advanced/advanced_search_fields' %>
 	</fieldset>
 
-	<h2>Attributes</h2>
+	<h3>Attributes</h3>
 
   <fieldset>
 	  <%= render 'advanced_search_facets' %>
@@ -19,7 +19,7 @@
 	  <% end %>
   </fieldset>
 
-  <h2>Sorting</h2>
+  <h3>Sorting</h3>
 
   <fieldset>
 	  <%= label_tag(:sort, 'Sort by') %>
@@ -31,7 +31,7 @@
 
     <button type="submit" class="btn btn-inverse pull-right">
       <i class="icon-search icon-white"></i>
-      <span><%=t('blacklight.search.form.submit')%></span>
+      <span>Advanced Search</span>
     </button>
 
     <%#= submit_tag 'Search', :class=>'btn btn-inverse pull-right', :id=>'advanced_search' %>

@@ -6,14 +6,19 @@
 		<title><%= full_title(@page_title) %></title>
 		<link href="<%= opensearch_catalog_path(:format => 'xml', :only_path => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
 
+	  <%# LE JAVASCRIPT  %>
+	  <%= javascript_include_tag "application" %>
+	  <script src="//libraries.ucsd.edu/jwplayer/jwplayer.js"></script>
+	  <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
+
 		<%# YE OLDE CSS %>
 		<%= favicon_link_tag asset_path('favicon.ico') %>
 		<%= stylesheet_link_tag "application", :media => "all" %>
 
 		<%= csrf_meta_tags %>
-		<%= raw(render_head_content) %> 
-		 <%= render :partial => 'layouts/googleanalytics' if Rails.env.production? %> 
+		<%= raw(render_head_content) %>
 
+		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? %>
 		<%= render :partial => 'layouts/ie-conditionals' %>
 
 		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
@@ -60,9 +65,6 @@
 		</footer>
 
 		<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
-
-		<%# LE JAVASCRIPT  %>
-		<%= javascript_include_tag "application" %>
 
 		<%= render :partial => 'dams_objects/init' %>
 

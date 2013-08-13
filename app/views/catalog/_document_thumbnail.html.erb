@@ -1,6 +1,8 @@
 <% files = select_file( :document => document, :quality => 200 ) %>
 <% if files[:display] != nil %>
-  <div class="thumbnail pull-right">
-    <%= image_tag file_path document[:id], '_' + files[:display]['id'] %>
-  </div>
+	<%# Display thumbnail, note blank 'alt' attribute is intentional %>
+	<%= image_tag file_path document[:id], '_' + files[:display]['id'], :alt => '' %>
+<% else %>
+	<%# Display default thumbnail, note blank 'alt' attribute is intentional, also this is a temp default image %>
+	<%=image_tag "/assets/blacklight/bul_sq_gry.gif", :alt => '' %>
 <% end %>
