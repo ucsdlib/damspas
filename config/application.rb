@@ -77,5 +77,5 @@ end
 
 module ViewOptions
   VIDEO_PARENT_DIRECTORY = '/pub/data2/dams/'
-  VIDEO_PARTIAL_URL = 'lib-streaming-test.ucsd.edu:1935/damstest/_definst_/mp4:'
+  VIDEO_PARTIAL_URL = 'lib-streaming.ucsd.edu:1935/damstest/_definst_/mp4:'
 end
