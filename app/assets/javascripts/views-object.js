@@ -143,8 +143,24 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 						audiojs.events.ready(function(){audiojs.create(document.getElementById(controlID));});
 						break;
 					case "video":
-						$(container).html( '<video id="'+controlID+'" class="video-js vjs-default-skin" controls width="100%" height="264" poster="'+displayFilePath+'" preload="auto"><source src="'+serviceFilePath+'" type="video/mp4" /></video>' );
-						var myPlayer = _V_(controlID);
+
+                        jwplayer("dams-video-"+componentIndex).setup({
+                            playlist:
+                                [{
+                                    sources:
+                                        [
+                                            {file: "rtmp://"+serviceFilePath},
+                                            {file: "http://"+serviceFilePath+"/playlist.m3u8"}
+                                        ]
+                                }],
+                            width: "100%",
+                            aspectratio: "16:9",
+                            rtmp: {bufferlength: 3},
+                            analytics: {enabled: false},
+                            primary: "flash",
+                            fallback: false
+                        });
+
 						break;
 				}
 			}

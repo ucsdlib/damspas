@@ -8,7 +8,7 @@
 	<% fieldData.each do |datum| %>
 		<% title = JSON.parse(datum) %>
 		<h1><%= title['value'] %></h1>
-		<% if title['subtitle'] != '' %>
+		<% if title['subtitle'] != [] %>
 			<h2><%= title['subtitle'] %></h2>
 		<% end %>
 	<% end %>
