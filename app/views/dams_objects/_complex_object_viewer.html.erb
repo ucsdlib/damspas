@@ -14,7 +14,7 @@
 		service_file_path = file_path(ark, "_#{i}_#{service_file}")
 
 		fileType = grabFileType(fileUse)
-		dataForDynamicLoad = "{\"file_type\":\"#{fileType}\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{service_file_path}\"}"
+		dataForDynamicLoad = "{\"file_type\":\"#{fileType}\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{service_file_path}\"}".html_safe
 		loadFirstComponent = (firstComponent != nil) ? "data=#{i}" : ''
 	%>
 
@@ -24,7 +24,7 @@
 
 		<% if fileType == 'image' || fileType == 'audio' %>
 
-			<div data="<%=dataForDynamicLoad%>"></div>
+			<div data='<%=dataForDynamicLoad%>'></div>
 			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
 
 	  <% elsif fileType == 'video' %>

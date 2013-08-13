@@ -18,11 +18,11 @@
      end
    end
 
-   dataForDynamicLoad = "{\"file_type\":\"video\",\"display_file_path\":\"#{videoURL}\",\"service_file_path\":\"\"}"
+   dataForDynamicLoad = "{\"file_type\":\"video\",\"display_file_path\":\"#{videoURL}\",\"service_file_path\":\"\"}".html_safe
 %>
 
 <% if videoURL != nil %>
 
-  <div id="dams-video-<%=componentIndex%>" data="<%=dataForDynamicLoad%>">Loading the player...</div>
+  <div id="dams-video-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</div>
 
 <% end %>
