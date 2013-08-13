@@ -21,8 +21,8 @@
 		
 		<% if can? :update, @dams_provenance_collection_part then %>
 					<%= link_to "Edit", edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), class: "btn btn-primary"%>
-					<% end %>
-					<%= link_to "View All", dams_provenance_collection_parts_path, class: "btn btn-primary" %>
+		<% end %>
+		<%= link_to "<i class='icon-search icon-white'></i> Search this collection".html_safe, facet_uri(collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>
 	</div>
 </div>
 
