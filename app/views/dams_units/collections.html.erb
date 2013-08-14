@@ -1,27 +1,35 @@
 <div class="row">
     <div class="span12">
         
-     <h3>Provenance Collections</h3>
-	 <ul>
-	 <% @provenance_within_unit_document.each do |doc| %>
-      <li><%= link_to doc['title_tesim'].first, dams_provenance_collection_path(doc['id']) %></li>
-       <%if doc['part_json_tesim']!= nil %>
-           <% doc['part_json_tesim'].each do |datum| %>
-		      <% part = JSON.parse(datum) %>
-		        <% if part['name'] != '' && part['id'] !=''%>
-			    <ul> <%= link_to part['name'], dams_provenance_collection_part_path(part['id']) %></ul>
-		      <% end %>
-	       <% end %>
-        <% end %>
-      <% end %>   
-	</ul>
+     <h3>Collections</h3>
+		<ul>
+			<% @collections.each do |col| %>
 
-	<h3>Assembled Collections</h3>
-	 <ul>
-	 <% @assembled_within_unit_document.each do |doc| %>
-      <li><%= link_to doc['title_tesim'].first, dams_assembled_collection_path(doc['id']) %></li>
-      <% end %>   
-	</ul>	
+            <% if (col['type_tesim'] != nil) %>
+              <% col['type_tesim'].each do |datum|%>
+               
+                
+                <% if (datum == "AssembledCollection")%>
+
+                
+	              <li><%= link_to col['title_tesim'].first, dams_assembled_collection_path(col['id']) %></li>
+	           
+	           <% elsif (datum == "ProvenanceCollection") %>
+		          <li><%= link_to col['title_tesim'].first, dams_provenance_collection_path(col['id']) %></li>  
+	                
+	              <%if col['part_json_tesim']!= nil %>
+	                <% col['part_json_tesim'].each do |value| %>
+			        <% part = JSON.parse(value) %>
+			        <% if part['name'] != '' && part['id'] !=''%>
+				     <ul> <%= link_to part['name'], dams_collection_path(part['id']) %></ul>
+			        <% end %>
+		           <% end %>
+	              <% end %>
+                <% end %>
+              <% end %>
+             <% end %>
+            <% end %>    
+		</ul>
 
     </div>
 </div>
