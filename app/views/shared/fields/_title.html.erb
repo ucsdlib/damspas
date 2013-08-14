@@ -4,6 +4,7 @@
 %>
 
 <% if fieldData != nil %>
+
 	<hgroup>
 	<% fieldData.each do |datum| %>
 		<% title = JSON.parse(datum) %>
@@ -14,4 +15,11 @@
 		<% break %>
 	<% end %>
 	</hgroup>
+
+<% elsif defined?(componentIndex) %>
+
+  <hgroup>
+    <h1>Generic Component Title <%= componentIndex %></h1>
+  </hgroup>
+
 <% end %>
