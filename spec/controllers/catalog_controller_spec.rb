@@ -32,7 +32,7 @@ describe CatalogController do
   
 	it "should have a collation phrase spelling suggestion for a poor query with multiple key words" do
 		get :index, :q => '"Spellchecl Testx"', :qf => 'title_tesim', 'spellcheck.q' => '"Spellchecl Testx"'
-		assigns_response.spelling.words.first.should == '"spellcheck test"'
+		assigns_response.spelling.words.first.should == '"Spellcheck Test"'
 	end
   end
 end
