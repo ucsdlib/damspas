@@ -10,15 +10,9 @@
 		fieldData.each do |datum|
 			files = JSON.parse(datum)
 			if files['use'] == 'video-service'
-#				fileid = cmpid + '-' + files['id']
-#				encrypted = encrypt_stream_name( objid, fileid, request.ip )
-#				videoURL = ViewOptions::VIDEO_PARTIAL_URL + encrypted
-
-
-			  videoPath = files['sourcePath'].sub(ViewOptions::VIDEO_PARENT_DIRECTORY,'')
-			  videoFilename = files['sourceFileName']
-			  videoURL = ViewOptions::VIDEO_PARTIAL_URL + videoPath + '/' + videoFilename
-				
+				fileid = cmpid + '-' + files['id']
+				encrypted = encrypt_stream_name( objid, fileid, request.ip )
+				videoURL = ViewOptions::VIDEO_PARTIAL_URL + encrypted
 			end
 		end
 	end
