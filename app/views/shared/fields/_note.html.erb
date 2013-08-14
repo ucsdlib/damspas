@@ -37,41 +37,4 @@
 		concat htmlClose.html_safe
 
 	end
-
-	if defined?(componentIndex) # Then we're working with a component
-		prefix = "component_#{componentIndex}_"
-		htmlOpen = "<tr><td>%s</td><td>"
-		htmlClose = "</td></tr>"
-	else # We're working with an object or collection
-		prefix = ''
-		htmlOpen = "<dt>%s</dt><dd>"
-		htmlClose = "</dd>"
-	end
-
-	fieldData = @document["#{prefix}scopeContentNote_json_tesim"]
-
-	if fieldData != nil
-
-		htmlOpen %= 'Scope Content Note'.pluralize(fieldData.count)
-		concat htmlOpen.html_safe
-
-		fieldData.each do |datum|
-			scopeContentNote = JSON.parse(datum)
-			%>
-			<p>
-				<strong>
-					<% if scopeContentNote['type'] != nil && !scopeContentNote['type'].blank? %>
-					<%= scopeContentNote['type'].upcase %>
-					<% else %>
-					General Scope Content Note
-					<% end %>
-				</strong>
-			</p>
-			<p><%= auto_link(scopeContentNote['value']) %></p>
-			<%
-		end
-
-		concat htmlClose.html_safe
-
-	end
 %>
