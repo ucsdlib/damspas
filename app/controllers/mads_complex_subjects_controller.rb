@@ -30,29 +30,35 @@ class MadsComplexSubjectsController < ApplicationController
   end
 
   def new
+    @mads_complex_subject.scheme.build
+    @mads_complex_subject.componentList.topic.build  
 	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     #@mads_complex_subject = MadsComplexSubject.find(params[:id])
+    @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = Rails.configuration.id_namespace+@mads_complex_subject.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_complex_subject.attributes = params[:mads_complex_subject]
+    #@mads_complex_subject.attributes = params[:mads_complex_subject]
     if @mads_complex_subject.save
-        redirect_to @mads_complex_subject, notice: "Subject has been saved"
+        redirect_to @mads_complex_subject, notice: "ComplexSubject has been saved"
     else
-      flash[:alert] = "Unable to save Subject"
+      flash[:alert] = "Unable to save ComplexSubject"
       render :new
     end
   end
 
   def update
+    @mads_complex_subject.componentList.clear
+    @mads_complex_subject.scheme.clear  
     @mads_complex_subject.attributes = params[:mads_complex_subject]
     if @mads_complex_subject.save
-        redirect_to @mads_complex_subject, notice: "Successfully updated subject"
+        redirect_to @mads_complex_subject, notice: "Successfully updated ComplexSubject"
     else
-      flash[:alert] = "Unable to save subject"
+      flash[:alert] = "Unable to save ComplexSubject"
       render :edit
     end
   end
