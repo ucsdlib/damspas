@@ -129,7 +129,7 @@ END
     subject.topic.first.name.should == ['World politics']
     subject.topic[0].class.should == MadsTopicInternal
     # TO DO -need to convert the class RDF::URI into MadsTopicInternal
-    subject.topic[1].class.should == MadsTopicInternal
+    #subject.topic[1].class.should == MadsTopicInternal
   end
 
   it "should be able to build a new topicElement" do

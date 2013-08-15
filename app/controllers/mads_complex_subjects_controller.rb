@@ -36,7 +36,7 @@ class MadsComplexSubjectsController < ApplicationController
   end
 
   def edit
-    #@mads_complex_subject = MadsComplexSubject.find(params[:id])
+    @mads_complex_subject = MadsComplexSubject.find(params[:id])
     @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
     @scheme_id = Rails.configuration.id_namespace+@mads_complex_subject.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
