@@ -1,6 +1,5 @@
 class MadsTopicInternal
   include ActiveFedora::RdfObject
-  include ActiveFedora::Rdf::DefaultNodes
   include Dams::MadsTopic
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')
