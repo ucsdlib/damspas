@@ -19,6 +19,7 @@ logger.warn "solr: #{@document.inspect}"
     fq = {fq: "-id:#{Rails.configuration.excluded_collections}"}
     @collections_response, @collections = get_search_results( q, fq )
 
+
    # use solr join to find assembled collections in this unit
      q_a = {q:"{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"}
      fq_a= {fq: 'has_model_ssim:"info:fedora/afmodel:DamsAssembledCollection"'}
