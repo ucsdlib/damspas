@@ -1,5 +1,6 @@
 class MadsGenreFormsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
 
@@ -32,11 +33,13 @@ class MadsGenreFormsController < ApplicationController
   def new
     @mads_genre_form.elementList.genreFormElement.build
     @mads_genre_form.scheme.build 
-	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
     @scheme_id = Rails.configuration.id_namespace+@mads_genre_form.scheme.to_s.gsub(/.*\//,'')[0..9]   
   end
 
