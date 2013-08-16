@@ -549,8 +549,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     if col != nil
       col.each do |collection|
         begin
-          Solrizer.insert_field(solr_doc, "collection", collection.title.first.name.first, facetable)
-          Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.name.first)
+          Solrizer.insert_field(solr_doc, "collection", collection.title.first.name, facetable)
+          Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.name)
           Solrizer.insert_field(solr_doc, "collections", collection.pid)
           col_json = {
             :id => collection.pid,
