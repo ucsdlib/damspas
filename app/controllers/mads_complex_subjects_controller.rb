@@ -1,5 +1,6 @@
 class MadsComplexSubjectsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
 
@@ -31,13 +32,15 @@ class MadsComplexSubjectsController < ApplicationController
 
   def new
     @mads_complex_subject.scheme.build
-    @mads_complex_subject.componentList.topic.build  
-	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @mads_complex_subject.componentList.topic.build
+    @mads_schemes = get_objects('MadsScheme','name_tesim')  
+	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_complex_subject = MadsComplexSubject.find(params[:id])
-    @mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
     @scheme_id = Rails.configuration.id_namespace+@mads_complex_subject.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 

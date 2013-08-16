@@ -1,5 +1,6 @@
 class MadsLanguagesController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
 
@@ -23,10 +24,12 @@ class MadsLanguagesController < ApplicationController
   def new
     @mads_language.elementList.languageElement.build
     @mads_language.scheme.build
-  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
   def edit
-  	@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
     @scheme_id = Rails.configuration.id_namespace+@mads_language.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
