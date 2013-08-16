@@ -1,4 +1,4 @@
-require '../spec_helper.rb'
+require 'spec_helper'
 
 # Class to store the path of the object
 class Path
@@ -12,7 +12,13 @@ end
 
 
 feature 'Visitor wants to create/edit a MADS Complex Subject' do
+    let!(:scheme1) { MadsScheme.create!(name: 'Library of Congress Subject Headings') }
+    let!(:scheme2) { MadsScheme.create!(name: 'Library of Congress Name Authority File') }
 
+    after do
+        scheme1.destroy
+        scheme2.destroy
+    end
   scenario 'is on Complex Subject index page' do
     sign_in_developer
 
@@ -32,7 +38,7 @@ feature 'Visitor wants to create/edit a MADS Complex Subject' do
     fill_in "CorporateName", :with => "Test CorporateName"
     fill_in "FamilyName", :with => "Test FamilyName"
     fill_in "mads_complex_subject_genericName_attributes_0_name", :with => "Test Generic Name"
-    page.select("Library of Congress Name Authority File")
+    page.select("Library of Congress Name Authority File", match: :first)
 
 
     click_on "Save"
@@ -102,7 +108,7 @@ feature 'Visitor wants to create/edit a MADS Complex Subject' do
     fill_in "CorporateName", :with => "Test CorporateName"
     fill_in "FamilyName", :with => "Test FamilyName"
     fill_in "mads_complex_subject_genericName_attributes_0_name", :with => "Test Generic Name"
-    page.select("Library of Congress Subject Headings")
+    page.select("Library of Congress Subject Headings", match: :first)
 
     click_on "Save"
 
@@ -126,7 +132,13 @@ feature 'Visitor wants to create/edit a MADS Complex Subject' do
 end
 
 feature 'Visitor wants to cancel unsaved objects' do
-  
+    let!(:scheme1) { MadsScheme.create!(name: 'Library of Congress Subject Headings') }
+    let!(:scheme2) { MadsScheme.create!(name: 'Library of Congress Name Authority File') }
+
+    after do
+        scheme1.destroy
+        scheme2.destroy
+    end
   scenario 'is on Edit Complex Subject page' do
     sign_in_developer
     visit Path.path
@@ -134,7 +146,7 @@ feature 'Visitor wants to cancel unsaved objects' do
     click_on "Edit"
     fill_in "Name", :with => "Nothing"
     fill_in "Topic", :with => "Null", match: :first
-    page.select("Library of Congress Name Authority File")
+    page.select("Library of Congress Name Authority File", match: :first)
     click_on "Cancel"
     expect(page).to_not have_content("Should not show")
     expect(page).to have_content("Test Complex Subject")
