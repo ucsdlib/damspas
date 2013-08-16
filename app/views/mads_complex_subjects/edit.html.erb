@@ -15,7 +15,24 @@
 		      <%= se.label :id, "Scheme" %>
 		      <%= se.select :id, options_for_select(@mads_schemes.collect{ |v| [v.name.first, Rails.configuration.id_namespace+ v.pid] } , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
 		    <% end %>      
-       
+
+			<% cList = @mads_complex_subject.componentList
+				i = 0
+				if cList != nil
+					while i < cList.size  do
+						fieldLabel = cList[i].class.name.gsub("Mads", "").gsub("Internal", "")
+						fieldLabel = fieldLabel[0, 1].downcase + fieldLabel[1..-1]
+						if (fieldLabel == "name")
+							fieldLabel = "genericName"
+						end
+						%>
+						
+							<%= label_tag "mads_complex_subject[#{fieldLabel}_attributes][0][name]", "#{fieldLabel[0, 1].upcase + fieldLabel[1..-1]}" %>
+      						<%= text_field_tag "mads_complex_subject[#{fieldLabel}_attributes][0][name]", cList[i].name, class: "input-block-level" %>
+						<%
+						i +=1
+					end
+				end %>
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary">Save changes</button>
 				<%= link_to "Cancel", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary" %>
