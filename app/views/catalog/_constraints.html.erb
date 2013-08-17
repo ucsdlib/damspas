@@ -1,16 +1,18 @@
 <% if query_has_constraints? && params['spellcheck.q'] != nil%>
-      <div class="dams-search-constraints">
-        <span class="dams-search-constraints-label"><%= 'Showing results for' %></span>
-  
-        <%#link_to t('blacklight.search.start_over'), url_for(:action=>'index'), :class => "catalog_startOverLink", :id=>"startOverLink" %>
-        <%#link_to "Advanced Search", advanced_path, :class => "pull-right hidden-phone" %>
+	<div class="dams-search-constraints">
 
-        <%= render_constraints(params) %><br>
+		<span class="dams-search-constraints-label"><%= 'Showing results for' %></span>
 
-        <% if params['spellcheck.q'] != params['q'] %>
-					<span class="dams-search-instead"><em>Search instead for <%= link_to_query(params['spellcheck.q'])%></em></span>
-      	<% end %>
+		<%#link_to t('blacklight.search.start_over'), url_for(:action=>'index'), :class => "catalog_startOverLink", :id=>"startOverLink" %>
+		<%#link_to "Advanced Search", advanced_path, :class => "pull-right hidden-phone" %>
 
-        <%= render :partial => 'did_you_mean' %>
-      </div>
+		<%= render_constraints(params) %>
+
+		<% if params['spellcheck.q'] != params['q'] %>
+			<span class="dams-search-instead"><em>Search instead for <%= link_to_query(params['spellcheck.q'])%></em></span>
+		<% end %>
+
+		<%= render :partial => 'did_you_mean' %>
+
+	</div>
 <% end %>

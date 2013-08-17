@@ -11,14 +11,11 @@
 		<%= link_to_document document, :label=>document_show_link_field, :counter => (document_counter + 1 + @response.params[:start].to_i), :sep => ': ' %>
 	</h3>
 
-
-
 	<%# main container for doc partial view -%>
 	<%= render_document_partial document, :index %>
 
 	<%# TODO... display this as a link, not a button... find test case %>
   <%# bookmark functions for items/docs -%>
   <%= render_index_doc_actions document, :wrapping_class => '' %>
-
 
 </div>
