@@ -80,14 +80,6 @@ feature 'Visitor wants to create/edit a MADS Complex Subject' do
     click_on "Save"
 
     expect(page).to_not have_selector('li', :text => "Test")
-# Hydra View not updated yet
-    # # Check Hydra View
-    # click_on "Hydra View"
-    # expect(page).to have_content("Begin Date: 07/11/2013")
-    # expect(page).to have_content("Edited Dams Object")
-
-    # click_on "New Object"
-    # expect(current_path).to eq(dams_object_path('new'))
 
   end
 
