@@ -9,28 +9,26 @@
 		htmlClose = "</dd>"
 	end
 
-	fieldData = @document["#{prefix}note_json_tesim"]
+	fieldData = @document["#{prefix}scopeContentNote_json_tesim"]
 
 	if fieldData != nil
 
-		htmlOpen %= 'Note'.pluralize(fieldData.count)
+		htmlOpen %= 'Scope Content Note'.pluralize(fieldData.count)
 		concat htmlOpen.html_safe
 
 		fieldData.each do |datum|
-	 		note = JSON.parse(datum)
+			scopeContentNote = JSON.parse(datum)
 %>
 			<p>
 				<strong>
-					<% if note['displayLabel'] != nil &&  !note['displayLabel'].blank? %>
-						<%= note['displayLabel'].upcase %>
-					<% elsif note['type'] != nil && !note['type'].blank? %>
-						<%= note['type'].upcase %>
+					<% if scopeContentNote['type'] != nil && !scopeContentNote['type'].blank? %>
+					<%= scopeContentNote['type'].upcase %>
 					<% else %>
-						General Note
+					General Scope Content Note
 					<% end %>
 				</strong>
 			</p>
-			<p><%= auto_link(note['value']) %></p>
+			<p><%= auto_link(scopeContentNote['value']) %></p>
 <%
 		end
 
