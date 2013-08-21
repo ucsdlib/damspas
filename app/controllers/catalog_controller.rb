@@ -243,14 +243,12 @@ class CatalogController < ApplicationController
 		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
 	  #Remove the case sensive spellcheck suggestions that should not show up
+	  spelling_words = spelling_words.dup
 	  spelling_words.map! do |x| 
-		if(x.eql?(x.downcase) || !spelling_words.include?(x.downcase))
-			x.downcase
-		else
-			nil
+		if(!x.eql?(x.downcase) && spelling_words.include?(x.downcase))
+			@response.spelling.words.delete(x)
 		end
 	  end
-	  spelling_words.compact
 	  #@response.spelling.words.uniq
       @filters = params[:f] || []
       
