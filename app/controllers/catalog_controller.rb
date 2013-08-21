@@ -206,7 +206,8 @@ class CatalogController < ApplicationController
       
       (@response, @document_list) = get_search_results
 	  spelling_words = @response.spelling.words
-	  if(@document_list.size == 0)
+	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
+		params['spellsuggestions'] = 'false'
 		if(params['spellcheck.q'].nil?)
 			params['spellcheck.q'] = params[:q]
 		else
@@ -236,7 +237,11 @@ class CatalogController < ApplicationController
 			end
 		end
 	  else
-		params['spellcheck.q'] = params[:q]
+		if(params['spellsuggestions'].nil? || params['spellsuggestions'] != 'false')
+			params['spellcheck.q'] = params[:q]
+		else
+			params.tap{|x| x.delete('spellcheck.q')} 
+		end
 		spelling_collation = @response.spelling.collation
 		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
