@@ -58,7 +58,7 @@ feature 'Visitor wants to create/edit a MADS Complex Subject' do
     expect(page).to have_selector('li', :text => "Test Generic Name")
     expect(page).to have_selector('a', :text => "http://complexsubject.com")
     expect(page).to have_selector('li', :text => "Library of Congress Name Authority File")
-    expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/bd0683587d")
+    #expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/bd0683587d")
 
     click_on "Edit"
 
