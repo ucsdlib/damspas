@@ -19,17 +19,7 @@
 		fieldData.each do |datum|
 	 		custodialResponsibilityNote = JSON.parse(datum)
 %>
-			<p>
-				<strong>
-					<% if custodialResponsibilityNote['displayLabel'] != nil &&  !custodialResponsibilityNote['displayLabel'].blank? %>
-						<%= custodialResponsibilityNote['displayLabel'].upcase %>
-					<% elsif custodialResponsibilityNote['type'] != nil && !custodialResponsibilityNote['type'].blank? %>
-						<%= custodialResponsibilityNote['type'].upcase %>
-					<% else %>
-						Note
-					<% end %>
-				</strong>
-			</p>
+			
 			<p><%= auto_link(custodialResponsibilityNote['value']) %></p>
 <%
 		end

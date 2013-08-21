@@ -19,17 +19,7 @@
 		fieldData.each do |datum|
 	 		preferredCitationNote = JSON.parse(datum)
 %>
-			<p>
-				<strong>
-					<% if preferredCitationNote['displayLabel'] != nil &&  !preferredCitationNote['displayLabel'].blank? %>
-						<%= preferredCitationNote['displayLabel'].upcase %>
-					<% elsif preferredCitationNote['type'] != nil && !preferredCitationNote['type'].blank? %>
-						<%= preferredCitationNote['type'].upcase %>
-					<% else %>
-						Note
-					<% end %>
-				</strong>
-			</p>
+			
 			<p><%= auto_link(preferredCitationNote['value']) %></p>
 <%
 		end
