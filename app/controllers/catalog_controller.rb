@@ -245,8 +245,8 @@ class CatalogController < ApplicationController
 	  #Remove the case sensive spellcheck suggestions that should not show up
 	  spelling_words = spelling_words.dup
 	  @response.spelling.words.clear
-	  spelling_words.map! do |x| 
-		if(x.eql?(x.downcase) || !spelling_words.include?(x.downcase))
+	  spelling_words.each do |x| 
+		if(!@response.spelling.words.include?(x.downcase))
 			@response.spelling.words << x.downcase
 		end
 	  end
