@@ -237,11 +237,8 @@ class CatalogController < ApplicationController
 			end
 		end
 	  else
-		if(params['spellsuggestions'].nil? || params['spellsuggestions'] != 'false')
-			params['spellcheck.q'] = params[:q]
-		else
-			params.tap{|x| x.delete('spellcheck.q')} 
-		end
+		params.delete('spellsuggestions')
+		params['spellcheck.q'] = params[:q]
 		spelling_collation = @response.spelling.collation
 		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
