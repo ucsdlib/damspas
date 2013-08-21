@@ -3,7 +3,24 @@
 <div>
   <dl>
     <dt>ExternalAuthority:</dt>
-    <dd><%= @mads_complex_subject.externalAuthority.first %></dd>   
+    <dd><%= @mads_complex_subject.externalAuthority.first %></dd>
+	<% cList = @mads_complex_subject.componentList
+		i = 0
+		if cList != nil
+			while i < cList.size  do
+				fieldLabel = cList[i].class.name.gsub("Mads", "").gsub("Internal", "")
+				fieldLabel = fieldLabel[0, 1].downcase + fieldLabel[1..-1]
+				if (fieldLabel == "name")
+					fieldLabel = "genericName"
+				end
+				%>
+				
+					<dt><%= "#{fieldLabel[0, 1].upcase + fieldLabel[1..-1]}" %></dt>
+					<dd><%= cList[i].name.first%></dd>
+				<%
+				i +=1
+			end
+		end %>       
   </dl>
   <% if can? :update, @mads_complex_subject %>
     <%= link_to "Solr View", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>
