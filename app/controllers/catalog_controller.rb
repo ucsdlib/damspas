@@ -242,8 +242,16 @@ class CatalogController < ApplicationController
 		spelling_collation = @response.spelling.collation
 		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
-	  spelling_words.map!{|x| x.downcase}
-	  spelling_words.uniq
+	  #Remove the case sensive spellcheck suggestions that should not show up
+	  spelling_words.map! do |x| 
+		if(x.eql?(x.downcase) || !spelling_words.include?(x.downcase))
+			x.downcase
+		else
+			nil
+		end
+	  end
+	  spelling_words.compact
+	  #@response.spelling.words.uniq
       @filters = params[:f] || []
       
       respond_to do |format|
