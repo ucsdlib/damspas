@@ -139,8 +139,25 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 						$(container).html( '<a href="'+serviceFilePath+'" target="_blank"><img src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
-						$(container).html( '<audio id="'+controlID+'" src="'+serviceFilePath+'" preload="auto"></audio>' );
-						audiojs.events.ready(function(){audiojs.create(document.getElementById(controlID));});
+
+                        jwplayer("dams-audio-"+componentIndex).setup({
+                            playlist:
+                                [{
+                                    sources:
+                                        [
+                                            {file: "rtmp://"+serviceFilePath},
+                                            {file: "http://"+serviceFilePath+"/playlist.m3u8"}
+                                        ]
+                                }],
+                            width: "100%",
+                            height: 25,
+                            controlBar:'bottom',
+                            rtmp: {bufferlength: 3},
+                            analytics: {enabled: false},
+                            primary: "flash",
+                            fallback: false
+                        });
+
 						break;
 					case "video":
 

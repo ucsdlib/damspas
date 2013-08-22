@@ -17,30 +17,12 @@
        end
      end
    end
+
+   dataForDynamicLoad = "{\"file_type\":\"audio\",\"display_file_path\":\"\",\"service_file_path\":\"#{videoURL}\"}".html_safe
 %>
 
 <% if videoURL != nil %>
 
-  <div id="dams-audio">Loading the player...</div>
-
-  <script type="text/javascript">
-	  jwplayer("dams-audio").setup({
-		  playlist:
-				  [{
-					  sources:
-							  [
-								  {file: "rtmp://<%=videoURL%>"},
-								  {file: "http://<%=videoURL%>/playlist.m3u8"}
-							  ]
-				  }],
-		  width: "100%",
-		  height: 25,
-		  controlBar:'bottom',
-		  rtmp: {bufferlength: 3},
-		  analytics: {enabled: false},
-		  primary: "flash",
-		  fallback: false
-	  });
-  </script>
+  <div id="dams-audio-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</div>
 
 <% end %>

@@ -7,6 +7,10 @@
 # ignore text editor junk
 .idea/
 
+# ignore apple junk
+
+.com.apple.timemachine.supported
+
 # ignore config files stored elsewhere
 config/database.yml
 config/fedora.yml
