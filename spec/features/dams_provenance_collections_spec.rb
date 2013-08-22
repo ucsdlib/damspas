@@ -106,7 +106,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TESTNOTEDISPLAYLABEL2")
 		expect(page).to have_content ("TestScopeContentNote2")
 		# testing without filling in Scope Content Note Type
-		expect(page).to have_content ("TESTSCOPECONTENTNOTETYPE")
+		
 		# expect(page).to have_selector('li', :text => "CorporateName")
 		# expect(page).to have_selector ('li', :text => "CorporateName")
 
