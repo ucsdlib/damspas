@@ -1,6 +1,6 @@
 class DamsObject < ActiveFedora::Base
   include Hydra::ModelMethods
-  has_metadata 'damsMetadata', :type => DamsObjectDatastream 
+  has_metadata 'damsMetadata', :type => DamsObjectDatastream
   delegate_to "damsMetadata", [
     :assembledCollectionURI, 
     :beginDate,
@@ -11,6 +11,9 @@ class DamsObject < ActiveFedora::Base
     :cartographicProjection,
     :cartographicRefSystem,
     :cartographicScale,
+    :citationNoteValue,
+    :citationNoteType,
+    :citationNoteDisplayLabel,
     :complexSubject,
     :component,
     :conferenceName,
@@ -31,6 +34,9 @@ class DamsObject < ActiveFedora::Base
     :languageURI, 
     :licenseURI,
     :name,
+    :nameType,
+    :nameTypeValue,
+    :nameURI,
     :note,
     :noteDisplayLabel, 
     :noteType, 
@@ -49,7 +55,10 @@ class DamsObject < ActiveFedora::Base
     :relationshipNameType, 
     :relationshipNameURI, 
     :relationshipNameValue,
-    :relationshipRoleURI, 
+    :relationshipRoleURI,
+    :responsibilityNoteValue,
+    :responsibilityNoteType,
+    :responsibilityNoteDisplayLabel,  
     :rightsHolderURI,
     :scientificName,
     :scopeContentNoteDisplayLabel,
@@ -77,6 +86,21 @@ class DamsObject < ActiveFedora::Base
     :unit,
     :unitURI
   ]
+
+#  delegate_to "damsMetadata", [:title, :titleValue, :subtitle, :typeOfResource, :date, :dateValue, :beginDate, :endDate, :subject, :topic, 
+#                              :component, :file, :relatedResource, :language, :unit, :note, :sourceCapture, :subjectValue, 
+#                              :subjectURI, :unitURI, :subjectType, :subjectTypeValue, :simpleSubjectURI, :titlePartName, :titlePartNumber, :titleNonSort,
+#                              :scopeContentNoteValue, :scopeContentNoteType, :scopeContentNoteDisplayLabel, 
+#                              :responsibilityNoteValue, :responsibilityNoteType, :responsibilityNoteDisplayLabel, 
+#                              :citationNoteValue, :citationNoteType, :citationNoteDisplayLabel,  
+#                              :noteValue, :noteType, :noteDisplayLabel, :nameType, :nameTypeValue, :nameURI,
+#                              :languageURI, :relatedResourceType, :relatedResourceDescription, :relatedResourceUri, :assembledCollectionURI, :provenanceCollectionURI,
+#                              :relationshipRoleURI, :relationshipNameURI, :relationshipNameType, :relationshipNameValue,
+#                              :cartographicPoint, :cartographicLine, :cartographicPolygon, :cartographicProjection, :cartographicRefSystem, :cartographicScale,
+#                              :copyrightURI, :statuteURI, :otherRightsURI, :licenseURI, :rightsHolderURI, :temporal, :builtWorkPlace, :culturalContext,
+#                              :function, :genreForm, :geographic, :iconography, :occupation, :scientificName, :stylePeriod, :technique,
+#                              :name, :conferenceName, :corporateName, :familyName, :personalName, :provenanceCollectionPart, :provenanceCollectionPartURI ]
+
 
   # rights metadata
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata

@@ -1,6 +1,6 @@
 class MadsTopicsController < ApplicationController
   include Blacklight::Catalog
-  include Dams::ControllerHelper  
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
 

@@ -1,0 +1,15 @@
+<h1>Objects</h1>
+
+<div class="span6">
+  <ul>
+    <% @document.each do |doc| %>
+      <li><%= link_to doc['title_tesim'].first, dams_object_path(doc['id']) %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div>
+  <% if can? :create, DamsObject %>
+    <%= link_to "Create Object", new_dams_object_path, :class => 'btn btn-primary'%>
+  <% end %>
+</div>

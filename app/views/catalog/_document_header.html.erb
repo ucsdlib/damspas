@@ -1,12 +1,21 @@
-      <% # header bar for doc items in index view -%>
-      <div class="documentHeader clearfix">
+<%# header bar for doc items in index view -%>
 
-        <% # main title container for doc partial view -%>
-          <h5 class="index_title"><%= t('blacklight.search.documents.counter', :counter => (document_counter + 1 + @response.params[:start].to_i)) %>
-            <%= link_to_document document, :label=>document_show_link_field, :counter => (document_counter + 1 + @response.params[:start].to_i), :sep => ': ' %>
-          </h5>
+<%# thumbnail %>
+<%= render :partial => 'document_thumbnail', :locals => { :document => document } %>
 
+<div>
 
-        <% # bookmark functions for items/docs -%>
-        <%= render_index_doc_actions document, :wrapping_class => "documentFunctions span2" %>
-      </div>
+	<%# main title container for doc partial view -%>
+	<h3>
+		<%#= t('blacklight.search.documents.counter', :counter => (document_counter + 1 + @response.params[:start].to_i)) %>
+		<%= link_to_document document, :label=>document_show_link_field, :counter => (document_counter + 1 + @response.params[:start].to_i), :sep => ': ' %>
+	</h3>
+
+	<%# main container for doc partial view -%>
+	<%= render_document_partial document, :index %>
+
+	<%# TODO... display this as a link, not a button... find test case %>
+  <%# bookmark functions for items/docs -%>
+  <%= render_index_doc_actions document, :wrapping_class => '' %>
+
+</div>

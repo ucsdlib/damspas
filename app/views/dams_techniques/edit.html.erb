@@ -1,0 +1,33 @@
+<% @page_title =  "Edit Technique" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Technique</h2>
+		
+		<%= form_for @dams_technique do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'dams_technique[name][]', "Authoritative Label" %>
+			<%= text_field_tag 'dams_technique[name][]', @dams_technique.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'dams_technique[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'dams_technique[externalAuthority][]', @dams_technique.externalAuthority, class: "input-block-level" %>
+
+			<%= label_tag 'dams_technique[scheme][]', "scheme" %>
+			<%= select_tag 'dams_technique[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
+
+			<%= label_tag 'dams_technique[elementValue][]', "TechniqueElement" %>
+			<%= text_field_tag 'dams_technique[elementValue][]', @dams_technique.elementValue, class: "input-block-level" %>
+							
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", dams_technique_path(@dams_technique), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>

@@ -85,6 +85,12 @@ describe DamsProvenanceCollectionDatastream do
 #      def testIndexNoteFields (solr_doc,fieldName,value)
 #        solr_doc["#{fieldName}_tesim"].should include value
 #      end    
+      it "should index parts" do
+        solr_doc = subject.to_solr
+        solr_doc["part_name_tesim"].should == ["May 2009"]
+        solr_doc["part_id_tesim"].should == ["bb25252525"]
+        solr_doc["part_json_tesim"].should == ['{"id":"bb25252525","name":"May 2009"}']
+      end
     end
   end
 end

@@ -57,9 +57,10 @@ class FileController < ApplicationController
     # if a file is audio, image or video, render view with link to generate
     # derivatives, otherwise, just go back to the object view
     mt = file.content_type
-    if !mt.include?("audio") && !mt.include?("image") && !mt.include?("video")
-      redirect_to view_dams_object_path @obj, notice: "File Uploaded"
-      return
+    if mt.include?("audio") || mt.include?("image") || mt.include?("video")
+      redirect_to view_dams_object_path @obj, flash: { notice: "File Uploaded", deriv: "bar" + @ds }
+    else
+      redirect_to view_dams_object_path @obj, flash: { notice: "File Uploaded", deriv: "foo" }
     end
   end
   def deriv
@@ -81,6 +82,7 @@ class FileController < ApplicationController
       ext = File.extname(request.fullpath)
       @fid += ext unless ext.nil?
 
+      # build url to make damsrepo generate derivs
       user = ActiveFedora.fedora_config.credentials[:user]
       pass = ActiveFedora.fedora_config.credentials[:password]
       baseurl = ActiveFedora.fedora_config.credentials[:url]
@@ -88,6 +90,8 @@ class FileController < ApplicationController
       url = "#{baseurl}/api/files/#{@obj}/"
       url += "#{@cid}/" unless @cid.nil?
       url += "#{@fid}/derivatives?format=json"
+
+      # call damsrepo
       response = RestClient::Request.new(
         :method => :post, :url => url, :user => user, :password => pass
       ).execute
@@ -97,6 +101,11 @@ class FileController < ApplicationController
       else
         flash[:alert] = json['message']
       end
+
+      # update solr index
+      @fobj = DamsObject.find( @obj )
+      @fobj.send :update_index
+
       redirect_to view_dams_object_path @obj
     rescue Exception => e
       logger.warn "Error generating derivatives #{e.to_s}"

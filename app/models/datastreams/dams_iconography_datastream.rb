@@ -1,4 +1,5 @@
 class DamsIconographyDatastream < DamsDatastream
+  include DamsHelper
   map_predicates do |map|
     map.name(:in => MADS, :to => 'authoritativeLabel')
     map.schemeNode(:in => MADS, :to => 'isMemberOfMADSScheme')
@@ -11,5 +12,11 @@ class DamsIconographyDatastream < DamsDatastream
     graph.insert([rdf_subject, RDF.type, DAMS.Iconography]) if new?
     super
   end
-    
+  def elementValue
+    getElementValue "IconographyElement"
+  end
+  
+  def elementValue=(s)
+    setElementValue( "IconographyElement", s )
+  end     
 end

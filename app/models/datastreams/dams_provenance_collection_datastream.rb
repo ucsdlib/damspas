@@ -36,7 +36,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
-    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+    map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
     
     # collections
@@ -73,16 +73,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
-    if(!@subURI.nil?)
-      if new?
-        @array_subject.each do |sub|
-          graph.insert([rdf_subject, DAMS.subject, sub])
-        end
-        #graph.insert([rdf_subject, DAMS.subject, @subURI])
-      else
-        graph.update([rdf_subject, DAMS.subject, @subURI])
-      end
-    end  
+    
     if(!@langURI.nil?)
       if new?
         graph.insert([rdf_subject, DAMS.language, @langURI])
@@ -103,9 +94,41 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
       end
-    end    
+    end 
+    insertSubjectsGraph 
+    insertNameGraph   
     super
   end
+
+  def insertSubjectsGraph
+    if(!@subURI.nil?)
+      if new?
+        @array_subject.each do |sub|
+          graph.insert([rdf_subject, DAMS.subject, sub])
+        end
+        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+      else
+        graph.update([rdf_subject, DAMS.subject, @subURI])
+      end
+    end    
+  if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+      end
+    end     
+  end
+ 
+  def insertNameGraph  
+  if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      end
+    end     
+  end  
 
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')
@@ -115,6 +138,8 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     if part != nil && part.class == DamsProvenanceCollectionPart
       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
+      pj = { :id => part.pid, :name => part.title.first.value }
+      Solrizer.insert_field(solr_doc, 'part_json', pj.to_json)
     end
 
     super

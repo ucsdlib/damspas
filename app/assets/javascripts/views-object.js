@@ -143,8 +143,24 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 						audiojs.events.ready(function(){audiojs.create(document.getElementById(controlID));});
 						break;
 					case "video":
-						$(container).html( '<video id="'+controlID+'" class="video-js vjs-default-skin" controls width="100%" height="264" poster="'+displayFilePath+'" preload="auto"><source src="'+serviceFilePath+'" type="video/mp4" /></video>' );
-						var myPlayer = _V_(controlID);
+
+                        jwplayer("dams-video-"+componentIndex).setup({
+                            playlist:
+                                [{
+                                    sources:
+                                        [
+                                            {file: "rtmp://"+serviceFilePath},
+                                            {file: "http://"+serviceFilePath+"/playlist.m3u8"}
+                                        ]
+                                }],
+                            width: "100%",
+                            aspectratio: "16:9",
+                            rtmp: {bufferlength: 3},
+                            analytics: {enabled: false},
+                            primary: "flash",
+                            fallback: false
+                        });
+
 						break;
 				}
 			}
@@ -215,4 +231,20 @@ $(document).ready(function()
 		dp.cartographics.load();
 	}
 
+	// handle derivatives generation callbacks
+	$('#generate_derivatives')
+		.bind('ajax:success', function(e) {
+          // update flash message
+          msg = document.getElementById('messages')
+          msg.innerHTML = '<div class="flash_messages"><div class="alert alert-info">Derivatives Generated <a class="close" data-dismiss="alert" href="#">&times;</a></div>';
+
+          // hide button
+          btn = document.getElementById('generate_derivatives')
+          btn.style.display = 'none';
+		})
+		.bind('ajax:error', function(e) {
+          msg = document.getElementById('messages')
+          msg.innerHTML = '<div class="flash_messages"><div class="alert alert-alert">Error Generating Derivatives! <a class="close" data-dismiss="alert" href="#">&times;</a></div>';
+		})
 });
+

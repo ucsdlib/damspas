@@ -99,7 +99,28 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
     provenanceCollectionParts
   end
 
-
+## provenanceCollection ##################################################################
+  def load_provenanceCollections
+    load_provenanceCollections(provenanceCollection)
+  end
+  def load_provenanceCollections(provenanceCollection)
+    provenanceCollections = []
+    begin
+      provenanceCollection.each do |part|
+        if part.title.first != nil 
+          # use inline data if available
+          provenanceCollections << part
+        elsif part.pid != nil
+          # load external records
+          provenanceCollections << DamsProvenanceCollection.find(part.pid)
+        end
+      end
+    rescue Exception => e
+      puts "trapping provenanceCollection error"
+      puts e.backtrace
+    end
+    provenanceCollections
+  end
 
   ## Subject ###################################################################
 

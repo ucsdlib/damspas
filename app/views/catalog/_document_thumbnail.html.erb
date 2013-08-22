@@ -1,0 +1,76 @@
+<%
+
+   # Todo: Move this to helper file
+
+   #---
+   # Determines which Bootstrap Glyphicon to use based on a component's file type.
+   #
+   # @param fileUse The component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
+   # @return A string that is the CSS class name of the Glyphicon we want to display.
+   # @author David T.
+   #---
+   def grabGlyphicon(fileUse)
+     icon = grabFileType(fileUse)
+     case icon
+       when 'image'
+         icon = 'glyphicon-picture'
+       when 'audio'
+         icon = 'glyphicon-music'
+       when 'video'
+         icon = 'glyphicon-film'
+       when 'no-files'
+         icon = 'glyphicon-stop'
+       else
+         icon ='glyphicon-file'
+     end
+     return icon
+   end
+
+	 # MAIN (Todo: Move this to helper file)
+
+	 resultClass = ''
+
+	 # SIMPLE OBJECT
+   if document['files_tesim'] != nil
+
+     fieldData = document['files_tesim']
+     simpleUse = nil
+
+     if fieldData != nil
+       fieldData.each do |datum|
+         files = JSON.parse(datum)
+         if files["use"].end_with?("-service")
+           simpleUse = files["use"]
+           break
+         end
+       end
+     end
+
+     resultClass = 'thumb-simple'
+     resultIcon = grabGlyphicon(simpleUse)
+
+	# COMPLEX OBJECT
+   elsif document['component_count_isi'] != nil
+
+     if document['component_count_isi'] > 0
+       resultClass = 'thumb-complex'
+       resultIcon = 'glyphicon-folder-open'
+     end
+
+  # COLLECTION
+   elsif document['type_tesim'] != nil
+
+     if document['type_tesim'].first == 'Collection'
+       resultClass = 'thumb-collection'
+       resultIcon = 'glyphicon-th'
+     end
+
+   end
+%>
+
+<% files = select_file( :document => document, :quality => 200 ) %>
+<% if files[:display] != nil %>
+	<%= image_tag file_path document[:id], '_' + files[:display]['id'], :alt => '' %>
+<% else %>
+	<div class="dams-search-thumbnail <%=resultClass%>"><i class="glyphicon <%=resultIcon%>"></i></div>
+<% end %>

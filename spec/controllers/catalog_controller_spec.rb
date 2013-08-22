@@ -21,7 +21,7 @@ describe CatalogController do
 		assigns_response.docs.size.should > 0
 	end
 	it "should have a spelling suggestion for an appropriately poor query" do
-		get :index, :q => 'Spellchecl', :qf => 'title_tesim', 'spellcheck.q' => '"Spellchecl"'
+		get :index, :q => 'samplers', :qf => 'title_tesim'
 		assigns_response.spelling.words.size.should > 0
 	end
 	
@@ -32,7 +32,7 @@ describe CatalogController do
   
 	it "should have a collation phrase spelling suggestion for a poor query with multiple key words" do
 		get :index, :q => '"Spellchecl Testx"', :qf => 'title_tesim', 'spellcheck.q' => '"Spellchecl Testx"'
-		assigns_response.spelling.words.first.should == '"Spellcheck Test"'
+		assigns_response.params[:q].downcase.should == '"spellcheck test"'
 	end
   end
 end

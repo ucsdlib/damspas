@@ -40,7 +40,7 @@ class MadsGenreFormsController < ApplicationController
   def edit
   	@mads_schemes = get_objects('MadsScheme','name_tesim')
     #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
-    @scheme_id = Rails.configuration.id_namespace+@mads_genre_form.scheme.to_s.gsub(/.*\//,'')[0..9]   
+    @scheme_id = Rails.configuration.id_namespace+@mads_genre_form.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create

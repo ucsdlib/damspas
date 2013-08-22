@@ -120,13 +120,13 @@
     <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
     <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
     <dams:typeOfResource>mixed material</dams:typeOfResource>
-    <dams:otherResource>
+    <dams:relatedResource>
       <dams:RelatedResource>
         <dams:type>online exhibit</dams:type>
         <dams:uri>http://foo.com/1234</dams:uri>
         <dams:description>Sample Complex Object Record #1: The Exhibit!</dams:description>
       </dams:RelatedResource>
-    </dams:otherResource>
+    </dams:relatedResource>
     <dams:relationship>
       <dams:Relationship>
         <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>

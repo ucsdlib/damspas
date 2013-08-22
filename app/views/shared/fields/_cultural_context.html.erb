@@ -1,0 +1,29 @@
+<%
+	if defined?(componentIndex) # Then we're working with a component
+		prefix = "component_#{componentIndex}_"
+		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		htmlClose = "</ul></td></tr>"
+	else # We're working with an object or collection
+		prefix = ''
+		htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		htmlClose = "</ul></dd>"
+	end
+
+	fieldData = @document["#{prefix}culturalContext_tesim"]
+
+	if fieldData != nil
+
+		htmlOpen %= 'Cultural Context'.pluralize(fieldData.count)
+		concat htmlOpen.html_safe
+
+		fieldData.each do |datum|
+			culturalContext = datum
+%>
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{culturalContext}".html_safe, facet_uri(culturalContext, 'subject_culturalContext_sim'), :class => "label" %></li>
+<%
+		end
+
+		concat htmlClose.html_safe
+
+	end
+%>

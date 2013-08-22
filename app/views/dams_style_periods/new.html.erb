@@ -1,0 +1,15 @@
+<h1>Create a new Dams Style Period</h1>
+<%= form_for @dams_style_period do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'dams_style_period[name]', "Name" %>
+  <%= text_field_tag 'dams_style_period[name]' %>
+  <%= label_tag 'dams_style_period[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'dams_style_period[externalAuthority]' %> 
+  <%= label_tag 'dams_style_period[elementValue]', "StylePeriodElement" %>
+  <%= text_field_tag 'dams_style_period[elementValue]' %> 
+  <br>
+  <%= select_tag 'dams_style_period[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

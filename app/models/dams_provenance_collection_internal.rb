@@ -18,23 +18,6 @@ class DamsProvenanceCollectionInternal
     map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
     # subjects
-    map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
-    map.complexSubject(:in => DAMS)
-    map.builtWorkPlace(:in => DAMS)
-    map.culturalContext(:in => DAMS)
-    map.function(:in => DAMS)
-    map.genreForm(:in => DAMS)
-    map.geographic(:in => DAMS)
-    map.iconography(:in => DAMS)
-    map.occupation(:in => DAMS)
-    map.scientificName(:in => DAMS)
-    map.stylePeriod(:in => DAMS)
-    map.technique(:in => DAMS)
-    map.temporal(:in => DAMS)
-    map.topic(:in => DAMS)
-
-    # subject names
-    map.name(:in => DAMS)
     map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
     map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
     map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
@@ -50,8 +33,15 @@ class DamsProvenanceCollectionInternal
     map.temporal(:in => DAMS, :class_name => 'MadsTemporalInternal')
     map.topic(:in => DAMS, :class_name => 'MadsTopicInternal')
 
+    # subject names
+    map.name(:in => DAMS, :class_name => 'MadsNameInternal')
+    map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
+    map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
+    map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
+    map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
+    
     # related resources and events
-    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+    map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # collections

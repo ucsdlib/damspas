@@ -80,6 +80,19 @@
 
 		htmlOpen = "<dt>%s</dt><dd>"
 
+		if @document["technique_element_tesim"] != nil 
+		    htmlOpen %= 'TechniqueElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"technique_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
 		if @document["function_element_tesim"] != nil 
 		    htmlOpen %= 'FunctionElement'
 		    concat htmlOpen.html_safe
@@ -90,6 +103,58 @@
 <%
 			concat htmlClose.html_safe			
 		end		
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["culturalContext_element_tesim"] != nil 
+		    htmlOpen %= 'CulturalContextElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"culturalContext_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end		
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["builtWorkPlace_element_tesim"] != nil 
+		    htmlOpen %= 'BuiltWorkPlaceElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"builtWorkPlace_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["iconography_element_tesim"] != nil 
+		    htmlOpen %= 'IconographyElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"iconography_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["stylePeriod_element_tesim"] != nil 
+		    htmlOpen %= 'StylePeriodElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"stylePeriod_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
 
 		htmlOpen = "<dt>%s</dt><dd>"
 

@@ -205,29 +205,53 @@ class CatalogController < ApplicationController
       extra_head_content << view_context.auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') )
       
       (@response, @document_list) = get_search_results
-	  if(@document_list.size == 0)
+	  spelling_words = @response.spelling.words
+	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
+		params['spellsuggestions'] = 'false'
 		if(params['spellcheck.q'].nil?)
 			params['spellcheck.q'] = params[:q]
 		else
 			params.delete('spellcheck.q')
 		end
-		@suggestions = ((@response.spelling.collation.nil??nil:[@response.spelling.collation]) || []) | @response.spelling.words
+		
+		i = 0
+
+		@suggestions = ([@response.spelling.collation] | spelling_words).compact
 		@suggestions.each do |word|
+			i = i + 1
 			params[:q] = word
 			(@response, @document_list) = get_search_results params
+			spelling_words = @response.spelling.words
 			if(@document_list.size > 0)
-				if(params['spellcheck.q'].nil?)
-					@suggestions.each do |word|
-						@response.spelling.words << word unless word.nil?
+				#if(params['spellcheck.q'].nil?)
+				j = 0
+				@suggestions.each do |word|
+					j = j + 1
+					#Exclude those that have no results
+					if j > i
+						spelling_words << word if !word.nil? && !spelling_words.include?(word)
 					end
 				end
+				#end
 				break;
 			end
 		end
 	  else
+		params.delete('spellsuggestions')
 		params['spellcheck.q'] = params[:q]
-		@response.spelling.words << @response.spelling.collation unless @response.spelling.collation.nil?
+		spelling_collation = @response.spelling.collation
+		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
+	  #Remove the case sensive spellcheck suggestions that should not show up
+	  spelling_words.map! do |x| 
+		if(x.eql?(x.downcase) || !spelling_words.include?(x.downcase))
+			x.downcase
+		else
+			nil
+		end
+	  end
+	  spelling_words.compact
+	  #@response.spelling.words.uniq
       @filters = params[:f] || []
       
       respond_to do |format|

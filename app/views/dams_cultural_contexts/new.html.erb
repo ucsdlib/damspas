@@ -1,0 +1,16 @@
+<h1>Create a new Dams Cultural Context</h1>
+<%= form_for @dams_cultural_context do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'dams_cultural_context[name]', "Name" %>
+  <%= text_field_tag 'dams_cultural_context[name]' %>
+  <%= label_tag 'dams_cultural_context[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'dams_cultural_context[externalAuthority]' %> 
+  <%= label_tag 'dams_cultural_context[elementValue]', "CulturalContextElement" %>
+  <%= text_field_tag 'dams_cultural_context[elementValue]' %> 
+  <br>
+  <%= select_tag 'dams_cultural_context[scheme]', options_for_select(@mads_schemes ) , :prompt=>"Select MadsScheme" %>    
+   
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

@@ -1,6 +1,4 @@
-
-
-<% # container for all documents in index view -%>
-<div id="documents">
+<%# container for all documents in index view -%>
+<ol id="dams-search-results">
   <%= render :collection => documents, :as => :document, :partial => 'document' %>
-</div>
+</ol>
