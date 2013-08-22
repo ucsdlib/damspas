@@ -173,7 +173,7 @@ $(document).ready(function() {
    <h3>Complex Subject</h3>
   <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select predefined subject"%>
   <br>  
-  OR Enter new subject <%=text_field_tag 'dams_provenance_collection[subjectValue][]', @dams_provenance_collection.subjectValue[0] , class: "input-block-level" %>
+  OR Enter new subject <%#=text_field_tag 'dams_provenance_collection[subjectValue][]', @dams_provenance_collection.subjectValue[0] , class: "input-block-level" %>
 
   <h3>Simple Subject</h3>
   <%
