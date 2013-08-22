@@ -16,7 +16,7 @@
 			<%= text_field_tag 'dams_function[externalAuthority][]', @dams_function.externalAuthority, class: "input-block-level" %>
 
 			<%= label_tag 'dams_function[scheme][]', "scheme" %>
-			<%= select_tag 'dams_function[scheme][]', options_for_select(MadsScheme.all.collect{ |s| [s.name.first, s.pid] }, :selected => @scheme_id ) %>
+			<%= select_tag 'dams_function[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
 			<%= label_tag 'dams_function[elementValue][]', "FunctionElement" %>
 			<%= text_field_tag 'dams_function[elementValue][]', @dams_function.elementValue, class: "input-block-level" %>
 							

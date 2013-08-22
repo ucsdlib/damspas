@@ -91,12 +91,7 @@
 		
 	
 	<div class="span4">
-	
-		<div class="well dams-search-box">
-			<p>Search</p>
-			<%= render_unit_search_bar  %>
-		</div>
-			
+
 		<p class="sidebar-header"><strong>Administrative Units</strong></p>
 		<% @document.each do |doc| %>
 			<% if doc['unit_code_tesim'] != nil %>
@@ -106,6 +101,7 @@
 
 		<p class="sidebar-header"><strong>Browse By</strong></p>
 		<ul class="unstyled sidebar-button-list">
+			<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
 			<%= render_browse_facet_links %>
 		</ul>
 		

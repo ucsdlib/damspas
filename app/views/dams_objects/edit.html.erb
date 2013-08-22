@@ -3,7 +3,6 @@
 
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
-  <%= @provenance_collection_part_id %>
   <%= text_field_tag 'dams_object[titleValue][]', @dams_object.titleValue, class: "input-block-level" , required: true%>
   <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
   <%= text_field_tag 'dams_object[subtitle][]', @dams_object.subtitle, class: "input-block-level" %>    
@@ -46,14 +45,28 @@
   <%= label_tag 'dams_object[noteType][]', "Note Type" %>
   <%= text_field_tag 'dams_object[noteType][]' , @dams_object.noteType[0], class: "input-block-level" %> 
   <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Displaylabel" %>
-  <%= text_field_tag 'dams_object[noteDisplayLabel][]' , @dams_object.noteDisplayLabel[0], class: "input-block-level" %> 
-    
-  <%= label_tag 'dams_object[scopeContentNoteValue][]', "Scope Content Note" %>
+  <%= text_field_tag 'dams_object[noteDisplayLabel][]' , @dams_object.noteDisplayLabel[0], class: "input-block-level" %>
+  
+  <h3>Scope Content Note</h3>
   <%= text_field_tag 'dams_object[scopeContentNoteValue][]', @dams_object.scopeContentNoteValue[0], class: "input-block-level" %>  
   <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Note Type" %>
   <%= text_field_tag 'dams_object[scopeContentNoteType][]', @dams_object.scopeContentNoteType[0], class: "input-block-level" %>
   <%= label_tag 'dams_object[scopeContentNoteDisplayLabel][]', "Scope Content Note Display Label" %>
   <%= text_field_tag 'dams_object[scopeContentNoteDisplayLabel][]', @dams_object.scopeContentNoteDisplayLabel[0], class: "input-block-level" %>
+
+  <h3>Custodial Responsibility Note</h3>
+  <%= text_field_tag 'dams_object[responsibilityNoteValue][]', @dams_object.responsibilityNoteValue[0], class: "input-block-level" %>  
+  <%= label_tag 'dams_object[responsibilityContentNoteType][]', "Custodial Responsibility Note Type" %>
+  <%= text_field_tag 'dams_object[responsibilityNoteType][]', @dams_object.responsibilityNoteType[0], class: "input-block-level" %>
+  <%= label_tag 'dams_object[responsibilityNoteDisplayLabel][]', "Custodial Responsibility Note Display Label" %>
+  <%= text_field_tag 'dams_object[responsibilityNoteDisplayLabel][]', @dams_object.responsibilityNoteDisplayLabel[0], class: "input-block-level" %>
+
+  <h3>Preferred Citation Note</h3>
+  <%= text_field_tag 'dams_object[citationNoteValue][]', @dams_object.citationNoteValue[0], class: "input-block-level" %>  
+  <%= label_tag 'dams_object[citationNoteType][]', "Preferred Citation Type" %>
+  <%= text_field_tag 'dams_object[citationNoteType][]', @dams_object.citationNoteType[0], class: "input-block-level" %>
+  <%= label_tag 'dams_object[citationDisplayLabel][]', "Preferred Citation Display Label" %>
+  <%= text_field_tag 'dams_object[citationNoteDisplayLabel][]', @dams_object.citationNoteDisplayLabel[0], class: "input-block-level" %>
 
   <h3>Relationship</h3>
   <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
@@ -75,14 +88,33 @@
   	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
   <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"><%= select_tag 'dams_object[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
+   <% if !@simpleSubjectValue.nil? && @simpleSubjectValue.length > 0%>
+	  <br><input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
+    <% elsif !@simple_subject_type.nil? && @simple_subject_type.length == 0%>
+    	<div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag 'dams_object[subjectTypeValue][]', "", class: "input-block-level"  %>
+    <% else %>
+		<div id="simpleSubject"><%= select_tag 'dams_object[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div>    
+   <% end %>
+ 
   <%#=text_field_tag 'dams_object[subjectTypeValue][]', @dams_object.subjectTypeValue[0] , class: "input-block-level" %>  
-  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
+  
+
   <%# @dams_object.subject.each_with_index do |s,i| %>
   	<%#= label_tag "dams_object_subject_#{i}", "Subject" %>
   		<%#= text_field_tag "dams_object[subject][]", s.name, :id => "dams_object_subject_#{i}", class: "input-block-level"  %>
   <%# end %>
-  
+
+  <h3>Name</h3>
+  <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray, :selected => @simple_name_type) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
+  <% if !@simple_name_value.nil? && @simple_name_value.length > 0%>
+  	<br>
+  	<%=text_field_tag 'dams_object[nameTypeValue][]', @simple_name_value , class: "input-block-level"%>
+  <% elsif !@simple_name_type.nil? && @simple_name_type.length == 0%>
+	<div id="name"></div> OR Enter Name<%=text_field_tag 'dams_object[nameTypeValue][]' , "", class: "input-block-level"%>    
+  <% else %>
+	<div id="name"><%= select_tag 'dams_object[nameURI][]', options_for_select(@simple_names, :selected => @simple_name_id), :prompt=>"Select Name" %></div>  
+  <% end %>
+     
   <h3>Rights</h3>
   <%= label_tag 'dams_object[copyrightURI][]', "Copyrights" %>
   <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights, :selected => @copyright_id), :prompt=>"Select Copyright", required: true%>

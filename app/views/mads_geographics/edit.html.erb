@@ -14,7 +14,6 @@
 		
 			<%= label_tag 'mads_geographic[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_geographic[externalAuthority][]', @mads_geographic.externalAuthority, class: "input-block-level" %>
-
 		      <%= f.fields_for :scheme, include_id: false do |se| %>
 		        <%= se.label :id, "Scheme" %>
 		        <%= se.select :id, options_for_select(@mads_schemes , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>

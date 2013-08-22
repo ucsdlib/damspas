@@ -1,0 +1,28 @@
+<%
+   videoURL = nil
+
+   prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+   objid = @document['id']
+   cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
+   fieldData = @document["#{prefix}files_tesim"]
+
+   if fieldData != nil
+     fieldData.each do |datum|
+       files = JSON.parse(datum)
+       if files['use'] == 'video-service'
+         fileid = cmpid + '-' + files['id']
+         encrypted = encrypt_stream_name( objid, fileid, request.ip )
+         #encrypted = 'blahblahblah'
+         videoURL = ViewOptions::VIDEO_PARTIAL_URL + encrypted
+       end
+     end
+   end
+
+   dataForDynamicLoad = "{\"file_type\":\"video\",\"display_file_path\":\"#{videoURL}\",\"service_file_path\":\"\"}".html_safe
+%>
+
+<% if videoURL != nil %>
+
+  <div id="dams-video-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</div>
+
+<% end %>

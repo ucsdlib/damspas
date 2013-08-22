@@ -1,0 +1,15 @@
+<h1>Create a new Dams Iconography</h1>
+<%= form_for @dams_iconography do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'dams_iconography[name]', "Name" %>
+  <%= text_field_tag 'dams_iconography[name]' %>
+  <%= label_tag 'dams_iconography[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'dams_iconography[externalAuthority]' %> 
+  <%= label_tag 'dams_iconography[elementValue]', "IconographyElement" %>
+  <%= text_field_tag 'dams_iconography[elementValue]' %> 
+  <br>
+  <%= select_tag 'dams_iconography[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

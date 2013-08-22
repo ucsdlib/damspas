@@ -4,13 +4,22 @@
 %>
 
 <% if fieldData != nil %>
+
 	<hgroup>
 	<% fieldData.each do |datum| %>
 		<% title = JSON.parse(datum) %>
 		<h1><%= title['value'] %></h1>
-		<% if title['subtitle'] != '' %>
+		<% if title['subtitle'] != [] %>
 			<h2><%= title['subtitle'] %></h2>
 		<% end %>
+		<% break %>
 	<% end %>
 	</hgroup>
+
+<% elsif defined?(componentIndex) %>
+
+  <hgroup>
+    <h1>Generic Component Title <%= componentIndex %></h1>
+  </hgroup>
+
 <% end %>

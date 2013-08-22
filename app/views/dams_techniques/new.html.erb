@@ -1,0 +1,15 @@
+<h1>Create a new Dams Technique</h1>
+<%= form_for @dams_technique do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'dams_technique[name]', "Name" %>
+  <%= text_field_tag 'dams_technique[name]' %>
+  <%= label_tag 'dams_technique[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'dams_technique[externalAuthority]' %> 
+  <%= label_tag 'dams_technique[elementValue]', "TechniqueElement" %>
+  <%= text_field_tag 'dams_technique[elementValue]' %> 
+  <br>
+  <%= select_tag 'dams_technique[scheme]', options_for_select(@mads_schemes ) , :prompt=>"Select MadsScheme" %>    
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

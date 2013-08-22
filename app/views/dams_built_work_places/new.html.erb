@@ -1,0 +1,16 @@
+<h1>Create a new Dams BuiltWorkPlace</h1>
+<%= form_for @dams_built_work_place do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'dams_built_work_place[name]', "Name" %>
+  <%= text_field_tag 'dams_built_work_place[name]' %>
+  <%= label_tag 'dams_built_work_place[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'dams_built_work_place[externalAuthority]' %> 
+  <%= label_tag 'dams_built_work_place[elementValue]', "BuiltWorkPlaceElement" %>
+  <%= text_field_tag 'dams_built_work_place[elementValue]' %> 
+  <br>
+  <%= select_tag 'dams_built_work_place[scheme]', options_for_select(@mads_schemes ) , :prompt=>"Select MadsScheme" %>    
+   
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>

@@ -20,7 +20,7 @@ describe MadsLanguagesController do
       after { scheme.destroy }
 
       it "should set the attributes" do
-        post :create, mads_language: {"name"=>"TestLabel", "code"=>"testCode", "externalAuthority"=>"http://test.com", "languageElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme.pid}"}]}
+        post :create, mads_language: {"name"=>"TestLabel", "code"=>"testCode", "externalAuthority"=>"http://test.com", "languageElement_attributes"=>{"0"=>{"elementValue"=>"Test Language"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme.pid}"}]}
         flash[:notice].should == "Language has been saved"
         response.should redirect_to mads_language_path(assigns[:mads_language])
 
@@ -43,7 +43,7 @@ describe MadsLanguagesController do
       end
 
       it "should set the attributes" do
-        put :update, id: language, mads_language: {"name"=>"TestLabel", "code"=>"testCode", "externalAuthority"=>"http://test.com", "languageElement_attributes"=>{"0"=>{"elementValue"=>"Baseball"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme2.pid}"}]}
+        put :update, id: language, mads_language: {"name"=>"TestLabel", "code"=>"testCode", "externalAuthority"=>"http://test.com", "languageElement_attributes"=>{"0"=>{"elementValue"=>"Test Language 2"}}, "scheme_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/#{scheme2.pid}"}]}
         flash[:notice].should == "Successfully updated Language"
         response.should redirect_to mads_language_path(assigns[:mads_language])
 

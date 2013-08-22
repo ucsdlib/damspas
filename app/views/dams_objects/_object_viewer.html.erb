@@ -12,9 +12,9 @@
 					fileType = grabFileUse()
 					display_file = grabDisplayFile()
 					service_file = grabServiceFile()
-					display_file_path = (display_file != 'no_display') ? file_path(ark,display_file) : ''
+					display_file_path = (display_file != 'no_display') ? file_path(ark,"_#{display_file}") : ''
                     if service_file != nil 
-					  service_file_path = file_path(ark,service_file)
+					  service_file_path = file_path(ark,"_#{service_file}")
                     end
 				%>
 

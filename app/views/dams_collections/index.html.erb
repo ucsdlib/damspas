@@ -1,10 +1,47 @@
 <div class="row">
-	<div class="span12">
-		<h1>Collections</h1>
-		<ul class="thumbnails">
+	<div class="span6">
+	
+
+		<h3>Collections</h3>
+		<ul>
 			<% @document.each do |col| %>
-				<%= render :partial => 'preview', :locals => { :col => col } %>
-			<% end %>
+
+            <% if (col['type_tesim'] != nil) %>
+              <% col['type_tesim'].each do |datum|%>
+               
+                
+                <% if (datum == "AssembledCollection")%>
+
+                
+	              <li><%= link_to col['title_tesim'].first, dams_assembled_collection_path(col['id']) %></li>
+	           
+	           <% elsif (datum == "ProvenanceCollection") %>
+		          <li><%= link_to col['title_tesim'].first, dams_provenance_collection_path(col['id']) %></li>  
+	                
+	              <%if col['part_json_tesim']!= nil %>
+	                <% col['part_json_tesim'].each do |value| %>
+			        <% part = JSON.parse(value) %>
+			        <% if part['name'] != '' && part['id'] !=''%>
+				     <ul> <%= link_to part['name'], dams_collection_path(part['id']) %></ul>
+			        <% end %>
+		           <% end %>
+	              <% end %>
+                <% end %>
+              <% end %>
+             <% end %>
+            <% end %>    
 		</ul>
+	
+
+
+
+     
 	</div>
 </div>
+
+
+
+
+
+
+

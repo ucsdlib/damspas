@@ -43,16 +43,30 @@
   <%= text_field_tag 'dams_object[noteValue][]' %> 
   <%= label_tag 'dams_object[noteType][]', "Note Type" %>
   <%= text_field_tag 'dams_object[noteType][]' %> 
-  <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Displaylabel" %>
-  <%= text_field_tag 'dams_object[noteDisplayLabel][]' %> 
-    
-  <%= label_tag 'dams_object[scopeContentNoteValue][]', "Scope Content Note" %>
+  <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Display label" %>
+  <%= text_field_tag 'dams_object[noteDisplayLabel][]' %>
+
+  <h3>Scope Content Note</h3>
   <%= text_field_tag 'dams_object[scopeContentNoteValue][]' %>  
-  <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Note Type" %>
+  <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Type" %>
   <%= text_field_tag 'dams_object[scopeContentNoteType][]' %> 
-  <%= label_tag 'dams_object[scopeContentNoteDisplayLabel][]', "Scope Content Note Display Label" %>
+  <%= label_tag 'dams_object[scopeContentNoteDisplayLabel][]', "Scope Content Display Label" %>
   <%= text_field_tag 'dams_object[scopeContentNoteDisplayLabel][]' %>
-  
+
+  <h3>Custodial Responsibility Note</h3>
+  <%= text_field_tag 'dams_object[responsibilityNoteValue][]' %>  
+  <%= label_tag 'dams_object[responsibilityNoteType][]', "Custodial Responsibility Type" %>
+  <%= text_field_tag 'dams_object[responsibilityNoteType][]' %> 
+  <%= label_tag 'dams_object[responsibilityDisplayLabel][]', "Custodial Responsibility Display Label" %>
+  <%= text_field_tag 'dams_object[responsibilityNoteDisplayLabel][]' %>
+
+  <h3>Preferred Citation Note</h3>
+  <%= text_field_tag 'dams_object[citationNoteValue][]' %>  
+  <%= label_tag 'dams_object[citationNoteType][]', "Preferred Citation Type" %>
+  <%= text_field_tag 'dams_object[citationNoteType][]' %> 
+  <%= label_tag 'dams_object[citationNoteDisplayLabel][]', "Preferred Citation Display Label" %>
+  <%= text_field_tag 'dams_object[citationNoteDisplayLabel][]' %>
+    
   <h3>Relationship</h3>
   <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
   <br>
@@ -73,7 +87,7 @@
        
   <h3>Simple Subject</h3>
   <%
-  	 subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+  	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
   <%#= label_tag 'dams_object[subjectType][]', "Simple Subject" %>
   <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
@@ -81,7 +95,11 @@
   <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
   <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
-  
+
+  <h3>Name</h3>
+  <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
+  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_object[nameTypeValue][]' %>
+    
   <h3>Rights</h3>
   <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: true %>
   <br>
@@ -119,7 +137,7 @@
   <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
 
   <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", dams_units_path, class: "btn btn-primary" %>   
+  <%= link_to "Cancel", dams_objects_path, class: "btn btn-primary" %>   
 <%end%>
   
 <%#= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %>

@@ -81,59 +81,117 @@ module Dams
 	  	elsif !object.stylePeriod[0].nil?
 	  		type = "MadsStylePeriod" 	  	
 	  	elsif !object.technique[0].nil?
-	  		type = "DamsTechnique" 	  	 		  		
-	  	elsif !object.name[0].nil?
-	  		type = "MadsName" 	  	
-	  	elsif !object.conferenceName[0].nil?
-	  		type = "MadsConferenceName" 	  	
-	  	elsif !object.corporateName[0].nil?
-	  		type = "MadsCorporateName" 	  	  	
-	  	elsif !object.personalName[0].nil?
-	  		type = "MadsPersonalName" 
-	  	elsif !object.familyName[0].nil?
-	  		type = "MadsFamilyName" 	
-	  	end
+	  		type = "DamsTechnique"
+	  	end 	  	 		  		
 		type   
     end
     
     def get_simple_subject_id(object)
     	id = ""
     	if !object.temporal[0].nil?   
-	  		id = @dams_object.temporal.to_s.gsub(/.*\//,'')[0..9]
+	  		id = object.temporal.to_s.gsub(/.*\//,'')[0..9]
 	  	elsif !object.topic[0].nil?
-	  		id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9]
+	  		id = object.topic.to_s.gsub(/.*\//,'')[0..9]
 	  	elsif !object.builtWorkPlace[0].nil?
-	  		id = @dams_object.builtWorkPlace.to_s.gsub(/.*\//,'')[0..9] 
+	  		id = object.builtWorkPlace.to_s.gsub(/.*\//,'')[0..9] 
 	  	elsif !object.culturalContext[0].nil?
-	  		id = @dams_object.culturalContext.to_s.gsub(/.*\//,'')[0..9] 
+	  		id = object.culturalContext.to_s.gsub(/.*\//,'')[0..9] 
 	  	elsif !object.function[0].nil?
-	  		id = @dams_object.function.to_s.gsub(/.*\//,'')[0..9] 
+	  		id = object.function.to_s.gsub(/.*\//,'')[0..9] 
 	  	elsif !object.genreForm[0].nil?
-	  		id = @dams_object.genreForm.to_s.gsub(/.*\//,'')[0..9]
+	  		id = object.genreForm.to_s.gsub(/.*\//,'')[0..9]
 	  	elsif !object.geographic[0].nil?
-	  		id = @dams_object.geographic.to_s.gsub(/.*\//,'')[0..9]
+	  		id = object.geographic.to_s.gsub(/.*\//,'')[0..9]
 	  	elsif !object.iconography[0].nil?
-	  		id = @dams_object.iconography.to_s.gsub(/.*\//,'')[0..9] 	  	
+	  		id = object.iconography.to_s.gsub(/.*\//,'')[0..9] 	  	
 	  	elsif !object.occupation[0].nil?
-	  		id = @dams_object.occupation.to_s.gsub(/.*\//,'')[0..9] 	  	
+	  		id = object.occupation.to_s.gsub(/.*\//,'')[0..9] 	  	
 	  	elsif !object.scientificName[0].nil?
-	  		id = @dams_object.scientificName.to_s.gsub(/.*\//,'')[0..9]
+	  		id = object.scientificName.to_s.gsub(/.*\//,'')[0..9]
 	  	elsif !object.stylePeriod[0].nil?
-	  		id = @dams_object.stylePeriod.to_s.gsub(/.*\//,'')[0..9] 	  	
+	  		id = object.stylePeriod.to_s.gsub(/.*\//,'')[0..9] 	  	
 	  	elsif !object.technique[0].nil?
-	  		id = @dams_object.technique.to_s.gsub(/.*\//,'')[0..9] 	  	 		  		
-	  	elsif !object.name[0].nil?
-	  		id = @dams_object.name.to_s.gsub(/.*\//,'')[0..9]	  	
-	  	elsif !object.conferenceName[0].nil?
-	  		id = @dams_object.conferenceName.to_s.gsub(/.*\//,'')[0..9]	  	
-	  	elsif !object.corporateName[0].nil?
-	  		id = @dams_object.corporateName.to_s.gsub(/.*\//,'')[0..9] 	  	  	
-	  	elsif !object.personalName[0].nil?
-	  		id = @dams_object.personalName.to_s.gsub(/.*\//,'')[0..9] 
-	  	elsif !object.familyName[0].nil?
-	  		id = @dams_object.familyName.to_s.gsub(/.*\//,'')[0..9] 	
+	  		id = object.technique.to_s.gsub(/.*\//,'')[0..9]
 	  	end
 		id   
-    end              
+    end
+    
+    def get_simple_subject_value(object)
+    	value = ""
+    	if !object.temporal[0].nil?   
+	  		value = object.temporal.first.name.first
+	  	elsif !object.topic[0].nil?
+	  		value = object.topic.first.name.first
+	  	elsif !object.builtWorkPlace[0].nil?
+	  		value = object.builtWorkPlace.first.name.first
+	  	elsif !object.culturalContext[0].nil?
+	  		value = object.culturalContext.first.name.first
+	  	elsif !object.function[0].nil?
+	  		value = object.function.first.name.first 
+	  	elsif !object.genreForm[0].nil?
+	  		value = object.genreForm.first.name.first
+	  	elsif !object.geographic[0].nil?
+	  		value = object.geographic.first.name.first
+	  	elsif !object.iconography[0].nil?
+	  		value = object.iconography.first.name.first 	  	
+	  	elsif !object.occupation[0].nil?
+	  		value = object.occupation.first.name.first 	  	
+	  	elsif !object.scientificName[0].nil?
+	  		value = object.scientificName.first.name.first
+	  	elsif !object.stylePeriod[0].nil?
+	  		value = object.stylePeriod.first.name.first 	  	
+	  	elsif !object.technique[0].nil?
+	  		value = object.technique.first.name.first 	  	 		  		
+	  	end
+		value   
+    end  
+    
+    def get_name_type(object)
+    	type = ""
+   		if !object.name[0].nil?
+	  		type = "Name" 	  	
+	  	elsif !object.conferenceName[0].nil?
+	  		type = "ConferenceName" 	  	
+	  	elsif !object.corporateName[0].nil?
+	  		type = "CorporateName" 	  	  	
+	  	elsif !object.personalName[0].nil?
+	  		type = "PersonalName" 
+	  	elsif !object.familyName[0].nil?
+	  		type = "FamilyName" 	
+	  	end
+		type   
+    end
+    
+   def get_name_id(object)
+    	id = ""
+		if !object.name[0].nil?
+	  		id = object.name.to_s.gsub(/.*\//,'')[0..9]	  	
+	  	elsif !object.conferenceName[0].nil?
+	  		id = object.conferenceName.to_s.gsub(/.*\//,'')[0..9]	  	
+	  	elsif !object.corporateName[0].nil?
+	  		id = object.corporateName.to_s.gsub(/.*\//,'')[0..9] 	  	  	
+	  	elsif !object.personalName[0].nil?
+	  		id = object.personalName.to_s.gsub(/.*\//,'')[0..9] 
+	  	elsif !object.familyName[0].nil?
+	  		id = object.familyName.to_s.gsub(/.*\//,'')[0..9] 	
+	  	end
+		id   
+    end
+    
+    def get_name_value(object)
+    	value = ""
+    	if !object.name[0].nil?
+	  		value = object.name.first.name.first	  	
+	  	elsif !object.conferenceName[0].nil?
+	  		value = object.conferenceName.first.name.first	  	
+	  	elsif !object.corporateName[0].nil?
+	  		value = object.corporateName.first.name.first 	  	  	
+	  	elsif !object.personalName[0].nil?
+	  		value = object.personalName.first.name.first 
+	  	elsif !object.familyName[0].nil?
+	  		value = object.familyName.first.name.first 	
+	  	end
+		value   
+    end                               
   end
 end

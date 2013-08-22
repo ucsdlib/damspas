@@ -35,7 +35,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
     # related resources and events
-    map.relatedResource(:in => DAMS, :to=>'otherResource', :class_name => 'RelatedResource')
+    map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
     # unit and collections
@@ -102,9 +102,10 @@ class DamsObjectDatastream < DamsResourceDatastream
       else
         graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
       end
-    end          
+    end             
     insertSubjectsGraph
-    insertCopyRightsInfoGraph                        
+    insertCopyRightsInfoGraph
+    insertNameGraph                      
     super
   end
 
@@ -165,7 +166,16 @@ class DamsObjectDatastream < DamsResourceDatastream
       end
     end     
   end
-  
+
+  def insertNameGraph  
+	if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
+      if new?
+        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      else
+        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+      end
+    end     
+  end  
   def load_unit(unit)
 	if !unit.first.nil?
 	    u_pid = unit.first.pid
@@ -548,8 +558,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     if col != nil
       col.each do |collection|
         begin
-          Solrizer.insert_field(solr_doc, "collection", collection.title.first.value.first, facetable)
-          Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.value.first)
+          Solrizer.insert_field(solr_doc, "collection", collection.title.first.name, facetable)
+          Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.name)
           Solrizer.insert_field(solr_doc, "collections", collection.pid)
           col_json = {
             :id => collection.pid,

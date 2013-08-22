@@ -124,6 +124,88 @@ def relatedResourceUri
     end
   end
 
+ ## custodialResponsibilityNote ######################################################################
+ 
+  def responsibilityNoteType
+    custodialResponsibilityNote[0] ? custodialResponsibilityNote[0].type : []
+  end
+  def responsibilityNoteType=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      custodialResponsibilityNote.build if custodialResponsibilityNote[0] == nil
+      custodialResponsibilityNote[0].type = val
+    end
+  end   
+  
+ def responsibilityNoteDisplayLabel
+    custodialResponsibilityNote[0] ? custodialResponsibilityNote[0].displayLabel : []
+  end
+  def responsibilityNoteDisplayLabel=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      custodialResponsibilityNote.build if custodialResponsibilityNote[0] == nil
+      custodialResponsibilityNote[0].displayLabel = val
+    end
+  end   
+
+  def responsibilityNoteValue
+    custodialResponsibilityNote[0] ? custodialResponsibilityNote[0].value : []
+  end
+  def responsibilityNoteValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      custodialResponsibilityNote.build if custodialResponsibilityNote[0] == nil
+      custodialResponsibilityNote[0].value = val
+    end
+  end   
+
+ ## preferredCitationNote ######################################################################
+ 
+  def citationNoteType
+    preferredCitationNote[0] ? preferredCitationNote[0].type : []
+  end
+  def citationNoteType=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      preferredCitationNote.build if preferredCitationNote[0] == nil
+      preferredCitationNote[0].type = val
+    end
+  end   
+  
+ def citationNoteDisplayLabel
+    preferredCitationNote[0] ? preferredCitationNote[0].displayLabel : []
+  end
+  def citationNoteDisplayLabel=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      preferredCitationNote.build if preferredCitationNote[0] == nil
+      preferredCitationNote[0].displayLabel = val
+    end
+  end   
+
+  def citationNoteValue
+    preferredCitationNote[0] ? preferredCitationNote[0].value : []
+  end
+  def citationNoteValue=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      preferredCitationNote.build if preferredCitationNote[0] == nil
+      preferredCitationNote[0].value = val
+    end
+  end
+    
   ## Title ######################################################################
   def subtitle
     title[0] ? title[0].subtitle : []
@@ -239,17 +321,7 @@ def relatedResourceUri
 	elsif(!@subType.nil? && (@subType.include? 'Technique'))
 	    technique[0] ? technique[0].name : []	
 	elsif(!@subType.nil? && (@subType.include? 'Temporal'))
-	    temporal[0] ? temporal[0].name : []	    	 
-	elsif(!@subType.nil? && (@subType.include? 'PersonalName'))
-	    personalName[0] ? personalName[0].name : []
-	elsif(!@subType.nil? && (@subType.include? 'CorporateName'))
-	    corporateName[0] ? corporateName[0].name : []
-	elsif(!@subType.nil? && (@subType.include? 'FamilyName'))
-	    familyName[0] ? familyName[0].name : []
-	elsif(!@subType.nil? && (@subType.include? 'ConferenceName'))
-	    conferenceName[0] ? conferenceName[0].name : []	  
-	elsif(!@subType.nil? && (@subType.include? 'Name'))
-	    name[0] ? name[0].name : []	  	    	    	  	    	  	 	    	  	       	    	        	    	    	    
+	    temporal[0] ? temporal[0].name : []	  	    	  	 	    	  	       	    	        	    	    	    
     end
   end
   def subjectTypeValue=(val)
@@ -265,11 +337,6 @@ def relatedResourceUri
     stylePeriodIndex = 0
     techniqueIndex = 0
     temporalIndex = 0
-    corporateNameIndex = 0
-    personalNameIndex = 0
-    familyNameIndex = 0
-    conferenceNameIndex = 0
-    nameIndex = 0
     occupationIndex = 0
     
 	val.each do |v| 
@@ -313,27 +380,11 @@ def relatedResourceUri
 			elsif(!@subType[i].nil? && (@subType[i].include? 'Temporal'))
 			    temporal.build if temporal[temporalIndex] == nil
 			    temporal[temporalIndex].name = v	
-			    temporalIndex+=1		
-			elsif(!@subType[i].nil? && (@subType[i].include? 'PersonalName'))
-			    personalName.build if personalName[personalNameIndex] == nil
-			    personalName[personalNameIndex].name = v	
-			    personalNameIndex+=1				    
-			elsif(!@subType[i].nil? && (@subType[i].include? 'CorporateName'))
-			    corporateName.build if corporateName[corporateNameIndex] == nil
-			    corporateName[corporateNameIndex].name = v	
-			    corporateNameIndex+=1	
-			elsif(!@subType[i].nil? && (@subType[i].include? 'ConferenceName'))
-			    conferenceName.build if conferenceName[conferenceNameIndex] == nil
-			    conferenceName[conferenceNameIndex].name = v	
-			    conferenceNameIndex+=1	
-			elsif(!@subType[i].nil? && (@subType[i].include? 'FamilyName'))
-			    familyName.build if familyName[familyNameIndex] == nil
-			    familyName[familyNameIndex].name = v	
-			    familyNameIndex+=1	
-			elsif(!@subType[i].nil? && (@subType[i].include? 'Name'))
-			    name.build if name[nameIndex] == nil
-			    name[nameIndex].name = v	
-			    nameIndex+=1
+			    temporalIndex+=1
+			elsif(!@subType[i].nil? && (@subType[i].include? 'StylePeriod'))
+			    stylePeriod.build if stylePeriod[stylePeriodIndex] == nil
+			    stylePeriod[stylePeriodIndex].name = v	
+			    stylePeriodIndex+=1				    
 			elsif(!@subType[i].nil? && (@subType[i].include? 'Occupation'))
 			    occupation.build if occupation[occupationIndex] == nil
 			    occupation[occupationIndex].name = v	
@@ -376,7 +427,85 @@ def relatedResourceUri
       @subURI
     end
   end  
+
+  ## Name ###########################################################################
+  def nameType
+    @nameTypeArray
+  end
+  def nameType=(val)
+    @nameTypeArray = Array.new
+    i = 0
+	val.each do |v| 
+	    if(!v.nil? && v.length > 0)
+	    	 @nameTypeArray << v 	
+	    end
+		i+=1
+	end
+  end  
   
+  def nameTypeValue
+    if(!@nameTypeArray.nil? && (@nameTypeArray.include? 'PersonalName'))
+	    personalName[0] ? personalName[0].name : []
+	elsif(!@nameTypeArray.nil? && (@nameTypeArray.include? 'CorporateName'))
+	    corporateName[0] ? corporateName[0].name : []
+	elsif(!@nameTypeArray.nil? && (@nameTypeArray.include? 'FamilyName'))
+	    familyName[0] ? familyName[0].name : []
+	elsif(!@nameTypeArray.nil? && (@nameTypeArray.include? 'ConferenceName'))
+	    conferenceName[0] ? conferenceName[0].name : []	  
+	elsif(!@nameTypeArray.nil? && (@nameTypeArray.include? 'Name'))
+	    name[0] ? name[0].name : []	  	    	    	  	    	  	 	    	  	       	    	        	    	    	    
+    end
+  end
+  def nameTypeValue=(val)
+    i = 0  
+    corporateNameIndex = 0
+    personalNameIndex = 0
+    familyNameIndex = 0
+    conferenceNameIndex = 0
+    nameIndex = 0
+    
+	val.each do |v| 
+		if(!v.nil? && v.length > 0)
+			if(!@nameTypeArray[i].nil? && (@nameTypeArray[i].include? 'PersonalName'))
+			    personalName.build if personalName[personalNameIndex] == nil
+			    personalName[personalNameIndex].name = v	
+			    personalNameIndex+=1				    
+			elsif(!@nameTypeArray[i].nil? && (@nameTypeArray[i].include? 'CorporateName'))
+			    corporateName.build if corporateName[corporateNameIndex] == nil
+			    corporateName[corporateNameIndex].name = v	
+			    corporateNameIndex+=1	
+			elsif(!@nameTypeArray[i].nil? && (@nameTypeArray[i].include? 'ConferenceName'))
+			    conferenceName.build if conferenceName[conferenceNameIndex] == nil
+			    conferenceName[conferenceNameIndex].name = v	
+			    conferenceNameIndex+=1	
+			elsif(!@nameTypeArray[i].nil? && (@nameTypeArray[i].include? 'FamilyName'))
+			    familyName.build if familyName[familyNameIndex] == nil
+			    familyName[familyNameIndex].name = v	
+			    familyNameIndex+=1	
+			elsif(!@nameTypeArray[i].nil? && (@nameTypeArray[i].include? 'Name'))
+			    name.build if name[nameIndex] == nil
+			    name[nameIndex].name = v	
+			    nameIndex+=1			    			    			    			    			    		    			    			    			    	    
+		    end			    				    			    			    			    			    		    			    			    			    	    	    
+		end
+		i+=1
+	end
+  end
+
+  def nameURI
+    if @name_URI != nil
+      @name_URI
+    end
+  end 
+  def nameURI=(val)
+    if val.class == Array
+    	val = val.first
+    end
+	 if(!val.nil? && val.first.length > 0)
+	    @name_URI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
+	  end
+  end 
+    
   ## Language ######################################################################  
   def languageURI
     if @langURI != nil
@@ -597,12 +726,12 @@ def relatedResourceUri
       existing_elem.elementValue = val
     else
       # create a new element of the correct type
-      if type.include? "BuiltWorkPlaceElement"
-        elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
-	  elsif type.include? "BuiltWorkPlaceElement"
-        elem = MadsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
+      if type.include? "TopicElement"
+        elem = MadsDatastream::List::TopicElement.new(elementList.first.graph)
+      elsif type.include? "BuiltWorkPlaceElement"
+        elem = DamsDatastream::List::BuiltWorkPlaceElement.new(elementList.first.graph)
 	  elsif type.include? "CulturalContextElement"
-        elem = MadsDatastream::List::CulturalContextElement.new(elementList.first.graph)
+        elem = DamsDatastream::List::CulturalContextElement.new(elementList.first.graph)
       elsif type.include? "FunctionElement"
         elem = DamsDatastream::List::FunctionElement.new(elementList.first.graph)
 	  elsif type.include? "GenreFormElement"
@@ -610,13 +739,13 @@ def relatedResourceUri
       elsif type.include? "GeographicElement"
         elem = MadsDatastream::List::GeographicElement.new(elementList.first.graph)
 	  elsif type.include? "IconographyElement"
-        elem = MadsDatastream::List::IconographyElement.new(elementList.first.graph)
-	  elsif type.include? "LanguageElement"
-        elem = MadsDatastream::List::LanguageElement.new(elementList.first.graph)
+        elem = DamsDatastream::List::IconographyElement.new(elementList.first.graph)
+      elsif type.include? "StylePeriodElement"
+        elem = DamsDatastream::List::StylePeriodElement.new(elementList.first.graph)
 	  elsif type.include? "ScientificNameElement"
         elem = MadsDatastream::List::ScientificNameElement.new(elementList.first.graph)
       elsif type.include? "TechniqueElement"
-        elem = MadsDatastream::List::TechniqueElement.new(elementList.first.graph)
+        elem = DamsDatastream::List::TechniqueElement.new(elementList.first.graph)
 	  elsif type.include? "TemporalElement"
         elem = MadsDatastream::List::TemporalElement.new(elementList.first.graph)     
 	  elsif type.include? "OccupationElement"
