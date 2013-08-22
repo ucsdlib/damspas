@@ -22,10 +22,14 @@
 
 		<%= render :partial => 'shared/fields/title', :locals => {:componentIndex => i} %>
 
-		<% if fileType == 'image' || fileType == 'audio' %>
+		<% if fileType == 'image' %>
 
 			<div data='<%=dataForDynamicLoad%>'></div>
 			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
+
+	  <% elsif fileType == 'audio' %>
+
+	    <%= render :partial => 'audio_viewer_complex', :locals => {:componentIndex => i} %>
 
 	  <% elsif fileType == 'video' %>
 
