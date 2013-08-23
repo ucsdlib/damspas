@@ -61,7 +61,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
     map.cartographics(:in => DAMS, :to => 'cartographics', :class_name => 'DamsCartographicsInternal')
   end
- 
+  accepts_nested_attributes_for :title
   rdf_subject { |ds|
     RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
   }
