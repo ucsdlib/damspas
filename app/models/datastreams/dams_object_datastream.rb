@@ -472,9 +472,13 @@ class DamsObjectDatastream < DamsResourceDatastream
       @parents[cid] = Array.new
 
       # child components
-      component.subcomponent.map.sort.each { |subcomponent|
-        subid = /\/(\w*)$/.match(subcomponent.to_s)
-        gid = subid[1].to_i
+      component.subcomponent.map.each { |subcomponent|
+        if subcomponent.respond_to?(:id)
+          gid = subcomponent.id
+        else
+          subid = /\/(\w*)$/.match(subcomponent.to_s)
+          gid = subid[1].to_i
+        end
         @children << gid
         Solrizer.insert_field(solr_doc, "component_#{cid}_children", gid, storedIntMulti)
         @parents[cid] << gid

@@ -139,14 +139,14 @@ module Dams
 	      # add new element to the end of the list
 	      #if elementList.first.nil?
 	      #  elementList.first.value = elem
-	      else
-	        elementList.first[elementList.first.size] = elem
-	      end
+	      #else
+	        elementList[elementList.size] = elem
+	      #end
 	    end
 	  end
 	   
 	  def find_element( type )
-	    chain = elementList.first
+	    chain = elementList
 	    elem = nil
 	    while  elem == nil && chain != nil do
 	      if chain.first.class.name.include? type
