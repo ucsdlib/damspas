@@ -2,11 +2,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   include DamsHelper
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
-  def serialize
-    super
-  end
-
-def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
+  def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
       coltype.each do |col|

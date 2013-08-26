@@ -100,7 +100,7 @@ module Dams
         end
       end
       def to_solr (solr_doc={})
-        #Solrizer.insert_field(solr_doc, 'name', name)
+        Solrizer.insert_field(solr_doc, 'name', name)
         if elementList.first
           Solrizer.insert_field(solr_doc, "name_element", nameValue)
           Solrizer.insert_field(solr_doc, "given_name_element", givenNameValue)

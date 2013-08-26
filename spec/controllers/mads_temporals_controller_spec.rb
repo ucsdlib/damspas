@@ -31,7 +31,7 @@ describe MadsTemporalsController do
         assigns[:mads_temporal].scheme.first.name.should == ['Test Scheme']
 
       end
-      it "should require a name" do  		
+      pending "should require a name" do  		
 	  	  temporalObject = MadsTemporal.create(name: "", externalAuthority: "http://test.com")
 	  	  temporalObject.valid?
 	      temporalObject.errors.should have_key(:label)

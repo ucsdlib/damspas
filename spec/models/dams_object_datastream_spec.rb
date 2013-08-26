@@ -257,7 +257,6 @@ describe DamsObjectDatastream do
 
 	  before do
 	    subject.titleValue = "Test Title"
-	    subject.title.first.name = "Test Title"
 	    subject.dateValue = "2013"
 	    #subject.subject = "Test subject"
 	  end
@@ -271,14 +270,14 @@ describe DamsObjectDatastream do
       </dams:Date>
     </dams:date>
     <dams:title>
-<mads:Title>
-  <mads:authoritativeLabel>Test Title</mads:authoritativeLabel>
-  <mads:elementList rdf:parseType="Collection">
-    <mads:MainTitleElement>
-      <mads:elementValue>Test Title</mads:elementValue>
-    </mads:MainTitleElement>
-  </mads:elementList>
-</mads:Title>
+      <mads:Title>
+        <mads:authoritativeLabel>Test Title</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Test Title</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
     </dams:title>
   </dams:Object>
 </rdf:RDF>

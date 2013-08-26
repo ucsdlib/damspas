@@ -7,7 +7,6 @@ describe DamsAssembledCollection do
 
   it "should create valid xml" do
     subject.titleValue = "UCSD Electronic Theses and Dissertations"
-    subject.title.first.name = "UCSD Electronic Theses and Dissertations"
     subject.beginDate = "2009-05-03"
     subject.scopeContentNote.build.value = "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
     subject.scopeContentNote.first.displayLabel = "Scope and contents"

@@ -221,22 +221,20 @@ def relatedResourceUri
   end
 
   def titleValue
-    title.first != nil ? title.first.value : nil
+    title.first.value if title.first
   end
   def titleValue=(s)
     title.build if title.first.nil?
     if(!s.nil? && s.length > 0)
-    	title.first.value = s
-    	title.first.name = title.first.label
+      title.first.value = s
     end
   end
   def subtitle
-    title.first != nil ? title.first.subtitle : nil
+    title.first.subtitle if title.first
   end
   def subtitle=(s)
     title.build if title.first.nil?
     title.first.subtitle = s
-    title.first.name = title.first.label
   end
   def titlePartName
     title.first != nil ? title.first.partName : nil
@@ -244,7 +242,6 @@ def relatedResourceUri
   def titlePartName=(s)
     title.build if title.first.nil?
     title.first.partName = s
-    title.first.name = title.first.label
   end
   def titlePartNumber
     title.first != nil ? title.first.partNumber : nil
@@ -252,7 +249,6 @@ def relatedResourceUri
   def titlePartNumber=(s)
     title.build if title.first.nil?
     title.first.partNumber = s
-    title.first.name = title.first.label
   end  
 
    def titleNonSort
@@ -261,7 +257,6 @@ def relatedResourceUri
   def titleNonSort=(s)
     title.build if title.first.nil?
     title.first.nonSort = s
-    title.first.name = title.first.label
   end  
 
   ## Subject ######################################################################
