@@ -10,19 +10,16 @@ feature 'Visitor wants to view an object\'s' do
 
     scenario 'Preferred Citation Note, is on Solr view page' do
       visit dams_object_path('bd22194583')
-      expect(page).to have_selector('strong', :text=>"PREFERRED CITATION")
       expect(page).to have_selector('p', :text=>"PreferredCitationNote value")
     end
 
     scenario 'Scope Content Note, is on Solr view page' do
       visit dams_object_path('bd22194583')
-      expect(page).to have_selector('strong', :text=>"SCOPECONTENTNOTE")
       expect(page).to have_selector('p', :text=>"ScopeContentNote value")
     end
 
     scenario 'Custodial Responsibility Note, is on Solr view page' do
       visit dams_object_path('bd22194583')
-      expect(page).to have_selector('strong', :text=>"CUSTODIAL RESPONSIBILITY")
       expect(page).to have_selector('p', :text=>"CustodialResponsibilityNote value")
     end
 

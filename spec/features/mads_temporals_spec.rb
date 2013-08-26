@@ -20,6 +20,7 @@ feature 'Visitor wants to create/edit a MADS Temporal' do
     end
   
 	scenario 'is on new invalid MADS Temporal page' do
+		pending "should be able to validate the empty title Temporal page..."
 		sign_in_developer
 
 		visit "mads_temporals/new"
