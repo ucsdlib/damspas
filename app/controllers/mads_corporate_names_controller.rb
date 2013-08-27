@@ -11,13 +11,9 @@ class MadsCorporateNamesController < ApplicationController
     parm={ :q => "id_t:#{params[:id]}" }
     @document = get_single_doc_via_search(1,parm)
     @current_corporate_name = @document['name_tesim']
-    #@carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel AND id_t:#{params[:id]}", :qt=>"standard")
-     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
+    @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
   def index
-    # hydra index
-    #@mads_corporate_names = MadsCorporateName.all( :order=>"system_create_dtsi asc" )
-
     # solr index
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsCorporateName"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
@@ -27,39 +23,40 @@ class MadsCorporateNamesController < ApplicationController
   # hydra actions ##############################################################
   ##############################################################################
   def view
-    @mads_corporate_name = MadsCorporateName.find(params[:id])
   end
 
   def new
+    @mads_corporate_name.elementList.fullNameElement.build
+    @mads_corporate_name.scheme.build           
   	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_corporate_name = MadsCorporateName.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@mads_corporate_name.scheme != nil)
-      @scheme_id = @mads_corporate_name.scheme.to_s.gsub /.*\//, ""
-      #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
-    end
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = Rails.configuration.id_namespace+@mads_corporate_name.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_corporate_name.attributes = params[:mads_corporate_name]
     if @mads_corporate_name.save
-        redirect_to @mads_corporate_name, notice: "corporate_name has been saved"
+        redirect_to @mads_corporate_name, notice: "CorporateName has been saved"
     else
-      flash[:alert] = "Unable to save corporate_name"
+      flash[:alert] = "Unable to save CorporateName"
       render :new
     end
   end
 
   def update
+    @mads_corporate_name.elementList.clear
+    @mads_corporate_name.scheme.clear  
     @mads_corporate_name.attributes = params[:mads_corporate_name]
     if @mads_corporate_name.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated corporate_name"
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated CorporateName"
         else      
-        	redirect_to @mads_corporate_name, notice: "Successfully updated corporate_name"
+        	redirect_to @mads_corporate_name, notice: "Successfully updated CorporateName"
         end
     else
       flash[:alert] = "Unable to save corporate_name"

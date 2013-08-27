@@ -2,14 +2,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   include DamsHelper
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
-  def serialize
-    super
-  end
-
-def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
+  def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
     collections = []
     [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
-      coltype.values.each do |col|
+      coltype.each do |col|
         begin
           # if we have usable metadata, use as-is
           if col.title.first != nil
@@ -60,6 +56,7 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
   # tmp lang class
 #  class Language
 #    include ActiveFedora::RdfObject
+#    include ActiveFedora::Rdf::DefaultNodes
 #    rdf_type DAMS.Language
 #
 #    map_predicates do |map|
@@ -243,7 +240,7 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
   end
   def load_events(event)
     events = []
-    event.values.each do |e|
+    event.each do |e|
       begin
 	      if !e.outcome.first.nil? && e.outcome.first != ""
 	        # use inline data if available
@@ -282,15 +279,15 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
   # helper method to load external classes
   def loadObjects (object,className)
     objects = []
-    object.values.each do |name|
-      name_uri = name.to_s
+    object.each do |o|
+      name_uri = o.to_s
       name_pid = name_uri.gsub(/.*\//,'')
       if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
       	objects << className.find(name_pid)
-      elsif name.name.first.nil? && name.pid != nil    
-        objects << className.find(name.pid)      
+      elsif o.name.first.nil? && o.pid != nil    
+        objects << className.find(o.pid)      
       else 
-      	objects << name
+      	objects << o
        end
     end
   	return objects
@@ -320,6 +317,7 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
     if objects != nil
       objects.each do |obj|
           Solrizer.insert_field(solr_doc, "#{prefix}complexSubject", obj.name)
+          Solrizer.insert_field(solr_doc, 'subject', obj.name)
           Solrizer.insert_field(solr_doc, "#{prefix}subject_topic", obj.name, facetable)
           Solrizer.insert_field(solr_doc, "subject_topic", obj.name, facetable)
           Solrizer.insert_field(solr_doc, "fulltext", obj.name)
@@ -332,8 +330,7 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
       note_json = {}
       note_obj = nil
       note_uri = no.to_s
-      note_pid = note_uri.gsub(/.*\//,'')     
-	  if no.value.first.nil? && no.pid != nil
+	  if no.value.first.nil? && no.pid != nil && !no.pid.start_with?("_:")
         note_obj = no.load
         note_json[:id] = note_obj.pid.first      
       else 
@@ -395,7 +392,7 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
 	    rel = rel.name    
 	  end
 
-      if rel.first.name.first.nil?
+      if rel.first.nil? || rel.first.name.first.nil?
     	rel = relationship.load  
       end
 	    	  
@@ -619,10 +616,10 @@ def load_collection (collection,assembledCollection,provenanceCollection,provena
     #insertProvenanceCollectionPartFields solr_doc, "provenanceCollectionPart", provenanceCollectionPart
 
     # note
-    insertNoteFields solr_doc, 'note',note
-    insertNoteFields solr_doc, 'custodialResponsibilityNote',custodialResponsibilityNote
-    insertNoteFields solr_doc, 'preferredCitationNote',preferredCitationNote
-    insertNoteFields solr_doc, 'scopeContentNote',scopeContentNote
+    insertNoteFields solr_doc, 'note', note
+    insertNoteFields solr_doc, 'custodialResponsibilityNote', custodialResponsibilityNote
+    insertNoteFields solr_doc, 'preferredCitationNote', preferredCitationNote
+    insertNoteFields solr_doc, 'scopeContentNote', scopeContentNote
 
     # subject - old
     subject.map do |sn|

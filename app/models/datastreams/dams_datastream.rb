@@ -53,6 +53,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     include ActiveFedora::RdfList
     class IconographyElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.IconographyElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -60,6 +61,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
     class ScientificNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.ScientificNameElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -67,6 +69,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end    
     class TechniqueElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.TechniqueElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -74,6 +77,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end        
     class BuiltWorkPlaceElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.BuiltWorkPlaceElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -81,6 +85,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end   
     class CulturalContextElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.CulturalContextElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -88,6 +93,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end       
     class StylePeriodElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.StylePeriodElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
@@ -95,6 +101,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end    
     class FunctionElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type DAMS.FunctionElement
       map_predicates do |map|   
         map.elementValue(:in=> MADS)

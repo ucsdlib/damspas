@@ -57,7 +57,7 @@
         <dams:type>identifier</dams:type>
       </dams:Note>
     </dams:note>
-    <dams:subject>
+    <dams:complexSubject>
       <mads:ComplexSubject>
         <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
         <mads:elementList rdf:parseType="Collection">
@@ -65,7 +65,37 @@
           <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
         </mads:elementList>
       </mads:ComplexSubject>
-    </dams:subject>
+    </dams:complexSubject>
+    <dams:complexSubject>
+      <mads:ComplexSubject>
+        <mads:authoritativeLabel>African Americans--Relations with Mexican Americans--History--20th Century</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX6"/>
+          <mads:TopicElement>
+            <mads:elementValue>Relations with Mexican Americans</mads:elementValue>
+          </mads:TopicElement>
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
+          <mads:TemporalElement>
+            <mads:elementValue>20th century</mads:elementValue>
+          </mads:TemporalElement>
+        </mads:elementList>
+      </mads:ComplexSubject>
+    </dams:complexSubject>
+    <dams:complexSubject>
+      <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5">
+        <mads:authoritativeLabel>Academic dissertations</mads:authoritativeLabel>
+        <mads:componentList rdf:parseType="Collection">
+          <mads:GenreForm>
+            <mads:hasExactExternalAuthority rdf:resource="http://www.rbms.info/committees/bibliographic_standards/controlled_vocabularies/genre/tr19.htm"/>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:GenreFormElement>
+                <mads:elementValue>Academic dissertations</mads:elementValue>
+              </mads:GenreFormElement>
+            </mads:elementList>
+          </mads:GenreForm>
+        </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:complexSubject>
     <dams:note>
       <dams:Note>
         <dams:displayLabel>Abstract</dams:displayLabel>
@@ -98,26 +128,29 @@
     </dams:note>
     <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
     <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
-    <dams:subject>
-      <mads:ComplexSubject>
-        <mads:authoritativeLabel>African Americans--Relations with Mexican Americans--History--20th Century</mads:authoritativeLabel>
-        <mads:elementList rdf:parseType="Collection">
-          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX6"/>
-          <mads:TopicElement>
-            <mads:elementValue>Relations with Mexican Americans</mads:elementValue>
-          </mads:TopicElement>
-          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
-          <mads:TemporalElement>
-            <mads:elementValue>20th century</mads:elementValue>
-          </mads:TemporalElement>
-        </mads:elementList>
-      </mads:ComplexSubject>
-    </dams:subject>
-    <dams:subject rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"/>
     <dams:relationship>
       <dams:Relationship>
-        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
-        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+        <dams:personalName>
+          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1">
+            <mads:authoritativeLabel>Yañez, Angélica María</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:GivenNameElement>
+                <mads:elementValue>Angélica María</mads:elementValue>
+              </mads:GivenNameElement>
+              <mads:FamilyNameElement>
+                <mads:elementValue>Yañez</mads:elementValue>
+              </mads:FamilyNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd55639754">
+		    <mads:isMemberOfMADSScheme rdf:resource="http://library.ucsd.edu/ark:/20775/bd5837217p"/>
+		    <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
+		    <mads:code>cre</mads:code>
+		    <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
+		  </mads:Authority>
+        </dams:role>
       </dams:Relationship>
     </dams:relationship>
     <dams:note>

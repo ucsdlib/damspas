@@ -1,5 +1,6 @@
   class DamsFile
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.File
     map_predicates do |map|
       map.filestore(:in=>DAMS)
@@ -25,7 +26,7 @@
       map.mimeType(:in=>DAMS)
       map.objectCategory(:in=>DAMS)
       map.preservationLevel(:in=>DAMS)
-      #map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
+      map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
       # mix
       map.sourceCapture(:in=>DAMS, :to => 'sourceCapture')

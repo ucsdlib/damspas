@@ -5,7 +5,7 @@ describe MadsAuthorityDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { MadsAuthorityDatastream.new(stub('inner object', :pid=>'bd8396905c', :new? => true), 'damsMetadata') }
+      subject { MadsAuthorityDatastream.new(double('inner object', :pid=>'bd8396905c', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd8396905c"
@@ -35,7 +35,7 @@ describe MadsAuthorityDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = MadsAuthorityDatastream.new(stub('inner object', :pid=>'bd8396905c', :new? =>true), 'damsMetadata')
+        subject = MadsAuthorityDatastream.new(double('inner object', :pid=>'bd8396905c', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsAuthority.rdf.xml').read
         subject
       end

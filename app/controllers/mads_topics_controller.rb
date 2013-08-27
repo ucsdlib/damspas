@@ -32,21 +32,22 @@ class MadsTopicsController < ApplicationController
   end
 
   def new
+    @mads_topic.scheme.build
+    @mads_topic.elementList.topicElement.build
 	@mads_schemes = get_objects('MadsScheme','name_tesim')
+	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    @mads_topic = MadsTopic.find(params[:id])
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@mads_topic.scheme != nil)
-    	@scheme_id = @mads_topic.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+logger.warn "XXX: #{@mads_topic.elementList.topicElement.first}"
+    #@mads_topic.elementList.topicElement.build unless @mads_topic.elementList.topicElement
+  	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    @scheme_id = Rails.configuration.id_namespace+@mads_topic.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_topic.attributes = params[:mads_topic]
-    if @mads_topic.save!
+    if @mads_topic.save
         redirect_to @mads_topic, notice: "Topic has been saved"
     else
       flash[:alert] = "Unable to save Topic"
@@ -55,6 +56,13 @@ class MadsTopicsController < ApplicationController
   end
 
   def update
+    # Unclear if list memebers can be updated by id, so just clear the list
+    @mads_topic.elementList.clear
+
+    # Since the id (rdf_subject) is what we're looking to change for a scheme, we can't update it.
+    # Must clear and re-add
+    @mads_topic.scheme.clear
+
     @mads_topic.attributes = params[:mads_topic]
     if @mads_topic.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")

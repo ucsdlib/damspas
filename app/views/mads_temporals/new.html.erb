@@ -1,14 +1,19 @@
 <h1>Create a new MADS Temporal</h1>
 <%= form_for @mads_temporal do |f| %>
-	<%= render 'error_messages' %>
+  <%= render 'error_messages' %>
   <%= label_tag 'mads_temporal[name]', "Name" %>
   <%= text_field_tag 'mads_temporal[name]' %>
   <%= label_tag 'mads_temporal[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_temporal[externalAuthority]' %> 
-  <%= label_tag 'mads_temporal[elementValue]', "TemporalElement" %>
-  <%= text_field_tag 'mads_temporal[elementValue]' %> 
+  <%= f.fields_for :temporalElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>  
   <br>
-  <%= select_tag 'mads_temporal[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

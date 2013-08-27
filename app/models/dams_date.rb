@@ -1,5 +1,6 @@
 class DamsDate
   include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
   rdf_type DAMS.Date
   map_predicates do |map|
     map.value(:in=> RDF)

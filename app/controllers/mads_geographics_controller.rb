@@ -31,38 +31,42 @@ class MadsGeographicsController < ApplicationController
   end
 
   def new
-	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    @mads_geographic.elementList.geographicElement.build
+    @mads_geographic.scheme.build
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    @mads_geographic = MadsGeographic.find(params[:id])
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@mads_geographic.scheme != nil)
-    	@scheme_id = @mads_geographic.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = Rails.configuration.id_namespace+@mads_geographic.scheme.to_s.gsub(/.*\//,'')[0..9]  
   end
 
   def create
-    @mads_geographic.attributes = params[:mads_geographic]
     if @mads_geographic.save
-        redirect_to @mads_geographic, notice: "geographic has been saved"
+        redirect_to @mads_geographic, notice: "Geographic has been saved"
     else
-      flash[:alert] = "Unable to save geographic"
+      flash[:alert] = "Unable to save Geographic"
       render :new
     end
   end
 
   def update
+    @mads_geographic.elementList.clear
+
+    # Since the id (rdf_subject) is what we're looking to change for a scheme, we can't update it.
+    # Must clear and re-add
+    @mads_geographic.scheme.clear
     @mads_geographic.attributes = params[:mads_geographic]
     if @mads_geographic.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated geographic"
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated Geographic"
         else      
-        	redirect_to @mads_geographic, notice: "Successfully updated geographic"
+        	redirect_to @mads_geographic, notice: "Successfully updated Geographic"
         end
     else
-      flash[:alert] = "Unable to save geographic"
+      flash[:alert] = "Unable to save Geographic"
       render :edit
     end
   end

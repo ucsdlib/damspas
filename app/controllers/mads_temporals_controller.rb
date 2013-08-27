@@ -31,20 +31,20 @@ class MadsTemporalsController < ApplicationController
   end
 
   def new
+    @mads_temporal.elementList.temporalElement.build
+    @mads_temporal.scheme.build
 	@mads_schemes = get_objects('MadsScheme','name_tesim')
+	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    @mads_temporal = MadsTemporal.find(params[:id])
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@mads_temporal.scheme != nil)
-    	@scheme_id = @mads_temporal.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end    
+  	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    @scheme_id = Rails.configuration.id_namespace+@mads_temporal.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_temporal.attributes = params[:mads_temporal]
+
     if @mads_temporal.save
         redirect_to @mads_temporal, notice: "Temporal has been saved"
     else
@@ -54,12 +54,13 @@ class MadsTemporalsController < ApplicationController
   end
 
   def update
+    @mads_temporal.elementList.clear
+    @mads_temporal.scheme.clear
     @mads_temporal.attributes = params[:mads_temporal]
     if @mads_temporal.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
         	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated Temporal"
         else      
-        	#redirect_to edit_mads_temporal_path(@mads_temporal), notice: "Successfully updated Temporal"
         	redirect_to @mads_temporal, notice: "Successfully updated Temporal"
         end
     else

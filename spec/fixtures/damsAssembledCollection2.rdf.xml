@@ -1,0 +1,223 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:mads="http://www.loc.gov/mads/rdf/v1#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+  <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
+    <dams:hasProvenanceCollection>
+      <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb24242424">
+        <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Historical Dissertations</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Historical Dissertations</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:date>
+          <dams:Date>
+            <dams:beginDate>2009-05-03</dams:beginDate>
+            <dams:endDate>2010-06-30</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:language>
+          <mads:Language rdf:about="http://library.ucsd.edu/ark:/20775/bd0410344f">
+            <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd71341600">
+                <rdfs:label>ISO 639 Languages</rdfs:label>
+              </mads:MADSScheme>
+            </mads:isMemberOfMADSScheme>
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/languages/en"/>
+            <mads:code>en</mads:code>
+            <mads:authoritativeLabel>English</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:LanguageElement>
+                <mads:elementValue>English</mads:elementValue>
+              </mads:LanguageElement>
+            </mads:elementList>
+          </mads:Language>
+        </dams:language>
+        <dams:hasPart>
+          <dams:ProvenanceCollectionPart rdf:about="http://library.ucsd.edu/ark:/20775/bb25252525">
+            <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>May 2009</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>May 2009</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:date>
+              <dams:Date>
+                <dams:beginDate>2009-05-03</dams:beginDate>
+                <dams:endDate>2009-05-31</dams:endDate>
+              </dams:Date>
+            </dams:date>
+            <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+            <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bb30303030">
+                <dams:type>collection creation</dams:type>
+                <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
+                <dams:outcome>success</dams:outcome>
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707286t"/>
+                  <dams:personalName>
+                    <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb56565656">
+                      <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977-</mads:authoritativeLabel>
+                      <mads:elementList rdf:parseType="Collection">
+                        <mads:FullNameElement>
+                          <mads:elementValue>Administrator, Bob,</mads:elementValue>
+                        </mads:FullNameElement>
+                        <mads:DateNameElement>
+                          <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+                        </mads:DateNameElement>
+                      </mads:elementList>
+                    </mads:PersonalName>
+                  </dams:personalName>
+                </dams:relationship>
+              </dams:DAMSEvent>
+            </dams:event>
+          </dams:ProvenanceCollectionPart>
+        </dams:hasPart>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bb29292929">
+            <dams:type>collection creation</dams:type>
+            <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
+            <dams:outcome>success</dams:outcome>
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707286t"/>
+              <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/bb56565656"/>
+            </dams:relationship>
+          </dams:DAMSEvent>
+        </dams:event>
+      </dams:ProvenanceCollection>
+    </dams:hasProvenanceCollection>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>UCSD Electronic Theses and Dissertations</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>UCSD Electronic Theses and Dissertations</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:role>
+          <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd55639754">
+            <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+                <rdfs:label>MARC Relator Codes</rdfs:label>
+                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+            </mads:isMemberOfMADSScheme>
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
+            <mads:code>cre</mads:code>
+            <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+        <dams:personalName>
+          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb08080808">
+            <mads:authoritativeLabel xml:lang="en">Artist, Alice, 1966-</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Artist, Alice,</mads:elementValue>
+              </mads:FullNameElement>
+              <mads:DateNameElement>
+                <mads:elementValue xml:lang="en">1966-</mads:elementValue>
+              </mads:DateNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:date>
+      <dams:Date>
+        <dams:beginDate>2009-05-03</dams:beginDate>
+      </dams:Date>
+    </dams:date>
+
+    <!-- generic notes -->
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>ARK ID</dams:displayLabel>
+        <rdf:value>http://library.ucsd.edu/ark:/20775/bb03030303</rdf:value>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:note>
+      <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd52568274">
+        <rdf:value>Linked generic note</rdf:value>
+        <dams:displayLabel>Abstract</dams:displayLabel>
+        <dams:type>abstract</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Inline generic note</rdf:value>
+        <dams:displayLabel>Abstract</dams:displayLabel>
+        <dams:type>abstract</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>4 digital objects.</rdf:value>
+        <dams:type>extent</dams:type>
+      </dams:Note>
+    </dams:note>
+
+    <!-- custodial responsibility notes -->
+    <dams:custodialResponsibilityNote>
+      <dams:CustodialResponsibilityNote>
+        <rdf:value>Inline custodial responsibility note</rdf:value>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <dams:type>custodial_responsibility</dams:type>
+      </dams:CustodialResponsibilityNote>
+    </dams:custodialResponsibilityNote>
+    <dams:custodialResponsibilityNote>
+      <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd9113515d">
+        <rdf:value>Linked custodial responsibility note</rdf:value>
+        <dams:displayLabel>Custodial responsibility</dams:displayLabel>
+        <dams:type>custodial_responsibility</dams:type>
+      </dams:CustodialResponsibilityNote>
+    </dams:custodialResponsibilityNote>
+
+    <!-- preferred citation notes -->
+    <dams:preferredCitationNote>
+      <dams:PreferredCitationNote>
+        <rdf:value>Inline preferred citation note</rdf:value>
+        <dams:displayLabel>Preferred citation</dams:displayLabel>
+        <dams:type>preferred_citation</dams:type>
+      </dams:PreferredCitationNote>
+    </dams:preferredCitationNote>
+    <dams:preferredCitationNote>
+      <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/bd3959888k">
+        <rdf:value>Linked preferred citation note</rdf:value>
+        <dams:displayLabel>Preferred citation</dams:displayLabel>
+        <dams:type>preferred_citation</dams:type>
+      </dams:PreferredCitationNote>
+    </dams:preferredCitationNote>
+
+    <!-- scope content notes -->
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/bd1366006j">
+        <rdf:value>Linked scope content note</rdf:value>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <dams:type>scope_and_content</dams:type>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote>
+        <rdf:value>Inline scope content note</rdf:value>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <dams:type>scope_and_content</dams:type>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>
+
+  </dams:AssembledCollection>
+</rdf:RDF>

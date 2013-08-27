@@ -6,7 +6,7 @@ describe DamsCustodialResponsibilityNoteDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsCustodialResponsibilityNoteDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsCustodialResponsibilityNoteDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -27,7 +27,7 @@ describe DamsCustodialResponsibilityNoteDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsCustodialResponsibilityNoteDatastream.new(stub('inner object', :pid=>'bd9113515d', :new? =>true), 'damsMetadata')
+        subject = DamsCustodialResponsibilityNoteDatastream.new(double('inner object', :pid=>'bd9113515d', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsCustodialResponsibilityNote.rdf.xml').read
         subject
       end

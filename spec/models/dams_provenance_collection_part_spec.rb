@@ -7,7 +7,6 @@ describe DamsProvenanceCollectionPart do
 
   it "should create valid xml" do
     subject.titleValue = "May 2009"
-    subject.title.first.name = "May 2009"
     subject.beginDate = "2009-05-03"
     subject.endDate = "2009-05-31"
     xml =<<END

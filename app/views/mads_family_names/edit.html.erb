@@ -9,24 +9,34 @@
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'mads_family_name[name][]', "Authoritative Label" %>
+			<%= label_tag 'mads_family_name[name][]', "Name" %>
 			<%= text_field_tag 'mads_family_name[name][]', @mads_family_name.name[0], class: "input-block-level" %>
 		
 			<%= label_tag 'mads_family_name[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_family_name[externalAuthority][]', @mads_family_name.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'mads_family_name[scheme][]', "scheme" %>
-			<%= select_tag 'mads_family_name[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
-			<%= label_tag 'mads_family_name[fullNameValue][]', "FullNameElement" %>
-			<%= text_field_tag 'mads_family_name[fullNameValue][]', @mads_family_name.fullNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_family_name[familyNameValue][]', "FamilyNameElement" %>
-			<%= text_field_tag 'mads_family_name[familyNameValue][]', @mads_family_name.familyNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_family_name[givenNameValue][]', "GivenNameElement" %>
-			<%= text_field_tag 'mads_family_name[givenNameValue][]', @mads_family_name.givenNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_family_name[dateNameValue][]', "DateNameElement" %>
-			<%= text_field_tag 'mads_family_name[dateNameValue][]', @mads_family_name.dateNameValue, class: "input-block-level" %>
-			<%= label_tag 'mads_family_name[termOfAddressValue][]', "TermOfAddressElement" %>
-			<%= text_field_tag 'mads_family_name[termOfAddressValue][]', @mads_family_name.termOfAddressValue, class: "input-block-level" %>
+		     <%= f.fields_for :scheme, include_id: false do |se| %>
+		        <%= se.label :id, "Scheme" %>
+		        <%= se.select :id, options_for_select(@mads_schemes , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+		      <% end %>
+		
+		      <%= label_tag 'mads_family_name[fullNameElement_attributes][0][elementValue]', "Full Name" %>
+		      <%= text_field_tag 'mads_family_name[fullNameElement_attributes][0][elementValue]', @mads_family_name.fullNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_family_name[familyNameElement_attributes][0][elementValue]', "Family Name" %>
+		      <%= text_field_tag 'mads_family_name[familyNameElement_attributes][0][elementValue]', @mads_family_name.familyNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_family_name[givenNameElement_attributes][0][elementValue]', "Given Name" %>
+		      <%= text_field_tag 'mads_family_name[givenNameElement_attributes][0][elementValue]', @mads_family_name.givenNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_family_name[termsOfAddressNameElement_attributes][0][elementValue]', "Terms of Address" %>
+		      <%= text_field_tag 'mads_family_name[termsOfAddressNameElement_attributes][0][elementValue]', @mads_family_name.termsOfAddressNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_family_name[dateNameElement_attributes][0][elementValue]', "Dates" %>
+		      <%= text_field_tag 'mads_family_name[dateNameElement_attributes][0][elementValue]', @mads_family_name.dateNameValue, class: "input-block-level" %>          
+		
+		      <%= label_tag 'mads_family_name[nameElement_attributes][0][elementValue]', "Other Name" %>
+		      <%= text_field_tag 'mads_family_name[nameElement_attributes][0][elementValue]', @mads_family_name.nameValue, class: "input-block-level" %>          
 
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

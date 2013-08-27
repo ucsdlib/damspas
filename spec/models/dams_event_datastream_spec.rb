@@ -6,7 +6,7 @@ describe DamsEventDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { DamsEventDatastream.new(stub('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
+      subject { DamsEventDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
@@ -32,7 +32,7 @@ describe DamsEventDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsEventDatastream.new(stub('inner object', :pid=>'bb28282828', :new? =>true), 'damsMetadata')
+        subject = DamsEventDatastream.new(double('inner object', :pid=>'bb28282828', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsEvent.rdf.xml').read
         subject
       end
@@ -61,7 +61,7 @@ describe DamsEventDatastream do
       end   
       
       it "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "bb08080808"
+        subject.relationship.first.personalName.first.pid.should == "bb08080808"
         subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]

@@ -31,35 +31,36 @@ class MadsOccupationsController < ApplicationController
   end
 
   def new
+    @mads_occupation.elementList.occupationElement.build
+    @mads_occupation.scheme.build
 	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
-    @mads_occupation = MadsOccupation.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@mads_occupation.scheme != nil)
-    	@scheme_id = @mads_occupation.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end       
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = Rails.configuration.id_namespace+@mads_occupation.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_occupation.attributes = params[:mads_occupation]
     if @mads_occupation.save
-        redirect_to @mads_occupation, notice: "occupation has been saved"
+        redirect_to @mads_occupation, notice: "Occupation has been saved"
     else
-      flash[:alert] = "Unable to save occupation"
+      flash[:alert] = "Unable to save Occupation"
       render :new
     end
   end
 
   def update
+    @mads_occupation.elementList.clear
+    @mads_occupation.scheme.clear
     @mads_occupation.attributes = params[:mads_occupation]
     if @mads_occupation.save
     	if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated occupation"
+        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated Occupation"
         else  
-        	redirect_to @mads_occupation, notice: "Successfully updated occupation"
+        	redirect_to @mads_occupation, notice: "Successfully updated Occupation"
         end
     else
       flash[:alert] = "Unable to save occupation"

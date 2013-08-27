@@ -1,5 +1,6 @@
 class DamsNoteInternal
     include ActiveFedora::RdfObject
+    include ActiveFedora::Rdf::DefaultNodes
     include DamsHelper
     rdf_type DAMS.Note
     map_predicates do |map|

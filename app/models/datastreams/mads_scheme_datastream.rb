@@ -1,6 +1,5 @@
 class MadsSchemeDatastream < ActiveFedora::RdfxmlRDFDatastream
-  #include ActiveFedora::RdfObject
-  #rdf_type MADS.MadsScheme
+  rdf_type MADS.MadsScheme
   map_predicates do |map|
     map.code( in: MADS )
     map.name( in: RDF::RDFS, to: "label" )
