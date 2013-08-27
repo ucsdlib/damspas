@@ -61,68 +61,70 @@ module Dams
 	    authLabel if !authLabel.blank?
 	  end
 	  def value
-        get_value "MainTitleElement"
+        get_value MadsMainTitleElement
 	  end
 	  def nonSort
-	    get_value "NonSortElement"
+	    get_value MadsNonSortElement
 	  end
 	  def partName
-	    get_value "PartNameElement"
+	    get_value MadsPartNameElement
 	  end
 	  def partNumber
-	    get_value "PartNumberElement"
+	    get_value MadsPartNumberElement
 	  end
 	  def subtitle
-	    get_value "SubTitleElement"
+	    get_value MadsSubTitleElement
 	  end
 
 	  def value=(s)
-        set_value elementList.mainTitleElement, s
+        set_value MadsMainTitleElement, s
 	  end
 	  def nonSort=(s)
-        set_value elementList.nonSortElement, s
+        set_value MadsNonSortElement, s
 	  end
 	  def partName=(s)
-        set_value elementList.partNameElement, s
+        set_value MadsPartNameElement, s
 	  end
 	  def partNumber=(s)
-        set_value elementList.partNumberElement, s
+        set_value MadsPartNumberElement, s
 	  end
 	  def subtitle=(s)
-        set_value elementList.subTitleElement, s
+        set_value MadsSubTitleElement, s
 	  end
 
-      def get_value(name)
-        el = elementList
+      def get_elem(klass)
         idx = 0
-        while idx < el.size
-          elem = el[idx]
-          
-          if elem.class.name.include? name
-            if(elem.elementValue.nil?)
-              return nil
-            elsif(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
-              return elem.elementValue.first
-            else
-              return elem.elementValue.to_s
-            end
-          end
+        while idx < elementList.size
+          return elementList[idx] if elementList[idx].class == klass
           idx += 1
         end
       end
-      def set_value( elem, val )
-        e = elem.first
+      def get_value(klass)
+        elem = get_elem(klass)
+        if (elem.nil?)
+          return nil
+        elsif(elem.elementValue.nil?)
+          return nil
+        elsif(elem.elementValue.first == nil || elem.elementValue.first.size > elem.elementValue.size )
+          return elem.elementValue.first
+        else
+          return elem.elementValue.to_s
+        end
+      end
+      def set_value( klass, val )
+        e = get_elem(klass)
         if e.nil?
-          e = elem.build
-          elem[0] = e
+          e = klass.new( graph )
+          elementList[elementList.size] = e
         end
         e.elementValue = val
 
-        # also set authoritativeLabel
-        if !authLabel.blank? && name.size > 0 
-          name[0] = authLabel
-        else !authLabel.blank?
-          name << authLabel
+        # manipulate graph directly
+        label = graph.first_object([nil,MADS.authoritativeLabel,nil])
+        if ( !label.nil? )
+          graph.update([rdf_subject, MADS.authoritativeLabel, authLabel])
+        elsif ( label.blank? || label.value.blank? ) && !authLabel.blank?
+          graph.insert([rdf_subject, MADS.authoritativeLabel, authLabel])
         end
       end
 
