@@ -330,8 +330,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       note_json = {}
       note_obj = nil
       note_uri = no.to_s
-      note_pid = note_uri.gsub(/.*\//,'')     
-	  if no.value.first.nil? && no.pid != nil
+	  if no.value.first.nil? && no.pid != nil && !no.pid.start_with?("_:")
         note_obj = no.load
         note_json[:id] = note_obj.pid.first      
       else 

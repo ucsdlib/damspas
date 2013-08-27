@@ -9,7 +9,6 @@ describe DamsProvenanceCollectionsController do
       describe "Show" do
         before do
           @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 1", beginDate: "2012-01-01", endDate: "2013-01-01")
-          #puts @obj.id
         end
         it "should be successful" do 
           get :show, id: @obj.id
@@ -58,7 +57,8 @@ describe DamsProvenanceCollectionsController do
            @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 4", beginDate: "2012-04-04", endDate: "2013-04-04")
          end
         it "should be successful" do
-          put :update, :id => @obj.id, :dams_provenance_collection => {titleValue: "Test Title 5", beginDate: "2012-05-05"}
+          params = { "titleValue"=>["Test Title 5"], "languageURI"=>["bd0410344f"], "scopeContentNoteValue"=>["Test Scope Content Note"] }
+          put :update, :id => @obj.id, :dams_provenance_collection => params
           response.should redirect_to assigns[:dams_provenance_collection]
           @obj.reload.titleValue.should == "Test Title 5"
           flash[:notice].should == "Successfully updated provenance_collection"
