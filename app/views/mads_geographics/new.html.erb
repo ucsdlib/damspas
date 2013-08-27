@@ -5,11 +5,16 @@
   <%= text_field_tag 'mads_geographic[name]' %>
   <%= label_tag 'mads_geographic[externalAuthority]', "ExternalAuthority" %>
   <%= text_field_tag 'mads_geographic[externalAuthority]' %>
-  <%= label_tag 'mads_geographic[elementValue]', "GeographicElement" %>
-  <%= text_field_tag 'mads_geographic[elementValue]' %> 
-  <br>
-  <%= select_tag 'mads_geographic[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
+  <%= f.fields_for :geographicElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>
   <br>
 
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
+  <br/>
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>

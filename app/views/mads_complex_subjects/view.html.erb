@@ -2,30 +2,25 @@
 
 <div>
   <dl>
-    <dt>authority:</dt>
-    <dd><%= @mads_complex_subject.authority.first %></dd>
-    <dt>uri:</dt>
-    <dd><%= @mads_complex_subject.valueURI %></dd>
-    
-<% cList = @mads_complex_subject.componentList.first    
-	i = 0
-	if cList != nil
-		while i < cList.size  do
-			#if(!cList[i].nil? && !cList[i].name.nil?)
-%>
-				<dt>topic:</dt>
-<%
-				if(cList[i].to_s.include? 'ark:/20775/')
-					@mads_topic = MadsTopic.find(cList[i].to_s.gsub(/.*\//,''))	
-%>
-					<dd><%= link_to @mads_topic.name.first, mads_topic_path(@mads_topic)%></dd>
-<%			
-				end	
-			#end
-			i +=1
-		end 
-	end
-%>    
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @mads_complex_subject.externalAuthority.first %></dd>
+	<% cList = @mads_complex_subject.componentList
+		i = 0
+		if cList != nil
+			while i < cList.size  do
+				fieldLabel = cList[i].class.name.gsub("Mads", "").gsub("Internal", "")
+				fieldLabel = fieldLabel[0, 1].downcase + fieldLabel[1..-1]
+				if (fieldLabel == "name")
+					fieldLabel = "genericName"
+				end
+				%>
+				
+					<dt><%= "#{fieldLabel[0, 1].upcase + fieldLabel[1..-1]}" %></dt>
+					<dd><%= cList[i].name.first%></dd>
+				<%
+				i +=1
+			end
+		end %>       
   </dl>
   <% if can? :update, @mads_complex_subject %>
     <%= link_to "Solr View", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>

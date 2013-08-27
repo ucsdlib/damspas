@@ -6,7 +6,7 @@ describe DamsStylePeriodDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsStylePeriodDatastream.new(stub('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsStylePeriodDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -23,7 +23,7 @@ describe DamsStylePeriodDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsStylePeriodDatastream.new(stub('inner object', :pid=>'bd0069066b', :new? =>true), 'damsMetadata')
+        subject = DamsStylePeriodDatastream.new(double('inner object', :pid=>'bd0069066b', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsStylePeriod.rdf.xml').read
         subject
       end

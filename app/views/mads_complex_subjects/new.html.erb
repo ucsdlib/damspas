@@ -5,9 +5,54 @@
   <%= text_field_tag 'mads_complex_subject[name]' %>
   <%= label_tag 'mads_complex_subject[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_complex_subject[externalAuthority]' %>
-  <br>
-  <%= select_tag 'mads_complex_subject[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
-  <br>
   
-  <%=f.submit "Submit", class: "btn btn-primary" %>
+  <%= f.fields_for :topic do |to| %>
+    <%= to.label :name, "Topic" %>
+    <%= to.text_field :name, :value => "" %>
+  <% end %> 
+  <%= f.fields_for :temporal do |temp| %>
+    <%= temp.label :name, "Temporal" %>
+    <%= temp.text_field :name, :value => "" %>
+  <% end %>
+  <%= f.fields_for :genreForm do |genForm| %>
+    <%= genForm.label :name, "GenreForm" %>
+    <%= genForm.text_field :name, :value => "" %>
+  <% end %> 
+  <%= f.fields_for :geographic do |geo| %>
+    <%= geo.label :name, "Geographic" %>
+    <%= geo.text_field :name, :value => "" %>
+  <% end %>
+  <%= f.fields_for :occupation do |oc| %>
+    <%= oc.label :name, "Occupation" %>
+    <%= oc.text_field :name, :value => "" %>
+  <% end %> 
+  <%= f.fields_for :personalName do |persName| %>
+    <%= persName.label :name, "PersonalName" %>
+    <%= persName.text_field :name, :value => "" %>
+  <% end %>
+  <%= f.fields_for :conferenceName do |confName| %>
+    <%= confName.label :name, "ConferenceName" %>
+    <%= confName.text_field :name, :value => "" %>
+  <% end %>   
+  <%= f.fields_for :corporateName do |corpName| %>
+    <%= corpName.label :name, "CorporateName" %>
+    <%= corpName.text_field :name, :value => "" %>
+  <% end %>
+  <%= f.fields_for :familyName do |famName| %>
+    <%= famName.label :name, "FamilyName" %>
+    <%= famName.text_field :name, :value => "" %>
+  <% end %>
+  <%= f.fields_for :genericName do |genName| %>
+    <%= genName.label :name, "Generic Name" %>
+    <%= genName.text_field :name, :value => "" %>
+  <% end %>                
+  <br>
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
+  <br>
+
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", mads_complex_subjects_path, class: "btn btn-primary" %>
 <%end%>

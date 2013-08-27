@@ -27,7 +27,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "Date", :with => "TestDate"
 		fill_in "Begin Date", :with => "TestBeginDate"
 		fill_in "End Date", :with => "TestEndDate"
-		page.select('Test Language 2', match: :first)
+		page.select('Test Language', match: :first)
 		fill_in "Note", :with => "TestNote"
 		fill_in "dams_provenance_collection_noteType_", :with => ""
 		fill_in "dams_provenance_collection_noteDisplayLabel_", :with => ""
@@ -53,7 +53,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestDate")
 		expect(page).to have_content ("TestBeginDate")
 		expect(page).to have_content ("TestEndDate")
-		expect(page).to have_selector('li', :text => "Test Language 2")
+		expect(page).to have_selector('li', :text => "Test Language")
 		expect(page).to have_content ("TestNote")
 		# testing without filling in Note Displaylabel
 		expect(page).to have_content ("General Note")

@@ -5,10 +5,15 @@
   <%= text_field_tag 'mads_genre_form[name]' %>
   <%= label_tag 'mads_genre_form[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_genre_form[externalAuthority]' %> 
-  <%= label_tag 'mads_genre_form[elementValue]', "GenreFormElement" %>
-  <%= text_field_tag 'mads_genre_form[elementValue]' %> 
+  <%= f.fields_for :genreFormElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>
   <br>
-  <%= select_tag 'mads_genre_form[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

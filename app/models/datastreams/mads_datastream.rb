@@ -35,96 +35,11 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
            
   class List 
-    include ActiveFedora::RdfList
-    class FullNameElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.FullNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end
-    class FamilyNameElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.FamilyNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end
-    class GivenNameElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.GivenNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end
-    class DateNameElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.DateNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end     
-    class NameElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.NameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end        
-    class TermsOfAddressNameElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.TermsOfAddressNameElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end       
-    class GenreFormElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.GenreFormElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end   
-    class GeographicElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.GeographicElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end       
-    class OccupationElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.OccupationElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end       
-    class TemporalElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.TemporalElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end          
-    class TopicElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.TopicElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end     
-
-    # language element
-    class LanguageElement
-      include ActiveFedora::RdfObject
-      rdf_type MADS.LanguageElement
-      map_predicates do |map|
-        map.elementValue(:in=> MADS)
-      end
-    end
+    include ActiveFedora::RdfList   
     
     class MainTitleElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.MainTitleElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -133,6 +48,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     
     class NonSortElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.NonSortElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -141,6 +57,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     class PartNameElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.PartNameElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -149,6 +66,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     
     class PartNumberElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.PartNumberElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -157,6 +75,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     class SubTitleElement
       include ActiveFedora::RdfObject
+      include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.SubTitleElement
       map_predicates do |map|
         map.elementValue(:in=> MADS)
@@ -200,39 +119,6 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
  	Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s)
- 	
-	list = elementList.first
-	i = 0
-	if list != nil
-		while i < list.size  do
-		  if (list[i].class == MadsDatastream::List::FullNameElement)
-			Solrizer.insert_field(solr_doc, 'full_name_element', list[i].elementValue.first)
-	 	  elsif (list[i].class == MadsDatastream::List::FamilyNameElement)
-			Solrizer.insert_field(solr_doc, 'family_name_element', list[i].elementValue.first)		
-		  elsif (list[i].class == MadsDatastream::List::GivenNameElement)
-			Solrizer.insert_field(solr_doc, 'given_name_element', list[i].elementValue.first)				
-		  elsif (list[i].class == MadsDatastream::List::DateNameElement)
-			Solrizer.insert_field(solr_doc, 'date_name_element', list[i].elementValue.first)	
-		  elsif (list[i].class == MadsDatastream::List::NameElement)
-			Solrizer.insert_field(solr_doc, 'name_element', list[i].elementValue.first)	
-  		  elsif (list[i].class == MadsDatastream::List::TermsOfAddressNameElement)
-			Solrizer.insert_field(solr_doc, 'terms_of_address_name_element', list[i].elementValue.first)		
- 		  elsif (list[i].class == MadsDatastream::List::GenreFormElement)
-			Solrizer.insert_field(solr_doc, 'genre_form_element', list[i].elementValue.first)	
-		  elsif (list[i].class == MadsDatastream::List::GeographicElement)
-			Solrizer.insert_field(solr_doc, 'geographic_element', list[i].elementValue.first)		
-		  elsif (list[i].class == MadsDatastream::List::OccupationElement)
-			Solrizer.insert_field(solr_doc, 'occupation_element', list[i].elementValue.first)		
-		  elsif (list[i].class == MadsDatastream::List::TemporalElement)
-			Solrizer.insert_field(solr_doc, 'temporal_element', list[i].elementValue.first)		
-		  elsif (list[i].class == MadsDatastream::List::TopicElement)
-			Solrizer.insert_field(solr_doc, 'topic_element', list[i].elementValue.first)															
-		  elsif (list[i].class == MadsDatastream::List::LanguageElement)
-			Solrizer.insert_field(solr_doc, 'language_element', list[i].elementValue.first)																			
-		  end		  
-		  i +=1
-		end   
-	end 
 			
  # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|

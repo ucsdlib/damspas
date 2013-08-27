@@ -9,7 +9,11 @@ module Dams
 					if(c.key?("#{field}"))
 						@tmpArray = Array.new
 						@tmpArray << c.fetch("#{field}").first
-						@tmpArray << c.id				
+						if(object_type_param.include? 'MadsScheme')
+							@tmpArray << Rails.configuration.id_namespace+c.id
+						else
+							@tmpArray << c.id
+						end			
 						@objects << @tmpArray
 					end
 				end

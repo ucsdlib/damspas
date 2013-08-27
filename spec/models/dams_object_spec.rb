@@ -69,11 +69,10 @@ describe DamsObject do
   it "should create a xml" do
     subject.titleValue = "Sample Complex Object Record #1"
     subject.subtitle = "a newspaper PDF with a single attached image"
-    subject.title.first.name = "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
     subject.dateValue = "May 24, 1980"
     subject.beginDate = "1980-05-24"
     subject.endDate = "1980-05-24"
-    subject.subjectValue = ["Black Panther Party--History"]
+    #subject.subjectValue = ["Black Panther Party--History"]
     subject.subjectURI = ["bd6724414c"]
     subject.topic.build.name = "test subject"
     subject.languageURI = ["xx00000170"]
@@ -83,8 +82,8 @@ describe DamsObject do
     subject.relationshipNameType = ["CorporateName"]
     subject.relationshipNameURI = ["bd8294487v"]      
     subject.nameType = ["PersonalName"]
-    subject.nameURI = ["xx11111111"]  
-    subject.nameTypeValue = ["inline personal name"]  
+    subject.nameURI = ["xx11111111"]
+    subject.nameTypeValue = ["inline personal name"]
     subject.copyrightURI = ["bb05050505"]
     subject.statuteURI = ["bb21212121"]
     subject.otherRightsURI = ["bb06060606"]
@@ -129,11 +128,6 @@ describe DamsObject do
         <dams:endDate>1980-05-24</dams:endDate>
       </dams:Date>
     </dams:date>    
-    <dams:subject>
-      <mads:ComplexSubject>
-        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
-      </mads:ComplexSubject>
-    </dams:subject>   
     <dams:subject rdf:resource="#{Rails.configuration.id_namespace}bd6724414c"/>
     <dams:language rdf:resource="#{Rails.configuration.id_namespace}xx00000170"/> 
     <dams:assembledCollection rdf:resource="#{Rails.configuration.id_namespace}bb03030303"/>

@@ -221,22 +221,20 @@ def relatedResourceUri
   end
 
   def titleValue
-    title.first != nil ? title.first.value : nil
+    title.first.value if title.first
   end
   def titleValue=(s)
     title.build if title.first.nil?
     if(!s.nil? && s.length > 0)
-    	title.first.value = s
-    	title.first.name = title.first.label
+      title.first.value = s
     end
   end
   def subtitle
-    title.first != nil ? title.first.subtitle : nil
+    title.first.subtitle if title.first
   end
   def subtitle=(s)
     title.build if title.first.nil?
     title.first.subtitle = s
-    title.first.name = title.first.label
   end
   def titlePartName
     title.first != nil ? title.first.partName : nil
@@ -244,7 +242,6 @@ def relatedResourceUri
   def titlePartName=(s)
     title.build if title.first.nil?
     title.first.partName = s
-    title.first.name = title.first.label
   end
   def titlePartNumber
     title.first != nil ? title.first.partNumber : nil
@@ -252,7 +249,6 @@ def relatedResourceUri
   def titlePartNumber=(s)
     title.build if title.first.nil?
     title.first.partNumber = s
-    title.first.name = title.first.label
   end  
 
    def titleNonSort
@@ -261,23 +257,24 @@ def relatedResourceUri
   def titleNonSort=(s)
     title.build if title.first.nil?
     title.first.nonSort = s
-    title.first.name = title.first.label
   end  
 
   ## Subject ######################################################################
   #complex subject
   def subjectValue
-    subject[0] ? subject[0].name : []
+    @subValue
   end
   def subjectValue=(val)
+    @subValue = Array.new
     i = 0
-	val.each do |v| 
-		if(!v.nil? && v.length > 0)
-		    subject.build if subject[i] == nil
-		    subject[i].name = v
-		end
-		i+=1
-	end
+    val.each do |v| 
+      if(!v.nil? && v.length > 0)
+        #subject[i].build if subject[i] == nil
+        #subject[i].name = v
+        @subValue << v 
+      end
+      i+=1
+    end
   end
   
   #simple subject
@@ -285,7 +282,6 @@ def relatedResourceUri
     @subType
   end
   def subjectType=(val)
-    #@subType = val
     @subType = Array.new
     i = 0
 	val.each do |v| 
@@ -739,7 +735,7 @@ def relatedResourceUri
         elem = MadsDatastream::List::GeographicElement.new(elementList.first.graph)
 	  elsif type.include? "IconographyElement"
         elem = DamsDatastream::List::IconographyElement.new(elementList.first.graph)
-    elsif type.include? "StylePeriodElement"
+      elsif type.include? "StylePeriodElement"
         elem = DamsDatastream::List::StylePeriodElement.new(elementList.first.graph)
 	  elsif type.include? "ScientificNameElement"
         elem = MadsDatastream::List::ScientificNameElement.new(elementList.first.graph)
@@ -749,18 +745,18 @@ def relatedResourceUri
         elem = MadsDatastream::List::TemporalElement.new(elementList.first.graph)     
 	  elsif type.include? "OccupationElement"
         elem = MadsDatastream::List::OccupationElement.new(elementList.first.graph)               
-	  elsif type.include? "FullNameElement"
-        elem = MadsDatastream::List::FullNameElement.new(elementList.first.graph)
+      elsif type.include? "DateNameElement"
+        elem = Dams::MadsNameElements::MadsDateNameElement.new(elementList.first.graph)
       elsif type.include? "FamilyNameElement"
-        elem = MadsDatastream::List::FamilyNameElement.new(elementList.first.graph)
-	  elsif type.include? "GivenNameElement"
-        elem = MadsDatastream::List::GivenNameElement.new(elementList.first.graph)     
-	  elsif type.include? "DateNameElement"
-        elem = MadsDatastream::List::DateNameElement.new(elementList.first.graph)                 
-	  elsif type.include? "TermsOfAddressNameElement"
-        elem = MadsDatastream::List::TermsOfAddressNameElement.new(elementList.first.graph)  
+        elem = Dams::MadsNameElements::MadsFamilyNameElement.new(elementList.first.graph)
+      elsif type.include? "FullNameElement"
+        elem = Dams::MadsNameElements::MadsFullNameElement.new(elementList.first.graph)
+      elsif type.include? "GivenNameElement"
+        elem = Dams::MadsNameElements::MadsGivenNameElement.new(elementList.first.graph)
+      elsif type.include? "TermsOfAddressNameElement"
+        elem = Dams::MadsNameElements::MadsTermsOfAddressNameElement.new(elementList.first.graph)
 	  elsif type.include? "NameElement"
-        elem = MadsDatastream::List::NameElement.new(elementList.first.graph)                                                  
+        elem = Dams::MadsNameElements::MadsNameElement.new(elementList.first.graph)                                                  
       end
       elem.elementValue = val
 

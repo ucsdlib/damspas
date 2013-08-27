@@ -7,111 +7,39 @@
 		
 		<%= form_for @mads_complex_subject do |f| %>
 			<%= render 'error_messages', object: f.object %>
-			<%= label_tag 'mads_complex_subject[name][]', "Authoritative Label" %>
+			<%= label_tag 'mads_complex_subject[name][]', "Name" %>
 			<%= text_field_tag 'mads_complex_subject[name][]', @mads_complex_subject.name[0], class: "input-block-level" %>
-		
 			<%= label_tag 'mads_complex_subject[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_complex_subject[externalAuthority][]', @mads_complex_subject.externalAuthority, class: "input-block-level" %>
- 
-   			<br>
-  				<%= select_tag 'mads_complex_subject[scheme]', options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>    
-  			<br>			
+			<%= f.fields_for :scheme, include_id: false do |se| %>
+		      <%= se.label :id, "Scheme" %>
+		      <%= se.select :id, options_for_select(@mads_schemes , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+		    <% end %>      
+
+			<% cList = @mads_complex_subject.componentList
+				i = 0
+				if cList != nil
+					while i < cList.size  do
+						fieldLabel = cList[i].class.name.gsub("Mads", "").gsub("Internal", "")
+						fieldLabel = fieldLabel[0, 1].downcase + fieldLabel[1..-1]
+						if (fieldLabel == "name")
+							fieldLabel = "genericName"
+						end
+						%>
+						
+							<%= label_tag "mads_complex_subject[#{fieldLabel}_attributes][0][name]", "#{fieldLabel[0, 1].upcase + fieldLabel[1..-1]}" %>
+      						<%= text_field_tag "mads_complex_subject[#{fieldLabel}_attributes][0][name]", cList[i].name, class: "input-block-level" %>
+						<%
+						i +=1
+					end
+				end %>
 			<div class="form-actions">
-				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
-				<%= link_to "Cancel", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-link pull-right" %>
+				<button type="submit" class="btn btn-primary">Save changes</button>
+				<%= link_to "Cancel", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary" %>
 			</div>
 				
 		
 		<%end%>
 
-			<% cList = @mads_complex_subject.componentList.first    
-				i = 0
-				if cList != nil
-					while i < cList.size  do
-						if(!cList[i].nil?)							
-			%>
-			<%
-							if(cList[i].to_s.include? 'ark:/20775/')
-								@obj = MadsTemporal.find(cList[i].to_s.gsub(/.*\//,''))	
-								hasModel = @obj.relationships(:has_model).to_s
-								label = ""
-								fieldName = ""
-								if (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsTopic'))
-								    @obj = MadsTopic.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_topic"
-      		  						label = "Topic"
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsTemporal'))
-								    @obj = MadsTemporal.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_temporal"
-      		  						label = "Temporal"      
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:DamsIconography'))
-								    @obj = DamsIconography.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "dams_iconography"
-      		  						label = "Iconography"   
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:DamsScientificName'))
-								    @obj = DamsScientificName.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "dams_scientific_name"
-      		  						label = "ScientificName"    
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:DamsTechnique'))
-								    @obj = DamsTechnique.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "dams_technique"
-      		  						label = "Technique"    
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:DamsBuiltWorkPlace'))
-								    @obj = MadsGenreForm.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "dams_built_work_place"
-      		  						label = "BuiltWorkPlace"    
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsPersonalName'))
-								    @obj = MadsPersonalName.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_personal_name"
-      		  						label = "PersonalName"    
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsGeographic'))
-								    @obj = MadsGeographic.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_geographic"
-      		  						label = "Geographic"
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:DamsCulturalContext'))
-								    @obj = DamsCulturalContext.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "dams_cultural_context"
-      		  						label = "CulturalContext"            		  						
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:DamsStylePeriod'))
-								    @obj = DamsStylePeriod.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "dams_style_period"
-      		  						label = "StylePeriod"    
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsConferenceName'))
-								    @obj = MadsGeographic.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_conference_name"
-      		  						label = "ConferenceName"
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:DamsFunction'))
-								    @obj = DamsFunction.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "dams_function"
-      		  						label = "Function"  
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsCorporateName'))
-								    @obj = MadsCorporateName.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_corporate_name"
-      		  						label = "CorporateName"    
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsOccupation'))
-								    @obj = MadsOccupation.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_occupation"
-      		  						label = "Occupation"
-								elsif (!@obj.nil? && !hasModel.nil? && (hasModel.include? 'afmodel:MadsFamilyName'))
-								    @obj = MadsFamilyName.find(cList[i].to_s.gsub(/.*\//,''))	
-      		  						fieldName = "mads_family_name"
-      		  						label = "FamilyName"        		  						      		  						    		  						          		  						      		  						      		  						      		  						      		  						        		  								  					
-      		  					end
-			%>
-								<%= form_for @obj do |t| %>		
-									<dt><%= render 'error_messages', object: t.object %></dt>									
-									<%= label_tag "#{fieldName}[name][]", "#{label}" %>
-									<%= text_field_tag "#{fieldName}[name][]", @obj.name[0]%>
-									<%= hidden_field_tag(:parent_id, parentId) %>																	
-									<button type="submit" class="btn btn-primary">Save</button>									
-			<%			
-								end	
-							end
-						end
-						i +=1
-					end 
-				end
-			%> 
-				
 	</div>
 </div>

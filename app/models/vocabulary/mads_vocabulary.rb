@@ -32,4 +32,10 @@ class MADS < RDF::Vocabulary("http://www.loc.gov/mads/rdf/v1#")
   property :componentList
   property :definitionNote
   property :hasExactExternalAuthority
+  property :MainTitleElement
+  property :NonSortElement
+  property :SubTitleElement
+  property :PartNameElement
+  property :PartNumberElement
+  property :LanguageElement
 end

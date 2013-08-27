@@ -31,22 +31,22 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def new
+    @mads_personal_name.elementList.fullNameElement.build
+    @mads_personal_name.scheme.build
 	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
   end
 
   def edit
     @mads_personal_name = MadsPersonalName.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@mads_personal_name.scheme != nil)
-    	@scheme_id = @mads_personal_name.scheme.to_s.gsub /.*\//, ""
-   		#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first   
-   	end
+    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
+    @scheme_id = Rails.configuration.id_namespace+@mads_personal_name.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_personal_name.attributes = params[:mads_personal_name]
     if @mads_personal_name.save
-        redirect_to @mads_personal_name, notice: "personal_name has been saved"
+        redirect_to @mads_personal_name, notice: "Personal Name has been saved"
     else
       flash[:alert] = "Unable to save personal_name"
       render :new
@@ -54,6 +54,8 @@ class MadsPersonalNamesController < ApplicationController
   end
 
   def update
+    @mads_personal_name.elementList.clear
+    @mads_personal_name.scheme.clear   
     @mads_personal_name.attributes = params[:mads_personal_name]
     if @mads_personal_name.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")

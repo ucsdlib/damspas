@@ -3,7 +3,7 @@ class DamsEventDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.type(:in => DAMS, :to => 'type')
     map.eventDate(:in => DAMS, :to => 'eventDate')
     map.outcome(:in => DAMS, :to => 'outcome')
-    map.relationship(:in => DAMS, :class_name => 'Relationship')
+    map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
   end
   
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
