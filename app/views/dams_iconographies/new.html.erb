@@ -5,10 +5,16 @@
   <%= text_field_tag 'dams_iconography[name]' %>
   <%= label_tag 'dams_iconography[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_iconography[externalAuthority]' %> 
-  <%= label_tag 'dams_iconography[elementValue]', "IconographyElement" %>
-  <%= text_field_tag 'dams_iconography[elementValue]' %> 
+  
+  <%= f.fields_for :iconographyElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>
   <br>
-  <%= select_tag 'dams_iconography[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
