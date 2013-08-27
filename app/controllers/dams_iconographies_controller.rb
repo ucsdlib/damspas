@@ -32,20 +32,17 @@ class DamsIconographiesController < ApplicationController
 
   def new
     #Check schemes ####################################################################
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    @dams_iconography.scheme.build
+    @dams_iconography.elementList.iconographyElement.build
+	@mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
-    @dams_iconography = DamsIconography.find(params[:id])
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@dams_iconography.scheme != nil)
-    	@scheme_id = @dams_iconography.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
+    @scheme_id = Rails.configuration.id_namespace+@dams_iconography.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @dams_iconography.attributes = params[:dams_iconography]
     if @dams_iconography.save
         redirect_to @dams_iconography, notice: "iconography has been saved"
     else
@@ -55,6 +52,8 @@ class DamsIconographiesController < ApplicationController
   end
 
   def update
+    @dams_iconography.elementList.clear
+    @dams_iconography.scheme.clear  
     @dams_iconography.attributes = params[:dams_iconography]
     if @dams_iconography.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")

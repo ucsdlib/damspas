@@ -9,16 +9,20 @@
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'dams_iconography[name][]', "Authoritative Label" %>
+			<%= label_tag 'dams_iconography[name][]', "Name" %>
 			<%= text_field_tag 'dams_iconography[name][]', @dams_iconography.name[0], class: "input-block-level" %>
 		
 			<%= label_tag 'dams_iconography[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'dams_iconography[externalAuthority][]', @dams_iconography.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'dams_iconography[scheme][]', "scheme" %>
-			<%= select_tag 'dams_iconography[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
-			<%= label_tag 'dams_iconography[elementValue][]', "IconographyElement" %>
-			<%= text_field_tag 'dams_iconography[elementValue][]', @dams_iconography.elementValue, class: "input-block-level" %>
+	 	  <%= f.fields_for :scheme, include_id: false do |se| %>
+	        <%= se.label :id, "Scheme" %>
+	        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+	      <% end %>
+	      <%= f.fields_for :iconographyElement do |te| %>
+	        <%= te.label :elementValue, "Element Value" %>
+	        <%= te.text_field :elementValue, class: "input-block-level" %>
+	      <% end %>
 							
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
