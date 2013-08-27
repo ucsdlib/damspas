@@ -1,5 +1,5 @@
 <%
-	videoURL = nil
+	wowzaURL = nil
 
 	prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
 	objid = @document['id']
@@ -12,14 +12,14 @@
 			if files['use'] == 'video-service'
 				fileid = cmpid + '-' + files['id']
 				encrypted = encrypt_stream_name( objid, fileid, request.ip )
-				#encrypted = 'blahblahblah'
-				videoURL = ViewOptions::VIDEO_PARTIAL_URL + encrypted
+#				wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp4:' + encrypted
+				wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp4:' + files['sourcePath'].gsub(ViewOptions::WOWZA_PARENT_DIRECTORY,'') + files['sourceFileName']
 			end
 		end
 	end
 %>
 
-<% if videoURL != nil %>
+<% if wowzaURL != nil %>
 
 	<div id="dams-video">Loading the player...</div>
 
@@ -29,8 +29,8 @@
 			[{
 				sources:
 				[
-					{file: "rtmp://<%=videoURL%>"},
-					{file: "http://<%=videoURL%>/playlist.m3u8"}
+					{file: "rtmp://<%=wowzaURL%>"},
+					{file: "http://<%=wowzaURL%>/playlist.m3u8"}
 				]
 			}],
 			width: "100%",

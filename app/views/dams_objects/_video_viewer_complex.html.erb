@@ -1,5 +1,5 @@
 <%
-   videoURL = nil
+   wowzaURL = nil
 
    prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
    objid = @document['id']
@@ -12,16 +12,17 @@
        if files['use'] == 'video-service'
          fileid = cmpid + '-' + files['id']
          encrypted = encrypt_stream_name( objid, fileid, request.ip )
-         #encrypted = 'blahblahblah'
-         videoURL = ViewOptions::VIDEO_PARTIAL_URL + encrypted
+#         wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp4:' + encrypted
+         wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp4:' + files['sourcePath'].gsub(ViewOptions::WOWZA_PARENT_DIRECTORY,'') + files['sourceFileName']
+
        end
      end
    end
 
-   dataForDynamicLoad = "{\"file_type\":\"video\",\"display_file_path\":\"\",\"service_file_path\":\"#{videoURL}\"}".html_safe
+   dataForDynamicLoad = "{\"file_type\":\"video\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}".html_safe
 %>
 
-<% if videoURL != nil %>
+<% if wowzaURL != nil %>
 
   <div id="dams-video-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</div>
 
