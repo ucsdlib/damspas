@@ -116,55 +116,55 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestRelatedResourceDescription2")
 end
 
-# scenario 'is on the provenance collection page to be edited' do
-# 	sign_in_developer
+scenario 'is on the provenance collection page to be edited' do
+	sign_in_developer
 
-# 	visit Path.path
-# 	click_on "Edit"
-# 	page.select('Test Title2', match: :first)
+	visit Path.path
+	click_on "Edit"
+	page.select('Test Title2', match: :first)
 
-# 	fill_in "dams_provenance_collection_titleValue_", :with => "TestTitle3"
-# 	fill_in "dams_provenance_collection_subtitle_", :with => "TestSubTitle3"
-# 	fill_in "dams_provenance_collection_titlePartName_", :with => "TestPartName3"
-# 	fill_in "dams_provenance_collection_titlePartNumber_", :with => "TestPartNumber3"
-# 	fill_in "dams_provenance_collection_titleNonSort_", :with => "TestNonSort3"
-# 	fill_in "dams_provenance_collection_dateValue_", :with => "TestDate3"
-# 	fill_in "dams_provenance_collection_beginDate_", :with => "TestBeginDate3"
-# 	fill_in "dams_provenance_collection_endDate_", :with => "TestEndDate3"
-# 	page.select('Test Language', match: :first)
-# 	fill_in "dams_provenance_collection_noteValue_", :with => "TestNote3"
-# 	fill_in "dams_provenance_collection_noteType_", :with => "TESTNOTETYPE3"
-# 	fill_in "dams_provenance_collection_noteDisplayLabel_", :with => " "
-# 	fill_in "dams_provenance_collection_scopeContentNoteValue_", :with => "TestScopeContentNote3"
-# 	page.select('CorporateName', match: :first)
-# 	fill_in "dams_provenance_collection_relatedResourceType_", :with => "TestRelatedResourceType3"
-# 	fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.amazon.com"
-# 	fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "TestRelatedResourceDescription3"
-# 	click_on "Save"
-
+	fill_in "dams_provenance_collection_titleValue_", :with => "TestTitle3"
+ 	fill_in "dams_provenance_collection_subtitle_", :with => "TestSubTitle3"
+	fill_in "dams_provenance_collection_titlePartName_", :with => "TestPartName3"
+ 	fill_in "dams_provenance_collection_titlePartNumber_", :with => "TestPartNumber3"
+ 	fill_in "dams_provenance_collection_titleNonSort_", :with => "TestNonSort3"
+	fill_in "dams_provenance_collection_dateValue_", :with => "TestDate3"
+	fill_in "dams_provenance_collection_beginDate_", :with => "TestBeginDate3"
+	fill_in "dams_provenance_collection_endDate_", :with => "TestEndDate3"
+	page.select('Test Language', match: :first)
+	fill_in "dams_provenance_collection_noteValue_", :with => "TestNote3"
+	fill_in "dams_provenance_collection_noteType_", :with => "TESTNOTETYPE3"
+	fill_in "dams_provenance_collection_noteDisplayLabel_", :with => " "
+	fill_in "dams_provenance_collection_scopeContentNoteValue_", :with => "TestScopeContentNote3"
+	page.select('CorporateName', match: :first)
+	fill_in "dams_provenance_collection_relatedResourceType_", :with => "TestRelatedResourceType3"
+	fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.amazon.com"
+	fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "TestRelatedResourceDescription3"
 
 
-# 	# Check that changes are saved
-# 	# expect(page).to have_selector('li', :text => "Test Title2")
-# 	expect(page).to have_content ("TestTitle3")
-# 	expect(page).to have_content ("TestSubTitle3")
-# 	expect(page).to have_content ("TestPartName3")
-# 	expect(page).to have_content ("TestPartNumber3")
-# 	expect(page).to have_content ("TestNonSort3")
-# 	expect(page).to have_content ("TestDate3")
-# 	expect(page).to have_content ("TestBeginDate3")
-# 	expect(page).to have_content ("TestEndDate3")
-# 	expect(page).to have_selector('li', :text => "Test Language")
-# 	expect(page).to have_content ("TestNote3")
-# 	# should get note type as title by not filling in Note Display Lable
-# 	expect(page).to have_content ("TESTNOTETYPE3")
-# 	expect(page).to have_content ("TestScopeContentNote3")
-# 	# expect(page).to have_selector('li', :text => "CorporateName")
-# 	# expect(page).to have_selector ('li', :text => "CorporateName")
-# 	expect(page).to have_content ("TESTRELATEDRESOURCETYPE3")
-# 	expect(page).to have_selector('a', :text => "TestRelatedResourceDescription3")
-# 	expect(page).to have_content ("TestRelatedResourceDescription3")
-# 	end
+	# click_on "Save"
+
+	# # Check that changes are saved
+	# # expect(page).to have_selector('li', :text => "Test Title2")
+	# expect(page).to have_content ("TestTitle3")
+	# expect(page).to have_content ("TestSubTitle3")
+	# expect(page).to have_content ("TestPartName3")
+	# expect(page).to have_content ("TestPartNumber3")
+	# expect(page).to have_content ("TestNonSort3")
+	# expect(page).to have_content ("TestDate3")
+	# expect(page).to have_content ("TestBeginDate3")
+	# expect(page).to have_content ("TestEndDate3")
+	# expect(page).to have_selector('li', :text => "Test Language")
+	# expect(page).to have_content ("TestNote3")
+	# # should get note type as title by not filling in Note Display Lable
+	# expect(page).to have_content ("TESTNOTETYPE3")
+	# expect(page).to have_content ("TestScopeContentNote3")
+	# # expect(page).to have_selector('li', :text => "CorporateName")
+	# # expect(page).to have_selector ('li', :text => "CorporateName")
+	# expect(page).to have_content ("TESTRELATEDRESOURCETYPE3")
+	# expect(page).to have_selector('a', :text => "TestRelatedResourceDescription3")
+	# expect(page).to have_content ("TestRelatedResourceDescription3")
+	end
 end
 
 feature 'Visitor wants to cancel unsaved edits' do
