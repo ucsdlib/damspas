@@ -15,12 +15,16 @@ class FileController < ApplicationController
     # set headers
     filename = params["filename"] || "#{params[:id]}#{params[:ds]}"
     headers['Content-Disposition'] = "inline; filename=#{filename}"
-    headers['Content-Type'] = ds.mimeType || 'application/octet-stream'
+    if ds.mimeType
+      headers['Content-Type'] = ds.mimeType
+    elsif filename.include?('.xml')
+      headers['Content-Type'] = 'application/xml'
+    else
+      headers['Content-Type'] = 'application/octet-stream'
+    end
     headers['Last-Modified'] = ds.lastModifiedDate || Time.now.ctime.to_s
     if ds.size
       headers['Content-Length'] = ds.size.to_s
-    else
-      headers['Transfer-Encoding'] = 'chunked'
     end
 
     # see https://github.com/cul/active_fedora_streamable/blob/master/lib/active_fedora_streamable.rb

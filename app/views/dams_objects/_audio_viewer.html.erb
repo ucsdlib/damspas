@@ -1,1 +1,47 @@
-<audio src="<%= filePath %>" type="audio/mpeg" preload="auto" id="simple-audio">Your browser does not support the audio tag.</audio>
+<%
+   wowzaURL = nil
+
+   prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+   objid = @document['id']
+   cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
+   fieldData = @document["#{prefix}files_tesim"]
+
+   if fieldData != nil
+     fieldData.each do |datum|
+       files = JSON.parse(datum)
+       if files['use'] == 'audio-service'
+         fileid = cmpid + '-' + files['id']
+         encrypted = encrypt_stream_name( objid, fileid, request.ip )
+#         wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp3:' + encrypted
+         wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp3:' + files['sourcePath'].gsub(ViewOptions::WOWZA_PARENT_DIRECTORY,'') + files['sourceFileName']
+
+       end
+     end
+   end
+%>
+
+<% if wowzaURL != nil %>
+
+  <div id="dams-audio">Loading the player...</div>
+
+  <script type="text/javascript">
+	  jwplayer("dams-audio").setup({
+		  playlist:
+				  [{
+					  sources:
+							  [
+								  {file: "rtmp://<%=wowzaURL%>"},
+								  {file: "http://<%=wowzaURL%>/playlist.m3u8"}
+							  ]
+				  }],
+		  width: "100%",
+		  height: 25,
+		  controlBar:'bottom',
+		  rtmp: {bufferlength: 3},
+		  analytics: {enabled: false},
+		  primary: "flash",
+		  fallback: false
+	  });
+  </script>
+
+<% end %>
