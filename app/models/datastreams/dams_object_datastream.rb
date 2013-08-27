@@ -68,44 +68,44 @@ class DamsObjectDatastream < DamsResourceDatastream
   
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
-#	if(!@unitURI.nil?)
-#      if new?
-#        graph.insert([rdf_subject, DAMS.unit, @unitURI])
-#      else
-#        graph.update([rdf_subject, DAMS.unit, @unitURI])
-#      end
-#    end      
-#	if(!@langURI.nil?)
-#      if new?
-#        graph.insert([rdf_subject, DAMS.language, @langURI])
-#      else
-#        graph.update([rdf_subject, DAMS.language, @langURI])
-#      end
-#    end    
-#	if(!@assembledCollURI.nil?)
-#      if new?
-#        graph.insert([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
-#      else
-#        graph.update([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
-#      end
-#    end         
-#	if(!@provenanceCollURI.nil?)
-#      if new?
-#        graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
-#      else
-#        graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
-#      end
-#    end
-#   if(!@provenanceCollPartURI.nil?)
-#      if new?
-#        graph.insert([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
-#      else
-#        graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
-#      end
-#    end             
-#    insertSubjectsGraph
-#    insertCopyRightsInfoGraph
-#    insertNameGraph                      
+	if(!@unitURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.unit, @unitURI])
+      else
+        graph.update([rdf_subject, DAMS.unit, @unitURI])
+      end
+    end      
+	if(!@langURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.language, @langURI])
+      else
+        graph.update([rdf_subject, DAMS.language, @langURI])
+      end
+    end    
+	if(!@assembledCollURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
+      else
+        graph.update([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
+      end
+    end         
+	if(!@provenanceCollURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+      else
+        graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+      end
+    end
+   if(!@provenanceCollPartURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
+      else
+        graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
+      end
+    end             
+    insertSubjectsGraph
+    insertCopyRightsInfoGraph
+    insertNameGraph                      
     super
   end
 
