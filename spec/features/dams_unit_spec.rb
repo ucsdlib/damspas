@@ -10,15 +10,14 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('a', :text => 'Topic')
     expect(page).to have_selector('a', :text => 'Format')
 
-    expect(page).to have_field('Search...')
+    expect(page).to have_field('Search DAMS')
   end
 
   scenario 'does a search for items' do
     visit dams_units_path
 
-    expect(page).to have_selector('p', :text => 'Search')
-    fill_in 'For keywords...', :with => "sample", :match => :prefer_exact
-    click_on('Search')
+    fill_in 'Search DAMS', :with => "sample", :match => :prefer_exact
+    click_on('search-button')
 
     expect(page).to have_content('Search Results')
     expect(page).to have_content('Limit your search')
@@ -34,10 +33,10 @@ feature 'Visitor wants to look at units' do
   scenario 'retrieve a unit record' do
     # can we find the unit record
     visit dams_units_path
-    expect(page).to have_field('For keywords...')
-    fill_in 'For keywords...', :with => 'bb02020202', :match => :prefer_exact
+    expect(page).to have_field('Search DAMS')
+    fill_in 'Search DAMS', :with => 'bb02020202', :match => :prefer_exact
 
-    click_on('Search')
+    click_on('search-button')
 
     # Check description on the page
     expect(page).to have_content("bb02020202")
@@ -48,8 +47,8 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
     # search for the object in the unit and find it
-    fill_in 'Search...', :with => 'sample', :match => :prefer_exact
-    click_on('Search')
+    fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
+    click_on('search-button')
     expect(page).to have_content('Search Results')
     expect(page).to have_content('Sample Complex Object Record #3')
   end
@@ -59,8 +58,8 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
 
     # search for the object in the unit and find it
-    fill_in 'Search...', :with => 'sample', :match => :prefer_exact
-    click_on('Search')
+    fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
+    click_on('search-button')
     expect(page).to have_content('Search Results')
     expect(page).to have_no_content('Sample Complex Object Record #1')
   end
