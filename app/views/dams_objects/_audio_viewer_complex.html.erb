@@ -13,7 +13,7 @@
          fileid = cmpid + '-' + files['id']
          encrypted = encrypt_stream_name( objid, fileid, request.ip )
 #         wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp3:' + encrypted
-         wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp4:' + files['sourcePath'].gsub(ViewOptions::WOWZA_PARENT_DIRECTORY,'') + files['sourceFileName']
+         wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp3:' + files['sourcePath'].gsub(ViewOptions::WOWZA_PARENT_DIRECTORY,'') + files['sourceFileName']
 
        end
      end
