@@ -522,7 +522,7 @@ module DamsObjectsHelper
     end
 
     # load key from file
-    key= File.read ViewOptions::VIDEO_PARENT_DIRECTORY + '/streaming.key'
+    key= File.read ViewOptions::WOWZA_PARENT_DIRECTORY + 'streaming.key'
 
     # encrypt
     str="#{pid} #{fid} #{ip}"
