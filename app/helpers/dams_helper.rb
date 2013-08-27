@@ -262,19 +262,17 @@ def relatedResourceUri
   ## Subject ######################################################################
   #complex subject
   def subjectValue
-    @subValue
+    subject[0] ? subject[0].name : []
   end
   def subjectValue=(val)
-    @subValue = Array.new
     i = 0
-    val.each do |v| 
-      if(!v.nil? && v.length > 0)
-        #subject[i].build if subject[i] == nil
-        #subject[i].name = v
-        @subValue << v 
-      end
-      i+=1
-    end
+	val.each do |v| 
+		if(!v.nil? && v.length > 0)
+		    subject.build if subject[i] == nil
+		    subject[i].name = v
+		end
+		i+=1
+	end
   end
   
   #simple subject
