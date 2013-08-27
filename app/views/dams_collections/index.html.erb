@@ -16,7 +16,11 @@
 	              <li><%= link_to col['title_tesim'].first, dams_assembled_collection_path(col['id']) %></li>
 	           
 	           <% elsif (datum == "ProvenanceCollection") %>
-		          <li><%= link_to col['title_tesim'].first, dams_provenance_collection_path(col['id']) %></li>  
+                  <%
+                    title = col['title_tesim']
+                    title = title.first if title.kind_of?(Array)
+                  %>
+		          <li><%= link_to title, dams_provenance_collection_path(col['id']) %></li>  
 	                
 	              <%if col['part_json_tesim']!= nil %>
 	                <% col['part_json_tesim'].each do |value| %>
