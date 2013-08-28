@@ -69,6 +69,7 @@ describe DamsObject do
   it "should create a xml" do
     subject.titleValue = "Sample Complex Object Record #1"
     subject.subtitle = "a newspaper PDF with a single attached image"
+    #subject.titleVariant = "The Whale"
     subject.dateValue = "May 24, 1980"
     subject.beginDate = "1980-05-24"
     subject.endDate = "1980-05-24"

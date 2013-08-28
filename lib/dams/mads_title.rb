@@ -9,6 +9,7 @@ module Dams
       map_predicates do |map|
         map.name(:in => MADS, :to => 'authoritativeLabel')
         map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
+        map.hasVariant(:in => MADS, :class_name => 'MadsVariant')
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTitleElementList')
       end
 
@@ -92,6 +93,19 @@ module Dams
         set_value MadsSubTitleElement, s
 	  end
 
+	  def variantValue
+	    hasVariant[0] ? hasVariant[0].variantLabel: []
+	  end
+	  def variantValue=(val)
+	    if val.class == Array
+	      val = val.first
+	    end
+	    if(!val.nil? && val.length > 0)
+	      hasVariant.build if hasVariant[0] == nil
+	      hasVariant[0].variantLabel = val
+	    end
+	  end
+  
       def get_elem(klass)
         idx = 0
         while idx < elementList.size
@@ -152,5 +166,7 @@ module Dams
       end
       accepts_nested_attributes_for :nonSortElement, :mainTitleElement, :partNameElement, :partNumberElement, :subTitleElement
     end
+    
+
   end
 end
