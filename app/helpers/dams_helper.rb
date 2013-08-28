@@ -257,8 +257,16 @@ def relatedResourceUri
   def titleNonSort=(s)
     title.build if title.first.nil?
     title.first.nonSort = s
-  end  
+  end
 
+  def titleVariant
+    title.first != nil ? title.first.variantValue : nil
+  end
+  def titleVariant=(s)
+    title.build if title.first.nil?
+    title.first.variantValue = s
+  end
+        
   ## Subject ######################################################################
   #complex subject
   def subjectValue

@@ -81,6 +81,7 @@ class DamsObject < ActiveFedora::Base
     :titlePartName,
     :titlePartNumber,
     :titleValue,
+    :titleVariant,
     :topic,
     :typeOfResource,
     :unit,

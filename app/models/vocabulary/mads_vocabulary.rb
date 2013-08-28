@@ -38,4 +38,7 @@ class MADS < RDF::Vocabulary("http://www.loc.gov/mads/rdf/v1#")
   property :PartNameElement
   property :PartNumberElement
   property :LanguageElement
+  property :variantLabel
+  property :Variant
+  property :hasVariant
 end
