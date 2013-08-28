@@ -36,7 +36,7 @@ class DamsObjectsController < ApplicationController
     end
   end
   def index
-    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsObject"', :rows => 20 )
+    @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsObject"', :rows => 100 )
   end
 
   ##############################################################################

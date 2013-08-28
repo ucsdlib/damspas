@@ -155,7 +155,7 @@ end
 
 feature 'Visitor wants to view an object' do
   scenario 'is on Object index page' do
-    visit dams_object_path('')
+    visit dams_objects_path
     expect(page).to have_selector('a', :text => "Sample Audio Component: I need another green form")
     click_on "Sample Audio Component: I need another green form"
     expect(page).to have_selector('li', :text => "English")

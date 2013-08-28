@@ -46,7 +46,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
 
     # components and files
-    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
+    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'DamsComponentInternal')
     #map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class => 'DamsComponent')
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 

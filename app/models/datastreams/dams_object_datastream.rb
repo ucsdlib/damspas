@@ -46,7 +46,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
 
     # components and files
-    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'Component')
+    map.component(:in => DAMS, :to=>'hasComponent', :class_name => 'DamsComponentInternal')
     map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
     # rights
@@ -220,6 +220,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
   
   def load_copyright ( copyright )
+    foo = copyright.to_s
 	if !copyright.first.nil?
 	    c_pid = copyright.first.pid
 	    if !copyright.first.status.first.nil? && copyright.first.status.to_s.length > 0
@@ -235,6 +236,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_license(license)
   end
   def load_license (license)
+    foo = license.to_s
 	if !license.first.nil?
 	    l_pid = license.first.pid
 	    
@@ -426,10 +428,10 @@ class DamsObjectDatastream < DamsResourceDatastream
       if othr.name.first != nil
         othr_json[:name] = "#{Rails.configuration.id_namespace}#{othr.name.first.pid}"
       end
-      if othr.relationship.first.personalName.first != nil
+      if othr.relationship.first != nil && othr.relationship.first.personalName.first != nil
         othr_json[:name] = "#{Rails.configuration.id_namespace}#{othr.relationship.first.personalName.first.pid}"
       end
-      if othr.relationship.first.corporateName.first != nil
+      if othr.relationship.first != nil && othr.relationship.first.corporateName.first != nil
         othr_json[:name] = "#{Rails.configuration.id_namespace}#{othr.relationship.first.corporateName.first.pid}"
       end
        begin
