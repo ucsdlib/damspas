@@ -2,8 +2,11 @@
 
 <div class="span6">
   <ul>
-    <% @document.each do |doc| %>
-      <li><%= link_to doc['title_tesim'].first, dams_object_path(doc['id']) %></li>
+    <% @document.each do |doc|
+        @title = doc['title_tesim']
+        @title = @title.first if @title.kind_of?(Array)
+    %>
+      <li><%= link_to @title, doc %></li>
     <% end %>
   </ul>
 </div>
