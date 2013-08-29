@@ -12,42 +12,59 @@ class User < ActiveRecord::Base
   devise :trackable, :omniauthable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :provider, :uid
+  attr_accessible :email, :provider, :uid, :groups
 
   # attr_accessible :title, :body
+  attr_accessible :anonymous
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     uid = access_token.uid
-logger.warn "dev: uid=#{uid}"
+    @anonymous = false
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
-    u.groups = ['developer-authenticated']
     u
   end
 
   def self.find_or_create_for_shibboleth(access_token, signed_in_resource=nil)
     uid = access_token.uid
+    @anonymous = false
     email = access_token['info']['email'] || "#{uid}@ucsd.edu"
     provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
-    u.groups = ['shibboleth-authenticated']
     u
   end
 
+  def anonymous=(bool)
+    @anonymous=bool
+  end
+  def anonymous
+    @anonymous
+  end
   def self.anonymous(ip)
     u = User.where(:uid => 'anonymous',:provider => 'anonymous').first || User.create(:uid => 'anonymous',:provider => 'anonymous', :email => 'anonymous')
     role = role_from_ip(ip)
     logger.warn "anonymous, role from ip: #{role}"
     u.groups = [ role ]
+    u.anonymous = true
     u
   end
 
   def groups
     if @group_list == nil
-      @group_list = ldap_groups( uid )
+      if provider == "developer"
+        @group_list = ['developer-authenticated','dams-curator']
+      elsif provider == "shibboleth"
+        @group_list = ['shibboleth-authenticated']
+      else
+        @group_list = ['unknown']
+      end
     end
-    @group_list || ['unknown']
+    ldap = ldap_groups(uid)
+    if ldap != nil && ldap.kind_of?(Array)
+      @group_list.concat( ldap )
+    end
+    @group_list
   end
   def groups=(g)
     @group_list = g

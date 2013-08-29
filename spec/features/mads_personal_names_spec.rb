@@ -111,7 +111,7 @@ end
 
 def sign_in_developer
   visit new_user_session_path
-  fill_in "Name", :with => "name"
-  fill_in "Email", :with => "email@email.com"
+  fill_in "name", :with => "name"
+  fill_in "email", :with => "email@email.com"
   click_on "Sign In"
 end

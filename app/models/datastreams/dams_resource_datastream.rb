@@ -151,24 +151,28 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_genreForms(genreForm)
   end
   def load_genreForms(genreForm)
+    foo = genreForm.to_s
 	loadObjects genreForm,MadsGenreForm
   end
   def load_geographics
     load_geographics(geographic)
   end
   def load_geographics(geographic)
+    foo = geographic.to_s
 	loadObjects geographic,MadsGeographic
   end
   def load_iconographies
     load_iconographies(iconography)
   end
   def load_iconographies(iconography)
+    foo = iconography.to_s
     loadObjects iconography,DamsIconography
   end
   def load_occupations
     load_occupations(occupation)
   end
   def load_occupations(occupation)
+    foo = occupation.to_s
 	loadObjects occupation,MadsOccupation
   end
   def load_scientificNames
@@ -193,12 +197,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_temporals( temporal )
   end
   def load_temporals( temporal )
+    foo = temporal.to_s
 	loadObjects temporal,MadsTemporal
   end
   def load_topics
     load_topics(topic)
   end
   def load_topics(topic)
+    foo = topic.to_s
 	loadObjects topic,MadsTopic
   end
 
@@ -207,30 +213,35 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_names(name)
   end
   def load_names(name)
+    foo = name.to_s
 	loadObjects name,MadsName
   end
   def load_conferenceNames
     load_conferenceNames(conferenceName)
   end
   def load_conferenceNames(conferenceName)
+    foo = conferenceName.to_s
 	loadObjects conferenceName,MadsConferenceName
   end
   def load_corporateNames
     load_corporateNames(corporateName)
   end
   def load_corporateNames(corporateName)
+    foo = corporateName.to_s
 	loadObjects corporateName,MadsCorporateName
   end
   def load_familyNames
     load_familyNames(familyName)
   end
   def load_familyNames(familyName)
+    foo = familyName.to_s
 	loadObjects familyName,MadsFamilyName
   end
   def load_personalNames
     load_personalNames(personalName)
   end
   def load_personalNames(personalName)
+    foo = personalName.to_s
 	loadObjects personalName,MadsPersonalName
   end
 
@@ -379,32 +390,31 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationships.map do |relationship|
       obj = relationship.name.first.to_s      
 
- 	  rel = relationship
-	  if !rel.corporateName.first.nil?
-	    rel = rel.corporateName
-	  elsif !rel.personalName.first.nil?
-	    rel = rel.personalName
-	  elsif !rel.conferenceName.first.nil?
-	    rel = rel.conferenceName
-	  elsif !rel.familyName.first.nil?
-	    rel = rel.familyName 	     	        
-      elsif !rel.name.first.nil?
-	    rel = rel.name    
+	  if !relationship.corporateName.first.nil?
+	    rel = relationship.corporateName
+	  elsif !relationship.personalName.first.nil?
+	    rel = relationship.personalName
+	  elsif !relationship.conferenceName.first.nil?
+	    rel = relationship.conferenceName
+	  elsif !relationship.familyName.first.nil?
+	    rel = relationship.familyName 	     	        
+      elsif !relationship.name.first.nil?
+	    rel = relationship.name    
 	  end
 
-      if rel.first.nil? || rel.first.name.first.nil?
-    	rel = relationship.load  
+      if rel != nil && (rel.first.nil? || rel.first.name.first.nil?)
+        rel = relationship.load  
       end
-	    	  
+
       if ( rel != nil )
         if(rel.to_s.include? 'Internal')
-        	name = rel.first.name.first.to_s
-        	Solrizer.insert_field(solr_doc, "fulltext", rel.first.name)
+            name = rel.first.name.first.to_s
+            Solrizer.insert_field(solr_doc, "fulltext", rel.first.name)
         else
-        	name = rel.name.first.to_s
-        	Solrizer.insert_field(solr_doc, "fulltext", rel.name)
-		end
-		
+            name = rel.name.first.to_s
+            Solrizer.insert_field(solr_doc, "fulltext", rel.name)
+        end
+
         # retrieval
         Solrizer.insert_field( solr_doc, "name", name )
         
