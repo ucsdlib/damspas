@@ -300,6 +300,7 @@ END
       it "should have fields" do
         subject.titleValue.should == "Sample Object Record #8"
         subject.subtitle.should == "Name/Note/Subject Sampler"
+        subject.titleVariant.should == "The Whale"
       end
       
       it "should index mads fields" do
@@ -414,8 +415,9 @@ END
         
         solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'
         
-        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber"'
-                
+        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","titleVariant":"The Whale"'
+        solr_doc["titleVariant_tesim"].should == ["The Whale"]
+        puts solr_doc["title_json_tesim"].first
       end
 
 	  it "should index relationship" do

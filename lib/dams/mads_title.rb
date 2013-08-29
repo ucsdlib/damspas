@@ -94,7 +94,7 @@ module Dams
 	  end
 
 	  def variantValue
-	    hasVariant[0] ? hasVariant[0].variantLabel: []
+	    hasVariant[0] ? hasVariant[0].variantLabel.first: []
 	  end
 	  def variantValue=(val)
 	    if val.class == Array

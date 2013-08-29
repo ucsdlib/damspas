@@ -69,7 +69,7 @@ describe DamsObject do
   it "should create a xml" do
     subject.titleValue = "Sample Complex Object Record #1"
     subject.subtitle = "a newspaper PDF with a single attached image"
-    #subject.titleVariant = "The Whale"
+    subject.titleVariant = "The Whale"
     subject.dateValue = "May 24, 1980"
     subject.beginDate = "1980-05-24"
     subject.endDate = "1980-05-24"
@@ -90,6 +90,7 @@ describe DamsObject do
     subject.otherRightsURI = ["bb06060606"]
     subject.licenseURI = ["bb22222222"]
     subject.rightsHolderURI = ["bb09090909"]
+	bn_id = subject.title[0].hasVariant[0].rdf_subject.id
 
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -97,7 +98,40 @@ describe DamsObject do
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
     xmlns:damsid="#{Rails.configuration.id_namespace}">
-<dams:Object rdf:about="#{Rails.configuration.id_namespace}xx80808080">
+<dams:Object rdf:about="#{Rails.configuration.id_namespace}xx80808080">   
+    <dams:assembledCollection rdf:resource="#{Rails.configuration.id_namespace}bb03030303"/>
+    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
+	<dams:date>
+      <dams:Date>
+        <dams:beginDate>1980-05-24</dams:beginDate>
+        <dams:endDate>1980-05-24</dams:endDate>
+        <rdf:value>May 24, 1980</rdf:value>        
+      </dams:Date>
+    </dams:date>    
+    <dams:language rdf:resource="#{Rails.configuration.id_namespace}xx00000170"/> 
+    <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
+    <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/bb06060606"/>
+    <dams:personalName>
+      <mads:PersonalName>
+        <mads:authoritativeLabel>inline personal name</mads:authoritativeLabel>
+      </mads:PersonalName>
+    </dams:personalName> 
+    <dams:personalName rdf:resource="#{Rails.configuration.id_namespace}xx11111111"/>    
+    <dams:provenanceCollection rdf:resource="#{Rails.configuration.id_namespace}bb24242424"/>  
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:corporateName rdf:resource="#{Rails.configuration.id_namespace}bd8294487v"/>
+        <dams:role rdf:resource="#{Rails.configuration.id_namespace}bd8396905c"/>        
+      </dams:Relationship>
+    </dams:relationship>      
+    <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
+    <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
+    <dams:subject>
+      <mads:ComplexSubject>
+       <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
+      </mads:ComplexSubject>
+    </dams:subject>        
+    <dams:subject rdf:resource="#{Rails.configuration.id_namespace}bd6724414c"/>    
     <dams:title>
       <mads:Title>
         <mads:authoritativeLabel>Sample Complex Object Record #1: a newspaper PDF with a single attached image</mads:authoritiatveLabel>
@@ -109,49 +143,20 @@ describe DamsObject do
             <mads:elementValue>a newspaper PDF with a single attached image</mads:elementValue>
           </mads:SubTitleElement>
         </mads:elementList>
+        <mads:hasVariant rdf:nodeID="#{bn_id}"/>
       </mads:Title>
     </dams:title>
     <dams:topic>
         <mads:Topic>
-            <mads:authoritativeLabel>test subject</ns2:authoritativeLabel>
+            <mads:authoritativeLabel>test subject</mads:authoritativeLabel>
         </mads:Topic>
-    </dams:topic>
-    <dams:personalName rdf:resource="#{Rails.configuration.id_namespace}xx11111111"/>
-    <dams:personalName>
-      <mads:PersonalName>
-        <mads:authoritativeLabel>inline personal name</ns2:authoritativeLabel>
-      </mads:PersonalName>
-    </dams:personalName>    
-	<dams:date>
-      <dams:Date>
-        <rdf:value>May 24, 1980</rdf:value>
-        <dams:beginDate>1980-05-24</dams:beginDate>
-        <dams:endDate>1980-05-24</dams:endDate>
-      </dams:Date>
-    </dams:date>
-    <dams:subject>
-      <mads:ComplexSubject>
-       <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
-      </mads:ComplexSubject>
-    </dams:subject>        
-    <dams:subject rdf:resource="#{Rails.configuration.id_namespace}bd6724414c"/>
-    <dams:language rdf:resource="#{Rails.configuration.id_namespace}xx00000170"/> 
-    <dams:assembledCollection rdf:resource="#{Rails.configuration.id_namespace}bb03030303"/>
-    <dams:provenanceCollection rdf:resource="#{Rails.configuration.id_namespace}bb24242424"/>  
-    <dams:relationship>
-      <dams:Relationship>
-        <dams:role rdf:resource="#{Rails.configuration.id_namespace}bd8396905c"/>
-        <dams:corporateName rdf:resource="#{Rails.configuration.id_namespace}bd8294487v"/>
-      </dams:Relationship>
-    </dams:relationship>  
-    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
-    <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
-    <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/bb06060606"/>
-    <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
-    <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>     
+    </dams:topic>    
+     </dams:Object>
+     <mads:Variant rdf:nodeID="#{bn_id}">
+       <mads:variantLabel>The Whale</mads:variantLabel>
+     </mads:Variant>       
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml
-
   end  
 end
