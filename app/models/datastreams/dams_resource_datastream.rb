@@ -463,11 +463,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       partName = t.partName || ""
       partNumber = t.partNumber || ""
       subtitle = t.subtitle || ""
+	  titleVariant = t.variantValue || ""
 
       # structured
       title_json = { :name => name, :external => external, :value => value,
                      :nonSort => nonSort, :partName => partName,
-                     :partNumber => partNumber, :subtitle => subtitle }
+                     :partNumber => partNumber, :subtitle => subtitle, :titleVariant => titleVariant }
       if cid != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
       else
@@ -476,6 +477,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # retrieval
       Solrizer.insert_field(solr_doc, "title", name)
+      Solrizer.insert_field(solr_doc, "titleVariant", titleVariant)
       Solrizer.insert_field(solr_doc, "fulltext", name)
 
       # build sort title
