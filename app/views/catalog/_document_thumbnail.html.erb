@@ -70,7 +70,7 @@
 
 <% files = select_file( :document => document, :quality => 200 ) %>
 <% if files[:display] != nil %>
-	<%= image_tag file_path document[:id], '_' + files[:display]['id'], :alt => '' %>
+	<%= image_tag file_path(document[:id], '_' + files[:display]['id']), :alt => '', :class => 'dams-search-thumbnail' %>
 <% else %>
 	<div class="dams-search-thumbnail <%=resultClass%>"><i class="glyphicon <%=resultIcon%>"></i></div>
 <% end %>
