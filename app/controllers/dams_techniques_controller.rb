@@ -32,20 +32,18 @@ class DamsTechniquesController < ApplicationController
 
   def new
     #Check schemes ####################################################################
+    @dams_technique.scheme.build
+    @dams_technique.elementList.techniqueElement.build
     @mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
-    @dams_technique = DamsTechnique.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@dams_technique.scheme != nil)
-      @scheme_id = @dams_technique.scheme.to_s.gsub /.*\//, ""
-      #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+    @scheme_id = Rails.configuration.id_namespace+@dams_technique.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @dams_technique.attributes = params[:dams_technique]
+    
     if @dams_technique.save
         redirect_to @dams_technique, notice: "technique has been saved"
     else
@@ -55,6 +53,8 @@ class DamsTechniquesController < ApplicationController
   end
 
   def update
+    @dams_technique.elementList.clear
+    @dams_technique.scheme.clear
     @dams_technique.attributes = params[:dams_technique]
     if @dams_technique.save
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")

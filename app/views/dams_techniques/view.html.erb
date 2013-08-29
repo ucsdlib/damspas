@@ -3,15 +3,15 @@
 <div>
   <dl>
     <dt>TechniqueElement:</dt>
-    <dd><%= @dams_technique.elementValue %></dd>
+    <dd><%= @dams_technique.elementList[0].elementValue %></dd>
     <dt>Scheme:</dt>
-    <dd><%= @dams_technique.scheme %></dd>
+    <dd><%= @dams_technique.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
     <dd><%= @dams_technique.externalAuthority %></dd>
   </dl>
   <% if can? :update, @dams_technique %>
-    <%= link_to "Solr View", dams_technique_path(@dams_technique), class: "btn btn-primary"%>
+    <%= link_to "Solr View", dams_iconographies_path(@dams_technique), class: "btn btn-primary"%>
     <%= link_to "Edit", edit_dams_technique_path(@dams_technique), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_techniques_path(), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_iconographies_path(), class: "btn btn-primary"%>
   <% end %>
 </div>
