@@ -511,6 +511,38 @@ module DamsObjectsHelper
 	# /COMPONENT TREE METHODS
 	#-------------------------
 
+  #---
+  # STREAMING
+  #---
+
+  #---
+  # Builds Wowza URL
+  #
+  # @param fieldData "files_tesim" data (JSON)
+  # @param objid Object ID (string)
+  # @param cmpid Component ID (string)
+  # @return string or nil
+  # @author David T.
+  #---
+
+  def grabWowzaURL(fieldData,objid,cmpid)
+    if fieldData != nil
+      fieldData.each do |datum|
+        files = JSON.parse(datum)
+        if files['use'] == 'audio-service' || files['use'] == 'video-service'
+          fileid = cmpid + '-' + files['id']
+          encrypted = encrypt_stream_name( objid, fileid, request.ip )
+          return ViewOptions::WOWZA_PARTIAL_URL + encrypted
+        end
+      end
+    else
+      nil
+    end
+  end
+
+  #---
+  # /STREAMING
+  #---
 
   ## video stream name encryption
   def encrypt_stream_name( pid, fid, ip )
