@@ -1,22 +1,9 @@
 <%
-	wowzaURL = nil
-
-	prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
-	objid = @document['id']
-	cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
-	fieldData = @document["#{prefix}files_tesim"]
-
-	if fieldData != nil
-		fieldData.each do |datum|
-			files = JSON.parse(datum)
-			if files['use'] == 'video-service'
-				fileid = cmpid + '-' + files['id']
-				encrypted = encrypt_stream_name( objid, fileid, request.ip )
-#				wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp4:' + encrypted
-				wowzaURL = ViewOptions::WOWZA_PARTIAL_URL + 'mp4:' + files['sourcePath'].gsub(ViewOptions::WOWZA_PARENT_DIRECTORY,'') + '/' + files['sourceFileName']
-			end
-		end
-	end
+   prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+   objid = @document['id']
+   cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
+   fieldData = @document["#{prefix}files_tesim"]
+   wowzaURL = grabWowzaURL(fieldData,objid,cmpid)
 %>
 
 <% if wowzaURL != nil %>
