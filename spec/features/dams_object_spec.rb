@@ -11,6 +11,7 @@ feature 'Visitor want to look at objects' do
   end
 
   scenario 'view a sample data file' do
+    sign_in_developer
     visit file_path('bd0922518w','_5_5.jpg')
     response = page.driver.response
     expect(response.status).to eq( 200 )

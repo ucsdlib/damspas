@@ -27,7 +27,7 @@
 								<% @dams_object.title.each do |t| %>
 									<dt>Title</dt>										
 									<dd><%= t.value %></dd>	
-									<% if (!t.subtitle.empty?) %>
+									<% if (!t.subtitle.blank?) %>
 										<dt>Subtitle</dt>										
 										<dd><%= t.subtitle %></dd>
 									<% end %>																
