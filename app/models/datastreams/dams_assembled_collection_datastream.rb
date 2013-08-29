@@ -41,6 +41,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     # child collections
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
+    
 
     # related collections
     map.relatedCollection(:in => DAMS)
@@ -48,6 +49,8 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     # related objects
     map.object(:in => DAMS, :to => 'hasObject')
   end
+
+  
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
@@ -106,6 +109,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')
     Solrizer.insert_field(solr_doc, 'type', 'AssembledCollection')
+    
     super
   end  
 end

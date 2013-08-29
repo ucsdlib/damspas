@@ -1,4 +1,4 @@
-class Component
+class DamsComponentInternal
     include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.Component
@@ -42,7 +42,7 @@ class Component
       map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
 
       # components and files
-      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class_name => 'Component')
+      map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class_name => 'DamsComponentInternal')
       map.file(:in => DAMS, :to=>'hasFile', :class_name => 'DamsFile')
 
       # rights

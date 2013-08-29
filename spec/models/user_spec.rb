@@ -42,8 +42,8 @@ describe User do
   end
 
   describe "#groups" do
-    it "should default to an empty list" do
-      subject.groups.should == []
+    it "should default to 'unknown'" do
+      subject.groups.should == ['unknown']
     end
   end
 end

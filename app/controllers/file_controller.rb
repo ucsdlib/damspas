@@ -1,19 +1,39 @@
 class FileController < ApplicationController
+  include Blacklight::Catalog
 
   def show
     # load metadata
     begin
-      asset = ActiveFedora::Base.find(params[:id], :cast=>true)
+      objid = params[:id]
+      fileid = params[:ds]
+      asset = ActiveFedora::Base.find(objid, :cast=>true)
     rescue
       raise ActionController::RoutingError.new('Not Found')
     end
-    ds = asset.datastreams[params[:ds]]
+    ds = asset.datastreams[fileid]
     if ds.nil?
       raise ActionController::RoutingError.new('Not Found')
     end
 
+    # check permissions
+    sub = RDF::Resource.new(
+        Rails.configuration.id_namespace + objid + fileid.gsub('_','/') )
+    use = asset.damsMetadata.graph.first_object([sub,DAMS.use,nil]).to_s
+
+    # check ip for unauthenticated users
+    if current_user == nil
+      current_user = User.anonymous(request.ip)
+    end
+    
+    if use.end_with?("source")
+      logger.info "FileController: Master file access requires edit permission"
+      authorize! :edit, asset
+    elsif !asset.read_groups.include?("public")
+      authorize! :show, asset
+    end
+
     # set headers
-    filename = params["filename"] || "#{params[:id]}#{params[:ds]}"
+    filename = params["filename"] || "#{objid}#{fileid}"
     headers['Content-Disposition'] = "inline; filename=#{filename}"
     if ds.mimeType
       headers['Content-Type'] = ds.mimeType
@@ -30,7 +50,7 @@ class FileController < ApplicationController
     # see https://github.com/cul/active_fedora_streamable/blob/master/lib/active_fedora_streamable.rb
 
     # stream data to client (does not work in webrick)
-    parms = { :pid => params[:id], :dsid => params[:ds], :finished=>false }
+    parms = { :pid => objid, :dsid => fileid, :finished=>false }
     repo = ActiveFedora::Base.connection_for_pid(parms[:pid])
     self.response_body = Enumerator.new do |blk|
       repo.datastream_dissemination(parms) do |res|
