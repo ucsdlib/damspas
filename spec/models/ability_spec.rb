@@ -8,8 +8,8 @@ describe Ability do
     subject do
       Ability.new(User.new)
     end
-    it "should be able to show damsObject" do
-      subject.can?(:show,@obj).should == true
+    it "should not be able to show damsObject" do
+      subject.can?(:show,@obj).should be_false
 
     end
     it "should not be able to create damsObject" do
@@ -34,7 +34,6 @@ describe Ability do
     end
     it "should be able to show damsObject" do
       subject.can?(:show,@obj).should == true
-
     end
     it "should be able to create damsObject" do
       subject.can?(:create,@obj).should be_true

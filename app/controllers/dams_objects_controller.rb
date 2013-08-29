@@ -5,6 +5,7 @@ class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
   load_and_authorize_resource
+  #skip_load_resource :only => :show
   skip_load_and_authorize_resource :only => :show
 
   ##############################################################################
@@ -16,7 +17,12 @@ class DamsObjectsController < ApplicationController
       current_user = User.anonymous(request.ip)
     end
 
+    # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+
+    # enforce access controls
+    authorize! :show, @document
+
     if @document.nil?
       raise ActionController::RoutingError.new('Not Found')
     end

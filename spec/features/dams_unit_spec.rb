@@ -14,6 +14,7 @@ feature 'Visitor wants to look at units' do
   end
 
   scenario 'does a search for items' do
+    sign_in_developer
     visit dams_units_path
 
     fill_in 'Search DAMS', :with => "sample", :match => :prefer_exact
@@ -50,7 +51,7 @@ feature 'Visitor wants to look at units' do
     fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
     click_on('search-button')
     expect(page).to have_content('Search Results')
-    expect(page).to have_content('Sample Complex Object Record #3')
+    expect(page).to have_content('Sample Data Object')
   end
 
   scenario 'scoped search (exclusion)' do
@@ -97,8 +98,8 @@ end
 
 def sign_in_developer
   visit new_user_session_path
-  fill_in "Name", :with => "name"
-  fill_in "Email", :with => "email@email.com"
+  fill_in "name", :with => "name"
+  fill_in "email", :with => "email@email.com"
   click_on "Sign In"
 end
 
