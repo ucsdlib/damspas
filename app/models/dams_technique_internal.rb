@@ -1,18 +1,16 @@
 class DamsTechniqueInternal
     include ActiveFedora::RdfObject
-    include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
-    rdf_type DAMS.Technique
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-  map_predicates do |map|
-    map.name(:in => MADS, :to => 'authoritativeLabel')
-    map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme')
-    map.externalAuthorityNode(:in => MADS, :to => 'hasExactExternalAuthority')
-    map.elementList(:in => MADS, :to => 'elementList', :class_name=>'List')
-  end 
-  
+  include Dams::DamsTechnique
+
   def pid
-      rdf_subject.to_s.gsub(/.*\//,'')
+    rdf_subject.to_s.gsub(/.*\//,'')
+  end
+  # used by fields_for, so this ought to move to ActiveFedora if it works
+  def persisted?
+    rdf_subject.kind_of? RDF::URI
+  end
+  def id
+    rdf_subject if rdf_subject.kind_of? RDF::URI
   end
 
 end
