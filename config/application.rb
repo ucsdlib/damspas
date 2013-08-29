@@ -77,5 +77,5 @@ end
 
 module ViewOptions
   WOWZA_PARENT_DIRECTORY = '/pub/data2/dams/'
-  WOWZA_PARTIAL_URL = 'lib-streaming-test.ucsd.edu:1935/dams4/_definst_/'
+  WOWZA_PARTIAL_URL = 'lib-streaming-test.ucsd.edu:1935/damstest/_definst_/'
 end

@@ -1,9 +1,16 @@
 require 'spec_helper'
 require 'cancan'
 
-# create a single test record
-obj = DamsObject.create(:titleValue => 'file upload test object')
-pid = obj.pid
+
+# create a single (public) test record
+@obj = DamsObject.new
+@obj.attributes = {titleValue:"File Upload Test", copyrightURI: "bd0513099p"}
+@obj.save
+pid = @obj.pid
+
+# reindex to make sure rights are index correctly
+solrizer = Solrizer::Fedora::Solrizer.new
+solrizer.solrize pid
 
 feature "Anonymous user shouldn't be able to upload files" do
   scenario "Link to Hydra view should be hidden" do
@@ -68,6 +75,22 @@ feature "Curator should be able to upload files" do
     visit file_path( pid, '_2.jpg' )
     response = page.driver.response
     expect(response.status).to eq( 200 )
+  end
+end
+
+feature "Access control enforcement" do
+  scenario "Anonymous should be able to access public object files" do
+    visit file_path( 'bd22194583', '_4.jpg' )
+    expect(page.driver.response.status).to eq( 200 )
+  end
+  scenario "Anonymous shouldn't be able to access restricted object files" do
+    expect { visit file_path( 'bd0922518w', '_4_4.jpg' ) }.to raise_error(
+      CanCan::AccessDenied)
+  end
+  scenario "Curators should be able to access restricted object files" do
+    sign_in_developer
+    visit file_path( 'bd0922518w', '_4_4.jpg' )
+    expect(page.driver.response.status).to eq( 200 )
   end
 end
 
