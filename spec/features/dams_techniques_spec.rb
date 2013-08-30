@@ -22,19 +22,19 @@ feature 'Visitor wants to create/edit a DAMS Technique' do
 	scenario 'is on new DAMS Technique page' do
 		sign_in_developer
 		visit "dams_iconographies"
-		expect(page).to have_selector('a', :text => "Create Technique")
+		#expect(page).to have_selector('a', :text => "Create Technique")
 		
 		visit dams_technique_path('new')
 		# Create new Technique
 		fill_in "Name", :with => "Test Technique"
-		fill_in "ExternalAuthority", :with => "http://iconographies.com"
+		fill_in "ExternalAuthority", :with => "http://techniques.com"
 		fill_in "Element Value", :with => "Test Technique"
 		page.select('Library of Congress Subject Headings', match: :first) 
 		click_on "Submit"
 
 		# Save path of Technique for other test(s)
 		Path.path = current_path
-		expect(page).to have_selector('a', :text => "http://iconographies.com")
+		expect(page).to have_selector('a', :text => "http://techniques.com")
 		expect(page).to have_selector('li', :text => "Test Technique")
 		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
