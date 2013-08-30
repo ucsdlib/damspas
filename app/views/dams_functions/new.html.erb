@@ -5,10 +5,15 @@
   <%= text_field_tag 'dams_function[name]' %>
   <%= label_tag 'dams_function[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_function[externalAuthority]' %> 
-  <%= label_tag 'dams_function[elementValue]', "FunctionElement" %>
-  <%= text_field_tag 'dams_function[elementValue]' %> 
+  <%= f.fields_for :functionElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>
   <br>
-  <%= select_tag 'dams_function[scheme]', options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>    
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
