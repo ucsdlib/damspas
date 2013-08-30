@@ -370,7 +370,9 @@ class DamsObjectDatastream < DamsResourceDatastream
         :jurisdiction => copy.jurisdiction.first.to_s,
         :purposeNote => copy.purposeNote.first.to_s,
         :note => copy.note.first.to_s,
-        :beginDate => copy.beginDate.first.to_s }
+        :beginDate => copy.beginDate.first.to_s,
+        :endDate => copy.endDate.first.to_s,
+        :date => copy.dateValue.first.to_s }
       Solrizer.insert_field(solr_doc, "#{prefix}copyright", copy_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", copy_json.to_json)
     end
