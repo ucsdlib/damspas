@@ -79,7 +79,7 @@ END
       end
 
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd9386739x"
+        subject.scheme.first.pid.should == "bd4198975n"
       end
 
       it "should have fields" do
@@ -93,7 +93,7 @@ END
         solr_doc = subject.to_solr
         solr_doc["technique_tesim"].should == ["Impasto"]
         solr_doc["technique_element_tesim"].should == ["Impasto"]
-        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd9386739x"]
+        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd4198975n"]
         solr_doc["scheme_name_tesim"].should == ["Technique"]
       end
     end
