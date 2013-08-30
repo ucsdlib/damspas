@@ -19,9 +19,15 @@
 		fieldData.each do |datum|
 			date = JSON.parse(datum)
 %>
-			<li><%= date['value'] %></li>
-			<li><%= date['beginDate'] %></li>
-			<li><%= date['endDate'] %></li>
+	     <% if date['type']!=nil && date['type']!=''&& date['value']!=nil &&date['value']!=''%>
+			<li>Date <%= date['type'] %>&nbsp;Date <%= date['value'] %></li>
+		 <% elsif date['value']!=nil && date['value']!='' %>
+		    <li>Date <%= date['value'] %></li>
+		 <% elsif date['type']!=nil && date['type']!='' %>
+		    <li>Date <%= date['type'] %></li>
+		 
+		 <% end %>
+			
 <%
 		end
 
