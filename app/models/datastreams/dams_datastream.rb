@@ -98,15 +98,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
       map_predicates do |map|   
         map.elementValue(:in=> MADS)
       end
-    end    
-    class FunctionElement
-      include ActiveFedora::RdfObject
-      include ActiveFedora::Rdf::DefaultNodes
-      rdf_type DAMS.FunctionElement
-      map_predicates do |map|   
-        map.elementValue(:in=> MADS)
-      end
-    end               
+    end          
   end
     
   def to_solr (solr_doc = {}) 
@@ -135,9 +127,7 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
 		  elsif (list[i].class == DamsDatastream::List::CulturalContextElement)
 			Solrizer.insert_field(solr_doc, 'culturalContext_element', list[i].elementValue.first)		
 		  elsif (list[i].class == DamsDatastream::List::StylePeriodElement)
-			Solrizer.insert_field(solr_doc, 'stylePeriod_element', list[i].elementValue.first)		
-		  elsif (list[i].class == DamsDatastream::List::FunctionElement)
-			Solrizer.insert_field(solr_doc, 'function_element', list[i].elementValue.first)																																
+			Solrizer.insert_field(solr_doc, 'stylePeriod_element', list[i].elementValue.first)																																	
 		  end		  
 		  i +=1
 		end   

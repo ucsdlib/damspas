@@ -9,16 +9,20 @@
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'dams_function[name][]', "Authoritative Label" %>
+			<%= label_tag 'dams_function[name][]', "Name" %>
 			<%= text_field_tag 'dams_function[name][]', @dams_function.name[0], class: "input-block-level" %>
 		
 			<%= label_tag 'dams_function[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'dams_function[externalAuthority][]', @dams_function.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'dams_function[scheme][]', "scheme" %>
-			<%= select_tag 'dams_function[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
-			<%= label_tag 'dams_function[elementValue][]', "FunctionElement" %>
-			<%= text_field_tag 'dams_function[elementValue][]', @dams_function.elementValue, class: "input-block-level" %>
+			<%= f.fields_for :scheme, include_id: false do |se| %>
+            <%= se.label :id, "Scheme" %>
+            <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+        <% end %>
+        <%= f.fields_for :functionElement do |te| %>
+            <%= te.label :elementValue, "Element Value" %>
+            <%= te.text_field :elementValue, class: "input-block-level" %>
+        <% end %>
 							
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
