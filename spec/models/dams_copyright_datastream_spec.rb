@@ -2,7 +2,41 @@ require 'spec_helper'
 
 describe DamsCopyrightDatastream do
 
-  describe "a copyright model" do
+  describe "nested attributes" do
+    it "should create a xml" do
+      params = {
+        copyright: {
+          status: "Under copyright -- 3rd Party", 
+          jurisdiction: "us",
+          purposeNote: "This work is available from the UC San Diego Libraries",
+          note: "This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).",
+          date_attributes: [
+            beginDate: "1993-12-31"
+          ]
+        }
+      }
+
+      subject = DamsCopyrightDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject.attributes = params[:copyright]
+
+      xml =<<END
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+ <dams:Copyright rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
+    <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+    <dams:copyrightNote>This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).</dams:copyrightNote>
+    <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries</dams:copyrightPurposeNote>
+    <dams:copyrightStatus>Under copyright -- 3rd Party</dams:copyrightStatus>    
+    <dams:date>
+      <dams:Date>
+        <dams:beginDate>1993-12-31</dams:beginDate>
+      </dams:Date>
+    </dams:date>
+  </dams:Copyright>
+</rdf:RDF>
+END
+      subject.content.should be_equivalent_to xml
+    end
 
     describe "instance populated in-memory" do
 
