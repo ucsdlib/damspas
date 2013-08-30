@@ -59,8 +59,8 @@ feature 'Visitor wants to view object fields' do
 
   scenario 'Date, is on Solr view page' do
     visit dams_object_path('bd22194583')
-    expect(page).to have_selector('li', :text=>"Easter 2012")
-    expect(page).to have_selector('li', :text=>"2012-04-08")
+    expect(page).to have_selector('li', :text=>"Date Easter 2012")
+    
   end
 
   scenario 'Family Name, is on Solr view page' do

@@ -51,8 +51,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestPartNumber")
 		expect(page).to have_content ("TestNonSort")
 		expect(page).to have_content ("TestDate")
-		expect(page).to have_content ("TestBeginDate")
-		expect(page).to have_content ("TestEndDate")
+		
 		expect(page).to have_selector('li', :text => "Test Language")
 		expect(page).to have_content ("TestNote")
 		# testing without filling in Note Displaylabel
@@ -98,8 +97,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestPartNumber2")
 		expect(page).to have_content ("TestNonSort2")
 		expect(page).to have_content ("TestDate2")
-		expect(page).to have_content ("TestBeginDate2")
-		expect(page).to have_content ("TestEndDate2")
+		
 		expect(page).to have_selector('li', :text => "Test Language")
 		expect(page).to have_content ("TestNote2")
 		# should get note display label as title by not filling in Note Type
