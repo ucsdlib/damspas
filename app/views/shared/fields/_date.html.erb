@@ -21,12 +21,12 @@
 	     <% if date['type']!=nil && date['type']!=''&& date['value']!=nil &&date['value']!=''%>
 	     
 	     <% datetype=date['type'].capitalize+' Date'  %>
-	     <% htmlOpen %= datetype.pluralize(fieldData.count)
+	     <% htmlOpen %= datetype
 		  concat htmlOpen.html_safe %>
 		 <li><%= date['value'] %></li>
 		 
 		 <% elsif date['value']!=nil && date['value']!=''  %>
-          <%htmlOpen %= 'Date'.pluralize(fieldData.count)
+          <%htmlOpen %= 'Date'
 		    concat htmlOpen.html_safe %>
 		    <li><%= date['value'] %></li>
 		 
