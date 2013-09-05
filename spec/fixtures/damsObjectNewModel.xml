@@ -157,7 +157,21 @@
     </dams:copyright>    
     
     <dams:builtWorkPlace rdf:resource="http://library.ucsd.edu/ark:/20775/bd1707307x"/>
-    <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/bd93182924"/>
+    <dams:personalName>
+      <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd93182924">
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n90694888"/>
+        <mads:isMemberOfMADSScheme rdf:resource="http://library.ucsd.edu/ark:/20775/bd0683587d"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Burns, Jack O.</mads:authoritativeLabel>
+      </mads:PersonalName>
+    </dams:personalName>
     <dams:personalName>
        <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/zz00000003">
         <mads:elementList rdf:parseType="Collection">
@@ -169,14 +183,6 @@
           </mads:GivenNameElement>
         </mads:elementList>
         <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n90694888"/>
-        <mads:elementList rdf:parseType="Collection">
-          <mads:FamilyNameElement>
-            <mads:elementValue>Burns</mads:elementValue>
-          </mads:FamilyNameElement>
-          <mads:GivenNameElement>
-            <mads:elementValue>Jack O.</mads:elementValue>
-          </mads:GivenNameElement>
-        </mads:elementList>
         <mads:authoritativeLabel>Burns, Jack O.....</mads:authoritativeLabel>
         <mads:isMemberOfMADSScheme>
           <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">
@@ -197,14 +203,6 @@
           </mads:GivenNameElement>
         </mads:elementList>
         <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n90694888"/>
-        <mads:elementList rdf:parseType="Collection">
-          <mads:FamilyNameElement>
-            <mads:elementValue>Burns</mads:elementValue>
-          </mads:FamilyNameElement>
-          <mads:GivenNameElement>
-            <mads:elementValue>Jack O.</mads:elementValue>
-          </mads:GivenNameElement>
-        </mads:elementList>
         <mads:authoritativeLabel>Burns, Jack O.....2</mads:authoritativeLabel>
         <mads:isMemberOfMADSScheme>
           <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd0683587d">

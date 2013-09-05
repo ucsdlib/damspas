@@ -17,7 +17,7 @@ class DamsComponentInternal
 
       # subjects
 	  map.subject(:in => DAMS, :to=> 'subject', :class_name => 'Subject')
-	  map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
+	  map.complexSubject(:in => DAMS, :to => 'complexSubject', :class_name => 'MadsComplexSubjectInternal')
 	  map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
 	  map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
 	  map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
@@ -62,46 +62,4 @@ class DamsComponentInternal
       cid = cid.match('\w+$').to_s
       cid.to_i
     end
-#    class File
-#      include ActiveFedora::RdfObject
-#      rdf_type DAMS.File
-#      map_predicates do |map|
-#        map.filestore(:in=>DAMS)
-#        map.quality(:in=>DAMS)
-#        map.size(:in=>DAMS)
-#        map.sourceFileName(:in=>DAMS)
-#        map.sourcePath(:in=>DAMS)
-#        map.use(:in=>DAMS)
-#        map.value(:in=> RDF)
-#
-#        # checksums
-#        map.crc32checksum(:in=>DAMS)
-#        map.md5checksum(:in=>DAMS)
-#        map.sha1checksum(:in=>DAMS)
-#        map.sha256checksum(:in=>DAMS)
-#        map.sha512checksum(:in=>DAMS)
-#
-#        # premis
-#        map.compositionLevel(:in=>DAMS)
-#        map.dateCreated(:in=>DAMS)
-#        map.formatName(:in=>DAMS)
-#        map.formatVersion(:in=>DAMS)
-#        map.mimeType(:in=>DAMS)
-#        map.objectCategory(:in=>DAMS)
-#        map.preservationLevel(:in=>DAMS)
-#        map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
-#
-#        # mix
-#        map.sourceCapture(:in=>DAMS, :to => 'sourceCapture')
-#      end
-#      def id
-#        fid = rdf_subject.to_s
-#        fid = fid.gsub(/.*\//,'')
-#        fid
-#      end
-#      def order
-#        order = id.gsub(/\..*/,'')
-#        order.to_i
-#      end
-#    end
 end

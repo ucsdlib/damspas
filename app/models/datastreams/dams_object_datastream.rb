@@ -343,16 +343,18 @@ class DamsObjectDatastream < DamsResourceDatastream
 
       # fulltext extraction for pdfs
       if file.mimeType.first.to_s == "application/pdf"
-        if @parent_obj == nil
-          @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
-        end
         begin
+          if @parent_obj == nil
+            @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
+          end
           fulltext = @parent_obj.datastreams[ "fulltext_#{file.id}" ]
           if fulltext != nil
             Solrizer.insert_field(solr_doc, "fulltext", fulltext.content)
           end
         rescue Exception => e
-          puts "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
+          unless Rails.env.test?
+            puts "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
+          end
         end
       end
 
@@ -362,7 +364,8 @@ class DamsObjectDatastream < DamsResourceDatastream
     }
   end
   def insertCopyrightFields ( solr_doc, prefix, copyright )
-    copy = load_copyright copyright
+    #copy = load_copyright copyright
+    copy = copyright.first
     if copy != nil
       copy_json = {
         :id => copy.pid,
@@ -471,6 +474,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     if component != nil && component.count > 0
       Solrizer.insert_field(solr_doc, "component_count", component.count, storedInt )
     end
+    foo = component.first.complexSubject.to_s if component.first
     component.map.sort{ |a,b| a.id <=> b.id }.each { |component|
       cid = component.id
       @parents[cid] = Array.new
@@ -504,7 +508,8 @@ class DamsObjectDatastream < DamsResourceDatastream
       insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
       insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
 
-      insertComplexSubjectFields solr_doc, cid, load_complexSubjects(component.complexSubject)
+      complexSubj = load_complexSubjects(component.complexSubject)
+      insertComplexSubjectFields solr_doc, cid, complexSubj
       insertFields solr_doc, "component_#{cid}_builtWorkPlace", load_builtWorkPlaces(component.builtWorkPlace)
       insertFields solr_doc, "component_#{cid}_culturalContext", load_culturalContexts(component.culturalContext)
       insertFields solr_doc, "component_#{cid}_function", load_functions(component.function)
@@ -589,7 +594,7 @@ class DamsObjectDatastream < DamsResourceDatastream
           end
           Solrizer.insert_field(solr_doc, 'collection_json', col_json.to_json)
         rescue
-          logger.warn "Error indexing collection: #{collection.inspect}"
+          logger.warn "Error indexing collection: #{collection}"
         end
       end
     end
