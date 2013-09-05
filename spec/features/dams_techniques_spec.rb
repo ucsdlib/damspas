@@ -21,7 +21,7 @@ feature 'Visitor wants to create/edit a DAMS Technique' do
   
 	scenario 'is on new DAMS Technique page' do
 		sign_in_developer
-		visit "dams_iconographies"
+		visit "dams_techniques"
 		#expect(page).to have_selector('a', :text => "Create Technique")
 		
 		visit dams_technique_path('new')
