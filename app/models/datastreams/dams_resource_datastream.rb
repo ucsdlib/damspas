@@ -235,7 +235,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def load_familyNames(familyName)
     foo = familyName.to_s
-	loadObjects familyName,MadsFamilyName
+	loadObjects familyName,MadsFamilyName,true
   end
   def load_personalNames
     load_personalNames(personalName)
@@ -288,7 +288,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
 
   # helper method to load external classes
-  def loadObjects (object,className)
+  def loadObjects (object,className,debug=false)
     objects = []
     object.each do |o|
       name_uri = o.to_s
@@ -557,11 +557,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 		    end
           rel_json = {}
 	      if (rel != nil)
-			 if(rel.to_s.include? 'Internal')
-	        	name = rel.first.name.first.to_s			        
-	         else
+			# if(rel.to_s.include? 'Internal')
+	        #	name = rel.first.name.first.to_s			        
+	        # else
 	        	name = rel.name.first.to_s			        	
-			 end	      
+			# end	      
              rel_json[:name] = name
           else
             if !relationship.name.first.nil? && !relationship.name.first.pid.nil? && (relationship.name.first.pid.include? 'dams:')
