@@ -27,6 +27,8 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "Date", :with => "TestDate"
 		fill_in "Begin Date", :with => "TestBeginDate"
 		fill_in "End Date", :with => "TestEndDate"
+		fill_in "Date Type", :with => "TestDateType"
+		fill_in "Date Encoding", :with => "TestDateEncoding"
 		page.select('Test Language', match: :first)
 		fill_in "Note", :with => "TestNote"
 		fill_in "dams_provenance_collection_noteType_", :with => ""

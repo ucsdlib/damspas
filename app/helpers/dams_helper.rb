@@ -633,7 +633,32 @@ def relatedResourceUri
     	date[0].value = val
     end
   end
+  
+  def dateType
+    date[0] ? date[0].type : []
+  end
+  def dateType=(val)
+    if val.class == Array
+      val = val.first
+    end  
+    if(!val.nil? && val.length > 0)
+      date.build if date[0] == nil
+      date[0].type = val
+    end
+  end
 
+  def dateEncoding
+    date[0] ? date[0].encoding : []
+  end
+  def dateEncoding=(val)
+    if val.class == Array
+      val = val.first
+    end  
+    if(!val.nil? && val.length > 0)
+      date.build if date[0] == nil
+      date[0].encoding = val
+    end
+  end
   
   
   def permissionBeginDate
