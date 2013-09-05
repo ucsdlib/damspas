@@ -70,12 +70,12 @@ describe DamsObjectDatastream do
 
     describe "a complex object with flat component list" do
       subject do
-        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bb80808080', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd6861351x', :new? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
         subject
       end
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb80808080"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd6861351x"
       end
       it "should have a repeated date" do
         solr_doc = subject.to_solr
@@ -97,10 +97,6 @@ describe DamsObjectDatastream do
         solr_doc["title_tesim"].should include "Other Title #2: Subtitle #2"
 	  end
 	
-      it "should have inline subjects" do
-        subject.subject.first.name.should == ["Black Panther Party--History"]
-      end
-
       it "should have relationship" do
         subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
         subject.relationship.first.role.first.pid.should == "bd55639754"
@@ -119,8 +115,8 @@ describe DamsObjectDatastream do
         subject.component.first.note.first.type.should == ["dimensions"]
       end
       it "should have a first component with two attached files" do
-        subject.component.first.file[0].rdf_subject.should == "#{Rails.configuration.id_namespace}bb80808080/1/1.pdf"
-        subject.component.first.file[1].rdf_subject.should == "#{Rails.configuration.id_namespace}bb80808080/1/2.jpg"
+        subject.component.first.file[0].rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd6861351x/1/1.pdf"
+        subject.component.first.file[1].rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd6861351x/1/2.jpg"
       end
       it "should have a first component with a first file with file metadata" do
         subject.component.first.file.first.sourcePath.should == ["src/sample/files"]
@@ -264,7 +260,6 @@ describe DamsObjectDatastream do
 	  before do
 	    subject.titleValue = "Test Title"
 	    subject.dateValue = "2013"
-	    #subject.subject = "Test subject"
 	  end
 	  it "should create a xml" do
 	    xml =<<END
@@ -357,18 +352,14 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        actual = []
-        solr_doc['name_tesim'].each do |s|
-          actual << s
-        end
-        actual.should include "Scripps Institute of Oceanography, Geological Collections"
-        actual.should include "Yañez, Angélica María"
-        actual.should include "Personal Name 2"
-        actual.should include "Name 4"
-        actual.should include "Conference Name 2"
-        actual.should include "Family Name 2"
-        actual.should include "Generic Name"
-        actual.should include "Generic Name Internal"
+        solr_doc["name_tesim"].should include "Scripps Institute of Oceanography, Geological Collections"
+        solr_doc["name_tesim"].should include "Yañez, Angélica María"
+        solr_doc["name_tesim"].should include "Personal Name 2"
+        solr_doc["name_tesim"].should include "Name 4"
+        solr_doc["name_tesim"].should include "Conference Name 2"
+        solr_doc["name_tesim"].should include "Family Name 2"
+        solr_doc["name_tesim"].should include "Generic Name"
+        solr_doc["name_tesim"].should include "Generic Name Internal"
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]
@@ -383,9 +374,6 @@ END
       it "should index mads fields, part 2" do
         solr_doc = subject.to_solr
 
-        #it "should index subjects" do
-        solr_doc["subject_tesim"].should == ["Galaxies--Clusters","Test linked subject--More test"]
-        
         #it "should have scopeContentNote" do
         solr_doc["scopeContentNote_tesim"].should == ["Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","scope content note internal value"]        
 
@@ -441,7 +429,12 @@ END
 
 	  it "should index relationship" do
 	  	solr_doc = subject.to_solr
-	  	solr_doc["relationship_json_tesim"].first.should include '"Repository":["Conference Name 2","Family Name 2","Name 4","Personal Name 2","Scripps Institute of Oceanography, Geological Collections"]'
+	  	solr_doc["relationship_json_tesim"].first.should include "Repository"
+        solr_doc["relationship_json_tesim"].first.should include "Conference Name 2"
+        solr_doc["relationship_json_tesim"].first.should include "Family Name 2"
+        solr_doc["relationship_json_tesim"].first.should include "Name 4"
+        solr_doc["relationship_json_tesim"].first.should include "Personal Name 2"
+        solr_doc["relationship_json_tesim"].first.should include "Scripps Institute of Oceanography, Geological Collections"
 	  end
 	  
       it "should index collection" do
@@ -478,7 +471,9 @@ END
         solr_doc = subject.to_solr
         solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
         solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","type":"ProvenanceCollection"'     
-		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
+		solr_doc["relationship_json_tesim"].first.should include "Collector"
+        solr_doc["relationship_json_tesim"].first.should include "ROUNDABOUT--11"
+        solr_doc["relationship_json_tesim"].first.should include "Thomas Washington"
       end
     end
 end
