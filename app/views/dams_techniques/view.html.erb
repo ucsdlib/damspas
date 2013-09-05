@@ -10,8 +10,8 @@
     <dd><%= @dams_technique.externalAuthority %></dd>
   </dl>
   <% if can? :update, @dams_technique %>
-    <%= link_to "Solr View", dams_iconographies_path(@dams_technique), class: "btn btn-primary"%>
+    <%= link_to "Solr View", dams_technique_path(@dams_technique), class: "btn btn-primary"%>
     <%= link_to "Edit", edit_dams_technique_path(@dams_technique), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_iconographies_path(), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_techniques_path(), class: "btn btn-primary"%>
   <% end %>
 </div>
