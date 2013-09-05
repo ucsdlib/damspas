@@ -10,8 +10,8 @@
     <dd><%= @dams_cultural_context.externalAuthority %></dd>
   </dl>
   <% if can? :update, @dams_cultural_context %>
-    <%= link_to "Solr View", dams_iconographies_path(@dams_cultural_context), class: "btn btn-primary"%>
+    <%= link_to "Solr View", dams_cultural_context_path(@dams_cultural_context), class: "btn btn-primary"%>
     <%= link_to "Edit", edit_dams_cultural_context_path(@dams_cultural_context), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_iconographies_path(), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_cultural_contexts_path(), class: "btn btn-primary"%>
   <% end %>
 </div>
