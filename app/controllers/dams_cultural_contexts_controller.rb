@@ -31,38 +31,38 @@ class DamsCulturalContextsController < ApplicationController
   end
 
   def new
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    #Check schemes ####################################################################
+    @dams_cultural_context.scheme.build
+    @dams_cultural_context.elementList.culturalContextElement.build
+  @mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
-    @dams_cultural_context = DamsCulturalContext.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@dams_cultural_context.scheme != nil)
-      @scheme_id = @dams_cultural_context.scheme.to_s.gsub /.*\//, ""
-      #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+    @scheme_id = Rails.configuration.id_namespace+@dams_cultural_context.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @dams_cultural_context.attributes = params[:dams_cultural_context]
     if @dams_cultural_context.save
-        redirect_to @dams_cultural_context, notice: "cultural context has been saved"
+        redirect_to @dams_cultural_context, notice: "cultural_context has been saved"
     else
-      flash[:alert] = "Unable to save cultural context"
+      flash[:alert] = "Unable to save cultural_context"
       render :new
     end
   end
 
   def update
+    @dams_cultural_context.elementList.clear
+    @dams_cultural_context.scheme.clear  
     @dams_cultural_context.attributes = params[:dams_cultural_context]
     if @dams_cultural_context.save
-		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated cultural context"
+    if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+          redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated cultural_context"
         else      
-        	redirect_to @dams_cultural_context, notice: "Successfully updated cultural context"
+          redirect_to @dams_cultural_context, notice: "Successfully updated cultural_context"
         end
     else
-      flash[:alert] = "Unable to save cultural context"
+      flash[:alert] = "Unable to save cultural_context"
       render :edit
     end
   end

@@ -2,16 +2,16 @@
 
 <div>
   <dl>
-    <dt>CulturalContextElement:</dt>
-    <dd><%= @dams_cultural_context.elementValue %></dd>
+    <dt>culturalContextElement:</dt>
+    <dd><%= @dams_cultural_context.elementList[0].elementValue %></dd>
     <dt>Scheme:</dt>
-    <dd><%= @dams_cultural_context.scheme %></dd>
+    <dd><%= @dams_cultural_context.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
     <dd><%= @dams_cultural_context.externalAuthority %></dd>
   </dl>
   <% if can? :update, @dams_cultural_context %>
-    <%= link_to "Solr View", dams_cultural_context_path(@dams_cultural_context), class: "btn btn-primary"%>
+    <%= link_to "Solr View", dams_iconographies_path(@dams_cultural_context), class: "btn btn-primary"%>
     <%= link_to "Edit", edit_dams_cultural_context_path(@dams_cultural_context), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_cultural_contexts_path(), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_iconographies_path(), class: "btn btn-primary"%>
   <% end %>
 </div>

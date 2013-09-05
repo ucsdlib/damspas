@@ -3,8 +3,8 @@ require 'spec_helper'
 
 describe DamsCulturalContext do
   let(:params) {
-    {name: "Madonna and Child", externalAuthority: RDF::Resource.new("http://id.loc.gov/authorities/subjects/sh85124118"),
-        culturalContextElement_attributes: [{ elementValue: "Madonna and Child" }],
+    {name: "Dutch", externalAuthority: RDF::Resource.new("http://id.loc.gov/authorities/subjects/sh85124118"),
+        culturalContextElement_attributes: [{ elementValue: "Dutch" }],
         scheme_attributes: [
           id: "http://library.ucsd.edu/ark:/20775/bd9386739x", code: "lcsh", name: "Library of Congress Subject Headings"
         ]
@@ -22,10 +22,10 @@ describe DamsCulturalContext do
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xmlns:dams="http://library.ucsd.edu/ontology/dams#">
  <dams:CulturalContext rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
-    <mads:authoritativeLabel>Madonna and Child</mads:authoritativeLabel>
+    <mads:authoritativeLabel>Dutch</mads:authoritativeLabel>
     <mads:elementList rdf:parseType="Collection">
       <dams:CulturalContextElement>
-        <mads:elementValue>Madonna and Child</mads:elementValue>
+        <mads:elementValue>Dutch</mads:elementValue>
       </dams:CulturalContextElement>
     </mads:elementList>
     <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/subjects/sh85124118"/>
@@ -42,7 +42,7 @@ END
   end
 
   it "should have culturalContextElement" do
-    subject.culturalContextElement.first.elementValue.should == 'Madonna and Child'
+    subject.culturalContextElement.first.elementValue.should == 'Dutch'
   end
 
   it "should be able to build a new culturalContextElement" do
