@@ -42,9 +42,6 @@ Hydra::Application.routes.draw do
     get '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
   end
 
-  #get "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'catalog'
-  #get "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'solr_document'
-
   resources :dams_subjects, :only => [:show]
 
   resources :object, :controller => 'dams_objects', :as => 'dams_objects' do

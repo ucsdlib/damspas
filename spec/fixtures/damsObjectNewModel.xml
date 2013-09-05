@@ -688,45 +688,45 @@
         </dams:relationship>
 
        <dams:relationship>
-          <dams:Relationship>
-            <dams:role>
-<mads:Authority>
-              <mads:isMemberOfMADSScheme>
-              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
-              <rdfs:label>MARC Relator Codes</rdfs:label>
-              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
-              </mads:MADSScheme>
-              </mads:isMemberOfMADSScheme>
-              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
-              <mads:code>rps</mads:code>
-              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
-              </mads:Authority>
-            </dams:role>
+         <dams:Relationship>
+           <dams:role>
+             <mads:Authority>
+               <mads:isMemberOfMADSScheme>
+                 <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+                   <rdfs:label>MARC Relator Codes</rdfs:label>
+                   <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+                 </mads:MADSScheme>
+               </mads:isMemberOfMADSScheme>
+               <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+               <mads:code>rps</mads:code>
+               <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+             </mads:Authority>
+           </dams:role>
            <dams:conferenceName>
-              <mads:ConferenceName rdf:about="http://library.ucsd.edu/ark:/20775/xx12121212">
-                <mads:authoritativeLabel>Conference Name 2</mads:authoritativeLabel>
-                <mads:elementList rdf:parseType="Collection">
-                  <mads:NameElement>
-                    <mads:elementValue>Conference Name 2</mads:elementValue>
-                  </mads:NameElement>
-                </mads:elementList>
-              </mads:ConferenceName>
-            </dams:conferenceName>
-          </dams:Relationship>
-        </dams:relationship>
+             <mads:ConferenceName rdf:about="http://library.ucsd.edu/ark:/20775/xx12121212">
+               <mads:authoritativeLabel>Conference Name 2</mads:authoritativeLabel>
+               <mads:elementList rdf:parseType="Collection">
+                 <mads:NameElement>
+                   <mads:elementValue>Conference Name 2</mads:elementValue>
+                 </mads:NameElement>
+               </mads:elementList>
+             </mads:ConferenceName>
+           </dams:conferenceName>
+         </dams:Relationship>
+       </dams:relationship>
        <dams:relationship>
           <dams:Relationship>
             <dams:role>
-<mads:Authority>
-              <mads:isMemberOfMADSScheme>
-              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
-              <rdfs:label>MARC Relator Codes</rdfs:label>
-              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
-              </mads:MADSScheme>
-              </mads:isMemberOfMADSScheme>
-              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
-              <mads:code>rps</mads:code>
-              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              <mads:Authority>
+                <mads:isMemberOfMADSScheme>
+                  <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+                    <rdfs:label>MARC Relator Codes</rdfs:label>
+                    <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+                  </mads:MADSScheme>
+                </mads:isMemberOfMADSScheme>
+                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+                <mads:code>rps</mads:code>
+                <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
               </mads:Authority>
             </dams:role>
            <dams:familyName>
@@ -740,7 +740,7 @@
               </mads:FamilyName>
             </dams:familyName>
           </dams:Relationship>
-        </dams:relationship>                      
+        </dams:relationship>
     <dams:rightsHolder>
       <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb09090909">
         <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>
