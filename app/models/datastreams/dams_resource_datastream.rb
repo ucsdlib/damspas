@@ -363,13 +363,15 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     dates.map do |date|
       # display
       if cid != nil
-        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
+        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s, :type=>date.type.first.to_s, :encoding=>date.encoding.first.to_s }
         Solrizer.insert_field(solr_doc, "component_#{cid}_date_json", date_json.to_json)
       else
         date_json = {
           :beginDate=>date.beginDate.first.to_s,
           :endDate=>date.endDate.first.to_s,
-          :value=>date.value.first.to_s
+          :value=>date.value.first.to_s,
+          :type=>date.type.first.to_s,
+          :encoding=>date.encoding.first.to_s
         }
         Solrizer.insert_field(solr_doc, "date_json", date_json.to_json)
       end
@@ -378,9 +380,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date", date.value.first)
       Solrizer.insert_field(solr_doc, "date", date.beginDate.first)
       Solrizer.insert_field(solr_doc, "date", date.endDate.first)
+      Solrizer.insert_field(solr_doc, "date", date.type.first)
+      Solrizer.insert_field(solr_doc, "date", date.encoding.first)
       Solrizer.insert_field(solr_doc, "fulltext", date.value)
       Solrizer.insert_field(solr_doc, "fulltext", date.beginDate)
       Solrizer.insert_field(solr_doc, "fulltext", date.endDate)
+      Solrizer.insert_field(solr_doc, "fulltext", date.type)
+      Solrizer.insert_field(solr_doc, "fulltext", date.encoding)
     end
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )

@@ -6,6 +6,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :date
   property :beginDate
   property :endDate
+  property :encoding
   property :language
   property :typeOfResource
   property :relatedResource
