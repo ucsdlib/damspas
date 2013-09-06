@@ -47,6 +47,10 @@ feature 'Visitor wants to look at units' do
     visit dams_unit_path :id => 'dlp'
     expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
+    # browse links should be scoped to the unit
+    topiclink = find_link("Topic")
+    expect(topiclink[:href]).to have_content('dlp')
+
     # search for the object in the unit and find it
     fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
     click_on('search-button')
