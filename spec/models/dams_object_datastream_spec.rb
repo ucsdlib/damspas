@@ -197,12 +197,12 @@ describe DamsObjectDatastream do
         solr_doc = subject.to_solr
 
         # copyright
-        solr_doc["copyright_tesim"].first.should include '"id":"bb05050505"'
-        solr_doc["copyright_tesim"].first.should include '"status":"under copyright"'
-        solr_doc["copyright_tesim"].first.should include '"jurisdiction":"us"'
-        solr_doc["copyright_tesim"].first.should include '"note":"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."'
-        solr_doc["copyright_tesim"].first.should include '"purposeNote":"This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study."'
-        solr_doc["copyright_tesim"].first.should include '"beginDate":"1993-12-31"'
+        solr_doc["copyright_tesim"].to_s.should include '"id":"bb05050505"'
+        solr_doc["copyright_tesim"].to_s.should include '"status":"under copyright"'
+        solr_doc["copyright_tesim"].to_s.should include '"jurisdiction":"us"'
+        solr_doc["copyright_tesim"].to_s.should include '"note":"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."'
+        solr_doc["copyright_tesim"].to_s.should include '"purposeNote":"This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study."'
+        solr_doc["copyright_tesim"].to_s.should include '"beginDate":"1993-12-31"'
 
         # license
         solr_doc["license_tesim"].first.should include '"id":"bb22222222"'
