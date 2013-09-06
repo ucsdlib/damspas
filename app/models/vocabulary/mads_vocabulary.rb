@@ -41,4 +41,8 @@ class MADS < RDF::Vocabulary("http://www.loc.gov/mads/rdf/v1#")
   property :variantLabel
   property :Variant
   property :hasVariant
+  property :hasTranslationVariant
+  property :hasAbbreviationVariant
+  property :hasAcronymVariant
+  property :hasExpansionVariant        
 end
