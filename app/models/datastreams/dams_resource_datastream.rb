@@ -494,11 +494,19 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       partName = t.partName || ""
       partNumber = t.partNumber || ""
       subtitle = t.subtitle || ""
-
+	  variant = t.variant || ""
+	  translationVariant = t.translationVariant || ""
+	  abbreviationVariant = t.abbreviationVariant || ""
+	  acronymVariant = t.acronymVariant || ""
+	  expansionVariant = t.expansionVariant || ""
+	  
       # structured
       title_json = { :name => name, :external => external, :value => value,
                      :nonSort => nonSort, :partName => partName,
-                     :partNumber => partNumber, :subtitle => subtitle }
+                     :partNumber => partNumber, :subtitle => subtitle, 
+                     :variant => variant, :translationVariant => translationVariant,
+                     :abbreviationVariant => abbreviationVariant, :acronymVariant => acronymVariant,
+                     :expansionVariant => expansionVariant }
       if cid != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
       else
@@ -507,6 +515,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # retrieval
       Solrizer.insert_field(solr_doc, "title", name)
+      Solrizer.insert_field(solr_doc, "titleVariant", variant) if variant.length > 0
+      Solrizer.insert_field(solr_doc, "titleTranslationVariant", translationVariant) if translationVariant.length > 0
+      Solrizer.insert_field(solr_doc, "titleAbbreviationVariant", abbreviationVariant) if abbreviationVariant.length > 0
+      Solrizer.insert_field(solr_doc, "titleAcronymVariant", acronymVariant) if acronymVariant.length > 0
+      Solrizer.insert_field(solr_doc, "titleExpansionVariant", expansionVariant) if expansionVariant.length > 0
       Solrizer.insert_field(solr_doc, "fulltext", name)
 
       # build sort title

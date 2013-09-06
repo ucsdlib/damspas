@@ -9,6 +9,11 @@ module Dams
       map_predicates do |map|
         map.name(:in => MADS, :to => 'authoritativeLabel')
         map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
+        map.hasVariant(:in => MADS, :class_name => 'MadsVariant')
+        map.hasAbbreviationVariant(:in => MADS, :class_name => 'MadsVariant')
+        map.hasAcronymVariant(:in => MADS, :class_name => 'MadsVariant')
+        map.hasExpansionVariant(:in => MADS, :class_name => 'MadsVariant')
+        map.hasTranslationVariant(:in => MADS, :class_name => 'MadsVariant')
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTitleElementList')
       end
 
@@ -92,6 +97,57 @@ module Dams
         set_value MadsSubTitleElement, s
 	  end
 
+	  def variant
+	    get_variant(hasVariant)
+	  end
+	  def variant=(val)
+		set_variant(hasVariant,val)
+	  end
+
+	  def translationVariant
+	    get_variant(hasTranslationVariant)
+	  end
+	  def translationVariant=(val)
+	    set_variant(hasTranslationVariant,val)
+	  end
+
+	  def abbreviationVariant
+	    get_variant(hasAbbreviationVariant)
+	  end
+	  def abbreviationVariant=(val)
+		set_variant(hasAbbreviationVariant,val)
+	  end
+	  
+	  def acronymVariant
+	    get_variant(hasAcronymVariant)
+	  end
+	  def acronymVariant=(val)
+		set_variant(hasAcronymVariant,val)
+	  end
+	  
+	  def expansionVariant
+	    get_variant(hasExpansionVariant)
+	  end
+	  def expansionVariant=(val)
+		set_variant(hasExpansionVariant,val)
+	  end
+	  	  	  	  
+	  def set_variant(type, val)
+	  	if val.class == Array
+	      val = val.first
+	    end
+	    if(!val.nil? && val.length > 0)
+	      type.build if type[0] == nil
+	      type[0].variantLabel = val
+	    end	  	
+	  end
+	  	  
+	  def get_variant(type)
+	  	if (!type.nil? && type.length > 0)
+	  		type[0] ? type[0].variantLabel.first: []
+	  	end
+	  end
+	    
       def get_elem(klass)
         idx = 0
         while idx < elementList.size
@@ -152,5 +208,7 @@ module Dams
       end
       accepts_nested_attributes_for :nonSortElement, :mainTitleElement, :partNameElement, :partNumberElement, :subTitleElement
     end
+    
+
   end
 end

@@ -257,8 +257,56 @@ def relatedResourceUri
   def titleNonSort=(s)
     title.build if title.first.nil?
     title.first.nonSort = s
-  end  
+  end
 
+  def titleVariant
+    title.first != nil ? title.first.variant : nil
+  end
+  def titleVariant=(s)
+    title.build if title.first.nil?
+    title.first.variant = s
+  end
+
+  def titleTransVariant
+    title.first != nil ? title.first.translationVariant : nil
+  end
+  def titleTransVariant=(s)
+    title.build if title.first.nil?
+    title.first.translationVariant = s
+  end 
+  
+  def titleTranslationVariant
+    title.first != nil ? title.first.translationVariant : nil
+  end
+  def titleTranslationVariant=(s)
+    title.build if title.first.nil?
+    title.first.translationVariant = s
+  end 
+  
+  def titleAbbreviationVariant
+    title.first != nil ? title.first.abbreviationVariant : nil
+  end
+  def titleAbbreviationVariant=(s)
+    title.build if title.first.nil?
+    title.first.abbreviationVariant = s
+  end 
+  
+  def titleAcronymVariant
+    title.first != nil ? title.first.acronymVariant : nil
+  end
+  def titleAcronymVariant=(s)
+    title.build if title.first.nil?
+    title.first.acronymVariant = s
+  end 
+
+  def titleExpansionVariant
+    title.first != nil ? title.first.expansionVariant : nil
+  end
+  def titleExpansionVariant=(s)
+    title.build if title.first.nil?
+    title.first.expansionVariant = s
+  end 
+                 
   ## Subject ######################################################################
   #complex subject
   def subjectValue
