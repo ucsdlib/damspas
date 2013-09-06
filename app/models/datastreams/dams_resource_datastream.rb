@@ -360,6 +360,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def insertDateFields (solr_doc, cid, dates)
+    creation_date = nil
+    other_date = nil
+
     dates.map do |date|
       # display
       if cid != nil
@@ -387,6 +390,28 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "fulltext", date.endDate)
       Solrizer.insert_field(solr_doc, "fulltext", date.type)
       Solrizer.insert_field(solr_doc, "fulltext", date.encoding)
+
+      # save dates for sort date
+      begin
+        dateVal = date.beginDate.first
+        if dateVal.match( '^\d{4}$' ) != nil
+          dateVal += "-01-01"
+        end
+        if date.type.first == 'creation'
+          creation_date = DateTime.parse(dateVal)
+        elsif other_date.nil?
+          other_date = DateTime.parse(dateVal)
+        end
+      rescue
+        puts "error parsing date: #{dateVal}"
+      end
+    end
+
+    datesort = Solrizer::Descriptor.new(:date, :indexed, :stored)
+    if creation_date
+      Solrizer.insert_field(solr_doc, "object_create", creation_date, datesort)
+    elsif other_date
+      Solrizer.insert_field(solr_doc, "object_create", other_date, datesort)
     end
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
@@ -681,7 +706,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertEventFields solr_doc, "", event
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
-    ['system_create_dtsi','system_modified_dtsi'].each { |f|
+    ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
       if solr_doc[f].kind_of?(Array)
         solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
       elsif solr_doc[f] != nil
