@@ -70,6 +70,10 @@ describe DamsObject do
     subject.titleValue = "Sample Complex Object Record #1"
     subject.subtitle = "a newspaper PDF with a single attached image"
     subject.titleVariant = "The Whale"
+    subject.titleTranslationVariant = "Translation Variant"
+    subject.titleAbbreviationVariant = "Abbreviation Variant"
+    subject.titleAcronymVariant = "Acronym Variant"
+    subject.titleExpansionVariant = "Expansion Variant"
     subject.dateValue = "May 24, 1980"
     subject.beginDate = "1980-05-24"
     subject.endDate = "1980-05-24"
@@ -91,7 +95,10 @@ describe DamsObject do
     subject.licenseURI = ["bb22222222"]
     subject.rightsHolderURI = ["bb09090909"]
 	bn_id = subject.title[0].hasVariant[0].rdf_subject.id
-
+    bn_id_trans = subject.title[0].hasTranslationVariant[0].rdf_subject.id
+    bn_id_abb = subject.title[0].hasAbbreviationVariant[0].rdf_subject.id
+    bn_id_acro = subject.title[0].hasAcronymVariant[0].rdf_subject.id
+    bn_id_exp = subject.title[0].hasExpansionVariant[0].rdf_subject.id
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
@@ -143,7 +150,11 @@ describe DamsObject do
             <mads:elementValue>a newspaper PDF with a single attached image</mads:elementValue>
           </mads:SubTitleElement>
         </mads:elementList>
-        <mads:hasVariant rdf:nodeID="#{bn_id}"/>
+        <mads:hasAbbreviationVariant rdf:nodeID="#{bn_id_abb}"/>
+        <mads:hasAcronymVariant rdf:nodeID="#{bn_id_acro}"/>
+        <mads:hasExpansionVariant rdf:nodeID="#{bn_id_exp}"/>          
+        <mads:hasTranslationVariant rdf:nodeID="#{bn_id_trans}"/>
+         <mads:hasVariant rdf:nodeID="#{bn_id}"/>       
       </mads:Title>
     </dams:title>
     <dams:topic>
@@ -152,9 +163,21 @@ describe DamsObject do
         </mads:Topic>
     </dams:topic>    
      </dams:Object>
+     <mads:Variant rdf:nodeID="#{bn_id_abb}">
+       <mads:variantLabel>Abbreviation Variant</mads:variantLabel>
+     </mads:Variant>     
      <mads:Variant rdf:nodeID="#{bn_id}">
        <mads:variantLabel>The Whale</mads:variantLabel>
-     </mads:Variant>       
+     </mads:Variant>
+     <mads:Variant rdf:nodeID="#{bn_id_trans}">
+       <mads:variantLabel>Translation Variant</mads:variantLabel>
+     </mads:Variant>
+     <mads:Variant rdf:nodeID="#{bn_id_acro}">
+       <mads:variantLabel>Acronym Variant</mads:variantLabel>
+     </mads:Variant>    
+     <mads:Variant rdf:nodeID="#{bn_id_exp}">
+       <mads:variantLabel>Expansion Variant</mads:variantLabel>
+     </mads:Variant>                             
 </rdf:RDF>
 END
     subject.damsMetadata.content.should be_equivalent_to xml
