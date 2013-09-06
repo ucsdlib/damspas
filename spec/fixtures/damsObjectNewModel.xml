@@ -43,6 +43,31 @@
       <mads:elementValue>The</mads:elementValue>
     </mads:NonSortElement>
   </mads:elementList>
+    <mads:hasVariant>
+      <mads:Variant>
+        <mads:variantLabel>The Whale</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasVariant>
+    <mads:hasTranslationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Translation Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasTranslationVariant>          
+    <mads:hasAbbreviationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Abbreviation Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAbbreviationVariant>
+    <mads:hasAcronymVariant>
+      <mads:Variant>
+        <mads:variantLabel>Acronym Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAcronymVariant>   
+    <mads:hasExpansionVariant>
+      <mads:Variant>
+        <mads:variantLabel>Expansion Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasExpansionVariant>         
 </mads:Title>
     </dams:title>
     <dams:familyName rdf:resource="http://library.ucsd.edu/ark:/20775/bd1775562z"/>

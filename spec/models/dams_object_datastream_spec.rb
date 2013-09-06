@@ -300,6 +300,11 @@ END
       it "should have fields" do
         subject.titleValue.should == "Sample Object Record #8"
         subject.subtitle.should == "Name/Note/Subject Sampler"
+        subject.titleVariant.should == "The Whale"
+        subject.titleTransVariant.should == "Translation Variant"
+	    subject.titleAbbreviationVariant.should == "Abbreviation Variant"
+	    subject.titleAcronymVariant.should == "Acronym Variant"
+	    subject.titleExpansionVariant.should == "Expansion Variant"        
       end
       
       it "should index mads fields" do
@@ -362,7 +367,6 @@ END
 
       it "should index mads fields, part 2" do
         solr_doc = subject.to_solr
-
         #it "should index subjects" do
         solr_doc["subject_tesim"].should == ["Galaxies--Clusters","Test linked subject--More test"]
         
@@ -414,8 +418,12 @@ END
         
         solr_doc["unit_json_tesim"].first.should include '"id":"bb48484848","code":"rci","name":"Research Data Curation Program"'
         
-        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber"'
-                
+        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":"The Whale","translationVariant":"Translation Variant","abbreviationVariant":"Abbreviation Variant","acronymVariant":"Acronym Variant","expansionVariant":"Expansion Variant"'
+        solr_doc["titleVariant_tesim"].should == ["The Whale"]
+        solr_doc["titleTranslationVariant_tesim"].should == ["Translation Variant"]
+        solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant"]
+        solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant"]
+        solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant"]
       end
 
 	  it "should index relationship" do

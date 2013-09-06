@@ -12,7 +12,9 @@
   <%= text_field_tag 'dams_object[titlePartNumber][]', @dams_object.titlePartNumber, class: "input-block-level" %>    
   <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
   <%= text_field_tag 'dams_object[titleNonSort][]', @dams_object.titleNonSort, class: "input-block-level" %>    
-
+  <%= label_tag 'dams_object[titleVariant][]', "Has Variant" %>
+  <%= text_field_tag 'dams_object[titleVariant][]', @dams_object.titleVariant, class: "input-block-level" %>    
+  
   <%
   	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
   %>   
