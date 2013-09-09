@@ -32,38 +32,37 @@ class DamsStylePeriodsController < ApplicationController
 
   def new
     #Check schemes ####################################################################
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    @dams_style_period.scheme.build
+    @dams_style_period.elementList.stylePeriodElement.build
+  @mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
-    @dams_style_period = DamsStylePeriod.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@dams_style_period.scheme != nil)
-    	@scheme_id = @dams_style_period.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+    @scheme_id = Rails.configuration.id_namespace+@dams_style_period.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @dams_style_period.attributes = params[:dams_style_period]
     if @dams_style_period.save
-        redirect_to @dams_style_period, notice: "style_period has been saved"
+        redirect_to @dams_style_period, notice: "style period has been saved"
     else
-      flash[:alert] = "Unable to save style_period"
+      flash[:alert] = "Unable to save style period"
       render :new
     end
   end
 
   def update
+    @dams_style_period.elementList.clear
+    @dams_style_period.scheme.clear  
     @dams_style_period.attributes = params[:dams_style_period]
     if @dams_style_period.save
-		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated style_period"
+    if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+          redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated style period"
         else      
-        	redirect_to @dams_style_period, notice: "Successfully updated style_period"
+          redirect_to @dams_style_period, notice: "Successfully updated style period"
         end
     else
-      flash[:alert] = "Unable to save style_period"
+      flash[:alert] = "Unable to save style period"
       render :edit
     end
   end
