@@ -3,9 +3,9 @@
 <div>
   <dl>
     <dt>StylePeriodElement:</dt>
-    <dd><%= @dams_style_period.elementValue %></dd>
+    <dd><%= @dams_style_period.elementList[0].elementValue %></dd>
     <dt>Scheme:</dt>
-    <dd><%= @dams_style_period.scheme %></dd>
+    <dd><%= @dams_style_period.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
     <dd><%= @dams_style_period.externalAuthority %></dd>
   </dl>
