@@ -40,7 +40,7 @@ class Ability
       can [:read, :create, :update, :view], DamsBuiltWorkPlace
       can [:read, :create, :update, :view], DamsStylePeriod
       can [:read, :create, :update, :view], DamsCopyright
-      can [:read, :create, :update], DamsLicense
+      can [:read, :create, :update, :view], DamsLicense
       can [:read, :create, :update], DamsStatute
       can [:read, :create, :update], DamsAssembledCollection
       can [:read, :create, :update], DamsProvenanceCollection

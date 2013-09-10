@@ -38,8 +38,6 @@ describe DamsCopyrightsController do
         response.should redirect_to dams_copyright_path(assigns[:dams_copyright])
 
         assigns[:dams_copyright].date.size.should == 1
-
-        assigns[:dams_copyright].date.size.should == 1
         assigns[:dams_copyright].beginDate.should == ['2013']
       end
     end
