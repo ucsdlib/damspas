@@ -108,6 +108,13 @@ END
         subject.permissionType.should == ["display"]
       end
 
+      it "should have solr fields" do
+        solr_doc = subject.to_solr
+        solr_doc["permissionType_tesim"].should == ["display"]
+        solr_doc["permissionBeginDate_tesim"].should == ["1993-12-31"]
+        solr_doc["permissionEndDate_tesim"].should == ["2043-12-31"]
+      end
+      
     end
   end
 end

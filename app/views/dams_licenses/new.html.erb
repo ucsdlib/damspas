@@ -1,13 +1,23 @@
 <h1>Create a new DAMS License</h1>
 <%= form_for @dams_license do |f| %>
   <%= label_tag 'dams_license[note]', "Note" %><%= text_field_tag 'dams_license[note]' %>
-  <%= label_tag 'dams_license[uri]', "URI" %><%= text_field_tag 'dams_license[uri]' %>
-  <%= label_tag 'dams_license[permissionBeginDate]', "Permission Begin Date" %><%= text_field_tag 'dams_license[permissionBeginDate]' %>
-  <%= label_tag 'dams_license[permissionEndDate]', "Permission End Date" %><%= text_field_tag 'dams_license[permissionEndDate]' %>
-  <%= label_tag 'dams_license[permissionType]', "Permission Type" %><%= text_field_tag 'dams_license[permissionType]' %>
-  <%= label_tag 'dams_license[restrictionBeginDate]', "Restriction Begin Date" %><%= text_field_tag 'dams_license[restrictionBeginDate]' %>
-  <%= label_tag 'dams_license[restrictionEndDate]', "Restriction End Date" %><%= text_field_tag 'dams_license[restrictionEndDate]' %>
-  <%= label_tag 'dams_license[restrictionType]', "Restriction Type" %><%= text_field_tag 'dams_license[restrictionType]' %>
+  <%= label_tag 'dams_license[uri]', "URI" %><%= url_field_tag 'dams_license[uri]' %>
+  <%= f.fields_for :permission_node do |pn| %>
+    <%= pn.label :type, "Permission Type" %>
+    <%= pn.text_field :type , :value => ""%>    
+    <%= pn.label :beginDate, "Permission Begin Date" %>
+    <%= pn.text_field :beginDate, :value => ""%>
+    <%= pn.label :endDate, "Permission End Date" %>
+    <%= pn.text_field :endDate, :value => ""%>    
+  <% end %>
+  <%= f.fields_for :restriction_node do |rn| %>
+    <%= rn.label :type, "Restriction Type" %>
+    <%= rn.text_field :type , :value => ""%>    
+    <%= rn.label :beginDate, "Restriction Begin Date" %>
+    <%= rn.text_field :beginDate, :value => ""%>
+    <%= rn.label :endDate, "Restriction End Date" %>
+    <%= rn.text_field :endDate, :value => ""%>    
+  <% end %>   
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>
 <%end%>
