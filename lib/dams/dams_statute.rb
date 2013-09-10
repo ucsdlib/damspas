@@ -23,7 +23,13 @@ module Dams
       def to_solr (solr_doc={})
         Solrizer.insert_field(solr_doc, 'citation', citation)
         Solrizer.insert_field(solr_doc, 'jurisdiction', jurisdiction)
-        Solrizer.insert_field(solr_doc, 'note', note)                        
+        Solrizer.insert_field(solr_doc, 'note', note)
+	    Solrizer.insert_field(solr_doc, "permissionType", permissionType)
+	    Solrizer.insert_field(solr_doc, "permissionBeginDate", permissionBeginDate)
+	    Solrizer.insert_field(solr_doc, "permissionEndDate", permissionEndDate)
+	    Solrizer.insert_field(solr_doc, "restrictionType", restrictionType)
+	    Solrizer.insert_field(solr_doc, "restrictionBeginDate", restrictionBeginDate)
+	    Solrizer.insert_field(solr_doc, "restrictionEndDate", restrictionEndDate)                                
       end
     end
   end

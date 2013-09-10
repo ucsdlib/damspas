@@ -118,7 +118,12 @@ END
       it "should have a restriction type" do
         subject.restrictionType.should == ["display"]
       end
-
+      it "should have solr fields" do
+        solr_doc = subject.to_solr
+        solr_doc["restrictionType_tesim"].should == ["display"]
+        solr_doc["restrictionBeginDate_tesim"].should == ["1993-12-31"]
+        solr_doc["restrictionEndDate_tesim"].should == ["2043-12-31"]
+      end
     end
   end
 end
