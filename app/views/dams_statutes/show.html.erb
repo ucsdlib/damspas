@@ -1,15 +1,45 @@
-<h1><%= @dams_statute.citation.first %></h1>
-<div>jurisdiction: <%= @dams_statute.jurisdiction.first %></div>
-<div>note: <%= @dams_statute.note.first %></div>
-<div>permissionBeginDate: <%= @dams_statute.permissionBeginDate.first %></div>
-<div>permissionEndDate: <%= @dams_statute.permissionEndDate.first %></div>
-<div>permissionType: <%= @dams_statute.permissionType.first %></div>
-<div>restrictionBeginDate: <%= @dams_statute.restrictionBeginDate.first %></div>
-<div>restrictionEndDate: <%= @dams_statute.restrictionEndDate.first %></div>
-<div>restrictionType: <%= @dams_statute.restrictionType.first %></div>
-<div>
-  <% if can? :update, @dams_statute then %>
-  <%= link_to "Edit", edit_dams_statute_path(@dams_statute), class: "btn btn-primary" %>
-  <% end %>
-  <%= link_to "View All", dams_statutes_path, class: "btn btn-primary" %>
+<% @page_title =  "Copyright | #{render_document_show_field_value(:document=>@document, :field=>"status_tesim")} " %>
+<% statute = render_document_show_field_value(:document=>@document, :field=>"note_tesim") %>
+
+<div class="row-fluid">
+
+  <div id="content" class="show-document span9">
+
+		<div class="row-fluid">
+			<section class="dams-metadata span12">
+				<p class="sidebar-header"><strong><%= statute %></strong></p>			
+				<dl class="dl-horizontal">
+					<%= render :partial => 'metadata' %>
+				</dl>	
+			</section>
+		</div>
+
+	 </div>    
+	
+	<div class="span3">
+	
+		<div class="well dams-search-box">
+			<h4>Search</h4>
+			<%= render_unit_search_bar  %>
+		</div>
+		
+		<p class="sidebar-header"><strong>Browse By</strong></p>
+		<ul class="unstyled sidebar-button-list">
+			<!-- hack in browse by collection, for RCI demo -->
+			<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
+			<%= render_browse_facet_links %>
+		</ul>
+
+    <% if can? :update, @document then %>
+			<p class="sidebar-header"><strong>Editor Tools</strong></p>
+			<ul class="unstyled sidebar-button-list">
+			<li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, view_dams_statute_path(@document['id']), class: "btn btn-block btn-small btn-link"%>     
+      		<li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_statute_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+			</ul>
+    <% end %>
+				
+	</div>
+
 </div>
+
+
