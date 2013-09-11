@@ -1,5 +1,7 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:mads="http://www.loc.gov/mads/rdf/v1#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
   <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
+    <dams:visibility>public</dams:visibility>
+    <dams:typeOfResource>text</dams:typeOfResource>
     <dams:hasProvenanceCollection>
       <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb24242424">
         <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>

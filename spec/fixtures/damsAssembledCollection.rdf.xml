@@ -2,6 +2,8 @@
          xmlns:dams="http://library.ucsd.edu/ontology/dams#"
          xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
 <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb03030303">
+    <dams:visibility>public</dams:visibility>
+    <dams:typeOfResource>text</dams:typeOfResource>
     <dams:title>
       <mads:Title>
         <mads:authoritativeLabel>UCSD Electronic Theses and Dissertations</mads:authoritativeLabel>

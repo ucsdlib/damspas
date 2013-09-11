@@ -8,7 +8,7 @@ describe DamsProvenanceCollectionsController do
       end
       describe "Show" do
         before do
-          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 1", beginDate: "2012-01-01", endDate: "2013-01-01")
+          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 1", beginDate: "2012-01-01", endDate: "2013-01-01", visibility: "public", resource_type: "text")
         end
         it "should be successful" do 
           get :show, id: @obj.id
@@ -17,6 +17,8 @@ describe DamsProvenanceCollectionsController do
           @newobj.titleValue.should == @obj.titleValue
           @newobj.beginDate.should == @obj.beginDate
           @newobj.endDate.should == @obj.endDate
+          @newobj.visibility.should == @obj.visibility
+          @newobj.resource_type.should == @obj.resource_type
         end
       end
       
@@ -30,7 +32,7 @@ describe DamsProvenanceCollectionsController do
       
       describe "Edit" do
         before do
-          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 2", beginDate: "2012-02-02", endDate: "2013-02-02")
+          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 2", beginDate: "2012-02-02", endDate: "2013-02-02", visibility: "public", resource_type: "text")
         end    
         it "should be successful" do 
           get :edit, id: @obj.id
@@ -39,6 +41,8 @@ describe DamsProvenanceCollectionsController do
           @newobj.titleValue.should == @obj.titleValue
           @newobj.beginDate.should == @obj.beginDate
           @newobj.endDate.should == @obj.endDate
+          @newobj.visibility.should == @obj.visibility
+          @newobj.resource_type.should == @obj.resource_type
         end
       end
       

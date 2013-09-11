@@ -10,6 +10,8 @@ class DamsProvenanceCollectionInternal
     
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
     map.language(:in=>DAMS, :class_name => 'MadsLanguageInternal')
+    map.visibility(:in=>DAMS)
+    map.resource_type(:in=>DAMS, :to => 'typeOfResource')
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')

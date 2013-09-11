@@ -9,11 +9,15 @@ describe DamsProvenanceCollection do
     subject.titleValue = "Historical Dissertations"
     subject.beginDate = "2009-05-03"
     subject.endDate = "2010-06-30"
+    subject.visibility = "public"
+    subject.resource_type = "text"
     xml =<<END
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#"
          xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
   <dams:ProvenanceCollection rdf:about="#{Rails.configuration.id_namespace}bb24242424">
+    <dams:visibility>public</dams:visibility>
+    <dams:typeOfResource>text</dams:typeOfResource>
     <dams:title>
       <mads:Title>
         <mads:authoritativeLabel>Historical Dissertations</mads:authoritativeLabel>

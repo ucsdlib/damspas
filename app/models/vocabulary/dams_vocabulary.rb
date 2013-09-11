@@ -149,4 +149,5 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :partNumber
   property :partName
   property :nonSort  
+  property :visibility  
 end

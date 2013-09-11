@@ -19,6 +19,14 @@ describe DamsProvenanceCollectionDatastream do
         subject.dateValue = "2009-05-03"
         subject.dateValue.should == ["2009-05-03"]
       end
+      it "should have a visibility" do
+        subject.visibility = "public"
+        subject.visibility.should == ["public"]
+      end
+      it "should have a resource_type" do
+        subject.resource_type = "text"
+        subject.resource_type.should == ["text"]
+      end
   #    it "should have a language" do
   #      subject.language.build.rdf_subject = "#{Rails.configuration.id_namespace}bd0410344f"
   #     subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
@@ -41,6 +49,12 @@ describe DamsProvenanceCollectionDatastream do
       it "should have a date" do
         subject.beginDate.should == ["2009-05-03"]
         subject.endDate.should == ["2010-06-30"]
+      end
+      it "should have a visibility" do
+        subject.visibility.should == ["public"]
+      end
+      it "should have a resource_type" do
+        subject.resource_type.should == ["text"]
       end
  #     it "should have a language" do
  #       subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"

@@ -25,8 +25,8 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "PartNumber", :with => "TestPartNumber"
 		fill_in "NonSort", :with => "TestNonSort"
 		fill_in "Date", :with => "TestDate"
-		fill_in "Begin Date", :with => "TestBeginDate"
-		fill_in "End Date", :with => "TestEndDate"
+		fill_in "Begin Date", :with => "2001-01-01"
+		fill_in "End Date", :with => "2001-01-31"
 		fill_in "Date Type", :with => "TestDateType"
 		fill_in "Date Encoding", :with => "TestDateEncoding"
 		page.select('Test Language', match: :first)
@@ -76,8 +76,8 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "dams_provenance_collection_titlePartNumber_", :with => "TestPartNumber2"
 		fill_in "dams_provenance_collection_titleNonSort_", :with => "TestNonSort2"
 		fill_in "dams_provenance_collection_dateValue_", :with => "TestDate2"
-		fill_in "dams_provenance_collection_beginDate_", :with => "TestBeginDate2"
-		fill_in "dams_provenance_collection_endDate_", :with => "TestEndDate2"
+		fill_in "dams_provenance_collection_beginDate_", :with => "2002-02-02"
+		fill_in "dams_provenance_collection_endDate_", :with => "2002-02-28"
 		page.select('Test Language', match: :first)
 		fill_in "dams_provenance_collection_noteValue_", :with => "TestNote2"
 		fill_in "dams_provenance_collection_noteType_", :with => ""
@@ -129,8 +129,8 @@ scenario 'is on the provenance collection page to be edited' do
  	fill_in "dams_provenance_collection_titlePartNumber_", :with => "TestPartNumber3"
  	fill_in "dams_provenance_collection_titleNonSort_", :with => "TestNonSort3"
 	fill_in "dams_provenance_collection_dateValue_", :with => "TestDate3"
-	fill_in "dams_provenance_collection_beginDate_", :with => "TestBeginDate3"
-	fill_in "dams_provenance_collection_endDate_", :with => "TestEndDate3"
+	fill_in "dams_provenance_collection_beginDate_", :with => "2003-03-03"
+	fill_in "dams_provenance_collection_endDate_", :with => "2003-03-31"
 	page.select('Test Language', match: :first)
 	fill_in "dams_provenance_collection_noteValue_", :with => "TestNote3"
 	fill_in "dams_provenance_collection_noteType_", :with => "TESTNOTETYPE3"
@@ -152,8 +152,8 @@ scenario 'is on the provenance collection page to be edited' do
 	# expect(page).to have_content ("TestPartNumber3")
 	# expect(page).to have_content ("TestNonSort3")
 	# expect(page).to have_content ("TestDate3")
-	# expect(page).to have_content ("TestBeginDate3")
-	# expect(page).to have_content ("TestEndDate3")
+	# expect(page).to have_content ("2003-03-03")
+	# expect(page).to have_content ("2003-03-31")
 	# expect(page).to have_selector('li', :text => "Test Language")
 	# expect(page).to have_content ("TestNote3")
 	# # should get note type as title by not filling in Note Display Lable
