@@ -2,7 +2,7 @@
 require 'spec_helper'
 require 'rdf'
 
-describe DamsOtherRights do
+describe DamsOtherRight do
   let(:params) {
     { basis: "fair use", 
       note: "Educationally important works unavailable due to unknown copyright holders",
@@ -12,7 +12,7 @@ describe DamsOtherRights do
       restriction_node_attributes: [type: "display",beginDate: "1993-12-31",endDate: "2043-12-31"]
   }}
   subject do
-    DamsOtherRights.new(pid: 'zzXXXXXXX1').tap do |t|
+    DamsOtherRight.new(pid: 'zzXXXXXXX1').tap do |t|
       t.attributes = params
     end
   end
