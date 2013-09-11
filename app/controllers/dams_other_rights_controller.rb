@@ -3,7 +3,7 @@ class DamsOtherRightsController < ApplicationController
   skip_authorize_resource :only => :index
 
   def show
-    @other_rights = DamsOtherRights.find(params[:id])
+    @other_rights = DamsOtherRight.find(params[:id])
   end
 
   def new
@@ -15,27 +15,27 @@ class DamsOtherRightsController < ApplicationController
   end
 
   def create
-    @dams_other_rights.attributes = params[:dams_other_rights]
-    if @dams_other_rights.save
-        redirect_to @dams_other_rights, notice: "OtherRights has been saved"
+    @dams_other_right.attributes = params[:dams_other_right]
+    if @dams_other_right.save
+        redirect_to @dams_other_right, notice: "OtherRights has been saved"
     else
-      flash[:alert] = "Unable to save other_rights"
+      flash[:alert] = "Unable to save OtherRights"
       render :new
     end
   end
 
   def update
-    @dams_other_rights.attributes = params[:dams_other_rights]
-    if @dams_other_rights.save
-        redirect_to @dams_other_rights, notice: "Successfully updated other_rights"
+    @dams_other_right.attributes = params[:dams_other_right]
+    if @dams_other_right.save
+        redirect_to @dams_other_right, notice: "Successfully updated OtherRights"
     else
-      flash[:alert] = "Unable to save other_rights"
+      flash[:alert] = "Unable to save OtherRights"
       render :edit
     end
   end
 
   def index
-    @other_rights = DamsOtherRights.all
+    @other_rights = DamsOtherRight.all
   end
 
 end
