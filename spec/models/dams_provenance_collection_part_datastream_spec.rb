@@ -19,6 +19,14 @@ describe DamsProvenanceCollectionPartDatastream do
         subject.dateValue = "2009-05-03"
         subject.dateValue.should == ["2009-05-03"]
       end
+      it "should have a visibility" do
+        subject.visibility = "public"
+        subject.visibility.should == ["public"]
+      end
+      it "should have a resource_type" do
+        subject.resource_type = "text"
+        subject.resource_type.should == ["text"]
+      end
 #      it "should have a language" do
 #        subject.language.build.rdf_subject = "#{Rails.configuration.id_namespace}bd0410344f"
 #        subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
@@ -42,7 +50,20 @@ describe DamsProvenanceCollectionPartDatastream do
         subject.beginDate.should == ["2009-05-03"]
         subject.endDate.should == ["2009-05-31"]
       end
+      it "should have a visibility" do
+        subject.visibility.should == ["public"]
+      end
+      it "should have a resource_type" do
+        subject.resource_type.should == ["text"]
+      end
 
+ 	  it "should index fields" do
+        solr_doc = subject.to_solr
+        solr_doc["title_tesim"].should == ["May 2009"]
+        solr_doc["date_tesim"].should == ["2009-05-03","2009-05-31"]
+        solr_doc["visibility_tesim"].should == ["public"]
+        solr_doc["resource_type_tesim"].should == ["text"]
+      end
  	  it "should have notes" do
         solr_doc = subject.to_solr
         solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."

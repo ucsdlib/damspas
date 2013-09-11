@@ -16,9 +16,9 @@ feature 'Visitor wants to search' do
   end
   scenario 'results sorted by object creation date' do
     visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', 'sort' => 'object_create_dtsi asc'} )
-    idx1 = page.body.index('Sample Audio Object')  # no date
-    idx2 = page.body.index('The real thing')       # 2012-03-01
-    idx3 = page.body.index('Sample Simple Object') # 2012-04-08
+    idx1 = page.body.index('Sample Audio Object: I need another')   # no date
+    idx2 = page.body.index('Sample Simple Object: An Image Object') # 2012-04-08
+    idx3 = page.body.index('The real thing')                        # 2012-09-01
     idx3.should >( idx2 )
     idx2.should >( idx1 )
   end
