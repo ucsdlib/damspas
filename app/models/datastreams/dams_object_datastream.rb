@@ -52,7 +52,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     # rights
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
     map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
-    map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
+    map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightInternal')
     map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
     map.rightsHolderPersonal(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsPersonalNameInternal')
     map.rightsHolderCorporate(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsCorporateNameInternal')
@@ -268,7 +268,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	    if !otherRights.first.uri.first.nil? && otherRights.first.uri.first.to_s.length > 0
 	      otherRights.first
 	    else
-	      DamsOtherRights.find( otherRights.first.pid )
+	      DamsOtherRight.find( otherRights.first.pid )
 	    end
 	end        
   end
