@@ -12,10 +12,21 @@ class DamsObjectsController < ApplicationController
   # solr actions ###############################################################
   ##############################################################################
   def show
+    # update session counter, then redirect to URL w/o counter param
+    if params[:counter]
+      session[:search][:counter] = params[:counter]
+      redirect_to dams_object_path(params[:id])
+      return
+    end
+
     # check ip for unauthenticated users
     if current_user == nil
       current_user = User.anonymous(request.ip)
     end
+
+    # import solr config from catalog_controller and setup next/prev docs
+    @blacklight_config = CatalogController.blacklight_config
+    setup_next_and_previous_documents
 
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
