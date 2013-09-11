@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DamsOtherRightsDatastream do
+describe DamsOtherRightDatastream do
 
   describe "a nested_attributes other_rights model" do
     it "should create a xml" do
@@ -14,7 +14,7 @@ describe DamsOtherRightsDatastream do
         }
       }
 
-      subject = DamsOtherRightsDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = DamsOtherRightDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
       subject.attributes = params[:otherRights]
 
       xml =<<END
@@ -54,7 +54,7 @@ END
 
     describe "instance populated in-memory" do
 
-      subject { DamsOtherRightsDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
+      subject { DamsOtherRightDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
@@ -100,7 +100,7 @@ END
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsOtherRightsDatastream.new(double('inner object', :pid=>'bb05050505', :new? =>true), 'damsMetadata')
+        subject = DamsOtherRightDatastream.new(double('inner object', :pid=>'bb05050505', :new? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsOtherRights.rdf.xml').read
         subject
       end

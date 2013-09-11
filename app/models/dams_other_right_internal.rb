@@ -1,6 +1,6 @@
-class DamsOtherRightsInternal
+class DamsOtherRightInternal
   include ActiveFedora::RdfObject
-  include Dams::DamsOtherRights
+  include Dams::DamsOtherRight
   include DamsHelper
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')

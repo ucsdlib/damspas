@@ -1,7 +1,7 @@
 require 'active_support/concern'
 
 module Dams
-  module DamsOtherRights
+  module DamsOtherRight
     extend ActiveSupport::Concern
     included do
       rdf_type DAMS.OtherRights
