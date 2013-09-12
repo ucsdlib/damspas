@@ -1,0 +1,13 @@
+<% if @dams_other_right.errors.any? %>
+
+	<div class="alert alert-block alert-error">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		<h4>The form contains <%= pluralize(@dams_other_right.errors.count, "error") %></h4>
+		<ul>
+		<% @dams_other_right.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li> 
+		<% end %>
+		</ul>
+	</div>
+
+<% end %>
