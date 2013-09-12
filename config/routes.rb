@@ -67,7 +67,9 @@ Hydra::Application.routes.draw do
   resources :dams_licenses do
   	get 'view', :on => :member
   end
-  resources :dams_other_right
+  resources :dams_other_rights do
+  	get 'view', :on => :member
+  end
   resources :dams_statutes do
   	get 'view', :on => :member
   end

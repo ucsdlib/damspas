@@ -1,0 +1,12 @@
+<h1>OtherRights</h1>
+
+<div class="span6">
+	<ul><%= render_other_right_list %></ul>
+</div>
+
+<div>
+	<% if can? :create, DamsOtherRight%>
+	<%= link_to "Create OtherRights", new_dams_other_right_path, :class => 'btn btn-primary' %>
+	<% end %>
+</div>
+</div>
