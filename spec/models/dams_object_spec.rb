@@ -3,7 +3,8 @@ require 'spec_helper'
 describe DamsObject do
   
   before  do
-    @damsObj = DamsObject.new(pid: 'bb52572546')
+    #@damsObj = DamsObject.new(pid: 'bb52572546') # nuking test record needed for other tests...
+    @damsObj = DamsObject.new(pid: 'xx00000001')
   end
   
   it "should have the specified datastreams" do

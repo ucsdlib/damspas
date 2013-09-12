@@ -7,7 +7,7 @@ describe CatalogController do
   before(:all) do
     unit = RDF::Resource.new("#{Rails.configuration.id_namespace}bb02020202")
     @obj = DamsObject.new
-    @obj.attributes = {titleValue:"Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2012", unit: unit, copyrightURI: "bd0513099p" }
+    @obj.attributes = {titleValue:"Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unit: unit, copyrightURI: "bd0513099p" }
     @obj.save
 
     # rights metadata not getting set correctly until reindexing...
