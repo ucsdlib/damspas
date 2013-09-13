@@ -30,7 +30,8 @@ feature "Anonymous user shouldn't be able to upload files" do
 end
 
 feature "Curator should be able to upload files" do
-  scenario "Link to Hydra view should be shown" do
+  # interaction with features/dams_object_spec
+  pending "Link to Hydra view should be shown" do
     sign_in_developer
     visit dams_object_path(test_pid)
     expect(page).to have_selector('a', :text => 'Hydra View')
