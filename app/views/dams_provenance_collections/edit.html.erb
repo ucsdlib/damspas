@@ -113,6 +113,9 @@ $(document).ready(function() {
 <%= label_tag 'dams_provenance_collection[dateValue]', "Date" %><%= text_field_tag 'dams_provenance_collection[dateValue][]', @dams_provenance_collection.dateValue[0], class: "input-block-level" %>
 <%= label_tag 'dams_provenance_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_provenance_collection[beginDate][]', @dams_provenance_collection.beginDate[0], class: "input-block-level" %>
 <%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0], class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[dateType]', "Date Type" %><%= text_field_tag 'dams_provenance_collection[dateType][]', @dams_provenance_collection.dateType[0], class: "input-block-level" %>
+<%= label_tag 'dams_provenance_collection[dateEncoding]', "Date Encoding" %><%= text_field_tag 'dams_provenance_collection[dateEncoding][]', @dams_provenance_collection.dateEncoding[0], class: "input-block-level" %>
+
 
 <h3>Language</h3>
  <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id), class: "input-block-level", required: true %>
