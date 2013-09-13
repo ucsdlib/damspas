@@ -1,0 +1,28 @@
+<%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
+<h1>Create a new DAMS OtherRights</h1>
+<%= form_for @dams_other_right do |f| %>
+  <%= label_tag 'dams_other_right[note]', "Note" %><%= text_field_tag 'dams_other_right[note]' %>
+  <%= label_tag 'dams_other_right[uri]', "URI" %><%= url_field_tag 'dams_other_right[uri]' %>
+  <%= f.fields_for :permission_node do |pn| %>
+    <%= pn.label :type, "Permission Type" %>
+    <%= pn.text_field :type , :value => ""%>    
+    <%= pn.label :beginDate, "Permission Begin Date" %>
+    <%= pn.text_field :beginDate, :value => ""%>
+    <%= pn.label :endDate, "Permission End Date" %>
+    <%= pn.text_field :endDate, :value => ""%>    
+  <% end %>
+  <%= f.fields_for :restriction_node do |rn| %>
+    <%= rn.label :type, "Restriction Type" %>
+    <%= rn.text_field :type , :value => ""%>    
+    <%= rn.label :beginDate, "Restriction Begin Date" %>
+    <%= rn.text_field :beginDate, :value => ""%>
+    <%= rn.label :endDate, "Restriction End Date" %>
+    <%= rn.text_field :endDate, :value => ""%>    
+  <% end %>   
+  <h3>Relationship</h3>
+  <%= select_tag 'dams_other_right[role][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role", required: true %>
+  <br>   
+  <%= select_tag 'dams_other_right[name][]', options_for_select(@mads_names) , :prompt=>"Select Relationship Name", required: true %>    
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+<%end%>

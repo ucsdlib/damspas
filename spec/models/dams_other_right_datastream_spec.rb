@@ -132,7 +132,7 @@ END
         subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
         subject.relationship.first.role.first.pid.should == "bbXXXXXXX2"
       end
-
+  
     end
   end
 end
