@@ -24,7 +24,7 @@ feature "Anonymous user shouldn't be able to upload files" do
   end
 
   scenario "Shouldn't be able to upload file" do
-    expect { visit upload_path(pid) }.to raise_error(
+    expect { page.driver.post upload_path(pid) }.to raise_error(
       CanCan::AccessDenied)
   end
 end

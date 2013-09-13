@@ -11,4 +11,8 @@ class DamsUnit < ActiveFedora::Base
   validates :uri, presence: true
   validates :code, presence: true
   
+  # rights metadata
+  has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
+  include Hydra::ModelMixins::RightsMetadata
+
 end

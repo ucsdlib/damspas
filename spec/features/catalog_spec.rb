@@ -15,10 +15,13 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector("span.dams-filter")
   end
   scenario 'results sorted by object creation date' do
+    sign_in_developer
     visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', 'sort' => 'object_create_dtsi asc, title_ssi asc'} )
     idx1 = page.body.index('Sample Audio Object: I need another')  # no date
-    idx2 = page.body.index('The real thing')                       # 2012-03-01
-    idx3 = page.body.index('Sample Simple Object')                 # 2012-04-08
+    idx2 = page.body.index('Sample Complex Object Record #1')      # 1980
+    idx3 = page.body.index('Chicano and black radical activism')   # 2010
+    idx4 = page.body.index('Sample Simple Object')                 # 2012-04-08
+    idx4.should >( idx3 )
     idx3.should >( idx2 )
     idx2.should >( idx1 )
   end

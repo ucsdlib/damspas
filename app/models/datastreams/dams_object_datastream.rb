@@ -220,7 +220,6 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
   
   def load_copyright ( copyright )
-    foo = copyright.to_s
 	if !copyright.first.nil?
 	    c_pid = copyright.first.pid
 	    if !copyright.first.status.first.nil? && copyright.first.status.to_s.length > 0
@@ -460,6 +459,8 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
           
   def to_solr (solr_doc = {})
+	super(solr_doc)
+
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
     storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
@@ -620,7 +621,16 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 
-	super
+    # hack to strip "+00:00" from end of dates, because that makes solr barf
+    ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
+      if solr_doc[f].kind_of?(Array)
+        solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+      elsif solr_doc[f] != nil
+        solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
+      end
+    }
+
+    solr_doc
   end  
   
 end

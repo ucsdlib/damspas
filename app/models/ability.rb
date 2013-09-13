@@ -4,6 +4,7 @@ class Ability
     if current_user.new_record? || current_user.anonymous   #Anonymous user
       can [:read], DamsUnit
       can [:read], DamsCopyright
+      can [:read], DamsOtherRight
       can [:read], DamsLicense
       can [:read], DamsStatute
       can [:read], DamsAssembledCollection
@@ -40,6 +41,7 @@ class Ability
       can [:read, :create, :update, :view], DamsBuiltWorkPlace
       can [:read, :create, :update, :view], DamsStylePeriod
       can [:read, :create, :update, :view], DamsCopyright
+      can [:read, :create, :update, :view], DamsOtherRight
       can [:read, :create, :update, :view], DamsLicense
       can [:read, :create, :update, :view], DamsStatute
       can [:read, :create, :update], DamsAssembledCollection

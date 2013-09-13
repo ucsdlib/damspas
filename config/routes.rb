@@ -2,33 +2,33 @@ Hydra::Application.routes.draw do
 
 
   # Static page routes
-  match '/faq', to: 'static_pages#faq'
-  match '/about', to: 'static_pages#about'
-  match '/zotero', to: 'static_pages#zotero'
-  match '/mendeley', to: 'static_pages#mendeley'
+  get '/faq', to: 'static_pages#faq'
+  get '/about', to: 'static_pages#about'
+  get '/zotero', to: 'static_pages#zotero'
+  get '/mendeley', to: 'static_pages#mendeley'
 
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
   resources :dams_collections, :only => [:index, :show]
-  match '/dlp', to: 'dams_units#show', :id => 'dlp'
-  match '/rci', to: 'dams_units#show', :id => 'rci'
-  match '/:id/collections', to: 'dams_units#collections', :as => "dams_unit_collections"
+  get '/dlp', to: 'dams_units#show', :id => 'dlp'
+  get '/rci', to: 'dams_units#show', :id => 'rci'
+  get '/:id/collections', to: 'dams_units#collections', :as => "dams_unit_collections"
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
 
   # add Blacklight catalog -> search routing
   # Catalog stuff.
-  match 'search/opensearch', :as => "opensearch_catalog"
-  match 'search/citation', :as => "citation_catalog"
-  match 'search/email', :as => "email_catalog"
-  match 'search/sms', :as => "sms_catalog"
-  match 'search/endnote', :as => "endnote_catalog"
-  match 'search/send_email_record', :as => "send_email_record_catalog"
-  match "search/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
-  match "search", :to => 'catalog#index', :as => 'catalog_index'
-  match 'search/:id/librarian_view', :to => "catalog#librarian_view", :as => "librarian_view_catalog"
-  resources :solr_document,  :path => 'search', :controller => 'catalog', :only => [:show, :update]
+  get 'search/opensearch', :as => "opensearch_catalog"
+  get 'search/citation', :as => "citation_catalog"
+  get 'search/email', :as => "email_catalog"
+  get 'search/sms', :as => "sms_catalog"
+  get 'search/endnote', :as => "endnote_catalog"
+  get 'search/send_email_record', :as => "send_email_record_catalog"
+  get "search/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
+  get "search", :to => 'catalog#index', :as => 'catalog_index'
+  get 'search/:id/librarian_view', :to => "catalog#librarian_view", :as => "librarian_view_catalog"
+  resources :solr_document, :path => 'search', :controller => 'catalog', :only => [:show, :update]
   # :show and :update are for backwards-compatibility with catalog_url named routes
   resources :catalog, :only => [:show, :update]
 
@@ -38,12 +38,9 @@ Hydra::Application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
-    match '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
-    match '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
+    get '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
+    get '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
   end
-
-  match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'catalog'
-  match "/:ark/20775/:id", :to => 'catalog#show', :constraints => { :ark => /ark:/ }, :ark => 'ark:', :as => 'solr_document'
 
   resources :dams_subjects, :only => [:show]
 
@@ -51,9 +48,9 @@ Hydra::Application.routes.draw do
     get 'view', :on => :member
   end
 
-  match "object/:id/upload", :to => 'file#create', :as => 'upload'
-  match "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
-  match "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
+  post "object/:id/upload", :to => 'file#create', :as => 'upload'
+  post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
+  get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   resources :dams_assembled_collections
   resources :dams_units do
     member do
@@ -67,7 +64,9 @@ Hydra::Application.routes.draw do
   resources :dams_licenses do
   	get 'view', :on => :member
   end
-  resources :dams_other_right
+  resources :dams_other_rights do
+  	get 'view', :on => :member
+  end
   resources :dams_statutes do
   	get 'view', :on => :member
   end
@@ -152,11 +151,11 @@ Hydra::Application.routes.draw do
   # first created -> highest priority.
 
   # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
+  #   get 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  #   get 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
@@ -203,5 +202,5 @@ Hydra::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+  # get ':controller(/:action(/:id))(.:format)'
 end
