@@ -25,7 +25,7 @@ describe DamsOtherRightsController do
 	    name.destroy
 	  end    
       it "should set the attributes" do
-      	puts role.pid
+      	#puts role.pid
         #post :create, dams_other_right: {"note"=>"TestNote", "permission_node_attributes"=>{"0"=>{"beginDate"=>"2013"}}}
         post :create, dams_other_right: {"note"=>"TestNote", "permission_node_attributes"=>{"0"=>{"beginDate"=>"2013"}},"role"=>["#{role.pid}"],"name"=>["#{name.pid}"]}
         flash[:notice].should == "OtherRights has been saved"
