@@ -28,7 +28,11 @@
   <%= label_tag 'dams_provenance_collection_part[beginDate][]', "Begin Date" %>
   <%= text_field_tag 'dams_provenance_collection_part[beginDate][]' %> 
   <%= label_tag 'dams_provenance_collection_part[endDate][]', "End Date" %>
-  <%= text_field_tag 'dams_provenance_collection_part[endDate][]' %>    
+  <%= text_field_tag 'dams_provenance_collection_part[endDate][]' %> 
+   <%= label_tag 'dams_provenance_collection_part[dateType][]', "Date Type" %>
+  <%= text_field_tag 'dams_provenance_collection_part[dateType][]' %> 
+  <%= label_tag 'dams_provenance_collection_part[dateEncoding][]', "Date Encoding" %>
+  <%= text_field_tag 'dams_provenance_collection_part[dateEncoding][]' %>      
 
   <h3>Language</h3> 
   <%= select_tag 'dams_provenance_collection_part[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %> 
