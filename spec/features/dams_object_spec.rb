@@ -63,20 +63,20 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     visit dams_object_path('new')
 
     # Check if required elements exist
-    if(page.has_select?('dams_object_languageURI_', :options => ['Test Language']) != true)
-      visit mads_language_path('new')
-      fill_in "Name", :with => "Test Language"
-      fill_in "Code", :with => "ABC"
-      fill_in "Element Value", :with => "Test Language"
-      page.select('Library of Congress Subject Headings', match: :first) 
-      click_on "Submit"
-    end
-    visit dams_object_path('new')
-    if(page.has_select?('dams_object_copyrightURI_', :options => ['Test Copyright']) != true)
-      DamsCopyright.create! pid: "bb05050506", status: "Test Copyright", jurisdiction: "us", purposeNote: "This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.", note: "This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.", beginDate: "1993-12-31"
-    end
-
-    visit current_path
+#    if(page.has_select?('dams_object_languageURI_', :options => ['Test Language']) != true)
+#      visit mads_language_path('new')
+#      fill_in "Name", :with => "Test Language"
+#      fill_in "Code", :with => "ABC"
+#      fill_in "Element Value", :with => "Test Language"
+#      page.select('Library of Congress Subject Headings', match: :first) 
+#      click_on "Submit"
+#    end
+#    visit dams_object_path('new')
+#    if(page.has_select?('dams_object_copyrightURI_', :options => ['Test Copyright']) != true)
+#      DamsCopyright.create! pid: "bb05050506", status: "Test Copyright", jurisdiction: "us", purposeNote: "This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.", note: "This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.", beginDate: "1993-12-31"
+#    end
+#
+#    visit current_path
 
     fill_in "dams_object_titleValue_", :with => "Dams Test Object"
     fill_in "SubTitle", :with => "New Object"
@@ -93,8 +93,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
-    page.select("Test Language", match: :first)
-    page.select('Test Copyright', match: :first)
+    page.select("English", match: :first)
+    page.select('Public domain', match: :first)
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
 
@@ -110,7 +110,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     #expect(page).to have_selector('a', :text => "Research Data Curation Program")
     expect(page).to have_selector('li', :text => "07/15/2013")
     expect(page).to have_selector('a', :text => "Text")
-    #expect(page).to have_selector('strong', :text => "Test Copyright") # XXX not displaying
+    #expect(page).to have_selector('strong', :text => "Public domain") # XXX not displaying
     expect(page).to have_selector('a', :text => "Mathematician")
 
     click_on "Edit"
@@ -159,10 +159,10 @@ feature 'Visitor wants to view an object' do
   scenario 'is on Object index page' do
     sign_in_developer
     visit dams_objects_path
-    expect(page).to have_selector('a', :text => "Sample Audio Component: I need another green form")
-    click_on "Sample Audio Component: I need another green form"
+    expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
+    click_on "Sample Audio Object: I need another green form"
     expect(page).to have_selector('li', :text => "English")
-    expect(page).to have_selector('h1', :text => "Sample Audio Component")
+    expect(page).to have_selector('h1', :text => "Sample Audio Object")
     expect(page).to have_selector('h2', :text => "I need another green form")
   end
 end
@@ -189,7 +189,7 @@ feature 'Visitor wants to cancel unsaved objects' do
     fill_in "dams_object_dateValue_", :with => "NO DATE"
     click_on "Cancel"
     expect('/object').to eq(current_path)
-    expect(page).to have_selector('a', :text => "Sample Audio Component: I need another green form")
+    expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
     expect(page).to have_selector('a', :text => "Create Object")
   end
 
