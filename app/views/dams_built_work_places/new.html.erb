@@ -5,11 +5,16 @@
   <%= text_field_tag 'dams_built_work_place[name]' %>
   <%= label_tag 'dams_built_work_place[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_built_work_place[externalAuthority]' %> 
-  <%= label_tag 'dams_built_work_place[elementValue]', "BuiltWorkPlaceElement" %>
-  <%= text_field_tag 'dams_built_work_place[elementValue]' %> 
+  
+  <%= f.fields_for :builtWorkPlaceElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>
   <br>
-  <%= select_tag 'dams_built_work_place[scheme]', options_for_select(@mads_schemes ) , :prompt=>"Select MadsScheme" %>    
-   
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
