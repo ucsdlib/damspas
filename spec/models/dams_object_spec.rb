@@ -52,16 +52,10 @@ describe DamsObject do
     end
   end
 
-  subject do
-    DamsObject.new pid: 'bb80808080'
-  end
   it "should load a complex object from RDF/XML file" do
-    subject = DamsObject.new(:pid=>'bb80808080')
-
-    subject.damsMetadata.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
-    subject.titleValue.should == "Sample Complex Object Record #1"
-    subject.component.first.title.first.value.should == "The Static Image"
-    subject.sourceCapture.scannerManufacturer.should == ["Epson"]
+    obj = DamsObject.find('bb80808080')
+    obj.titleValue.should == "Sample Complex Object Record #1"
+    obj.component.first.title.first.value.should == "Supplementary Image"
   end
   
   subject do

@@ -63,6 +63,12 @@ class FileController < ApplicationController
 
   def create
     @id = params[:id]
+
+    # check authorization first
+    @obj = ActiveFedora::Base.find(@id, :cast=>true)
+    authorize! :edit, @obj
+
+    # make sure we have a file
     file = params[:file] if params[:file].respond_to?(:original_filename)
     if file.nil?
       flash[:alert] = "No file upload found"
@@ -73,7 +79,6 @@ class FileController < ApplicationController
     @ds = "_1" # TODO list ds and get next ds #
     ext = File.extname(file.original_filename)
     @ds += ext unless ext.nil?
-    @obj = ActiveFedora::Base.find(@id, :cast=>true)
     @obj.add_file( file, @ds, file.original_filename )
     @obj.save!
     flash[:notice] = "File Uploaded"

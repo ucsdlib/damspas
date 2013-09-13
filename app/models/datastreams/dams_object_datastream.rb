@@ -220,7 +220,6 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
   
   def load_copyright ( copyright )
-    foo = copyright.to_s
 	if !copyright.first.nil?
 	    c_pid = copyright.first.pid
 	    if !copyright.first.status.first.nil? && copyright.first.status.to_s.length > 0
