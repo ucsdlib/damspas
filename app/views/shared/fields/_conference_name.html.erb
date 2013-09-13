@@ -1,11 +1,11 @@
 <%
 	if defined?(componentIndex) # Then we're working with a component
 		prefix = "component_#{componentIndex}_"
-		htmlOpen = "<tr><td>%s</td><td><ul>"
+		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
 		htmlClose = "</ul></td></tr>"
 	else # We're working with an object or collection
 		prefix = ''
-		htmlOpen = "<dt>%s</dt><dd><ul>"
+		htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
 		htmlClose = "</ul></dd>"
 	end
 

@@ -421,6 +421,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationships.map do |relationship|
       obj = relationship.name.first.to_s      
 
+      rel = nil
 	  if !relationship.corporateName.first.nil?
 	    rel = relationship.corporateName
 	  elsif !relationship.personalName.first.nil?
