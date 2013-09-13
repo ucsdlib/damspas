@@ -31,21 +31,18 @@ class DamsFunctionsController < ApplicationController
   end
 
   def new
+    @dams_function.scheme.build
+    @dams_function.elementList.functionElement.build
     #Check schemes ####################################################################
     @mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
-    @dams_function = DamsFunction.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@dams_function.scheme != nil)
-    	@scheme_id = @dams_function.scheme.to_s.gsub /.*\//, ""
-    	#@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+    @scheme_id = Rails.configuration.id_namespace+@dams_function.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @dams_function.attributes = params[:dams_function]
     if @dams_function.save
         redirect_to @dams_function, notice: "function has been saved"
     else
@@ -55,13 +52,11 @@ class DamsFunctionsController < ApplicationController
   end
 
   def update
+    @dams_function.elementList.clear
+    @dams_function.scheme.clear
     @dams_function.attributes = params[:dams_function]
     if @dams_function.save
-		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated function"
-        else      
-        	redirect_to @dams_function, notice: "Successfully updated function"
-        end
+      redirect_to @dams_function, notice: "Successfully updated function"
     else
       flash[:alert] = "Unable to save function"
       render :edit
