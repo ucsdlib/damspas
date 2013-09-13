@@ -19,6 +19,7 @@ feature 'Visitor want to look at objects' do
   end
 
   scenario 'view a non-existent record' do
+    pending("access control enforcement")
     expect { visit dams_object_path('xxx') }.to raise_error(
       CanCan::AccessDenied)
   end
