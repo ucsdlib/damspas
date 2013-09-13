@@ -421,6 +421,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationships.map do |relationship|
       obj = relationship.name.first.to_s      
 
+      rel = nil
 	  if !relationship.corporateName.first.nil?
 	    rel = relationship.corporateName
 	  elsif !relationship.personalName.first.nil?
@@ -652,6 +653,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   # field types
   def to_solr (solr_doc = {})
+    super(solr_doc)
+
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 
     # title
@@ -725,6 +728,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       elsif solr_doc[f] != nil
         solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
       end
+    }
+
+    # hack to make sure something is indexed for rights metadata
+    ['edit_access_group_ssim','read_access_group_ssim','discover_access_group_ssim'].each {|f|
+      solr_doc[f] = 'dams-curator' unless solr_doc[f]
     }
     return solr_doc
   end

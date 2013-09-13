@@ -15,7 +15,7 @@ module Dams
 	  end
    	  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
       accepts_nested_attributes_for :relationship, :permission_node, :restriction_node
-      
+
       def serialize
         graph.insert([rdf_subject, RDF.type, DAMS.OtherRights]) if new?
         super
@@ -28,6 +28,12 @@ module Dams
 	    if relationship[0] == nil
 	      relationship.build
 	    end
+	    if val.class == Array
+	    	val = val.first
+	    end
+	    if(!val.include? "#{Rails.configuration.id_namespace}")
+	    	val = "#{Rails.configuration.id_namespace}#{val}"
+	    end
 	    relationship[0].name = RDF::Resource.new(val)
 	  end
 	  def role
@@ -37,6 +43,12 @@ module Dams
 	    if relationship[0] == nil
 	      relationship.build
 	    end
+	    if val.class == Array
+	    	val = val.first
+	    end	    
+	    if(!val.include? "#{Rails.configuration.id_namespace}")
+	    	val = "#{Rails.configuration.id_namespace}#{val}"
+	    end
 	    relationship[0].role = RDF::Resource.new(val)
 	  end   
 
@@ -44,9 +56,19 @@ module Dams
         Solrizer.insert_field(solr_doc, 'basis', basis)
         Solrizer.insert_field(solr_doc, 'uri', uri)
         Solrizer.insert_field(solr_doc, 'note', note)
-	    relationship.map do |relationship|
-	      Solrizer.insert_field(solr_doc, 'decider', relationship.load.name )
-	    end                       
+	    Solrizer.insert_field(solr_doc, "permissionType", permissionType)
+	    Solrizer.insert_field(solr_doc, "permissionBeginDate", permissionBeginDate)
+	    Solrizer.insert_field(solr_doc, "permissionEndDate", permissionEndDate)
+	    Solrizer.insert_field(solr_doc, "restrictionType", restrictionType)
+	    Solrizer.insert_field(solr_doc, "restrictionBeginDate", restrictionBeginDate)
+	    Solrizer.insert_field(solr_doc, "restrictionEndDate", restrictionEndDate)
+	    if !relationship.nil? && !relationship[0].nil?
+			Solrizer.insert_field(solr_doc, "relationship_role", relationship.first.loadRole.name)
+	    	Solrizer.insert_field(solr_doc, "relationship_name", relationship.first.load.name)
+	    end      
+	   # relationship.map do |relationship|
+	   #   Solrizer.insert_field(solr_doc, 'decider', relationship.load.name )
+	   # end                       
       end
     end
   end
