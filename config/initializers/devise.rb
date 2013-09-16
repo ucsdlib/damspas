@@ -9,6 +9,11 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
+  # disable verbose omniauth logging in tests
+  if Rails.env.test?
+    OmniAuth.config.logger = nil
+  end
+
   if Rails.env.production? || Rails.env.pontos?
     config.omniauth :shibboleth, {
       :uid_field                 => 'ADUSERNAME',
