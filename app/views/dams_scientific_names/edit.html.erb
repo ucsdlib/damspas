@@ -1,0 +1,36 @@
+<% @page_title =  "Edit Scientific Name" %>
+
+<div class="row-fluid">
+	<div class="span10 offset1">
+	
+		<h2>Edit Scientific Name</h2>
+		
+		<%= form_for @dams_scientific_name do |f| %>
+		
+			<%= render 'error_messages', object: f.object %>
+		
+			<%= label_tag 'dams_scientific_name[name][]', "Name" %>
+			<%= text_field_tag 'dams_scientific_name[name][]', @dams_scientific_name.name[0], class: "input-block-level" %>
+		
+			<%= label_tag 'dams_scientific_name[externalAuthority][]', "ExternalAuthority" %>
+			<%= text_field_tag 'dams_scientific_name[externalAuthority][]', @dams_scientific_name.externalAuthority, class: "input-block-level" %>
+
+	 	  <%= f.fields_for :scheme, include_id: false do |se| %>
+	        <%= se.label :id, "Scheme" %>
+	        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+	      <% end %>
+	      <%= f.fields_for :scientificNameElement do |te| %>
+	        <%= te.label :elementValue, "Element Value" %>
+	        <%= te.text_field :elementValue, class: "input-block-level" %>
+	      <% end %>
+							
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
+				<%= link_to "Cancel", dams_scientific_name_path(@dams_scientific_name), class: "btn btn-link pull-right" %>
+			</div>
+				
+		
+		<%end%>
+	
+	</div>
+</div>
