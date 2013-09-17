@@ -264,4 +264,9 @@ class CatalogController < ApplicationController
         format.atom { render :layout => false }
       end
     end
+  def collection_search
+    extra = { :sort => "title_ssi asc", :fq => ["type_tesim:Collection",
+                           "-id:#{Rails.configuration.excluded_collections}"] }
+    (@response, @document_list) = get_search_results params, extra
+  end
 end 
