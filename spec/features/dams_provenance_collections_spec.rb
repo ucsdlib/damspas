@@ -147,6 +147,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.test.com"
 		fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "Should not show"
 		click_on "Cancel"
+		visit Path.path
 		expect(page).to_not have_content("Should not show")
 		expect(page).to have_content("TestTitle2")
 	end
