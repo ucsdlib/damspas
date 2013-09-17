@@ -1,0 +1,21 @@
+<h1>Create a new Dams Scientific Name</h1>
+<%= form_for @dams_scientific_name do |f| %>
+	<%= render 'error_messages' %>
+  <%= label_tag 'dams_scientific_name[name]', "Name" %>
+  <%= text_field_tag 'dams_scientific_name[name]' %>
+  <%= label_tag 'dams_scientific_name[externalAuthority]', "ExternalAuthority" %>
+  <%= url_field_tag 'dams_scientific_name[externalAuthority]' %> 
+  
+  <%= f.fields_for :scientificNameElement do |te| %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue %>
+  <% end %>
+  <br>
+  <%= f.fields_for :scheme do |se| %>
+    <%= se.label :id, "Scheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+  <% end %>
+  <br>
+
+  <%=f.submit "Submit", class: "btn btn-primary" %>
+<%end%>
