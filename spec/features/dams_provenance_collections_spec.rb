@@ -18,7 +18,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# click create button
 		visit "dams_provenance_collections/new"
 		# Create new dams provenance collection
-		page.select('Provenance Collection Part Test Title', match: :first)
+		page.select('Test Provenance Collection Part Title', match: :first)
 		fill_in "Title", :with => "TestTitle"
 		fill_in "SubTitle", :with => "TestSubTitle"
 		fill_in "PartName", :with => "TestPartName"
@@ -46,7 +46,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# Save path of provenance collection and expect results
 		Path.path = current_path
 		expect(Path.path).to eq(current_path)	
-		# expect(page).to have_selector('li', :text => "Provenance Collection Part Test Title")
+		# expect(page).to have_selector('li', :text => "Test Provenance Collection Part Title")
 		expect(page).to have_content ("TestTitle")
 		expect(page).to have_content ("TestSubTitle")
 		expect(page).to have_content ("TestPartName")
