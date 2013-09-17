@@ -568,6 +568,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       col.each do |collection|
         begin
           Solrizer.insert_field(solr_doc, "collection", collection.title.first.name, facetable)
+          Solrizer.insert_field(solr_doc, "collection_name", collection.title.first.name)
           Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.name)
           Solrizer.insert_field(solr_doc, "collections", collection.pid)
           col_json = {
