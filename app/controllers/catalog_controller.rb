@@ -61,7 +61,7 @@ class CatalogController < ApplicationController
 	end
 
     # solr field configuration for search results/index views
-    config.index.show_link = 'title_json_tesim'
+    config.index.show_link = 'title_tesim'
     config.index.record_display_type = 'has_model_sim'
 
     # solr field configuration for document/show views

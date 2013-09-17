@@ -14,12 +14,13 @@ class DamsCollectionsController < ApplicationController
       current_user = User.anonymous(request.ip)
     end
 
+    # fetch collection record from solr
+    @document = get_single_doc_via_search(1, {:q => "id_t:#{params[:id]}"} )
+
     # import solr config from catalog_controller and setup next/prev docs
     @blacklight_config = CatalogController.blacklight_config
     DamsCollectionsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
     setup_next_and_previous_documents
-
-    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
   end
   def index
     @response, @document = get_search_results( {:q => "type_tesim:'Collection'", :rows => '200', :sort => 'title_ssi asc'}, {:fq => "-id:#{Rails.configuration.excluded_collections}"} )

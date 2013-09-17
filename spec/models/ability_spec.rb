@@ -10,7 +10,6 @@ describe Ability do
     end
     it "should not be able to show damsObject" do
       subject.can?(:show,@obj).should be_false
-
     end
     it "should not be able to create damsObject" do
       subject.can?(:create,@obj).should be_false
