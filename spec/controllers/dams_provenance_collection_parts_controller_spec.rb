@@ -8,7 +8,7 @@ describe DamsProvenanceCollectionPartsController do
 	  end
 	  describe "Show" do
 	    before do
-	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Provenance Collection Part Test Title", beginDate: "2012", endDate: "2013", visibility: "public", resource_type: "text")
+	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Test Provenance Collection Part Title", beginDate: "2012", endDate: "2013", visibility: "public", resource_type: "text")
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
@@ -33,7 +33,7 @@ describe DamsProvenanceCollectionPartsController do
 	  
 	  describe "Edit" do
 	    before do
-	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Provenance Collection Test Title", beginDate: "2012", endDate: "2013", visibility: "public", resource_type: "text")
+	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Test Provenance Collection Title", beginDate: "2012", endDate: "2013", visibility: "public", resource_type: "text")
 	    end    
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
@@ -59,7 +59,7 @@ describe DamsProvenanceCollectionPartsController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Provenance Collection Test Title", beginDate: "2012", endDate: "2013")
+ 	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Test Provenance Collection Title", beginDate: "2012", endDate: "2013")
  	    end
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :dams_provenance_collection_part => {titleValue: ["Test Title2"], beginDate: ["2013"]}

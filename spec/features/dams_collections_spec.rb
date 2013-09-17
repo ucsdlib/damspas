@@ -21,6 +21,17 @@ feature 'Visitor wants to look at collections' do
     expect(page).to have_selector('a', :text => 'curator-only collection')
   end
 
+  scenario 'collections search without query' do
+    visit collection_search_path
+    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('a', :text => 'Sample Provenance Collection')
+  end
+  scenario 'collections search without query' do
+    visit collection_search_path( {:q => 'assembled'} )
+    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).not_to have_selector('a', :text => 'Sample Provenance Collection')
+  end
+
 end
 def sign_in_developer
   visit new_user_session_path
