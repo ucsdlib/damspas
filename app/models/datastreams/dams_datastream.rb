@@ -108,17 +108,24 @@ class DamsDatastream < ActiveFedora::RdfxmlRDFDatastream
 	i = 0
 	if list != nil
 		while i < list.size  do
+          field = nil
 		  if (list[i].class == DamsDatastream::List::ScientificNameElement)
-			Solrizer.insert_field(solr_doc, 'scientificName_element', list[i].elementValue.first)	
+			field = 'scientificName_element'
 		  elsif (list[i].class == DamsDatastream::List::TechniqueElement)
-			Solrizer.insert_field(solr_doc, 'technique_element', list[i].elementValue.first)	
+			field = 'technique_element'
 		  elsif (list[i].class == DamsDatastream::List::BuiltWorkPlaceElement)
-			Solrizer.insert_field(solr_doc, 'builtWorkPlace_element', list[i].elementValue.first)	
+			field = 'builtWorkPlace_element'
 		  elsif (list[i].class == DamsDatastream::List::CulturalContextElement)
-			Solrizer.insert_field(solr_doc, 'culturalContext_element', list[i].elementValue.first)		
+			field = 'culturalContext_element'
 		  elsif (list[i].class == DamsDatastream::List::StylePeriodElement)
-			Solrizer.insert_field(solr_doc, 'stylePeriod_element', list[i].elementValue.first)																																
-		  end		  
+			field = 'stylePeriod_element'
+		  end
+          if field
+			value = list[i].elementValue.first
+            puts "element: #{field}: #{value}"
+			Solrizer.insert_field(solr_doc, field, value)
+          end
+
 		  i +=1
 		end   
 	end
