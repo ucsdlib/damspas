@@ -84,8 +84,8 @@ END
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of Dams::DamsBuiltWorkPlace::DamsBuiltWorkPlaceElement
-        list[0].elementValue.should == "The Getty Center"
+        list[0].should be_kind_of DamsDatastream::List::BuiltWorkPlaceElement
+        list[0].elementValue.should == ["The Getty Center"]
         list.size.should == 1
       end
 

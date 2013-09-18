@@ -42,7 +42,7 @@ END
   end
 
   it "should have builtWorkPlaceElement" do
-    subject.builtWorkPlaceElement.first.elementValue.should == 'The Getty Center'
+    subject.builtWorkPlaceElement.first.elementValue.should == ['The Getty Center']
   end
 
   it "should be able to build a new builtWorkPlaceElement" do

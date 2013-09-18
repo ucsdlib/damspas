@@ -8,7 +8,7 @@ describe DamsProvenanceCollectionsController do
       end
       describe "Show" do
         before do
-          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 1", beginDate: "2012-01-01", endDate: "2013-01-01", visibility: "public", resource_type: "text")
+          @obj = DamsProvenanceCollection.create(titleValue: "Test Provenance Collection Title 1", beginDate: "2012-01-01", endDate: "2013-01-01", visibility: "public", resource_type: "text")
         end
         it "should be successful" do 
           get :show, id: @obj.id
@@ -32,7 +32,7 @@ describe DamsProvenanceCollectionsController do
       
       describe "Edit" do
         before do
-          @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 2", beginDate: "2012-02-02", endDate: "2013-02-02", visibility: "public", resource_type: "text")
+          @obj = DamsProvenanceCollection.create(titleValue: "Test Provenance Collection Title 2", beginDate: "2012-02-02", endDate: "2013-02-02", visibility: "public", resource_type: "text")
         end    
         it "should be successful" do 
           get :edit, id: @obj.id
@@ -49,7 +49,7 @@ describe DamsProvenanceCollectionsController do
       describe "Create" do
         it "should be successful" do
           expect { 
-            post :create, :dams_provenance_collection => {titleValue: "Provenance Collection Test Title 3", beginDate: "2013-03-03"}
+            post :create, :dams_provenance_collection => {titleValue: "Test Provenance Collection Title 3", beginDate: "2013-03-03"}
         }.to change { DamsProvenanceCollection.count }.by(1)
           response.should redirect_to assigns[:dams_provenance_collection]
           assigns[:dams_provenance_collection].should be_kind_of DamsProvenanceCollection
@@ -58,7 +58,7 @@ describe DamsProvenanceCollectionsController do
       
       describe "Update" do
         before do
-           @obj = DamsProvenanceCollection.create(titleValue: "Provenance Collection Test Title 4", beginDate: "2012-04-04", endDate: "2013-04-04")
+           @obj = DamsProvenanceCollection.create(titleValue: "Test Provenance Collection Title 4", beginDate: "2012-04-04", endDate: "2013-04-04")
          end
         it "should be successful" do
           params = { "titleValue"=>["Test Title 5"], "languageURI"=>["bd0410344f"], "scopeContentNoteValue"=>["Test Scope Content Note"] }

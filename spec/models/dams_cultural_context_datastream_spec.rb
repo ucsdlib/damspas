@@ -84,8 +84,8 @@ END
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of Dams::DamsCulturalContext::DamsCulturalContextElement
-        list[0].elementValue.should == "Dutch"
+        list[0].should be_kind_of DamsDatastream::List::CulturalContextElement
+        list[0].elementValue.should == ["Dutch"]
         list.size.should == 1
       end
 
