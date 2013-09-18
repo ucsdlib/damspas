@@ -88,6 +88,9 @@ Hydra::Application.routes.draw do
   resources :dams_style_periods do
     get 'view', :on => :member
   end
+  resources :dams_scientific_names do
+    get 'view', :on => :member
+  end
   resources :dams_techniques do
     get 'view', :on => :member
   end
