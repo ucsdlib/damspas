@@ -13,7 +13,7 @@ feature 'Visit wants to look at license options' do
 
   scenario 'retrieve a license record' do
     sign_in_developer
-    DamsLicense.create! pid: "bb22222222", note: "FOO", uri: "http://foo.com", permissionBeginDate: "2012-12-31", permissionEndDate: "2062-12-31", permissionType: "display"
+    DamsLicense.create! pid: "fx22222222", note: "FOO", uri: "http://foo.com", permissionBeginDate: "2012-12-31", permissionEndDate: "2062-12-31", permissionType: "display"
 
     # visit list page and make sure object is there
     visit dams_licenses_path

@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe DamsCopyright do
   let(:params) {
-    { status: "Under copyright -- 3rd Party", 
+    { status: "Under copyright", 
       jurisdiction: "us",
       purposeNote: "This work is available from the UC San Diego Libraries",
       note: "This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).",
@@ -22,7 +22,7 @@ describe DamsCopyright do
     <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
     <dams:copyrightNote>This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).</dams:copyrightNote>
     <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries</dams:copyrightPurposeNote>
-    <dams:copyrightStatus>Under copyright -- 3rd Party</dams:copyrightStatus>    
+    <dams:copyrightStatus>Under copyright</dams:copyrightStatus>    
     <dams:date>
       <dams:Date>
         <dams:beginDate>1993-12-31</dams:beginDate>
