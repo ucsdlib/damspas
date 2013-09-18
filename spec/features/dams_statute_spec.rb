@@ -14,7 +14,7 @@ feature 'Visit wants to look at statute options' do
 
   scenario 'retrieve a statute record' do
     sign_in_developer
-    DamsStatute.create! pid: "bb45454545", citation: "FOO", jurisdiction: "us", note: "foo", restrictionBeginDate: "2012-12-31", restrictionEndDate: "2062-12-31", restrictionType: "display"
+    DamsStatute.create! pid: "fx45454545", citation: "FOO", jurisdiction: "us", note: "foo", restrictionBeginDate: "2012-12-31", restrictionEndDate: "2062-12-31", restrictionType: "display"
 
     # visit list page and make sure object is there
     visit dams_statutes_path

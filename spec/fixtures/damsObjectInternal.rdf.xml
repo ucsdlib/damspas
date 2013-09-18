@@ -3287,7 +3287,7 @@
           </dams:DAMSEvent>
         </dams:event>
         <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
-        <dams:copyrightStatus>Under copyright--1st Party</dams:copyrightStatus>
+        <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
       </dams:Copyright>
     </dams:copyright>
     <dams:hasComponent>
