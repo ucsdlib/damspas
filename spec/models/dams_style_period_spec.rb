@@ -42,7 +42,7 @@ END
   end
 
   it "should have stylePeriodElement" do
-    subject.stylePeriodElement.first.elementValue.should == 'Impressionism'
+    subject.stylePeriodElement.first.elementValue.should == ['Impressionism']
   end
 
   it "should be able to build a new stylePeriodElement" do

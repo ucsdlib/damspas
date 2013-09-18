@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 require 'spec_helper'
 
 describe DamsObjectDatastream do
@@ -194,7 +196,7 @@ describe DamsObjectDatastream do
         solr_doc["component_1_files_tesim"].first.should include '"image_producer":"Luna Imaging, Inc."'
         solr_doc["component_1_files_tesim"].first.should include '"scanning_software_version":"2.10E"'
         solr_doc["component_1_files_tesim"].first.should include '"scanning_software":"Epson Twain Pro"'
-        solr_doc["component_1_files_tesim"].first.should include '"capture_source":"B\u0026W negative , 2 1/2 x 2 1/2"' # unicode escape instead of & ???
+        solr_doc["component_1_files_tesim"].first.should include '"capture_source":"B&W negative , 2 1/2 x 2 1/2"'
       end
       it "should index rights metadata" do
         solr_doc = subject.to_solr

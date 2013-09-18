@@ -42,7 +42,7 @@ END
   end
 
   it "should have scientificNameElement" do
-    subject.scientificNameElement.first.elementValue.should == 'Western lowland gorilla (Gorilla gorilla gorilla)'
+    subject.scientificNameElement.first.elementValue.should == ['Western lowland gorilla (Gorilla gorilla gorilla)']
   end
 
   it "should be able to build a new scientificNameElement" do
