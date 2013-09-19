@@ -1,36 +1,36 @@
 <% @page_title =  "Edit Cultural Context" %>
 
 <div class="row-fluid">
-	<div class="span10 offset1">
-	
-		<h2>Edit Cultural Context</h2>
-		
-		<%= form_for @dams_cultural_context do |f| %>
-		
-			<%= render 'error_messages', object: f.object %>
-		
-			<%= label_tag 'dams_cultural_context[name][]', "Name" %>
-			<%= text_field_tag 'dams_cultural_context[name][]', @dams_cultural_context.name[0], class: "input-block-level" %>
-		
-			<%= label_tag 'dams_cultural_context[externalAuthority][]', "ExternalAuthority" %>
-			<%= text_field_tag 'dams_cultural_context[externalAuthority][]', @dams_cultural_context.externalAuthority, class: "input-block-level" %>
+  <div class="span10 offset1">
+  
+    <h2>Edit Cultural Context</h2>
+    
+    <%= form_for @dams_cultural_context do |f| %>
+    
+      <%= render 'error_messages', object: f.object %>
+    
+      <%= label_tag 'dams_cultural_context[name]', "Name" %>
+      <%= text_field_tag 'dams_cultural_context[name]', @dams_cultural_context.name[0], class: "input-block-level" %>
+    
+      <%= label_tag 'dams_cultural_context[externalAuthority]', "ExternalAuthority" %>
+      <%= text_field_tag 'dams_cultural_context[externalAuthority]', @dams_cultural_context.externalAuthority, class: "input-block-level" %>
 
-	 	  <%= f.fields_for :scheme, include_id: false do |se| %>
-	        <%= se.label :id, "Scheme" %>
-	        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
-	      <% end %>
-	      <%= f.fields_for :culturalContextElement do |te| %>
-	        <%= te.label :elementValue, "Element Value" %>
-	        <%= te.text_field :elementValue, class: "input-block-level" %>
-	      <% end %>
-							
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
-				<%= link_to "Cancel", dams_cultural_context_path(@dams_cultural_context), class: "btn btn-link pull-right" %>
-			</div>
-				
-		
-		<%end%>
-	
-	</div>
+      <%= f.fields_for :scheme, include_id: false do |se| %>
+        <%= se.label :id, "Scheme" %>
+        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+      <% end %>
+      <%= f.fields_for :culturalContextElement do |te| %>
+        <%= te.label :elementValue, "Element Value" %>
+        <%= te.text_field :elementValue, class: "input-block-level" %>
+      <% end %>
+              
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary pull-right">Save changes</button>
+        <%= link_to "Cancel", dams_cultural_context_path(@dams_cultural_context), class: "btn btn-link pull-right" %>
+      </div>
+        
+    
+    <% end %>
+  
+  </div>
 </div>

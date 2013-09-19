@@ -31,7 +31,7 @@ module Dams
       def to_solr (solr_doc={})
         Solrizer.insert_field(solr_doc, 'scientific_name', name)
         if elementList.first
-          Solrizer.insert_field(solr_doc, "scientific_name_element", elementList.first.elementValue.first.to_s)
+          Solrizer.insert_field(solr_doc, "scientific_name_element", elementList.first.elementValue.to_s)
         end
         solr_base solr_doc
       end

@@ -82,6 +82,12 @@ Hydra::Application.routes.draw do
   resources :dams_built_work_places do
     get 'view', :on => :member
   end
+  resources :dams_foos do
+    get 'view', :on => :member
+  end
+  resources :dams_foo_bars do
+    get 'view', :on => :member
+  end
   resources :dams_iconographies do
     get 'view', :on => :member
   end
@@ -89,6 +95,9 @@ Hydra::Application.routes.draw do
     get 'view', :on => :member
   end
   resources :dams_techniques do
+    get 'view', :on => :member
+  end
+  resources :dams_cultures do
     get 'view', :on => :member
   end
   resources :dams_cultural_contexts do
