@@ -29,6 +29,7 @@ feature 'Visitor wants to look at collections' do
   scenario 'collections search without query' do
     visit collection_search_path( {:q => 'assembled'} )
     expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('img.dams-search-thumbnail')
     expect(page).not_to have_selector('a', :text => 'Sample Provenance Collection')
   end
 
