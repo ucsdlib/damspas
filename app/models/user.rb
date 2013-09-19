@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   def groups
     if @group_list == nil
       if provider == "developer"
-        @group_list = ['developer-authenticated','dams-curator','dams-manager-user']
+        @group_list = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user']
       elsif provider == "shibboleth"
         @group_list = ['shibboleth-authenticated']
       else

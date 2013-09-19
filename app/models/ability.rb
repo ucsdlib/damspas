@@ -16,6 +16,7 @@ class Ability
       can [:read], DamsTechnique
       can [:read], DamsIconography
       can [:read], DamsBuiltWorkPlace
+      can [:read], DamsScientificName
       can [:read], DamsStylePeriod
       can [:read], MadsPersonalName
       can [:read], MadsComplexSubject
@@ -39,6 +40,7 @@ class Ability
       can [:read, :create, :update, :view], DamsTechnique
       can [:read, :create, :update, :view], DamsIconography
       can [:read, :create, :update, :view], DamsBuiltWorkPlace
+      can [:read, :create, :update, :view], DamsScientificName
       can [:read, :create, :update, :view], DamsStylePeriod
       can [:read, :create, :update, :view], DamsCopyright
       can [:read, :create, :update, :view], DamsOtherRight
