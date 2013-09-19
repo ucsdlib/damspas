@@ -42,7 +42,7 @@ END
   end
 
   it "should have techniqueElement" do
-    subject.techniqueElement.first.elementValue.should == ['Impasto']
+    subject.techniqueElement.first.elementValue.should == 'Impasto'
   end
 
   it "should be able to build a new techniqueElement" do

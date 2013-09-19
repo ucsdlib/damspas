@@ -1,11 +1,11 @@
-<h1>Create a new Dams Cultural Context</h1>
+<h1>Create a new DAMS Cultural Context</h1>
 <%= form_for @dams_cultural_context do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'dams_cultural_context[name]', "Name" %>
   <%= text_field_tag 'dams_cultural_context[name]' %>
   <%= label_tag 'dams_cultural_context[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_cultural_context[externalAuthority]' %> 
-  
+
   <%= f.fields_for :culturalContextElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
     <%= te.text_field :elementValue %>

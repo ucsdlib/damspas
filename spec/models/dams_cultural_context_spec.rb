@@ -42,7 +42,7 @@ END
   end
 
   it "should have culturalContextElement" do
-    subject.culturalContextElement.first.elementValue.should == ['Dutch']
+    subject.culturalContextElement.first.elementValue.should == 'Dutch'
   end
 
   it "should be able to build a new culturalContextElement" do
