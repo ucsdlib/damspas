@@ -46,6 +46,9 @@ module Dams
     class DamsTechniqueElement
       include Dams::MadsElement
       rdf_type DAMS.TechniqueElement
+      def persisted?
+        rdf_subject.kind_of? RDF::URI
+      end
     end
   end
 end
