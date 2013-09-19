@@ -18,6 +18,7 @@
 
 		 fieldData.each do |datum|
 			 relatedResource = JSON.parse(datum)
+             if relatedResource['type'] != 'thumbnail'
 %>
 		<p>
 			<strong>
@@ -30,6 +31,7 @@
 		</p>
 		<li><%= link_to relatedResource['description'], relatedResource['uri'] %></li>
 <%
+      end
 	 end
 
 	 concat htmlClose.html_safe
