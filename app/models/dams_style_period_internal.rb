@@ -10,4 +10,8 @@ class DamsStylePeriodInternal
     rdf_subject if rdf_subject.kind_of? RDF::URI
   end
 
+  def persisted?
+    rdf_subject.kind_of? RDF::URI
+  end
+
 end
