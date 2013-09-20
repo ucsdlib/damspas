@@ -85,7 +85,6 @@ feature "Access control enforcement" do
     expect(page.driver.response.status).to eq( 200 )
   end
   scenario "Anonymous shouldn't be able to access restricted object files" do
-    pending("access control enforcement")
     expect { visit file_path( 'bd0922518w', '_4_4.jpg' ) }.to raise_error(
       CanCan::AccessDenied)
   end
