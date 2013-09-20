@@ -20,8 +20,7 @@ class CatalogController < ApplicationController
   before_filter :enforce_show_permissions, :only=>:show
 
   # This applies appropriate access controls to all solr queries
-  ##XXX backing out access control impl
-  ##CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
+  CatalogController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   # This filters out objects that you want to exclude from search results, like FileAssets
   CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
@@ -265,8 +264,19 @@ class CatalogController < ApplicationController
       end
     end
   def collection_search
-    extra = { :sort => "title_ssi asc", :fq => ["type_tesim:Collection",
-                           "-id:#{Rails.configuration.excluded_collections}"] }
+    # limit search to collections, excluding unwanted/utility collections
+    fq = [ "type_tesim:Collection",
+           "-id:#{Rails.configuration.excluded_collections}"]
+
+    # if a unit is specified, use solr join to find collections related to
+    # objects in this unit
+    if params[:id]
+      fq << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
+    end
+
+    # solr search
+    extra = { :sort => "title_ssi asc", :fq => fq }
     (@response, @document_list) = get_search_results params, extra
   end
+
 end 

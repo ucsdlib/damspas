@@ -60,4 +60,28 @@ module CatalogHelper
     '; '
   end
 
+  def date_list( document )
+    dateVal = ''
+    dates = document['date_json_tesim']
+    if dates != nil
+      dates.each do |txt|
+        date = JSON.parse(txt)
+        if date['value']
+          dateVal += ", " if !dateVal.blank?
+          dateVal += date['value']
+        elsif date['beginDate']
+          dateVal += ", " if !dateVal.blank?
+          dateVal += date['beginDate']
+        elsif date['endDate']
+          dateVal += ", " if !dateVal.blank?
+          dateVal += date['endDate']
+        end
+      end
+    end
+    dateVal
+  end
+  def is_collection?( document )
+    type = document['type_tesim']
+    type != nil && type.include?("Collection")
+  end
 end

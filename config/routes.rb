@@ -10,10 +10,11 @@ Hydra::Application.routes.draw do
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
-  resources :dams_collections, :only => [:index, :show]
+  resources :dams_collections, :only => [:show]
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
   get '/rci', to: 'dams_units#show', :id => 'rci'
-  get '/:id/collections', to: 'dams_units#collections', :as => "dams_unit_collections"
+  get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
+  get "collections", :to => 'catalog#collection_search', :as => 'dams_collections'
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
 
@@ -28,7 +29,6 @@ Hydra::Application.routes.draw do
   get "search/facet/:id", :to => 'catalog#facet', :as => 'catalog_facet'
   get "search", :to => 'catalog#index', :as => 'catalog_index'
   get 'search/:id/librarian_view', :to => "catalog#librarian_view", :as => "librarian_view_catalog"
-  get "search/bycollection", :to => 'catalog#collection_search', :as => 'collection_search'
   resources :solr_document, :path => 'search', :controller => 'catalog', :only => [:show, :update]
   # :show and :update are for backwards-compatibility with catalog_url named routes
   resources :catalog, :only => [:show, :update]
