@@ -1,0 +1,19 @@
+<ul class="dams-search-results-fields">
+  <% dateVal = date_list(document) %>
+  <% if !dateVal.blank? %>
+    <li>
+      <span class="testtest">Date:</span>
+      <span><%= dateVal %></span>
+    </li>
+  <% end %>
+  <% scn = document['scopeContentNote_json_tesim'] %>
+  <% if scn != nil %>
+    <% scn.each do |txt| %>
+      <% note = JSON.parse(txt) %>
+      <li>
+        <span class="testtest">Scope and Content:</span>
+        <span><%= auto_link( note['value'] ) %></span>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

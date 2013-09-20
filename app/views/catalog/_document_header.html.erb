@@ -12,7 +12,11 @@
 	</h3>
 
 	<%# main container for doc partial view -%>
-	<%= render_document_partial document, :index %>
+    <% if is_collection?( document ) %>
+      <%= render :partial => 'collection', :locals => { :document => document } %>
+    <% else %>
+	  <%= render_document_partial document, :index %>
+    <% end %>
 
 	<%# TODO... display this as a link, not a button... find test case %>
   <%# bookmark functions for items/docs -%>

@@ -33,8 +33,7 @@ class DamsObjectsController < ApplicationController
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
 
     # enforce access controls
-    ##XXX backing out access control enforcement
-    ##authorize! :show, @document
+    authorize! :show, @document
 
     if @document.nil?
       raise ActionController::RoutingError.new('Not Found')

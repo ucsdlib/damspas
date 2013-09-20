@@ -24,10 +24,8 @@ feature 'Visitor wants to search' do
     idx4.should >( idx3 )
     idx3.should >( idx2 )
     idx2.should >( idx1 )
-  end
-  scenario 'results sorted by object creation date' do
-    visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', 'sort' => 'object_create_dtsi asc, title_ssi asc'} )
-    click_on "Sample Data Object"
+
+    click_on "Chicano and black radical activism"
     expect(page).to have_selector('a', :text => "Previous")
     expect(page).to have_selector('a', :text => "Next")
   end
