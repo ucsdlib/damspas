@@ -18,19 +18,30 @@ class User < ActiveRecord::Base
   attr_accessible :anonymous
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
-    uid = access_token.uid
+    begin
+      uid = access_token.uid
+      email = access_token['info']['email'] || "#{uid}@ucsd.edu"
+      provider = access_token.provider
+    rescue Exception => e
+      puts "developer: #{e.to_s}"
+      uid = 1
+      email = "zombie@ucsd.edu"
+      provider = "developer"
+    end
     @anonymous = false
-    email = access_token['info']['email'] || "#{uid}@ucsd.edu"
-    provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
     u
   end
 
   def self.find_or_create_for_shibboleth(access_token, signed_in_resource=nil)
-    uid = access_token.uid
+    begin
+      uid = access_token.uid
+      email = access_token['info']['email'] || "#{uid}@ucsd.edu"
+      provider = access_token.provider
+    rescue Exception => e
+      puts "shibboleth: #{e.to_s}"
+    end
     @anonymous = false
-    email = access_token['info']['email'] || "#{uid}@ucsd.edu"
-    provider = access_token.provider
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
     u
   end
@@ -53,7 +64,7 @@ class User < ActiveRecord::Base
   def groups
     if @group_list == nil
       if provider == "developer"
-        @group_list = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user']
+        @group_list = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user'] # XXX move to config
       elsif provider == "shibboleth"
         @group_list = ['shibboleth-authenticated']
       else
