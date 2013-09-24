@@ -86,6 +86,14 @@ describe DamsAssembledCollectionDatastream do
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
       end
+
+      it "should index parts" do
+        solr_doc = subject.to_solr
+        solr_doc["provenanceCollection_name_tesim"].should == ["Historical Dissertations"]
+        solr_doc["provenanceCollection_id_tesim"].should == ["bb24242424"]
+        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"bb24242424","name":"Historical Dissertations"}']
+      end
+
 #      it "should have event" do
 #        solr_doc = subject.to_solr
 #        solr_doc["event_1_type_tesim"].should == ["collection creation"]
