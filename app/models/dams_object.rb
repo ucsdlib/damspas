@@ -22,6 +22,8 @@ class DamsObject < ActiveFedora::Base
     :corporateName,
     :culturalContext,
     :date,
+    :dateEncoding,
+    :dateType,
     :dateValue,
     :endDate,
     :event, 

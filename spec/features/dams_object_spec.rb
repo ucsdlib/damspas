@@ -89,6 +89,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "dams_object_dateValue_", :with => "07/15/2013"
     fill_in "Begin Date", :with => "07/11/2013"
     fill_in "End Date", :with => "07/15/2013"
+	fill_in "Date Type", :with => "Testdatetype"
+	fill_in "Date Encoding", :with => "TestDateEncoding"    
     page.select('text', match: :first)
     fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
     fill_in "Type", :with => "Person"
@@ -110,6 +112,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     #expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
     #expect(page).to have_selector('a', :text => "Research Data Curation Program")
     expect(page).to have_selector('li', :text => "07/15/2013")
+    expect(page).to have_selector('dt', :text => "Testdatetype")
     expect(page).to have_selector('a', :text => "Text")
     #expect(page).to have_selector('strong', :text => "Public domain") # XXX not displaying
     expect(page).to have_selector('a', :text => "Mathematician")
