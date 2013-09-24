@@ -27,6 +27,10 @@
   <%= text_field_tag 'dams_object[beginDate][]', @dams_object.beginDate[0], class: "input-block-level"%> 
   <%= label_tag 'dams_object[endDate][]', "End Date" %>
   <%= text_field_tag 'dams_object[endDate][]', @dams_object.endDate[0], class: "input-block-level"%>  	
+  <%= label_tag 'dams_object[dateType]', "Date Type" %>
+  <%= text_field_tag 'dams_object[dateType][]', @dams_object.dateType[0], class: "input-block-level" %>
+  <%= label_tag 'dams_object[dateEncoding]', "Date Encoding" %>
+  <%= text_field_tag 'dams_object[dateEncoding][]', @dams_object.dateEncoding[0], class: "input-block-level" %>
 
   <h3>Unit</h3>
   <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units , :selected => @unit_id) , :prompt=>"Select Unit" , required: true%>

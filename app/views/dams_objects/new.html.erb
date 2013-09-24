@@ -27,7 +27,11 @@
   <%= text_field_tag 'dams_object[beginDate][]' %> 
   <%= label_tag 'dams_object[endDate][]', "End Date" %>
   <%= text_field_tag 'dams_object[endDate][]' %>
-    
+  <%= label_tag 'dams_object[dateType][]', "Date Type" %>
+  <%= text_field_tag 'dams_object[dateType][]' %> 
+  <%= label_tag 'dams_object[dateEncoding][]', "Date Encoding" %>
+  <%= text_field_tag 'dams_object[dateEncoding][]' %>   
+      
   <h3>Unit</h3>
   <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: true%>
    
