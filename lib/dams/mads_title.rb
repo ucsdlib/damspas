@@ -22,7 +22,8 @@ module Dams
       def elementList
         elem_list.first || elem_list.build
       end      
-      accepts_nested_attributes_for :nonSortElement, :mainTitleElement, :partNameElement, :partNumberElement, :subTitleElement
+      accepts_nested_attributes_for :nonSortElement, :mainTitleElement, :partNameElement, :partNumberElement, :subTitleElement, :hasVariant, 
+      							:hasAbbreviationVariant, :hasAcronymVariant, :hasExpansionVariant, :hasTranslationVariant 
       
       def serialize
         graph.insert([rdf_subject, RDF.type, MADS.Title]) if new?
@@ -66,35 +67,35 @@ module Dams
 	    authLabel if !authLabel.blank?
 	  end
 	  def value
-        get_value MadsMainTitleElement
+        get_title_value MadsMainTitleElement
 	  end
 	  def nonSort
-	    get_value MadsNonSortElement
+	    get_title_value MadsNonSortElement
 	  end
 	  def partName
-	    get_value MadsPartNameElement
+	    get_title_value MadsPartNameElement
 	  end
 	  def partNumber
-	    get_value MadsPartNumberElement
+	    get_title_value MadsPartNumberElement
 	  end
 	  def subtitle
-	    get_value MadsSubTitleElement
+	    get_title_value MadsSubTitleElement
 	  end
 
 	  def value=(s)
-        set_value MadsMainTitleElement, s
+        set_title_value MadsMainTitleElement, s
 	  end
 	  def nonSort=(s)
-        set_value MadsNonSortElement, s
+        set_title_value MadsNonSortElement, s
 	  end
 	  def partName=(s)
-        set_value MadsPartNameElement, s
+        set_title_value MadsPartNameElement, s
 	  end
 	  def partNumber=(s)
-        set_value MadsPartNumberElement, s
+        set_title_value MadsPartNumberElement, s
 	  end
 	  def subtitle=(s)
-        set_value MadsSubTitleElement, s
+        set_title_value MadsSubTitleElement, s
 	  end
 
 	  def variant
@@ -155,7 +156,7 @@ module Dams
           idx += 1
         end
       end
-      def get_value(klass)
+      def get_title_value(klass)
         elem = get_elem(klass)
         if (elem.nil?)
           return nil
@@ -167,7 +168,7 @@ module Dams
           return elem.elementValue.to_s
         end
       end
-      def set_value( klass, val )
+      def set_title_value( klass, val )
         e = get_elem(klass)
         if e.nil?
           e = klass.new( graph )
