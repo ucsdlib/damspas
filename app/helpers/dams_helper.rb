@@ -642,6 +642,21 @@ def relatedResourceUri
     end
   end     
 
+  def provenanceHasCollPartURI=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      @provenanceHasPartURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def provenanceHasCollPartURI
+    if @provenanceHasPartURI != nil
+      @provenanceHasPartURI
+    
+    end
+  end     
+
   ## Date ######################################################################
   def beginDate
     date[0] ? date[0].beginDate : []

@@ -46,9 +46,9 @@ class Ability
       can [:read, :create, :update, :view], DamsOtherRight
       can [:read, :create, :update, :view], DamsLicense
       can [:read, :create, :update, :view], DamsStatute
-      can [:read, :create, :update], DamsAssembledCollection
-      can [:read, :create, :update], DamsProvenanceCollection
-      can [:read, :create, :update], DamsProvenanceCollectionPart
+      can [:read, :create, :update, :view], DamsAssembledCollection
+      can [:read, :create, :update, :view], DamsProvenanceCollection
+      can [:read, :create, :update, :view], DamsProvenanceCollectionPart
       can [:read, :create, :update], DamsSourceCapture
       can [:read, :create, :update], DamsCartographics
       can [:read, :create, :update, :view], MadsPersonalName

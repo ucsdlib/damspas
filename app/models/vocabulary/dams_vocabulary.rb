@@ -127,6 +127,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :hasProvenanceCollection
   property :hasObject
   property :hasPart
+  property :part_node
   property :relatedCollection
   property :authority
   property :authorityURI  
