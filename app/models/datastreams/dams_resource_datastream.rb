@@ -716,11 +716,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'familyName', load_familyNames(familyName)
     insertFields solr_doc, 'personalName', load_personalNames(personalName)
 
+
+
     insertRelatedResourceFields solr_doc, "", relatedResource
 
     # event
     insertEventFields solr_doc, "", event
 
+   
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
       if solr_doc[f].kind_of?(Array)

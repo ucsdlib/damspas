@@ -94,10 +94,10 @@ $(document).ready(function() {
 
 <%= form_for @dams_provenance_collection do |f| %>
 
-<h3>Provenance Collection Part</h3>
+<!--<h3>Provenance Collection Parts</h3>
 
-  <%= label_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', "Provenance Collection Part" %> 
-  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part", class: "input-block-level"%>
+  <%#= label_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', "Provenance Collection Part" %> 
+  <%#= select_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part", class: "input-block-level"%>-->
 
 
 
@@ -120,6 +120,8 @@ $(document).ready(function() {
 <h3>Language</h3>
  <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id), class: "input-block-level", required: true %>
 <br>
+
+
 
 <h3>Note</h3>
 <%= label_tag 'dams_provenance_collection[noteValue]', "Note" %><%= text_field_tag 'dams_provenance_collection[noteValue][]', @dams_provenance_collection.noteValue[0], class: "input-block-level" %>

@@ -49,7 +49,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
 
 
     # child parts
-    map.part_node(:in=>DAMS,:to=>'hasPart')
+    map.part_node(:in=>DAMS,:to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
 
     # related collections
     map.relatedCollection(:in => DAMS)
@@ -90,6 +90,13 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
         graph.update([rdf_subject, DAMS.object, @damsObjURI])
       end
     end  
+    if(!@provenanceHasPartURI.nil?)
+      if new?
+        graph.insert([rdf_subject, DAMS.part_node, @provenanceHasPartURI])
+      else
+        graph.update([rdf_subject, DAMS.part_node, @provenanceHasPartURI])
+      end
+    end 
     if(!@provenanceCollPartURI.nil?)
       if new?
         graph.insert([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
