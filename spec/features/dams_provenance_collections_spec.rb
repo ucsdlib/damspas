@@ -18,7 +18,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# click create button
 		visit "dams_provenance_collections/new"
 		# Create new dams provenance collection
-		page.select('Test Provenance Collection Part Title', match: :first)
+		#page.select('Test Provenance Collection Part Title', match: :first)
 		fill_in "Title", :with => "TestTitle"
 		fill_in "SubTitle", :with => "TestSubTitle"
 		fill_in "PartName", :with => "TestPartName"
@@ -68,7 +68,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
-		page.select('Test Title2', match: :first)
+		#page.select('Test Title2', match: :first)
 		fill_in "dams_provenance_collection_titleValue_", :with => "TestTitle2"
 		fill_in "dams_provenance_collection_subtitle_", :with => "TestSubTitle2"
 		fill_in "dams_provenance_collection_titlePartName_", :with => "TestPartName2"
@@ -125,7 +125,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		visit Path.path
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
-		page.select('Test Title2', match: :first)
+		#page.select('Test Title2', match: :first)
 		fill_in "dams_provenance_collection_titleValue_", :with => "CancelTitle"
 		fill_in "dams_provenance_collection_subtitle_", :with => "CancelSubTitle"
 		fill_in "dams_provenance_collection_titlePartName_", :with => "CancelPartName"

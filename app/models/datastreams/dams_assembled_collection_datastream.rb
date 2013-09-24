@@ -40,10 +40,15 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
     map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
-    # child collections
+    # collections
     map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
     map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
+    map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
     
+    
+   # child parts
+    map.part_node(:in=>DAMS,:to=>'hasPart')
+    map.provenanceCollection_node(:in=>DAMS,:to=>'hasProvenanceCollection')
 
     # related collections
     map.relatedCollection(:in => DAMS)
@@ -53,6 +58,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
   end
 
   
+
 
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
@@ -106,7 +112,31 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
       end
     end     
   end  
-    
+   
+
+  def load_part
+     if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
+       part_node.first
+     else
+      part_uri = part_node.first.to_s
+      part_pid = part_uri.gsub(/.*\//,'')
+      if part_pid != nil && part_pid != ""
+        DamsProvenanceCollectionPart.find(part_pid)
+      end
+    end
+  end
+
+  def load_provenanceCollection
+     if provenanceCollection_node.first.class.name.include? "DamsProvenanceCollectionInternal"
+       provenanceCollection_node.first
+     else
+      provenanceCollection_uri = provenanceCollection_node.first.to_s
+      provenanceCollection_pid = provenanceCollection_uri.gsub(/.*\//,'')
+      if provenanceCollection_pid != nil && provenanceCollection_pid != ""
+        DamsProvenanceCollection.find(provenanceCollection_pid)
+      end
+    end
+  end  
   
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')
@@ -114,6 +144,21 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
     Solrizer.insert_field(solr_doc, 'visibility', visibility)
     
+    part = load_part 
+    if part != nil && part.class == DamsProvenanceCollectionPart
+      Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
+      Solrizer.insert_field(solr_doc, 'part_id', part.pid)
+      pj = { :id => part.pid, :name => part.title.first.value }
+      Solrizer.insert_field(solr_doc, 'part_json', pj.to_json)
+    end
+
+    provenanceCollection=load_provenanceCollection
+    if provenanceCollection != nil && provenanceCollection.class == DamsProvenanceCollection
+      Solrizer.insert_field(solr_doc, 'provenanceCollection_name', provenanceCollection.title.first.value)
+      Solrizer.insert_field(solr_doc, 'provenanceCollection_id', provenanceCollection.pid)
+      prj = { :id => provenanceCollection.pid, :name => provenanceCollection.title.first.value }
+      Solrizer.insert_field(solr_doc, 'provenanceCollection_json', prj.to_json)
+    end
     super
   end  
 end

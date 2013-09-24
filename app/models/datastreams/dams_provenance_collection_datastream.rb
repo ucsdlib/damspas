@@ -49,7 +49,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
 
 
     # child parts
-    map.part_node(:in=>DAMS,:to=>'hasPart', :class_name => 'DamsProvenanceCollectionPartInternal')
+    map.part_node(:in=>DAMS,:to=>'hasPart')
 
     # related collections
     map.relatedCollection(:in => DAMS)
