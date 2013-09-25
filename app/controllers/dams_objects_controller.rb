@@ -67,6 +67,12 @@ class DamsObjectsController < ApplicationController
   def new
     @dams_object.title.build
     @dams_object.title.first.elementList.subTitleElement.build
+    @dams_object.title.first.hasVariant.build
+    @dams_object.title.first.hasTranslationVariant.build
+    @dams_object.title.first.hasAbbreviationVariant.build
+    @dams_object.title.first.hasAcronymVariant.build
+    @dams_object.title.first.hasExpansionVariant.build
+    
   	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
   	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
