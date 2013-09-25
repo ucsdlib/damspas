@@ -1,6 +1,7 @@
 module DamsHelper
 
 
+
 ## RelatedResource#############################################################
 def relatedResourceType
     relatedResource[0] ? relatedResource[0].type: []
