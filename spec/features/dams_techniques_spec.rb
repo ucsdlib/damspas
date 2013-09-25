@@ -21,7 +21,7 @@ feature 'Visitor wants to create/edit a DAMS Technique' do
   
 	scenario 'is on new DAMS Technique page' do
 		sign_in_developer
-		visit "dams_iconographies"
+		visit "dams_techniques"
 		#expect(page).to have_selector('a', :text => "Create Technique")
 		
 		visit dams_technique_path('new')
@@ -35,7 +35,7 @@ feature 'Visitor wants to create/edit a DAMS Technique' do
 		# Save path of Technique for other test(s)
 		Path.path = current_path
 		expect(page).to have_selector('a', :text => "http://techniques.com")
-		expect(page).to have_selector('li', :text => "Test Technique")
+		expect(page).to have_selector('p', :text => "Test Technique")
 		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 
@@ -50,7 +50,7 @@ feature 'Visitor wants to create/edit a DAMS Technique' do
 		# Check that changes are saved
 		#expect(page).to have_selector('strong', :text => "Edit Technique after Create")
 		expect(page).to have_selector('a', :text => "http://techniqueedit.com")
-		expect(page).to have_selector('li', :text => "Orange")
+		expect(page).to have_selector('p', :text => "Orange")
 		expect(page).to have_selector('li', :text => "Library of Congress Name Authority File")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 
@@ -74,7 +74,7 @@ feature 'Visitor wants to create/edit a DAMS Technique' do
 		page.select('Test Scheme', match: :first) 
 		click_on "Save changes"
 		expect(page).to have_selector('a', :text => "http://finaltechnique.com")
-		expect(page).to have_selector('li', :text => "Library")
+		expect(page).to have_selector('p', :text => "Library")
 		expect(page).to have_selector('li', :text => "Test Scheme")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 	end

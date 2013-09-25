@@ -4,6 +4,8 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
     map.language(:in=>DAMS, :class_name => 'MadsLanguageInternal')
+    map.visibility(:in=>DAMS)
+    map.resource_type(:in=>DAMS, :to => 'typeOfResource')
 
     # notes
     map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')
@@ -113,6 +115,8 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')   
     Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollectionPart')
+    Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
+    Solrizer.insert_field(solr_doc, 'visibility', visibility)
 	super
   end
 end

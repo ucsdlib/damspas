@@ -1,0 +1,17 @@
+<h1><%= @dams_scientific_name.name.first %></h1>
+
+<div>
+  <dl>
+    <dt>ScientificNameElement:</dt>
+    <dd><%= @dams_scientific_name.elementList[0].elementValue %></dd>
+    <dt>Scheme:</dt>
+    <dd><%= @dams_scientific_name.scheme.first.pid %></dd>
+    <dt>ExternalAuthority:</dt>
+    <dd><%= @dams_scientific_name.externalAuthority %></dd>
+  </dl>
+  <% if can? :update, @dams_scientific_name %>
+    <%= link_to "Solr View", dams_scientific_name_path(@dams_scientific_name), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_scientific_name_path(@dams_scientific_name), class: "btn btn-primary"%>
+    <%= link_to "View All", dams_scientific_names_path(), class: "btn btn-primary"%>
+  <% end %>
+</div>

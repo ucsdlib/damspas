@@ -8,6 +8,8 @@ describe DamsAssembledCollection do
   it "should create valid xml" do
     subject.titleValue = "UCSD Electronic Theses and Dissertations"
     subject.beginDate = "2009-05-03"
+    subject.visibility = "public"
+    subject.resource_type = "text"
     subject.scopeContentNote.build.value = "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
     subject.scopeContentNote.first.displayLabel = "Scope and contents"
     subject.scopeContentNote.first.type = "scope_and_content"
@@ -16,6 +18,8 @@ describe DamsAssembledCollection do
          xmlns:dams="http://library.ucsd.edu/ontology/dams#"
          xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
 <dams:AssembledCollection rdf:about="#{Rails.configuration.id_namespace}bb03030303">
+  <dams:visibility>public</dams:visibility>
+  <dams:typeOfResource>text</dams:typeOfResource>
     <dams:title>
 <mads:Title>
   <mads:authoritativeLabel>UCSD Electronic Theses and Dissertations</mads:authoritativeLabel>

@@ -1,0 +1,17 @@
+<% if @previous_document || @next_document %>
+  <div class="well" id="previousNextDocument">
+    <%
+      curr = session[:search][:counter].to_i
+      total = session[:search][:total].to_i
+      prev_item = curr - 1
+      next_item = curr + 1
+     %>
+    <% if prev_item > 0 %>
+      <%= link_to_document @previous_document, :label => "Previous", :counter => prev_item %> |
+    <% end %>
+    <%= item_page_entry_info %>
+    <% if next_item <= total %>
+      | <%= link_to_document @next_document, :label => "Next", :counter => next_item %>
+    <% end %>
+  </div>
+<% end %>

@@ -3,12 +3,23 @@
   <%= label_tag 'dams_statute[citation]', "Citation" %><%= text_field_tag 'dams_statute[citation][]', @dams_statute.citation[0] %>
   <%= label_tag 'dams_statute[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_statute[jurisdiction][]', @dams_statute.jurisdiction[0] %>
   <%= label_tag 'dams_statute[note]', "Note" %><%= text_field_tag 'dams_statute[note][]', @dams_statute.note[0] %>
-  <%= label_tag 'dams_statute[permissionBeginDate]', "Permission Begin Date" %><%= text_field_tag 'dams_statute[permissionBeginDate][]', @dams_statute.permissionBeginDate[0] %>
-  <%= label_tag 'dams_statute[permissionEndDate]', "Permission End Date" %><%= text_field_tag 'dams_statute[permissionEndDate][]', @dams_statute.permissionEndDate[0] %>
-  <%= label_tag 'dams_statute[permissionType]', "Permission Type" %><%= text_field_tag 'dams_statute[permissionType][]', @dams_statute.permissionType[0] %>
-  <%= label_tag 'dams_statute[restrictionBeginDate]', "Restriction Begin Date" %><%= text_field_tag 'dams_statute[restrictionBeginDate][]', @dams_statute.restrictionBeginDate[0] %>
-  <%= label_tag 'dams_statute[restrictionEndDate]', "Restriction End Date" %><%= text_field_tag 'dams_statute[restrictionEndDate][]', @dams_statute.restrictionEndDate[0] %>
-  <%= label_tag 'dams_statute[restrictionType]', "Restriction Type" %><%= text_field_tag 'dams_statute[restrictionType][]', @dams_statute.restrictionType[0] %>
+  <%= f.fields_for :permission_node do |pn| %>
+    <%= pn.label :type, "Permission Type" %>
+    <%= pn.text_field :type , :value => @dams_statute.permissionType[0]%>    
+    <%= pn.label :beginDate, "Permission Begin Date" %>
+    <%= pn.text_field :beginDate, :value => @dams_statute.permissionBeginDate[0]%>
+    <%= pn.label :endDate, "Permission End Date" %>
+    <%= pn.text_field :endDate, :value => @dams_statute.permissionEndDate[0]%>    
+  <% end %> 
+
+  <%= f.fields_for :restriction_node do |rn| %>
+    <%= rn.label :type, "Restriction Type" %>
+    <%= rn.text_field :type , :value => @dams_statute.restrictionType[0]%>    
+    <%= rn.label :beginDate, "Restriction Begin Date" %>
+    <%= rn.text_field :beginDate, :value => @dams_statute.restrictionBeginDate[0]%>
+    <%= rn.label :endDate, "Restriction End Date" %>
+    <%= rn.text_field :endDate, :value => @dams_statute.restrictionEndDate[0]%>    
+  <% end %>    
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_statute_path( @dams_statute ), class: "btn btn-primary" %>

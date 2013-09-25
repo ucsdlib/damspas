@@ -44,6 +44,9 @@
 
   <section class="pull-right search-bar clearfix visible-desktop">
     <%= form_tag catalog_index_url, :method => :get, :class => 'form-search pull-right' do %>
+      <% if @current_unit != nil %>
+        <input type="hidden" name="f[unit_sim][]" value="<%=@current_unit.first%>"/>
+      <% end %>
       <label class="hide-text" for="q">Search DAMS</label>
       <input type="text" placeholder="Search DAMS" name="q" id="q" class="input-medium search-query">
       <button class="btn btn-inverse" type="submit" id="search-button">

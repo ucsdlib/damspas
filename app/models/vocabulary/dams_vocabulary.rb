@@ -6,6 +6,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :date
   property :beginDate
   property :endDate
+  property :encoding
   property :language
   property :typeOfResource
   property :relatedResource
@@ -39,18 +40,24 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :subject
   property :complexSubject
   property :builtWorkPlace
+  property :builtWorkPlaceElement
   property :culturalContext
+  property :culturalContextElement
   property :CulturalContextElement
   property :function
+  property :functionElement
   property :FunctionElement
   property :genreForm
   property :geographic
   property :iconography
+  property :iconographyElement
   property :IconographyElement
   property :occupation
   property :scientificName
+  property :scientificNameElement
   property :ScientificNameElement
   property :stylePeriod
+  property :stylePeriodElement
   property :StylePeriodElement
   property :technique
   property :TechniqueElement
@@ -118,8 +125,10 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :Note
   property :hasAssembledCollection
   property :hasProvenanceCollection
+  property :provenanceCollection_node
   property :hasObject
   property :hasPart
+  property :part_node
   property :relatedCollection
   property :authority
   property :authorityURI  
@@ -148,4 +157,11 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :partNumber
   property :partName
   property :nonSort  
+  property :visibility  
+  property :Foo
+  property :FooElement
+  property :fooElement
+  property :FooBar
+  property :FooBarElement
+  property :fooBarElement
 end

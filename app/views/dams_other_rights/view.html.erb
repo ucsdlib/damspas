@@ -1,0 +1,18 @@
+<h1><%= @dams_other_right.note.first %></h1>
+<div>uri: <%= @dams_other_right.uri.first %></div>
+<div>permissionBeginDate: <%= @dams_other_right.permissionBeginDate.first %></div>
+<div>permissionEndDate: <%= @dams_other_right.permissionEndDate.first %></div>
+<div>permissionType: <%= @dams_other_right.permissionType.first %></div>
+<div>restrictionBeginDate: <%= @dams_other_right.restrictionBeginDate.first %></div>
+<div>restrictionEndDate: <%= @dams_other_right.restrictionEndDate.first %></div>
+<div>restrictionType: <%= @dams_other_right.restrictionType.first %></div>
+<div>relationshipName: <%= @dams_other_right.relationship.first.load.name.first %></div>
+<div>relationshipRole: <%= @dams_other_right.relationship.first.loadRole.name.first %></div>
+<div>
+  <% if can? :update, @dams_other_right then %>
+    <%= link_to "Solr View", dams_other_right_path(@dams_other_right), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_other_right_path(@dams_other_right), class: "btn btn-primary" %>
+    <%= link_to "View All", dams_other_rights_path, class: "btn btn-primary" %>
+  <% end %>
+  
+</div>

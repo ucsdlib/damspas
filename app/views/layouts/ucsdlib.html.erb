@@ -19,7 +19,7 @@
 		<%= raw(render_head_content) %>
 
 		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? %>
-		<%= render :partial => 'layouts/ie-conditionals' %>
+		<%= render :partial => 'layouts/ie_conditionals' %>
 
 		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
 			<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>

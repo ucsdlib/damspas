@@ -1,0 +1,15 @@
+<h1><%= @dams_copyright.status.first %></h1>
+<div>jurisdiction: <%= @dams_copyright.jurisdiction.first %></div>
+<div>purposeNote: <%= @dams_copyright.purposeNote.first %></div>
+<div>note: <%= @dams_copyright.note.first %></div>
+<div>date: <%= @dams_copyright.dateValue.first %></div>
+<div>beginDate: <%= @dams_copyright.beginDate.first %></div>
+<div>endDate: <%= @dams_copyright.endDate.first %></div>
+<div>
+  <% if can? :update, @dams_copyright then %>
+    <%= link_to "Solr View", mads_topic_path(@dams_copyright), class: "btn btn-primary"%>
+    <%= link_to "Edit", edit_dams_copyright_path(@dams_copyright), class: "btn btn-primary" %>
+    <%= link_to "View All", dams_copyrights_path, class: "btn btn-primary" %>
+  <% end %>
+  
+</div>

@@ -1,19 +1,16 @@
 class DamsStatuteInternal
   include ActiveFedora::RdfObject
-    include ActiveFedora::Rdf::DefaultNodes
+  include Dams::DamsStatute 
   include DamsHelper
-  rdf_type DAMS.Statute
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-  map_predicates do |map|
-    map.citation(:in => DAMS, :to => 'statuteCitation')
-    map.jurisdiction(:in => DAMS, :to => 'statuteJurisdiction')
-    map.note(:in => DAMS, :to => 'statuteNote')
-    map.restriction_node(:in => DAMS, :to=>'restriction', :class_name => 'DamsRestriction')
-    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'DamsPermission')
- end
-
   def pid
-      rdf_subject.to_s.gsub(/.*\//,'')
-  end  
+    rdf_subject.to_s.gsub(/.*\//,'')
+  end
+  # used by fields_for, so this ought to move to ActiveFedora if it works
+  def persisted?
+    rdf_subject.kind_of? RDF::URI
+  end
+  def id
+    rdf_subject if rdf_subject.kind_of? RDF::URI
+  end 
  
 end

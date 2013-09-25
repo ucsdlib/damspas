@@ -13,15 +13,27 @@
 
 	if fieldData != nil
 
-		htmlOpen %= 'Date'.pluralize(fieldData.count)
-		concat htmlOpen.html_safe
+		
 
 		fieldData.each do |datum|
 			date = JSON.parse(datum)
 %>
-			<li><%= date['value'] %></li>
-			<li><%= date['beginDate'] %></li>
-			<li><%= date['endDate'] %></li>
+	     <% if date['type']!=nil && date['type']!=''&& date['value']!=nil &&date['value']!=''%>
+	     
+	     <% datetype=date['type'].capitalize+' Date'  %>
+	     <% htmlOpen %= datetype
+		  concat htmlOpen.html_safe %>
+		 <li><%= date['value'] %></li>
+		 
+		 <% elsif date['value']!=nil && date['value']!=''  %>
+          <%htmlOpen %= 'Date'
+		    concat htmlOpen.html_safe %>
+		    <li><%= date['value'] %></li>
+		 
+		 
+		 
+		 <% end %>
+			
 <%
 		end
 

@@ -4,6 +4,7 @@ class Ability
     if current_user.new_record? || current_user.anonymous   #Anonymous user
       can [:read], DamsUnit
       can [:read], DamsCopyright
+      can [:read], DamsOtherRight
       can [:read], DamsLicense
       can [:read], DamsStatute
       can [:read], DamsAssembledCollection
@@ -15,6 +16,7 @@ class Ability
       can [:read], DamsTechnique
       can [:read], DamsIconography
       can [:read], DamsBuiltWorkPlace
+      can [:read], DamsScientificName
       can [:read], DamsStylePeriod
       can [:read], MadsPersonalName
       can [:read], MadsComplexSubject
@@ -38,13 +40,15 @@ class Ability
       can [:read, :create, :update, :view], DamsTechnique
       can [:read, :create, :update, :view], DamsIconography
       can [:read, :create, :update, :view], DamsBuiltWorkPlace
+      can [:read, :create, :update, :view], DamsScientificName
       can [:read, :create, :update, :view], DamsStylePeriod
-      can [:read, :create, :update], DamsCopyright
-      can [:read, :create, :update], DamsLicense
-      can [:read, :create, :update], DamsStatute
-      can [:read, :create, :update], DamsAssembledCollection
-      can [:read, :create, :update], DamsProvenanceCollection
-      can [:read, :create, :update], DamsProvenanceCollectionPart
+      can [:read, :create, :update, :view], DamsCopyright
+      can [:read, :create, :update, :view], DamsOtherRight
+      can [:read, :create, :update, :view], DamsLicense
+      can [:read, :create, :update, :view], DamsStatute
+      can [:read, :create, :update, :view], DamsAssembledCollection
+      can [:read, :create, :update, :view], DamsProvenanceCollection
+      can [:read, :create, :update, :view], DamsProvenanceCollectionPart
       can [:read, :create, :update], DamsSourceCapture
       can [:read, :create, :update], DamsCartographics
       can [:read, :create, :update, :view], MadsPersonalName

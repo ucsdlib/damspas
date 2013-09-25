@@ -360,16 +360,21 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def insertDateFields (solr_doc, cid, dates)
+    creation_date = nil
+    other_date = nil
+
     dates.map do |date|
       # display
       if cid != nil
-        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s}
+        date_json = {:beginDate=>date.beginDate.first.to_s, :endDate=>date.endDate.first.to_s, :value=>date.value.first.to_s, :type=>date.type.first.to_s, :encoding=>date.encoding.first.to_s }
         Solrizer.insert_field(solr_doc, "component_#{cid}_date_json", date_json.to_json)
       else
         date_json = {
           :beginDate=>date.beginDate.first.to_s,
           :endDate=>date.endDate.first.to_s,
-          :value=>date.value.first.to_s
+          :value=>date.value.first.to_s,
+          :type=>date.type.first.to_s,
+          :encoding=>date.encoding.first.to_s
         }
         Solrizer.insert_field(solr_doc, "date_json", date_json.to_json)
       end
@@ -378,9 +383,35 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date", date.value.first)
       Solrizer.insert_field(solr_doc, "date", date.beginDate.first)
       Solrizer.insert_field(solr_doc, "date", date.endDate.first)
+      Solrizer.insert_field(solr_doc, "date", date.type.first)
+      Solrizer.insert_field(solr_doc, "date", date.encoding.first)
       Solrizer.insert_field(solr_doc, "fulltext", date.value)
       Solrizer.insert_field(solr_doc, "fulltext", date.beginDate)
       Solrizer.insert_field(solr_doc, "fulltext", date.endDate)
+      Solrizer.insert_field(solr_doc, "fulltext", date.type)
+      Solrizer.insert_field(solr_doc, "fulltext", date.encoding)
+
+      # save dates for sort date
+      begin
+        dateVal = date.beginDate.first
+        if dateVal.match( '^\d{4}$' ) != nil
+          dateVal += "-01-01"
+        end
+        if date.type.first == 'creation'
+          creation_date = DateTime.parse(dateVal)
+        elsif other_date.nil?
+          other_date = DateTime.parse(dateVal)
+        end
+      rescue
+        puts "error parsing date: #{dateVal}"
+      end
+    end
+
+    datesort = Solrizer::Descriptor.new(:date, :indexed, :stored)
+    if creation_date
+      Solrizer.insert_field(solr_doc, "object_create", creation_date, datesort)
+    elsif other_date
+      Solrizer.insert_field(solr_doc, "object_create", other_date, datesort)
     end
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
@@ -390,6 +421,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     relationships.map do |relationship|
       obj = relationship.name.first.to_s      
 
+      rel = nil
 	  if !relationship.corporateName.first.nil?
 	    rel = relationship.corporateName
 	  elsif !relationship.personalName.first.nil?
@@ -463,11 +495,19 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       partName = t.partName || ""
       partNumber = t.partNumber || ""
       subtitle = t.subtitle || ""
-
+	  variant = t.variant || ""
+	  translationVariant = t.translationVariant || ""
+	  abbreviationVariant = t.abbreviationVariant || ""
+	  acronymVariant = t.acronymVariant || ""
+	  expansionVariant = t.expansionVariant || ""
+	  
       # structured
       title_json = { :name => name, :external => external, :value => value,
                      :nonSort => nonSort, :partName => partName,
-                     :partNumber => partNumber, :subtitle => subtitle }
+                     :partNumber => partNumber, :subtitle => subtitle, 
+                     :variant => variant, :translationVariant => translationVariant,
+                     :abbreviationVariant => abbreviationVariant, :acronymVariant => acronymVariant,
+                     :expansionVariant => expansionVariant }
       if cid != nil
         Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
       else
@@ -476,6 +516,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # retrieval
       Solrizer.insert_field(solr_doc, "title", name)
+      Solrizer.insert_field(solr_doc, "titleVariant", variant) if variant.length > 0
+      Solrizer.insert_field(solr_doc, "titleTranslationVariant", translationVariant) if translationVariant.length > 0
+      Solrizer.insert_field(solr_doc, "titleAbbreviationVariant", abbreviationVariant) if abbreviationVariant.length > 0
+      Solrizer.insert_field(solr_doc, "titleAcronymVariant", acronymVariant) if acronymVariant.length > 0
+      Solrizer.insert_field(solr_doc, "titleExpansionVariant", expansionVariant) if expansionVariant.length > 0
       Solrizer.insert_field(solr_doc, "fulltext", name)
 
       # build sort title
@@ -608,6 +653,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   # field types
   def to_solr (solr_doc = {})
+    super(solr_doc)
+
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 
     # title
@@ -669,18 +716,26 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'familyName', load_familyNames(familyName)
     insertFields solr_doc, 'personalName', load_personalNames(personalName)
 
+
+
     insertRelatedResourceFields solr_doc, "", relatedResource
 
     # event
     insertEventFields solr_doc, "", event
 
+   
     # hack to strip "+00:00" from end of dates, because that makes solr barf
-    ['system_create_dtsi','system_modified_dtsi'].each { |f|
+    ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
       if solr_doc[f].kind_of?(Array)
         solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
       elsif solr_doc[f] != nil
         solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
       end
+    }
+
+    # hack to make sure something is indexed for rights metadata
+    ['edit_access_group_ssim','read_access_group_ssim','discover_access_group_ssim'].each {|f|
+      solr_doc[f] = 'dams-curator' unless solr_doc[f]
     }
     return solr_doc
   end

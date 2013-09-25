@@ -19,6 +19,14 @@ describe DamsAssembledCollectionDatastream do
         subject.dateValue = "2009-05-03"
         subject.dateValue.should == ["2009-05-03"]
       end
+      it "should have a visibility" do
+        subject.visibility = "public"
+        subject.visibility.should == ["public"]
+      end
+      it "should have a resource_type" do
+        subject.resource_type = "text"
+        subject.resource_type.should == ["text"]
+      end
     end
 
     describe "an instance loaded from fixture xml" do
@@ -37,11 +45,19 @@ describe DamsAssembledCollectionDatastream do
       it "should have a date" do
         subject.beginDate.should == ["2009-05-03"]
       end
+      it "should have a visibility" do
+        subject.visibility.should == ["public"]
+      end
+      it "should have a resource_type" do
+        subject.resource_type.should == ["text"]
+      end
 
  	  it "should index title and dates" do
         solr_doc = subject.to_solr
         solr_doc["title_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
         solr_doc["date_tesim"].should == ["2009-05-03"]
+        solr_doc["visibility_tesim"].should == ["public"]
+        solr_doc["resource_type_tesim"].should == ["text"]
       end
 
  	  it "should have notes" do
@@ -70,6 +86,14 @@ describe DamsAssembledCollectionDatastream do
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
       end
+
+      it "should index parts" do
+        solr_doc = subject.to_solr
+        solr_doc["provenanceCollection_name_tesim"].should == ["Historical Dissertations"]
+        solr_doc["provenanceCollection_id_tesim"].should == ["bb24242424"]
+        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"bb24242424","name":"Historical Dissertations"}']
+      end
+
 #      it "should have event" do
 #        solr_doc = subject.to_solr
 #        solr_doc["event_1_type_tesim"].should == ["collection creation"]

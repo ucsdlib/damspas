@@ -7,4 +7,7 @@ class DamsRestriction
     map.beginDate(:in=>DAMS)
     map.endDate(:in=>DAMS)
   end
+  def persisted?
+    rdf_subject.kind_of? RDF::URI
+  end  
 end

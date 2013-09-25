@@ -11,7 +11,7 @@ class DamsRelationshipInternal
       map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')      
       map.role(:in=> DAMS, :class_name => 'MadsAuthorityInternal')
     end
-
+	
 	rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}  
 
     def load

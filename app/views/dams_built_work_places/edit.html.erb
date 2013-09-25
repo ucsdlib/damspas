@@ -3,23 +3,26 @@
 <div class="row-fluid">
 	<div class="span10 offset1">
 	
-		<h2>Edit BuiltWorkPlace</h2>
+		<h2>Edit Built Work Place</h2>
 		
 		<%= form_for @dams_built_work_place do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
 		
-			<%= label_tag 'dams_built_work_place[name][]', "Authoritative Label" %>
+			<%= label_tag 'dams_built_work_place[name][]', "Name" %>
 			<%= text_field_tag 'dams_built_work_place[name][]', @dams_built_work_place.name[0], class: "input-block-level" %>
 		
 			<%= label_tag 'dams_built_work_place[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'dams_built_work_place[externalAuthority][]', @dams_built_work_place.externalAuthority, class: "input-block-level" %>
 
-			<%= label_tag 'dams_built_work_place[scheme][]', "scheme" %>
-			<%= select_tag 'dams_built_work_place[scheme][]', options_for_select(@mads_schemes, :selected => @scheme_id ) %>
-
-			<%= label_tag 'dams_built_work_place[elementValue][]', "BuiltWorkPlaceElement" %>
-			<%= text_field_tag 'dams_built_work_place[elementValue][]', @dams_built_work_place.elementValue, class: "input-block-level" %>
+	 	  <%= f.fields_for :scheme, include_id: false do |se| %>
+	        <%= se.label :id, "Scheme" %>
+	        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+	      <% end %>
+	      <%= f.fields_for :builtWorkPlaceElement do |te| %>
+	        <%= te.label :elementValue, "Element Value" %>
+	        <%= te.text_field :elementValue, class: "input-block-level" %>
+	      <% end %>
 							
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

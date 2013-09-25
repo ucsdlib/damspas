@@ -31,7 +31,6 @@ class DamsTechniquesController < ApplicationController
   end
 
   def new
-    #Check schemes ####################################################################
     @dams_technique.scheme.build
     @dams_technique.elementList.techniqueElement.build
     @mads_schemes = get_objects('MadsScheme','name_tesim')
@@ -43,7 +42,6 @@ class DamsTechniquesController < ApplicationController
   end
 
   def create
-    
     if @dams_technique.save
         redirect_to @dams_technique, notice: "technique has been saved"
     else
