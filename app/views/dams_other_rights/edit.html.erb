@@ -1,0 +1,31 @@
+<h1>Edit DAMS OtherRights</h1>
+<%= form_for @dams_other_right do |f| %>
+  <%= label_tag 'dams_other_right[note]', "Note" %><%= text_field_tag 'dams_other_right[note][]', @dams_other_right.note[0] %>
+  <%= label_tag 'dams_other_right[uri]', "URI" %><%= text_field_tag 'dams_other_right[uri][]', @dams_other_right.uri[0] %>
+  <%#= @dams_other_right.relationship.first.loadRole.name %>
+  <%#= @dams_other_right.relationship.first.load.name %>
+  <%= f.fields_for :permission_node do |pn| %>
+    <%= pn.label :type, "Permission Type" %>
+    <%= pn.text_field :type , :value => @dams_other_right.permissionType[0]%>    
+    <%= pn.label :beginDate, "Permission Begin Date" %>
+    <%= pn.text_field :beginDate, :value => @dams_other_right.permissionBeginDate[0]%>
+    <%= pn.label :endDate, "Permission End Date" %>
+    <%= pn.text_field :endDate, :value => @dams_other_right.permissionEndDate[0]%>    
+  <% end %> 
+
+  <%= f.fields_for :restriction_node do |rn| %>
+    <%= rn.label :type, "Restriction Type" %>
+    <%= rn.text_field :type , :value => @dams_other_right.restrictionType[0]%>    
+    <%= rn.label :beginDate, "Restriction Begin Date" %>
+    <%= rn.text_field :beginDate, :value => @dams_other_right.restrictionBeginDate[0]%>
+    <%= rn.label :endDate, "Restriction End Date" %>
+    <%= rn.text_field :endDate, :value => @dams_other_right.restrictionEndDate[0]%>    
+  <% end %>  
+  <h3>Relationship</h3>
+  <%= select_tag 'dams_other_right[role][]', options_for_select(@mads_authorities, :selected => @role_id) , :prompt=>"Select Relationship Role", required: true %>
+  <br>   
+  <%= select_tag 'dams_other_right[name][]', options_for_select(@mads_names, :selected => @name_id) , :prompt=>"Select Relationship Name", required: true %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_other_right_path( @dams_other_right ), class: "btn btn-primary" %>
+<%end%>

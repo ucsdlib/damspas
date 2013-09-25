@@ -9,6 +9,9 @@ Devise.setup do |config|
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
 
+  # log omniauth to normal logger, not stdout
+  OmniAuth.config.logger = Rails.logger
+
   if Rails.env.production? || Rails.env.pontos?
     config.omniauth :shibboleth, {
       :uid_field                 => 'ADUSERNAME',

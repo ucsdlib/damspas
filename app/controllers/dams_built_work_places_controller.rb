@@ -32,38 +32,37 @@ class DamsBuiltWorkPlacesController < ApplicationController
 
   def new
     #Check schemes ####################################################################
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    @dams_built_work_place.scheme.build
+    @dams_built_work_place.elementList.builtWorkPlaceElement.build
+  @mads_schemes = get_objects('MadsScheme','name_tesim')
   end
 
   def edit
-    @dams_built_work_place = DamsBuiltWorkPlace.find(params[:id])
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    if(@dams_built_work_place.scheme != nil)
-      @scheme_id = @dams_built_work_place.scheme.to_s.gsub /.*\//, ""
-      #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-    end   
+    @scheme_id = Rails.configuration.id_namespace+@dams_built_work_place.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @dams_built_work_place.attributes = params[:dams_built_work_place]
     if @dams_built_work_place.save
-        redirect_to @dams_built_work_place, notice: "BuiltWorkPlace has been saved"
+        redirect_to @dams_built_work_place, notice: "built work place has been saved"
     else
-      flash[:alert] = "Unable to save BuiltWorkPlace"
+      flash[:alert] = "Unable to save built work place"
       render :new
     end
   end
 
   def update
+    @dams_built_work_place.elementList.clear
+    @dams_built_work_place.scheme.clear  
     @dams_built_work_place.attributes = params[:dams_built_work_place]
     if @dams_built_work_place.save
-		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated BuiltWorkPlace"
+    if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
+          redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated built work place"
         else      
-        	redirect_to @dams_built_work_place, notice: "Successfully updated BuiltWorkPlace"
+          redirect_to @dams_built_work_place, notice: "Successfully updated built work place"
         end
     else
-      flash[:alert] = "Unable to save BuiltWorkPlace"
+      flash[:alert] = "Unable to save built work place"
       render :edit
     end
   end

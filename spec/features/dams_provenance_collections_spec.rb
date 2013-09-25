@@ -18,15 +18,17 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# click create button
 		visit "dams_provenance_collections/new"
 		# Create new dams provenance collection
-		page.select('Provenance Collection Part Test Title', match: :first)
+		#page.select('Test Provenance Collection Part Title', match: :first)
 		fill_in "Title", :with => "TestTitle"
 		fill_in "SubTitle", :with => "TestSubTitle"
 		fill_in "PartName", :with => "TestPartName"
 		fill_in "PartNumber", :with => "TestPartNumber"
 		fill_in "NonSort", :with => "TestNonSort"
 		fill_in "Date", :with => "TestDate"
-		fill_in "Begin Date", :with => "TestBeginDate"
-		fill_in "End Date", :with => "TestEndDate"
+		fill_in "Begin Date", :with => "2001-01-01"
+		fill_in "End Date", :with => "2001-01-31"
+		fill_in "Date Type", :with => "TestDateType"
+		fill_in "Date Encoding", :with => "TestDateEncoding"
 		page.select('Test Language', match: :first)
 		fill_in "Note", :with => "TestNote"
 		fill_in "dams_provenance_collection_noteType_", :with => ""
@@ -44,15 +46,13 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# Save path of provenance collection and expect results
 		Path.path = current_path
 		expect(Path.path).to eq(current_path)	
-		# expect(page).to have_selector('li', :text => "Provenance Collection Part Test Title")
+		# expect(page).to have_selector('li', :text => "Test Provenance Collection Part Title")
 		expect(page).to have_content ("TestTitle")
 		expect(page).to have_content ("TestSubTitle")
 		expect(page).to have_content ("TestPartName")
 		expect(page).to have_content ("TestPartNumber")
 		expect(page).to have_content ("TestNonSort")
 		expect(page).to have_content ("TestDate")
-		expect(page).to have_content ("TestBeginDate")
-		expect(page).to have_content ("TestEndDate")
 		expect(page).to have_selector('li', :text => "Test Language")
 		expect(page).to have_content ("TestNote")
 		# testing without filling in Note Displaylabel
@@ -68,15 +68,17 @@ feature 'Visitor wants to create/edit a provenance collection' do
 
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
-		page.select('Test Title2', match: :first)
+		#page.select('Test Title2', match: :first)
 		fill_in "dams_provenance_collection_titleValue_", :with => "TestTitle2"
 		fill_in "dams_provenance_collection_subtitle_", :with => "TestSubTitle2"
 		fill_in "dams_provenance_collection_titlePartName_", :with => "TestPartName2"
 		fill_in "dams_provenance_collection_titlePartNumber_", :with => "TestPartNumber2"
 		fill_in "dams_provenance_collection_titleNonSort_", :with => "TestNonSort2"
 		fill_in "dams_provenance_collection_dateValue_", :with => "TestDate2"
-		fill_in "dams_provenance_collection_beginDate_", :with => "TestBeginDate2"
-		fill_in "dams_provenance_collection_endDate_", :with => "TestEndDate2"
+		fill_in "dams_provenance_collection_beginDate_", :with => "2001-01-01"
+		fill_in "dams_provenance_collection_endDate_", :with => "2001-01-31"
+		fill_in "dams_provenance_collection_dateType_", :with => "TestDateType2"
+		fill_in "dams_provenance_collection_dateEncoding_", :with => "TestDateEncoding2"
 		page.select('Test Language', match: :first)
 		fill_in "dams_provenance_collection_noteValue_", :with => "TestNote2"
 		fill_in "dams_provenance_collection_noteType_", :with => ""
@@ -98,8 +100,6 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestPartNumber2")
 		expect(page).to have_content ("TestNonSort2")
 		expect(page).to have_content ("TestDate2")
-		expect(page).to have_content ("TestBeginDate2")
-		expect(page).to have_content ("TestEndDate2")
 		expect(page).to have_selector('li', :text => "Test Language")
 		expect(page).to have_content ("TestNote2")
 		# should get note display label as title by not filling in Note Type
@@ -114,89 +114,43 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
 		expect(page).to have_selector('a', :text => "TestRelatedResourceDescription2")
 		expect(page).to have_content ("TestRelatedResourceDescription2")
-end
+  end
 
-scenario 'is on the provenance collection page to be edited' do
-	sign_in_developer
-
-	visit Path.path
-	click_on "Edit"
-	page.select('Test Title2', match: :first)
-
-	fill_in "dams_provenance_collection_titleValue_", :with => "TestTitle3"
- 	fill_in "dams_provenance_collection_subtitle_", :with => "TestSubTitle3"
-	fill_in "dams_provenance_collection_titlePartName_", :with => "TestPartName3"
- 	fill_in "dams_provenance_collection_titlePartNumber_", :with => "TestPartNumber3"
- 	fill_in "dams_provenance_collection_titleNonSort_", :with => "TestNonSort3"
-	fill_in "dams_provenance_collection_dateValue_", :with => "TestDate3"
-	fill_in "dams_provenance_collection_beginDate_", :with => "TestBeginDate3"
-	fill_in "dams_provenance_collection_endDate_", :with => "TestEndDate3"
-	page.select('Test Language', match: :first)
-	fill_in "dams_provenance_collection_noteValue_", :with => "TestNote3"
-	fill_in "dams_provenance_collection_noteType_", :with => "TESTNOTETYPE3"
-	fill_in "dams_provenance_collection_noteDisplayLabel_", :with => " "
-	fill_in "dams_provenance_collection_scopeContentNoteValue_", :with => "TestScopeContentNote3"
-	page.select('CorporateName', match: :first)
-	fill_in "dams_provenance_collection_relatedResourceType_", :with => "TestRelatedResourceType3"
-	fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.amazon.com"
-	fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "TestRelatedResourceDescription3"
-
-
-	# click_on "Save"
-
-	# # Check that changes are saved
-	# # expect(page).to have_selector('li', :text => "Test Title2")
-	# expect(page).to have_content ("TestTitle3")
-	# expect(page).to have_content ("TestSubTitle3")
-	# expect(page).to have_content ("TestPartName3")
-	# expect(page).to have_content ("TestPartNumber3")
-	# expect(page).to have_content ("TestNonSort3")
-	# expect(page).to have_content ("TestDate3")
-	# expect(page).to have_content ("TestBeginDate3")
-	# expect(page).to have_content ("TestEndDate3")
-	# expect(page).to have_selector('li', :text => "Test Language")
-	# expect(page).to have_content ("TestNote3")
-	# # should get note type as title by not filling in Note Display Lable
-	# expect(page).to have_content ("TESTNOTETYPE3")
-	# expect(page).to have_content ("TestScopeContentNote3")
-	# # expect(page).to have_selector('li', :text => "CorporateName")
-	# # expect(page).to have_selector ('li', :text => "CorporateName")
-	# expect(page).to have_content ("TESTRELATEDRESOURCETYPE3")
-	# expect(page).to have_selector('a', :text => "TestRelatedResourceDescription3")
-	# expect(page).to have_content ("TestRelatedResourceDescription3")
-	end
 end
 
 feature 'Visitor wants to cancel unsaved edits' do
 
-	# scenario 'is on Edit Provenance Collection page' do
-	# 	sign_in_developer
-	# 	visit Path.path
-	# 	expect(page).to have_selector('a', :text => "Edit")
-	# 	click_on "Edit"
-	# 	page.select('Test Title2', match: :first)
-	# 	fill_in "dams_provenance_collection_titleValue_", :with => "CancelTitle"
-	# 	fill_in "dams_provenance_collection_subtitle_", :with => "CancelSubTitle"
-	# 	fill_in "dams_provenance_collection_titlePartName_", :with => "CancelPartName"
-	# 	fill_in "dams_provenance_collection_titlePartNumber_", :with => "CancelPartNumber"
-	# 	fill_in "dams_provenance_collection_titleNonSort_", :with => "CancelNonSort"
-	# 	fill_in "dams_provenance_collection_dateValue_", :with => "CancelDate"
-	# 	fill_in "dams_provenance_collection_beginDate_", :with => "CancelBeginDate"
-	# 	fill_in "dams_provenance_collection_endDate_", :with => "CancelEndDate"
-	# 	page.select('Test Language', match: :first)
-	# 	fill_in "dams_provenance_collection_noteValue_", :with => "CancelNote"
-	# 	fill_in "dams_provenance_collection_noteType_", :with => "CancelNoteType"
-	# 	fill_in "dams_provenance_collection_noteDisplayLabel_", :with => "CancelNoteDisplaylabel"
-	# 	fill_in "dams_provenance_collection_scopeContentNoteValue_", :with => "CancelScopeContentNote"
-	# 	fill_in "dams_provenance_collection_scopeContentNoteType_", :with => "CancelScopeContentNoteType"
-	# 	page.select('CorporateName', match: :first)
-	# 	fill_in "dams_provenance_collection_relatedResourceType_", :with => "CancelRelatedResourceType"
-	# 	fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.test.com"
-	# 	fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "Should not show"
-	# 	click_on "Cancel"
-	# 	expect(page).to_not have_content("Should not show")
-	# 	expect(page).to have_content("TestTitle2")
-	# end
+	scenario 'is on Edit Provenance Collection page' do
+		sign_in_developer
+		visit Path.path
+		expect(page).to have_selector('a', :text => "Edit")
+		click_on "Edit"
+		#page.select('Test Title2', match: :first)
+		fill_in "dams_provenance_collection_titleValue_", :with => "CancelTitle"
+		fill_in "dams_provenance_collection_subtitle_", :with => "CancelSubTitle"
+		fill_in "dams_provenance_collection_titlePartName_", :with => "CancelPartName"
+		fill_in "dams_provenance_collection_titlePartNumber_", :with => "CancelPartNumber"
+		fill_in "dams_provenance_collection_titleNonSort_", :with => "CancelNonSort"
+		fill_in "dams_provenance_collection_dateValue_", :with => "CancelDate"
+		fill_in "dams_provenance_collection_beginDate_", :with => "CancelBeginDate"
+		fill_in "dams_provenance_collection_endDate_", :with => "CancelEndDate"
+		fill_in "dams_provenance_collection_dateType_", :with => "CancelDateType"
+		fill_in "dams_provenance_collection_dateEncoding_", :with => "CancelDateEncoding"
+		page.select('Test Language', match: :first)
+		fill_in "dams_provenance_collection_noteValue_", :with => "CancelNote"
+		fill_in "dams_provenance_collection_noteType_", :with => "CancelNoteType"
+		fill_in "dams_provenance_collection_noteDisplayLabel_", :with => "CancelNoteDisplaylabel"
+		fill_in "dams_provenance_collection_scopeContentNoteValue_", :with => "CancelScopeContentNote"
+		fill_in "dams_provenance_collection_scopeContentNoteType_", :with => "CancelScopeContentNoteType"
+		page.select('CorporateName', match: :first)
+		fill_in "dams_provenance_collection_relatedResourceType_", :with => "CancelRelatedResourceType"
+		fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.test.com"
+		fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "Should not show"
+		click_on "Cancel"
+		visit Path.path
+		expect(page).to_not have_content("Should not show")
+		expect(page).to have_content("TestTitle2")
+	end
 end
 
 def sign_in_developer

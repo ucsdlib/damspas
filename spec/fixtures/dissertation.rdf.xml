@@ -59,15 +59,6 @@
     </dams:note>
     <dams:complexSubject>
       <mads:ComplexSubject>
-        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
-        <mads:elementList rdf:parseType="Collection">
-          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX7"/>
-          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
-        </mads:elementList>
-      </mads:ComplexSubject>
-    </dams:complexSubject>
-    <dams:complexSubject>
-      <mads:ComplexSubject>
         <mads:authoritativeLabel>African Americans--Relations with Mexican Americans--History--20th Century</mads:authoritativeLabel>
         <mads:elementList rdf:parseType="Collection">
           <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX6"/>
@@ -94,6 +85,15 @@
             </mads:elementList>
           </mads:GenreForm>
         </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:complexSubject>
+    <dams:complexSubject>
+      <mads:ComplexSubject>
+        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX7"/>
+          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
+        </mads:elementList>
       </mads:ComplexSubject>
     </dams:complexSubject>
     <dams:note>

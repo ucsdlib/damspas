@@ -4,9 +4,12 @@
   <%= label_tag 'dams_assembled_collection[dateValue]', "Date Value" %><%= text_field_tag 'dams_assembled_collection[dateValue][]', @dams_assembled_collection.dateValue[0] %>
   <%= label_tag 'dams_assembled_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_assembled_collection[beginDate][]', @dams_assembled_collection.beginDate[0] %>
   <%= label_tag 'dams_assembled_collection[endDate]', "End Date" %><%= text_field_tag 'dams_assembled_collection[endDate][]', @dams_assembled_collection.endDate[0] %>
+  <%= label_tag 'dams_assembled_collection[dateType]', "Date Type" %><%= text_field_tag 'dams_assembled_collection[dateType][]', @dams_assembled_collection.dateType[0], class: "input-block-level" %>
+  <%= label_tag 'dams_assembled_collection[dateEncoding]', "Date Encoding" %><%= text_field_tag 'dams_assembled_collection[dateEncoding][]', @dams_assembled_collection.dateEncoding[0], class: "input-block-level" %>
   <%= label_tag 'dams_assembled_collection[scopeContentNoteValue]', "Scope Note" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteValue][]', @dams_assembled_collection.scopeContentNoteValue[0] %>
   <%= label_tag 'dams_assembled_collection[scopeContentNoteType]', "Scope Note Type" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteType][]', @dams_assembled_collection.scopeContentNoteType[0] %>
   <%= label_tag 'dams_assembled_collection[scopeContentNoteDisplayLabel]', "Scope Note DisplayLabel" %><%= text_field_tag 'dams_assembled_collection[scopeContentNoteDisplayLabel][]', @dams_assembled_collection.scopeContentNoteDisplayLabel[0] %>
+
 
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>

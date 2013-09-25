@@ -6,5 +6,10 @@ class DamsDate
     map.value(:in=> RDF)
     map.beginDate(:in=>DAMS)
     map.endDate(:in=>DAMS)
+    map.type(:in=>DAMS)
+    map.encoding(:in=>DAMS)
+  end
+  def persisted?
+    rdf_subject.kind_of? RDF::URI
   end
 end

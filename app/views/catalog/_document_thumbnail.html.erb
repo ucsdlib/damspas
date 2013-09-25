@@ -29,6 +29,7 @@
 	 # MAIN (Todo: Move this to helper file)
 
 	 resultClass = ''
+     colThumb = nil
 
 	 # SIMPLE OBJECT
    if document['files_tesim'] != nil
@@ -58,19 +59,28 @@
      end
 
   # COLLECTION
-   elsif document['type_tesim'] != nil
+   elsif is_collection?(document)
 
-     if document['type_tesim'].first == 'Collection'
-       resultClass = 'thumb-collection'
-       resultIcon = 'glyphicon-th'
+     # look for thumbnails in related resource
+     if document['related_resource_json_tesim'] != nil
+       document['related_resource_json_tesim'].each do |rel|
+         r = JSON.parse(rel)
+         colThumb = r['uri'] if r['type'] == 'thumbnail'
+       end
      end
-
+       
+     resultClass = 'thumb-collection'
+     resultIcon = 'glyphicon-th'
    end
 %>
 
 <% files = select_file( :document => document, :quality => 200 ) %>
-<% if files[:display] != nil %>
-	<%= image_tag file_path(document[:id], '_' + files[:display]['id']), :alt => '', :class => 'dams-search-thumbnail' %>
-<% else %>
+<%= link_to document, :class => 'dams-search-thumbnail-link' do %>
+  <% if files[:display] != nil %>
+    <%= image_tag file_path(document[:id], '_' + files[:display]['id']), :alt => '', :class => 'dams-search-thumbnail' %>
+  <% elsif colThumb != nil %>
+	<%= image_tag colThumb, :class => 'dams-search-thumbnail' %>
+  <% else %>
 	<div class="dams-search-thumbnail <%=resultClass%>"><i class="glyphicon <%=resultIcon%>"></i></div>
+  <% end %>
 <% end %>

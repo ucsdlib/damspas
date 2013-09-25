@@ -1,10 +1,15 @@
-<% if @document['relatedResource_1_uri_tesim'] != nil %>
-	<p class="sidebar-header"><strong>Related Resources</strong></p>
-	<%
-		related_resource_description = render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_description_tesim")
-		related_resource_uri = render_document_show_field_value(:document=>@document, :field=>"relatedResource_1_uri_tesim")
-	%>
-	<ul>
-		<li><%= link_to related_resource_description, related_resource_uri %></li>
-	</ul>
+<% if @document['related_resource_json_tesim'] != nil
+  @document['related_resource_json_tesim'].each do |txt|
+    rel = JSON.parse(txt)
+    if rel['type'] != 'thumbnail' %>
+	  <p class="sidebar-header"><strong>Related Resources</strong></p>
+      <%
+        related_resource_description = rel['description']
+        related_resource_uri = rel['uri']
+      %>
+      <ul>
+        <li><%= link_to related_resource_description, related_resource_uri %></li>
+	  </ul>
+    <% end %>
+  <% end %>
 <% end %>

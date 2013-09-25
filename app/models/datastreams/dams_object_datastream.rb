@@ -52,7 +52,7 @@ class DamsObjectDatastream < DamsResourceDatastream
     # rights
     map.copyright(:in=>DAMS,:class_name => 'DamsCopyrightInternal')
     map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
-    map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightsInternal')
+    map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightInternal')
     map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
     map.rightsHolderPersonal(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsPersonalNameInternal')
     map.rightsHolderCorporate(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsCorporateNameInternal')
@@ -220,7 +220,6 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
   
   def load_copyright ( copyright )
-    foo = copyright.to_s
 	if !copyright.first.nil?
 	    c_pid = copyright.first.pid
 	    if !copyright.first.status.first.nil? && copyright.first.status.to_s.length > 0
@@ -268,7 +267,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	    if !otherRights.first.uri.first.nil? && otherRights.first.uri.first.to_s.length > 0
 	      otherRights.first
 	    else
-	      DamsOtherRights.find( otherRights.first.pid )
+	      DamsOtherRight.find( otherRights.first.pid )
 	    end
 	end        
   end
@@ -370,7 +369,9 @@ class DamsObjectDatastream < DamsResourceDatastream
         :jurisdiction => copy.jurisdiction.first.to_s,
         :purposeNote => copy.purposeNote.first.to_s,
         :note => copy.note.first.to_s,
-        :beginDate => copy.beginDate.first.to_s }
+        :beginDate => copy.beginDate.first.to_s,
+        :endDate => copy.endDate.first.to_s,
+        :date => copy.dateValue.first.to_s }
       Solrizer.insert_field(solr_doc, "#{prefix}copyright", copy_json.to_json)
       Solrizer.insert_field(solr_doc, "fulltext", copy_json.to_json)
     end
@@ -458,6 +459,8 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
           
   def to_solr (solr_doc = {})
+	super(solr_doc)
+
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
     storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
@@ -565,6 +568,7 @@ class DamsObjectDatastream < DamsResourceDatastream
       col.each do |collection|
         begin
           Solrizer.insert_field(solr_doc, "collection", collection.title.first.name, facetable)
+          Solrizer.insert_field(solr_doc, "collection_name", collection.title.first.name)
           Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.name)
           Solrizer.insert_field(solr_doc, "collections", collection.pid)
           col_json = {
@@ -618,7 +622,16 @@ class DamsObjectDatastream < DamsResourceDatastream
 
     Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 
-	super
+    # hack to strip "+00:00" from end of dates, because that makes solr barf
+    ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
+      if solr_doc[f].kind_of?(Array)
+        solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+      elsif solr_doc[f] != nil
+        solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
+      end
+    }
+
+    solr_doc
   end  
   
 end

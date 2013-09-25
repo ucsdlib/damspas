@@ -1,0 +1,98 @@
+<%
+		htmlOpen = "<dt>%s</dt><dd>"
+		htmlClose = "</dd>"
+
+
+		if @document["citation_tesim"] != nil 
+		    htmlOpen %= 'Citation'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"citation_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+
+		htmlOpen = "<dt>%s</dt><dd>"
+		htmlClose = "</dd>"
+
+
+		if @document["jurisdiction_tesim"] != nil 
+		    htmlOpen %= 'Jurisdiction'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"jurisdiction_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+			
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["permissionType_tesim"] != nil 
+		    htmlOpen %= 'Permission Type'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"permissionType_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["permissionBeginDate_tesim"] != nil 
+		    htmlOpen %= 'Permission Begin Date'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"permissionBeginDate_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["permissionEndDate_tesim"] != nil 
+		    htmlOpen %= 'Permission End Date'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"permissionEndDate_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["restrictionType_tesim"] != nil 
+		    htmlOpen %= 'Restriction Type'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"restrictionType_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["restrictionBeginDate_tesim"] != nil 
+		    htmlOpen %= 'Restriction Begin Date'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"restrictionBeginDate_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end	
+		htmlOpen = "<dt>%s</dt><dd>"
+		if @document["restrictionEndDate_tesim"] != nil 
+		    htmlOpen %= 'Restriction End Date'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"restrictionEndDate_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end		
+%>		

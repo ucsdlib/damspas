@@ -1,10 +1,18 @@
 <h1>Edit DAMS Copyright</h1>
 <%= form_for @dams_copyright do |f| %>
-  <%= label_tag 'dams_copyright[status]', "Status" %><%= text_field_tag 'dams_copyright[status][]', @dams_copyright.status[0] %>
-  <%= label_tag 'dams_copyright[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_copyright[jurisdiction][]', @dams_copyright.jurisdiction[0] %>
-  <%= label_tag 'dams_copyright[purposeNote]', "Purpose Note" %><%= text_field_tag 'dams_copyright[purposeNote][]', @dams_copyright.purposeNote[0] %>
-  <%= label_tag 'dams_copyright[note]', "Note" %><%= text_field_tag 'dams_copyright[note][]', @dams_copyright.note[0] %>
-  <%= label_tag 'dams_copyright[beginDate]', "Begin Date" %><%= text_field_tag 'dams_copyright[beginDate][]', @dams_copyright.beginDate[0] %>
+  <%= label_tag 'dams_copyright[status]', "Status" %><%= text_field_tag 'dams_copyright[status][]', @dams_copyright.status[0], class: "input-block-level"  %>
+  <%= label_tag 'dams_copyright[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_copyright[jurisdiction][]', @dams_copyright.jurisdiction[0], class: "input-block-level"  %>
+  <%= label_tag 'dams_copyright[purposeNote]', "Purpose Note" %><%= text_field_tag 'dams_copyright[purposeNote][]', @dams_copyright.purposeNote[0], class: "input-block-level"  %>
+  <%= label_tag 'dams_copyright[note]', "Note" %><%= text_field_tag 'dams_copyright[note][]', @dams_copyright.note[0], class: "input-block-level"  %>
+  <%#= label_tag 'dams_copyright[beginDate]', "Begin Date" %><%#= text_field_tag 'dams_copyright[beginDate][]', @dams_copyright.beginDate[0], class: "input-block-level"  %>
+  <%= f.fields_for :date do |te| %>
+    <%= te.label :value, "Date" %>
+    <%= te.text_field :value, :value=>@dams_copyright.dateValue[0], class: "input-block-level" %>  
+    <%= te.label :beginDate, "Begin Date" %>
+    <%= te.text_field :beginDate, :value=>@dams_copyright.beginDate[0], class: "input-block-level" %>
+    <%= te.label :endDate, "End Date" %>
+    <%= te.text_field :endDate, :value=>@dams_copyright.endDate[0], class: "input-block-level" %>    
+  <% end %>
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_copyright_path( @dams_copyright ), class: "btn btn-primary" %>

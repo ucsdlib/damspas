@@ -257,8 +257,56 @@ def relatedResourceUri
   def titleNonSort=(s)
     title.build if title.first.nil?
     title.first.nonSort = s
-  end  
+  end
 
+  def titleVariant
+    title.first != nil ? title.first.variant : nil
+  end
+  def titleVariant=(s)
+    title.build if title.first.nil?
+    title.first.variant = s
+  end
+
+  def titleTransVariant
+    title.first != nil ? title.first.translationVariant : nil
+  end
+  def titleTransVariant=(s)
+    title.build if title.first.nil?
+    title.first.translationVariant = s
+  end 
+  
+  def titleTranslationVariant
+    title.first != nil ? title.first.translationVariant : nil
+  end
+  def titleTranslationVariant=(s)
+    title.build if title.first.nil?
+    title.first.translationVariant = s
+  end 
+  
+  def titleAbbreviationVariant
+    title.first != nil ? title.first.abbreviationVariant : nil
+  end
+  def titleAbbreviationVariant=(s)
+    title.build if title.first.nil?
+    title.first.abbreviationVariant = s
+  end 
+  
+  def titleAcronymVariant
+    title.first != nil ? title.first.acronymVariant : nil
+  end
+  def titleAcronymVariant=(s)
+    title.build if title.first.nil?
+    title.first.acronymVariant = s
+  end 
+
+  def titleExpansionVariant
+    title.first != nil ? title.first.expansionVariant : nil
+  end
+  def titleExpansionVariant=(s)
+    title.build if title.first.nil?
+    title.first.expansionVariant = s
+  end 
+                 
   ## Subject ######################################################################
   #complex subject
   def subjectValue
@@ -594,6 +642,21 @@ def relatedResourceUri
     end
   end     
 
+  def provenanceHasCollPartURI=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      @provenanceHasPartURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+  def provenanceHasCollPartURI
+    if @provenanceHasPartURI != nil
+      @provenanceHasPartURI
+    
+    end
+  end     
+
   ## Date ######################################################################
   def beginDate
     date[0] ? date[0].beginDate : []
@@ -633,7 +696,32 @@ def relatedResourceUri
     	date[0].value = val
     end
   end
+  
+  def dateType
+    date[0] ? date[0].type : []
+  end
+  def dateType=(val)
+    if val.class == Array
+      val = val.first
+    end  
+    if(!val.nil? && val.length > 0)
+      date.build if date[0] == nil
+      date[0].type = val
+    end
+  end
 
+  def dateEncoding
+    date[0] ? date[0].encoding : []
+  end
+  def dateEncoding=(val)
+    if val.class == Array
+      val = val.first
+    end  
+    if(!val.nil? && val.length > 0)
+      date.build if date[0] == nil
+      date[0].encoding = val
+    end
+  end
   
   
   def permissionBeginDate

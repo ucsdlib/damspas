@@ -36,7 +36,7 @@ class CatalogController < ApplicationController
 	
     config.default_solr_params = { 
       :qt => 'search',
-      :rows => 10,
+      :rows => 20,
       :qf => 'subject_tesim title_tesim date_tesim name_tesim id component_title_tesim',
     }
 	
@@ -60,7 +60,7 @@ class CatalogController < ApplicationController
 	end
 
     # solr field configuration for search results/index views
-    config.index.show_link = 'title_json_tesim'
+    config.index.show_link = 'title_tesim'
     config.index.record_display_type = 'has_model_sim'
 
     # solr field configuration for document/show views
@@ -187,14 +187,16 @@ class CatalogController < ApplicationController
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
-    config.add_sort_field 'score desc, system_create_dtsi desc, title_ssi asc', :label => "relevance \u25BC"
+    config.add_sort_field 'score desc, system_create_dtsi desc, title_ssi asc', :label => "relevance"
     #config.add_sort_field 'pub_date_ssi desc, title_ssi asc', :label => 'year'
-    config.add_sort_field 'system_create_dtsi desc', :label => "date uploaded \u25BC"
-    config.add_sort_field 'system_create_dtsi asc', :label => "date uploaded \u25B2"
-    config.add_sort_field 'system_modified_dtsi desc', :label => "date modified \u25BC"
-    config.add_sort_field 'system_modified_dtsi asc', :label => "date modified \u25B2"
+    #config.add_sort_field 'system_create_dtsi desc', :label => "date uploaded \u25BC"
+    #config.add_sort_field 'system_create_dtsi asc', :label => "date uploaded \u25B2"
+    #config.add_sort_field 'system_modified_dtsi desc', :label => "date modified \u25BC"
+    #config.add_sort_field 'system_modified_dtsi asc', :label => "date modified \u25B2"
     #config.add_sort_field 'author_ssi asc, title_ssi asc', :label => 'author'
     config.add_sort_field 'title_ssi asc', :label => 'title'
+    config.add_sort_field 'object_create_dtsi asc, title_ssi asc', :label => "date created \u25B2"
+    config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date created \u25BC"
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
@@ -202,7 +204,6 @@ class CatalogController < ApplicationController
   end
       # get search results from the solr index
     def index
-      
       extra_head_content << view_context.auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') )
       extra_head_content << view_context.auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') )
       
@@ -261,4 +262,20 @@ class CatalogController < ApplicationController
         format.atom { render :layout => false }
       end
     end
+  def collection_search
+    # limit search to collections, excluding unwanted/utility collections
+    fq = [ "type_tesim:Collection",
+           "-id:#{Rails.configuration.excluded_collections}"]
+
+    # if a unit is specified, use solr join to find collections related to
+    # objects in this unit
+    if params[:id]
+      fq << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
+    end
+
+    # solr search
+    extra = { :sort => "title_ssi asc", :fq => fq }
+    (@response, @document_list) = get_search_results params, extra
+  end
+
 end 
