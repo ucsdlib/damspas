@@ -2,25 +2,51 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
-  <%= text_field_tag 'dams_object[titleValue][]', '', required: true %>
-  <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
-  <%= text_field_tag 'dams_object[subtitle][]' %>  
-  <%= label_tag 'dams_object[titlePartName][]', "PartName" %>
-  <%= text_field_tag 'dams_object[titlePartName][]' %>  
-  <%= label_tag 'dams_object[titlePartNumber][]', "PartNumber" %>
-  <%= text_field_tag 'dams_object[titlePartNumber][]' %>    
-   <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
-  <%= text_field_tag 'dams_object[titleNonSort][]' %>  
-   <%= label_tag 'dams_object[titleVariant][]', "Has Variant" %>
-  <%= text_field_tag 'dams_object[titleVariant][]' %>  
+  <%#= text_field_tag 'dams_object[titleValue][]', '', required: false %>
+  <%#= label_tag 'dams_object[subtitle][]', "SubTitle" %>
+  <%#= text_field_tag 'dams_object[subtitle][]' %>  
+  <%#= label_tag 'dams_object[titlePartName][]', "PartName" %>
+  <%#= text_field_tag 'dams_object[titlePartName][]' %>  
+  <%#= label_tag 'dams_object[titlePartNumber][]', "PartNumber" %>
+  <%#= text_field_tag 'dams_object[titlePartNumber][]' %>    
+   <%#= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
+  <%#= text_field_tag 'dams_object[titleNonSort][]' %>  
+   <%#= label_tag 'dams_object[titleVariant][]', "Has Variant" %>
+  <%#= text_field_tag 'dams_object[titleVariant][]' %>  
+
+  <%= f.fields_for :title do |t| %>
+    <%= t.fields_for :mainTitleElement do |main| %>
+      <%= main.label :elementValue, "MainTitle" %>
+      <%= main.text_field :elementValue %>
+    <% end %>    
+    <%= t.fields_for :subTitleElement do |su| %>
+      <%= su.label :elementValue, "SubTitle" %>
+      <%= su.text_field :elementValue %>
+    <% end %>
+    <%= t.fields_for :partNameElement do |pname| %>
+      <%= pname.label :elementValue, "PartName" %>
+      <%= pname.text_field :elementValue %>
+    <% end %>
+    <%= t.fields_for :partNumberElement do |pnum| %>
+      <%= pnum.label :elementValue, "PartNumber" %>
+      <%= pnum.text_field :elementValue %>
+    <% end %>
+    <%= t.fields_for :nonSortElement do |nonSort| %>
+      <%= nonSort.label :elementValue, "NonSort" %>
+      <%= nonSort.text_field :elementValue %>
+    <% end %>                     
+  <% end %>
   
+
+
+    
   <%
   	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
   %>  
     
   <h3>Type Of Resource</h3>  
   <%#= text_field_tag 'dams_object[typeOfResource][]' %>
-  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %> 
+  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: false %> 
   <h3>Date</h3>   
   <%= text_field_tag 'dams_object[dateValue][]' %>
   <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
@@ -33,7 +59,7 @@
   <%= text_field_tag 'dams_object[dateEncoding][]' %>   
       
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: true%>
+  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: false%>
    
   <h3>Collection</h3>
   <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
@@ -43,7 +69,7 @@
   <%= select_tag 'dams_object[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part", :style => "width:250px" %>  
           
   <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: false %>
    
   <h3>Note</h3>
   <%= text_field_tag 'dams_object[noteValue][]' %> 
@@ -107,7 +133,7 @@
   <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_object[nameTypeValue][]' %>
     
   <h3>Rights</h3>
-  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: true %>
+  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: false %>
   <br>
   <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes) , :prompt=>"Select Statute" %>
   <br>

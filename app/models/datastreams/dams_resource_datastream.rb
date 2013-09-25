@@ -486,7 +486,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertTitleFields ( solr_doc, cid, titles )
     sort_title = ""
     titles.each do |t|
-      name = t.name || ""
+      if(t.name.class == ActiveFedora::RdfNode::TermProxy)
+      	name = t.name.first || ""
+      else
+      	name = t.name || ""
+      end
       external = t.externalAuthority || ""
 
       # walk through chain of title elements

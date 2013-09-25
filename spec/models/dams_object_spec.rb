@@ -67,6 +67,9 @@ describe DamsObject do
     	  name: "Sample Complex Object Record #1",
           mainTitleElement_attributes: [{ elementValue: "Sample Complex Object Record #1" }],
           subTitleElement_attributes: [{ elementValue: "a newspaper PDF with a single attached image" }],
+          nonSortElement_attributes: [{ elementValue: "nonSortValue" }],
+          partNumberElement_attributes: [{ elementValue: "partNumberValue" }],
+          partNameElement_attributes: [{ elementValue: "partNameValue" }],
           hasVariant_attributes: [{ variantLabel: "The Whale" }],
           hasTranslationVariant_attributes: [{ variantLabel: "Translation Variant" }],
           hasAbbreviationVariant_attributes: [{ variantLabel: "Abbreviation Variant" }],
@@ -330,7 +333,7 @@ describe DamsObject do
    <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
    <dams:title>
      <mads:Title>
-       <mads:authoritativeLabel>Sample Complex Object Record #1</mads:authoritativeLabel>
+       <mads:authoritativeLabel>Sample Complex Object Record #1: a newspaper PDF with a single attached image, nonSortValue, partNameValue, partNumberValue</mads:authoritativeLabel>
        <mads:elementList rdf:parseType="Collection">
          <mads:MainTitleElement>
            <mads:elementValue>Sample Complex Object Record #1</mads:elementValue>
@@ -338,6 +341,15 @@ describe DamsObject do
          <mads:SubTitleElement>
            <mads:elementValue>a newspaper PDF with a single attached image</mads:elementValue>
          </mads:SubTitleElement>
+         <mads:NonSortElement>
+           <mads:elementValue>nonSortValue</mads:elementValue>
+         </mads:NonSortElement>
+         <mads:PartNumberElement>
+           <mads:elementValue>partNumberValue</mads:elementValue>
+         </mads:PartNumberElement>
+         <mads:PartNameElement>
+           <mads:elementValue>partNameValue</mads:elementValue>
+         </mads:PartNameElement>         
        </mads:elementList>
 		<mads:hasAbbreviationVariant rdf:nodeID="#{bn_id_abb}"/>
 		<mads:hasAcronymVariant rdf:nodeID="#{bn_id_acro}"/>
