@@ -30,21 +30,66 @@ module Dams
         super
       end
 
+	  ### nonSort ####
+	   
       delegate :nonSortElement_attributes=, to: :elementList
       alias_method :nonSortElement, :elementList
 
+      def nonSortElement_with_update_name= (attributes)
+        self.nonSortElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :nonSortElement_without_update_name=, :nonSortElement_attributes=
+      alias_method :nonSortElement_attributes=, :nonSortElement_with_update_name=
+      
+      ### mainTitle ####
+       
       delegate :mainTitleElement_attributes=, to: :elementList
       alias_method :mainTitleElement, :elementList
       
+      def mainTitleElement_with_update_name= (attributes)
+        self.mainTitleElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :mainTitleElement_without_update_name=, :mainTitleElement_attributes=
+      alias_method :mainTitleElement_attributes=, :mainTitleElement_with_update_name=
+      
+      ### partName ####
+           
       delegate :partNameElement_attributes=, to: :elementList
       alias_method :partNameElement, :elementList
 
+      def partNameElement_with_update_name= (attributes)
+        self.partNameElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :partNameElement_without_update_name=, :partNameElement_attributes=
+      alias_method :partNameElement_attributes=, :partNameElement_with_update_name=
+      
+      ### partNumber ####
+      
       delegate :partNumberElement_attributes=, to: :elementList
       alias_method :partNumberElement, :elementList
 
+      def partNumberElement_with_update_name= (attributes)
+        self.partNumberElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :partNumberElement_without_update_name=, :partNumberElement_attributes=
+      alias_method :partNumberElement_attributes=, :partNumberElement_with_update_name=
+      
+      ### subTitle ####
+      
       delegate :subTitleElement_attributes=, to: :elementList
       alias_method :subTitleElement, :elementList
 
+      def subTitleElement_with_update_name= (attributes)
+        self.subTitleElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :subTitleElement_without_update_name=, :subTitleElement_attributes=
+      alias_method :subTitleElement_attributes=, :subTitleElement_with_update_name=
+      
 	  def authLabel
 	    main = value
 	    subt = subtitle
