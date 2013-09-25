@@ -17,24 +17,44 @@
   <%= f.fields_for :title do |t| %>
     <%= t.fields_for :mainTitleElement do |main| %>
       <%= main.label :elementValue, "MainTitle" %>
-      <%= main.text_field :elementValue %>
+      <%= main.text_field :elementValue, required: true  %>
     <% end %>    
-    <%= t.fields_for :subTitleElement do |su| %>
-      <%= su.label :elementValue, "SubTitle" %>
-      <%= su.text_field :elementValue %>
+    <%= t.fields_for :subTitleElement do |sub| %>
+      <%= sub.label :elementValue, "SubTitle" %>
+      <%= sub.text_field :elementValue %>
     <% end %>
-    <%= t.fields_for :partNameElement do |pname| %>
-      <%= pname.label :elementValue, "PartName" %>
-      <%= pname.text_field :elementValue %>
+    <%= t.fields_for :partNameElement do |pName| %>
+      <%= pName.label :elementValue, "PartName" %>
+      <%= pName.text_field :elementValue %>
     <% end %>
-    <%= t.fields_for :partNumberElement do |pnum| %>
-      <%= pnum.label :elementValue, "PartNumber" %>
-      <%= pnum.text_field :elementValue %>
+    <%= t.fields_for :partNumberElement do |pNum| %>
+      <%= pNum.label :elementValue, "PartNumber" %>
+      <%= pNum.text_field :elementValue %>
     <% end %>
     <%= t.fields_for :nonSortElement do |nonSort| %>
       <%= nonSort.label :elementValue, "NonSort" %>
       <%= nonSort.text_field :elementValue %>
-    <% end %>                     
+    <% end %>
+    <%= t.fields_for :hasVariant do |var| %>
+      <%= var.label :variantLabel, "Variant" %>
+      <%= var.text_field :variantLabel, :value => "" %>
+    <% end %>
+    <%= t.fields_for :hasTranslationVariant do |transVar| %>
+      <%= transVar.label :variantLabel, "Translation Variant" %>
+      <%= transVar.text_field :variantLabel, :value => "" %>
+    <% end %>
+    <%= t.fields_for :hasAbbreviationVariant do |abbreVar| %>
+      <%= abbreVar.label :variantLabel, "Abbreviation Variant" %>
+      <%= abbreVar.text_field :variantLabel, :value => "" %>
+    <% end %>
+    <%= t.fields_for :hasAcronymVariant do |acronymVar| %>
+      <%= acronymVar.label :variantLabel, "Acronym Variant" %>
+      <%= acronymVar.text_field :variantLabel, :value => "" %>
+    <% end %>
+    <%= t.fields_for :hasExpansionVariant do |expanVar| %>
+      <%= expanVar.label :variantLabel, "Expansion Variant" %>
+      <%= expanVar.text_field :variantLabel, :value => "" %>
+    <% end %>                                              
   <% end %>
   
 
