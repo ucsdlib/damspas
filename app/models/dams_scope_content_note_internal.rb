@@ -19,4 +19,7 @@ class DamsScopeContentNoteInternal
         DamsScopeContentNote.find(md[1])
       end
     end
+    def persisted?
+      rdf_subject.kind_of? RDF::URI
+    end    
 end
