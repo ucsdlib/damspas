@@ -72,7 +72,9 @@ class DamsObjectsController < ApplicationController
     @dams_object.title.first.hasAbbreviationVariant.build
     @dams_object.title.first.hasAcronymVariant.build
     @dams_object.title.first.hasExpansionVariant.build
-    
+    @dams_object.date.build
+    @dams_object.language.build
+     
   	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
   	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
@@ -177,6 +179,9 @@ class DamsObjectsController < ApplicationController
   
   def update
   	@dams_object.title.clear
+  	@dams_object.date.clear
+  	@dams_object.clear.build
+  	
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Successfully updated object" 	
