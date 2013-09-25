@@ -1,5 +1,20 @@
 <h1>Edit DAMS Assembled Collection</h1>
 <%= form_for @dams_assembled_collection do |f| %>
+
+<%
+     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
+  %>
+
+<h3>Visibility</h3>
+<%= select_tag 'dams_assembled_collection[visibility]', options_for_select(visibilityArray, :selected => @dams_assembled_collection.visibility), :prompt=>"Select visibility" %>
+
+
+<%
+     resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
+  %>   
+  <h3>Type Of Resource</h3>
+  <%= select_tag 'dams_assembled_collection[resource_type][]',  options_for_select(resourceTypeArray , :selected => @dams_assembled_collection.resource_type), :prompt=>"Select Type of resource", required: true %>
+  
   <%= label_tag 'dams_assembled_collection[titleValue]', "Title" %><%= text_field_tag 'dams_assembled_collection[titleValue][]', @dams_assembled_collection.titleValue[0] %>
   <%= label_tag 'dams_assembled_collection[dateValue]', "Date Value" %><%= text_field_tag 'dams_assembled_collection[dateValue][]', @dams_assembled_collection.dateValue[0] %>
   <%= label_tag 'dams_assembled_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_assembled_collection[beginDate][]', @dams_assembled_collection.beginDate[0] %>
