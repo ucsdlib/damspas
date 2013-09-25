@@ -9,6 +9,21 @@
   <%#= select_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %> 
   <br>--> 
 
+<%
+     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
+  %>  
+  
+<h3>Visibility</h3>
+  <%= select_tag 'dams_provenance_collection[visibility][]', options_for_select(visibilityArray) , :prompt=>"Select Visibility" %>
+
+<%
+     resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
+  %>  
+    
+  <h3>Type Of Resource</h3>  
+  
+  <%= select_tag 'dams_provenance_collection[resource_type][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %>
+
   <h3>Title</h3>
   <%= label_tag 'dams_provenance_collection[titleValue][]', "Title" %>
   <%= text_field_tag 'dams_provenance_collection[titleValue][]', '', required: true %>
@@ -102,6 +117,8 @@
   <%#= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
   <%#=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
   
+  
+
 
  <h3>Name</h3>
   <%= select_tag 'dams_provenance_collection[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#name','nameURI','Name');"%>
