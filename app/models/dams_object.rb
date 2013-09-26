@@ -9,6 +9,7 @@ class DamsObject < ActiveFedora::Base
     :builtWorkPlace_attributes,
     :builtWorkPlace,
     :cartographics_attributes,
+    :cartographics,
     :cartographicLine,
     :cartographicPoint,
     :cartographicPolygon,
