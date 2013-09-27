@@ -1,20 +1,19 @@
 require 'active_support/concern'
 
 module Dams
-  module DamsProvenanceCollection
+  module DamsProvenanceCollectionPart
     extend ActiveSupport::Concern
     
     included do
-      rdf_type DAMS.ProvenanceCollection
+       rdf_type DAMS.ProvenanceCollectionPart
+
        map_predicates do |map|
         map.title(:in => DAMS, :class_name => 'MadsTitle')
         map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
-        
         map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
         map.language(:in=>DAMS, :class_name => 'MadsLanguageInternal')
         map.visibility(:in=>DAMS)
         map.resource_type(:in=>DAMS, :to => 'typeOfResource')
-        
 
         # notes
         map.note(:in => DAMS, :to=>'note', :class_name => 'DamsNoteInternal')
@@ -23,7 +22,7 @@ module Dams
         map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
         # subjects
-        map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
+        map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
         map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
         map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
         map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
@@ -48,21 +47,18 @@ module Dams
         # related resources and events
         map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
         map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
-        
+
         # collections
         map.collection(:in => DAMS)
         map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
         map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
         map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
 
-        # child parts
-        map.part_node(:in=>DAMS,:to=>'hasPart')
-
         # related collections
         map.relatedCollection(:in => DAMS)
 
         # related objects
-        map.object(:in => DAMS, :to => 'hasObject', :class_name => 'DamsObject')
+        map.object(:in => DAMS, :to => 'hasObject')
       end
 
       accepts_nested_attributes_for :title, :date, :relationship, :language, :visibility, :resource_type,
@@ -70,104 +66,76 @@ module Dams
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node
+                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart
 
       rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
-      def load_part
-         if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
-          part_node.first
-         else
-          part_uri = part_node.first.to_s
-          part_pid = part_uri.gsub(/.*\//,'')
-          if part_pid != nil && part_pid != ""
-            DamsProvenanceCollectionPart.find(part_pid)
-          end
-        end
-      end
-       
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
-        
-        if(!@langURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.language, @langURI])
-          else
-            graph.update([rdf_subject, DAMS.language, @langURI])
-          end
-        end   
-        if(!@damsObjURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.object, @damsObjURI])
-          else
-            graph.update([rdf_subject, DAMS.object, @damsObjURI])
-          end
-        end  
-        if(!@provenanceHasPartURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.part_node, @provenanceHasPartURI])
-          else
-            graph.update([rdf_subject, DAMS.part_node, @provenanceHasPartURI])
-          end
-        end 
-        if(!@provenanceCollPartURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
-          else
-            graph.update([rdf_subject, DAMS.provenanceCollectionPart, @provenanceCollPartURI])
-          end
-        end 
-        insertSubjectsGraph 
-        insertNameGraph   
-        super
-      end
-
-      def insertSubjectsGraph
-        if(!@subURI.nil?)
-          if new?
-            @array_subject.each do |sub|
-              graph.insert([rdf_subject, DAMS.subject, sub])
+          graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollectionPart]) if new?
+          if(!@langURI.nil?)
+            if new?
+              graph.insert([rdf_subject, DAMS.language, @langURI])
+            else
+              graph.update([rdf_subject, DAMS.language, @langURI])
             end
-            #graph.insert([rdf_subject, DAMS.subject, @subURI])
-          else
-            graph.update([rdf_subject, DAMS.subject, @subURI])
-          end
-        end    
+          end   
+          if(!@damsObjURI.nil?)
+            if new?
+              graph.insert([rdf_subject, DAMS.object, @damsObjURI])
+            else
+              graph.update([rdf_subject, DAMS.object, @damsObjURI])
+            end
+          end  
+          if(!@provenanceCollURI.nil?)
+            if new?
+              graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+            else
+              graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+            end
+          end  
+          insertSubjectsGraph 
+          insertNameGraph 
+          super
+       end
+  
+       def insertSubjectsGraph
+          if(!@subURI.nil?)
+            if new?
+              @array_subject.each do |sub|
+                graph.insert([rdf_subject, DAMS.subject, sub])
+              end
+              #graph.insert([rdf_subject, DAMS.subject, @subURI])
+            else
+              graph.update([rdf_subject, DAMS.subject, @subURI])
+            end
+          end    
         if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
-          if new?
-            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-          else
-            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-          end
-        end     
-      end
- 
-      def insertNameGraph  
-      if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
-          if new?
-            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
-          else
-            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
-          end
-        end     
-      end  
-
-      def to_solr (solr_doc = {})
-        Solrizer.insert_field(solr_doc, 'type', 'Collection')
-        Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
-        Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
-        Solrizer.insert_field(solr_doc, 'visibility', visibility)
-        
-        part = load_part 
-        if part != nil && part.class == DamsProvenanceCollectionPart
-          Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
-          Solrizer.insert_field(solr_doc, 'part_id', part.pid)
-          pj = { :id => part.pid, :name => part.title.first.value }
-          Solrizer.insert_field(solr_doc, 'part_json', pj.to_json)
+            if new?
+              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+            else
+              graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
+            end
+          end     
         end
 
+       def insertNameGraph  
+        if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
+            if new?
+              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+            else
+              graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
+            end
+          end     
+        end  
+
+        def to_solr (solr_doc = {})
+          Solrizer.insert_field(solr_doc, 'type', 'Collection')   
+          Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollectionPart')
+          Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
+          Solrizer.insert_field(solr_doc, 'visibility', visibility)
         super
-     end             
-    end  
+        end
+
+   end  
   end
 end
