@@ -69,16 +69,15 @@
   <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
   <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
 
-  <div id="simpleSubjects">
-	<%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f}%>
-  </div>
+  <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f}%>
     
   <h3>Name</h3>
   <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
   <div id="name"></div>
   
   <!-- OR Enter Name<%#=text_field_tag 'dams_object[nameTypeValue][]' %> -->
-    
+  <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f}%>
+      
   <h3>Rights</h3>
   <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: false %>
   <br>
