@@ -79,20 +79,21 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 #
 #    visit current_path
 
-    fill_in "dams_object_titleValue_", :with => "Dams Test Object"
+    #fill_in "dams_object_titleValue_", :with => "Dams Test Object"
+    fill_in "MainTitle", :with => "Dams Test Object"
     fill_in "SubTitle", :with => "New Object"
     fill_in "PartName", :with => "ep1"
     fill_in "PartNumber", :with => "999"
     fill_in "NonSort", :with => "this"
     page.select('Research Data Curation Program', match: :first) 
     page.select('UCSD Electronic Theses and Dissertations', match: :first) 
-    fill_in "dams_object_dateValue_", :with => "07/15/2013"
+    fill_in "dams_object_date_attributes_0_value", :with => "07/15/2013"
     fill_in "Begin Date", :with => "07/11/2013"
     fill_in "End Date", :with => "07/15/2013"
 	fill_in "Date Type", :with => "Testdatetype"
 	fill_in "Date Encoding", :with => "TestDateEncoding"    
     page.select('text', match: :first)
-    fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
+    #fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
