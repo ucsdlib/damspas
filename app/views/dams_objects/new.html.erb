@@ -136,21 +136,27 @@
        
   <h3>Complex Subject</h3>
   <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
-  OR Enter new subject <%=text_field_tag 'dams_object[subjectValue][]' %>
+  OR Enter new subject <%#=text_field_tag 'dams_object[subjectValue][]' %>
   <%#= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
   <%#=text_field_tag 'dams_object[subjectValue][]' %>
+      
+  <%= f.fields_for :complexSubject do |comSubject| %>
+    <%= comSubject.text_field :name , :value => ""%>          
+  <% end %>       
        
   <h3>Simple Subject</h3>
   <%
   	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
-  <%#= label_tag 'dams_object[subjectType][]', "Simple Subject" %>
-  <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
-  <%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
 
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <div id="simpleSubject"></div> <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
+
+  <div id="simpleSubjects">
+	<%= render :partial => 'simple_subjects' , :locals => {:f => f}%>
+  </div>
+    
   <h3>Name</h3>
   <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
   <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_object[nameTypeValue][]' %>
@@ -205,7 +211,9 @@
    	 <%= cart.label :polygon, "Polygon" %>
      <%= cart.text_field :polygon , :value => ""%>
    	 <%= cart.label :projection, "Projection" %>
-     <%= cart.text_field :projection , :value => ""%>  
+     <%= cart.text_field :projection , :value => ""%>
+   	 <%= cart.label :referenceSystem, "ReferenceSystem" %>
+     <%= cart.text_field :referenceSystem , :value => ""%>       
    	 <%= cart.label :scale, "Scale" %>
      <%= cart.text_field :scale , :value => ""%>                                 
    <% end %>   
