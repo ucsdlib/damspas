@@ -90,7 +90,7 @@ class GetDataController < ApplicationController
 	end
 	@formType = params[:formType]
 	@fieldName = params[:fieldName]
-	@label = params[:label]
+	@label = params[:q]
 	render :layout => false
   end    
   def show

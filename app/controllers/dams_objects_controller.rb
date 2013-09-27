@@ -80,6 +80,19 @@ class DamsObjectsController < ApplicationController
     @dams_object.preferredCitationNote.build
     @dams_object.relatedResource.build
     @dams_object.cartographics.build
+    @dams_object.complexSubject.build
+    @dams_object.builtWorkPlace.build
+    @dams_object.culturalContext.build
+    @dams_object.function.build    
+    @dams_object.genreForm.build
+    @dams_object.geographic.build
+    @dams_object.iconography.build    
+    @dams_object.occupation.build
+    @dams_object.scientificName.build
+    @dams_object.stylePeriod.build    
+    @dams_object.technique.build   
+    @dams_object.topic.build    
+    @dams_object.temporal.build 
          
   	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
   	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
@@ -173,7 +186,7 @@ class DamsObjectsController < ApplicationController
 	end   	 	 
   end
   
-  def create
+  def create 	    
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Object has been saved"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
@@ -193,6 +206,19 @@ class DamsObjectsController < ApplicationController
     @dams_object.preferredCitationNote.clear
     @dams_object.relatedResource.clear
     @dams_object.cartographics.clear
+    @dams_object.complexSubject.clear
+    @dams_object.builtWorkPlace.clear
+    @dams_object.culturalContext.clear
+    @dams_object.function.clear    
+    @dams_object.genreForm.clear
+    @dams_object.geographic.clear
+    @dams_object.iconography.clear    
+    @dams_object.occupation.clear
+    @dams_object.scientificName.clear
+    @dams_object.stylePeriod.clear    
+    @dams_object.technique.clear   
+    @dams_object.topic.clear
+    @dams_object.temporal.clear
       	
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save

@@ -10,27 +10,27 @@
 	end
 
 	fieldData = @document["#{prefix}cartographics_json_tesim"]
-	validOverlays = Set.new ['point','line','polygon','projection','scale']
+	validOverlays = Set.new ['point','line','polygon','projection','referenceSystem','scale']
 
 	if fieldData != nil
-
-		htmlOpen %= 'Cartographics'
-		concat htmlOpen.html_safe
-
 		cartographics = JSON.parse(fieldData.first)
-		cartographics.each do |key,value|
 
-			if validOverlays.include? key
-				if value.any?
-					dataForMap = "{\"type\":\"#{key}\",\"coords\":\"#{value.first}\"}"
-					concat "<p><strong>#{key.upcase}</strong></p><p>#{value.first}</p>".html_safe
-					concat "<div id='map-canvas' data='#{dataForMap}'/>".html_safe
+  		if (cartographics.first[1][0].length > 0)
+			htmlOpen %= 'Cartographics'
+			concat htmlOpen.html_safe
+				
+			cartographics.each do |key,value|
+	
+				if validOverlays.include? key
+					if value.any?
+						dataForMap = "{\"type\":\"#{key}\",\"coords\":\"#{value.first}\"}"
+						concat "<p><strong>#{key.upcase}</strong></p><p>#{value.first}</p>".html_safe
+						concat "<div id='map-canvas' data='#{dataForMap}'/>".html_safe
+					end
 				end
 			end
 		end
-
 		concat htmlClose.html_safe
 
 	end
 %>
-

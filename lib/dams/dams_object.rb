@@ -74,7 +74,7 @@ module Dams
 	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
 	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderCorporate, :rightsHolderPersonal,
-	    							:cartographics
+	    							:cartographics, :allow_destroy => true
 	  rdf_subject { |ds|
 	    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
 	  }
