@@ -150,7 +150,9 @@
   %>
 
   <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <div id="simpleSubject"></div>
+  
+  <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
   <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
 
   <div id="simpleSubjects">
@@ -159,7 +161,9 @@
     
   <h3>Name</h3>
   <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
-  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_object[nameTypeValue][]' %>
+  <div id="name"></div>
+  
+  <!-- OR Enter Name<%#=text_field_tag 'dams_object[nameTypeValue][]' %> -->
     
   <h3>Rights</h3>
   <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: false %>
