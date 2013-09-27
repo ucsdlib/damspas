@@ -25,7 +25,7 @@ function getSubjects(type,q,location,fieldName,label)
 	  }
    }
 
-  if( label == 'Name') {
+  if( label == 'Name' && fieldName == 'nameURI') {
 	  $('#names').show();
 	  
 	  var namesArray =new Array("Name","PersonalName","CorporateName","ConferenceName","FamilyName");
