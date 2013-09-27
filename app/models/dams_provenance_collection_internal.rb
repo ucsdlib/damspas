@@ -4,13 +4,7 @@ class DamsProvenanceCollectionInternal
     include DamsHelper
     include Dams::DamsProvenanceCollection
 
-   
-  
-  def pid
+   def pid
       rdf_subject.to_s.gsub(/.*\//,'') 
-  end
-  
-
-  
-
+   end
 end
