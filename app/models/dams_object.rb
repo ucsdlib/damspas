@@ -123,7 +123,7 @@ class DamsObject < ActiveFedora::Base
     :subjectURI,
     :subjectValue,
     :subtitle,
-    :techniuqe_attributes,
+    :technique_attributes,
     :technique,
     :temporal_attributes,
     :temporal,
