@@ -1,0 +1,16 @@
+   <h3>Cartographic</h3>
+
+   <%= f.fields_for :cartographics do |cart| %>
+   	 <%= cart.label :point, "Point" %>
+     <%= cart.text_field :point , :value => ""%>    
+   	 <%= cart.label :line, "Line" %>
+     <%= cart.text_field :line , :value => ""%>
+   	 <%= cart.label :polygon, "Polygon" %>
+     <%= cart.text_field :polygon , :value => ""%>
+   	 <%= cart.label :projection, "Projection" %>
+     <%= cart.text_field :projection , :value => ""%>
+   	 <%= cart.label :referenceSystem, "ReferenceSystem" %>
+     <%= cart.text_field :referenceSystem , :value => ""%>       
+   	 <%= cart.label :scale, "Scale" %>
+     <%= cart.text_field :scale , :value => ""%>                                 
+   <% end %>
