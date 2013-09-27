@@ -2,49 +2,8 @@
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
-  <%= f.fields_for :title do |t| %>
-    <%= t.fields_for :mainTitleElement do |main| %>
-      <%= main.label :elementValue, "MainTitle" %>
-      <%= main.text_field :elementValue, required: true  %>
-    <% end %>    
-    <%= t.fields_for :subTitleElement do |sub| %>
-      <%= sub.label :elementValue, "SubTitle" %>
-      <%= sub.text_field :elementValue %>
-    <% end %>
-    <%= t.fields_for :partNameElement do |pName| %>
-      <%= pName.label :elementValue, "PartName" %>
-      <%= pName.text_field :elementValue %>
-    <% end %>
-    <%= t.fields_for :partNumberElement do |pNum| %>
-      <%= pNum.label :elementValue, "PartNumber" %>
-      <%= pNum.text_field :elementValue %>
-    <% end %>
-    <%= t.fields_for :nonSortElement do |nonSort| %>
-      <%= nonSort.label :elementValue, "NonSort" %>
-      <%= nonSort.text_field :elementValue %>
-    <% end %>
-    <%= t.fields_for :hasVariant do |var| %>
-      <%= var.label :variantLabel, "Variant" %>
-      <%= var.text_field :variantLabel, :value => "" %>
-    <% end %>
-    <%= t.fields_for :hasTranslationVariant do |transVar| %>
-      <%= transVar.label :variantLabel, "Translation Variant" %>
-      <%= transVar.text_field :variantLabel, :value => "" %>
-    <% end %>
-    <%= t.fields_for :hasAbbreviationVariant do |abbreVar| %>
-      <%= abbreVar.label :variantLabel, "Abbreviation Variant" %>
-      <%= abbreVar.text_field :variantLabel, :value => "" %>
-    <% end %>
-    <%= t.fields_for :hasAcronymVariant do |acronymVar| %>
-      <%= acronymVar.label :variantLabel, "Acronym Variant" %>
-      <%= acronymVar.text_field :variantLabel, :value => "" %>
-    <% end %>
-    <%= t.fields_for :hasExpansionVariant do |expanVar| %>
-      <%= expanVar.label :variantLabel, "Expansion Variant" %>
-      <%= expanVar.text_field :variantLabel, :value => "" %>
-    <% end %>                                              
-  <% end %>
-     
+  <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
+       
   <%
   	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
   %>  
@@ -52,20 +11,9 @@
   <h3>Type Of Resource</h3>  
   <%#= text_field_tag 'dams_object[typeOfResource][]' %>
   <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: false %> 
-  
-  <h3>Date</h3>
-  <%= f.fields_for :date do |te| %>
-    <%= te.text_field :value , :value => ""%>    
-    <%= te.label :beginDate, "Begin Date" %>
-    <%= te.text_field :beginDate, :value => ""%>
-    <%= te.label :endDate, "End Date" %>
-    <%= te.text_field :endDate, :value => ""%>
-    <%= te.label :type, "Date Type" %>
-    <%= te.text_field :type, :value => ""%>  
-    <%= te.label :encoding, "Date Encoding" %>
-    <%= te.text_field :encoding, :value => ""%>            
-  <% end %>
-        
+
+  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
+          
   <h3>Unit</h3>
   <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: false%>
    
@@ -85,42 +33,8 @@
     <%#= lang.label :code, "Code" %>
     <%#= lang.text_field :code, :value => ""%>            
   <%# end %>
-    
-  <h3>Note</h3>
-  <%= f.fields_for :note do |no| %>
-    <%= no.text_field :value , :value => ""%>    
-    <%= no.label :type, "Note Type" %>
-    <%= no.text_field :type, :value => ""%>
-    <%= no.label :displayLabel, "Note Display label" %>
-    <%= no.text_field :displayLabel, :value => ""%>                
-  <% end %>
-  
-  <h3>Scope Content Note</h3>
-  <%= f.fields_for :scopeContentNote do |scopeNote| %>
-    <%= scopeNote.text_field :value , :value => ""%>    
-    <%= scopeNote.label :type, "Scope Content Note Type" %>
-    <%= scopeNote.text_field :type, :value => ""%>
-    <%= scopeNote.label :displayLabel, "Scope Content Note Display Label" %>
-    <%= scopeNote.text_field :displayLabel, :value => ""%>                
-  <% end %>
-  
-  <h3>Custodial Responsibility Note</h3>
-  <%= f.fields_for :custodialResponsibilityNote do |custNote| %>
-    <%= custNote.text_field :value , :value => ""%>    
-    <%= custNote.label :type, "Custodial Responsibility Note Type" %>
-    <%= custNote.text_field :type, :value => ""%>
-    <%= custNote.label :displayLabel, "Custodial Responsibility Note Display Label" %>
-    <%= custNote.text_field :displayLabel, :value => ""%>                
-  <% end %>
-  
-  <h3>Preferred Citation Note</h3>
-  <%= f.fields_for :preferredCitationNote do |preNote| %>
-    <%= preNote.text_field :value , :value => ""%>    
-    <%= preNote.label :type, "Preferred Citation Note Type" %>
-    <%= preNote.text_field :type, :value => ""%>
-    <%= preNote.label :displayLabel, "Preferred Citation Note Display Label" %>
-    <%= preNote.text_field :displayLabel, :value => ""%>                
-  <% end %>
+
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
       
   <h3>Relationship</h3>
   <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
@@ -156,7 +70,7 @@
   <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
 
   <div id="simpleSubjects">
-	<%= render :partial => 'simple_subjects' , :locals => {:f => f}%>
+	<%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f}%>
   </div>
     
   <h3>Name</h3>
@@ -175,52 +89,9 @@
   <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses) , :prompt=>"Select License" %>
   <br>
   <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %>
-   
-  <h3>Related Resource</h3>
-  <%#= label_tag 'dams_object[relatedResourceType][]', "Type" %>
-  <%#= text_field_tag 'dams_object[relatedResourceType][]' %>
-   <%#= label_tag 'dams_object[relatedResourceUri][]', "URI" %>
-  <%#= text_field_tag 'dams_object[relatedResourceUri][]' %>
-   <%#= label_tag 'dams_object[relatedResourceDescription][]', "Description" %>
-   <%#= text_field_tag 'dams_object[relatedResourceDescription][]' %>
-   
-   <%= f.fields_for :relatedResource do |relResource| %>
-   	 <%= relResource.label :type, "Type" %>
-     <%= relResource.text_field :type , :value => ""%>    
-     <%= relResource.label :uri, "URI" %>
-     <%= relResource.text_field :uri, :value => ""%>
-     <%= relResource.label :description, "Description" %>
-     <%= relResource.text_field :description, :value => ""%>                
-   <% end %>
-      
-   <h3>Cartographic</h3>
-   <%#= label_tag 'dams_object[cartographicPoint][]', "Point" %>
-   <%#= text_field_tag 'dams_object[cartographicPoint][]' %>
-   <%#= label_tag 'dams_object[cartographicLine][]', "Line" %>
-   <%#= text_field_tag 'dams_object[cartographicLine][]' %>
-   <%#= label_tag 'dams_object[cartographicPolygon][]', "Polygon" %>
-   <%#= text_field_tag 'dams_object[cartographicPolygon][]' %>
-   <%#= label_tag 'dams_object[cartographicProjection][]', "Projection" %>
-   <%#= text_field_tag 'dams_object[cartographicProjection][]' %>
-   <%#= label_tag 'dams_object[cartographicRefSystem][]', "ReferenceSystem" %>
-   <%#= text_field_tag 'dams_object[cartographicRefSystem][]' %>
-   <%#= label_tag 'dams_object[cartographicScale][]', "Scale" %>
-   <%#= text_field_tag 'dams_object[cartographicScale][]'%> 
 
-   <%= f.fields_for :cartographics do |cart| %>
-   	 <%= cart.label :point, "Point" %>
-     <%= cart.text_field :point , :value => ""%>    
-   	 <%= cart.label :line, "Line" %>
-     <%= cart.text_field :line , :value => ""%>
-   	 <%= cart.label :polygon, "Polygon" %>
-     <%= cart.text_field :polygon , :value => ""%>
-   	 <%= cart.label :projection, "Projection" %>
-     <%= cart.text_field :projection , :value => ""%>
-   	 <%= cart.label :referenceSystem, "ReferenceSystem" %>
-     <%= cart.text_field :referenceSystem , :value => ""%>       
-   	 <%= cart.label :scale, "Scale" %>
-     <%= cart.text_field :scale , :value => ""%>                                 
-   <% end %>   
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f}%>  
               
 	<br>
   <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->

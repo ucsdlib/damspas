@@ -1,0 +1,9 @@
+  <h3>Related Resource</h3>
+   <%= f.fields_for :relatedResource do |relResource| %>
+   	 <%= relResource.label :type, "Type" %>
+     <%= relResource.text_field :type , :value => ""%>    
+     <%= relResource.label :uri, "URI" %>
+     <%= relResource.text_field :uri, :value => ""%>
+     <%= relResource.label :description, "Description" %>
+     <%= relResource.text_field :description, :value => ""%>                
+   <% end %>
