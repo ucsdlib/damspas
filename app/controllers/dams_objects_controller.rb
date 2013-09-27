@@ -92,8 +92,13 @@ class DamsObjectsController < ApplicationController
     @dams_object.stylePeriod.build    
     @dams_object.technique.build   
     @dams_object.topic.build    
-    @dams_object.temporal.build 
-         
+    @dams_object.temporal.build     
+	@dams_object.name.build
+    @dams_object.personalName.build    
+    @dams_object.corporateName.build   
+    @dams_object.conferenceName.build    
+    @dams_object.familyName.build
+             
   	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
   	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
@@ -219,7 +224,12 @@ class DamsObjectsController < ApplicationController
     @dams_object.technique.clear   
     @dams_object.topic.clear
     @dams_object.temporal.clear
-      	
+	@dams_object.name.clear
+    @dams_object.personalName.clear    
+    @dams_object.corporateName.clear   
+    @dams_object.conferenceName.clear    
+    @dams_object.familyName.clear
+          	
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Successfully updated object" 	
