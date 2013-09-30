@@ -6,6 +6,7 @@ module Dams
     
     included do
        rdf_type DAMS.ProvenanceCollectionPart
+       rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
        map_predicates do |map|
         map.title(:in => DAMS, :class_name => 'MadsTitle')
@@ -68,7 +69,7 @@ module Dams
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
                     :assembledCollection, :provenanceCollection, :provenanceCollectionPart
 
-      rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+      
 
       def serialize
           graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollectionPart]) if new?
