@@ -74,6 +74,10 @@ module Dams
 
       rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
+      def pid
+      rdf_subject.to_s.gsub(/.*\//,'') 
+   end
+
       def load_part
          if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
           part_node.first
