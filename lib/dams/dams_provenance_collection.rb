@@ -6,6 +6,8 @@ module Dams
     
     included do
       rdf_type DAMS.ProvenanceCollection
+      rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+
        map_predicates do |map|
         map.title(:in => DAMS, :class_name => 'MadsTitle')
         map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
@@ -70,27 +72,9 @@ module Dams
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node
+                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node    
 
-      rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
-
-      def pid
-      rdf_subject.to_s.gsub(/.*\//,'') 
-   end
-
-      def load_part
-         if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
-          part_node.first
-         else
-          part_uri = part_node.first.to_s
-          part_pid = part_uri.gsub(/.*\//,'')
-          if part_pid != nil && part_pid != ""
-            DamsProvenanceCollectionPart.find(part_pid)
-          end
-        end
-      end
-       
-      def serialize
+     def serialize
         graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
         
         if(!@langURI.nil?)
@@ -156,22 +140,6 @@ module Dams
         end     
       end  
 
-      def to_solr (solr_doc = {})
-        Solrizer.insert_field(solr_doc, 'type', 'Collection')
-        Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
-        Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
-        Solrizer.insert_field(solr_doc, 'visibility', visibility)
-        
-        part = load_part 
-        if part != nil && part.class == DamsProvenanceCollectionPart
-          Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
-          Solrizer.insert_field(solr_doc, 'part_id', part.pid)
-          pj = { :id => part.pid, :name => part.title.first.value }
-          Solrizer.insert_field(solr_doc, 'part_json', pj.to_json)
-        end
-
-        super
-     end             
     end  
   end
 end

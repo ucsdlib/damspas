@@ -117,6 +117,6 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
     Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollectionPart')
     Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
     Solrizer.insert_field(solr_doc, 'visibility', visibility)
-	super
+  super
   end
 end
