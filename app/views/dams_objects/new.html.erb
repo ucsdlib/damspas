@@ -1,90 +1,6 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
-<script>
-$(document).ready(function() {
-  $('.new_dams_object').submit(function() {
-    alert("hey");
-    if($("#dams_object_assembledCollection_attributes_0_id").val().length < 1)
-    {
-      $("#dams_object_assembledCollection_attributes_0_id").remove();
-    }
-    
-    if($("#dams_object_provenanceCollection_attributes_0_id").val().length < 1)
-    {
-      $("#dams_object_provenanceCollection_attributes_0_id").remove();
-    }
-    
-    if($("#dams_object_provenanceCollectionPart_attributes_0_id").val().length < 1)
-    {
-      $("#dams_object_provenanceCollectionPart_attributes_0_id").remove();
-    }
-
-    if($("#dams_object_complexSubject_attributes_0_id").val().length < 1)
-    {
-      $("#dams_object_complexSubject_attributes_0_id").remove();
-    }
-
-    if($("#dams_object_statute_attributes_0_id").val().length < 1)
-    {
-      $("#dams_object_statute_attributes_0_id").remove();
-    }
-    
-    if($("#dams_object_license_attributes_0_id").val().length < 1)
-    {
-      $("#dams_object_license_attributes_0_id").remove();
-    }
-
-    var subjectsArray =new Array("BuiltWorkPlace","CulturalContext","Function","GenreForm","Geographic","Iconography","Occupation","ScientificName","StylePeriod","Technique","Temporal","Topic","Name","PersonalName","CorporateName","ConferenceName","FamilyName");
-    var fieldId = "";
-    for (var i in subjectsArray) {
-      fieldId = "#dams_object_"+subjectsArray[i].charAt(0).toLowerCase()+subjectsArray[i].slice(1)+"_attributes_0_name";
-  	  if($(fieldId).val().length < 1) {
-	      $("#"+subjectsArray[i]).remove();
-	  } 	  
-    }  
-                           
-    if($("#dams_object_date_attributes_0_value").val().length < 1)
-    {
-      $("#dateSection").remove();
-    }
-    
-    if($("#dams_object_note_attributes_0_value").val().length < 1)
-    {
-      $("#noteSection").remove();
-    }
-
-    if($("#dams_object_scopeContentNote_attributes_0_value").val().length < 1)
-    {
-      $("#scopeNoteSection").remove();
-    }
-    
-    if($("#dams_object_custodialResponsibilityNote_attributes_0_value").val().length < 1)
-    {
-      $("#custodialNoteSection").remove();
-    }
-    
-    if($("#dams_object_preferredCitationNote_attributes_0_value").val().length < 1)
-    {
-      $("#preferredNoteSection").remove();
-    }    
-
-    if($("#dams_object_relatedResource_attributes_0_description").val().length < 1 && $("#dams_object_relatedResource_attributes_0_type").val().length < 1 )
-    {
-      $("#relatedResourceSection").remove();
-    }
-    
-    if($("#dams_object_cartographics_attributes_0_point").val().length < 1 && $("#dams_object_cartographics_attributes_0_line").val().length < 1)
-    {
-      $("#cartographicsSection").remove();
-    }   
-    
-    return true;            
-  });
-});
-</script>
-
-
 <h1>Create a new Dams Object</h1>
-<%= form_for @dams_object do |f| %>
+<%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
   <h3>Title</h3>
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
        
@@ -93,13 +9,13 @@ $(document).ready(function() {
   %>  
     
   <h3>Type Of Resource</h3>  
-  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: false %> 
+  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %> 
 
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
           
   <h3>Unit</h3>
   <%= f.fields_for :unit do |un| %>
-    <%= un.select :id, options_for_select(@dams_units) , :prompt=>"Select Unit", required: true %>
+    <%= un.select :id, options_for_select(@dams_units) , :prompt=>"Select Unit", :required => "true" %>
   <% end %>
      
   <h3>Collection</h3>
@@ -117,7 +33,7 @@ $(document).ready(function() {
             
   <h3>Language</h3>  
   <%= f.fields_for :language do |lang| %>
-    <%= lang.select :id, options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %>
+    <%= lang.select :id, options_for_select(@mads_languages) , :prompt=>"Select Language", :required => "required"%>
   <% end %>
   
   <%#= f.fields_for :language do |lang| %>
@@ -186,8 +102,16 @@ $(document).ready(function() {
     <%= lic.select :id, options_for_select(@dams_licenses) , :prompt=>"Select License"%>
   <% end %>  
   <br>
-  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %>
+  <%#= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %>
 
+  <%= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
+    <%= rightsPersonal.select :id, options_for_select(@dams_rightsHolders) , :prompt=>"Select Personal RightsHolder"%>
+  <% end %>  
+
+  <%#= f.fields_for :rightsHolderCorporate do |rightsCorp| %>
+    <%#= rightsCorp.select :id, options_for_select(@dams_rightsHolders_corporate) , :prompt=>"Select Corporate RightsHolder"%>
+  <%# end %>
+    
   <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
   <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f}%>  
               

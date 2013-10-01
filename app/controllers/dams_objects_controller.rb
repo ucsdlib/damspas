@@ -105,7 +105,10 @@ class DamsObjectsController < ApplicationController
     @dams_object.copyright.build
     @dams_object.license.build    
     @dams_object.statute.build
+    @dams_object.rightsHolderPersonal.build
+    #@dams_object.rightsHolderCorporate.build
     #@dams_object.otherRights.build
+    @dams_object.relationship.build
                     
   	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
   	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
@@ -118,17 +121,18 @@ class DamsObjectsController < ApplicationController
   	@dams_other_rights = get_objects('DamsOtherRight','basis_tesim')
   	@dams_licenses = get_objects_url('DamsLicense','note_tesim')
   	@dams_rightsHolders = get_objects_url('MadsPersonalName','name_tesim')
+  	@dams_rightsHolders_corporate = get_objects_url('MadsCorporateName','name_tesim')
   	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
   		
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
-#	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-#	json = JSON.parse(res.body)
-#	@jdoc = json.fetch("response").fetch("docs")
+	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+	json = JSON.parse(res.body)
+	@jdoc = json.fetch("response").fetch("docs")
 	
-#	@autocomplete_items = Array.new
-#	@jdoc.each do |value|
-#		@autocomplete_items << value['suggestall']
-#	end 
+	@autocomplete_items = Array.new
+	@jdoc.each do |value|
+		@autocomplete_items << value['suggestall']
+	end 
 	
   end
   

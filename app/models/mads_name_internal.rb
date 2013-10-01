@@ -6,5 +6,8 @@ class MadsNameInternal
   end
   def persisted?
     rdf_subject.kind_of? RDF::URI
-  end  
+  end
+  def id
+    rdf_subject if rdf_subject.kind_of? RDF::URI
+  end    
 end
