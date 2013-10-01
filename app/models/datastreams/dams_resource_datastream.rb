@@ -295,7 +295,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       name_pid = name_uri.gsub(/.*\//,'')
       if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
       	objects << className.find(name_pid)
-      elsif o.name.first.nil? && o.pid != nil    
+      elsif o.name.first.nil? && o.pid != nil && o.pid.to_s.length > 0
         objects << className.find(o.pid)      
       else 
       	objects << o

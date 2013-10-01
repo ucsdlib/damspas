@@ -73,7 +73,7 @@ class DamsObjectsController < ApplicationController
     @dams_object.title.first.hasAcronymVariant.build
     @dams_object.title.first.hasExpansionVariant.build
     @dams_object.date.build
-    #@dams_object.language.build
+    @dams_object.language.build
     @dams_object.note.build
     @dams_object.scopeContentNote.build
     @dams_object.custodialResponsibilityNote.build
@@ -98,29 +98,37 @@ class DamsObjectsController < ApplicationController
     @dams_object.corporateName.build   
     @dams_object.conferenceName.build    
     @dams_object.familyName.build
-             
-  	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
-  	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
-  	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
-  	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
-  	@mads_languages =  get_objects('MadsLanguage','name_tesim')
-  	@mads_authorities = get_objects('MadsAuthority','name_tesim')
-  	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
-  	@dams_statutes = get_objects('DamsStatute','citation_tesim')
+    @dams_object.unit.build
+    @dams_object.assembledCollection.build    
+    @dams_object.provenanceCollection.build
+    @dams_object.provenanceCollectionPart.build
+    @dams_object.copyright.build
+    @dams_object.license.build    
+    @dams_object.statute.build
+    #@dams_object.otherRights.build
+                    
+  	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+  	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
+  	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
+  	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
+  	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+  	@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
+  	@dams_copyrights = get_objects_url('DamsCopyright','status_tesim')
+  	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')
   	@dams_other_rights = get_objects('DamsOtherRight','basis_tesim')
-  	@dams_licenses = get_objects('DamsLicense','note_tesim')
-  	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
-  	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
+  	@dams_licenses = get_objects_url('DamsLicense','note_tesim')
+  	@dams_rightsHolders = get_objects_url('MadsPersonalName','name_tesim')
+  	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
   		
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
-	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-	json = JSON.parse(res.body)
-	@jdoc = json.fetch("response").fetch("docs")
+#	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+#	json = JSON.parse(res.body)
+#	@jdoc = json.fetch("response").fetch("docs")
 	
-	@autocomplete_items = Array.new
-	@jdoc.each do |value|
-		@autocomplete_items << value['suggestall']
-	end 
+#	@autocomplete_items = Array.new
+#	@jdoc.each do |value|
+#		@autocomplete_items << value['suggestall']
+#	end 
 	
   end
   
@@ -204,7 +212,7 @@ class DamsObjectsController < ApplicationController
   def update
   	@dams_object.title.clear
   	@dams_object.date.clear
-  	#@dams_object.language.clear
+  	@dams_object.language.clear
     @dams_object.note.clear
     @dams_object.scopeContentNote.clear
     @dams_object.custodialResponsibilityNote.clear
@@ -229,7 +237,15 @@ class DamsObjectsController < ApplicationController
     @dams_object.corporateName.clear   
     @dams_object.conferenceName.clear    
     @dams_object.familyName.clear
-          	
+    @dams_object.unit.clear
+    @dams_object.assembledCollection.clear   
+    @dams_object.provenanceCollection.clear
+    @dams_object.provenanceCollectionPart.clear
+    @dams_object.copyright.clear
+    @dams_object.license.clear  
+    @dams_object.statute.clear
+    #@dams_object.otherRights.clear
+                  	
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Successfully updated object" 	

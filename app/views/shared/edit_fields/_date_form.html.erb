@@ -1,4 +1,5 @@
-  <h3>Date</h3>
+<h3>Date</h3>
+<div id="dateSection">
   <%= f.fields_for :date do |te| %>
     <%= te.text_field :value , :value => ""%>    
     <%= te.label :beginDate, "Begin Date" %>
@@ -10,3 +11,4 @@
     <%= te.label :encoding, "Date Encoding" %>
     <%= te.text_field :encoding, :value => ""%>            
   <% end %>
+</div>

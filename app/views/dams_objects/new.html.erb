@@ -1,4 +1,88 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
+<script>
+$(document).ready(function() {
+  $('.new_dams_object').submit(function() {
+    alert("hey");
+    if($("#dams_object_assembledCollection_attributes_0_id").val().length < 1)
+    {
+      $("#dams_object_assembledCollection_attributes_0_id").remove();
+    }
+    
+    if($("#dams_object_provenanceCollection_attributes_0_id").val().length < 1)
+    {
+      $("#dams_object_provenanceCollection_attributes_0_id").remove();
+    }
+    
+    if($("#dams_object_provenanceCollectionPart_attributes_0_id").val().length < 1)
+    {
+      $("#dams_object_provenanceCollectionPart_attributes_0_id").remove();
+    }
+
+    if($("#dams_object_complexSubject_attributes_0_id").val().length < 1)
+    {
+      $("#dams_object_complexSubject_attributes_0_id").remove();
+    }
+
+    if($("#dams_object_statute_attributes_0_id").val().length < 1)
+    {
+      $("#dams_object_statute_attributes_0_id").remove();
+    }
+    
+    if($("#dams_object_license_attributes_0_id").val().length < 1)
+    {
+      $("#dams_object_license_attributes_0_id").remove();
+    }
+
+    var subjectsArray =new Array("BuiltWorkPlace","CulturalContext","Function","GenreForm","Geographic","Iconography","Occupation","ScientificName","StylePeriod","Technique","Temporal","Topic","Name","PersonalName","CorporateName","ConferenceName","FamilyName");
+    var fieldId = "";
+    for (var i in subjectsArray) {
+      fieldId = "#dams_object_"+subjectsArray[i].charAt(0).toLowerCase()+subjectsArray[i].slice(1)+"_attributes_0_name";
+  	  if($(fieldId).val().length < 1) {
+	      $("#"+subjectsArray[i]).remove();
+	  } 	  
+    }  
+                           
+    if($("#dams_object_date_attributes_0_value").val().length < 1)
+    {
+      $("#dateSection").remove();
+    }
+    
+    if($("#dams_object_note_attributes_0_value").val().length < 1)
+    {
+      $("#noteSection").remove();
+    }
+
+    if($("#dams_object_scopeContentNote_attributes_0_value").val().length < 1)
+    {
+      $("#scopeNoteSection").remove();
+    }
+    
+    if($("#dams_object_custodialResponsibilityNote_attributes_0_value").val().length < 1)
+    {
+      $("#custodialNoteSection").remove();
+    }
+    
+    if($("#dams_object_preferredCitationNote_attributes_0_value").val().length < 1)
+    {
+      $("#preferredNoteSection").remove();
+    }    
+
+    if($("#dams_object_relatedResource_attributes_0_description").val().length < 1 && $("#dams_object_relatedResource_attributes_0_type").val().length < 1 )
+    {
+      $("#relatedResourceSection").remove();
+    }
+    
+    if($("#dams_object_cartographics_attributes_0_point").val().length < 1 && $("#dams_object_cartographics_attributes_0_line").val().length < 1)
+    {
+      $("#cartographicsSection").remove();
+    }   
+    
+    return true;            
+  });
+});
+</script>
+
+
 <h1>Create a new Dams Object</h1>
 <%= form_for @dams_object do |f| %>
   <h3>Title</h3>
@@ -9,29 +93,40 @@
   %>  
     
   <h3>Type Of Resource</h3>  
-  <%#= text_field_tag 'dams_object[typeOfResource][]' %>
   <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: false %> 
 
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
           
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: false%>
-   
+  <%= f.fields_for :unit do |un| %>
+    <%= un.select :id, options_for_select(@dams_units) , :prompt=>"Select Unit", required: true %>
+  <% end %>
+     
   <h3>Collection</h3>
-  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
+  <%= f.fields_for :assembledCollection do |assembledCol| %>
+    <%= assembledCol.select :id, options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>
+  <% end %>    
   <br> 
-  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
+  <%= f.fields_for :provenanceCollection do |provenanceCol| %>
+    <%= provenanceCol.select :id, options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
+  <% end %>   
   <br>
-  <%= select_tag 'dams_object[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part", :style => "width:250px" %>  
-          
-  <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: false %>
+  <%= f.fields_for :provenanceCollectionPart do |provenanceColPart| %>
+    <%= provenanceColPart.select :id, options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" , :style => "width:250px"%>
+  <% end %> 
+            
+  <h3>Language</h3>  
+  <%= f.fields_for :language do |lang| %>
+    <%= lang.select :id, options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %>
+  <% end %>
   
   <%#= f.fields_for :language do |lang| %>
   	<%#= lang.label :name, "Name" %>
     <%#= lang.text_field :name , :value => ""%>    
     <%#= lang.label :code, "Code" %>
-    <%#= lang.text_field :code, :value => ""%>            
+    <%#= lang.text_field :code, :value => ""%>
+  	<%#= lang.label :id, "ID" %>
+    <%#= lang.text_field :id , :value => "http://library.ucsd.edu/ark:/20775/bd91134949"%>                    
   <%# end %>
 
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
@@ -49,14 +144,9 @@
    <%= text_field_tag 'dams_object[relationshipNameValue][]' %>
        
   <h3>Complex Subject</h3>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
-  OR Enter new subject <%#=text_field_tag 'dams_object[subjectValue][]' %>
-  <%#= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%#=text_field_tag 'dams_object[subjectValue][]' %>
-      
   <%= f.fields_for :complexSubject do |comSubject| %>
-    <%= comSubject.text_field :name , :value => ""%>          
-  <% end %>       
+    <%= comSubject.select :id, options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject"%>
+  <% end %>  
        
   <h3>Simple Subject</h3>
   <%
@@ -79,13 +169,22 @@
   <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f}%>
       
   <h3>Rights</h3>
-  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: false %>
+  <%= f.fields_for :copyright do |copy| %>
+    <%= copy.select :id, options_for_select(@dams_copyrights) , :prompt=>"Select Copyright", required: true%>
+  <% end %>   
   <br>
-  <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes) , :prompt=>"Select Statute" %>
+  <%= f.fields_for :statute do |stat| %>
+    <%= stat.select :id, options_for_select(@dams_statutes) , :prompt=>"Select Statute"%>
+  <% end %>
   <br>
   <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights" %>
+  <%#= f.fields_for :otherRights do |other| %>
+    <%#= other.select :id, options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights"%>
+  <%# end %>
   <br>
-  <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses) , :prompt=>"Select License" %>
+  <%= f.fields_for :license do |lic| %>
+    <%= lic.select :id, options_for_select(@dams_licenses) , :prompt=>"Select License"%>
+  <% end %>  
   <br>
   <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %>
 

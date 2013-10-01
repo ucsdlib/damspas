@@ -6,7 +6,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	    c_pid = copyright.first.pid
 	    if !copyright.first.status.first.nil? && copyright.first.status.to_s.length > 0
 	      copyright.first
-	    else
+	    elsif c_pid.to_s.length > 0
 	      DamsCopyright.find(c_pid)
 	    end
 	else
@@ -23,7 +23,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	    
 	    if (!license.first.note.first.nil? && license.first.note.first.length > 0) || ( !license.first.uri.first.nil? && license.first.uri.first.to_s.length > 0)
 	      license.first
-	    else
+	    elsif l_pid.to_s.length > 0
 	      DamsLicense.find(l_pid)
 	    end
 	end    
@@ -36,7 +36,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	    s_pid = statute.first.pid
 	    if !statute.first.citation.first.nil? && statute.first.citation.first.to_s.length > 0
 	      statute.first
-	    else
+	    elsif s_pid.to_s.length > 0
 	      DamsStatute.find(s_pid)
 	    end
 	end        
@@ -48,7 +48,7 @@ class DamsObjectDatastream < DamsResourceDatastream
 	if !otherRights.first.nil?
 	    if !otherRights.first.uri.first.nil? && otherRights.first.uri.first.to_s.length > 0
 	      otherRights.first
-	    else
+	    elsif otherRights.first.pid.to_s.length > 0
 	      DamsOtherRight.find( otherRights.first.pid )
 	    end
 	end        
