@@ -1,5 +1,5 @@
-   <h3>Cartographic</h3>
-
+<h3>Cartographic</h3>
+<div id="cartographicsSection">
    <%= f.fields_for :cartographics do |cart| %>
    	 <%= cart.label :point, "Point" %>
      <%= cart.text_field :point , :value => ""%>    
@@ -14,3 +14,4 @@
    	 <%= cart.label :scale, "Scale" %>
      <%= cart.text_field :scale , :value => ""%>                                 
    <% end %>
+</div>

@@ -195,7 +195,7 @@ module Dams
 		    
 		    if !unit.first.name.first.nil? && unit.first.name.first.to_s.length > 0
 		      unit.first
-		    else
+		    elsif u_pid.to_s.length > 0
 		      DamsUnit.find(u_pid)
 		    end
 		else

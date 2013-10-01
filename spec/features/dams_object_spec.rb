@@ -135,7 +135,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
     # Check Hydra View
     click_on "Hydra View"
-    expect(page).to have_content("Begin Date: 07/11/2013")
+    expect(page).to have_content("07/16/2013")
     expect(page).to have_content("Edited Dams Object")
 
     click_on "New Object"
