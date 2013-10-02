@@ -238,6 +238,7 @@ $(document).ready(function()
 
 	$('#simpleSubjects').hide();
 	$('#names').hide();
+	$('#relationshipNames').hide();
 	
 	// Display the first component with a file (denoted by: data='componentIndex') if present
 	if ($(".component[data]").attr("data") != undefined)

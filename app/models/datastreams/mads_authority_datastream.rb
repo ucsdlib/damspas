@@ -67,6 +67,10 @@ class MadsAuthorityDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     }
 
+    # hack to make sure something is indexed for rights metadata
+    ['edit_access_group_ssim','read_access_group_ssim','discover_access_group_ssim'].each {|f|
+      solr_doc[f] = 'dams-curator' unless solr_doc[f]
+    }
     return solr_doc
   end
 end

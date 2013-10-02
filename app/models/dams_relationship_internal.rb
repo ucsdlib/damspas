@@ -14,6 +14,8 @@ class DamsRelationshipInternal
 	
 	rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}  
 
+ 	accepts_nested_attributes_for :name, :personalName, :corporateName, :conferenceName, :familyName, :role
+ 
     def load
       if !name.first.nil? && !name.first.pid.nil? && !(name.first.pid.include? 'dams:')   
         MadsName.find(name.first.pid)
