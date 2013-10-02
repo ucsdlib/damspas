@@ -39,6 +39,20 @@ function getSubjects(type,q,location,fieldName,label)
    }   
 }
 
+function displayRelationshipName(value)
+{
+  $('#relationshipNames').show();
+  
+  var namesArray =new Array("Name","PersonalName","CorporateName","ConferenceName","FamilyName");
+  for (var i in namesArray) {
+  	if(namesArray[i] == value) {
+	  $('#relationship'+value).show();
+	}else {
+	  $('#relationship'+namesArray[i]).hide();
+	}
+  }
+}
+
 function processForm() {
     var attributesArray =new Array("assembledCollection","provenanceCollection","provenanceCollectionPart","complexSubject","statute","license","copyright","language","unit","rightsHolderPersonal");
     var fieldId = "";
@@ -57,7 +71,16 @@ function processForm() {
 	      $("#"+subjectsArray[i]).remove();
 	  } 	  
     }
-                               
+
+    var relNamesArray =new Array("Name","PersonalName","CorporateName","ConferenceName","FamilyName");
+    fieldId = "";
+    for (var i in relNamesArray) {
+      fieldId = "#dams_object_relationship_attributes_0_"+relNamesArray[i].charAt(0).toLowerCase()+relNamesArray[i].slice(1)+"_attributes_0_id";
+  	  if($(fieldId).val().length < 1) {
+	      $("#relationship"+relNamesArray[i]).remove();
+	  } 	  
+    }
+                                   
     if($("#dams_object_date_attributes_0_value").val().length < 1)
     {
       $("#dateSection").remove();
@@ -91,6 +114,11 @@ function processForm() {
     if($("#dams_object_cartographics_attributes_0_point").val().length < 1 && $("#dams_object_cartographics_attributes_0_line").val().length < 1)
     {
       $("#cartographicsSection").remove();
-    }   
+    }
+
+    if($("#dams_object_relationship_attributes_0_role_attributes_0_id").val().length < 1)
+    {
+      $("#dams_object_relationship_attributes_0_role_attributes_0_id").remove();
+    }           
     return true; 
 }

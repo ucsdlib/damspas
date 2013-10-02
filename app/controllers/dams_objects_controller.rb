@@ -109,6 +109,12 @@ class DamsObjectsController < ApplicationController
     #@dams_object.rightsHolderCorporate.build
     #@dams_object.otherRights.build
     @dams_object.relationship.build
+    @dams_object.relationship.first.role.build
+    @dams_object.relationship.first.personalName.build
+    @dams_object.relationship.first.name.build
+    @dams_object.relationship.first.corporateName.build
+    @dams_object.relationship.first.conferenceName.build
+    @dams_object.relationship.first.familyName.build
                     
   	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
   	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
@@ -120,8 +126,11 @@ class DamsObjectsController < ApplicationController
   	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')
   	@dams_other_rights = get_objects('DamsOtherRight','basis_tesim')
   	@dams_licenses = get_objects_url('DamsLicense','note_tesim')
-  	@dams_rightsHolders = get_objects_url('MadsPersonalName','name_tesim')
-  	@dams_rightsHolders_corporate = get_objects_url('MadsCorporateName','name_tesim')
+  	@dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
+  	@dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
+  	@dams_names = get_objects_url('MadsName','name_tesim')
+  	@dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
+  	@dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
   	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
   		
 	uri = URI('http://fast.oclc.org/fastSuggest/select')

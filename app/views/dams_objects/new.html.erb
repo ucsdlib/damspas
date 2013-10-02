@@ -3,7 +3,7 @@
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
   <h3>Title</h3>
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
-       
+
   <%
   	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
   %>  
@@ -48,20 +48,17 @@
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
       
   <h3>Relationship</h3>
-  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
-  <br>
+  <%#= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Role" %>
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
-
-  <div id="relationshipName"></div>
-   OR Enter new Relationship Name
-   <%= text_field_tag 'dams_object[relationshipNameValue][]' %>
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: displayRelationshipName(this.value);"%>
+  <br>
+  <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f}%>
        
   <h3>Complex Subject</h3>
   <%= f.fields_for :complexSubject do |comSubject| %>
-    <%= comSubject.select :id, options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject"%>
+    <%= comSubject.select :id, options_for_select(@mads_complex_subjects) , :prompt=>"Select Predefined Subject"%>
   <% end %>  
        
   <h3>Simple Subject</h3>
@@ -69,7 +66,7 @@
   	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
 
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"></div>
   
   <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
@@ -77,8 +74,8 @@
 
   <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f}%>
     
-  <h3>Name</h3>
-  <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
+  <h3>Creator</h3>
+  <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Creator Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
   <div id="name"></div>
   
   <!-- OR Enter Name<%#=text_field_tag 'dams_object[nameTypeValue][]' %> -->
@@ -102,14 +99,14 @@
     <%= lic.select :id, options_for_select(@dams_licenses) , :prompt=>"Select License"%>
   <% end %>  
   <br>
-  <%#= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %>
+  <%#= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_personal_names) , :prompt=>"Select Rights Holder" %>
 
   <%= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
-    <%= rightsPersonal.select :id, options_for_select(@dams_rightsHolders) , :prompt=>"Select Personal RightsHolder"%>
+    <%= rightsPersonal.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal RightsHolder"%>
   <% end %>  
 
   <%#= f.fields_for :rightsHolderCorporate do |rightsCorp| %>
-    <%#= rightsCorp.select :id, options_for_select(@dams_rightsHolders_corporate) , :prompt=>"Select Corporate RightsHolder"%>
+    <%#= rightsCorp.select :id, options_for_select(@dams_corporate_names) , :prompt=>"Select Corporate RightsHolder"%>
   <%# end %>
     
   <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
@@ -121,10 +118,6 @@
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_objects_path, class: "btn btn-primary" %>   
 <%end%>
-  
-<%#= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %>
-
-<%#= select_tag 'dams_object[subjectType][]',  options_for_select(@jdoc.collect{ |v| [v['suggestall'], v['suggestall']] } ) , :prompt=>"Select doc" %>
 
 
 
