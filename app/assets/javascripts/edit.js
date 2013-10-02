@@ -26,33 +26,28 @@ function getSubjects(type,q,location,fieldName,label)
    }
 
   if( label == 'Name' && fieldName == 'nameURI') {
-	  $('#names').show();
-	  
-	  var namesArray =new Array("Name","PersonalName","CorporateName","ConferenceName","FamilyName");
-	  for (var i in namesArray) {
-	  	if(namesArray[i] == q) {
-		  $('#'+q).show();
-		}else {
-		  $('#'+namesArray[i]).hide();
-		}
-	  }
+	  toggleRelationshipNames(q,"","names");
    }   
 }
 
 function displayRelationshipName(value)
 {
-  $('#relationshipNames').show();
+  toggleRelationshipNames(value,"relationship","relationshipNames");
+}
+
+function toggleRelationshipNames(value, label, section)
+{
+  $('#'+section).show();
   
   var namesArray =new Array("Name","PersonalName","CorporateName","ConferenceName","FamilyName");
   for (var i in namesArray) {
   	if(namesArray[i] == value) {
-	  $('#relationship'+value).show();
+	  $('#'+label+value).show();
 	}else {
-	  $('#relationship'+namesArray[i]).hide();
+	  $('#'+label+namesArray[i]).hide();
 	}
   }
 }
-
 function processForm() {
     var attributesArray =new Array("assembledCollection","provenanceCollection","provenanceCollectionPart","complexSubject","statute","license","copyright","language","unit","rightsHolderPersonal");
     var fieldId = "";

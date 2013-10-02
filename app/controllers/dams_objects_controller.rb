@@ -124,7 +124,7 @@ class DamsObjectsController < ApplicationController
   	@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
   	@dams_copyrights = get_objects_url('DamsCopyright','status_tesim')
   	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')
-  	@dams_other_rights = get_objects('DamsOtherRight','basis_tesim')
+  	@dams_other_rights = get_objects('DamsOtherRight','uri_tesim')
   	@dams_licenses = get_objects_url('DamsLicense','note_tesim')
   	@dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
   	@dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
