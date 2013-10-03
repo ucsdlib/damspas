@@ -87,9 +87,9 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "NonSort", :with => "this"
     page.select('Research Data Curation Program', match: :first) 
     page.select('UCSD Electronic Theses and Dissertations', match: :first) 
-    fill_in "dams_object_date_attributes_0_value", :with => "07/15/2013"
-    fill_in "Begin Date", :with => "07/11/2013"
-    fill_in "End Date", :with => "07/15/2013"
+    fill_in "dams_object_date_attributes_0_value", :with => "2013"
+    fill_in "Begin Date", :with => "2012"
+    fill_in "End Date", :with => "2014"
 	fill_in "Date Type", :with => "Testdatetype"
 	fill_in "Date Encoding", :with => "TestDateEncoding"    
     page.select('text', match: :first)
@@ -112,7 +112,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     expect(page).to have_selector('h2', :text => "New Object")
     #expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
     #expect(page).to have_selector('a', :text => "Research Data Curation Program")
-    expect(page).to have_selector('li', :text => "07/15/2013")
+    expect(page).to have_selector('li', :text => "2013")
     expect(page).to have_selector('dt', :text => "Testdatetype")
     expect(page).to have_selector('a', :text => "Text")
     #expect(page).to have_selector('strong', :text => "Public domain") # XXX not displaying
@@ -120,7 +120,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
     click_on "Edit"
     fill_in "dams_object_titleValue_", :with => "Edited Dams Object"
-    fill_in "dams_object_dateValue_", :with => "07/16/2013", match: :first
+    fill_in "dams_object_dateValue_", :with => "2013", match: :first
     fill_in "dams_object_noteValue_", :with => "Science"
     fill_in "Description", :with => "Student"
     page.select('Library Digital Collections', match: :first)
@@ -128,14 +128,14 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
     # Check that changes are saved
     expect(page).to have_selector('p', :text => "Science")
-    expect(page).to have_selector('li', :text => "07/16/2013")
+    expect(page).to have_selector('li', :text => "2013")
     expect(page).to have_selector('h1', :text => "Edited Dams Object")
     #expect(page).to have_selector('a', :text => "Library Digital Collections") # XXX: not displaying
     expect(page).to have_selector('li', :text => "Student")
 
     # Check Hydra View
     click_on "Hydra View"
-    expect(page).to have_content("07/16/2013")
+    expect(page).to have_content("2013")
     expect(page).to have_content("Edited Dams Object")
 
     click_on "New Object"
