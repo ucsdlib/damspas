@@ -13,25 +13,27 @@
 
 	if fieldData != nil
 
-		htmlOpen %= 'Note'.pluralize(fieldData.count)
-		concat htmlOpen.html_safe
+
 
 		fieldData.each do |datum|
 	 		note = JSON.parse(datum)
+	 		if !note['value'].blank?
+	 			htmlOpen %= 'Note'.pluralize(fieldData.count)
+				concat htmlOpen.html_safe
 %>
-			<p>
-				<strong>
-					<% if note['displayLabel'] != nil &&  !note['displayLabel'].blank? %>
-						<%= note['displayLabel'].upcase %>
-					<% elsif note['type'] != nil && !note['type'].blank? %>
-						<%= note['type'].upcase %>
-					<% else %>
-						General Note
-					<% end %>
-				</strong>
-			</p>
-			<p><%= auto_link(note['value']) %></p>
-<%
+				<p>
+					<strong>
+						<% if note['displayLabel'] != nil &&  !note['displayLabel'].blank? %>
+							<%= note['displayLabel'].upcase %>
+						<% elsif note['type'] != nil && !note['type'].blank? %>
+							<%= note['type'].upcase %>
+						<% else %>
+							General Note
+						<% end %>
+					</strong>
+				</p>
+				<p><%= auto_link(note['value']) %></p>
+<%			end
 		end
 
 		concat htmlClose.html_safe

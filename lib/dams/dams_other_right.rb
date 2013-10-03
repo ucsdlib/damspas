@@ -65,10 +65,15 @@ module Dams
 	    if !relationship.nil? && !relationship[0].nil?
 			Solrizer.insert_field(solr_doc, "relationship_role", relationship.first.loadRole.name)
 	    	Solrizer.insert_field(solr_doc, "relationship_name", relationship.first.load.name)
-	    end      
+	    end
+	    # hack to make sure something is indexed for rights metadata
+	    ['edit_access_group_ssim','read_access_group_ssim','discover_access_group_ssim'].each {|f|
+	      solr_doc[f] = 'dams-curator' unless solr_doc[f]
+	    }	          
 	   # relationship.map do |relationship|
 	   #   Solrizer.insert_field(solr_doc, 'decider', relationship.load.name )
-	   # end                       
+	   # end
+	    return solr_doc                      
       end
     end
   end

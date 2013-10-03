@@ -236,6 +236,10 @@ $(document).ready(function()
 	$("#metadata-fold").on("show",function(){$(this).prev().text("Hide metadata");});
 	$("#metadata-fold").on("hide",function(){$(this).prev().text("Show metadata");});
 
+	$('#simpleSubjects').hide();
+	$('#names').hide();
+	$('#relationshipNames').hide();
+	
 	// Display the first component with a file (denoted by: data='componentIndex') if present
 	if ($(".component[data]").attr("data") != undefined)
 	{

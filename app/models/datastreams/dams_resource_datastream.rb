@@ -295,7 +295,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       name_pid = name_uri.gsub(/.*\//,'')
       if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
       	objects << className.find(name_pid)
-      elsif o.name.first.nil? && o.pid != nil    
+      elsif o.name.first.nil? && o.pid != nil && o.pid.to_s.length > 0
         objects << className.find(o.pid)      
       else 
       	objects << o
@@ -486,7 +486,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertTitleFields ( solr_doc, cid, titles )
     sort_title = ""
     titles.each do |t|
-      name = t.name || ""
+      if(t.name.class == ActiveFedora::RdfNode::TermProxy)
+      	name = t.name.first || ""
+      else
+      	name = t.name || ""
+      end
       external = t.externalAuthority || ""
 
       # walk through chain of title elements

@@ -7,4 +7,7 @@
       map.description(:in=> DAMS)
       map.uri(:in=> DAMS)
     end
+	def persisted?
+	  rdf_subject.kind_of? RDF::URI
+	end    
   end

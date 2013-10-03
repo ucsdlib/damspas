@@ -90,9 +90,31 @@ class GetDataController < ApplicationController
 	end
 	@formType = params[:formType]
 	@fieldName = params[:fieldName]
-	@label = params[:label]
+	@label = params[:q]
 	render :layout => false
-  end    
+  end
+  
+  def get_ark 	
+  	#http://localhost:8080/dams/api/next_id?count=1
+  	#http://localhost:3000/get_data/get_ark/get_ark
+	# build url to make damsrepo generate new ark
+    user = ActiveFedora.fedora_config.credentials[:user]
+    pass = ActiveFedora.fedora_config.credentials[:password]
+    baseurl = ActiveFedora.fedora_config.credentials[:url]
+    baseurl = baseurl.gsub(/\/fedora$/,'')
+    url = "#{baseurl}/api/next_id?count=1"
+
+    # call damsrepo
+    response = RestClient::Request.new(
+      :method => :post, :url => url, :user => user, :password => pass
+    ).execute
+	#json = JSON.parse(response.to_str)
+
+    @ark = response.to_str
+    @ark = @ark[61..70]
+    render :layout => false
+  end
+        
   def show
 	redirect_to :action => 'get_linked_data'
   end
