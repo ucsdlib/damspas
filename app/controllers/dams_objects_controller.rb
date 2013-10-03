@@ -74,6 +74,7 @@ class DamsObjectsController < ApplicationController
     @dams_object.title.first.hasExpansionVariant.build
     @dams_object.date.build
     @dams_object.language.build
+    @dams_object.language.first.scheme.build
     @dams_object.note.build
     @dams_object.scopeContentNote.build
     @dams_object.custodialResponsibilityNote.build
@@ -115,7 +116,8 @@ class DamsObjectsController < ApplicationController
     @dams_object.relationship.first.corporateName.build
     @dams_object.relationship.first.conferenceName.build
     @dams_object.relationship.first.familyName.build
-                    
+
+                        
   	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
   	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
@@ -132,6 +134,7 @@ class DamsObjectsController < ApplicationController
   	@dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
   	@dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
   	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
   		
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
 	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
