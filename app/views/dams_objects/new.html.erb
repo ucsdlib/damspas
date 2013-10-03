@@ -1,154 +1,141 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
+<script>
+$(document).ready(function() {
+
+ $("#dams_object_language_attributes_1_id").change(function() {
+ 	$("#newLanguage").remove();
+    $("#dams_object_language_attributes_1_id").attr("id","dams_object_language_attributes_0_id");
+ });
+
+});
+</script>
 <h1>Create a new Dams Object</h1>
-<%= form_for @dams_object do |f| %>
+<%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
   <h3>Title</h3>
-  <%= text_field_tag 'dams_object[titleValue][]', '', required: true %>
-  <%= label_tag 'dams_object[subtitle][]', "SubTitle" %>
-  <%= text_field_tag 'dams_object[subtitle][]' %>  
-  <%= label_tag 'dams_object[titlePartName][]', "PartName" %>
-  <%= text_field_tag 'dams_object[titlePartName][]' %>  
-  <%= label_tag 'dams_object[titlePartNumber][]', "PartNumber" %>
-  <%= text_field_tag 'dams_object[titlePartNumber][]' %>    
-   <%= label_tag 'dams_object[titleNonSort][]', "NonSort" %>
-  <%= text_field_tag 'dams_object[titleNonSort][]' %>  
-   <%= label_tag 'dams_object[titleVariant][]', "Has Variant" %>
-  <%= text_field_tag 'dams_object[titleVariant][]' %>  
-  
+  <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
+
   <%
   	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
   %>  
     
   <h3>Type Of Resource</h3>  
-  <%#= text_field_tag 'dams_object[typeOfResource][]' %>
   <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %> 
-  <h3>Date</h3>   
-  <%= text_field_tag 'dams_object[dateValue][]' %>
-  <%= label_tag 'dams_object[beginDate][]', "Begin Date" %>
-  <%= text_field_tag 'dams_object[beginDate][]' %> 
-  <%= label_tag 'dams_object[endDate][]', "End Date" %>
-  <%= text_field_tag 'dams_object[endDate][]' %>
-  <%= label_tag 'dams_object[dateType][]', "Date Type" %>
-  <%= text_field_tag 'dams_object[dateType][]' %> 
-  <%= label_tag 'dams_object[dateEncoding][]', "Date Encoding" %>
-  <%= text_field_tag 'dams_object[dateEncoding][]' %>   
-      
-  <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units) , :prompt=>"Select Unit" , required: true%>
-   
-  <h3>Collection</h3>
-  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>  
-  <br> 
-  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
-  <br>
-  <%= select_tag 'dams_object[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part", :style => "width:250px" %>  
+
+  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
           
-  <h3>Language</h3>
-  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %>
-   
-  <h3>Note</h3>
-  <%= text_field_tag 'dams_object[noteValue][]' %> 
-  <%= label_tag 'dams_object[noteType][]', "Note Type" %>
-  <%= text_field_tag 'dams_object[noteType][]' %> 
-  <%= label_tag 'dams_object[noteDisplayLabel][]', "Note Display label" %>
-  <%= text_field_tag 'dams_object[noteDisplayLabel][]' %>
-
-  <h3>Scope Content Note</h3>
-  <%= text_field_tag 'dams_object[scopeContentNoteValue][]' %>  
-  <%= label_tag 'dams_object[scopeContentNoteType][]', "Scope Content Type" %>
-  <%= text_field_tag 'dams_object[scopeContentNoteType][]' %> 
-  <%= label_tag 'dams_object[scopeContentNoteDisplayLabel][]', "Scope Content Display Label" %>
-  <%= text_field_tag 'dams_object[scopeContentNoteDisplayLabel][]' %>
-
-  <h3>Custodial Responsibility Note</h3>
-  <%= text_field_tag 'dams_object[responsibilityNoteValue][]' %>  
-  <%= label_tag 'dams_object[responsibilityNoteType][]', "Custodial Responsibility Type" %>
-  <%= text_field_tag 'dams_object[responsibilityNoteType][]' %> 
-  <%= label_tag 'dams_object[responsibilityDisplayLabel][]', "Custodial Responsibility Display Label" %>
-  <%= text_field_tag 'dams_object[responsibilityNoteDisplayLabel][]' %>
-
-  <h3>Preferred Citation Note</h3>
-  <%= text_field_tag 'dams_object[citationNoteValue][]' %>  
-  <%= label_tag 'dams_object[citationNoteType][]', "Preferred Citation Type" %>
-  <%= text_field_tag 'dams_object[citationNoteType][]' %> 
-  <%= label_tag 'dams_object[citationNoteDisplayLabel][]', "Preferred Citation Display Label" %>
-  <%= text_field_tag 'dams_object[citationNoteDisplayLabel][]' %>
-    
-  <h3>Relationship</h3>
-  <%= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
+  <h3>Unit</h3>
+  <%= f.fields_for :unit do |un| %>
+    <%= un.select :id, options_for_select(@dams_units) , :prompt=>"Select Unit", :required => "true" %>
+  <% end %>
+     
+  <h3>Collection</h3>
+  <%= f.fields_for :assembledCollection do |assembledCol| %>
+    <%= assembledCol.select :id, options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>
+  <% end %>    
+  <br> 
+  <%= f.fields_for :provenanceCollection do |provenanceCol| %>
+    <%= provenanceCol.select :id, options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
+  <% end %>   
   <br>
+  <%= f.fields_for :provenanceCollectionPart do |provenanceColPart| %>
+    <%= provenanceColPart.select :id, options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" , :style => "width:250px"%>
+  <% end %> 
+            
+  <h3>Language</h3>  
+  <div id="newLanguage">
+	  <%= f.fields_for :language do |lang| %>
+	  	<%= lang.label :name, "Name" %>
+	    <%= lang.text_field :name , :value => "", :onClick=>"javascript: setLanguageId();"%>    
+	    <%= lang.label :code, "Code" %>
+	    <%= lang.text_field :code, :value => ""%>
+	    <%= lang.label :externalAuthority, "ExternalAuthority" %>
+	    <%= lang.text_field :externalAuthority, :value => ""%>
+		  <%= lang.fields_for :scheme do |se| %>
+		    <%= se.label :id, "Scheme" %>
+		    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+		  <% end %>	    
+	    <%= lang.hidden_field :id %>                    
+	  <% end %>
+  </div>
+  <br>
+  <div id="newLanguageLink">
+	  <%= f.fields_for :language do |lang| %>
+	    <%= lang.select :id, options_for_select(@mads_languages) , :prompt=>"Select Predefined Language"%>
+	  <% end %>
+  </div>
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
+      
+  <h3>Relationship</h3>
+  <%#= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Role" %>
   <%
   	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#relationshipName','relationshipNameURI','Name');"%>
-
-  <div id="relationshipName"></div>
-   OR Enter new Relationship Name
-   <%= text_field_tag 'dams_object[relationshipNameValue][]' %>
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: displayRelationshipName(this.value);"%>
+  <br>
+  <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f}%>
        
   <h3>Complex Subject</h3>
-  <%= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
-  OR Enter new subject <%=text_field_tag 'dams_object[subjectValue][]' %>
-  <%#= select_tag 'dams_object[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%#=text_field_tag 'dams_object[subjectValue][]' %>
+  <%= f.fields_for :complexSubject do |comSubject| %>
+    <%= comSubject.select :id, options_for_select(@mads_complex_subjects) , :prompt=>"Select Predefined Subject"%>
+  <% end %>  
        
   <h3>Simple Subject</h3>
   <%
   	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
-  <%#= label_tag 'dams_object[subjectType][]', "Simple Subject" %>
-  <%#= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
-  <%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
 
-  <h3>Name</h3>
-  <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
-  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_object[nameTypeValue][]' %>
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <div id="simpleSubject"></div>
+  
+  <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
+
+  <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f}%>
     
+  <h3>Creator</h3>
+  <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Creator Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
+  <div id="name"></div>
+  
+  <!-- OR Enter Name<%#=text_field_tag 'dams_object[nameTypeValue][]' %> -->
+  <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f}%>
+      
   <h3>Rights</h3>
-  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights) , :prompt=>"Select Copyright" , required: true %>
+  <%= f.fields_for :copyright do |copy| %>
+    <%= copy.select :id, options_for_select(@dams_copyrights) , :prompt=>"Select Copyright", required: true%>
+  <% end %>   
   <br>
-  <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes) , :prompt=>"Select Statute" %>
+  <%= f.fields_for :statute do |stat| %>
+    <%= stat.select :id, options_for_select(@dams_statutes) , :prompt=>"Select Statute"%>
+  <% end %>
   <br>
   <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights" %>
+  <%#= f.fields_for :otherRights do |other| %>
+    <%#= other.select :id, options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights"%>
+  <%# end %>
   <br>
-  <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses) , :prompt=>"Select License" %>
+  <%= f.fields_for :license do |lic| %>
+    <%= lic.select :id, options_for_select(@dams_licenses) , :prompt=>"Select License"%>
+  <% end %>  
   <br>
-  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders) , :prompt=>"Select Rights Holder" %>
-   
-  <h3>Related Resource</h3>
-  <%= label_tag 'dams_object[relatedResourceType][]', "Type" %>
-  <%= text_field_tag 'dams_object[relatedResourceType][]' %>
-   <%= label_tag 'dams_object[relatedResourceUri][]', "URI" %>
-  <%= text_field_tag 'dams_object[relatedResourceUri][]' %>
-   <br>
-   <%= label_tag 'dams_object[relatedResourceDescription][]', "Description" %>
-   <%= text_field_tag 'dams_object[relatedResourceDescription][]' %>
+  <%#= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_personal_names) , :prompt=>"Select Rights Holder" %>
+
+  <%= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
+    <%= rightsPersonal.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal RightsHolder"%>
+  <% end %>  
+
+  <%#= f.fields_for :rightsHolderCorporate do |rightsCorp| %>
+    <%#= rightsCorp.select :id, options_for_select(@dams_corporate_names) , :prompt=>"Select Corporate RightsHolder"%>
+  <%# end %>
     
-   <h3>Cartographic</h3>
-   <%= label_tag 'dams_object[cartographicPoint][]', "Point" %>
-   <%= text_field_tag 'dams_object[cartographicPoint][]' %>
-   <%= label_tag 'dams_object[cartographicLine][]', "Line" %>
-   <%= text_field_tag 'dams_object[cartographicLine][]' %>
-   <%= label_tag 'dams_object[cartographicPolygon][]', "Polygon" %>
-   <%= text_field_tag 'dams_object[cartographicPolygon][]' %>
-   <%= label_tag 'dams_object[cartographicProjection][]', "Projection" %>
-   <%= text_field_tag 'dams_object[cartographicProjection][]' %>
-   <%= label_tag 'dams_object[cartographicRefSystem][]', "ReferenceSystem" %>
-   <%= text_field_tag 'dams_object[cartographicRefSystem][]' %>
-   <%= label_tag 'dams_object[cartographicScale][]', "Scale" %>
-   <%= text_field_tag 'dams_object[cartographicScale][]'%>            
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f}%>  
+              
 	<br>
   <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
 
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_objects_path, class: "btn btn-primary" %>   
 <%end%>
-  
-<%#= render_document_show_field_value(:document=>@document, :field=>"authority_tesim").html_safe %>
-
-<%#= select_tag 'dams_object[subjectType][]',  options_for_select(@jdoc.collect{ |v| [v['suggestall'], v['suggestall']] } ) , :prompt=>"Select doc" %>
 
 
 

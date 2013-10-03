@@ -108,6 +108,10 @@ module Dams
           Solrizer.insert_field(solr_doc, "date_name_element", dateNameValue)
           Solrizer.insert_field(solr_doc, "terms_of_address_name_element", termsOfAddressNameValue)
         end
+	    # hack to make sure something is indexed for rights metadata
+	    ['edit_access_group_ssim','read_access_group_ssim','discover_access_group_ssim'].each {|f|
+	      solr_doc[f] = 'dams-curator' unless solr_doc[f]
+	    }        
         solr_base solr_doc
       end
       class MadsNameElementList

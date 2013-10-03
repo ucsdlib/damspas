@@ -12,16 +12,16 @@
 	fieldData = @document["#{prefix}custodialResponsibilityNote_json_tesim"]
 
 	if fieldData != nil
-
-		htmlOpen %= 'Custodial Responsibility Note'.pluralize(fieldData.count)
-		concat htmlOpen.html_safe
-
 		fieldData.each do |datum|
 	 		custodialResponsibilityNote = JSON.parse(datum)
+	 		if !custodialResponsibilityNote['value'].blank?
+	 			htmlOpen %= 'Custodial Responsibility Note'.pluralize(fieldData.count)
+				concat htmlOpen.html_safe
 %>
 			
-			<p><%= auto_link(custodialResponsibilityNote['value']) %></p>
+				<p><%= auto_link(custodialResponsibilityNote['value']) %></p>
 <%
+			end
 		end
 
 		concat htmlClose.html_safe

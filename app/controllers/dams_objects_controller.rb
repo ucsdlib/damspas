@@ -65,18 +65,76 @@ class DamsObjectsController < ApplicationController
   end
 
   def new
-  	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
-  	@dams_units = get_objects('DamsUnit','unit_name_tesim') 	
-  	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
-  	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
-  	@mads_languages =  get_objects('MadsLanguage','name_tesim')
-  	@mads_authorities = get_objects('MadsAuthority','name_tesim')
-  	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
-  	@dams_statutes = get_objects('DamsStatute','citation_tesim')
-  	@dams_other_rights = get_objects('DamsOtherRight','basis_tesim')
-  	@dams_licenses = get_objects('DamsLicense','note_tesim')
-  	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
-  	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
+    @dams_object.title.build
+    @dams_object.title.first.elementList.subTitleElement.build
+    @dams_object.title.first.hasVariant.build
+    @dams_object.title.first.hasTranslationVariant.build
+    @dams_object.title.first.hasAbbreviationVariant.build
+    @dams_object.title.first.hasAcronymVariant.build
+    @dams_object.title.first.hasExpansionVariant.build
+    @dams_object.date.build
+    @dams_object.language.build
+    @dams_object.language.first.scheme.build
+    @dams_object.note.build
+    @dams_object.scopeContentNote.build
+    @dams_object.custodialResponsibilityNote.build
+    @dams_object.preferredCitationNote.build
+    @dams_object.relatedResource.build
+    @dams_object.cartographics.build
+    @dams_object.complexSubject.build
+    @dams_object.builtWorkPlace.build
+    @dams_object.culturalContext.build
+    @dams_object.function.build    
+    @dams_object.genreForm.build
+    @dams_object.geographic.build
+    @dams_object.iconography.build    
+    @dams_object.occupation.build
+    @dams_object.scientificName.build
+    @dams_object.stylePeriod.build    
+    @dams_object.technique.build   
+    @dams_object.topic.build    
+    @dams_object.temporal.build     
+	@dams_object.name.build
+    @dams_object.personalName.build    
+    @dams_object.corporateName.build   
+    @dams_object.conferenceName.build    
+    @dams_object.familyName.build
+    @dams_object.unit.build
+    @dams_object.assembledCollection.build    
+    @dams_object.provenanceCollection.build
+    @dams_object.provenanceCollectionPart.build
+    @dams_object.copyright.build
+    @dams_object.license.build    
+    @dams_object.statute.build
+    @dams_object.rightsHolderPersonal.build
+    #@dams_object.rightsHolderCorporate.build
+    #@dams_object.otherRights.build
+    @dams_object.relationship.build
+    @dams_object.relationship.first.role.build
+    @dams_object.relationship.first.personalName.build
+    @dams_object.relationship.first.name.build
+    @dams_object.relationship.first.corporateName.build
+    @dams_object.relationship.first.conferenceName.build
+    @dams_object.relationship.first.familyName.build
+
+                        
+  	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+  	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
+  	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
+  	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
+  	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+  	@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
+  	@dams_copyrights = get_objects_url('DamsCopyright','status_tesim')
+  	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')
+  	@dams_other_rights = get_objects('DamsOtherRight','uri_tesim')
+  	@dams_licenses = get_objects_url('DamsLicense','note_tesim')
+  	@dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
+  	@dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
+  	@dams_names = get_objects_url('MadsName','name_tesim')
+  	@dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
+  	@dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
+  	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')
   		
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
 	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -157,8 +215,7 @@ class DamsObjectsController < ApplicationController
 	end   	 	 
   end
   
-  def create	  
-  	@dams_object.attributes = params[:dams_object] 
+  def create 	    
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Object has been saved"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
@@ -169,6 +226,42 @@ class DamsObjectsController < ApplicationController
   end
   
   def update
+  	@dams_object.title.clear
+  	@dams_object.date.clear
+  	@dams_object.language.clear
+    @dams_object.note.clear
+    @dams_object.scopeContentNote.clear
+    @dams_object.custodialResponsibilityNote.clear
+    @dams_object.preferredCitationNote.clear
+    @dams_object.relatedResource.clear
+    @dams_object.cartographics.clear
+    @dams_object.complexSubject.clear
+    @dams_object.builtWorkPlace.clear
+    @dams_object.culturalContext.clear
+    @dams_object.function.clear    
+    @dams_object.genreForm.clear
+    @dams_object.geographic.clear
+    @dams_object.iconography.clear    
+    @dams_object.occupation.clear
+    @dams_object.scientificName.clear
+    @dams_object.stylePeriod.clear    
+    @dams_object.technique.clear   
+    @dams_object.topic.clear
+    @dams_object.temporal.clear
+	@dams_object.name.clear
+    @dams_object.personalName.clear    
+    @dams_object.corporateName.clear   
+    @dams_object.conferenceName.clear    
+    @dams_object.familyName.clear
+    @dams_object.unit.clear
+    @dams_object.assembledCollection.clear   
+    @dams_object.provenanceCollection.clear
+    @dams_object.provenanceCollectionPart.clear
+    @dams_object.copyright.clear
+    @dams_object.license.clear  
+    @dams_object.statute.clear
+    #@dams_object.otherRights.clear
+                  	
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Successfully updated object" 	
