@@ -114,6 +114,19 @@ function processForm() {
     if($("#dams_object_relationship_attributes_0_role_attributes_0_id").val().length < 1)
     {
       $("#dams_object_relationship_attributes_0_role_attributes_0_id").remove();
-    }           
+    }
+    
+    if($("#dams_object_language_attributes_0_name").val().length < 1)
+    {
+      $("#newLanguage").remove();
+    }                  
     return true; 
+}
+
+function setLanguageId() {
+  $.get(baseURL+"/get_ark/get_ark",function(data,status){
+  	var ark = "http://library.ucsd.edu/ark:/20775/"+data;
+    $("#dams_object_language_attributes_0_id").val(ark.trim());
+    $("#newLanguageLink").remove();
+  });
 }
