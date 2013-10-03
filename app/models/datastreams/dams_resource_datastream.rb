@@ -41,7 +41,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         if lang.name.first != nil && lang.code.first != nil
           # use inline data if available
           languages << lang
-        elsif lang.pid != nil
+        elsif lang.pid != nil && lang.pid.length > 0
           # load external records
           languages << MadsLanguage.find(lang.pid)
         end
@@ -393,17 +393,22 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # save dates for sort date
       begin
-        dateVal = date.beginDate.first
-        if dateVal.match( '^\d{4}$' ) != nil
-          dateVal += "-01-01"
+      	if(!date.nil? && !date.beginDate.nil?)
+	        dateVal = date.beginDate.first
+	        if !dateVal.nil? && dateVal.match( '^\d{4}$' ) != nil
+	          dateVal += "-01-01"
+	        end
+	        if(!dateVal.nil?)
+		        if date.type.first == 'creation'
+		          creation_date = DateTime.parse(dateVal)
+		        elsif other_date.nil?
+		          other_date = DateTime.parse(dateVal)
+		        end
+		    end
         end
-        if date.type.first == 'creation'
-          creation_date = DateTime.parse(dateVal)
-        elsif other_date.nil?
-          other_date = DateTime.parse(dateVal)
-        end
-      rescue
-        puts "error parsing date: #{dateVal}"
+      rescue Exception => e
+        puts "error parsing date: #{dateVal} - #{e.to_s}"
+        puts e.backtrace
       end
     end
 
