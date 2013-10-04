@@ -25,7 +25,7 @@ $(document).ready(function() {
           
   <h3>Unit</h3>
   <%= f.fields_for :unit do |un| %>
-    <%= un.select :id, options_for_select(@dams_units) , :prompt=>"Select Unit", :required => "true" %>
+    <%= un.select :id, options_for_select(@dams_units) , {:include_blank => 'Select Unit'}, :required => "true" %>
   <% end %>
      
   <h3>Collection</h3>
@@ -81,7 +81,7 @@ $(document).ready(function() {
       
   <h3>Rights</h3>
   <%= f.fields_for :copyright do |copy| %>
-    <%= copy.select :id, options_for_select(@dams_copyrights) , :prompt=>"Select Copyright", required: true%>
+    <%= copy.select :id, options_for_select(@dams_copyrights) , {:include_blank => 'Select Copyright'}, :required => "true"%>
   <% end %>   
   <br>
   <%= f.fields_for :statute do |stat| %>
