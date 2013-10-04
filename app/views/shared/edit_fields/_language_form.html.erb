@@ -2,7 +2,7 @@
   <div id="newLanguage">
 	  <%= f.fields_for :language do |lang| %>
 	  	<%= lang.label :name, "Name" %>
-	    <%= lang.text_field :name , :value => "", :onClick=>"javascript: setLanguageId();"%>    
+	    <%= lang.text_field :name , :value => "", required: true, :onClick=>"javascript: setLanguageId();"%>    
 	    <%= lang.label :code, "Code" %>
 	    <%= lang.text_field :code, :value => ""%>
 	    <%= lang.label :externalAuthority, "ExternalAuthority" %>
@@ -17,6 +17,6 @@
   <br>
   <div id="newLanguageLink">
 	  <%= f.fields_for :language do |lang| %>
-	    <%= lang.select :id, options_for_select(@mads_languages) , :prompt=>"Select Predefined Language"%>
+	    <%= lang.select :id, options_for_select(@mads_languages) , {:include_blank => 'Select Language'}, :required => "true"%>
 	  <% end %>
   </div>
