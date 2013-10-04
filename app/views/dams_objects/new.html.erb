@@ -40,29 +40,9 @@ $(document).ready(function() {
   <%= f.fields_for :provenanceCollectionPart do |provenanceColPart| %>
     <%= provenanceColPart.select :id, options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" , :style => "width:250px"%>
   <% end %> 
-            
-  <h3>Language</h3>  
-  <div id="newLanguage">
-	  <%= f.fields_for :language do |lang| %>
-	  	<%= lang.label :name, "Name" %>
-	    <%= lang.text_field :name , :value => "", :onClick=>"javascript: setLanguageId();"%>    
-	    <%= lang.label :code, "Code" %>
-	    <%= lang.text_field :code, :value => ""%>
-	    <%= lang.label :externalAuthority, "ExternalAuthority" %>
-	    <%= lang.text_field :externalAuthority, :value => ""%>
-		  <%= lang.fields_for :scheme do |se| %>
-		    <%= se.label :id, "Scheme" %>
-		    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
-		  <% end %>	    
-	    <%= lang.hidden_field :id %>                    
-	  <% end %>
-  </div>
-  <br>
-  <div id="newLanguageLink">
-	  <%= f.fields_for :language do |lang| %>
-	    <%= lang.select :id, options_for_select(@mads_languages) , :prompt=>"Select Predefined Language"%>
-	  <% end %>
-  </div>
+
+  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f}%>
+  
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
       
   <h3>Relationship</h3>
