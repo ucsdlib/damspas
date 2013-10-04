@@ -170,7 +170,6 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.custodialResponsibilityNote.clear
     @dams_provenance_collection.preferredCitationNote.clear
     @dams_provenance_collection.relatedResource.clear
-    
     @dams_provenance_collection.complexSubject.clear
     @dams_provenance_collection.builtWorkPlace.clear
     @dams_provenance_collection.culturalContext.clear
@@ -189,11 +188,8 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.corporateName.clear   
     @dams_provenance_collection.conferenceName.clear    
     @dams_provenance_collection.familyName.clear
- 
-  
     @dams_provenance_collection.provenanceCollectionPart.clear
   
-    
     
     @dams_provenance_collection.attributes = params[:dams_provenance_collection]
     if @dams_provenance_collection.save
