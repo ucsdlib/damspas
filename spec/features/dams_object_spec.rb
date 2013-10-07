@@ -8,6 +8,10 @@ feature 'Visitor want to look at objects' do
     visit dams_object_path('bd0922518w')
     expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
     expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
+
+    # admin links
+    expect(page).to have_link('Hydra View')
+    expect(page).to have_link('RDF View')
   end
 
   scenario 'view a sample data file' do
