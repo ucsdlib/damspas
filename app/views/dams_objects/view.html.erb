@@ -145,6 +145,7 @@
 
 <% if can? :update, @dams_object %>
 <%= link_to "Solr View", dams_object_path(@dams_object), class: "btn btn-primary" %>
+<%= link_to "RDF View", normalized_rdf_path(@dams_object.id), class: "btn btn-primary" %>
 <%= link_to "Edit", edit_dams_object_path(@dams_object), class: "btn btn-primary" %>
 <%= link_to "New Object", new_dams_object_path, class: "btn btn-primary" %>
   <h2>Add File</h2>

@@ -23,7 +23,11 @@ feature 'Visitor wants to look at collections' do
     expect(page).to have_selector('img.dams-search-thumbnail')
     expect(page).not_to have_selector('a', :text => 'Sample Provenance Collection')
   end
-
+  scenario 'curator view' do
+    sign_in_developer
+    visit dams_collection_path 'bd5905304g' # santa fe light cone
+    expect(page).to have_link('RDF View')
+  end
 end
 def sign_in_developer
   visit new_user_session_path

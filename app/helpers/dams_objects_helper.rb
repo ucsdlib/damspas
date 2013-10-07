@@ -569,4 +569,12 @@ module DamsObjectsHelper
     b64 = b64.gsub("+","-").gsub("/","_").gsub("\n","")
     "#{nonce},#{b64}"
   end
+
+  ## normalized rdf view from DAMS4 REST API
+  def normalized_rdf_path( pid )
+    # get REST API url from AF config
+    baseurl = ActiveFedora.fedora_config.credentials[:url]
+    baseurl = baseurl.gsub(/\/fedora$/,'')
+    "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
+  end
 end
