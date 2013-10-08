@@ -17,7 +17,7 @@ feature 'Visitor wants to view object fields' do
 
   scenario 'File Format, is on Solr view page' do
     visit dams_object_path('bd22194583')
-    expect(page).to have_link('Still Image', href:"/search?f%5Bobject_type_sim%5D%5B%5D%5B%5D=still+image&id=bd22194583")
+    expect(page).to have_link('Image', href:"/search?f%5Bobject_type_sim%5D%5B%5D%5B%5D=image&id=bd22194583")
   end
 
   scenario 'Name Fields, is on Solr view page' do

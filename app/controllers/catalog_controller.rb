@@ -270,12 +270,30 @@ class CatalogController < ApplicationController
     # if a unit is specified, use solr join to find collections related to
     # objects in this unit
     if params[:id]
+      # limit page by unit
       fq << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
+
+      # fetch unit solr record
+      begin
+        unit_params = {:q => "unit_code_tesim:#{params[:id]} AND type_tesim:DamsUnit"}
+        unit_response = raw_solr( unit_params )
+        unit_doc = unit_response.docs.first
+        @current_unit = unit_doc['unit_name_tesim'].first
+      rescue Exception => e
+        logger.warn "Error looking up unit name: #{e}"
+      end
     end
 
     # solr search
     extra = { :sort => "title_ssi asc", :fq => fq }
     (@response, @document_list) = get_search_results params, extra
+  end
+
+  def raw_solr( params={} )
+    solr_path = blacklight_config.solr_path
+    res = blacklight_solr.send_and_receive(solr_path, :params => params)
+    solr_response = Blacklight::SolrResponse.new(force_to_utf8(res), params)
+    solr_response
   end
 
 end 

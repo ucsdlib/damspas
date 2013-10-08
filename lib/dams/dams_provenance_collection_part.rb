@@ -3,6 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsProvenanceCollectionPart
     extend ActiveSupport::Concern
+    include ModelHelper
     
     included do
        rdf_type DAMS.ProvenanceCollectionPart
@@ -132,7 +133,7 @@ module Dams
         def to_solr (solr_doc = {})
           Solrizer.insert_field(solr_doc, 'type', 'Collection')   
           Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollectionPart')
-          Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
+          Solrizer.insert_field(solr_doc, 'resource_type', format_name(resource_type))
           Solrizer.insert_field(solr_doc, 'visibility', visibility)
         super
         end

@@ -3,6 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsProvenanceCollection
     extend ActiveSupport::Concern
+     include ModelHelper
     
     included do
       rdf_type DAMS.ProvenanceCollection

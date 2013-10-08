@@ -1,4 +1,5 @@
 class DamsComponentDatastream < DamsResourceDatastream
+  include Dams::ModelHelper
   map_predicates do |map|
     map.title(:in => DAMS, :class_name => 'MadsTitle')
     map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
@@ -133,7 +134,7 @@ class DamsComponentDatastream < DamsResourceDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_subtitle", title.subtitle)
       end
 
-      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.typeOfResource.first)
+      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", format_name(component.typeOfResource.first))
 
       n = 0
       component.date.map do |date|
