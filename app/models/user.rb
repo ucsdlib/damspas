@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   def ldap_groups( uid )
     begin
       username = uid
-      if username != nil && username.index("@") > -1
+      if !username.blank? && username.index("@") > -1
         username = username.slice( 0, username.index("@") )
       end
       baseurl = ActiveFedora.fedora_config.credentials[:url]
@@ -92,6 +92,7 @@ class User < ActiveRecord::Base
       url = "#{baseurl}/api/client/info?user=#{username}&format=json"
       json = RestClient.get(url)
       obj = JSON.parse(json)
+      logger.warn "ldap_groups(#{uid}): #{obj}"
       obj['memberOf']
     rescue Exception => e
       logger.warn "Error looking up LDAP groups for #{uid}: #{e.to_s}"
