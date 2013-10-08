@@ -42,9 +42,13 @@ $(document).ready(function() {
   <% end %> 
 
   <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f}%>
-  
+    
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
-      
+  
+  <p><%= link_to_add_fields "Add Note", f, :note %></p>
+
+  <%= render :partial => 'shared/edit_fields/other_notes_form' , :locals => {:f => f}%>
+        
   <h3>Relationship</h3>
   <%#= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Role" %>
   <%
