@@ -95,6 +95,9 @@ class User < ActiveRecord::Base
       obj['memberOf']
     rescue Exception => e
       logger.warn "Error looking up LDAP groups for #{uid}: #{e.to_s}"
+      e.backtrace.each do |line|
+        logger.warn line
+      end
       []
     end
   end
