@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   def ldap_groups( uid )
     begin
       username = uid
-      if !username.blank? && username.index("@") > -1
+      if !username.blank? && username.index("@") != nil
         username = username.slice( 0, username.index("@") )
       end
       baseurl = ActiveFedora.fedora_config.credentials[:url]
