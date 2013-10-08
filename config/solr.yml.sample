@@ -2,8 +2,8 @@
 # edit the fedora.yml file to match the solr URL for active-fedora. 
 development:
   url: http://localhost:8080/solr/blacklight
-jetty:
-  url: http://localhost:8080/solr/blacklight
+pontos:
+  url: http://localhost:8081/solr/blacklight
 gimili:
   url: http://gimili.ucsd.edu:8080/solr/blacklight
 test: &TEST

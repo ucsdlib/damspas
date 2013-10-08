@@ -2,14 +2,14 @@ development:
   user: dams
   password: dams
   url: http://localhost:8080/dams/fedora
-jetty:
-  user: dams
-  password: dams
-  url: http://localhost:8080/dams/fedora
 gimili:
   user: dams
   password: dams
   url: http://gimili.ucsd.edu:8080/dams/fedora
+pontos:
+  user: dams
+  password: dams
+  url: http://localhost:8081/dams/fedora
 test: &TEST  
   user: dams
   password: dams
