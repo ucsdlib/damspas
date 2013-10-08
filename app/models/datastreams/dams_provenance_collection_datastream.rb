@@ -1,5 +1,6 @@
 class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   include Dams::DamsProvenanceCollection
+  include Dams::ModelHelper
 
     def load_part
          if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"
@@ -17,7 +18,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   def to_solr (solr_doc = {})
     Solrizer.insert_field(solr_doc, 'type', 'Collection')
     Solrizer.insert_field(solr_doc, 'type', 'ProvenanceCollection')
-    Solrizer.insert_field(solr_doc, 'resource_type', resource_type)
+    Solrizer.insert_field(solr_doc, 'resource_type', format_name(resource_type))
     Solrizer.insert_field(solr_doc, 'visibility', visibility)
     
     part = load_part 
