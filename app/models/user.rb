@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   def ldap_groups( uid )
     begin
       username = uid
-      if username.index("@") > -1
+      if username != nil && username.index("@") > -1
         username = username.slice( 0, username.index("@") )
       end
       baseurl = ActiveFedora.fedora_config.credentials[:url]
@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
       obj = JSON.parse(json)
       obj['memberOf']
     rescue Exception => e
-      logger.warn "Error looking up LDAP groups #{e.to_s}"
+      logger.warn "Error looking up LDAP groups for #{uid}: #{e.to_s}"
       []
     end
   end
