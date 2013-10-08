@@ -1,0 +1,32 @@
+<h3>Scope Content Note</h3>
+<div id="scopeNoteSection">
+  <%= f.fields_for :scopeContentNote do |scopeNote| %>
+    <%= scopeNote.text_field :value , :value => ""%>    
+    <%= scopeNote.label :type, "Scope Content Note Type" %>
+    <%= scopeNote.text_field :type, :value => ""%>
+    <%= scopeNote.label :displayLabel, "Scope Content Note Display Label" %>
+    <%= scopeNote.text_field :displayLabel, :value => ""%>                
+  <% end %>
+</div>
+  
+<h3>Custodial Responsibility Note</h3>
+<div id="custodialNoteSection">  
+  <%= f.fields_for :custodialResponsibilityNote do |custNote| %>
+    <%= custNote.text_field :value , :value => ""%>    
+    <%= custNote.label :type, "Custodial Responsibility Note Type" %>
+    <%= custNote.text_field :type, :value => ""%>
+    <%= custNote.label :displayLabel, "Custodial Responsibility Note Display Label" %>
+    <%= custNote.text_field :displayLabel, :value => ""%>                
+  <% end %>
+</div>
+  
+<h3>Preferred Citation Note</h3>
+<div id="preferredNoteSection">
+  <%= f.fields_for :preferredCitationNote do |preNote| %>
+    <%= preNote.text_field :value , :value => ""%>    
+    <%= preNote.label :type, "Preferred Citation Note Type" %>
+    <%= preNote.text_field :type, :value => ""%>
+    <%= preNote.label :displayLabel, "Preferred Citation Note Display Label" %>
+    <%= preNote.text_field :displayLabel, :value => ""%>                
+  <% end %>
+</div>
