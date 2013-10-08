@@ -4,15 +4,7 @@
 %>
 
 
-<div class="row-fluid">
-	<div class="dams-breadcrumbs span12">
-		<ul class="breadcrumb">
-			<li><a href="/">Digital Collections</a> <span class="divider">&raquo;</span></li>
-			<li><%= link_to "Collections", dams_collections_path %> <span class="divider">&raquo;</span></li>
-			<li class="active"><%=collection_title%></li>
-		</ul>
-	</div>
-</div>
+
 <div class="span3">
   <!-- previous/next links -->
   <%= render :partial => 'dams_objects/prev_next' %>
