@@ -532,7 +532,7 @@ module DamsObjectsHelper
         if files['use'] == 'audio-service' || files['use'] == 'video-service'
           fileid = cmpid + '-' + files['id']
           encrypted = encrypt_stream_name( objid, fileid, request.ip )
-          return ViewOptions::WOWZA_PARTIAL_URL + encrypted
+          return Rails.configuration.wowza_baseurl + encrypted
         end
       end
     else
@@ -554,7 +554,7 @@ module DamsObjectsHelper
     end
 
     # load key from file
-    key= File.read ViewOptions::WOWZA_PARENT_DIRECTORY + 'streaming.key'
+    key= File.read Rails.configuration.wowza_directory + 'streaming.key'
 
     # encrypt
     str="#{pid} #{fid} #{ip}"

@@ -3,6 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsObject
     extend ActiveSupport::Concern
+    include ModelHelper
     included do
       rdf_type DAMS.Object
 	  map_predicates do |map|
@@ -422,9 +423,9 @@ module Dams
 	      # titles
 	      insertTitleFields solr_doc, cid, component.title
 	
-	      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.typeOfResource.first)
-	      Solrizer.insert_field(solr_doc, "object_type", component.typeOfResource.first,@facetable)    
-	      Solrizer.insert_field(solr_doc, "fulltext", component.typeOfResource)
+	      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", format_name(component.typeOfResource.first))
+	      Solrizer.insert_field(solr_doc, "object_type", format_name(component.typeOfResource.first),@facetable)    
+	      Solrizer.insert_field(solr_doc, "fulltext", format_name(component.typeOfResource))
 	
 	      insertDateFields solr_doc, cid, component.date
 	      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
@@ -550,9 +551,9 @@ module Dams
 	      Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
 	      Solrizer.insert_field(solr_doc, "fulltext", carto_json.to_json)
 	    end 
-	    Solrizer.insert_field(solr_doc, "resource_type", typeOfResource.first)
-	    Solrizer.insert_field(solr_doc, "fulltext", typeOfResource)
-	    Solrizer.insert_field(solr_doc, "object_type", typeOfResource.first,@facetable)    
+	    Solrizer.insert_field(solr_doc, "resource_type", format_name(typeOfResource.first))
+	    Solrizer.insert_field(solr_doc, "fulltext", format_name(typeOfResource))
+	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource.first),@facetable)    
 	
 	    Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 	
