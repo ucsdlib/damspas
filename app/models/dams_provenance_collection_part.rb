@@ -1,6 +1,7 @@
 class DamsProvenanceCollectionPart < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsProvenanceCollectionPartDatastream 
     delegate_to "damsMetadata", [
+    	:assembledCollection, 
     	:provenanceCollection, 
     	:provenanceCollectionURI, 
     	:relatedResourceType, 
