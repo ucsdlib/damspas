@@ -61,6 +61,7 @@ class DamsProvenanceCollection < ActiveFedora::Base
     :personalName,
     :preferredCitationNote,
     :preferredCitationNote_attributes,
+    :assembledCollection,    
     :provenanceCollectionPart_attributes,    
     :provenanceCollectionPart,
     :provenanceCollectionPartURI,

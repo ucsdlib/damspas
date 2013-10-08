@@ -391,7 +391,7 @@ module Dams
 	  def to_solr (solr_doc = {})
 		super(solr_doc)
 	
-	    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+	    @facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 	    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
 	    storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
 	    storedIntMulti = Solrizer::Descriptor.new(:integer, :indexed, :stored, :multivalued)
@@ -423,7 +423,7 @@ module Dams
 	      insertTitleFields solr_doc, cid, component.title
 	
 	      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", component.typeOfResource.first)
-	      Solrizer.insert_field(solr_doc, "object_type", component.typeOfResource.first,facetable)    
+	      Solrizer.insert_field(solr_doc, "object_type", component.typeOfResource.first,@facetable)    
 	      Solrizer.insert_field(solr_doc, "fulltext", component.typeOfResource)
 	
 	      insertDateFields solr_doc, cid, component.date
@@ -481,7 +481,7 @@ module Dams
 	    
 	    u = load_unit unit
 	    if !u.nil?
-	      Solrizer.insert_field(solr_doc, 'unit', u.name, facetable)
+	      Solrizer.insert_field(solr_doc, 'unit', u.name, @facetable)
 	      Solrizer.insert_field(solr_doc, 'unit_code', u.code)
 	      Solrizer.insert_field(solr_doc, 'fulltext', u.name)
 	      Solrizer.insert_field(solr_doc, 'fulltext', u.code)
@@ -497,7 +497,7 @@ module Dams
 	    if col != nil
 	      col.each do |collection|
 	        begin
-	          Solrizer.insert_field(solr_doc, "collection", collection.title.first.name, facetable)
+	          Solrizer.insert_field(solr_doc, "collection", collection.title.first.name, @facetable)
 	          Solrizer.insert_field(solr_doc, "collection_name", collection.title.first.name)
 	          Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.name)
 	          Solrizer.insert_field(solr_doc, "collections", collection.pid)
@@ -520,8 +520,12 @@ module Dams
 	            col_json[:type] = "ProvenanceCollection"
 	          end
 	          Solrizer.insert_field(solr_doc, 'collection_json', col_json.to_json)
+
+              # recursively find parent collections and index them as facets
+              find_parents( solr_doc, collection )
+
 	        rescue
-	          logger.warn "Error indexing collection: #{collection.inspect}"
+	          logger.warn "Error indexing collection: #{collection.pid}"
 	        end
 	      end
 	    end
@@ -548,7 +552,7 @@ module Dams
 	    end 
 	    Solrizer.insert_field(solr_doc, "resource_type", typeOfResource.first)
 	    Solrizer.insert_field(solr_doc, "fulltext", typeOfResource)
-	    Solrizer.insert_field(solr_doc, "object_type", typeOfResource.first,facetable)    
+	    Solrizer.insert_field(solr_doc, "object_type", typeOfResource.first,@facetable)    
 	
 	    Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 	
@@ -563,6 +567,28 @@ module Dams
 	
 	    solr_doc
 	  end 
+      def find_parents( solr_doc, col )
+        begin
+          col.assembledCollection.each do |acol|
+            parent_obj = ActiveFedora::Base.find(acol.pid, :cast => true)
+            ptitle = parent_obj.title.first.value
+            Solrizer.insert_field(solr_doc, "collection", ptitle, @facetable)
+            find_parents( solr_doc, parent_obj)
+          end
+        rescue Exception => e
+          logger.debug "Error processing assembled collections: #{e}"
+        end
+        begin
+          col.provenanceCollection.each do |pcol|
+            parent_obj = ActiveFedora::Base.find(pcol.pid, :cast => true)
+            ptitle = parent_obj.title.first.value
+            Solrizer.insert_field(solr_doc, "collection", ptitle, @facetable)
+            find_parents( solr_doc, parent_obj)
+          end
+        rescue Exception => e
+          logger.debug "Error processing provenance collections: #{e}"
+        end
+      end
     end
   end
 end

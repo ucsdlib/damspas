@@ -11,6 +11,12 @@ feature 'Visitor wants to look at collections' do
     visit catalog_facet_path('collection_sim')
     expect(page).to have_selector('a', :text => 'curator-only collection')
   end
+  scenario 'recursive colleciton membership' do
+    sign_in_developer
+    visit catalog_index_path({'f[collection_sim][]' => 'UCSD Electronic Theses and Dissertations'})
+    expect(page).to have_selector('a', :text => 'Test Object in Provenance Collection')
+    expect(page).to have_selector('a', :text => 'Test Object in Provenance Collection Part')
+  end
 
   scenario 'collections search without query' do
     visit dams_collections_path
