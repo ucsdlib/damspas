@@ -45,7 +45,7 @@ $(document).ready(function() {
     
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
   
-  <p><%= link_to_add_fields "Add Note", f, :note %></p>
+  <p><%= link_to_add_fields "Add Note", f, :note, "DamsNote" %></p>
 
   <%= render :partial => 'shared/edit_fields/other_notes_form' , :locals => {:f => f}%>
         
