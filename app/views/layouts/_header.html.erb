@@ -29,8 +29,8 @@
            
            <!-- Link to general browse by collection, format and topic page -->
            <li><%= link_to "Collection", dams_collections_path %></li>
-           <li><%= link_to "Format", "/search/facet/object_type_sim?facet.sort=index" %></li>
-           <li><%= link_to "Topic", "/search/facet/subject_topic_sim?facet.sort=index" %></li>
+           <li><%= link_to "Format", catalog_facet_path("object_type_sim") %></li>
+          <li><%= link_to "Topic", catalog_facet_path("subject_topic_sim") %></li>
 
            
 
