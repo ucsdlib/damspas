@@ -581,8 +581,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "fulltext", resource.uri.first.to_s)
       Solrizer.insert_field(solr_doc, "fulltext", resource.type.first.to_s)
       Solrizer.insert_field(solr_doc, "fulltext", resource.description.first.to_s)
-      if resource.type.first.to_s == "preview"
-        Solrizer.insert_field(solr_doc, "preview", resource.uri.first.to_s)
+      if resource.type.first.to_s == "thumbnail"
+        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
       end
     end
   end
