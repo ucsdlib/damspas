@@ -23,9 +23,9 @@ feature 'Visitor wants to create/edit a provenance part collection' do
 		page.select('text', match: :first)
 		fill_in "Title", :with => "TestTitle"
 		fill_in "SubTitle", :with => "TestSubTitle"
-		fill_in "PartName", :with => "TestPartName"
-		fill_in "PartNumber", :with => "TestPartNumber"
-		fill_in "NonSort", :with => "TestNonSort"
+		#fill_in "PartName", :with => "TestPartName" # not displayed
+		#fill_in "PartNumber", :with => "TestPartNumber" # not displayed
+		#fill_in "NonSort", :with => "TestNonSort" # not displayed
 		fill_in "Date", :with => "TestDate"
 		fill_in "Begin Date", :with => "2001-01-01"
 		fill_in "End Date", :with => "2001-01-31"
@@ -52,9 +52,9 @@ feature 'Visitor wants to create/edit a provenance part collection' do
 		
 		expect(page).to have_content ("TestTitle")
 		expect(page).to have_content ("TestSubTitle")
-		expect(page).to have_content ("TestPartName")
-		expect(page).to have_content ("TestPartNumber")
-		expect(page).to have_content ("TestNonSort")
+		#expect(page).to have_content ("TestPartName") # not displayed
+		#expect(page).to have_content ("TestPartNumber") # not displayed
+		#expect(page).to have_content ("TestNonSort") # not displayed
 		expect(page).to have_content ("TestDate")
 		expect(page).to have_selector('li', :text => "English")
 		expect(page).to have_content ("TestNote")
@@ -101,9 +101,9 @@ feature 'Visitor wants to create/edit a provenance part collection' do
 		# expect(page).to have_selector('li', :text => "Test Title2")
 		expect(page).to have_content ("TestTitle2")
 		expect(page).to have_content ("TestSubTitle2")
-		expect(page).to have_content ("TestPartName2")
-		expect(page).to have_content ("TestPartNumber2")
-		expect(page).to have_content ("TestNonSort2")
+		#expect(page).to have_content ("TestPartName2") # not displayed
+		#expect(page).to have_content ("TestPartNumber2") # not displayed
+		#expect(page).to have_content ("TestNonSort2") # not displayed
 		expect(page).to have_content ("TestDate2")
 		expect(page).to have_selector('li', :text => "English")
 		expect(page).to have_content ("TestNote2")
