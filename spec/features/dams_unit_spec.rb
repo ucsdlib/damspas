@@ -48,7 +48,7 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
     # browse links should be scoped to the unit
-    topiclink = find_link("Topic")
+    topiclink = find('a.btn', text: "Topic")
     expect(topiclink[:href]).to have_content('dlp')
 
     # search for the object in the unit and find it
