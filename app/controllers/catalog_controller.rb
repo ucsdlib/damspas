@@ -25,10 +25,12 @@ class CatalogController < ApplicationController
   # This filters out objects that you want to exclude from search results, like FileAssets
   CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
 
-  # exclude opentopo records here
-  CatalogController.solr_search_params_logic += [:exclude_opentopo]
-  def exclude_opentopo(solr_parameters,user_parameters)
+  # exclude unwanted records here
+  CatalogController.solr_search_params_logic += [:exclude_unwanted_records]
+  def exclude_unwanted_records(solr_parameters,user_parameters)
+    solr_parameters[:fq] = [] unless solr_parameters[:fq]
     solr_parameters[:fq] << "-collections_tesim:#{Rails.configuration.excluded_collections}"
+    solr_parameters[:fq] << "-id:#{Rails.configuration.excluded_collections}"
     solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR has_model_ssim:\"info:fedora/afmodel:DamsUnit\" OR type_tesim:Collection)"
   end
 
@@ -263,15 +265,12 @@ class CatalogController < ApplicationController
       end
     end
   def collection_search
-    # limit search to collections, excluding unwanted/utility collections
-    fq = [ "type_tesim:Collection",
-           "-id:#{Rails.configuration.excluded_collections}"]
-
     # if a unit is specified, use solr join to find collections related to
     # objects in this unit
     if params[:id]
       # limit page by unit
-      fq << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
+      params[:fq] = [] unless params[:fq]
+      params[:fq] << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
 
       # fetch unit solr record
       begin
@@ -284,9 +283,15 @@ class CatalogController < ApplicationController
       end
     end
 
-    # solr search
-    extra = { :sort => "title_ssi asc", :fq => fq }
-    (@response, @document_list) = get_search_results params, extra
+    # limit search to collections
+    params[:f] = {:type_sim =>["Collection"]}
+
+    # excluding unwanted/utility collections
+    #params[:fq] = "-id:#{Rails.configuration.excluded_collections}"
+
+    # sort by title
+    params[:sort] = 'title_ssi asc' unless params[:sort]
+    (@response, @document_list) = get_search_results params
   end
 
   def raw_solr( params={} )
