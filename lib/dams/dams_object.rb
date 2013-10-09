@@ -77,7 +77,7 @@ module Dams
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderCorporate, :rightsHolderPersonal,
 	    							:cartographics, :allow_destroy => true
 	    							
-	  accepts_nested_attributes_for :note, :allow_destroy => true
+	  accepts_nested_attributes_for :note, allow_destroy: true
 	  
 	  rdf_subject { |ds|
 	    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)

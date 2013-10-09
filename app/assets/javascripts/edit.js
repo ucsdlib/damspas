@@ -131,6 +131,11 @@ function setLanguageId() {
   });
 }
 
+function remove_fields(link) {
+  //$(link).prev("input[type=hidden]").val("1");
+  //$(link).closest(".fields").hide();
+  $(link).closest(".fields").remove();
+}
 
 function add_fields(link, association, content) {
   var new_id = new Date().getTime();
