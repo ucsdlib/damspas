@@ -84,4 +84,22 @@ module CatalogHelper
     type = document['type_tesim']
     type != nil && type.include?("Collection")
   end
+  def thumbnail_link( thumbnail )
+
+    # handle arrays gracefully
+    if thumbnail.kind_of? Array
+      url = thumbnail.first
+    else
+      url = thumbnail
+    end
+
+    # translate PURLs into local URLs
+    if !url.blank? && url.start_with?( Rails.configuration.id_namespace )
+      url = url.sub( Rails.configuration.id_namespace, "" )
+      parts = url.split(/\//,2)
+      url = file_path parts[0], parts[1]
+    end
+
+    url
+  end
 end

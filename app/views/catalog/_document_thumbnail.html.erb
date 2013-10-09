@@ -65,7 +65,7 @@
      if document['related_resource_json_tesim'] != nil
        document['related_resource_json_tesim'].each do |rel|
          r = JSON.parse(rel)
-         colThumb = r['uri'] if r['type'] == 'thumbnail'
+         colThumb = thumbnail_link(r['uri']) if r['type'] == 'thumbnail'
        end
      end
        
