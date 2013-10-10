@@ -68,7 +68,7 @@ module Dams
 	    map.cartographics(:in => DAMS, :to => 'cartographics', :class_name => 'DamsCartographicsInternal')
 	  end
 	
-      accepts_nested_attributes_for :title, :date, :relationship, :language, 
+      accepts_nested_attributes_for :title, :date, :relationship,  
       								:custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
       								:complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
       								:iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
@@ -78,6 +78,7 @@ module Dams
 	    							:cartographics, :allow_destroy => true
 	    							
 	  accepts_nested_attributes_for :note, allow_destroy: true
+	   accepts_nested_attributes_for :language, allow_destroy: true
 	  
 	  rdf_subject { |ds|
 	    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)

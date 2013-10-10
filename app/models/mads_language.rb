@@ -6,4 +6,9 @@ class MadsLanguage < ActiveFedora::Base
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
   include Hydra::ModelMixins::RightsMetadata
 
+ # def id
+ # 	damsMetadata.rdf_subject
+ # end
+  
+  
 end
