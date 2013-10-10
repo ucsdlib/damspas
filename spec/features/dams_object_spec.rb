@@ -210,6 +210,16 @@ feature 'Visitor wants to cancel unsaved objects' do
     expect(page).to have_selector('a', :text => "Create Object")
   end
 
+  scenario 'valid pan/zoom image viewer' do
+    visit zoom_path 'bd3379993m', '0'
+    expect(page).to have_selector('div#map')
+    expect(page).not_to have_selector('header')
+  end
+  scenario 'invalide pan/zoom image viewer' do
+    visit zoom_path 'bd3379993m', '9'
+    expect(page).to have_selector('p', :text => "Error: unable to find zoomable image.")
+  end
+
 end
 
 def sign_in_developer

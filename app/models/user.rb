@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   def groups
     if @group_list == nil
       if provider == "developer"
-        @group_list = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user'] # XXX move to config
+        @group_list = Rails.configuration.developer_groups
       elsif provider == "shibboleth"
         @group_list = ['shibboleth-authenticated']
       else
