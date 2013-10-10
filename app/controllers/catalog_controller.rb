@@ -265,6 +265,12 @@ class CatalogController < ApplicationController
       end
     end
   def collection_search
+    # if we already have the parameters set below, then redirect to /search
+    # this allows removing Collections limit, etc.
+    if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )
+      redirect_to catalog_index_path params
+    end
+
     # if a unit is specified, use solr join to find collections related to
     # objects in this unit
     if params[:id]
