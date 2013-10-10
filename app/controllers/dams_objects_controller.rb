@@ -74,7 +74,7 @@ class DamsObjectsController < ApplicationController
     @dams_object.title.first.hasExpansionVariant.build
     @dams_object.date.build
     @dams_object.language.build
-    @dams_object.language.first.scheme.build
+    #@dams_object.language.first.scheme.build
     @dams_object.note.build
     @dams_object.scopeContentNote.build
     @dams_object.custodialResponsibilityNote.build

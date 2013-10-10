@@ -42,6 +42,8 @@ $(document).ready(function() {
   <% end %> 
 
   <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f}%>
+  
+  <p><%= link_to_add_fields "Add Language", f, :language, "MadsLanguage" %></p>
     
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
   

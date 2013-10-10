@@ -1,11 +1,6 @@
 <h3>Note</h3>
 <div id="noteSection">
   <%= f.fields_for :note do |builder| %>
-    <%#= no.text_field :value , :value => ""%>    
-    <%#= no.label :type, "Note Type" %>
-    <%#= no.text_field :type, :value => ""%>
-    <%#= no.label :displayLabel, "Note Display label" %>
-    <%#= no.text_field :displayLabel, :value => ""%>
     <%= render "shared/edit_fields/note_fields", :f => builder %>              
   <% end %>
 </div>

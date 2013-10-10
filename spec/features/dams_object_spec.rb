@@ -97,7 +97,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
-    page.select("English", match: :first)
+#    page.select("English", match: :first)
     page.select('Public domain', match: :first)
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
