@@ -162,33 +162,33 @@ class DamsProvenanceCollectionsController < ApplicationController
 
   def update
 
-    @dams_provenance_collection.title.clear
-    @dams_provenance_collection.date.clear
-    @dams_provenance_collection.language.clear
-    @dams_provenance_collection.note.clear
-    @dams_provenance_collection.scopeContentNote.clear
-    @dams_provenance_collection.custodialResponsibilityNote.clear
-    @dams_provenance_collection.preferredCitationNote.clear
-    @dams_provenance_collection.relatedResource.clear
-    @dams_provenance_collection.complexSubject.clear
-    @dams_provenance_collection.builtWorkPlace.clear
-    @dams_provenance_collection.culturalContext.clear
-    @dams_provenance_collection.function.clear    
-    @dams_provenance_collection.genreForm.clear
-    @dams_provenance_collection.geographic.clear
-    @dams_provenance_collection.iconography.clear    
-    @dams_provenance_collection.occupation.clear
-    @dams_provenance_collection.scientificName.clear
-    @dams_provenance_collection.stylePeriod.clear    
-    @dams_provenance_collection.technique.clear   
-    @dams_provenance_collection.topic.clear
-    @dams_provenance_collection.temporal.clear
-    @dams_provenance_collection.name.clear
-    @dams_provenance_collection.personalName.clear    
-    @dams_provenance_collection.corporateName.clear   
-    @dams_provenance_collection.conferenceName.clear    
-    @dams_provenance_collection.familyName.clear
-    @dams_provenance_collection.provenanceCollectionPart.clear
+    # @dams_provenance_collection.title.clear
+    # @dams_provenance_collection.date.clear
+    # @dams_provenance_collection.language.clear
+    # @dams_provenance_collection.note.clear
+    # @dams_provenance_collection.scopeContentNote.clear
+    # @dams_provenance_collection.custodialResponsibilityNote.clear
+    # @dams_provenance_collection.preferredCitationNote.clear
+    # @dams_provenance_collection.relatedResource.clear
+    # @dams_provenance_collection.complexSubject.clear
+    # @dams_provenance_collection.builtWorkPlace.clear
+    # @dams_provenance_collection.culturalContext.clear
+    # @dams_provenance_collection.function.clear    
+    # @dams_provenance_collection.genreForm.clear
+    # @dams_provenance_collection.geographic.clear
+    # @dams_provenance_collection.iconography.clear    
+    # @dams_provenance_collection.occupation.clear
+    # @dams_provenance_collection.scientificName.clear
+    # @dams_provenance_collection.stylePeriod.clear    
+    # @dams_provenance_collection.technique.clear   
+    # @dams_provenance_collection.topic.clear
+    # @dams_provenance_collection.temporal.clear
+    # @dams_provenance_collection.name.clear
+    # @dams_provenance_collection.personalName.clear    
+    # @dams_provenance_collection.corporateName.clear   
+    # @dams_provenance_collection.conferenceName.clear    
+    # @dams_provenance_collection.familyName.clear
+    # @dams_provenance_collection.provenanceCollectionPart.clear
   
     
     @dams_provenance_collection.attributes = params[:dams_provenance_collection]
