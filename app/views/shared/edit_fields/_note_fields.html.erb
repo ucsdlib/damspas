@@ -1,12 +1,11 @@
-<div class="fields">   
+<div class="fields">
+    <%= link_to_remove_fields "Remove Note", f %>   
 	<%= f.label :type, "Note" %>
     <%= f.text_field :value , :value => ""%>    
     <%= f.label :type, "Note Type" %>
     <%= f.text_field :type, :value => ""%>
     <%= f.label :displayLabel, "Note Display label" %>
     <%= f.text_field :displayLabel, :value => ""%>
-    <br>
-    <%= link_to_remove_fields "Remove Note", f %>
     <%# if f.object.persisted? %>
       <%#= f.check_box :_destroy %>
       <%#= f.label :_destroy, "Destroy" %>
