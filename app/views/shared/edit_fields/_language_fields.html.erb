@@ -1,4 +1,5 @@
-<div class="fields">   
+<div class="fields">
+	 <%= link_to_remove_fields "Remove Language", f %>   
   	<%= f.label :name, "Name" %>
     <%= f.text_field :name , :value => "", required: true, :onClick=>"javascript: setLanguageId();"%>    
     <%= f.label :code, "Code" %>
@@ -9,6 +10,6 @@
 	    <%#= se.label :id, "Scheme" %>
 	    <%#= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
 	  <%# end %>	    
-    <%= f.hidden_field :id %> 
+    <%= f.hidden_field :id %>
     <hr>
 </div>
