@@ -19,6 +19,8 @@
 //
 // DAMS (3RD PARTY)
 //= require audio.min
+//= require leaflet
+//= require zoomify_layer
 //
 // DAMS (CUSTOM)
 //= require search
