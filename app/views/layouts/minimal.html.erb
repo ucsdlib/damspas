@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+		<title><%= full_title(@page_title) %></title>
+
+	  <%# LE JAVASCRIPT  %>
+	  <%= javascript_include_tag "application" %>
+
+		<%# YE OLDE CSS %>
+		<%= favicon_link_tag asset_path('favicon.ico') %>
+		<%= stylesheet_link_tag "application", :media => "all" %>
+
+		<%= csrf_meta_tags %>
+		<%= raw(render_head_content) %>
+
+		<%= render :partial => 'layouts/ie_conditionals' %>
+	</head>
+
+	<body class="<%= render_body_class %>">
+
+		<section id="messages" class="container-fluid">
+			<%= render :partial=>'/flash_msg' %>
+		</section>
+
+		<section id="main-container" class="container-fluid">
+			<%= yield %>
+		</section>
+
+		<footer>
+			<section>
+				<address>
+					<strong>UC San Diego</strong>
+					9500 Gilman Dr.
+					La Jolla, CA 92093
+					(858) 534-2230
+				</address>
+				<p>Copyright © 2013 Regents of the University of California. All rights reserved.</p>
+				<ul class="inline">
+					<li><a href="#terms">Terms &amp; Conditions</a></li>
+					<li class="muted">|</li>
+					<li><a href="#feedback">Feedback</a></li>
+				</ul>
+			</section>
+		</footer>
+
+		<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
+
+		<!-- show debugging parameters in development -->
+		<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>
+
+	</body>
+</html>

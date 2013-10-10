@@ -213,6 +213,7 @@ feature 'Visitor wants to cancel unsaved objects' do
   scenario 'valid pan/zoom image viewer' do
     visit zoom_path 'bd3379993m', '0'
     expect(page).to have_selector('div#map')
+    expect(page).not_to have_selector('header')
   end
   scenario 'invalide pan/zoom image viewer' do
     visit zoom_path 'bd3379993m', '9'
