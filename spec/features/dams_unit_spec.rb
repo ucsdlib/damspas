@@ -33,6 +33,7 @@ feature 'Visitor wants to look at units' do
 
   scenario 'retrieve a unit record' do
     # can we find the unit record
+    sign_in_developer
     visit dams_units_path
     expect(page).to have_field('Search DAMS')
     fill_in 'Search DAMS', :with => 'bb02020202', :match => :prefer_exact
