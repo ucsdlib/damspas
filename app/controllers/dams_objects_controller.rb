@@ -70,6 +70,8 @@ class DamsObjectsController < ApplicationController
 
     @object = params[:id]
     @component = params[:cmp]
+
+    render layout: 'minimal'
   end
 
 
