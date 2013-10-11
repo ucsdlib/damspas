@@ -12,7 +12,7 @@ $(document).ready(function() {
 </script>
 
 <h1>Create a new Dams provenance collection object</h1>
-<%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm();'} do |f| %>
+<%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_");'} do |f| %>
   
   <!--<h3>Provenance Collection Part</h3>
   <%#= select_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %> 
@@ -38,7 +38,30 @@ $(document).ready(function() {
 
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>   
 
- <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f}%> 
+ 
+
+ <h3>Language</h3>  
+  <div id="newLanguage">
+    <%= f.fields_for :language do |lang| %>
+      <%= lang.label :name, "Name" %>
+      <%= lang.text_field :name , :value => "", required: true, :onClick=>"javascript: setLanguageId_generic('#dams_provenance_collection_');"%>    
+      <%= lang.label :code, "Code" %>
+      <%= lang.text_field :code, :value => ""%>
+      <%= lang.label :externalAuthority, "ExternalAuthority" %>
+      <%= lang.text_field :externalAuthority, :value => ""%>
+      <%= lang.fields_for :scheme do |se| %>
+        <%= se.label :id, "Scheme" %>
+        <%= se.select :id, options_for_select(@mads_schemes) , {:include_blank => 'Select MadsScheme'}, :required => "true" %>
+      <% end %>     
+      <%= lang.hidden_field :id %>                    
+    <% end %>
+  </div>
+  <br>
+  <div id="newLanguageLink">
+    <%= f.fields_for :language do |lang| %>
+      <%= lang.select :id, options_for_select(@mads_languages) , {:include_blank => 'Select Language'}, :required => "true"%>
+    <% end %>
+  </div>
 
 <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
 

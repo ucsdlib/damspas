@@ -597,6 +597,17 @@ def relatedResourceUri
     end
   end 
 
+
+  def hasProvenanceCollectionURI=(val)
+    if val.class == Array
+      val = val.first
+    end
+    if(!val.nil? && val.length > 0)
+      @hasProvenanceCollectionURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+    end
+  end
+
+
   def provenanceCollectionURI=(val)
     if val.class == Array
     	val = val.first

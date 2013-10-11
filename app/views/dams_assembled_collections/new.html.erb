@@ -1,5 +1,9 @@
 <h1>New DAMS Assembled Collection</h1>
 <%= form_for @dams_assembled_collection do |f| %>
+ 
+<h3>Has Provenance Collections</h3>
+  <%= select_tag 'dams_assembled_collection[hasProvenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %> 
+  <br> 
 
   <%
      visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
