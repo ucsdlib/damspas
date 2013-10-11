@@ -58,7 +58,7 @@ module Dams
         
        # child parts
         map.part_node(:in=>DAMS,:to=>'hasPart')
-        map.provenanceCollection_node(:in=>DAMS,:to=>'hasProvenanceCollection')
+        map.provenanceCollection_node(:in=>DAMS,:to=>'hasProvenanceCollection',:class_name => 'DamsProvenanceCollectionInternal')
 
         # related collections
         map.relatedCollection(:in => DAMS)
@@ -74,7 +74,7 @@ module Dams
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
                     :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node, :provenanceCollection_node
 
-
+  
   
 
       def serialize
@@ -92,7 +92,14 @@ module Dams
           else
             graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
           end
-        end  
+        end 
+        if(!@provenanceCollURI.nil?)
+          if new?
+            graph.insert([rdf_subject, DAMS.provenanceCollection_node, @hasProvenanceCollectionURI])
+          else
+            graph.update([rdf_subject, DAMS.provenanceCollection_node, @hasProvenanceCollectionURI])
+          end
+        end   
         insertSubjectsGraph 
         insertNameGraph 
         super

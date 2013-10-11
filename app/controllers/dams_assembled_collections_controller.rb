@@ -36,7 +36,7 @@ class DamsAssembledCollectionsController < ApplicationController
   end
 
   def new
-
+     @dams_provenance_collections=get_objects('DamsProvenanceCollection','title_tesim')
   end
 
   def edit

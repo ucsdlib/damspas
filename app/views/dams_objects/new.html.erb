@@ -9,7 +9,9 @@ $(document).ready(function() {
 
 });
 </script>
-<h1>Create a new Dams Object</h1>
+<h1>Create a new Dams Objects</h1>
+
+
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
   
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
