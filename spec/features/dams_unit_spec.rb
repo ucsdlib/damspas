@@ -66,8 +66,7 @@ feature 'Visitor wants to look at units' do
     # search for the object in the unit and find it
     fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
     click_on('search-button')
-    expect(page).to have_content('Search Results')
-    expect(page).to have_no_content('Sample Complex Object Record #1')
+    expect(page).to have_no_content('Sample Simple Object')
   end
 end
 feature 'Visitor should only see edit button when it will work' do

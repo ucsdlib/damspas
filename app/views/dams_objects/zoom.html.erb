@@ -22,15 +22,15 @@
     dir += "-#{@cmp}" if @cmp != '0'
 %>
   <style type="text/css">
-    #map { width: 512px; height: 512px; }
+    html, body, #map {
+      width: 100%; height: 100%; padding: 0; margin: 0;
+    }
   </style>
   <div id="map"></div>
   <script type="text/javascript">
-    var imageUrl = '<%=Rails.configuration.zoomify_baseurl%><%=dir%>/'
-    imageSize = { width: <%=dim[0]%>, height: <%=dim[1]%> };
-    var layer = new ZoomifyLayer(imageUrl, imageSize),
-    map = new L.Map('map');
-    map.setView(new L.LatLng(0,0), 0);
-    map.addLayer(layer);
+    var map = L.map('map').setView(new L.LatLng(0,0), 0);
+    L.tileLayer.zoomify('<%=Rails.configuration.zoomify_baseurl%><%=dir%>/', { 
+      width: <%=dim[0]%>, height: <%=dim[1]%>
+    }).addTo(map);
   </script>
 <% end %>
