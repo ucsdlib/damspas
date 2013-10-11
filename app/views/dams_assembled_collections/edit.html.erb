@@ -15,7 +15,7 @@
   <h3>Type Of Resource</h3>
   <%= select_tag 'dams_assembled_collection[resource_type][]',  options_for_select(resourceTypeArray , :selected => @dams_assembled_collection.resource_type), :prompt=>"Select Type of resource", required: true %>
   
-  <%= label_tag 'dams_assembled_collection[titleValue]', "Title" %><%= text_field_tag 'dams_assembled_collection[titleValue][]', @dams_assembled_collection.titleValue[0] %>
+  <%= label_tag 'dams_assembled_collection[titleValue]', "Title" %><%= text_field_tag 'dams_assembled_collection[titleValue][]', @dams_assembled_collection.titleValue %>
   <%= label_tag 'dams_assembled_collection[dateValue]', "Date Value" %><%= text_field_tag 'dams_assembled_collection[dateValue][]', @dams_assembled_collection.dateValue[0] %>
   <%= label_tag 'dams_assembled_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_assembled_collection[beginDate][]', @dams_assembled_collection.beginDate[0] %>
   <%= label_tag 'dams_assembled_collection[endDate]', "End Date" %><%= text_field_tag 'dams_assembled_collection[endDate][]', @dams_assembled_collection.endDate[0] %>
