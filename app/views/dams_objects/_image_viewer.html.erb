@@ -1,4 +1,2 @@
 <% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
-<a href="<%=serviceFilePath%>" target="_blank">
-	<%= image_tag displayFilePath, :alt => title %>
-</a>
+<%= link_to image_tag(displayFilePath, :alt => title), zoomFilePath %>

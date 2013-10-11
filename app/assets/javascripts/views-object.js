@@ -130,13 +130,13 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 				var controlID = "control-" + componentIndex;
 				componentData = $.parseJSON(componentData);
 				var fileType = componentData.file_type;
-				var serviceFilePath = componentData.service_file_path;
+				var zoomFilePath = componentData.zoom_file_path;
 				var displayFilePath = componentData.display_file_path;
 
 				switch(fileType)
 				{
 					case "image":
-						$(container).html( '<a href="'+serviceFilePath+'" target="_blank"><img src="'+displayFilePath+'"></a>' );
+						$(container).html( '<a href="'+zoomFilePath+'"><img src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
 

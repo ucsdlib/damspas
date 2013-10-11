@@ -19,9 +19,10 @@
 					if service_file != nil
 						service_file_path = file_path(ark,"_#{service_file}")
 					end
+                    zoom_file_path = zoom_path @document['id'], '0'
 				%>
 
-				<%= render :partial => 'simple_object_viewer', :locals => {:fileType=>fileType, :display_file_path=>display_file_path, :service_file_path=>service_file_path, :service_file=>service_file} %>
+				<%= render :partial => 'simple_object_viewer', :locals => {:fileType=>fileType, :display_file_path=>display_file_path, :service_file_path=>service_file_path, :service_file=>service_file, :zoom_file_path => zoom_file_path} %>
 
 			<% end %>
 		<% end %>
