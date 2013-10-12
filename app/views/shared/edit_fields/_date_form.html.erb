@@ -1,14 +1,14 @@
 <h3>Date</h3>
 <div id="dateSection">
   <%= f.fields_for :date do |te| %>
-    <%= te.text_field :value , :value => ""%>    
+    <%= te.text_field :value , :value => "", class: "input-block-level" %>    
     <%= te.label :beginDate, "Begin Date" %>
-    <%= te.text_field :beginDate, :value => ""%>
+    <%= te.text_field :beginDate, :value => "", class: "input-block-level" %>
     <%= te.label :endDate, "End Date" %>
-    <%= te.text_field :endDate, :value => ""%>
+    <%= te.text_field :endDate, :value => "", class: "input-block-level" %>
     <%= te.label :type, "Date Type" %>
-    <%= te.text_field :type, :value => ""%>  
+    <%= te.text_field :type, :value => "", class: "input-block-level" %>  
     <%= te.label :encoding, "Date Encoding" %>
-    <%= te.text_field :encoding, :value => ""%>            
+    <%= te.text_field :encoding, :value => "", class: "input-block-level" %>           
   <% end %>
 </div>

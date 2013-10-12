@@ -1,15 +1,14 @@
-<div class="fields">
-	 <%= link_to_remove_fields "Remove Language", f %>   
+<div class="fields">	    
   	<%= f.label :name, "Name" %>
-    <%= f.text_field :name , :value => "", required: true, :onClick=>"javascript: setLanguageId();"%>    
+    <%= f.text_field :name , :value => "", required: true, :onClick=>"javascript: setLanguageId();", class: "input-block-level" %>    
     <%= f.label :code, "Code" %>
-    <%= f.text_field :code, :value => ""%>
+    <%= f.text_field :code, :value => "", class: "input-block-level" %>
     <%= f.label :externalAuthority, "ExternalAuthority" %>
-    <%= f.text_field :externalAuthority, :value => ""%>
+    <%= f.text_field :externalAuthority, :value => "", class: "input-block-level" %>
 	  <%#= f.fields_for :scheme do |se| %>
 	    <%#= se.label :id, "Scheme" %>
 	    <%#= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
 	  <%# end %>	    
     <%= f.hidden_field :id %>
-    <hr>
+    <%= link_to_remove_fields "Remove Language", f %>
 </div>
