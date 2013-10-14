@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title><%= full_title(@page_title) %> | Zoom</title>
+		<%= favicon_link_tag asset_path('favicon.ico') %>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+		<%= javascript_include_tag "leaflet" %>
+		<%= javascript_include_tag "L.TileLayer.Zoomify" %>
+		<%= stylesheet_link_tag "leaflet", :media => "all" %>
+	</head>
+	<body>
+		<%= yield %>
+	</body>
+</html>

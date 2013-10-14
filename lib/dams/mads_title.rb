@@ -22,28 +22,74 @@ module Dams
       def elementList
         elem_list.first || elem_list.build
       end      
-      accepts_nested_attributes_for :nonSortElement, :mainTitleElement, :partNameElement, :partNumberElement, :subTitleElement
+      accepts_nested_attributes_for :nonSortElement, :mainTitleElement, :partNameElement, :partNumberElement, :subTitleElement, :hasVariant, 
+      							:hasAbbreviationVariant, :hasAcronymVariant, :hasExpansionVariant, :hasTranslationVariant 
       
       def serialize
         graph.insert([rdf_subject, RDF.type, MADS.Title]) if new?
         super
       end
 
+	  ### nonSort ####
+	   
       delegate :nonSortElement_attributes=, to: :elementList
       alias_method :nonSortElement, :elementList
 
+      def nonSortElement_with_update_name= (attributes)
+        self.nonSortElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :nonSortElement_without_update_name=, :nonSortElement_attributes=
+      alias_method :nonSortElement_attributes=, :nonSortElement_with_update_name=
+      
+      ### mainTitle ####
+       
       delegate :mainTitleElement_attributes=, to: :elementList
       alias_method :mainTitleElement, :elementList
       
+      def mainTitleElement_with_update_name= (attributes)
+        self.mainTitleElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :mainTitleElement_without_update_name=, :mainTitleElement_attributes=
+      alias_method :mainTitleElement_attributes=, :mainTitleElement_with_update_name=
+      
+      ### partName ####
+           
       delegate :partNameElement_attributes=, to: :elementList
       alias_method :partNameElement, :elementList
 
+      def partNameElement_with_update_name= (attributes)
+        self.partNameElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :partNameElement_without_update_name=, :partNameElement_attributes=
+      alias_method :partNameElement_attributes=, :partNameElement_with_update_name=
+      
+      ### partNumber ####
+      
       delegate :partNumberElement_attributes=, to: :elementList
       alias_method :partNumberElement, :elementList
 
+      def partNumberElement_with_update_name= (attributes)
+        self.partNumberElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :partNumberElement_without_update_name=, :partNumberElement_attributes=
+      alias_method :partNumberElement_attributes=, :partNumberElement_with_update_name=
+      
+      ### subTitle ####
+      
       delegate :subTitleElement_attributes=, to: :elementList
       alias_method :subTitleElement, :elementList
 
+      def subTitleElement_with_update_name= (attributes)
+        self.subTitleElement_without_update_name= attributes
+        self.name = authLabel
+      end
+      alias_method :subTitleElement_without_update_name=, :subTitleElement_attributes=
+      alias_method :subTitleElement_attributes=, :subTitleElement_with_update_name=
+      
 	  def authLabel
 	    main = value
 	    subt = subtitle
@@ -66,35 +112,35 @@ module Dams
 	    authLabel if !authLabel.blank?
 	  end
 	  def value
-        get_value MadsMainTitleElement
+        get_title_value MadsMainTitleElement
 	  end
 	  def nonSort
-	    get_value MadsNonSortElement
+	    get_title_value MadsNonSortElement
 	  end
 	  def partName
-	    get_value MadsPartNameElement
+	    get_title_value MadsPartNameElement
 	  end
 	  def partNumber
-	    get_value MadsPartNumberElement
+	    get_title_value MadsPartNumberElement
 	  end
 	  def subtitle
-	    get_value MadsSubTitleElement
+	    get_title_value MadsSubTitleElement
 	  end
 
 	  def value=(s)
-        set_value MadsMainTitleElement, s
+        set_title_value MadsMainTitleElement, s
 	  end
 	  def nonSort=(s)
-        set_value MadsNonSortElement, s
+        set_title_value MadsNonSortElement, s
 	  end
 	  def partName=(s)
-        set_value MadsPartNameElement, s
+        set_title_value MadsPartNameElement, s
 	  end
 	  def partNumber=(s)
-        set_value MadsPartNumberElement, s
+        set_title_value MadsPartNumberElement, s
 	  end
 	  def subtitle=(s)
-        set_value MadsSubTitleElement, s
+        set_title_value MadsSubTitleElement, s
 	  end
 
 	  def variant
@@ -155,7 +201,7 @@ module Dams
           idx += 1
         end
       end
-      def get_value(klass)
+      def get_title_value(klass)
         elem = get_elem(klass)
         if (elem.nil?)
           return nil
@@ -167,7 +213,7 @@ module Dams
           return elem.elementValue.to_s
         end
       end
-      def set_value( klass, val )
+      def set_title_value( klass, val )
         e = get_elem(klass)
         if e.nil?
           e = klass.new( graph )

@@ -8,6 +8,10 @@ feature 'Visitor want to look at objects' do
     visit dams_object_path('bd0922518w')
     expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
     expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
+
+    # admin links
+    expect(page).to have_link('Hydra View')
+    expect(page).to have_link('RDF View')
   end
 
   scenario 'view a sample data file' do
@@ -79,20 +83,21 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 #
 #    visit current_path
 
-    fill_in "dams_object_titleValue_", :with => "Dams Test Object"
+    #fill_in "dams_object_titleValue_", :with => "Dams Test Object"
+    fill_in "MainTitle", :with => "Dams Test Object"
     fill_in "SubTitle", :with => "New Object"
     fill_in "PartName", :with => "ep1"
     fill_in "PartNumber", :with => "999"
     fill_in "NonSort", :with => "this"
     page.select('Research Data Curation Program', match: :first) 
     page.select('UCSD Electronic Theses and Dissertations', match: :first) 
-    fill_in "dams_object_dateValue_", :with => "07/15/2013"
-    fill_in "Begin Date", :with => "07/11/2013"
-    fill_in "End Date", :with => "07/15/2013"
+    fill_in "dams_object_date_attributes_0_value", :with => "2013"
+    fill_in "Begin Date", :with => "2012"
+    fill_in "End Date", :with => "2014"
 	fill_in "Date Type", :with => "Testdatetype"
 	fill_in "Date Encoding", :with => "TestDateEncoding"    
     page.select('text', match: :first)
-    fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
+    #fill_in "dams_object_subjectTypeValue_", :with => "TypeSubject"
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
@@ -111,7 +116,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     expect(page).to have_selector('h2', :text => "New Object")
     #expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
     #expect(page).to have_selector('a', :text => "Research Data Curation Program")
-    expect(page).to have_selector('li', :text => "07/15/2013")
+    expect(page).to have_selector('li', :text => "2013")
     expect(page).to have_selector('dt', :text => "Testdatetype")
     expect(page).to have_selector('a', :text => "Text")
     #expect(page).to have_selector('strong', :text => "Public domain") # XXX not displaying
@@ -119,7 +124,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
     click_on "Edit"
     fill_in "dams_object_titleValue_", :with => "Edited Dams Object"
-    fill_in "dams_object_dateValue_", :with => "07/16/2013", match: :first
+    fill_in "dams_object_dateValue_", :with => "2013", match: :first
     fill_in "dams_object_noteValue_", :with => "Science"
     fill_in "Description", :with => "Student"
     page.select('Library Digital Collections', match: :first)
@@ -127,14 +132,14 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
     # Check that changes are saved
     expect(page).to have_selector('p', :text => "Science")
-    expect(page).to have_selector('li', :text => "07/16/2013")
+    expect(page).to have_selector('li', :text => "2013")
     expect(page).to have_selector('h1', :text => "Edited Dams Object")
     #expect(page).to have_selector('a', :text => "Library Digital Collections") # XXX: not displaying
     expect(page).to have_selector('li', :text => "Student")
 
     # Check Hydra View
     click_on "Hydra View"
-    expect(page).to have_content("Begin Date: 07/11/2013")
+    expect(page).to have_content("2013")
     expect(page).to have_content("Edited Dams Object")
 
     click_on "New Object"
@@ -203,6 +208,16 @@ feature 'Visitor wants to cancel unsaved objects' do
     expect('/object').to eq(current_path)
     expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
     expect(page).to have_selector('a', :text => "Create Object")
+  end
+
+  scenario 'valid pan/zoom image viewer' do
+    visit zoom_path 'bd3379993m', '0'
+    expect(page).to have_selector('div#map')
+    expect(page).not_to have_selector('header')
+  end
+  scenario 'invalide pan/zoom image viewer' do
+    visit zoom_path 'bd3379993m', '9'
+    expect(page).to have_selector('p', :text => "Error: unable to find zoomable image.")
   end
 
 end

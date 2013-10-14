@@ -24,9 +24,11 @@ class MadsSchemeInternal
   def attributes=(values)
     if rdf_subject.uri? && (!values.key?('code') || !values.key?('name'))
       remote_scheme = Dams.resolve_object(rdf_subject)
-      raise "Expected a MadsScheme at #{rdf_subject}, but got #{remote_scheme.class}." unless remote_scheme.kind_of? MadsScheme
-      values['code'] = remote_scheme.code
-      values['name'] = remote_scheme.name 
+      if(!remote_scheme.nil?)
+      	raise "Expected a MadsScheme at #{rdf_subject}, but got #{remote_scheme.class}." unless remote_scheme.kind_of? MadsScheme
+      	values['code'] = remote_scheme.code
+      	values['name'] = remote_scheme.name
+      end 
     end
     super(values)
   end

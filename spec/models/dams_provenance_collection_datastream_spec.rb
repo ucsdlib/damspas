@@ -60,7 +60,7 @@ describe DamsProvenanceCollectionDatastream do
  #       subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
  #     end
 
-# 	  it "should have notes" do
+#     it "should have notes" do
 #        solr_doc = subject.to_solr
 #        solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 #        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}bb80808080"
@@ -69,17 +69,17 @@ describe DamsProvenanceCollectionDatastream do
 #        solr_doc["note_tesim"].should include "Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 #      end
       
-# 	  it "should index notes" do
+#     it "should index notes" do
 #       solr_doc = subject.to_solr
 
- 	    #it "should have scopeContentNote" do
-#		testIndexNoteFields solr_doc,"scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+      #it "should have scopeContentNote" do
+#   testIndexNoteFields solr_doc,"scopeContentNote","Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have preferredCitationNote" do
-#		testIndexNoteFields solr_doc,"preferredCitationNote","Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#   testIndexNoteFields solr_doc,"preferredCitationNote","Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 
         #it "should have CustodialResponsibilityNote" do
-#		testIndexNoteFields solr_doc,"custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+#   testIndexNoteFields solr_doc,"custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
 #      end  
  #     it "should have relationship" do
  #       subject.relationship.first.name.first.pid.should == "bb08080808"

@@ -33,6 +33,7 @@ feature 'Visitor wants to look at units' do
 
   scenario 'retrieve a unit record' do
     # can we find the unit record
+    sign_in_developer
     visit dams_units_path
     expect(page).to have_field('Search DAMS')
     fill_in 'Search DAMS', :with => 'bb02020202', :match => :prefer_exact
@@ -48,7 +49,7 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
     # browse links should be scoped to the unit
-    topiclink = find_link("Topic")
+    topiclink = find('a.btn', text: "Topic")
     expect(topiclink[:href]).to have_content('dlp')
 
     # search for the object in the unit and find it
@@ -65,8 +66,7 @@ feature 'Visitor wants to look at units' do
     # search for the object in the unit and find it
     fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
     click_on('search-button')
-    expect(page).to have_content('Search Results')
-    expect(page).to have_no_content('Sample Complex Object Record #1')
+    expect(page).to have_no_content('Sample Simple Object')
   end
 end
 feature 'Visitor should only see edit button when it will work' do
@@ -96,6 +96,7 @@ end
 feature "Visitor wants to view the unit's collections" do
   scenario 'an anonymous user' do
     visit dams_unit_collections_path('dlp')
+    expect(page).to have_selector('h1','Library Digital Collections')
     expect(page).to have_selector('a', :text => 'UCSD Electronic Theses and Dissertations')
     expect(page).to have_selector('li', :text => 'Linked scope content note')
   end

@@ -1,0 +1,36 @@
+<div id="names">
+  <div id="Name">
+	  <%= f.fields_for :name do |na| %>
+	    <%= na.label :type, "OR New Name" %>
+	    <%= na.text_field :name , :value => ""%>        
+	  <% end %> 
+  </div>
+
+  <div id="PersonalName">
+	  <%= f.fields_for :personalName do |perName| %>
+	    <%= perName.label :type, "OR New PersonalName" %>
+	    <%= perName.text_field :name , :value => ""%>        
+	  <% end %> 
+  </div>
+
+  <div id="CorporateName">
+	  <%= f.fields_for :corporateName do |corName| %>
+	    <%= corName.label :type, "OR New CorporateName" %>
+	    <%= corName.text_field :name , :value => ""%>        
+	  <% end %> 
+  </div>
+
+  <div id="ConferenceName">
+	  <%= f.fields_for :conferenceName do |confName| %>
+	    <%= confName.label :type, "OR New ConferenceName" %>
+	    <%= confName.text_field :name , :value => ""%>        
+	  <% end %> 
+  </div>
+
+  <div id="FamilyName">
+	  <%= f.fields_for :familyName do |famName| %>
+	    <%= famName.label :type, "OR New FamilyName" %>
+	    <%= famName.text_field :name , :value => ""%>        
+	  <% end %> 
+  </div>
+</div>

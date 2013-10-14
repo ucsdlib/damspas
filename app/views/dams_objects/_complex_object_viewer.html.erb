@@ -12,9 +12,10 @@
 		service_file = grabServiceFile(:componentIndex=>i)
 		display_file_path = (display_file != 'no_display') ? file_path(ark,"_#{i}_#{display_file}") : ''
 		service_file_path = file_path(ark, "_#{i}_#{service_file}")
+		zoom_file_path = zoom_path(ark, "#{i}")
 
 		fileType = grabFileType(fileUse)
-		dataForDynamicLoad = "{\"file_type\":\"#{fileType}\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{service_file_path}\"}".html_safe
+		dataForDynamicLoad = "{\"file_type\":\"#{fileType}\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{service_file_path}\",\"zoom_file_path\":\"#{zoom_file_path}\"}".html_safe
 		loadFirstComponent = (firstComponent != nil) ? "data=#{i}" : ''
 	%>
 
