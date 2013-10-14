@@ -1,0 +1,21 @@
+<footer>
+	<section>
+		<address>
+			<strong>UC San Diego</strong>
+			9500 Gilman Dr.
+			La Jolla, CA 92093
+			(858) 534-2230
+		</address>
+		<p>Copyright © 2013 Regents of the University of California. All rights reserved.</p>
+		<ul class="inline">
+			<li><a href="#terms">Terms &amp; Conditions</a></li>
+			<li class="muted">|</li>
+			<li><a href="#feedback">Feedback</a></li>
+		</ul>
+	</section>
+</footer>
+
+<div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
+
+<!-- show debugging parameters in development -->
+<%= debug(params) if Rails.env.development? || Rails.env.gimili? %>

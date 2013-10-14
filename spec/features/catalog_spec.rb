@@ -29,4 +29,8 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector('a', :text => "Previous")
     expect(page).to have_selector('a', :text => "Next")
   end
+  scenario 'system queries should show search results' do
+    visit catalog_index_path( {:fq => '{!join from=collections_tesim to=id}unit_code_tesim:dlp'} )
+    expect(page).to have_selector('ol#dams-search-results li div h3')
+  end
 end

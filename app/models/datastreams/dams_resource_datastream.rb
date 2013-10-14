@@ -41,7 +41,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         if lang.name.first != nil && lang.code.first != nil
           # use inline data if available
           languages << lang
-        elsif lang.pid != nil
+        elsif lang.pid != nil && lang.pid.length > 0
           # load external records
           languages << MadsLanguage.find(lang.pid)
         end
@@ -295,7 +295,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       name_pid = name_uri.gsub(/.*\//,'')
       if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
       	objects << className.find(name_pid)
-      elsif o.name.first.nil? && o.pid != nil    
+      elsif o.name.first.nil? && o.pid != nil && o.pid.to_s.length > 0
         objects << className.find(o.pid)      
       else 
       	objects << o
@@ -393,17 +393,22 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # save dates for sort date
       begin
-        dateVal = date.beginDate.first
-        if dateVal.match( '^\d{4}$' ) != nil
-          dateVal += "-01-01"
+      	if(!date.nil? && !date.beginDate.nil?)
+	        dateVal = date.beginDate.first
+	        if !dateVal.nil? && dateVal.match( '^\d{4}$' ) != nil
+	          dateVal += "-01-01"
+	        end
+	        if(!dateVal.nil?)
+		        if date.type.first == 'creation'
+		          creation_date = DateTime.parse(dateVal)
+		        elsif other_date.nil?
+		          other_date = DateTime.parse(dateVal)
+		        end
+		    end
         end
-        if date.type.first == 'creation'
-          creation_date = DateTime.parse(dateVal)
-        elsif other_date.nil?
-          other_date = DateTime.parse(dateVal)
-        end
-      rescue
-        puts "error parsing date: #{dateVal}"
+      rescue Exception => e
+        puts "error parsing date: #{dateVal} - #{e.to_s}"
+        puts e.backtrace
       end
     end
 
@@ -486,7 +491,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertTitleFields ( solr_doc, cid, titles )
     sort_title = ""
     titles.each do |t|
-      name = t.name || ""
+      if(t.name.class == ActiveFedora::RdfNode::TermProxy)
+      	name = t.name.first || ""
+      else
+      	name = t.name || ""
+      end
       external = t.externalAuthority || ""
 
       # walk through chain of title elements
@@ -572,8 +581,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "fulltext", resource.uri.first.to_s)
       Solrizer.insert_field(solr_doc, "fulltext", resource.type.first.to_s)
       Solrizer.insert_field(solr_doc, "fulltext", resource.description.first.to_s)
-      if resource.type.first.to_s == "preview"
-        Solrizer.insert_field(solr_doc, "preview", resource.uri.first.to_s)
+      if resource.type.first.to_s == "thumbnail"
+        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
       end
     end
   end

@@ -532,7 +532,7 @@ module DamsObjectsHelper
         if files['use'] == 'audio-service' || files['use'] == 'video-service'
           fileid = cmpid + '-' + files['id']
           encrypted = encrypt_stream_name( objid, fileid, request.ip )
-          return ViewOptions::WOWZA_PARTIAL_URL + encrypted
+          return Rails.configuration.wowza_baseurl + encrypted
         end
       end
     else
@@ -554,7 +554,7 @@ module DamsObjectsHelper
     end
 
     # load key from file
-    key= File.read ViewOptions::WOWZA_PARENT_DIRECTORY + 'streaming.key'
+    key= File.read Rails.configuration.wowza_directory + 'streaming.key'
 
     # encrypt
     str="#{pid} #{fid} #{ip}"
@@ -568,5 +568,13 @@ module DamsObjectsHelper
     b64 = Base64.encode64 enc
     b64 = b64.gsub("+","-").gsub("/","_").gsub("\n","")
     "#{nonce},#{b64}"
+  end
+
+  ## normalized rdf view from DAMS4 REST API
+  def normalized_rdf_path( pid )
+    # get REST API url from AF config
+    baseurl = ActiveFedora.fedora_config.credentials[:url]
+    baseurl = baseurl.gsub(/\/fedora$/,'')
+    "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
   end
 end

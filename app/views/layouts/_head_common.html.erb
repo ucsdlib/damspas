@@ -1,0 +1,15 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title><%= full_title(@page_title) %></title>
+
+<%# LE JAVASCRIPT  %>
+<%= javascript_include_tag "application" %>
+
+<%# YE OLDE CSS %>
+<%= favicon_link_tag asset_path('favicon.ico') %>
+<%= stylesheet_link_tag "application", :media => "all" %>
+
+<%= csrf_meta_tags %>
+<%= raw(render_head_content) %>
+
+<%= render :partial => 'layouts/ie_conditionals' %>

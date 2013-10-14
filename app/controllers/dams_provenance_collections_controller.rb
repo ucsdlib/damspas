@@ -35,14 +35,63 @@ class DamsProvenanceCollectionsController < ApplicationController
     end
   end
 
-  def new
+  def new 
+
+    @dams_provenance_collection.title.build
+    @dams_provenance_collection.title.first.elementList.subTitleElement.build
+    @dams_provenance_collection.title.first.hasVariant.build
+    @dams_provenance_collection.title.first.hasTranslationVariant.build
+    @dams_provenance_collection.title.first.hasAbbreviationVariant.build
+    @dams_provenance_collection.title.first.hasAcronymVariant.build
+    @dams_provenance_collection.title.first.hasExpansionVariant.build
+    @dams_provenance_collection.date.build
+    @dams_provenance_collection.language.build
+    @dams_provenance_collection.language.first.scheme.build
+    @dams_provenance_collection.note.build
+    @dams_provenance_collection.scopeContentNote.build
+    @dams_provenance_collection.custodialResponsibilityNote.build
+    @dams_provenance_collection.preferredCitationNote.build
+    @dams_provenance_collection.relatedResource.build
+    @dams_provenance_collection.complexSubject.build
+    @dams_provenance_collection.builtWorkPlace.build
+    @dams_provenance_collection.culturalContext.build
+    @dams_provenance_collection.function.build    
+    @dams_provenance_collection.genreForm.build
+    @dams_provenance_collection.geographic.build
+    @dams_provenance_collection.iconography.build    
+    @dams_provenance_collection.occupation.build
+    @dams_provenance_collection.scientificName.build
+    @dams_provenance_collection.stylePeriod.build    
+    @dams_provenance_collection.technique.build   
+    @dams_provenance_collection.topic.build    
+    @dams_provenance_collection.temporal.build     
+    @dams_provenance_collection.name.build
+    @dams_provenance_collection.personalName.build    
+    @dams_provenance_collection.corporateName.build   
+    @dams_provenance_collection.conferenceName.build    
+    @dams_provenance_collection.familyName.build
+    @dams_provenance_collection.provenanceCollectionPart.build
+    @dams_provenance_collection.relationship.build
+    @dams_provenance_collection.relationship.first.role.build
+    @dams_provenance_collection.relationship.first.personalName.build
+    @dams_provenance_collection.relationship.first.name.build
+    @dams_provenance_collection.relationship.first.corporateName.build
+    @dams_provenance_collection.relationship.first.conferenceName.build
+    @dams_provenance_collection.relationship.first.familyName.build
     
     @dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
     @mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
     @mads_languages =  get_objects('MadsLanguage','name_tesim')
+    @dams_licenses = get_objects_url('DamsLicense','note_tesim')
+    @dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
+    @dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
+    @dams_names = get_objects_url('MadsName','name_tesim')
+    @dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
+    @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
     
     uri = URI('http://fast.oclc.org/fastSuggest/select')
     res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -102,16 +151,46 @@ class DamsProvenanceCollectionsController < ApplicationController
   end
 
   def create
-    @dams_provenance_collection.attributes = params[:dams_provenance_collection]
     if @dams_provenance_collection.save
-        redirect_to @dams_provenance_collection, notice: "ProvenanceCollection has been saved"
+      redirect_to @dams_provenance_collection, notice: "Object has been saved"
+      #redirect_to edit_dams_provenance_collection_path(@dams_provenance_collection), notice: "Object has been saved"
     else
-      flash[:alert] = "Unable to save provenance_collection"
+      flash[:alert] = "Unable to save object"
       render :new
     end
   end
 
   def update
+
+    # @dams_provenance_collection.title.clear
+    # @dams_provenance_collection.date.clear
+    # @dams_provenance_collection.language.clear
+    # @dams_provenance_collection.note.clear
+    # @dams_provenance_collection.scopeContentNote.clear
+    # @dams_provenance_collection.custodialResponsibilityNote.clear
+    # @dams_provenance_collection.preferredCitationNote.clear
+    # @dams_provenance_collection.relatedResource.clear
+    # @dams_provenance_collection.complexSubject.clear
+    # @dams_provenance_collection.builtWorkPlace.clear
+    # @dams_provenance_collection.culturalContext.clear
+    # @dams_provenance_collection.function.clear    
+    # @dams_provenance_collection.genreForm.clear
+    # @dams_provenance_collection.geographic.clear
+    # @dams_provenance_collection.iconography.clear    
+    # @dams_provenance_collection.occupation.clear
+    # @dams_provenance_collection.scientificName.clear
+    # @dams_provenance_collection.stylePeriod.clear    
+    # @dams_provenance_collection.technique.clear   
+    # @dams_provenance_collection.topic.clear
+    # @dams_provenance_collection.temporal.clear
+    # @dams_provenance_collection.name.clear
+    # @dams_provenance_collection.personalName.clear    
+    # @dams_provenance_collection.corporateName.clear   
+    # @dams_provenance_collection.conferenceName.clear    
+    # @dams_provenance_collection.familyName.clear
+    # @dams_provenance_collection.provenanceCollectionPart.clear
+  
+    
     @dams_provenance_collection.attributes = params[:dams_provenance_collection]
     if @dams_provenance_collection.save
         redirect_to @dams_provenance_collection, notice: "Successfully updated provenance_collection"

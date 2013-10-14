@@ -99,7 +99,19 @@ $(document).ready(function() {
   <%#= label_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', "Provenance Collection Part" %> 
   <%#= select_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part", class: "input-block-level"%>-->
 
+<%
+     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
+  %>
 
+<h3>Visibility</h3>
+<%= select_tag 'dams_provenance_collection[visibility]', options_for_select(visibilityArray, :selected => @dams_provenance_collection.visibility), :prompt=>"Select visibility" %>
+
+
+<%
+     resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
+  %>   
+  <h3>Type Of Resource</h3>
+  <%= select_tag 'dams_provenance_collection[resource_type][]',  options_for_select(resourceTypeArray , :selected => @dams_provenance_collection.resource_type), :prompt=>"Select Type of resource", required: true %>
 
 <h3>Title</h3>
 <%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue, class: "input-block-level", required: true %>

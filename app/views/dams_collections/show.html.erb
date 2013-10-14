@@ -4,15 +4,7 @@
 %>
 
 
-<div class="row-fluid">
-	<div class="dams-breadcrumbs span12">
-		<ul class="breadcrumb">
-			<li><a href="/">Digital Collections</a> <span class="divider">&raquo;</span></li>
-			<li><%= link_to "Collections", dams_collections_path %> <span class="divider">&raquo;</span></li>
-			<li class="active"><%=collection_title%></li>
-		</ul>
-	</div>
-</div>
+
 <div class="span3">
   <!-- previous/next links -->
   <%= render :partial => 'dams_objects/prev_next' %>
@@ -25,6 +17,16 @@
         <%= render :partial => 'metadata' %>
 		<%= link_to "<i class='icon-search icon-white'></i> Search this collection".html_safe, facet_uri(collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>
 	</div>
+
+<% if can? :update, @document then %>
+  <div class="span2">
+    <p class="sidebar-header"><strong>Curator Tools</strong></p>
+    <ul class="unstyled sidebar-button-list">
+      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe,
+   normalized_rdf_path(@document['id']), class: "btn btn-block btn-small btn-link" %>
+    </ul>
+  </div>
+<% end %>
 </div>
 
 <div class="row-fluid">

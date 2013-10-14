@@ -51,6 +51,7 @@ Hydra::Application.routes.draw do
 
   post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
+  get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   resources :dams_assembled_collections
   resources :dams_units do
@@ -158,7 +159,8 @@ Hydra::Application.routes.draw do
 	get 'get_name', :on => :member
 	post 'get_name', :on => :member	
 	get 'get_subject', :on => :member
-	post 'get_subject', :on => :member		
+	post 'get_subject', :on => :member
+	get 'get_ark', :on => :member		
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

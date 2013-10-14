@@ -1,11 +1,11 @@
 <%
   title = col['title_tesim']
-  preview = col['preview_tesim']
+  thumbnail = col['thumbnail_tesim']
   if (title != nil && title.first.index('Test') == nil) %>
   <li class="span3">
      <div class="thumbnail">
-       <% if preview %>
-         <img alt="" src="<%=preview.first%>">
+       <% if thumbnail %>
+         <img alt="" src="<%=thumbnail.first%>">
        <% end %>
        <%= link_to render_document_show_field_value(:document=>col, :field=>"title_tesim"), dams_collection_path(col['id']), :class => "btn btn-block btn-link" %>
     </div>
