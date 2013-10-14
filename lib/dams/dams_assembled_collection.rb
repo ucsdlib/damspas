@@ -58,7 +58,7 @@ module Dams
         
        # child parts
         map.part_node(:in=>DAMS,:to=>'hasPart')
-        map.provenanceCollection_node(:in=>DAMS,:to=>'hasProvenanceCollection',:class_name => 'DamsProvenanceCollectionInternal')
+        map.provenanceCollection_node(:in=>DAMS,:to=>'hasProvenanceCollection')
 
         # related collections
         map.relatedCollection(:in => DAMS)
@@ -86,13 +86,13 @@ module Dams
             graph.update([rdf_subject, DAMS.language, @langURI])
           end
         end   
-        if(!@provenanceCollURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
-          else
-            graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
-          end
-        end 
+        # if(!@provenanceCollURI.nil?)
+        #   if new?
+        #     graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+        #   else
+        #     graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+        #   end
+        # end 
         if(!@provenanceCollURI.nil?)
           if new?
             graph.insert([rdf_subject, DAMS.provenanceCollection_node, @hasProvenanceCollectionURI])
