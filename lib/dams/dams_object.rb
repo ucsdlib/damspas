@@ -541,6 +541,10 @@ module Dams
 	    insertRightsHolderFields solr_doc, "", rh
 	    
 	    cartographics.each do |cart|
+          # make sure we have some data to index
+          if cart.point.blank? && cart.line.blank? && cart.polygon.blank?
+            cart = DamsCartographics.find( cart.pid )
+          end
 	      carto_json = {
 	        :point => cart.point,
 	        :line => cart.line,
