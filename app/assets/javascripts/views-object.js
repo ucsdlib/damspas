@@ -15,27 +15,27 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	var data = $("#map-canvas[data]").attr("data");
 	data = (data != undefined) ? $.parseJSON(data) : data;
 
+	var tile_url = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
+	var tile_att = 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">';
+
+
 	//------
 	// LOAD
 	//------
 	this.load =  function()
 	{
-		var API_KEY = "AIzaSyD1-xPB9pfLU40NToczl9kK_l-YpHBJhuA";
-		var URL = "https://maps.googleapis.com/maps/api/js?key="+API_KEY+"&sensor=false";
-		var g = document.createElement("script");
-		g.type = "text/javascript";
-
-		switch (data.type)
+		if ( data != undefined )
 		{
-			case "point":
-				g.src = (URL+"&callback=dp.cartographics.initPoint");
-				break;
-			case "line":
-				g.src = (URL+"&callback=dp.cartographics.initLine");
-				break;
-		}
-
-		document.body.appendChild(g);
+			switch (data.type)
+			{
+				case "point":
+					dp.cartographics.initPoint();
+					break;
+				case "line":
+					dp.cartographics.initLine();
+					break;
+			}
+		} else { console.log('#map-canvas[data] is undefined'); }
 	}
 
 	//------------
@@ -43,26 +43,10 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	//------------
 	this.initPoint = function()
 	{
-		var point = data.coords;
-		var latlong = [];
-		var lineCoords = [];
-
-		point = point.split(",");
-		latlong = new google.maps.LatLng(point[0],point[1]);
-
-		var options = {
-			center: latlong,
-			zoom: 3,
-			mapTypeId: google.maps.MapTypeId.TERRAIN
-		};
-
-		var map = new google.maps.Map(document.getElementById("map-canvas"),options);
-
-		var marker = new google.maps.Marker({
-			position: latlong,
-			map: map,
-			animation: google.maps.Animation.DROP
-		})
+		var point = data.coords.split(",");
+		var map = L.map('map-canvas').setView([point[0], point[1]], 12);
+		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
+		L.marker([point[0], point[1]]).addTo(map);
 	}
 
 	//-----------
@@ -71,37 +55,14 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	this.initLine = function()
 	{
 		var points = data.coords.split(" ");
-		var point = [];
-		var latlong = [];
-		var lineCoords = [];
-
-		for (var i = 0; i < points.length; i++)
+		for ( i = 0; i < points.length; i++ )
 		{
-			point = points[i].split(",");
-			latlong[i] = new google.maps.LatLng(point[0],point[1]);
-			lineCoords[i] = latlong[i];
+			split = points[i].split(",");
+			points[i] = [ parseFloat(split[0]), parseFloat(split[1]) ];
 		}
-
-		var options = {
-			center: latlong[0],
-			zoom: 3,
-			mapTypeId: google.maps.MapTypeId.TERRAIN
-		};
-
-		var map = new google.maps.Map(document.getElementById("map-canvas"),options);
-
-		var symbolOne = {path:google.maps.SymbolPath.FORWARD_OPEN_ARROW,scale:2,strokeColor:"#f00"};
-		var symbolTwo = {path:google.maps.SymbolPath.BACKWARD_OPEN_ARROW,scale:2,strokeColor:"#f00"};
-
-		var line = new google.maps.Polyline({
-			path: lineCoords,
-			icons: [{icon:symbolOne,offset:"0%"},{icon:symbolTwo,offset:"100%"}],
-			strokeColor: "#300",
-			strokeOpacity: 1.0,
-			strokeWeight: 2
-		});
-
-		line.setMap(map);
+		var map = L.map('map-canvas').fitBounds(points);
+		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
+		L.polygon(points).addTo(map);
 	}
 
 }).apply(dp.cartographics);
