@@ -1,14 +1,11 @@
 <h3>Scope Content Note</h3>
 <div id="scopeNoteSection">
   <%= f.fields_for :scopeContentNote do |scopeNote| %>
-    <%= scopeNote.text_field :value , :value => ""%>    
-    <%= scopeNote.label :type, "Scope Content Note Type" %>
-    <%= scopeNote.text_field :type, :value => ""%>
-    <%= scopeNote.label :displayLabel, "Scope Content Note Display Label" %>
-    <%= scopeNote.text_field :displayLabel, :value => ""%>                
+    <%= render "shared/edit_fields/scopeContentNote_fields", :f => scopeNote %>           
   <% end %>
 </div>
-  
+<p><%= link_to_add_fields "Add Scope Content Note", f, :scopeContentNote, "DamsScopeContentNote" %></p>
+
 <h3>Custodial Responsibility Note</h3>
 <div id="custodialNoteSection">  
   <%= f.fields_for :custodialResponsibilityNote do |custNote| %>
