@@ -72,7 +72,7 @@ module Dams
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node, :provenanceCollection_node
+                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node, :provenanceCollection_node, :allow_destroy => true
 
   
   
