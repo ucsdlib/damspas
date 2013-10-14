@@ -19,6 +19,7 @@
 //
 // DAMS (3RD PARTY)
 //= require audio.min
+//= require leaflet
 //
 // DAMS (CUSTOM)
 //= require search
