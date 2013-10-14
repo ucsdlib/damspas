@@ -15,7 +15,8 @@
 	if fieldData != nil
 		cartographics = JSON.parse(fieldData.first)
 
-  		if (!cartographics.first[1][0].nil? && cartographics.first[1][0].length > 0)
+  		if ( cartographics['point'].first || cartographics['line'].first ||
+             cartographics['polygon'].first )
 			htmlOpen %= 'Cartographics'
 			concat htmlOpen.html_safe
 				

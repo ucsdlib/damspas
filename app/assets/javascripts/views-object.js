@@ -12,9 +12,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 
 (function(){
 
-	var data = $("#map-canvas[data]").attr("data");
-	data = (data != undefined) ? $.parseJSON(data) : data;
-
+    var data;
 	var tile_url = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
 	var tile_att = 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">';
 
@@ -24,6 +22,8 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	//------
 	this.load =  function()
 	{
+		data = $("#map-canvas").attr("data");
+		data = (data != undefined) ? $.parseJSON(data) : data;
 		if ( data != undefined )
 		{
 			switch (data.type)
@@ -33,6 +33,9 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 					break;
 				case "line":
 					dp.cartographics.initLine();
+					break;
+				case "polygon":
+					dp.cartographics.initPolygon();
 					break;
 			}
 		} else { console.log('#map-canvas[data] is undefined'); }
@@ -44,15 +47,32 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	this.initPoint = function()
 	{
 		var point = data.coords.split(",");
-		var map = L.map('map-canvas').setView([point[0], point[1]], 12);
+		var map = L.map('map-canvas').setView(point, 12);
 		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
-		L.marker([point[0], point[1]]).addTo(map);
+        var icon = new L.divIcon({className: 'icon-map-marker', iconSize: 13});
+		L.marker(point,{icon: icon}).addTo(map);
 	}
 
 	//-----------
 	// INIT LINE
 	//-----------
 	this.initLine = function()
+	{
+		var points = data.coords.split(" ");
+		for ( i = 0; i < points.length; i++ )
+		{
+			split = points[i].split(",");
+			points[i] = [ parseFloat(split[0]), parseFloat(split[1]) ];
+		}
+		var map = L.map('map-canvas').fitBounds(points);
+		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
+		L.polyline(points).addTo(map);
+	}
+
+	//-----------
+	// INIT POLYGON
+	//-----------
+	this.initPolygon = function()
 	{
 		var points = data.coords.split(" ");
 		for ( i = 0; i < points.length; i++ )
