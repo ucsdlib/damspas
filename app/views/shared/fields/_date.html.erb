@@ -1,12 +1,12 @@
 <%
 	if defined?(componentIndex) # Then we're working with a component
 		prefix = "component_#{componentIndex}_"
-		htmlOpenTemp = "<tr><td>%s</td><td><ul class='unstyled'>"
-		htmlClose = "</td></tr>"
+		htmlOpenTemp = "<tr><td>%s</td><td><ul class = 'unstyled'>"
+		htmlClose = "</ul></td></tr>"
 	else # We're working with an object or collection
 		prefix = ''
-		htmlOpenTemp = "<dt>%s</dt><dd><ul class='unstyled'>"
-		htmlClose = "</dd>"
+		htmlOpenTemp = "<dt>%s</dt><dd><ul class = 'unstyled'>"
+		htmlClose = "</ul></dd>"
 	end
 
 	fieldData = @document["#{prefix}date_json_tesim"]
@@ -20,17 +20,19 @@
 %>
 	     <% if date['type']!=nil && date['type']!=''&& date['value']!=nil &&date['value']!=''%>
 	     
-		     <% datetype= date['type'].capitalize+' Date' %>
-		     <% htmlOpen = htmlOpenTemp %>
-		     <% htmlOpen %= datetype %>
-			 <% concat htmlOpen.html_safe %>
-			 <li><%= date['value'] %></li>
+		    <% datetype= date['type'].capitalize+' Date' %>
+		    <% htmlOpen = htmlOpenTemp %>
+		    <% htmlOpen %= datetype %>
+			<% concat htmlOpen.html_safe %>
+			<li><%= date['value'] %></li>
+			<% concat htmlClose.html_safe %>
 		 
 		 <% elsif date['value']!=nil && date['value']!=''  %>
          	<% htmlOpen = htmlOpenTemp %>
          	<% htmlOpen %= 'Date' %>
          	<% concat htmlOpen.html_safe %>
 		 	<li><%= date['value'] %></li>
+		 	<% concat htmlClose.html_safe %>
 		 
 		 
 		 
@@ -39,7 +41,6 @@
 <%
 		end
 
-		concat htmlClose.html_safe
 
 	end
 %>
