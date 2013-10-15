@@ -6,6 +6,8 @@ pontos:
   url: http://localhost:8081/solr/blacklight
 gimili:
   url: http://gimili.ucsd.edu:8080/solr/blacklight
+staging:
+  url: http://localhost:8080/solr/blacklight
 test: &TEST
   url: http://localhost:8080/solr/blacklight
 cucumber:
