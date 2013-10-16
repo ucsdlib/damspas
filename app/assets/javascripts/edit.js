@@ -145,6 +145,11 @@ function add_fields(link, association, content) {
   	content = content.replace("__DO_NOT_USE__", id.trim());
   	$(link).parent().before(content.replace(regexp, new_id));
   });
-
-
 }
+
+function target_popup(target) {
+  var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0');
+  win.resizeTo(550,600);
+}
+
+
