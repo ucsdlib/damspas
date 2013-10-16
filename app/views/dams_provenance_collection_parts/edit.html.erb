@@ -67,7 +67,7 @@
   <%= text_field_tag 'dams_provenance_collection_part[citationNoteDisplayLabel][]', @dams_provenance_collection_part.citationNoteDisplayLabel[0], class: "input-block-level" %>
 <br>
 
-<!-- <h3>Related Resource</h3>
+ <h3>Related Resource</h3>
 <%= label_tag 'dams_provenance_collection_part[relatedResourceType]', "Related Resource Type" %>
 <%= text_field_tag 'dams_provenance_collection_part[relatedResourceType][]', @dams_provenance_collection_part.relatedResourceType, class: "input-block-level" %>
 <br>
@@ -78,7 +78,7 @@
 
 <%= label_tag 'dams_provenance_collection_part[relatedResourceDescription]', "Related Resource Description" %>
 <%= text_field_tag 'dams_provenance_collection_part[relatedResourceDescription][]', @dams_provenance_collection_part.relatedResourceDescription, class: "input-block-level" %>
-<br> -->
+<br> 
 
 <h3>Relationship</h3>
   <%= select_tag 'dams_provenance_collection_part[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
