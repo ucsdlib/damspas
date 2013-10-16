@@ -4,3 +4,29 @@
     <%= render "shared/edit_fields/note_fields", :f => builder %>              
   <% end %>
 </div>
+<p><%= link_to_add_fields "Add Note", f, :note, "DamsNote" %></p>
+  
+<h3>Scope Content Note</h3>
+<div id="scopeNoteSection">
+  <%= f.fields_for :scopeContentNote do |scopeNote| %>
+    <%= render "shared/edit_fields/scopeContentNote_fields", :f => scopeNote %>
+  <% end %>
+</div>
+<p><%= link_to_add_fields "Add Scope Content Note", f, :scopeContentNote, "DamsScopeContentNote" %></p>
+
+<h3>Custodial Responsibility Note</h3>
+<div id="custodialNoteSection">  
+  <%= f.fields_for :custodialResponsibilityNote do |custNote| %>
+    <%= render "shared/edit_fields/custodialResponsibilityNote_fields", :f => custNote %>
+  <% end %>
+</div>
+<p><%= link_to_add_fields "Add Custodial Responsibility Note", f, :custodialResponsibilityNote, "DamsCustodialResponsibilityNote" %></p>
+  
+<h3>Preferred Citation Note</h3>
+<div id="preferredNoteSection">
+  <%= f.fields_for :preferredCitationNote do |preNote| %>
+    <%= render "shared/edit_fields/preferredCitationNote_fields", :f => preNote %> 
+  <% end %>
+  <p><%= link_to_add_fields "Add Preferred Citation Note", f, :preferredCitationNote, "DamsPreferredCitationNote" %></p>
+
+</div>

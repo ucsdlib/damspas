@@ -217,7 +217,7 @@ class DamsObjectsController < ApplicationController
   
   def create    	    
   	if @dams_object.save 		
-		index_links(@dams_object)
+		#index_links(@dams_object)
   		redirect_to @dams_object, notice: "Object has been saved"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
     else
