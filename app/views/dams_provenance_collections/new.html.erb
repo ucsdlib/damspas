@@ -115,10 +115,7 @@
   <%#= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
   <%#=text_field_tag 'dams_provenance_collection[subjectValue][]' %>
   
-  
-
-
- <h3>Name</h3>
+  <h3>Name</h3>
   <%= select_tag 'dams_provenance_collection[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#name','nameURI','Name');"%>
   <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_provenance_collection[nameTypeValue][]' %>
 
