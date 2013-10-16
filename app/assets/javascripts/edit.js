@@ -160,3 +160,16 @@ function closeAndSetId() {
 	target.options[targetlength].setAttribute("selected","selected");
 	self.close();
 }
+
+function checkOption() {
+	if( $("#dams_object_language_attributes_0_id").val().indexOf("createNewLanguage") >= 0 ) {
+		target_popup(baseURL.replace("get_data","")+"mads_languages/new");
+	}
+}
+
+function loadCreateNewObjectOption() {
+	var target=window.document.getElementById('dams_object_language_attributes_0_id');    
+	var optionName = new Option('Create New Language','createNewLanguage');    
+	var targetlength = target.length;    
+	target.options[targetlength] = optionName;
+}
