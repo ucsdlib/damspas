@@ -199,7 +199,7 @@ $(document).ready(function() {
   <div id="name"><%= select_tag 'dams_provenance_collection[nameURI][]', options_for_select(@simple_names, :selected => @simple_name_id), :prompt=>"Select Name" %></div>  
   <% end %>
 
-  <!-- <h3>Related Resource</h3>
+  <h3>Related Resource</h3>
 <%= label_tag 'dams_provenance_collection[relatedResourceType]', "Related Resource Type" %>
 <%= text_field_tag 'dams_provenance_collection[relatedResourceType][]', @dams_provenance_collection.relatedResourceType, class: "input-block-level" %>
 <br>
@@ -210,7 +210,7 @@ $(document).ready(function() {
 
 <%= label_tag 'dams_provenance_collection[relatedResourceDescription]', "Related Resource Description" %>
 <%= text_field_tag 'dams_provenance_collection[relatedResourceDescription][]', @dams_provenance_collection.relatedResourceDescription, class: "input-block-level" %>
-<br> -->
+<br>
 
 
  
