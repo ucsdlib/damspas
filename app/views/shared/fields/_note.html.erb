@@ -1,42 +1,44 @@
 <%
-	if defined?(componentIndex) # Then we're working with a component
-		prefix = "component_#{componentIndex}_"
-		htmlOpen = "<tr><td>%s</td><td>"
-		htmlClose = "</td></tr>"
-	else # We're working with an object or collection
-		prefix = ''
-		htmlOpen = "<dt>%s</dt><dd>"
-		htmlClose = "</dd>"
-	end
+  if defined?(componentIndex) # Then we're working with a component
+    prefix = "component_#{componentIndex}_"
+    htmlOpen = "<tr><td>%s</td><td>"
+    htmlClose = "</td></tr>"
+  else # We're working with an object or collection
+    prefix = ''
+    htmlOpen = "<dt>%s</dt><dd>"
+    htmlClose = "</dd>"
+  end
 
-	fieldData = @document["#{prefix}note_json_tesim"]
+  # parse notes
+  data = @document["#{prefix}note_json_tesim"]
+  data = data.collect { |d| JSON.parse(d) }
 
-	if fieldData != nil
+  # make sure notes are in the right order
+  notes = []
+  if data != nil
+    # description, extent, then everything else
+    notes.concat( data.select { |n| n['type'] == 'description' } )
+    notes.concat( data.select { |n| n['type'] == 'extent' } )
+    notes.concat( data.select { |n| n['type'] != 'description' && n['type'] != 'extent' } )
+  end
 
-
-
-		fieldData.each do |datum|
-	 		note = JSON.parse(datum)
-	 		if !note['value'].blank?
-	 			htmlOpen %= 'Note'.pluralize(fieldData.count)
-				concat htmlOpen.html_safe
-%>
-				<p>
-					<strong>
-						<% if note['displayLabel'] != nil &&  !note['displayLabel'].blank? %>
-							<%= note['displayLabel'].upcase %>
-						<% elsif note['type'] != nil && !note['type'].blank? %>
-							<%= note['type'].upcase %>
-						<% else %>
-							General Note
-						<% end %>
-					</strong>
-				</p>
-				<p><%= auto_link(note['value']) %></p>
-<%			end
-		end
-
-		concat htmlClose.html_safe
-
-	end
+  if notes.count > 0
+    htmlOpen %= 'Note'.pluralize(notes.count)
+    concat htmlOpen.html_safe
+    notes.each do |note| %>
+      <p>
+        <strong>
+          <% if note['displayLabel'] != nil && !note['displayLabel'].blank? %>
+            <%= note['displayLabel'].upcase %>
+          <% elsif note['type'] != nil && !note['type'].blank? %>
+            <%= note['type'].upcase %>
+          <% else %>
+            General Note
+          <% end %>
+        </strong>
+      </p>
+      <p><%= auto_link(note['value']) %></p>
+<%  end
+    concat htmlClose.html_safe
+  end
 %>

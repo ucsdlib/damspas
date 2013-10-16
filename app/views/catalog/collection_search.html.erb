@@ -3,11 +3,15 @@
     <%= render :partial=>'facets' %>
   </div>
   <div id="content" class="span9">
-    <% @page_title = t('blacklight.search.title', :application_name => application_name) %>
+    <% @page_title = 'Browse By Collection' %>
     <% if !@current_unit.blank? %>
       <h1><%= @current_unit %></h1>
     <% end %>
-    <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
+
+    <div class="alert alert-info">
+      Current collections are listed below.  Click on the image or link below to see the complete collection description.
+    </div>
+
     <%= render 'sort_and_per_page' %>
     <%= render :partial => 'constraints' %>
     <h3 class="hide-text"><%= t('blacklight.search.search_results') %></h3>
