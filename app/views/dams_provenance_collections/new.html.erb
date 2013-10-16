@@ -104,9 +104,7 @@
   <%
      subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
-  <%#= label_tag 'dams_provenance_collection[subjectType][]', "Simple Subject" %>
-  <%#= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
-  <%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %>
+ 
   <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %>
   <input id="dams_provenance_collection_subjectTypeValue_" name="dams_provenance_collection[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>   
@@ -140,9 +138,5 @@
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_provenance_collections_path, class: "btn btn-primary" %>
 
-  <h2>Add File</h2>
-  <%= form_for(@dams_provenance_collection, :url => upload_path(@dams_provenance_collection.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
-    <input type="file" name="file"/>
-    <%=f.submit "Add File", class: "btn btn-primary" %>
-  <% end %>
+  
 <%end%>
