@@ -12,19 +12,17 @@
 	fieldData = @document["#{prefix}scopeContentNote_json_tesim"]
 
 	if fieldData != nil
+		
 		fieldData.each do |datum|
 			scopeContentNote = JSON.parse(datum)
 			if !scopeContentNote['value'].blank?
 			htmlOpen %= 'Scope Content Note'.pluralize(fieldData.count)
-			concat htmlOpen.html_safe			
+			concat htmlOpen.html_safe		
 %>
-			
 				<p><%= auto_link(scopeContentNote['value']) %></p>
 <%
 			end
+			concat htmlClose.html_safe
 		end
-
-		concat htmlClose.html_safe
-
 	end
 %>
