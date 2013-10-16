@@ -50,25 +50,29 @@ module Dams
 
             
       def insert_component_list(solr_doc)
-        el = componentList
-        idx = 0
-        while idx < el.size
-          elem = el[idx]          
-          #if elem.class.name.include? name
-          if !elem.class.name.include? "RDF::URI"
-            field_name = uncapitalize(elem.class.name.gsub!("Internal", "").gsub!("Mads", ""))
-            if(elem.name.nil?)
-          		return nil
-          	elsif(elem.name.first == nil || elem.name.first.size > elem.name.size )
-            	#return elem.name.first
-            	Solrizer.insert_field(solr_doc, "complexSubject_0_#{idx}_#{field_name}", elem.name.first)	
-          	else
-          		#return elem.name.to_s
-          		Solrizer.insert_field(solr_doc, "complexSubject_0_#{idx}_#{field_name}", elem.name.first)	
+        begin
+          el = componentList
+          idx = 0
+          while idx < el.size
+            elem = el[idx]          
+            #if elem.class.name.include? name
+            if !elem.class.name.include? "RDF::URI"
+              field_name = uncapitalize(elem.class.name.gsub!("Internal", "").gsub!("Mads", ""))
+              if(elem.name.nil?)
+          		  return nil
+          	  elsif(elem.name.first == nil || elem.name.first.size > elem.name.size )
+            	  #return elem.name.first
+            	  Solrizer.insert_field(solr_doc, "complexSubject_0_#{idx}_#{field_name}", elem.name.first)	
+          	  else
+          		  #return elem.name.to_s
+          		  Solrizer.insert_field(solr_doc, "complexSubject_0_#{idx}_#{field_name}", elem.name.first)	
+              end
             end
-          end
-          idx += 1
-        end       
+            idx += 1
+          end       
+        rescue Exception => e
+          #puts "Error: #{e}"
+        end
       end
 
 	  def uncapitalize(field)
@@ -76,7 +80,7 @@ module Dams
 	  end
                                                                  
       def to_solr (solr_doc={})
-        if componentList.first
+        if componentList != nil
           insert_component_list(solr_doc)
         end
 	    # hack to make sure something is indexed for rights metadata
