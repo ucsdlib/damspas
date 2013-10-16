@@ -9,18 +9,28 @@
 		 htmlClose = "</ul></dd>"
 	 end
 
-	 fieldData = @document["#{prefix}collection_json_tesim"]
+	 fieldData = @document["#{prefix}collection_json_tesim"] || []
+     fieldData.concat( @document["provenanceCollection_json_tesim"] || [] )
+     fieldData.concat( @document["part_json_tesim"] || [] )
 
-	 if fieldData != nil
+	 if fieldData.length > 0
 
 		 htmlOpen %= 'Collection'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
 
 		 fieldData.each do |datum|
-			 collection = JSON.parse(datum)
+           collection = JSON.parse(datum)
 		   collectionName = (collection['name'] == '') ? 'MISSING_COLLECTION_NAME' : collection['name'] # TEMP FIX FOR MISSING COLLECTION NAME
+           thumb = collection['thumbnail']
 %>
-		<li><p><%= link_to collectionName, dams_collection_path(collection['id']) %></p></li>
+		<li><p>
+          <%= link_to( dams_collection_path(collection['id']) ) do %>
+            <% if thumb != nil %>
+              <%= image_tag thumb %>
+            <% end %>
+            <%= collectionName %>
+          <% end %>
+        </p></li>
 <%
 	 end
 

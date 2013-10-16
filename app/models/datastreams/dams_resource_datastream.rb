@@ -569,7 +569,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   #   end
   # end
 
-
+  def thumbnail( relatedResource )
+    relatedResource.map do |resource|
+      if resource.type.first.to_s == "thumbnail" && resource.uri.first != nil
+        return resource.uri.first.to_s
+      end
+    end
+  end
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
 
     # relatedResource

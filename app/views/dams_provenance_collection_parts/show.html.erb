@@ -9,13 +9,13 @@
 	<div class="span8 offset2 dams-collections well well-large">
 		<%#= render :partial => 'show_damstools' %>
 		<%= render :partial => 'shared/fields/title' %>
-        <%= render :partial => 'shared/fields/show' %>
+        <%= render :partial => 'dams_collections/metadata' %>
+        <%= render :partial => 'dams_collections/search' %>
 		
 		<% if can? :update, @dams_provenance_collection_part then %>
 					<%= link_to "Edit", edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), class: "btn btn-primary"%>
 					<%= link_to "RDF View", normalized_rdf_path(@dams_provenance_collection_part.id), class: "btn btn-primary"%>
 		<% end %>
-		<%= link_to "<i class='icon-search icon-white'></i> Search this collection".html_safe, facet_uri(collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>
 	</div>
 </div>
 
