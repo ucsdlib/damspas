@@ -11,7 +11,7 @@
 
   # parse notes
   data = @document["#{prefix}note_json_tesim"]
-  data = data.collect { |d| JSON.parse(d) }
+  data = data.collect { |d| JSON.parse(d) } if data != nil
 
   # make sure notes are in the right order
   notes = []
