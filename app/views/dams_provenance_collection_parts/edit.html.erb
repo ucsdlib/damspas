@@ -4,10 +4,6 @@
 
 <%= form_for @dams_provenance_collection_part do |f| %>
 
-<h3>Provenance Collection</h3>
-
-  
-  
 
 <%
      visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
@@ -71,7 +67,7 @@
   <%= text_field_tag 'dams_provenance_collection_part[citationNoteDisplayLabel][]', @dams_provenance_collection_part.citationNoteDisplayLabel[0], class: "input-block-level" %>
 <br>
 
-<h3>Related Resource</h3>
+<!-- <h3>Related Resource</h3>
 <%= label_tag 'dams_provenance_collection_part[relatedResourceType]', "Related Resource Type" %>
 <%= text_field_tag 'dams_provenance_collection_part[relatedResourceType][]', @dams_provenance_collection_part.relatedResourceType, class: "input-block-level" %>
 <br>
@@ -82,7 +78,7 @@
 
 <%= label_tag 'dams_provenance_collection_part[relatedResourceDescription]', "Related Resource Description" %>
 <%= text_field_tag 'dams_provenance_collection_part[relatedResourceDescription][]', @dams_provenance_collection_part.relatedResourceDescription, class: "input-block-level" %>
-<br>
+<br> -->
 
 <h3>Relationship</h3>
   <%= select_tag 'dams_provenance_collection_part[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
@@ -94,11 +90,6 @@
 
    <div id="relationshipName"><%= select_tag 'dams_provenance_collection_part[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id), :prompt=>"Select Relationship Name" %></div>
 
-   <h3>Complex Subject</h3>
-  <%= select_tag 'dams_provenance_collection_part[subjectURI][]', options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select predefined subject"%>
-  <br>  
-  OR Enter new subject <%=text_field_tag 'dams_provenance_collection_part[subjectValue][]', @dams_provenance_collection_part.subjectValue[0] , class: "input-block-level" %>
-
   <h3>Simple Subject</h3>
   <%
      subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
@@ -106,6 +97,11 @@
   <%= select_tag 'dams_provenance_collection_part[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"><%= select_tag 'dams_provenance_collection_part[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
   <input id="dams_provenance_collection_part_subjectTypeValue_" name="dams_provenance_collection_part[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>
+
+  <h3>Complex Subject</h3>
+  <%= select_tag 'dams_provenance_collection_part[subjectURI][]', options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select predefined subject"%>
+  <br>  
+  OR Enter new subject <%=text_field_tag 'dams_provenance_collection_part[subjectValue][]', @dams_provenance_collection_part.subjectValue[0] , class: "input-block-level" %>
    
  <h3>Name</h3>
   <%= select_tag 'dams_provenance_collection_part[nameType][]',  options_for_select(nameTypeArray, :selected => @simple_name_type) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#name','nameURI','Name');"%>
@@ -120,6 +116,7 @@
 
 <br>
 
+<h3>Provenance Collection </h3>
 <%= select_tag 'dams_provenance_collection_part[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection", class: "input-block-level" %>
 
 <%=f.submit "Save", class: "btn btn-primary" %>
