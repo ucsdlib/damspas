@@ -135,9 +135,5 @@
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_provenance_collection_parts_path, class: "btn btn-primary" %>
 
-  <h2>Add File</h2>
-  <%= form_for(@dams_provenance_collection_part, :url => upload_path(@dams_provenance_collection_part.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
-    <input type="file" name="file"/>
-    <%=f.submit "Add File", class: "btn btn-primary" %>
-  <% end %>
+  
 <%end%>
