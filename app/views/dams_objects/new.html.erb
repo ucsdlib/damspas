@@ -1,14 +1,14 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <script>
 $(document).ready(function() {
-
- $("#dams_object_language_attributes_1_id").change(function() {
-  $("#newLanguage").remove();
-    $("#dams_object_language_attributes_1_id").attr("id","dams_object_language_attributes_0_id");
- });
-
+/*	var target=window.document.getElementById('dams_object_language_attributes_0_id');    
+	var optionName = new Option('Create New Language','createNewLanguage');    
+	var targetlength = target.length;    
+	target.options[targetlength] = optionName;*/
+	loadCreateNewObjectOption();
 });
 </script>
+
 <h1>Create a new Dams Object</h1>
 <div class="dams-viewer">
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
@@ -23,11 +23,7 @@ $(document).ready(function() {
   <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %> 
 
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
-
-  <!-- Workaround to add multiple Dates because DamsDate has no datastream. -->
-  <p><%= link_to_add_fields "Add Date", f, :date, "DamsNote" %></p>
-
-          
+         
   <h3>Unit</h3>
   <%= f.fields_for :unit do |un| %>
     <%= un.select :id, options_for_select(@dams_units) , {:include_blank => 'Select Unit'}, :required => "true" %>

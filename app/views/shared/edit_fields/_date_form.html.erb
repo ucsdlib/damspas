@@ -4,3 +4,5 @@
     <%= render "shared/edit_fields/date_fields", :f => d %>
   <% end %>
 </div>
+<!-- Workaround to add multiple Dates because DamsDate has no datastream. -->
+<p><%= link_to_add_fields "Add Date", f, :date, "DamsNote" %></p>
