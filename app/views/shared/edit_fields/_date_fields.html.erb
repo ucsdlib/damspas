@@ -1,14 +1,14 @@
 <div class="fields">
-    <%= link_to_remove_fields "Remove Date", f %>
     <%= f.label :value, "Date" %>
-    <%= f.text_field :value , :value => ""%>    
+    <%= f.text_field :value , :value => "", class: "input-block-level"%>    
     <%= f.label :type, "Date Type" %>
-    <%= f.text_field :type, :value => ""%>
+    <%= f.text_field :type, :value => "", class: "input-block-level"%>
     <%= f.label :beginDate, "Begin Date" %>
-    <%= f.text_field :beginDate, :value => ""%> 
+    <%= f.text_field :beginDate, :value => "", class: "input-block-level"%> 
     <%= f.label :endDate , "End Date" %>
-    <%= f.text_field :endDate, :value => ""%>
+    <%= f.text_field :endDate, :value => "", class: "input-block-level"%>
     <%= f.label :encoding, "Date Encoding" %>
-    <%= f.text_field :encoding, :value => ""%>
-    <hr>
+    <%= f.text_field :encoding, :value => "", class: "input-block-level"%>
+    <br/>
+    <%= link_to_remove_fields "Remove Date", f %>    
 </div>

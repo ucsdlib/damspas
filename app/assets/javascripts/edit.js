@@ -153,7 +153,6 @@ function target_popup(target) {
 }
 
 function closeAndSetId() {
-	alert("hey"+document.getElementById('name').value);
 	var target=window.opener.document.getElementById('dams_object_language_attributes_0_id');    
 	var optionName = new Option(document.getElementById('name').value, 'http://library.ucsd.edu/ark:/20775/'+document.getElementById('id').value);    
 	var targetlength = target.length;    
