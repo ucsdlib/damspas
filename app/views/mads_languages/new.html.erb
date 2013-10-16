@@ -4,11 +4,7 @@ $(document).ready(function() {
 
  $('.new_mads_language').submit(function() {
 	if(window.opener != null && window.location.href != window.opener.location.href) {
-		//self.close();
-		//window.opener.location.reload(true);
-		alert("hey"+document.getElementById('popup').value);
 		document.getElementById('popup').value = "true";
-		alert("hey2"+document.getElementById('popup').value);
 	}
     return true;
   });
@@ -34,7 +30,6 @@ $(document).ready(function() {
     <%= se.select :id, options_for_select(@mads_schemes) , {:include_blank => 'Select MadsScheme'}, :required => "true" %>
   <% end %>
 
-  <!--input type="hidden" id="isPopupupp" value="false"/-->
   <%= hidden_field_tag "popup", "false" %>
   <br>
   <%=f.submit "Submit", class: "btn btn-primary" %>

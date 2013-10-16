@@ -152,4 +152,12 @@ function target_popup(target) {
   win.resizeTo(550,600);
 }
 
-
+function closeAndSetId() {
+	alert("hey"+document.getElementById('name').value);
+	var target=window.opener.document.getElementById('dams_object_language_attributes_0_id');    
+	var optionName = new Option(document.getElementById('name').value, 'http://library.ucsd.edu/ark:/20775/'+document.getElementById('id').value);    
+	var targetlength = target.length;    
+	target.options[targetlength] = optionName; 
+	target.options[targetlength].setAttribute("selected","selected");
+	self.close();
+}

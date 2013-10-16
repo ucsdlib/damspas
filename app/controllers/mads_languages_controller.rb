@@ -20,7 +20,6 @@ class MadsLanguagesController < ApplicationController
   ##############################################################################
   def view
      @mads_language = MadsLanguage.find(params[:id])
-     render :layout => false
   end
   def new
     @mads_language.elementList.languageElement.build
