@@ -51,3 +51,7 @@ group :development, :test do
   gem 'simplecov' #, '0.7.1'
   gem 'unicorn' #, '4.6.2'
 end
+
+group :staging do
+  gem 'activerecord-postgresql-adapter'
+end
