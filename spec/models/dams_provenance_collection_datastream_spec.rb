@@ -103,7 +103,7 @@ describe DamsProvenanceCollectionDatastream do
         solr_doc = subject.to_solr
         solr_doc["part_name_tesim"].should == ["May 2009"]
         solr_doc["part_id_tesim"].should == ["bb25252525"]
-        solr_doc["part_json_tesim"].should == ['{"id":"bb25252525","name":"May 2009"}']
+        solr_doc["part_json_tesim"].should == ['{"id":"bb25252525","name":"May 2009","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}']
       end
     end
   end
