@@ -1,0 +1,11 @@
+  <h3>Rights</h3>
+  <%= label_tag 'dams_object[copyrightURI][]', "Copyrights" %>
+  <%= select_tag 'dams_object[copyrightURI][]', options_for_select(@dams_copyrights, :selected => @copyright_id), :prompt=>"Select Copyright", required: true%>
+  <%= label_tag 'dams_object[statuteURI][]', "Statute" %>
+  <%= select_tag 'dams_object[statuteURI][]', options_for_select(@dams_statutes, :selected => @statute_id) , :prompt=>"Select Statute" %>
+  <%= label_tag 'dams_object[otherRightsURI][]', "Other Rights" %>
+  <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights, :selected => @otherRight_id), :prompt=>"Select Other Rights"%>
+  <%= label_tag 'dams_object[licenseURI][]', "License" %>
+  <%= select_tag 'dams_object[licenseURI][]', options_for_select(@dams_licenses, :selected => @license_id), :prompt=>"Select License"%>
+  <%= label_tag 'dams_object[rightsHolderURI][]', "Rights Holder" %>
+  <%= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_rightsHolders, :selected => @rightsHolder_id), :prompt=>"Select Rights Holder"%>

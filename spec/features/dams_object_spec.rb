@@ -119,10 +119,10 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     expect(page).to have_selector('a', :text => "Mathematician")
 	
     click_on "Edit"
-    puts page.body
     fill_in "dams_object_titleValue_", :with => "Edited Dams Object"
     fill_in "dams_object_date_attributes_0_value", :with => "2013", match: :first
-    fill_in "dams_object_noteValue_", :with => "Science"
+    fill_in "Begin Date", :with => "2014"
+    fill_in "dams_object_note_attributes_0_value", :with => "Science"
     fill_in "Description", :with => "Student"
     page.select('Library Digital Collections', match: :first)
     click_on "Save"
