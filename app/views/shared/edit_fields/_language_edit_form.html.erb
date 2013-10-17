@@ -1,0 +1,2 @@
+  <h3>Language</h3>
+  <%= select_tag 'dams_object[languageURI][]', options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language", required: true%>

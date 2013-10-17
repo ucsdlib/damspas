@@ -1,0 +1,13 @@
+   <h3>Cartographic</h3>
+   <%= label_tag 'dams_object[cartographicPoint][]', "Point" %>
+   <%= text_field_tag 'dams_object[cartographicPoint][]', @dams_object.cartographicPoint[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicLine][]', "Line" %>
+   <%= text_field_tag 'dams_object[cartographicLine][]', @dams_object.cartographicLine[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicPolygon][]', "Polygon" %>
+   <%= text_field_tag 'dams_object[cartographicPolygon][]', @dams_object.cartographicPolygon[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicProjection][]', "Projection" %>
+   <%= text_field_tag 'dams_object[cartographicProjection][]', @dams_object.cartographicProjection[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicRefSystem][]', "ReferenceSystem" %>
+   <%= text_field_tag 'dams_object[cartographicRefSystem][]', @dams_object.cartographicRefSystem[0], class: "input-block-level"  %>
+   <%= label_tag 'dams_object[cartographicScale][]', "Scale" %>
+   <%= text_field_tag 'dams_object[cartographicScale][]', @dams_object.cartographicScale[0], class: "input-block-level" %>   

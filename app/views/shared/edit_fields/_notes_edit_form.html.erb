@@ -1,0 +1,134 @@
+  <h3>Note</h3>
+<% note = @dams_object.note
+	i = 0
+	if note != nil
+		while i < note.size  do
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[note_attributes][#{i}][value]", "Note" %>
+				<%= text_field_tag "dams_object[note_attributes][#{i}][value]", note[i].value, class: "input-block-level" %>
+				<%= label_tag "dams_object[note_attributes][#{i}][type]", "Note Type" %>
+				<%= text_field_tag "dams_object[note_attributes][#{i}][type]", note[i].type, class: "input-block-level" %>
+				<%= label_tag "dams_object[note_attributes][#{i}][displayLabel]", "Note Displaylabel" %>
+				<%= text_field_tag "dams_object[note_attributes][#{i}][displayLabel]", note[i].displayLabel, class: "input-block-level" %>
+			</div>					
+<%			
+			i +=1		
+		end
+
+		if note.size == 0
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[note_attributes][#{i}][value]", "Note" %>
+				<%= text_field_tag "dams_object[note_attributes][#{i}][value]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[note_attributes][#{i}][type]", "Note Type" %>
+				<%= text_field_tag "dams_object[note_attributes][#{i}][type]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[note_attributes][#{i}][displayLabel]", "Note Displaylabel" %>
+				<%= text_field_tag "dams_object[note_attributes][#{i}][displayLabel]", "", class: "input-block-level" %>
+			</div>			
+<%	
+		end
+    end
+%> 
+  
+  <h3>Scope Content Note</h3>
+
+<% note = @dams_object.scopeContentNote
+	i = 0
+	if note != nil
+		while i < note.size  do
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[scopeContentNote_attributes][#{i}][value]", "Scope Content Note" %>
+				<%= text_field_tag "dams_object[scopeContentNote_attributes][#{i}][value]", note[i].value, class: "input-block-level" %>
+				<%= label_tag "dams_object[scopeContentNote_attributes][#{i}][type]", "Scope Content Note Type" %>
+				<%= text_field_tag "dams_object[scopeContentNote_attributes][#{i}][type]", note[i].type, class: "input-block-level" %>
+				<%= label_tag "dams_object[scopeContentNote_attributes][#{i}][displayLabel]", "Scope Content Note Displaylabel" %>
+				<%= text_field_tag "dams_object[scopeContentNote_attributes][#{i}][displayLabel]", note[i].displayLabel, class: "input-block-level" %>
+			</div>					
+<%			
+			i +=1		
+		end
+
+		if note.size == 0
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[scopeContentNote_attributes][#{i}][value]", "Scope Content Note" %>
+				<%= text_field_tag "dams_object[scopeContentNote_attributes][#{i}][value]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[scopeContentNote_attributes][#{i}][type]", "Scope Content Note Type" %>
+				<%= text_field_tag "dams_object[scopeContentNote_attributes][#{i}][type]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[scopeContentNote_attributes][#{i}][displayLabel]", "Scope Content Note Displaylabel" %>
+				<%= text_field_tag "dams_object[scopeContentNote_attributes][#{i}][displayLabel]", "", class: "input-block-level" %>
+			</div>			
+<%	
+		end
+    end
+%> 
+
+  <h3>Custodial Responsibility Note</h3>
+
+<% note = @dams_object.custodialResponsibilityNote
+	i = 0
+	if note != nil
+		while i < note.size  do
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[custodialResponsibilityNoteattributes][#{i}][value]", "Custodial Responsibility Note" %>
+				<%= text_field_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][value]", note[i].value, class: "input-block-level" %>
+				<%= label_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][type]", "Custodial Responsibility Note Type" %>
+				<%= text_field_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][type]", note[i].type, class: "input-block-level" %>
+				<%= label_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][displayLabel]", "Custodial Responsibility Note Displaylabel" %>
+				<%= text_field_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][displayLabel]", note[i].displayLabel, class: "input-block-level" %>
+			</div>					
+<%			
+			i +=1		
+		end
+
+		if note.size == 0
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[custodialResponsibilityNoteattributes][#{i}][value]", "Custodial Responsibility Note" %>
+				<%= text_field_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][value]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][type]", "Custodial Responsibility Note Type" %>
+				<%= text_field_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][type]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][displayLabel]", "Custodial Responsibility Note Displaylabel" %>
+				<%= text_field_tag "dams_object[custodialResponsibilityNote_attributes][#{i}][displayLabel]", "", class: "input-block-level" %>
+			</div>			
+<%	
+		end
+    end
+%> 
+
+  <h3>Preferred Citation Note</h3>
+
+<% note = @dams_object.preferredCitationNote
+	i = 0
+	if note != nil
+		while i < note.size  do
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[preferredCitationNote_attributes][#{i}][value]", "Preferred Citation Note" %>
+				<%= text_field_tag "dams_object[preferredCitationNote_attributes][#{i}][value]", note[i].value, class: "input-block-level" %>
+				<%= label_tag "dams_object[preferredCitationNote_attributes][#{i}][type]", "Preferred Citation Note Type" %>
+				<%= text_field_tag "dams_object[preferredCitationNote_attributes][#{i}][type]", note[i].type, class: "input-block-level" %>
+				<%= label_tag "dams_object[preferredCitationNote_attributes][#{i}][displayLabel]", "Preferred Citation Note Displaylabel" %>
+				<%= text_field_tag "dams_object[preferredCitationNote_attributes][#{i}][displayLabel]", note[i].displayLabel, class: "input-block-level" %>
+			</div>					
+<%			
+			i +=1		
+		end
+
+		if note.size == 0
+%>
+			<div class="fields">
+				<%= label_tag "dams_object[preferredCitationNote_attributes][#{i}][value]", "Preferred Citation Note" %>
+				<%= text_field_tag "dams_object[preferredCitationNote_attributes][#{i}][value]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[preferredCitationNote_attributes][#{i}][type]", "Preferred Citation Note Type" %>
+				<%= text_field_tag "dams_object[preferredCitationNote_attributes][#{i}][type]", "", class: "input-block-level" %>
+				<%= label_tag "dams_object[preferredCitationNote_attributes][#{i}][displayLabel]", "Preferred Citation Note Displaylabel" %>
+				<%= text_field_tag "dams_object[preferredCitationNote_attributes][#{i}][displayLabel]", "", class: "input-block-level" %>
+			</div>			
+<%	
+		end
+    end
+%> 

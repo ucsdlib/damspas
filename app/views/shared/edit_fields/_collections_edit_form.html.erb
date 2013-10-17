@@ -1,0 +1,7 @@
+  <h3>Collection</h3>   
+  <%= label_tag 'dams_object[assembledCollectionURI][]', "Assembled Collection" %>
+  <%= select_tag 'dams_object[assembledCollectionURI][]', options_for_select(@dams_assembled_collections, :selected => @assembled_collection_id) , :prompt=>"Select Collection"%> 
+  <%= label_tag 'dams_object[provenanceCollectionURI][]', "Provenance Collection" %> 
+  <%= select_tag 'dams_object[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection" %>
+  <%= label_tag 'dams_object[provenanceCollectionPartURI][]', "Provenance Collection Part" %>
+  <%= select_tag 'dams_object[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts, :selected => @provenance_collection_part_id) , :prompt=>"Select Provenance Collection Part", :style => "width:250px" %>  
