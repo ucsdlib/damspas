@@ -97,7 +97,7 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "Type", :with => "Person"
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
-#    page.select("English", match: :first)
+    page.select("French", match: :first)
     page.select('Public domain', match: :first)
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
@@ -117,10 +117,11 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     expect(page).to have_selector('a', :text => "Text")
     #expect(page).to have_selector('strong', :text => "Public domain") # XXX not displaying
     expect(page).to have_selector('a', :text => "Mathematician")
-
+	
     click_on "Edit"
+    puts page.body
     fill_in "dams_object_titleValue_", :with => "Edited Dams Object"
-    fill_in "dams_object_dateValue_", :with => "2013", match: :first
+    fill_in "dams_object_date_attributes_0_value", :with => "2013", match: :first
     fill_in "dams_object_noteValue_", :with => "Science"
     fill_in "Description", :with => "Student"
     page.select('Library Digital Collections', match: :first)
