@@ -1,10 +1,6 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <script>
 $(document).ready(function() {
-/*	var target=window.document.getElementById('dams_object_language_attributes_0_id');    
-	var optionName = new Option('Create New Language','createNewLanguage');    
-	var targetlength = target.length;    
-	target.options[targetlength] = optionName;*/
 	loadCreateNewObjectOption();
 });
 </script>

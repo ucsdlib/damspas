@@ -267,14 +267,6 @@ def relatedResourceUri
     title.build if title.first.nil?
     title.first.variant = s
   end
-
-  def titleTransVariant
-    title.first != nil ? title.first.translationVariant : nil
-  end
-  def titleTransVariant=(s)
-    title.build if title.first.nil?
-    title.first.translationVariant = s
-  end 
   
   def titleTranslationVariant
     title.first != nil ? title.first.translationVariant : nil
