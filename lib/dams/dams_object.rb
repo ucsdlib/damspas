@@ -561,12 +561,12 @@ module Dams
 	
 	    Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 	
-	    # hack to strip "+00:00" from end of dates, because that makes solr barf
+	    # strip "+/-00:00" from end of dates, because that makes solr barf
 	    ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
 	      if solr_doc[f].kind_of?(Array)
-	        solr_doc[f][0] = solr_doc[f][0].gsub('+00:00','Z')
+	        solr_doc[f][0] = solr_doc[f][0].sub('+00:00','Z').sub('-01:00','Z')
 	      elsif solr_doc[f] != nil
-	        solr_doc[f] = solr_doc[f].gsub('+00:00','Z')
+	        solr_doc[f] = solr_doc[f].sub('+00:00','Z').sub('-01:00','Z')
 	      end
 	    }
 	
