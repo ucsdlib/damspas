@@ -1,34 +1,34 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Object</h1>
 
-<%= form_for @dams_object do |f| %> 
-  <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:f => f}%>
+<%= form_for @dams_object do |f| %>  
+  <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
        
-  <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
 
-  <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:f => f}%>      
+  <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>      
 
-  <%= render :partial => 'shared/edit_fields/unit_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/unit_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
    
-  <%= render :partial => 'shared/edit_fields/collections_edit_form', :locals => {:f => f}%>  
+  <%= render :partial => 'shared/edit_fields/collections_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>  
            
-  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
     
-  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
   
-  <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
   
-  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:f => f}%> 
+  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%> 
 
-  <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
  
-  <%= render :partial => 'shared/edit_fields/creator_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/creator_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
      
-  <%= render :partial => 'shared/edit_fields/rights_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/rights_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
 
-  <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
       
-  <%= render :partial => 'shared/edit_fields/cartographics_edit_form' , :locals => {:f => f}%>     
+  <%= render :partial => 'shared/edit_fields/cartographics_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>     
   
 	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
