@@ -38,9 +38,9 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "Scope Content Note", :with => "TestScopeContentNote"
 		page.select('ConferenceName', match: :first)
 		page.select('ConferenceName', match: :first)
-		fill_in "Related Resource Type", :with => "TestRelatedResourceType"
-		fill_in "Related Resource URI", :with => "http://www.google.com"
-		fill_in "Related Resource Description", :with => "TestRelatedResourceDescription"
+		#fill_in "Related Resource Type", :with => "TestRelatedResourceType"
+		#fill_in "Related Resource URI", :with => "http://www.google.com"
+		#fill_in "Related Resource Description", :with => "TestRelatedResourceDescription"
 		click_on "Save"
 
 
@@ -63,9 +63,9 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestScopeContentNote")
 		# expect(page).to have_selector('li', :text => "ConferenceName")
 		# expect(page).to have_selector ('li', :text => "ConferenceName")
-		expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
-		expect(page).to have_selector('a', :text => "TestRelatedResourceDescription")
-		expect(page).to have_content ("TestRelatedResourceDescription")	
+		#expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
+		#expect(page).to have_selector('a', :text => "TestRelatedResourceDescription")
+		#expect(page).to have_content ("TestRelatedResourceDescription")	
 
 
 
@@ -91,8 +91,8 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "dams_provenance_collection_scopeContentNoteValue_", :with => "TestScopeContentNote2"
 		fill_in "dams_provenance_collection_scopeContentNoteType_", :with => "TestScopeContentNoteType"
 		page.select('CorporateName', match: :first)
-		fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.yahoo.com"
-		fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "TestRelatedResourceDescription2"
+		#fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.yahoo.com"
+		#fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "TestRelatedResourceDescription2"
 		click_on "Save"
 
 
@@ -116,9 +116,9 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# expect(page).to have_selector ('li', :text => "CorporateName")
 
 		# testing without filling in Related Resource Type
-		expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
-		expect(page).to have_selector('a', :text => "TestRelatedResourceDescription2")
-		expect(page).to have_content ("TestRelatedResourceDescription2")
+		#expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
+		#expect(page).to have_selector('a', :text => "TestRelatedResourceDescription2")
+		#expect(page).to have_content ("TestRelatedResourceDescription2")
   end
 
 end
@@ -150,9 +150,9 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "dams_provenance_collection_scopeContentNoteValue_", :with => "CancelScopeContentNote"
 		fill_in "dams_provenance_collection_scopeContentNoteType_", :with => "CancelScopeContentNoteType"
 		page.select('CorporateName', match: :first)
-		fill_in "dams_provenance_collection_relatedResourceType_", :with => "CancelRelatedResourceType"
-		fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.test.com"
-		fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "Should not show"
+		# fill_in "dams_provenance_collection_relatedResourceType_", :with => "CancelRelatedResourceType"
+		# fill_in "dams_provenance_collection_relatedResourceUri_", :with => "http://www.test.com"
+		# fill_in "dams_provenance_collection_relatedResourceDescription_", :with => "Should not show"
 		click_on "Cancel"
 		visit Path.path
 		expect(page).to_not have_content("Should not show")
