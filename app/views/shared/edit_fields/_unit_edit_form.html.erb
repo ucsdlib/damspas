@@ -1,2 +1,2 @@
   <h3>Unit</h3>
-  <%= select_tag 'dams_object[unitURI][]', options_for_select(@dams_units , :selected => @unit_id) , :prompt=>"Select Unit" , required: true%>
+  <%= select_tag "#{object_type}[unitURI][]", options_for_select(@dams_units , :selected => @unit_id) , :prompt=>"Select Unit" , required: true%>
