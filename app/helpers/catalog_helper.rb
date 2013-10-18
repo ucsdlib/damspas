@@ -102,4 +102,88 @@ module CatalogHelper
 
     url
   end
+  # Determines which Bootstrap Glyphicon to use based on a component's file type
+  #
+  # @param fileUse The component's file use (type/role) value. E.g.,
+  #    "image-service", "audio-service", etc.
+  # @return A string that is the CSS class name of the Glyphicon to display.
+  # @author David T.
+  def grabGlyphicon(fileUse)
+    icon = grabFileType(fileUse)
+    case icon
+      when 'image'
+        icon = 'glyphicon-picture'
+      when 'audio'
+        icon = 'glyphicon-music'
+      when 'video'
+        icon = 'glyphicon-film'
+      when 'no-files'
+        icon = 'glyphicon-stop'
+      else
+        icon ='glyphicon-file'
+    end
+    return icon
+  end
+  # decide which icon/thumbnail to use for a solr document
+  # @return Array holding three items:
+  #   1: the CSS class to use for the preview container
+  #   2: the glyphicon name to use as an icon
+  #   3: the image URL to use as a thumbnail
+  def document_thumbnail( document )
+    # generic default icon
+    resultClass = 'thumb-simple'
+    resultIcon = 'glyphicon-file'
+    resultThumb = nil
+
+    if document['files_tesim'] != nil
+
+      # SIMPLE OBJECT: look for preview image or format-appropriate icon
+      files = select_file( :document => document, :quality => 200 )
+      if files[:display] != nil && files[:display]['use'].start_with?('image-')
+        # PREVIEW IMAGE
+        resultThumb = file_path(document[:id], '_' + files[:display]['id'])
+        resultClass = 'dams-search-thumbnail'
+      else
+        # NO PREVIEW IMAGE: choose format-appropriate glyphicon
+        fieldData = document['files_tesim']
+        simpleUse = nil
+  
+        if fieldData != nil
+          fieldData.each do |datum|
+            files = JSON.parse(datum)
+            if files["use"].end_with?("-service")
+              simpleUse = files["use"]
+              break
+            end
+          end
+        end
+        resultClass = 'thumb-simple'
+        resultIcon = grabGlyphicon(simpleUse)
+      end
+
+    elsif document['component_count_isi'] != nil
+
+      # COMPLEX OBJECT: generic container icon
+      if document['component_count_isi'] > 0
+        resultClass = 'thumb-complex'
+        resultIcon = 'glyphicon-folder-open'
+      end
+
+    elsif is_collection?(document)
+
+      # COLLECTION: thumbnails URL in related resource
+      if document['related_resource_json_tesim'] != nil
+        document['related_resource_json_tesim'].each do |rel|
+          r = JSON.parse(rel)
+          resultThumb = thumbnail_link(r['uri']) if r['type'] == 'thumbnail'
+          resultClass = 'thumb-simple'
+        end
+      end
+ 
+      resultClass = 'thumb-collection'
+      resultIcon = 'glyphicon-th'
+    end
+ 
+    [resultClass, resultIcon, resultThumb]
+  end
 end
