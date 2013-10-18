@@ -66,8 +66,8 @@ class DamsProvenanceCollectionsController < ApplicationController
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
-    @provenance_collection_part_id = @dams_provenance_collection.part_node.to_s.gsub(/.*\//,'')[0..9]
-    #@provenance_collection_part_id = @dams_provenance_collection.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9]
+    #@provenance_collection_part_id = @dams_provenance_collection.part_node.to_s.gsub(/.*\//,'')[0..9]
+    @provenance_collection_part_id = @dams_provenance_collection.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection.language.to_s.gsub(/.*\//,'')[0..9]
     @role_id = @dams_provenance_collection.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
     @name_id = get_relationship_name_id(@dams_provenance_collection)

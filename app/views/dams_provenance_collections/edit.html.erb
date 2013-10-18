@@ -99,6 +99,12 @@ $(document).ready(function() {
   <%#= label_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', "Provenance Collection Part" %> 
   <%#= select_tag 'dams_provenance_collection[provenanceHasCollPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part", class: "input-block-level"%>-->
 
+<h3>Provenance Collection Part</h3>
+
+  <%= label_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', "Provenance Collection Part" %> 
+  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part", class: "input-block-level"%>
+
+
 <%
      visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
   %>
