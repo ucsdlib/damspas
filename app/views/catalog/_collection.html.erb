@@ -2,7 +2,7 @@
   <% dateVal = date_list(document) %>
   <% if !dateVal.blank? %>
     <li>
-      <span class="testtest">Date:</span>
+      <span class="dams-search-results-fields-label">Date:</span>
       <span><%= dateVal %></span>
     </li>
   <% end %>
@@ -11,7 +11,7 @@
     <% scn.each do |txt| %>
       <% note = JSON.parse(txt) %>
       <li>
-        <span class="testtest">Scope and Content:</span>
+        <span class="dams-search-results-fields-label">Scope and Content:</span>
         <span><%= auto_link( note['value'] ) %></span>
       </li>
     <% end %>

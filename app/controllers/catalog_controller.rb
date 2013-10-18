@@ -114,6 +114,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => config.highlighting
     config.add_index_field 'subject_tesim', :label => 'Subject:', :highlight => config.highlighting
 	config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
+	config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
     #config.add_index_field 'description_tesim', :label => 'Description:' 
 	
 	#config.add_field_configuration_to_solr_request!  
