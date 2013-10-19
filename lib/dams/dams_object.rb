@@ -68,14 +68,19 @@ module Dams
 	    map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
 	    map.cartographics(:in => DAMS, :to => 'cartographics', :class_name => 'DamsCartographicsInternal')
 	  end
-      accepts_nested_attributes_for :title, :date, :relationship, :language, 
-      								:note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
+	
+      accepts_nested_attributes_for :title, :date, :relationship,  
+      								:custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote,  
       								:complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
       								:iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
 	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
 	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderCorporate, :rightsHolderPersonal,
 	    							:cartographics, :allow_destroy => true
+	    							
+	  accepts_nested_attributes_for :note, allow_destroy: true
+	   accepts_nested_attributes_for :language, allow_destroy: true
+	  
 	  rdf_subject { |ds|
 	    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
 	  }
@@ -165,11 +170,11 @@ module Dams
 	    if(!@subURI.nil?)
 	      if new?
 	        @array_subject.each do |sub|
-	        	graph.insert([rdf_subject, DAMS.subject, sub])
+	        	graph.insert([rdf_subject, DAMS.complexSubject, sub])
 	        end
-	        #graph.insert([rdf_subject, DAMS.subject, @subURI])
+	        #graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
 	      else
-	        graph.update([rdf_subject, DAMS.subject, @subURI])
+	        graph.update([rdf_subject, DAMS.complexSubject, @subURI])
 	      end
 	    end    
 		if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)

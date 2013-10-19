@@ -1,0 +1,4 @@
+  <h3>Unit</h3>
+  <%= f.fields_for :unit do |un| %>
+    <%= un.select :id, options_for_select(@dams_units) , {:include_blank => 'Select Unit'}, :required => "true" %>
+  <% end %>

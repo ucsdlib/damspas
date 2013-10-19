@@ -1,0 +1,12 @@
+  <h3>Collection</h3>
+  <%= f.fields_for :assembledCollection do |assembledCol| %>
+    <%= assembledCol.select :id, options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>
+  <% end %>    
+  <br> 
+  <%= f.fields_for :provenanceCollection do |provenanceCol| %>
+    <%= provenanceCol.select :id, options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
+  <% end %>   
+  <br>
+  <%= f.fields_for :provenanceCollectionPart do |provenanceColPart| %>
+    <%= provenanceColPart.select :id, options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" , :style => "width:250px"%>
+  <% end %> 

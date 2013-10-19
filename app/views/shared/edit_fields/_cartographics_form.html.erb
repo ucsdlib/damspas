@@ -2,16 +2,16 @@
 <div id="cartographicsSection">
    <%= f.fields_for :cartographics do |cart| %>
    	 <%= cart.label :point, "Point" %>
-     <%= cart.text_field :point , :value => ""%>    
+     <%= cart.text_field :point , :value => "", class: "input-block-level" %>    
    	 <%= cart.label :line, "Line" %>
-     <%= cart.text_field :line , :value => ""%>
+     <%= cart.text_field :line , :value => "", class: "input-block-level" %>
    	 <%= cart.label :polygon, "Polygon" %>
-     <%= cart.text_field :polygon , :value => ""%>
+     <%= cart.text_field :polygon , :value => "", class: "input-block-level" %>
    	 <%= cart.label :projection, "Projection" %>
-     <%= cart.text_field :projection , :value => ""%>
+     <%= cart.text_field :projection , :value => "", class: "input-block-level" %>
    	 <%= cart.label :referenceSystem, "ReferenceSystem" %>
-     <%= cart.text_field :referenceSystem , :value => ""%>       
+     <%= cart.text_field :referenceSystem , :value => "", class: "input-block-level" %>       
    	 <%= cart.label :scale, "Scale" %>
-     <%= cart.text_field :scale , :value => ""%>                                 
+     <%= cart.text_field :scale , :value => "", class: "input-block-level" %>                                 
    <% end %>
 </div>
