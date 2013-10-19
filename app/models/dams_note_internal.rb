@@ -8,6 +8,7 @@ class DamsNoteInternal
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
     end
+
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
   	def pid
       	rdf_subject.to_s.gsub(/.*\//,'')

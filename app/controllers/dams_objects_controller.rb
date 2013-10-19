@@ -92,7 +92,7 @@ class DamsObjectsController < ApplicationController
     @dams_object.title.first.hasExpansionVariant.build
     @dams_object.date.build
     @dams_object.language.build
-    @dams_object.language.first.scheme.build
+    #@dams_object.language.first.scheme.build
     @dams_object.note.build
     @dams_object.scopeContentNote.build
     @dams_object.custodialResponsibilityNote.build
@@ -169,6 +169,7 @@ class DamsObjectsController < ApplicationController
   def edit
     @dams_object = DamsObject.find(params[:id])
 	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+	#@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
 	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
 	@provenance_collection_part_id = @dams_object.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.provenanceCollectionPart.nil?
 	@dams_units = get_objects('DamsUnit','unit_name_tesim')
@@ -204,8 +205,9 @@ class DamsObjectsController < ApplicationController
   	@simple_subject_type = get_simple_subject_type(@dams_object) 	
   	@dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
   	#@simpleSubject_id = @dams_object.topic.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.topic.nil? 
-  	@simpleSubject_id = get_simple_subject_id(@dams_object)  	
-  	@complexSubject_id = @dams_object.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
+  	@simpleSubject_id = get_simple_subject_id(@dams_object)  
+  	#@complexSubject_id = Rails.configuration.id_namespace + @dams_object.complexSubject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
+  	@complexSubject_id = @dams_object.complexSubject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
 	@simpleSubjectValue = get_simple_subject_value(@dams_object)
 	  
 	@simple_name_type = get_name_type(@dams_object)
@@ -233,8 +235,9 @@ class DamsObjectsController < ApplicationController
 	end   	 	 
   end
   
-  def create 	    
-  	if @dams_object.save
+  def create    	    
+  	if @dams_object.save 		
+		#index_links(@dams_object)
   		redirect_to @dams_object, notice: "Object has been saved"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
     else

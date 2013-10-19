@@ -1,0 +1,13 @@
+  <%
+     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+  %>
+  <h3>Creator</h3>
+  <%= select_tag "#{object_type}[nameType][]",  options_for_select(nameTypeArray, :selected => @simple_name_type) , :prompt=>"Select name type" , :onChange=>'javascript: getSubjects("#{object_type}",this.value,"#name","nameURI","Name");'%>
+  <% if !@simple_name_value.nil? && @simple_name_value.length > 0%>
+  	<br>
+  	<%=text_field_tag "#{object_type}[nameTypeValue][]", @simple_name_value , class: "input-block-level"%>
+  <% elsif !@simple_name_type.nil? && @simple_name_type.length == 0%>
+	<div id="name"></div> OR Enter Name<%=text_field_tag "#{object_type}[nameTypeValue][]" , "", class: "input-block-level"%>    
+  <% else %>
+	<div id="name"><%= select_tag "#{object_type}[nameURI][]", options_for_select(@simple_names, :selected => @simple_name_id), :prompt=>"Select Name" %></div>  
+  <% end %>

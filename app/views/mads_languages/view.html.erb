@@ -1,17 +1,20 @@
 <div>
   <dl>
-    <dt>LanguageElement:</dt>
-    <dd><%= @mads_language.elementList[0].elementValue %></dd>
+    <dt>Language:</dt>
+    <dd><%#= @mads_language.elementList[0].elementValue %><%= @mads_language.name.first %></dd>
     <dt>Code:</dt>
     <dd><%= @mads_language.code.first%></dd>
-    <dt>Scheme:</dt>
-    <dd><%= @mads_language.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
     <dd><%= @mads_language.externalAuthority.first %></dd>
   </dl>
-  <% if can? :update, @mads_language %>
-    <%= link_to "Solr View", mads_language_path(@mads_language), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_mads_language_path(@mads_language), class: "btn btn-primary"%>
-    <%= link_to "View All", mads_languages_path(), class: "btn btn-primary"%>
-  <% end %>
+  <input type="hidden" id="id" value="<%= @mads_language.id%>"/>
+  <input type="hidden" id="name" value="<%= @mads_language.name.first%>"/>
+  <br>
+  <a href="#" onClick="javascript: closeAndSetId();">close</a>
+  
+  <%# if can? :update, @mads_language %>
+    <%#= link_to "Solr View", mads_language_path(@mads_language), class: "btn btn-primary"%>
+    <%#= link_to "Edit", edit_mads_language_path(@mads_language), class: "btn btn-primary"%>
+    <%#= link_to "View All", mads_languages_path(), class: "btn btn-primary"%>
+  <%# end %>
 </div>

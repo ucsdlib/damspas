@@ -1,0 +1,4 @@
+<h3>Complex Subject</h3>
+<%= f.fields_for :complexSubject do |comSubject| %>
+  <%= comSubject.select :id, options_for_select(@mads_complex_subjects, :selected => @complexSubject_id) , {:include_blank => 'Select Subject'} %>
+<% end %>

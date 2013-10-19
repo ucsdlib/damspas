@@ -114,7 +114,6 @@ feature 'Visitor wants to create/edit a provenance part collection' do
 		
 		# expect(page).to have_selector('li', :text => "CorporateName")
 		# expect(page).to have_selector ('li', :text => "CorporateName")
-
 		# testing without filling in Related Resource Type
 		expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
 		expect(page).to have_selector('a', :text => "TestRelatedResourceDescription2")
