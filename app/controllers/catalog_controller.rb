@@ -198,8 +198,8 @@ class CatalogController < ApplicationController
     #config.add_sort_field 'system_modified_dtsi asc', :label => "date modified \u25B2"
     #config.add_sort_field 'author_ssi asc, title_ssi asc', :label => 'author'
     config.add_sort_field 'title_ssi asc', :label => 'title'
-    config.add_sort_field 'object_create_dtsi asc, title_ssi asc', :label => "date created \u25B2"
-    config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date created \u25BC"
+    config.add_sort_field 'object_create_dtsi asc, title_ssi asc', :label => "date\u00A0created\u00A0\u25B2"
+    config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date\u00A0created\u00A0\u25BC"
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
