@@ -19,13 +19,13 @@ feature "Anonymous user shouldn't be able to upload files" do
   end
 
   scenario "Shouldn't be able to access Hydra view" do
-    expect { visit view_dams_object_path(test_pid) }.to raise_error(
-      CanCan::AccessDenied)
+    visit view_dams_object_path(test_pid)
+    expect(page).to have_selector('h1', :text => 'You are not allowed to view this page')
   end
 
   scenario "Shouldn't be able to upload file" do
-    expect { page.driver.post upload_path(test_pid) }.to raise_error(
-      CanCan::AccessDenied)
+    page.driver.post upload_path(test_pid)
+    expect(page).to have_selector('h1', :text => 'You are not allowed to view this page')
   end
 end
 
@@ -85,8 +85,8 @@ feature "Access control enforcement" do
     expect(page.driver.response.status).to eq( 200 )
   end
   scenario "Anonymous shouldn't be able to access restricted object files" do
-    expect { visit file_path( 'bd0922518w', '_4_4.jpg' ) }.to raise_error(
-      CanCan::AccessDenied)
+    visit file_path( 'bd0922518w', '_4_4.jpg' )
+    expect(page).to have_selector('h1', :text => 'You are not allowed to view this page')
   end
   scenario "Curators should be able to access restricted object files" do
     sign_in_developer

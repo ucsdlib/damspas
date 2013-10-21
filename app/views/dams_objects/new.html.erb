@@ -1,121 +1,61 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <script>
 $(document).ready(function() {
-
- $("#dams_object_language_attributes_1_id").change(function() {
- 	$("#newLanguage").remove();
-    $("#dams_object_language_attributes_1_id").attr("id","dams_object_language_attributes_0_id");
- });
-
+	loadCreateNewObjectOption();
 });
 </script>
 <h1>Create a new Dams Object</h1>
+<div class="dams-viewer">
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
-  
+
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
 
-  <%
-  	 resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
-  %>  
-    
-  <h3>Type Of Resource</h3>  
-  <%= select_tag 'dams_object[typeOfResource][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %> 
+  <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:f => f, :object => @dams_object, :object_type => "dams_object"}%>
 
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
-          
-  <h3>Unit</h3>
-  <%= f.fields_for :unit do |un| %>
-    <%= un.select :id, options_for_select(@dams_units) , {:include_blank => 'Select Unit'}, :required => "true" %>
-  <% end %>
+         
+  <%= render :partial => 'shared/edit_fields/unit_form' , :locals => {:f => f}%>
      
-  <h3>Collection</h3>
-  <%= f.fields_for :assembledCollection do |assembledCol| %>
-    <%= assembledCol.select :id, options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>
-  <% end %>    
-  <br> 
-  <%= f.fields_for :provenanceCollection do |provenanceCol| %>
-    <%= provenanceCol.select :id, options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
-  <% end %>   
-  <br>
-  <%= f.fields_for :provenanceCollectionPart do |provenanceColPart| %>
-    <%= provenanceColPart.select :id, options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" , :style => "width:250px"%>
-  <% end %> 
+  <%= render :partial => 'shared/edit_fields/collections_form', :locals => {:f => f}%>
 
   <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f}%>
-  
-  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
       
-  <h3>Relationship</h3>
-  <%#= select_tag 'dams_object[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Role" %>
-  <%
-  	 nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
-  %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: displayRelationshipName(this.value);"%>
-  <br>
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
+        
   <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f}%>
-       
-  <h3>Complex Subject</h3>
-  <%= f.fields_for :complexSubject do |comSubject| %>
-    <%= comSubject.select :id, options_for_select(@mads_complex_subjects) , :prompt=>"Select Predefined Subject"%>
-  <% end %>  
-       
-  <h3>Simple Subject</h3>
-  <%
-  	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
-  %>
-
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div>
   
-  <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
-
+  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f}%> 
+       
   <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f}%>
     
-  <h3>Creator</h3>
-  <%= select_tag 'dams_object[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Creator Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#name','nameURI','Name');"%>
-  <div id="name"></div>
+  <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f}%>
   
-  <!-- OR Enter Name<%#=text_field_tag 'dams_object[nameTypeValue][]' %> -->
   <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f}%>
       
-  <h3>Rights</h3>
-  <%= f.fields_for :copyright do |copy| %>
-    <%= copy.select :id, options_for_select(@dams_copyrights) , {:include_blank => 'Select Copyright'}, :required => "true"%>
-  <% end %>   
-  <br>
-  <%= f.fields_for :statute do |stat| %>
-    <%= stat.select :id, options_for_select(@dams_statutes) , :prompt=>"Select Statute"%>
-  <% end %>
-  <br>
-  <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights" %>
-  <%#= f.fields_for :otherRights do |other| %>
-    <%#= other.select :id, options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights"%>
-  <%# end %>
-  <br>
-  <%= f.fields_for :license do |lic| %>
-    <%= lic.select :id, options_for_select(@dams_licenses) , :prompt=>"Select License"%>
-  <% end %>  
-  <br>
-  <%#= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_personal_names) , :prompt=>"Select Rights Holder" %>
-
-  <%= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
-    <%= rightsPersonal.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal RightsHolder"%>
-  <% end %>  
-
-  <%#= f.fields_for :rightsHolderCorporate do |rightsCorp| %>
-    <%#= rightsCorp.select :id, options_for_select(@dams_corporate_names) , :prompt=>"Select Corporate RightsHolder"%>
-  <%# end %>
+  <%= render :partial => 'shared/edit_fields/rights_form' , :locals => {:f => f}%>
     
-  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
+  <%#= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
+
+	<h3>Related Resource</h3>
+	<div id="relatedResourceSection">
+	   <%= f.fields_for :relatedResource do |relResource| %>
+	   	 <%= relResource.label :type, "Type" %>
+	     <%= relResource.text_field :type , :value => "", class: "input-block-level" %>    
+	     <%= relResource.label :uri, "URI" %>
+	     <%= relResource.text_field :uri, :value => "", class: "input-block-level" %>
+	     <%= relResource.label :description, "Description" %>
+	     <%= relResource.text_field :description, :value => "", class: "input-block-level" %>                
+	   <% end %>
+	</div>
+  
   <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f}%>  
-              
-	<br>
+
+  <br>
   <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
 
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_objects_path, class: "btn btn-primary" %>   
 <%end%>
-
+</div>
 
 

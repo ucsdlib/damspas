@@ -549,9 +549,27 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       n = 0
       langs.map.each do |lang|
         n += 1
+		#Solrizer.insert_field(solr_doc, field, lang.name)
+		#Solrizer.insert_field(solr_doc, "fulltext", lang.name)
 
-        Solrizer.insert_field(solr_doc, field, lang.name)
-        Solrizer.insert_field(solr_doc, "fulltext", lang.name)
+	    language_json = {}
+	    language_obj = nil
+	    language_uri = lang.to_s
+		if lang.name.first.nil? && lang.pid != nil && !lang.pid.start_with?("_:")
+	      language_obj = lang.load
+	      language_json[:id] = language_obj.pid.first      
+	    else 
+	      language_obj = lang
+	    end
+	        
+	    language_json.merge!( :name => language_obj.name.first.to_s,
+	                       :code => language_obj.code.first.to_s,
+	                :externalAuthority => language_obj.externalAuthority.first.to_s )
+	    Solrizer.insert_field(solr_doc, "#{field}_json", language_json.to_json )
+	
+	    # retrieval
+	    Solrizer.insert_field(solr_doc, "#{field}", language_obj.name )
+	    Solrizer.insert_field(solr_doc, "fulltext", language_obj.name)        
       end
     end
   end
@@ -569,7 +587,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   #   end
   # end
 
-
+  def thumbnail( relatedResource )
+    relatedResource.map do |resource|
+      if resource.type.first.to_s == "thumbnail" && resource.uri.first != nil
+        return resource.uri.first.to_s
+      end
+    end
+  end
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
 
     # relatedResource

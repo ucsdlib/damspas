@@ -20,7 +20,7 @@ module Dams
       end
 
       def to_solr (solr_doc={})
-        Solrizer.insert_field(solr_doc, 'uri', uri)
+        Solrizer.insert_field(solr_doc, 'uri', uri.to_s)
         Solrizer.insert_field(solr_doc, 'note', note)
 	    Solrizer.insert_field(solr_doc, "permissionType", permissionType)
 	    Solrizer.insert_field(solr_doc, "permissionBeginDate", permissionBeginDate)

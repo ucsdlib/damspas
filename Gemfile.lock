@@ -32,6 +32,8 @@ GEM
       activesupport (= 3.2.13)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
+    activerecord-postgresql-adapter (0.0.1)
+      pg
     activeresource (3.2.13)
       activemodel (= 3.2.13)
       activesupport (= 3.2.13)
@@ -59,6 +61,14 @@ GEM
       sass (~> 3.2)
     builder (3.0.4)
     cancan (1.6.10)
+    capistrano (3.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 0.0.23)
+    capistrano-bundler (1.0.0)
+      capistrano (>= 3.0.0.pre)
+    capistrano-rails (1.0.0)
+      capistrano
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -138,14 +148,17 @@ GEM
     mediashelf-loggable (0.4.9)
     mime-types (1.25)
     mini_portile (0.5.1)
-    multi_json (1.8.0)
+    multi_json (1.8.2)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     nom-xml (0.5.1)
       activesupport
       i18n
       nokogiri
-    om (3.0.3)
+    om (3.0.4)
       activemodel
       activesupport
       deprecation
@@ -160,6 +173,7 @@ GEM
     orm_adapter (0.4.0)
     parslet (1.5.0)
       blankslate (~> 2.0)
+    pg (0.17.0)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -187,8 +201,8 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.12.0)
     rake (10.1.0)
-    rdf (1.0.8)
-      addressable (>= 2.2)
+    rdf (1.0.9)
+      addressable (>= 2.3)
     rdf-rdfxml (1.0.1)
       rdf (>= 1.0)
       rdf-xsd (>= 1.0)
@@ -247,12 +261,19 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.8)
-    stomp (1.2.16)
+    sshkit (1.1.0)
+      net-scp
+      net-ssh
+      term-ansicolor
+    stomp (1.3.1)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
     thor (0.18.1)
     tilt (1.4.1)
+    tins (0.12.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -276,9 +297,13 @@ PLATFORMS
 
 DEPENDENCIES
   active-fedora (= 6.4.5)
+  activerecord-postgresql-adapter
   blacklight
   blacklight_advanced_search
   bootstrap-sass
+  capistrano (~> 3.0.0)
+  capistrano-bundler
+  capistrano-rails
   capybara
   coffee-rails
   database_cleaner

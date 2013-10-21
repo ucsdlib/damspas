@@ -35,7 +35,11 @@ class MadsLanguagesController < ApplicationController
 
   def create
     if @mads_language.save
-        redirect_to @mads_language, notice: "Language has been saved"
+	    if(!params[:popup].nil? && params[:popup].to_s == "true")
+			redirect_to view_mads_language_path(@mads_language)	    
+	    else
+        	redirect_to @mads_language, notice: "Language has been saved"
+        end
     else
       flash[:alert] = "Unable to save Language"
       render :new

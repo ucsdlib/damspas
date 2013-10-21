@@ -35,64 +35,12 @@ class DamsProvenanceCollectionPartsController < ApplicationController
   
   def new
     
-    @dams_provenance_collection_part.title.build
-    @dams_provenance_collection_part.title.first.elementList.subTitleElement.build
-    @dams_provenance_collection_part.title.first.hasVariant.build
-    @dams_provenance_collection_part.title.first.hasTranslationVariant.build
-    @dams_provenance_collection_part.title.first.hasAbbreviationVariant.build
-    @dams_provenance_collection_part.title.first.hasAcronymVariant.build
-    @dams_provenance_collection_part.title.first.hasExpansionVariant.build
-    @dams_provenance_collection_part.date.build
-    @dams_provenance_collection_part.language.build
-    @dams_provenance_collection_part.language.first.scheme.build
-    @dams_provenance_collection_part.note.build
-    @dams_provenance_collection_part.scopeContentNote.build
-    @dams_provenance_collection_part.custodialResponsibilityNote.build
-    @dams_provenance_collection_part.preferredCitationNote.build
-    @dams_provenance_collection_part.relatedResource.build
-    @dams_provenance_collection_part.complexSubject.build
-    @dams_provenance_collection_part.builtWorkPlace.build
-    @dams_provenance_collection_part.culturalContext.build
-    @dams_provenance_collection_part.function.build    
-    @dams_provenance_collection_part.genreForm.build
-    @dams_provenance_collection_part.geographic.build
-    @dams_provenance_collection_part.iconography.build    
-    @dams_provenance_collection_part.occupation.build
-    @dams_provenance_collection_part.scientificName.build
-    @dams_provenance_collection_part.stylePeriod.build    
-    @dams_provenance_collection_part.technique.build   
-    @dams_provenance_collection_part.topic.build    
-    @dams_provenance_collection_part.temporal.build     
-    @dams_provenance_collection_part.name.build
-    @dams_provenance_collection_part.personalName.build    
-    @dams_provenance_collection_part.corporateName.build   
-    @dams_provenance_collection_part.conferenceName.build    
-    @dams_provenance_collection_part.familyName.build
-    @dams_provenance_collection_part.provenanceCollectionPart.build
-    @dams_provenance_collection_part.relationship.build
-    @dams_provenance_collection_part.relationship.first.role.build
-    @dams_provenance_collection_part.relationship.first.personalName.build
-    @dams_provenance_collection_part.relationship.first.name.build
-    @dams_provenance_collection_part.relationship.first.corporateName.build
-    @dams_provenance_collection_part.relationship.first.conferenceName.build
-    @dams_provenance_collection_part.relationship.first.familyName.build
-    
     @dams_provenance_collections=get_objects('DamsProvenanceCollection','title_tesim')
     @mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
     @mads_languages =  get_objects('MadsLanguage','name_tesim')
-    @dams_licenses = get_objects_url('DamsLicense','note_tesim')
-    @dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
-    @dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
-    @dams_names = get_objects_url('MadsName','name_tesim')
-    @dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
-    @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-
-
-
     
     uri = URI('http://fast.oclc.org/fastSuggest/select')
     res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -153,44 +101,16 @@ def edit
   end
 
   def create
+    @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part]
     if @dams_provenance_collection_part.save
-      redirect_to @dams_provenance_collection_part, notice: "Provenance collection part has been saved"
-      #redirect_to edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), notice: "Object has been saved"
+        redirect_to @dams_provenance_collection_part, notice: "ProvenanceCollectionPart has been saved"
     else
-      flash[:alert] = "Unable to save provenance collection part"
+      flash[:alert] = "Unable to save provenance_collection_part"
       render :new
     end
   end
 
   def update
-    @dams_provenance_collection_part.title.clear
-    @dams_provenance_collection_part.date.clear
-    @dams_provenance_collection_part.language.clear
-    @dams_provenance_collection_part.note.clear
-    @dams_provenance_collection_part.scopeContentNote.clear
-    @dams_provenance_collection_part.custodialResponsibilityNote.clear
-    @dams_provenance_collection_part.preferredCitationNote.clear
-    @dams_provenance_collection_part.relatedResource.clear
-    @dams_provenance_collection_part.complexSubject.clear
-    @dams_provenance_collection_part.builtWorkPlace.clear
-    @dams_provenance_collection_part.culturalContext.clear
-    @dams_provenance_collection_part.function.clear    
-    @dams_provenance_collection_part.genreForm.clear
-    @dams_provenance_collection_part.geographic.clear
-    @dams_provenance_collection_part.iconography.clear    
-    @dams_provenance_collection_part.occupation.clear
-    @dams_provenance_collection_part.scientificName.clear
-    @dams_provenance_collection_part.stylePeriod.clear    
-    @dams_provenance_collection_part.technique.clear   
-    @dams_provenance_collection_part.topic.clear
-    @dams_provenance_collection_part.temporal.clear
-    @dams_provenance_collection_part.name.clear
-    @dams_provenance_collection_part.personalName.clear    
-    @dams_provenance_collection_part.corporateName.clear   
-    @dams_provenance_collection_part.conferenceName.clear    
-    @dams_provenance_collection_part.familyName.clear
-    @dams_provenance_collection_part.provenanceCollectionPart.clear
-
     @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part]
     if @dams_provenance_collection_part.save
         redirect_to @dams_provenance_collection_part, notice: "Successfully updated provenance_collection_part"

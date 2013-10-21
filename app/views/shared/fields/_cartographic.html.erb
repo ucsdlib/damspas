@@ -10,12 +10,13 @@
 	end
 
 	fieldData = @document["#{prefix}cartographics_json_tesim"]
-	validOverlays = Set.new ['point','line','polygon','projection']
+	validOverlays = Set.new ['point','line','polygon']
 
 	if fieldData != nil
 		cartographics = JSON.parse(fieldData.first)
 
-  		if (!cartographics.first[1][0].nil? && cartographics.first[1][0].length > 0)
+  		if ( cartographics['point'].first || cartographics['line'].first ||
+             cartographics['polygon'].first )
 			htmlOpen %= 'Cartographics'
 			concat htmlOpen.html_safe
 				
@@ -25,7 +26,7 @@
 					if value.any?
 						dataForMap = "{\"type\":\"#{key}\",\"coords\":\"#{value.first}\"}"
 						concat "<p><strong>#{key.upcase}</strong></p><p>#{value.first}</p>".html_safe
-						concat "<div id='map-canvas' data='#{dataForMap}'/>".html_safe
+						concat "<div id='map-canvas' data='#{dataForMap}'></div>".html_safe
 					end
 				end
 			end

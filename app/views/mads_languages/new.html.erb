@@ -1,4 +1,15 @@
 <h1>Create a new MADS Language</h1>
+<script>
+$(document).ready(function() {
+
+ $('.new_mads_language').submit(function() {
+	if(window.opener != null && window.location.href != window.opener.location.href) {
+		document.getElementById('popup').value = "true";
+	}
+    return true;
+  });
+});
+</script>
 <%= form_for @mads_language do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'mads_language[name]', "Name" %>
@@ -16,9 +27,10 @@
 
   <%= f.fields_for :scheme do |se| %>
     <%= se.label :id, "Scheme" %>
-    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
+    <%= se.select :id, options_for_select(@mads_schemes) , {:include_blank => 'Select MadsScheme'}, :required => "true" %>
   <% end %>
 
+  <%= hidden_field_tag "popup", "false" %>
   <br>
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>

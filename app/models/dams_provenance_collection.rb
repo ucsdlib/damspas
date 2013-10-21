@@ -1,4 +1,5 @@
 class DamsProvenanceCollection < ActiveFedora::Base
+  include Hydra::ModelMethods  
   has_metadata 'damsMetadata', :type => DamsProvenanceCollectionDatastream 
   delegate_to "damsMetadata", [
     :beginDate,

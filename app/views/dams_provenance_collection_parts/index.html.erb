@@ -1,11 +1,20 @@
 <h1>DAMS Provenance Collection Part</h1>
 
-<div class="span6">
-  <ul><%= render_provenance_collection_part_list %></ul>
-</div>
-
 <div>
   <% if can? :create, DamsProvenanceCollectionPart%>
-    <%= link_to "Create Provenance Collection Part", new_dams_provenance_collection_part_path, :class => 'btn btn-primary'%>
+    <%= link_to "Create New Provenance Collection Part", new_dams_provenance_collection_part_path, :class => 'btn btn-primary'%>
   <% end %>
+</div>
+<br>
+
+
+
+<div class="span6">
+  <ul>
+    <% @document.each do |doc| %>
+     <%if doc['title_tesim']!=nil %>
+      <li><%= link_to doc['title_tesim'].first, dams_provenance_collection_part_path(doc['id']) %></li>
+      <% end %>
+    <% end %>
+  </ul>
 </div>

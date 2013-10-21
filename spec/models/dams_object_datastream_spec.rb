@@ -308,7 +308,7 @@ END
         subject.titleValue.should == "Sample Object Record #8"
         subject.subtitle.should == "Name/Note/Subject Sampler"
         subject.titleVariant.should == "The Whale"
-        subject.titleTransVariant.should == "Translation Variant"
+        subject.titleTranslationVariant.should == "Translation Variant"
 	    subject.titleAbbreviationVariant.should == "Abbreviation Variant"
 	    subject.titleAcronymVariant.should == "Acronym Variant"
 	    subject.titleExpansionVariant.should == "Expansion Variant"        

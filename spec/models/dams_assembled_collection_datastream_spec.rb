@@ -91,7 +91,7 @@ describe DamsAssembledCollectionDatastream do
         solr_doc = subject.to_solr
         solr_doc["provenanceCollection_name_tesim"].should == ["Historical Dissertations"]
         solr_doc["provenanceCollection_id_tesim"].should == ["bb24242424"]
-        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"bb24242424","name":"Historical Dissertations"}']
+        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"bb24242424","name":"Historical Dissertations","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}']
       end
 
 #      it "should have event" do

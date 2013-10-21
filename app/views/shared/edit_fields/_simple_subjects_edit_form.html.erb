@@ -1,0 +1,12 @@
+<h3>Simple Subject</h3>
+<%
+	subjectTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"], ["Name", "Name"], ["PersonalName", "PersonalName"],["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+%>
+<%= select_tag "#{object_type}[subjectType][]",  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>'javascript: getSubjects("#{object_type}",this.value,"#simpleSubject","simpleSubjectURI","Subject");'%>
+<% if !@simpleSubjectValue.nil? && @simpleSubjectValue.length > 0%>
+	<br><input id="dams_object_subjectTypeValue_" name="#{object_type}[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
+<% elsif !@simple_subject_type.nil? && @simple_subject_type.length == 0%>
+	<div id="simpleSubject"></div> OR Enter subject value<%=text_field_tag "#{object_type}[subjectTypeValue][]", "", class: "input-block-level"  %>
+<% else %>
+	<div id="simpleSubject"><%= select_tag "#{object_type}[simpleSubjectURI][]", options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div>    
+<% end %>
