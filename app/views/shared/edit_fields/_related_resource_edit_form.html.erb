@@ -3,17 +3,39 @@
 	i = 0
 	if resource != nil
 		while i < resource.size  do
+			if(!resource[i].type.nil? && resource[i].type.first.to_s == 'hydra-afmodel')
 %>
-	<div class="fields">
-		<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][type]", "Type" %>
-		<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][type]", resource[i].type, class: "input-block-level" %>
-		<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "URI" %>
-		<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri, class: "input-block-level" %>
-		<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
-		<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", resource[i].description, class: "input-block-level" %>
-	</div>					
+				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][type]", resource[i].type%>
+				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri%>
+				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", resource[i].description %>
+<%		
+			else
+%>
+				<div class="fields">
+					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][type]", "Type" %>
+					<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][type]", resource[i].type, class: "input-block-level" %>
+					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "URI" %>
+					<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri, class: "input-block-level" %>
+					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
+					<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", resource[i].description, class: "input-block-level" %>
+				</div>					
 <%			
+			end
 			i +=1		
 		end
+
+		if resource.size == 1
+%>
+			<div class="fields">
+				<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][type]", "Type" %>
+				<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][type]", "", class: "input-block-level" %>
+				<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "URI" %>
+				<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "", class: "input-block-level" %>
+				<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
+				<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "", class: "input-block-level" %>
+			</div>		
+<%	
+		end
+				
     end
 %> 
