@@ -28,6 +28,8 @@ gem 'rails_autolink'
 
 # Deploy with Capistrano
 gem 'capistrano', '~> 3.0.0'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
 
 # To use debugger
 # gem 'debugger'
