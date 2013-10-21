@@ -21,4 +21,7 @@ class DamsCartographicsInternal
   def persisted?
     rdf_subject.kind_of? RDF::URI
   end
+  def pid
+    rdf_subject.to_s.gsub(/.*\//,'')
+  end
 end

@@ -10,6 +10,10 @@ pontos:
   user: dams
   password: dams
   url: http://localhost:8081/dams/fedora
+staging:
+  user: dams
+  password: dams
+  url: http://localhost:8080/dams/fedora
 test: &TEST  
   user: dams
   password: dams

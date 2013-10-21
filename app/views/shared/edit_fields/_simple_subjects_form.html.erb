@@ -1,85 +1,96 @@
+  <h3>Simple Subject</h3>
+  <%
+     subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+  %>
+
+  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <div id="simpleSubject"></div>
+  
+  <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
+  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
+  
 <div id="simpleSubjects">
   <div id="BuiltWorkPlace">
 	  <%= f.fields_for :builtWorkPlace do |built| %>
 	    <%= built.label :type, "OR New BuiltWorkPlace" %>
-	    <%= built.text_field :name , :value => ""%>        
+	    <%= built.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="CulturalContext">
 	  <%= f.fields_for :culturalContext do |cult| %>
 	    <%= cult.label :type, "OR New CulturalContext" %>
-	    <%= cult.text_field :name , :value => ""%>        
+	    <%= cult.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="Function">
 	  <%= f.fields_for :function do |fun| %>
 	    <%= fun.label :type, "OR New Function" %>
-	    <%= fun.text_field :name , :value => ""%>        
+	    <%= fun.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="GenreForm">
 	  <%= f.fields_for :genreForm do |genre| %>
 	    <%= genre.label :type, "OR New GenreForm" %>
-	    <%= genre.text_field :name , :value => ""%>        
+	    <%= genre.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="Geographic">
 	  <%= f.fields_for :geographic do |geo| %>
 	    <%= geo.label :type, "OR New Geographic" %>
-	    <%= geo.text_field :name , :value => ""%>        
+	    <%= geo.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="Iconography">
 	  <%= f.fields_for :iconography do |icon| %>
 	    <%= icon.label :type, "OR New Iconography" %>
-	    <%= icon.text_field :name , :value => ""%>        
+	    <%= icon.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="Occupation">
 	  <%= f.fields_for :occupation do |occ| %>
 	    <%= occ.label :type, "OR New Occupation" %>
-	    <%= occ.text_field :name , :value => ""%>        
+	    <%= occ.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="ScientificName">
 	  <%= f.fields_for :scientificName do |sci| %>
 	    <%= sci.label :type, "OR New ScientificName" %>
-	    <%= sci.text_field :name , :value => ""%>        
+	    <%= sci.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="StylePeriod">
 	  <%= f.fields_for :stylePeriod do |style| %>
 	    <%= style.label :type, "OR New StylePeriod" %>
-	    <%= style.text_field :name , :value => ""%>        
+	    <%= style.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="Technique">
 	  <%= f.fields_for :technique do |tech| %>
 	    <%= tech.label :type, "OR New Technique" %>
-	    <%= tech.text_field :name , :value => ""%>        
+	    <%= tech.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
   	  	  	  	  	  	  	  	    
   <div id="Topic">
 	  <%= f.fields_for :topic do |to| %>
 	    <%= to.label :type, "OR New Topic" %>
-	    <%= to.text_field :name , :value => ""%>        
+	    <%= to.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 
   <div id="Temporal">
 	  <%= f.fields_for :temporal do |te| %>
 	    <%= te.label :type, "OR New Temporal" %>
-	    <%= te.text_field :name , :value => ""%>        
+	    <%= te.text_field :name , :value => "", class: "input-block-level" %>        
 	  <% end %> 
   </div>
 </div>

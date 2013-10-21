@@ -9,20 +9,40 @@
 		 htmlClose = "</dd>"
 	 end
 
-	 language = @document["#{prefix}language_tesim"]
-
-	 if language != nil
-
-		 htmlOpen %= 'Language'
-		 concat htmlOpen.html_safe
+	fieldData = @document["#{prefix}language_json_tesim"]
+	
+	if fieldData != nil
+		htmlOpen %= 'Language'.pluralize(fieldData.count)
+		concat htmlOpen.html_safe	
+		fieldData.each do |datum|
+	 		language = JSON.parse(datum)
+	 		if !language['name'].blank?
 %>
+				<ul class="unstyled">
+					<li><%= language['name'] %></li>
+				</ul>
+<%			
+			end
+		end
 
-		<ul class="unstyled">
-				<li><%= language.first %></li>
-		</ul>
+		concat htmlClose.html_safe
+	else 
+		language = @document["#{prefix}language_tesim"]
 
+		 if language != nil
+	
+			 htmlOpen %= 'Language'
+			 concat htmlOpen.html_safe
+%>
+	
+			<ul class="unstyled">
+					<li><%= language.first %></li>
+			</ul>
+	
 <%
-		 concat htmlClose.html_safe
-
-	 end
+			 concat htmlClose.html_safe
+	
+		 end
+		
+	end
 %>

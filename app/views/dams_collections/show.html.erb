@@ -1,6 +1,6 @@
 <%
-	collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
-	@page_title = "Collection | #{collection_title}"
+	@collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	@page_title = "Collection | #{@collection_title}"
 %>
 
 
@@ -15,7 +15,7 @@
 		<%= render :partial => 'show_damstools' %>
 		<%= render :partial => 'shared/fields/title' %>
         <%= render :partial => 'metadata' %>
-		<%= link_to "<i class='icon-search icon-white'></i> Search this collection".html_safe, facet_uri(collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>
+        <%= render :partial => 'search' %>
 	</div>
 
 <% if can? :update, @document then %>

@@ -4,7 +4,7 @@
   <% index_fields.each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
 			<li>
-		    <span class="testtest"><%= render_index_field_label :field => solr_fname %></span>
+		    <span class="dams-search-results-fields-label"><%= render_index_field_label :field => solr_fname %></span>
 		    <span><%= render_index_field_value :document => document, :field => solr_fname, :value => field_with_highlighting(document, field) %></span>
 			</li>
     <% end -%>

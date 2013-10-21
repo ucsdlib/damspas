@@ -14,7 +14,9 @@
 <div class="span6">
   <ul>
     <% @document.each do |doc| %>
-      <li><%= link_to doc['title_tesim'].first, dams_provenance_collection_path(doc['id']) %></li>
+      <%if doc['title_tesim']!=nil %>
+       <li><%= link_to doc['title_tesim'].first, dams_provenance_collection_path(doc['id']) %></li>
+      <% end %>
     <% end %>
   </ul>
 </div>

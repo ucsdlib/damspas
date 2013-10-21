@@ -114,6 +114,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => config.highlighting
     config.add_index_field 'subject_tesim', :label => 'Subject:', :highlight => config.highlighting
 	config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
+	config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
     #config.add_index_field 'description_tesim', :label => 'Description:' 
 	
 	#config.add_field_configuration_to_solr_request!  
@@ -197,8 +198,8 @@ class CatalogController < ApplicationController
     #config.add_sort_field 'system_modified_dtsi asc', :label => "date modified \u25B2"
     #config.add_sort_field 'author_ssi asc, title_ssi asc', :label => 'author'
     config.add_sort_field 'title_ssi asc', :label => 'title'
-    config.add_sort_field 'object_create_dtsi asc, title_ssi asc', :label => "date created \u25B2"
-    config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date created \u25BC"
+    config.add_sort_field 'object_create_dtsi asc, title_ssi asc', :label => "date\u00A0created\u00A0\u25B2"
+    config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date\u00A0created\u00A0\u25BC"
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.

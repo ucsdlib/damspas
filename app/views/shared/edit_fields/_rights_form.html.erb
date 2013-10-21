@@ -1,0 +1,27 @@
+  <h3>Rights</h3>
+  <%= f.fields_for :copyright do |copy| %>
+    <%= copy.select :id, options_for_select(@dams_copyrights) , {:include_blank => 'Select Copyright'}, :required => "true"%>
+  <% end %>   
+  <br>
+  <%= f.fields_for :statute do |stat| %>
+    <%= stat.select :id, options_for_select(@dams_statutes) , :prompt=>"Select Statute"%>
+  <% end %>
+  <br>
+  <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights" %>
+  <%#= f.fields_for :otherRights do |other| %>
+    <%#= other.select :id, options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights"%>
+  <%# end %>
+  <br>
+  <%= f.fields_for :license do |lic| %>
+    <%= lic.select :id, options_for_select(@dams_licenses) , :prompt=>"Select License"%>
+  <% end %>  
+  <br>
+  <%#= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_personal_names) , :prompt=>"Select Rights Holder" %>
+
+  <%= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
+    <%= rightsPersonal.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal RightsHolder"%>
+  <% end %>  
+
+  <%#= f.fields_for :rightsHolderCorporate do |rightsCorp| %>
+    <%#= rightsCorp.select :id, options_for_select(@dams_corporate_names) , :prompt=>"Select Corporate RightsHolder"%>
+  <%# end %>

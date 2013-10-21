@@ -27,7 +27,9 @@ gem 'rails_autolink'
 # gem 'jbuilder'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano', '~> 3.0.0'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
 
 # To use debugger
 # gem 'debugger'
@@ -50,4 +52,8 @@ group :development, :test do
   gem 'rspec-rails' #, '2.13.0'
   gem 'simplecov' #, '0.7.1'
   gem 'unicorn' #, '4.6.2'
+end
+
+group :staging do
+  gem 'activerecord-postgresql-adapter'
 end

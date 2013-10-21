@@ -39,7 +39,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     if part != nil && part.class == DamsProvenanceCollectionPart
       Solrizer.insert_field(solr_doc, 'part_name', part.title.first.value)
       Solrizer.insert_field(solr_doc, 'part_id', part.pid)
-      pj = { :id => part.pid, :name => part.title.first.value }
+      pj = { :id => part.pid, :name => part.title.first.value, :thumbnail => thumbnail(part.relatedResource) }
       Solrizer.insert_field(solr_doc, 'part_json', pj.to_json)
     end
 
@@ -47,7 +47,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     if provenanceCollection != nil && provenanceCollection.class == DamsProvenanceCollection
       Solrizer.insert_field(solr_doc, 'provenanceCollection_name', provenanceCollection.title.first.value)
       Solrizer.insert_field(solr_doc, 'provenanceCollection_id', provenanceCollection.pid)
-      prj = { :id => provenanceCollection.pid, :name => provenanceCollection.title.first.value }
+      prj = { :id => provenanceCollection.pid, :name => provenanceCollection.title.first.value, :thumbnail => thumbnail(provenanceCollection.relatedResource) }
       Solrizer.insert_field(solr_doc, 'provenanceCollection_json', prj.to_json)
     end
     super

@@ -1,0 +1,9 @@
+<%= form_tag catalog_index_url, :method => :get, :class => 'form-search' do %>
+    <input type="hidden" name="f[collection_sim][]" value="<%=@collection_title%>"/>
+  <label class="hide-text" for="q">Search this collection</label>
+  <input type="text" placeholder="Search this collection" name="q" id="q" class="input-medium search-query">
+  <button class="btn btn-inverse" type="submit" id="search-button">
+    <i class="icon-search icon-white"></i>
+  </button>
+<% end %>
+<%= link_to "<i class='icon-search icon-white'></i> View items in this collection".html_safe, facet_uri(@collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>

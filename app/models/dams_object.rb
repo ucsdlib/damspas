@@ -148,7 +148,7 @@ class DamsObject < ActiveFedora::Base
     :unit,
     :unitURI
   ]
-
+  
   # rights metadata
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
   include Hydra::ModelMixins::RightsMetadata

@@ -12,7 +12,7 @@ Devise.setup do |config|
   # log omniauth to normal logger, not stdout
   OmniAuth.config.logger = Rails.logger
 
-  if Rails.env.production? || Rails.env.pontos?
+  if Rails.configuration.shibboleth
     config.omniauth :shibboleth, {
       :uid_field                 => 'ADUSERNAME',
       :shib_session_id_field     => "Shib-Session-ID",

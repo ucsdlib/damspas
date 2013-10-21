@@ -72,9 +72,9 @@ module Dams
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node, :provenanceCollection_node
+                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node, :provenanceCollection_node, :allow_destroy => true
 
-
+  
   
 
       def serialize
@@ -86,13 +86,20 @@ module Dams
             graph.update([rdf_subject, DAMS.language, @langURI])
           end
         end   
+        # if(!@provenanceCollURI.nil?)
+        #   if new?
+        #     graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+        #   else
+        #     graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+        #   end
+        # end 
         if(!@provenanceCollURI.nil?)
           if new?
-            graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+            graph.insert([rdf_subject, DAMS.provenanceCollection_node, @hasProvenanceCollectionURI])
           else
-            graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
+            graph.update([rdf_subject, DAMS.provenanceCollection_node, @hasProvenanceCollectionURI])
           end
-        end  
+        end   
         insertSubjectsGraph 
         insertNameGraph 
         super

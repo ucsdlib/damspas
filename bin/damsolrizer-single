@@ -2,7 +2,6 @@
 
 require 'rubygems'
 require 'optparse'
-require 'stomp'
 
 options = {}
 
@@ -36,12 +35,14 @@ else
 end
 
 errors = Array.new
+indexed = 0
 ARGV.each do |pid|
   begin
-    puts "\nPID: #{pid}\n"
+    print "damsolrizer: #{pid} "
     solrizer = Solrizer::Fedora::Solrizer.new
     solrizer.solrize pid
-    puts  "updated solr index for #{pid}\n"
+    indexed += 1
+    puts  "OK (#{indexed} of #{ARGV.length}), #{errors.length} errors"
   rescue Exception => e
     errors << pid
     puts e.to_s
