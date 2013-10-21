@@ -225,7 +225,7 @@ function remove_fields(link) {
 }
 
 function add_fields(link, association, content) {
-  $.get("http://localhost:3000//get_data/get_ark/get_ark",function(data,status){
+  $.get(baseURL+"/get_ark/get_ark",function(data,status){
   	var id = "http://library.ucsd.edu/ark:/20775/"+data;
   	var new_id = new Date().getTime();
   	var regexp = new RegExp("new_" + association, "g");
