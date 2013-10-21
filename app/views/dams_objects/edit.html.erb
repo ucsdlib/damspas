@@ -14,8 +14,14 @@
            
   <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
     
-  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :type => "note"}%>
+
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :type => "scopeContentNote"}%>
   
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :type => "custodialResponsibilityNote"}%>
+
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :type => "preferredCitationNote"}%>
+
   <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
   
   <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%> 
