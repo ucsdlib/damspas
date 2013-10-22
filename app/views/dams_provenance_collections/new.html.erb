@@ -6,7 +6,7 @@ $(document).ready(function() {
 });
 </script>
 
-<h1>Create a new Dams provenance collection object</h1>
+<h1>Create a new Dams Provenance Collection Object</h1>
 <div class="dams-viewer">
 <%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_");'} do |f| %>
    
@@ -15,24 +15,12 @@ $(document).ready(function() {
   <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %>  
   <br>
 
-<%
-     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
-  %>  
-  
-<h3>Visibility</h3>
-  <%= select_tag 'dams_provenance_collection[visibility][]', options_for_select(visibilityArray) , :prompt=>"Select Visibility" %>
+<%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
 
 <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
 
-<%
-  resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
-%>   
-
-
- <h3>Type Of Resource</h3>  
-  
-  <%= select_tag 'dams_provenance_collection[resource_type][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %>
+<%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:f => f, :object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
 
@@ -160,17 +148,7 @@ $(document).ready(function() {
   
   <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f}%>
 
-  <h3>Related Resource</h3>
-  <div id="relatedResourceSection">
-     <%= f.fields_for :relatedResource do |relResource| %>
-       <%= relResource.label :type, "Type" %>
-       <%= relResource.text_field :type , :value => "", class: "input-block-level" %>    
-       <%= relResource.label :uri, "URI" %>
-       <%= relResource.text_field :uri, :value => "", class: "input-block-level" %>
-       <%= relResource.label :description, "Description" %>
-       <%= relResource.text_field :description, :value => "", class: "input-block-level" %>                
-     <% end %>
-  </div>
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
 
    
 
