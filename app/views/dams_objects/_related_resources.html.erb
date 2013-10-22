@@ -1,7 +1,7 @@
 <% if @document['related_resource_json_tesim'] != nil
   @document['related_resource_json_tesim'].each do |txt|
     rel = JSON.parse(txt)
-    if rel['type'] != 'thumbnail' %>
+    if rel['type'] != 'thumbnail' && rel['type'] != 'hydra-afmodel' && rel['description'] != ''%>
 	  <p class="sidebar-header"><strong>Related Resources</strong></p>
       <%
         related_resource_description = rel['description']

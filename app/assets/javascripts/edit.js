@@ -225,13 +225,16 @@ function remove_fields(link) {
 }
 
 function add_fields(link, association, content) {
-  $.get(baseURL+"/get_ark/get_ark",function(data,status){
+  /*$.get(baseURL+"/get_ark/get_ark",function(data,status){
   	var id = "http://library.ucsd.edu/ark:/20775/"+data;
   	var new_id = new Date().getTime();
   	var regexp = new RegExp("new_" + association, "g");
   	content = content.replace("__DO_NOT_USE__", id.trim());
   	$(link).parent().before(content.replace(regexp, new_id));
-  });
+  });*/
+    var new_id = new Date().getTime();
+  	var regexp = new RegExp("new_" + association, "g");
+  	$(link).parent().before(content.replace(regexp, new_id));
 }
 
 function target_popup(target) {
