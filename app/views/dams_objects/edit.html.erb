@@ -1,6 +1,6 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Object</h1>
-
+<div class="dams-viewer">
 <%= form_for @dams_object do |f| %>  
   <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
        
@@ -47,3 +47,4 @@
     <input type="file" name="file"/>
     <%=f.submit "Add File", class: "btn btn-primary" %>
 <% end %>
+</div>
