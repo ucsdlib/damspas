@@ -17,6 +17,8 @@
 				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][type]", note[i].type, class: "input-block-level" %>
 				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", noteType + " Displaylabel" %>
 				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", note[i].displayLabel, class: "input-block-level" %>
+				<br/>
+    			<%= link_to_remove_fields "Remove #{noteType}", f %> 				
 			</div>					
 <%			
 			i +=1		
@@ -35,4 +37,6 @@
 <%	
 		end
     end
-%> 
+%>
+
+<p><%= link_to_add_fields "Add #{noteType}", f, :note, "Dams#{noteType.gsub(' ', '')}" %></p>
