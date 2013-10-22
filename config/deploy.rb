@@ -1,5 +1,5 @@
 set :application, 'damspas'
-set :repo_url, 'git@github.com:ucsdlib/damspas.git'
+set :repo_url, 'https://github.com/ucsdlib/damspas.git'
 
 set :branch, 'develop'
 
