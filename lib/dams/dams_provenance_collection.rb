@@ -10,7 +10,7 @@ module Dams
       rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
        map_predicates do |map|
-        map.title(:in => DAMS, :class_name => 'MadsTitle')
+        map.title(:in => DAMS, :to => 'title', :class_name => 'MadsTitle')
         map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
         
         map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
@@ -68,12 +68,16 @@ module Dams
         map.object(:in => DAMS, :to => 'hasObject', :class_name => 'DamsObject')
       end
 
-      accepts_nested_attributes_for :title, :date, :relationship, :language, :visibility, :resource_type,
-                      :note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
+      accepts_nested_attributes_for :title, :date, :relationship, :visibility, :resource_type,
+                      :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node,:allow_destroy => true   
+                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node,:file,:allow_destroy => true   
+      
+      accepts_nested_attributes_for :note, allow_destroy: true
+     accepts_nested_attributes_for :language, allow_destroy: true
+
 
      def serialize
         graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
