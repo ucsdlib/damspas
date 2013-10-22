@@ -27,6 +27,16 @@ namespace :deploy do
     end
   end
 
+  desc "Write the current version to publicl/revision.txt"
+  task :write_version do
+    on roles(:app), in: :sequence do
+      within repo_path do
+        execute :git, "describe --all --always --long --abbrev=40 HEAD > #{release_path}/public/version.txt"
+      end
+    end
+  end
+
+  after :finishing, 'deploy:write_version'
   after :finishing, 'deploy:cleanup'
 
 end
