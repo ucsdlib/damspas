@@ -1,0 +1,45 @@
+<h3>Date</h3>
+
+<% date =object.date
+	i = 0
+	if date != nil
+		while i < date.size  do
+%>
+			<div class="fields">
+				<%= label_tag "#{object_type}[date_attributes][#{i}][value]", "Date" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][value]", date[i].value, class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][beginDate]", "Begin Date" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][beginDate]", date[i].beginDate, class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][endDate]", "End Date" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][endDate]", date[i].endDate, class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][type]", "Date Type" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][type]", date[i].type, class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][encoding]", "Date Encoding" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][encoding]", date[i].encoding, class: "input-block-level" %>
+				<br/>
+    			<%= link_to_remove_fields "Remove Date", f %> 						
+			</div>					
+<%			
+			i +=1		
+		end
+
+		if date.size == 0
+%>
+			<div class="fields">
+				<%= label_tag "#{object_type}[date_attributes][#{i}][value]", "Date" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][value]", "",class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][beginDate]", "Begin Date" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][beginDate]", "", class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][endDate]", "End Date" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][endDate]", "", class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][type]", "Date Type" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][type]", "",class: "input-block-level" %>
+				<%= label_tag "#{object_type}[date_attributes][#{i}][encoding]", "Date Encoding" %>
+				<%= text_field_tag "#{object_type}[date_attributes][#{i}][encoding]", "",class: "input-block-level" %>		
+			</div>	
+<%	
+		end
+    end
+%> 
+
+<p><%= link_to_add_fields "Add Date", f, :date, "DamsNote" %></p>

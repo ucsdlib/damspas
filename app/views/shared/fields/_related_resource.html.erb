@@ -15,7 +15,7 @@
 
 		 fieldData.each do |datum|
 			 relatedResource = JSON.parse(datum)
-			 if !relatedResource['description'].blank?
+			 if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
 			 htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
 			 concat htmlOpen.html_safe			 
              	if relatedResource['type'] != 'thumbnail'

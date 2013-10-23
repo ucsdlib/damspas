@@ -18,13 +18,10 @@
 	 			htmlOpen %= 'Custodial Responsibility Note'.pluralize(fieldData.count)
 				concat htmlOpen.html_safe
 %>
-			
 				<p><%= auto_link(custodialResponsibilityNote['value']) %></p>
 <%
 			end
+			concat htmlClose.html_safe
 		end
-
-		concat htmlClose.html_safe
-
 	end
 %>

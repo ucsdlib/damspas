@@ -116,9 +116,9 @@ feature 'Visitor wants to create/edit a assembled collection' do
 		# expect(page).to have_selector ('li', :text => "CorporateName")
 
 		# testing without filling in Related Resource Type
-		expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
-		expect(page).to have_selector('a', :text => "TestRelatedResourceDescription2")
-		expect(page).to have_content ("TestRelatedResourceDescription2")
+		#expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
+		#expect(page).to have_selector('a', :text => "TestRelatedResourceDescription2")
+		#expect(page).to have_content ("TestRelatedResourceDescription2")
   end
 
 end

@@ -1,3 +1,10 @@
+ <h3>Relationship</h3>
+  <%
+     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+  %>  
+  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: displayRelationshipName(this.value);"%>
+  <br>
+
   <%= f.fields_for :relationship do |rel| %>
     <%= rel.fields_for :role do |ro| %>
       <%= ro.select :id, options_for_select(@mads_authorities) , :prompt=>"Select Role"%>

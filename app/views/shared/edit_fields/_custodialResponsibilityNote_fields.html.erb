@@ -1,0 +1,12 @@
+<div class="fields"> 
+    <%= f.label :value, "Custodial Responsibility Note" %>
+    <%= f.text_field :value , :value => "", class: "input-block-level"%>    
+    <%= f.label :type, "Custodial Responsibility Note Type" %>
+    <%= f.text_field :type, :value => "", class: "input-block-level"%>
+    <%= f.label :displayLabel, "Custodial Responsibility Note Display Label" %>
+    <%= f.text_field :displayLabel, :value => "", class: "input-block-level"%>
+    <br/>
+    <% if (f.object.class != DamsCustodialResponsibilityNoteInternal) %>        
+    	<%= link_to_remove_fields "Remove Custodial Responsibility Note", f %>
+    <% end %> 
+</div>

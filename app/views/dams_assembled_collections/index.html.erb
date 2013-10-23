@@ -1,11 +1,22 @@
 <h1>DAMS Assembled Collection</h1>
 
-<div class="span6">
-  <ul><%= render_assembled_collection_list %></ul>
-</div>
-
 <div>
   <% if can? :create, DamsAssembledCollection%>
-    <%= link_to "Create Assembled Collection", new_dams_assembled_collection_path, :class => 'btn btn-primary'%>
+    <%= link_to "Create New Assembled Collection", new_dams_assembled_collection_path, :class => 'btn btn-primary'%>
   <% end %>
+</div>
+<br>
+
+
+
+<div class="span6">
+  <ul>
+    <% @document.each do |doc| %>
+      
+      <%if doc['title_tesim']!=nil %>
+        <li><%= link_to doc['title_tesim'].first, dams_assembled_collection_path(doc['id']) %></li>
+     
+      <%end%>
+    <% end %>
+  </ul>
 </div>

@@ -187,10 +187,7 @@ $(document).ready(function() {
 
    <div id="relationshipName"><%= select_tag 'dams_assembled_collection[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id), :prompt=>"Select Relationship Name" %></div>
 
-   <h3>Complex Subject</h3>
-  <%= select_tag 'dams_assembled_collection[subjectURI][]', options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select predefined subject"%>
-  <br>  
-  OR Enter new subject <%#=text_field_tag 'dams_assembled_collection[subjectValue][]', @dams_assembled_collection.subjectValue[0] , class: "input-block-level" %>
+   
 
   <h3>Simple Subject</h3>
   <%
@@ -198,6 +195,14 @@ $(document).ready(function() {
   %>
   <%= select_tag 'dams_assembled_collection[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_assembled_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"><%= select_tag 'dams_assembled_collection[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
+
+  <input id="dams_assembled_collection_subjectTypeValue_" name="dams_assembled_collection[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
+  
+   <h3>Complex Subject</h3>
+  <%= select_tag 'dams_assembled_collection[subjectURI][]', options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select predefined subject"%>
+  <br>  
+  OR Enter new subject <%#=text_field_tag 'dams_assembled_collection[subjectValue][]', @dams_assembled_collection.subjectValue[0] , class: "input-block-level" %>
+
    
  <h3>Name</h3>
   <%= select_tag 'dams_assembled_collection[nameType][]',  options_for_select(nameTypeArray, :selected => @simple_name_type) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_assembled_collection',this.value,'#name','nameURI','Name');"%>
@@ -211,7 +216,6 @@ $(document).ready(function() {
   <% end %>
 
 
-  <input id="dams_assembled_collection_subjectTypeValue_" name="dams_assembled_collection[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
   
 
 
