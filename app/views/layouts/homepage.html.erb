@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%= render :partial => 'layouts/head_common' %>
+  <link href="<%= opensearch_catalog_path(:format => 'xml', :only_path => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
+  <%= render :partial => 'layouts/googleanalytics' if Rails.env.production? %>
+  <% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
+    <%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>
+    <% if @document['rdfxml_ssi'] %>
+      <%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
+    <% end %>
+  <% end %>
+
+	<!-- HOME SPECIFIC -->
+  <link href='http://fonts.googleapis.com/css?family=Archivo+Narrow|Questrial' rel='stylesheet' type='text/css'>
+	<%= javascript_include_tag "home-page" %>
+	<%= stylesheet_link_tag "home-page", :media => "all" %>
+  <!-- /HOME SPECIFIC -->
+
+</head>
+
+<body class="<%= render_body_class %>">
+
+	<%= render :partial => 'layouts/header', :locals => {:hideSearch=>true} %>
+
+	<section id="home-container">
+	  <%= yield %>
+	</section>
+
+	<%= render :partial => 'layouts/footer' %>
+
+</body>
+</html>

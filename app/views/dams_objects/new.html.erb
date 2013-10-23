@@ -34,20 +34,8 @@ $(document).ready(function() {
       
   <%= render :partial => 'shared/edit_fields/rights_form' , :locals => {:f => f}%>
     
-  <%#= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
 
-	<h3>Related Resource</h3>
-	<div id="relatedResourceSection">
-	   <%= f.fields_for :relatedResource do |relResource| %>
-	   	 <%= relResource.label :type, "Type" %>
-	     <%= relResource.text_field :type , :value => "", class: "input-block-level" %>    
-	     <%= relResource.label :uri, "URI" %>
-	     <%= relResource.text_field :uri, :value => "", class: "input-block-level" %>
-	     <%= relResource.label :description, "Description" %>
-	     <%= relResource.text_field :description, :value => "", class: "input-block-level" %>                
-	   <% end %>
-	</div>
-  
   <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f}%>  
 
   <br>

@@ -1,216 +1,51 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script>
-$(document).ready(function() {
+<h1>Edit a Dams Provenance Collection Object</h1>
+<div class="dams-viewer">
+<%= form_for @dams_provenance_collection do |f| %>  
   
-
-  $('.edit_dams_provenance_collection').submit(function() {
-    if($("#dams_provenance_collection_dateValue_").val().length < 1)
-    {
-      $("#dams_provenance_collection_dateValue_").val(" ");
-    }     
-
-    if($("#dams_provenance_collection_beginDate_").val().length < 1)
-    {
-      $("#dams_provenance_collection_beginDate_").val(" ");
-    } 
-
-    if($("#dams_provenance_collection_endDate_").val().length < 1)
-    {
-      $("#dams_provenance_collection_endDate_").val(" ");
-    }     
-
-    if($("#dams_provenance_collection_noteValue_").val().length < 1)
-    {
-      $("#dams_provenance_collection_noteValue_").val(" ");
-    }    
-
-    if($("#dams_provenance_collection_noteType_").val().length < 1)
-    {
-      $("#dams_provenance_collection_noteType_").val(" ");
-    }
-
-    if($("#dams_provenance_collection_noteDisplayLabel_").val().length < 1)
-    {
-        $("#dams_provenance_collection_noteDisplayLabel_").val(" ");
-    }
-
-    if($("#dams_provenance_collection_scopeContentNoteType_").val().length < 1)
-    {
-      $("#dams_provenance_collection_scopeContentNoteType_").val(" ");
-    }
-
-    if($("#dams_provenance_collection_responsibilityNoteValue_").val().length < 1)
-    {
-      $("#dams_provenance_collection_responsibilityNoteValue_").val(" ");
-    }
-    
-    if($("#dams_provenance_collection_responsibilityNoteType_").val().length < 1)
-    {
-      $("#dams_provenance_collection_responsibilityNoteType_").val(" ");
-    } 
-       
-    if($("#dams_provenance_collection_responsibilityNoteDisplayLabel_").val().length < 1)
-    {
-      $("#dams_provenance_collection_responsibilityNoteDisplayLabel_").val(" ");
-    }
-       
-    if($("#dams_provenance_collection_citationNoteValue_").val().length < 1)
-    {
-      $("#dams_provenance_collection_citationNoteValue_").val(" ");
-    }  
-         
-    if($("#dams_provenance_collection_citationNoteType_").val().length < 1)
-    {
-      $("#dams_provenance_collection_citationNoteType_").val(" ");
-    }
-
-    if($("#dams_provenance_collection_citationNoteDisplayLabel_").val().length < 1)
-    {
-      $("#dams_provenance_collection_citationNoteDisplayLabel_").val(" ");
-    }
-
-    if($("#dams_provenance_collection_relatedResourceType_").val().length < 1)
-    {
-      $("#dams_provenance_collection_relatedResourceType_").val(" ");
-    }
-    
-    if($("#dams_provenance_collection_relatedResourceUri_").val().length < 1)
-    {
-      $("#dams_provenance_collection_relatedResourceUri_").val(" ");
-    }    
-
-    if($("#dams_provenance_collection_relatedResourceDescription_").val().length < 1)
-    {
-      $("#dams_provenance_collection_relatedResourceDescription_").val(" ");
-    }
-
-    return true;
-  });
-});
-</script>
-<h1>Edit DAMS Provenance Collection</h1>
-
-<%= form_for @dams_provenance_collection do |f| %>
-
-
-
 <h3>Provenance Collection Part</h3>
 
   <%= label_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', "Provenance Collection Part" %> 
-  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part", class: "input-block-level"%>
-
-
-<%
-     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
-  %>
-
-<h3>Visibility</h3>
-<%= select_tag 'dams_provenance_collection[visibility]', options_for_select(visibilityArray, :selected => @dams_provenance_collection.visibility), :prompt=>"Select visibility" %>
-
-
-<%
-     resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
-  %>   
-  <h3>Type Of Resource</h3>
-  <%= select_tag 'dams_provenance_collection[resource_type][]',  options_for_select(resourceTypeArray , :selected => @dams_provenance_collection.resource_type), :prompt=>"Select Type of resource", required: true %>
-
-<h3>Title</h3>
-<%= label_tag 'dams_provenance_collection[titleValue]', "Title" %><%= text_field_tag 'dams_provenance_collection[titleValue][]', @dams_provenance_collection.titleValue, class: "input-block-level", required: true %>
-<%= label_tag 'dams_provenance_collection[subtitle]', "SubTitle" %><%= text_field_tag 'dams_provenance_collection[subtitle][]', @dams_provenance_collection.subtitle, class: "input-block-level" %>
-
-<%= label_tag 'dams_provenance_collection[titlePartName]', "PartName" %><%= text_field_tag 'dams_provenance_collection[titlePartName][]', @dams_provenance_collection.titlePartName , class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[titlePartNumber]', "PartNumber" %><%= text_field_tag 'dams_provenance_collection[titlePartNumber][]', @dams_provenance_collection.titlePartNumber, class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[titleNonSort]', "NonSort" %><%= text_field_tag 'dams_provenance_collection[titleNonSort][]', @dams_provenance_collection.titleNonSort, class: "input-block-level" %>
-
-<h3>Date</h3>
-<%= label_tag 'dams_provenance_collection[dateValue]', "Date" %><%= text_field_tag 'dams_provenance_collection[dateValue][]', @dams_provenance_collection.dateValue[0], class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[beginDate]', "Begin Date" %><%= text_field_tag 'dams_provenance_collection[beginDate][]', @dams_provenance_collection.beginDate[0], class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[endDate]', "End Date" %><%= text_field_tag 'dams_provenance_collection[endDate][]', @dams_provenance_collection.endDate[0], class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[dateType]', "Date Type" %><%= text_field_tag 'dams_provenance_collection[dateType][]', @dams_provenance_collection.dateType[0], class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[dateEncoding]', "Date Encoding" %><%= text_field_tag 'dams_provenance_collection[dateEncoding][]', @dams_provenance_collection.dateEncoding[0], class: "input-block-level" %>
-
-
-<h3>Language</h3>
- <%= select_tag 'dams_provenance_collection[languageURI][]', options_for_select(@mads_languages, :selected => @language_id), class: "input-block-level", required: true %>
-<br>
-
-
-
-<h3>Note</h3>
-<%= label_tag 'dams_provenance_collection[noteValue]', "Note" %><%= text_field_tag 'dams_provenance_collection[noteValue][]', @dams_provenance_collection.noteValue[0], class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[noteType]', "Note Type" %><%= text_field_tag 'dams_provenance_collection[noteType][]', @dams_provenance_collection.noteType[0], class: "input-block-level" %>
-<%= label_tag 'dams_provenance_collection[noteDisplayLabel]', "Note Displaylabel" %><%= text_field_tag 'dams_provenance_collection[noteDisplayLabel][]', @dams_provenance_collection.noteDisplayLabel[0], class: "input-block-level" %>
-<br>
-
-<h3>Scope Content Note</h3>
-<%= label_tag 'dams_provenance_collection[scopeContentNoteValue]', "Scope Content Note" %><%= text_field_tag 'dams_provenance_collection[scopeContentNoteValue][]', @dams_provenance_collection.scopeContentNoteValue[0],required: true, class: "input-block-level" %>
-
-<%= label_tag 'dams_provenance_collection[scopeContentNoteType]', "Scope Content Note Type" %>
-<%= text_field_tag 'dams_provenance_collection[scopeContentNoteType][]', @dams_provenance_collection.scopeContentNoteType[0], class: "input-block-level" %>
-<br>
-
-<h3>Custodial Responsibility Note</h3>
-  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteValue][]', @dams_provenance_collection.responsibilityNoteValue[0], class: "input-block-level" %>  
-  <%= label_tag 'dams_provenance_collection[responsibilityContentNoteType][]', "Custodial Responsibility Note Type" %>
-  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteType][]', @dams_provenance_collection.responsibilityNoteType[0], class: "input-block-level" %>
-  <%= label_tag 'dams_provenance_collection[responsibilityNoteDisplayLabel][]', "Custodial Responsibility Note Display Label" %>
-  <%= text_field_tag 'dams_provenance_collection[responsibilityNoteDisplayLabel][]', @dams_provenance_collection.responsibilityNoteDisplayLabel[0], class: "input-block-level" %>
-<br>
-
-  <h3>Preferred Citation Note</h3>
-  <%= text_field_tag 'dams_provenance_collection[citationNoteValue][]', @dams_provenance_collection.citationNoteValue[0], class: "input-block-level" %>  
-  <%= label_tag 'dams_provenance_collection[citationNoteType][]', "Preferred Citation Type" %>
-  <%= text_field_tag 'dams_provenance_collection[citationNoteType][]', @dams_provenance_collection.citationNoteType[0], class: "input-block-level" %>
-  <%= label_tag 'dams_provenance_collection[citationDisplayLabel][]', "Preferred Citation Display Label" %>
-  <%= text_field_tag 'dams_provenance_collection[citationNoteDisplayLabel][]', @dams_provenance_collection.citationNoteDisplayLabel[0], class: "input-block-level" %>
-<br>
-
-<h3>Relationship</h3>
-  <%= select_tag 'dams_provenance_collection[relationshipRoleURI][]', options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
-  <br>
-  <%
-     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
-  %>  
-  <%= select_tag 'dams_provenance_collection[relationshipNameType][]',  options_for_select(nameTypeArray, @name_type) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#relationshipName','relationshipNameURI','Name');"%>
-
-   <div id="relationshipName"><%= select_tag 'dams_provenance_collection[relationshipNameURI][]', options_for_select(@dams_names, :selected => @name_id), :prompt=>"Select Relationship Name" %></div>
-
-<h3>Simple Subject</h3>
-  <%
-  	 subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
-  %>
-  <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray, :selected => @simple_subject_type.gsub("Mads", "").gsub("Dams", "")) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"><%= select_tag 'dams_provenance_collection[simpleSubjectURI][]', options_for_select(@dams_simple_subjects, :selected => @simpleSubject_id), :prompt=>"Select Subject" %></div> 
-
-   <input id="dams_provenance_collection_subjectTypeValue_" name="dams_provenance_collection[subjectTypeValue][]" type="text" value="<%= @simpleSubjectValue %>" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>  
-
-  <h3>Complex Subject</h3>
-  <%= select_tag 'dams_provenance_collection[subjectURI][]', options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select predefined subject"%>
-  <br>  
-  OR Enter new subject <%#=text_field_tag 'dams_provenance_collection[subjectValue][]', @dams_provenance_collection.subjectValue[0] , class: "input-block-level" %>
+  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part"%>
    
- <h3>Name</h3>
-  <%= select_tag 'dams_provenance_collection[nameType][]',  options_for_select(nameTypeArray, :selected => @simple_name_type) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#name','nameURI','Name');"%>
-  <% if !@simple_name_value.nil? && @simple_name_value.length > 0%>
-    <br>
-    <%=text_field_tag 'dams_provenance_collection[nameTypeValue][]', @simple_name_value , class: "input-block-level"%>
-  <% elsif !@simple_name_type.nil? && @simple_name_type.length == 0%>
-  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_provenance_collection[nameTypeValue][]' , "", class: "input-block-level"%>    
-  <% else %>
-  <div id="name"><%= select_tag 'dams_provenance_collection[nameURI][]', options_for_select(@simple_names, :selected => @simple_name_id), :prompt=>"Select Name" %></div>  
-  <% end %>
+ <%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>      
+  
+  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+    
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "note", :f => f}%>
+
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "scopeContentNote", :f => f}%>
+  
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "custodialResponsibilityNote", :f => f}%>
+
+  <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "preferredCitationNote", :f => f}%>
 
   
+  
+  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%> 
 
-
+  <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
  
+  <%= render :partial => 'shared/edit_fields/creator_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+     
   
 
-
-<%=f.submit "Save", class: "btn btn-primary" %>
-<%= link_to "Cancel", dams_provenance_collections_path, class: "btn btn-primary" %>
-
-
+  <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+      
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_provenance_collection_path(@dams_provenance_collection),  class: "btn btn-primary" %> 
 <%end%>
+
+<h2>Add File</h2>
+<%= form_for(@dams_provenance_collection, :url => upload_path(@dams_provenance_collection.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
+    <input type="file" name="file"/>
+    <%=f.submit "Add File", class: "btn btn-primary" %>
+<% end %>
+</div>
