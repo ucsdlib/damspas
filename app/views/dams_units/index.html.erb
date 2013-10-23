@@ -8,7 +8,7 @@
 %>
 
 <section id="home-01">
-  <img id="dc-logo" alt="Digital Collections" src="/assets/home-page/logo-dc.png"/>
+  <%=image_tag '/assets/home-page/logo-dc.png', :alt => 'Digital Collections', :id => 'dc-logo' %>
   <%= form_tag catalog_index_url, :method => :get, :class => '', :id => 'dc-search-box' do %>
 		<fieldset>
 	    <input type="text" placeholder="Search..." name="q" id="q">
