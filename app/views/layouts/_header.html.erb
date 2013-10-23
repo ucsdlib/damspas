@@ -1,7 +1,7 @@
 <header>
   <section class="container-fluid ucsd-head visible-desktop">
     <a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><%=image_tag "/assets/ucsd/logo-ucsd-header-xl.png", :alt => "UC San Diego" %></a>
-    <a class="brand" href="http://libraries.ucsd.edu/">The Library</a>
+    <%= link_to 'Digital Collections', root_path, :class => 'brand' %>
   </section>
   <section class="navbar navbar-inverse">
     <div class="navbar-inner">
@@ -16,7 +16,7 @@
         <i class="icon-search icon-white"></i>
       </a>-->
 
-      <a class="brand hidden-desktop" href="http://libraries.ucsd.edu/">The Library</a>
+      <%= link_to 'Digital Collections', root_path, :class => 'brand hidden-desktop' %>
 
       <nav class="nav-collapse collapse">
 
