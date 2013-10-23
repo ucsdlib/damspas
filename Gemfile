@@ -42,7 +42,7 @@ group :development, :test do
   gem 'coffee-rails' #, '3.2.2'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', '0.11.4', :platforms => :ruby
+  gem 'therubyracer', '0.12.0', :platforms => :ruby
 
   gem 'uglifier' #, '2.0.1'
   gem 'capybara' #, '2.1.0'
