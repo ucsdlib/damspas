@@ -50,7 +50,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.title.first.hasExpansionVariant.build
     @dams_provenance_collection.date.build
     @dams_provenance_collection.language.build
-    #@dams_provenance_collection.language.first.scheme.build
+    
     @dams_provenance_collection.note.build
     @dams_provenance_collection.scopeContentNote.build
     @dams_provenance_collection.custodialResponsibilityNote.build
@@ -169,7 +169,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     end
   end
 
-  
+
 
   def update
     @dams_provenance_collection.title.clear
