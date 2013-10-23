@@ -6,13 +6,13 @@ module DamsObjectsHelper
   #---
     # Openurl, embedded metadata support,
     # Get metadata from solr document, and parsing each field and produce openURL key-encoded value query strings.
+    # create mapping from DAMS fields to dublin core fields
     # hweng@ucsd.edu
   #---
   def field_mapping(fieldName)
-       data_arr=[]
-       index = getComponentIndex
+    data_arr=[]
 
-     fieldData = @document["#{index}#{fieldName}"]
+    fieldData = getFieldData(fieldName)
      if fieldData != nil
       fieldData.each do |value|
         data_arr.push(value)
@@ -20,57 +20,144 @@ module DamsObjectsHelper
      end
      data_arr
     end
-
-   def export_as_openurl
-        query_string = []
-        query_string << "url_ver=Z39.88-2004&ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&rfr_id=info%3Asid%2Fblacklight.rubyforge.org%3Agenerator"
-        field_map = {
-          'title' => getTitle,
-          'rights'=> getCopyright,
-          'subject'=>getSubject,
-          'creator'=>getCreator,
-          'date'=>getDate,
-          'format'=>getFormat,
-          'language'=> getLanguage,
-          'identifier'=>getIdentifier
-          
-        }
-        field_map.each do |kev, values|
-          next if values.empty? or values.first.nil?
-          values.each do |value|
-            query_string << "rft.#{kev}=#{CGI::escape(value)}"
-          end
-        end
-        query_string.join('&') unless query_string.blank?
-    end
+  
+ def getFieldData(fieldName)
+       index = getComponentIndex
+       fieldData = @document["#{index}#{fieldName}"]
+ end
 
     def getComponentIndex
         index = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
-     end
+    end
     
+    # Mapping from title_json_tesim, and concatenate as title_json_tesim.value:title_json_tesim.subTitle
     def getTitle
-       data_arr=[]
-       index = getComponentIndex
-       fieldData = @document["#{index}title_json_tesim"]
-       
+      data_arr=[]
+      
+      fieldData=getFieldData('title_json_tesim')
+      title_value=''
+
        if fieldData != nil
-       	 fieldData.each do |datum|
-       	 	title = JSON.parse(datum)
-       	 	if title['value'] != ''
-       	 		data_arr.push(title['value'])
-       	 	end
-       	  end
-       	end 
-       	data_arr
+         fieldData.each do |datum|
+          title = JSON.parse(datum)
+          if title['value'] != ''
+             title_value=title['value']
+             if title['subtitle'] != ''
+              title_value=title_value+ title['subtitle']
+             end
+            data_arr.push(title_value)
+          end
+        end
+       end 
+        data_arr
     end
 
+
+    #Need to update 
+    def getCreator
+      # data_arr=[]
+      # get creator list from names:personal
+       fieldValue=field_mapping('name_tesim')
+      #if fieldValue != nil && fieldValue != ''
+      #  data_arr.push(fieldValue)
+      # end
+       
+      # get creator list from corporateName_tesim
+      # fieldValue=field_mapping('corporateName_tesim')
+      # if fieldValue != nil && fieldValue != ''
+      #  data_arr.push(fieldValue)
+      # end
+    end
+
+    def getFormat
+       data_arr=[]
+       fieldData=getFieldData('note_json_tesim')
+       format_value=''
+       concat__note_value=''
+       concat__form_value=''
+       concat__extent_value=''
+
+       
+       if fieldData != nil
+         fieldData.each do |datum|
+          format = JSON.parse(datum)
+          if format['displayLabel'] == 'Form'
+            concat__form_value=format['value']
+          elsif format['displayLabel'] == 'Extent'
+            concat__extent_value=format['value']
+          elsif format['displayLabel'] == 'Note'
+            concat__note_value=format['value']
+          end
+         end
+
+         if concat__note_value!=''
+           format_value=concat__note_value
+         elsif concat__form_value!=''
+            format_value=concat__form_value
+            if concat__extent_value!=''
+             format_value=format_value+";"+concat__extent_value
+            end
+         end
+         data_arr.push(format_value)
+       end 
+        data_arr
+    end
+
+
+    def getDescription
+       data_arr=[]
+       fieldData=getFieldData('note_json_tesim')
+
+       if fieldData != nil
+         fieldData.each do |datum|
+          note = JSON.parse(datum)
+          if note['type'] == 'abstract'
+            data_arr.push(note['value'])
+          end
+          end
+        end 
+        data_arr
+    end
+    
+    def getRelation
+       data_arr=[]
+       fieldData=getFieldData('collection_json_tesim')
+       
+       # implementation for relation mapping
+    end
+
+    #Need refactor code when MADS implementation is done.
+    def getCoverage
+       data_arr=[]
+       fieldData=getFieldData('cartographics_json_tesim')
+       coverage_value=''
+       
+       if fieldData != nil
+         fieldData.each do |datum|
+          coverage = JSON.parse(datum)
+          if coverage['scale'] != ''
+            coverage_value=coverage['scale']
+            if coverage['projection'] != ''
+              coverage_value=coverage_value+coverage['projection']
+              if coverage['coordinates'] != ''
+                coverage_value=coverage_value+coverage['coordinates']
+              end
+            end
+
+            data_arr.push(coverage_value)
+          end
+         end
+        end 
+        data_arr
+    end
+
+    #Need refactor code when MADS implementation is done.
     def getSubject
+
        fieldValue=field_mapping('subject_tesim')
     end
 
-    def getCreator
-      fieldValue=field_mapping('name_tesim')
-    end
+    
 
     def getDate
        data_arr=[]
@@ -78,20 +165,18 @@ module DamsObjectsHelper
        fieldData = @document["#{index}date_json_tesim"]
        
        if fieldData != nil
-       	 fieldData.each do |datum|
-       	 	date = JSON.parse(datum)
-       	 	if date['value'] != ''
-       	 		data_arr.push(date['value'])
-       	 	end
-       	  end
-       	end 
-       	data_arr
+         fieldData.each do |datum|
+          date = JSON.parse(datum)
+          if date['value'] != ''
+            data_arr.push(date['value'])
+          end
+          end
+        end 
+        data_arr
     end
+    
 
-    def getFormat
-      fieldValue=field_mapping('resource_type_tesim')
-    end
-
+    
     def getLanguage
         fieldValue=field_mapping('language_tesim')
     end
@@ -112,7 +197,22 @@ module DamsObjectsHelper
      data_arr
     end
 
-    # Parse metadata from JSON format for copyright.
+   #dc:publisher
+   def getPublisher
+       data_arr=[]
+       fieldData=getFieldData('note_json_tesim')
+
+       if fieldData != nil
+         fieldData.each do |datum|
+          note = JSON.parse(datum)
+          if note['type'] == 'publication'
+            data_arr.push(note['value'])
+          end
+          end
+        end 
+        data_arr
+    end
+    
     def getCopyright
        data_arr=[]
        index = getComponentIndex
@@ -125,10 +225,37 @@ module DamsObjectsHelper
      end
      data_arr
     end
+   
+   def export_as_openurl
+        query_string = []
+        query_string << "url_ver=Z39.88-2004&ctx_ver=Z39.88-2004&rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&rfr_id=info%3Asid%2Fblacklight.rubyforge.org%3Agenerator"
+        field_map = {
+          'title' => getTitle,
+          'creator'=>getCreator,
+          'subject'=>getSubject,
+          'description'=>getDescription,
+          'date'=>getDate,
+          'format'=>getFormat,
+          'language'=> getLanguage,
+          'identifier'=>getIdentifier,
+          #'coverage'=>getCoverage,
+           'publisher'=>getPublisher,
+           'rights'=> getCopyright
+          
+        }
+        field_map.each do |kev, values|
+          next if values.empty? or values.first.nil?
+          values.each do |value|
+            query_string << "rft.#{kev}=#{CGI::escape(value)}"
+          end
+        end
+        query_string.join('&') unless query_string.blank?
+    end
 
   #--
   # End of openURL implementation
   #    
+
 
   #---
   # select_file: Select files to display
