@@ -139,7 +139,7 @@ GEM
     kgio (2.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
-    libv8 (3.11.8.17)
+    libv8 (3.16.14.3)
     logger (1.2.8)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -268,8 +268,8 @@ GEM
     stomp (1.3.1)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
-    therubyracer (0.11.4)
-      libv8 (~> 3.11.8.12)
+    therubyracer (0.12.0)
+      libv8 (~> 3.16.14.0)
       ref
     thor (0.18.1)
     tilt (1.4.1)
@@ -323,7 +323,7 @@ DEPENDENCIES
   solrizer
   solrizer-fedora (= 3.0.0.pre1)
   sqlite3
-  therubyracer (= 0.11.4)
+  therubyracer (= 0.12.0)
   uglifier
   unicode (= 0.4.4)
   unicorn
