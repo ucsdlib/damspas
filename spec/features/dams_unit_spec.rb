@@ -3,21 +3,20 @@ require 'spec_helper'
 feature 'Visitor wants to look at units' do
   scenario 'is on units landing page' do
     visit dams_units_path
-    expect(page).to have_selector('h1', :text => 'Digital Collections')
-    expect(page).to have_selector('a', :text => 'Library Digital Collections')
-    expect(page).to have_selector('a', :text => 'Research Data Curation Program')
-    expect(page).to have_selector('p', :text => 'Browse')
-    expect(page).to have_selector('a', :text => 'Topic')
+    expect(page).to have_selector('h3', :text => 'Library Digital Collections')
+    expect(page).to have_selector('h3', :text => 'Research Cyberinfrastructure')
+    expect(page).to have_selector('a', :text => 'Collection')
     expect(page).to have_selector('a', :text => 'Format')
+    expect(page).to have_selector('a', :text => 'Topic')
 
-    expect(page).to have_field('Search DAMS')
+    expect(page).to have_field('Search...')
   end
 
   scenario 'does a search for items' do
     sign_in_developer
     visit dams_units_path
 
-    fill_in 'Search DAMS', :with => "sample", :match => :prefer_exact
+    fill_in 'Search...', :with => "sample", :match => :prefer_exact
     click_on('search-button')
 
     expect(page).to have_content('Search Results')
@@ -25,18 +24,12 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_content('Sample Complex Object Record #3: Format Sampler')
   end
 
-  scenario 'uses the carousel' do
-    visit dams_units_path
-
-    expect(page).to have_selector('.carousel')
-  end
-
   scenario 'retrieve a unit record' do
     # can we find the unit record
     sign_in_developer
     visit dams_units_path
-    expect(page).to have_field('Search DAMS')
-    fill_in 'Search DAMS', :with => 'bb02020202', :match => :prefer_exact
+    expect(page).to have_field('Search...')
+    fill_in 'Search...', :with => 'bb02020202', :match => :prefer_exact
 
     click_on('search-button')
 
@@ -49,14 +42,16 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
     # browse links should be scoped to the unit
-    topiclink = find('a.btn', text: "Topic")
+    topiclink = find('ul.sidebar-button-list li a', text: "Topic")
     expect(topiclink[:href]).to have_content('dlp')
 
     # search for the object in the unit and find it
-    fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
-    click_on('search-button')
-    expect(page).to have_content('Search Results')
-    expect(page).to have_content('Sample Simple Object')
+    pending "search box removed from unit show page?" do
+      fill_in 'Search...', :with => 'sample', :match => :prefer_exact
+      click_on('search-button')
+      expect(page).to have_content('Search Results')
+      expect(page).to have_content('Sample Simple Object')
+    end
   end
 
   scenario 'scoped search (exclusion)' do
@@ -64,9 +59,11 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
 
     # search for the object in the unit and find it
-    fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
-    click_on('search-button')
-    expect(page).to have_no_content('Sample Simple Object')
+    pending "search box removed from unit show page?" do
+      fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
+      click_on('search-button')
+      expect(page).to have_no_content('Sample Simple Object')
+    end
   end
 end
 feature 'Visitor should only see edit button when it will work' do
