@@ -1,118 +1,53 @@
-<div class="row-fluid">
-	<div class="span12">
-		<h1>Digital Collections</h1>
-	</div>
-</div>
+<%
+	cat = Array.new
+	@document.each do |doc|
+		if doc['unit_code_tesim'] != nil
+			cat << dams_unit_path(doc['unit_code_tesim'])
+		end
+	end
+%>
 
-<div class="row-fluid">
+<section id="home-01">
+  <%=image_tag '/assets/home-page/logo-dc.png', :alt => 'Digital Collections', :id => 'dc-logo' %>
+  <%= form_tag catalog_index_url, :method => :get, :class => '', :id => 'dc-search-box' do %>
+		<fieldset>
+	    <input type="text" placeholder="Search..." name="q" id="q">
+		  <input type="submit" value="">
+		</fieldset>
+  <% end %>
+  <section id="broswe-by">
+      Or browse by
+	    <ul class="inline browse-by-list">
+	      <li><%= link_to 'Collection', dams_collections_path %></li>
+	      <%= render_browse_facet_links %>
+	    </ul>
+  </section>
+  <section id="bg-meta"><a id="bg-link"></a></section>
+</section>
 
-    <div id="myCarousel" class="carousel slide span8">
-    <div class="carousel-inner">
+<section id="home-02">
+  <h2>The Digital Collections website gathers two categories of content managed by the UC San Diego Library</h2>
+  <div class="category">
+    <h3>Library Digital Collections</h3>
+    <a class="cat-library" href="<%=cat[1]%>"><span class="visually-hidden">Library Digital Collections</span></a>
+    <p>Digitized versions of selected collections covering topics such as art, film, music, history and anthropology</p>
+  </div>
+  <div class="category">
+    <h3>Research Cyberinfrastructure</h3>
+    <a class="cat-rci" href="<%=cat[0]%>"><span class="visually-hidden">Research Cyberinfrastructure</span></a>
+    <p>Research data gathered by campus researchers as part of a campus-wide Research Cyberinfrastructure initiative</p>
+  </div>
+  <p class="invitation">Currently totaling 98,345 images, documents, data sets, audio and video,we continue to add items over time, and we invite you to search or browse these collections for research or educational purposes.</p>
+</section>
 
-			
-			<div class="item">
-				<%= image_tag file_path 'bd95572101', '_2.jpg' %>
-				<div class="carousel-caption">
-					<p>Collection: Scripps Institution of Oceanography Geological Collections</p>
-				</div>
-			</div>
-			
-			<div class="item">
-				<%= image_tag file_path 'bd21510035', '_2.jpg' %>
-				<div class="carousel-caption">
-					<p>Collection: The UCSD Levantine Archaeology Laboratory</p>
-				</div>
-			</div>
+<!--
 
-			<div class="item">
-				<%= image_tag file_path 'bd5666392f', '_2.jpg' %>
-				<div class="carousel-caption">
-					<p>Collection: UCSD History</p>
-				</div>
-			</div>
-			
-			<div class="item">
-				<%= image_tag file_path 'bd82602702', '_2.jpg' %>
-				<div class="carousel-caption">
-					<p>Collection: The Laboratory for Computational Astrophysics</p>
-				</div>
-			</div>
-			
-			<div class="item">
-					<%= image_tag file_path 'bd3413814d', '_2.jpg' %>
-					<div class="carousel-caption">
-						<p>Collection: The Brain Observatory</p>
-					</div>
-				</div>
+<% if can? :create, DamsObject %>
+  <p class="sidebar-header"><strong>Editor Tools</strong></p>
+  <ul class="unstyled sidebar-button-list">
+    <li><%= link_to "<i class='icon-plus-sign'></i> Create Object".html_safe, new_dams_object_path, :class => "btn btn-block btn-small btn-link" %>
+    <li><%= link_to "<i class='icon-plus-sign'></i> Create Administrative Unit".html_safe, new_dams_unit_path, :class => "btn btn-block btn-small btn-link" %>
+  </ul>
+<% end %>
 
-			<div class="item">
-				<%= image_tag file_path 'bd4369453c', '_2.jpg' %>
-				<div class="carousel-caption">
-					<p>Collection: Latin American Political Campaign Ephemera Collection</p>
-				</div>
-			</div>
-
-			<div class="item">
-				<%= image_tag file_path 'bd3106642r', '_2.jpg' %>
-				<div class="carousel-caption">
-					<p>Baja California Collection</p>
-				</div>
-			</div>
-
-			<div class="item">
-				<%= image_tag file_path 'bd18097029', '_2.jpg' %>
-				<div class="carousel-caption">
-					<p>Collection: Tuzin Archive for Melanesian Anthropology</p>
-				</div>
-			</div>
-	
-				<div class="item">
-					<%= image_tag file_path 'bd08540633', '_2.jpg' %>
-					<div class="carousel-caption">
-						<p>Collection: The National Science Foundation OpenTopography Facility</p>
-					</div>
-				</div>
-	
-				<div class="active item">
-					<%= image_tag file_path 'bd6963330m', '_2.jpg' %>
-					<div class="carousel-caption">
-						<p>Collection: Scripps Institution of Oceanography Archives</p>
-					</div>
-				</div>
-	
-				
-
-    </div>
-
-    <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-    <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-    </div>
-		
-		
-	
-	<div class="span4">
-
-		<p class="sidebar-header"><strong>Administrative Units</strong></p>
-		<% @document.each do |doc| %>
-			<% if doc['unit_code_tesim'] != nil %>
-				<%= link_to doc['unit_name_tesim'].first, dams_unit_path(doc['unit_code_tesim']), :class => "btn btn-block" %>
-			<% end %>
-		<% end %>
-
-		<p class="sidebar-header"><strong>Browse By</strong></p>
-		<ul class="unstyled sidebar-button-list">
-			<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
-			<%= render_browse_facet_links %>
-		</ul>
-		
-		<% if can? :create, DamsObject %>
-			<p class="sidebar-header"><strong>Editor Tools</strong></p>
-			<ul class="unstyled sidebar-button-list">
-			<li><%= link_to "<i class='icon-plus-sign'></i> Create Object".html_safe, new_dams_object_path, :class => "btn btn-block btn-small btn-link" %>
-			<li><%= link_to "<i class='icon-plus-sign'></i> Create Administrative Unit".html_safe, new_dams_unit_path, :class => "btn btn-block btn-small btn-link" %>
-			</ul>
-		<% end %>
-	
-	</div>
-
-</div>
+-->

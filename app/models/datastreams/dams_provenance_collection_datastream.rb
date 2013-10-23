@@ -1,6 +1,6 @@
 class DamsProvenanceCollectionDatastream < DamsResourceDatastream
   include Dams::DamsProvenanceCollection
-  include Dams::ModelHelper
+  
 
     def load_part
          if part_node.first.class.name.include? "DamsProvenanceCollectionPartInternal"

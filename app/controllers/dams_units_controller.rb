@@ -1,4 +1,7 @@
 class DamsUnitsController < ApplicationController
+
+  layout "homepage"
+
   include Blacklight::Catalog
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]

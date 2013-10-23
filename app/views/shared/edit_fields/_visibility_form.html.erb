@@ -1,0 +1,6 @@
+<%
+     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
+  %>  
+  
+<h3>Visibility</h3>
+ <%= select_tag "#{object_type}[visibility][]",  options_for_select(visibilityArray , :selected => object.visibility), :prompt=>"Select Visibility" %>

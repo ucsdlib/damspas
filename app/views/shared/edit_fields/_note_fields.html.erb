@@ -9,5 +9,7 @@
       <%#= f.check_box :_destroy %>
       <%#= f.label :_destroy, "Destroy" %>
     <%# end %>
-    <%= link_to_remove_fields "Remove Note", f %>
+    <% if (f.object.class != DamsNoteInternal) %>
+    	<%= link_to_remove_fields "Remove Note", f %>
+    <% end %>
 </div>
