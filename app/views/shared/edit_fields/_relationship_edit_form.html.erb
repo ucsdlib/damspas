@@ -1,0 +1,12 @@
+<h3>Relationship</h3>
+<%= select_tag "#{object_type}[relationshipRoleURI][]", options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
+<br>
+<%
+  nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+%>  
+<% if @name_type == "" %>
+	<%= select_tag "#{object_type}[relationshipNameType][]",  options_for_select(nameTypeArray, @name_type) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('#{object_type}',this.value,'#relationshipName','relationshipNameURI','Name');"%>
+<% else %>
+	<%= text_field_tag "#{object_type}[relationshipNameType][]", @name_type, :readonly => true%>
+<% end %>
+<div id="relationshipName"><%= select_tag "#{object_type}[relationshipNameURI][]", options_for_select(@dams_names, :selected => @name_id), :prompt=>"Select Relationship Name" %></div>

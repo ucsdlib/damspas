@@ -168,7 +168,24 @@
 	</lst>
   </searchComponent>
   
-  <requestHandler name="/replication" class="solr.ReplicationHandler" startup="lazy" /> 
+  <!-- replication master config:
+  <requestHandler name="/replication" class="solr.ReplicationHandler"> 
+    <lst name="master">
+      <str name="replicateAfter">startup</str>
+      <str name="replicateAfter">commit</str>
+      <str name="confFiles">solrconfig_master.xml,solrconfig_slave.xml,solrconfig_standalone.xml,schema.xml</str>
+    </lst>
+  </requestHandler>
+  -->
+  <!-- replication slave config:
+  <requestHandler name="/replication" class="solr.ReplicationHandler">
+    <lst name="slave">
+      <str name="enable">true</str>
+      <str name="masterUrl">http://gimili.ucsd.edu:8080/solr/${solr.core.name}</str>
+      <str name="pollInterval">00:00:60</str>
+    </lst>
+  </requestHandler>
+  -->
   
   <requestDispatcher handleSelect="true" >
     <requestParsers enableRemoteStreaming="true" multipartUploadLimitInKB="2048" />

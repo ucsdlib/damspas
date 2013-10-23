@@ -211,6 +211,15 @@ module Dams
 	  		value = object.familyName.first.name.first 	
 	  	end
 		value   
-    end                               
+    end
+    
+    def index_links(object)
+      	solrizer = Solrizer::Fedora::Solrizer.new
+  		object.language.each do |lang|
+  			if(!lang.pid.nil? && lang.pid.to_s.length > 0)
+  				solrizer.solrize lang.pid
+  			end
+  		end  
+    end                                   
   end
 end

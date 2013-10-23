@@ -2,10 +2,10 @@
 <div id="relatedResourceSection">
    <%= f.fields_for :relatedResource do |relResource| %>
    	 <%= relResource.label :type, "Type" %>
-     <%= relResource.text_field :type , :value => ""%>    
+     <%= relResource.text_field :type , :value => "", class: "input-block-level" %>    
      <%= relResource.label :uri, "URI" %>
-     <%= relResource.text_field :uri, :value => ""%>
+     <%= relResource.url_field :uri, :value => "", class: "input-block-level" %>
      <%= relResource.label :description, "Description" %>
-     <%= relResource.text_field :description, :value => ""%>                
+     <%= relResource.text_field :description, :value => "", class: "input-block-level" %>                
    <% end %>
 </div>

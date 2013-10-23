@@ -1,0 +1,13 @@
+   <h3>Cartographic</h3>
+   <%= label_tag "#{object_type}[cartographicPoint][]", "Point" %>
+   <%= text_field_tag "#{object_type}[cartographicPoint][]",object.cartographicPoint[0], class: "input-block-level"  %>
+   <%= label_tag "#{object_type}[cartographicLine][]", "Line" %>
+   <%= text_field_tag "#{object_type}[cartographicLine][]",object.cartographicLine[0], class: "input-block-level"  %>
+   <%= label_tag "#{object_type}[cartographicPolygon][]", "Polygon" %>
+   <%= text_field_tag "#{object_type}[cartographicPolygon][]",object.cartographicPolygon[0], class: "input-block-level"  %>
+   <%= label_tag "#{object_type}[cartographicProjection][]", "Projection" %>
+   <%= text_field_tag "#{object_type}[cartographicProjection][]",object.cartographicProjection[0], class: "input-block-level"  %>
+   <%= label_tag "#{object_type}[cartographicRefSystem][]", "ReferenceSystem" %>
+   <%= text_field_tag "#{object_type}[cartographicRefSystem][]",object.cartographicRefSystem[0], class: "input-block-level"  %>
+   <%= label_tag "#{object_type}[cartographicScale][]", "Scale" %>
+   <%= text_field_tag "#{object_type}[cartographicScale][]",object.cartographicScale[0], class: "input-block-level" %>   

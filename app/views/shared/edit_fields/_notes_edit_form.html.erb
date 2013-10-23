@@ -1,0 +1,42 @@
+<% 	htmlHeader = "<h3>%s</h3>"
+	noteType = type
+	# Format note header
+	noteType = noteType.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
+	htmlHeader %= noteType
+	concat htmlHeader.html_safe
+	note = object.send(type)
+	i = 0
+	if note != nil
+		while i < note.size  do
+			
+%>			
+			<div class="fields">
+				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][value]", noteType %>
+				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][value]", note[i].value, class: "input-block-level" %>
+				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][type]", noteType + " Type" %>
+				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][type]", note[i].type, class: "input-block-level" %>
+				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", noteType + " Displaylabel" %>
+				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", note[i].displayLabel, class: "input-block-level" %>
+				<br/>
+    			<%= link_to_remove_fields "Remove #{noteType}", f %> 				
+			</div>					
+<%			
+			i +=1		
+		end
+
+		if note.size == 0
+%>
+			<div class="fields">
+				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][value]", noteType %>
+				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][value]", "", class: "input-block-level" %>
+				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][type]", noteType + " Type" %>
+				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][type]", "", class: "input-block-level" %>
+				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", noteType + " Displaylabel" %>
+				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", "", class: "input-block-level" %>
+			</div>			
+<%	
+		end
+    end
+%>
+
+<p><%= link_to_add_fields "Add #{noteType}", f, :note, "Dams#{noteType.gsub(' ', '')}" %></p>

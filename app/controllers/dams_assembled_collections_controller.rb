@@ -8,7 +8,7 @@ class DamsAssembledCollectionsController < ApplicationController
   skip_authorize_resource :only => :index
 
   def show
-    @dams_assembled_collection = DamsAssembledCollection.find(params[:id])
+    
      # check ip for unauthenticated users
     if current_user == nil
       current_user = User.anonymous(request.ip)

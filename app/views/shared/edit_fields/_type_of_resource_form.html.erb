@@ -1,0 +1,5 @@
+<%
+  resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
+%>   
+<h3>Type Of Resource</h3>
+<%= select_tag "#{object_type}[typeOfResource][]",  options_for_select(resourceTypeArray , :selected => object.typeOfResource), :prompt=>"Select Type of resource", required: true %>
