@@ -4,7 +4,7 @@
     opts['f[unit_code_tesim][]'] = unit
   end
 %>
-<li><%= link_to "<i class='icon-eye-open'></i> #{facet.label}".html_safe, catalog_facet_path(facet.field, opts), :class => "btn btn-block  btn-link" %></li>
+<li><%= link_to facet.label, catalog_facet_path(facet.field, opts) %></li>
 
 
 
