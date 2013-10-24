@@ -12,15 +12,15 @@ $(document).ready(function() {
 
   <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:f => f, :object => @dams_object, :object_type => "dams_object"}%>
 
-  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_object"}%>
          
   <%= render :partial => 'shared/edit_fields/unit_form' , :locals => {:f => f}%>
      
   <%= render :partial => 'shared/edit_fields/collections_form', :locals => {:f => f}%>
 
-  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_object"}%>
       
-  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_object"}%>
         
   <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f}%>
   

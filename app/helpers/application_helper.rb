@@ -110,21 +110,17 @@ end
     #f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
     link_to_function name, "remove_fields(this)"
   end
-
-  def link_to_remove_edit_fields(name)
-     link_to_function name, "remove_fields(this)"
-  end
     
-  def link_to_add_fields(name, f, association, type)
+  def link_to_add_fields(name, f, association, type, objectType)
     new_object = type.constantize.new()
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
-      render("shared/edit_fields/"+association.to_s.singularize + "_fields", :f => builder)
+      render("shared/edit_fields/"+association.to_s.singularize + "_fields", :f => builder, :object_type => objectType)
     end
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end 
 
-  def link_to_add_edit_fields(name, objectType, association)
-    fields = render("shared/edit_fields/"+association.to_s.singularize + "_edit_fields", :object_type => objectType)
+  def link_to_add_edit_fields(name, f, association, objectType)
+    fields = render("shared/edit_fields/"+association.to_s.singularize + "_edit_fields", :f => f, :object_type => objectType)
 
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end 

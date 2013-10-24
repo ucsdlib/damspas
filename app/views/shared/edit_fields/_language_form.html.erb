@@ -7,8 +7,8 @@
 <div id="newLanguageLink">
 	<%= f.fields_for :language do |builder| %>
 	    <%#= lang.select :id, options_for_select(@mads_languages) , {:include_blank => 'Select Language'}, :required => "true", :onChange=>"javascript: checkOption();"%>
-	    <%= render "shared/edit_fields/language_fields", :f => builder %>    
+	    <%= render "shared/edit_fields/language_fields", :f => builder , :object_type => object_type%>    
 	<% end %>	  
 </div>
 
-<p><%= link_to_add_fields "Add Language", f, :language, "MadsLanguage" %></p>
+<p><%= link_to_add_fields "Add Language", f, :language, "MadsLanguage", "#{object_type}" %></p>
