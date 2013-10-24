@@ -6,7 +6,7 @@ $(document).ready(function() {
 </script>
 <h1>Create a new Dams Object</h1>
 <div class="dams-viewer">
-<%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
+<%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");'} do |f| %>
 
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
 
