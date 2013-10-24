@@ -123,8 +123,8 @@ end
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end 
 
-  def link_to_add_edit_fields(name, association)
-    fields = render("shared/edit_fields/"+association.to_s.singularize + "_edit_fields")
+  def link_to_add_edit_fields(name, objectType, association)
+    fields = render("shared/edit_fields/"+association.to_s.singularize + "_edit_fields", :object_type => objectType)
 
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end 
