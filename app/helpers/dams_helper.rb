@@ -548,11 +548,21 @@ def relatedResourceUri
   end 
   def languageURI=(val)
     if val.class == Array
-    	val = val.first
-    end
-	 if(!val.nil? && val.first.length > 0)
-	    @langURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
-	  end
+    	#	val = val.first
+		@langURI = Array.new
+		val.each do |v|
+			uri = v
+			if(!v.include? Rails.configuration.id_namespace)
+				uri = "#{Rails.configuration.id_namespace}#{v}"
+			end
+		    if(!v.nil? && v.length > 0)
+		    	@langURI << RDF::Resource.new(uri) 	
+		    end
+		end  	
+	end
+	if(@langURI.size == 1)
+		@langURI = @langURI.first
+	end
   end
  
   ## Unit ######################################################################
