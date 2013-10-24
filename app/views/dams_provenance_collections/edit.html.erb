@@ -16,7 +16,10 @@
 
   <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>      
   
-  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+  <%#= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>
+
+<h3>Language</h3>
+<%= select_tag "dams_provenance_collection[languageURI][]", options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language", required: true%>
     
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "note", :f => f}%>
 

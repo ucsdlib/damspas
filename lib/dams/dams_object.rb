@@ -95,11 +95,17 @@ module Dams
 	      end
 	    end      
 		if(!@langURI.nil?)
-	      if new?
-	        graph.insert([rdf_subject, DAMS.language, @langURI])
-	      else
-	        graph.update([rdf_subject, DAMS.language, @langURI])
-	      end
+			if(@langURI.class == Array)
+				@langURI.each do |lang|
+			        graph.insert([rdf_subject, DAMS.language, lang])
+			    end
+			else
+			      if new?
+			        graph.insert([rdf_subject, DAMS.language, @langURI])
+			      else
+			        graph.update([rdf_subject, DAMS.language, @langURI])
+			      end			
+			end
 	    end    
 		if(!@assembledCollURI.nil?)
 	      if new?
