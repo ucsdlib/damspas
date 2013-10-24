@@ -8,7 +8,9 @@
 				<br/>
 				<%= select_tag "#{object_type}[languageURI][]", options_for_select(@mads_languages, :selected => "#{Rails.configuration.id_namespace}#{language[i].pid}") , :prompt=>"Select Language", required: true%>
 				<br/>
-    			<%= link_to_remove_fields "Remove Language", f %> 						
+				<% if i > 0%>
+    			<%= link_to_remove_fields "Remove Language", f %>
+    			<% end %>					
 			</div>					
 <%			
 			i +=1		
