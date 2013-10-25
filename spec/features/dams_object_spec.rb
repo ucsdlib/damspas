@@ -106,6 +106,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     fill_in "Point", :with => "98"
     fill_in "Scale", :with => "100%"
 
+    attach_file 'file', File.join(Rails.root,'/spec/fixtures/madsScheme.rdf.xml')
+
     click_on "Save"
 
     # Save path of object for other test(s)
@@ -114,14 +116,21 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     # Checking the view
     expect(page).to have_selector('h1', :text => "Dams Test Object")
     expect(page).to have_selector('h2', :text => "New Object")
-    #expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
-    #expect(page).to have_selector('a', :text => "Research Data Curation Program")
+    expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
+    expect(page).to have_selector('a', :text => "Research Data Curation Program")
     expect(page).to have_selector('li', :text => "2013")
     expect(page).to have_selector('dt', :text => "Testdatetype")
     expect(page).to have_selector('a', :text => "Text")
     #expect(page).to have_selector('strong', :text => "Public domain") # XXX not displaying
     expect(page).to have_selector('a', :text => "Mathematician")
+    expect(page).to have_selector('div', :text => 'Object has been saved')
 	
+    # check uploaded file
+    visit Path.path + '/_1.xml'
+    response = page.driver.response
+    expect(response.status).to eq( 200 )
+
+    visit Path.path
     click_on "Edit"
     fill_in "dams_object_titleValue_", :with => "Edited Dams Object"
     fill_in "dams_object_date_attributes_0_value", :with => "2013", match: :first
@@ -143,9 +152,9 @@ feature 'Visitor wants to create/edit a DAMS Object' do
     expect(page).to have_content("2013")
     expect(page).to have_content("Edited Dams Object")
 
+    # check new object link
     click_on "New Object"
     expect(current_path).to eq(dams_object_path('new'))
-
   end
 
   pending("works in browser") do
