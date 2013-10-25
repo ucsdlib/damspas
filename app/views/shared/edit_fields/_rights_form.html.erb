@@ -7,7 +7,7 @@
     <%= stat.select :id, options_for_select(@dams_statutes) , :prompt=>"Select Statute"%>
   <% end %>
   <br>
-  <%= select_tag 'dams_object[otherRightsURI][]', options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights" %>
+  <%= select_tag '#{object_type}[otherRightsURI][]', options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights" %>
   <%#= f.fields_for :otherRights do |other| %>
     <%#= other.select :id, options_for_select(@dams_other_rights) , :prompt=>"Select Other Rights"%>
   <%# end %>
@@ -16,7 +16,7 @@
     <%= lic.select :id, options_for_select(@dams_licenses) , :prompt=>"Select License"%>
   <% end %>  
   <br>
-  <%#= select_tag 'dams_object[rightsHolderURI][]', options_for_select(@dams_personal_names) , :prompt=>"Select Rights Holder" %>
+  <%#= select_tag '#{object_type}[rightsHolderURI][]', options_for_select(@dams_personal_names) , :prompt=>"Select Rights Holder" %>
 
   <%= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
     <%= rightsPersonal.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal RightsHolder"%>

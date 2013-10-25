@@ -3,11 +3,11 @@
      subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
   %>
 
-  <%= select_tag 'dams_object[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSubjects('dams_object',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
+  <%= select_tag "#{object_type}[subjectType][]",  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSubjects('#{object_type}',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
   <div id="simpleSubject"></div>
   
-  <!--OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <input id="dams_object_subjectTypeValue_" name="dams_object[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
+  <!--OR Enter subject value<%#=text_field_tag "#{object_type}[subjectTypeValue][]" %>
+  <input id="#{object_type}_subjectTypeValue_" name="#{object_type}[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
   
 <div id="simpleSubjects">
   <div id="BuiltWorkPlace">
