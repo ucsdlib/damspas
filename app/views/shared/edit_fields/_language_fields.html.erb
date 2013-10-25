@@ -1,6 +1,6 @@
 <div class="fields">
     <br/>
-	<%= f.select :id, options_for_select(@mads_languages, :selected => "#{Rails.configuration.id_namespace}#{@language_id}") , {:include_blank => 'Select Language'}, :required => "true", :onChange=>"javascript: checkOption_generic('#'+'#{object_type}_');"%>    
+	<%= f.select :id, options_for_select(@mads_languages, :selected => "#{Rails.configuration.id_namespace}#{@language_id}") , {:include_blank => 'Select Language'}, :required => "true", :onChange=>"javascript: checkOption(this.id);"%>    
     <br/>
     <% if !@language_id.nil? && @language_id.length > 0 %>
     	<%= link_to_remove_fields "Remove Language", f %>

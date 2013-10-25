@@ -141,6 +141,7 @@ class DamsObjectsController < ApplicationController
   	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
   	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+  	@mads_languages << "Create New Language"
   	@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
   	@dams_copyrights = get_objects_url('DamsCopyright','status_tesim')
   	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')

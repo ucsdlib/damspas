@@ -174,8 +174,8 @@ function closeAndSetId_generic(objType) {
   self.close();
 }
 
-function closeAndSetId() {
-  var target=window.opener.document.getElementById('dams_object_language_attributes_0_id');    
+function setParentId_generic(parent_id) {
+  var target=window.opener.document.getElementById(parent_id); 
   var optionName = new Option(document.getElementById('name').value, 'http://library.ucsd.edu/ark:/20775/'+document.getElementById('id').value);    
   var targetlength = target.length;    
   target.options[targetlength] = optionName; 
@@ -189,9 +189,9 @@ function checkOption_generic(objType) {
   }
 }
 
-function checkOption() {
-  if( $("#dams_object_language_attributes_0_id").val().indexOf("createNewLanguage") >= 0 ) {
-    target_popup(baseURL.replace("get_data","")+"mads_languages/new");
+function checkOption(id) {
+  if( $("#"+id).val().indexOf("Create New Language") >= 0 ) {
+    target_popup(baseURL.replace("get_data","")+"mads_languages/new?parent_language_id="+id);
   }
 }
 
