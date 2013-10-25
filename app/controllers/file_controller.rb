@@ -1,5 +1,6 @@
 class FileController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
 
   def show
     # load metadata
@@ -62,35 +63,16 @@ class FileController < ApplicationController
   end
 
   def create
-    @id = params[:id]
-
-    # check authorization first
-    @obj = ActiveFedora::Base.find(@id, :cast=>true)
+    # load object and check authorization
+    @obj = ActiveFedora::Base.find(params[:id], :cast=>true)
     authorize! :edit, @obj
 
-    # make sure we have a file
-    file = params[:file] if params[:file].respond_to?(:original_filename)
-    if file.nil?
-      flash[:alert] = "No file upload found"
-      redirect_to view_dams_object_path @id
-      return
-    end
-
-    @ds = "_1" # TODO list ds and get next ds #
-    ext = File.extname(file.original_filename)
-    @ds += ext unless ext.nil?
-    @obj.add_file( file, @ds, file.original_filename )
-    @obj.save!
-    flash[:notice] = "File Uploaded"
-
-    # if a file is audio, image or video, render view with link to generate
-    # derivatives, otherwise, just go back to the object view
-    mt = file.content_type
-    if mt.include?("audio") || mt.include?("image") || mt.include?("video")
-      redirect_to view_dams_object_path @obj, flash: { notice: "File Uploaded", deriv: "bar" + @ds }
-    else
-      redirect_to view_dams_object_path @obj, flash: { notice: "File Uploaded", deriv: "foo" }
-    end
+    # attach the file and redirect to view page
+    status = attach_file( @obj, params[:file] )
+    flash[:alert] = status[:alert] if status[:alert]
+    flash[:notice] = status[:notice] if status[:notice]
+    flash[:deriv] = status[:deriv] if status[:deriv]
+    redirect_to view_dams_object_path @obj
   end
   def deriv
     begin

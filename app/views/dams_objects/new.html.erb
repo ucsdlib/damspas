@@ -6,7 +6,7 @@ $(document).ready(function() {
 </script>
 <h1>Create a new Dams Object</h1>
 <div class="dams-viewer">
-<%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");'} do |f| %>
+<%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");', :multipart => true, :id => 'fileupload', :method => 'post'} do |f| %>
 
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
 
@@ -38,8 +38,11 @@ $(document).ready(function() {
 
   <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f, :object_type => "dams_object"}%>  
 
-  <br>
+  <h3>Add File</h3>
+  <input type="file" name="file"/>
+
   <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
+  <br/><br/>
 
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_objects_path, class: "btn btn-primary" %>   
