@@ -221,5 +221,28 @@ module Dams
   			end
   		end  
     end                                   
+
+    def attach_file(object, file)
+      if file.nil? || !file.respond_to?(:original_filename)
+        return { alert: "No file uploaded" }
+      else
+        # set the filename
+        @ds = "_1" # XXX TODO list files and choose next file id
+        ext = File.extname(file.original_filename)
+        @ds += ext unless ext.nil?
+
+        # add the file and save the object
+        object.add_file( file, @ds, file.original_filename )
+        object.save!
+
+        # check mime type and include derivatives hook if derivable
+        mt = file.content_type
+        if mt.include?("audio") || mt.include?("image") || mt.include?("video")
+          return { notice: "File Uploaded", deriv: @ds }
+        else
+          return { notice: "File Uploaded", deriv: nil }
+        end
+      end
+    end
   end
 end
