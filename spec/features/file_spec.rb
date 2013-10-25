@@ -41,7 +41,7 @@ feature "Curator should be able to upload files" do
     visit view_dams_object_path(test_pid)
     expect(page).to have_selector('h2', :text => 'Add File')
     click_on "Add File"
-    expect(page).to have_selector('div', :text => 'No file upload found')
+    expect(page).to have_selector('div', :text => 'No file uploaded')
   end
   scenario "Uploading XML file" do
     sign_in_developer
