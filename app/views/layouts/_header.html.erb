@@ -1,7 +1,13 @@
 <header>
+
+<style>
+	.omg {display:block;width:200px;height:auto;padding-top:11px;}
+</style>
+
   <section class="container-fluid ucsd-head visible-desktop">
     <a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><%=image_tag "/assets/ucsd/logo-ucsd-header-xl.png", :alt => "UC San Diego" %></a>
-    <%= link_to 'Digital Collections', root_path, :class => 'brand' %>
+    <%= image_tag '/assets/home-page/logo-dc.png', :alt => 'Digital Collections', :class => 'omg' %>
+
   </section>
   <section class="navbar navbar-inverse">
     <div class="navbar-inner">
@@ -60,8 +66,8 @@
         <% if @current_unit != nil %>
           <input type="hidden" name="f[unit_sim][]" value="<%=@current_unit.first%>"/>
         <% end %>
-        <label class="hide-text" for="q">Search DAMS</label>
-        <input type="text" placeholder="Search DAMS" name="q" id="q" class="input-medium search-query">
+        <label class="hide-text" for="q">Search</label>
+        <input type="text" placeholder="Search" name="q" id="q" class="input-medium search-query">
         <button class="btn btn-inverse" type="submit" id="search-button">
           <i class="icon-search icon-white"></i>
         </button>
@@ -71,7 +77,7 @@
     <section class="container-fluid mobile-search-bar clearfix hidden-desktop collapse111">
       <%= form_tag catalog_index_url, :method => :get, :class => 'form-search' do %>
         <div class="input-append">
-          <input type="text" placeholder="Search DAMS" name="q" id="q" class="search-query">
+          <input type="text" placeholder="Search" name="q" id="q" class="search-query">
           <button class="btn btn-inverse" type="submit" id="mobile-search-button">
             <i class="icon-search icon-white"></i>
           </button>
