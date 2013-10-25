@@ -236,10 +236,15 @@ class DamsObjectsController < ApplicationController
   end
   
   def create    	    
-  	if @dams_object.save 		
-		#index_links(@dams_object)
-  		redirect_to @dams_object, notice: "Object has been saved"
-  		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
+  	if @dams_object.save 
+        flash[:notice] = "Object has been saved"
+        # check for file upload
+        if params[:file]
+          file_status = attach_file( @dams_object, params[:file] )
+          flash[:alert] = file_status[:alert] if file_status[:alert]
+          flash[:deriv] = file_status[:deriv] if file_status[:deriv]
+        end
+  		redirect_to @dams_object
     else
       flash[:alert] = "Unable to save object"
       render :new
@@ -282,10 +287,10 @@ class DamsObjectsController < ApplicationController
     @dams_object.license.clear  
     @dams_object.statute.clear
     #@dams_object.otherRights.clear
-                  	
+
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save
-  		redirect_to @dams_object, notice: "Successfully updated object" 	
+  		redirect_to @dams_object, notice: "Successfully updated object"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Successfully updated object"	
     else
       flash[:alert] = "Unable to save object"

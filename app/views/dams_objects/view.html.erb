@@ -1,6 +1,6 @@
 <!-- provide page title, is used by full_title helper in application layout -->
 <% @page_title =  "Object | #{@dams_object.title.first} " %>
-<% @ds = (params['flash'].nil?) ? nil : params['flash']['deriv'] %>
+<% @ds = flash[:deriv] %>
 <% if @ds != nil %>
   <%= button_to( "Generate Derivatives", deriv_path( @dams_object.pid, @ds ), remote: true, data: {disable_with: 'Generating...'}, form: {id: "generate_derivatives"}, class: 'btn' ) %>
 <% end %>
@@ -59,7 +59,7 @@
 								<dt>Language</dt>
 								<dd><%= link_to @dams_object.languages.first.name.first, @dams_object.languages.first.name.first.to_s %></dd>
 							<% end %>
-							<% if (!@dams_object.units.nil?) %>
+							<% if (!@dams_object.units.nil? && !@dams_object.units.code.first.nil?) %>
 								<dt>Unit</dt>
 								<dd><%= link_to @dams_object.units.name.first, dams_unit_path(@dams_object.units.code.first) %>
 							<% end %>
