@@ -1,13 +1,7 @@
 <header>
-
-<style>
-	.omg {display:block;width:200px;height:auto;padding-top:11px;}
-</style>
-
   <section class="container-fluid ucsd-head visible-desktop">
     <a class="pull-right ucsd-head-logo" href="http://www.ucsd.edu"><%=image_tag "/assets/ucsd/logo-ucsd-header-xl.png", :alt => "UC San Diego" %></a>
-    <%= image_tag '/assets/home-page/logo-dc.png', :alt => 'Digital Collections', :class => 'omg' %>
-
+    <%= link_to 'Digital Collections', root_path, :class => 'brand' %>
   </section>
   <section class="navbar navbar-inverse">
     <div class="navbar-inner">
@@ -18,42 +12,44 @@
         <span class="icon-bar"></span>
       </a>
 
-<!--      <a class="btn btn-navbar btn-navsearch" data-toggle="collapse" data-target=".mobile-search-bar">
-        <i class="icon-search icon-white"></i>
-      </a>-->
-
       <%= link_to 'Digital Collections', root_path, :class => 'brand hidden-desktop' %>
 
       <nav class="nav-collapse collapse">
 
         <ul class="nav">
-          <li><%= link_to "Home", root_path %></li>
+          <li><%= link_to 'Home', root_path %></li>
 
           <!-- Link to general browse by collection, format and topic page -->
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse By <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Collection", dams_collections_path %></li>
-              <li><%= link_to "Format", catalog_facet_path("object_type_sim") %></li>
-              <li><%= link_to "Topic", catalog_facet_path("subject_topic_sim") %></li>
+              <li><%= link_to 'Collection', dams_collections_path %></li>
+              <li><%= link_to 'Format', catalog_facet_path("object_type_sim") %></li>
+              <li><%= link_to 'Topic', catalog_facet_path("subject_topic_sim") %></li>
             </ul>
           </li>
 
-          <li><%= link_to "About", about_path %></li>
-          <li><%= link_to "FAQ", faq_path %></li>
+          <li><%= link_to 'About', about_path %></li>
+          <li><%= link_to 'FAQ', faq_path %></li>
           <li><a href="#contact">Contact</a></li>
 
           <% if current_user  %>
-            <li>
-              <%# Logged in as <a href="#" class="navbar-link"><%= current_user.uid ></a>. %>
-              <%= link_to "Sign Out", destroy_user_session_path %>
+            <li class="dropdown">
+              <!-- Logged in as <%= current_user.uid %> -->
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editor Tools <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><%= link_to 'Create Object', new_dams_object_path %></li>
+	              <li><%= link_to 'Create Provenance Collection', new_dams_provenance_collection_path %></li>
+                <!--<li><%= link_to 'Create Administrative Unit', new_dams_unit_path %></li>-->
+                <li class="divider"></li>
+                <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
+              </ul>
             </li>
           <% else %>
             <li>
-              <%= link_to "Sign In", new_user_session_path %>
+              <%= link_to 'Sign In', new_user_session_path %>
             </li>
           <% end %>
-
         </ul>
       </nav>
     </div>
