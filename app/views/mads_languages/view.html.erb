@@ -10,8 +10,9 @@
   <input type="hidden" id="id" value="<%= @mads_language.id%>"/>
   <input type="hidden" id="name" value="<%= @mads_language.name.first%>"/>
   <br>
-  <a href="#" onClick="javascript: closeAndSetId();">close</a>
-  
+  <% if(!params[:parent_language_id].nil?) %>
+  	<a href="#" onClick="javascript: setParentId_generic('<%= params[:parent_language_id]%>');">close</a>
+  <% end %>
   <%# if can? :update, @mads_language %>
     <%#= link_to "Solr View", mads_language_path(@mads_language), class: "btn btn-primary"%>
     <%#= link_to "Edit", edit_mads_language_path(@mads_language), class: "btn btn-primary"%>

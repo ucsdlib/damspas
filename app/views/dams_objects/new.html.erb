@@ -1,9 +1,4 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
-<script>
-$(document).ready(function() {
-	loadCreateNewObjectOption();
-});
-</script>
 <h1>Create a new Dams Object</h1>
 <div class="dams-viewer">
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");', :multipart => true, :id => 'fileupload', :method => 'post'} do |f| %>
