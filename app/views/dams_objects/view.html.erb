@@ -1,6 +1,6 @@
 <!-- provide page title, is used by full_title helper in application layout -->
 <% @page_title =  "Object | #{@dams_object.title.first} " %>
-<% @ds = (params['flash'].nil?) ? nil : params['flash']['deriv'] %>
+<% @ds = flash[:deriv] %>
 <% if @ds != nil %>
   <%= button_to( "Generate Derivatives", deriv_path( @dams_object.pid, @ds ), remote: true, data: {disable_with: 'Generating...'}, form: {id: "generate_derivatives"}, class: 'btn' ) %>
 <% end %>

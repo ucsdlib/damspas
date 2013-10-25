@@ -237,15 +237,14 @@ class DamsObjectsController < ApplicationController
   
   def create    	    
   	if @dams_object.save 
-        obj_status = { notice: "Object has been saved" }
+        flash[:notice] = "Object has been saved"
         # check for file upload
         if params[:file]
           file_status = attach_file( @dams_object, params[:file] )
-          if file_status[:notice] || file_status[:deriv]
-            obj_status[:deriv] = file_status[:deriv]
-          end
+          flash[:alert] = file_status[:alert] if file_status[:alert]
+          flash[:deriv] = file_status[:deriv] if file_status[:deriv]
         end
-  		redirect_to @dams_object, flash: obj_status
+  		redirect_to @dams_object
     else
       flash[:alert] = "Unable to save object"
       render :new

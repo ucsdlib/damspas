@@ -69,7 +69,10 @@ class FileController < ApplicationController
 
     # attach the file and redirect to view page
     status = attach_file( @obj, params[:file] )
-    redirect_to view_dams_object_path @obj, flash: status
+    flash[:alert] = status[:alert] if status[:alert]
+    flash[:notice] = status[:notice] if status[:notice]
+    flash[:deriv] = status[:deriv] if status[:deriv]
+    redirect_to view_dams_object_path @obj
   end
   def deriv
     begin
