@@ -6,37 +6,37 @@ $(document).ready(function() {
 </script>
 <h1>Create a new Dams Object</h1>
 <div class="dams-viewer">
-<%= form_for @dams_object , :html => { :onsubmit => 'processForm();'} do |f| %>
+<%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");'} do |f| %>
 
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
 
   <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:f => f, :object => @dams_object, :object_type => "dams_object"}%>
 
-  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_object"}%>
          
-  <%= render :partial => 'shared/edit_fields/unit_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/unit_form' , :locals => {:f => f, :object_type => "dams_object"}%>
      
-  <%= render :partial => 'shared/edit_fields/collections_form', :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/collections_form', :locals => {:f => f, :object_type => "dams_object"}%>
 
-  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_object"}%>
       
-  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_object"}%>
         
-  <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_object"}%>
   
-  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f}%> 
+  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_object"}%> 
        
-  <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_object"}%>
     
-  <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f, :object_type => "dams_object"}%>
   
-  <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_object"}%>
       
-  <%= render :partial => 'shared/edit_fields/rights_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/rights_form' , :locals => {:f => f, :object_type => "dams_object"}%>
     
-  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_object"}%>
 
-  <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f}%>  
+  <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f, :object_type => "dams_object"}%>  
 
   <br>
   <!--input type="text" id="test" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'-->
