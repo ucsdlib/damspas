@@ -22,9 +22,9 @@ $(document).ready(function() {
 
 <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:f => f, :object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
-  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
-  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
   <h3>Language</h3>  
   <div id="newLanguage">
@@ -146,24 +146,9 @@ $(document).ready(function() {
   <%= select_tag 'dams_provenance_collection[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Creator Type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#name','nameURI','Name');"%>
   <div id="name"></div>
   
-  <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f}%>
+  <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
-  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f}%>
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
      <%=f.submit "Save", class: "btn btn-primary" %>
      <%= link_to "Cancel", dams_provenance_collections_path, class: "btn btn-primary" %>

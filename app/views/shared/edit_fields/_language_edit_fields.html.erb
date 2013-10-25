@@ -1,0 +1,6 @@
+<div class="fields">
+	<br/>
+	<%= select_tag "#{object_type}[languageURI][]", options_for_select(@mads_languages) , :prompt=>"Select Language"%>
+	<br/>
+	<%= link_to_remove_fields "Remove Language", f%>			
+</div>

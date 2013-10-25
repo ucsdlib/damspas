@@ -12,7 +12,7 @@
    
   <%= render :partial => 'shared/edit_fields/collections_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>  
            
-  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
+  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%>
     
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :type => "note", :f => f}%>
 

@@ -19,7 +19,6 @@ class GetDataController < ApplicationController
 			json = JSON.parse(res.body)							
 		end
 		@jdoc = json.fetch("response").fetch("docs")
-		puts json
 		render :layout => false
 	else
 		res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => 1000)	
