@@ -1,4 +1,6 @@
 <h3>Complex Subject</h3>
-<%= f.fields_for :complexSubject do |comSubject| %>
-  <%= comSubject.select :id, options_for_select(@mads_complex_subjects, :selected => @complexSubject_id) , {:include_blank => 'Select Subject'} %>
+<%= f.fields_for :complexSubject do |builder| %>
+  <%= render "shared/edit_fields/complexSubject_fields", :f => builder , :object_type => object_type%>
 <% end %>
+
+<p><%#= link_to_add_fields "Add Complex Subject", f, :complexSubject, "MadsComplexSubject", "#{object_type}" %></p>
