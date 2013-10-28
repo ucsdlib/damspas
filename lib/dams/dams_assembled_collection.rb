@@ -3,6 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsAssembledCollection
    extend ActiveSupport::Concern
+    include ModelHelper
     
   included do
     rdf_type DAMS.AssembledCollection
@@ -78,8 +79,8 @@ module Dams
   
 
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.AssembledCollection]) if new?
-         if(!@langURI.nil?)
+        check_type( graph, rdf_subject, DAMS.AssembledCollection )
+        if(!@langURI.nil?)
           if new?
             graph.insert([rdf_subject, DAMS.language, @langURI])
           else

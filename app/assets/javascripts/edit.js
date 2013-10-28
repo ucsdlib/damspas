@@ -133,36 +133,20 @@ function setLanguageId_generic(objType) {
   });
 }
 
-function setLanguageId() {
-  $.get(baseURL+"/get_ark/get_ark",function(data,status){
-    var ark = "http://library.ucsd.edu/ark:/20775/"+data;
-    $("#dams_object_language_attributes_0_id").val(ark.trim());
-    $("#newLanguageLink").remove();
-  });
-}
-
 function remove_fields(link) {
-  //$(link).prev("input[type=hidden]").val("1");
-  //$(link).closest(".fields").hide();
   $(link).closest(".fields").remove();
 }
 
 function add_fields(link, association, content) {
-  /*$.get(baseURL+"/get_ark/get_ark",function(data,status){
-    var id = "http://library.ucsd.edu/ark:/20775/"+data;
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
-    content = content.replace("__DO_NOT_USE__", id.trim());
-    $(link).parent().before(content.replace(regexp, new_id));
-  });*/
-    var new_id = new Date().getTime();
-    var regexp = new RegExp("new_" + association, "g");
+    content = content.replace("languageClassNew",new_id);
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
 function target_popup(target) {
-  var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0');
-  win.resizeTo(550,600);
+  var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0,scrollbars=yes');
+  win.resizeTo(550,650);
 }
 
 function closeAndSetId_generic(objType) {
@@ -174,8 +158,13 @@ function closeAndSetId_generic(objType) {
   self.close();
 }
 
-function closeAndSetId() {
-  var target=window.opener.document.getElementById('dams_object_language_attributes_0_id');    
+function setParentId_generic(parent_id, isId) {
+  var target = "";
+  if(isId == true) {  
+  	target=window.opener.document.getElementById(parent_id);
+  } else {
+    target=window.opener.document.getElementsByClassName(parent_id)[0];
+  }
   var optionName = new Option(document.getElementById('name').value, 'http://library.ucsd.edu/ark:/20775/'+document.getElementById('id').value);    
   var targetlength = target.length;    
   target.options[targetlength] = optionName; 
@@ -189,22 +178,16 @@ function checkOption_generic(objType) {
   }
 }
 
-function checkOption() {
-  if( $("#dams_object_language_attributes_0_id").val().indexOf("createNewLanguage") >= 0 ) {
-    target_popup(baseURL.replace("get_data","")+"mads_languages/new");
-  }
+function checkOption(id,isId,type) {  
+  if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
+  } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
+  }  
 }
 
 function loadCreateNewObjectOption_generic(objType) {
   var target=window.document.getElementById(objType+'language_attributes_0_id');    
-  var optionName = new Option('Create New Language','createNewLanguage');    
-  var targetlength = target.length;    
-  target.options[targetlength] = optionName;
-}
-
-
-function loadCreateNewObjectOption() {
-  var target=window.document.getElementById('dams_object_language_attributes_0_id');    
   var optionName = new Option('Create New Language','createNewLanguage');    
   var targetlength = target.length;    
   target.options[targetlength] = optionName;

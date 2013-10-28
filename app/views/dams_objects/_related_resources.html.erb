@@ -1,15 +1,26 @@
 <% if @document['related_resource_json_tesim'] != nil
+  rel = nil
+  related_description_arr = Array.new
+  related_uri_arr = Array.new
   @document['related_resource_json_tesim'].each do |txt|
     rel = JSON.parse(txt)
-    if rel['type'] != 'thumbnail' && rel['type'] != 'hydra-afmodel' && rel['description'] != ''%>
-	  <p class="sidebar-header"><strong>Related Resources</strong></p>
-      <%
-        related_resource_description = rel['description']
-        related_resource_uri = rel['uri']
-      %>
+    if rel['type'] != 'thumbnail' && rel['type'] != 'hydra-afmodel' && rel['description'] != ''
+      related_description_arr << rel['description']   #Create array of descriptions
+      related_uri_arr << rel['uri']                   #Create array of URI's to link to after displaying header
+    end
+  end
+
+  if rel['type'] != 'thumbnail' && rel['type'] != 'hydra-afmodel' && rel['description'] != ''%>
+    <p class="sidebar-header"><strong>Related Resources</strong></p>
+  <% end %>
+  <% i = 0
+     while i < related_description_arr.size
+      related_resource_description = related_description_arr[i]
+      related_resource_uri = related_uri_arr[i]
+      i += 1
+    %>
       <ul>
         <li><%= link_to related_resource_description, related_resource_uri %></li>
 	  </ul>
     <% end %>
-  <% end %>
 <% end %>

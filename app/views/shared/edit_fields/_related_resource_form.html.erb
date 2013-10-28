@@ -1,11 +1,8 @@
 <h3>Related Resource</h3>
 <div id="relatedResourceSection">
    <%= f.fields_for :relatedResource do |relResource| %>
-   	 <%= relResource.label :type, "Type" %>
-     <%= relResource.text_field :type , :value => "", class: "input-block-level" %>    
-     <%= relResource.label :uri, "URI" %>
-     <%= relResource.url_field :uri, :value => "", class: "input-block-level" %>
-     <%= relResource.label :description, "Description" %>
-     <%= relResource.text_field :description, :value => "", class: "input-block-level" %>                
+		<%= render "shared/edit_fields/relatedResource_fields", :f => relResource %>       
    <% end %>
 </div>
+<!-- Workaround to add multiple RelatedResources because RelatedResource has no datastream. -->
+<p><%= link_to_add_fields "Add Related Resource", f, :relatedResource, "DamsNote", "DamsNote" %></p>

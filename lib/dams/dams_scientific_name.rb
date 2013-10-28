@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :scientificNameElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.ScientificName]) if new?
+        check_type( graph, rdf_subject, DAMS.ScientificName )
         super
       end
       delegate :scientificNameElement_attributes=, to: :elementList
