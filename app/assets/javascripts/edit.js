@@ -162,8 +162,8 @@ function add_fields(link, association, content) {
 }
 
 function target_popup(target) {
-  var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0');
-  win.resizeTo(550,600);
+  var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0,scrollbars=yes');
+  win.resizeTo(550,650);
 }
 
 function closeAndSetId_generic(objType) {
@@ -195,11 +195,11 @@ function checkOption_generic(objType) {
   }
 }
 
-function checkOption(id,isId) {  
-  if( isId == true && $("#"+id).val().indexOf("Create New Language") >= 0) {
-    target_popup(baseURL.replace("get_data","")+"mads_languages/new?parent_language_id="+id);
-  } else if( isId == false && $("."+id).val().indexOf("Create New Language") >= 0) {
-    target_popup(baseURL.replace("get_data","")+"mads_languages/new?parent_language_class="+id);
+function checkOption(id,isId,type) {  
+  if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_language_id="+id);
+  } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_language_class="+id);
   }  
 }
 
