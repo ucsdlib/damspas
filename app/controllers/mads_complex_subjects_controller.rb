@@ -47,7 +47,13 @@ class MadsComplexSubjectsController < ApplicationController
   def create
     #@mads_complex_subject.attributes = params[:mads_complex_subject]
     if @mads_complex_subject.save
-        redirect_to @mads_complex_subject, notice: "ComplexSubject has been saved"
+	    if(!params[:popup].nil? && params[:popup].to_s == "true" && !params[:parent_id].nil?)
+			redirect_to view_mads_complex_subject_path(@mads_complex_subject, {:parent_id => params[:parent_id]})
+	    elsif(!params[:popup].nil? && params[:popup].to_s == "true" && !params[:parent_class].nil?)
+			redirect_to view_mads_complex_subject_path(@mads_complex_subject, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @mads_complex_subject, notice: "ComplexSubject has been saved"
+        end
     else
       flash[:alert] = "Unable to save ComplexSubject"
       render :new

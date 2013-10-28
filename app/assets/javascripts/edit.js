@@ -197,9 +197,9 @@ function checkOption_generic(objType) {
 
 function checkOption(id,isId,type) {  
   if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
-    target_popup(baseURL.replace("get_data","")+type+"/new?parent_language_id="+id);
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
   } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
-    target_popup(baseURL.replace("get_data","")+type+"/new?parent_language_class="+id);
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
   }  
 }
 
