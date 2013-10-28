@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :iconographyElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.Iconography]) if new?
+        check_type( graph, rdf_subject, DAMS.Iconography )
         super
       end
       delegate :iconographyElement_attributes=, to: :elementList

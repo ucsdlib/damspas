@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :topic, :temporal, :genreForm, :geographic, :occupation, :personalName, :conferenceName, :corporateName, :familyName, :genericName, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.ComplexSubject]) if new?
+        check_type( graph, rdf_subject, MADS.ComplexSubject )
         super
       end
       delegate :topic_attributes=, to: :componentList

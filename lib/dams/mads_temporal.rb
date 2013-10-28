@@ -14,7 +14,7 @@ module Dams
       end
       accepts_nested_attributes_for :temporalElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.Temporal]) if new?
+        check_type( graph, rdf_subject, MADS.Temporal )
         super
       end
       delegate :temporalElement_attributes=, to: :elementList
