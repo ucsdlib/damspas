@@ -1,19 +1,8 @@
 <h1>Create a new MADS Language</h1>
-<script>
-$(document).ready(function() {
-
- $('.new_mads_language').submit(function() {
-	if(window.opener != null && window.location.href != window.opener.location.href) {
-		document.getElementById('popup').value = "true";
-	}
-    return true;
-  });
-});
-</script>
 <%= form_for @mads_language do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'mads_language[name]', "Name" %>
-  <%= text_field_tag 'mads_language[name]' %>
+  <%= text_field_tag 'mads_language[name]','', required: true %>
     <%= label_tag 'mads_language[code]', "Code" %>
   <%= text_field_tag 'mads_language[code]' %>
   <%= label_tag 'mads_language[externalAuthority]', "ExternalAuthority" %>
@@ -30,7 +19,6 @@ $(document).ready(function() {
     <%= se.select :id, options_for_select(@mads_schemes) , {:include_blank => 'Select MadsScheme'}, :required => "true" %>
   <% end %>
 
-  <%= hidden_field_tag "popup", "false" %>
   <% if !params[:parent_id].nil? %>
   	<%= hidden_field_tag "parent_id", "#{params[:parent_id]}" %>
   <% end %>
