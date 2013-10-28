@@ -32,7 +32,7 @@
      
   <%= render :partial => 'shared/edit_fields/rights_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
 
-  <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
+  <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%>
       
   <%= render :partial => 'shared/edit_fields/cartographics_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>     
   

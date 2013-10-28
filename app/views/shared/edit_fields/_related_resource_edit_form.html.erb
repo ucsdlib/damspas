@@ -1,6 +1,7 @@
 <h3>Related Resource</h3>
 <% resource =object.relatedResource
 	i = 0
+	first = 0 		#first is used to ensure there is no remove button for the first related resource
 	if resource != nil
 		while i < resource.size  do
 			if(!resource[i].type.nil? && resource[i].type.first.to_s == 'hydra-afmodel')
@@ -8,7 +9,7 @@
 				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][type]", resource[i].type%>
 				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri%>
 				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", resource[i].description %>
-<%		
+<%
 			else
 %>
 				<div class="fields">
@@ -18,8 +19,13 @@
 					<%= url_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri, class: "input-block-level" %>
 					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
 					<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", resource[i].description, class: "input-block-level" %>
+					<br/>
+					<% if (f.object.class != RelatedResource && first != 0) %> 
+    					<%= link_to_remove_fields "Remove RelatedResource", f %>
+    				<% end %> 			
 				</div>					
 <%			
+				first = 1
 			end
 			i +=1		
 		end
@@ -39,3 +45,4 @@
 				
     end
 %> 
+<p><%= link_to_add_fields "Add Related Resource", f, :relatedResource, "DamsNote", "DamsNote" %></p>
