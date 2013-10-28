@@ -3,7 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsProvenanceCollection
     extend ActiveSupport::Concern
-     include ModelHelper
+    include ModelHelper
     
     included do
       rdf_type DAMS.ProvenanceCollection
@@ -80,8 +80,7 @@ module Dams
 
 
       def serialize
-        ts = RDF::Statement.new(rdf_subject,RDF.type,DAMS.ProvenanceCollection)
-        graph.insert(ts) if new? || !graph.has_statement?(ts)
+        check_type( graph, rdf_subject, DAMS.ProvenanceCollection )
         
         if(!@langURI.nil?)
           if new?

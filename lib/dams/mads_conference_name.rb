@@ -15,11 +15,8 @@ module Dams
       end
       accepts_nested_attributes_for :scheme, :nameElement, :fullNameElement, :givenNameElement, :familyNameElement, :dateNameElement, :termsOfAddressNameElement
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.ConferenceName]) if new?
-        label = graph.first_object([nil,MADS.authoritativeLabel,nil])
-        if ( label.blank? || label.value.blank? ) && !authLabel.blank?
-          graph.insert([rdf_subject, MADS.authoritativeLabel, authLabel])
-        end
+        check_type( graph, rdf_subject, MADS.ConferenceName )
+        check_label( graph, rdf_subject, authLabel )
         super
       end
 
