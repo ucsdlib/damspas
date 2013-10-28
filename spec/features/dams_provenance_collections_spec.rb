@@ -85,14 +85,10 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "dams_provenance_collection_note_attributes_0_displayLabel", :with => "TestNoteDisplayLabel2"
 		fill_in "dams_provenance_collection_scopeContentNote_attributes_0_value", :with => "TestScopeContentNote2"
 		fill_in "dams_provenance_collection_scopeContentNote_attributes_0_type", :with => "TestScopeContentNoteType2"
-		page.select('CorporateName', match: :first)
 		
 		click_on "Save"
 
-
-
 		# Check that changes are saved
-		
 		expect(page).to have_content ("TestTitle2")
 		expect(page).to have_content ("TestSubTitle2")
 		expect(page).to have_content ("TestDate2")
@@ -101,9 +97,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		# should get note display label as title by not filling in Note Type
 		expect(page).to have_content ("TESTNOTEDISPLAYLABEL2")
 		expect(page).to have_content ("TestScopeContentNote2")
-		
 	end
-
 end
 
 feature 'Visitor wants to cancel unsaved edits' do
@@ -129,7 +123,6 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "dams_provenance_collection_note_attributes_0_displayLabel", :with => "CancelNoteDisplaylabel"
 		fill_in "dams_provenance_collection_scopeContentNote_attributes_0_value", :with => "CancelScopeContentNote"
 		fill_in "dams_provenance_collection_scopeContentNote_attributes_0_type", :with => "CancelScopeContentNoteType"
-		page.select('CorporateName', match: :first)
 		click_on "Cancel"
 		visit Path.path
 		expect(page).to_not have_content("Should not show")
