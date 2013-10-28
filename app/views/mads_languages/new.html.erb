@@ -31,12 +31,12 @@ $(document).ready(function() {
   <% end %>
 
   <%= hidden_field_tag "popup", "false" %>
-  <% if !params[:parent_language_id].nil? %>
-  	<%= hidden_field_tag "parent_language_id", "#{params[:parent_language_id]}" %>
+  <% if !params[:parent_id].nil? %>
+  	<%= hidden_field_tag "parent_id", "#{params[:parent_id]}" %>
   <% end %>
 
-  <% if !params[:parent_language_class].nil? %>
-  	<%= hidden_field_tag "parent_language_class", "#{params[:parent_language_class]}" %>
+  <% if !params[:parent_class].nil? %>
+  	<%= hidden_field_tag "parent_class", "#{params[:parent_class]}" %>
   <% end %>
     
   <br>
