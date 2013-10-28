@@ -31,7 +31,14 @@ $(document).ready(function() {
   <% end %>
 
   <%= hidden_field_tag "popup", "false" %>
-  <%= hidden_field_tag "parent_language_id", "#{params[:parent_language_id]}" %>
+  <% if !params[:parent_language_id].nil? %>
+  	<%= hidden_field_tag "parent_language_id", "#{params[:parent_language_id]}" %>
+  <% end %>
+
+  <% if !params[:parent_language_class].nil? %>
+  	<%= hidden_field_tag "parent_language_class", "#{params[:parent_language_class]}" %>
+  <% end %>
+    
   <br>
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>

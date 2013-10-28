@@ -16,7 +16,7 @@ feature 'Visitor wants to look at units' do
     sign_in_developer
     visit dams_units_path
 
-    fill_in 'Search...', :with => "sample", :match => :prefer_exact
+    fill_in 'Search...', :with => "Sample Complex Object Record #3", :match => :prefer_exact
     click_on('search-button')
 
     expect(page).to have_content('Search Results')
