@@ -35,9 +35,9 @@ class MadsLanguagesController < ApplicationController
 
   def create
     if @mads_language.save
-	    if(!params[:popup].nil? && params[:popup].to_s == "true" && !params[:parent_id].nil?)
+	    if(!params[:parent_id].nil?)
 			redirect_to view_mads_language_path(@mads_language, {:parent_id => params[:parent_id]})
-	    elsif(!params[:popup].nil? && params[:popup].to_s == "true" && !params[:parent_class].nil?)
+	    elsif(!params[:parent_class].nil?)
 			redirect_to view_mads_language_path(@mads_language, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else
         	redirect_to @mads_language, notice: "Language has been saved"
