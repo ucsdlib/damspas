@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :stylePeriodElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.StylePeriod]) if new?
+        check_type( graph, rdf_subject, DAMS.StylePeriod )
         super
       end
       delegate :stylePeriodElement_attributes=, to: :elementList

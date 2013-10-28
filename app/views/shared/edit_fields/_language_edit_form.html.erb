@@ -6,7 +6,7 @@
 %>
 			<div class="fields">
 				<br/>
-				<%= select_tag "#{object_type}[languageURI][]", options_for_select(@mads_languages, :selected => "#{Rails.configuration.id_namespace}#{language[i].pid}") , :prompt=>"Select Language", required: true%>
+				<%= select_tag "#{object_type}[languageURI][]", options_for_select(@mads_languages, :selected => "#{Rails.configuration.id_namespace}#{language[i].pid}") , :prompt=>"Select Language", required: true, :class=>"languageClass#{i}", :onChange=>"javascript: checkOption(this.className,false,'mads_languages');"%>
 				<br/>
 				<% if i > 0%>
     			<%= link_to_remove_fields "Remove Language", f %>

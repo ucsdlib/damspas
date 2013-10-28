@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :builtWorkPlaceElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.BuiltWorkPlace]) if new?
+        check_type( graph, rdf_subject, DAMS.BuiltWorkPlace )
         super
       end
       delegate :builtWorkPlaceElement_attributes=, to: :elementList

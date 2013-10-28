@@ -86,7 +86,8 @@ module Dams
 	  }
 	  
 	  def serialize
-	    graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
+        check_type( graph, rdf_subject, DAMS.Object )
+
 		if(!@unitURI.nil?)
 	      if new?
 	        graph.insert([rdf_subject, DAMS.unit, @unitURI])

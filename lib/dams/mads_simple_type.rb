@@ -2,6 +2,7 @@ module Dams
   module MadsSimpleType
     # = MADS SimpleType, extended by MADS Topic, Geographic, etc.
     extend ActiveSupport::Concern
+    include ModelHelper
     included do
       rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
       map_predicates do |map|

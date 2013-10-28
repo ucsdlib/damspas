@@ -14,7 +14,7 @@ module Dams
       end
       accepts_nested_attributes_for :geographicElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.Geographic]) if new?
+        check_type( graph, rdf_subject, MADS.Geographic )
         super
       end
       delegate :geographicElement_attributes=, to: :elementList

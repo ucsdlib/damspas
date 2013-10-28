@@ -14,7 +14,7 @@ module Dams
       end
       accepts_nested_attributes_for :occupationElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.Occupation]) if new?
+        check_type( graph, rdf_subject, MADS.Occupation )
         super
       end
       delegate :occupationElement_attributes=, to: :elementList

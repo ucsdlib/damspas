@@ -3,6 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsCopyright
     extend ActiveSupport::Concern
+    include ModelHelper
     included do
       rdf_type DAMS.Copyright
       map_predicates do |map|
@@ -16,7 +17,7 @@ module Dams
       accepts_nested_attributes_for :date
       
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.Copyright]) if new?
+        check_type( graph, rdf_subject, DAMS.Copyright )
         super
       end
 

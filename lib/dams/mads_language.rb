@@ -16,7 +16,7 @@ module Dams
       end      
       accepts_nested_attributes_for :languageElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.Language]) if new?
+        check_type( graph, rdf_subject, MADS.Language )
         super
       end
       delegate :languageElement_attributes=, to: :elementList

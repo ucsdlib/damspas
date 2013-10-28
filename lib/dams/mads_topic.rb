@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :topicElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.Topic]) if new?
+        check_type( graph, rdf_subject, MADS.Topic )
         super
       end
       delegate :topicElement_attributes=, to: :elementList

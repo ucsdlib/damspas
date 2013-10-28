@@ -137,10 +137,12 @@ class DamsObjectsController < ApplicationController
 
                         
   	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+  	@mads_complex_subjects << "Create New Complex Subject"
   	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
   	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+  	@mads_languages << "Create New Language"
   	@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
   	@dams_copyrights = get_objects_url('DamsCopyright','status_tesim')
   	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')
@@ -176,6 +178,7 @@ class DamsObjectsController < ApplicationController
   	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
   	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+  	@mads_languages << "Create New Language"
   	@mads_authorities = get_objects('MadsAuthority','name_tesim')
   	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
   	@dams_statutes = get_objects('DamsStatute','citation_tesim')

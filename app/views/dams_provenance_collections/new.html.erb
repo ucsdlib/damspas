@@ -11,9 +11,7 @@ $(document).ready(function() {
 <%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_");'} do |f| %>
    
 
-  <h3>Provenance Collection Part</h3>
-  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %>  
-  <br>
+  
 
 <%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
@@ -22,131 +20,27 @@ $(document).ready(function() {
 
 <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:f => f, :object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
+<h3>Provenance Collection Part</h3>
+  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %>  
+  <br>
+
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
-  <h3>Language</h3>  
-  <div id="newLanguage">
-    <%#= f.fields_for :language do |builder| %>
-      <%#= render "shared/edit_fields/language_fields", :f => builder %>                   
-    <%# end %>
-  </div>
-  <div id="newLanguageLink">
-    <%= f.fields_for :language do |lang| %>
-      <%= lang.select :id, options_for_select(@mads_languages) , {:include_blank => 'Select Language'}, :required => "true", :onChange=>"javascript: checkOption_generic('#dams_provenance_collection_');"%>
-    <% end %>
-  </div>
+  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
-   <h3>Simple Subject</h3>
-  <%
-     subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
-  %>
-
-  <%= select_tag 'dams_provenance_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div>
+   <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
   
-  <!--OR Enter subject value<%#=text_field_tag 'dams_provenance_collection[subjectTypeValue][]' %>
-  <input id="dams_provenance_collection_subjectTypeValue_" name="dams_provenance_collection[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/-->  
-  
-<div id="simpleSubjects">
-  <div id="BuiltWorkPlace">
-    <%= f.fields_for :builtWorkPlace do |built| %>
-      <%= built.label :type, "OR New BuiltWorkPlace" %>
-      <%= built.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="CulturalContext">
-    <%= f.fields_for :culturalContext do |cult| %>
-      <%= cult.label :type, "OR New CulturalContext" %>
-      <%= cult.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="Function">
-    <%= f.fields_for :function do |fun| %>
-      <%= fun.label :type, "OR New Function" %>
-      <%= fun.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="GenreForm">
-    <%= f.fields_for :genreForm do |genre| %>
-      <%= genre.label :type, "OR New GenreForm" %>
-      <%= genre.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="Geographic">
-    <%= f.fields_for :geographic do |geo| %>
-      <%= geo.label :type, "OR New Geographic" %>
-      <%= geo.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="Iconography">
-    <%= f.fields_for :iconography do |icon| %>
-      <%= icon.label :type, "OR New Iconography" %>
-      <%= icon.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="Occupation">
-    <%= f.fields_for :occupation do |occ| %>
-      <%= occ.label :type, "OR New Occupation" %>
-      <%= occ.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="ScientificName">
-    <%= f.fields_for :scientificName do |sci| %>
-      <%= sci.label :type, "OR New ScientificName" %>
-      <%= sci.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="StylePeriod">
-    <%= f.fields_for :stylePeriod do |style| %>
-      <%= style.label :type, "OR New StylePeriod" %>
-      <%= style.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="Technique">
-    <%= f.fields_for :technique do |tech| %>
-      <%= tech.label :type, "OR New Technique" %>
-      <%= tech.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-                                    
-  <div id="Topic">
-    <%= f.fields_for :topic do |to| %>
-      <%= to.label :type, "OR New Topic" %>
-      <%= to.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-
-  <div id="Temporal">
-    <%= f.fields_for :temporal do |te| %>
-      <%= te.label :type, "OR New Temporal" %>
-      <%= te.text_field :name , :value => "", class: "input-block-level" %>        
-    <% end %> 
-  </div>
-</div>
-  
-  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f}%> 
+  <!--complex_subjects_form partial not working with provenanceCollectionForm -->
+  <!--<%#= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%> -->
        
- 
+ <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
     
-  <%
-     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
-  %>  
-  <h3>Creator</h3>
-  <%= select_tag 'dams_provenance_collection[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Creator Type" , :onChange=>"javascript: getSubjects('dams_provenance_collection',this.value,'#name','nameURI','Name');"%>
-  <div id="name"></div>
-  
-  <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
+<%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
+
+<!--relationship partial doesn't work with collection forms -->
+<!--<%#= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>-->
 
   <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
