@@ -79,8 +79,9 @@ module Dams
      accepts_nested_attributes_for :language, allow_destroy: true
 
 
-     def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
+      def serialize
+        ts = RDF::Statement.new(rdf_subject,RDF.type,DAMS.ProvenanceCollection)
+        graph.insert(ts) if new? || !graph.has_statement?(ts)
         
         if(!@langURI.nil?)
           if new?
