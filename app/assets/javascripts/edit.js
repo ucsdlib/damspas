@@ -157,6 +157,7 @@ function add_fields(link, association, content) {
   });*/
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
+    content = content.replace("languageClassNew",new_id);
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
@@ -174,8 +175,13 @@ function closeAndSetId_generic(objType) {
   self.close();
 }
 
-function setParentId_generic(parent_id) {
-  var target=window.opener.document.getElementById(parent_id); 
+function setParentId_generic(parent_id, isId) {
+  var target = "";
+  if(isId == true) {  
+  	target=window.opener.document.getElementById(parent_id);
+  } else {
+    target=window.opener.document.getElementsByClassName(parent_id)[0];
+  }
   var optionName = new Option(document.getElementById('name').value, 'http://library.ucsd.edu/ark:/20775/'+document.getElementById('id').value);    
   var targetlength = target.length;    
   target.options[targetlength] = optionName; 
@@ -189,10 +195,12 @@ function checkOption_generic(objType) {
   }
 }
 
-function checkOption(id) {
-  if( $("#"+id).val().indexOf("Create New Language") >= 0 ) {
+function checkOption(id,isId) {  
+  if( isId == true && $("#"+id).val().indexOf("Create New Language") >= 0) {
     target_popup(baseURL.replace("get_data","")+"mads_languages/new?parent_language_id="+id);
-  }
+  } else if( isId == false && $("."+id).val().indexOf("Create New Language") >= 0) {
+    target_popup(baseURL.replace("get_data","")+"mads_languages/new?parent_language_class="+id);
+  }  
 }
 
 function loadCreateNewObjectOption_generic(objType) {
