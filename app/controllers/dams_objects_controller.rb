@@ -137,6 +137,7 @@ class DamsObjectsController < ApplicationController
 
                         
   	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+  	@mads_complex_subjects << "Create New Complex Subject"
   	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
   	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
