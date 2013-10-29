@@ -87,6 +87,33 @@
 .mobile-search-bar .input-append{width:100%;text-align: center;}
 
 
+//---
+// TOP NAV SEARCH BAR ALT
+//---
+
+.mobile-search-bar-alt input[type=text]
+{
+  border-color: #aaa;
+}
+
+.mobile-search-bar-alt input[type=text]:focus
+{
+  box-shadow: 0 0 0 rgba(0,0,0, 0) inset, 0 0 0 rgba(0, 0, 0, 0);
+}
+
+
+
+.mobile-search-bar-alt form{padding:4px 0;margin:0;}
+
+.btn-navsearch{padding:4px 12px 3px 12px !important;margin-right:10px !important;}
+
+.mobile-search-bar-alt{
+  background-color: #eee;
+  background-image: linear-gradient(to bottom, #efefef, #f6f6f6);
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.mobile-search-bar-alt .input-append{width:100%;text-align: right;}
 
 /*---------------*/
 /* MEDIA QUERIES */
@@ -102,7 +129,11 @@
 @media (min-width: 980px) {}
 
 /* MOBILE NAVBAR (CUSTOM) */
-@media (max-width: 979px) {}
+@media (max-width: 979px) {
+
+  .mobile-search-bar-alt .input-append{text-align: center;}
+
+}
 
 /* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
 @media (max-width: 767px) {}
