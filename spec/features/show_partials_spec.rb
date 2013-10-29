@@ -1,27 +1,21 @@
 require 'spec_helper'
 
 feature 'Visitor wants to view object fields' do
-  scenario 'Collections and Unit, is on Solr view page' do
+  scenario 'Metadata on Solr view page' do
     visit dams_object_path('bd22194583')
+
+    # collections and unit
     expect(page).to have_link('Sample Assembled Collection', href:"/dams_collections/bd3516400n")
     expect(page).to have_link('Sample Provenance Collection', href:"/dams_collections/bd48133407")
     expect(page).to have_link('Sample Provenance Part', href:"/dams_collections/bd6110278b")
     expect(page).to have_link('Library Digital Collections', href:"/dams_units/dlp")
-  end
 
-  scenario 'Date, is on Solr view page' do
-    visit dams_object_path('bd22194583')
+    # date and language
     expect(page).to have_selector('li', :text=>"Easter 2012")
     expect(page).to have_selector('li', :text=>"English")
-  end
 
-  scenario 'File Format, is on Solr view page' do
-    visit dams_object_path('bd22194583')
+    # image
     expect(page).to have_link('Image', href:"/search?f%5Bobject_type_sim%5D%5B%5D%5B%5D=image&id=bd22194583")
-  end
-
-  scenario 'Name Fields, is on Solr view page' do
-    visit dams_object_path('bd22194583')
 
     # conference name
     expect(page).to have_link('mads:ConferenceName value', href:"/search?f%5Bsubject_conferenceName_sim%5D%5B%5D=mads%3AConferenceName+value&id=bd22194583")
@@ -34,10 +28,6 @@ feature 'Visitor wants to view object fields' do
 
     # personal name
     expect(page).to have_selector('li', :text=>"Smith, John, Dr., 1965-")
-  end
-
-  scenario 'Note Fields, is on Solr view page' do
-    visit dams_object_path('bd22194583')
 
     # identifier note
     expect(page).to have_selector('strong', :text=>"ARK ID")
@@ -51,21 +41,20 @@ feature 'Visitor wants to view object fields' do
 
     # custodial responsibility note
     expect(page).to have_selector('p', :text=>"CustodialResponsibilityNote value")
-  end
 
-  scenario 'Related Resource, is on Solr view page' do
-    visit dams_object_path('bd22194583')
+    # related resource
     expect(page).to have_selector('strong', :text=>"EXHIBIT")
     expect(page).to have_link('Related Resource value', href:"http://relatedresource.com/")
-  end
-
-  scenario 'Rights Information, is on Solr view page' do
-    visit dams_object_path('bd22194583')
 
     # copyright
     expect(page).to have_selector('strong', :text=>"Under copyright")
     expect(page).to have_selector('p', :text=>"This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.")
     expect(page).to have_selector('small', :text=>"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.). Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.")
+  end
+
+  scenario 'Curator-Only Rights Information, is on Solr view page' do
+    sign_in_developer
+    visit dams_object_path('bd22194583')
 
     # license
     expect(page).to have_link('License note text here...', href:"http://library.ucsd.edu/licenses/lic12341.pdf")
@@ -127,4 +116,11 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_selector('h2', :text=>"An Image Object")
   end
 
+end
+
+def sign_in_developer
+  visit new_user_session_path
+  fill_in "name", :with => "name"
+  fill_in "email", :with => "email@email.com"
+  click_on "Sign In"
 end
