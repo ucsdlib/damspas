@@ -66,7 +66,7 @@ class DamsAssembledCollectionsController < ApplicationController
     @dams_assembled_collection.topic.build    
     @dams_assembled_collection.temporal.build     
     @dams_assembled_collection.name.build
-    #@dams_assembled_collection.personalName.build    
+    @dams_assembled_collection.personalName.build    
     @dams_assembled_collection.corporateName.build   
     @dams_assembled_collection.conferenceName.build    
     @dams_assembled_collection.familyName.build
@@ -190,7 +190,7 @@ end
     @dams_assembled_collection.topic.clear
     @dams_assembled_collection.temporal.clear
     @dams_assembled_collection.name.clear
-    #@dams_assembled_collection.personalName.clear    
+    @dams_assembled_collection.personalName.clear    
     @dams_assembled_collection.corporateName.clear   
     @dams_assembled_collection.conferenceName.clear    
     @dams_assembled_collection.familyName.clear

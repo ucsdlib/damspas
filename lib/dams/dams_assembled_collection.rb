@@ -24,7 +24,7 @@ module Dams
         map.scopeContentNote(           :in => DAMS, :to=>'scopeContentNote',            :class_name => 'DamsScopeContentNoteInternal')
 
         # subjects
-        map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+        map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
         map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
         map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
         map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
@@ -44,7 +44,7 @@ module Dams
         map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
         map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
         map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
-        map.personalName(:in => DAMS, :to => 'personalName', :class_name => 'MadsPersonalName')
+        map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
         # related resources and events
         map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
