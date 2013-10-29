@@ -1,8 +1,6 @@
 set :application, 'damspas'
 set :repo_url, 'https://github.com/ucsdlib/damspas.git'
 
-set :branch, 'develop'
-
 set :deploy_to, '/pub/capistrano'
 set :scm, :git
 

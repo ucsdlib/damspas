@@ -40,4 +40,5 @@
     end
 %>
 </div>
-<p><%= link_to_add_fields "Add #{noteType}", f, :note, "Dams#{noteType.gsub(' ', '')}" , "#{object_type}"%></p>
+
+<p><%= link_to_add_fields "Add #{noteType}", f, "#{type}", "Dams#{noteType.gsub(' ', '')}" , "#{object_type}"%></p>

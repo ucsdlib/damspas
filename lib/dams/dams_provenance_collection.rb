@@ -7,7 +7,7 @@ module Dams
     
     included do
       rdf_type DAMS.ProvenanceCollection
-      rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+      
 
        map_predicates do |map|
         map.title(:in => DAMS, :to => 'title', :class_name => 'MadsTitle')
@@ -78,7 +78,8 @@ module Dams
       accepts_nested_attributes_for :note, allow_destroy: true
      accepts_nested_attributes_for :language, allow_destroy: true
 
-
+    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+    
       def serialize
         check_type( graph, rdf_subject, DAMS.ProvenanceCollection )
         
@@ -123,15 +124,19 @@ module Dams
 
       def insertSubjectsGraph
         if(!@subURI.nil?)
-          if new?
-            @array_subject.each do |sub|
-              graph.insert([rdf_subject, DAMS.subject, sub])
-            end
-            #graph.insert([rdf_subject, DAMS.subject, @subURI])
+          if(@subURI.class == Array)
+            @subURI.each do |sub|
+                  graph.insert([rdf_subject, DAMS.complexSubject, sub])
+              end
           else
-            graph.update([rdf_subject, DAMS.subject, @subURI])
-          end
-        end    
+          if new?
+            graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
+          else
+            graph.update([rdf_subject, DAMS.complexSubject, @subURI])
+          end     
+        end       
+      end
+
         if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
           if new?
             graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])

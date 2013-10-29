@@ -1,3 +1,4 @@
+
 require 'spec_helper'
 
 # Class to store the path of the provenance collection
@@ -31,7 +32,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "dams_provenance_collection_date_attributes_0_endDate", :with => "2001-01-31"
 		fill_in "dams_provenance_collection_date_attributes_0_type", :with => "TestDateType"
 		fill_in "dams_provenance_collection_date_attributes_0_encoding", :with => "TestDateEncoding"
-		page.select('English', match: :first)
+		#page.select('English', match: :first)
 		fill_in "dams_provenance_collection_note_attributes_0_value", :with => "TestNote"
 		fill_in "dams_provenance_collection_note_attributes_0_type", :with => "TestNoteType"
 		fill_in "dams_provenance_collection_note_attributes_0_displayLabel", :with => "TestNoteDisplayLabel"
@@ -55,7 +56,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestSubTitle")
 		
 		expect(page).to have_content ("TestDate")
-		expect(page).to have_selector('li', :text => "English")
+		#expect(page).to have_selector('li', :text => "English")
 		expect(page).to have_content ("TestNote")
 		# testing without filling in Note Displaylabel
 		
@@ -79,7 +80,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		fill_in "dams_provenance_collection_date_attributes_0_endDate", :with => "2001-01-31"
 		fill_in "dams_provenance_collection_date_attributes_0_type", :with => "TestDateType2"
 		fill_in "dams_provenance_collection_date_attributes_0_encoding", :with => "TestDateEncoding2"
-		page.select('English', match: :first)
+		#page.select('English', match: :first)
 		fill_in "dams_provenance_collection_note_attributes_0_value", :with => "TestNote2"
 		fill_in "dams_provenance_collection_note_attributes_0_type", :with => "TestType2"
 		fill_in "dams_provenance_collection_note_attributes_0_displayLabel", :with => "TestNoteDisplayLabel2"
@@ -92,7 +93,7 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestTitle2")
 		expect(page).to have_content ("TestSubTitle2")
 		expect(page).to have_content ("TestDate2")
-		expect(page).to have_selector('li', :text => "English")
+		#expect(page).to have_selector('li', :text => "English")
 		expect(page).to have_content ("TestNote2")
 		# should get note display label as title by not filling in Note Type
 		expect(page).to have_content ("TESTNOTEDISPLAYLABEL2")
@@ -117,7 +118,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "dams_provenance_collection_date_attributes_0_endDate", :with => "CancelEndDate"
 		fill_in "dams_provenance_collection_date_attributes_0_type", :with => "CancelDateType"
 		fill_in "dams_provenance_collection_date_attributes_0_encoding", :with => "CancelDateEncoding"
-		page.select('English', match: :first)
+		#page.select('English', match: :first)
 		fill_in "dams_provenance_collection_note_attributes_0_value", :with => "CancelNote"
 		fill_in "dams_provenance_collection_note_attributes_0_type", :with => "CancelNoteType"
 		fill_in "dams_provenance_collection_note_attributes_0_displayLabel", :with => "CancelNoteDisplaylabel"
