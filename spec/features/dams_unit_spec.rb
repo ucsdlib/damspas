@@ -93,7 +93,7 @@ end
 feature "Visitor wants to view the unit's collections" do
   scenario 'an anonymous user' do
     visit dams_unit_collections_path('dlp')
-    expect(page).to have_selector('h1','Library Digital Collections')
+    expect(page).to have_selector('h3','Browse by Collection: Library Digital Collections')
     expect(page).to have_selector('a', :text => 'UCSD Electronic Theses and Dissertations')
     expect(page).to have_selector('li', :text => 'Linked scope content note')
   end
