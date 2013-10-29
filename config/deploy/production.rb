@@ -1,4 +1,5 @@
 set :stage, :production
+set :branch, 'master'
 server 'lib-hydrahead.ucsd.edu', user: 'rvm', roles: %w{web app db}
 set :rails_env, "production"
 if ENV["CAP_SSHKEY_PRODUCTION"]
