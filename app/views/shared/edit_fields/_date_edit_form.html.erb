@@ -1,5 +1,5 @@
 <h3>Date</h3>
-
+<div id="dateSection">
 <% date =object.date
 	i = 0
 	if date != nil
@@ -41,5 +41,5 @@
 		end
     end
 %> 
-
+</div>
 <p><%= link_to_add_fields "Add Date", f, :date, "DamsNote", "#{object_type}" %></p>
