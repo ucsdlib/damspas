@@ -73,7 +73,7 @@ module Dams
       
 
       def serialize
-          graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollectionPart]) if new?
+          check_type( graph, rdf_subject, DAMS.ProvenanceCollectionPart )
           if(!@langURI.nil?)
             if new?
               graph.insert([rdf_subject, DAMS.language, @langURI])

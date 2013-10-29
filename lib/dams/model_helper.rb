@@ -14,5 +14,19 @@ module Dams
         format
       end 
     end
+
+    # make sure an rdf:type triple exists in the graph
+    def check_type( graph, subject, type )
+      type_stmt = RDF::Statement.new( subject, RDF.type, type )
+      graph.insert(type_stmt) unless graph.has_statement?( type_stmt )
+    end
+
+    # make sure a mads:authoritativeLabel triple exists in the graph
+    def check_label( graph, subject, label )
+      val = graph.first_object( [subject, MADS.authoritativeLabel, nil] )
+      if (val.blank? || val.value.blank?) && !label.blank?
+        graph.insert( [ rdf_subject, MADS.authoritativeLabel, label ] )
+      end
+    end
   end
 end

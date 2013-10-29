@@ -9,7 +9,7 @@
 	<div class="span8 offset2 dams-collections well well-large">
 		<%#= render :partial => 'show_damstools' %>
 		<%= render :partial => 'shared/fields/title' %>
-        <%= render :partial => 'dams_collections/metadata' %>
+        <%= render :partial => 'shared/fields/show' %>
         <%= render :partial => 'dams_collections/search' %>
 		<br>
 		<% if can? :update, @dams_provenance_collection then %>

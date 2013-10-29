@@ -1,7 +1,7 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Object</h1>
 <div class="dams-viewer">
-<%= form_for @dams_object do |f| %>  
+<%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");' }  do |f| %>  
   <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
        
   <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
@@ -12,7 +12,7 @@
    
   <%= render :partial => 'shared/edit_fields/collections_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>  
            
-  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
+  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%>
     
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :type => "note", :f => f}%>
 
@@ -24,7 +24,7 @@
 
   <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
   
-  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%> 
+  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%> 
 
   <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>
  

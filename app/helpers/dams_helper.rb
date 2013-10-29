@@ -443,19 +443,28 @@ def relatedResourceUri
 	  end
   end 
   
-  #complex subject    
+  ## complex subject  ###############################################################
+    
   def subjectURI=(val)
-    i = 0
-    @array_subject = Array.new
-	val.each do |v| 
+	@subURI = Array.new
+	@array_subject = Array.new
+	val.each do |v|
+		uri = v
+		if(!v.include? Rails.configuration.id_namespace)
+			uri = "#{Rails.configuration.id_namespace}#{v}"
+		end
 	    if(!v.nil? && v.length > 0)
-	    	@subURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{v}")  
-	    	@array_subject << @subURI  	
+	    	@subURI << RDF::Resource.new(uri) 	
+	    	@array_subject << RDF::Resource.new(uri) 
 	    end
-		i+=1
+	end
+		
+	if(@subURI.size == 0)
+		@subURI = nil
+		@array_subject = nil
 	end
   end
-
+  
   def subjectURI
     if @subURI != nil
       @subURI
@@ -548,11 +557,21 @@ def relatedResourceUri
   end 
   def languageURI=(val)
     if val.class == Array
-    	val = val.first
-    end
-	 if(!val.nil? && val.first.length > 0)
-	    @langURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
-	  end
+    	#	val = val.first
+		@langURI = Array.new
+		val.each do |v|
+			uri = v
+			if(!v.include? Rails.configuration.id_namespace)
+				uri = "#{Rails.configuration.id_namespace}#{v}"
+			end
+		    if(!v.nil? && v.length > 0)
+		    	@langURI << RDF::Resource.new(uri) 	
+		    end
+		end  	
+	end
+	if(@langURI.size == 1)
+		@langURI = @langURI.first
+	end
   end
  
   ## Unit ######################################################################

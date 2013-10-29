@@ -26,7 +26,7 @@ module Dams
       							:hasAbbreviationVariant, :hasAcronymVariant, :hasExpansionVariant, :hasTranslationVariant 
       
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.Title]) if new?
+        check_type( graph, rdf_subject, MADS.Title )
         super
       end
 

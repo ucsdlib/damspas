@@ -200,6 +200,9 @@ en:
         more: 'more »'
         selected:
           remove: '[remove]'
+        description:
+          object_type_sim: "Choose from the following list of formats to view items found in the Digital Collections site. Formats span across different collections and topics.<br/>For more specifics on the definition of each format type, see FAQ."
+          subject_topic_sim: "The alphabetical list below consists of select topics assigned to items found in the Digital Collections site. Topics span across different collections and format types."
       filters:
         title: 'Showing results for:'
         label: '%{label}:'

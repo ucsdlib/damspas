@@ -3,7 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsProvenanceCollection
     extend ActiveSupport::Concern
-     include ModelHelper
+    include ModelHelper
     
     included do
       rdf_type DAMS.ProvenanceCollection
@@ -79,16 +79,22 @@ module Dams
      accepts_nested_attributes_for :language, allow_destroy: true
 
 
-     def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.ProvenanceCollection]) if new?
+      def serialize
+        check_type( graph, rdf_subject, DAMS.ProvenanceCollection )
         
         if(!@langURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.language, @langURI])
+          if(@langURI.class == Array)
+            @langURI.each do |lang|
+                  graph.insert([rdf_subject, DAMS.language, lang])
+              end
           else
-            graph.update([rdf_subject, DAMS.language, @langURI])
+                if new?
+                  graph.insert([rdf_subject, DAMS.language, @langURI])
+                else
+                  graph.update([rdf_subject, DAMS.language, @langURI])
+                end     
           end
-        end   
+      end    
         if(!@damsObjURI.nil?)
           if new?
             graph.insert([rdf_subject, DAMS.object, @damsObjURI])
@@ -117,15 +123,19 @@ module Dams
 
       def insertSubjectsGraph
         if(!@subURI.nil?)
-          if new?
-            @array_subject.each do |sub|
-              graph.insert([rdf_subject, DAMS.subject, sub])
-            end
-            #graph.insert([rdf_subject, DAMS.subject, @subURI])
+          if(@subURI.class == Array)
+            @subURI.each do |sub|
+                  graph.insert([rdf_subject, DAMS.complexSubject, sub])
+              end
           else
-            graph.update([rdf_subject, DAMS.subject, @subURI])
-          end
-        end    
+          if new?
+            graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
+          else
+            graph.update([rdf_subject, DAMS.complexSubject, @subURI])
+          end     
+        end       
+      end
+
         if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
           if new?
             graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])

@@ -22,9 +22,20 @@
 			end
 		end %>       
   </dl>
-  <% if can? :update, @mads_complex_subject %>
-    <%= link_to "Solr View", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>
-    <%= link_to "View All", mads_complex_subjects_path(), class: "btn btn-primary"%>
+
+  <input type="hidden" id="id" value="<%= @mads_complex_subject.id%>"/>
+  <input type="hidden" id="name" value="<%= @mads_complex_subject.name.first%>"/>
+  <br>
+  <% if(!params[:parent_id].nil?) %>
+  	<a href="#" onClick="javascript: setParentId_generic('<%= params[:parent_id]%>',true);">close</a>
   <% end %>
+  <% if(!params[:parent_class].nil?) %>
+  	<a href="#" onClick="javascript: setParentId_generic('<%= params[:parent_class]%>',false);">close</a>
+  <% end %> 
+    
+  <%# if can? :update, @mads_complex_subject %>
+    <%#= link_to "Solr View", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>
+    <%#= link_to "Edit", edit_mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>
+    <%#= link_to "View All", mads_complex_subjects_path(), class: "btn btn-primary"%>
+  <%# end %>
 </div>

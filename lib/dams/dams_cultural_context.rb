@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :culturalContextElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.CulturalContext]) if new?
+        check_type( graph, rdf_subject, DAMS.CulturalContext )
         super
       end
       delegate :culturalContextElement_attributes=, to: :elementList

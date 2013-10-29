@@ -1,4 +1,10 @@
 <%
+  # make sure locals are defined
+  type = nil unless local_assigns[:type]
+  label = nil unless local_assigns[:label]
+  exclude_type = [] unless local_assigns[:exclude_type]
+  exclude_label = [] unless local_assigns[:exclude_label]
+
   if defined?(componentIndex) # Then we're working with a component
     prefix = "component_#{componentIndex}_"
     htmlOpen = "<tr><td>%s</td><td>"
@@ -10,16 +16,25 @@
   end
 
   # parse notes
-  data = @document["#{prefix}note_json_tesim"]
-  data = data.collect { |d| JSON.parse(d) } if data != nil
-
-  # make sure notes are in the right order
   notes = []
+  data = @document["#{prefix}note_json_tesim"]
   if data != nil
-    # description, extent, then everything else
-    notes.concat( data.select { |n| n['type'] == 'description' } )
-    notes.concat( data.select { |n| n['type'] == 'extent' } )
-    notes.concat( data.select { |n| n['type'] != 'description' && n['type'] != 'extent' } )
+    data.each do |n|
+      note = JSON.parse(n)
+      note_type = note['type']
+      note_label = note['displayLabel']
+
+      # add notes if type/label match specification
+      if ( type == nil || type == note_type ) &&
+         ( label == nil || label == note_label ) &&
+         ( exclude_type == nil || !exclude_type.include?(note_type) ) &&
+         ( exclude_label == nil || !exclude_label.include?(note_label) )
+        logger.warn "XXX note: #{note_type}.#{note_label}"
+        notes << note
+      else
+        logger.warn "XXX excluded note: #{note_type}.#{note_label} != #{type}.#{label}"
+      end
+    end
   end
 
   if notes.count > 0
