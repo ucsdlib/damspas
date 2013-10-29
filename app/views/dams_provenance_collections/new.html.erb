@@ -11,8 +11,6 @@ $(document).ready(function() {
 <%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_");'} do |f| %>
    
 
-  
-
 <%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
 
@@ -32,15 +30,15 @@ $(document).ready(function() {
 
    <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
   
-  <!--complex_subjects_form partial not working with provenanceCollectionForm -->
-  <!--<%#= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%> -->
+  
+  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%> 
        
  <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
     
 <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
 <!--relationship partial doesn't work with collection forms -->
-<!--<%#= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>-->
+<%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
