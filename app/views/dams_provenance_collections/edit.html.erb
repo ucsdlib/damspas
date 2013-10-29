@@ -1,22 +1,24 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Provenance Collection Object</h1>
 <div class="dams-viewer">
-<%= form_for @dams_provenance_collection do |f| %>  
-  
-<h3>Provenance Collection Part</h3>
+<!--<%#= form_for @dams_provenance_collection do |f| %>-->
 
-  <%= label_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', "Provenance Collection Part" %> 
-  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part"%>
-   
- <%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+<%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_");' }  do |f| %>   
+  
+<%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+
+ <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
-  <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+   <h3>Provenance Collection Part</h3>
+   <%= label_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', "Provenance Collection Part" %> 
+   <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select( @dams_provenance_collection_parts, :selected => @provenance_collection_part_id), :prompt=>"Select Provenance Collection Part"%>
 
-  <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>      
   
-  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+<%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>      
+  
+  <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>
     
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "note", :f => f}%>
 
@@ -26,16 +28,14 @@
 
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "preferredCitationNote", :f => f}%>
 
-  
-  
-  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%> 
-
   <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%> 
  
   <%= render :partial => 'shared/edit_fields/creator_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
-     
-  
 
+  <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+     
   <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
       
   <br>
@@ -43,9 +43,5 @@
   <%= link_to "Cancel", dams_provenance_collection_path(@dams_provenance_collection),  class: "btn btn-primary" %> 
 <%end%>
 
-<h2>Add File</h2>
-<%= form_for(@dams_provenance_collection, :url => upload_path(@dams_provenance_collection.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
-    <input type="file" name="file"/>
-    <%=f.submit "Add File", class: "btn btn-primary" %>
-<% end %>
+
 </div>

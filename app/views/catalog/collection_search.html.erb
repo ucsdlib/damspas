@@ -4,9 +4,9 @@
   </div>
   <div id="content" class="span9">
     <% @page_title = 'Browse By Collection' %>
-    <% if !@current_unit.blank? %>
-      <h1><%= @current_unit %></h1>
-    <% end %>
+    <h3>
+    Browse by Collection<%if !@current_unit.blank?%>: <%=@current_unit%><%end%>
+    </h3>
 
     <div class="alert alert-info">
       Current collections are listed below.  Click on the image or link below to see the complete collection description.

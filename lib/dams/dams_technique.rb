@@ -15,7 +15,7 @@ module Dams
       end      
       accepts_nested_attributes_for :techniqueElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.Technique]) if new?
+        check_type( graph, rdf_subject, DAMS.Technique )
         super
       end
       delegate :techniqueElement_attributes=, to: :elementList

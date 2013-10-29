@@ -55,7 +55,7 @@ function processForm_generic(objType) {
     var fieldId = "";
     for (var j in attributesArray) {
       fieldId = objType+attributesArray[j]+"_attributes_0_id";
-      if($(fieldId).val().length < 1) {
+      if($(fieldId).val() != null && $(fieldId).val().length < 1) {
         $(fieldId).remove();
     }     
     }   
@@ -64,7 +64,7 @@ function processForm_generic(objType) {
     fieldId = "";
     for (var i in subjectsArray) {
       fieldId = objType+subjectsArray[i].charAt(0).toLowerCase()+subjectsArray[i].slice(1)+"_attributes_0_name";
-      if($(fieldId).val().length < 1) {
+      if($(fieldId).val() != null && $(fieldId).val().length < 1) {
         $("#"+subjectsArray[i]).remove();
     }     
     }
@@ -73,126 +73,54 @@ function processForm_generic(objType) {
     fieldId = "";
     for (var i in relNamesArray) {
       fieldId = objType+"relationship_attributes_0_"+relNamesArray[i].charAt(0).toLowerCase()+relNamesArray[i].slice(1)+"_attributes_0_id";
-      if($(fieldId).val().length < 1) {
+      if($(fieldId).val() != null && $(fieldId).val().length < 1) {
         $("#relationship"+relNamesArray[i]).remove();
-    }     
+      }     
     }
                                    
-    if($(objType+"date_attributes_0_value").val().length < 1)
+    if($(objType+"date_attributes_0_value").val() != null && $(objType+"date_attributes_0_value").val().length < 1)
     {
       $("#dateSection").remove();
     }
     
-    if($(objType+"note_attributes_0_value").val().length < 1)
+    if($(objType+"note_attributes_0_value").val() != null && $(objType+"note_attributes_0_value").val().length < 1)
     {
       $("#noteSection").remove();
     }
 
-    if($(objType+"scopeContentNote_attributes_0_value").val().length < 1)
+    if($(objType+"scopeContentNote_attributes_0_value").val() != null && $(objType+"scopeContentNote_attributes_0_value").val().length < 1)
     {
       $("#scopeNoteSection").remove();
     }
     
-    if($(objType+"custodialResponsibilityNote_attributes_0_value").val().length < 1)
+    if($(objType+"custodialResponsibilityNote_attributes_0_value").val() != null && $(objType+"custodialResponsibilityNote_attributes_0_value").val().length < 1)
     {
       $("#custodialNoteSection").remove();
     }
     
-    if($(objType+"preferredCitationNote_attributes_0_value").val().length < 1)
+    if($(objType+"preferredCitationNote_attributes_0_value").val() != null && $(objType+"preferredCitationNote_attributes_0_value").val().length < 1)
     {
       $("#preferredNoteSection").remove();
     }    
 
-    if($(objType+"relatedResource_attributes_0_description").val().length < 1 && $(objType+"relatedResource_attributes_0_type").val().length < 1 )
+    if($(objType+"relatedResource_attributes_0_description").val() != null && $(objType+"relatedResource_attributes_0_type").val() != null && 
+    	$(objType+"relatedResource_attributes_0_description").val().length < 1 && $(objType+"relatedResource_attributes_0_type").val().length < 1 )
     {
       $("#relatedResourceSection").remove();
     }
     
-    
+    if($(objType+"cartographics_attributes_0_point").val() != null && $(objType+"cartographics_attributes_0_line").val() != null && 
+    	$(objType+"cartographics_attributes_0_point").val().length < 1 && $(objType+"cartographics_attributes_0_line").val().length < 1)
+    {
+      $("#cartographicsSection").remove();
+    }    
 
-    if($(objType+"relationship_attributes_0_role_attributes_0_id").val().length < 1)
+    if($(objType+"relationship_attributes_0_role_attributes_0_id").val() != null && $(objType+"relationship_attributes_0_role_attributes_0_id").val().length < 1)
     {
       $(objType+"relationship_attributes_0_role_attributes_0_id").remove();
     }
     
-    if($(objType+"language_attributes_0_name").val().length < 1)
-    {
-      $("#newLanguage").remove();
-    }                  
-    return true; 
-}
-
-
-
-function processForm() {
-    var attributesArray =new Array("assembledCollection","provenanceCollection","provenanceCollectionPart","complexSubject","statute","license","copyright","language","unit","rightsHolderPersonal");
-    var fieldId = "";
-    for (var j in attributesArray) {
-      fieldId = "#dams_object_"+attributesArray[j]+"_attributes_0_id";
-      if($(fieldId).val().length < 1) {
-        $(fieldId).remove();
-    }     
-    }   
-  
-    var subjectsArray =new Array("BuiltWorkPlace","CulturalContext","Function","GenreForm","Geographic","Iconography","Occupation","ScientificName","StylePeriod","Technique","Temporal","Topic","Name","PersonalName","CorporateName","ConferenceName","FamilyName");
-    fieldId = "";
-    for (var i in subjectsArray) {
-      fieldId = "#dams_object_"+subjectsArray[i].charAt(0).toLowerCase()+subjectsArray[i].slice(1)+"_attributes_0_name";
-      if($(fieldId).val().length < 1) {
-        $("#"+subjectsArray[i]).remove();
-    }     
-    }
-
-    var relNamesArray =new Array("Name","PersonalName","CorporateName","ConferenceName","FamilyName");
-    fieldId = "";
-    for (var i in relNamesArray) {
-      fieldId = "#dams_object_relationship_attributes_0_"+relNamesArray[i].charAt(0).toLowerCase()+relNamesArray[i].slice(1)+"_attributes_0_id";
-      if($(fieldId).val().length < 1) {
-        $("#relationship"+relNamesArray[i]).remove();
-    }     
-    }
-                                   
-    if($("#dams_object_date_attributes_0_value").val().length < 1)
-    {
-      $("#dateSection").remove();
-    }
-    
-    if($("#dams_object_note_attributes_0_value").val().length < 1)
-    {
-      $("#noteSection").remove();
-    }
-
-    if($("#dams_object_scopeContentNote_attributes_0_value").val().length < 1)
-    {
-      $("#scopeNoteSection").remove();
-    }
-    
-    if($("#dams_object_custodialResponsibilityNote_attributes_0_value").val().length < 1)
-    {
-      $("#custodialNoteSection").remove();
-    }
-    
-    if($("#dams_object_preferredCitationNote_attributes_0_value").val().length < 1)
-    {
-      $("#preferredNoteSection").remove();
-    }    
-
-    if($("#dams_object_relatedResource_attributes_0_description").val().length < 1 && $("#dams_object_relatedResource_attributes_0_type").val().length < 1 )
-    {
-      $("#relatedResourceSection").remove();
-    }
-    
-    if($("#dams_object_cartographics_attributes_0_point").val().length < 1 && $("#dams_object_cartographics_attributes_0_line").val().length < 1)
-    {
-      $("#cartographicsSection").remove();
-    }
-
-    if($("#dams_object_relationship_attributes_0_role_attributes_0_id").val().length < 1)
-    {
-      $("#dams_object_relationship_attributes_0_role_attributes_0_id").remove();
-    }
-    
-    if($("#dams_object_language_attributes_0_name").val().length < 1)
+    if($(objType+"language_attributes_0_name").val() != null && $(objType+"language_attributes_0_name").val().length < 1)
     {
       $("#newLanguage").remove();
     }                  
@@ -207,36 +135,20 @@ function setLanguageId_generic(objType) {
   });
 }
 
-function setLanguageId() {
-  $.get(baseURL+"/get_ark/get_ark",function(data,status){
-    var ark = "http://library.ucsd.edu/ark:/20775/"+data;
-    $("#dams_object_language_attributes_0_id").val(ark.trim());
-    $("#newLanguageLink").remove();
-  });
-}
-
 function remove_fields(link) {
-  //$(link).prev("input[type=hidden]").val("1");
-  //$(link).closest(".fields").hide();
   $(link).closest(".fields").remove();
 }
 
 function add_fields(link, association, content) {
-  /*$.get(baseURL+"/get_ark/get_ark",function(data,status){
-    var id = "http://library.ucsd.edu/ark:/20775/"+data;
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
-    content = content.replace("__DO_NOT_USE__", id.trim());
-    $(link).parent().before(content.replace(regexp, new_id));
-  });*/
-    var new_id = new Date().getTime();
-    var regexp = new RegExp("new_" + association, "g");
+    content = content.replace("newClassName",new_id);
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
 function target_popup(target) {
-  var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0');
-  win.resizeTo(550,600);
+  var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0,scrollbars=yes');
+  win.resizeTo(550,650);
 }
 
 function closeAndSetId_generic(objType) {
@@ -248,8 +160,13 @@ function closeAndSetId_generic(objType) {
   self.close();
 }
 
-function closeAndSetId() {
-  var target=window.opener.document.getElementById('dams_object_language_attributes_0_id');    
+function setParentId_generic(parent_id, isId) {
+  var target = "";
+  if(isId == true) {  
+  	target=window.opener.document.getElementById(parent_id);
+  } else {
+    target=window.opener.document.getElementsByClassName(parent_id)[0];
+  }
   var optionName = new Option(document.getElementById('name').value, 'http://library.ucsd.edu/ark:/20775/'+document.getElementById('id').value);    
   var targetlength = target.length;    
   target.options[targetlength] = optionName; 
@@ -263,22 +180,16 @@ function checkOption_generic(objType) {
   }
 }
 
-function checkOption() {
-  if( $("#dams_object_language_attributes_0_id").val().indexOf("createNewLanguage") >= 0 ) {
-    target_popup(baseURL.replace("get_data","")+"mads_languages/new");
-  }
+function checkOption(id,isId,type) {  
+  if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
+  } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
+    target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
+  }  
 }
 
 function loadCreateNewObjectOption_generic(objType) {
   var target=window.document.getElementById(objType+'language_attributes_0_id');    
-  var optionName = new Option('Create New Language','createNewLanguage');    
-  var targetlength = target.length;    
-  target.options[targetlength] = optionName;
-}
-
-
-function loadCreateNewObjectOption() {
-  var target=window.document.getElementById('dams_object_language_attributes_0_id');    
   var optionName = new Option('Create New Language','createNewLanguage');    
   var targetlength = target.length;    
   target.options[targetlength] = optionName;

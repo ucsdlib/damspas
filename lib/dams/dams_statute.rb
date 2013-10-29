@@ -3,6 +3,7 @@ require 'active_support/concern'
 module Dams
   module DamsStatute
     extend ActiveSupport::Concern
+    include ModelHelper
     included do
       rdf_type DAMS.Statute
       map_predicates do |map|
@@ -16,7 +17,7 @@ module Dams
       accepts_nested_attributes_for :restriction_node, :permission_node
       
       def serialize
-        graph.insert([rdf_subject, RDF.type, DAMS.Statute]) if new?
+        check_type( graph, rdf_subject, DAMS.Statute )
         super
       end
 

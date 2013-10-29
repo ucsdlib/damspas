@@ -1,2 +1,21 @@
 <h3>Language</h3>
-<%= select_tag "#{object_type}[languageURI][]", options_for_select(@mads_languages, :selected => @language_id) , :prompt=>"Select Language", required: true%>
+<% language =object.language
+	i = 0
+	if language != nil
+		while i < language.size  do
+%>
+			<div class="fields">
+				<br/>
+				<%= select_tag "#{object_type}[languageURI][]", options_for_select(@mads_languages, :selected => "#{Rails.configuration.id_namespace}#{language[i].pid}") , :prompt=>"Select Language", required: true, :class=>"languageClass#{i}", :onChange=>"javascript: checkOption(this.className,false,'mads_languages');"%>
+				<br/>
+				<% if i > 0%>
+    			<%= link_to_remove_fields "Remove Language", f %>
+    			<% end %>					
+			</div>					
+<%			
+			i +=1		
+		end
+    end
+%> 
+
+<p><%= link_to_add_edit_fields "Add Language", f, :language, "#{object_type}"%></p>

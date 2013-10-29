@@ -1,14 +1,8 @@
-<div class="fields">	    
-  	<%= f.label :name, "Name" %>
-    <%= f.text_field :name , :value => "", required: true, :onClick=>"javascript: setLanguageId();", class: "input-block-level" %>    
-    <%= f.label :code, "Code" %>
-    <%= f.text_field :code, :value => "", class: "input-block-level" %>
-    <%= f.label :externalAuthority, "ExternalAuthority" %>
-    <%= f.text_field :externalAuthority, :value => "", class: "input-block-level" %>
-	  <%#= f.fields_for :scheme do |se| %>
-	    <%#= se.label :id, "Scheme" %>
-	    <%#= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
-	  <%# end %>	    
-    <%= f.hidden_field :id %>
-    <%= link_to_remove_fields "Remove Language", f %>
+<div class="fields">
+    <br/>
+	<%= f.select :id, options_for_select(@mads_languages, :selected => "#{Rails.configuration.id_namespace}#{@language_id}") , {:include_blank => 'Select Language'}, :required => "true", :onChange=>"javascript: checkOption(this.id,true,'mads_languages');"%>    
+    <br/>
+    <% if !@language_id.nil? && @language_id.length > 0 %>
+    	<%= link_to_remove_fields "Remove Language", f %>
+    <% end %>
 </div>

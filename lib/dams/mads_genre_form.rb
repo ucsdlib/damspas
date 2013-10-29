@@ -14,7 +14,7 @@ module Dams
       end      
       accepts_nested_attributes_for :genreFormElement, :scheme
       def serialize
-        graph.insert([rdf_subject, RDF.type, MADS.GenreForm]) if new?
+        check_type( graph, rdf_subject, MADS.GenreForm )
         super
       end
       delegate :genreFormElement_attributes=, to: :elementList

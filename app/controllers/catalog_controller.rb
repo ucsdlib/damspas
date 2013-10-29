@@ -299,6 +299,13 @@ class CatalogController < ApplicationController
     # sort by title
     params[:sort] = 'title_ssi asc' unless params[:sort]
     (@response, @document_list) = get_search_results params
+
+    # update session
+    search = { :controller => "catalog", :action => "collection_search" }
+    search[:f] = params[:f]
+    search[:fq] = params[:fq] if params[:fq]
+    search[:total] = @response.response['numFound']
+    session[:search] = search
   end
 
   def raw_solr( params={} )

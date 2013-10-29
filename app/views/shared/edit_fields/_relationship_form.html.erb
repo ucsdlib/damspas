@@ -2,7 +2,7 @@
   <%
      nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag 'dams_object[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: displayRelationshipName(this.value);"%>
+  <%= select_tag "#{object_type}[relationshipNameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: displayRelationshipName(this.value);"%>
   <br>
 
   <%= f.fields_for :relationship do |rel| %>

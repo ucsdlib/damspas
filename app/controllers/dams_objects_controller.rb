@@ -137,10 +137,12 @@ class DamsObjectsController < ApplicationController
 
                         
   	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+  	@mads_complex_subjects << "Create New Complex Subject"
   	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
   	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+  	@mads_languages << "Create New Language"
   	@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
   	@dams_copyrights = get_objects_url('DamsCopyright','status_tesim')
   	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')
@@ -168,14 +170,16 @@ class DamsObjectsController < ApplicationController
   
   def edit
     @dams_object = DamsObject.find(params[:id])
-	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
-	#@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+	#@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+	@mads_complex_subjects << "Create New Complex Subject"
 	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
 	@provenance_collection_part_id = @dams_object.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.provenanceCollectionPart.nil?
 	@dams_units = get_objects('DamsUnit','unit_name_tesim')
   	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
   	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
-  	@mads_languages =  get_objects('MadsLanguage','name_tesim')
+  	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+  	@mads_languages << "Create New Language"
   	@mads_authorities = get_objects('MadsAuthority','name_tesim')
   	@dams_copyrights = get_objects('DamsCopyright','status_tesim')
   	@dams_statutes = get_objects('DamsStatute','citation_tesim')
@@ -236,10 +240,15 @@ class DamsObjectsController < ApplicationController
   end
   
   def create    	    
-  	if @dams_object.save 		
-		#index_links(@dams_object)
-  		redirect_to @dams_object, notice: "Object has been saved"
-  		#redirect_to edit_dams_object_path(@dams_object), notice: "Object has been saved"
+  	if @dams_object.save 
+        flash[:notice] = "Object has been saved"
+        # check for file upload
+        if params[:file]
+          file_status = attach_file( @dams_object, params[:file] )
+          flash[:alert] = file_status[:alert] if file_status[:alert]
+          flash[:deriv] = file_status[:deriv] if file_status[:deriv]
+        end
+  		redirect_to @dams_object
     else
       flash[:alert] = "Unable to save object"
       render :new
@@ -282,10 +291,10 @@ class DamsObjectsController < ApplicationController
     @dams_object.license.clear  
     @dams_object.statute.clear
     #@dams_object.otherRights.clear
-                  	
+
     @dams_object.attributes = params[:dams_object]
   	if @dams_object.save
-  		redirect_to @dams_object, notice: "Successfully updated object" 	
+  		redirect_to @dams_object, notice: "Successfully updated object"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Successfully updated object"	
     else
       flash[:alert] = "Unable to save object"

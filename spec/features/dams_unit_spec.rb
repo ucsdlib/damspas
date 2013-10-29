@@ -16,7 +16,7 @@ feature 'Visitor wants to look at units' do
     sign_in_developer
     visit dams_units_path
 
-    fill_in 'Search...', :with => "sample", :match => :prefer_exact
+    fill_in 'Search...', :with => "Sample Complex Object Record #3", :match => :prefer_exact
     click_on('search-button')
 
     expect(page).to have_content('Search Results')
@@ -93,7 +93,7 @@ end
 feature "Visitor wants to view the unit's collections" do
   scenario 'an anonymous user' do
     visit dams_unit_collections_path('dlp')
-    expect(page).to have_selector('h1','Library Digital Collections')
+    expect(page).to have_selector('h3','Browse by Collection: Library Digital Collections')
     expect(page).to have_selector('a', :text => 'UCSD Electronic Theses and Dissertations')
     expect(page).to have_selector('li', :text => 'Linked scope content note')
   end

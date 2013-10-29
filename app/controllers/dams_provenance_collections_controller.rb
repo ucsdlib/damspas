@@ -5,7 +5,7 @@ class DamsProvenanceCollectionsController < ApplicationController
    include Blacklight::Catalog
   include Dams::ControllerHelper
   load_and_authorize_resource
-  skip_authorize_resource :only => :index
+  skip_authorize_resource :only =>[:show, :index]
 
   
 
@@ -50,7 +50,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.title.first.hasExpansionVariant.build
     @dams_provenance_collection.date.build
     @dams_provenance_collection.language.build
-    #@dams_provenance_collection.language.first.scheme.build
+    
     @dams_provenance_collection.note.build
     @dams_provenance_collection.scopeContentNote.build
     @dams_provenance_collection.custodialResponsibilityNote.build
@@ -91,6 +91,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
     @dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
+    @mads_languages << "Create New Language"
     @mads_authorities = get_objects_url('MadsAuthority','name_tesim')
     @dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
     @dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
@@ -120,6 +121,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
     @mads_languages =  get_objects('MadsLanguage','name_tesim')
+    @mads_languages << "Create New Language"
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
@@ -137,7 +139,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @simple_subject_type = get_simple_subject_type(@dams_provenance_collection)  
     @dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
     @simpleSubject_id = get_simple_subject_id(@dams_provenance_collection)
-    @complexSubject_id = @dams_provenance_collection.subject.to_s.gsub(/.*\//,'')[0..9] if !@dams_provenance_collection.subject.nil?
+    @complexSubject_id = @dams_provenance_collection.complexSubject.to_s.gsub(/.*\//,'')[0..9] if !@dams_provenance_collection.complexSubject.nil?
     @simpleSubjectValue = get_simple_subject_value(@dams_provenance_collection)
 
 
@@ -169,7 +171,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     end
   end
 
-  
+
 
   def update
     @dams_provenance_collection.title.clear
@@ -180,7 +182,6 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.custodialResponsibilityNote.clear
     @dams_provenance_collection.preferredCitationNote.clear
     @dams_provenance_collection.relatedResource.clear
-   
     @dams_provenance_collection.complexSubject.clear
     @dams_provenance_collection.builtWorkPlace.clear
     @dams_provenance_collection.culturalContext.clear

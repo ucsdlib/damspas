@@ -86,7 +86,8 @@ module Dams
 	  }
 	  
 	  def serialize
-	    graph.insert([rdf_subject, RDF.type, DAMS.Object]) if new?
+        check_type( graph, rdf_subject, DAMS.Object )
+
 		if(!@unitURI.nil?)
 	      if new?
 	        graph.insert([rdf_subject, DAMS.unit, @unitURI])
@@ -95,11 +96,17 @@ module Dams
 	      end
 	    end      
 		if(!@langURI.nil?)
-	      if new?
-	        graph.insert([rdf_subject, DAMS.language, @langURI])
-	      else
-	        graph.update([rdf_subject, DAMS.language, @langURI])
-	      end
+			if(@langURI.class == Array)
+				@langURI.each do |lang|
+			        graph.insert([rdf_subject, DAMS.language, lang])
+			    end
+			else
+			      if new?
+			        graph.insert([rdf_subject, DAMS.language, @langURI])
+			      else
+			        graph.update([rdf_subject, DAMS.language, @langURI])
+			      end			
+			end
 	    end    
 		if(!@assembledCollURI.nil?)
 	      if new?
@@ -168,15 +175,19 @@ module Dams
 	  
 	  def insertSubjectsGraph
 	    if(!@subURI.nil?)
-	      if new?
-	        @array_subject.each do |sub|
-	        	graph.insert([rdf_subject, DAMS.complexSubject, sub])
-	        end
-	        #graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
-	      else
-	        graph.update([rdf_subject, DAMS.complexSubject, @subURI])
-	      end
-	    end    
+			if(@subURI.class == Array)
+				@subURI.each do |sub|
+			        graph.insert([rdf_subject, DAMS.complexSubject, sub])
+			    end
+			else
+		      if new?
+		        graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
+		      else
+		        graph.update([rdf_subject, DAMS.complexSubject, @subURI])
+		      end			
+			end	      
+	    end
+	        
 		if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
 	      if new?
 	        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])

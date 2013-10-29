@@ -2,7 +2,10 @@
 	@page_title =  "Object | #{grabTitle}"
 %>
 
-
+<% @ds = flash[:deriv] %>
+<% if @ds != nil %>
+  <%= button_to( "Generate Derivatives", deriv_path( @document['id'], @ds ), remote: true, data: {disable_with: 'Generating...'}, form: {id: "generate_derivatives"}, class: 'btn' ) %>
+<% end %>
 
 <div class="row-fluid">
   <div id="content" class="show-document span9">
@@ -16,7 +19,7 @@
 
 		<div class="row-fluid">
 			<section class="dams-metadata span12">
-				<%= render :partial => 'metadata' %>
+				<%= render :partial => 'shared/fields/show' %>
 			</section>
 		</div>
 
