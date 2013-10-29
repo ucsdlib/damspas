@@ -1,0 +1,6 @@
+<div class="fields">
+	<br/>
+	<%= select_tag "#{object_type}[subjectURI][]", options_for_select(@mads_complex_subjects) , :prompt=>"Select Subject", :class=>"newClassName", :onChange=>"javascript: checkOption(this.className,false,'mads_complex_subjects');"%>
+	<br/>
+	<%= link_to_remove_fields "Remove Complex Subject", f%>			
+</div>

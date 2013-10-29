@@ -140,7 +140,7 @@ function remove_fields(link) {
 function add_fields(link, association, content) {
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
-    content = content.replace("languageClassNew",new_id);
+    content = content.replace("newClassName",new_id);
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
