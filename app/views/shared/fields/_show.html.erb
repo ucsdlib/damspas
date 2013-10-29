@@ -12,11 +12,21 @@
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'tableOfContents'} %>
     <%= render :partial => 'shared/fields/note', :locals => {:exclude_type => ['performers','extent','abstract','tableOfContents','identifier','existence and location of originals','general physical description','dimensions','digitalOrigin'], :exclude_label => ['Digital object made available by'] } %>
     <%= render :partial => 'shared/fields/resource_type' %>
+    <%= render :partial => 'shared/fields/language' %>
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'ARK'} %>
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'ARK ID'} %>
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'existence and location of originals'} %>
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'negative'} %>
+    <% if can? :update, @document %>
+      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :exclude_label => ['ARK','ARK ID','negative','filename','local','roger','oclc']} %>
+      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'filename'} %>
+      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'local'} %>
+      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'roger'} %>
+      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'oclc'} %>
+    <% end %>
+
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'general physical description'} %>
+    <%= render :partial => 'shared/fields/note', :locals => {:type => 'physical description'} %>
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'dimensions'} %>
 
     <%= render :partial => 'shared/fields/conference_name' %>
@@ -39,30 +49,22 @@
 
     <%= render :partial => 'shared/fields/collection' %>
     <%= render :partial => 'shared/fields/related_resource' %>
+    <%= render :partial => 'shared/fields/custodial_responsibility_note' %>
     <%= render :partial => 'shared/fields/note', :locals => {:label => 'Digital object made available by'} %>
     <%= render :partial => 'shared/fields/preferred_citation_note' %>
     <%= render :partial => 'shared/fields/copyright' %>
+    <% if can? :update, @document %>
+      <%= render :partial => 'shared/fields/license' %>
+      <%= render :partial => 'shared/fields/statute' %>
+      <%= render :partial => 'shared/fields/other_rights' %>
+      <%= render :partial => 'shared/fields/rights_holder' %>
+    <% end %>
+
     <%= render :partial => 'shared/fields/note', :locals => {:type => 'digitalOrigin'} %>
     <%= render :partial => 'shared/fields/unit' %>
 
-    <!-- curator-only -->
     <% if can? :update, @document %>
-      <p>Curator-Only</p>
-      <!-- internalOnly -->
-      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :exclude_label => ['ARK','ARK ID','negative','filename','local','roger','oclc']} %>
-      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'filename'} %>
-      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'local'} %>
-      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'roger'} %>
-      <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'oclc'} %>
+      <p>dams:note internalOnly=yes placeholder</p>
     <% end %>
-
-    <!-- not displayed -->
-    <p>Not Specified</p>
-    <%= render :partial => 'shared/fields/language' %>
-    <%= render :partial => 'shared/fields/custodial_responsibility_note' %>
-    <%= render :partial => 'shared/fields/license' %>
-    <%= render :partial => 'shared/fields/statute' %>
-    <%= render :partial => 'shared/fields/other_rights' %>
-    <%= render :partial => 'shared/fields/rights_holder' %>
   </dl>
 </section>
