@@ -7,7 +7,7 @@ module Dams
     
     included do
       rdf_type DAMS.ProvenanceCollection
-      rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+      
 
        map_predicates do |map|
         map.title(:in => DAMS, :to => 'title', :class_name => 'MadsTitle')
@@ -78,7 +78,8 @@ module Dams
       accepts_nested_attributes_for :note, allow_destroy: true
      accepts_nested_attributes_for :language, allow_destroy: true
 
-
+    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+    
       def serialize
         check_type( graph, rdf_subject, DAMS.ProvenanceCollection )
         
