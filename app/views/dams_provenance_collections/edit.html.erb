@@ -1,7 +1,9 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Provenance Collection Object</h1>
 <div class="dams-viewer">
-<%= form_for @dams_provenance_collection do |f| %>  
+<!--<%#= form_for @dams_provenance_collection do |f| %>-->
+
+<%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_");' }  do |f| %>   
   
 <%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
@@ -27,6 +29,8 @@
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "preferredCitationNote", :f => f}%>
 
   <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%> 
  
   <%= render :partial => 'shared/edit_fields/creator_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
      
