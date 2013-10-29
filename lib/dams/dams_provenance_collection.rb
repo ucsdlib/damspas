@@ -83,12 +83,18 @@ module Dams
         check_type( graph, rdf_subject, DAMS.ProvenanceCollection )
         
         if(!@langURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.language, @langURI])
+          if(@langURI.class == Array)
+            @langURI.each do |lang|
+                  graph.insert([rdf_subject, DAMS.language, lang])
+              end
           else
-            graph.update([rdf_subject, DAMS.language, @langURI])
+                if new?
+                  graph.insert([rdf_subject, DAMS.language, @langURI])
+                else
+                  graph.update([rdf_subject, DAMS.language, @langURI])
+                end     
           end
-        end   
+      end    
         if(!@damsObjURI.nil?)
           if new?
             graph.insert([rdf_subject, DAMS.object, @damsObjURI])
