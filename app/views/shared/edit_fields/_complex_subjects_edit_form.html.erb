@@ -1,2 +1,22 @@
 <h3>Complex Subject</h3>
-<%= select_tag "#{object_type}[subjectURI][]", options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select Subject"%>
+<%#= select_tag "#{object_type}[subjectURI][]", options_for_select(@mads_complex_subjects, :selected => @complexSubject_id), :prompt=>"Select Subject"%>
+<% complexSubject =object.complexSubject
+	i = 0
+	if complexSubject != nil
+		while i < complexSubject.size  do
+%>
+			<div class="fields">
+				<br/>
+				<%= select_tag "#{object_type}[subjectURI][]", options_for_select(@mads_complex_subjects, :selected => "#{Rails.configuration.id_namespace}#{complexSubject[i].pid}") , :prompt=>"Select Subject", required: true, :class=>"complexSubjectClass#{i}", :onChange=>"javascript: checkOption(this.className,false,'mads_complex_subjects');"%>
+				<br/>
+				<% if i > 0%>
+    			<%= link_to_remove_fields "Remove Complex Subject", f %>
+    			<% end %>					
+			</div>					
+<%			
+			i +=1		
+		end
+    end
+%> 
+
+<p><%= link_to_add_edit_fields "Add Complex Subject", f, :complexSubject, "#{object_type}"%></p>
