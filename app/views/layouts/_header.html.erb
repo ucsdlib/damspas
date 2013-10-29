@@ -24,8 +24,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Browse By <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><%= link_to 'Collection', dams_collections_path %></li>
-              <li><%= link_to 'Format', catalog_facet_path("object_type_sim") %></li>
-              <li><%= link_to 'Topic', catalog_facet_path("subject_topic_sim") %></li>
+              <li><%= link_to 'Format', catalog_facet_path("object_type_sim", :'facet.sort' => 'index') %></li>
+              <li><%= link_to 'Topic', catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index') %></li>
             </ul>
           </li>
 

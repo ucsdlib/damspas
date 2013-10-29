@@ -4,8 +4,7 @@
 #home-01{position:relative;height:640px;background-position: center center;}
 #home-02{background:#399dc8 url("home-page/bg-grid.png") no-repeat center top;text-align:center;border-top:1px solid #1f556d;padding:20px;}
 #home-02,#home-02 a{color:#fff;}
-#home-02 h2{margin:0;font-family:"Questrial";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;
-width:80%;margin:0 auto;}
+#home-02 h2{margin:0;font-family:"Questrial";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
 #home-02 h3{margin:20px;font-weight: normal;font-size:1.9em;line-height:normal;}
 #dc-logo{display:block;margin: 0 auto;padding-top:100px;}
 #dc-search-box{padding-top:50px;margin:0;}
@@ -35,10 +34,8 @@ width:80%;margin:0 auto;}
 .category p{font-size:1.25em;margin:20px 20%;line-height:normal;}
 .cat-library{background:#f39d3d url("home-page/logo-library.png") center center no-repeat;}
 .cat-rci{background:#f39d3d url("home-page/logo-rci.png") center center no-repeat;}
-.invitation{font-family:"Questrial";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;
-width:80%;
-}
-.visually-hidden{border: 0 none;clip: rect(0px, 0px, 0px, 0px);height: 1px;margin: -1px;overflow: hidden;padding:0;position:absolute;width: 1px;}
+.invitation{font-family:"Questrial";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
+.visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
 /* RWD */
@@ -52,11 +49,10 @@ footer{margin-top:0;}
 {
     #home-01{background-color:#666;position:relative;height:480px;}
     #home-02 h2{font-size:1.25em;}
-
     #home-02 h2,.invitation{width:100%;}
-    .category a{width:140px;border-radius:140px;height:140px;}
     #home-02 h3{font-size:1.75em;margin:20px 0;}
     .category p{font-size:1.15em;margin:20px 0;}
+    .category a{width:140px;border-radius:140px;height:140px;}
     .cat-library, .cat-rci{background-size:66%,66%;}
     .invitation{padding:0;}
 }
