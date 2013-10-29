@@ -32,8 +32,8 @@ $(document).ready(function() {
 
    <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
   
-  <!--complex_subjects_form partial not working with provenanceCollectionForm -->
-  <!--<%#= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%> -->
+  
+  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%> 
        
  <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
     
