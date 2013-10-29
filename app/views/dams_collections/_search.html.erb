@@ -1,9 +1,18 @@
-<%= form_tag catalog_index_url, :method => :get, :class => 'form-search' do %>
-    <input type="hidden" name="f[collection_sim][]" value="<%=@collection_title%>"/>
-  <label class="hide-text" for="q">Search this collection</label>
-  <input type="text" placeholder="Search this collection" name="q" id="q" class="input-medium search-query">
-  <button class="btn btn-inverse" type="submit" id="search-button">
-    <i class="icon-search icon-white"></i>
-  </button>
+<div class="input-append">
+<%= form_tag catalog_index_url, :method => :get do %>
+	<input type="hidden" name="f[collection_sim][]" value="<%=@collection_title%>"/>
+	<input type="text" placeholder="Search collection..." name="q" id="q">
+	<button class="btn btn-primary" type="submit" id="">
+		<i class="icon-search icon-white"></i>
+	</button>
 <% end %>
-<%= link_to "<i class='icon-search icon-white'></i> View items in this collection".html_safe, facet_uri(@collection_title,'collection_sim'), :class => "btn btn-block btn-inverse" %>
+</div>
+
+<p class="sidebar-header"><b>Collection Tools</b></p>
+<ul class="unstyled sidebar-button-list">
+	<li><%= link_to "<i class='icon-eye-open'></i> View items in this collection".html_safe, facet_uri(@collection_title,'collection_sim'), :class => 'btn btn-link' %></li>
+  <% if can? :update, @document then %>
+		<li><%= link_to "<i class='icon-eye-open'></i> View RDF document".html_safe, normalized_rdf_path(@document['id']), class: 'btn btn-link' %>
+  <% end %>
+
+</ul>
