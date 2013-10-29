@@ -1,0 +1,23 @@
+<section class="pull-right search-bar clearfix visible-desktop">
+  <%= form_tag catalog_index_url, :method => :get, :class => 'form-search pull-right' do %>
+    <% if @current_unit != nil %>
+      <input type="hidden" name="f[unit_sim][]" value="<%=@current_unit.first%>"/>
+    <% end %>
+    <label class="hide-text" for="q">Search</label>
+    <input type="text" placeholder="Search" name="q" id="q" class="input-medium search-query">
+    <button class="btn btn-inverse" type="submit" id="search-button">
+      <i class="icon-search icon-white"></i>
+    </button>
+  <% end %>
+</section>
+
+<section class="container-fluid mobile-search-bar clearfix hidden-desktop collapse111">
+  <%= form_tag catalog_index_url, :method => :get, :class => 'form-search' do %>
+    <div class="input-append">
+      <input type="text" placeholder="Search" name="q" id="q" class="search-query">
+      <button class="btn btn-inverse" type="submit" id="mobile-search-button">
+        <i class="icon-search icon-white"></i>
+      </button>
+    </div>
+  <% end %>
+</section>

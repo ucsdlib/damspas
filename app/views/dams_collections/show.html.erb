@@ -1,36 +1,30 @@
 <%
 	@collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
-	@page_title = "Collection | #{@collection_title}"
+	@page_title = "#{@collection_title} (Collection)"
 %>
 
-
-
-
 <div class="row-fluid">
-	<div class="span7 offset2 dams-collections well well-large">
-		<%= render :partial => 'show_damstools' %>
-		<%= render :partial => 'shared/fields/title' %>
-        <%= render :partial => 'metadata' %>
-        <%= render :partial => 'search' %>
+	<div class="span9">
+	</div>
+</div>
+
+
+<div class="row-fluid dams-collections">
+	<div class="span8">
+	  <%= render :partial => 'shared/fields/title' %>
+		<%= render :partial => 'metadata' %>
 	</div>
 
-<!-- previous/next links -->
-<div class="span3">
-  <%= render :partial => 'dams_objects/prev_next' %>
-</div>
-<% if can? :update, @document then %>
-  <div class="span3">
-    <p class="sidebar-header"><strong>Curator Tools</strong></p>
-    <ul class="unstyled sidebar-button-list">
-      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe,
-   normalized_rdf_path(@document['id']), class: "btn btn-block btn-small btn-link" %>
-    </ul>
-  </div>
-<% end %>
+	<div class="span4 well">
+	  <%= render :partial => 'search' %>
+	</div>
+
 </div>
 
 <div class="row-fluid">
-	<section class="dams-comments span8 offset2">
+	<section class="dams-comments span8">
 		<%= render :partial => 'dams_objects/comments' %>
 	</section>
 </div>
+
+<%= render :partial => 'show_damstools' %>

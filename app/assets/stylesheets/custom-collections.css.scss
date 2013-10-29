@@ -1,4 +1,9 @@
 
-.dams-collections h1{font-size: 200%;line-height: 100%;margin-top:0;}
+.dams-collections .span8{border-bottom:3px double #ddd;margin-bottom:20px;}
+.dams-collections h1{line-height:normal;margin:0 0 0.25em 0;padding-bottom:0.25em;border-bottom:1px solid #ddd;}
+.dams-collections dl{margin-top:0;}
 .dams-collections dt{font-size: 125%;line-height: 200%; color: #555;}
-.dams-collections dd{ text-align: justify;}
+.dams-collections dd{text-align: justify;}
+.dams-collections .input-append{text-align:center;}
+.dams-collections .input-append input[type=text]{width:70% !important;}
+.dams-collections .sidebar-button-list{margin:0;}
