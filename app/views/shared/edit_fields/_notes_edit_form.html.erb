@@ -1,3 +1,4 @@
+<div id="<%=type.gsub('Content', '').gsub('Responsibility', '').gsub('Citation', '')%>Section">
 <% 	htmlHeader = "<h3>%s</h3>"
 	noteType = type
 	# Format note header
@@ -38,5 +39,5 @@
 		end
     end
 %>
-
+</div>
 <p><%= link_to_add_fields "Add #{noteType}", f, :note, "Dams#{noteType.gsub(' ', '')}" , "#{object_type}"%></p>
