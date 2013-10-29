@@ -117,10 +117,11 @@ class DamsProvenanceCollectionsController < ApplicationController
   def edit
     @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
     @dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
-    @mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+    @mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+    @mads_complex_subjects << "Create New Complex Subject"
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
-    @mads_languages =  get_objects('MadsLanguage','name_tesim')
+    @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')

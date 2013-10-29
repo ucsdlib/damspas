@@ -12,11 +12,18 @@
 <div class="row-fluid dams-collections">
 	<div class="span8">
 	  <%= render :partial => 'shared/fields/title' %>
-		<%= render :partial => 'metadata' %>
+		<dl>
+		  <%= render :partial => 'shared/fields/show_raw' %>
+		</dl>
+		<%#= render :partial => 'metadata' %>
 	</div>
 
 	<div class="span4 well">
 	  <%= render :partial => 'search' %>
+
+
+
+
 	</div>
 
 </div>
