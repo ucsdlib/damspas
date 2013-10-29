@@ -170,8 +170,9 @@ class DamsObjectsController < ApplicationController
   
   def edit
     @dams_object = DamsObject.find(params[:id])
-	@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
-	#@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+	#@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
+	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+	@mads_complex_subjects << "Create New Complex Subject"
 	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
 	@provenance_collection_part_id = @dams_object.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.provenanceCollectionPart.nil?
 	@dams_units = get_objects('DamsUnit','unit_name_tesim')

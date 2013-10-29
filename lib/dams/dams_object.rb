@@ -175,15 +175,19 @@ module Dams
 	  
 	  def insertSubjectsGraph
 	    if(!@subURI.nil?)
-	      if new?
-	        @array_subject.each do |sub|
-	        	graph.insert([rdf_subject, DAMS.complexSubject, sub])
-	        end
-	        #graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
-	      else
-	        graph.update([rdf_subject, DAMS.complexSubject, @subURI])
-	      end
-	    end    
+			if(@subURI.class == Array)
+				@subURI.each do |sub|
+			        graph.insert([rdf_subject, DAMS.complexSubject, sub])
+			    end
+			else
+		      if new?
+		        graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
+		      else
+		        graph.update([rdf_subject, DAMS.complexSubject, @subURI])
+		      end			
+			end	      
+	    end
+	        
 		if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
 	      if new?
 	        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
