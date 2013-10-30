@@ -24,7 +24,7 @@ module Dams
         map.scopeContentNote(           :in => DAMS, :to=>'scopeContentNote',            :class_name => 'DamsScopeContentNoteInternal')
 
         # subjects
-        map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+        map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
         map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
         map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
         map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
@@ -44,7 +44,7 @@ module Dams
         map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')
         map.corporateName(:in => DAMS, :class_name => 'MadsCorporateNameInternal')
         map.familyName(:in => DAMS, :class_name => 'MadsFamilyNameInternal')
-        map.personalName(:in => DAMS, :to => 'personalName', :class_name => 'MadsPersonalName')
+        map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
         # related resources and events
         map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
@@ -68,25 +68,31 @@ module Dams
         map.object(:in => DAMS, :to => 'hasObject')
       end
 
-    accepts_nested_attributes_for :title, :date, :relationship, :language, :visibility, :resource_type,
+   
+
+  accepts_nested_attributes_for :title, :date, :relationship, :language, :visibility, :resource_type,
                       :note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node, :provenanceCollection_node, :allow_destroy => true
-
-  
+                    :provenanceCollection, :provenanceCollectionPart, :part_node,:file,:provenanceCollection_node, :allow_destroy => true  
   
 
       def serialize
         check_type( graph, rdf_subject, DAMS.AssembledCollection )
         if(!@langURI.nil?)
-          if new?
-            graph.insert([rdf_subject, DAMS.language, @langURI])
+          if(@langURI.class == Array)
+            @langURI.each do |lang|
+                  graph.insert([rdf_subject, DAMS.language, lang])
+              end
           else
-            graph.update([rdf_subject, DAMS.language, @langURI])
+                if new?
+                  graph.insert([rdf_subject, DAMS.language, @langURI])
+                else
+                  graph.update([rdf_subject, DAMS.language, @langURI])
+                end     
           end
-        end   
+      end    
         # if(!@provenanceCollURI.nil?)
         #   if new?
         #     graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
@@ -107,16 +113,20 @@ module Dams
       end
       
      def insertSubjectsGraph
-        if(!@subURI.nil?)
-          if new?
-            @array_subject.each do |sub|
-              graph.insert([rdf_subject, DAMS.subject, sub])
-            end
-            #graph.insert([rdf_subject, DAMS.subject, @subURI])
+         if(!@subURI.nil?)
+          if(@subURI.class == Array)
+            @subURI.each do |sub|
+                  graph.insert([rdf_subject, DAMS.complexSubject, sub])
+              end
           else
-            graph.update([rdf_subject, DAMS.subject, @subURI])
-          end
-        end    
+          if new?
+            graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
+          else
+            graph.update([rdf_subject, DAMS.complexSubject, @subURI])
+          end     
+        end       
+      end
+ 
       if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
           if new?
             graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
