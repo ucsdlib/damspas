@@ -1,3 +1,4 @@
+var complexSubjectIdArray = new Array();
 
 function getName(type,q,location)
 {
@@ -123,7 +124,14 @@ function processForm_generic(objType) {
     if($(objType+"language_attributes_0_name").val() != null && $(objType+"language_attributes_0_name").val().length < 1)
     {
       $("#newLanguage").remove();
-    }                  
+    }
+    
+	for (var i=0;i<complexSubjectIdArray.length;i++) {
+	    if($(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val() != null && $(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val().length < 1)
+	    {
+	    	$("#"+complexSubjectIdArray[i]).remove();
+	    }	    
+	}                     
     return true; 
 }
 
@@ -134,7 +142,11 @@ function remove_fields(link) {
 function add_fields(link, association, content) {
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_" + association, "g");
-    content = content.replace("newClassName",new_id);
+    content = content.replace("newClassName",new_id);  
+    if(association == "complexSubject") {
+    	content = content.replace("complexSubjectId",new_id);
+    	complexSubjectIdArray.push(new_id);
+    }
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
