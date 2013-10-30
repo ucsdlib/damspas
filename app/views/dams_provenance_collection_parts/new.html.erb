@@ -1,139 +1,44 @@
-
-
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 
-<h1>Create a new Dams Provenance Collection Part Object</h1>
-<%= form_for @dams_provenance_collection_part do |f| %>
-  
+<script>
+$(document).ready(function() {
+  loadCreateNewObjectOption_generic("#dams_provenance_collection_part_");
+});
+</script>
+
+<h1>Create a New Dams Provenance Collection Part Object</h1>
+<div class="dams-viewer">
+<%= form_for @dams_provenance_collection_part , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_part_");'} do |f| %>
    
 
-  <%
-     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
-  %>  
-  
-<h3>Visibility</h3>
-  <%= select_tag 'dams_provenance_collection_part[visibility][]', options_for_select(visibilityArray) , :prompt=>"Select Visibility" %>
+<%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_provenance_collection_part, :object_type => "dams_provenance_collection_part"}%>
 
-<%
-     resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
-  %>  
+
+<%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
+
+<%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:f => f, :object => @dams_provenance_collection_part, :object_type => "dams_provenance_collection_part"}%>
+
+<%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
+
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
+
+  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
+
+   <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
+  
+  
+  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%> 
+       
+ <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
     
-  <h3>Type Of Resource</h3>  
-  
-  <%= select_tag 'dams_provenance_collection_part[resource_type][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %>
+<%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
 
-  <h3>Title</h3>
-  <%= label_tag 'dams_provenance_collection_part[titleValue][]', "Title" %>
-  <%= text_field_tag 'dams_provenance_collection_part[titleValue][]', '', required: true %>
 
-  <%= label_tag 'dams_provenance_collection_part[subtitle][]', "SubTitle" %>
-  <%= text_field_tag 'dams_provenance_collection_part[subtitle][]' %>
-  <%= label_tag 'dams_provenance_collection_part[titlePartName][]', "PartName" %>
-  <%= text_field_tag 'dams_provenance_collection_part[titlePartName][]' %>  
-  <%= label_tag 'dams_provenance_collection_part[titlePartNumber][]', "PartNumber" %>
-  <%= text_field_tag 'dams_provenance_collection_part[titlePartNumber][]' %> 
-  <%= label_tag 'dams_provenance_collection_part[titleNonSort][]', "NonSort" %>
-  <%= text_field_tag 'dams_provenance_collection_part[titleNonSort][]' %> 
+<%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
 
-  <h3>Date</h3>
-  <%= label_tag 'dams_provenance_collection_part[dateValue][]', "Date" %>
-  <%= text_field_tag 'dams_provenance_collection_part[dateValue][]' %>
-  <%= label_tag 'dams_provenance_collection_part[beginDate][]', "Begin Date" %>
-  <%= text_field_tag 'dams_provenance_collection_part[beginDate][]' %> 
-  <%= label_tag 'dams_provenance_collection_part[endDate][]', "End Date" %>
-  <%= text_field_tag 'dams_provenance_collection_part[endDate][]' %> 
-   <%= label_tag 'dams_provenance_collection_part[dateType][]', "Date Type" %>
-  <%= text_field_tag 'dams_provenance_collection_part[dateType][]' %> 
-  <%= label_tag 'dams_provenance_collection_part[dateEncoding][]', "Date Encoding" %>
-  <%= text_field_tag 'dams_provenance_collection_part[dateEncoding][]' %>      
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
 
-  <h3>Language</h3> 
-  <%= select_tag 'dams_provenance_collection_part[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %> 
-   <br>
-
-  <h3>Note</h3>
-  <%= label_tag 'dams_provenance_collection_part[noteValue][]', "Note"%>
-  <%= text_field_tag 'dams_provenance_collection_part[noteValue][]'%> 
-
-  <%= label_tag 'dams_provenance_collection_part[noteType][]', "Note Type" %>
-  <%= text_field_tag 'dams_provenance_collection_part[noteType][]' %> 
-
-  <%= label_tag 'dams_provenance_collection_part[noteDisplayLabel][]', "Note Displaylabel" %>
-  <%= text_field_tag 'dams_provenance_collection_part[noteDisplayLabel][]' %> 
-  
-  <h3>Scope Content Note</h3>
-  <%= label_tag 'dams_provenance_collection_part[scopeContentNoteValue][]', "Scope Content Note" %>
-  <%= text_field_tag 'dams_provenance_collection_part[scopeContentNoteValue][]', '', required: true %>  
-
-  <%= label_tag 'dams_provenance_collection_part[scopeContentNoteType][]', "Scope Content Note Type" %>
-  <%= text_field_tag 'dams_provenance_collection_part[scopeContentNoteType][]' %> 
-
-  <h3>Custodial Responsibility Note</h3>
-  <%= text_field_tag 'dams_provenance_collection_part[responsibilityNoteValue][]' %>  
-  <%= label_tag 'dams_provenance_collection_part[responsibilityNoteType][]', "Custodial Responsibility Type" %>
-  <%= text_field_tag 'dams_provenance_collection_part[responsibilityNoteType][]' %> 
-  <%= label_tag 'dams_provenance_collection_part[responsibilityDisplayLabel][]', "Custodial Responsibility Display Label" %>
-  <%= text_field_tag 'dams_provenance_collection_part[responsibilityNoteDisplayLabel][]' %>
-
-  <h3>Preferred Citation Note</h3>
-  <%= text_field_tag 'dams_provenance_collection_part[citationNoteValue][]' %>  
-  <%= label_tag 'dams_provenance_collection_part[citationNoteType][]', "Preferred Citation Type" %>
-  <%= text_field_tag 'dams_provenance_collection_part[citationNoteType][]' %> 
-  <%= label_tag 'dams_provenance_collection_part[citationNoteDisplayLabel][]', "Preferred Citation Display Label" %>
-  <%= text_field_tag 'dams_provenance_collection_part[citationNoteDisplayLabel][]' %>
-
-  <h3>Relationship</h3>
-  <%= select_tag 'dams_provenance_collection_part[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
-  <br>
-  <%
-     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
-  %>  
-  <%= select_tag 'dams_provenance_collection_part[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#relationshipName','relationshipNameURI','Name');"%>
-
-  <div id="relationshipName"></div>
-   OR Enter new Relationship Name
-   <%= text_field_tag 'dams_provenance_collection_part[relationshipNameValue][]' %>
-
-   <h3>Simple Subject</h3>
-  <%
-     subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
-  %>
-  <%#= label_tag 'dams_provenance_collection_part[subjectType][]', "Simple Subject" %>
-  <%#= select_tag 'dams_provenance_collection_part[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
-  <%#=text_field_tag 'dams_provenance_collection_part[subjectTypeValue][]' %>
-  <%= select_tag 'dams_provenance_collection_part[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_object[subjectTypeValue][]' %>
-  <input id="dams_provenance_collection_part_subjectTypeValue_" name="dams_provenance_collection_part[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>   
-  
-   <h3>Complex Subject</h3>
-  <%= select_tag 'dams_provenance_collection_part[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
-  OR Enter new subject <%=text_field_tag 'dams_provenance_collection_part[subjectValue][]' %>
-  <%#= select_tag 'dams_provenance_collection_part[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%#=text_field_tag 'dams_provenance_collection_part[subjectValue][]' %>
-
-   <h3>Name</h3>
-  <%= select_tag 'dams_provenance_collection_part[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_provenance_collection_part',this.value,'#name','nameURI','Name');"%>
-  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_provenance_collection_part[nameTypeValue][]' %>
-  
-  <h3>Related Resource</h3>
-  <%= label_tag 'dams_provenance_collection_part[relatedResourceType][]', "Related Resource Type" %>
-  <%= text_field_tag 'dams_provenance_collection_part[relatedResourceType][]'%>
-   <br>
-
-   <%= label_tag 'dams_provenance_collection_part[relatedResourceUri][]', "Related Resource URI" %>
-  <%= url_field_tag 'dams_provenance_collection_part[relatedResourceUri][]' %>
-   <br>
-
-   <%= label_tag 'dams_provenance_collection_part[relatedResourceDescription][]', "Related Resource Description" %>
-  <%= text_field_tag 'dams_provenance_collection_part[relatedResourceDescription][]' %>
-   <br>
-
-   <h3>Provenance Collection</h3>
-  <%= select_tag 'dams_provenance_collection_part[provenanceCollectionURI][]', options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
-  <br> 
-
-  <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", dams_provenance_collection_parts_path, class: "btn btn-primary" %>
-
-  
+     <%=f.submit "Save", class: "btn btn-primary" %>
+     <%= link_to "Cancel", dams_provenance_collection_parts_path, class: "btn btn-primary" %>
 <%end%>
+</div>
