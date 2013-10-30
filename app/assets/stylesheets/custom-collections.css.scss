@@ -1,9 +1,19 @@
 
 .dams-collections .span8{border-bottom:3px double #ddd;margin-bottom:20px;}
-.dams-collections h1{line-height:normal;margin:0 0 0.25em 0;padding-bottom:0.25em;border-bottom:1px solid #ddd;}
+.dams-collections hgroup{border-bottom:1px solid #ddd;margin-bottom:10px;padding-bottom:10px;}
+.dams-collections h1, .dams-collections h2{line-height:normal;margin:0;padding-bottom:0;}
+.dams-collections h2{color:#666;}
 .dams-collections dl{margin-top:0;}
 .dams-collections dt{font-size: 125%;line-height: 200%; color: #AD702B;}
 .dams-collections dd{text-align: justify;}
-.dams-collections .input-append{text-align:center;}
+.dams-collections .input-append{text-align:center;display:block;}
 .dams-collections .input-append input[type=text]{width:70% !important;}
 .dams-collections .sidebar-button-list{margin:0;}
+
+.item-block {margin:0;padding:0;line-height:normal;}
+.item-block li {list-style-type:none;margin:0;overflow:auto;padding:0;margin-bottom:5px;}
+.item-block li:last-child {margin-bottom:20px;}
+.item-block li:only-child {margin-bottom:20px;}
+.item-block img {border:1px solid #aaa;display:inline-block;float:left;height:24px;margin:0;padding:0;width:24px;background:#eee;}
+.item-block div {display:block;float:left;margin:0 0 0 10px;padding:0;}
+.item-block a {margin:0;padding:0;display:block;}

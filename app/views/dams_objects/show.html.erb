@@ -8,11 +8,17 @@
 <% end %>
 
 <div class="row-fluid">
+  <div class="span12">
+    <%= render :partial => 'prev_next' %>
+  </div>
+</div>
+
+<div class="row-fluid">
   <div id="content" class="show-document span9">
-	
-		<div class="row-fluid">
+
+    <div class="row-fluid">
 			<section class="dams-viewer span12">
-				<%= render :partial => 'shared/fields/title' %>
+			  <%= render :partial => 'shared/fields/title' %>
 				<%= render :partial => 'object_viewer' %>
 			</section>
 		</div>
@@ -26,30 +32,28 @@
 	 </div>
 	 <div class="span3">
 
-       <!-- previous/next links -->
-       <%= render :partial => 'prev_next' %>
-
 		<div class="row-fluid">
 			<section class="dams-sidebar span12">
-				 <%= render :partial => 'show_damstools' %>
 				<%if @document['component_count_isi'] != nil   %>
 					<%= render :partial => 'component_tree' %>
 				<% end %>
 				<%= render :partial => 'related_resources' %>
-				
 			</section>
 		</div>
 
-      <% if can? :update, @document then %>
-        <div class="row-fluid">
-          <p class="sidebar-header"><strong>Editor Tools</strong></p>
-          <ul class="unstyled sidebar-button-list">
-            <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, view_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-            <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, normalized_rdf_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-            <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-          </ul>
-        </div>
-      <% end %>
+		<% if can? :update, @document then %>
+		  <div class="row-fluid">
+		    <p class="sidebar-header"><strong>Editor Tools</strong></p>
+		    <ul class="unstyled sidebar-button-list">
+		      <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, view_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+		      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, normalized_rdf_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+		      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+		    </ul>
+		  </div>
+		<% end %>
+
+		<%= render :partial => 'show_damstools' %>
+
 	</div>
 </div>
 

@@ -1,144 +1,44 @@
-
-
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 
-<h1>Create a new Dams assembled collection object</h1>
-<%= form_for @dams_assembled_collection do |f| %>
-  
-  <!--<h3>Provenance Collection Part</h3>
-  <%#= select_tag 'dams_assembled_collection[provenanceHasCollPartURI][]', options_for_select(@dams_assembled_collection_parts) , :prompt=>"Select Provenance Collection Part" %> 
-  <br>--> 
+<script>
+$(document).ready(function() {
+  loadCreateNewObjectOption_generic("#dams_assembled_collection_");
+});
+</script>
 
-<%
-     visibilityArray = [["curator","curator"], ["local","local"], ["public","public"]]
-  %>  
-  
-<h3>Visibility</h3>
-  <%= select_tag 'dams_assembled_collection[visibility][]', options_for_select(visibilityArray) , :prompt=>"Select Visibility" %>
-
-<%
-     resourceTypeArray = [["text","text"], ["cartographic","cartographic"], ["notated music","notated music"], ["sound recording-musical","sound recording-musical"], ["sound recording-nonmusical","sound recording-nonmusical"] ,["sound recording","sound recording"], ["still image","still image"], ["moving image","moving image"], ["three dimensional object","three dimensional object"], ["software", "software"], ["multimedia","multimedia"], ["mixed material","mixed material"]]
-  %>  
-    
-  <h3>Type Of Resource</h3>  
-  
-  <%= select_tag 'dams_assembled_collection[resource_type][]',  options_for_select(resourceTypeArray) , :prompt=>"Select Type of resource", required: true %>
-
-  <h3>Title</h3>
-  <%= label_tag 'dams_assembled_collection[titleValue][]', "Title" %>
-  <%= text_field_tag 'dams_assembled_collection[titleValue][]', '', required: true %>
-
-  <%= label_tag 'dams_assembled_collection[subtitle][]', "SubTitle" %>
-  <%= text_field_tag 'dams_assembled_collection[subtitle][]' %>
-  <%= label_tag 'dams_assembled_collection[titlePartName][]', "PartName" %>
-  <%= text_field_tag 'dams_assembled_collection[titlePartName][]' %>  
-  <%= label_tag 'dams_assembled_collection[titlePartNumber][]', "PartNumber" %>
-  <%= text_field_tag 'dams_assembled_collection[titlePartNumber][]' %> 
-  <%= label_tag 'dams_assembled_collection[titleNonSort][]', "NonSort" %>
-  <%= text_field_tag 'dams_assembled_collection[titleNonSort][]' %> 
-
-  <h3>Date</h3>
-  <%= label_tag 'dams_assembled_collection[dateValue][]', "Date" %>
-  <%= text_field_tag 'dams_assembled_collection[dateValue][]' %>
-  <%= label_tag 'dams_assembled_collection[beginDate][]', "Begin Date" %>
-  <%= text_field_tag 'dams_assembled_collection[beginDate][]' %> 
-  <%= label_tag 'dams_assembled_collection[endDate][]', "End Date" %>
-  <%= text_field_tag 'dams_assembled_collection[endDate][]' %> 
-  <%= label_tag 'dams_assembled_collection[dateType][]', "Date Type" %>
-  <%= text_field_tag 'dams_assembled_collection[dateType][]' %> 
-  <%= label_tag 'dams_assembled_collection[dateEncoding][]', "Date Encoding" %>
-  <%= text_field_tag 'dams_assembled_collection[dateEncoding][]' %>     
-
-  <h3>Language</h3> 
-  <%= select_tag 'dams_assembled_collection[languageURI][]', options_for_select(@mads_languages) , :prompt=>"Select Language", required: true %> 
-   <br>
-
+<h1>Create a new Dams Assembled Collection Object</h1>
+<div class="dams-viewer">
+<%= form_for @dams_assembled_collection , :html => { :onsubmit => 'processForm_generic("#dams_assembled_collection_");'} do |f| %>
    
+
+<%= render :partial => 'shared/edit_fields/visibility_form', :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection"}%>
+
+
+<%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
+
+<%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:f => f, :object => @dams_assembled_collection, :object_type => "dams_assembled_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
+
+   <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
+  
+  
+  <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%> 
+       
+ <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
     
-  
-
-  <h3>Note</h3>
-  <%= label_tag 'dams_assembled_collection[noteValue][]', "Note"%>
-  <%= text_field_tag 'dams_assembled_collection[noteValue][]'%> 
-
-  <%= label_tag 'dams_assembled_collection[noteType][]', "Note Type" %>
-  <%= text_field_tag 'dams_assembled_collection[noteType][]' %> 
-
-  <%= label_tag 'dams_assembled_collection[noteDisplayLabel][]', "Note Displaylabel" %>
-  <%= text_field_tag 'dams_assembled_collection[noteDisplayLabel][]' %> 
-  
-  <h3>Scope Content Note</h3>
-  <%= label_tag 'dams_assembled_collection[scopeContentNoteValue][]', "Scope Content Note" %>
-  <%= text_field_tag 'dams_assembled_collection[scopeContentNoteValue][]', '', required: true %>  
-
-  <%= label_tag 'dams_assembled_collection[scopeContentNoteType][]', "Scope Content Note Type" %>
-  <%= text_field_tag 'dams_assembled_collection[scopeContentNoteType][]' %> 
-
-  <h3>Custodial Responsibility Note</h3>
-  <%= text_field_tag 'dams_assembled_collection[responsibilityNoteValue][]' %>  
-  <%= label_tag 'dams_assembled_collection[responsibilityNoteType][]', "Custodial Responsibility Type" %>
-  <%= text_field_tag 'dams_assembled_collection[responsibilityNoteType][]' %> 
-  <%= label_tag 'dams_assembled_collection[responsibilityDisplayLabel][]', "Custodial Responsibility Display Label" %>
-  <%= text_field_tag 'dams_assembled_collection[responsibilityNoteDisplayLabel][]' %>
-
-  <h3>Preferred Citation Note</h3>
-  <%= text_field_tag 'dams_assembled_collection[citationNoteValue][]' %>  
-  <%= label_tag 'dams_assembled_collection[citationNoteType][]', "Preferred Citation Type" %>
-  <%= text_field_tag 'dams_assembled_collection[citationNoteType][]' %> 
-  <%= label_tag 'dams_assembled_collection[citationNoteDisplayLabel][]', "Preferred Citation Display Label" %>
-  <%= text_field_tag 'dams_assembled_collection[citationNoteDisplayLabel][]' %>
-
-  <h3>Relationship</h3>
-  <%= select_tag 'dams_assembled_collection[relationshipRoleURI][]', options_for_select(@mads_authorities) , :prompt=>"Select Relationship Role" %>    
-  <br>
-  <%
-     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
-  %>  
-  <%= select_tag 'dams_assembled_collection[relationshipNameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select Relationship Type" , :onChange=>"javascript: getSubjects('dams_assembled_collection',this.value,'#relationshipName','relationshipNameURI','Name');"%>
-
-  <div id="relationshipName"></div>
-   OR Enter new Relationship Name
-   <%= text_field_tag 'dams_assembled_collection[relationshipNameValue][]' %>
-
-   <h3>Simple Subject</h3>
-  <%
-     subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
-  %>
-  <%#= label_tag 'dams_assembled_collection[subjectType][]', "Simple Subject" %>
-  <%#= select_tag 'dams_assembled_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" %>
-  <%#=text_field_tag 'dams_assembled_collection[subjectTypeValue][]' %>
-  <%= select_tag 'dams_assembled_collection[subjectType][]',  options_for_select(subjectTypeArray) , :prompt=>"Select subject type" , :onChange=>"javascript: getSubjects('dams_assembled_collection',this.value,'#simpleSubject','simpleSubjectURI','Subject');"%>
-  <div id="simpleSubject"></div> OR Enter subject value<%#=text_field_tag 'dams_assembled_collection[subjectTypeValue][]' %>
-  <input id="dams_assembled_collection_subjectTypeValue_" name="dams_assembled_collection[subjectTypeValue][]" type="text" data-provide="typeahead" data-items="3" data-source='<%= @autocomplete_items %>'/>   
-  
-   <h3>Complex Subject</h3>
-  <%= select_tag 'dams_assembled_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %><br>  
-  OR Enter new subject <%=text_field_tag 'dams_assembled_collection[subjectValue][]' %>
-  <%#= select_tag 'dams_assembled_collection[subjectURI][]', options_for_select(@mads_complex_subjects) , :prompt=>"Select predefined subject" %>
-  <%#=text_field_tag 'dams_assembled_collection[subjectValue][]' %>
-  
-  
+<%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
 
 
- <h3>Name</h3>
-  <%= select_tag 'dams_assembled_collection[nameType][]',  options_for_select(nameTypeArray) , :prompt=>"Select name type" , :onChange=>"javascript: getSubjects('dams_assembled_collection',this.value,'#name','nameURI','Name');"%>
-  <div id="name"></div> OR Enter Name<%=text_field_tag 'dams_assembled_collection[nameTypeValue][]' %>
+<%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
 
-  <h3>Related Resource</h3>
-  <%= label_tag 'dams_assembled_collection[relatedResourceType][]', "Related Resource Type" %>
-  <%= text_field_tag 'dams_assembled_collection[relatedResourceType][]'%>
-   <br>
+  <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
 
-   <%= label_tag 'dams_assembled_collection[relatedResourceUri][]', "Related Resource URI" %>
-  <%= url_field_tag 'dams_assembled_collection[relatedResourceUri][]' %>
-   <br>
-
-   <%= label_tag 'dams_assembled_collection[relatedResourceDescription][]', "Related Resource Description" %>
-  <%= text_field_tag 'dams_assembled_collection[relatedResourceDescription][]' %>
-   <br>
-
-  <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", dams_assembled_collections_path, class: "btn btn-primary" %>
-
-  
+     <%=f.submit "Save", class: "btn btn-primary" %>
+     <%= link_to "Cancel", dams_assembled_collections_path, class: "btn btn-primary" %>
 <%end%>
+</div>

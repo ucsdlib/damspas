@@ -4,10 +4,10 @@
 %>
 
 <div class="row-fluid">
-	<div class="span9">
+	<div class="span12">
+		<%= render :partial => 'dams_objects/prev_next' %>
 	</div>
 </div>
-
 
 <div class="row-fluid dams-collections">
 	<div class="span8">
@@ -18,12 +18,10 @@
 		<%#= render :partial => 'metadata' %>
 	</div>
 
-	<div class="span4 well">
-	  <%= render :partial => 'search' %>
-
-
-
-
+	<div class="span4">
+		<div class="well">
+		  <%= render :partial => 'search' %>
+		</div>
 	</div>
 
 </div>
