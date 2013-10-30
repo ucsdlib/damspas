@@ -32,7 +32,7 @@ feature 'Visitor wants to look at collections' do
   scenario 'curator view' do
     sign_in_developer
     visit dams_collection_path 'bd5905304g' # santa fe light cone
-    expect(page).to have_link('RDF View')
+    expect(page).to have_link('View RDF document')
   end
 end
 def sign_in_developer

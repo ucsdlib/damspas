@@ -1,6 +1,7 @@
 <% if @previous_document || @next_document %>
   <div class="row-fluid" id="previousNextDocument">
     <p class="sidebar-header"><strong>Search Results</strong></p>
+    <p><%= render_constraints(session[:search]) %></p>
     <%
       curr = session[:search][:counter].to_i
       total = session[:search][:total].to_i
