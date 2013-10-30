@@ -37,21 +37,20 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_content("bb02020202")
   end
 
-  scenario 'scoped search (inclusion)' do
+  scenario 'unit pages should have scoped browse links' do
     visit dams_unit_path :id => 'dlp'
     expect(page).to have_selector('h1', :text => 'Library Digital Collections')
 
     # browse links should be scoped to the unit
     topiclink = find('ul.sidebar-button-list li a', text: "Topic")
     expect(topiclink[:href]).to have_content('dlp')
+  end
 
+  scenario 'scoped search (inclusion)' do
     # search for the object in the unit and find it
-    pending "search box removed from unit show page?" do
-      fill_in 'Search...', :with => 'sample', :match => :prefer_exact
-      click_on('search-button')
-      expect(page).to have_content('Search Results')
-      expect(page).to have_content('Sample Simple Object')
-    end
+    visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', :q => 'sample'} )
+    expect(page).to have_content('Search Results')
+    expect(page).to have_content('Sample Simple Object')
   end
 
   scenario 'scoped search (exclusion)' do
@@ -59,11 +58,8 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
 
     # search for the object in the unit and find it
-    pending "search box removed from unit show page?" do
-      fill_in 'Search DAMS', :with => 'sample', :match => :prefer_exact
-      click_on('search-button')
-      expect(page).to have_no_content('Sample Simple Object')
-    end
+    visit catalog_index_path( {'f[unit_sim][]' => 'Research+Data+Curation+Program', :q => 'sample'} )
+    expect(page).to have_no_content('Sample Simple Object')
   end
 end
 feature 'Visitor should only see edit button when it will work' do

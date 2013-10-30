@@ -3,7 +3,6 @@ require 'spec_helper'
 feature 'Visitor wants to look at collections' do
   scenario 'public collections list' do
     visit catalog_facet_path('collection_sim')
-    pending("access control enforcement")
     expect(page).not_to have_selector('a', :text => 'curator-only collection')
   end
   scenario 'curator collections list' do

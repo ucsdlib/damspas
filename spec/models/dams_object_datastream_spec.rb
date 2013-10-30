@@ -392,7 +392,6 @@ END
         #it "should have note" do
 		testIndexNoteFields solr_doc, "note","Note internal value."
 		
-		pending("sometimes fails, works in real indexer")
         solr_doc["copyright_tesim"].to_s.should include "Under copyright"
 		
 		solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
