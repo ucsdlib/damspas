@@ -23,12 +23,10 @@ describe DamsObject do
   end
 
   it "should create/update a subject" do
-    @damsObj.topic.build
-    @damsObj.topic.first.name = "topic 1"
+    @damsObj.topic_attributes = [{name: "topic 1"}]
     @damsObj.topic.first.name.should == ["topic 1"]
-    @damsObj.topic << MadsTopic.new( :name => "topic 2" )
-    pending "should be able to access second and subsequent topics..."
-    @damsObj.topic[1].name.should == ["topic 2"]
+    @damsObj.topic_attributes = [{name: "topic 2"}]
+    @damsObj.topic.second.name.should == ["topic 2"]
 
     @damsObj.topic.first.name = "topic 3"
     @damsObj.topic.first.name.should == ["topic 3"]
