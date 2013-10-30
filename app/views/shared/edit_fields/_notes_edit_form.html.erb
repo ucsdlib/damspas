@@ -34,6 +34,8 @@
 				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][type]", "", class: "input-block-level" %>
 				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", noteType + " Displaylabel" %>
 				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", "", class: "input-block-level" %>
+				<br/>
+    			<%= link_to_remove_fields "Remove #{noteType}", f %>
 			</div>			
 <%	
 		end

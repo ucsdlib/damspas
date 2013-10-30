@@ -10,7 +10,7 @@
     <%= f.label :encoding, "Date Encoding" %>
     <%= f.text_field :encoding, :value => "", class: "input-block-level"%>
     <br/>
-    <% if (f.object.class != DamsDate) %>
+    <%# if (f.object.class != DamsDate) %>
     	<%= link_to_remove_fields "Remove Date", f %>
-    <% end %>    
+    <%# end %>    
 </div>
