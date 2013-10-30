@@ -6,7 +6,7 @@ $(document).ready(function() {
 });
 </script>
 
-<h1>Create a new Dams Provenance Collection Object</h1>
+<h1>Create a New Dams Provenance Collection Object</h1>
 <div class="dams-viewer">
 <%= form_for @dams_provenance_collection , :html => { :onsubmit => 'processForm_generic("#dams_provenance_collection_");'} do |f| %>
    
@@ -37,7 +37,7 @@ $(document).ready(function() {
     
 <%= render :partial => 'shared/edit_fields/names_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
-<!--relationship partial doesn't work with collection forms -->
+
 <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
