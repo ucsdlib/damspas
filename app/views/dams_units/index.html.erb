@@ -14,7 +14,7 @@
 	      <li><%= link_to 'Topic', catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index') %></li>
 	    </ul>
   </section>
-  <section id="bg-meta"></section>
+  <section id="bg-meta"><a id="bg-link"></a></section>
 </section>
 
 <section id="home-02">
@@ -31,53 +31,3 @@
   </div>
   <p class="invitation">Currently totaling 98,345 images, documents, data sets, audio and video,we continue to add items over time, and we invite you to search or browse these collections for research or educational purposes.</p>
 </section>
-
-<script>
-	$(document).ready(function(){
-
-		var bg_data =
-				[
-
-					{
-						"ark":'<%= link_to '', 'dams_collections/bb9284741j', :id => 'bg-link' %>',
-						"image":"<%= image_path('home-page/bg-lake-large.jpg') %>",
-						"title":"Fishing at El Conchal Bridge",
-						"creator":"Gulick, Howard E.",
-						"collection":"Howard E. Gulick Photographs"
-					},
-					{
-						"ark":'<%= link_to '', 'dams_collections/bb6383693j', :id => 'bg-link' %>',
-						"image":"<%= image_path('home-page/bg-taco-large.jpg') %>",
-						"title":"Taco vendor catching up on the day's news until the next customer shows up",
-						"creator":"Crosby, Harry",
-						"collection":"Harry Crosby Baja California Photographs"
-					},
-					{
-						"ark":'<%= link_to '', 'collections', :id => 'bg-link' %>',
-						"image":"<%= image_path('home-page/bg-poster-large.jpg') %>",
-						"title":"Kŭmyo nodong ŭn chʻungsŏng ŭi aeguk nodong ida. Moduda kŭmyo nodong ero!",
-						"creator":"Kim, Yŏng-il",
-						"collection":"Korean Posters"
-					},
-					{
-						"ark":'<%= link_to '', 'dams_collections/bb26293868', :id => 'bg-link' %>',
-						"image":"<%= image_path('home-page/bg-seuss-large.jpg') %>",
-						"title":"Schaeffer Bock Beer advertisement",
-						"creator":"Geisel, Theodore Seuss",
-						"collection":"Dr. Seuss Advertising Artwork"
-					}
-				];
-
-		var roll = Math.floor(Math.random()*bg_data.length);
-
-		//var href_prefix = (bg_data[roll].ark != "") ? "dams_collections/" : "collections" ;
-
-		$("#home-01").css("background-image","url("+bg_data[roll].image+")");
-		//$("#bg-link").attr("href",href_prefix+bg_data[roll].ark);
-		$('#bg-meta').append(bg_data[roll].ark);
-		$('#bg-link').append("<p>"+bg_data[roll].title);
-		$('#bg-link').append("<p>"+bg_data[roll].creator);
-		$('#bg-link').append("<p>From the "+bg_data[roll].collection+" Collection");
-
-	});
-</script>
