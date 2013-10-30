@@ -24,7 +24,7 @@ module Dams
         map.scopeContentNote(:in => DAMS, :to=>'scopeContentNote', :class_name => 'DamsScopeContentNoteInternal')
 
         # subjects
-        map.subject(:in => DAMS, :to=> 'subject',  :class_name => 'Subject')
+        map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
         map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
         map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
         map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
@@ -75,12 +75,18 @@ module Dams
       def serialize
           check_type( graph, rdf_subject, DAMS.ProvenanceCollectionPart )
           if(!@langURI.nil?)
-            if new?
-              graph.insert([rdf_subject, DAMS.language, @langURI])
+            if(@langURI.class == Array)
+              @langURI.each do |lang|
+                    graph.insert([rdf_subject, DAMS.language, lang])
+                end
             else
-              graph.update([rdf_subject, DAMS.language, @langURI])
+                  if new?
+                    graph.insert([rdf_subject, DAMS.language, @langURI])
+                  else
+                    graph.update([rdf_subject, DAMS.language, @langURI])
+                  end     
             end
-          end   
+          end    
           if(!@damsObjURI.nil?)
             if new?
               graph.insert([rdf_subject, DAMS.object, @damsObjURI])
@@ -102,15 +108,19 @@ module Dams
   
        def insertSubjectsGraph
           if(!@subURI.nil?)
-            if new?
-              @array_subject.each do |sub|
-                graph.insert([rdf_subject, DAMS.subject, sub])
-              end
-              #graph.insert([rdf_subject, DAMS.subject, @subURI])
-            else
-              graph.update([rdf_subject, DAMS.subject, @subURI])
-            end
-          end    
+              if(@subURI.class == Array)
+                @subURI.each do |sub|
+                      graph.insert([rdf_subject, DAMS.complexSubject, sub])
+                  end
+              else
+              if new?
+                graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
+              else
+                graph.update([rdf_subject, DAMS.complexSubject, @subURI])
+              end     
+            end       
+          end
+
         if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
             if new?
               graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
