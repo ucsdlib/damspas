@@ -26,8 +26,7 @@ feature 'Visitor wants to search' do
     idx2.should >( idx1 )
 
     click_on "Chicano and black radical activism"
-    expect(page).to have_selector('a', :text => "Previous")
-    expect(page).to have_selector('a', :text => "Next")
+    expect(page).to have_selector('div.search-results-pager')
   end
   scenario 'system queries should show search results' do
     visit catalog_index_path( {:fq => '{!join from=collections_tesim to=id}unit_code_tesim:dlp'} )
