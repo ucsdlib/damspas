@@ -200,9 +200,9 @@ def edit
 
     @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part]
     if @dams_provenance_collection_part.save
-        redirect_to @dams_provenance_collection_part, notice: "Successfully updated provenance_collection"
+        redirect_to @dams_provenance_collection_part, notice: "Successfully updated provenance_collection_part"
     else
-      flash[:alert] = "Unable to save provenance_collection"
+      flash[:alert] = "Unable to save provenance_collection_part"
       render :edit
     end
   end
