@@ -7,13 +7,11 @@ module CatalogHelper
   # so we only need the +counter+ param here. We also need to know if we are viewing to document as part of search results.
   def link_to_document(doc, opts={:label=>nil, :counter => nil, :results_view => true})
 	opts[:label] ||= blacklight_config.index.show_link.to_sym
-    if blacklight_config.highlighting
-      label = field_with_highlighting doc, opts[:label], opts[:sep]
-      label = render_document_index_label doc, opts if (label == nil || label.blank?)
-    elsif doc['title_json_tesim'] != nil
+    if doc['title_json_tesim'] != nil
       titlehash = JSON.parse doc['title_json_tesim'].first
       if titlehash['subtitle'] != nil
-        label = "#{titlehash['value']}: #{titlehash['subtitle']}".html_safe
+        label = titlehash['value'].html_safe
+        label += ": #{titlehash['subtitle']}".html_safe if !titlehash['subtitle'].blank?
       else
         label = titlehash['value'].html_safe
       end
