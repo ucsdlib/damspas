@@ -68,15 +68,14 @@ module Dams
         map.object(:in => DAMS, :to => 'hasObject', :class_name => 'DamsObject')
       end
 
-      accepts_nested_attributes_for :title, :date, :relationship, :visibility, :resource_type,
+      accepts_nested_attributes_for :title, :date, :relationship, :visibility,:language, :note,:resource_type,
                       :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                     :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
                     :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :part_node,:file,:allow_destroy => true   
       
-      accepts_nested_attributes_for :note, allow_destroy: true
-     accepts_nested_attributes_for :language, allow_destroy: true
+      
 
     rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     
