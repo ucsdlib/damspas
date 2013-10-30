@@ -5,8 +5,6 @@
     <%= f.text_field :type, :value => "", class: "input-block-level"%>
     <%= f.label :displayLabel, "Preferred Citation Note Display Label" %>
     <%= f.text_field :displayLabel, :value => "", class: "input-block-level"%>
-    <br/>
-    <% if (f.object.class != DamsPreferredCitationNoteInternal) %>                      
-    	<%= link_to_remove_fields "Remove Preferred Citation Note", f %>
-    <% end %> 
+    <br/>                 
+    <%= link_to_remove_fields "Remove Preferred Citation Note", f %>
 </div>
