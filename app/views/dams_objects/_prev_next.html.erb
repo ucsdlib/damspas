@@ -1,6 +1,5 @@
 <% if @previous_document || @next_document %>
-  <div class="row-fluid" id="previousNextDocument">
-    <p class="sidebar-header"><strong>Search Results</strong></p>
+  <div class="search-results-pager">
     <%
       curr = session[:search][:counter].to_i
       total = session[:search][:total].to_i
@@ -8,11 +7,11 @@
       next_item = curr + 1
      %>
     <% if prev_item > 0 %>
-      <%= link_to_document @previous_document, :label => "Previous", :counter => prev_item %> |
+      <%= link_to_document @previous_document, :label => "<i class='icon-backward'></i> Previous".html_safe, :counter => prev_item %>
     <% end %>
-    <%= item_page_entry_info %>
+    <span><%= item_page_entry_info %> search results</span>
     <% if next_item <= total %>
-      | <%= link_to_document @next_document, :label => "Next", :counter => next_item %>
+      <%= link_to_document @next_document, :label => "Next <i class='icon-forward'></i>".html_safe, :counter => next_item %>
     <% end %>
   </div>
 <% end %>
