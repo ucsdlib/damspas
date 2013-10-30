@@ -11,9 +11,20 @@
 
 	 fieldData = @document["#{prefix}related_resource_json_tesim"]
 
-	 if fieldData != nil
-	 	htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
-		concat htmlOpen.html_safe			 
+	 if fieldData != nil	
+	 	needLabel = "false"
+	 	fieldData.each do |datum|
+			relatedResource = JSON.parse(datum)
+			if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"	 
+				needLabel = "true"
+			end
+		end
+ 		
+ 		if(needLabel == "true")
+		 	htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
+			concat htmlOpen.html_safe
+		end
+					 
 		 fieldData.each do |datum|
 			 relatedResource = JSON.parse(datum)
 			 if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
@@ -34,7 +45,9 @@
       			end
       		end
 	 	end
-	 	concat htmlClose.html_safe
+	 	if(needLabel == "true")
+	 		concat htmlClose.html_safe
+	 	end
 
 	 end
 %>
