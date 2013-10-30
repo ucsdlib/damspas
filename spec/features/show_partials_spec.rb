@@ -57,7 +57,7 @@ feature 'Visitor wants to view object fields' do
     visit dams_object_path('bd22194583')
 
     # license
-    pending "works in browser" do
+    pending "works in browser but fails in spec" do
       expect(page).to have_link('License note text here...', href:"http://library.ucsd.edu/licenses/lic12341.pdf")
     end
 
