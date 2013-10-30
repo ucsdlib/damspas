@@ -18,10 +18,7 @@ $(document).ready(function() {
 
 <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:f => f, :object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
 
-<h3>Provenance Collection Part</h3>
-  <%= select_tag 'dams_provenance_collection[provenanceCollectionPartURI][]', options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" %>  
-  <br>
-
+  
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_provenance_collection"}%>
