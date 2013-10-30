@@ -37,8 +37,10 @@ $(document).ready(function(){
 
 		var href_prefix = (bg_data[roll].ark != "") ? "dams_collections/" : "collections" ;
 
+		var temp_hack = (document.URL.endsWith("/dams")) ? "/" : "";
+
     $("#home-01").css("background-image","url("+bg_data[roll].image+")");
-    $("#bg-link").attr("href",href_prefix+bg_data[roll].ark);
+    $("#bg-link").attr("href",temp_hack+href_prefix+bg_data[roll].ark);
     $('#bg-link').append("<p>"+bg_data[roll].title);
     $('#bg-link').append("<p>"+bg_data[roll].creator);
     $('#bg-link').append("<p>From the "+bg_data[roll].collection+" Collection");
