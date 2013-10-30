@@ -36,7 +36,7 @@
 
   <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
      
-  <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+  <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>
       
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>

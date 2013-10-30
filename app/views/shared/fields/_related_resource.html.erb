@@ -12,12 +12,11 @@
 	 fieldData = @document["#{prefix}related_resource_json_tesim"]
 
 	 if fieldData != nil
-
+	 	htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
+		concat htmlOpen.html_safe			 
 		 fieldData.each do |datum|
 			 relatedResource = JSON.parse(datum)
 			 if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
-			 htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
-			 concat htmlOpen.html_safe			 
              	if relatedResource['type'] != 'thumbnail'
 %>
 					<p>
@@ -30,11 +29,12 @@
 						</strong>
 					</p>
 					<li><%= link_to relatedResource['description'], relatedResource['uri'] %></li>
+					<p/>
 <%
       			end
-      		concat htmlClose.html_safe	
       		end
 	 	end
+	 	concat htmlClose.html_safe
 
 	 end
 %>
