@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 		var href_prefix = (bg_data[roll].ark != "") ? "dams_collections/" : "collections" ;
 
-		var temp_hack = (document.URL.endsWith("/dams")) ? "/" : "";
+		var temp_hack = (document.URL.endsWith("/dams")) ? "dams/" : "";
 
     $("#home-01").css("background-image","url("+bg_data[roll].image+")");
     $("#bg-link").attr("href",temp_hack+href_prefix+bg_data[roll].ark);
