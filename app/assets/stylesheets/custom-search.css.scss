@@ -105,7 +105,8 @@
 .search-results-pager{margin-bottom:5px;text-align:center;color:#666;font-size:95%;}
 .search-results-pager strong{font-weight:normal;}
 .search-results-pager a{font-weight:bold;color:#444;}
-.search-results-pager span{display:inline-block;margin:0 5px;}
+.search-results-pager > span{display:inline-block;margin:0 5px;}
+.search-results-pager abbr{cursor:default;border-bottom:0 none;font-style: italic;}
 
 /*---------------*/
 /* MEDIA QUERIES */
@@ -128,11 +129,18 @@
 }
 
 /* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
-@media (max-width: 767px) {}
+@media (max-width: 767px) {
+
+  .mobile-search-bar-alt input[type=text]{width:206px;}
+
+}
 
 /* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
 @media (max-width: 480px) {
 
   .dams-search-results-header {margin-bottom:1em;}
   .sidenav{margin-bottom: 0;}
+
+  .search-results-pager > span > span{display:none;}
+
 }
