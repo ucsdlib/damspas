@@ -1,16 +1,26 @@
 <% if @previous_document || @next_document %>
   <div class="search-results-pager">
-    <%= render_constraints(session[:search]) %>
+    <%#= render_constraints(session[:search]) %>
     <%
       curr = session[:search][:counter].to_i
       total = session[:search][:total].to_i
       prev_item = curr - 1
       next_item = curr + 1
+
+	    users_search_term = session[:search][:q]
+	    bonus_text = "<span>for <abbr title='#{users_search_term}'>%s</abbr></span>"
+
+	    if users_search_term != nil
+		    users_search_term = (users_search_term.length > 16) ? "#{users_search_term[0...15]}..." : users_search_term
+				bonus_text %= users_search_term
+			else
+			  bonus_text = ''
+	    end
      %>
     <% if prev_item > 0 %>
       <%= link_to_document @previous_document, :label => "<i class='icon-backward'></i> Previous".html_safe, :counter => prev_item %>
     <% end %>
-    <span><%= item_page_entry_info %> search results</span>
+    <span><%= item_page_entry_info %> results <%= bonus_text.html_safe %></span>
     <% if next_item <= total %>
       <%= link_to_document @next_document, :label => "Next <i class='icon-forward'></i>".html_safe, :counter => next_item %>
     <% end %>

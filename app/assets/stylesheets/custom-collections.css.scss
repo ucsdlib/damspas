@@ -17,3 +17,13 @@
 .item-block img {border:1px solid #aaa;display:inline-block;float:left;height:24px;margin:0;padding:0;width:24px;background:#eee;}
 .item-block div {display:block;float:left;margin:0 0 0 10px;padding:0;}
 .item-block a {margin:0;padding:0;display:block;}
+
+// MEDIA QUERIES
+
+/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
+@media (max-width: 767px)
+{
+  .dams-collections h1, .dams-collections h2, .dams-collections dt{font-size: 125%;}
+  .dams-collections dt{font-size: 110%;}
+}
+
