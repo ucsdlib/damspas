@@ -35,7 +35,7 @@ $(document).ready(function(){
 
     var roll = Math.floor(Math.random()*bg_data.length);
 
-		var href_prefix = (bg_data[roll].ark != "") ? "./dams_collections/" : "collections" ;
+		var href_prefix = (bg_data[roll].ark != "") ? "dams_collections/" : "collections" ;
 
     $("#home-01").css("background-image","url("+bg_data[roll].image+")");
     $("#bg-link").attr("href",href_prefix+bg_data[roll].ark);
