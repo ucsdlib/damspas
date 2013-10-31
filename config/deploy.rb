@@ -29,7 +29,7 @@ namespace :deploy do
   task :write_version do
     on roles(:app), in: :sequence do
       within repo_path do
-        execute :echo, "`git describe --all --always --long --abbrev=40 HEAD` `date +\"%Y-%m-%d %H:%M:%S %Z\"` ENV['CODENAME'] > #{release_path}/public/version.txt"
+        execute :echo, "`git describe --all --always --long --abbrev=40 HEAD` `date +\"%Y-%m-%d %H:%M:%S %Z\"` #{ENV['CODENAME']} > #{release_path}/public/version.txt"
       end
     end
   end
