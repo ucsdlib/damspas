@@ -95,7 +95,7 @@ module CatalogHelper
     if !url.blank? && url.start_with?( Rails.configuration.id_namespace )
       url = url.sub( Rails.configuration.id_namespace, "" )
       parts = url.split(/\//,2)
-      url = file_path parts[0], "_" + parts[1]
+      url = file_path parts[0], "_" + parts[1].gsub("/","_")
     end
 
     url
