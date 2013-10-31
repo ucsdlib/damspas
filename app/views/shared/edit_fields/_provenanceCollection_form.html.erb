@@ -1,0 +1,6 @@
+<h3>Provenance Collection</h3>
+
+
+<%= f.fields_for :provenanceCollection do |provenanceCol| %>
+    <%= provenanceCol.select :id, options_for_select(@dams_provenance_collections) , {:include_blank => 'Select Provenance Collection'}, :required => "true" %>
+  <% end %> 
