@@ -18,6 +18,8 @@ $(document).ready(function() {
 
 <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:f => f, :object => @dams_provenance_collection_part, :object_type => "dams_provenance_collection_part"}%>
 
+<%= render :partial => 'shared/edit_fields/provenanceCollection_form', :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
+
 <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
 
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>

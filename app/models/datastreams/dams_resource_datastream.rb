@@ -3,32 +3,32 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
-    collections = []
-    [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
-      coltype.each do |col|
-        begin
-          # if we have usable metadata, use as-is
-          if col.title.first != nil
-            collections << col
-            colfound = true
-          end
-        rescue
-          colfound = false
-        end
-
-        if !colfound
-          # if we don't, find the pid and fetch colobj from repo
-          cpid = (col.class.name.include? "Collection") ? cpid = col.pid : col.to_s.gsub(/.*\//,'')
+      collections = []
+      [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
+        coltype.each do |col|
           begin
-            collections << ActiveFedora::Base.find(cpid, :cast => true)
+            # if we have usable metadata, use as-is
+            if col.title.first != nil
+              collections << col
+              colfound = true
+            end
           rescue
-            logger.warn "Couldn't load collection from repo: #{cpid}"
+            colfound = false
+          end
+  
+          if !colfound
+            # if we don't, find the pid and fetch colobj from repo
+            cpid = (col.class.name.include? "Collection") ? cpid = col.pid : col.to_s.gsub(/.*\//,'')
+            begin
+              collections << ActiveFedora::Base.find(cpid, :cast => true)
+            rescue
+              logger.warn "Couldn't load collection from repo: #{cpid}"
+            end
           end
         end
       end
+      collections
     end
-    collections
-  end
 
  ## Language ##################################################################
   def load_languages
