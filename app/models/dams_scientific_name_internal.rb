@@ -13,7 +13,7 @@ class DamsScientificNameInternal
 
   def persisted?
     rdf_subject.kind_of? RDF::URI
-  end
+  end  
 
 
 end

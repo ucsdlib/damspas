@@ -10,6 +10,8 @@
  <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_provenance_collection_part, :object_type => "dams_provenance_collection_part"}%>
 
   <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:object => @dams_provenance_collection_part, :object_type => "dams_provenance_collection_part"}%>
+
+  <%= render :partial => 'shared/edit_fields/provenanceCollection_edit_form', :locals => {:object => @dams_object, :object_type => "dams_provenance_collection_part"}%> 
   
 <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_provenance_collection_part, :object_type => "dams_provenance_collection_part", :f => f}%>      
   
