@@ -114,7 +114,7 @@ end
   def link_to_add_fields(name, f, association, type, objectType)
     new_object = type.constantize.new()
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
-      render("shared/edit_fields/"+association.to_s.singularize + "_fields", :f => builder, :object_type => objectType)
+      render("shared/edit_fields/"+association.to_s.singularize + "_fields", :f => builder, :object_type => objectType, :is_first => "false")
     end
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end 
