@@ -31,3 +31,50 @@
   </div>
   <p class="invitation">Currently totaling 98,345 images, documents, data sets, audio and video,we continue to add items over time, and we invite you to search or browse these collections for research or educational purposes.</p>
 </section>
+
+<script>
+	$(document).ready(function(){
+
+		var bg_data =
+				[
+
+					{
+						"ark":"<%= dams_collection_path('bb9284741j') %>",
+						"image":"<%= image_path('home-page/bg-lake-large.jpg') %>",
+						"title":"Fishing at El Conchal Bridge",
+						"creator":"Gulick, Howard E.",
+						"collection":"Howard E. Gulick Photographs"
+					},
+					{
+						"ark":"<%= dams_collection_path('bb6383693j') %>",
+						"image":"<%= image_path('home-page/bg-taco-large.jpg') %>",
+						"title":"Taco vendor catching up on the day's news until the next customer shows up",
+						"creator":"Crosby, Harry",
+						"collection":"Harry Crosby Baja California Photographs"
+					},
+					{
+						"ark":"<%= dams_collections_path %>",
+						"image":"<%= image_path('home-page/bg-poster-large.jpg') %>",
+						"title":"Kŭmyo nodong ŭn chʻungsŏng ŭi aeguk nodong ida. Moduda kŭmyo nodong ero!",
+						"creator":"Kim, Yŏng-il",
+						"collection":"Korean Posters"
+					},
+					{
+						"ark":"<%= dams_collection_path('bb26293868') %>",
+						"image":"<%= image_path('home-page/bg-seuss-large.jpg') %>",
+						"title":"Schaeffer Bock Beer advertisement",
+						"creator":"Geisel, Theodore Seuss",
+						"collection":"Dr. Seuss Advertising Artwork"
+					}
+				];
+
+		var roll = Math.floor(Math.random()*bg_data.length);
+
+		$("#home-01").css("background-image","url("+bg_data[roll].image+")");
+		$("#bg-link").attr("href",bg_data[roll].ark);
+		$('#bg-link').append("<p>"+bg_data[roll].title);
+		$('#bg-link').append("<p>"+bg_data[roll].creator);
+		$('#bg-link').append("<p>From the "+bg_data[roll].collection+" Collection");
+
+	});
+</script>
