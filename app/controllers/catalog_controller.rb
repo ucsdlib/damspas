@@ -311,6 +311,7 @@ class CatalogController < ApplicationController
     # update session
     search = { :controller => "catalog", :action => "collection_search" }
     search[:f] = params[:f]
+    search[:sort] = params[:sort]
     search[:fq] = params[:fq] if params[:fq]
     search[:total] = @response.response['numFound']
     session[:search] = search
