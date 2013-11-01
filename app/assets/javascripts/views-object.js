@@ -217,7 +217,7 @@ $(document).ready(function()
 	$("#metadata-fold").on("show",function(){$(this).prev().text("Hide metadata");});
 	$("#metadata-fold").on("hide",function(){$(this).prev().text("Show metadata");});
 
-	$('#simpleSubjects').hide();
+	//$('#simpleSubjects').hide();
 	$('#names').hide();
 	$('#relationshipNames').hide();
 	

@@ -155,7 +155,7 @@ class DamsObjectsController < ApplicationController
   	@dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
   	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
   	@mads_schemes = get_objects('MadsScheme','name_tesim')
-  		
+  	
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
 	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
 	json = JSON.parse(res.body)
