@@ -572,10 +572,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      Solrizer.insert_field(solr_doc, "#{field}", language_obj.name )
 	      Solrizer.insert_field(solr_doc, "fulltext", language_obj.name)        
         rescue Exception => e
-          puts "XXX: error #{e}"
-          e.backtrace.each do |line|
-            puts line
-          end
+          puts "XXX: error loading language: #{lang}"
         end
       end
     end
