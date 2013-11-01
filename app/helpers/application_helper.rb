@@ -110,7 +110,11 @@ end
     #f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
     link_to_function name, "remove_fields(this)"
   end
-    
+
+  def link_to_delete_fields(name)
+    link_to_function name, "remove_fields(this)"
+  end
+      
   def link_to_add_fields(name, f, association, type, objectType)
     new_object = type.constantize.new()
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
@@ -125,7 +129,7 @@ end
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end 
   
-  def link_to_create_field(name, f, target)
-    link_to_function name, "target_popup(\"#{target}\")"
+  def link_to_create_fields(name, association, objectType)
+    link_to_function name, "getSimpleSubjects(this, \"#{objectType}\",\"#{association.capitalize}\",\"\",\"#{association}\",\"0\")"
   end 
 end 

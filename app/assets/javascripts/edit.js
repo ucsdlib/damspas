@@ -25,10 +25,24 @@ function getSubjects(type,q,location,fieldName,label)
     }
     }
    }
-
   if( label == 'Name' && fieldName == 'nameURI') {
     toggleRelationshipNames(q,"","names");
    }   
+}
+
+function getSimpleSubjects(link,type,q,location,fieldName,fieldId)
+{
+  $.get(baseURL+"/get_subject/get_subject?fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+    var new_id = new Date().getTime();
+    data = data.replace("attributes_0","attributes_"+new_id);
+    data = data.replace("attributes][0]","attributes]["+new_id+"]");
+    data = data.replace("newTopic",new_id);  
+    if(location != null && location.length > 0)
+    	$(location).html(data);
+    else
+    	$(link).parent().before(data);
+  }); 
+
 }
 
 function displayRelationshipName(value)
@@ -147,6 +161,10 @@ function add_fields(link, association, content) {
     	content = content.replace("complexSubjectId",new_id);
     	complexSubjectIdArray.push(new_id);
     }
+    if(association == "topic") {
+    	content = content.replace("newTopic",new_id);
+    }    
+    alert(content.replace(regexp, new_id));
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
