@@ -28,7 +28,7 @@ class CatalogController < ApplicationController
   # convert unit joins to normal facet queries (unless type=collection)
   CatalogController.solr_search_params_logic += [:transform_unit_scope]
   def transform_unit_scope(solr_parameters,params)
-    if ((params[:f].nil? || !params[:f].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
+    if ((params[:f].nil? || params[:f][:type_sim].nil? || !params[:f][:type_sim].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
       params[:fq].each do |f|
         if f.start_with?('{!join from=collections_tesim to=id}unit_code_tesim:')
           # remove query from filters
