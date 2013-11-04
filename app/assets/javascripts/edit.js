@@ -30,19 +30,23 @@ function getSubjects(type,q,location,fieldName,label)
    }   
 }
 
-function getSimpleSubjects(link,type,q,location,fieldName,fieldId)
+function getSimpleSubjects(link,type,location,fieldId)
 {
-  $.get(baseURL+"/get_subject/get_subject?fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
-    var new_id = new Date().getTime();
-    data = data.replace("attributes_0","attributes_"+new_id);
-    data = data.replace("attributes][0]","attributes]["+new_id+"]");
-    data = data.replace("newTopic",new_id);  
-    if(location != null && location.length > 0)
-    	$(location).html(data);
-    else
-    	$(link).parent().before(data);
-  }); 
-
+  var q = link.value;
+  if(q != null && q.length > 0) {
+	  var fieldName = q.toLowerCase();
+	  
+	  $.get(baseURL+"/get_subject/get_subject?fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+	    var new_id = new Date().getTime();
+	    data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
+	    data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
+	    data = data.replace("newTopic",new_id);  
+	    if(location != null && location.length > 0)
+	    	$(location).html(data);
+	    else
+	    	$(link).parent().before(data);
+	  }); 
+  }
 }
 
 function displayRelationshipName(value)
@@ -161,10 +165,15 @@ function add_fields(link, association, content) {
     	content = content.replace("complexSubjectId",new_id);
     	complexSubjectIdArray.push(new_id);
     }
-    if(association == "topic") {
+/*    if(association == "topic") {
     	content = content.replace("newTopic",new_id);
-    }    
-    alert(content.replace(regexp, new_id));
+    }*/
+    $(link).parent().before(content.replace(regexp, new_id));
+}
+
+function add_subject_fields(link, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("simpleSubject", "g");
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
