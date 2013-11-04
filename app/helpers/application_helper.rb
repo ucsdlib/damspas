@@ -127,9 +127,11 @@ end
     fields = render("shared/edit_fields/"+association.to_s.singularize + "_edit_fields", :f => f, :object_type => objectType)
 
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
-  end 
+  end
   
-  def link_to_create_fields(name, association, objectType)
-    link_to_function name, "getSimpleSubjects(this, \"#{objectType}\",\"#{association.capitalize}\",\"\",\"#{association}\",\"0\")"
-  end 
+  def link_to_add_subjects(name, f, objectType, subjectTypeArray )
+    fields = render("shared/edit_fields/simple_subjects_fields", :f => f, :object_type => objectType, :subjectTypeArray => subjectTypeArray)
+
+    link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
+  end    
 end 
