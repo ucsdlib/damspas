@@ -1,0 +1,4 @@
+<h3>Provenance Collection</h3>   
+
+ 
+<%= select_tag "#{object_type}[provenanceCollectionURI][]", options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Provenance Collection",required: true %>
