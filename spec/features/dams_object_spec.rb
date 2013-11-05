@@ -162,20 +162,20 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 
 end
 
-feature 'Visitor wants to view an object' do
-  scenario 'is on Object index page' do
-    sign_in_developer
-    visit dams_objects_path
-    pending "not loading page, going to / instead" do
-      current_path.should == dams_objects_path
-      expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
-      click_on "Sample Audio Object: I need another green form"
-      expect(page).to have_selector('li', :text => "English")
-      expect(page).to have_selector('h1', :text => "Sample Audio Object")
-      expect(page).to have_selector('h2', :text => "I need another green form")
-    end
-  end
-end
+#feature 'Visitor wants to view an object' do
+#  scenario 'is on Object index page' do
+#    sign_in_developer
+#    visit dams_objects_path
+#    pending "not loading page, going to / instead" do
+#      current_path.should == dams_objects_path
+#      expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
+#      click_on "Sample Audio Object: I need another green form"
+#      expect(page).to have_selector('li', :text => "English")
+#      expect(page).to have_selector('h1', :text => "Sample Audio Object")
+#      expect(page).to have_selector('h2', :text => "I need another green form")
+#    end
+#  end
+#end
 
 feature 'Visitor wants to cancel unsaved objects' do
   
@@ -197,18 +197,18 @@ feature 'Visitor wants to cancel unsaved objects' do
     end
   end
 
-  scenario "Cancel creating an object" do
-    pending "Works in browser but fails in rspec" do
-      sign_in_developer
-      visit new_dams_object_path
-      fill_in "MainTitle", :with => "Dams Test Object"
-      fill_in "Date", :with => "NO DATE", match: :first
-      click_on "Cancel"
-      expect('/object').to eq(current_path)
-      expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
-      expect(page).to have_selector('a', :text => "Create Object")
-    end
-  end
+#  scenario "Cancel creating an object" do
+#    pending "Works in browser but fails in rspec" do
+#      sign_in_developer
+#      visit new_dams_object_path
+#      fill_in "MainTitle", :with => "Dams Test Object"
+#      fill_in "Date", :with => "NO DATE", match: :first
+#      click_on "Cancel"
+#      expect('/object').to eq(current_path)
+#      expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
+#      expect(page).to have_selector('a', :text => "Create Object")
+#    end
+#  end
 
   scenario 'valid pan/zoom image viewer' do
     visit zoom_path 'bd3379993m', '0'

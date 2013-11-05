@@ -196,10 +196,16 @@ function setParentId_generic(parent_id, isId) {
   self.close();
 }
 
-function checkOption(id,isId,type) {  
+function checkOption(id,isId,type) {
   if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
+	if(type.indexOf("mads") < 0 || type.indexOf("dams") < 0) {  	
+	  type = getObjectsPath(type);
+	}  
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
   } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
+	if(type.indexOf("mads") < 0 || type.indexOf("dams") < 0) {  	
+	  type = getObjectsPath(type);
+	}    
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
   }  
 }
@@ -209,4 +215,19 @@ function loadCreateNewObjectOption_generic(objType) {
   var optionName = new Option('Create New Language','createNewLanguage');    
   var targetlength = target.length;    
   target.options[targetlength] = optionName;
+}
+
+function getObjectsPath(type) {
+	var	objectPathArray = 	[["BuiltWorkPlace","dams_built_work_places"],["CulturalContext","dams_cultural_contexts"], ["Function","dams_functions"], 
+							 ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
+						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "mads_style_periods"], 
+						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
+							 ["ConferenceName","mads_conference_name"],["Name","mads_names"],["PersonalName","mads_personal_names"],
+							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"]];
+	for(i = 0; i < objectPathArray.length; i++) {
+		if(type == objectPathArray[i][0]) {
+			return objectPathArray[i][1];
+		}
+	}
+	return null;
 }

@@ -1,4 +1,7 @@
 <%#= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects) , :prompt=>"Select #{@label}" %>	
-<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@subjects) , :prompt=>"Select #{@label}" %>
+<%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
+<script src="/assets/edit.js" type="text/javascript"></script>
+<script src="/assets/jquery.js" type="text/javascript"></script>
+<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@subjects) , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
 <br/>
 <%= link_to_delete_fields "Remove #{@label}"%>
