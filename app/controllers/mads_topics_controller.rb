@@ -43,7 +43,13 @@ class MadsTopicsController < ApplicationController
 
   def create
     if @mads_topic.save
-        redirect_to @mads_topic, notice: "Topic has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_mads_topic_path(@mads_topic, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_mads_topic_path(@mads_topic, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @mads_topic, notice: "Topic has been saved"
+        end
     else
       flash[:alert] = "Unable to save Topic"
       render :new
