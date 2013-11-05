@@ -7,11 +7,8 @@
     <dt>Scheme:</dt>
     <dd><%= @dams_built_work_place.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
-    <dd><%= @dams_built_work_place.externalAuthority %></dd>
+    <dd><%= @dams_built_work_place.externalAuthority.first %></dd>
   </dl>
-  <% if can? :update, @dams_built_work_place %>
-    <%= link_to "Solr View", dams_built_work_place_path(@dams_built_work_place), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_dams_built_work_place_path(@dams_built_work_place), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_built_work_places_path(), class: "btn btn-primary"%>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @dams_built_work_place, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
+
 </div>

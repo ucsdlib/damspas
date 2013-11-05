@@ -5,13 +5,9 @@
     <dt>GenreFormElement:</dt>
     <dd><%= @mads_genre_form.elementList[0].elementValue %></dd>
     <dt>Scheme:</dt>
-    <dd><%= @mads_genre_form.scheme %></dd>
+    <dd><%= @mads_genre_form.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
-    <dd><%= @mads_genre_form.externalAuthority %></dd>
+    <dd><%= @mads_genre_form.externalAuthority.first %></dd>
   </dl>
-  <% if can? :update, @mads_genre_form %>
-    <%= link_to "Solr View", mads_genre_form_path(@mads_genre_form), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_mads_genre_form_path(@mads_genre_form), class: "btn btn-primary"%>
-    <%= link_to "View All", mads_genre_forms_path(), class: "btn btn-primary"%>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @mads_genre_form, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 </div>
