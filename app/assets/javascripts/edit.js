@@ -165,9 +165,7 @@ function add_fields(link, association, content) {
     	content = content.replace("complexSubjectId",new_id);
     	complexSubjectIdArray.push(new_id);
     }
-/*    if(association == "topic") {
-    	content = content.replace("newTopic",new_id);
-    }*/
+
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
@@ -198,12 +196,12 @@ function setParentId_generic(parent_id, isId) {
 
 function checkOption(id,isId,type) {
   if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
-	if(type.indexOf("mads") < 0 || type.indexOf("dams") < 0) {  	
+	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
 	  type = getObjectsPath(type);
 	}  
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
   } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
-	if(type.indexOf("mads") < 0 || type.indexOf("dams") < 0) {  	
+	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
 	  type = getObjectsPath(type);
 	}    
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
