@@ -10,10 +10,4 @@
     <dd><%= @mads_topic.externalAuthority.first %></dd>
   </dl>
   <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @mads_topic, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
-     
-  <%# if can? :update, @mads_topic %>
-    <%#= link_to "Solr View", mads_topic_path(@mads_topic), class: "btn btn-primary"%>
-    <%#= link_to "Edit", edit_mads_topic_path(@mads_topic), class: "btn btn-primary"%>
-    <%#= link_to "View All", mads_topics_path(), class: "btn btn-primary"%>
-  <%# end %>
 </div>
