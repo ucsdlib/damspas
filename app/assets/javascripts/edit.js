@@ -34,7 +34,7 @@ function getSimpleSubjects(link,type,location,fieldId)
 {
   var q = link.value;
   if(q != null && q.length > 0) {
-	  var fieldName = q.toLowerCase();
+	  var fieldName = firstToLowerCase(q);
 	  
 	  $.get(baseURL+"/get_subject/get_subject?fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
 	    var new_id = new Date().getTime();
@@ -230,4 +230,8 @@ function getObjectsPath(type) {
 		}
 	}
 	return null;
+}
+
+function firstToLowerCase( str ) {
+    return str.substr(0, 1).toLowerCase() + str.substr(1);
 }

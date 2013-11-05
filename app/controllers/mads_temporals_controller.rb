@@ -46,7 +46,13 @@ class MadsTemporalsController < ApplicationController
   def create
 
     if @mads_temporal.save
-        redirect_to @mads_temporal, notice: "Temporal has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_mads_temporal_path(@mads_temporal, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_mads_temporal_path(@mads_temporal, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else     
+        	redirect_to @mads_temporal, notice: "Temporal has been saved"
+        end
     else
       flash[:alert] = "Unable to save Temporal"
       render :new
