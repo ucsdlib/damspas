@@ -58,7 +58,6 @@ feature 'Visitor wants to create/edit a DAMS style period' do
 		expect(page).to have_selector('dd', :text => "Orange")
 		expect(page).to have_content('Edit')
 
-		click_on "Solr View"
 	end
 
 	scenario 'is on the style period page to be edited' do

@@ -44,7 +44,13 @@ class DamsBuiltWorkPlacesController < ApplicationController
 
   def create
     if @dams_built_work_place.save
-        redirect_to @dams_built_work_place, notice: "built work place has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_dams_built_work_place_path(@dams_built_work_place, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_dams_built_work_place_path(@dams_built_work_place, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @dams_built_work_place, notice: "built work place has been saved"
+        end
     else
       flash[:alert] = "Unable to save built work place"
       render :new

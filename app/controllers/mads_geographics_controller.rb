@@ -45,7 +45,13 @@ class MadsGeographicsController < ApplicationController
 
   def create
     if @mads_geographic.save
-        redirect_to @mads_geographic, notice: "Geographic has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_mads_geographic_path(@mads_geographic, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_mads_geographic_path(@mads_geographic, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @mads_geographic, notice: "Geographic has been saved"
+        end
     else
       flash[:alert] = "Unable to save Geographic"
       render :new

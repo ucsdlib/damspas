@@ -44,7 +44,13 @@ class DamsScientificNamesController < ApplicationController
 
   def create
     if @dams_scientific_name.save
-        redirect_to @dams_scientific_name, notice: "scientific name has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_dams_scientific_name_path(@dams_scientific_name, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_dams_scientific_name_path(@dams_scientific_name, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @dams_scientific_name, notice: "scientific name has been saved"
+        end
     else
       flash[:alert] = "Unable to save scientific name"
       render :new

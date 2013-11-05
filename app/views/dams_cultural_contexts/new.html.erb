@@ -2,7 +2,7 @@
 <%= form_for @dams_cultural_context do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'dams_cultural_context[name]', "Name" %>
-  <%= text_field_tag 'dams_cultural_context[name]' %>
+  <%= text_field_tag 'dams_cultural_context[name]', '', required: true %>
   <%= label_tag 'dams_cultural_context[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_cultural_context[externalAuthority]' %> 
 
@@ -11,11 +11,10 @@
     <%= te.text_field :elementValue %>
   <% end %>
   <br>
-  <%= f.fields_for :scheme do |se| %>
-    <%= se.label :id, "Scheme" %>
-    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
   <br>
+
+  <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>

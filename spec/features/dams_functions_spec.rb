@@ -62,7 +62,6 @@ feature 'Visitor wants to create/edit a DAMS Function' do
 		expect(page).to have_selector('dd', :text => "Job")
 		expect(page).to have_content('Edit')
 
-		click_on "Solr View"
 	end
 
 	scenario 'is on the Function page to be edited' do
