@@ -70,7 +70,8 @@ class DamsProvenanceCollectionPartsController < ApplicationController
     @dams_provenance_collection_part.conferenceName.build    
     @dams_provenance_collection_part.familyName.build
    
-    @dams_provenance_collection_part.assembledCollection.build    
+    @dams_provenance_collection_part.assembledCollection.build 
+    @dams_provenance_collection_part.provenanceCollection.build   
    
     
     
@@ -84,6 +85,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
 
     @mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
     @dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
+    @dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
     @mads_authorities = get_objects_url('MadsAuthority','name_tesim')
@@ -114,6 +116,7 @@ def edit
     @mads_complex_subjects << "Create New Complex Subject"
     @dams_units = get_objects('DamsUnit','unit_name_tesim')   
     @dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
+    @dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
@@ -140,6 +143,12 @@ def edit
    @simple_name_id = get_name_id(@dams_provenance_collection_part)   
     @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
     @simple_name_value = get_name_value(@dams_provenance_collection_part)
+
+    @dams_provenance_collection_part.collections.each do |col|
+      if (col.class == DamsProvenanceCollection)
+        @provenance_collection_id = col.pid
+      end       
+    end
 
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -192,7 +201,8 @@ def edit
     @dams_provenance_collection_part.conferenceName.clear    
     @dams_provenance_collection_part.familyName.clear
    
-    @dams_provenance_collection_part.assembledCollection.clear   
+    @dams_provenance_collection_part.assembledCollection.clear  
+     @dams_provenance_collection_part.provenanceCollection.clear 
   
     
     

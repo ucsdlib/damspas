@@ -62,6 +62,7 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
     :personalName,
     :preferredCitationNote,
     :preferredCitationNote_attributes,
+    :provenanceCollection_attributes,
     :provenanceCollection, 
     :provenanceCollectionURI,
     :provenanceCollectionPart, 
@@ -127,6 +128,10 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
   has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
 
   include Hydra::ModelMixins::RightsMetadata
+
+  def collections
+    damsMetadata.load_collection damsMetadata.collection,damsMetadata.assembledCollection,damsMetadata.provenanceCollection,damsMetadata.provenanceCollectionPart
+  end
 
  def provenanceCollections
     damsMetadata.load_provenanceCollections damsMetadata.provenanceCollection

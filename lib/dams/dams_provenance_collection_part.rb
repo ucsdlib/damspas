@@ -94,13 +94,14 @@ module Dams
               graph.update([rdf_subject, DAMS.object, @damsObjURI])
             end
           end  
+          
           if(!@provenanceCollURI.nil?)
             if new?
               graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
             else
               graph.update([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])
             end
-          end  
+          end
           insertSubjectsGraph 
           insertNameGraph 
           super
@@ -140,6 +141,7 @@ module Dams
           end     
         end  
 
+       
         
 
    end  
