@@ -71,7 +71,7 @@ class GetDataController < ApplicationController
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Temporal')
 		@subjects = get_objects_url('MadsTemporal','name_tesim')
 	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'StylePeriod')
-		@subjects = get_objects_url('MadsStylePeriod','name_tesim')		
+		@subjects = get_objects_url('DamsStylePeriod','name_tesim')		
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
 		@subjects = get_objects_url('MadsCorporateName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
