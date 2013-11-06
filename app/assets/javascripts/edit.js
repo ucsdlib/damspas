@@ -218,7 +218,7 @@ function loadCreateNewObjectOption_generic(objType) {
 function getObjectsPath(type) {
 	var	objectPathArray = 	[["BuiltWorkPlace","dams_built_work_places"],["CulturalContext","dams_cultural_contexts"], ["Function","dams_functions"], 
 							 ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
-						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "mads_style_periods"], 
+						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
 						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
 							 ["ConferenceName","mads_conference_name"],["Name","mads_names"],["PersonalName","mads_personal_names"],
 							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"]];
