@@ -25,6 +25,24 @@ class CatalogController < ApplicationController
   # This filters out objects that you want to exclude from search results, like FileAssets
   CatalogController.solr_search_params_logic += [:exclude_unwanted_models]
 
+  # convert unit joins to normal facet queries (unless type=collection)
+  CatalogController.solr_search_params_logic += [:transform_unit_scope]
+  def transform_unit_scope(solr_parameters,params)
+    if ((params[:f].nil? || params[:f][:type_sim].nil? || !params[:f][:type_sim].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
+      params[:fq].each do |f|
+        if f.start_with?('{!join from=collections_tesim to=id}unit_code_tesim:')
+          # remove query from filters
+          params[:fq].delete f
+
+          # lookup name and add to filters: unit_sim=>[name]
+          name = lookup_unit_name( f.gsub( /.*unit_code_tesim:/,"" ) )
+          params[:f] = {} unless params[:f]
+          params[:f][:unit_sim] = [name]
+        end
+      end
+    end
+  end
+
   # exclude unwanted records here
   CatalogController.solr_search_params_logic += [:exclude_unwanted_records]
   def exclude_unwanted_records(solr_parameters,user_parameters)
@@ -272,6 +290,9 @@ class CatalogController < ApplicationController
       redirect_to catalog_index_path params
     end
 
+    # limit search to collections
+    params[:f] = {:type_sim =>["Collection"]}
+
     # if a unit is specified, use solr join to find collections related to
     # objects in this unit
     if params[:id]
@@ -279,35 +300,34 @@ class CatalogController < ApplicationController
       params[:fq] = [] unless params[:fq]
       params[:fq] << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
 
-      # fetch unit solr record
-      begin
-        unit_params = {:q => "unit_code_tesim:#{params[:id]} AND type_tesim:DamsUnit"}
-        unit_response = raw_solr( unit_params )
-        unit_doc = unit_response.docs.first
-        @current_unit = unit_doc['unit_name_tesim'].first
-      rescue Exception => e
-        logger.warn "Error looking up unit name: #{e}"
-      end
+      # add unit name to page
+      @current_unit = lookup_unit_name( params[:id] )
     end
-
-    # limit search to collections
-    params[:f] = {:type_sim =>["Collection"]}
-
-    # excluding unwanted/utility collections
-    #params[:fq] = "-id:#{Rails.configuration.excluded_collections}"
 
     # sort by title
     params[:sort] = 'title_ssi asc' unless params[:sort]
-    (@response, @document_list) = get_search_results params
+    (@response, @document_list) = get_search_results params, params
 
     # update session
     search = { :controller => "catalog", :action => "collection_search" }
     search[:f] = params[:f]
+    search[:sort] = params[:sort]
     search[:fq] = params[:fq] if params[:fq]
     search[:total] = @response.response['numFound']
     session[:search] = search
   end
 
+  def lookup_unit_name( unit_code = "" )
+    # fetch unit solr record
+    begin
+      params = {:q => "unit_code_tesim:#{unit_code} AND type_tesim:DamsUnit"}
+      response = raw_solr( params )
+      doc = response.docs.first
+      doc['unit_name_tesim'].first
+    rescue Exception => e
+      logger.warn "Error looking up unit name: #{e}"
+    end
+  end
   def raw_solr( params={} )
     solr_path = blacklight_config.solr_path
     res = blacklight_solr.send_and_receive(solr_path, :params => params)
