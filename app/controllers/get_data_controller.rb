@@ -31,20 +31,23 @@ class GetDataController < ApplicationController
   def get_name 	
   	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
-		@names = get_objects('MadsCorporateName','name_tesim')
+		@names = get_objects_url('MadsCorporateName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
-		@names = get_objects('MadsPersonalName','name_tesim')			
+		@names = get_objects_url('MadsPersonalName','name_tesim')			
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
-		@names = get_objects('MadsConferenceName','name_tesim')		
+		@names = get_objects_url('MadsConferenceName','name_tesim')		
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
-		@names = get_objects('FamilyName','name_tesim')
+		@names = get_objects_url('MadsFamilyName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
-		@names = get_objects('MadsName','name_tesim')							
+		@names = get_objects_url('MadsName','name_tesim')							
 	else
-		@names = get_objects('MadsName','name_tesim')
+		@names = get_objects_url('MadsName','name_tesim')
 	end
 	@formType = params[:formType]
-
+	@fieldName = params[:fieldName]
+	@label = params[:q]
+	@fieldId = params[:fieldId]
+	@names << "Create New #{@label}"
 	render :layout => false
   end
  

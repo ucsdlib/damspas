@@ -19,9 +19,5 @@
     <dt>ExternalAuthority:</dt>
     <dd><%= link_to @mads_corporate_name.externalAuthority.first %></dd>
   </dl>
-  <% if can? :update, @mads_corporate_name %>
-    <%= link_to "Solr View", mads_corporate_name_path(@mads_corporate_name), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_mads_corporate_name_path(@mads_corporate_name), class: "btn btn-primary"%>
-    <%= link_to "View All", mads_corporate_names_path(), class: "btn btn-primary"%>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @mads_corporate_name, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 </div>

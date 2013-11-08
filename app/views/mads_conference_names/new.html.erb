@@ -1,4 +1,4 @@
-<h1>Create a new MADS conference Name</h1>
+<h1>Create a new MADS Conference Name</h1>
 <%= form_for @mads_conference_name do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_conference_name[name]', "Name" %>
@@ -30,11 +30,9 @@
       <%= na.text_field :elementValue %>
     <% end %>    
   <br>
-  <%= f.fields_for :scheme do |se| %>
-    <%= se.label :id, "Scheme" %>
-    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
   <br>
+  <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
     <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", mads_conference_names_path, class: "btn btn-link pull-right" %>
 <%end%>

@@ -46,7 +46,13 @@ class MadsConferenceNamesController < ApplicationController
 
   def create
     if @mads_conference_name.save
-        redirect_to @mads_conference_name, notice: "ConferenceName has been saved"
+      if(!params[:parent_id].nil?)
+      redirect_to view_mads_conference_name_path(@mads_conference_name, {:parent_id => params[:parent_id]})
+      elsif(!params[:parent_class].nil?)
+      redirect_to view_mads_conference_name_path(@mads_conference_name, {:parent_class => params[:parent_class]})                   
+      else    
+          redirect_to @mads_conference_name, notice: "Conference Name has been saved"
+        end
     else
       flash[:alert] = "Unable to save ConferenceName"
       render :new
