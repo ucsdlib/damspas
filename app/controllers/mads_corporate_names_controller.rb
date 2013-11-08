@@ -41,7 +41,13 @@ class MadsCorporateNamesController < ApplicationController
 
   def create
     if @mads_corporate_name.save
-        redirect_to @mads_corporate_name, notice: "CorporateName has been saved"
+      if(!params[:parent_id].nil?)
+        redirect_to view_mads_corporate_name_path(@mads_corporate_name, {:parent_id => params[:parent_id]})
+      elsif(!params[:parent_class].nil?)
+        redirect_to view_mads_corporate_name_path(@mads_corporate_name, {:parent_class => params[:parent_class]})                   
+      else    
+        redirect_to @mads_corporate_name, notice: "Corporate Name has been saved"
+      end
     else
       flash[:alert] = "Unable to save CorporateName"
       render :new
