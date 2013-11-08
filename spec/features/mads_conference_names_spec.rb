@@ -102,7 +102,6 @@ feature 'Visitor wants to use Hydra View' do
 		#expect(page).to have_selector('h1', :text => "New Conference Name, 1920")
 		expect(page).to have_selector('dd', :text => "New Conference Name")
 		expect(page).to have_selector('dd', :text => "1990")
-		expect(page).to have_selector('dd', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('dd', :text => "http://conferencename.com")
 		click_on "Edit"
 	end

@@ -51,7 +51,7 @@ class MadsFamilyNamesController < ApplicationController
       elsif(!params[:parent_class].nil?)
         redirect_to view_mads_family_name_path(@mads_family_name, {:parent_class => params[:parent_class]})                   
       else    
-        redirect_to @mads_family_name, notice: "Family Name has been saved"
+        redirect_to @mads_family_name, notice: "FamilyName has been saved"
       end
     else
       flash[:alert] = "Unable to save FamilyName"

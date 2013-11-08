@@ -51,7 +51,7 @@ class MadsPersonalNamesController < ApplicationController
       elsif(!params[:parent_class].nil?)
         redirect_to view_mads_personal_name_path(@mads_personal_name, {:parent_class => params[:parent_class]})                   
       else    
-        redirect_to @mads_personal_name, notice: "Conference Name has been saved"
+        redirect_to @mads_personal_name, notice: "PersonalName has been saved"
       end
     else
       flash[:alert] = "Unable to save personal_name"
