@@ -30,13 +30,21 @@ function getSubjects(type,q,location,fieldName,label)
    }   
 }
 
-function getSimpleSubjects(link,type,location,fieldId)
-{
-  var q = link.value;
+function getSimpleSubjects(link,type,location,fieldId,selectedValue)
+{  
+  var q = null;
+  var fieldName = null;
+   
+  if (typeof link == "string") {
+  	q = link;
+  	fieldName = "simpleSubjectURI";
+  } else {
+  	q = link.value;
+  	fieldName = firstToLowerCase(q);
+  }
+
   if(q != null && q.length > 0) {
-	  var fieldName = firstToLowerCase(q);
-	  
-	  $.get(baseURL+"/get_subject/get_subject?fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+	  $.get(baseURL+"/get_subject/get_subject?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
 	    var new_id = new Date().getTime();
 	    data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
 	    data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
