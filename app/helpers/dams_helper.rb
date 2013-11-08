@@ -435,12 +435,20 @@ def relatedResourceUri
     end
   end 
   def simpleSubjectURI=(val)
-    if val.class == Array
-    	val = val.first
-    end
-	 if(!val.nil? && val.first.length > 0)
-	    @simpleSubURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
-	  end
+	@simpleSubURI = Array.new
+	val.each do |v|
+		uri = v
+		if(!v.include? Rails.configuration.id_namespace)
+			uri = "#{Rails.configuration.id_namespace}#{v}"
+		end
+	    if(!v.nil? && v.length > 0)
+	    	@simpleSubURI << RDF::Resource.new(uri) 	
+	    end
+	end
+		
+	if(@simpleSubURI.size == 0)
+		@simpleSubURI = nil
+	end	  
   end 
   
   ## complex subject  ###############################################################
