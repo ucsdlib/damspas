@@ -92,6 +92,7 @@ feature "Visitor wants to view the unit's collections" do
     expect(page).to have_selector('h3','Browse by Collection: Library Digital Collections')
     expect(page).to have_selector('a', :text => 'UCSD Electronic Theses and Dissertations')
     expect(page).to have_selector('li', :text => 'Linked scope content note')
+    expect(page).to have_no_content('Santa Fe Light Cone')
   end
 end
 
