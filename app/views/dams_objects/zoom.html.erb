@@ -8,7 +8,7 @@
     use = json['use']
     @file_id = json['id']
     #image-source and image-service master files
-    if use == 'image-source' || use == 'document-service' || (!json['id'].blank? && json['id'].start_with?("1."))
+    if use == 'image-source' || use == 'document-service' || (!json['id'].blank? && json['id'].start_with?("1.") && use == 'image-service')
       @quality = json['quality']
       #When quality property not presented,set to image-huge for now?
       if @quality.blank?
