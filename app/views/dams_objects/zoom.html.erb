@@ -6,9 +6,15 @@
   @files.each do |f|
     json = JSON.parse(f)
     use = json['use']
-    if use == 'image-source' || use == 'document-service'
-      @file_id = json['id']
+    @file_id = json['id']
+    #image-source and image-service master files
+    if use == 'image-source' || use == 'document-service' || (!json['id'].blank? && json['id'].start_with?("1."))
       @quality = json['quality']
+      #When quality property not presented,set to image-huge for now?
+      if @quality.blank?
+        @quality = "1600x1600"
+      end
+      break
     end
   end
   if @quality.blank? %>
