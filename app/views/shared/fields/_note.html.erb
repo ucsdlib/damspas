@@ -7,11 +7,11 @@
 
   if defined?(componentIndex) # Then we're working with a component
     prefix = "component_#{componentIndex}_"
-    htmlOpen = "<tr><td>%s</td><td>"
+    htmlOpenTemp = "<tr><td>%s </td><td>"
     htmlClose = "</td></tr>"
   else # We're working with an object or collection
     prefix = ''
-    htmlOpen = "<dt>%s</dt><dd>"
+    htmlOpenTemp = "<dt>%s </dt><dd>"
     htmlClose = "</dd>"
   end
 
@@ -38,22 +38,28 @@
   end
 
   if notes.count > 0
-    htmlOpen %= 'Note'.pluralize(notes.count)
-    concat htmlOpen.html_safe
-    notes.each do |note| %>
-      <p>
-        <strong>
-          <% if note['displayLabel'] != nil && !note['displayLabel'].blank? %>
-            <%= note['displayLabel'].upcase %>
-          <% elsif note['type'] != nil && !note['type'].blank? %>
-            <%= note['type'].upcase %>
-          <% else %>
-            General Note
-          <% end %>
-        </strong>
-      </p>
-      <p><%= auto_link(note['value']) %></p>
-<%  end
+    if type == nil
+      notes.each do |note| 
+        htmlOpen = htmlOpenTemp
+        if note['displayLabel'] != nil && !note['displayLabel'].blank?
+          htmlOpen %= note['displayLabel'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
+        elsif note['type'] != nil && !note['type'].blank?
+          htmlOpen %= note['type'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
+        else
+          htmlOpen %= 'General Note'
+        end
+        concat htmlOpen.html_safe %>
+        <p><%= auto_link(note['value'])%></p>
+<%    end
+    else
+      notes.each do |note|
+        htmlOpen = htmlOpenTemp
+        htmlOpen %= type.to_s.capitalize
+        concat htmlOpen.html_safe %>
+        <p><%= auto_link(note['value'])%></p>
+<%
+      end
+    end
     concat htmlClose.html_safe
   end
 %>
