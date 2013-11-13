@@ -8,7 +8,7 @@
   @simpleSubjects.each do |sub|
 	tmp = JSON.parse(sub.to_json)
 %>
-	<%= render :partial => 'shared/edit_fields/simple_subjects_edit_fields' , :locals => {:f => f, :object_type => "dams_object", :subjectTypeArray => subjectTypeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
+	<%= render :partial => 'shared/edit_fields/simple_subjects_edit_fields' , :locals => {:f => f, :object_type => object_type, :subjectTypeArray => subjectTypeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
 <% 
 	i = i+1
   end 
