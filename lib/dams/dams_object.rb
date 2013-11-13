@@ -187,11 +187,6 @@ module Dams
 	    end
 	        
 		if(!@simpleSubURI.nil?)
-	      #if new?
-	      #  graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-	      #else
-	      #  graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-	      #end
 			if(@simpleSubURI.class == Array)
 				i = 0
 				@simpleSubURI.each do |sub|
