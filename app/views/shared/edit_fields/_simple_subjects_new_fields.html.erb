@@ -1,5 +1,0 @@
-<div class="fields">
-<br/>
-	<%= select_tag "#{object_type}[subjectType][]",  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSimpleEditSubjects(this,'#{object_type}','#newClassName');"%>
-	<div id="newClassName"></div>
-</div>

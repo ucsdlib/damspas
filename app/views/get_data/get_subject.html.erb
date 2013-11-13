@@ -4,7 +4,7 @@
 <script src="/assets/jquery.js" type="text/javascript"></script>
 <% if !@fieldName.nil? and @fieldName == "simpleSubjectURI"%>
 	<b><%= @label%></b><br/>
-	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>	
+	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
 <% else %>
 	<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
 <% end %>

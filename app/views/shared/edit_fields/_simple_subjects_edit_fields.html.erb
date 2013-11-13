@@ -1,7 +1,6 @@
 <div class="fields">
 <br/>
 <% if selected_type.nil?%>
-	<%#= select_tag "#{object_type}[subjectType][]",  options_for_select(subjectTypeArray, :selected => "#{selected_type}") , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSimpleSubjects(this,'#{object_type}','#simpleSubject','0');"%>
 	<%= select_tag "#{object_type}[subjectType][]",  options_for_select(subjectTypeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getSimpleEditSubjects(this,'#{object_type}','#newClassName');"%>
 	<div id="newClassName"></div>
 <% else %>
