@@ -133,5 +133,10 @@ end
     fields = render("shared/edit_fields/simple_subjects_fields", :f => f, :object_type => objectType, :subjectTypeArray => subjectTypeArray)
 
     link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
-  end    
+  end
+
+  def link_to_add_edit_subjects(name, f, objectType, subjectTypeArray, index )
+    fields = render("shared/edit_fields/simple_subjects_new_fields", :f => f, :object_type => objectType, :subjectTypeArray => subjectTypeArray)
+    link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
+  end        
 end 

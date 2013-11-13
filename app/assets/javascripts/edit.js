@@ -48,11 +48,22 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
 	    var new_id = new Date().getTime();
 	    data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
 	    data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
-	    data = data.replace("newTopic",new_id);  
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);
 	    else
 	    	$(link).parent().before(data);
+	  }); 
+  }
+}
+
+function getSimpleEditSubjects(link,type,location)
+{  
+  var q = link.value;
+  var fieldName = "simpleSubjectURI";
+  if(q != null && q.length > 0) {
+	  $.get(baseURL+"/get_subject/get_subject?fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+	    if(location != null && location.length > 0)
+	    	$(location).html(data);	
 	  }); 
   }
 }
