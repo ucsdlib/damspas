@@ -48,6 +48,8 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
 	    var new_id = new Date().getTime();
 	    data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
 	    data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
+	    var regexp = new RegExp("newClassName", "g");
+	    data = data.replace(regexp,new_id);
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);
 	    else
@@ -59,9 +61,11 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
 function getSimpleEditSubjects(link,type,location)
 {  
   var q = link.value;
-  var fieldName = "simpleSubjectURI";
   if(q != null && q.length > 0) {
-	  $.get(baseURL+"/get_subject/get_subject?fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+	  $.get(baseURL+"/get_subject/get_subject?fieldName=simpleSubjectURI&formType="+type+"&q="+q,function(data,status){
+	    var new_id = new Date().getTime();
+	    var regexp = new RegExp("newClassName", "g");
+	    data = data.replace(regexp,new_id);
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);	
 	  }); 
@@ -223,7 +227,7 @@ function checkOption(id,isId,type) {
   } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
 	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
 	  type = getObjectsPath(type);
-	}    
+	} 
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
   }  
 }
