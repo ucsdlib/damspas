@@ -7,11 +7,7 @@
     <dt>Scheme:</dt>
     <dd><%= @dams_scientific_name.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
-    <dd><%= @dams_scientific_name.externalAuthority %></dd>
+    <dd><%= @dams_scientific_name.externalAuthority.first %></dd>
   </dl>
-  <% if can? :update, @dams_scientific_name %>
-    <%= link_to "Solr View", dams_scientific_name_path(@dams_scientific_name), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_dams_scientific_name_path(@dams_scientific_name), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_scientific_names_path(), class: "btn btn-primary"%>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @dams_scientific_name, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 </div>

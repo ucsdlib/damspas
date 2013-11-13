@@ -43,7 +43,13 @@ class DamsTechniquesController < ApplicationController
 
   def create
     if @dams_technique.save
-        redirect_to @dams_technique, notice: "technique has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_dams_technique_path(@dams_technique, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_dams_technique_path(@dams_technique, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else
+        	redirect_to @dams_technique, notice: "technique has been saved"
+        end
     else
       flash[:alert] = "Unable to save technique"
       render :new

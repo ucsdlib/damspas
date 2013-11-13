@@ -44,7 +44,13 @@ class DamsFunctionsController < ApplicationController
 
   def create
     if @dams_function.save
-        redirect_to @dams_function, notice: "function has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_dams_function_path(@dams_function, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_dams_function_path(@dams_function, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @dams_function, notice: "function has been saved"
+        end
     else
       flash[:alert] = "Unable to save function"
       render :new
