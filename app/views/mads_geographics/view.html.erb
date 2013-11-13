@@ -3,15 +3,11 @@
 <div>
   <dl>
     <dt>GeographicElement:</dt>
-    <dd><%= @mads_geographic.elementList[0].first.elementValue.first %></dd>
+    <dd><%= @mads_geographic.elementList[0].elementValue %></dd>
     <dt>Scheme:</dt>
-    <dd><%= @mads_geographic.scheme %></dd>
+    <dd><%= @mads_geographic.scheme.first.pid %></dd>
     <dt>ExternalAuthority:</dt>
-    <dd><%= @mads_geographic.externalAuthority %></dd>
+    <dd><%= @mads_geographic.externalAuthority.first %></dd>
   </dl>
-  <% if can? :update, @mads_geographic %>
-    <%= link_to "Solr View", mads_geographic_path(@mads_geographic), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_mads_geographic_path(@mads_geographic), class: "btn btn-primary"%>
-    <%= link_to "View All", mads_geographics_path(), class: "btn btn-primary"%>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @mads_geographic, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 </div>

@@ -44,7 +44,13 @@ class DamsIconographiesController < ApplicationController
 
   def create
     if @dams_iconography.save
-        redirect_to @dams_iconography, notice: "iconography has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_dams_iconography_path(@dams_iconography, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_dams_iconography_path(@dams_iconography, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @dams_iconography, notice: "iconography has been saved"
+        end
     else
       flash[:alert] = "Unable to save iconography"
       render :new

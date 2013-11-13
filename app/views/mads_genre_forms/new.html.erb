@@ -2,7 +2,7 @@
 <%= form_for @mads_genre_form do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_genre_form[name]', "Name" %>
-  <%= text_field_tag 'mads_genre_form[name]' %>
+  <%= text_field_tag 'mads_genre_form[name]', '', required: true %>
   <%= label_tag 'mads_genre_form[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_genre_form[externalAuthority]' %> 
   <%= f.fields_for :genreFormElement do |te| %>
@@ -10,11 +10,10 @@
     <%= te.text_field :elementValue %>
   <% end %>
   <br>
-  <%= f.fields_for :scheme do |se| %>
-    <%= se.label :id, "Scheme" %>
-    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
   <br>
+
+  <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>
 <%end%>

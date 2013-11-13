@@ -7,15 +7,7 @@
     <dt>ExternalAuthority:</dt>
     <dd><%= @mads_language.externalAuthority.first %></dd>
   </dl>
-  <input type="hidden" id="id" value="<%= @mads_language.id%>"/>
-  <input type="hidden" id="name" value="<%= @mads_language.name.first%>"/>
-  <br>
-  <% if(!params[:parent_id].nil?) %>
-  	<a href="#" onClick="javascript: setParentId_generic('<%= params[:parent_id]%>',true);">close</a>
-  <% end %>
-  <% if(!params[:parent_class].nil?) %>
-  	<a href="#" onClick="javascript: setParentId_generic('<%= params[:parent_class]%>',false);">close</a>
-  <% end %>  
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @mads_language, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>  
   <%# if can? :update, @mads_language %>
     <%#= link_to "Solr View", mads_language_path(@mads_language), class: "btn btn-primary"%>
     <%#= link_to "Edit", edit_mads_language_path(@mads_language), class: "btn btn-primary"%>

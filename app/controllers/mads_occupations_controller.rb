@@ -45,7 +45,13 @@ class MadsOccupationsController < ApplicationController
 
   def create
     if @mads_occupation.save
-        redirect_to @mads_occupation, notice: "Occupation has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_mads_occupation_path(@mads_occupation, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_mads_occupation_path(@mads_occupation, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else  
+        	redirect_to @mads_occupation, notice: "Occupation has been saved"
+        end
     else
       flash[:alert] = "Unable to save Occupation"
       render :new

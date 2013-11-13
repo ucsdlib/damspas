@@ -4,6 +4,7 @@ module Dams
   module DamsObject
     extend ActiveSupport::Concern
     include ModelHelper
+    include ControllerHelper
     included do
       rdf_type DAMS.Object
 	  map_predicates do |map|
@@ -185,12 +186,20 @@ module Dams
 			end	      
 	    end
 	        
-		if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
-	      if new?
-	        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-	      else
-	        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-	      end
+		if(!@simpleSubURI.nil?)
+			if(@simpleSubURI.class == Array)
+				i = 0
+				@simpleSubURI.each do |sub|
+			        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@subType[i].camelize(:lower)}"), sub])
+			        i = i + 1
+			    end
+			else
+		      if new?
+		        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@subType[0].camelize(:lower)}"), @simpleSubURI])
+		      else
+		        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@subType[0].camelize(:lower)}"), @simpleSubURI])
+		      end		
+			end		      	      
 	    end     
 	  end
 	
@@ -217,7 +226,7 @@ module Dams
 		end
 	
 	  end
-	
+	  
 	  def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
 	    collections = []
 	    [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|

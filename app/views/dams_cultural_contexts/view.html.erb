@@ -9,9 +9,6 @@
     <dt>ExternalAuthority:</dt>
     <dd><%= @dams_cultural_context.externalAuthority.first %></dd>
   </dl>
-  <% if can? :update, @dams_cultural_context %>
-    <%= link_to "Solr View", dams_cultural_context_path(@dams_cultural_context), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_dams_cultural_context_path(@dams_cultural_context), class: "btn btn-primary"%>
-    <%= link_to "View All", dams_cultural_contexts_path(), class: "btn btn-primary"%>
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @dams_cultural_context, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
+
 </div>
