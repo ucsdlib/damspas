@@ -1,7 +1,9 @@
- 
+<%
+   resourceTypeArray = [["related", "related"],["online exhibit", "online exhibit"],["online finding aid", "online finding aid"],["news release", "news release"],
+   						["depiction", "depiction"],["journal entry", "journal entry"],["basket", "basket"],["artifact", "artifact"]]
+%> 
 <div class="fields">
-   	<%= f.label :type, "Type" %>
-    <%= f.text_field :type , :value => "", class: "input-block-level" %>    
+    <%= f.select :type, options_for_select(resourceTypeArray) , :prompt=>"Select Type"%>    
     <%= f.label :uri, "URI" %>
     <%= f.url_field :uri, :value => "", class: "input-block-level" %>
     <%= f.label :description, "Description" %>
