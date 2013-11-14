@@ -39,12 +39,10 @@ feature 'Visitor wants to create/edit a assembled collection' do
 		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_type", :with => "TestScopeContentNoteType"
 		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_displayLabel", :with => "TestScopeContentNoteDisplayLabel"
 		page.select('CorporateName', match: :first)
-		fill_in "dams_assembled_collection_relatedResource_attributes_0_type", :with => "TestRelatedResourceType"
+		page.select('artifact', match: :first)
 		fill_in "dams_assembled_collection_relatedResource_attributes_0_uri", :with => "http://www.google.com"
 		fill_in "dams_assembled_collection_relatedResource_attributes_0_description", :with => "TestRelatedResourceDescription"
 		click_on "Save"
-
-
 
 		# Save path of assembled collection and expect results
 		Path.path = current_path
@@ -61,7 +59,7 @@ feature 'Visitor wants to create/edit a assembled collection' do
 		
 		expect(page).to have_content ("TestScopeContentNote")
 		
-		expect(page).to have_content ("TESTRELATEDRESOURCETYPE")
+		expect(page).to have_content ("ARTIFACT")
 		expect(page).to have_selector('a', :text => "TestRelatedResourceDescription")
 		expect(page).to have_content ("TestRelatedResourceDescription")	
 

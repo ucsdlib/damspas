@@ -79,7 +79,8 @@ feature 'Visitor wants to create/edit a DAMS Object' do
 	fill_in "Date Type", :with => "Testdatetype"
 	fill_in "Date Encoding", :with => "TestDateEncoding"    
     page.select('text', match: :first)
-    fill_in "Type", :with => "Person"
+    #fill_in "Type", :with => "Person"
+    page.select('artifact', match: :first)
     fill_in "URI", :with => "http://JohnDoe.com"
     fill_in "Description", :with => "Mathematician"
     page.select("French", match: :first)
