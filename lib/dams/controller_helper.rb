@@ -164,7 +164,97 @@ module Dams
 	  	end
 		value   
     end  
-    
+
+    def get_simple_subjects(object)   	
+    	simpleSubjectArray = Array.new
+
+	  	object.temporal.each do |temp|
+  		  simpleSubjectArray << {
+		    :name => "Temporal",
+		    :value => temp.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.topic.each do |top|
+  		  simpleSubjectArray << {
+		    :name => "Topic",
+		    :value => top.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.builtWorkPlace.each do |built|
+  		  simpleSubjectArray << {
+		    :name => "BuiltWorkPlace",
+		    :value => built.pid,			  
+		  }
+	  	end
+
+	  	object.culturalContext.each do |cultural|
+  		  simpleSubjectArray << {
+		    :name => "CulturalContext",
+		    :value => cultural.pid,			  
+		  }	  		
+	  	end
+
+	  	object.function.each do |fun|
+  		  simpleSubjectArray << {
+		    :name => "Function",
+		    :value => fun.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.genreForm.each do |genre|
+  		  simpleSubjectArray << {
+		    :name => "GenreForm",
+		    :value => genre.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.geographic.each do |geo|
+  		  simpleSubjectArray << {
+		    :name => "Geographic",
+		    :value => geo.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.iconography.each do |icon|
+  		  simpleSubjectArray << {
+		    :name => "Iconography",
+		    :value => icon.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.occupation.each do |occ|
+  		  simpleSubjectArray << {
+		    :name => "Occupation",
+		    :value => occ.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.scientificName.each do |sci|
+  		  simpleSubjectArray << {
+		    :name => "ScientificName",
+		    :value => sci.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.stylePeriod.each do |style|
+  		  simpleSubjectArray << {
+		    :name => "StylePeriod",
+		    :value => style.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.technique.each do |tech|
+  		  simpleSubjectArray << {
+		    :name => "Technique",
+		    :value => tech.pid,			  
+		  }		  		
+	  	end
+	
+		simpleSubjectArray   
+    end
+           
     def get_name_type(object)
     	type = ""
    		if !object.name[0].nil?

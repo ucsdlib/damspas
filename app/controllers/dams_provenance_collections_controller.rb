@@ -148,7 +148,8 @@ class DamsProvenanceCollectionsController < ApplicationController
    @simple_name_id = get_name_id(@dams_provenance_collection)   
     @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
     @simple_name_value = get_name_value(@dams_provenance_collection)
-
+	@simpleSubjects = get_simple_subjects(@dams_provenance_collection) 
+	
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
   json = JSON.parse(res.body)

@@ -156,15 +156,15 @@ class DamsObjectsController < ApplicationController
   	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
   	@mads_schemes = get_objects('MadsScheme','name_tesim')
   	
-	uri = URI('http://fast.oclc.org/fastSuggest/select')
-	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-	json = JSON.parse(res.body)
-	@jdoc = json.fetch("response").fetch("docs")
+#	uri = URI('http://fast.oclc.org/fastSuggest/select')
+#	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+#	json = JSON.parse(res.body)
+#	@jdoc = json.fetch("response").fetch("docs")
 	
-	@autocomplete_items = Array.new
-	@jdoc.each do |value|
-		@autocomplete_items << value['suggestall']
-	end 
+#	@autocomplete_items = Array.new
+#	@jdoc.each do |value|
+#		@autocomplete_items << value['suggestall']
+#	end 
 	
   end
   
@@ -227,16 +227,17 @@ class DamsObjectsController < ApplicationController
   		end  			
   	end
 
+    @simpleSubjects = get_simple_subjects(@dams_object) 
 
-	uri = URI('http://fast.oclc.org/fastSuggest/select')
-	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-	json = JSON.parse(res.body)
-	@jdoc = json.fetch("response").fetch("docs")
+#	uri = URI('http://fast.oclc.org/fastSuggest/select')
+#	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+#	json = JSON.parse(res.body)
+#	@jdoc = json.fetch("response").fetch("docs")
 	
-	@autocomplete_items = Array.new
-	@jdoc.each do |value|
-		@autocomplete_items << value['suggestall']
-	end   	 	 
+#	@autocomplete_items = Array.new
+#	@jdoc.each do |value|
+#		@autocomplete_items << value['suggestall']
+#	end   	 	 
   end
   
   def create    	    
@@ -301,9 +302,8 @@ class DamsObjectsController < ApplicationController
     @dams_object.copyright.clear
     @dams_object.license.clear  
     @dams_object.statute.clear
-    #@dams_object.otherRights.clear
 
-    @dams_object.attributes = params[:dams_object]
+    @dams_object.attributes = params[:dams_object]  
   	if @dams_object.save
   		redirect_to @dams_object, notice: "Successfully updated object"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Successfully updated object"	
