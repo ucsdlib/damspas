@@ -46,7 +46,13 @@ class MadsPersonalNamesController < ApplicationController
 
   def create
     if @mads_personal_name.save
-        redirect_to @mads_personal_name, notice: "Personal Name has been saved"
+      if(!params[:parent_id].nil?)
+        redirect_to view_mads_personal_name_path(@mads_personal_name, {:parent_id => params[:parent_id]})
+      elsif(!params[:parent_class].nil?)
+        redirect_to view_mads_personal_name_path(@mads_personal_name, {:parent_class => params[:parent_class]})                   
+      else    
+        redirect_to @mads_personal_name, notice: "PersonalName has been saved"
+      end
     else
       flash[:alert] = "Unable to save personal_name"
       render :new
