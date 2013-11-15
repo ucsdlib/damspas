@@ -121,29 +121,37 @@ module Dams
         super
       end
 
-      def insertSubjectsGraph
-        if(!@subURI.nil?)
-          if(@subURI.class == Array)
-            @subURI.each do |sub|
-                  graph.insert([rdf_subject, DAMS.complexSubject, sub])
-              end
-          else
-          if new?
-            graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
-          else
-            graph.update([rdf_subject, DAMS.complexSubject, @subURI])
-          end     
-        end       
-      end
-
-        if(!@simpleSubURI.nil? && !subjectType.nil? && subjectType.length > 0)
-          if new?
-            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-          else
-            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{subjectType.first.camelize(:lower)}"), @simpleSubURI])
-          end
-        end     
-      end
+	  def insertSubjectsGraph
+	    if(!@subURI.nil?)
+			if(@subURI.class == Array)
+				@subURI.each do |sub|
+			        graph.insert([rdf_subject, DAMS.complexSubject, sub])
+			    end
+			else
+		      if new?
+		        graph.insert([rdf_subject, DAMS.complexSubject, @subURI])
+		      else
+		        graph.update([rdf_subject, DAMS.complexSubject, @subURI])
+		      end			
+			end	      
+	    end
+	        
+		if(!@simpleSubURI.nil?)
+			if(@simpleSubURI.class == Array)
+				i = 0
+				@simpleSubURI.each do |sub|
+			        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@subType[i].camelize(:lower)}"), sub])
+			        i = i + 1
+			    end
+			else
+		      if new?
+		        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@subType[0].camelize(:lower)}"), @simpleSubURI])
+		      else
+		        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@subType[0].camelize(:lower)}"), @simpleSubURI])
+		      end		
+			end		      	      
+	    end     
+	  end
  
       def insertNameGraph  
       if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
