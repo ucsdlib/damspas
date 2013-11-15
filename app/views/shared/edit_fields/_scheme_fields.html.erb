@@ -1,0 +1,4 @@
+<%= f.fields_for :scheme do |se| %>
+  <%= se.label :id, "Scheme" %>
+  <%= se.select :id, options_for_select(@mads_schemes), {:include_blank => 'Select MadsScheme'}, :required => "true" %>
+<% end %>

@@ -22,16 +22,8 @@
 			end
 		end %>       
   </dl>
-
-  <input type="hidden" id="id" value="<%= @mads_complex_subject.id%>"/>
-  <input type="hidden" id="name" value="<%= @mads_complex_subject.name.first%>"/>
-  <br>
-  <% if(!params[:parent_id].nil?) %>
-  	<a href="#" onClick="javascript: setParentId_generic('<%= params[:parent_id]%>',true);">close</a>
-  <% end %>
-  <% if(!params[:parent_class].nil?) %>
-  	<a href="#" onClick="javascript: setParentId_generic('<%= params[:parent_class]%>',false);">close</a>
-  <% end %> 
+  
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @mads_complex_subject, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
     
   <%# if can? :update, @mads_complex_subject %>
     <%#= link_to "Solr View", mads_complex_subject_path(@mads_complex_subject), class: "btn btn-primary"%>

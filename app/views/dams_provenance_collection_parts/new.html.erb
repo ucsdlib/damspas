@@ -24,7 +24,7 @@ $(document).ready(function() {
 
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
 
-  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
+  <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part", :is_first => "true"}%>
 
    <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_provenance_collection_part"}%>
   
