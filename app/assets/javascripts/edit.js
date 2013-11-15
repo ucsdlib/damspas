@@ -58,6 +58,25 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
   }
 }
 
+function getCreators(link,type,location,fieldId)
+{
+  var q = link.value;
+  if(q != null && q.length > 0) {
+    var fieldName = firstToLowerCase(q);
+    
+    $.get(baseURL+"/get_name/get_name?fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+      var new_id = new Date().getTime();
+      data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
+      data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
+      data = data.replace("newTopic",new_id);  
+      if(location != null && location.length > 0)
+        $(location).html(data);
+      else
+        $(link).parent().before(data);
+    }); 
+  }
+}
+
 function getSimpleEditSubjects(link,type,location)
 {  
   var q = link.value;
@@ -199,6 +218,12 @@ function add_subject_fields(link, content) {
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
+function add_name_fields(link, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("creator", "g");
+    $(link).parent().before(content.replace(regexp, new_id));
+}
+
 function target_popup(target) {
   var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0,scrollbars=yes');
   win.resizeTo(550,650);
@@ -244,7 +269,7 @@ function getObjectsPath(type) {
 							 ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
 						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
 						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
-							 ["ConferenceName","mads_conference_name"],["Name","mads_names"],["PersonalName","mads_personal_names"],
+							 ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
 							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"]];
 	for(i = 0; i < objectPathArray.length; i++) {
 		if(type == objectPathArray[i][0]) {
