@@ -23,7 +23,7 @@
 
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "preferredCitationNote", :f => f}%>
 
-  <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+  <%= render :partial => 'shared/edit_fields/simple_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>
 
   <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%> 
  

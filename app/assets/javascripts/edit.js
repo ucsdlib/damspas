@@ -25,10 +25,51 @@ function getSubjects(type,q,location,fieldName,label)
     }
     }
    }
-
   if( label == 'Name' && fieldName == 'nameURI') {
     toggleRelationshipNames(q,"","names");
    }   
+}
+
+function getSimpleSubjects(link,type,location,fieldId,selectedValue)
+{  
+  var q = null;
+  var fieldName = null;
+   
+  if (typeof link == "string") {
+  	q = link;
+  	fieldName = "simpleSubjectURI";
+  } else {
+  	q = link.value;
+  	fieldName = firstToLowerCase(q);
+  }
+
+  if(q != null && q.length > 0) {
+	  $.get(baseURL+"/get_subject/get_subject?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+	    var new_id = new Date().getTime();
+	    data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
+	    data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
+	    var regexp = new RegExp("newClassName", "g");
+	    data = data.replace(regexp,new_id);
+	    if(location != null && location.length > 0)
+	    	$(location).html(data);
+	    else
+	    	$(link).parent().before(data);
+	  }); 
+  }
+}
+
+function getSimpleEditSubjects(link,type,location)
+{  
+  var q = link.value;
+  if(q != null && q.length > 0) {
+	  $.get(baseURL+"/get_subject/get_subject?fieldName=simpleSubjectURI&formType="+type+"&q="+q,function(data,status){
+	    var new_id = new Date().getTime();
+	    var regexp = new RegExp("newClassName", "g");
+	    data = data.replace(regexp,new_id);
+	    if(location != null && location.length > 0)
+	    	$(location).html(data);	
+	  }); 
+  }
 }
 
 function displayRelationshipName(value)
@@ -147,6 +188,14 @@ function add_fields(link, association, content) {
     	content = content.replace("complexSubjectId",new_id);
     	complexSubjectIdArray.push(new_id);
     }
+
+    $(link).parent().before(content.replace(regexp, new_id));
+}
+
+function add_subject_fields(link, content) {
+    var new_id = new Date().getTime();
+    //var regexp = new RegExp("simpleSubject", "g");
+    var regexp = new RegExp("newClassName", "g");
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
@@ -169,10 +218,16 @@ function setParentId_generic(parent_id, isId) {
   self.close();
 }
 
-function checkOption(id,isId,type) {  
+function checkOption(id,isId,type) {
   if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
+	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
+	  type = getObjectsPath(type);
+	}  
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
   } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
+	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
+	  type = getObjectsPath(type);
+	} 
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
   }  
 }
@@ -182,4 +237,23 @@ function loadCreateNewObjectOption_generic(objType) {
   var optionName = new Option('Create New Language','createNewLanguage');    
   var targetlength = target.length;    
   target.options[targetlength] = optionName;
+}
+
+function getObjectsPath(type) {
+	var	objectPathArray = 	[["BuiltWorkPlace","dams_built_work_places"],["CulturalContext","dams_cultural_contexts"], ["Function","dams_functions"], 
+							 ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
+						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
+						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
+							 ["ConferenceName","mads_conference_name"],["Name","mads_names"],["PersonalName","mads_personal_names"],
+							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"]];
+	for(i = 0; i < objectPathArray.length; i++) {
+		if(type == objectPathArray[i][0]) {
+			return objectPathArray[i][1];
+		}
+	}
+	return null;
+}
+
+function firstToLowerCase( str ) {
+    return str.substr(0, 1).toLowerCase() + str.substr(1);
 }

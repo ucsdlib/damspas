@@ -40,7 +40,13 @@ class DamsCulturalContextsController < ApplicationController
 
   def create
     if @dams_cultural_context.save
-        redirect_to @dams_cultural_context, notice: "CulturalContext has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_dams_cultural_context_path(@dams_cultural_context, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_dams_cultural_context_path(@dams_cultural_context, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else    
+        	redirect_to @dams_cultural_context, notice: "CulturalContext has been saved"
+        end
     else
       flash[:alert] = "Unable to save CulturalContext"
       render :new

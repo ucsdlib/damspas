@@ -1,0 +1,7 @@
+<% if !parent_id.nil? %>
+  <%= hidden_field_tag "parent_id", "#{parent_id}" %>
+<% end %>
+
+<% if !parent_class.nil? %>
+  <%= hidden_field_tag "parent_class", "#{parent_class}" %>
+<% end %>

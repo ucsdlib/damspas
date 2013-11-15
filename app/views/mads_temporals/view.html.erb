@@ -5,14 +5,11 @@
     <dt>TemporalElement:</dt>
     <dd><%= @mads_temporal.elementList[0].elementValue %></dd>
     <dt>Scheme:</dt>
-    <dd><%= @mads_temporal.scheme %></dd>
+    <dd><%= @mads_temporal.scheme.first.pid%></dd>
     <dt>ExternalAuthority:</dt>
-    <dd><%= @mads_temporal.externalAuthority %></dd> 
-    
+    <dd><%= @mads_temporal.externalAuthority.first %></dd>     
   </dl>
-  <% if can? :update, @mads_temporal %>
-    <%= link_to "Solr View", mads_temporal_path(@mads_temporal), class: "btn btn-primary"%>
-    <%= link_to "Edit", edit_mads_temporal_path(@mads_temporal), class: "btn btn-primary"%>
-    <%= link_to "View All", mads_temporals_path(), class: "btn btn-primary"%>
-  <% end %>
+
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @mads_temporal, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
+
 </div>
