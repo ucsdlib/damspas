@@ -35,6 +35,8 @@
   <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%>
       
   <%= render :partial => 'shared/edit_fields/cartographics_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object"}%>     
+
+  <%= render :partial => 'shared/edit_fields/file_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%>     
   
 	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
