@@ -1,0 +1,30 @@
+<% file =object.file
+	i = 0
+	if file != nil
+		while i < file.size  do
+%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][id]", file[i].id%>			
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][filestore]", file[i].filestore%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][quality]", file[i].quality%>							
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][size]", file[i].size%>			
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][sourceFileName]", file[i].sourceFileName%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][sourcePath]", file[i].sourcePath%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][use]", file[i].use%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][value]", file[i].value%>													
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][crc32checksum]", file[i].crc32checksum%>			
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][md5checksum]", file[i].md5checksum%>			
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][sha1checksum]", file[i].sha1checksum%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][sha256checksum]", file[i].sha256checksum%>			
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][sha512checksum]", file[i].sha512checksum%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][compositionLevel]", file[i].compositionLevel%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][dateCreated]", file[i].dateCreated%>							
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][formatName]", file[i].formatName%>			
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][formatVersion]", file[i].formatVersion%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][mimeType]", file[i].mimeType%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][objectCategory]", file[i].objectCategory%>
+				<%= hidden_field_tag "#{object_type}[file_attributes][#{i}][preservationLevel]", file[i].preservationLevel%>																		
+<%			
+			i +=1		
+		end
+    end
+%> 
