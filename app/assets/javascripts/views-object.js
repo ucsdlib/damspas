@@ -14,7 +14,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 
     var data;
 	var tile_url = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
-	var tile_att = 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">';
+	var tile_att = 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>';
 
 
 	//------
@@ -108,16 +108,15 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 		{
 			if (!componentLoaded[componentIndex])
 			{
-				var controlID = "control-" + componentIndex;
 				componentData = $.parseJSON(componentData);
 				var fileType = componentData.file_type;
-				var zoomFilePath = componentData.zoom_file_path;
+				var serviceFilePath = componentData.service_file_path;
 				var displayFilePath = componentData.display_file_path;
 
 				switch(fileType)
 				{
 					case "image":
-						$(container).html( '<a href="'+zoomFilePath+'"><img src="'+displayFilePath+'"></a>' );
+						$(container).html( '<a href="'+serviceFilePath+'" alt=""><img src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
 
