@@ -305,6 +305,21 @@ class DamsObjectsController < ApplicationController
 
     @dams_object.attributes = params[:dams_object]  
   	if @dams_object.save
+        @dams_object.reload
+
+        # check for file upload
+        if params[:file]
+          file_status = attach_file( @dams_object, params[:file] )
+          flash[:alert] = file_status[:alert] if file_status[:alert]
+          flash[:deriv] = file_status[:deriv] if file_status[:deriv]
+        end
+
+        # reindex the record
+        begin
+          @dams_object.send :update_index
+        rescue Exception => e
+          logger.warn "Error reindexing #{@dams_object.pid}: #{e}"
+        end  	
   		redirect_to @dams_object, notice: "Successfully updated object"
   		#redirect_to edit_dams_object_path(@dams_object), notice: "Successfully updated object"	
     else
