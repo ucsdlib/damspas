@@ -7,7 +7,16 @@ class FileController < ApplicationController
     begin
       objid = params[:id]
       fileid = params[:ds]
-      asset = ActiveFedora::Base.find(objid, :cast=>true)
+      if fileid.index("_",1)
+        cmp_part = fileid[1,fileid.index("_",1)-1]
+        file_part = fileid[fileid.index("_",1)+1,fileid.length]
+      else
+        cmp_part = nil
+        file_part = fileid[1,fileid.length]
+      end
+
+      @solr_doc = get_single_doc_via_search(1, {:q => "id:#{objid}"} )
+      asset = ActiveFedora::Base.load_instance_from_solr(objid,@solr_doc)
     rescue
       raise ActionController::RoutingError.new('Not Found')
     end
@@ -16,21 +25,28 @@ class FileController < ApplicationController
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    # check permissions
-    sub = RDF::Resource.new(
-        Rails.configuration.id_namespace + objid + fileid.gsub('_','/') )
-    use = asset.damsMetadata.graph.first_object([sub,DAMS.use,nil]).to_s
+    # load use value from solr
+    use = "image-source" # default use to source, which requires curator privs
+    prefix = cmp_part ? "component_#{cmp_part}_" : ""
+    file_json = @solr_doc["#{prefix}files_tesim"]
+    file_json.each do |json|
+      file_info = JSON.parse(json)
+      if file_info["id"] == file_part
+        use = file_info["use"]
+      end
+    end
 
     # check ip for unauthenticated users
     if current_user == nil
       current_user = User.anonymous(request.ip)
     end
-    
+
+    # check permissions    
     if use.end_with?("source")
       logger.info "FileController: Master file access requires edit permission"
-      authorize! :edit, asset
+      authorize! :edit, @solr_doc
     elsif !asset.read_groups.include?("public")
-      authorize! :show, asset
+      authorize! :show, @solr_doc
     end
 
     # set headers
