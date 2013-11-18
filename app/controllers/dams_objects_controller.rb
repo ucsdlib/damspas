@@ -226,7 +226,7 @@ class DamsObjectsController < ApplicationController
   			@provenance_collection_id = col.pid
   		end  			
   	end
-
+    @creators = get_creators(@dams_object)
     @simpleSubjects = get_simple_subjects(@dams_object) 
 
 #	uri = URI('http://fast.oclc.org/fastSuggest/select')

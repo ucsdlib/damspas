@@ -4,6 +4,6 @@
 
   <h3>Creator</h3>  
 
-<%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => "dams_object", :nameTypeArray => nameTypeArray}%>
+<%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => "object_type", :nameTypeArray => nameTypeArray}%>
 
 <p><%= link_to_add_creators "Add Creator", f, "#{object_type}", nameTypeArray%></p>

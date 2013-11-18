@@ -1,0 +1,13 @@
+<div class="fields">
+<br/>
+<% if selected_type.nil?%>
+	<%= select_tag "#{object_type}[nameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getEditCreators(this,'#{object_type}','#newClassName');"%>
+	<div id="newClassName"></div>
+<% else %>
+	<%= hidden_field_tag "#{object_type}[nameType][]", "#{selected_type}" %>
+	<script type="text/javascript">
+	   getCreators("<%= selected_type %>","<%= object_type %>","#newClassName<%= index %>","0","<%= selected_value %>");
+	</script>
+	<div id="newClassName<%= index %>"></div>
+	</div>	
+<% end %>

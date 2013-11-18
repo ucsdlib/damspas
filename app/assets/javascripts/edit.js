@@ -58,17 +58,26 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
   }
 }
 
-function getCreators(link,type,location,fieldId)
-{
-  var q = link.value;
+function getCreators(link,type,location,fieldId,selectedValue)
+{  
+  var q = null;
+  var fieldName = null;
+   
+  if (typeof link == "string") {
+    q = link;
+    fieldName = "creatorURI";
+  } else {
+    q = link.value;
+    fieldName = firstToLowerCase(q);
+  }
+
   if(q != null && q.length > 0) {
-    var fieldName = firstToLowerCase(q);
-    
-    $.get(baseURL+"/get_name/get_name?fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+    $.get(baseURL+"/get_name/get_name?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
       var new_id = new Date().getTime();
       data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
       data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
-      data = data.replace("newTopic",new_id);  
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
       if(location != null && location.length > 0)
         $(location).html(data);
       else
@@ -88,6 +97,20 @@ function getSimpleEditSubjects(link,type,location)
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);	
 	  }); 
+  }
+}
+
+function getEditCreators(link,type,location)
+{  
+  var q = link.value;
+  if(q != null && q.length > 0) {
+    $.get(baseURL+"/get_name/get_name?fieldName=creatorURI&formType="+type+"&q="+q,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data); 
+    }); 
   }
 }
 
