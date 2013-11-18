@@ -1,7 +1,9 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Object</h1>
 <div class="dams-viewer">
-<%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");' }  do |f| %>  
+<%#= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");' }  do |f| %>  
+<%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");', :multipart => true, :id => 'fileupload'}  do |f| %>  
+
   <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
        
   <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
@@ -40,13 +42,13 @@
   
 	<!-- link to create new subject using autocomplete/new subject, if needed -->
   <br>
+  <% if !@dams_object.file.nil? && @dams_object.file.size == 0%>
+  	<h3>Add File</h3>
+  	<input type="file" name="file"/>
+  	<br/><br/>
+  <% end %>  
   <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", dams_object_path(@dams_object),  class: "btn btn-primary" %> 
 <%end%>
 
-<h2>Add File</h2>
-<%= form_for(@dams_object, :url => upload_path(@dams_object.pid), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
-    <input type="file" name="file"/>
-    <%=f.submit "Add File", class: "btn btn-primary" %>
-<% end %>
 </div>
