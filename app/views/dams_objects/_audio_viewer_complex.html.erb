@@ -4,7 +4,7 @@
    cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
    fieldData = @document["#{prefix}files_tesim"]
    wowzaURL = grabWowzaURL(fieldData,objid,cmpid)
-   dataForDynamicLoad = "{\"file_type\":\"audio\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}".html_safe
+   dataForDynamicLoad = "{\"file_type\":\"audio\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}"
 %>
 
 <% if wowzaURL != nil %>
