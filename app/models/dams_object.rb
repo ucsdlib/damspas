@@ -30,6 +30,7 @@ class DamsObject < ActiveFedora::Base
     :copyright,
     :corporateName_attributes,
     :corporateName,
+    :creatorURI,
     :culturalContext_attributes,
     :culturalContext,
     :custodialResponsibilityNote,

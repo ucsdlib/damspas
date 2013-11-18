@@ -47,6 +47,7 @@ class GetDataController < ApplicationController
 	@fieldName = params[:fieldName]
 	@label = params[:q]
 	@fieldId = params[:fieldId]
+	@selectedValue = params[:selectedValue]
 	@names << "Create New #{@label}"
 	render :layout => false
   end

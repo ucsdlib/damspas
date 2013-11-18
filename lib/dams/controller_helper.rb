@@ -302,6 +302,46 @@ module Dams
 	  	end
 		value   
     end
+    def get_creators(object)   	
+    	creatorArray = Array.new
+
+	  	object.conferenceName.each do |conf|
+  		  creatorArray << {
+		    :name => "ConferenceName",
+		    :value => conf.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.corporateName.each do |corp|
+  		  creatorArray << {
+		    :name => "CorporateName",
+		    :value => corp.pid,			  
+		  }	  		
+	  	end
+
+		object.familyName.each do |fam|
+  		  creatorArray << {
+		    :name => "FamilyName",
+		    :value => fam.pid,			  
+		  }	  		
+	  	end
+
+	   	object.name.each do |nam|
+  		  creatorArray << {
+		    :name => "Name",
+		    :value => nam.pid,			  
+		  }	  		
+	  	end
+
+	  	object.personalName.each do |pers|
+  		  creatorArray << {
+		    :name => "PersonalName",
+		    :value => pers.pid,			  
+		  }
+	  	end
+
+		creatorArray   
+    end
     
     def index_links(object)
       	solrizer = Solrizer::Fedora::Solrizer.new
