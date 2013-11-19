@@ -60,11 +60,11 @@ feature "Curator should be able to upload files" do
     attach_file 'file', File.join(Rails.root,'/app/assets/images/ucsd/bg.jpg')
     click_on "Add File"
     expect(page).to have_selector('div', :text => 'File Uploaded')
-    expect(page).to have_button('Generate Derivatives')
+    #expect(page).to have_button('Generate Derivatives')
 
     # generate derivatives
-    click_on 'Generate Derivatives'
-    expect(page).to have_selector('div', :text => 'Derivatives created successfully')
+    #click_on 'Generate Derivatives'
+    #expect(page).to have_selector('div', :text => 'Derivatives created successfully')
 
     # make sure file exists
     visit file_path( test_pid, '_1.jpg' )
@@ -72,9 +72,9 @@ feature "Curator should be able to upload files" do
     expect(response.status).to eq( 200 )
 
     # make sure derivative exists
-    visit file_path( test_pid, '_2.jpg' )
-    response = page.driver.response
-    expect(response.status).to eq( 200 )
+    #visit file_path( test_pid, '_2.jpg' )
+    #response = page.driver.response
+    #expect(response.status).to eq( 200 )
   end
 end
 

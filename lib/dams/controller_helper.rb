@@ -382,7 +382,11 @@ module Dams
 	    else
 	       return { alert: json['message'] }
 	    end
-	
+
+	      # update solr index
+	      @fobj = DamsObject.find( object )
+	      @fobj.send :update_index
+      	
 	    rescue Exception => e
 	      logger.warn "Error generating derivatives #{e.to_s}"
 	      return { alert: e.to_s}
