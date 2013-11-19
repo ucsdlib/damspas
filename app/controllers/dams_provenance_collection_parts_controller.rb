@@ -151,7 +151,7 @@ def edit
     end
 
 	@simpleSubjects = get_simple_subjects(@dams_provenance_collection_part)
-	
+	@creators = get_creators(@dams_provenance_collection_part)
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
   json = JSON.parse(res.body)

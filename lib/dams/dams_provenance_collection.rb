@@ -154,14 +154,36 @@ module Dams
 	  end
  
       def insertNameGraph  
-      if(!@name_URI.nil? && !nameType.nil? && nameType.length > 0)
-          if new?
-            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
-          else
-            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{nameType.first.camelize(:lower)}"), @name_URI])
-          end
+      if(!@nameURI.nil?)
+        if(@nameURI.class == Array)
+          @nameURI.each do |nam|
+                graph.insert([rdf_subject, DAMS.name, nam])
+            end
+        else
+            if new?
+              graph.insert([rdf_subject, DAMS.name, @nameURI])
+            else
+              graph.update([rdf_subject, DAMS.name, @nameURI])
+            end     
+        end       
+        end
+            
+      if(!@creatorURI.nil?)
+        if(@creatorURI.class == Array)
+          i = 0
+          @creatorURI.each do |crea|
+                graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[i].camelize(:lower)}"), crea])
+                i = i + 1
+            end
+        else
+            if new?
+              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[0].camelize(:lower)}"), @nameURI])
+            else
+              graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[0].camelize(:lower)}"), @nameURI])
+            end   
+        end                 
         end     
-      end  
+      end
 
     end  
   end
