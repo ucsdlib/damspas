@@ -1,4 +1,6 @@
 <% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
+displayFilePath:<%= displayFilePath %>
+<br/>filePath:<%= filePath %>
 <% if displayFilePath.length > 0 %>
    <%= link_to image_tag(displayFilePath, :alt => ''), zoomFilePath %>
 <% else %>
