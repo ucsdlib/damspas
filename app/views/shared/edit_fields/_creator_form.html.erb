@@ -1,6 +1,9 @@
   <%
      nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <h3>Creator</h3>
-  <%= select_tag "#{object_type}[nameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Creator Type" , :onChange=>"javascript: getSubjects('#{object_type}',this.value,'#name','nameURI','Name');"%>
-  <div id="name"></div>
+
+  <h3>Creator</h3>  
+
+<%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => "object_type", :nameTypeArray => nameTypeArray}%>
+
+<p><%= link_to_add_creators "Add Creator", f, "#{object_type}", nameTypeArray%></p>

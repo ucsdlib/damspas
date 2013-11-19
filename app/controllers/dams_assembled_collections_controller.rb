@@ -144,6 +144,7 @@ end
     @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
     @simple_name_value = get_name_value(@dams_assembled_collection)
 	@simpleSubjects = get_simple_subjects(@dams_assembled_collection)
+  @creators = get_creators(@dams_assembled_collection)
 
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')

@@ -131,30 +131,7 @@ feature 'Visitor wants to use Hydra View' do
 		expect(page).to have_selector('dd', :text => "Family1")
 		expect(page).to have_selector('dd', :text => "1990")
 		expect(page).to have_selector('dd', :text => "Median1")
-		expect(page).to have_selector('dd', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('dd', :text => "http://familyname.com")
-
-		#Check edit in hydra view
-		click_on "Edit"
-		fill_in "Name", :with => "Miss Does"
-		fill_in "ExternalAuthority", :with => "http://missdoes.com"
-		page.select("Test Scheme 2", match: :first)
-		fill_in "Full Name", :with => "Jane Does"
-		fill_in "Family Name", :with => "Does1"
-		fill_in "Given Name", :with => "Jane1"
-		fill_in "Dates", :with => "1970"
-		fill_in "Terms of Address", :with => "Last1"
-		click_on "Save changes"
-
-		#expect(page).to have_selector('strong', :text => "Miss Does")
-		expect(page).to have_selector('li', :text => "Jane Does")
-		expect(page).to have_selector('li', :text => "Does1")
-		expect(page).to have_selector('li', :text => "Jane1")
-		expect(page).to have_selector('li', :text => "1970")
-		expect(page).to have_selector('li', :text => "Last1")
-		expect(page).to have_selector('li', :text => "Test Scheme 2")
-		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
-		expect(page).to have_selector('a', :text => "http://missdoes.com")
 	end
 
 end
