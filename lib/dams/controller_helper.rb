@@ -334,5 +334,61 @@ module Dams
         end
       end
     end
+    
+ 
+    def create_derivatives(object, file, fullPath)
+      if file.nil? || !file.respond_to?(:original_filename)
+        return { alert: "No file uploaded" }
+      else       
+	  begin
+        # set the filename
+        @ds = "_1" # XXX TODO list files and choose next file id
+        ext = File.extname(file.original_filename)
+        @ds += ext unless ext.nil?
+        	    
+	    dspart = @ds.split("_")
+	    
+	    if ( dspart.length == 2 )
+	      @cid = nil
+	      @fid = dspart[1]
+	    elsif ( dspart.length == 3 )
+	      @cid = dspart[1]
+	      @fid = dspart[2]
+	    else
+	      return{ notice: "Invalid datastream name: #@ds" }
+	      return
+	    end
+	
+	    # add any extension stripped by rails
+	    ext = File.extname(fullPath)
+	    @fid += ext unless ext.nil?
+	
+	    # build url to make damsrepo generate derivs
+	    user = ActiveFedora.fedora_config.credentials[:user]
+	    pass = ActiveFedora.fedora_config.credentials[:password]
+	    baseurl = ActiveFedora.fedora_config.credentials[:url]
+	    baseurl = baseurl.gsub(/\/fedora$/,'')
+	    url = "#{baseurl}/api/files/#{object}/"
+	    url += "#{@cid}/" unless @cid.nil?
+	    url += "#{@fid}/derivatives?format=json"
+	
+	    # call damsrepo
+	    response = RestClient::Request.new(
+	        :method => :post, :url => url, :user => user, :password => pass
+	      ).execute
+	    json = JSON.parse(response.to_str)
+	    if json['status'] == 'OK'
+	       return { notice: json['message']}
+	    else
+	       return { alert: json['message'] }
+	    end
+	
+	    rescue Exception => e
+	      logger.warn "Error generating derivatives #{e.to_s}"
+	      return { alert: e.to_s}
+	    end
+      end
+    end
+        
   end
 end
