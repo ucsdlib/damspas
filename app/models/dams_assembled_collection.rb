@@ -13,7 +13,7 @@ class DamsAssembledCollection < ActiveFedora::Base
     :conferenceName,
     :corporateName_attributes,
     :corporateName,
-    :creatorURI
+    :creatorURI, 
     :culturalContext_attributes,
     :culturalContext,
     :custodialResponsibilityNote,

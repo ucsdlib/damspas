@@ -172,14 +172,14 @@ module Dams
         if(@creatorURI.class == Array)
           i = 0
           @creatorURI.each do |crea|
-                graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[i].camelize(:lower)}"), crea])
+                graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[i].camelize(:lower)}"), crea])
                 i = i + 1
             end
         else
             if new?
-              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[0].camelize(:lower)}"), @nameURI])
+              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @nameURI])
             else
-              graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[0].camelize(:lower)}"), @nameURI])
+              graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @nameURI])
             end   
         end                 
         end     

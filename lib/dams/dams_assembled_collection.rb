@@ -131,6 +131,7 @@ module Dams
 			if(@simpleSubURI.class == Array)
 				i = 0
 				@simpleSubURI.each do |sub|
+              puts "subtype" + @subType[i]
 			        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@subType[i].camelize(:lower)}"), sub])
 			        i = i + 1
 			    end
@@ -163,14 +164,15 @@ module Dams
       if(@creatorURI.class == Array)
         i = 0
         @creatorURI.each do |crea|
-              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[i].camelize(:lower)}"), crea])
+              puts "nameType"
+              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[i].camelize(:lower)}"), crea])
               i = i + 1
           end
       else
           if new?
-            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[0].camelize(:lower)}"), @nameURI])
+            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @creatorURI])
           else
-            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@nameType[0].camelize(:lower)}"), @nameURI])
+            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @creatorURI])
           end   
       end                 
       end     
