@@ -411,7 +411,7 @@ module Dams
 	    url = "#{baseurl}/api/files/#{object}/"
 	    url += "#{@cid}/" unless @cid.nil?
 	    url += "#{@fid}/derivatives?format=json"
-	
+
 	    # call damsrepo
 	    response = RestClient::Request.new(
 	        :method => :post, :url => url, :user => user, :password => pass
@@ -422,7 +422,8 @@ module Dams
 	    else
 	       return { alert: json['message'] }
 	    end
-	
+
+
 	    rescue Exception => e
 	      logger.warn "Error generating derivatives #{e.to_s}"
 	      return { alert: e.to_s}
