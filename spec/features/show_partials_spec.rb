@@ -57,7 +57,11 @@ feature 'Visitor wants to view object fields' do
     visit dams_object_path('bd22194583')
 
     # license
+<<<<<<< HEAD
     # expect(page).to have_link('License note text here...', href:"http://library.ucsd.edu/licenses/lic12341.pdf")
+=======
+    expect(page).to have_link('License note text here...', href:"http://library.ucsd.edu/licenses/lic12341.pdf")
+>>>>>>> 257a9626718de36fb1f89352df56db7690ae2e4d
 
     # other rights
     expect(page).to have_link('Other rights note value', href:"http://bar.com")

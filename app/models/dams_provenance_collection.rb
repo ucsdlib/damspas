@@ -14,6 +14,7 @@ class DamsProvenanceCollection < ActiveFedora::Base
     :conferenceName,
     :corporateName_attributes,
     :corporateName,
+    :creatorURI, 
     :culturalContext_attributes,
     :culturalContext,
     :custodialResponsibilityNote,
