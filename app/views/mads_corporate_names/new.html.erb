@@ -2,7 +2,7 @@
 <%= form_for @mads_corporate_name do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'mads_corporate_name[name]', "Name" %>
-  <%= text_field_tag 'mads_corporate_name[name]' %>               
+  <%= text_field_tag 'mads_corporate_name[name]', '', required: true %>               
   <%= label_tag 'mads_corporate_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_corporate_name[externalAuthority]' %> 
     <%= f.fields_for :fullNameElement do |full| %>
@@ -30,12 +30,9 @@
       <%= na.text_field :elementValue %>
     <% end %>    
   <br>
-  <%= f.fields_for :scheme do |se| %>
-    <%= se.label :id, "Scheme" %>
-    <%= se.select :id, options_for_select(@mads_schemes) , :prompt=>"Select MadsScheme" %>
-  <% end %>
+    <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
   <br>
-
-  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
+    <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", mads_corporate_names_path, class: "btn btn-link pull-right" %>
 <% end %>
