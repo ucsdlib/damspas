@@ -240,7 +240,8 @@ class DamsObjectsController < ApplicationController
 #	end   	 	 
   end
   
-  def create    	    
+  def create   
+    has_file = "false" 	    
   	if @dams_object.save 
         flash[:notice] = "Object has been saved"
 
@@ -252,9 +253,10 @@ class DamsObjectsController < ApplicationController
           flash[:alert] = file_status[:alert] if file_status[:alert]
           flash[:deriv] = file_status[:deriv] if file_status[:deriv]
 
-          #derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
-          #flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
-          #flash[:notice] = derivative_status[:alert] if derivative_status[:notice] 
+          derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
+          flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
+          flash[:notice] = derivative_status[:alert] if derivative_status[:notice]
+          has_file = "true"
         end
 
         # reindex the record
@@ -263,11 +265,22 @@ class DamsObjectsController < ApplicationController
         rescue Exception => e
           logger.warn "Error reindexing #{@dams_object.pid}: #{e}"
         end
-
-  		redirect_to @dams_object
+		if has_file == "false"
+  			redirect_to @dams_object
+  		end
+  		
     else
       flash[:alert] = "Unable to save object"
       render :new
+    end
+    
+    if has_file == "true"
+      @obj = @dams_object.id
+      #update solr index
+      @fobj = DamsObject.find( @obj )
+      @fobj.send :update_index
+
+      redirect_to dams_object_path @obj    	
     end
   end
   
