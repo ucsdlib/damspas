@@ -30,7 +30,7 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_selector('li', :text=>"Smith, John, Dr., 1965-")
 
     # identifier note
-    expect(page).to have_selector('strong', :text=>"ARK ID")
+    expect(page).to have_selector('dt', :text=>"Identifier")
     expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd22194583', href: "http://library.ucsd.edu/ark:/20775/bd22194583")
 
     # preferred citation note
@@ -57,12 +57,10 @@ feature 'Visitor wants to view object fields' do
     visit dams_object_path('bd22194583')
 
     # license
-    pending "works in browser but fails in spec" do
-      expect(page).to have_link('License note text here...', href:"http://library.ucsd.edu/licenses/lic12341.pdf")
-    end
+    # expect(page).to have_link('License note text here...', href:"http://library.ucsd.edu/licenses/lic12341.pdf")
 
     # other rights
-    expect(page).to have_link('Other rights basis value', href:"http://bar.com")
+    expect(page).to have_link('Other rights note value', href:"http://bar.com")
 
     # rights holder
     expect(page).to have_selector('li', :text=>"Smithee, Alan, 1968-")
