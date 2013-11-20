@@ -252,12 +252,9 @@ class DamsObjectsController < ApplicationController
           flash[:alert] = file_status[:alert] if file_status[:alert]
           flash[:deriv] = file_status[:deriv] if file_status[:deriv]
 
-          derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
-          flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
-          flash[:notice] = derivative_status[:alert] if derivative_status[:notice]
-          # update solr index
-	      #@fobj = DamsObject.find( @dams_object.pid )
-	      #@fobj.send :update_index      
+          #derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
+          #flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
+          #flash[:notice] = derivative_status[:alert] if derivative_status[:notice] 
         end
 
         # reindex the record
