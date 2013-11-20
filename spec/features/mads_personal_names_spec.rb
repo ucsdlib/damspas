@@ -24,14 +24,14 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		fill_in "Other Name", :with => "FooCorp"
 		fill_in "Dates", :with => "1920"
 		fill_in "ExternalAuthority", :with => "http://misterdoe.com"
-		page.select("Test Scheme", match: :first)
+		page.select("Library of Congress Subject Headings", match: :first)
 		click_on "Save"
 		Path.path = current_path
 
 		###expect(page).to have_selector('strong', :text => "FooCorp, 1920")
 		expect(page).to have_selector('li', :text => "FooCorp")
 		expect(page).to have_selector('li', :text => "1920")
-		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('a', :text => "http://misterdoe.com")
 
@@ -40,13 +40,13 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		fill_in "Other Name", :with => "Last1"
 		fill_in "Dates", :with => "1970"
 		fill_in "ExternalAuthority", :with => "http://missdoes.com"
-		page.select("Test Scheme 2", match: :first)
+		page.select("Library of Congress Name Authority File", match: :first)
 		click_on "Save changes"
 
 		###expect(page).to have_selector('strong', :text => "Last1, 1970")
 		expect(page).to have_selector('li', :text => "Last1")
 		expect(page).to have_selector('li', :text => "1970")
-		expect(page).to have_selector('li', :text => "Test Scheme 2")
+		expect(page).to have_selector('li', :text => "Library of Congress Name Authority File")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('a', :text => "http://missdoes.com")
 
@@ -58,7 +58,7 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		click_on "Edit"
 		#fill_in "Name", :with => "Newer Name"
 		fill_in "ExternalAuthority", :with => "http://personalname.com"
-		page.select("Test Scheme", match: :first)
+		page.select("Library of Congress Subject Headings", match: :first)
 		fill_in "Other Name", :with => "New Personal Name"
 		fill_in "Dates", :with => "1990"
 		click_on "Save changes"
@@ -66,7 +66,7 @@ feature 'Visitor wants to create/edit a MADS Personal Name' do
 		###expect(page).to have_selector('strong', :text => "New Personal Name, 1990")
 		expect(page).to have_selector('li', :text => "New Personal Name")
 		expect(page).to have_selector('li', :text => "1990")
-		expect(page).to have_selector('li', :text => "Test Scheme")
+		expect(page).to have_selector('li', :text => "Library of Congress Subject Headings")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('a', :text => "http://personalname.com")
 
@@ -83,7 +83,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		click_on "Edit"
 		#fill_in "Name", :with => "Cancel"
 		fill_in "ExternalAuthority", :with => "http://cancel.com"
-		page.select("Test Scheme 2", match: :first)
+		page.select("Library of Congress Name Authority File", match: :first)
 		fill_in "Other Name", :with => "Can Cel"
 		fill_in "Dates", :with => "1999"
 		click_on "Cancel"
@@ -102,7 +102,6 @@ feature 'Visitor wants to use Hydra View' do
 		#expect(page).to have_selector('h1', :text => "New Personal Name, 1920")
 		expect(page).to have_selector('dd', :text => "New Personal Name")
 		expect(page).to have_selector('dd', :text => "1990")
-		expect(page).to have_selector('dd', :text => "http://library.ucsd.edu/ark:/20775/")
 		expect(page).to have_selector('dd', :text => "http://personalname.com")
 		click_on "Edit"
 	end
