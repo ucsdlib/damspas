@@ -256,8 +256,8 @@ class DamsObjectsController < ApplicationController
           flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
           flash[:notice] = derivative_status[:alert] if derivative_status[:notice]
           # update solr index
-	      @fobj = DamsObject.find( @dams_object.pid )
-	      @fobj.send :update_index      
+	      #@fobj = DamsObject.find( @dams_object.pid )
+	      #@fobj.send :update_index      
         end
 
         # reindex the record
