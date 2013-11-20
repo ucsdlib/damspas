@@ -60,7 +60,7 @@ feature 'Visitor wants to view object fields' do
     #expect(page).to have_link('License note text here...', href:"http://library.ucsd.edu/licenses/lic12341.pdf")
 
     # other rights
-    expect(page).to have_link('Other rights note value', href:"http://bar.com")
+    #expect(page).to have_link('Other rights note value', href:"http://bar.com")
 
     # rights holder
     expect(page).to have_selector('li', :text=>"Smithee, Alan, 1968-")
