@@ -448,24 +448,6 @@ def relatedResourceUri
   end
 
 
-  def creatorURI
-    if @creatorURI != nil
-      @creatorURI
-    end
-  end 
-  def creatorURI=(val)
-  @creatorURI = Array.new
-  val.each do |v|
-    uri = v
-    if(!v.include? Rails.configuration.id_namespace)
-      uri = "#{Rails.configuration.id_namespace}#{v}"
-    end
-      if(!v.nil? && v.length > 0)
-        @creatorURI << RDF::Resource.new(uri)   
-      end
-  end
-  end
-  
   ## complex subject  ###############################################################
     
   def subjectURI=(val)
@@ -496,14 +478,14 @@ def relatedResourceUri
 
   ## Name ###########################################################################
   def nameType
-    @nameType
+    @namesType
   end
   def nameType=(val)
-    @nameType = Array.new
+    @namesType = Array.new
     i = 0
 	val.each do |v| 
 	    if(!v.nil? && v.length > 0)
-	    	 @nameType << v 	
+	    	 @namesType << v 	
 	    end
 		i+=1
 	end
@@ -570,7 +552,27 @@ def relatedResourceUri
 	 if(!val.nil? && val.first.length > 0)
 	    @name_URI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
 	  end
+  end
+
+  #Creator
+  def creatorURI
+    if @creatorURI != nil
+      @creatorURI
+    end
   end 
+  def creatorURI=(val)
+  @creatorURI = Array.new
+  val.each do |v|
+    uri = v
+    if(!v.include? Rails.configuration.id_namespace)
+      uri = "#{Rails.configuration.id_namespace}#{v}"
+    end
+      if(!v.nil? && v.length > 0)
+        @creatorURI << RDF::Resource.new(uri)   
+      end
+  end
+  end
+  
     
   ## Language ######################################################################  
   def languageURI

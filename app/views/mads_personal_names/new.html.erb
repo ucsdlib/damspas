@@ -3,7 +3,7 @@
   <%= render 'error_messages' %>
 
   <%= label_tag 'mads_personal_name[name]', "Name" %>
-  <%= text_field_tag 'mads_personal_name[name]' %>
+  <%= text_field_tag 'mads_personal_name[name]', '', required: true %>
 
   <%= label_tag 'mads_personal_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_personal_name[externalAuthority]' %> 

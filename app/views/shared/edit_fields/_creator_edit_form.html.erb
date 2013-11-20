@@ -6,12 +6,12 @@
 <% 
   i = 0
   @creators.each do |creat|
-  tmp = JSON.parse(creat.to_json)
+	tmp = JSON.parse(creat.to_json)
 %>
-  <%= render :partial => 'shared/edit_fields/creator_edit_fields' , :locals => {:f => f, :object_type => "object_type", :nameTypeArray => nameTypeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
+	<%= render :partial => 'shared/edit_fields/creator_edit_fields' , :locals => {:f => f, :object_type => object_type, :nameTypeArray => nameTypeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
 <% 
-  i = i+1
+	i = i+1
   end 
 %>
 
-<p><%= link_to_add_edit_creators "Add Creator", f, "#{object_type}", nameTypeArray, "#{i}"%></p>
+<p><%= link_to_add_edit_subjects "Add Creator", f, "#{object_type}", nameTypeArray, "#{i}"%></p>

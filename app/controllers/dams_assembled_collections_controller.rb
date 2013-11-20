@@ -135,16 +135,20 @@ end
     @simple_subject_type = get_simple_subject_type(@dams_assembled_collection)  
     @dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
     @simpleSubject_id = get_simple_subject_id(@dams_assembled_collection)
+    # @creator_id = get_creator_id(@dams_assembled_collection)
+    @creator_id = get_name_id(@dams_assembled_collection)   
     @complexSubject_id = @dams_assembled_collection.complexSubject.to_s.gsub(/.*\//,'')[0..9] if !@dams_assembled_collection.complexSubject.nil?
     @simpleSubjectValue = get_simple_subject_value(@dams_assembled_collection)
 
 
    @simple_name_type = get_name_type(@dams_assembled_collection)
-   @simple_name_id = get_name_id(@dams_assembled_collection)   
+   @creator_type = get_name_type(@dams_assembled_collection)
+
+   # @simple_name_id = get_name_id(@dams_assembled_collection)   
     @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
     @simple_name_value = get_name_value(@dams_assembled_collection)
+    @creators = get_creators(@dams_assembled_collection)
 	@simpleSubjects = get_simple_subjects(@dams_assembled_collection)
-  @creators = get_creators(@dams_assembled_collection)
 
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')

@@ -2,7 +2,7 @@
 <%= form_for @mads_family_name do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_family_name[name]', "Name" %>
-  <%= text_field_tag 'mads_family_name[name]' %>
+  <%= text_field_tag 'mads_family_name[name]', '', required: true %>
   <%= label_tag 'mads_family_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_family_name[externalAuthority]' %> 
     <%= f.fields_for :fullNameElement do |full| %>
