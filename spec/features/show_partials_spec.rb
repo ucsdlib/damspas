@@ -66,8 +66,8 @@ feature 'Visitor wants to view object fields' do
     # expect(page).to have_selector('li', :text=>"Smithee, Alan, 1968-")
 
     # statute
-    expect(page).to have_selector('strong', :text=>"Statute Citation value")
-    expect(page).to have_selector('p', :text=>"Statute Note")
+    #expect(page).to have_selector('strong', :text=>"Statute Citation value")
+    #expect(page).to have_selector('p', :text=>"Statute Note")
   end
 
   scenario 'Simple Subjects, is on Solr view page' do
