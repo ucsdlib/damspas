@@ -1,7 +1,6 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Edit a Dams Object</h1>
 <div class="dams-viewer">
-<%#= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");' }  do |f| %>  
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");', :multipart => true, :id => 'fileupload'}  do |f| %>  
 
   <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_object, :object_type => "dams_object"}%>
