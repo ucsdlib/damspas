@@ -1,5 +1,8 @@
 <%
 	@collection_title = render_document_show_field_value(:document=>@document, :field=>'title_tesim')
+	@collection_type = render_document_show_field_value(:document=>@document, :field =>'has_model_ssim')
+	@collection_type =  @collection_type.gsub("info:fedora/afmodel:", '').gsub(/(?<=[a-z])(?=[A-Z])/, '_').downcase
+	@edit = "edit_" + "#{@collection_type}_path"
 	@page_title = "#{@collection_title} (Collection)"
 %>
 
@@ -21,6 +24,11 @@
 	<div class="span4">
 		<div class="well">
 		  <%= render :partial => 'search' %>
+		    <% if can? :update, @document then %>
+		    <ul class="unstyled sidebar-button-list">
+				<li><%= link_to "<i class='icon-eye-open'></i> Edit".html_safe, send(@edit,@document['id']), class: "btn btn-link"%>
+			</ul>
+  			<% end %>
 		</div>
 	</div>
 
