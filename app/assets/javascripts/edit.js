@@ -136,12 +136,12 @@ function toggleRelationshipNames(value, label, section)
 //parsing parameters as "#dams_object_", #dams_provenance_collection_", "#dams_assembled_collection_","#dams_provenance_collection_part",etc,
 function processForm_generic(objType) {
     var attributesArray =new Array("assembledCollection","provenanceCollection","provenanceCollectionPart","complexSubject","statute","license","copyright","language","unit","rightsHolderPersonal");
-    var fieldId = "";
+    fieldId = "";
     for (var j in attributesArray) {
       fieldId = objType+attributesArray[j]+"_attributes_0_id";
       if($(fieldId).val() != null && $(fieldId).val().length < 1) {
         $(fieldId).remove();
-    }     
+      }     
     }   
   
     var subjectsArray =new Array("BuiltWorkPlace","CulturalContext","Function","GenreForm","Geographic","Iconography","Occupation","ScientificName","StylePeriod","Technique","Temporal","Topic","Name","PersonalName","CorporateName","ConferenceName","FamilyName");
@@ -150,7 +150,7 @@ function processForm_generic(objType) {
       fieldId = objType+subjectsArray[i].charAt(0).toLowerCase()+subjectsArray[i].slice(1)+"_attributes_0_name";
       if($(fieldId).val() != null && $(fieldId).val().length < 1) {
         $("#"+subjectsArray[i]).remove();
-    }     
+      }     
     }
 
     var relNamesArray =new Array("Name","PersonalName","CorporateName","ConferenceName","FamilyName");
@@ -214,7 +214,9 @@ function processForm_generic(objType) {
 	    {
 	    	$("#"+complexSubjectIdArray[i]).remove();
 	    }	    
-	}                     
+	}
+	        
+	removeEmptyFields();             
     return true; 
 }
 
@@ -229,8 +231,7 @@ function add_fields(link, association, content) {
     if(association == "complexSubject") {
     	content = content.replace("complexSubjectId",new_id);
     	complexSubjectIdArray.push(new_id);
-    }
-
+    } 	
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
@@ -304,4 +305,28 @@ function getObjectsPath(type) {
 
 function firstToLowerCase( str ) {
     return str.substr(0, 1).toLowerCase() + str.substr(1);
+}
+
+function removeEmptyFields() {
+ 	var inputElements= document.getElementsByClassName("input-block-level");
+ 	var fieldId = "";
+ 	var inputElementsArray = new Array();
+ 	for (var i=0;i<inputElements.length;i++) {
+ 		if(inputElements[i].value != null && inputElements[i].value.length < 1) {			
+ 			fieldId = "#"+inputElements[i].id;
+ 			inputElementsArray.push(fieldId);
+ 		}
+ 	}
+
+	inputElements= document.getElementsByClassName("input-drop-down");
+ 	for (var i=0;i<inputElements.length;i++) {
+ 		if(inputElements[i].value != null && inputElements[i].value.length < 1) {			
+ 			fieldId = "#"+inputElements[i].id;
+ 			inputElementsArray.push(fieldId);
+ 		}
+ 	}
+ 		
+ 	for (var i=0;i<inputElementsArray.length;i++) {
+ 		$(inputElementsArray[i]).remove();
+ 	}
 }

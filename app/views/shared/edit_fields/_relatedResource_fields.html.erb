@@ -3,7 +3,7 @@
    						["depiction", "depiction"],["journal entry", "journal entry"],["basket", "basket"],["artifact", "artifact"]]
 %> 
 <div class="fields">
-    <%= f.select :type, options_for_select(resourceTypeArray) , :prompt=>"Select Type"%>    
+    <%= f.select :type, options_for_select(resourceTypeArray) , {:include_blank => 'Select Type'}, :class=>"input-drop-down"%>    
     <%= f.label :uri, "URI" %>
     <%= f.url_field :uri, :value => "", class: "input-block-level" %>
     <%= f.label :description, "Description" %>

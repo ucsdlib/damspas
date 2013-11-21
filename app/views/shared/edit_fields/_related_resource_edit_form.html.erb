@@ -17,7 +17,7 @@
 			else
 %>
 				<div class="fields">
-					<%= select_tag "#{object_type}[relatedResource_attributes][#{i}][type]", options_for_select(resourceTypeArray, :selected => resource[i].type) , :prompt=>"Select Type"%>					
+					<%= select_tag "#{object_type}[relatedResource_attributes][#{i}][type]", options_for_select(resourceTypeArray, :selected => resource[i].type) , :prompt=>"Select Type", :class=>"input-drop-down"%>					
 					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "URI" %>
 					<%= url_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri, class: "input-block-level" %>
 					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
@@ -36,7 +36,7 @@
 		if resource.size == 1
 %>
 			<div class="fields">
-				<%= select_tag "#{object_type}[relatedResource_attributes][#{i}][type]", options_for_select(resourceTypeArray) , :prompt=>"Select Type"%>				
+				<%= select_tag "#{object_type}[relatedResource_attributes][#{i}][type]", options_for_select(resourceTypeArray) , :prompt=>"Select Type", :class=>"input-drop-down"%>				
 				<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "URI" %>
 				<%= url_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "", class: "input-block-level" %>
 				<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
