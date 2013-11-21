@@ -1,52 +1,13 @@
-String.prototype.endsWith = function(suffix) {
-	return this.indexOf(suffix, this.length - suffix.length) !== -1;
-};
-
 $(document).ready(function(){
 
-    var bg_data =
-        [
-
-            {
-                "ark":"bb9284741j",
-                "image":"<%= image_path('home-page/bg-lake-large.jpg') %>",
-                "title":"Fishing at El Conchal Bridge",
-                "creator":"Gulick, Howard E.",
-	              "collection":"Howard E. Gulick Photographs"
-            },
-            {
-                "ark":"bb6383693j",
-                "image":"<%= image_path('home-page/bg-taco-large.jpg') %>",
-                "title":"Taco vendor catching up on the day's news until the next customer shows up",
-                "creator":"Crosby, Harry",
-		            "collection":"Harry Crosby Baja California Photographs"
-            },
-            {
-                "ark":"",
-                "image":"<%= image_path('home-page/bg-poster-large.jpg') %>",
-                "title":"Kŭmyo nodong ŭn chʻungsŏng ŭi aeguk nodong ida. Moduda kŭmyo nodong ero!",
-                "creator":"Kim, Yŏng-il",
-		            "collection":"Korean Posters"
-            },
-            {
-                "ark":"bb26293868",
-                "image":"<%= image_path('home-page/bg-seuss-large.jpg') %>",
-                "title":"Schaeffer Bock Beer advertisement",
-                "creator":"Geisel, Theodore Seuss",
-		            "collection":"Dr. Seuss Advertising Artwork"
-            }
-        ];
-
     var roll = Math.floor(Math.random()*bg_data.length);
+		var bg_img_url = "http://libraries.ucsd.edu/assets/dams/home-page/img/" + bg_data[roll].ark + ".jpg";
+		var collection_url = $("meta[name=dams_root]").attr("content") + "dams_collections/" + bg_data[roll].ark;
 
-		var href_prefix = (bg_data[roll].ark != "") ? "dams_collections/" : "collections" ;
-
-		var temp_hack = (document.URL.endsWith("/dams")) ? "dams/" : "";
-
-    $("#home-01").css("background-image","url("+bg_data[roll].image+")");
-    $("#bg-link").attr("href",temp_hack+href_prefix+bg_data[roll].ark);
-    $('#bg-link').append("<p>"+bg_data[roll].title);
-    $('#bg-link').append("<p>"+bg_data[roll].creator);
-    $('#bg-link').append("<p>From the "+bg_data[roll].collection+" Collection");
+    $("#home-01").css("background-image", "url(" + bg_img_url + ")");
+    $("#bg-link").attr("href", collection_url);
+    $('#bg-link').append("<p>" + bg_data[roll].title);
+    $('#bg-link').append("<p>" + bg_data[roll].creator);
+    $('#bg-link').append("<p>From the " + bg_data[roll].collection + " Collection");
 
 });
