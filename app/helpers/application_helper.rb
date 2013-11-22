@@ -147,6 +147,6 @@ end
   end 
   def link_to_add_edit_creators(name, f, objectType, nameTypeArray, index)
     fields = render("shared/edit_fields/creator_edit_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray, :selected_type => nil)
-    link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
+    link_to_function name, "add_name_fields(this, \"#{escape_javascript(fields)}\")"
   end
 end 
