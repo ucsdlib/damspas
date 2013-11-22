@@ -54,6 +54,7 @@
       </dams:Relationship>
     </dams:relationship>   
     <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/bb25252525"/>
+    <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/bd6110278b"/>
     <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb29292929"/>
   </dams:ProvenanceCollection>
 </rdf:RDF>

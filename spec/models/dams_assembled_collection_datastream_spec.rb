@@ -91,7 +91,10 @@ describe DamsAssembledCollectionDatastream do
         solr_doc = subject.to_solr
         solr_doc["provenanceCollection_name_tesim"].should == ["Historical Dissertations"]
         solr_doc["provenanceCollection_id_tesim"].should == ["bb24242424"]
-        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"bb24242424","name":"Historical Dissertations","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}']
+        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"bb24242424","name":"Historical Dissertations","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}', '{"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}']
+        solr_doc["part_name_tesim"].should == ["May 2009"]
+        solr_doc["part_id_tesim"].should == ["bb25252525"]
+        solr_doc["part_json_tesim"].should == ['{"id":"bb25252525","name":"May 2009","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}', '{"id":"bd6110278b","name":"Sample Provenance Part","thumbnail":"http://pontos.ucsd.edu/images/newsrel.jpg"}']
       end
 
 #      it "should have event" do
