@@ -688,6 +688,31 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
+  def insertCollectionFields (solr_doc, fieldName, objects, className)
+  	i = 0
+    objects.map do |part|
+      part_json = {}
+      part_obj = nil
+      part_uri = part.to_s
+      part_pid = part_uri.gsub(/.*\//,'')
+
+	  if !part_pid.nil? && part_pid.length > 0
+        part_obj = className.find(part_pid)
+        part_json[:id] = part_pid    
+      end
+      if !part_obj.nil?
+      	if i == 0
+    	  Solrizer.insert_field(solr_doc, "#{fieldName}_name", part_obj.title.first.value)
+ 		  Solrizer.insert_field(solr_doc, "#{fieldName}_id", part_pid)
+      	end  
+      	part_json.merge!(:name => part_obj.title.first.value,
+                       :thumbnail => thumbnail(part_obj.relatedResource) )
+      	Solrizer.insert_field(solr_doc, "#{fieldName}_json", part_json.to_json )
+      end
+      i = i + 1
+    end
+  end
+  
   # field types
   def to_solr (solr_doc = {})
     super(solr_doc)
