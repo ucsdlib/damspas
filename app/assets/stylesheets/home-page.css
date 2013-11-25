@@ -1,7 +1,7 @@
 #home-01,#home-02,#dc-search-box fieldset,#dc-search-box input[type=text],#dc-search-box input[type=submit],.category a{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 #home-container{font-family:'Archivo Narrow',sans-serif !important;font-weight:normal !important;}
 #home-01,#home-02{width:100%;max-width:1200px;margin:0 auto;background-color:#333;}
-#home-01{position:relative;height:640px;background-position: center center;}
+#home-01{position:relative;height:640px;background-position:center center;background-size:cover;}
 #home-02{background:#399dc8 url("home-page/bg-grid.png") no-repeat center top;text-align:center;border-top:1px solid #1f556d;padding:20px;}
 #home-02,#home-02 a{color:#fff;}
 #home-02 h2{margin:0;font-family:"Questrial";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
