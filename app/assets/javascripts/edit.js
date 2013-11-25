@@ -244,7 +244,7 @@ function add_subject_fields(link, content) {
 
 function add_name_fields(link, content) {
     var new_id = new Date().getTime();
-    var regexp = new RegExp("creator", "g");
+    var regexp = new RegExp("newClassNameC", "g");
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
