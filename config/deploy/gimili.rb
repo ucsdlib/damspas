@@ -1,5 +1,5 @@
 set :stage, :gimili
-set :branch, 'develop'
+set :branch, 'release 1.1-beta'
 server 'gimili.ucsd.edu', user: 'rvm', roles: %w{web app db}
 set :rails_env, "gimili"
 if ENV["CAP_SSHKEY_GIMILI"]
