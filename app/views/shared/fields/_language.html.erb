@@ -10,26 +10,33 @@
 	 end
 
 	fieldData = @document["#{prefix}language_json_tesim"]
-	
+	lang = Array.new
 	if fieldData != nil
-		htmlOpen %= 'Language'.pluralize(fieldData.count)
-		concat htmlOpen.html_safe	
 		fieldData.each do |datum|
 	 		language = JSON.parse(datum)
-	 		if !language['name'].blank?
+	 		if (!language['name'].blank? && language['name'].downcase != "no linguistic content")
+	 			lang << language['name']
+	 		end
+	 	end
+	 	if lang.count > 0
+	 		htmlOpen %= 'Language'.pluralize(lang.count)
+	 		concat htmlOpen.html_safe
+	 		i = 0
+	 		while( i < lang.count )
 %>
 				<ul class="unstyled">
-					<li><%= language['name'] %></li>
+					<li><%= lang[i] %></li>
 				</ul>
 <%			
+				i += 1
 			end
 		end
-
 		concat htmlClose.html_safe
+
 	else 
 		language = @document["#{prefix}language_tesim"]
 
-		 if language != nil
+		 if (language != nil && language.first.downcase != "no linguistic content")
 	
 			 htmlOpen %= 'Language'
 			 concat htmlOpen.html_safe
