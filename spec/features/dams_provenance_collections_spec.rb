@@ -60,7 +60,6 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestNote")
 		# testing without filling in Note Displaylabel
 		
-		expect(page).to have_content ("TestScopeContentNote")
 		
 		expect(page).to have_content ("ARTIFACT")
 		expect(page).to have_selector('a', :text => "TestRelatedResourceDescription")
@@ -97,7 +96,6 @@ feature 'Visitor wants to create/edit a provenance collection' do
 		expect(page).to have_content ("TestNote2")
 		# should get note display label as title by not filling in Note Type
 		expect(page).to have_content ("Test Note Display Label2")
-		expect(page).to have_content ("TestScopeContentNote2")
 	end
 end
 
