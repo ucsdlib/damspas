@@ -8,10 +8,18 @@
 		htmlOpen = "<dt>%s</dt><dd>"
 		htmlClose = "</dd>"
 	end
-
+	isCollection = false
+	type = @document["#{prefix}type_tesim"]
+	if type != nil
+		type.each do |t|
+			recordType = t.downcase
+			if recordType.include? "collection"
+				isCollection = true
+			end
+		end
+	end
 	fieldData = @document["#{prefix}scopeContentNote_json_tesim"]
-
-	if fieldData != nil
+	if fieldData != nil && !isCollection
 		htmlOpen %= 'Scope Content Note'.pluralize(fieldData.count)
 		concat htmlOpen.html_safe		
 		fieldData.each do |datum|
