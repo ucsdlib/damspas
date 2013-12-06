@@ -1,0 +1,80 @@
+<!-- provide page title, is used by full_title helper in application layout -->
+<% @page_title =  "Object | #{@dams_assembled_collection.title.first} " %>
+<% @ds = flash[:deriv] %>
+
+<div class="row-fluid">
+	<div class="span12">
+		<h1><%= @dams_assembled_collection.titleValue %></h1>
+	</div>
+</div>
+<div class="row-fluid">
+	<!-- main metadata -->
+	<div class="span12">
+		<div class="row-fluid">
+			<div class="span8">
+				<div class="row-fluid well">
+					<div class="span12">
+					</div>
+				</div>
+				<div class="row-fluid well">
+					<div class="span12">
+						<dl>
+							<% if (!@dams_assembled_collection.title.empty?) %>													
+								<% @dams_assembled_collection.title.each do |t| %>
+									<dt>Title</dt>										
+									<dd><%= t.value %></dd>	
+									<% if (!t.subtitle.blank?) %>
+										<dt>Subtitle</dt>										
+										<dd><%= t.subtitle %></dd>
+									<% end %>																
+								<% end %>
+							<% end %>	
+							<% if (!@dams_assembled_collection.date.empty?) %>	
+								<dt>Date</dt>												
+								<% @dams_assembled_collection.date.each do |date| %>
+																			
+									<dd><%= date.value.join(", ") %> --	
+									<% if (!date.beginDate.empty?) %>
+										Begin Date:										
+										<%= date.beginDate.join(", ") %> --
+									<% end %>	
+									<% if (!date.endDate.empty?) %>
+										End Date:										
+										<%= date.endDate.join(", ") %>
+									<% end %>
+									</dd>																							
+								<% end %>
+							<% end %>							
+							<% if (!@dams_assembled_collection.subject.empty?) %>
+								<dt>Subject</dt>
+								<% @dams_assembled_collection.subject.each do |subject| %>
+									<dd><%= subject.name.first %></dd>
+								<% end %>
+							<% end %>
+
+				
+							<% if (!@dams_assembled_collection.note.empty?) %>	
+								<dt>Note(s)</dt>						
+								<% @dams_assembled_collection.note.each do |n| %>									
+									<dd>Type: <%= n.type.first %> -- <%= n.displayLabel.first %>:  <%= n.value.first %></dd>																	
+								<% end %>
+						
+							<% end %>		
+							<% if (!@dams_assembled_collection.relatedResource.empty?) %>		
+								<dt>Related Resource</dt>													
+								<% @dams_assembled_collection.relatedResource.each do |resource| %>																		
+									<dd><%= link_to resource.description.join(", "), resource.uri.join(", ") %></dd>													
+								<% end %>
+							<% end %>																			
+							</dl>
+						</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>	
+</div>
+  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @dams_assembled_collection, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
+
+
+

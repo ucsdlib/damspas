@@ -107,11 +107,17 @@ module Dams
 			end
 	    end    
 		if(!@assembledCollURI.nil?)
-	      if new?
-	        graph.insert([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
-	      else
-	        graph.update([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
-	      end
+	      if(@assembledCollURI.class == Array)
+				@assembledCollURI.each do |aC|
+			        graph.insert([rdf_subject, DAMS.assembledCollection, aC])
+			    end
+			else
+			      if new?
+			        graph.insert([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
+			      else
+			        graph.update([rdf_subject, DAMS.assembledCollection, @assembledCollURI])
+			      end
+			end   
 	    end         
 		if(!@provenanceCollURI.nil?)
 	      if new?
