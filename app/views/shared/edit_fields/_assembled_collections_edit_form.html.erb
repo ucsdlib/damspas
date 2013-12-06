@@ -1,0 +1,32 @@
+<h3>Assembled Collection</h3>
+<%#= select_tag "#{object_type}[collectionURI][]", options_for_select(@dams_assembled_collections, :selected => @assembledCollection_id), :prompt=>"Select Subject"%>
+<% assembledCollection =object.assembledCollection
+	i = 0
+	if assembledCollection != nil
+		while i < assembledCollection.size  do
+
+%>
+			<div class="fields">
+				<br/>
+				<%= puts Rails.configuration.id_namespace + assembledCollection[i].pid%>
+				<%= select_tag "#{object_type}[assembledCollectionURI][]", options_for_select(@dams_assembled_collections, :selected => "#{Rails.configuration.id_namespace}#{assembledCollection[i].pid}") , :prompt=>"Select Collection", :class=>"assembledCollectionClass#{i}", :onChange=>"javascript: checkOption(this.className,false,'dams_assembled_collections');"%>
+				<br/>
+    			<%= link_to_remove_fields "Remove Assembled Collection", f %>				
+			</div>					
+<%			
+			i +=1		
+		end
+	end
+	if i == 0
+%>
+		<div class="fields">
+			<br/>
+			<%= select_tag "#{object_type}[assembledCollectionURI][]", options_for_select(@dams_assembled_collections) , :prompt=>"Select Collection", :class=>"assembledCollectionClass#{i}", :onChange=>"javascript: checkOption(this.className,false,'dams_assembled_collections');"%>
+			<br/>
+			<%= link_to_remove_fields "Remove Assembled Collection", f %>				
+		</div>	
+<%	
+    end
+%> 
+
+<p><%= link_to_add_edit_fields "Add Assembled Collection", f, :assembledCollection, "#{object_type}"%></p>

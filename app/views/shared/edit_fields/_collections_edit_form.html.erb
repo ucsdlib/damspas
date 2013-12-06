@@ -1,6 +1,5 @@
 <h3>Collection</h3>   
-<%= label_tag "#{object_type}[assembledCollectionURI][]", "Assembled Collection" %>
-<%= select_tag "#{object_type}[assembledCollectionURI][]", options_for_select(@dams_assembled_collections, :selected => @assembled_collection_id) , :prompt=>"Select Collection"%> 
+<%= render :partial => 'shared/edit_fields/assembled_collections_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%> 
 <%= label_tag "#{object_type}[provenanceCollectionURI][]", "Provenance Collection" %> 
 <%= select_tag "#{object_type}[provenanceCollectionURI][]", options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection" %>
 <%= label_tag "#{object_type}[provenanceCollectionPartURI][]", "Provenance Collection Part" %>

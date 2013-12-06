@@ -140,6 +140,7 @@ class DamsObjectsController < ApplicationController
   	@mads_complex_subjects << "Create New Complex Subject"
   	@dams_units = get_objects_url('DamsUnit','unit_name_tesim') 	
   	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
+    @dams_assembled_collections << "Create New Assembled Collection"
   	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
   	@mads_languages << "Create New Language"
@@ -173,11 +174,12 @@ class DamsObjectsController < ApplicationController
 	#@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
 	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
 	@mads_complex_subjects << "Create New Complex Subject"
-	@dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
+	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
 	@provenance_collection_part_id = @dams_object.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.provenanceCollectionPart.nil?
 	@dams_units = get_objects('DamsUnit','unit_name_tesim')
-  	@dams_assembled_collections = get_objects('DamsAssembledCollection','title_tesim')
-  	@dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
+  	@dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
+    @dams_assembled_collections << "Create New Assembled Collection"
+  	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
   	@mads_languages << "Create New Language"
   	@mads_authorities = get_objects('MadsAuthority','name_tesim')
@@ -222,6 +224,7 @@ class DamsObjectsController < ApplicationController
   	@dams_object.collections.each do |col|
   		if(col.class == DamsAssembledCollection)	
   			@assembled_collection_id = col.pid
+        puts "hmoe" + col.pid
   		elsif (col.class == DamsProvenanceCollection)
   			@provenance_collection_id = col.pid
   		end  			
@@ -319,6 +322,7 @@ class DamsObjectsController < ApplicationController
     @dams_object.copyright.clear
     @dams_object.license.clear  
     @dams_object.statute.clear
+    @dams_object.file.clear
 	has_file = "false"
 	
     @dams_object.attributes = params[:dams_object]  
@@ -327,6 +331,7 @@ class DamsObjectsController < ApplicationController
 
         # check for file upload
         if params[:file]
+          puts "file is 2e"
           file_status = attach_file( @dams_object, params[:file] )
           flash[:alert] = file_status[:alert] if file_status[:alert]
           flash[:deriv] = file_status[:deriv] if file_status[:deriv]

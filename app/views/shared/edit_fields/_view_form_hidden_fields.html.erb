@@ -1,9 +1,18 @@
 <input type="hidden" id="id" value="<%= object.id%>"/>
-<input type="hidden" id="name" value="<%= object.name.first%>"/>
+<input type="hidden" id="name" value="<%= object.titleValue%>"/> 
 <br>
-<% if(!parent_id.nil?) %>
+<% # PROBLEM IS IN LINE 2, NAME COMES UP EMPTY FOR DAMS ASSEMBLED COLLECTION puts .to_s + "hullo"%>
+<% puts object.titleValue.to_s + "hull3o"%>
+
+<% if(!parent_id.nil?) # && object.to_s.index('Dams').nil?) %>
   <a href="#" onClick="javascript: setParentId_generic('<%= parent_id%>',true);">close</a>
 <% end %>
-<% if(!parent_class.nil?) %>
+<% if(!parent_class.nil?) #&& object.to_s.index('Dams').nil?) %>
   <a href="#" onClick="javascript: setParentId_generic('<%= parent_class%>',false);">close</a>
 <% end %> 
+<% #if(!parent_id.nil?) %>
+  <!-- <a href="#" onClick="javascript: setParentId_g('<%= parent_id%>',true);">close</a> -->
+<% #end %>
+<% #if(!parent_class.nil?) #isDams third param using object.to_s.include? 'Dams' %>
+  <!-- <a href="#" onClick="javascript: setParentId_g('<%= parent_class%>',false);">close</a> -->
+<% #end %> 

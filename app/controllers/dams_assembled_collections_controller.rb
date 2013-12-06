@@ -97,15 +97,15 @@ class DamsAssembledCollectionsController < ApplicationController
     @mads_schemes = get_objects('MadsScheme','name_tesim')
     
     
-    uri = URI('http://fast.oclc.org/fastSuggest/select')
-    res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-    json = JSON.parse(res.body)
-    @jdoc = json.fetch("response").fetch("docs")
+  #   uri = URI('http://fast.oclc.org/fastSuggest/select')
+  #   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+  #   json = JSON.parse(res.body)
+  #   @jdoc = json.fetch("response").fetch("docs")
   
-    @autocomplete_items = Array.new
-    @jdoc.each do |value|
-    @autocomplete_items << value['suggestall']
-  end
+  #   @autocomplete_items = Array.new
+  #   @jdoc.each do |value|
+  #   @autocomplete_items << value['suggestall']
+  # end
 
 end
 
@@ -150,23 +150,29 @@ end
     @creators = get_creators(@dams_assembled_collection)
 	@simpleSubjects = get_simple_subjects(@dams_assembled_collection)
 
-  uri = URI('http://fast.oclc.org/fastSuggest/select')
-  res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-  json = JSON.parse(res.body)
-  @jdoc = json.fetch("response").fetch("docs")
+  # uri = URI('http://fast.oclc.org/fastSuggest/select')
+  # res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
+  # json = JSON.parse(res.body)
+  # @jdoc = json.fetch("response").fetch("docs")
   
-  @autocomplete_items = Array.new
-  @jdoc.each do |value|
-    @autocomplete_items << value['suggestall']
-  end
+  # @autocomplete_items = Array.new
+  # @jdoc.each do |value|
+  #   @autocomplete_items << value['suggestall']
+  # end
 
 end
 
   def create
-   if @dams_assembled_collection.save    
-    #index_links(@dams_assembled_collection)
-      redirect_to @dams_assembled_collection, notice: "Object has been saved"
-      #redirect_to edit_dams_assembled_collection_path(@dams_assembled_collection), notice: "Object has been saved"
+    if @dams_assembled_collection.save    
+      #index_links(@dams_assembled_collection)
+      if(!params[:parent_id].nil?)
+        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_id => params[:parent_id]})
+      elsif(!params[:parent_class].nil?)
+        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_class => params[:parent_class]})
+      else
+        #redirect_to edit_dams_assembled_collection_path(@dams_assembled_collection), notice: "Object has been saved"
+        redirect_to @dams_assembled_collection, notice: "Object has been saved"
+      end
     else
       flash[:alert] = "Unable to save object"
       render :new

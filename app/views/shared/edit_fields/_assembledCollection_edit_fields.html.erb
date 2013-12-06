@@ -1,0 +1,6 @@
+<div class="fields">
+	<br/>
+	<%= select_tag "#{object_type}[assembledCollectionURI][]", options_for_select(@dams_assembled_collections) , :prompt=>"Select Collection", :class=>"newClassName", :onChange=>"javascript: checkOption(this.className,false,'dams_assembled_collections');"%>
+	<br/>
+	<%= link_to_remove_fields "Remove Assembled Collection", f%>			
+</div>

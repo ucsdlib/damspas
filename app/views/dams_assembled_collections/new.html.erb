@@ -26,7 +26,6 @@ $(document).ready(function() {
 
    <%= render :partial => 'shared/edit_fields/simple_subjects_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
   
-  
   <%= render :partial => 'shared/edit_fields/complex_subjects_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%> 
        
  <%= render :partial => 'shared/edit_fields/creator_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
@@ -37,6 +36,9 @@ $(document).ready(function() {
 <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/related_resource_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
+
+  <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
+
 
      <%=f.submit "Save", class: "btn btn-primary" %>
      <%= link_to "Cancel", dams_assembled_collections_path, class: "btn btn-primary" %>

@@ -617,21 +617,47 @@ def relatedResourceUri
   end     
 
   ## Collection ######################################################################
+
   def assembledCollectionURI=(val)
-    if val.class == Array
-    	val = val.first
-    end
-    if(!val.nil? && val.length > 0)
-    	@assembledCollURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
-    end
+  if val.class == Array
+      # val = val.first
+    @assembledCollURI = Array.new
+    val.each do |v|
+      uri = v
+      if(!v.include? Rails.configuration.id_namespace)
+        uri = "#{Rails.configuration.id_namespace}#{v}"
+      end
+        if(!v.nil? && v.length > 0)
+          @assembledCollURI << RDF::Resource.new(uri)  
+        end
+    end   
   end
+  if(@assembledCollURI.size == 1)
+    @assembledCollURI = @assembledCollURI.first
+  end
+  end
+  
   def assembledCollectionURI
     if @assembledCollURI != nil
       @assembledCollURI
-    #else
-    #  asembledCollectionURI.first
     end
-  end 
+  end  
+
+  # def assembledCollectionURI=(val)
+  #   if val.class == Array
+  #   	val = val.first
+  #   end
+  #   if(!val.nil? && val.length > 0)
+  #   	@assembledCollURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
+  #   end
+  # end
+  # def assembledCollectionURI
+  #   if @assembledCollURI != nil
+  #     @assembledCollURI
+  #   #else
+  #   #  asembledCollectionURI.first
+  #   end
+  # end 
 
 
   def hasProvenanceCollectionURI=(val)
