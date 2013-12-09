@@ -163,7 +163,13 @@ end
 end
 
   def create
-   if @dams_assembled_collection.save    
+   if @dams_assembled_collection.save
+      @dams_assembled_collection.reload
+      begin
+          @dams_assembled_collection.send :update_index
+      rescue Exception => e
+          logger.warn "Error reindexing #{@dams_assembled_collection.pid}: #{e}"
+      end       
     #index_links(@dams_assembled_collection)
       redirect_to @dams_assembled_collection, notice: "Object has been saved"
       #redirect_to edit_dams_assembled_collection_path(@dams_assembled_collection), notice: "Object has been saved"

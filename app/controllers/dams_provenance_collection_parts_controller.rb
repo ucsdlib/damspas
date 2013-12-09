@@ -165,7 +165,13 @@ def edit
   end
 
   def create
-    if @dams_provenance_collection_part.save    
+    if @dams_provenance_collection_part.save
+      @dams_provenance_collection_part.reload
+      begin
+          @dams_provenance_collection_part.send :update_index
+      rescue Exception => e
+          logger.warn "Error reindexing #{@dams_provenance_collection_part.pid}: #{e}"
+      end             
     #index_links(@dams_provenance_collection_part)
       redirect_to @dams_provenance_collection_part, notice: "Object has been saved"
       #redirect_to edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), notice: "Object has been saved"

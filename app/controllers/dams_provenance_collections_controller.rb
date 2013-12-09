@@ -164,7 +164,13 @@ class DamsProvenanceCollectionsController < ApplicationController
   end
 
   def create
-    if @dams_provenance_collection.save    
+    if @dams_provenance_collection.save
+      @dams_provenance_collection.reload
+      begin
+          @dams_provenance_collection.send :update_index
+      rescue Exception => e
+          logger.warn "Error reindexing #{@dams_provenance_collection.pid}: #{e}"
+      end        
     #index_links(@dams_provenance_collection)
       redirect_to @dams_provenance_collection, notice: "Object has been saved"
       #redirect_to edit_dams_provenance_collection_path(@dams_provenance_collection), notice: "Object has been saved"
