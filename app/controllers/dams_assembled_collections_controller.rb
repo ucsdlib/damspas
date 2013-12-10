@@ -170,9 +170,14 @@ end
       rescue Exception => e
           logger.warn "Error reindexing #{@dams_assembled_collection.pid}: #{e}"
       end       
-    #index_links(@dams_assembled_collection)
-      redirect_to @dams_assembled_collection, notice: "Object has been saved"
-      #redirect_to edit_dams_assembled_collection_path(@dams_assembled_collection), notice: "Object has been saved"
+      if(!params[:parent_id].nil?)
+        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_id => params[:parent_id]})
+      elsif(!params[:parent_class].nil?)
+        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_class => params[:parent_class]})
+      else
+        #redirect_to edit_dams_assembled_collection_path(@dams_assembled_collection), notice: "Object has been saved"
+        redirect_to @dams_assembled_collection, notice: "Object has been saved"
+      end
     else
       flash[:alert] = "Unable to save object"
       render :new
