@@ -1,7 +1,5 @@
   <h3>Collection</h3>
-  <%= f.fields_for :assembledCollection do |assembledCol| %>
-    <%= assembledCol.select :id, options_for_select(@dams_assembled_collections) , :prompt=>"Select Assembled Collection" %>
-  <% end %>    
+  <%= render :partial => 'shared/edit_fields/assembled_collections_form' , :locals => {:f => f, :object_type => "dams_object"}%> 
   <br> 
   <%= f.fields_for :provenanceCollection do |provenanceCol| %>
     <%= provenanceCol.select :id, options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>

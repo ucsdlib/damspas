@@ -1,0 +1,8 @@
+<div class="fields">
+	<div id="assembledCollectionId">
+	    <br/>
+	    <%= f.select :id, options_for_select(@dams_assembled_collections, :selected => "#{Rails.configuration.id_namespace}#{@assembledCollection_id}") , {:include_blank => 'Select Collection'}, :onChange=>"javascript: checkOption(this.id,true,'dams_assembled_collections');" %>
+	    <br/>
+	    <%= link_to_remove_fields "Remove Assembled Collection", f %>
+    </div>
+</div>

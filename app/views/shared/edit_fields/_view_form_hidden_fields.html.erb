@@ -1,6 +1,11 @@
 <input type="hidden" id="id" value="<%= object.id%>"/>
-<input type="hidden" id="name" value="<%= object.name.first%>"/>
+<% if object.class == DamsAssembledCollection || object.class == DamsProvenanceCollection %>
+	<input type="hidden" id="name" value="<%= object.titleValue%>"/> 
+<% else %>
+	<input type="hidden" id="name" value="<%= object.name.first%>"/> 
+<% end %>
 <br>
+
 <% if(!parent_id.nil?) %>
   <a href="#" onClick="javascript: setParentId_generic('<%= parent_id%>',true);">close</a>
 <% end %>
