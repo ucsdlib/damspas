@@ -53,7 +53,9 @@ Hydra::Application.routes.draw do
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
-  resources :dams_assembled_collections
+  resources :dams_assembled_collections do
+    get 'view', :on => :member
+  end
   resources :dams_units do
     member do
       get 'view'

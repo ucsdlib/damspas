@@ -1,0 +1,6 @@
+<h3>Assembled Collection</h3>
+<%= f.fields_for :assembledCollection do |builder| %>
+  <%= render "shared/edit_fields/assembledCollection_fields", :f => builder , :object_type => object_type%>
+<% end %>
+
+<p><%= link_to_add_fields "Add Assembled Collection", f, :assembledCollection, "DamsAssembledCollection", "#{object_type}" %></p>
