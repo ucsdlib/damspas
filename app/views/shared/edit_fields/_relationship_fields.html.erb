@@ -1,0 +1,12 @@
+<div class="fields">
+  <%#= f.fields_for :relationship do |rel| %>
+	  <%#= rel.fields_for :role do |ro| %>
+	    <%#= ro.select :id, options_for_select(@mads_authorities) , :prompt=>"Select Role"%>
+	  <%# end %>
+  <%# end %>  
+  <br/>
+<%= select_tag "#{object_type}[nameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getNames(this,'#{object_type}','#newClassNameRelationship','0',null,'true');"%>
+
+<div id="newClassNameRelationship"></div>
+
+</div>

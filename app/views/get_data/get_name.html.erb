@@ -1,12 +1,17 @@
-<%#= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@names) , :prompt=>"Select #{@label}" %>	
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <script src="/assets/edit.js" type="text/javascript"></script>
 <script src="/assets/jquery.js" type="text/javascript"></script>
-<% if !@fieldName.nil? and @fieldName == "creatorURI"%>
-	<b><%= @label%></b><br/>
-	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
+<% if !@relationship.nil? and @relationship == "true"%>
+	<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+	<br/>
+	<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][role_attributes][#{@fieldId}][id]", options_for_select(@mads_authorities) , :prompt=>"Select Role"%>
 <% else %>
-	<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+	<% if !@fieldName.nil? and @fieldName == "creatorURI"%>
+		<b><%= @label%></b><br/>
+		<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
+	<% else %>
+		<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+	<% end %>
 <% end %>
 <br/>
 <%= link_to_delete_fields "Remove #{@label}"%>
