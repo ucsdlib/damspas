@@ -1,10 +1,12 @@
   <h3>Collection</h3>
   <%= render :partial => 'shared/edit_fields/assembled_collections_form' , :locals => {:f => f, :object_type => "dams_object"}%> 
   <br> 
+  <label>Provenance Collection</label>
   <%= f.fields_for :provenanceCollection do |provenanceCol| %>
     <%= provenanceCol.select :id, options_for_select(@dams_provenance_collections) , :prompt=>"Select Provenance Collection" %>
   <% end %>   
   <br>
+  <label>Provenance Collection Part</label>
   <%= f.fields_for :provenanceCollectionPart do |provenanceColPart| %>
     <%= provenanceColPart.select :id, options_for_select(@dams_provenance_collection_parts) , :prompt=>"Select Provenance Collection Part" , :style => "width:250px"%>
   <% end %> 

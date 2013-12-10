@@ -1,6 +1,6 @@
 <h3>Collection</h3>   
 <%= render :partial => 'shared/edit_fields/assembled_collections_edit_form' , :locals => {:object => @dams_object, :object_type => "dams_object", :f => f}%> 
 <%= label_tag "#{object_type}[provenanceCollectionURI][]", "Provenance Collection" %> 
-<%= select_tag "#{object_type}[provenanceCollectionURI][]", options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Collection" %>
+<%= select_tag "#{object_type}[provenanceCollectionURI][]", options_for_select(@dams_provenance_collections, :selected => @provenance_collection_id), :prompt=>"Select Provenance Collection" %>
 <%= label_tag "#{object_type}[provenanceCollectionPartURI][]", "Provenance Collection Part" %>
 <%= select_tag "#{object_type}[provenanceCollectionPartURI][]", options_for_select(@dams_provenance_collection_parts, :selected => @provenance_collection_part_id) , :prompt=>"Select Provenance Collection Part", :style => "width:250px" %>  
