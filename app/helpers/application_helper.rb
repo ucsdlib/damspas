@@ -149,4 +149,10 @@ end
     fields = render("shared/edit_fields/creator_edit_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray, :selected_type => nil)
     link_to_function name, "add_name_fields(this, \"#{escape_javascript(fields)}\")"
   end
+  
+  def link_to_add_relationships(name, f, objectType, nameTypeArray )
+    fields = render("shared/edit_fields/relationship_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray)
+
+    link_to_function name, "add_relationship_fields(this, \"#{escape_javascript(fields)}\")"
+  end  
 end 

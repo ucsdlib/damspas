@@ -58,8 +58,7 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
   }
 }
 
-function getCreators(link,type,location,fieldId,selectedValue)
-{  
+function getCreators(link,type,location,fieldId,selectedValue) {
   var q = null;
   var fieldName = null;
    
@@ -78,6 +77,39 @@ function getCreators(link,type,location,fieldId,selectedValue)
       data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
       var regexp = new RegExp("newClassName", "g");
       data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data);
+      else
+        $(link).parent().before(data);
+    }); 
+  }
+}
+
+
+function getNames(link,type,location,fieldId,selectedValue,relationship)
+{  
+  var q = null;
+  var fieldName = null;
+
+  if (typeof link == "string") {
+    q = link;
+    fieldName = "creatorURI";
+  } else {
+    q = link.value;
+    fieldName = firstToLowerCase(q);
+  }
+
+  if(q != null && q.length > 0) {
+    $.get(baseURL+"/get_name/get_name?relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("attributes_"+fieldId, "g");
+      var tmp = "attributes]["+fieldId+"]";
+      data = data.replace(regexp,"attributes_"+new_id);
+      data = data.split(tmp).join("attributes]["+new_id+"]");
+
+      regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+
       if(location != null && location.length > 0)
         $(location).html(data);
       else
@@ -245,6 +277,12 @@ function add_subject_fields(link, content) {
 function add_name_fields(link, content) {
     var new_id = new Date().getTime();
     var regexp = new RegExp("newClassNameC", "g");
+    $(link).parent().before(content.replace(regexp, new_id));
+}
+
+function add_relationship_fields(link, content) {
+    var new_id = new Date().getTime();
+    var regexp = new RegExp("newClassNameRelationship", "g");
     $(link).parent().before(content.replace(regexp, new_id));
 }
 

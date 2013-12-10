@@ -2,38 +2,7 @@
   <%
      nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
-  <%= select_tag "#{object_type}[relationshipNameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: displayRelationshipName(this.value);"%>
-  <br>
 
-  <%= f.fields_for :relationship do |rel| %>
-    <%= rel.fields_for :role do |ro| %>
-      <%= ro.select :id, options_for_select(@mads_authorities) , :prompt=>"Select Role"%>
-    <% end %>
-      <div id="relationshipNames">
-	    <div id="relationshipConferenceName">  
-		    <%= rel.fields_for :conferenceName do |relConferenceName| %>
-		      <%= relConferenceName.select :id, options_for_select(@dams_conference_names) , :prompt=>"Select Conference Name"%>
-		    <% end %>
-	    </div>
-	    <div id="relationshipCorporateName">  
-		    <%= rel.fields_for :corporateName do |relCorporateName| %>
-		      <%= relCorporateName.select :id, options_for_select(@dams_corporate_names) , :prompt=>"Select Corporate Name"%>
-		    <% end %>
-	    </div>
-	    <div id="relationshipFamilyName">  
-		    <%= rel.fields_for :familyName do |relFamilyName| %>
-		      <%= relFamilyName.select :id, options_for_select(@dams_family_names) , :prompt=>"Select Family Name"%>
-		    <% end %>
-	    </div>
-	    <div id="relationshipName">  
-		    <%= rel.fields_for :name do |relName| %>
-		      <%= relName.select :id, options_for_select(@dams_names) , :prompt=>"Select Name"%>
-		    <% end %>
-	    </div>	    
-	    <div id="relationshipPersonalName">  
-		    <%= rel.fields_for :personalName do |relPersonalName| %>
-		      <%= relPersonalName.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal Name"%>
-		    <% end %>
-	    </div>	    
-	 </div>                 
-  <% end %>
+  <%= render :partial => 'shared/edit_fields/relationship_fields' , :locals => {:f => f, :object_type => object_type, :nameTypeArray => nameTypeArray}%>
+
+  <p><%= link_to_add_relationships "Add Relationship", f, "#{object_type}", nameTypeArray%></p>

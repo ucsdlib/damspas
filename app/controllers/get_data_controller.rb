@@ -49,6 +49,10 @@ class GetDataController < ApplicationController
 	@fieldId = params[:fieldId]
 	@selectedValue = params[:selectedValue]
 	@names << "Create New #{@label}"
+	@relationship = params[:relationship]
+	if !@relationship.nil? and @relationship == "true"
+		@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
+	end
 	render :layout => false
   end
  
