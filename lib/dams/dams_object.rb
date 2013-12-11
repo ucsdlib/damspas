@@ -319,7 +319,7 @@ module Dams
 	      #file_json[:events] = event_array
 	
 	      Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
-	      Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
+	      #Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
 	
 	      # fulltext extraction for pdfs
 	      if file.mimeType.first.to_s == "application/pdf"
@@ -354,7 +354,7 @@ module Dams
 	        :endDate => copy.endDate.first.to_s,
 	        :date => copy.dateValue.first.to_s }
 	      Solrizer.insert_field(solr_doc, "#{prefix}copyright", copy_json.to_json)
-	      Solrizer.insert_field(solr_doc, "fulltext", copy_json.to_json)
+	      #Solrizer.insert_field(solr_doc, "fulltext", copy_json.to_json)
 	    end
 	  end
 	  def insertLicenseFields( solr_doc, prefix, license )
@@ -371,7 +371,7 @@ module Dams
 	        :restrictionBeginDate => lic.restrictionBeginDate.first.to_s,
 	        :restrictionEndDate => lic.restrictionEndDate.first.to_s }
 	      Solrizer.insert_field(solr_doc, "#{prefix}license", lic_json.to_json)
-	      Solrizer.insert_field(solr_doc, "fulltext", lic_json.to_json)
+	      #Solrizer.insert_field(solr_doc, "fulltext", lic_json.to_json)
 	    end
 	  end
 	  def insertStatuteFields( solr_doc, prefix, statute )
@@ -389,7 +389,7 @@ module Dams
 	        :restrictionBeginDate => stat.restrictionBeginDate.first.to_s,
 	        :restrictionEndDate => stat.restrictionEndDate.first.to_s }
 	      Solrizer.insert_field(solr_doc, "#{prefix}statute", stat_json.to_json)
-	      Solrizer.insert_field(solr_doc, "fulltext", stat_json.to_json)
+	      #Solrizer.insert_field(solr_doc, "fulltext", stat_json.to_json)
 	    end
 	  end
 	  def insertOtherRightsFields( solr_doc, prefix, otherRights )
@@ -426,7 +426,7 @@ module Dams
 	        puts "trapping role error in otherRights"
 	      end
 	      Solrizer.insert_field(solr_doc, "#{prefix}otherRights", othr_json.to_json)
-	      Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
+	      #Solrizer.insert_field(solr_doc, "fulltext", othr_json.to_json)
 	    end    
 	  end
 	  def insertRightsHolderFields( solr_doc, prefix, rightsHolder )
@@ -434,7 +434,7 @@ module Dams
 	    if rightsHolders != nil
 	      rightsHolders.each do |name|
 	          Solrizer.insert_field(solr_doc, "#{prefix}rightsHolder", name.name.first)
-	          Solrizer.insert_field(solr_doc, "fulltext", name.name.first)
+	          #Solrizer.insert_field(solr_doc, "fulltext", name.name.first)
 	      end
 	    end
 	  end
@@ -475,7 +475,7 @@ module Dams
 	
 	      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", format_name(component.typeOfResource.first))
 	      Solrizer.insert_field(solr_doc, "object_type", format_name(component.typeOfResource.first),@facetable)    
-	      Solrizer.insert_field(solr_doc, "fulltext", format_name(component.typeOfResource))
+	      Solrizer.insert_field(solr_doc, "all_fields", format_name(component.typeOfResource))
 	
 	      insertDateFields solr_doc, cid, component.date
 	      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
@@ -534,8 +534,8 @@ module Dams
 	    if !u.nil?
 	      Solrizer.insert_field(solr_doc, 'unit', u.name, @facetable)
 	      Solrizer.insert_field(solr_doc, 'unit_code', u.code)
-	      Solrizer.insert_field(solr_doc, 'fulltext', u.name)
-	      Solrizer.insert_field(solr_doc, 'fulltext', u.code)
+	      Solrizer.insert_field(solr_doc, 'all_fields', u.name)
+	      Solrizer.insert_field(solr_doc, 'all_fields', u.code)
 	      unit_json = {
 	        :id => u.pid,
 	        :code => u.code.first.to_s,
@@ -550,7 +550,7 @@ module Dams
 	        begin
 	          Solrizer.insert_field(solr_doc, "collection", collection.title.first.name, @facetable)
 	          Solrizer.insert_field(solr_doc, "collection_name", collection.title.first.name)
-	          Solrizer.insert_field(solr_doc, "fulltext", collection.title.first.name)
+	          Solrizer.insert_field(solr_doc, "all_fields", collection.title.first.name)
 	          Solrizer.insert_field(solr_doc, "collections", collection.pid)
 	          col_json = {
 	            :id => collection.pid,
@@ -603,10 +603,10 @@ module Dams
 	        :referenceSystem => cart.referenceSystem,
 	        :scale => cart.scale }
 	      Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
-	      Solrizer.insert_field(solr_doc, "fulltext", carto_json.to_json)
+	      Solrizer.insert_field(solr_doc, "all_fields", carto_json.to_json)
 	    end 
 	    Solrizer.insert_field(solr_doc, "resource_type", format_name(typeOfResource.first))
-	    Solrizer.insert_field(solr_doc, "fulltext", format_name(typeOfResource))
+	    Solrizer.insert_field(solr_doc, "all_fields", format_name(typeOfResource))
 	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource.first),@facetable)    
 	
 	    Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)

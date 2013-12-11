@@ -309,7 +309,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     if objects != nil
       objects.each do |obj|
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
-        Solrizer.insert_field(solr_doc, "fulltext", obj.name)
+        Solrizer.insert_field(solr_doc, "all_fields", obj.name)
       end
     end
   end
@@ -331,7 +331,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
           Solrizer.insert_field(solr_doc, 'subject', obj.name)
           Solrizer.insert_field(solr_doc, "#{prefix}subject_topic", obj.name, facetable)
           Solrizer.insert_field(solr_doc, "subject_topic", obj.name, facetable)
-          Solrizer.insert_field(solr_doc, "fulltext", obj.name)
+          Solrizer.insert_field(solr_doc, "all_fields", obj.name)
       end
     end
   end
@@ -356,7 +356,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       # retrieval
       Solrizer.insert_field(solr_doc, "#{fieldName}", note_obj.value )
       Solrizer.insert_field(solr_doc, "note", note_obj.value )
-      Solrizer.insert_field(solr_doc, "fulltext", note_obj.value)
+      Solrizer.insert_field(solr_doc, "all_fields", note_obj.value)
     end
   end
   def insertDateFields (solr_doc, cid, dates)
@@ -385,11 +385,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "date", date.endDate.first)
       Solrizer.insert_field(solr_doc, "date", date.type.first)
       Solrizer.insert_field(solr_doc, "date", date.encoding.first)
-      Solrizer.insert_field(solr_doc, "fulltext", date.value)
-      Solrizer.insert_field(solr_doc, "fulltext", date.beginDate)
-      Solrizer.insert_field(solr_doc, "fulltext", date.endDate)
-      Solrizer.insert_field(solr_doc, "fulltext", date.type)
-      Solrizer.insert_field(solr_doc, "fulltext", date.encoding)
+      Solrizer.insert_field(solr_doc, "all_fields", date.value)
+      Solrizer.insert_field(solr_doc, "all_fields", date.beginDate)
+      Solrizer.insert_field(solr_doc, "all_fields", date.endDate)
+      Solrizer.insert_field(solr_doc, "all_fields", date.type)
+      Solrizer.insert_field(solr_doc, "all_fields", date.encoding)
 
       # save dates for sort date
       begin
@@ -446,10 +446,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       if ( rel != nil )
         if(rel.to_s.include? 'Internal')
             name = rel.first.name.first.to_s
-            Solrizer.insert_field(solr_doc, "fulltext", rel.first.name)
+            Solrizer.insert_field(solr_doc, "all_fields", rel.first.name)
         else
             name = rel.name.first.to_s
-            Solrizer.insert_field(solr_doc, "fulltext", rel.name)
+            Solrizer.insert_field(solr_doc, "all_fields", rel.name)
         end
 
         # retrieval
@@ -468,6 +468,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
               roleValue = role.name.first.to_s
             end
           end
+          Solrizer.insert_field(solr_doc, "all_fields", roleValue)
           if rels[roleValue] == nil
             rels[roleValue] = [name]
           else
@@ -525,13 +526,35 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # retrieval
       Solrizer.insert_field(solr_doc, "title", name)
-      Solrizer.insert_field(solr_doc, "titleVariant", variant) if variant.length > 0
-      Solrizer.insert_field(solr_doc, "titleTranslationVariant", translationVariant) if translationVariant.length > 0
-      Solrizer.insert_field(solr_doc, "titleAbbreviationVariant", abbreviationVariant) if abbreviationVariant.length > 0
-      Solrizer.insert_field(solr_doc, "titleAcronymVariant", acronymVariant) if acronymVariant.length > 0
-      Solrizer.insert_field(solr_doc, "titleExpansionVariant", expansionVariant) if expansionVariant.length > 0
-      Solrizer.insert_field(solr_doc, "fulltext", name)
-
+      Solrizer.insert_field(solr_doc, "all_fields", name)
+	  Solrizer.insert_field(solr_doc, "all_fields", external) if external.length > 0
+	  #Solrizer.insert_field(solr_doc, "all_fields", value) if value.length > 0
+	  Solrizer.insert_field(solr_doc, "all_fields", nonSort) if nonSort.length > 0
+	  Solrizer.insert_field(solr_doc, "all_fields", partName) if partName.length > 0
+	  Solrizer.insert_field(solr_doc, "all_fields", partNumber) if partNumber.length > 0
+	  Solrizer.insert_field(solr_doc, "all_fields", subtitle) if subtitle.length > 0
+	        
+      if variant.length > 0
+      	Solrizer.insert_field(solr_doc, "titleVariant", variant)
+      	Solrizer.insert_field(solr_doc, "all_fields", variant)
+      end 
+      if translationVariant.length > 0
+      	Solrizer.insert_field(solr_doc, "titleTranslationVariant", translationVariant)
+      	Solrizer.insert_field(solr_doc, "all_fields", translationVariant)
+      end
+      if abbreviationVariant.length > 0
+      	Solrizer.insert_field(solr_doc, "titleAbbreviationVariant", abbreviationVariant)
+      	Solrizer.insert_field(solr_doc, "all_fields", abbreviationVariant)
+      end
+      if acronymVariant.length > 0
+      	Solrizer.insert_field(solr_doc, "titleAcronymVariant", acronymVariant)
+      	Solrizer.insert_field(solr_doc, "all_fields", acronymVariant)
+      end
+      if expansionVariant.length > 0
+      	Solrizer.insert_field(solr_doc, "titleExpansionVariant", expansionVariant) 
+        Solrizer.insert_field(solr_doc, "all_fields", expansionVariant)
+      end
+	  	  		
       # build sort title
       if sort_title == "" && cid == nil
         sort_title = name.first
@@ -551,7 +574,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         n += 1
         begin
 		  #Solrizer.insert_field(solr_doc, field, lang.name)
-		  #Solrizer.insert_field(solr_doc, "fulltext", lang.name)
+		  #Solrizer.insert_field(solr_doc, "all_fields", lang.name)
 
 	      language_json = {}
 	      language_obj = nil
@@ -570,7 +593,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	
 	      # retrieval
 	      Solrizer.insert_field(solr_doc, "#{field}", language_obj.name )
-	      Solrizer.insert_field(solr_doc, "fulltext", language_obj.name)        
+	      Solrizer.insert_field(solr_doc, "all_fields", language_obj.name)        
         rescue Exception => e
           puts "XXX: error loading language: #{lang}"
         end
@@ -606,9 +629,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       n += 1
       related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
       Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
-      Solrizer.insert_field(solr_doc, "fulltext", resource.uri.first.to_s)
-      Solrizer.insert_field(solr_doc, "fulltext", resource.type.first.to_s)
-      Solrizer.insert_field(solr_doc, "fulltext", resource.description.first.to_s)
+      Solrizer.insert_field(solr_doc, "all_fields", resource.uri.first.to_s)
+      Solrizer.insert_field(solr_doc, "all_fields", resource.type.first.to_s)
+      Solrizer.insert_field(solr_doc, "all_fields", resource.description.first.to_s)
       if resource.type.first.to_s == "thumbnail"
         Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
       end
@@ -749,7 +772,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       	subject_value = sn.name
       end   
       Solrizer.insert_field(solr_doc, 'subject', subject_value)
-      Solrizer.insert_field(solr_doc, 'fulltext', subject_value)
+      Solrizer.insert_field(solr_doc, 'all_fields', subject_value)
       Solrizer.insert_field(solr_doc, 'subject_topic', subject_value, facetable)
     end
 
