@@ -267,12 +267,8 @@
   <copyField source="*_t" dest="spell"/>
   <copyField source="*_facet" dest="spell"/>
 -->
-	<copyField source="title_tesim" dest="spell"/>
-	<copyField source="name_tesim" dest="spell"/>
-	<copyField source="subject_tesim" dest="spell"/>
-	<copyField source="date_tesim" dest="spell"/>
-	<copyField source="component_title_tesim" dest="spell"/>
-	<copyField source="id" dest="spell"/>
+	<copyField source="all_fields_tesim" dest="spell"/>
+	<copyField source="fulltext_tesim" dest="spell"/>
 	
   <!-- title spell check;  should match fields for title request handler -->
 <!-- 
