@@ -340,9 +340,65 @@ module Dams
 		  }
 	  	end
 
-		creatorArray   
+		creatorArray
+					  
     end
-    
+
+    def get_relationships(object)   	
+    	relationshipArray = Array.new
+		relationship = object.relationship
+		roleId = ""
+		if(!relationship.nil?)
+			relationship.each do |relation|
+				if(!relation.role.nil?)
+					roleId = relation.role.first.pid
+				end
+
+			  	relation.conferenceName.each do |conf|
+		  		  relationshipArray << {
+				    :name => "ConferenceName",
+				    :nameId => conf.pid,	
+				    :roleId => "#{roleId}",		  
+				  }	  		
+			  	end
+			  	
+			  	relation.corporateName.each do |corp|
+		  		  relationshipArray << {
+				    :name => "CorporateName",
+				    :nameId => corp.pid,
+				    :roleId => "#{roleId}",				  
+				  }	  		
+			  	end
+		
+				relation.familyName.each do |fam|
+		  		  relationshipArray << {
+				    :name => "FamilyName",
+				    :nameId => fam.pid,
+				    :roleId => "#{roleId}",				    			  
+				  }	  		
+			  	end
+		
+			   	relation.name.each do |nam|
+		  		  relationshipArray << {
+				    :name => "Name",
+				    :nameId => nam.pid,
+				    :roleId => "#{roleId}",				    			  
+				  }	  		
+			  	end
+		
+			  	relation.personalName.each do |pers|
+		  		  relationshipArray << {
+				    :name => "PersonalName",
+				    :nameId => pers.pid,
+				    :roleId => "#{roleId}",				    			  
+				  }
+			  	end
+			  			  	
+			end
+		end
+		relationshipArray   
+    end
+        
     def index_links(object)
       	solrizer = Solrizer::Fedora::Solrizer.new
   		object.language.each do |lang|

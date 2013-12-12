@@ -52,6 +52,7 @@ class GetDataController < ApplicationController
 	@relationship = params[:relationship]
 	if !@relationship.nil? and @relationship == "true"
 		@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
+		@selectedRole = params[:selectedRole]
 	end
 	render :layout => false
   end

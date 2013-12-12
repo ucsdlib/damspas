@@ -5,7 +5,7 @@
 	  <%# end %>
   <%# end %>  
   <br/>
-<%= select_tag "#{object_type}[nameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getNames(this,'#{object_type}','#newClassNameRelationship','0',null,'true');"%>
+<%= select_tag "#{object_type}[relationshipNameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getNames(this,'#{object_type}','#newClassNameRelationship','0',null,'true',null);"%>
 
 <div id="newClassNameRelationship"></div>
 

@@ -88,10 +88,8 @@ class DamsProvenanceCollectionPartsController < ApplicationController
     @dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
-    @mads_authorities = get_objects_url('MadsAuthority','name_tesim')
     @dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
     @dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
-    @dams_names = get_objects_url('MadsName','name_tesim')
     @dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
     @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
    
@@ -119,18 +117,10 @@ def edit
     @dams_provenance_collections = get_objects('DamsProvenanceCollection','title_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
-    @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
     
     @language_id = @dams_provenance_collection_part.language.to_s.gsub(/.*\//,'')[0..9]
-    @role_id = @dams_provenance_collection_part.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
-    @name_id = get_relationship_name_id(@dams_provenance_collection_part)
-    @name_type = get_relationship_name_type(@dams_provenance_collection_part)
-    @dams_names = get_objects("Mads#{@name_type}",'name_tesim')
-    @nameTypeArray = Array.new
-    @nameTypeArray << @name_type
-    @dams_provenance_collection_part.relationshipNameType = @nameTypeArray
 
     @simple_subject_type = get_simple_subject_type(@dams_provenance_collection_part)  
     @dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
@@ -152,15 +142,7 @@ def edit
 
 	@simpleSubjects = get_simple_subjects(@dams_provenance_collection_part)
 	@creators = get_creators(@dams_provenance_collection_part)
-  uri = URI('http://fast.oclc.org/fastSuggest/select')
-  res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-  json = JSON.parse(res.body)
-  @jdoc = json.fetch("response").fetch("docs")
-  
-  @autocomplete_items = Array.new
-  @jdoc.each do |value|
-    @autocomplete_items << value['suggestall']
-  end        
+	@relationships = get_relationships(@dams_provenance_collection_part) 
   
   end
 
@@ -208,14 +190,10 @@ def edit
     @dams_provenance_collection_part.corporateName.clear   
     @dams_provenance_collection_part.conferenceName.clear    
     @dams_provenance_collection_part.familyName.clear
-   
     @dams_provenance_collection_part.assembledCollection.clear  
-     @dams_provenance_collection_part.provenanceCollection.clear 
-  
+    @dams_provenance_collection_part.provenanceCollection.clear 
+    @dams_provenance_collection_part.relationship.clear 
     
-    
-
-
     @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part]
     if @dams_provenance_collection_part.save
         redirect_to @dams_provenance_collection_part, notice: "Successfully updated provenance_collection_part"

@@ -87,10 +87,8 @@ class DamsAssembledCollectionsController < ApplicationController
     
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
-    @mads_authorities = get_objects_url('MadsAuthority','name_tesim')
     @dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
     @dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
-    @dams_names = get_objects_url('MadsName','name_tesim')
     @dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
     @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
     @dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
@@ -124,13 +122,6 @@ end
     #@provenance_collection_part_id = @dams_assembled_collection.part_node.to_s.gsub(/.*\//,'')[0..9]
     @provenance_collection_part_id = @dams_assembled_collection.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_assembled_collection.language.to_s.gsub(/.*\//,'')[0..9]
-    @role_id = @dams_assembled_collection.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]
-    @name_id = get_relationship_name_id(@dams_assembled_collection)
-    @name_type = get_relationship_name_type(@dams_assembled_collection)
-    @dams_names = get_objects("Mads#{@name_type}",'name_tesim')
-    @nameTypeArray = Array.new
-    @nameTypeArray << @name_type
-    @dams_assembled_collection.relationshipNameType = @nameTypeArray
 
     @simple_subject_type = get_simple_subject_type(@dams_assembled_collection)  
     @dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
@@ -149,7 +140,8 @@ end
     @simple_name_value = get_name_value(@dams_assembled_collection)
     @creators = get_creators(@dams_assembled_collection)
 	@simpleSubjects = get_simple_subjects(@dams_assembled_collection)
-
+	@relationships = get_relationships(@dams_assembled_collection)
+	
   uri = URI('http://fast.oclc.org/fastSuggest/select')
   res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
   json = JSON.parse(res.body)
@@ -210,13 +202,9 @@ end
     @dams_assembled_collection.personalName.clear    
     @dams_assembled_collection.corporateName.clear   
     @dams_assembled_collection.conferenceName.clear    
-    @dams_assembled_collection.familyName.clear
-   
-    
-  
+    @dams_assembled_collection.familyName.clear  
     @dams_assembled_collection.provenanceCollectionPart.clear
-    
-
+    @dams_assembled_collection.relationship.clear
 
     @dams_assembled_collection.attributes = params[:dams_assembled_collection]
     if @dams_assembled_collection.save
