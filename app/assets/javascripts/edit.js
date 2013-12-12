@@ -86,21 +86,21 @@ function getCreators(link,type,location,fieldId,selectedValue) {
 }
 
 
-function getNames(link,type,location,fieldId,selectedValue,relationship)
+function getNames(link,type,location,fieldId,selectedValue,relationship,selectedRole)
 {  
   var q = null;
   var fieldName = null;
 
   if (typeof link == "string") {
     q = link;
-    fieldName = "creatorURI";
+    fieldName = "relationshipNameURI";
   } else {
     q = link.value;
     fieldName = firstToLowerCase(q);
   }
 
   if(q != null && q.length > 0) {
-    $.get(baseURL+"/get_name/get_name?relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+    $.get(baseURL+"/get_name/get_name?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
       var new_id = new Date().getTime();
       var regexp = new RegExp("attributes_"+fieldId, "g");
       var tmp = "attributes]["+fieldId+"]";
@@ -137,6 +137,20 @@ function getEditCreators(link,type,location)
   var q = link.value;
   if(q != null && q.length > 0) {
     $.get(baseURL+"/get_name/get_name?fieldName=creatorURI&formType="+type+"&q="+q,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data); 
+    }); 
+  }
+}
+
+function getEditRelationships(link,type,location)
+{  
+  var q = link.value;
+  if(q != null && q.length > 0) {
+    $.get(baseURL+"/get_name/get_name?&relationship=true&fieldName=relationshipNameURI&formType="+type+"&q="+q,function(data,status){
       var new_id = new Date().getTime();
       var regexp = new RegExp("newClassName", "g");
       data = data.replace(regexp,new_id);

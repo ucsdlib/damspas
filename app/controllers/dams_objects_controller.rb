@@ -144,14 +144,12 @@ class DamsObjectsController < ApplicationController
   	@dams_provenance_collections = get_objects_url('DamsProvenanceCollection','title_tesim')
   	@mads_languages =  get_objects_url('MadsLanguage','name_tesim')
   	@mads_languages << "Create New Language"
-  	#@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
   	@dams_copyrights = get_objects_url('DamsCopyright','status_tesim')
   	@dams_statutes = get_objects_url('DamsStatute','citation_tesim')
   	@dams_other_rights = get_objects('DamsOtherRight','note_tesim')
   	@dams_licenses = get_objects_url('DamsLicense','note_tesim')
   	@dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
   	@dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
-  	@dams_names = get_objects_url('MadsName','name_tesim')
   	@dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
   	@dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
   	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
@@ -194,13 +192,6 @@ class DamsObjectsController < ApplicationController
   	#@provenance_collection_id = @dams_object.provenanceCollectionURI.to_s.gsub(/.*\//,'')[0..9]
   	
   	@language_id = @dams_object.language.to_s.gsub(/.*\//,'')[0..9]
-  	@role_id = @dams_object.relationshipRoleURI.to_s.gsub(/.*\//,'')[0..9]  	
-  	@name_id = get_relationship_name_id(@dams_object)
-  	@name_type = get_relationship_name_type(@dams_object)
-  	@dams_names = get_objects("Mads#{@name_type}",'name_tesim')
-  	@nameTypeArray = Array.new
-  	@nameTypeArray << @name_type
-  	@dams_object.relationshipNameType = @nameTypeArray
   	
   	@copyright_id = @dams_object.copyrights.pid if !@dams_object.copyrights.nil?
   	@statute_id = @dams_object.statutes.pid if !@dams_object.statutes.nil?
@@ -230,7 +221,8 @@ class DamsObjectsController < ApplicationController
   	end
     @creators = get_creators(@dams_object)
     @simpleSubjects = get_simple_subjects(@dams_object) 
-
+	@relationships = get_relationships(@dams_object)
+	
 #	uri = URI('http://fast.oclc.org/fastSuggest/select')
 #	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
 #	json = JSON.parse(res.body)
@@ -321,6 +313,7 @@ class DamsObjectsController < ApplicationController
     @dams_object.copyright.clear
     @dams_object.license.clear  
     @dams_object.statute.clear
+    @dams_object.relationship.clear
 	has_file = "false"
 	
     @dams_object.attributes = params[:dams_object]  

@@ -1030,61 +1030,56 @@ def relatedResourceUri
     relationship[0] ? relationship[0].role : []
   end 
   def relationshipRoleURI=(val)
-    if val.class == Array
-    	val = val.first
-    end
-	if(!val.nil? && val.first.length > 0)
-	    @roleURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
-	#end
-	    if relationship[0] == nil
-	      relationship.build
+	  i = 0
+	  val.each do |v|
+	    uri = v
+	    if(!v.include? Rails.configuration.id_namespace)
+	      uri = "#{Rails.configuration.id_namespace}#{v}"
 	    end
-	    relationship[0].role = @roleURI
-    end	  
+	    if(!v.nil? && v.length > 0)
+	      @roleURI = RDF::Resource.new(uri)
+		  if relationship[i] == nil
+       		relationship.build
+	      end	      
+
+	      relationship[i].role = @roleURI 
+	    end	    
+	    i+=1
+	  end       	  
   end   
   
   def relationshipNameURI
-    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
-    	relationship[0] ? relationship[0].corporateName : []
-    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
-        relationship[0] ? relationship[0].personalName : []
-    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
-        relationship[0] ? relationship[0].name : []  
-    elsif( !@nameType.nil? && (@nameType.include? 'ConferenceName')) 
-        relationship[0] ? relationship[0].conferenceName : []
-    elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
-        relationship[0] ? relationship[0].familyName : []                         
-    else
-    	relationship[0] ? relationship[0] : []
-    end
-    
-  end 
+	relationship[0] ? relationship[0].name : []
+  end
+  
   def relationshipNameURI=(val)
-    if val.class == Array
-    	val = val.first
-    end
-	if(!val.nil? && val.first.length > 0)
-	    @nameURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")   	
-	#end
-	    if relationship[0] == nil
-	      relationship.build
+	  i = 0
+	  val.each do |v|
+	    uri = v
+	    if(!v.include? Rails.configuration.id_namespace)
+	      uri = "#{Rails.configuration.id_namespace}#{v}"
 	    end
-	    #relationship[0].corporateName = val	
-	    if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
-	    	relationship[0].corporateName = @nameURI 
-	    elsif( !@nameType.nil? && (@nameType.include? 'PersonalName')) 
-	    	relationship[0].personalName = @nameURI
-	    elsif( !@nameType.nil? && (@nameType.include? 'ConferenceName')) 
-	    	relationship[0].conferenceName = @nameURI
-	    elsif( !@nameType.nil? && (@nameType.include? 'FamilyName')) 
-	    	relationship[0].familyName = @nameURI	    		    	     
-	    elsif( !@nameType.nil? && (@nameType.include? 'Name')) 
-	    	relationship[0].name = @nameURI       		
-	    #else
-	    #	relationship[0].name = @nameURI    	
-	    end
-    end
-  end    
+	    if(!v.nil? && v.length > 0)
+	      relNameURI = RDF::Resource.new(uri)
+		  if relationship[i] == nil
+       	  	relationship.build
+	      end
+	      if( !@relNameType.nil? && !@relNameType[i].nil? && (@relNameType[i].include? 'CorporateName')) 
+	    	relationship[i].corporateName = relNameURI 
+	      elsif( !@relNameType.nil? && !@relNameType[i].nil? && (@relNameType[i].include? 'PersonalName')) 
+	    	relationship[i].personalName = relNameURI
+	      elsif( !@relNameType.nil? && !@relNameType[i].nil? && (@relNameType[i].include? 'ConferenceName')) 
+	    	relationship[i].conferenceName = relNameURI
+	      elsif( !@relNameType.nil? && !@relNameType[i].nil? && (@relNameType[i].include? 'FamilyName')) 
+	    	relationship[i].familyName = relNameURI	    		    	     
+	      elsif( !@relNameType.nil? && !@relNameType[i].nil? && (@relNameType[i].include? 'Name')) 
+	    	relationship[i].name = relNameURI       		   
+	      end	         
+	    end	    
+	    i+=1
+	end
+
+  end   
 
   def relationshipNameValue
     if( !@nameType.nil? && (@nameType.include? 'CorporateName')) 
@@ -1156,14 +1151,14 @@ def relatedResourceUri
   end    
   
   def relationshipNameType
-    @nameType
+    @relNameType
   end
   def relationshipNameType=(val)
-    @nameType = Array.new
+    @relNameType = Array.new
     i = 0
 	val.each do |v| 
 	    if(!v.nil? && v.length > 0)
-	    	@nameType << v 	
+	    	@relNameType << v 	
 	    end
 		i+=1
 	end

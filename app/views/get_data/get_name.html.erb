@@ -2,9 +2,16 @@
 <script src="/assets/edit.js" type="text/javascript"></script>
 <script src="/assets/jquery.js" type="text/javascript"></script>
 <% if !@relationship.nil? and @relationship == "true"%>
-	<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
-	<br/>
-	<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][role_attributes][#{@fieldId}][id]", options_for_select(@mads_authorities) , :prompt=>"Select Role"%>
+	<% if !@fieldName.nil? and @fieldName == "relationshipNameURI"%>
+		<b><%= @label%></b><br/>
+		<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
+		<br/>
+		<%= select_tag "#{@formType}[relationshipRoleURI][]", options_for_select(@mads_authorities, :selected => "#{Rails.configuration.id_namespace}#{@selectedRole}") , :prompt=>"Select Role"%>
+	<% else %>
+		<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+		<br/>
+		<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][role_attributes][#{@fieldId}][id]", options_for_select(@mads_authorities) , :prompt=>"Select Role"%>
+	<% end %>
 <% else %>
 	<% if !@fieldName.nil? and @fieldName == "creatorURI"%>
 		<b><%= @label%></b><br/>
