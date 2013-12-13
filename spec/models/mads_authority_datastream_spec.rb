@@ -26,10 +26,10 @@ describe MadsAuthorityDatastream do
         subject.code.should == ["Test Authority Description"]
       end
 
-      it "should have a scheme" do
-        subject.scheme = "bd0683587d"
-        subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd0683587d"
-      end
+      #it "should have a scheme" do
+      #  subject.scheme = "bd0683587d"
+      #  subject.scheme.to_s.should == "#{Rails.configuration.id_namespace}bd0683587d"
+      #end
     end
 
     describe "an instance loaded from fixture xml" do
@@ -57,7 +57,7 @@ describe MadsAuthorityDatastream do
       end
 
       it "should have a scheme" do
-        subject.scheme.should == "#{Rails.configuration.id_namespace}bd9386739x"
+        subject.scheme.first.pid.should == "bd9386739x"
       end
 
       it "should have a fields from solr doc" do

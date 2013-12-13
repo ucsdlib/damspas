@@ -4,26 +4,30 @@ class MadsAuthorityDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.name( in: MADS, to: "authoritativeLabel" )
     map.description( in: MADS, to: "definitionNote" )
     map.externalAuthorityNode( in: MADS, to: "hasExactExternalAuthority" )
-    map.schemeNode( in: MADS, to: "isMemberOfMADSScheme" )
+    #map.schemeNode( in: MADS, to: "isMemberOfMADSScheme" )
+    map.scheme(:in => MADS, :to => 'isMemberOfMADSScheme', :class_name => 'MadsSchemeInternal')
   end
+  
+  accepts_nested_attributes_for :scheme
+  
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
   def serialize
     graph.insert([rdf_subject, RDF.type, MADS.MadsAuthority]) if new?
     super
   end
-  def scheme=(val)
-    if val.class == Array
-     val = val.first
-    end
-    @madsScheme = RDF::Resource.new(Rails.configuration.id_namespace+val)
-  end
-  def scheme
-    if @madsScheme != nil
-      @madsScheme
-    else
-      schemeNode.first
-    end
-  end
+  #def scheme=(val)
+  #  if val.class == Array
+  #   val = val.first
+  #  end
+  #  @madsScheme = RDF::Resource.new(Rails.configuration.id_namespace+val)
+  #end
+  #def scheme
+  #  if @madsScheme != nil
+  #    @madsScheme
+  #  else
+  #    schemeNode.first
+  #  end
+  #end
   def externalAuthority=(val)
     if val.class == Array
      val = val.first
@@ -45,18 +49,25 @@ class MadsAuthorityDatastream < ActiveFedora::RdfxmlRDFDatastream
     Solrizer.insert_field(solr_doc, "code", code.first )
     Solrizer.insert_field(solr_doc, "description", code.first )
     Solrizer.insert_field(solr_doc, "externalAuthority", externalAuthority.to_s)
-    scheme_obj = scheme
-    if scheme_obj.class == Array
-      scheme_obj = scheme_obj.first
+
+    if scheme.first
+      Solrizer.insert_field(solr_doc, 'scheme', scheme.first.rdf_subject.to_s)
+      Solrizer.insert_field(solr_doc, 'scheme_name', scheme.first.name.first)
+      Solrizer.insert_field(solr_doc, 'scheme_code', scheme.first.code.first)
     end
-    scheme_id = scheme_obj.to_s.gsub /.*\//, ""   
-    if scheme_id != nil && scheme_id.length > 0
-      Solrizer.insert_field(solr_doc, "scheme", "#{Rails.configuration.id_namespace}#{scheme_id}")
-      scheme_id = scheme_id.gsub(/.*\//,'')
-      schobj = MadsScheme.find( scheme_id )
-      Solrizer.insert_field(solr_doc, 'scheme_name', schobj.name.first)
-      Solrizer.insert_field(solr_doc, 'scheme_code', schobj.code.first)
-    end
+        
+    #scheme_obj = scheme
+    #if scheme_obj.class == Array
+    #  scheme_obj = scheme_obj.first
+    #end
+    #scheme_id = scheme_obj.to_s.gsub /.*\//, ""   
+    #if scheme_id != nil && scheme_id.length > 0
+    #  Solrizer.insert_field(solr_doc, "scheme", "#{Rails.configuration.id_namespace}#{scheme_id}")
+    #  scheme_id = scheme_id.gsub(/.*\//,'')
+    #  schobj = MadsScheme.find( scheme_id )
+    #  Solrizer.insert_field(solr_doc, 'scheme_name', schobj.name.first)
+    #  Solrizer.insert_field(solr_doc, 'scheme_code', schobj.code.first)
+    #end
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|

@@ -346,7 +346,7 @@ function getObjectsPath(type) {
 						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
 						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
 							 ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
-							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"]];
+							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"]];
 	for(i = 0; i < objectPathArray.length; i++) {
 		if(type == objectPathArray[i][0]) {
 			return objectPathArray[i][1];
