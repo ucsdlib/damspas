@@ -1,5 +1,6 @@
 class MadsAuthorityController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper  
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
 
@@ -19,21 +20,30 @@ class MadsAuthorityController < ApplicationController
   ##############################################################################
   def view
     @mads_authority = MadsAuthority.find(params[:id])
-    @mads_schemes = MadsScheme.find(:all)
-    @scheme_id = @mads_authority.scheme.first.to_s.gsub /.*\//, ""
-    @scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    @scheme_id = @mads_authority.scheme.to_s.gsub(/.*\//,'')[0..9]
+    #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
   end
   def new
-	@mads_schemes = MadsScheme.find(:all)
+	#@mads_schemes = MadsScheme.find(:all)
+	@mads_authority.scheme.build
+  	@mads_schemes = get_objects('MadsScheme','name_tesim')	
   end
   def edit
-    @scheme_id = @mads_authority.scheme.first.to_s.gsub /.*\//, ""
+    @mads_schemes = get_objects('MadsScheme','name_tesim')
+    @scheme_id = Rails.configuration.id_namespace+@mads_authority.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
   def create
-    @mads_authority.attributes = params[:mads_authority]
+    #@mads_authority.attributes = params[:mads_authority]
     if @mads_authority.save
-        redirect_to @mads_authority, notice: "Authority has been saved"
+	    if(!params[:parent_id].nil?)
+			redirect_to view_mads_authority_path(@mads_authority, {:parent_id => params[:parent_id]})
+	    elsif(!params[:parent_class].nil?)
+			redirect_to view_mads_authority_path(@mads_authority, {:parent_class => params[:parent_class]}) 	    			 	    
+	    else
+        	redirect_to @mads_authority, notice: "Authority has been saved"
+        end        
     else
       flash[:alert] = "Unable to save authority"
       render :new
@@ -41,6 +51,7 @@ class MadsAuthorityController < ApplicationController
   end
 
   def update
+  	@mads_authority.scheme.clear 
     @mads_authority.attributes = params[:mads_authority]
     if @mads_authority.save
         redirect_to @mads_authority, notice: "Successfully updated authority"
