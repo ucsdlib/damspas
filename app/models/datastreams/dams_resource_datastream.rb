@@ -290,7 +290,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   # helper method to load external classes
   def loadObjects (object,className)
     objects = []
+puts "loadObjects: #{className}: #{object}"
     object.each do |o|
+puts "  o: #{o}"
       name_uri = o.to_s
       name_pid = name_uri.gsub(/.*\//,'')
       if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
@@ -662,8 +664,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 		    end
           rel_json = {}
 	      if (rel != nil)
-			 if(rel.to_s.include? 'Internal')
-	        	name = rel.first.name.first.to_s			        
+			 if(rel.instance_of?(DamsRelationshipInternal) )
+	        	name = rel.name.first.to_s
 	         else
 	        	name = rel.name.first.to_s			        	
 			 end	      

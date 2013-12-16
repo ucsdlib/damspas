@@ -2,11 +2,17 @@ class DamsObjectDatastream < DamsResourceDatastream
   include Dams::DamsObject
     
   def load_copyright ( copyright )
-	if !copyright.first.nil?
+    foo = copyright.to_s
+    if copyright.first.instance_of?(DamsCopyrightInternal) && !copyright.first.status.first.nil?
+      puts "internal copyright: #{copyright.first}: #{copyright.first.status}"
+      copyright.first
+	elsif !copyright.first.nil?
 	    c_pid = copyright.first.pid
-	    if !copyright.first.status.first.nil? && copyright.first.status.to_s.length > 0
+	    if !copyright.first.status.first.nil? && copyright.first.status.first.to_s.length > 0
+          puts "internal copyright2: #{copyright.first}: #{copyright.first.status}"
 	      copyright.first
 	    elsif c_pid.to_s.length > 0
+          puts "external copyright"
 	      DamsCopyright.find(c_pid)
 	    end
 	else
@@ -18,10 +24,13 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
   def load_license (license)
     foo = license.to_s
-	if !license.first.nil?
+    
+    if license.first.instance_of?(DamsLicenseInternal) && !license.first.note.first.nil?
+      license.first
+	elsif !license.first.nil?
 	    l_pid = license.first.pid
 	    
-	    if (!license.first.note.first.nil? && license.first.note.first.length > 0) || ( !license.first.uri.first.nil? && license.first.uri.first.to_s.length > 0)
+	    if (!license.first.note.first.nil? && !license.first.note.first.nil? > 0) || ( !license.first.uri.first.nil? && license.first.uri.first.to_s.length > 0)
 	      license.first
 	    elsif l_pid.to_s.length > 0
 	      DamsLicense.find(l_pid)
@@ -32,7 +41,9 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_statute(statute)
   end
   def load_statute (statute)    
-	if !statute.first.nil?
+    if statute.first.instance_of?(DamsStatuteInternal) && !statute.first.citation.first.nil?
+      statute.first
+	elsif !statute.first.nil?
 	    s_pid = statute.first.pid
 	    if !statute.first.citation.first.nil? && statute.first.citation.first.to_s.length > 0
 	      statute.first
@@ -45,8 +56,10 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_otherRights(otherRights)
   end
   def load_otherRights (otherRights)
-	if !otherRights.first.nil?
-	    if !otherRights.first.uri.first.nil? && otherRights.first.uri.first.to_s.length > 0
+    if otherRights.first.instance_of?(DamsOtherRightInternal) && !otherRights.first.uri.first.nil?
+      otherRights.first
+	elsif !otherRights.first.nil?
+	    if !otherRights.first.uri.first.nil? && otherRights.first.uri.first.length > 0
 	      otherRights.first
 	    elsif otherRights.first.pid.to_s.length > 0
 	      DamsOtherRight.find( otherRights.first.pid )
