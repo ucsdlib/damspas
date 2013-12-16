@@ -1,4 +1,5 @@
 require 'active_support/concern'
+require 'date'
 
 module Dams
   module DamsObject
@@ -440,8 +441,11 @@ module Dams
 	  end
 	          
 	  def to_solr (solr_doc = {})
+        t1 = Time.now.to_f
 		super(solr_doc)
+        d1 = Time.now.to_f - t1
 	
+        t2 = Time.now.to_f
 	    @facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
 	    singleString = Solrizer::Descriptor.new(:string, :indexed, :stored)
 	    storedInt = Solrizer::Descriptor.new(:integer, :indexed, :stored)
@@ -517,7 +521,9 @@ module Dams
 	
 	      insertFileFields solr_doc, cid, component.file
 	    }
+        d2 = Time.now.to_f - t2
 	
+        t3 = Time.now.to_f
 	    # build component hierarchy map
 	    @cmap = Hash.new
 	    @parents.keys.sort{|x,y| x.to_i <=> y.to_i}.each { |p|
@@ -580,7 +586,10 @@ module Dams
 	        end
 	      end
 	    end
+        d3 = Time.now.to_f - t3
 	
+        t4 = Time.now.to_f
+        puts "obj.copyright"
 	    insertCopyrightFields solr_doc, "", copyright
 	    insertLicenseFields solr_doc, "", license
 	    insertStatuteFields solr_doc, "", statute
@@ -589,7 +598,9 @@ module Dams
 	    rh = rh.concat(rightsHolderCorporate) unless rightsHolderCorporate.nil?
 	    rh = rh.concat(rightsHolderPersonal) unless rightsHolderPersonal.nil?
 	    insertRightsHolderFields solr_doc, "", rh
+        d4 = Time.now.to_f - t4
 	    
+        t5 = Time.now.to_f
 	    cartographics.each do |cart|
           # make sure we have some data to index
           if cart.point.blank? && cart.line.blank? && cart.polygon.blank?
@@ -619,6 +630,8 @@ module Dams
 	        solr_doc[f] = solr_doc[f].sub('+00:00','Z').sub('-01:00','Z')
 	      end
 	    }
+        d5 = Time.now.to_f - t5
+        puts "dams_object.to_solr:\t#{d1}\t#{d2}\t#{d3}\t#{d4}\t#{d5}"
 	
 	    solr_doc
 	  end 
