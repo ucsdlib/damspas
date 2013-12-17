@@ -94,17 +94,6 @@ class DamsAssembledCollectionsController < ApplicationController
     @dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
     @mads_schemes = get_objects('MadsScheme','name_tesim')
     
-    
-    uri = URI('http://fast.oclc.org/fastSuggest/select')
-    res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-    json = JSON.parse(res.body)
-    @jdoc = json.fetch("response").fetch("docs")
-  
-    @autocomplete_items = Array.new
-    @jdoc.each do |value|
-    @autocomplete_items << value['suggestall']
-  end
-
 end
 
   def edit
