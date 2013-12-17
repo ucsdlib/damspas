@@ -50,6 +50,9 @@ module Dams
     class DamsBuiltWorkPlaceElement
       include Dams::MadsElement
       rdf_type DAMS.BuiltWorkPlaceElement
+      def persisted?
+        rdf_subject.kind_of? RDF::URI
+      end
     end
   end
 end

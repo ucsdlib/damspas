@@ -125,7 +125,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     loadComplexSubjects(complexSubject)
   end
   def load_complexSubjects(complexSubject)
-	loadObjects complexSubject,MadsComplexSubject
+	loadMadsObjects complexSubject,MadsComplexSubject
   end
 
   # MADS simple subjects + extensions (VRA, etc.)
@@ -133,79 +133,79 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_builtWorkPlaces(builtWorkPlace)
   end
   def load_builtWorkPlaces(builtWorkPlace)
-	loadObjects builtWorkPlace,DamsBuiltWorkPlace
+	loadMadsObjects builtWorkPlace,DamsBuiltWorkPlace
   end
   def load_culturalContexts
     load_culturalContexts(culturalContext)
   end
   def load_culturalContexts(culturalContext)
-	loadObjects culturalContext,DamsCulturalContext
+	loadMadsObjects culturalContext,DamsCulturalContext
   end
   def load_functions
     load_functions(function)
   end
   def load_functions(function)
-	loadObjects function,DamsFunction
+	loadMadsObjects function,DamsFunction
   end
   def load_genreForms
     load_genreForms(genreForm)
   end
   def load_genreForms(genreForm)
     foo = genreForm.to_s
-	loadObjects genreForm,MadsGenreForm
+	loadMadsObjects genreForm,MadsGenreForm
   end
   def load_geographics
     load_geographics(geographic)
   end
   def load_geographics(geographic)
     foo = geographic.to_s
-	loadObjects geographic,MadsGeographic
+	loadMadsObjects geographic,MadsGeographic
   end
   def load_iconographies
     load_iconographies(iconography)
   end
   def load_iconographies(iconography)
     foo = iconography.to_s
-    loadObjects iconography,DamsIconography
+    loadMadsObjects iconography,DamsIconography
   end
   def load_occupations
     load_occupations(occupation)
   end
   def load_occupations(occupation)
     foo = occupation.to_s
-	loadObjects occupation,MadsOccupation
+	loadMadsObjects occupation,MadsOccupation
   end
   def load_scientificNames
     load_scientificNames(scientificName)
   end
   def load_scientificNames(scientificName)
-	loadObjects scientificName,DamsScientificName
+	loadMadsObjects scientificName,DamsScientificName
   end
   def load_stylePeriods
     load_stylePeriods(stylePeriod)
   end
   def load_stylePeriods(stylePeriod)
-	loadObjects stylePeriod,DamsStylePeriod
+	loadMadsObjects stylePeriod,DamsStylePeriod
   end
   def load_techniques
     load_techniques(technique)
   end
   def load_techniques(technique)
-	loadObjects technique,DamsTechnique
+	loadMadsObjects technique,DamsTechnique
   end
   def load_temporals
     load_temporals( temporal )
   end
   def load_temporals( temporal )
     foo = temporal.to_s
-	loadObjects temporal,MadsTemporal
+	loadMadsObjects temporal,MadsTemporal
   end
   def load_topics
     load_topics(topic)
   end
   def load_topics(topic)
     foo = topic.to_s
-	loadObjects topic,MadsTopic
+	loadMadsObjects topic,MadsTopic
   end
 
   # MADS names
@@ -214,35 +214,35 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def load_names(name)
     foo = name.to_s
-	loadObjects name,MadsName
+	loadMadsObjects name,MadsName
   end
   def load_conferenceNames
     load_conferenceNames(conferenceName)
   end
   def load_conferenceNames(conferenceName)
     foo = conferenceName.to_s
-	loadObjects conferenceName,MadsConferenceName
+	loadMadsObjects conferenceName,MadsConferenceName
   end
   def load_corporateNames
     load_corporateNames(corporateName)
   end
   def load_corporateNames(corporateName)
     foo = corporateName.to_s
-	loadObjects corporateName,MadsCorporateName
+	loadMadsObjects corporateName,MadsCorporateName
   end
   def load_familyNames
     load_familyNames(familyName)
   end
   def load_familyNames(familyName)
     foo = familyName.to_s
-	loadObjects familyName,MadsFamilyName
+	loadMadsObjects familyName,MadsFamilyName
   end
   def load_personalNames
     load_personalNames(personalName)
   end
   def load_personalNames(personalName)
     foo = personalName.to_s
-	loadObjects personalName,MadsPersonalName
+	loadMadsObjects personalName,MadsPersonalName
   end
 
   ## Event #####################################################################
@@ -287,19 +287,27 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     kids
   end
 
-  # helper method to load external classes
-  def loadObjects (object,className)
+  # helper method to load external mads classes
+  def loadMadsObjects (object,className)
     objects = []
     object.each do |o|
-      name_uri = o.to_s
-      name_pid = name_uri.gsub(/.*\//,'')
-      if (name_pid != nil && name_pid != "" && !(name_pid.include? 'Internal'))
-      	objects << className.find(name_pid)
-      elsif o.name.first.nil? && o.pid != nil && o.pid.to_s.length > 0
-        objects << className.find(o.pid)      
-      else 
-      	objects << o
-       end
+      if o.to_s.include?("Internal") && !o.name.first.blank?
+        # inline records, use as-is
+        objects << o
+      elsif o.to_s.include?("Internal") && o.name.first.blank? && !o.pid.blank?
+        # external records, use pid and fetch from repo
+        if !o.pid.start_with?("_")
+          o2 = className.find(o.pid)
+          objects << o2
+        end
+      else
+        # unmapped records, get pid from URI and fetch from repo
+        pid = o.to_s.gsub(/.*\//,'')
+        if !pid.blank?
+      	  o2 = className.find(pid)
+          objects << o2
+        end
+      end
     end
   	return objects
   end
@@ -662,8 +670,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 		    end
           rel_json = {}
 	      if (rel != nil)
-			 if(rel.to_s.include? 'Internal')
-	        	name = rel.first.name.first.to_s			        
+			 if(rel.instance_of?(DamsRelationshipInternal) )
+	        	name = rel.name.first.to_s
 	         else
 	        	name = rel.name.first.to_s			        	
 			 end	      
@@ -801,14 +809,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'familyName', load_familyNames(familyName)
     insertFields solr_doc, 'personalName', load_personalNames(personalName)
 
-
-
     insertRelatedResourceFields solr_doc, "", relatedResource
 
     # event
     insertEventFields solr_doc, "", event
 
-   
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
       if solr_doc[f].kind_of?(Array)
