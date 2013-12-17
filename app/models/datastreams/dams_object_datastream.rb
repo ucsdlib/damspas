@@ -4,15 +4,12 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_copyright ( copyright )
     foo = copyright.to_s
     if copyright.first.instance_of?(DamsCopyrightInternal) && !copyright.first.status.first.nil?
-      puts "internal copyright: #{copyright.first}: #{copyright.first.status}"
       copyright.first
 	elsif !copyright.first.nil?
 	    c_pid = copyright.first.pid
 	    if !copyright.first.status.first.nil? && copyright.first.status.first.to_s.length > 0
-          puts "internal copyright2: #{copyright.first}: #{copyright.first.status}"
 	      copyright.first
 	    elsif c_pid.to_s.length > 0
-          puts "external copyright"
 	      DamsCopyright.find(c_pid)
 	    end
 	else
