@@ -100,16 +100,16 @@ class DamsObjectsController < ApplicationController
     @dams_object.relatedResource.build
     @dams_object.cartographics.build
     @dams_object.complexSubject.build
-    @dams_object.builtWorkPlace.build
-    @dams_object.culturalContext.build
-    @dams_object.function.build    
+    #@dams_object.builtWorkPlace.build
+    #@dams_object.culturalContext.build
+    #@dams_object.function.build    
     @dams_object.genreForm.build
     @dams_object.geographic.build
     @dams_object.iconography.build    
     @dams_object.occupation.build
-    @dams_object.scientificName.build
-    @dams_object.stylePeriod.build    
-    @dams_object.technique.build   
+    #@dams_object.scientificName.build
+    #@dams_object.stylePeriod.build    
+    #@dams_object.technique.build   
     @dams_object.topic.build    
     @dams_object.temporal.build     
 	@dams_object.name.build

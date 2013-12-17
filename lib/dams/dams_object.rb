@@ -23,18 +23,21 @@ module Dams
 	    # subjects
 	    map.subject(:in => DAMS, :to=> 'subject', :class_name => 'MadsComplexSubjectInternal')
 	    map.complexSubject(:in => DAMS, :class_name => 'MadsComplexSubjectInternal')
-	    map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
-	    map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
-	    map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
 	    map.genreForm(:in => DAMS, :class_name => 'MadsGenreFormInternal')
 	    map.geographic(:in => DAMS, :class_name => 'MadsGeographicInternal')
-	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
 	    map.occupation(:in => DAMS, :class_name => 'MadsOccupationInternal')
-	    map.scientificName(:in => DAMS, :class_name => 'DamsScientificNameInternal')
-	    map.stylePeriod(:in => DAMS, :class_name => 'DamsStylePeriodInternal')
-	    map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')
 	    map.temporal(:in => DAMS, :class_name => 'MadsTemporalInternal')
 	    map.topic(:in => DAMS, :class_name => 'MadsTopicInternal')
+
+        # mads-like additions from vra core
+	    map.builtWorkPlace(:in => DAMS )#, :class_name => 'DamsBuiltWorkPlaceInternal')
+	    map.culturalContext(:in => DAMS )#, :class_name => 'DamsCulturalContextInternal')
+	    map.function(:in => DAMS )#, :class_name => 'DamsFunctionInternal')
+        # XXX why does iconography work when mapped to a class when when other made-like additions don't?
+	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
+	    map.scientificName(:in => DAMS )#, :class_name => 'DamsScientificNameInternal')
+	    map.stylePeriod(:in => DAMS )#, :class_name => 'DamsStylePeriodInternal')
+	    map.technique(:in => DAMS )#, :class_name => 'DamsTechniqueInternal')
 	
 	    # subject names
 	    map.name(:in => DAMS, :class_name => 'MadsNameInternal')
@@ -589,7 +592,6 @@ module Dams
         d3 = Time.now.to_f - t3
 	
         t4 = Time.now.to_f
-        puts "obj.copyright"
 	    insertCopyrightFields solr_doc, "", copyright
 	    insertLicenseFields solr_doc, "", license
 	    insertStatuteFields solr_doc, "", statute
@@ -620,7 +622,7 @@ module Dams
 	    Solrizer.insert_field(solr_doc, "all_fields", format_name(typeOfResource))
 	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource.first),@facetable)    
 	
-	    Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
+	    #Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 	
 	    # strip "+/-00:00" from end of dates, because that makes solr barf
 	    ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|

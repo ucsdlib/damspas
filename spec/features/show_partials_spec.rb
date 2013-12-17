@@ -101,7 +101,7 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_link('dams:StylePeriod value', href:"/search?f%5Bsubject_stylePeriod_sim%5D%5B%5D=dams%3AStylePeriod+value&id=bd22194583")
 
     # Technique
-    expect(page).to have_link('dams:Technique value', href:"/search?f%5Bsubject_technique_sim%5D%5B%5D=mads%3ATechnique+value&id=bd22194583")
+    expect(page).to have_link('dams:Technique value', href:"/search?f%5Bsubject_technique_sim%5D%5B%5D=dams%3ATechnique+value&id=bd22194583")
 
     # Temporal
     expect(page).to have_link('mads:Temporal value', href:"/search?f%5Bsubject_temporal_sim%5D%5B%5D=mads%3ATemporal+value&id=bd22194583")
