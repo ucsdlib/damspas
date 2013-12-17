@@ -21,18 +21,13 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
   def load_license (license)
     foo = license.to_s
-    
-    if license.first.instance_of?(DamsLicenseInternal) && !license.first.note.first.nil?
-      license.first
-	elsif !license.first.nil?
-	    l_pid = license.first.pid
-	    
-	    if (!license.first.note.first.nil? && !license.first.note.first.nil? > 0) || ( !license.first.uri.first.nil? && license.first.uri.first.to_s.length > 0)
-	      license.first
-	    elsif l_pid.to_s.length > 0
-	      DamsLicense.find(l_pid)
-	    end
-	end    
+    if !license.first.nil? 
+      if !license.first.note.first.blank? || !license.first.uri.first.blank?
+        license.first
+      elsif !license.first.pid.blank? && license.first.pid.to_s.length > 0
+        DamsLicense.find(license.first.pid)
+      end
+    end
   end
   def load_statute
     load_statute(statute)
