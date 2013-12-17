@@ -267,8 +267,8 @@
     </dams:conferenceName>    
     <dams:function rdf:resource="http://library.ucsd.edu/ark:/20775/bd7816576v"/>
     <dams:function>
-      <dams:Function rdf:about="http://library.ucsd.edu/ark:/20775/zz99999999">
-        <mads:authoritativeLabel>internal function value</mads:authoritativeLabel>
+      <dams:Function rdf:about="http://library.ucsd.edu/ark:/20775/bd3311747s">
+        <mads:authoritativeLabel>dams:Function value</mads:authoritativeLabel>
         <mads:isMemberOfMADSScheme>
           <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd32433374">
             <rdfs:label>Functions</rdfs:label>
