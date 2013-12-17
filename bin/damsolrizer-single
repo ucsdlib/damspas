@@ -37,8 +37,7 @@ end
 
 errors = Array.new
 indexed = 0
-dtotal1 = 0
-dtotal2 = 0
+dtotal = 0
 ARGV.each do |pid|
   begin
     print "damsolrizer: #{pid} "
@@ -48,8 +47,8 @@ ARGV.each do |pid|
     t2 = Time.now.to_f
     indexed += 1
     d1 = t2 - t1
-    dtotal1 += d1
-    puts  "OK (#{indexed} of #{ARGV.length}), #{errors.length} errors, #{d1}"
+    dtotal += d1
+    printf "OK (%d of %d), %d errors, %0.3f sec\n",indexed, ARGV.length, errors.length, d1
   rescue Exception => e
     errors << pid
     puts e.to_s
@@ -64,4 +63,4 @@ if errors.size > 0
     puts pid
   end
 end
-puts "dtotal: #{dtotal1}"
+printf "indexing time: %0.3f sec\n", dtotal
