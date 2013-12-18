@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'optparse'
+require 'date'
 
 options = {}
 
@@ -36,13 +37,18 @@ end
 
 errors = Array.new
 indexed = 0
+dtotal = 0
 ARGV.each do |pid|
   begin
     print "damsolrizer: #{pid} "
     solrizer = Solrizer::Fedora::Solrizer.new
+    t1 = Time.now.to_f
     solrizer.solrize pid
+    t2 = Time.now.to_f
     indexed += 1
-    puts  "OK (#{indexed} of #{ARGV.length}), #{errors.length} errors"
+    d1 = t2 - t1
+    dtotal += d1
+    printf "OK (%d of %d), %d errors, %0.3f sec\n",indexed, ARGV.length, errors.length, d1
   rescue Exception => e
     errors << pid
     puts e.to_s
@@ -57,3 +63,4 @@ if errors.size > 0
     puts pid
   end
 end
+printf "indexing time: %0.3f sec\n", dtotal

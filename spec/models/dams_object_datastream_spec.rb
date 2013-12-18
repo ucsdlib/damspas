@@ -348,7 +348,7 @@ END
         solr_doc["topic_tesim"].should == ["Baseball", "Marine sediments"]
 
         #it "should index function" do
-        solr_doc["function_tesim"].should == ["Sample Function", "internal function value"]
+        solr_doc["function_tesim"].should == ["Sample Function", "dams:Function value"]
 
         #it "should index genreForm" do
         testIndexFields solr_doc, "genreForm","Film and video adaptions"
