@@ -1,6 +1,35 @@
 class Ability 
   include Hydra::Ability
   def custom_permissions
+
+    # Enforced gated read access for dams:Object
+    can [:read], DamsObject do |obj|
+        test_read(obj.id)
+    end
+
+    # Enforced gated edit access (update and view) for dams:Object
+    can [:update, :view], DamsObject do |obj|
+        test_edit(obj.id)
+    end
+
+    # Enforce creation for dams:Object with curator roles, like dams-curator, dams-rci, dams-manager-admin etc.
+    can :create, DamsObject do |obj|
+        group_intersection = user_groups & Rails.configuration.curator_groups
+        if(!group_intersection.empty?)
+            result = true
+            unit = obj.units
+            if(!unit.blank? && !unit.code.blank?)
+                unit_code = unit.code.first
+                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_code) || (unit_code.include? ("dlp") && user_groups.include?("dams-curator")))
+                    result = false;
+                end
+                logger.debug("[CANCAN] #{unit_code} DamsObject creation decision: #{result}")
+            end
+        end
+        logger.debug("[CANCAN] DamsObject creation decision: #{result}")
+        result
+    end
+
     if current_user.new_record? || current_user.anonymous   #Anonymous user
       can [:read], DamsUnit
       can [:read], DamsCopyright
@@ -33,7 +62,7 @@ class Ability
       can [:read], MadsAuthority
       can [:read], MadsLanguage
     else  #login user
-      can [:read, :create, :update, :view], DamsObject
+    #can [:read, :create, :update, :view], DamsObject
       can [:read, :create, :update, :view], DamsUnit
       can [:read, :create, :update, :view], DamsFunction
       can [:read, :create, :update, :view], DamsCulturalContext
