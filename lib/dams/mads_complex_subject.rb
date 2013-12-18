@@ -104,13 +104,13 @@ module Dams
         map.familyName(:in=> MADS, :to =>"FamilyName", :class_name => "MadsFamilyNameInternal")
         map.genericName(:in=> MADS, :to =>"Name", :class_name => "MadsNameInternal")
         
-        #map.iconography(:in=> DAMS, :to =>"Iconography", :class_name => "MadsIconographyInternal")
-        #map.scientificName(:in=> DAMS, :to =>"ScientificName", :class_name => "MadsScientificNameInternal")
-        #map.technique(:in=> DAMS, :to =>"Technique", :class_name => "MadsTechniqueInternal")
-        #map.builtWorkPlace(:in=> DAMS, :to =>"BuiltWorkPlace", :class_name => "MadsBuiltWorkPlaceInternal")
-        #map.culturalContext(:in=> DAMS, :to =>"CulturalContext", :class_name => "MadsCulturalContextInternal")
-        #map.stylePeriod(:in=> DAMS, :to =>"StylePeriod", :class_name => "MadsStylePeriodInternal")
-        #map.function(:in=> DAMS, :to =>"Function", :class_name => "MadsFunctionInternal")        
+        #map.iconography(:in=> DAMS, :to =>"Iconography", :class_name => "DamsIconographyInternal")
+        #map.scientificName(:in=> DAMS, :to =>"ScientificName", :class_name => "DamsScientificNameInternal")
+        #map.technique(:in=> DAMS, :to =>"Technique", :class_name => "DamsTechniqueInternal")
+        #map.builtWorkPlace(:in=> DAMS, :to =>"BuiltWorkPlace", :class_name => "DamsBuiltWorkPlaceInternal")
+        #map.culturalContext(:in=> DAMS, :to =>"CulturalContext", :class_name => "DamsCulturalContextInternal")
+        #map.stylePeriod(:in=> DAMS, :to =>"StylePeriod", :class_name => "DamsStylePeriodInternal")
+        #map.function(:in=> DAMS, :to =>"Function", :class_name => "DamsFunctionInternal")        
       end
       accepts_nested_attributes_for :topic, :temporal, :genreForm, :geographic, :occupation, :personalName, :conferenceName, :corporateName, :familyName, :genericName
     end

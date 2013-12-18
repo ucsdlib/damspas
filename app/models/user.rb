@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
       elsif provider == "shibboleth"
         @group_list = ['shibboleth-authenticated']
       else
-        @group_list = ['unknown']
+        @group_list = Rails.configuration.unknown_groups
       end
     end
     ldap = ldap_groups(uid)
