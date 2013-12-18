@@ -9,7 +9,7 @@ describe DamsObjectsController do
 	  end
 	  describe "View" do
 	    before do
-	      @obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013")
+	      @obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013", copyrightURI: "bb05050505")
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
@@ -31,7 +31,7 @@ describe DamsObjectsController do
 	  
 	  describe "Edit" do
 	    before do
-	      @obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013")
+	      @obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013", copyrightURI: "bb05050505")
 	    end
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
@@ -60,7 +60,7 @@ describe DamsObjectsController do
 	  
 	  describe "Update" do
 	    before do
- 	      @obj = DamsObject.create(titleValue: "Original Title", beginDate: "2012")
+ 	      @obj = DamsObject.create(titleValue: "Original Title", beginDate: "2012", copyrightURI: "bb05050505")
  	    end
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :dams_object => {titleValue:"Updated Title", beginDate: ["2013"]}
