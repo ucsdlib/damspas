@@ -50,7 +50,7 @@ describe DamsObjectsController do
 	       #post :create, :dams_object => {titleValue: ["Test Title"], relationshipRoleURI: ["bb0376727p"], relationshipNameURI: ["xx00010235"], relationshipNameType: ["CorporateName"]}
 	       #post :create, :dams_object => {titleValue: ["Test Title"], relationshipRoleURI: [""], relationshipNameType: [""]}
 	       #post :create, :dams_object => {titleValue: ["Test Title"], relationshipRoleURI: ["xx00000544"], relationshipNameValue: ["V6"], relationshipNameType: ["PersonalName"]}
-		   post :create, :dams_object => {"title_attributes"=>{"0"=>{mainTitleElement_attributes: [{ elementValue: "Sample Complex Object Record #1" }]}}}
+		   post :create, :dams_object => {"title_attributes"=>{"0"=>{mainTitleElement_attributes: [{ elementValue: "Sample Complex Object Record #1" }]}},"copyright_attributes"=>[{"id"=>"http://library.ucsd.edu/ark:/20775/bb05050505"}]}
 		   #puts assigns[:dams_object].pid
         }.to change { DamsObject.count }.by(1)
 	      response.should redirect_to assigns[:dams_object]
