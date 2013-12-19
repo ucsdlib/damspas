@@ -17,7 +17,7 @@
 		concat htmlOpen.html_safe
 %>
 		<ul class="unstyled">
-			<li><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type.first.titleize}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %></li>
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type.first.titleize}".html_safe, facet_uri(resource_type.first, 'object_type_sim'), :class => "label" %></li>
 		</ul>
 <%
 		concat htmlClose.html_safe
