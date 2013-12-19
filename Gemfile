@@ -35,6 +35,7 @@ gem 'capistrano-bundler'
 # gem 'debugger'
 
 gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
+gem "i18n"
 gem "bootstrap-sass" #, '2.2.2.0'
 
 group :development, :test do
