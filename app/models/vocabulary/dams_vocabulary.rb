@@ -65,6 +65,11 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :temporal
   property :topic
   property :rightsHolder
+  property :rightsHolderName
+  property :rightsHolderPersonal
+  property :rightsHolderCorporate
+  property :rightsHolderFamily
+  property :rightsHolderConference    
   property :Unit
   property :unit
   property :unitName
