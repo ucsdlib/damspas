@@ -120,8 +120,11 @@ describe DamsObject do
 		otherRightsURI: ["bb06060606"],
 		licenseURI: ["bb22222222"],
 		rightsHolderURI: ["bb09090909"],
+		rightsHolderName_attributes: [name: "inline rightsHolder name"],
 		rightsHolderPersonal_attributes: [name: "inline personal rightsHolder name"],
-		#rightsHolderCorporate_attributes: [name: "inline corporate rightsHolder name"],
+		rightsHolderCorporate_attributes: [name: "inline corporate rightsHolder name"],
+		rightsHolderConference_attributes: [name: "inline conference rightsHolder name"],
+		rightsHolderFamily_attributes: [name: "inline family rightsHolder name"],
 		typeOfResource: "text",
 		cartographics_attributes: [point: "29.67459,-82.37873", line: "123", polygon: "456", projection: "equirectangular", referenceSystem: "WGS84", scale: "1:20000"]
   }}
@@ -315,11 +318,31 @@ describe DamsObject do
        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX2"/>
      </dams:Relationship>
    </dams:relationship>
-   <dams:rightsHolder>
+   <dams:rightsHolderName>
+     <mads:Name>
+       <mads:authoritativeLabel>inline rightsHolder name</mads:authoritativeLabel>
+     </mads:Name>
+   </dams:rightsHolderName>   
+   <dams:rightsHolderPersonal>
      <mads:PersonalName>
        <mads:authoritativeLabel>inline personal rightsHolder name</mads:authoritativeLabel>
      </mads:PersonalName>
-   </dams:rightsHolder>
+   </dams:rightsHolderPersonal>
+   <dams:rightsHolderCorporate>
+     <mads:CorporateName>
+       <mads:authoritativeLabel>inline corporate rightsHolder name</mads:authoritativeLabel>
+     </mads:CorporateName>
+   </dams:rightsHolderCorporate>
+   <dams:rightsHolderConference>
+     <mads:ConferenceName>
+       <mads:authoritativeLabel>inline conference rightsHolder name</mads:authoritativeLabel>
+     </mads:ConferenceName>
+   </dams:rightsHolderFamily> 
+   <dams:rightsHolderFamily>
+     <mads:FamilyName>
+       <mads:authoritativeLabel>inline family rightsHolder name</mads:authoritativeLabel>
+     </mads:FamilyName>
+   </dams:rightsHolderFamily>   
    <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
    <dams:scopeContentNote>
      <dams:ScopeContentNote>

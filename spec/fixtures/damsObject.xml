@@ -244,7 +244,7 @@
         </mads:elementList>
       </dams:StylePeriod>
     </dams:stylePeriod>
-    <dams:rightsHolder>
+    <dams:rightsHolderPersonal>
       <mads:PersonalName>
         <mads:authoritativeLabel>Smithee, Alan, 1968-</mads:authoritativeLabel>
         <mads:elementList rdf:parseType="Collection">
@@ -253,7 +253,7 @@
           </mads:FullNameElement>
         </mads:elementList>
       </mads:PersonalName>
-    </dams:rightsHolder>
+    </dams:rightsHolderPersonal>
     <dams:scopeContentNote>
       <dams:ScopeContentNote>
         <dams:displayLabel>Custodial Resonsibility</dams:displayLabel>
