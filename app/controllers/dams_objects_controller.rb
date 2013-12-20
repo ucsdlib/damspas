@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'rsolr'
 
 class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
@@ -78,6 +79,11 @@ class DamsObjectsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
+  def solr
+    @dams_object = DamsObject.find(params[:id])
+    xml = RSolr::Xml::Generator.new
+    render xml.add @dams_object.to_solr
+  end
   def view
     @dams_object = DamsObject.find(params[:id])
   end

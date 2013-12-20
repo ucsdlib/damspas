@@ -47,6 +47,7 @@ Hydra::Application.routes.draw do
 
   resources :object, :controller => 'dams_objects', :as => 'dams_objects' do
     get 'view', :on => :member
+    get 'solr', :on => :member
   end
 
   post "object/:id/upload", :to => 'file#create', :as => 'upload'
