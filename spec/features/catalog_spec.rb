@@ -16,7 +16,7 @@ feature 'Visitor wants to search' do
   end
   scenario 'results sorted by object creation date' do
     sign_in_developer
-    visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', 'sort' => 'object_create_dtsi asc, title_ssi asc'} )
+    visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', 'per_page' => 100, 'sort' => 'object_create_dtsi asc, title_ssi asc'} )
     idx1 = page.body.index('Sample Audio Object: I need another')  # no date
     idx2 = page.body.index('Sample Complex Object Record #1')      # 1980
     idx3 = page.body.index('Chicano and black radical activism')   # 2010

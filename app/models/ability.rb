@@ -12,21 +12,26 @@ class Ability
         test_edit(obj.id)
     end
 
+    def create_permissions
+      #can :create, :all if user_groups.include? 'registered'
+    end
+    
     # Enforce creation for dams:Object with curator roles, like dams-curator, dams-rci, dams-manager-admin etc.
     can :create, DamsObject do |obj|
+    	result = false
         group_intersection = user_groups & Rails.configuration.curator_groups
         if(!group_intersection.empty?)
             result = true
             unit = obj.units
-            if(!unit.blank? && !unit.code.blank?)
+            if(!unit.nil? && !unit.code.blank?)
                 unit_code = unit.code.first
-                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_code) || (unit_code.include? ("dlp") && user_groups.include?("dams-curator")))
+                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_code) || (unit_code.include?("dlp") && user_groups.include?("dams-curator")))
                     result = false;
                 end
                 logger.debug("[CANCAN] #{unit_code} DamsObject creation decision: #{result}")
             end
         end
-        logger.debug("[CANCAN] DamsObject creation decision: #{result}")
+        logger.debug("[CANCAN] DamsObject creation decision: #{result}: #{obj.units}")
         result
     end
 
