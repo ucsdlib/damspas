@@ -50,5 +50,14 @@ end
 def test_existing_attribute(datastream, name, value='blah')
    datastream.send(name).should == [value]
 end
+def solr_index (pid)
+    # index the record
+    begin
+        solrizer = Solrizer::Fedora::Solrizer.new
+        solrizer.solrize pid
+        rescue Exception => e
+        logger.warn "Error indexing #{pid}: #{e}"
+    end
+end
 
 
