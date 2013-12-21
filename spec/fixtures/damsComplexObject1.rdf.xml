@@ -62,7 +62,7 @@
     </dams:assembledCollection>
 
     <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
-    <dams:rightsHolder>
+    <dams:rightsHolderPersonal>
       <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb58585858">
         <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977-</mads:authoritativeLabel>
         <mads:elementList rdf:parseType="Collection">
@@ -74,7 +74,7 @@
           </mads:DateNameElement>
         </mads:elementList>
       </mads:PersonalName>
-    </dams:rightsHolder>
+    </dams:rightsHolderPersonal>
     <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
     <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/bb06060606"/>
     <dams:otherRights>

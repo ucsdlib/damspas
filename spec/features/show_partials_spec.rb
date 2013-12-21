@@ -15,7 +15,7 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_selector('li', :text=>"English")
 
     # image
-    expect(page).to have_link('Image', href:"/search?f%5Bobject_type_sim%5D%5B%5D%5B%5D=image&id=bd22194583")
+    expect(page).to have_link('Image', href:'/search?f%5Bobject_type_sim%5D%5B%5D=image&id=bd22194583')
 
     # conference name
     expect(page).to have_link('mads:ConferenceName value', href:"/search?f%5Bsubject_conferenceName_sim%5D%5B%5D=mads%3AConferenceName+value&id=bd22194583")

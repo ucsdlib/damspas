@@ -278,7 +278,7 @@ class CatalogController < ApplicationController
       @filters = params[:f] || []
       
       respond_to do |format|
-        format.html { save_current_search_params }
+        format.html { }
         format.rss  { render :layout => false }
         format.atom { render :layout => false }
       end
