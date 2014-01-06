@@ -7,7 +7,7 @@
 	  <script src="//libraries.ucsd.edu/jwplayer/jwplayer.js"></script>
 	  <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 
-		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? || Rails.env.gimili? %>
+		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? || Rails.env.staging? %>
 		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
 			<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>
 			<% if @document['rdfxml_ssi'] %>
