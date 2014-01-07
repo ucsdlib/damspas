@@ -84,9 +84,6 @@ class DamsObjectsController < ApplicationController
     xml = RSolr::Xml::Generator.new
     render xml: xml.add( @dams_object.to_solr )
   end
-  def view
-    @dams_object = DamsObject.find(params[:id])
-  end
 
   def new
     @dams_object.title.build
