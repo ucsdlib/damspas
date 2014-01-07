@@ -11,11 +11,8 @@ describe MadsSchemesController do
 	      @obj = MadsScheme.create( code: "test", name: "Test Scheme" )
 	    end
 	    it "should be successful" do 
-	      get :view, id: @obj.id
+	      get :show, id: @obj.id
 	      response.should be_successful 
-	      @newobj = assigns[:mads_scheme]
-          @newobj.name.should == @obj.name
-          @newobj.code.should == @obj.code
 	    end
 	  end
 	  
@@ -56,7 +53,7 @@ describe MadsSchemesController do
  	    end
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :mads_scheme => {code: ["test2"], name: ["Test Scheme 2"]}
-	      response.should redirect_to view_mads_scheme_path @obj.id
+	      response.should redirect_to mads_scheme_path @obj.id
 	      @newobj = assigns[:mads_scheme]
           @newobj.name.should == ["Test Scheme 2"]
           @newobj.code.should == ["test2"]

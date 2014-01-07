@@ -24,10 +24,6 @@ class DamsLicensesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_license = DamsLicense.find(params[:id])   
-  end
-  
   def new
     @dams_license.restriction_node.build
     @dams_license.permission_node.build

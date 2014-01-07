@@ -12,7 +12,7 @@ describe MadsPersonalNamesController do
 	      #puts @obj.id
 	    end
 	    it "should be successful" do 
-	      get :view, id: @obj.id
+	      get :edit, id: @obj.id
 	      response.should be_successful 
 	      @newobj = assigns[:mads_personal_name]
           @newobj.name.should == @obj.name

@@ -19,10 +19,6 @@ class MadsSchemesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_scheme = MadsScheme.find(params[:id])
-  end
-
   def new
 
   end
@@ -44,7 +40,7 @@ class MadsSchemesController < ApplicationController
   def update
     @mads_scheme.attributes = params[:mads_scheme]
     if @mads_scheme.save
-        redirect_to view_mads_scheme_path(@mads_scheme), notice: "Successfully updated MADSScheme"
+        redirect_to mads_scheme_path(@mads_scheme), notice: "Successfully updated MADSScheme"
     else
       flash[:alert] = "Unable to save MADSScheme"
       render :edit

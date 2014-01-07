@@ -26,10 +26,6 @@ class MadsTopicsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_topic = MadsTopic.find(params[:id])
-  end
-
   def new
     @mads_topic.scheme.build
     @mads_topic.elementList.topicElement.build
@@ -44,9 +40,9 @@ class MadsTopicsController < ApplicationController
   def create
     if @mads_topic.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_mads_topic_path(@mads_topic, {:parent_id => params[:parent_id]})
+			redirect_to mads_topic_path(@mads_topic, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_mads_topic_path(@mads_topic, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to mads_topic_path(@mads_topic, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @mads_topic, notice: "Topic has been saved"
         end
