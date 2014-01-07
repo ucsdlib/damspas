@@ -6,6 +6,7 @@ class Ability
     can [:read], DamsObject do |obj|
         test_read(obj.id)
     end
+    can [:solr], DamsObject
 
     # Enforced gated update access for dams:Object
     can [:update], DamsObject do |obj|
