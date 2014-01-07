@@ -88,7 +88,7 @@ class FileController < ApplicationController
     flash[:alert] = status[:alert] if status[:alert]
     flash[:notice] = status[:notice] if status[:notice]
     flash[:deriv] = status[:deriv] if status[:deriv]
-    redirect_to view_dams_object_path @obj
+    redirect_to dams_object_path @obj
   end
   def deriv
     begin
@@ -101,7 +101,7 @@ class FileController < ApplicationController
         @cid = dspart[1]
         @fid = dspart[2]
       else
-        redirect_to view_dams_object_path @obj, notice: "Invalid datastream name: #{params[:ds]}"
+        redirect_to dams_object_path @obj, notice: "Invalid datastream name: #{params[:ds]}"
         return
       end
 
@@ -133,11 +133,11 @@ class FileController < ApplicationController
       @fobj = DamsObject.find( @obj )
       @fobj.send :update_index
 
-      redirect_to view_dams_object_path @obj
+      redirect_to dams_object_path @obj
     rescue Exception => e
       logger.warn "Error generating derivatives #{e.to_s}"
       flash[:alert] = e.to_s
-      redirect_to view_dams_object_path @obj
+      redirect_to dams_object_path @obj
     end
   end
 

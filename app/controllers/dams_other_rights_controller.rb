@@ -23,11 +23,6 @@ class DamsOtherRightsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_other_right = DamsOtherRight.find(params[:id])
-   
-  end
-
   def edit
     @dams_other_right = DamsOtherRight.find(params[:id])
     @mads_authorities = get_objects('MadsAuthority','name_tesim')

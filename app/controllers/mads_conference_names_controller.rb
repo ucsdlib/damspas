@@ -26,10 +26,6 @@ class MadsConferenceNamesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_conference_name = MadsConferenceName.find(params[:id])
-  end
-
   def new
     @mads_conference_name.elementList.fullNameElement.build
     @mads_conference_name.scheme.build 
@@ -47,9 +43,9 @@ class MadsConferenceNamesController < ApplicationController
   def create
     if @mads_conference_name.save
       if(!params[:parent_id].nil?)
-      redirect_to view_mads_conference_name_path(@mads_conference_name, {:parent_id => params[:parent_id]})
+      redirect_to mads_conference_name_path(@mads_conference_name, {:parent_id => params[:parent_id]})
       elsif(!params[:parent_class].nil?)
-      redirect_to view_mads_conference_name_path(@mads_conference_name, {:parent_class => params[:parent_class]})                   
+      redirect_to mads_conference_name_path(@mads_conference_name, {:parent_class => params[:parent_class]})                   
       else    
           redirect_to @mads_conference_name, notice: "ConferenceName has been saved"
         end

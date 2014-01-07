@@ -26,10 +26,6 @@ class DamsStylePeriodsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_style_period = DamsStylePeriod.find(params[:id])
-  end
-
   def new
     #Check schemes ####################################################################
     @dams_style_period.scheme.build
@@ -45,9 +41,9 @@ class DamsStylePeriodsController < ApplicationController
   def create
     if @dams_style_period.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_dams_style_period_path(@dams_style_period, {:parent_id => params[:parent_id]})
+			redirect_to dams_style_period_path(@dams_style_period, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_dams_style_period_path(@dams_style_period, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to dams_style_period_path(@dams_style_period, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @dams_style_period, notice: "style period has been saved"
         end

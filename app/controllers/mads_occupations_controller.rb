@@ -26,10 +26,6 @@ class MadsOccupationsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_occupation = MadsOccupation.find(params[:id])
-  end
-
   def new
     @mads_occupation.elementList.occupationElement.build
     @mads_occupation.scheme.build
@@ -46,9 +42,9 @@ class MadsOccupationsController < ApplicationController
   def create
     if @mads_occupation.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_mads_occupation_path(@mads_occupation, {:parent_id => params[:parent_id]})
+			redirect_to mads_occupation_path(@mads_occupation, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_mads_occupation_path(@mads_occupation, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to mads_occupation_path(@mads_occupation, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else  
         	redirect_to @mads_occupation, notice: "Occupation has been saved"
         end

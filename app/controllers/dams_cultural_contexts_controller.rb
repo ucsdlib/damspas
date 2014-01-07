@@ -23,10 +23,6 @@ class DamsCulturalContextsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_cultural_context = DamsCulturalContext.find(params[:id])
-  end
-
   def new
     @dams_cultural_context.scheme.build
     @dams_cultural_context.elementList.culturalContextElement.build
@@ -41,9 +37,9 @@ class DamsCulturalContextsController < ApplicationController
   def create
     if @dams_cultural_context.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_dams_cultural_context_path(@dams_cultural_context, {:parent_id => params[:parent_id]})
+			redirect_to dams_cultural_context_path(@dams_cultural_context, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_dams_cultural_context_path(@dams_cultural_context, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to dams_cultural_context_path(@dams_cultural_context, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @dams_cultural_context, notice: "CulturalContext has been saved"
         end

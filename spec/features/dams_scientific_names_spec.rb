@@ -51,13 +51,6 @@ feature 'Visitor wants to create/edit a DAMS scientific name' do
 		expect(page).to have_selector('a', :text => "http://scientificnameedit.com")
 		expect(page).to have_selector('li', :text => "Library of Congress Name Authority File")
 		expect(page).to have_selector('a', :text => "http://library.ucsd.edu/ark:/20775/")
-
-		# Check Hydra View
-		click_on "Hydra View"
-		expect(page).to have_selector('dd', :text => "http://scientificnameedit.com")
-		expect(page).to have_selector('dd', :text => "Orange")
-		expect(page).to have_content('Edit')
-
 	end
 
 	scenario 'is on the scientific name page to be edited' do
