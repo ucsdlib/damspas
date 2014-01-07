@@ -42,7 +42,9 @@ Hydra::Application.routes.draw do
 
   resources :dams_subjects, :only => [:show]
 
-  resources :object, :controller => 'dams_objects', :as => 'dams_objects'
+  resources :object, :controller => 'dams_objects', :as => 'dams_objects' do
+    get 'solr', :on => :member
+  end
 
   post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'

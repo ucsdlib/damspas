@@ -36,6 +36,7 @@ class Ability
     end
 
     if current_user.new_record? || current_user.anonymous   #Anonymous user
+      can [:solr], DamsObject
       can [:read], DamsUnit
       can [:read], DamsCopyright
       can [:read], DamsOtherRight
