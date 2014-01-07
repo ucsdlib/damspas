@@ -13,7 +13,7 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_link('Sample Assembled Collection', href:"/dams_collections/bd3516400n")
     expect(page).to have_link('Sample Provenance Collection', href:"/dams_collections/bd48133407")
     expect(page).to have_link('Sample Provenance Part', href:"/dams_collections/bd6110278b")
-    expect(page).to have_link('Library Digital Collections', href:"/dams_units/dlp")
+    expect(page).to have_text('Library Digital Collections')
 
     # date and language
     expect(page).to have_selector('li', :text=>"Easter 2012")

@@ -35,10 +35,6 @@ class DamsProvenanceCollectionsController < ApplicationController
     end
   end
 
-  def view
-    @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
-  end
-
   def new
 
     @dams_provenance_collection.title.build
