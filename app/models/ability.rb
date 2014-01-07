@@ -9,6 +9,7 @@ class Ability
 
     # Enforced gated edit access (update and view) for dams:Object
     can [:update, :view], DamsObject do |obj|
+        logger.warn "XXX: #{test_edit(obj.id)}"
         test_edit(obj.id)
     end
 
