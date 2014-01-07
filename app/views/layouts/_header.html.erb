@@ -38,7 +38,7 @@
               <!-- Logged in as <%= current_user.uid %> -->
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editor Tools <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <% if can? :create, DamsObject && (current_user.groups & Rails.configuration.curator_groups) %>
+                <% if can? :create, DamsObject %>
                 	<li><%= link_to 'Create Object', new_dams_object_path %></li>
                 <% end %>
 	            <li><%= link_to 'Create Provenance Collection', new_dams_provenance_collection_path %></li>
