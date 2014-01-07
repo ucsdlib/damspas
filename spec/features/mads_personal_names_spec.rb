@@ -93,21 +93,6 @@ feature 'Visitor wants to cancel unsaved edits' do
 
 end
 
-feature 'Visitor wants to use Hydra View' do
-	
-	scenario 'is on Personal Name view page' do
-		sign_in_developer
-		visit Path.path
-		click_on "Hydra View"
-		#expect(page).to have_selector('h1', :text => "New Personal Name, 1920")
-		expect(page).to have_selector('dd', :text => "New Personal Name")
-		expect(page).to have_selector('dd', :text => "1990")
-		expect(page).to have_selector('dd', :text => "http://personalname.com")
-		click_on "Edit"
-	end
-
-end
-
 def sign_in_developer
   visit new_user_session_path
   fill_in "name", :with => "name"

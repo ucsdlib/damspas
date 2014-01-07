@@ -26,10 +26,6 @@ class DamsTechniquesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_technique = DamsTechnique.find(params[:id])
-  end
-
   def new
     @dams_technique.scheme.build
     @dams_technique.elementList.techniqueElement.build
@@ -44,9 +40,9 @@ class DamsTechniquesController < ApplicationController
   def create
     if @dams_technique.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_dams_technique_path(@dams_technique, {:parent_id => params[:parent_id]})
+			redirect_to dams_technique_path(@dams_technique, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_dams_technique_path(@dams_technique, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to dams_technique_path(@dams_technique, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else
         	redirect_to @dams_technique, notice: "technique has been saved"
         end

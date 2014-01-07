@@ -152,9 +152,9 @@ end
           logger.warn "Error reindexing #{@dams_assembled_collection.pid}: #{e}"
       end       
       if(!params[:parent_id].nil?)
-        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_id => params[:parent_id]})
+        redirect_to dams_assembled_collection_path(@dams_assembled_collection, {:parent_id => params[:parent_id]})
       elsif(!params[:parent_class].nil?)
-        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_class => params[:parent_class]})
+        redirect_to dams_assembled_collection_path(@dams_assembled_collection, {:parent_class => params[:parent_class]})
       else
         #redirect_to edit_dams_assembled_collection_path(@dams_assembled_collection), notice: "Object has been saved"
         redirect_to @dams_assembled_collection, notice: "Object has been saved"

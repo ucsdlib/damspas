@@ -24,10 +24,6 @@ class DamsStatutesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_statute = DamsStatute.find(params[:id])   
-  end
-  
   def new
     @dams_statute.restriction_node.build
     @dams_statute.permission_node.build

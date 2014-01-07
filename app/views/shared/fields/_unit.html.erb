@@ -20,7 +20,8 @@
 		 unit = JSON.parse(fieldData.first)
 %>
 	<ul class="unstyled">
-		<li><%= link_to unit['name'], dams_unit_path(unit['code']) %></li>
+        <!-- <li><%= link_to unit['name'], catalog_index_path( {'f[unit_sim][]' => unit['name']} ) %></li> -->
+		<li><%= unit['name'] %></li>
 	</ul>
 <%
 
