@@ -402,28 +402,46 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       # save dates for sort date
       begin
         # get date string from value or beginDate
+        dateVal = nil
+        dateBeg = nil
         if(!date.nil? && !date.value.empty?)
           dateVal = date.value.first
-      	elsif(!date.nil? && !date.beginDate.empty?)
-          dateVal = date.beginDate.first
+        end
+      	if(!date.nil? && !date.beginDate.empty?)
+          dateBeg = date.beginDate.first
         end
 
-        # pad out years into iso 8601 dates
+        # pad out YYYY or YYYY-MM to iso 8601 dates
         if !dateVal.nil? && dateVal.match( '^\d{4}$' ) != nil
           dateVal += "-01-01"
+        elsif !dateVal.nil? && dateVal.match( '^\d{4}-\d{2}$' ) != nil
+          dateVal += "-01"
+        end
+        if !dateBeg.nil? && dateBeg.match( '^\d{4}$' ) != nil
+          dateBeg += "-01-01"
+        elsif !dateBeg.nil? && dateBeg.match( '^\d{4}-\d{2}$' ) != nil
+          dateBeg += "-01"
         end
 
         # parse dates
         if(!dateVal.nil?)
           if date.type.first == 'creation'
-            creation_date = DateTime.parse(dateVal)
-          elsif other_date.nil?
-            other_date = DateTime.parse(dateVal)
+            begin
+              creation_date = DateTime.parse(dateVal) if creation_date.nil?
+            rescue
+              creation_date = DateTime.parse(dateBeg) if creation_date.nil?
+            end
+          else
+            begin
+              other_date = DateTime.parse(dateVal) if other_date.nil?
+            rescue
+              other_date = DateTime.parse(dateBeg) if other_date.nil?
+            end
           end
         end
       rescue Exception => e
-        puts "error parsing date: #{dateVal} - #{e.to_s}"
-        puts e.backtrace
+        logger.info "error parsing date '#{dateVal}' (#{e.to_s})"
+        #puts e.backtrace
       end
     end
 
