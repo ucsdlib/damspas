@@ -254,7 +254,11 @@ module Dams
 		    if !unit.first.name.first.nil? && unit.first.name.first.to_s.length > 0
 		      unit.first
 		    elsif u_pid.to_s.length > 0
-		      DamsUnit.find(u_pid)
+              begin
+		        DamsUnit.find(u_pid)
+              rescue
+                logger.warn "XXX: error loading unit: #{u_pid}"
+              end
 		    end
 		else
 			nil
