@@ -401,18 +401,25 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # save dates for sort date
       begin
-      	if(!date.nil? && !date.beginDate.nil?)
-	        dateVal = date.beginDate.first
-	        if !dateVal.nil? && dateVal.match( '^\d{4}$' ) != nil
-	          dateVal += "-01-01"
-	        end
-	        if(!dateVal.nil?)
-		        if date.type.first == 'creation'
-		          creation_date = DateTime.parse(dateVal)
-		        elsif other_date.nil?
-		          other_date = DateTime.parse(dateVal)
-		        end
-		    end
+        # get date string from value or beginDate
+        if(!date.nil? && !date.value.empty?)
+          dateVal = date.value.first
+      	elsif(!date.nil? && !date.beginDate.empty?)
+          dateVal = date.beginDate.first
+        end
+
+        # pad out years into iso 8601 dates
+        if !dateVal.nil? && dateVal.match( '^\d{4}$' ) != nil
+          dateVal += "-01-01"
+        end
+
+        # parse dates
+        if(!dateVal.nil?)
+          if date.type.first == 'creation'
+            creation_date = DateTime.parse(dateVal)
+          elsif other_date.nil?
+            other_date = DateTime.parse(dateVal)
+          end
         end
       rescue Exception => e
         puts "error parsing date: #{dateVal} - #{e.to_s}"
