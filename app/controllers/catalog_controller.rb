@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
+require 'rsolr'
 
 class CatalogController < ApplicationController  
 
@@ -321,6 +322,11 @@ class CatalogController < ApplicationController
     res = blacklight_solr.send_and_receive(solr_path, :params => params)
     solr_response = Blacklight::SolrResponse.new(force_to_utf8(res), params)
     solr_response
+  end
+  def solrdoc
+    @obj = ActiveFedora::Base.find(params[:id], :cast=>true)
+    xml = RSolr::Xml::Generator.new
+    render xml: xml.add( @obj.to_solr )
   end
 
 end 

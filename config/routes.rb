@@ -14,6 +14,7 @@ Hydra::Application.routes.draw do
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
   get '/rci', to: 'dams_units#show', :id => 'rci'
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
+  get '/solrdoc/:id', to: 'catalog#solrdoc', :as => "solrdoc"
   get "collections", :to => 'catalog#collection_search', :as => 'dams_collections'
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
@@ -42,9 +43,7 @@ Hydra::Application.routes.draw do
 
   resources :dams_subjects, :only => [:show]
 
-  resources :object, :controller => 'dams_objects', :as => 'dams_objects' do
-    get 'solr', :on => :member
-  end
+  resources :object, :controller => 'dams_objects', :as => 'dams_objects'
 
   post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
