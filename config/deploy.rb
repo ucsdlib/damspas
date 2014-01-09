@@ -18,8 +18,10 @@ namespace :deploy do
 
   namespace :assets do
     desc 'Pre-compile assets'
-    task :precompile, :roles => :web, :except => { :no_release => true } do
-      run "cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile"
+    task :precompile do
+      on roles(:web) do
+        run "cd #{release_path} && #{rake} RAILS_ENV=#{rails_env} assets:precompile"
+      end
     end
   end
 
