@@ -75,12 +75,19 @@ module Dams
                       :note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
-                    :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :provenanceCollection, :provenanceCollectionPart, :part_node,:file,:provenanceCollection_node, :allow_destroy => true  
+                      :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
+                      :unit, :provenanceCollection, :provenanceCollectionPart, :part_node,:file,:provenanceCollection_node, :allow_destroy => true  
   
 
       def serialize
         check_type( graph, rdf_subject, DAMS.AssembledCollection )
+        if(!@unitURI.nil?)
+	      if new?
+	        graph.insert([rdf_subject, DAMS.unit, @unitURI])
+	      else
+	        graph.update([rdf_subject, DAMS.unit, @unitURI])
+	      end
+	    end    
         if(!@langURI.nil?)
           if(@langURI.class == Array)
             @langURI.each do |lang|
@@ -147,37 +154,37 @@ module Dams
 	  end
 
     def insertNameGraph  
-    if(!@nameURI.nil?)
-      if(@nameURI.class == Array)
-        @nameURI.each do |nam|
-              graph.insert([rdf_subject, DAMS.name, nam])
-          end
-      else
-          if new?
-            graph.insert([rdf_subject, DAMS.name, @nameURI])
-          else
-            graph.update([rdf_subject, DAMS.name, @nameURI])
-          end     
-      end       
-      end
+	    if(!@nameURI.nil?)
+	      if(@nameURI.class == Array)
+	        @nameURI.each do |nam|
+	              graph.insert([rdf_subject, DAMS.name, nam])
+	          end
+	      else
+	          if new?
+	            graph.insert([rdf_subject, DAMS.name, @nameURI])
+	          else
+	            graph.update([rdf_subject, DAMS.name, @nameURI])
+	          end     
+	      end       
+	    end
           
-    if(!@creatorURI.nil?)
-      if(@creatorURI.class == Array)
-        i = 0
-        @creatorURI.each do |crea|
-              puts "nameType"
-              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[i].camelize(:lower)}"), crea])
-              i = i + 1
-          end
-      else
-          if new?
-            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @creatorURI])
-          else
-            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @creatorURI])
-          end   
-      end                 
-      end     
-    end
+	    if(!@creatorURI.nil?)
+	      if(@creatorURI.class == Array)
+	        i = 0
+	        @creatorURI.each do |crea|
+	              puts "nameType"
+	              graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[i].camelize(:lower)}"), crea])
+	              i = i + 1
+	          end
+	      else
+	          if new?
+	            graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @creatorURI])
+	          else
+	            graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @creatorURI])
+	          end   
+	      end                 
+	    end     
+	end
     end  
   end
 end

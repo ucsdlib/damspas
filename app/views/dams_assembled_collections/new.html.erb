@@ -20,6 +20,8 @@ $(document).ready(function() {
 
   <%= render :partial => 'shared/edit_fields/date_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
 
+  <%= render :partial => 'shared/edit_fields/unit_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
+  
   <%= render :partial => 'shared/edit_fields/notes_form' , :locals => {:f => f, :object_type => "dams_assembled_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/language_form' , :locals => {:f => f, :object_type => "dams_assembled_collection", :is_first => "true"}%>
