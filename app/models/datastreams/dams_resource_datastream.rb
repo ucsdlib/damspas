@@ -321,6 +321,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
   end
+  def insertNameFields (solr_doc, fieldName, objects)
+    insertFields( solr_doc, fieldName, objects )
+    if objects != nil
+      objects.each do |obj|
+        Solrizer.insert_field(solr_doc, "name", obj.name)
+      end
+    end
+  end
   def insertFacets (solr_doc, fieldName, objects)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     if objects != nil
@@ -828,11 +836,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFacets solr_doc, 'subject_topic', load_topics(topic)
 
     # subject - names
-    insertFields solr_doc, 'name', load_names(name)
-    insertFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)
-    insertFields solr_doc, 'corporateName', load_corporateNames(corporateName)
-    insertFields solr_doc, 'familyName', load_familyNames(familyName)
-    insertFields solr_doc, 'personalName', load_personalNames(personalName)
+    insertNameFields solr_doc, 'other_name', load_names(name)
+    insertNameFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)
+    insertNameFields solr_doc, 'corporateName', load_corporateNames(corporateName)
+    insertNameFields solr_doc, 'familyName', load_familyNames(familyName)
+    insertNameFields solr_doc, 'personalName', load_personalNames(personalName)
 
     insertRelatedResourceFields solr_doc, "", relatedResource
 
