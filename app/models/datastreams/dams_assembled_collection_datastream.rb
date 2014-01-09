@@ -1,7 +1,7 @@
 class DamsAssembledCollectionDatastream < DamsResourceDatastream
   include Dams::DamsAssembledCollection
   include Dams::ModelHelper
-    
+	      
   def to_solr (solr_doc = {})
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     Solrizer.insert_field(solr_doc, 'type', 'Collection')
@@ -13,7 +13,7 @@ class DamsAssembledCollectionDatastream < DamsResourceDatastream
     
     insertCollectionFields solr_doc, 'provenanceCollection', provenanceCollection_node, DamsProvenanceCollection
     insertCollectionFields solr_doc, 'part', part_node, DamsProvenanceCollectionPart
-    
+	insertUnitFields solr_doc, unit
     super
   end  
 end

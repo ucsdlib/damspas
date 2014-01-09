@@ -51,6 +51,7 @@ module Dams
         map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
         # collections
+        map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
         map.collection(:in => DAMS)
         map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
         map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')

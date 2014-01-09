@@ -9,6 +9,7 @@ class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
     Solrizer.insert_field(solr_doc, 'resource_type', format_name(resource_type))
     Solrizer.insert_field(solr_doc, 'visibility', visibility)
     Solrizer.insert_field(solr_doc, 'object_type', format_name(resource_type),facetable)
+    insertUnitFields solr_doc, unit
     super
   end
 
