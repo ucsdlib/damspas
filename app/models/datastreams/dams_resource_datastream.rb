@@ -30,6 +30,25 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       collections
     end
 
+   def load_unit(unit)
+	if !unit.first.nil?
+	    u_pid = unit.first.pid
+	    
+	    if !unit.first.name.first.nil? && unit.first.name.first.to_s.length > 0
+	      unit.first
+	    elsif u_pid.to_s.length > 0
+          begin
+	        DamsUnit.find(u_pid)
+          rescue
+            logger.warn "XXX: error loading unit: #{u_pid}"
+          end
+	    end
+	else
+		nil
+	end
+
+  end
+  
  ## Language ##################################################################
   def load_languages
     load_languages(language)
@@ -318,6 +337,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       objects.each do |obj|
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
         Solrizer.insert_field(solr_doc, "all_fields", obj.name)
+      end
+    end
+  end
+  def insertNameFields (solr_doc, fieldName, objects)
+    insertFields( solr_doc, fieldName, objects )
+    if objects != nil
+      objects.each do |obj|
+        Solrizer.insert_field(solr_doc, "name", obj.name)
       end
     end
   end
@@ -768,7 +795,23 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       i = i + 1
     end
   end
-  
+
+  def insertUnitFields (solr_doc, unit)
+    u = load_unit unit
+    if !u.nil?
+      Solrizer.insert_field(solr_doc, 'unit', u.name)
+      Solrizer.insert_field(solr_doc, 'unit_code', u.code)
+      Solrizer.insert_field(solr_doc, 'all_fields', u.name)
+      Solrizer.insert_field(solr_doc, 'all_fields', u.code)
+      unit_json = {
+        :id => u.pid,
+        :code => u.code.first.to_s,
+        :name => u.name.first.to_s
+      }
+      Solrizer.insert_field(solr_doc, 'unit_json', unit_json.to_json)
+    end    
+  end
+   
   # field types
   def to_solr (solr_doc = {})
     super(solr_doc)
@@ -828,11 +871,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFacets solr_doc, 'subject_topic', load_topics(topic)
 
     # subject - names
-    insertFields solr_doc, 'name', load_names(name)
-    insertFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)
-    insertFields solr_doc, 'corporateName', load_corporateNames(corporateName)
-    insertFields solr_doc, 'familyName', load_familyNames(familyName)
-    insertFields solr_doc, 'personalName', load_personalNames(personalName)
+    insertNameFields solr_doc, 'other_name', load_names(name)
+    insertNameFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)
+    insertNameFields solr_doc, 'corporateName', load_corporateNames(corporateName)
+    insertNameFields solr_doc, 'familyName', load_familyNames(familyName)
+    insertNameFields solr_doc, 'personalName', load_personalNames(personalName)
 
     insertRelatedResourceFields solr_doc, "", relatedResource
 

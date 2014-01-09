@@ -2,8 +2,8 @@
      nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
 
-  <h3>Creator</h3>  
+  <h3>Subject Name</h3>  
 
 <%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => object_type, :nameTypeArray => nameTypeArray}%>
 
-<p><%= link_to_add_creators "Add Creator", f, "#{object_type}", nameTypeArray%></p>
+<p><%= link_to_add_creators "Add Name", f, "#{object_type}", nameTypeArray%></p>
