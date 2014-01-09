@@ -20,7 +20,9 @@ namespace :deploy do
     desc 'Pre-compile assets'
     task :precompile do
       on roles(:web) do
-        run "cd #{release_path} && #{rake} RAILS_ENV=#{rails_env} assets:precompile"
+        within release_path do
+          execute :rake, 'assets:precompile'
+        end
       end
     end
   end
@@ -44,6 +46,7 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:write_version'
+  after :finishing, 'deploy:assets:precompile'
   after :finishing, 'deploy:cleanup'
 
 end
