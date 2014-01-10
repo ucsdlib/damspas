@@ -1,10 +1,10 @@
 <% @page_title =  "Name | #{render_document_show_field_value(:document=>@document, :field=>"name_tesim")} " %>
 <% name = render_document_show_field_value(:document=>@document, :field=>"name_tesim") %>
+<% record_id = render_document_show_field_value(:document=>@document, :field=>"id_t") %>
 
 <div class="row-fluid">
 
   <div id="content" class="show-document span9">
-
 		<div class="row-fluid">
 			<section class="dams-metadata span12">
 				<p class="sidebar-header"><strong><%= name %></strong></p>			
@@ -13,33 +13,33 @@
 				</dl>	
 			</section>
 		</div>
-
-	 </div>    
+  	    <%= render :partial => 'shared/edit_fields/show_form_hidden_fields' , :locals => {:record_id => record_id, :name => name, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>  
+	 </div>   
 	
-	<div class="span3">
-	
-		<div class="well dams-search-box">
-			<h4>Search</h4>
-			<%= render_unit_search_bar  %>
-		</div>
+	<% if(params[:parent_id].nil? and params[:parent_class].nil?) %>		
+		<div class="span3">
 		
-		<p class="sidebar-header"><strong>Browse By</strong></p>
-		<ul class="unstyled sidebar-button-list">
-			<!-- hack in browse by collection, for RCI demo -->
-			<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
-			<%= render_browse_facet_links %>
-		</ul>
-
-    <% if can? :update, @document then %>
-			<p class="sidebar-header"><strong>Editor Tools</strong></p>
+			<div class="well dams-search-box">
+				<h4>Search</h4>
+				<%= render_unit_search_bar  %>
+			</div>
+			
+			<p class="sidebar-header"><strong>Browse By</strong></p>
 			<ul class="unstyled sidebar-button-list">
-			<li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, view_mads_name_path(@document['id']), class: "btn btn-block btn-small btn-link"%>     
-      		<li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_mads_name_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+				<!-- hack in browse by collection, for RCI demo -->
+				<li><%= link_to "<i class='icon-eye-open'></i> Collection".html_safe, dams_collections_path, :class => "btn btn-block  btn-link" %></li>
+				<%= render_browse_facet_links %>
 			</ul>
-    <% end %>
-				
-	</div>
 
+	    <% if can? :update, @document then %>
+				<p class="sidebar-header"><strong>Editor Tools</strong></p>
+				<ul class="unstyled sidebar-button-list">
+	      		<li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_mads_name_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+				</ul>
+	    <% end %>
+					
+		</div>
+	<% end %>
 </div>
 
 

@@ -45,7 +45,7 @@ class DamsAssembledCollectionsController < ApplicationController
     @dams_assembled_collection.title.first.hasExpansionVariant.build
     @dams_assembled_collection.date.build
     @dams_assembled_collection.language.build
-    
+    @dams_assembled_collection.unit.build
     @dams_assembled_collection.note.build
     @dams_assembled_collection.scopeContentNote.build
     @dams_assembled_collection.custodialResponsibilityNote.build
@@ -84,7 +84,7 @@ class DamsAssembledCollectionsController < ApplicationController
     @dams_assembled_collection.relationship.first.familyName.build
 
     @mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
-    
+    @dams_units = get_objects_url('DamsUnit','unit_name_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
     @dams_personal_names = get_objects_url('MadsPersonalName','name_tesim')
@@ -100,14 +100,14 @@ end
     @dams_assembled_collection = DamsAssembledCollection.find(params[:id])
     @dams_provenance_collection_parts=get_objects('DamsProvenanceCollectionPart','title_tesim')
     @mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
-    @mads_complex_subjects << "Create New Complex Subject"
-    @dams_units = get_objects('DamsUnit','unit_name_tesim')   
-  
+    @mads_complex_subjects << "Create New Complex Subject" 
+    @dams_units = get_objects('DamsUnit','unit_name_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
+    @unit_id = @dams_assembled_collection.unit.to_s.gsub(/.*\//,'')[0..9]
     #@provenance_collection_part_id = @dams_assembled_collection.part_node.to_s.gsub(/.*\//,'')[0..9]
     @provenance_collection_part_id = @dams_assembled_collection.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_assembled_collection.language.to_s.gsub(/.*\//,'')[0..9]
@@ -152,9 +152,9 @@ end
           logger.warn "Error reindexing #{@dams_assembled_collection.pid}: #{e}"
       end       
       if(!params[:parent_id].nil?)
-        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_id => params[:parent_id]})
+        redirect_to dams_assembled_collection_path(@dams_assembled_collection, {:parent_id => params[:parent_id]})
       elsif(!params[:parent_class].nil?)
-        redirect_to view_dams_assembled_collection_path(@dams_assembled_collection, {:parent_class => params[:parent_class]})
+        redirect_to dams_assembled_collection_path(@dams_assembled_collection, {:parent_class => params[:parent_class]})
       else
         #redirect_to edit_dams_assembled_collection_path(@dams_assembled_collection), notice: "Object has been saved"
         redirect_to @dams_assembled_collection, notice: "Object has been saved"
@@ -194,6 +194,7 @@ end
     @dams_assembled_collection.familyName.clear  
     @dams_assembled_collection.provenanceCollectionPart.clear
     @dams_assembled_collection.relationship.clear
+	@dams_assembled_collection.unit.clear
 
     @dams_assembled_collection.attributes = params[:dams_assembled_collection]
     if @dams_assembled_collection.save

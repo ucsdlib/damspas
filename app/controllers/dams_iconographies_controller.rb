@@ -26,10 +26,6 @@ class DamsIconographiesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_iconography = DamsIconography.find(params[:id])
-  end
-
   def new
     #Check schemes ####################################################################
     @dams_iconography.scheme.build
@@ -45,9 +41,9 @@ class DamsIconographiesController < ApplicationController
   def create
     if @dams_iconography.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_dams_iconography_path(@dams_iconography, {:parent_id => params[:parent_id]})
+			redirect_to dams_iconography_path(@dams_iconography, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_dams_iconography_path(@dams_iconography, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to dams_iconography_path(@dams_iconography, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @dams_iconography, notice: "iconography has been saved"
         end

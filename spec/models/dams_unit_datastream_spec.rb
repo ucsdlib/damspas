@@ -47,7 +47,7 @@ describe DamsUnitDatastream do
       end
 
       it "should have a name" do
-        subject.name.should == ["RCI"]
+        subject.name.should == ["Research Data Curation Program"]
       end
 
       it "should have a description" do

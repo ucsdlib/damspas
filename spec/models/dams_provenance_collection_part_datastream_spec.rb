@@ -63,6 +63,7 @@ describe DamsProvenanceCollectionPartDatastream do
         solr_doc["date_tesim"].should == ["2009-05-03","2009-05-31"]
         solr_doc["visibility_tesim"].should == ["public"]
         solr_doc["resource_type_tesim"].should == ["text"]
+        solr_doc["unit_code_tesim"].should == ["rci"]
       end
  	  it "should have notes" do
         solr_doc = subject.to_solr

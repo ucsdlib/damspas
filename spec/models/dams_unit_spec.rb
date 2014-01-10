@@ -6,7 +6,7 @@ describe DamsUnit do
     DamsUnit.new pid: "bb45454545"
   end
   it "should create a xml" do
-    subject.name = "RCI"
+    subject.name = "Research Data Curation Program"
     subject.code = "rci"
     subject.description = "Research Cyberinfrastructure: the hardware, software, and people that support scientific research."
 	subject.uri = "http://rci.ucsd.edu/"
@@ -18,7 +18,7 @@ describe DamsUnit do
       Research Cyberinfrastructure: the hardware, software, and people that
       support scientific research.
     </dams:unitDescription>
-    <dams:unitName>RCI</dams:unitName>
+    <dams:unitName>Research Data Curation Program</dams:unitName>
     <dams:code>rci</dams:code>
     <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
   </dams:Unit>
