@@ -9,6 +9,9 @@ module ApplicationHelper
 		highlighting = options[:'highlight']
 		hitsonly = options[:'hitsonly']
 	end
+  if field == "date_tesim"
+    return date_Val document
+  end
 	if highlighting
 		highlight_values = document.highlight_field(field)
 		
@@ -46,11 +49,69 @@ module ApplicationHelper
 			end
 			return values.map { |v|v }.join(sep).html_safe
 		else
+    # if field == "date_tesim"
+    #   return highlight_values.first.html_safe
+    # end
 			return highlight_values.join(sep).html_safe
 		end
 	end
   end
   
+  def date_Val document
+    dateRet = ''
+    if defined?(componentIndex) # Then we're working with a component
+      prefix = "component_#{componentIndex}_"
+    else 
+      prefix = ''
+    end
+    puts "prepre" + prefix
+    dates = document["#{prefix}date_json_tesim"]
+    if dates != nil
+      c2 = false
+      c3 = false
+      c4 = false
+      dates.each do |data|
+        date = JSON.parse(data)
+        if date['type'].casecmp("creation") == 0 || date['type'].casecmp("created") == 0
+          if date['value']
+            dateRet = date['value']
+          else
+            dateRet = date['beginDate']
+          end
+          break
+        elsif date['type'].casecmp("copyright") == 0 && dateRet.blank?
+          if date['value']
+            dateRet = date['value']
+          else
+            dateRet = date['beginDate']
+          end
+          c2 = true
+        elsif date['type'].casecmp("published") == 0 && dateRet.blank? && !c2
+          if date['value']
+            dateRet = date['value']
+          else
+            dateRet = date['beginDate']
+          end
+          c3 = true
+        elsif date['type'].casecmp("issued") == 0 && dateRet.blank? && !c2 && !c3
+          if date['value']
+            dateRet = date['value']
+          else
+            dateRet = date['beginDate']
+          end
+          c4 = true
+        elsif !c2 && !c3 && !c4
+          if date['value']
+            dateRet = date['value']
+          else
+            dateRet = date['beginDate']
+          end
+        end
+      end
+    end    
+    return dateRet 
+  end
+
   # Parsing the json title values
   def parseJsonTitle jsonString, sep
 	titlehash = JSON.parse jsonString
@@ -65,8 +126,12 @@ module ApplicationHelper
 	datehash = JSON.parse jsonString
 	dates = Array.new
 	dates << datehash['value'] unless datehash['value']==nil?
+  if dates.empty?
 	dates << datehash['beginDate'] unless datehash['beginDate']==nil?
+end
+if dates.empty?
 	dates << datehash['endDate'] unless datehash['endDate']==nil?
+end
 	return dates.map { |v|v }.join(sep).html_safe
   end
   
