@@ -38,14 +38,14 @@ gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
 gem "i18n"
 gem "bootstrap-sass" #, '2.2.2.0'
 
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem 'therubyracer', '0.12.0', :platforms => :ruby
+gem 'uglifier' #, '2.0.1'
+
 group :development, :test do
   gem 'sass-rails' #,   '3.2.6'
   gem 'coffee-rails' #, '3.2.2'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'therubyracer', '0.12.0', :platforms => :ruby
-
-  gem 'uglifier' #, '2.0.1'
   gem 'capybara' #, '2.1.0'
   gem 'database_cleaner' #, '0.9.1'
   gem 'jettywrapper' #, '1.4.1'
