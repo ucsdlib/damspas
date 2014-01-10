@@ -4,7 +4,7 @@
 #home-01{position:relative;height:640px;background-position:center center;background-size:cover;}
 #home-02{background:#399dc8 url("home-page/bg-grid.png") no-repeat center top;text-align:center;border-top:1px solid #1f556d;padding:20px;}
 #home-02,#home-02 a{color:#fff;}
-#home-02 h2{margin:0;font-family:"Questrial";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
+#home-02 h2{margin:0;font-family:"Archivo Narrow";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
 #home-02 h3{margin:20px;font-weight: normal;font-size:1.9em;line-height:normal;}
 #dc-logo{display:block;margin: 0 auto;padding-top:100px;}
 #dc-search-box{padding-top:50px;margin:0;}
@@ -23,9 +23,9 @@
 .browse-by-list li:after{content:", "}
 .browse-by-list li:last-child:before{content:" or "}
 .browse-by-list li:last-child:after{content:""}
-#bg-meta{position:absolute;bottom:0;left:0;padding:20px;}
-#bg-meta p{margin:0;text-shadow: 1px 2px 3px rgba(0,0,0,0.5);font-size:0.75em;line-height:normal;}
-#bg-meta a{color:#fff;color:rgba(255,255,255,0.75);text-decoration:none;transition: all 250ms ease-in-out;outline:none;}
+#bg-meta{position:absolute;bottom:0;left:0;padding:20px;color:#fff;color:rgba(255,255,255,0.75);}
+#bg-meta p{margin:0;text-shadow: 1px 2px 3px rgba(0,0,0,0.5);font-size:0.9em;line-height:normal;}
+#bg-meta a{color:#fff;color:rgba(255,255,255,0.75);text-decoration:underline;transition: all 250ms ease-in-out;outline:none;}
 #bg-meta a:hover{color:#fff;}
 .category{display:inline-block;width:48%;vertical-align: top;}
 .category a{display:block;width:240px;border-radius:240px;height:240px;margin:0 auto;box-shadow:0 0 3px rgba(0,0,0,0.5);transition:all 500ms ease-in-out;outline:none;border:1px solid #fff;}
@@ -34,7 +34,7 @@
 .category p{font-size:1.25em;margin:20px 20%;line-height:normal;}
 .cat-library{background:#f39d3d url("home-page/logo-library.png") center center no-repeat;}
 .cat-rci{background:#f39d3d url("home-page/logo-rci.png") center center no-repeat;}
-.invitation{font-family:"Questrial";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
+.invitation{font-family:"Archivo Narrow";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
 .visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
