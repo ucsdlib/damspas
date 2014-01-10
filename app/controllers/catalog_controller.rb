@@ -275,9 +275,9 @@ class CatalogController < ApplicationController
   def collection_search
     # if we already have the parameters set below, then redirect to /search
     # this allows removing Collections limit, etc.
-    if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )
-      redirect_to catalog_index_path params
-    end
+    #if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )
+     # redirect_to catalog_index_path params
+    #end
 
     # limit search to collections
     params[:f] = {:type_sim =>["Collection"]}
@@ -287,7 +287,7 @@ class CatalogController < ApplicationController
     if params[:id]
       # limit page by unit
       params[:fq] = [] unless params[:fq]
-      params[:fq] << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
+      params[:fq] << "unit_code_tesim:#{params[:id]}" if !params[:fq].to_s.include?("unit_code_tesim:#{params[:id]}")
 
       # add unit name to page
       @current_unit = lookup_unit_name( params[:id] )
