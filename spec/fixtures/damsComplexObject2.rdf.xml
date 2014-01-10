@@ -6,7 +6,7 @@
     <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
     <dams:collection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
     <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
-    <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
+    <dams:rightsHolderPersonal rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
     <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
     <dams:typeOfResource>mixed material</dams:typeOfResource>
     <dams:relationship>

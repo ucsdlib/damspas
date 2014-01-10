@@ -126,6 +126,9 @@ class DamsAssembledCollection < ActiveFedora::Base
     :topic_attributes,
     :topic,
     :typeOfResource,
+    :unit_attributes,
+    :unit,
+    :unitURI,
     :visibility,
     :resource_type]
 

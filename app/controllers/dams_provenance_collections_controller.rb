@@ -35,10 +35,6 @@ class DamsProvenanceCollectionsController < ApplicationController
     end
   end
 
-  def view
-    @dams_provenance_collection = DamsProvenanceCollection.find(params[:id])
-  end
-
   def new
 
     @dams_provenance_collection.title.build
@@ -50,7 +46,8 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.title.first.hasExpansionVariant.build
     @dams_provenance_collection.date.build
     @dams_provenance_collection.language.build
-    
+    @dams_provenance_collection.unit.build
+        
     @dams_provenance_collection.note.build
     @dams_provenance_collection.scopeContentNote.build
     @dams_provenance_collection.custodialResponsibilityNote.build
@@ -98,18 +95,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
     @dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    
-    
-    uri = URI('http://fast.oclc.org/fastSuggest/select')
-    res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-    json = JSON.parse(res.body)
-    @jdoc = json.fetch("response").fetch("docs")
-  
-    @autocomplete_items = Array.new
-    @jdoc.each do |value|
-    @autocomplete_items << value['suggestall']
-  end 
-
+    @dams_units = get_objects_url('DamsUnit','unit_name_tesim')
   end
 
   def edit
@@ -127,7 +113,8 @@ class DamsProvenanceCollectionsController < ApplicationController
     #@provenance_collection_part_id = @dams_provenance_collection.part_node.to_s.gsub(/.*\//,'')[0..9]
     @provenance_collection_part_id = @dams_provenance_collection.provenanceCollectionPart.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection.language.to_s.gsub(/.*\//,'')[0..9]
-
+	@unit_id = @dams_provenance_collection.unit.to_s.gsub(/.*\//,'')[0..9]
+	
     @simple_subject_type = get_simple_subject_type(@dams_provenance_collection)  
     @dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
     @simpleSubject_id = get_simple_subject_id(@dams_provenance_collection)
@@ -194,7 +181,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.assembledCollection.clear     
     @dams_provenance_collection.provenanceCollectionPart.clear
     @dams_provenance_collection.relationship.clear    
-
+    @dams_provenance_collection.unit.clear
 
     @dams_provenance_collection.attributes = params[:dams_provenance_collection]
     if @dams_provenance_collection.save

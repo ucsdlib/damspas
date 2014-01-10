@@ -66,9 +66,12 @@ module Dams
 	    map.license(:in=>DAMS,:class_name => 'DamsLicenseInternal')
 	    map.otherRights(:in=>DAMS,:class_name => 'DamsOtherRightInternal')
 	    map.statute(:in=>DAMS,:class_name => 'DamsStatuteInternal')
-	    map.rightsHolderPersonal(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsPersonalNameInternal')
-	    map.rightsHolderCorporate(:in=>DAMS,:to => 'rightsHolder', :class_name => 'MadsCorporateNameInternal')
-	
+	    map.rightsHolderName(:in=>DAMS,:to => 'rightsHolderName', :class_name => 'MadsNameInternal')
+	    map.rightsHolderPersonal(:in=>DAMS,:to => 'rightsHolderPersonal', :class_name => 'MadsPersonalNameInternal')
+	    map.rightsHolderCorporate(:in=>DAMS,:to => 'rightsHolderCorporate', :class_name => 'MadsCorporateNameInternal')
+	    map.rightsHolderFamily(:in=>DAMS,:to => 'rightsHolderFamily', :class_name => 'MadsFamilyNameInternal')
+	    map.rightsHolderConference(:in=>DAMS,:to => 'rightsHolderConference', :class_name => 'MadsConferenceNameInternal')
+	    	
 	    # resource type and cartographics
 	    map.typeOfResource(:in => DAMS, :to => 'typeOfResource')
 	    map.cartographics(:in => DAMS, :to => 'cartographics', :class_name => 'DamsCartographicsInternal')
@@ -80,8 +83,8 @@ module Dams
       								:iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
 	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
 	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
-	    							:copyright, :license, :otherRights, :statute, :rightsHolderCorporate, :rightsHolderPersonal,
-	    							:cartographics
+	    							:copyright, :license, :otherRights, :statute, :rightsHolderName, :rightsHolderCorporate, :rightsHolderPersonal,
+	    							:rightsHolderFamily, :rightsHolderConference, :cartographics
 	  
 	  rdf_subject { |ds|
 	    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
@@ -251,7 +254,11 @@ module Dams
 		    if !unit.first.name.first.nil? && unit.first.name.first.to_s.length > 0
 		      unit.first
 		    elsif u_pid.to_s.length > 0
-		      DamsUnit.find(u_pid)
+              begin
+		        DamsUnit.find(u_pid)
+              rescue
+                logger.warn "XXX: error loading unit: #{u_pid}"
+              end
 		    end
 		else
 			nil
@@ -592,6 +599,8 @@ module Dams
 	    rh = []
 	    rh = rh.concat(rightsHolderCorporate) unless rightsHolderCorporate.nil?
 	    rh = rh.concat(rightsHolderPersonal) unless rightsHolderPersonal.nil?
+	    rh = rh.concat(rightsHolderConference) unless rightsHolderConference.nil?
+	    rh = rh.concat(rightsHolderFamily) unless rightsHolderFamily.nil?
 	    insertRightsHolderFields solr_doc, "", rh
 	    
 	    cartographics.each do |cart|

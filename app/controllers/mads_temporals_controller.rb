@@ -26,10 +26,6 @@ class MadsTemporalsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_temporal = MadsTemporal.find(params[:id])
-  end
-
   def new
     @mads_temporal.elementList.temporalElement.build
     @mads_temporal.scheme.build
@@ -47,9 +43,9 @@ class MadsTemporalsController < ApplicationController
 
     if @mads_temporal.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_mads_temporal_path(@mads_temporal, {:parent_id => params[:parent_id]})
+			redirect_to mads_temporal_path(@mads_temporal, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_mads_temporal_path(@mads_temporal, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to mads_temporal_path(@mads_temporal, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else     
         	redirect_to @mads_temporal, notice: "Temporal has been saved"
         end

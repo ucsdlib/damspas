@@ -29,10 +29,6 @@ logger.warn "solr: #{@document.inspect}"
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_unit = DamsUnit.find(params[:id])
-  end
-
   def new
 
   end
@@ -44,7 +40,7 @@ logger.warn "solr: #{@document.inspect}"
   def create
     @dams_unit.attributes = params[:dams_unit]
     if @dams_unit.save
-        redirect_to view_dams_unit_path @dams_unit, notice: "Unit has been saved"
+        redirect_to dams_unit_path @dams_unit, notice: "Unit has been saved"
     else
       flash[:alert] = "Unable to save unit"
       render :new
@@ -54,7 +50,7 @@ logger.warn "solr: #{@document.inspect}"
   def update
     @dams_unit.attributes = params[:dams_unit]
     if @dams_unit.save
-        redirect_to view_dams_unit_path @dams_unit, notice: "Successfully updated unit"
+        redirect_to dams_unit_path @dams_unit, notice: "Successfully updated unit"
     else
       flash[:alert] = "Unable to save unit"
       render :edit

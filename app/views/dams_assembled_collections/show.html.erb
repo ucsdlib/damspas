@@ -3,26 +3,36 @@
 	@page_title = "Object | #{collection_title}"
 %>
 
+<%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @dams_assembled_collection, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 
+<% if(params[:parent_id].nil? and params[:parent_class].nil?) %>	
 
-<div class="row-fluid">
-	<div class="span8 offset2 dams-collections well well-large">
-		<%#= render :partial => 'show_damstools' %>
-		<%= render :partial => 'shared/fields/title' %>
-        <%= render :partial => 'shared/fields/show' %>
-        <%= render :partial => 'dams_collections/search' %>
-		
-		<br>
-		<% if can? :update, @dams_assembled_collection then %>
-					<%= link_to "Edit", edit_dams_assembled_collection_path(@dams_assembled_collection), class: "btn btn-primary"%>
-					<%= link_to "RDF View", normalized_rdf_path(@dams_assembled_collection.id), class: "btn btn-primary"%>
-		<% end %>
+	<div class="row-fluid">
+		<div class="span8 offset2 dams-collections well well-large">
+			<%#= render :partial => 'show_damstools' %>
+			<%= render :partial => 'shared/fields/title' %>
+	        <%= render :partial => 'shared/fields/show' %>
+	        <%= render :partial => 'dams_collections/search' %>
+			
+			<br>
+			<% if can? :update, @dams_assembled_collection then %>
+						<%= link_to "Edit", edit_dams_assembled_collection_path(@dams_assembled_collection), class: "btn btn-primary"%>
+						<%= link_to "RDF View", normalized_rdf_path(@dams_assembled_collection.id), class: "btn btn-primary"%>
+			<% end %>
+		</div>
 	</div>
-</div>
-  <%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @dams_assembled_collection, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
+	<div class="row-fluid">
+		<section class="dams-comments span8 offset2">
+			<%= render :partial => 'dams_objects/comments' %>
+		</section>
+	</div>
+<% else %>
+	<div class="row-fluid">
+		<div class="span8 offset2 dams-collections well well-large">
+			<%#= render :partial => 'show_damstools' %>
+			<%= render :partial => 'shared/fields/title' %>
+      <%= render :partial => 'shared/fields/show' %>
+    </div>
+ 	</div>
+<% end %>
 
-<div class="row-fluid">
-	<section class="dams-comments span8 offset2">
-		<%= render :partial => 'dams_objects/comments' %>
-	</section>
-</div>

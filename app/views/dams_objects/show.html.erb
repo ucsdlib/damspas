@@ -45,10 +45,14 @@
 		  <div class="row-fluid">
 		    <p class="sidebar-header"><strong>Editor Tools</strong></p>
 		    <ul class="unstyled sidebar-button-list">
-		      <li><%= link_to "<i class='icon-plus-sign'></i> Hydra View".html_safe, view_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, normalized_rdf_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		    </ul>
+            <p><strong>Add File</strong></p>
+            <%= form_for(DamsObject.new, :url => upload_path(@document['id']), :html => {:multipart => true, :id => 'fileupload', :method => 'post'}) do |f| %>
+              <input type="file" name="file"/>
+              <%=f.submit "Add File", class: "btn btn-primary" %>
+            <% end %>
 		  </div>
 		<% end %>
 

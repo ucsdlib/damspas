@@ -26,10 +26,6 @@ class DamsScientificNamesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_scientific_name = DamsScientificName.find(params[:id])
-  end
-
   def new
     #Check schemes ####################################################################
     @dams_scientific_name.scheme.build
@@ -45,9 +41,9 @@ class DamsScientificNamesController < ApplicationController
   def create
     if @dams_scientific_name.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_dams_scientific_name_path(@dams_scientific_name, {:parent_id => params[:parent_id]})
+			redirect_to dams_scientific_name_path(@dams_scientific_name, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_dams_scientific_name_path(@dams_scientific_name, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to dams_scientific_name_path(@dams_scientific_name, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @dams_scientific_name, notice: "scientific name has been saved"
         end
