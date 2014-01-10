@@ -682,7 +682,7 @@ module DamsObjectsHelper
     			note = JSON.parse(n)
       			note_value = note['value']
       			if(note_value.include? "Culturally sensitive content")	
-					result = "#{note_value} Please click on the icon to view its content"
+					result = "#{note_value}"
 				end
 			end
     	end

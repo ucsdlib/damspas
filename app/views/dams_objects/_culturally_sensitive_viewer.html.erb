@@ -1,10 +1,10 @@
-<div class="simple-object">
-	<% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
-	
-	<% if displayFilePath.length > 0 %>
-	   <%= link_to image_tag(displayFilePath, :alt => ''), zoomFilePath %>
-	<% else %>
-		<%= link_to image_tag(filePath, :alt => ''), zoomFilePath %>
-	<% end %>
-	<br><%= culturallySensitiveText%>
+<div class="simple-object" align="center">
+	<div id="sensitive-object">
+		<% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
+
+		<%= link_to_function image_tag(filePath, :class => 'culturally-sensitive-thumbnail', :alt => '', :id =>"sensitive-image" ), "loadSensitiveImage('#{culturallySensitiveText}','#{zoomFilePath}','#{filePath}')"%>
+		<br><%= "#{culturallySensitiveText}  Please click on the icon to view its content"%>
+
+	</div>
 </div>
+
