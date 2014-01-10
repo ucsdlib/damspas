@@ -35,7 +35,7 @@ gem 'capistrano-bundler'
 # gem 'debugger'
 
 gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
-gem "i18n"
+gem "i18n", '0.6.9'
 gem "bootstrap-sass" #, '2.2.2.0'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
