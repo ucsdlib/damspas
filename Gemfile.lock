@@ -316,7 +316,7 @@ DEPENDENCIES
   devise
   equivalent-xml
   hydra-head
-  i18n
+  i18n (= 0.6.9)
   jettywrapper
   jquery-rails
   launchy
