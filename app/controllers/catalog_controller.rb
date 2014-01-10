@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
+require 'rsolr'
 
 class CatalogController < ApplicationController  
 
@@ -238,34 +239,23 @@ class CatalogController < ApplicationController
 			params.delete('spellcheck.q')
 		end
 		
+		# remove spelling suggestions with no results
 		i = 0
-
 		@suggestions = ([@response.spelling.collation] | spelling_words).compact
+        tmp_params = params.clone
 		@suggestions.each do |word|
-			i = i + 1
-			params[:q] = word
-			(@response, @document_list) = get_search_results params
-			spelling_words = @response.spelling.words
-			if(@document_list.size > 0)
-				#if(params['spellcheck.q'].nil?)
-				j = 0
-				@suggestions.each do |word|
-					j = j + 1
-					#Exclude those that have no results
-					if j > i
-						spelling_words << word if !word.nil? && !spelling_words.include?(word)
-					end
-				end
-				#end
-				break;
-			end
+			tmp_params[:q] = word
+			(tmp_resp, tmp_docs) = get_search_results tmp_params
+			@suggestions.delete(word) if tmp_docs.size == 0
 		end
+        spelling_words = @suggestions
 	  else
 		params.delete('spellsuggestions')
 		params['spellcheck.q'] = params[:q]
 		spelling_collation = @response.spelling.collation
 		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
+
 	  #Remove the case sensive spellcheck suggestions that should not show up
 	  spelling_words = spelling_words.dup
 	  @response.spelling.words.clear
@@ -274,7 +264,6 @@ class CatalogController < ApplicationController
 			@response.spelling.words << x.downcase
 		end
 	  end
-	  #@response.spelling.words.uniq
       @filters = params[:f] || []
       
       respond_to do |format|
@@ -286,9 +275,9 @@ class CatalogController < ApplicationController
   def collection_search
     # if we already have the parameters set below, then redirect to /search
     # this allows removing Collections limit, etc.
-    if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )
-      redirect_to catalog_index_path params
-    end
+    #if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )
+     # redirect_to catalog_index_path params
+    #end
 
     # limit search to collections
     params[:f] = {:type_sim =>["Collection"]}
@@ -298,7 +287,7 @@ class CatalogController < ApplicationController
     if params[:id]
       # limit page by unit
       params[:fq] = [] unless params[:fq]
-      params[:fq] << "{!join from=collections_tesim to=id}unit_code_tesim:#{params[:id]}"
+      params[:fq] << "unit_code_tesim:#{params[:id]}" if !params[:fq].to_s.include?("unit_code_tesim:#{params[:id]}")
 
       # add unit name to page
       @current_unit = lookup_unit_name( params[:id] )
@@ -333,6 +322,11 @@ class CatalogController < ApplicationController
     res = blacklight_solr.send_and_receive(solr_path, :params => params)
     solr_response = Blacklight::SolrResponse.new(force_to_utf8(res), params)
     solr_response
+  end
+  def solrdoc
+    @obj = ActiveFedora::Base.find(params[:id], :cast=>true)
+    xml = RSolr::Xml::Generator.new
+    render xml: xml.add( @obj.to_solr )
   end
 
 end 

@@ -18,12 +18,6 @@ class MadsAuthorityController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_authority = MadsAuthority.find(params[:id])
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    @scheme_id = @mads_authority.scheme.to_s.gsub(/.*\//,'')[0..9]
-    #@scheme_name = @mads_schemes.find_all{|s| s.pid == @scheme_id}[0].name.first
-  end
   def new
 	#@mads_schemes = MadsScheme.find(:all)
 	@mads_authority.scheme.build
@@ -38,9 +32,9 @@ class MadsAuthorityController < ApplicationController
     #@mads_authority.attributes = params[:mads_authority]
     if @mads_authority.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_mads_authority_path(@mads_authority, {:parent_id => params[:parent_id]})
+			redirect_to mads_authority_path(@mads_authority, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_mads_authority_path(@mads_authority, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to mads_authority_path(@mads_authority, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else
         	redirect_to @mads_authority, notice: "Authority has been saved"
         end        

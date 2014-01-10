@@ -22,7 +22,7 @@ describe DamsObjectsController do
 	      solr_index @obj.id
 	    end
 	    it "should be successful" do 
-	      get :view, id: @obj.id
+	      get :edit, id: @obj.id
 	      response.should be_successful
 	      @newobj = assigns[:dams_object]
           @newobj.titleValue.should == @obj.titleValue
@@ -33,18 +33,18 @@ describe DamsObjectsController do
 		  		@user_groups.clear
 		  	end
 		  	it "should not be successful with no curator roles assigned" do
-		  		get :view, id: @obj.id
+		  		get :show, id: @obj.id
 		  		response.should_not be_successful 
 		  	end
 		  	it "should not be successful for the non RCI unit record with a dams-rci unit role assigned" do
 		  		@user_groups << "dams-rci"
-		  		get :view, id: @obj.id
+		  		get :show, id: @obj.id
 		  		response.should_not be_successful 
 		  	end
 		  	it "should be successful with a #{Rails.configuration.super_role} assigned" do
 		  		@user_groups.clear
 		  		@user_groups << Rails.configuration.super_role
-		  		get :view, id: @obj.id
+		  		get :show, id: @obj.id
 		  		response.should be_successful 
 		  	end
 		 end

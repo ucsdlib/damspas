@@ -26,10 +26,6 @@ class MadsComplexSubjectsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_complex_subject = MadsComplexSubject.find(params[:id])
-  end
-
   def new
     @mads_complex_subject.scheme.build
     @mads_complex_subject.componentList.topic.build
@@ -48,9 +44,9 @@ class MadsComplexSubjectsController < ApplicationController
     #@mads_complex_subject.attributes = params[:mads_complex_subject]
     if @mads_complex_subject.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_mads_complex_subject_path(@mads_complex_subject, {:parent_id => params[:parent_id]})
+			redirect_to mads_complex_subject_path(@mads_complex_subject, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_mads_complex_subject_path(@mads_complex_subject, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to mads_complex_subject_path(@mads_complex_subject, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @mads_complex_subject, notice: "ComplexSubject has been saved"
         end

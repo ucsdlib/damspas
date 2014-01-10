@@ -16,11 +16,22 @@ set :linked_files, %w{config/database.yml config/fedora.yml config/solr.yml conf
 
 namespace :deploy do
 
+  namespace :assets do
+    desc 'Pre-compile assets'
+    task :precompile do
+      on roles(:web) do
+        within release_path do
+          execute :rake, 'assets:precompile'
+        end
+      end
+    end
+  end
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      execute :mkdir, release_path.join('tmp')
+      execute :mkdir, "-p #{release_path.join('tmp')}"
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
@@ -35,6 +46,7 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:write_version'
+  before :restart, 'deploy:assets:precompile'
   after :finishing, 'deploy:cleanup'
 
 end

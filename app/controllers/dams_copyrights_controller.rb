@@ -26,10 +26,6 @@ class DamsCopyrightsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_copyright = DamsCopyright.find(params[:id])   
-  end
-  
   def new
     @dams_copyright.date.build
   end
