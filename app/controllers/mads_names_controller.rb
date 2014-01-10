@@ -26,10 +26,6 @@ class MadsNamesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_name = MadsName.find(params[:id])
-  end
-
   def new
     @mads_name.elementList.fullNameElement.build
     @mads_name.scheme.build           
@@ -47,9 +43,9 @@ class MadsNamesController < ApplicationController
   def create
     if @mads_name.save
       if(!params[:parent_id].nil?)
-        redirect_to view_mads_name_path(@mads_name, {:parent_id => params[:parent_id]})
+        redirect_to mads_name_path(@mads_name, {:parent_id => params[:parent_id]})
       elsif(!params[:parent_class].nil?)
-        redirect_to view_mads_name_path(@mads_name, {:parent_class => params[:parent_class]})                   
+        redirect_to mads_name_path(@mads_name, {:parent_class => params[:parent_class]})                   
       else    
         redirect_to @mads_name, notice: "Name has been saved"
       end

@@ -5,5 +5,5 @@
   <%= label_tag 'mads_scheme[code]', "Code" %><%= text_field_tag 'mads_scheme[code][]', @mads_scheme.code[0] %>
   <br>
   <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", view_mads_scheme_path(@mads_scheme), class: "btn btn-primary" %>
+  <%= link_to "Cancel", mads_scheme_path(@mads_scheme), class: "btn btn-primary" %>
 <%end%>

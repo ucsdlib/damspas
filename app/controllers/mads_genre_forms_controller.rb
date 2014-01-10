@@ -26,10 +26,6 @@ class MadsGenreFormsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_genre_form = MadsGenreForm.find(params[:id])
-  end
-
   def new
     @mads_genre_form.elementList.genreFormElement.build
     @mads_genre_form.scheme.build 
@@ -46,9 +42,9 @@ class MadsGenreFormsController < ApplicationController
   def create
     if @mads_genre_form.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_mads_genre_form_path(@mads_genre_form, {:parent_id => params[:parent_id]})
+			redirect_to mads_genre_form_path(@mads_genre_form, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_mads_genre_form_path(@mads_genre_form, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to mads_genre_form_path(@mads_genre_form, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @mads_genre_form, notice: "GenreForm has been saved"
         end

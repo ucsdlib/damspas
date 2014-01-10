@@ -78,10 +78,6 @@ class DamsObjectsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_object = DamsObject.find(params[:id])
-  end
-
   def new
     @dams_object.title.build
     @dams_object.title.first.elementList.subTitleElement.build

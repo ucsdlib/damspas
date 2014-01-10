@@ -8,9 +8,10 @@ module CatalogHelper
   def link_to_document(doc, opts={:label => nil, :counter => nil, :results_view => true, :force_label => false})
 
     opts[:label] ||= blacklight_config.index.show_link.to_sym
-    label = render_document_index_label( doc, opts ).html_safe
 
-    if opts[:force_label] == false
+    if opts[:force_label]
+      label = render_document_index_label( doc, opts ).html_safe
+    else
 
       if doc['title_json_tesim'] != nil
         titlehash = JSON.parse doc['title_json_tesim'].first
@@ -21,7 +22,6 @@ module CatalogHelper
           label = titlehash['value'].html_safe
         end
       end
-
     end
 
     if doc['type_tesim'] != nil && doc['type_tesim'].include?("Collection")

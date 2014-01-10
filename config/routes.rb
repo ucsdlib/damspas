@@ -14,6 +14,7 @@ Hydra::Application.routes.draw do
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
   get '/rci', to: 'dams_units#show', :id => 'rci'
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
+  get '/solrdoc/:id', to: 'catalog#solrdoc', :as => "solrdoc"
   get "collections", :to => 'catalog#collection_search', :as => 'dams_collections'
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
@@ -33,9 +34,6 @@ Hydra::Application.routes.draw do
   # :show and :update are for backwards-compatibility with catalog_url named routes
   resources :catalog, :only => [:show, :update]
 
-
-  HydraHead.add_routes(self)
-
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
@@ -45,35 +43,22 @@ Hydra::Application.routes.draw do
 
   resources :dams_subjects, :only => [:show]
 
-  resources :object, :controller => 'dams_objects', :as => 'dams_objects' do
-    get 'view', :on => :member
-  end
+  resources :object, :controller => 'dams_objects', :as => 'dams_objects'
 
   post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
-  resources :dams_assembled_collections do
-    get 'view', :on => :member
-  end
+  resources :dams_assembled_collections
   resources :dams_units do
     member do
-      get 'view'
       get 'collections'
     end
   end
-  resources :dams_copyrights do
-  	get 'view', :on => :member
-  end
-  resources :dams_licenses do
-  	get 'view', :on => :member
-  end
-  resources :dams_other_rights do
-  	get 'view', :on => :member
-  end
-  resources :dams_statutes do
-  	get 'view', :on => :member
-  end
+  resources :dams_copyrights
+  resources :dams_licenses
+  resources :dams_other_rights
+  resources :dams_statutes
   resources :dams_languages
   resources :dams_vocabularies
   resources :dams_roles
@@ -82,78 +67,28 @@ Hydra::Application.routes.draw do
   resources :dams_vocabulary_entries
   resources :dams_source_captures
   resources :dams_cartographics
-  resources :dams_built_work_places do
-    get 'view', :on => :member
-  end
-  resources :dams_foos do
-    get 'view', :on => :member
-  end
-  resources :dams_foo_bars do
-    get 'view', :on => :member
-  end
-  resources :dams_iconographies do
-    get 'view', :on => :member
-  end
-  resources :dams_style_periods do
-    get 'view', :on => :member
-  end
-  resources :dams_scientific_names do
-    get 'view', :on => :member
-  end
-  resources :dams_techniques do
-    get 'view', :on => :member
-  end
-  resources :dams_cultures do
-    get 'view', :on => :member
-  end
-  resources :dams_cultural_contexts do
-    get 'view', :on => :member
-  end
-  resources :dams_functions do
-    get 'view', :on => :member
-  end
-  resources :mads_personal_names do
-    get 'view', :on => :member
-  end
-  resources :mads_family_names do
-    get 'view', :on => :member
-  end
-  resources :mads_corporate_names do
-    get 'view', :on => :member
-  end
-  resources :mads_conference_names do
-    get 'view', :on => :member
-  end
-  resources :mads_complex_subjects do
-    get 'view', :on => :member
-  end
-  resources :mads_topics do
-    get 'view', :on => :member
-  end
-  resources :mads_temporals do
-    get 'view', :on => :member
-  end
-  resources :mads_names do
-    get 'view', :on => :member
-  end
-  resources :mads_occupations do
-    get 'view', :on => :member
-  end
-  resources :mads_genre_forms do
-    get 'view', :on => :member
-  end
-  resources :mads_geographics do
-    get 'view', :on => :member
-  end
-  resources :mads_schemes do
-    get 'view', :on => :member
-  end
-  resources :mads_authority, :as => 'mads_authorities' do
-    get 'view', :on => :member
-  end
-  resources :mads_languages do
-    get 'view', :on => :member
-  end
+  resources :dams_built_work_places
+  resources :dams_iconographies
+  resources :dams_style_periods
+  resources :dams_scientific_names
+  resources :dams_techniques
+  resources :dams_cultures
+  resources :dams_cultural_contexts
+  resources :dams_functions
+  resources :mads_personal_names
+  resources :mads_family_names
+  resources :mads_corporate_names
+  resources :mads_conference_names
+  resources :mads_complex_subjects
+  resources :mads_topics
+  resources :mads_temporals
+  resources :mads_names
+  resources :mads_occupations
+  resources :mads_genre_forms
+  resources :mads_geographics
+  resources :mads_schemes
+  resources :mads_authority, :as => 'mads_authorities'
+  resources :mads_languages
 
   resources :get_data do
 	get 'get_linked_data', :on => :member

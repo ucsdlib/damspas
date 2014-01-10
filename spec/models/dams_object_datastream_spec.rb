@@ -363,7 +363,23 @@ END
         solr_doc["familyName_tesim"].should == ["Calder (Family : 1757-1959 : N.C.)", "Calder (Family : 1757-1959 : N.C.)...."]
 
         #it "should index name" do
-        solr_doc["name_tesim"].should == ["Scripps Institute of Oceanography, Geological Collections", "Yañez, Angélica María", "Personal Name 2", "Name 4", "Conference Name 2", "Family Name 2", "Generic Name", "Generic Name Internal"]
+        solr_doc["name_tesim"].should include "Scripps Institute of Oceanography, Geological Collections"
+        solr_doc["name_tesim"].should include "Yañez, Angélica María"
+        solr_doc["name_tesim"].should include "Personal Name 2"
+        solr_doc["name_tesim"].should include "Name 4"
+        solr_doc["name_tesim"].should include "Conference Name 2"
+        solr_doc["name_tesim"].should include "Family Name 2"
+        solr_doc["name_tesim"].should include "Generic Name"
+        solr_doc["name_tesim"].should include "Generic Name Internal"
+        solr_doc["name_tesim"].should include "American Library Association. Annual Conference"
+        solr_doc["name_tesim"].should include "American Library Association. Annual Conference...."
+        solr_doc["name_tesim"].should include "Lawrence Livermore Laboratory"
+        solr_doc["name_tesim"].should include "Lawrence Livermore Laboratory......"
+        solr_doc["name_tesim"].should include "Calder (Family : 1757-1959 : N.C.)"
+        solr_doc["name_tesim"].should include "Calder (Family : 1757-1959 : N.C.)...."
+        solr_doc["name_tesim"].should include "Burns, Jack O."
+        solr_doc["name_tesim"].should include "Burns, Jack O....."
+        solr_doc["name_tesim"].should include "Burns, Jack O.....2"
 
         #it "should index conferenceName" do
         solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]

@@ -7,10 +7,10 @@ describe DamsUnitsController do
       sign_in User.create!
     end
 
-    DamsUnit.create pid: "bb48484848", name: "RCI", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/"
+    DamsUnit.create pid: "bb48484848", name: "Research Data Curation Program", description: "Research Cyberinfrastructure: the hardware, software, and people that support scientific research.", uri: "http://rci.ucsd.edu/", code: "rci"
 
     it "returns http success" do
-      get 'view', :id => 'bb48484848'
+      get 'show', :id => 'rci'
       response.should be_success
     end
   end

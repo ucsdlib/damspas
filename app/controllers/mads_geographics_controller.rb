@@ -26,10 +26,6 @@ class MadsGeographicsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @mads_geographic = MadsGeographic.find(params[:id])
-  end
-
   def new
     @mads_geographic.elementList.geographicElement.build
     @mads_geographic.scheme.build
@@ -46,9 +42,9 @@ class MadsGeographicsController < ApplicationController
   def create
     if @mads_geographic.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_mads_geographic_path(@mads_geographic, {:parent_id => params[:parent_id]})
+			redirect_to mads_geographic_path(@mads_geographic, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_mads_geographic_path(@mads_geographic, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to mads_geographic_path(@mads_geographic, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @mads_geographic, notice: "Geographic has been saved"
         end

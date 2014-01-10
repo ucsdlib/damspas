@@ -9,11 +9,11 @@
 		 htmlClose = "</ul></dd>"
 	 end
 
-	 fieldData = @document["#{prefix}name_tesim"]
+	 fieldData = @document["#{prefix}other_name_tesim"]
 
 	 if fieldData != nil
 
-		 htmlOpen %= 'Name'.pluralize(fieldData.count)
+		 htmlOpen %= 'Other Name'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
 
 		 fieldData.each do |datum|

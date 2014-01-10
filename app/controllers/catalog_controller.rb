@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'blacklight/catalog'
+require 'rsolr'
 
 class CatalogController < ApplicationController  
 
@@ -238,34 +239,23 @@ class CatalogController < ApplicationController
 			params.delete('spellcheck.q')
 		end
 		
+		# remove spelling suggestions with no results
 		i = 0
-
 		@suggestions = ([@response.spelling.collation] | spelling_words).compact
+        tmp_params = params.clone
 		@suggestions.each do |word|
-			i = i + 1
-			params[:q] = word
-			(@response, @document_list) = get_search_results params
-			spelling_words = @response.spelling.words
-			if(@document_list.size > 0)
-				#if(params['spellcheck.q'].nil?)
-				j = 0
-				@suggestions.each do |word|
-					j = j + 1
-					#Exclude those that have no results
-					if j > i
-						spelling_words << word if !word.nil? && !spelling_words.include?(word)
-					end
-				end
-				#end
-				break;
-			end
+			tmp_params[:q] = word
+			(tmp_resp, tmp_docs) = get_search_results tmp_params
+			@suggestions.delete(word) if tmp_docs.size == 0
 		end
+        spelling_words = @suggestions
 	  else
 		params.delete('spellsuggestions')
 		params['spellcheck.q'] = params[:q]
 		spelling_collation = @response.spelling.collation
 		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
 	  end
+
 	  #Remove the case sensive spellcheck suggestions that should not show up
 	  spelling_words = spelling_words.dup
 	  @response.spelling.words.clear
@@ -274,11 +264,10 @@ class CatalogController < ApplicationController
 			@response.spelling.words << x.downcase
 		end
 	  end
-	  #@response.spelling.words.uniq
       @filters = params[:f] || []
       
       respond_to do |format|
-        format.html { save_current_search_params }
+        format.html { }
         format.rss  { render :layout => false }
         format.atom { render :layout => false }
       end
@@ -333,6 +322,11 @@ class CatalogController < ApplicationController
     res = blacklight_solr.send_and_receive(solr_path, :params => params)
     solr_response = Blacklight::SolrResponse.new(force_to_utf8(res), params)
     solr_response
+  end
+  def solrdoc
+    @obj = ActiveFedora::Base.find(params[:id], :cast=>true)
+    xml = RSolr::Xml::Generator.new
+    render xml: xml.add( @obj.to_solr )
   end
 
 end 

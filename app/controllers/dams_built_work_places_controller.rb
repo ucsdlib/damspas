@@ -26,10 +26,6 @@ class DamsBuiltWorkPlacesController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
-  def view
-    @dams_built_work_place = DamsBuiltWorkPlace.find(params[:id])
-  end
-
   def new
     #Check schemes ####################################################################
     @dams_built_work_place.scheme.build
@@ -45,9 +41,9 @@ class DamsBuiltWorkPlacesController < ApplicationController
   def create
     if @dams_built_work_place.save
 	    if(!params[:parent_id].nil?)
-			redirect_to view_dams_built_work_place_path(@dams_built_work_place, {:parent_id => params[:parent_id]})
+			redirect_to dams_built_work_place_path(@dams_built_work_place, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
-			redirect_to view_dams_built_work_place_path(@dams_built_work_place, {:parent_class => params[:parent_class]}) 	    			 	    
+			redirect_to dams_built_work_place_path(@dams_built_work_place, {:parent_class => params[:parent_class]}) 	    			 	    
 	    else    
         	redirect_to @dams_built_work_place, notice: "built work place has been saved"
         end
