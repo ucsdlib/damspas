@@ -31,7 +31,7 @@ namespace :deploy do
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
-      execute :mkdir, release_path.join('tmp')
+      execute :mkdir, "-p #{release_path.join('tmp')}"
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
@@ -46,7 +46,7 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:write_version'
-  after :finishing, 'deploy:assets:precompile'
+  before :restart, 'deploy:assets:precompile'
   after :finishing, 'deploy:cleanup'
 
 end
