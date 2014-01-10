@@ -30,6 +30,25 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       collections
     end
 
+   def load_unit(unit)
+	if !unit.first.nil?
+	    u_pid = unit.first.pid
+	    
+	    if !unit.first.name.first.nil? && unit.first.name.first.to_s.length > 0
+	      unit.first
+	    elsif u_pid.to_s.length > 0
+          begin
+	        DamsUnit.find(u_pid)
+          rescue
+            logger.warn "XXX: error loading unit: #{u_pid}"
+          end
+	    end
+	else
+		nil
+	end
+
+  end
+  
  ## Language ##################################################################
   def load_languages
     load_languages(language)
@@ -776,7 +795,23 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       i = i + 1
     end
   end
-  
+
+  def insertUnitFields (solr_doc, unit)
+    u = load_unit unit
+    if !u.nil?
+      Solrizer.insert_field(solr_doc, 'unit', u.name)
+      Solrizer.insert_field(solr_doc, 'unit_code', u.code)
+      Solrizer.insert_field(solr_doc, 'all_fields', u.name)
+      Solrizer.insert_field(solr_doc, 'all_fields', u.code)
+      unit_json = {
+        :id => u.pid,
+        :code => u.code.first.to_s,
+        :name => u.name.first.to_s
+      }
+      Solrizer.insert_field(solr_doc, 'unit_json', unit_json.to_json)
+    end    
+  end
+   
   # field types
   def to_solr (solr_doc = {})
     super(solr_doc)

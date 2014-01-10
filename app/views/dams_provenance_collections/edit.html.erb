@@ -11,8 +11,10 @@
 
   <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
    
-<%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>      
-  
+  <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>      
+
+  <%= render :partial => 'shared/edit_fields/unit_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection"}%>
+    
   <%= render :partial => 'shared/edit_fields/language_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :f => f}%>
     
   <%= render :partial => 'shared/edit_fields/notes_edit_form' , :locals => {:object => @dams_provenance_collection, :object_type => "dams_provenance_collection", :type => "note", :f => f}%>

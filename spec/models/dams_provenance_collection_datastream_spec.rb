@@ -104,6 +104,7 @@ describe DamsProvenanceCollectionDatastream do
         solr_doc["part_name_tesim"].should == ["May 2009"]
         solr_doc["part_id_tesim"].should == ["bb25252525"]
         solr_doc["part_json_tesim"].should == ['{"id":"bb25252525","name":"May 2009","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}', '{"id":"bd6110278b","name":"Sample Provenance Part","thumbnail":"http://pontos.ucsd.edu/images/newsrel.jpg"}']
+		solr_doc["unit_code_tesim"].should == ["rci"]
       end
     end
   end
