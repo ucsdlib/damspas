@@ -72,7 +72,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
    
     @dams_provenance_collection_part.assembledCollection.build 
     @dams_provenance_collection_part.provenanceCollection.build   
-   
+    @dams_provenance_collection_part.unit.build
     
     
     @dams_provenance_collection_part.relationship.build
@@ -94,7 +94,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
     @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
    
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    
+    @dams_units = get_objects_url('DamsUnit','unit_name_tesim')
   end
   
 def edit
@@ -109,7 +109,7 @@ def edit
     @mads_languages << "Create New Language"
     @dams_names = get_objects('MadsPersonalName','name_tesim')
     
-    
+    @unit_id = @dams_provenance_collection_part.unit.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection_part.language.to_s.gsub(/.*\//,'')[0..9]
 
     @simple_subject_type = get_simple_subject_type(@dams_provenance_collection_part)  
@@ -183,7 +183,8 @@ def edit
     @dams_provenance_collection_part.assembledCollection.clear  
     @dams_provenance_collection_part.provenanceCollection.clear 
     @dams_provenance_collection_part.relationship.clear 
-    
+    @dams_provenance_collection_part.unit.clear
+     
     @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part]
     if @dams_provenance_collection_part.save
         redirect_to @dams_provenance_collection_part, notice: "Successfully updated provenance_collection_part"

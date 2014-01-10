@@ -51,6 +51,7 @@ module Dams
         map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
         # collections
+        map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
         map.collection(:in => DAMS)
         map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
         map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
@@ -67,13 +68,20 @@ module Dams
                       :note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
-                    :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                    :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :allow_destroy => true 
+                      :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
+                      :unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :allow_destroy => true 
 
       
 
       def serialize
           check_type( graph, rdf_subject, DAMS.ProvenanceCollectionPart )
+          if(!@unitURI.nil?)
+	        if new?
+	          graph.insert([rdf_subject, DAMS.unit, @unitURI])
+	        else
+	          graph.update([rdf_subject, DAMS.unit, @unitURI])
+	        end
+	     end            
           if(!@langURI.nil?)
             if(@langURI.class == Array)
               @langURI.each do |lang|

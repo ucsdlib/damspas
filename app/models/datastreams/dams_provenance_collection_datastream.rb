@@ -11,6 +11,7 @@ class DamsProvenanceCollectionDatastream < DamsResourceDatastream
     Solrizer.insert_field(solr_doc, 'visibility', visibility)
 
 	insertCollectionFields solr_doc, 'part', part_node, DamsProvenanceCollectionPart
+	insertUnitFields solr_doc, unit
     super
   end           
 
