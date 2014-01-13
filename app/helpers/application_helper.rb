@@ -67,7 +67,7 @@ module ApplicationHelper
     else
       pref = "component_#{i}_"
       dates = document["#{pref}date_json_tesim"]
-      if dateRet.blank?
+      if dateRet.blank? && dates != nil
         dateRet = dateHelper dates
       end
     end    
