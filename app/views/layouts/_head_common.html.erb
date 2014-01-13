@@ -1,5 +1,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta content="7MiYjX2ZghMOWvtKRWlar--c6mD2ose5EcbQFQ6szFA" name="google-site-verification"/>
+<meta content="University of California, San Diego" name="ORGANIZATION"/>
+<meta content="index,follow,noarchive" name="robots"/>
+<meta content="DC" name="SITE"/>
+<meta content="<%= full_title(@page_title) %>" name="PAGETITLE"/>
+<% if !@document.nil? and @document.class != Array
+  data = @document["note_json_tesim"]
+  if data != nil
+    data.each do |n|
+      note = JSON.parse(n)
+      note_type = note['type']
+
+      # add notes if type/label match specification
+      if ( !note_type.nil? && note_type.include?("description"))
+%>
+        <meta content="<%= note['value']%>" name="DESCRIPTION"/> 
+<%
+      end
+    end
+  end 
+end%>
 <title><%= full_title(@page_title) %></title>
 
 <%# LE JAVASCRIPT  %>
