@@ -66,11 +66,9 @@ module ApplicationHelper
       dateRet = dateHelper dates
     else
       pref = "component_#{i}_"
-      while (!document["#{pref}date_json_tesim"].nil?) do
-        dates = document["#{pref}date_json_tesim"]
+      dates = document["#{pref}date_json_tesim"]
+      if dateRet.blank?
         dateRet = dateHelper dates
-        i += 1
-        pref = "component_#{i}_"
       end
     end    
     return dateRet 
