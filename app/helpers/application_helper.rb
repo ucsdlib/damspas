@@ -59,57 +59,73 @@ module ApplicationHelper
   
   def date_Val document
     dateRet = ''
-    if defined?(componentIndex) # Then we're working with a component
-      prefix = "component_#{componentIndex}_"
-    else 
-      prefix = ''
-    end
-    puts "prepre" + prefix
-    dates = document["#{prefix}date_json_tesim"]
+    i = 1
+    #Looking at date_jason_tesim because the JSON allows for extrapolation of value/beginDate/endDate fields for each date
+    dates = document["date_json_tesim"]  
     if dates != nil
-      c2 = false
-      c3 = false
-      c4 = false
-      dates.each do |data|
-        date = JSON.parse(data)
-        if date['type'].casecmp("creation") == 0 || date['type'].casecmp("created") == 0
-          if date['value']
-            dateRet = date['value']
-          else
-            dateRet = date['beginDate']
-          end
-          break
-        elsif date['type'].casecmp("copyright") == 0 && dateRet.blank?
-          if date['value']
-            dateRet = date['value']
-          else
-            dateRet = date['beginDate']
-          end
-          c2 = true
-        elsif date['type'].casecmp("published") == 0 && dateRet.blank? && !c2
-          if date['value']
-            dateRet = date['value']
-          else
-            dateRet = date['beginDate']
-          end
-          c3 = true
-        elsif date['type'].casecmp("issued") == 0 && dateRet.blank? && !c2 && !c3
-          if date['value']
-            dateRet = date['value']
-          else
-            dateRet = date['beginDate']
-          end
-          c4 = true
-        elsif !c2 && !c3 && !c4
-          if date['value']
-            dateRet = date['value']
-          else
-            dateRet = date['beginDate']
-          end
+      dateRet = dateHelper dates
+    else
+      pref = "component_#{i}_"
+      while (!document["#{pref}date_json_tesim"].nil?) do
+        dates = document["#{pref}date_json_tesim"]
+        d = dateHelper dates
+        #Display individual component dates
+        if dateRet.blank?
+          dateRet += "Component #{i}: " + d
+        else
+          dateRet += "; Component #{i}: " + d
         end
+        i += 1
+        pref = "component_#{i}_"
       end
     end    
     return dateRet 
+  end
+
+  def dateHelper dates
+    dateRet = ''
+    c2 = false
+    c3 = false
+    c4 = false
+    dates.each do |data|
+      date = JSON.parse(data)
+      if date['type'].casecmp("creation") == 0 || date['type'].casecmp("created") == 0
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        break
+      elsif date['type'].casecmp("copyright") == 0 && dateRet.blank?
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        c2 = true
+      elsif date['type'].casecmp("published") == 0 && dateRet.blank? && !c2
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        c3 = true
+      elsif date['type'].casecmp("issued") == 0 && dateRet.blank? && !c2 && !c3
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        c4 = true
+      elsif !c2 && !c3 && !c4
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+      end
+    end
+    return dateRet
   end
 
   # Parsing the json title values
@@ -126,12 +142,8 @@ module ApplicationHelper
 	datehash = JSON.parse jsonString
 	dates = Array.new
 	dates << datehash['value'] unless datehash['value']==nil?
-  if dates.empty?
 	dates << datehash['beginDate'] unless datehash['beginDate']==nil?
-end
-if dates.empty?
 	dates << datehash['endDate'] unless datehash['endDate']==nil?
-end
 	return dates.map { |v|v }.join(sep).html_safe
   end
   
