@@ -68,13 +68,7 @@ module ApplicationHelper
       pref = "component_#{i}_"
       while (!document["#{pref}date_json_tesim"].nil?) do
         dates = document["#{pref}date_json_tesim"]
-        d = dateHelper dates
-        #Display individual component dates
-        if dateRet.blank?
-          dateRet += "Component #{i}: " + d
-        else
-          dateRet += "; Component #{i}: " + d
-        end
+        dateRet = dateHelper dates
         i += 1
         pref = "component_#{i}_"
       end
