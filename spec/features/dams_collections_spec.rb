@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+solrizer = Solrizer::Fedora::Solrizer.new
+solrizer.solrize 'bd51895934'
+solrizer.solrize 'bd64524003'
+
 feature 'Visitor wants to look at collections' do
   scenario 'public collections list' do
     visit catalog_facet_path('collection_sim')
@@ -7,10 +11,10 @@ feature 'Visitor wants to look at collections' do
   end
   scenario 'curator collections list' do
     sign_in_developer
-    visit catalog_facet_path('collection_sim')
+    visit dams_collections_path({:per_page=>100})
     expect(page).to have_selector('a', :text => 'curator-only collection')
   end
-  scenario 'recursive colleciton membership' do
+  scenario 'recursive collection membership' do
     sign_in_developer
     visit catalog_index_path({'f[collection_sim][]' => 'UCSD Electronic Theses and Dissertations'})
     expect(page).to have_selector('a', :text => 'Test Object in Provenance Collection')
