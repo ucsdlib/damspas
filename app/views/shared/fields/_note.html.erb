@@ -29,10 +29,7 @@
          ( label == nil || label == note_label ) &&
          ( exclude_type == nil || !exclude_type.include?(note_type) ) &&
          ( exclude_label == nil || !exclude_label.include?(note_label) )
-        logger.warn "XXX note: #{note_type}.#{note_label}"
         notes << note
-      else
-        logger.warn "XXX excluded note: #{note_type}.#{note_label} != #{type}.#{label}"
       end
     end
   end
