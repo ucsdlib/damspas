@@ -57,6 +57,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     languages = []
     begin
       language.each do |lang|
+        #foo = lang # XXX phantom
         if lang.name.first != nil && lang.code.first != nil
           # use inline data if available
           languages << lang
@@ -170,28 +171,24 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_genreForms(genreForm)
   end
   def load_genreForms(genreForm)
-    foo = genreForm.to_s
 	loadMadsObjects genreForm,MadsGenreForm
   end
   def load_geographics
     load_geographics(geographic)
   end
   def load_geographics(geographic)
-    foo = geographic.to_s
 	loadMadsObjects geographic,MadsGeographic
   end
   def load_iconographies
     load_iconographies(iconography)
   end
   def load_iconographies(iconography)
-    foo = iconography.to_s
     loadMadsObjects iconography,DamsIconography
   end
   def load_occupations
     load_occupations(occupation)
   end
   def load_occupations(occupation)
-    foo = occupation.to_s
 	loadMadsObjects occupation,MadsOccupation
   end
   def load_scientificNames
@@ -216,14 +213,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_temporals( temporal )
   end
   def load_temporals( temporal )
-    foo = temporal.to_s
 	loadMadsObjects temporal,MadsTemporal
   end
   def load_topics
     load_topics(topic)
   end
   def load_topics(topic)
-    foo = topic.to_s
 	loadMadsObjects topic,MadsTopic
   end
 
@@ -232,35 +227,30 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_names(name)
   end
   def load_names(name)
-    foo = name.to_s
 	loadMadsObjects name,MadsName
   end
   def load_conferenceNames
     load_conferenceNames(conferenceName)
   end
   def load_conferenceNames(conferenceName)
-    foo = conferenceName.to_s
 	loadMadsObjects conferenceName,MadsConferenceName
   end
   def load_corporateNames
     load_corporateNames(corporateName)
   end
   def load_corporateNames(corporateName)
-    foo = corporateName.to_s
 	loadMadsObjects corporateName,MadsCorporateName
   end
   def load_familyNames
     load_familyNames(familyName)
   end
   def load_familyNames(familyName)
-    foo = familyName.to_s
 	loadMadsObjects familyName,MadsFamilyName
   end
   def load_personalNames
     load_personalNames(personalName)
   end
   def load_personalNames(personalName)
-    foo = personalName.to_s
 	loadMadsObjects personalName,MadsPersonalName
   end
 
@@ -343,6 +333,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertNameFields (solr_doc, fieldName, objects)
     insertFields( solr_doc, fieldName, objects )
     if objects != nil
+      insertFacets( solr_doc, "name", objects )
       objects.each do |obj|
         Solrizer.insert_field(solr_doc, "name", obj.name)
       end
