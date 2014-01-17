@@ -79,6 +79,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   def load_rightsHolders(rightsHolder)
     rightsHolders = []
     rightsHolder.each do |name|
+      foo = name.to_s
       if !name.name.first.nil? && name.name.first != ""
         # use inline data if available
         rightsHolders << name
