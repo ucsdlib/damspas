@@ -1,7 +1,7 @@
 <section id="home-01">
   <%=image_tag '/assets/home-page/logo-dc.png', :alt => 'Digital Collections', :id => 'dc-logo' %>
 	<section class="tagline">
-		<p>Currently totaling 98,345 images, audio recordings, videos, documents, &amp; data sets</p>
+		<p>Currently totaling 98,345 images, audio recordings, videos, documents, &amp;&nbsp;data&nbsp;sets</p>
 	</section>
   <%= form_tag catalog_index_url, :method => :get, :class => '', :id => 'dc-search-box' do %>
 		<fieldset>
@@ -32,5 +32,5 @@
     <%= link_to '<span class="visually-hidden">Research Cyberinfrastructure</span>'.html_safe, dams_unit_collections_path('rci'), :class => 'cat-rci' %>
     <p>Research data gathered by campus researchers as part of a campus-wide Research Cyberinfrastructure initiative</p>
   </div>
-  <p class="invitation">Currently totaling 98,345 images, documents, data sets, audio and video, we continue to add items over time, and we invite you to search or browse these collections for research or educational purposes.</p>
+  <p class="invitation">Currently totaling 98,345 images, audio recordings, videos, documents, and data sets, we continue to add items over time, and we invite you to search or browse these collections for research or educational purposes.</p>
 </section>

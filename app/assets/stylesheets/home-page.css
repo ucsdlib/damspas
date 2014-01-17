@@ -38,7 +38,7 @@
 .visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
 
 .tagline{width:80%;margin:0 auto;}
-.tagline p{text-align:center;color:#fff;padding:1em 0;margin:0;line-height:normal;text-shadow: 1px 2px 3px rgba(0,0,0,0.5);}
+.tagline p{text-align:center;color:#fff;color:rgba(255,255,255,0.75);padding:1em 0;margin:0;line-height:normal;}
 
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
