@@ -37,7 +37,7 @@
 .invitation{font-family:"Archivo Narrow";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
 .visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
 
-.tagline{text-align:center;color:#fff;padding:20px 20px 20px 20px;line-height:normal;}
+.tagline{text-align:center;color:#fff;padding:1em 20px;margin:0;line-height:normal;}
 
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
