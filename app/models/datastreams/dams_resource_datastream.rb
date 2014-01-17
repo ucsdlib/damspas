@@ -57,7 +57,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     languages = []
     begin
       language.each do |lang|
-        #foo = lang # XXX phantom
+        foo = lang.to_s
         if lang.name.first != nil && lang.code.first != nil
           # use inline data if available
           languages << lang
@@ -332,6 +332,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def insertNameFields (solr_doc, fieldName, objects)
     insertFields( solr_doc, fieldName, objects )
+    insertFacets( solr_doc, 'subject_topic', objects )
     if objects != nil
       insertFacets( solr_doc, "name", objects )
       objects.each do |obj|
@@ -346,6 +347,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, fieldName, obj.name,facetable)
       end
     end
+  end
+  def insertSubjectFields( solr_doc, fieldName, objects )
+    insertFields solr_doc, fieldName, objects
+    insertFacets solr_doc, 'subject_topic', objects
   end
 
   def insertComplexSubjectFields (solr_doc, cid, objects)
@@ -490,6 +495,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	    rel = relationship.name    
 	  end
 
+      foo = rel.to_s
       if rel != nil && (rel.first.nil? || rel.first.name.first.nil?)
         rel = relationship.load  
       end
@@ -508,6 +514,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         
         begin        
           relRole = relationship.role.first.name.first.to_s
+          foo = relRole.to_s
           
           # display     
         
@@ -622,11 +629,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     if langs != nil
       n = 0
       langs.map.each do |lang|
+        foo = lang.to_s
         n += 1
         begin
-		  #Solrizer.insert_field(solr_doc, field, lang.name)
-		  #Solrizer.insert_field(solr_doc, "all_fields", lang.name)
-
 	      language_json = {}
 	      language_obj = nil
 	      language_uri = lang.to_s
@@ -850,16 +855,17 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
     insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
     insertFields solr_doc, 'function', load_functions(function)
-    insertFields solr_doc, 'genreForm', load_genreForms(genreForm)
-    insertFields solr_doc, 'geographic', load_geographics(geographic)
     insertFields solr_doc, 'iconography', load_iconographies(iconography)
     insertFields solr_doc, 'occupation', load_occupations(occupation)
     insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
     insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
     insertFields solr_doc, 'technique', load_techniques(technique)
     insertFields solr_doc, 'temporal', load_temporals(temporal)
-    insertFields solr_doc, 'topic', load_topics(topic)
-    insertFacets solr_doc, 'subject_topic', load_topics(topic)
+
+    # subjects bundled under "Subjects" heading
+    insertSubjectFields solr_doc, 'genreForm', load_genreForms(genreForm)
+    insertSubjectFields solr_doc, 'geographic', load_geographics(geographic)
+    insertSubjectFields solr_doc, 'topic', load_topics(topic)
 
     # subject - names
     insertNameFields solr_doc, 'other_name', load_names(name)

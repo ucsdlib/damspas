@@ -23,13 +23,13 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_link('Image', href:'/search?f%5Bobject_type_sim%5D%5B%5D=image&id='+test_pid)
 
     # conference name
-    expect(page).to have_link('mads:ConferenceName value', href:"/search?f%5Bsubject_conferenceName_sim%5D%5B%5D=mads%3AConferenceName+value&id="+test_pid)
+    expect(page).to have_link('mads:ConferenceName value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AConferenceName+value&id="+test_pid)
 
     # corporate name
     expect(page).to have_selector('li', :text=>"mads:CorporateName value")
 
     # family name
-    expect(page).to have_link('mads:FamilyName value', href:"/search?f%5Bsubject_familyName_sim%5D%5B%5D=mads%3AFamilyName+value&id="+test_pid)
+    expect(page).to have_link('mads:FamilyName value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AFamilyName+value&id="+test_pid)
 
     # personal name
     expect(page).to have_selector('li', :text=>"Smith, John, Dr., 1965-")
@@ -91,7 +91,7 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_selector('li', :text=>"mads:GenreForm value")
 
     # Geographic
-    expect(page).to have_link('mads:Geographic value', href:"/search?f%5Bsubject_geographic_sim%5D%5B%5D=mads%3AGeographic+value&id="+test_pid)
+    expect(page).to have_link('mads:Geographic value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AGeographic+value&id="+test_pid)
 
     # Iconography
     expect(page).to have_link('dams:Iconography value', href:"/search?f%5Bsubject_iconography_sim%5D%5B%5D=dams%3AIconography+value&id="+test_pid)
