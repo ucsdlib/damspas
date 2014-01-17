@@ -48,7 +48,7 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
 	    var new_id = new Date().getTime();
 	    data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
 	    data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
-	    var regexp = new RegExp("newClassName", "g");
+	    var regexp = new RegExp("newSimpleSubjects", "g");
 	    data = data.replace(regexp,new_id);
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);
@@ -75,7 +75,7 @@ function getCreators(link,type,location,fieldId,selectedValue) {
       var new_id = new Date().getTime();
       data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
       data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
-      var regexp = new RegExp("newClassName", "g");
+      var regexp = new RegExp("newCreator", "g");
       data = data.replace(regexp,new_id);
       if(location != null && location.length > 0)
         $(location).html(data);
@@ -93,13 +93,13 @@ function getNames(link,type,location,fieldId,selectedValue,relationship,selected
 
   if (typeof link == "string") {
     q = link;
-    fieldName = "relationshipNameURI";
+    fieldName = "relationshipNameURI";  //Change this
   } else {
     q = link.value;
     fieldName = firstToLowerCase(q);
   }
 
-  if(q != null && q.length > 0) {
+  if(q != null && q.length > 0) {   //CHange this below
     $.get(baseURL+"/get_name/get_name?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
       var new_id = new Date().getTime();
       var regexp = new RegExp("attributes_"+fieldId, "g");
@@ -124,7 +124,7 @@ function getSimpleEditSubjects(link,type,location)
   if(q != null && q.length > 0) {
 	  $.get(baseURL+"/get_subject/get_subject?fieldName=simpleSubjectURI&formType="+type+"&q="+q,function(data,status){
 	    var new_id = new Date().getTime();
-	    var regexp = new RegExp("newClassName", "g");
+	    var regexp = new RegExp("newSimpleSubjects", "g");
 	    data = data.replace(regexp,new_id);
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);	
@@ -281,24 +281,24 @@ function add_fields(link, association, content) {
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
-function add_subject_fields(link, content) {
+function add_dynamic_fields(link, content, className) {
     var new_id = new Date().getTime();
     //var regexp = new RegExp("simpleSubject", "g");
+    var regexp = new RegExp("new" + className, "g");
+    $(link).parent().before(content.replace(regexp, new_id));
+}
+
+function add_subject_fields(link, content) {
+    var new_id = new Date().getTime();
     var regexp = new RegExp("newClassName", "g");
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
-function add_name_fields(link, content) {
-    var new_id = new Date().getTime();
-    var regexp = new RegExp("newClassNameC", "g");
-    $(link).parent().before(content.replace(regexp, new_id));
-}
-
-function add_relationship_fields(link, content) {
-    var new_id = new Date().getTime();
-    var regexp = new RegExp("newClassNameRelationship", "g");
-    $(link).parent().before(content.replace(regexp, new_id));
-}
+// function add_relationship_fields(link, content) {
+//     var new_id = new Date().getTime();
+//     var regexp = new RegExp("newClassNameRelationship", "g");
+//     $(link).parent().before(content.replace(regexp, new_id));
+// }
 
 function target_popup(target) {
   var win = window.open(target, 'popup', 'fullscreen=yes, resizable=no,toolbar=0,directories=0,menubar=0,status=0,scrollbars=yes');
