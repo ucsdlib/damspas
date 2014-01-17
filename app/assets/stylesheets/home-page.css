@@ -7,7 +7,7 @@
 #home-02 h2{margin:0;font-family:"Archivo Narrow";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
 #home-02 h3{margin:20px;font-weight: normal;font-size:1.9em;line-height:normal;}
 #dc-logo{display:block;margin: 0 auto;padding-top:100px;}
-#dc-search-box{padding-top:50px;margin:0;}
+#dc-search-box{padding-top:0px;margin:0;}
 #dc-search-box fieldset{display:block;width:80%;padding:0;margin:0 auto;border:5px solid #fff;background-color:#fff;box-shadow: 0 0 10px rgba(0,0,0,0.5);position:relative;}
 #dc-search-box input[type=text]{color:#333;display:inline-block;margin:0;padding:0;border:none;font-size: 2.5em;width:80%;outline:none;height:46px;border-radius:0;box-shadow:none;line-height:normal;}
 #dc-search-box input[type=submit]{height:46px;display:inline-block;margin:0;padding:0;border:none;font-size:2.5em;color:#fff;background-color:#e67a00;width:20%;position:absolute;top:0;right:0;border-radius:0;font-family:"Glyphicons Halflings";}
@@ -36,6 +36,9 @@
 .cat-rci{background:#f39d3d url("home-page/logo-rci.png") center center no-repeat;}
 .invitation{font-family:"Archivo Narrow";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
 .visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
+
+.tagline{text-align:center;color:#fff;padding:20px 20px 20px 20px;line-height:normal;}
+
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
 /* RWD */
