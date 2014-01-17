@@ -1,9 +1,9 @@
   <%
-     nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+     typeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
 
   <h3>Subject Name</h3>  
 
-<%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => object_type, :nameTypeArray => nameTypeArray}%>
+<%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray}%>
 
-<p><%= link_to_add_creators "Add Name", f, "#{object_type}", nameTypeArray%></p>
+<p><%= link_to_add_dynamic_fields "Add Name", f, "#{object_type}", typeArray, "creator", 0, 0 %></p>

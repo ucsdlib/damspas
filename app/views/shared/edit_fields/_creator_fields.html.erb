@@ -1,6 +1,6 @@
 <div class="fields">
 <br/>
-<%= select_tag "#{object_type}[nameType][]",  options_for_select(nameTypeArray) , :prompt=>"Select Name" , :onChange=>"javascript: getCreators(this,'#{object_type}','#newClassNameC','0');"%>
+<%= select_tag "#{object_type}[nameType][]",  options_for_select(typeArray) , :prompt=>"Select Name" , :onChange=>"javascript: getCreators(this,'#{object_type}','#newCreator','0');"%>
 
-<div id="newClassNameC"></div>
+<div id="newCreator"></div>
 </div>
