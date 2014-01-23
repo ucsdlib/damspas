@@ -1,12 +1,12 @@
 <div class="fields">
 <br/>
 <% if selected_type.nil?%>
-	<%= select_tag "#{object_type}[relationshipNameType][]",  options_for_select(typeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getEditRelationships(this,'#{object_type}','#newRelationship');"%>
+	<%= select_tag "#{object_type}[relationshipNameType][]",  options_for_select(typeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getSimpleEditSubjects(this,'#{object_type}','#newRelationship','relationshipName');"%>
 	<div id="newRelationship"></div>
 <% else %>
 	<%= hidden_field_tag "#{object_type}[relationshipNameType][]", "#{selected_type}" %>
 	<script type="text/javascript">
-	   getNames("<%= selected_type %>","<%= object_type %>","#newRelationship<%= index %>","0","<%= selected_name %>","true","<%= selected_role %>");
+	   getSimpleSubjects("<%= selected_type %>","<%= object_type %>","#newRelationship<%= index %>","0","relationshipName","<%= selected_name %>","true","<%= selected_role %>");
 	</script>
 	<div id="newRelationship<%= index %>"></div>
 	</div>	
