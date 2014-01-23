@@ -29,27 +29,43 @@ function getSubjects(type,q,location,fieldName,label)
     toggleRelationshipNames(q,"","names");
    }   
 }
-
-function getSimpleSubjects(link,type,location,fieldId,selectedValue)
+//rename
+function getSimpleSubjects(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
 {  
   var q = null;
   var fieldName = null;
-   
+  var rename = null;
+  var reg = null;
   if (typeof link == "string") {
   	q = link;
-  	fieldName = "simpleSubjectURI";
+  	fieldName = typeName+"URI";
   } else {
   	q = link.value;
   	fieldName = firstToLowerCase(q);
   }
-
+  if (typeName == 'simpleSubject') {
+    rename = "subject";
+    reg = "newSimpleSubjects";
+  }
+  else if (typeName == 'creator') {
+    rename = "name";
+    reg = "newCreator";
+  }
+  if (relationship == "true") {
+    url = baseURL+"/get_name/get_name?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
+  }
+  else {
+    url = baseURL+"/get_"+rename+"/get_"+rename+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
+  }
   if(q != null && q.length > 0) {
-	  $.get(baseURL+"/get_subject/get_subject?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+	  $.get(url,function(data,status){
 	    var new_id = new Date().getTime();
 	    data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
 	    data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
-	    var regexp = new RegExp("newSimpleSubjects", "g");
-	    data = data.replace(regexp,new_id);
+	    var regexp = new RegExp(reg, "g");
+	    data = data.replace(regexp,new_id); 
+      // console.log(String(data) +"hahah");
+      console.log(regexp+"shiodf");
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);
 	    else
@@ -58,73 +74,75 @@ function getSimpleSubjects(link,type,location,fieldId,selectedValue)
   }
 }
 
-function getCreators(link,type,location,fieldId,selectedValue) {
-  var q = null;
-  var fieldName = null;
-   
-  if (typeof link == "string") {
-    q = link;
-    fieldName = "creatorURI";
-  } else {
-    q = link.value;
-    fieldName = firstToLowerCase(q);
-  }
+// function getNames(link,type,location,fieldId,selectedValue,relationship,selectedRole)
+// {  
+//   var q = null;
+//   var fieldName = null;
 
-  if(q != null && q.length > 0) {
-    $.get(baseURL+"/get_name/get_name?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
-      var new_id = new Date().getTime();
-      data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
-      data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
-      var regexp = new RegExp("newCreator", "g");
-      data = data.replace(regexp,new_id);
-      if(location != null && location.length > 0)
-        $(location).html(data);
-      else
-        $(link).parent().before(data);
-    }); 
-  }
-}
+//   if (typeof link == "string") {
+//     q = link;
+//     fieldName = "relationshipNameURI";  //Change this
+//   } else {
+//     q = link.value;
+//     fieldName = firstToLowerCase(q);
+//   }
 
+//   if(q != null && q.length > 0) {   //CHange this below
+//     $.get(baseURL+"/get_name/get_name?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
+//       var new_id = new Date().getTime();
+//       var regexp = new RegExp("attributes_"+fieldId, "g");
+//       var tmp = "attributes]["+fieldId+"]";
+//       data = data.replace(regexp,"attributes_"+new_id);
+//       data = data.split(tmp).join("attributes]["+new_id+"]");
 
-function getNames(link,type,location,fieldId,selectedValue,relationship,selectedRole)
-{  
-  var q = null;
-  var fieldName = null;
-
-  if (typeof link == "string") {
-    q = link;
-    fieldName = "relationshipNameURI";  //Change this
-  } else {
-    q = link.value;
-    fieldName = firstToLowerCase(q);
-  }
-
-  if(q != null && q.length > 0) {   //CHange this below
-    $.get(baseURL+"/get_name/get_name?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
-      var new_id = new Date().getTime();
-      var regexp = new RegExp("attributes_"+fieldId, "g");
-      var tmp = "attributes]["+fieldId+"]";
-      data = data.replace(regexp,"attributes_"+new_id);
-      data = data.split(tmp).join("attributes]["+new_id+"]");
-
-      regexp = new RegExp("newClassName", "g");
-      data = data.replace(regexp,new_id);
-
-      if(location != null && location.length > 0)
-        $(location).html(data);
-      else
-        $(link).parent().before(data);
-    }); 
-  }
-}
-
-function getSimpleEditSubjects(link,type,location)
+//       regexp = new RegExp("newRelationship", "g");
+//       data = data.replace(regexp,new_id);
+//       console.log(data);
+//       console.log(regexp);
+//       if(location != null && location.length > 0)
+//         $(location).html(data);
+//       else
+//         $(link).parent().before(data);
+//     }); 
+//   }
+// }
+// function getRelationshipHelper(data,fieldId)
+//rename
+function getSimpleEditSubjects(link,type,location,typeName)
 {  
   var q = link.value;
+  var rename = null;
+  var reg = null;
+  var fieldName = null;
+  var url = null;
+
+
+  if (typeName == 'simpleSubject') {
+    rename = "subject";
+    reg = "newSimpleSubjects";
+  }
+  else if (typeName == 'creator') {
+    rename = "name";
+    reg = "newCreator";
+  }
+  else if (typeName == 'relationshipName') {
+    rename = "name";
+    reg = "newRelationship";
+  }
+
+  fieldName = typeName+"URI";
+
+  if (typeName == 'relationshipName'){
+    url = baseURL+"/get_"+rename+"/get_"+rename+"?&relationship=true&fieldName="+fieldName+"&formType="+type+"&q="+q;   
+  }
+  else {
+    url = baseURL+"/get_"+rename+"/get_"+rename+"?fieldName="+fieldName+"&formType="+type+"&q="+q;
+  }
+  
   if(q != null && q.length > 0) {
-	  $.get(baseURL+"/get_subject/get_subject?fieldName=simpleSubjectURI&formType="+type+"&q="+q,function(data,status){
+	  $.get(url,function(data,status){
 	    var new_id = new Date().getTime();
-	    var regexp = new RegExp("newSimpleSubjects", "g");
+	    var regexp = new RegExp(reg, "g");
 	    data = data.replace(regexp,new_id);
 	    if(location != null && location.length > 0)
 	    	$(location).html(data);	
@@ -132,33 +150,19 @@ function getSimpleEditSubjects(link,type,location)
   }
 }
 
-function getEditCreators(link,type,location)
-{  
-  var q = link.value;
-  if(q != null && q.length > 0) {
-    $.get(baseURL+"/get_name/get_name?fieldName=creatorURI&formType="+type+"&q="+q,function(data,status){
-      var new_id = new Date().getTime();
-      var regexp = new RegExp("newClassName", "g");
-      data = data.replace(regexp,new_id);
-      if(location != null && location.length > 0)
-        $(location).html(data); 
-    }); 
-  }
-}
-
-function getEditRelationships(link,type,location)
-{  
-  var q = link.value;
-  if(q != null && q.length > 0) {
-    $.get(baseURL+"/get_name/get_name?&relationship=true&fieldName=relationshipNameURI&formType="+type+"&q="+q,function(data,status){
-      var new_id = new Date().getTime();
-      var regexp = new RegExp("newClassName", "g");
-      data = data.replace(regexp,new_id);
-      if(location != null && location.length > 0)
-        $(location).html(data); 
-    }); 
-  }
-}
+// function getEditRelationships(link,type,location)
+// {  
+//   var q = link.value;
+//   if(q != null && q.length > 0) {
+//     $.get(baseURL+"/get_name/get_name?&relationship=true&fieldName=relationshipNameURI&formType="+type+"&q="+q,function(data,status){
+//       var new_id = new Date().getTime();
+//       var regexp = new RegExp("newClassName", "g");
+//       data = data.replace(regexp,new_id);
+//       if(location != null && location.length > 0)
+//         $(location).html(data); 
+//     }); 
+//   }
+// }
 
 function displayRelationshipName(value)
 {
@@ -288,11 +292,11 @@ function add_dynamic_fields(link, content, className) {
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
-function add_subject_fields(link, content) {
-    var new_id = new Date().getTime();
-    var regexp = new RegExp("newClassName", "g");
-    $(link).parent().before(content.replace(regexp, new_id));
-}
+// function add_subject_fields(link, content) {
+//     var new_id = new Date().getTime();
+//     var regexp = new RegExp("newClassName", "g");
+//     $(link).parent().before(content.replace(regexp, new_id));
+// }
 
 // function add_relationship_fields(link, content) {
 //     var new_id = new Date().getTime();

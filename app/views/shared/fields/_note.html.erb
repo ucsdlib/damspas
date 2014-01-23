@@ -37,7 +37,7 @@
   if notes.count > 0
     if type == nil
       notes.each do |note| 
-        if (!note['value'].include? "http://library.ucsd.edu/ark:") #&& note['type'].casecmp("identifier") != 0 #Hide ARK URL from display
+        if (!note['value'].include? "http://library.ucsd.edu/ark:") #Hide ARK URL from display
           htmlOpen = htmlOpenTemp
           if note['displayLabel'] != nil && !note['displayLabel'].blank?
             htmlOpen %= note['displayLabel'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
@@ -52,7 +52,7 @@
       end
     else
       notes.each do |note|
-        if (!note['value'].include? "http://library.ucsd.edu/ark:") #&& note['type'].casecmp("identifier") != 0 #Hide ARK URL from display
+        if (!note['value'].include? "http://library.ucsd.edu/ark:") #Hide ARK URL from display
           htmlOpen = htmlOpenTemp
           htmlOpen %= type.to_s.capitalize
           concat htmlOpen.html_safe %>
