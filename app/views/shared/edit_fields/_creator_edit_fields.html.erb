@@ -1,12 +1,12 @@
 <div class="fields">
 <br/>
 <% if selected_type.nil?%>
-	<%= select_tag "#{object_type}[nameType][]",  options_for_select(typeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getSimpleEditSubjects(this,'#{object_type}','#newCreator','creator');"%>
+	<%= select_tag "#{object_type}[nameType][]",  options_for_select(typeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getEditDynamicFields(this,'#{object_type}','#newCreator','creator');"%>
 	<div id="newCreator"></div>
 <% else %>
 	<%= hidden_field_tag "#{object_type}[nameType][]", "#{selected_type}" %>
 	<script type="text/javascript">
-	   getSimpleSubjects("<%= selected_type %>","<%= object_type %>","#newCreator<%= index %>","0","creator","<%= selected_value %>");
+	   getDynamicFields("<%= selected_type %>","<%= object_type %>","#newCreator<%= index %>","0","creator","<%= selected_value %>");
 	</script>
 	<div id="newCreator<%= index %>"></div>
 	</div>	
