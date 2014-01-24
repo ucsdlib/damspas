@@ -198,22 +198,6 @@ end
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end
   
-  # def link_to_add_subjects(name, f, objectType, subjectTypeArray )
-  #   fields = render("shared/edit_fields/simple_subjects_fields", :f => f, :object_type => objectType, :subjectTypeArray => subjectTypeArray)
-
-  #   link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
-  # end
-
-  # def link_to_add_edit_subjects(name, f, objectType, subjectTypeArray, index)
-  #   fields = render("shared/edit_fields/simple_subjects_edit_fields", :f => f, :object_type => objectType, :subjectTypeArray => subjectTypeArray, :selected_type => nil)
-  #   link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
-  # end        
-
-  # def link_to_add_creators(name, f, objectType, nameTypeArray )
-  #   fields = render("shared/edit_fields/creator_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray)
-
-  #   link_to_function name, "add_dynamic_fields(this, \"#{escape_javascript(fields)}\", \"Creator\")"
-  # end 
   def link_to_add_dynamic_fields(name, f, objectType, typeArray, className, index, edit)
     if edit == 1
       fields = render("shared/edit_fields/#{className}_edit_fields", :f => f, :object_type => objectType, :typeArray => typeArray, :selected_type => nil)
@@ -222,15 +206,5 @@ end
     end
     link_to_function name, "add_dynamic_fields(this, \"#{escape_javascript(fields)}\", \"#{escape_javascript(className.camelize)}\")"
   end
-  
-  # def link_to_add_relationships(name, f, objectType, nameTypeArray )
-  #   fields = render("shared/edit_fields/relationship_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray)
-
-  #   link_to_function name, "add_relationship_fields(this, \"#{escape_javascript(fields)}\")"
-  # end
-  
-  # def link_to_add_edit_relationships(name, f, objectType, nameTypeArray, index)
-  #   fields = render("shared/edit_fields/relationship_edit_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray, :selected_type => nil)
-  #   link_to_function name, "add_relationship_fields(this, \"#{escape_javascript(fields)}\")"
-  # end    
+    
 end 
