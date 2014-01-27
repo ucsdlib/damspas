@@ -6,14 +6,12 @@ describe DamsObjectsController do
   describe "A login user" do
 	  before do
 	  	sign_in User.create! ({:provider => 'developer'})
+	  	@obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013", copyrightURI: "bb05050505")
+	    #puts @obj.id
+	    # reindex the record
+	    solr_index @obj.id
 	  end
 	  describe "View" do
-	    before do
-	      @obj = DamsObject.create(titleValue: "Test Title", beginDate: "2013", copyrightURI: "bb05050505")
-	      #puts @obj.id
-	      # reindex the record
-	      solr_index @obj.id
-	    end
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
 	      response.should be_successful

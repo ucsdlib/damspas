@@ -3,12 +3,14 @@ require 'spec_helper'
 describe DamsProvenanceCollectionsController do
   describe "A login user" do
       before do
-          sign_in User.create!
+          sign_in User.create! ({:provider => 'developer'})
         #DamsProvenanceCollection.find_each{|z| z.delete}
       end
       describe "Show" do
         before do
           @obj = DamsProvenanceCollection.create(titleValue: "Test Provenance Collection Title 1", beginDate: "2012-01-01", endDate: "2013-01-01", visibility: "public", resource_type: "text")
+          # reindex the record
+          solr_index @obj.id
         end
         it "should be successful" do 
           get :show, id: @obj.id
@@ -33,6 +35,8 @@ describe DamsProvenanceCollectionsController do
       describe "Edit" do
         before do
           @obj = DamsProvenanceCollection.create(titleValue: "Test Provenance Collection Title 2", beginDate: "2012-02-02", endDate: "2013-02-02", visibility: "public", resource_type: "text")
+          # reindex the record
+          solr_index @obj.id
         end    
         it "should be successful" do 
           get :edit, id: @obj.id
@@ -59,6 +63,8 @@ describe DamsProvenanceCollectionsController do
       describe "Update" do
         before do
            @obj = DamsProvenanceCollection.create(titleValue: "Test Provenance Collection Title 4", beginDate: "2012-04-04", endDate: "2013-04-04")
+           # reindex the record
+           solr_index @obj.id
          end
         it "should be successful" do
           params = { "titleValue"=>["Test Title 5"], "languageURI"=>["bd0410344f"], "scopeContentNoteValue"=>["Test Scope Content Note"] }

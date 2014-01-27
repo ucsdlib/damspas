@@ -87,7 +87,7 @@ describe Ability do
 	end
   end
   
-  describe "Anonymous ucsd local user" do
+  describe "anonymous ucsd local user" do
     let(:params) {
 	    { basis: "fair use", 
 	      note: "Educationally important works unavailable due to unknown copyright holders",
