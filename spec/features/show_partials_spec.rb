@@ -34,10 +34,6 @@ feature 'Visitor wants to view object fields' do
     # personal name
     expect(page).to have_selector('li', :text=>"Smith, John, Dr., 1965-")
 
-    # identifier note
-    expect(page).to have_selector('dt', :text=>"Identifier")
-    expect(page).to have_link('http://library.ucsd.edu/ark:/20775/'+test_pid, href: "http://library.ucsd.edu/ark:/20775/"+test_pid)
-
     # preferred citation note
     expect(page).to have_selector('p', :text=>"PreferredCitationNote value")
 
