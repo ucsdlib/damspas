@@ -38,7 +38,7 @@ end
 errors = Array.new
 indexed = 0
 dtotal = 0
-opts = { :autocommit => true }
+opts = { :autocommit => false }
 ARGV.each do |pid|
   begin
     print "damsolrizer: #{pid} "
