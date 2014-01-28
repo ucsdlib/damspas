@@ -5,7 +5,7 @@ gem 'blacklight' #, '4.2.0'
 gem 'blacklight_advanced_search' #, '2.0.0'
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
 # private fork of solrizer-fedora with auto-commit disabled
-gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: 'a8f46ec0'
+gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '906dd51e'
 gem 'solrizer' #, '3.0.0'
 gem 'hydra-head' #, "6.0.0"
 gem 'active-fedora', "6.4.5"
