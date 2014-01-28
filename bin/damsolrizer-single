@@ -38,12 +38,13 @@ end
 errors = Array.new
 indexed = 0
 dtotal = 0
+opts = { :autocommit => false }
 ARGV.each do |pid|
   begin
     print "damsolrizer: #{pid} "
     solrizer = Solrizer::Fedora::Solrizer.new
     t1 = Time.now.to_f
-    solrizer.solrize pid
+    solrizer.solrize pid, opts
     t2 = Time.now.to_f
     indexed += 1
     d1 = t2 - t1
@@ -56,6 +57,13 @@ ARGV.each do |pid|
       puts line
     end
   end
+end
+begin
+  puts "damsolrizer: committing changes"
+  solrizer = Solrizer::Fedora::Solrizer.new
+  solrizer.commit
+rescue Exception => e
+  puts e
 end
 if errors.size > 0
   puts "errors:"
