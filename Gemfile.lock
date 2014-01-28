@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/ucsdlib/solrizer-fedora.git
-  revision: a8f46ec0eaac937afc1bd1f1a60f96bf6176e540
-  ref: a8f46ec0
+  revision: 906dd51eb5606821650598eeff5471909145cfe1
+  ref: 906dd51e
   specs:
     solrizer-fedora (3.0.0.pre1)
       active-fedora (>= 6.0.0.pre3)
