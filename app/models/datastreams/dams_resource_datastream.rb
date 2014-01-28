@@ -877,7 +877,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertRelatedResourceFields solr_doc, "", relatedResource
 
     # event
-    insertEventFields solr_doc, "", event
+    #insertEventFields solr_doc, "", event
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
