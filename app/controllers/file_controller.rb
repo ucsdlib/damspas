@@ -4,6 +4,7 @@ class FileController < ApplicationController
 
   def show
     # load metadata
+    start = Time.now.to_f
     begin
       objid = params[:id]
       fileid = params[:ds]
@@ -45,7 +46,7 @@ class FileController < ApplicationController
     if use.end_with?("source")
       logger.info "FileController: Master file access requires edit permission"
       authorize! :edit, @solr_doc
-    elsif !asset.read_groups.include?("public")
+    elsif !@solr_doc['read_access_group_ssim'].include?("public")
       authorize! :show, @solr_doc
     end
 
@@ -76,6 +77,8 @@ class FileController < ApplicationController
         end
       end
     end
+    dur = (Time.now.to_f - start) * 1000
+    logger.info sprintf("Served file #{filename} in %0.1fms", dur)
   end
 
   def create
