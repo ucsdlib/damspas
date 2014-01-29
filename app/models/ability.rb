@@ -84,16 +84,13 @@ class Ability
     end
 
 	#### Override to allow read-access to all other non-DamsObject, non-collections classes for roles other than the super role dams-manager-admin####	
-    #if current_user.new_record? || current_user.anonymous   #Anonymous user
-    if (!user_groups.include?(Rails.configuration.super_role)) # Anonymous user, non-curator users, and curators other than the super user dams-manager-admin
+    group_intersection = user_groups & Rails.configuration.curator_groups
+    if current_user.new_record? || current_user.anonymous || group_intersection.empty? # anonymous/non-curator
       can [:read], DamsUnit
       can [:read], DamsCopyright
       can [:read], DamsOtherRight
       can [:read], DamsLicense
       can [:read], DamsStatute
-      #can [:read], DamsAssembledCollection
-      #can [:read], DamsProvenanceCollection
-      #can [:read], DamsProvenanceCollectionPart
       can [:read], DamsSourceCapture
       can [:read], DamsCartographics
       can [:read], DamsCulturalContext
@@ -118,9 +115,8 @@ class Ability
       can [:read], MadsLanguage
       can [:read], MadsVariant
       
-    else  #login user with super role: dams-manager-admin
-      #can [:read, :create, :update], DamsObject
-      can [:read, :create, :update], DamsUnit
+    else  # curators
+      can [:read], DamsUnit
       can [:read, :create, :update], DamsFunction
       can [:read, :create, :update], DamsCulturalContext
       can [:read, :create, :update], DamsTechnique
@@ -132,9 +128,6 @@ class Ability
       can [:read, :create, :update], DamsOtherRight
       can [:read, :create, :update], DamsLicense
       can [:read, :create, :update], DamsStatute
-      #can [:read, :create, :update], DamsAssembledCollection
-      #can [:read, :create, :update], DamsProvenanceCollection
-      #can [:read, :create, :update], DamsProvenanceCollectionPart
       can [:read, :create, :update], DamsSourceCapture
       can [:read, :create, :update], DamsCartographics
       can [:read, :create, :update], MadsPersonalName
@@ -153,6 +146,11 @@ class Ability
       can [:read, :create, :update], MadsAuthority
       can [:read, :create, :update], MadsLanguage
       can [:read, :create, :update], MadsVariant
+    end
+
+    # DamsUnit is a special case: super-user only
+    if user_groups.include?(Rails.configuration.super_role)
+      can [:read, :create, :update], DamsUnit
     end
   end
 end

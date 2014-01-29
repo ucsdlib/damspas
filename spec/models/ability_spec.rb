@@ -571,14 +571,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@damsCopyright).should be_false
+		    it "should allow to create" do
+		      subject.can?(:create,@damsCopyright).should be_true
 		    end
-		    it "should not allow edit" do
-		      subject.can?(:edit,@damsCopyright).should be_false
+		    it "should allow edit" do
+		      subject.can?(:edit,@damsCopyright).should be_true
 		    end
-		    it "should not allow to update" do
-		      subject.can?(:update,@damsCopyright).should be_false
+		    it "should allow to update" do
+		      subject.can?(:update,@damsCopyright).should be_true
 		    end
 		end
 		
@@ -589,14 +589,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@madsName).should be_false
+		    it "should allow to create" do
+		      subject.can?(:create,@madsName).should be_true
 		    end
-		    pending "should not allow edit record ac00000400" do
-		      subject.can?(:edit,@madsName).should be_false
+		    pending "should allow edit record ac00000400" do
+		      subject.can?(:edit,@madsName).should be_true
 		    end
-		    pending "should not allow to update record ac00000400" do
-		      subject.can?(:update,@madsName).should be_false
+		    pending "should allow to update record ac00000400" do
+		      subject.can?(:update,@madsName).should be_true
 		    end
 		end	    
 		describe "to access a MadsPersonalName" do
@@ -606,14 +606,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@madsPersonalName).should be_false
+		    it "should allow to create" do
+		      subject.can?(:create,@madsPersonalName).should be_true
 		    end
-		    pending "should not allow edit record ac00000401" do
-		      subject.can?(:edit,@madsPersonalName).should be_false
+		    pending "should allow edit record ac00000401" do
+		      subject.can?(:edit,@madsPersonalName).should be_true
 		    end
-		    pending "should not allow to update record ac00000401" do
-		      subject.can?(:update,@madsPersonalName).should be_false
+		    pending "should allow to update record ac00000401" do
+		      subject.can?(:update,@madsPersonalName).should be_true
 		    end
 		end
 	    describe "to access a MadsTopic" do
@@ -623,14 +623,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@madsTopic).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@madsTopic).should be_false
+		    it "should be allowed to create" do
+		      subject.can?(:create,@madsTopic).should be_true
 		    end
-		    pending "should not allow edit record ac00000402" do
-		      subject.can?(:edit,@madsTopic).should be_false
+		    pending "should be allowed edit record ac00000402" do
+		      subject.can?(:edit,@madsTopic).should be_true
 		    end
-		    pending "should not allow to update record ac00000402" do
-		      subject.can?(:update,@madsTopic).should be_false
+		    pending "should be allowed to update record ac00000402" do
+		      subject.can?(:update,@madsTopic).should be_true
 		    end
 		end
 	    	        
@@ -820,13 +820,13 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@damsUnit).should be_true
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_false
 		    end
 	    end
@@ -837,14 +837,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@damsCopyright).should be_false
+		    it "should allow to create" do
+		      subject.can?(:create,@damsCopyright).should be_true
 		    end
-		    it "should not allow edit" do
-		      subject.can?(:edit,@damsCopyright).should be_false
+		    it "should allow edit" do
+		      subject.can?(:edit,@damsCopyright).should be_true
 		    end
-		    it "should not allow to update" do
-		      subject.can?(:update,@damsCopyright).should be_false
+		    it "should allow to update" do
+		      subject.can?(:update,@damsCopyright).should be_true
 		    end
 		end
 		
@@ -855,14 +855,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@madsName).should be_false
+		    it "should be allowed to create" do
+		      subject.can?(:create,@madsName).should be_true
 		    end
-		    it "should not allow edit" do
-		      subject.can?(:edit,@madsName).should be_false
+		    it "should be allowed edit" do
+		      subject.can?(:edit,@madsName).should be_true
 		    end
-		    it "should not allow to update" do
-		      subject.can?(:update,@madsName).should be_false
+		    it "should be allowed to update" do
+		      subject.can?(:update,@madsName).should be_true
 		    end
 		end	    
 		describe "to access a MadsPersonalName" do
@@ -872,14 +872,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@madsPersonalName).should be_false
+		    it "should be allowed to create" do
+		      subject.can?(:create,@madsPersonalName).should be_true
 		    end
-		    it "should not allow edit" do
-		      subject.can?(:edit,@madsPersonalName).should be_false
+		    it "should be allowed edit" do
+		      subject.can?(:edit,@madsPersonalName).should be_true
 		    end
-		    it "should not allow to update" do
-		      subject.can?(:update,@madsPersonalName).should be_false
+		    it "should be allowed to update" do
+		      subject.can?(:update,@madsPersonalName).should be_true
 		    end
 		end
 	    describe "to access a MadsTopic" do
@@ -889,14 +889,14 @@ describe Ability do
 		    it "should allow to show" do
 		      subject.can?(:show,@madsTopic).should be_true
 		    end
-		    it "should not allow to create" do
-		      subject.can?(:create,@madsTopic).should be_false
+		    it "should be allowed to create" do
+		      subject.can?(:create,@madsTopic).should be_true
 		    end
-		    it "should not allow edit" do
-		      subject.can?(:edit,@madsTopic).should be_false
+		    it "should be allowed edit" do
+		      subject.can?(:edit,@madsTopic).should be_true
 		    end
-		    it "should not allow to update" do
-		      subject.can?(:update,@madsTopic).should be_false
+		    it "should be allowed to update" do
+		      subject.can?(:update,@madsTopic).should be_true
 		    end
 		end
 	    	        
