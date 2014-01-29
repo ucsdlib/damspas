@@ -36,16 +36,16 @@ describe Ability do
 	      	@damsProvenanceCollection = DamsProvenanceCollection.create!(pid: "ac00000011", titleValue: "Test ProvenanceCollection Title", visibility: "curator", resource_type: "text")
 			solr_index @damsProvenanceCollection.id
 	    end
-	    it "should not allow to show" do
+	    it "should not be allowed to show" do
 	      subject.can?(:show,@damsProvenanceCollection).should be_false
 	    end
-	    it "should allow to create" do
+	    it "should be allowed to create" do
 	      subject.can?(:create,@damsProvenanceCollectionDlp).should be_false
 	    end
-	    it "should allow edit" do
+	    it "should be allowed edit" do
 	      subject.can?(:edit,@damsProvenanceCollectionDlp).should be_false
 	    end
-	    it "should allow to update" do
+	    it "should be allowed to update" do
 	      subject.can?(:update,@damsProvenanceCollectionDlp).should be_false
 	    end
     end
@@ -54,16 +54,16 @@ describe Ability do
         before do
         	@damsCopyright = mod_dams_copyright "ac00000021"
 	    end
-	    it "should allow to show" do
+	    it "should be allowed to show" do
 	      subject.can?(:show,@damsCopyright).should be_true
 	    end
-	    it "should not allow to create" do
+	    it "should not be allowed to create" do
 	      subject.can?(:create,@damsCopyright).should be_false
 	    end
-	    it "should not allow edit" do
+	    it "should not be allowed edit" do
 	      subject.can?(:edit,@damsCopyright).should be_false
 	    end
-	    it "should not allow to update" do
+	    it "should not be allowed to update" do
 	      subject.can?(:update,@damsCopyright).should be_false
 	    end
 	end	
@@ -72,16 +72,16 @@ describe Ability do
     	before do
 		  @madsTopic = mod_mads_topic "ac00000031"
 	    end
-	    it "should allow to show" do
+	    it "should be allowed to show" do
 	      subject.can?(:show,@madsTopic).should be_true
 	    end
-	    it "should not allow to create" do
+	    it "should not be allowed to create" do
 	      subject.can?(:create,@madsTopic).should be_false
 	    end
-	    it "should not allow edit" do
+	    it "should not be allowed edit" do
 	      subject.can?(:edit,@madsTopic).should be_false
 	    end
-	    it "should not allow to update" do
+	    it "should not be allowed to update" do
 	      subject.can?(:update,@madsTopic).should be_false
 	    end
 	end
@@ -109,7 +109,7 @@ describe Ability do
 	 	 	# reindex the record
 			solr_index @obj.id
 	    end
-	  	pending "should be able to show record ac00000051" do   
+	  	it "should be able to show record ac00000051" do   
 		    subject.can?(:show,@obj).should be_true
 		 end
 	 end
@@ -119,7 +119,7 @@ describe Ability do
 	 	 	# reindex the record
 			solr_index @obj.id
 	    end
-		 pending "should be able to show record ac00000061" do   
+		 it "should be able to show record ac00000061" do   
 		    subject.can?(:show,@obj).should be_true
 		 end
 	 end
@@ -167,13 +167,13 @@ describe Ability do
 		    it "should be able to show" do
 		      subject.can?(:show,@damsObjectRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsObjectRci).should be_true
 		    end
-		    it "should allow to edit" do
+		    it "should be allowed to edit" do
 		      subject.can?(:edit,@damsObjectRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsObjectRci).should be_true
 		    end
     	end
@@ -182,16 +182,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionDlp).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionDlp).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionDlp).should be_true
 		    end
 	    end
@@ -200,16 +200,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionRci).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionRci).should be_true
 		    end
 	    end
@@ -218,16 +218,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartDlp).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartDlp).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartDlp).should be_true
 		    end
 	    end
@@ -236,16 +236,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartRci).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartRci).should be_true
 		    end
 	    end
@@ -254,16 +254,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionDlp).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionDlp).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionDlp).should be_true
 		    end
 	    end
@@ -272,16 +272,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionRci).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsAssembledCollectionRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionRci).should be_true
 		    end
 	    end
@@ -290,16 +290,16 @@ describe Ability do
 	       before do
 		      @damsUnit = mod_dams_unit "ac00000300"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_true
 		    end
 		end
@@ -307,16 +307,16 @@ describe Ability do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsCopyright).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsCopyright).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsCopyright).should be_true
 		    end
 		end
@@ -325,16 +325,16 @@ describe Ability do
 	        before do
 			  @madsName = mod_mads_name "ac00000400"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@madsName).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@madsName).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@madsName).should be_true
 		    end
 		end		
@@ -342,16 +342,16 @@ describe Ability do
 	        before do
 			  @madsPersonalName = mod_mads_personal_name "ac00000401"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@madsPersonalName).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@madsPersonalName).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@madsPersonalName).should be_true
 		    end
 		end
@@ -359,16 +359,16 @@ describe Ability do
 	        before do
 			  @madsTopic = mod_mads_topic "ac00000402"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsTopic).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@madsTopic).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@madsTopic).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@madsTopic).should be_true
 		    end
 		end
@@ -401,16 +401,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848"
 		    end
-    		it "should not allow to show" do
+    		it "should not be allowed to show" do
 		      subject.can?(:show,@damsObjectRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsObjectRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsObjectRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsObjectRci).should be_false
 		    end
     	end
@@ -419,16 +419,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 		      @damsObjectDlp = mod_dams_object "ac00000100", "bb02020202"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsObjectDlp).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsObjectDlp).should be_true
 		    end
-		    it "should allow to edit" do
+		    it "should be allowed to edit" do
 		      subject.can?(:edit,@damsObjectDlp).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsObjectDlp).should be_true
 		    end
 	    end
@@ -438,16 +438,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
 		    end
-	    	pending "should not allow to show record ac00000201" do
+	    	pending "should not be allowed to show record ac00000201" do
 		      subject.can?(:show,@damsProvenanceCollectionRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionRci).should be_false
 		    end
     	end
@@ -457,16 +457,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
 		    end
-		    pending "should not allow to show record ac00000203" do
+		    pending "should not be allowed to show record ac00000203" do
 		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartRci).should be_false
 		    end
     	end
@@ -476,16 +476,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
 		    end
-		    pending "should not allow to show record ac00000205" do
+		    pending "should not be allowed to show record ac00000205" do
 		      subject.can?(:show,@damsAssembledCollectionRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsAssembledCollectionRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionRci).should be_false
 		    end
     	end
@@ -495,16 +495,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionDlp).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionDlp).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionDlp).should be_true
 		    end
 	    end
@@ -514,16 +514,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartDlp).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartDlp).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartDlp).should be_true
 		    end
 	    end
@@ -533,16 +533,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionDlp).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionDlp).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionDlp).should be_true
 		    end
 	    end
@@ -551,16 +551,16 @@ describe Ability do
 	        before do
 		      @damsUnit = mod_dams_unit "ac00000300"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_false
 		    end
 	    end
@@ -568,16 +568,16 @@ describe Ability do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsCopyright).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsCopyright).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsCopyright).should be_true
 		    end
 		end
@@ -586,16 +586,16 @@ describe Ability do
 		    before do
 			  @madsName = mod_mads_name "ac00000400"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@madsName).should be_true
 		    end
-		    pending "should allow edit record ac00000400" do
+		    it "should be allowed edit record ac00000400" do
 		      subject.can?(:edit,@madsName).should be_true
 		    end
-		    pending "should allow to update record ac00000400" do
+		    it "should be allowed to update record ac00000400" do
 		      subject.can?(:update,@madsName).should be_true
 		    end
 		end	    
@@ -603,16 +603,16 @@ describe Ability do
 		    before do
 			  @madsPersonalName = mod_mads_personal_name "ac00000401"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@madsPersonalName).should be_true
 		    end
-		    pending "should allow edit record ac00000401" do
+		    it "should be allowed edit record ac00000401" do
 		      subject.can?(:edit,@madsPersonalName).should be_true
 		    end
-		    pending "should allow to update record ac00000401" do
+		    it "should be allowed to update record ac00000401" do
 		      subject.can?(:update,@madsPersonalName).should be_true
 		    end
 		end
@@ -620,16 +620,16 @@ describe Ability do
 	        before do
 			  @madsTopic = mod_mads_topic "ac00000402"
 		    end	    
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsTopic).should be_true
 		    end
 		    it "should be allowed to create" do
 		      subject.can?(:create,@madsTopic).should be_true
 		    end
-		    pending "should be allowed edit record ac00000402" do
+		    it "should be allowed edit record ac00000402" do
 		      subject.can?(:edit,@madsTopic).should be_true
 		    end
-		    pending "should be allowed to update record ac00000402" do
+		    it "should be allowed to update record ac00000402" do
 		      subject.can?(:update,@madsTopic).should be_true
 		    end
 		end
@@ -663,16 +663,16 @@ describe Ability do
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848" 
 		      solr_index "bb48484848"
 		    end
-    		it "should allow to show" do
+    		it "should be allowed to show" do
 		      subject.can?(:show,@damsObjectRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsObjectRci).should be_true
 		    end
-		    it "should allow to edit" do
+		    it "should be allowed to edit" do
 		      subject.can?(:edit,@damsObjectRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsObjectRci).should be_true
 		    end
     	end
@@ -681,16 +681,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 		      @damsObjectDlp = mod_dams_object "ac00000100", "bb02020202" 
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsObjectDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsObjectDlp).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsObjectDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsObjectDlp).should be_false
 		    end
 	    end
@@ -700,16 +700,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
 		    end
-	    	it "should allow to show" do
+	    	it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionRci).should be_true
 		    end
-		    it "should allow to edit" do
+		    it "should be allowed to edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionRci).should be_true
 		    end
     	end
@@ -719,16 +719,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
 		    end
-		   it "should allow to show" do
+		   it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartRci).should be_true
 		    end
-		    it "should allow to edit" do
+		    it "should be allowed to edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartRci).should be_true
 		    end
     	end
@@ -738,16 +738,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionRci).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionRci).should be_true
 		    end
-		    it "should allow to edit" do
+		    it "should be allowed to edit" do
 		      subject.can?(:edit,@damsAssembledCollectionRci).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionRci).should be_true
 		    end
     	end
@@ -761,16 +761,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionDlp).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionDlp).should be_false
 		    end
 	    end
@@ -780,16 +780,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartDlp).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartDlp).should be_false
 		    end
 	    end
@@ -799,16 +799,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionDlp).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionDlp).should be_false
 		    end
 	    end
@@ -817,7 +817,7 @@ describe Ability do
 	       before do
 		      @damsUnit = mod_dams_unit "ac00000300"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
 		    end
 		    it "should not be allowed to create" do
@@ -834,16 +834,16 @@ describe Ability do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
 		    end
-		    it "should allow to create" do
+		    it "should be allowed to create" do
 		      subject.can?(:create,@damsCopyright).should be_true
 		    end
-		    it "should allow edit" do
+		    it "should be allowed edit" do
 		      subject.can?(:edit,@damsCopyright).should be_true
 		    end
-		    it "should allow to update" do
+		    it "should be allowed to update" do
 		      subject.can?(:update,@damsCopyright).should be_true
 		    end
 		end
@@ -852,7 +852,7 @@ describe Ability do
 		    before do
 			  @madsName = mod_mads_name "ac00000400"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
 		    it "should be allowed to create" do
@@ -869,7 +869,7 @@ describe Ability do
 		    before do
 			  @madsPersonalName = mod_mads_personal_name "ac00000401"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
 		    it "should be allowed to create" do
@@ -886,7 +886,7 @@ describe Ability do
 	    	before do
 			  @madsTopic = mod_mads_topic "ac00000402"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsTopic).should be_true
 		    end
 		    it "should be allowed to create" do
@@ -927,16 +927,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848" 
 		    end
-    		it "should not allow to show" do
+    		it "should not be allowed to show" do
 		      subject.can?(:show,@damsObjectRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsObjectRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsObjectRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsObjectRci).should be_false
 		    end
     	end
@@ -945,16 +945,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 		      @damsObjectDlp = mod_dams_object "ac00000100", "bb02020202" 
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsObjectDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsObjectDlp).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsObjectDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsObjectDlp).should be_false
 		    end
 	    end
@@ -964,16 +964,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionRci).should be_false
 		    end
     	end
@@ -983,16 +983,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartRci).should be_false
 		    end
     	end
@@ -1002,16 +1002,16 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
 		    end
-    		it "should not allow to show" do
+    		it "should not be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionRci).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionRci).should be_false
 		    end
-		    it "should not allow to edit" do
+		    it "should not be allowed to edit" do
 		      subject.can?(:edit,@damsAssembledCollectionRci).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionRci).should be_false
 		    end
     	end
@@ -1021,16 +1021,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionDlp).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionDlp).should be_false
 		    end
 	    end
@@ -1040,16 +1040,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartDlp).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsProvenanceCollectionPartDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsProvenanceCollectionPartDlp).should be_false
 		    end
 	    end
@@ -1059,16 +1059,16 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
 		    end
-		    it "should not allow to show" do
+		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionDlp).should be_false
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionDlp).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsAssembledCollectionDlp).should be_false
 		    end
 	    end
@@ -1077,16 +1077,16 @@ describe Ability do
 	       before do
 		      @damsUnit = mod_dams_unit "ac00000300"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_false
 		    end
 		end
@@ -1094,16 +1094,16 @@ describe Ability do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsCopyright).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsCopyright).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsCopyright).should be_false
 		    end
 		end		
@@ -1112,16 +1112,16 @@ describe Ability do
 		    before do
 			  @madsName = mod_mads_name "ac00000400"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@madsName).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@madsName).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@madsName).should be_false
 		    end
 		end
@@ -1129,16 +1129,16 @@ describe Ability do
 		    before do
 			  @madsPersonalName = mod_mads_personal_name "ac00000401"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@madsPersonalName).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@madsPersonalName).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@madsPersonalName).should be_false
 		    end
 		end
@@ -1146,16 +1146,16 @@ describe Ability do
 	    	before do
 			  @madsTopic = mod_mads_topic "ac00000402"
 		    end
-		    it "should allow to show" do
+		    it "should be allowed to show" do
 		      subject.can?(:show,@madsTopic).should be_true
 		    end
-		    it "should not allow to create" do
+		    it "should not be allowed to create" do
 		      subject.can?(:create,@madsTopic).should be_false
 		    end
-		    it "should not allow edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@madsTopic).should be_false
 		    end
-		    it "should not allow to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@madsTopic).should be_false
 		    end
 		end
