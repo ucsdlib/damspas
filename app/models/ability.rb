@@ -114,7 +114,10 @@ class Ability
       can [:read], MadsAuthority
       can [:read], MadsLanguage
       can [:read], MadsVariant
-      
+      cannot [:create], DamsObject
+      cannot [:create], DamsAssembledCollection
+      cannot [:create], DamsProvenanceCollection
+      cannot [:create], DamsProvenanceCollectionPart
     else  # curators
       can [:read], DamsUnit
       can [:read, :create, :update], DamsFunction
