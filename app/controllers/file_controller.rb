@@ -80,6 +80,84 @@ class FileController < ApplicationController
     dur = (Time.now.to_f - start) * 1000
     logger.info sprintf("Served file #{filename} in %0.1fms", dur)
   end
+  def oldshow
+    # load metadata
+    start = Time.now.to_f
+    begin
+      objid = params[:id]
+      fileid = params[:ds]
+      if fileid.index("_",1)
+        cmp_part = fileid[1,fileid.index("_",1)-1]
+        file_part = fileid[fileid.index("_",1)+1,fileid.length]
+      else
+        cmp_part = nil
+        file_part = fileid[1,fileid.length]
+      end
+
+      @solr_doc = get_single_doc_via_search(1, {:q => "id:#{objid}"} )
+      asset = ActiveFedora::Base.load_instance_from_solr(objid,@solr_doc)
+    rescue
+      raise ActionController::RoutingError.new('Not Found')
+    end
+    ds = asset.datastreams[fileid]
+    if ds.nil?
+      raise ActionController::RoutingError.new('Not Found')
+    end
+
+    # load use value from solr
+    use = "image-source" # default use to source, which requires curator privs
+    prefix = cmp_part ? "component_#{cmp_part}_" : ""
+    file_json = @solr_doc["#{prefix}files_tesim"]
+    file_json.each do |json|
+      file_info = JSON.parse(json)
+      if file_info["id"] == file_part
+        use = file_info["use"]
+      end
+    end
+
+    # check ip for unauthenticated users
+    if current_user == nil
+      current_user = User.anonymous(request.ip)
+    end
+
+    # check permissions    
+    if use.end_with?("source")
+      logger.info "FileController: Master file access requires edit permission"
+      authorize! :edit, @solr_doc
+    elsif !asset.read_groups.include?("public")
+      authorize! :show, @solr_doc
+    end
+
+    # set headers
+    filename = params["filename"] || "#{objid}#{fileid}"
+    headers['Content-Disposition'] = "inline; filename=#{filename}"
+    if ds.mimeType
+      headers['Content-Type'] = ds.mimeType
+    elsif filename.include?('.xml')
+      headers['Content-Type'] = 'application/xml'
+    else
+      headers['Content-Type'] = 'application/octet-stream'
+    end
+    headers['Last-Modified'] = ds.lastModifiedDate || Time.now.ctime.to_s
+    if ds.size
+      headers['Content-Length'] = ds.size.to_s
+    end
+
+    # see https://github.com/cul/active_fedora_streamable/blob/master/lib/active_fedora_streamable.rb
+
+    # stream data to client (does not work in webrick)
+    parms = { :pid => objid, :dsid => fileid, :finished=>false }
+    repo = ActiveFedora::Base.connection_for_pid(parms[:pid])
+    self.response_body = Enumerator.new do |blk|
+      repo.datastream_dissemination(parms) do |res|
+        res.read_body do |seg|
+          blk << seg
+        end
+      end
+    end
+    dur = (Time.now.to_f - start) * 1000
+    logger.info sprintf("Served file #{filename} in %0.1fms", dur)
+  end
 
   def create
     # load object and check authorization
