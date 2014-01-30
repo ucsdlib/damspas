@@ -438,8 +438,8 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
 		    end
-	    	pending "should not be allowed to show record ac00000201" do
-		      subject.can?(:show,@damsProvenanceCollectionRci).should be_false
+	    	it "should be allowed to show record ac00000201" do
+		      subject.can?(:show,@damsProvenanceCollectionRci).should be_true
 		    end
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionRci).should be_false
@@ -457,8 +457,8 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
 		    end
-		    pending "should not be allowed to show record ac00000203" do
-		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_false
+		    it "should be allowed to show record ac00000203" do
+		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_true
 		    end
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartRci).should be_false
@@ -476,8 +476,8 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
 		    end
-		    pending "should not be allowed to show record ac00000205" do
-		      subject.can?(:show,@damsAssembledCollectionRci).should be_false
+		    it "should be allowed to show record ac00000205" do
+		      subject.can?(:show,@damsAssembledCollectionRci).should be_true
 		    end
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionRci).should be_false
@@ -761,8 +761,8 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
 		    end
-		    it "should not be allowed to show" do
-		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_false
+		    it "should be allowed to show" do
+		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_true
 		    end
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionDlp).should be_false
@@ -780,8 +780,8 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
-		    it "should not be allowed to show" do
-		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_false
+		    it "should be allowed to show" do
+		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_true
 		    end
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsProvenanceCollectionPartDlp).should be_false
@@ -799,8 +799,8 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
 		    end
-		    it "should not be allowed to show" do
-		      subject.can?(:show,@damsAssembledCollectionDlp).should be_false
+		    it "should be allowed to show" do
+		      subject.can?(:show,@damsAssembledCollectionDlp).should be_true
 		    end
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsAssembledCollectionDlp).should be_false

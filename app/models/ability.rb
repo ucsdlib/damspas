@@ -119,6 +119,9 @@ class Ability
       cannot [:create], DamsProvenanceCollection
       cannot [:create], DamsProvenanceCollectionPart
     else  # curators
+      can [:read], DamsAssembledCollection
+      can [:read], DamsProvenanceCollection
+      can [:read], DamsProvenanceCollectionPart
       can [:read], DamsUnit
       can [:read, :create, :update], DamsFunction
       can [:read, :create, :update], DamsCulturalContext
