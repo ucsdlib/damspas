@@ -105,7 +105,7 @@ describe Ability do
 		      t.attributes = params
 		    end
 			damsOtherRight.save
-	    	@obj = DamsObject.create!(pid: "ac00000051", titleValue: "Test UCSD Local Title", unitURI: "bb02020202", copyrightURI: "bb05050505", otherRights: [RDF::Resource.new("#{Rails.configuration.id_namespace}ac10000000")])
+	    	@obj = DamsObject.create!(pid: "ac00000051", titleValue: "Test UCSD Local Title", unitURI: "bb02020202", copyrightURI: "bb05050505", otherRights: [RDF::Resource.new("#{Rails.configuration.id_namespace}ac00000041")])
 	 	 	# reindex the record
 			solr_index @obj.id
 	    end
