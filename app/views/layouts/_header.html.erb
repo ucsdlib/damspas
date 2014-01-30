@@ -29,10 +29,6 @@
             </ul>
           </li>
 
-          <li><%= link_to 'About', about_path %></li>
-          <li><%= link_to 'FAQ', faq_path %></li>
-          <li><a href="#contact">Contact</a></li>
-
           <% if can?(:create, DamsObject) || can?(:create, DamsProvenanceCollection) || can?(:create, DamsProvenanceCollectionPart) || can?(:create, DamsAssembledCollection) %>
             <li class="dropdown">
               <!-- Logged in as <%= current_user.uid %> -->
@@ -64,6 +60,15 @@
           <% end %>
           <li>
             <%= link_to 'The Library', 'http://libraries.ucsd.edu/' %>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><%= link_to 'About', about_path %></li>
+              <li><a href="mailto:dlp@ucsd.edu">Contact</a></li>
+              <li><%= link_to 'FAQ', faq_path %></li>
+              <li><%= link_to 'Take Down Policy', takedown_path %></li>
+            </ul>
           </li>
         </ul>
       </nav>
