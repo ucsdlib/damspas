@@ -194,6 +194,14 @@
   <requestHandler name="/analysis/field" startup="lazy" class="solr.FieldAnalysisRequestHandler" />
   <requestHandler name="/update" class="solr.UpdateRequestHandler"  />
   <requestHandler name="/admin/" class="org.apache.solr.handler.admin.AdminHandlers" />
+
+  <!-- enable auto commits in update handler -->
+  <updateHandler class="solr.DirectUpdateHandler2">
+     <autoCommit>
+       <maxTime>${solr.autoCommit.maxTime:15000}</maxTime>
+       <openSearcher>true</openSearcher>
+     </autoCommit>
+  </updateHandler>
   
   <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
     <lst name="invariants">
@@ -208,5 +216,5 @@
   <admin>
     <defaultQuery>search</defaultQuery>
   </admin>
-  
+
 </config>
