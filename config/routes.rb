@@ -6,6 +6,8 @@ Hydra::Application.routes.draw do
   get '/about', to: 'static_pages#about'
   get '/zotero', to: 'static_pages#zotero'
   get '/mendeley', to: 'static_pages#mendeley'
+  get '/takedown', to: 'static_pages#takedown'
+  get '/search_tips', to: 'static_pages#search_tips'
 
 
   #resources :units, :only => [:index, :show]

@@ -66,6 +66,7 @@ else
 end
 
 puts "loading listener"
+solropts = { :autocommit => false }
 
 begin
   @port = options[:port] 
@@ -92,7 +93,7 @@ begin
     begin
       if ["addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
         solrizer = Solrizer::Fedora::Solrizer.new
-        solrizer.solrize @msg.headers["pid"]
+        solrizer.solrize @msg.headers["pid"], solropts
       elsif method == "purgeObject"
         ActiveFedora::SolrService.instance.conn.delete_by_id(pid)
       else
