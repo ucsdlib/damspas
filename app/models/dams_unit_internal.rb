@@ -1,7 +1,7 @@
 class DamsUnitInternal
   include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
+    include Dams::DamsHelper
     rdf_type DAMS.Unit
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
   map_predicates do |map|

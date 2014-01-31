@@ -1,7 +1,7 @@
 class DamsProvenanceCollectionPartInternal
     include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
+    include Dams::DamsHelper
     include Dams::DamsProvenanceCollectionPart
   
   def pid
