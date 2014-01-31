@@ -1,4 +1,4 @@
 class DamsStatuteDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include DamsHelper
+  include Dams::DamsHelper
   include Dams::DamsStatute
 end

@@ -1,4 +1,4 @@
 class DamsOtherRightDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include DamsHelper
+  include Dams::DamsHelper
   include Dams::DamsOtherRight
 end
