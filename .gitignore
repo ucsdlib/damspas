@@ -40,5 +40,8 @@ config/initializers/secret_token.rb
 .DS_Store
 Subl.app/
 
+# precompile assets
+public/assets
+
 # version
 public/version.txt
