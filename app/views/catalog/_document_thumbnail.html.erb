@@ -1,6 +1,6 @@
 <% resultClass, resultIcon, resultThumb = document_thumbnail( document ) %>
 <%= link_to document, :class => 'dams-search-thumbnail-link' do %>
-  <% if resultThumb != nil %>
+  <% if !resultThumb.blank? %>
 	<%= image_tag resultThumb, :alt => "", :class => 'dams-search-thumbnail' %>
   <% else %>
 	<div class="dams-search-thumbnail <%=resultClass%>">
