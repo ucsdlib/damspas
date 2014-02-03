@@ -1,5 +1,5 @@
 class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include DamsHelper
+  include Dams::DamsHelper
   rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
 
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)

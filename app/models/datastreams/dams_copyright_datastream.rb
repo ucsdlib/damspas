@@ -1,4 +1,4 @@
 class DamsCopyrightDatastream < ActiveFedora::RdfxmlRDFDatastream
-	include DamsHelper
+	include Dams::DamsHelper
 	include Dams::DamsCopyright
 end

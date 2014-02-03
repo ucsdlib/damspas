@@ -1,7 +1,7 @@
 class DamsRelationshipInternal
     include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
+    include Dams::DamsHelper
     rdf_type DAMS.Relationship
     map_predicates do |map|
       map.name(:in=> DAMS, :class_name => 'MadsNameInternal')
