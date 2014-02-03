@@ -1,4 +1,4 @@
 class DamsLicenseDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include DamsHelper
+  include Dams::DamsHelper
   include Dams::DamsLicense
 end
