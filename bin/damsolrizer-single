@@ -38,6 +38,7 @@ end
 errors = Array.new
 indexed = 0
 dtotal = 0
+$stdout.sync = true # sync stdout for monitoring batch indexing
 opts = { :autocommit => false }
 ARGV.each do |pid|
   begin
