@@ -67,7 +67,7 @@ describe DamsProvenanceCollectionsController do
            solr_index @obj.id
          end
         it "should be successful" do
-          params = { "titleValue"=>["Test Title 5"], "languageURI"=>["bd0410344f"], "scopeContentNoteValue"=>["Test Scope Content Note"] }
+          params = { "titleValue"=>["Test Title 5"], "languageURI"=>["bd0410344f"], "scopeContentNote_attributes"=>{"0"=>{"value"=>"test"}}}
           put :update, :id => @obj.id, :dams_provenance_collection => params
           response.should redirect_to assigns[:dams_provenance_collection]
           @obj.reload.titleValue.should == "Test Title 5"

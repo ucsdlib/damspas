@@ -1,7 +1,7 @@
 class DamsOtherRightInternal
   include ActiveFedora::RdfObject
   include Dams::DamsOtherRight
-  include DamsHelper
+  include Dams::DamsHelper
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')
   end

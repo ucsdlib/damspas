@@ -165,7 +165,7 @@ module Dams
         if(@creatorURI.class == Array)
           i = 0
           @creatorURI.each do |crea|
-                puts @nameType[i]
+                puts @namesType[i]
                 graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[i].camelize(:lower)}"), crea])
                 i = i + 1
             end
