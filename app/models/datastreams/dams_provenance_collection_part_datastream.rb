@@ -1,5 +1,5 @@
 class DamsProvenanceCollectionPartDatastream < DamsResourceDatastream
-  include Dams::DamsProvenanceCollectionPart
+  include Dams::ProvenanceCollectionPart
 
   def to_solr (solr_doc = {})
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)

@@ -1,7 +1,7 @@
 require 'active_support/concern'
 
 module Dams
-  module DamsAssembledCollection
+  module AssembledCollection
    extend ActiveSupport::Concern
     include ModelHelper
     
