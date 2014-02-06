@@ -4,16 +4,17 @@ require 'rack/test'
 feature 'Visitor want to look at objects' do
 
   scenario 'view a sample object record' do
-    pending "visit not working, getting / instead of /object/bd0922518w" do
+    #pending "visit not working, getting / instead of /object/bd0922518w" do
       sign_in_developer
       visit dams_object_path('bd0922518w')
+      Path.path = current_path
       expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
       expect(page).to have_selector('h2',:text=>'Format Sampler')
-      expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
+      #expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
 
       # admin links
       expect(page).to have_link('RDF View')
-    end
+    #end
   end
 
   scenario 'view a sample data file' do

@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/ucsdlib/solrizer-fedora.git
+  revision: 906dd51eb5606821650598eeff5471909145cfe1
+  ref: 906dd51e
+  specs:
+    solrizer-fedora (3.0.0.pre1)
+      active-fedora (>= 6.0.0.pre3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -256,8 +264,6 @@ GEM
       nokogiri
       stomp
       xml-simple
-    solrizer-fedora (3.0.0.pre1)
-      active-fedora (>= 6.0.0.pre3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -328,7 +334,7 @@ DEPENDENCIES
   sass-rails
   simplecov
   solrizer
-  solrizer-fedora (= 3.0.0.pre1)
+  solrizer-fedora!
   sqlite3
   therubyracer (= 0.12.0)
   uglifier

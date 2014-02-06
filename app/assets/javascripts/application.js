@@ -20,6 +20,7 @@
 // DAMS (3RD PARTY)
 //= require audio.min
 //= require leaflet
+//= require L.TileLayer.Zoomify
 //
 // DAMS (CUSTOM)
 //= require search

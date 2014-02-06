@@ -1,5 +1,5 @@
 class DamsAssembledCollectionDatastream < DamsResourceDatastream
-  include Dams::DamsAssembledCollection
+  include Dams::AssembledCollection
   include Dams::ModelHelper
 	      
   def to_solr (solr_doc = {})

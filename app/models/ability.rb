@@ -2,50 +2,95 @@ class Ability
   include Hydra::Ability
   def custom_permissions
 
-    # Enforced gated read access for dams:Object
-    can [:read], DamsObject do |obj|
-        test_read(obj.id)
-    end
-    can [:solr], DamsObject
-
-    # Enforced gated update access for dams:Object
-    can [:update], DamsObject do |obj|
-        test_edit(obj.id)
-    end
-
+    can [:solr], :all
     def create_permissions
       #can :create, :all if user_groups.include? 'registered'
     end
     
-    # Enforce creation for dams:Object with curator roles, like dams-curator, dams-rci, dams-manager-admin etc.
+    # Override create dams:Object for curator roles: dams-curator, dams-rci, dams-manager-admin etc.
     can :create, DamsObject do |obj|
     	result = false
         group_intersection = user_groups & Rails.configuration.curator_groups
         if(!group_intersection.empty?)
             result = true
             unit = obj.units
-            if(!unit.nil? && !unit.code.blank?)
-                unit_code = unit.code.first
-                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_code) || (unit_code.include?("dlp") && user_groups.include?("dams-curator")))
+            if(!unit.nil? && !unit.group.blank?)
+                unit_group = unit.group.first
+                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_group))
                     result = false;
                 end
-                logger.debug("[CANCAN] #{unit_code} DamsObject creation decision: #{result}")
+                logger.debug("[CANCAN] #{unit_group} DamsObject creation decision: #{result}")
             end
         end
         logger.debug("[CANCAN] DamsObject creation decision: #{result}: #{obj.units}")
         result
     end
+ 
+ 	#### Override create DamsProvenanceCollection for curator roles only ####
+    can :create, DamsProvenanceCollection do |obj|
+    	result = false
+        group_intersection = user_groups & Rails.configuration.curator_groups
+        if(!group_intersection.empty?)
+            result = true
+            unit = obj.damsMetadata.load_unit obj.damsMetadata.unit
+            if(!unit.nil? && !unit.group.blank?)
+                unit_group = unit.group.first
+                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_group))
+                    result = false;
+                end
+                logger.debug("[CANCAN] #{unit_group} DamsProvenanceCollection creation decision: #{result}")
+            end
+        end
+        logger.debug("[CANCAN] DamsProvenanceCollection creation decision: #{result}: #{obj.damsMetadata.unit}")
+        result
+    end
+    
+ 	##### Override create DamsProvenanceCollectionPart for curator roles only ####
+    can :create, DamsProvenanceCollectionPart do |obj|
+    	result = false
+        group_intersection = user_groups & Rails.configuration.curator_groups
+        if(!group_intersection.empty?)
+            result = true
+            unit = obj.damsMetadata.load_unit obj.damsMetadata.unit
+            if(!unit.nil? && !unit.group.blank?)
+                unit_group = unit.group.first
+                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_group))
+                    result = false;
+                end
+                logger.debug("[CANCAN] #{unit_group} DamsProvenanceCollectionPart creation decision: #{result}")
+            end
+        end
+        logger.debug("[CANCAN] DamsProvenanceCollectionPart creation decision: #{result}: #{obj.damsMetadata.unit}")
+        result
+    end
 
-    if current_user.new_record? || current_user.anonymous   #Anonymous user
-      can [:solr], DamsObject
+ 	#### Override create DamsAssembledCollection for curator roles only ####
+    can :create, DamsAssembledCollection do |obj|
+    	result = false
+        group_intersection = user_groups & Rails.configuration.curator_groups
+        if(!group_intersection.empty?)
+            result = true
+            unit = obj.damsMetadata.load_unit obj.damsMetadata.unit
+            if(!unit.nil? && !unit.group.blank?)
+                unit_group = unit.group.first
+                if !(user_groups.include?(Rails.configuration.super_role) || user_groups.include?(unit_group))
+                    result = false;
+                end
+                logger.debug("[CANCAN] #{unit_group} DamsAssembledCollection creation decision: #{result}")
+            end
+        end
+        logger.debug("[CANCAN] DamsAssembledCollection creation decision: #{result}: #{obj.damsMetadata.unit}")
+        result
+    end
+
+	#### Override to allow read-access to all other non-DamsObject, non-collections classes for roles other than the super role dams-manager-admin####	
+    group_intersection = user_groups & Rails.configuration.curator_groups
+    if current_user.new_record? || current_user.anonymous || group_intersection.empty? # anonymous/non-curator
       can [:read], DamsUnit
       can [:read], DamsCopyright
       can [:read], DamsOtherRight
       can [:read], DamsLicense
       can [:read], DamsStatute
-      can [:read], DamsAssembledCollection
-      can [:read], DamsProvenanceCollection
-      can [:read], DamsProvenanceCollectionPart
       can [:read], DamsSourceCapture
       can [:read], DamsCartographics
       can [:read], DamsCulturalContext
@@ -68,9 +113,16 @@ class Ability
       can [:read], MadsScheme
       can [:read], MadsAuthority
       can [:read], MadsLanguage
-    else  #login user
-    #can [:read, :create, :update], DamsObject
-      can [:read, :create, :update], DamsUnit
+      can [:read], MadsVariant
+      cannot [:create], DamsObject
+      cannot [:create], DamsAssembledCollection
+      cannot [:create], DamsProvenanceCollection
+      cannot [:create], DamsProvenanceCollectionPart
+    else  # curators
+      can [:read], DamsAssembledCollection
+      can [:read], DamsProvenanceCollection
+      can [:read], DamsProvenanceCollectionPart
+      can [:read], DamsUnit
       can [:read, :create, :update], DamsFunction
       can [:read, :create, :update], DamsCulturalContext
       can [:read, :create, :update], DamsTechnique
@@ -82,9 +134,6 @@ class Ability
       can [:read, :create, :update], DamsOtherRight
       can [:read, :create, :update], DamsLicense
       can [:read, :create, :update], DamsStatute
-      can [:read, :create, :update], DamsAssembledCollection
-      can [:read, :create, :update], DamsProvenanceCollection
-      can [:read, :create, :update], DamsProvenanceCollectionPart
       can [:read, :create, :update], DamsSourceCapture
       can [:read, :create, :update], DamsCartographics
       can [:read, :create, :update], MadsPersonalName
@@ -102,6 +151,12 @@ class Ability
       can [:read, :create, :update], MadsScheme
       can [:read, :create, :update], MadsAuthority
       can [:read, :create, :update], MadsLanguage
+      can [:read, :create, :update], MadsVariant
+    end
+
+    # DamsUnit is a special case: super-user only
+    if user_groups.include?(Rails.configuration.super_role)
+      can [:read, :create, :update], DamsUnit
     end
   end
 end

@@ -1,7 +1,7 @@
 class DamsCopyrightInternal
   include ActiveFedora::RdfObject
   include Dams::DamsCopyright
-  include DamsHelper
+  include Dams::DamsHelper
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')
   end

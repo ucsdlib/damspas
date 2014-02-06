@@ -638,7 +638,7 @@ module Dams
       def find_parents( solr_doc, col )
         begin
           col.assembledCollection.each do |acol|
-            parent_obj = ActiveFedora::Base.find(acol.pid, :cast => true)
+            parent_obj = DamsAssembledCollection.find(acol.pid)
             ptitle = parent_obj.title.first.value
             Solrizer.insert_field(solr_doc, "collection", ptitle, @facetable)
             find_parents( solr_doc, parent_obj)
@@ -648,7 +648,7 @@ module Dams
         end
         begin
           col.provenanceCollection.each do |pcol|
-            parent_obj = ActiveFedora::Base.find(pcol.pid, :cast => true)
+            parent_obj = DamsProvenanceCollection.find(pcol.pid)
             ptitle = parent_obj.title.first.value
             Solrizer.insert_field(solr_doc, "collection", ptitle, @facetable)
             find_parents( solr_doc, parent_obj)
