@@ -1,5 +1,5 @@
 class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
-  include DamsHelper
+  include Dams::DamsHelper
   def scheme=(val)
     if val.class == Array
      val = val.first

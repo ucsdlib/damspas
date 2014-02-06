@@ -1,6 +1,6 @@
 <h3>Simple Subject</h3>
 <%
-	subjectTypeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
+	typeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
 %>
 
 <% 
@@ -8,10 +8,10 @@
   @simpleSubjects.each do |sub|
 	tmp = JSON.parse(sub.to_json)
 %>
-	<%= render :partial => 'shared/edit_fields/simple_subjects_edit_fields' , :locals => {:f => f, :object_type => object_type, :subjectTypeArray => subjectTypeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
+	<%= render :partial => 'shared/edit_fields/simple_subjects_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
 <% 
 	i = i+1
   end 
 %>
 
-<p><%= link_to_add_edit_subjects "Add Simple Subject", f, "#{object_type}", subjectTypeArray, "#{i}"%></p>
+<p><%= link_to_add_dynamic_fields "Add Simple Subject", f, "#{object_type}", typeArray, "simple_subjects", "#{i}", 1%></p>

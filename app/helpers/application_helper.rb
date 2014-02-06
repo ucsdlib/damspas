@@ -9,6 +9,9 @@ module ApplicationHelper
 		highlighting = options[:'highlight']
 		hitsonly = options[:'hitsonly']
 	end
+  if field == "date_tesim"
+    return date_Val document
+  end
 	if highlighting
 		highlight_values = document.highlight_field(field)
 		
@@ -46,11 +49,77 @@ module ApplicationHelper
 			end
 			return values.map { |v|v }.join(sep).html_safe
 		else
+    # if field == "date_tesim"
+    #   return highlight_values.first.html_safe
+    # end
 			return highlight_values.join(sep).html_safe
 		end
 	end
   end
   
+  def date_Val document
+    dateRet = ''
+    i = 1
+    #Looking at date_jason_tesim because the JSON allows for extrapolation of value/beginDate/endDate fields for each date
+    dates = document["date_json_tesim"]  
+    if dates != nil
+      dateRet = dateHelper dates
+    else
+      pref = "component_#{i}_"
+      dates = document["#{pref}date_json_tesim"]
+      if dateRet.blank? && dates != nil
+        dateRet = dateHelper dates
+      end
+    end    
+    return dateRet 
+  end
+
+  def dateHelper dates
+    dateRet = ''
+    c2 = false
+    c3 = false
+    c4 = false
+    dates.each do |data|
+      date = JSON.parse(data)
+      if date['type'].casecmp("creation") == 0 || date['type'].casecmp("created") == 0
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        break
+      elsif date['type'].casecmp("copyright") == 0 && dateRet.blank?
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        c2 = true
+      elsif date['type'].casecmp("published") == 0 && dateRet.blank? && !c2
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        c3 = true
+      elsif date['type'].casecmp("issued") == 0 && dateRet.blank? && !c2 && !c3
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+        c4 = true
+      elsif !c2 && !c3 && !c4
+        if date['value']
+          dateRet = date['value']
+        else
+          dateRet = date['beginDate']
+        end
+      end
+    end
+    return dateRet
+  end
+
   # Parsing the json title values
   def parseJsonTitle jsonString, sep
 	titlehash = JSON.parse jsonString
@@ -129,35 +198,13 @@ end
     link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
   end
   
-  def link_to_add_subjects(name, f, objectType, subjectTypeArray )
-    fields = render("shared/edit_fields/simple_subjects_fields", :f => f, :object_type => objectType, :subjectTypeArray => subjectTypeArray)
-
-    link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
+  def link_to_add_dynamic_fields(name, f, objectType, typeArray, className, index, edit)
+    if edit == 1
+      fields = render("shared/edit_fields/#{className}_edit_fields", :f => f, :object_type => objectType, :typeArray => typeArray, :selected_type => nil)
+    else
+      fields = render("shared/edit_fields/#{className}_fields", :f => f, :object_type => objectType, :typeArray => typeArray)
+    end
+    link_to_function name, "add_dynamic_fields(this, \"#{escape_javascript(fields)}\", \"#{escape_javascript(className.camelize)}\")"
   end
-
-  def link_to_add_edit_subjects(name, f, objectType, subjectTypeArray, index)
-    fields = render("shared/edit_fields/simple_subjects_edit_fields", :f => f, :object_type => objectType, :subjectTypeArray => subjectTypeArray, :selected_type => nil)
-    link_to_function name, "add_subject_fields(this, \"#{escape_javascript(fields)}\")"
-  end        
-
-  def link_to_add_creators(name, f, objectType, nameTypeArray )
-    fields = render("shared/edit_fields/creator_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray)
-
-    link_to_function name, "add_name_fields(this, \"#{escape_javascript(fields)}\")"
-  end 
-  def link_to_add_edit_creators(name, f, objectType, nameTypeArray, index)
-    fields = render("shared/edit_fields/creator_edit_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray, :selected_type => nil)
-    link_to_function name, "add_name_fields(this, \"#{escape_javascript(fields)}\")"
-  end
-  
-  def link_to_add_relationships(name, f, objectType, nameTypeArray )
-    fields = render("shared/edit_fields/relationship_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray)
-
-    link_to_function name, "add_relationship_fields(this, \"#{escape_javascript(fields)}\")"
-  end
-  
-  def link_to_add_edit_relationships(name, f, objectType, nameTypeArray, index)
-    fields = render("shared/edit_fields/relationship_edit_fields", :f => f, :object_type => objectType, :nameTypeArray => nameTypeArray, :selected_type => nil)
-    link_to_function name, "add_relationship_fields(this, \"#{escape_javascript(fields)}\")"
-  end    
+    
 end 

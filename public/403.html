@@ -1,26 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>You are not allowed to view this page (403)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
-    }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+    <title>403 Forbidden - UC San Diego Library Digital Collections</title>
+    <style>
+        body{margin:0;padding:0;}
+        #dc-error,#container,#msg{-moz-box-sizing:border-box;}
+        #dc-error{background-image:url(http://libraries.ucsd.edu/assets/dams/error/403.jpg);margin:0 auto;max-width:1200px;width:100%;background-position:center center;background-size:cover;height:640px;position:relative;}
+        #container{background-color:#6C0000;background-color:rgba(108,0,0,0.85);padding:0;width:100%;height:640px;overflow:hidden;}
+        #dc-logo{display:block;margin:0 auto;padding-top:50px;}
+        #msg{background-color:#460000;background-color:rgba(70,0,0,0.85);padding:20px;font-family:sans-serif;width:80%;margin:20px auto;color:#fff;font-size:1em;}
+        #msg h1{margin:0 0 5px 0;}
+        #msg p{margin:0 0 5px 0;}
+        #msg em{font-size:0.9em;color:rgba(255,255,255,0.666);}
+        #msg a{color:#fff;}
+        @media(max-width:640px){#dc-logo{width:80%;}}
+        @media(max-width:480px){#dc-error,#container{height:480px;position:relative;}}
+    </style>
 </head>
-
 <body>
-  <!-- This file lives in public/403.html -->
-  <div class="dialog">
-    <h1>You are not allowed to view this page.</h1>
-    <p><%= link_to "Sign In", new_user_session_path %></p>
-  </div>
+<section id="dc-error">
+    <section id="container">
+        <img alt="Digital Collections Error Message" id="dc-logo" src="http://libraries.ucsd.edu/assets/dams/error/logo-dc-error.png" />
+        <section id="msg">
+            <h1>Forbidden</h1>
+            <p>You are not allowed to view this page.</p>
+            <p><a href="/dc/">Home</a> &#183; <a href="mailto:dlp@ucsd.edu">Contact Us</a></p>
+            <p><em>Response Status Code 403</em></p>
+        </section>
+    </section>
+</section>
 </body>
 </html>

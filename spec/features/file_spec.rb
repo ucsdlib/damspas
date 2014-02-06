@@ -15,7 +15,7 @@ solrizer.solrize test_pid
 feature "Anonymous user shouldn't be able to upload files" do
   scenario "Shouldn't be able to upload file" do
     page.driver.post upload_path(test_pid)
-    expect(page).to have_selector('h1', :text => 'You are not allowed to view this page')
+    expect(page).to have_selector('h1', :text => 'Forbidden')
   end
 end
 
@@ -72,7 +72,7 @@ feature "Access control enforcement" do
   end
   scenario "Anonymous shouldn't be able to access restricted object files" do
     visit file_path( 'bd0922518w', '_4_4.jpg' )
-    expect(page).to have_selector('h1', :text => 'You are not allowed to view this page')
+    expect(page).to have_selector('h1', :text => 'Forbidden')
   end
   scenario "Curators should be able to access restricted object files" do
     sign_in_developer

@@ -29,10 +29,7 @@
          ( label == nil || label == note_label ) &&
          ( exclude_type == nil || !exclude_type.include?(note_type) ) &&
          ( exclude_label == nil || !exclude_label.include?(note_label) )
-        logger.warn "XXX note: #{note_type}.#{note_label}"
         notes << note
-      else
-        logger.warn "XXX excluded note: #{note_type}.#{note_label} != #{type}.#{label}"
       end
     end
   end
@@ -40,24 +37,27 @@
   if notes.count > 0
     if type == nil
       notes.each do |note| 
-        htmlOpen = htmlOpenTemp
-        if note['displayLabel'] != nil && !note['displayLabel'].blank?
-          htmlOpen %= note['displayLabel'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
-        elsif note['type'] != nil && !note['type'].blank?
-          htmlOpen %= note['type'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
-        else
-          htmlOpen %= 'General Note'
-        end
-        concat htmlOpen.html_safe %>
-        <p><%= auto_link(note['value'])%></p>
-<%    end
+        if (!note['value'].include? "http://library.ucsd.edu/ark:") #Hide ARK URL from display
+          htmlOpen = htmlOpenTemp
+          if note['displayLabel'] != nil && !note['displayLabel'].blank?
+            htmlOpen %= note['displayLabel'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
+          elsif note['type'] != nil && !note['type'].blank?
+            htmlOpen %= note['type'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
+          else
+            htmlOpen %= 'General Note'
+          end
+          concat htmlOpen.html_safe %>
+          <p><%= auto_link(note['value'].gsub('""', '"'))%></p>
+<%      end
+      end
     else
       notes.each do |note|
-        htmlOpen = htmlOpenTemp
-        htmlOpen %= type.to_s.capitalize
-        concat htmlOpen.html_safe %>
-        <p><%= auto_link(note['value'])%></p>
-<%
+        if (!note['value'].include? "http://library.ucsd.edu/ark:") #Hide ARK URL from display
+          htmlOpen = htmlOpenTemp
+          htmlOpen %= type.to_s.capitalize
+          concat htmlOpen.html_safe %>
+          <p><%= auto_link(note['value'].gsub('""', '"'))%></p>
+<%      end
       end
     end
     concat htmlClose.html_safe

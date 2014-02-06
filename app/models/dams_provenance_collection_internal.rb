@@ -1,8 +1,8 @@
 class DamsProvenanceCollectionInternal
     include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
-    include Dams::DamsProvenanceCollection
+    include Dams::DamsHelper
+    include Dams::ProvenanceCollection
   
 
  

@@ -1,8 +1,8 @@
 class DamsProvenanceCollectionPartInternal
     include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
-    include Dams::DamsProvenanceCollectionPart
+    include Dams::DamsHelper
+    include Dams::ProvenanceCollectionPart
   
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')

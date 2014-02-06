@@ -21,7 +21,7 @@ namespace :deploy do
     task :precompile do
       on roles(:web) do
         within release_path do
-          execute :rake, 'assets:precompile'
+          execute :rake, 'RAILS_RELATIVE_URL_ROOT=/dc assets:precompile'
         end
       end
     end

@@ -26,7 +26,7 @@
 			scopeContentNote = JSON.parse(datum)
 			if !scopeContentNote['value'].blank?	
 %>
-				<p><%= auto_link(scopeContentNote['value']) %></p>
+				<p><%= auto_link(scopeContentNote['value'].gsub('""', '"')) %></p>
 <%
 			end			
 		end

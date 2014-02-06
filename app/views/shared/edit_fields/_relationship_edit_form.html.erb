@@ -1,7 +1,7 @@
 <h3>Relationship</h3>
 <%#= select_tag "#{object_type}[relationshipRoleURI][]", options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
 <%
-  nameTypeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
+  typeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
 %>  
 
 <% 
@@ -9,11 +9,11 @@
   @relationships.each do |rel|
 	tmp = JSON.parse(rel.to_json)
 %>
-	<%= render :partial => 'shared/edit_fields/relationship_edit_fields' , :locals => {:f => f, :object_type => object_type, :nameTypeArray => nameTypeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_name => "#{tmp['nameId']}", :selected_role => "#{tmp['roleId']}"}%>       
+	<%= render :partial => 'shared/edit_fields/relationship_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_name => "#{tmp['nameId']}", :selected_role => "#{tmp['roleId']}"}%>       
 <% 
 	i = i+1
   end 
 %>
 
-<p><%= link_to_add_edit_relationships "Add Relationship", f, "#{object_type}", nameTypeArray, "#{i}"%></p>
+<p><%= link_to_add_dynamic_fields "Add Relationship", f, "#{object_type}", typeArray, "relationship", "#{i}", 1%></p>
 

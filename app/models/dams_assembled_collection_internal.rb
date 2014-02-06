@@ -1,8 +1,8 @@
 class DamsAssembledCollectionInternal
     include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
-    include DamsHelper
-    include Dams::DamsAssembledCollection
+    include Dams::DamsHelper
+    include Dams::AssembledCollection
     
   
   def pid
