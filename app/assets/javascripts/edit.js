@@ -37,11 +37,11 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
   var typeGet = null;
   var reg = null;
   if (typeof link == "string") {
-  	q = link;
-  	fieldName = typeName+"URI";
+    q = link;
+    fieldName = typeName+"URI";
   } else {
-  	q = link.value;
-  	fieldName = firstToLowerCase(q);
+    q = link.value;
+    fieldName = firstToLowerCase(q);
   }
   if (typeName == 'simpleSubject') {
     typeGet = "subject";
@@ -62,8 +62,8 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
   if(q != null && q.length > 0) {
-	  $.get(url,function(data,status){
-	    var new_id = new Date().getTime();
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
       var regexp = null;
       if (relationship == "true")
       {      
@@ -72,13 +72,18 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
         data = data.replace(regexp,"attributes_"+new_id);
         data = data.split(tmp).join("attributes]["+new_id+"]");
       }
-      regexp = new RegExp(reg, "g");
-	    data = data.replace(regexp,new_id); 
-	    if(location != null && location.length > 0)
-	    	$(location).html(data);
-	    else
-	    	$(link).parent().before(data);
-	  }); 
+      else
+      {
+        data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
+        data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
+      }
+      regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id); 
+      if(location != null && location.length > 0)
+        $(location).html(data);
+      else
+        $(link).parent().before(data);
+    }); 
   }
 }
 
@@ -89,7 +94,6 @@ function getEditDynamicFields(link,type,location,typeName)
   var reg = null;
   var fieldName = null;
   var url = null;
-
 
   if (typeName == 'simpleSubject') {
     typeGet = "subject";
@@ -114,13 +118,13 @@ function getEditDynamicFields(link,type,location,typeName)
   }
   
   if(q != null && q.length > 0) {
-	  $.get(url,function(data,status){
-	    var new_id = new Date().getTime();
-	    var regexp = new RegExp(reg, "g");
-	    data = data.replace(regexp,new_id);
-	    if(location != null && location.length > 0)
-	    	$(location).html(data);	
-	  }); 
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data); 
+    }); 
   }
 }
 
@@ -198,13 +202,13 @@ function processForm_generic(objType) {
     }    
 
     if($(objType+"relatedResource_attributes_0_description").val() != null && $(objType+"relatedResource_attributes_0_type").val() != null && 
-    	$(objType+"relatedResource_attributes_0_description").val().length < 1 && $(objType+"relatedResource_attributes_0_type").val().length < 1 )
+      $(objType+"relatedResource_attributes_0_description").val().length < 1 && $(objType+"relatedResource_attributes_0_type").val().length < 1 )
     {
       $("#relatedResourceSection").remove();
     }
     
     if($(objType+"cartographics_attributes_0_point").val() != null && $(objType+"cartographics_attributes_0_line").val() != null && 
-    	$(objType+"cartographics_attributes_0_point").val().length < 1 && $(objType+"cartographics_attributes_0_line").val().length < 1)
+      $(objType+"cartographics_attributes_0_point").val().length < 1 && $(objType+"cartographics_attributes_0_line").val().length < 1)
     {
       $("#cartographicsSection").remove();
     }    
@@ -219,14 +223,14 @@ function processForm_generic(objType) {
       $("#newLanguage").remove();
     }
     
-	for (var i=0;i<complexSubjectIdArray.length;i++) {
-	    if($(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val() != null && $(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val().length < 1)
-	    {
-	    	$("#"+complexSubjectIdArray[i]).remove();
-	    }	    
-	}
-	        
-	removeEmptyFields();             
+  for (var i=0;i<complexSubjectIdArray.length;i++) {
+      if($(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val() != null && $(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val().length < 1)
+      {
+        $("#"+complexSubjectIdArray[i]).remove();
+      }     
+  }
+          
+  removeEmptyFields();             
     return true; 
 }
 
@@ -239,9 +243,9 @@ function add_fields(link, association, content) {
     var regexp = new RegExp("new_" + association, "g");
     content = content.replace("newClassName",new_id);  
     if(association == "complexSubject") {
-    	content = content.replace("complexSubjectId",new_id);
-    	complexSubjectIdArray.push(new_id);
-    } 	
+      content = content.replace("complexSubjectId",new_id);
+      complexSubjectIdArray.push(new_id);
+    }   
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
@@ -260,7 +264,7 @@ function target_popup(target) {
 function setParentId_generic(parent_id, isId) {
   var target = "";
   if(isId == true) {  
-  	target=window.opener.document.getElementById(parent_id);
+    target=window.opener.document.getElementById(parent_id);
   } else {
     target=window.opener.document.getElementsByClassName(parent_id)[0];
   }
@@ -273,14 +277,14 @@ function setParentId_generic(parent_id, isId) {
 
 function checkOption(id,isId,type) {
   if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
-	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
-	  type = getObjectsPath(type);
-	}  
+  if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {    
+    type = getObjectsPath(type);
+  }  
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
   } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
-	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
-	  type = getObjectsPath(type);
-	} 
+  if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {    
+    type = getObjectsPath(type);
+  } 
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
   }  
 }
@@ -293,18 +297,18 @@ function loadCreateNewObjectOption_generic(objType) {
 }
 
 function getObjectsPath(type) {
-	var	objectPathArray = 	[["BuiltWorkPlace","dams_built_work_places"],["CulturalContext","dams_cultural_contexts"], ["Function","dams_functions"], 
-							 ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
-						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
-						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
-							 ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
-							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"]];
-	for(i = 0; i < objectPathArray.length; i++) {
-		if(type == objectPathArray[i][0]) {
-			return objectPathArray[i][1];
-		}
-	}
-	return null;
+  var objectPathArray =   [["BuiltWorkPlace","dams_built_work_places"],["CulturalContext","dams_cultural_contexts"], ["Function","dams_functions"], 
+               ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
+                 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
+                 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
+               ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
+               ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"]];
+  for(i = 0; i < objectPathArray.length; i++) {
+    if(type == objectPathArray[i][0]) {
+      return objectPathArray[i][1];
+    }
+  }
+  return null;
 }
 
 function firstToLowerCase( str ) {
@@ -312,37 +316,37 @@ function firstToLowerCase( str ) {
 }
 
 function removeEmptyFields() {
- 	var inputElements= document.getElementsByClassName("input-block-level");
- 	var fieldId = "";
- 	var inputElementsArray = new Array();
- 	for (var i=0;i<inputElements.length;i++) {
- 		if(inputElements[i].value != null && inputElements[i].value.length < 1) {			
- 			fieldId = "#"+inputElements[i].id;
- 			inputElementsArray.push(fieldId);
- 		}
- 	}
+  var inputElements= document.getElementsByClassName("input-block-level");
+  var fieldId = "";
+  var inputElementsArray = new Array();
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  }
 
-	inputElements= document.getElementsByClassName("input-drop-down");
- 	for (var i=0;i<inputElements.length;i++) {
- 		if(inputElements[i].value != null && inputElements[i].value.length < 1) {			
- 			fieldId = "#"+inputElements[i].id;
- 			inputElementsArray.push(fieldId);
- 		}
- 	}
- 		
- 	for (var i=0;i<inputElementsArray.length;i++) {
- 		$(inputElementsArray[i]).remove();
- 	}
+  inputElements= document.getElementsByClassName("input-drop-down");
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  }
+    
+  for (var i=0;i<inputElementsArray.length;i++) {
+    $(inputElementsArray[i]).remove();
+  }
 }
 
 function loadSensitiveImage(message,zoomFilePath,filePath) {
-	var imgObj = document.getElementById('sensitive-image');
-	var imgSrc = imgObj.src;
-	if (confirm(message + "\n " + "Would you like to view its content?")) 
-	{
-		html ='<a href="'+zoomFilePath+'">';
-		html += '<img id="sensitive-image" src="'+filePath+'" alt=""/>'
-		html += '</a>';
-		document.getElementsByClassName('simple-object')[0].innerHTML = html;
-	}
+  var imgObj = document.getElementById('sensitive-image');
+  var imgSrc = imgObj.src;
+  if (confirm(message + "\n " + "Would you like to view its content?")) 
+  {
+    html ='<a href="'+zoomFilePath+'">';
+    html += '<img id="sensitive-image" src="'+filePath+'" alt=""/>'
+    html += '</a>';
+    document.getElementsByClassName('simple-object')[0].innerHTML = html;
+  }
 }
