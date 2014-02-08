@@ -7,5 +7,5 @@
   <%= select_tag "#{object_type}[otherRightsURI][]", options_for_select(@dams_other_rights, :selected => @otherRight_id), :prompt=>"Select Other Rights"%>
   <%= label_tag "#{object_type}[licenseURI][]", "License" %>
   <%= select_tag "#{object_type}[licenseURI][]", options_for_select(@dams_licenses, :selected => @license_id), :prompt=>"Select License"%>
-  <%= label_tag "#{object_type}[rightsHolderURI][]", "Rights Holder" %>
-  <%= select_tag "#{object_type}[rightsHolderURI][]", options_for_select(@dams_rightsHolders, :selected => @rightsHolder_id), :prompt=>"Select Rights Holder"%>
+  <%#= label_tag "#{object_type}[rightsHolderURI][]", "Rights Holder" %>
+  <%#= select_tag "#{object_type}[rightsHolderURI][]", options_for_select(@dams_rightsHolders, :selected => @rightsHolder_id), :prompt=>"Select Rights Holder"%>

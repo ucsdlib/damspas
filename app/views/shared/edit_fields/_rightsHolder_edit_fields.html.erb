@@ -1,0 +1,13 @@
+<div class="fields">
+<br/>
+<% if selected_type.nil?%>
+	<%= select_tag "#{object_type}[rightsHolderType][]",  options_for_select(typeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getEditDynamicFields(this,'#{object_type}','#newRightsHolder','rightsHolder');"%>
+	<div id="newRightsHolder"></div>
+<% else %>
+	<%= hidden_field_tag "#{object_type}[rightsHolderType][]", "#{selected_type}" %>
+	<script type="text/javascript">
+	   getDynamicFields("<%= selected_type %>","<%= object_type %>","#newRightsHolder<%= index %>","0","rightsHolder","<%= selected_value %>");
+	</script>
+	<div id="newRightsHolder<%= index %>"></div>
+	</div>	
+<% end %>

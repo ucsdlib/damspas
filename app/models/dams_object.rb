@@ -99,6 +99,8 @@ class DamsObject < ActiveFedora::Base
     :rightsHolderURI,
     :rightsHolderName_attributes,
     :rightsHolderName,
+    :rightsHolderType,
+    :rightsHolder,
     :scientificName_attributes,
     :scientificName,
     :scopeContentNote_attributes,

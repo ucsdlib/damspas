@@ -30,15 +30,15 @@ class GetDataController < ApplicationController
 
   def get_name 	
   	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
-  	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
+  	if(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Corporate'))
 		@names = get_objects_url('MadsCorporateName','name_tesim')
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
+  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Personal'))
 		@names = get_objects_url('MadsPersonalName','name_tesim')			
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
+  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Conference'))
 		@names = get_objects_url('MadsConferenceName','name_tesim')		
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
+  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Family'))
 		@names = get_objects_url('MadsFamilyName','name_tesim')
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
+  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Name'))
 		@names = get_objects_url('MadsName','name_tesim')							
 	else
 		@names = get_objects_url('MadsName','name_tesim')

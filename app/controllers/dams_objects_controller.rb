@@ -78,6 +78,8 @@ class DamsObjectsController < ApplicationController
   ##############################################################################
   # hydra actions ##############################################################
   ##############################################################################
+
+
   def new
     @dams_object.title.build
     @dams_object.title.first.elementList.subTitleElement.build
@@ -121,7 +123,10 @@ class DamsObjectsController < ApplicationController
     @dams_object.license.build    
     @dams_object.statute.build
     @dams_object.rightsHolderPersonal.build
-    #@dams_object.rightsHolderCorporate.build
+    @dams_object.rightsHolderCorporate.build
+    @dams_object.rightsHolderConference.build
+    @dams_object.rightsHolderFamily.build
+    @dams_object.rightsHolderName.build
     #@dams_object.otherRights.build
     @dams_object.relationship.build
     @dams_object.relationship.first.role.build
@@ -193,7 +198,7 @@ class DamsObjectsController < ApplicationController
   	@statute_id = @dams_object.statutes.pid if !@dams_object.statutes.nil?
   	@otherRight_id = @dams_object.otherRights.pid if !@dams_object.otherRights.nil?
   	@license_id = @dams_object.licenses.pid if !@dams_object.licenses.nil?
-  	@rightsHolder_id = @dams_object.rightsHolders.first.pid if !@dams_object.rightsHolders.first.nil?
+  	#@rightsHolder_id = @dams_object.rightsHolders.first.pid if !@dams_object.rightsHolders.first.nil?
   	 	
   	@simple_subject_type = get_simple_subject_type(@dams_object) 	
   	@dams_simple_subjects = get_objects(@simple_subject_type,'name_tesim')
@@ -218,6 +223,7 @@ class DamsObjectsController < ApplicationController
     @creators = get_creators(@dams_object)
     @simpleSubjects = get_simple_subjects(@dams_object) 
 	@relationships = get_relationships(@dams_object)
+	@rHolders = get_rights_holders(@dams_object)
 	
 #	uri = URI('http://fast.oclc.org/fastSuggest/select')
 #	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -310,6 +316,11 @@ class DamsObjectsController < ApplicationController
     @dams_object.license.clear  
     @dams_object.statute.clear
     @dams_object.relationship.clear
+    @dams_object.rightsHolderPersonal.clear
+    @dams_object.rightsHolderCorporate.clear
+    @dams_object.rightsHolderConference.clear
+    @dams_object.rightsHolderFamily.clear
+    @dams_object.rightsHolderName.clear    
 	has_file = "false"
 	
     @dams_object.attributes = params[:dams_object]  
