@@ -71,7 +71,7 @@ class DamsObjectDatastream < DamsResourceDatastream
   end
 
   def rightsHolder
-    rightsHolderPersonal.concat(rightsHolderCorporate)
+    rightsHolderPersonal.concat(rightsHolderCorporate).concat(rightsHolderFamily).concat(rightsHolderConference).concat(rightsHolderName)
   end
   def load_rightsHolders
     load_rightsHolders(rightsHolder)

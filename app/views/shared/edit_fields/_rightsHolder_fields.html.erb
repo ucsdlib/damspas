@@ -1,0 +1,6 @@
+<div class="fields">
+<br/>
+<%= select_tag "#{object_type}[rightsHolderType][]",  options_for_select(typeArray) , :prompt=>"Select Type" , :onChange=>"javascript: getDynamicFields(this,'#{object_type}','#newRightsHolder','0','rightsHolder');"%>
+
+<div id="newRightsHolder"></div>
+</div>

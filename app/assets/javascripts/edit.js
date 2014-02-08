@@ -55,6 +55,10 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
     typeGet = "name";
     reg = "newRelationship";
   }
+  else if (typeName == 'rightsHolder') {
+    typeGet = "name";
+    reg = "newRightsHolder";
+  }
   if (relationship == "true") {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
@@ -72,13 +76,18 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
         data = data.replace(regexp,"attributes_"+new_id);
         data = data.split(tmp).join("attributes]["+new_id+"]");
       }
-      regexp = new RegExp(reg, "g");
-	    data = data.replace(regexp,new_id); 
-	    if(location != null && location.length > 0)
-	    	$(location).html(data);
-	    else
-	    	$(link).parent().before(data);
-	  }); 
+      else
+      {
+        data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
+        data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
+      }
+      regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id); 
+      if(location != null && location.length > 0)
+        $(location).html(data);
+      else
+        $(link).parent().before(data);
+    }); 
   }
 }
 
@@ -114,13 +123,13 @@ function getEditDynamicFields(link,type,location,typeName)
   }
   
   if(q != null && q.length > 0) {
-	  $.get(url,function(data,status){
-	    var new_id = new Date().getTime();
-	    var regexp = new RegExp(reg, "g");
-	    data = data.replace(regexp,new_id);
-	    if(location != null && location.length > 0)
-	    	$(location).html(data);	
-	  }); 
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data); 
+    }); 
   }
 }
 
@@ -298,7 +307,9 @@ function getObjectsPath(type) {
 						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
 						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
 							 ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
-							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"]];
+							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"],
+							 ["RightsHolderConference", "mads_conference_names"],["RightsHolderCorporate", "mads_corporate_names"],
+             				 ["RightsHolderFamily", "mads_family_names"],["RightsHolderName", "mads_names"], ["RightsHolderPersonal", "mads_personal_names"]];
 	for(i = 0; i < objectPathArray.length; i++) {
 		if(type == objectPathArray[i][0]) {
 			return objectPathArray[i][1];
