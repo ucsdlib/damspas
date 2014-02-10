@@ -23,7 +23,7 @@ module Dams
       def builtWorkPlaceElement_with_update_name= (attributes)
         self.builtWorkPlaceElement_without_update_name= attributes
         if elementList && elementList.first && elementList.first.elementValue.present?
-          self.name = elementList.first.elementValue
+          self.name = elementList.first.elementValue.to_s
         end
       end
       alias_method :builtWorkPlaceElement_without_update_name=, :builtWorkPlaceElement_attributes=

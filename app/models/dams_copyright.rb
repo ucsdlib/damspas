@@ -1,9 +1,7 @@
 class DamsCopyright < ActiveFedora::Base
-  has_metadata 'damsMetadata', :type => DamsCopyrightDatastream
-  delegate_to "damsMetadata", [:status,:jurisdiction,:purposeNote,:note, :beginDate, :endDate, :dateValue, :date_attributes, :date]
+  include Hydra::AccessControls::Permissions
 
-  # rights metadata
-  has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
-  include Hydra::ModelMixins::RightsMetadata
+  has_metadata 'damsMetadata', :type => DamsCopyrightDatastream
+  has_attributes :status,:jurisdiction,:purposeNote,:note, :beginDate, :endDate, :dateValue, :date_attributes, :date, datastream: :damsMetadata, multiple: true
 
 end

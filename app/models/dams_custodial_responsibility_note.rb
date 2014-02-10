@@ -1,4 +1,4 @@
 class DamsCustodialResponsibilityNote < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsCustodialResponsibilityNoteDatastream 
-  delegate_to "damsMetadata", [:value, :type, :displayLabel]  
+  has_attributes :value, :type, :displayLabel, datastream: :damsMetadata, multiple: true
 end
