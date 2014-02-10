@@ -6,7 +6,7 @@ describe DamsProvenanceCollectionDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { DamsProvenanceCollectionDatastream.new(double('inner object', :pid=>'bb24242424', :new? => true), 'damsMetadata') }
+      subject { DamsProvenanceCollectionDatastream.new(double('inner object', :pid=>'bb24242424', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb24242424"
@@ -35,7 +35,7 @@ describe DamsProvenanceCollectionDatastream do
 
     describe "an instance loaded from fixture xml" do
       subject do
-        subject = DamsProvenanceCollectionDatastream.new(double('inner object', :pid=>'bb24242424', :new? =>true), 'damsMetadata')
+        subject = DamsProvenanceCollectionDatastream.new(double('inner object', :pid=>'bb24242424', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsProvenanceCollection.rdf.xml').read
         subject
       end

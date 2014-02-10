@@ -17,7 +17,7 @@ describe MadsGenreFormDatastream do
         }
       }
 
-      subject = MadsGenreFormDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = MadsGenreFormDatastream.new(double("inner object", pid:"zzXXXXXXX1", new_record?: true))
       subject.attributes = params[:genreForm]
 
       xml =<<END
@@ -45,7 +45,7 @@ END
       subject.content.should be_equivalent_to xml
     end
     describe "a new instance" do
-      subject { MadsGenreFormDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { MadsGenreFormDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -69,7 +69,7 @@ END
 
     describe "an instance with content" do
       subject do
-        subject = MadsGenreFormDatastream.new(double('inner object', :pid=>'bd9796116g', :new? =>true), 'damsMetadata')
+        subject = MadsGenreFormDatastream.new(double('inner object', :pid=>'bd9796116g', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsGenreForm.rdf.xml').read
         subject
       end

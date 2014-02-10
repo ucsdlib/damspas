@@ -16,7 +16,7 @@ describe DamsFunctionDatastream do
         }
       }
 
-      subject = DamsFunctionDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = DamsFunctionDatastream.new(double("inner object", pid:"zzXXXXXXX1", new_record?: true))
       subject.attributes = params[:function]
 
       xml =<<END
@@ -45,7 +45,7 @@ END
       subject.content.should be_equivalent_to xml
     end
     describe "a new instance" do
-      subject { DamsFunctionDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsFunctionDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -69,7 +69,7 @@ END
 
     describe "an instance with content" do
       subject do
-        subject = DamsFunctionDatastream.new(double('inner object', :pid=>'bd7816576v', :new? =>true), 'damsMetadata')
+        subject = DamsFunctionDatastream.new(double('inner object', :pid=>'bd7816576v', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsFunction.rdf.xml').read
         subject
       end
