@@ -203,7 +203,6 @@ describe DamsObjectDatastream do
 
         # copyright
         solr_doc["copyright_tesim"].first.should include '"id":"bb05050505"'
-puts solr_doc["copyright_tesim"]
         solr_doc["copyright_tesim"].first.should include '"status":"[\"Under copyright\"]"'
         solr_doc["copyright_tesim"].first.should include '"jurisdiction":"[\"us\"]"'
         solr_doc["copyright_tesim"].first.should include '"note":"[\"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \\\\\"fair use\\\\\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.\"]"'

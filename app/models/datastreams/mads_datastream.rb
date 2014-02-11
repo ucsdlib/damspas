@@ -83,7 +83,14 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end      
   end
     
- rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    if ds.pid.nil?
+      RDF::URI.new
+    else
+      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+    end
+  }
+
 
   def serialize
     if(!externalAuthority.nil?)
