@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/ucsdlib/solrizer-fedora.git
-  revision: 906dd51eb5606821650598eeff5471909145cfe1
-  ref: 906dd51e
+  revision: 87c2d35e89df19bb4535e1f713a68b0dc469498a
+  ref: 87c2d35e
   specs:
     solrizer-fedora (3.0.0.pre1)
       active-fedora (>= 6.0.0.pre3)
@@ -113,23 +113,23 @@ GEM
     hashie (2.0.5)
     hike (1.2.3)
     hooks (0.3.3)
-    hydra-access-controls (6.4.1)
-      active-fedora (~> 6.6)
+    hydra-access-controls (6.5.0.rc2)
+      active-fedora (~> 6.7)
       activesupport
-      blacklight (~> 4.0)
+      blacklight (~> 4.7)
       cancan
       deprecation
-    hydra-core (6.4.1)
-      active-fedora
-      blacklight (~> 4.0)
+    hydra-core (6.5.0.rc2)
+      active-fedora (~> 6.7)
+      blacklight (~> 4.7)
       block_helpers
       deprecation (>= 0.0.5)
-      hydra-access-controls (= 6.4.1)
+      hydra-access-controls (= 6.5.0.rc2)
       jettywrapper (>= 1.4.1)
       rails (>= 3.2.3, < 5)
-    hydra-head (6.4.1)
-      hydra-access-controls (= 6.4.1)
-      hydra-core (= 6.4.1)
+    hydra-head (6.5.0.rc2)
+      hydra-access-controls (= 6.5.0.rc2)
+      hydra-core (= 6.5.0.rc2)
       rails (>= 3.2.6)
     i18n (0.6.9)
     jettywrapper (1.4.1)
@@ -320,7 +320,7 @@ DEPENDENCIES
   database_cleaner
   devise
   equivalent-xml
-  hydra-head (~> 6.4.0)
+  hydra-head (~> 6.5.0.rc2)
   i18n
   jettywrapper
   jquery-rails

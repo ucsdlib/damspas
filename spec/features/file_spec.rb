@@ -8,10 +8,6 @@ require 'cancan'
 @obj.save
 test_pid = @obj.pid
 
-# reindex to make sure rights are indexed correctly
-solrizer = Solrizer::Fedora::Solrizer.new
-solrizer.solrize test_pid
-
 feature "Anonymous user shouldn't be able to upload files" do
   scenario "Shouldn't be able to upload file" do
     page.driver.post upload_path(test_pid)
