@@ -9,10 +9,6 @@ describe CatalogController do
     @obj = DamsObject.new
     @obj.attributes = {titleValue:"Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unit: unit, copyrightURI: "bd0513099p" }
     @obj.save
-
-    # rights metadata not getting set correctly until reindexing...
-    solrizer = Solrizer::Fedora::Solrizer.new
-    solrizer.solrize @obj.id
   end
   describe "Blacklight search" do
   

@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-# reindex to make sure solr record is current
 test_pid = 'bd22194583'
-solrizer = Solrizer::Fedora::Solrizer.new
-solrizer.solrize test_pid
 
 feature 'Visitor wants to view object fields' do
   scenario 'Metadata on Solr view page' do

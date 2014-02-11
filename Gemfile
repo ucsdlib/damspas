@@ -2,14 +2,14 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.16' # XXX 4.0.2
 gem 'blacklight', '~> 4.7.0'
-gem 'hydra-head', '~> 6.4.0'
+gem 'hydra-head', '~> 6.5.0.rc2'
 gem 'active-fedora', '~> 6.7.0'
 gem 'solrizer', '~> 3.1.0'
 gem 'blacklight_advanced_search' # 2.1.1
 
 # private fork of solrizer-fedora with auto-commit disabled
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
-gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '906dd51e'
+gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
 gem 'sqlite3' #, '1.3.7'
 
