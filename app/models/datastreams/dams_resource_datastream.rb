@@ -830,7 +830,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     #insertProvenanceCollectionPartFields solr_doc, "provenanceCollectionPart", provenanceCollectionPart
 
     # note
-    insertNoteFields solr_doc, 'note', note
+    insertNoteFields solr_doc, 'otherNote', note
     insertNoteFields solr_doc, 'custodialResponsibilityNote', custodialResponsibilityNote
     insertNoteFields solr_doc, 'preferredCitationNote', preferredCitationNote
     insertNoteFields solr_doc, 'scopeContentNote', scopeContentNote
