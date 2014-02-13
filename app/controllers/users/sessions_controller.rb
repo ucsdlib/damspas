@@ -8,7 +8,7 @@ class Users::SessionsController < Devise::SessionsController
     redirect_path = after_sign_out_path_for(resource_name)
     signed_out = (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
 
-    flash[:notice] = 'You have been logged out of Digital Collections. To logout of all Single Sign-On applications, close your browser or <a href="https://a4.ucsd.edu/tritON/logout?target=http://library.ucsd.edu/dc"><u>terminate your Shibboleth session</u></a>.'.html_safe
+    flash[:alert] = ('You have been logged out of Digital Collections. To logout of all Single Sign-On applications, close your browser or <a href="https://a4.ucsd.edu/tritON/logout?target='+root_url+'"><u>terminate your Shibboleth session</u></a>.').html_safe
     
     if signed_out && is_navigational_format?
 

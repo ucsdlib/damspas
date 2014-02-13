@@ -615,7 +615,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	  	  		
       # build sort title
       if sort_title == "" && cid == nil
-        sort_title = name.first
+        sort_title = name
       end
     end
 
