@@ -361,13 +361,13 @@ module Dams
 	    if copy != nil
 	      copy_json = {
 	        :id => copy.pid,
-	        :status => copy.status.to_s,
-	        :jurisdiction => copy.jurisdiction.to_s,
-	        :purposeNote => copy.purposeNote.to_s,
-	        :note => copy.note.to_s,
-	        :beginDate => copy.beginDate.to_s,
-	        :endDate => copy.endDate.to_s,
-	        :date => copy.dateValue.to_s }
+	        :status => copy.status.first.to_s,
+	        :jurisdiction => copy.jurisdiction.first.to_s,
+	        :purposeNote => copy.purposeNote.first.to_s,
+	        :note => copy.note.first.to_s,
+	        :beginDate => copy.beginDate.first.to_s,
+	        :endDate => copy.endDate.first.to_s,
+	        :date => copy.dateValue.first.to_s }
 	      Solrizer.insert_field(solr_doc, "#{prefix}copyright", copy_json.to_json)
 	      #Solrizer.insert_field(solr_doc, "fulltext", copy_json.to_json)
 	    end

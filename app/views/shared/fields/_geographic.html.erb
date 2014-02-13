@@ -19,7 +19,7 @@
 		fieldData.each do |datum|
 			geographic = datum
 %>
-			<li><%= link_to "<i class='icon-tag icon-white'></i> #{geographic}".html_safe, facet_uri(geographic, 'subject_geographic_sim'), :class => "label" %></li>
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{geographic}".html_safe, facet_uri(geographic, 'subject_topic_sim'), :class => "label" %></li>
 <%
 		end
 
