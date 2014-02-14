@@ -1,6 +1,6 @@
 class MadsAuthority < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => MadsAuthorityDatastream
-  delegate_to 'damsMetadata', [ :code, :name, :description, :externalAuthority, :scheme, :scheme_attributes]
+  has_attributes :code, :name, :description, :externalAuthority, :scheme, :scheme_attributes, datastream: :damsMetadata, multiple: true
   #def scheme
   #  damsMetadata.scheme
   #end

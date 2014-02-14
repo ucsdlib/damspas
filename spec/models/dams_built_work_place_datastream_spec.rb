@@ -16,7 +16,7 @@ describe DamsBuiltWorkPlaceDatastream do
         }
       }
 
-      subject = DamsBuiltWorkPlaceDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = DamsBuiltWorkPlaceDatastream.new(double("inner object", pid:"zzXXXXXXX1", new_record?: true, new?: true))
       subject.attributes = params[:builtWorkPlace]
 
       xml =<<END
@@ -45,7 +45,7 @@ END
       subject.content.should be_equivalent_to xml
     end
     describe "a new instance" do
-      subject { DamsBuiltWorkPlaceDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsBuiltWorkPlaceDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -57,7 +57,7 @@ END
 
       it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "Original"
-        subject.builtWorkPlaceElement_attributes = {'0' => { elementValue: "Test" }}
+        subject.builtWorkPlaceElement_attributes = [{ elementValue: "Test" }]
         subject.name.should == ["Test"]
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
@@ -69,7 +69,7 @@ END
 
     describe "an instance with content" do
       subject do
-        subject = DamsBuiltWorkPlaceDatastream.new(double('inner object', :pid=>'bd1707307x', :new? =>true), 'damsMetadata')
+        subject = DamsBuiltWorkPlaceDatastream.new(double('inner object', :pid=>'bd1707307x', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsBuiltWorkPlace.rdf.xml').read
         subject
       end

@@ -7,7 +7,13 @@ module Dams
     
     included do
       rdf_type DAMS.ProvenanceCollection
-      
+      rdf_subject { |ds|
+        if ds.pid.nil?
+          RDF::URI.new
+        else
+          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        end
+      }
 
        map_predicates do |map|
         map.title(:in => DAMS, :to => 'title', :class_name => 'MadsTitle')
@@ -78,7 +84,6 @@ module Dams
       
       
 
-    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
     
       def serialize
         check_type( graph, rdf_subject, DAMS.ProvenanceCollection )

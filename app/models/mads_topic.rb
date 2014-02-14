@@ -1,4 +1,4 @@
 class MadsTopic < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => MadsTopicDatastream 
-  delegate_to 'damsMetadata', [:name, :scheme, :elementList, :externalAuthority, :topicElement_attributes, :topicElement, :scheme_attributes]
+  has_attributes :name, :scheme, :elementList, :externalAuthority, :topicElement_attributes, :topicElement, :scheme_attributes, datastream: :damsMetadata, multiple: true
 end

@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-solrizer = Solrizer::Fedora::Solrizer.new
-solrizer.solrize 'bd51895934'
-solrizer.solrize 'bd64524003'
-
 feature 'Visitor wants to look at collections' do
   scenario 'public collections list' do
     visit catalog_facet_path('collection_sim')

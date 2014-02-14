@@ -1,8 +1,8 @@
 class DamsObject < ActiveFedora::Base
+  include Hydra::AccessControls::Permissions
   include Hydra::ModelMethods
   has_metadata 'damsMetadata', :type => DamsObjectDatastream
-  delegate_to "damsMetadata", [
-  	:assembledCollection_attributes,
+  has_attributes :assembledCollection_attributes,
   	:assembledCollection,
     :assembledCollectionURI, 
     :beginDate,
@@ -72,12 +72,6 @@ class DamsObject < ActiveFedora::Base
     :personalName,
     :preferredCitationNote,
     :preferredCitationNote_attributes,
-    :provenanceCollection_attributes,
-    :provenanceCollection,
-    :provenanceCollectionPart_attributes,    
-    :provenanceCollectionPart,
-    :provenanceCollectionPartURI,
-    :provenanceCollectionURI,
     :relatedResource_attributes,
     :relatedResource,
     :relatedResourceDescription, 
@@ -132,15 +126,17 @@ class DamsObject < ActiveFedora::Base
     :topic_attributes,
     :topic,
     :typeOfResource,
+    :provenanceCollection_attributes,
+    :provenanceCollection,
+    :provenanceCollectionPart_attributes,    
+    :provenanceCollectionPart,
+    :provenanceCollectionPartURI,
+    :provenanceCollectionURI,
     :unit_attributes,
     :unit,
-    :unitURI
-  ]
+    :unitURI,
+      datastream: :damsMetadata, multiple: true
   
-  # rights metadata
-  has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
-  include Hydra::ModelMixins::RightsMetadata
-
   def languages
     damsMetadata.load_languages damsMetadata.language
   end
