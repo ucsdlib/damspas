@@ -1,5 +1,6 @@
 class DamsCollectionsController < ApplicationController
   include Blacklight::Catalog
+  DamsCollectionsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   def show
     # update session counter, then redirect to URL w/o counter param
@@ -19,7 +20,6 @@ class DamsCollectionsController < ApplicationController
 
     # import solr config from catalog_controller and setup next/prev docs
     @blacklight_config = CatalogController.blacklight_config
-    DamsCollectionsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
     setup_next_and_previous_documents
   end
 end
