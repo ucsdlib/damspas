@@ -196,7 +196,7 @@ describe DamsObjectDatastream do
         solr_doc["component_1_files_tesim"].first.should include '"image_producer":"Luna Imaging, Inc."'
         solr_doc["component_1_files_tesim"].first.should include '"scanning_software_version":"2.10E"'
         solr_doc["component_1_files_tesim"].first.should include '"scanning_software":"Epson Twain Pro"'
-        solr_doc["component_1_files_tesim"].first.should include '"capture_source":"B&W negative , 2 1/2 x 2 1/2"'
+        solr_doc["component_1_files_tesim"].first.should include '"capture_source":"B\\u0026W negative , 2 1/2 x 2 1/2"'
       end
       it "should index rights metadata" do
         solr_doc = subject.to_solr
@@ -394,7 +394,8 @@ END
       it "should index mads fields, part 2" do
         solr_doc = subject.to_solr
         #it "should index subjects" do
-        solr_doc["subject_tesim"].should == ["Galaxies--Clusters","Test linked subject--More test"]
+        solr_doc["subject_tesim"].should.include? "Galaxies--Clusters"
+        solr_doc["subject_tesim"].should.include? "Test linked subject--More test"
         
         #it "should have scopeContentNote" do
         solr_doc["scopeContentNote_tesim"].should == ["Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","scope content note internal value"]        
