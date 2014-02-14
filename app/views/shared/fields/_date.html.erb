@@ -24,14 +24,14 @@
 		    <% htmlOpen = htmlOpenTemp %>
 		    <% htmlOpen %= datetype %>
 			<% concat htmlOpen.html_safe %>
-			<li><%= date['value'] %></li>
+			<li><%= date['value'].gsub('""', '"') %></li>
 			<% concat htmlClose.html_safe %>
 		 
 		 <% elsif date['value']!=nil && date['value']!=''  %>
          	<% htmlOpen = htmlOpenTemp %>
          	<% htmlOpen %= 'Date' %>
          	<% concat htmlOpen.html_safe %>
-		 	<li><%= date['value'] %></li>
+		 	<li><%= date['value'].gsub('""', '"') %></li>
 		 	<% concat htmlClose.html_safe %>
 		 
 		 

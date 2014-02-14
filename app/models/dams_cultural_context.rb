@@ -1,4 +1,4 @@
 class DamsCulturalContext < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsCulturalContextDatastream 
-  delegate_to 'damsMetadata', [:name, :scheme, :elementList, :externalAuthority, :culturalContextElement_attributes, :culturalContextElement, :scheme_attributes]
+  has_attributes :name, :scheme, :elementList, :externalAuthority, :culturalContextElement_attributes, :culturalContextElement, :scheme_attributes, datastream: :damsMetadata, multiple: true
 end

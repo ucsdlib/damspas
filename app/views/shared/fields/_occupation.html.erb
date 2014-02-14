@@ -19,7 +19,7 @@
 		fieldData.each do |datum|
 			occupation = datum
 %>
-			<li><%= link_to "<i class='icon-tag icon-white'></i> #{occupation}".html_safe, facet_uri(occupation, 'subject_occupation_sim'), :class => "label" %></li>
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{occupation}".html_safe, facet_uri(occupation, 'subject_topic_sim'), :class => "label" %></li>
 <%
 		end
 

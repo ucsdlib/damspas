@@ -8,12 +8,13 @@
 	  <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 
 		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? || Rails.env.staging? %>
-		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
-			<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>
+		<% if @document != nil && @document.instance_of?(SolrDocument) %>
+			<%= auto_discovery_link_tag :rss, {:format =>"json"}, :title=>'JSON', :type=> 'application/json' %>
 			<% if @document['rdfxml_ssi'] %>
-				<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
+				<%= auto_discovery_link_tag :rss, {:format =>"rdf"}, :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
 			<% end %>
 		<% end %>
+		<% yield :head %>
 	</head>
 
 	<% onload_text = "$('input#q').focus();" if params[:q].to_s.empty? and params[:f].to_s.empty? and params[:id].nil? %>
@@ -21,10 +22,6 @@
 	<body onload="<%= onload_text %>" class="<%= render_body_class %>">
 
 		<%= render :partial => 'layouts/header' %>
-
-		<section id="search-found" class="container-fluid hidden-phone">
-			<%= topbar_items.join('').html_safe %>
-		</section>
 
 		<section id="messages" class="container-fluid">
 			<%= render :partial=>'/flash_msg' %>

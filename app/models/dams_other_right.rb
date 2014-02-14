@@ -1,7 +1,5 @@
 class DamsOtherRight < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => DamsOtherRightDatastream
-  delegate_to "damsMetadata", [:basis,:note,:uri,:permissionType, :permissionBeginDate, :permissionEndDate, 
-  :restrictionType, :restrictionBeginDate, :restrictionEndDate, :name, :role, :relationship, :relationship_attributes, :permission_node, :permission_node_attributes,
-  :restriction_node, :restriction_node_attributes]
+  has_attributes :basis,:note,:uri,:permissionType, :permissionBeginDate, :permissionEndDate, :restrictionType, :restrictionBeginDate, :restrictionEndDate, :name, :role, :relationship_attributes, :permission_node_attributes, :restriction_node_attributes, :relationship, :permission_node, :restriction_node, datastream: :damsMetadata, multiple: true
 # :decider
 end

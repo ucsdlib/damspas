@@ -39,7 +39,7 @@ describe MadsComplexSubjectDatastream do
 		        ]		        			        		        
 			}
 	    }
-      subject = MadsComplexSubjectDatastream.new(double("inner object", pid:"bd93182924", new?: true))
+      subject = MadsComplexSubjectDatastream.new(double("inner object", pid:"bd93182924", new_record?: true))
       subject.attributes = params[:complexSubject]
 
       xml =<<END
@@ -127,7 +127,7 @@ END
     
 	  describe "an instance with content" do
 	    subject do
-	      subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bbXXXXXXX5', :new? =>true), 'descMetadata')
+	      subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bbXXXXXXX5', :new_record? =>true), 'descMetadata')
 	      subject.content = File.new('spec/fixtures/madsComplexSubject.xml').read
 	      subject
 	    end
@@ -141,7 +141,7 @@ END
 	  end
 	  describe "an instance with an element list" do
 	    subject do
-	      subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bbXXXXXXX5', :new? =>true), 'descMetadata')
+	      subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bbXXXXXXX5', :new_record? =>true), 'descMetadata')
 	      subject.content = File.new('spec/fixtures/madsMoreComplexSubject.rdf.xml').read
 	      subject
 	    end
@@ -165,7 +165,7 @@ END
 	  
 	  describe "an instance with an component list" do
 	     subject do
-	        subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bd6724414c', :new? =>true), 'damsMetadata')
+	        subject = MadsComplexSubjectDatastream.new(double('inner object', :pid=>'bd6724414c', :new_record? =>true), 'damsMetadata')
 	        subject.content = File.new('spec/fixtures/madsMoreComplexSubject2.rdf.xml').read
 	        subject
 	      end
