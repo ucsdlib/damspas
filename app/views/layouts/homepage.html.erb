@@ -13,6 +13,7 @@
 	<%= stylesheet_link_tag "home-page", :media => "all" %>
 	<!-- /HOME SPECIFIC -->
 
+	  <%= yield :head %>
 </head>
 
 <body class="<%= render_body_class %>">

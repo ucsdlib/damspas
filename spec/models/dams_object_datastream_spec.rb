@@ -7,7 +7,7 @@ describe DamsObjectDatastream do
   describe "a complex data model" do
 
     describe "a new instance" do
-      subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new_record? =>true), 'descMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx1111111x"
       end
@@ -16,7 +16,7 @@ describe DamsObjectDatastream do
 
     describe "an instance with content" do
       subject do
-        subject = DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new_record? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/dissertation.rdf.xml').read
         subject
       end
@@ -71,7 +71,7 @@ describe DamsObjectDatastream do
 
     describe "a complex object with flat component list" do
       subject do
-        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bb80808080', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bb80808080', :new_record? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
         subject
       end
@@ -260,7 +260,7 @@ describe DamsObjectDatastream do
   end
 
   describe "should store correct xml" do
-      subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new? =>true), 'descMetadata') }
+      subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new_record? =>true), 'descMetadata') }
 
 	  before do
 	    subject.titleValue = "Test Title"
@@ -296,7 +296,7 @@ END
 
     describe "an instance with content for new object model" do
       subject do
-        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd6212468x', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd6212468x', :new_record? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsObjectNewModel.xml').read
         subject
       end
@@ -480,7 +480,7 @@ END
 
     describe "a complex object with internal classes" do
       subject do
-        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd0171551x', :new? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd0171551x', :new_record? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsObjectInternal.rdf.xml').read
         subject
       end

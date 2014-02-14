@@ -3,7 +3,14 @@ class DamsEventInternal
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     rdf_type DAMS.DAMSEvent
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    if ds.pid.nil?
+      RDF::URI.new
+    else
+      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+    end
+  }
+
   map_predicates do |map|
     map.type(:in => DAMS, :to => 'type')
     map.eventDate(:in => DAMS, :to => 'eventDate')

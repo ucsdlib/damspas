@@ -11,8 +11,6 @@ describe Ability do
   	describe "to access a DamsObject" do
 	    before do
 	      @obj = DamsObject.create!(pid: "ac00000001", titleValue: "Test Title")
-	 	  # reindex the record
-		  solr_index @obj.id
 	    end
 	
 	    it "should not be able to show damsObject" do
@@ -34,7 +32,6 @@ describe Ability do
     describe "to access a DamsProvenanceCollection" do
 		before do
 	      	@damsProvenanceCollection = DamsProvenanceCollection.create!(pid: "ac00000011", titleValue: "Test ProvenanceCollection Title", visibility: "curator", resource_type: "text")
-			solr_index @damsProvenanceCollection.id
 	    end
 	    it "should not be allowed to show" do
 	      subject.can?(:show,@damsProvenanceCollection).should be_false
@@ -106,8 +103,6 @@ describe Ability do
 		    end
 			damsOtherRight.save
 	    	@obj = DamsObject.create!(pid: "ac00000051", titleValue: "Test UCSD Local Title", unitURI: "bb02020202", copyrightURI: "bb05050505", otherRights: [RDF::Resource.new("#{Rails.configuration.id_namespace}ac00000041")])
-	 	 	# reindex the record
-			solr_index @obj.id
 	    end
 	  	it "should be able to show record ac00000051" do   
 		    subject.can?(:show,@obj).should be_true
@@ -116,8 +111,6 @@ describe Ability do
 	 describe "to access a ucsd local display DamsProvenanceCollection" do
 	 	before do
 	    	@obj = DamsProvenanceCollection.create!(pid: "ac00000061", titleValue: "Test UCSD Local Provanence Collection Title", unitURI: "bb02020202", visibility: "local")
-	 	 	# reindex the record
-			solr_index @obj.id
 	    end
 		 it "should be able to show record ac00000061" do   
 		    subject.can?(:show,@obj).should be_true
@@ -143,7 +136,6 @@ describe Ability do
 		    before do
 		      # DLP unit: bb02020202
 		      @damsObjectDlp = mod_dams_object "ac00000100", "bb02020202" 
-		      solr_index "bb02020202"
 		    end
 		    it "should be able to show" do
 		      subject.can?(:show,@damsObjectDlp).should be_true
@@ -162,7 +154,6 @@ describe Ability do
 	    	before do
 		      # RCI unit: bb48484848
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848" 
-		      solr_index "bb48484848"
 		    end
 		    it "should be able to show" do
 		      subject.can?(:show,@damsObjectRci).should be_true
@@ -557,10 +548,10 @@ describe Ability do
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_false
 		    end
-		    it "should not be allowed edit" do
+		    pending "should not be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_false
 		    end
-		    it "should not be allowed to update" do
+		    pending "should not be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_false
 		    end
 	    end
@@ -661,7 +652,6 @@ describe Ability do
     	    before do
 		      # RCI unit: bb48484848
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848" 
-		      solr_index "bb48484848"
 		    end
     		it "should be allowed to show" do
 		      subject.can?(:show,@damsObjectRci).should be_true
@@ -823,10 +813,10 @@ describe Ability do
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_false
 		    end
-		    it "should not be allowed edit" do
+		    pending "should not be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_false
 		    end
-		    it "should not be allowed to update" do
+		    pending "should not be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_false
 		    end
 	    end

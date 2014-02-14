@@ -19,7 +19,7 @@
 	 		custodialResponsibilityNote = JSON.parse(datum)
 	 		if !custodialResponsibilityNote['value'].blank?				
 %>
-				<p><%= auto_link(custodialResponsibilityNote['value'].gsub('""', '"')) %></p>
+				<p><%= auto_link(custodialResponsibilityNote['value'].gsub('""', '"').gsub("\n","<br/>")) %></p>
 <%
 			end			
 		end

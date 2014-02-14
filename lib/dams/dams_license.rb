@@ -12,7 +12,14 @@ module Dams
 	    map.restriction_node(:in => DAMS, :to=>'restriction', :class_name => 'DamsRestriction')
 	    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'DamsPermission')
       end
-   	  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+      rdf_subject { |ds|
+        if ds.pid.nil?
+          RDF::URI.new
+        else
+          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        end
+      }
+
       accepts_nested_attributes_for :restriction_node, :permission_node
       
       def serialize

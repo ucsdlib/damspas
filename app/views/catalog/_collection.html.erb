@@ -3,7 +3,7 @@
   <% if !dateVal.blank? %>
     <li>
       <span class="dams-search-results-fields-label">Date:</span>
-      <span><%= dateVal %></span>
+      <span><%= dateVal.gsub('""', '"') %></span>
     </li>
   <% end %>
   <% scn = document['scopeContentNote_json_tesim'] %>
@@ -12,7 +12,7 @@
       <% note = JSON.parse(txt) %>
       <li>
         <span class="dams-search-results-fields-label">Scope and Content:</span>
-        <span><%= auto_link( note['value'] ) %></span>
+        <span><%= auto_link( note['value'].gsub('""', '"') ) %></span>
       </li>
     <% end %>
   <% end %>

@@ -1,9 +1,6 @@
 require 'spec_helper'
 
-# reindex to make sure solr record is current
 test_pid = 'bd22194583'
-solrizer = Solrizer::Fedora::Solrizer.new
-solrizer.solrize test_pid
 
 feature 'Visitor wants to view object fields' do
   scenario 'Metadata on Solr view page' do
@@ -75,13 +72,13 @@ feature 'Visitor wants to view object fields' do
     visit dams_object_path(test_pid)
 
     # BuiltWorkPlace
-    expect(page).to have_link('dams:BuiltWorkPlace value', href:"/search?f%5Bsubject_builtWorkPlace_sim%5D%5B%5D=dams%3ABuiltWorkPlace+value&id="+test_pid)
+    expect(page).to have_link('dams:BuiltWorkPlace value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3ABuiltWorkPlace+value&id="+test_pid)
 
     # Cultural Context
-    expect(page).to have_link('dams:CulturalContext value', href:"/search?f%5Bsubject_culturalContext_sim%5D%5B%5D=dams%3ACulturalContext+value&id="+test_pid)
+    expect(page).to have_link('dams:CulturalContext value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3ACulturalContext+value&id="+test_pid)
 
     # Function
-    expect(page).to have_link('dams:Function value', href:"/search?f%5Bsubject_function_sim%5D%5B%5D=dams%3AFunction+value&id="+test_pid)
+    expect(page).to have_link('dams:Function value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AFunction+value&id="+test_pid)
 
     # Genre Form
     expect(page).to have_selector('li', :text=>"mads:GenreForm value")
@@ -90,22 +87,22 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_link('mads:Geographic value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AGeographic+value&id="+test_pid)
 
     # Iconography
-    expect(page).to have_link('dams:Iconography value', href:"/search?f%5Bsubject_iconography_sim%5D%5B%5D=dams%3AIconography+value&id="+test_pid)
+    expect(page).to have_link('dams:Iconography value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AIconography+value&id="+test_pid)
 
     # Occupation
-    expect(page).to have_link('mads:Occupation value', href:"/search?f%5Bsubject_occupation_sim%5D%5B%5D=mads%3AOccupation+value&id="+test_pid)
+    expect(page).to have_link('mads:Occupation value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AOccupation+value&id="+test_pid)
 
     # Scientific Name
-    expect(page).to have_link('dams:ScientificName value', href:"/search?f%5Bsubject_scientificName_sim%5D%5B%5D=dams%3AScientificName+value&id="+test_pid)
+    expect(page).to have_link('dams:ScientificName value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AScientificName+value&id="+test_pid)
 
     # Style Period
-    expect(page).to have_link('dams:StylePeriod value', href:"/search?f%5Bsubject_stylePeriod_sim%5D%5B%5D=dams%3AStylePeriod+value&id="+test_pid)
+    expect(page).to have_link('dams:StylePeriod value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AStylePeriod+value&id="+test_pid)
 
     # Technique
-    expect(page).to have_link('dams:Technique value', href:"/search?f%5Bsubject_technique_sim%5D%5B%5D=dams%3ATechnique+value&id="+test_pid)
+    expect(page).to have_link('dams:Technique value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3ATechnique+value&id="+test_pid)
 
     # Temporal
-    expect(page).to have_link('mads:Temporal value', href:"/search?f%5Bsubject_temporal_sim%5D%5B%5D=mads%3ATemporal+value&id="+test_pid)
+    expect(page).to have_link('mads:Temporal value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3ATemporal+value&id="+test_pid)
 
     # Topic
     expect(page).to have_link('mads:Topic value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3ATopic+value&id="+test_pid)

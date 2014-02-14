@@ -20,7 +20,7 @@ describe MadsNameDatastream do
           ]
         }
       }
-      subject = MadsNameDatastream.new(double("inner object", pid:"bd93182924", new?: true))
+      subject = MadsNameDatastream.new(double("inner object", pid:"bd93182924", new_record?: true))
       subject.attributes = params[:genericName]
 
       xml =<<END
@@ -63,7 +63,7 @@ END
     end
 
     describe "a new instance" do
-      subject { MadsNameDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { MadsNameDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -92,7 +92,7 @@ END
 
     describe "an instance with content" do
       subject do
-        subject = MadsNameDatastream.new(double('inner object', :pid=>'bd7509406v', :new? =>true), 'damsMetadata')
+        subject = MadsNameDatastream.new(double('inner object', :pid=>'bd7509406v', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsName.rdf.xml').read
         subject
       end
