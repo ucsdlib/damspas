@@ -9,9 +9,6 @@ describe DamsProvenanceCollectionPartsController do
 	  describe "Show" do
 	    before do
 	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Test Provenance Collection Part Title", beginDate: "2012", endDate: "2013", visibility: "public", resource_type: "text")
-	      #puts @obj.id
-          # reindex the record
-          solr_index @obj.id
 	    end
 	    it "should be successful" do 
 	      get :show, id: @obj.id
@@ -36,8 +33,7 @@ describe DamsProvenanceCollectionPartsController do
 	  describe "Edit" do
 	    before do
 	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Test Provenance Collection Title", beginDate: "2012", endDate: "2013", visibility: "public", resource_type: "text")
-          # reindex the record
-          solr_index @obj.id
+          solr_index @obj.pid
 	    end    
 	    it "should be successful" do 
 	      get :edit, id: @obj.id
@@ -64,8 +60,7 @@ describe DamsProvenanceCollectionPartsController do
 	  describe "Update" do
 	    before do
  	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Test Provenance Collection Title", beginDate: "2012", endDate: "2013")
-          # reindex the record
-          solr_index @obj.id
+          solr_index @obj.pid
  	    end
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :dams_provenance_collection_part => {titleValue: ["Test Title2"], beginDate: ["2013"]}

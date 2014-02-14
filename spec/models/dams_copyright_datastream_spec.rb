@@ -16,7 +16,7 @@ describe DamsCopyrightDatastream do
         }
       }
 
-      subject = DamsCopyrightDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = DamsCopyrightDatastream.new(double("inner object", pid:"zzXXXXXXX1", new_record?: true))
       subject.attributes = params[:copyright]
 
       xml =<<END
@@ -40,7 +40,7 @@ END
 
     describe "instance populated in-memory" do
 
-      subject { DamsCopyrightDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
+      subject { DamsCopyrightDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
@@ -71,7 +71,7 @@ END
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsCopyrightDatastream.new(double('inner object', :pid=>'bb05050505', :new? =>true), 'damsMetadata')
+        subject = DamsCopyrightDatastream.new(double('inner object', :pid=>'bb05050505', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsCopyright.rdf.xml').read
         subject
       end

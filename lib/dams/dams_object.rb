@@ -87,7 +87,11 @@ module Dams
 	    							:rightsHolderFamily, :rightsHolderConference, :cartographics
 	  
 	  rdf_subject { |ds|
-	    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        if ds.pid.nil?
+          RDF::URI.new
+        else
+	      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        end
 	  }
 	  
 	  def serialize

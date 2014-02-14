@@ -23,7 +23,7 @@ module Dams
       def scientificNameElement_with_update_name= (attributes)
         self.scientificNameElement_without_update_name= attributes
         if elementList && elementList.first && elementList.first.elementValue.present?
-          self.name = elementList.first.elementValue
+          self.name = elementList.first.elementValue.to_s
         end
       end
       alias_method :scientificNameElement_without_update_name=, :scientificNameElement_attributes=
