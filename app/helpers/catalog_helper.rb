@@ -16,10 +16,10 @@ module CatalogHelper
       if doc['title_json_tesim'] != nil
         titlehash = JSON.parse doc['title_json_tesim'].first
         if titlehash['subtitle'] != nil
-          label = titlehash['value'].html_safe
-          label += ": #{titlehash['subtitle']}".html_safe if !titlehash['subtitle'].blank?
+          label = titlehash['value'].gsub('""', '"').html_safe
+          label += ": #{titlehash['subtitle']}".gsub('""', '"').html_safe if !titlehash['subtitle'].blank?
         else
-          label = titlehash['value'].html_safe
+          label = titlehash['value'].gsub('""', '"').html_safe
         end
       end
     end
