@@ -6,38 +6,59 @@
 	@page_title = "#{@collection_title} (Collection)"
 %>
 
+<!--
 <div class="row-fluid">
 	<div class="span12">
-		<%= render :partial => 'dams_objects/prev_next' %>
+		<%#= render :partial => 'dams_objects/prev_next' %>
+	</div>
+</div>
+-->
+
+<div class="row-fluid">
+  <div id="collections-masthead" class="span12" style="background-image:url(http://libraries.ucsd.edu/assets/dams/home-page/img/<%=@document['id']%>.jpg),url(http://libraries.ucsd.edu/assets/dams/home-page/img/default.jpg)">
+      <%= render :partial => 'shared/fields/title' %>
+	  <div class="bug">Collection</div>
 	</div>
 </div>
 
 <div class="row-fluid dams-collections">
+
+  <div class="span4">
+
+    <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
+
+    <div class="well collections-search-box">
+      <%= render :partial => 'search' %>
+    </div>
+
+    <%# Editor menus %>
+    <% if can? :update, @document then %>
+
+      <p class="sidebar-header"><b>Collection Tools</b></p>
+      <ul class="unstyled sidebar-button-list">
+        <li><%= link_to "<i class='icon-plus-sign'></i> View RDF document".html_safe, normalized_rdf_path(@document['id']), class: 'btn btn-link' %>
+        <li><%= link_to "<i class='icon-plus-sign'></i> Edit collection".html_safe, send(@edit,@document['id']), class: "btn btn-link"%>
+      </ul>
+    <% end %>
+
+    <%= render :partial => 'show_damstools' %>
+
+  </div>
+
+
 	<div class="span8">
-	  <%= render :partial => 'shared/fields/title' %>
+		<h3>About this collection</h3>
 		<dl>
 		  <%= render :partial => 'shared/fields/show_raw' %>
 		</dl>
-		<%#= render :partial => 'metadata' %>
 	</div>
 
-	<div class="span4">
-		<div class="well">
-		  <%= render :partial => 'search' %>
-		    <% if can? :update, @document then %>
-		    <ul class="unstyled sidebar-button-list">
-				<li><%= link_to "<i class='icon-eye-open'></i> Edit".html_safe, send(@edit,@document['id']), class: "btn btn-link"%>
-			</ul>
-  			<% end %>
-		</div>
-	</div>
 
 </div>
 
 <div class="row-fluid">
-	<section class="dams-comments span8">
+	<section class="dams-comments span8 offset4">
 		<%= render :partial => 'dams_objects/comments' %>
 	</section>
 </div>
 
-<%= render :partial => 'show_damstools' %>
