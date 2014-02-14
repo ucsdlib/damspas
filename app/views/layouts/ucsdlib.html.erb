@@ -8,10 +8,10 @@
 	  <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 
 		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? || Rails.env.staging? %>
-		<% if @document != nil && @document.instance_of?(SolrDocument) && @document['has_model_ssim'] == ['info:fedora/afmodel:DamsObject'] %>
-			<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".json", :title=>'JSON', :type=> 'application/json' %>
+		<% if @document != nil && @document.instance_of?(SolrDocument) %>
+			<%= auto_discovery_link_tag :rss, {:format =>"json"}, :title=>'JSON', :type=> 'application/json' %>
 			<% if @document['rdfxml_ssi'] %>
-				<%= auto_discovery_link_tag :rss, dams_object_path(params[:id]) + ".rdf", :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
+				<%= auto_discovery_link_tag :rss, {:format =>"rdf"}, :title=>'RDF/XML', :type=> 'application/rdf+xml' %>
 			<% end %>
 		<% end %>
 	</head>
