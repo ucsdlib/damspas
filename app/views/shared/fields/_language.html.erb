@@ -1,12 +1,12 @@
 <%
 	 if defined?(componentIndex) # Then we're working with a component
 		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td>"
-		 htmlClose = "</td></tr>"
+		 htmlOpen = '<tr><td>%s</td><td><ul>'
+		 htmlClose = '</ul></td></tr>'
 	 else # We're working with an object or collection
 		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd>"
-		 htmlClose = "</dd>"
+		 htmlOpen = '<dt>%s</dt><dd><ul>'
+		 htmlClose = '</ul></dd>'
 	 end
 
 	fieldData = @document["#{prefix}language_json_tesim"]
@@ -24,10 +24,8 @@
 	 		i = 0
 	 		while( i < lang.count )
 %>
-				<ul class="unstyled">
 					<li><%= lang[i] %></li>
-				</ul>
-<%			
+<%
 				i += 1
 			end
 		end
@@ -42,10 +40,8 @@
 			 concat htmlOpen.html_safe
 %>
 	
-			<ul class="unstyled">
 					<li><%= language.first %></li>
-			</ul>
-	
+
 <%
 			 concat htmlClose.html_safe
 	
