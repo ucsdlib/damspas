@@ -622,7 +622,7 @@ module Dams
 	    Solrizer.insert_field(solr_doc, "all_fields", format_name(typeOfResource))
 	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource.first),@facetable)    
 	
-	    Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
+	    #Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 	
 	    # strip "+/-00:00" from end of dates, because that makes solr barf
 	    ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|

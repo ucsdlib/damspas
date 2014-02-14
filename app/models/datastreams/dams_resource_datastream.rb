@@ -879,6 +879,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     # event
     #insertEventFields solr_doc, "", event
 
+    # rdf/xml for end-user
+    Solrizer.insert_field(solr_doc, "rdfxml", self.content, Solrizer::Descriptor.new(:string, :indexed, :stored))
+
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
       if solr_doc[f].kind_of?(Array)
