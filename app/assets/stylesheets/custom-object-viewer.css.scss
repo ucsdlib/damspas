@@ -84,12 +84,23 @@ $complexFile: #AC6F2B !default;
 .dams-breadcrumbs .breadcrumb > li > .divider{padding: 0;}
 
 // Metadata fold
-.dams-metadata{margin-bottom:1em;background-color:$objectBG;padding: 0 $viewerPadding $viewerPadding $viewerPadding;border: 1px solid #d9d9d9;border-top: none;}
-.dams-metadata hr{border-top:1px solid #ddd;margin:0 15%;}
-.dams-metadata .btn-link{font-weight:bold;}
-.dams-metadata .label,.dams-metadata .badge{margin-bottom:3px;}
-.dams-metadata dd{color: #666;}
-.dams-metadata dd strong{color: #555;}
+.dams-metadata
+{
+  margin-bottom:1em;background-color:$objectBG;padding: 0 $viewerPadding $viewerPadding $viewerPadding;border: 1px solid #d9d9d9;border-top: none;
+
+  hr{border-top:1px solid #ddd;margin:0 15%;}
+  .btn-link{font-weight:bold;}
+  .label,.badge{margin-bottom:3px;}
+  dt{color:#F3876D;font-size:1.1em;margin:10px 0;font-weight:normal;}
+  dt:first-child{margin-top: 0;}
+  dd{color: #666;margin-left:0;}
+  dd strong{color: #555;}
+  dd,dt{line-height: normal;}
+  dl,ul{margin-bottom:0;}
+
+}
+
+
 
 // Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
