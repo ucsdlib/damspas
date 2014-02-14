@@ -4,7 +4,13 @@ class MadsSchemeDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.code( in: MADS )
     map.name( in: RDF::RDFS, to: "label" )
   end
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    if ds.pid.nil?
+      RDF::URI.new
+    else
+      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+    end
+  }
   def serialize
     graph.insert([rdf_subject, RDF.type, MADS.MADSScheme]) if new?
     super

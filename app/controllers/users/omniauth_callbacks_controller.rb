@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     logger.debug "#{auth_type} :: #{current_user.inspect}"
   	@user = User.send(find_or_create_method,request.env["omniauth.auth"], current_user)
     if @user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => auth_type
+      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => auth_type.capitalize
       #sign_in_and_redirect @user, :event => :authentication
       sign_in @user, :event => :authentication
       redirect_to request.env['omniauth.origin'] || root_url
