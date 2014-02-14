@@ -19,7 +19,7 @@
 	 		preferredCitationNote = JSON.parse(datum)
 	 		if !preferredCitationNote['value'].blank?		
 %>
-				<p><%= auto_link(preferredCitationNote['value'].gsub('""', '"')) %></p>
+				<p><%= auto_link(preferredCitationNote['value'].gsub('""', '"').gsub("\n","<br/>")) %></p>
 <%
 			end
 		end

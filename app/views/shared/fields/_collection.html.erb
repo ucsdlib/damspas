@@ -1,11 +1,11 @@
 <%
 	 if defined?(componentIndex) # Then we're working with a component
 		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td><ul class='item-block'>"
+		 htmlOpen = "<tr><td>%s</td><td><ul>"
 		 htmlClose = '</ul></td></tr>'
 	 else # We're working with an object or collection
 		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd><ul class='item-block'>"
+		 htmlOpen = "<dt>%s</dt><dd><ul>"
 		 htmlClose = '</ul></dd>'
 	 end
 
@@ -25,12 +25,7 @@
 %>
 		<li>
 			<%= link_to( dams_collection_path(collection['id']) ) do %>
-				<% if thumb != nil %>
-					<%= image_tag thumb, :alt => '' %>
-				<% else %>
-					<img>
-				<% end %>
-				<div><%= collectionName %></div>
+				<%= collectionName %>
 			<% end %>
 		</li>
 <%
