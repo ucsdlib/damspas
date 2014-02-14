@@ -11,12 +11,6 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :provider, :uid, :groups
-
-  # attr_accessible :title, :body
-  attr_accessible :anonymous
-
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin
       uid = access_token.uid
