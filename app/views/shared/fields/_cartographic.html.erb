@@ -25,8 +25,8 @@
 				if validOverlays.include? key
 					if value.any?
 						dataForMap = "{\"type\":\"#{key}\",\"coords\":\"#{value.first}\"}"
-						concat "<p><strong>#{key.upcase}</strong></p><p>#{value.first}</p>".html_safe
 						concat "<div id='map-canvas' data='#{dataForMap}'></div>".html_safe
+						concat "<p>#{key.titleize}: #{value.first}</p>".html_safe
 					end
 				end
 			end
