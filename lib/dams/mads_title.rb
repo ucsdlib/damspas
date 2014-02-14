@@ -17,7 +17,14 @@ module Dams
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTitleElementList')
       end
 
-	  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+      rdf_subject { |ds|
+        if ds.pid.nil?
+          RDF::URI.new
+        else
+          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        end
+      }
+
  
       def elementList
         elem_list.first || elem_list.build

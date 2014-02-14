@@ -7,7 +7,14 @@ class DamsUnitDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.group(:in => DAMS, :to => 'unitGroup')
  end
 
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    if ds.pid.nil?
+      RDF::URI.new
+    else
+      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+    end
+  }
+
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.Unit]) if new?

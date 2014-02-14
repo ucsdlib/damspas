@@ -202,7 +202,7 @@ class DamsObjectsController < ApplicationController
     @creator_id = get_name_id(@dams_object)
   	#@complexSubject_id = Rails.configuration.id_namespace + @dams_object.complexSubject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
   	@complexSubject_id = @dams_object.complexSubject.to_s.gsub(/.*\//,'')[0..9] if !@dams_object.subject.nil?
-	@simpleSubjectValue = get_simple_subject_value(@dams_object)
+	#@simpleSubjectValue = get_simple_subject_value(@dams_object)
 	  
 	@creator_type = get_name_type(@dams_object)
   	@simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim') 	

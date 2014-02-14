@@ -47,7 +47,7 @@
             htmlOpen %= 'General Note'
           end
           concat htmlOpen.html_safe %>
-          <p><%= auto_link(note['value'].gsub('""', '"'))%></p>
+          <p><%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%></p>
 <%      end
       end
     else
@@ -56,7 +56,7 @@
           htmlOpen = htmlOpenTemp
           htmlOpen %= type.to_s.capitalize
           concat htmlOpen.html_safe %>
-          <p><%= auto_link(note['value'].gsub('""', '"'))%></p>
+          <p><%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%></p>
 <%      end
       end
     end

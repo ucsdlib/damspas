@@ -9,10 +9,6 @@ describe CatalogController do
     @obj = DamsObject.new
     @obj.attributes = {titleValue:"Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unit: unit, copyrightURI: "bd0513099p" }
     @obj.save
-
-    # rights metadata not getting set correctly until reindexing...
-    solrizer = Solrizer::Fedora::Solrizer.new
-    solrizer.solrize @obj.id
   end
   describe "Blacklight search" do
   
@@ -21,7 +17,7 @@ describe CatalogController do
       expect(CatalogController.solr_search_params_logic).to include(:scope_search_to_unit)
     end
   
-    it "should have a spelling suggestion for an appropriately poor query" do
+    pending "should have a spelling suggestion for an appropriately poor query" do
       get :index, :q => 'spellchecks', :qf => 'title_tesim'
       assigns_response.spelling.words.size.should > 0
     end

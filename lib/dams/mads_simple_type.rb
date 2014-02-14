@@ -4,7 +4,13 @@ module Dams
     extend ActiveSupport::Concern
     include ModelHelper
     included do
-      rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+      rdf_subject { |ds|
+        if ds.pid.nil?
+          RDF::URI.new
+        else
+          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        end
+      }
       map_predicates do |map|
         map.name(:in => MADS, :to => 'authoritativeLabel')
         map.externalAuthority(:in => MADS, :to => 'hasExactExternalAuthority')
