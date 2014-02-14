@@ -16,7 +16,7 @@ describe DamsIconographyDatastream do
         }
       }
 
-      subject = DamsIconographyDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = DamsIconographyDatastream.new(double("inner object", pid:"zzXXXXXXX1", new_record?: true))
       subject.attributes = params[:iconography]
 
       xml =<<END
@@ -45,7 +45,7 @@ END
       subject.content.should be_equivalent_to xml
     end
     describe "a new instance" do
-      subject { DamsIconographyDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { DamsIconographyDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -69,7 +69,7 @@ END
 
     describe "an instance with content" do
       subject do
-        subject = DamsIconographyDatastream.new(double('inner object', :pid=>'bd65537666', :new? =>true), 'damsMetadata')
+        subject = DamsIconographyDatastream.new(double('inner object', :pid=>'bd65537666', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsIconography.rdf.xml').read
         subject
       end

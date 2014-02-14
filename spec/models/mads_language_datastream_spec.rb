@@ -17,7 +17,7 @@ describe MadsLanguageDatastream do
         }
       }
 
-      subject = MadsLanguageDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = MadsLanguageDatastream.new(double("inner object", pid:"zzXXXXXXX1", new_record?: true))
       subject.attributes = params[:language]
 
       xml =<<END
@@ -46,7 +46,7 @@ END
       subject.content.should be_equivalent_to xml
     end
     describe "a new instance" do
-      subject { MadsLanguageDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new? =>true), 'damsMetadata') }
+      subject { MadsLanguageDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
       end
@@ -75,7 +75,7 @@ END
 
     describe "an instance with content" do
       subject do
-        subject = MadsLanguageDatastream.new(double('inner object', :pid=>'xx00000006', :new? =>true), 'damsMetadata')
+        subject = MadsLanguageDatastream.new(double('inner object', :pid=>'xx00000006', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/madsLanguage.rdf.xml').read
         subject
       end

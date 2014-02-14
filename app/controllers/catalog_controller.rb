@@ -226,9 +226,6 @@ class CatalogController < ApplicationController
   end
       # get search results from the solr index
     def index
-      extra_head_content << view_context.auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') )
-      extra_head_content << view_context.auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') )
-      
       (@response, @document_list) = get_search_results
 	  spelling_words = @response.spelling.words
 	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
