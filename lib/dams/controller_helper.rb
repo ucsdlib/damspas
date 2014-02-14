@@ -136,6 +136,7 @@ module Dams
     end
     
     def get_simple_subject_value(object)
+logger.warn "XXX #{object.pid}"
     	value = ""
     	if !object.temporal[0].nil?   
 	  		value = object.temporal.first.name.first
@@ -170,89 +171,84 @@ module Dams
 
 	  	object.temporal.each do |temp|
   		  simpleSubjectArray << {
-		    :name => "Temporal",
-		    :value => temp.pid,			  
+		    :name => "Temporal", :value => get_pid(temp)
 		  }	  		
 	  	end
 	  	
 	  	object.topic.each do |top|
   		  simpleSubjectArray << {
-		    :name => "Topic",
-		    :value => top.pid,			  
+		    :name => "Topic", :value => get_pid(top)
 		  }	  		
 	  	end
 	  	
 	  	object.builtWorkPlace.each do |built|
   		  simpleSubjectArray << {
-		    :name => "BuiltWorkPlace",
-		    :value => built.pid,			  
+		    :name => "BuiltWorkPlace", :value => get_pid(built)
 		  }
 	  	end
 
 	  	object.culturalContext.each do |cultural|
   		  simpleSubjectArray << {
-		    :name => "CulturalContext",
-		    :value => cultural.pid,			  
+		    :name => "CulturalContext", :value => get_pid(cultural)
 		  }	  		
 	  	end
 
 	  	object.function.each do |fun|
   		  simpleSubjectArray << {
-		    :name => "Function",
-		    :value => fun.pid,			  
+		    :name => "Function", :value => get_pid(fun)
 		  }	  		
 	  	end
 	  	
 	  	object.genreForm.each do |genre|
   		  simpleSubjectArray << {
-		    :name => "GenreForm",
-		    :value => genre.pid,			  
+		    :name => "GenreForm", :value => get_pid(genre)
 		  }	  		
 	  	end
 	  	
 	  	object.geographic.each do |geo|
   		  simpleSubjectArray << {
-		    :name => "Geographic",
-		    :value => geo.pid,			  
+		    :name => "Geographic", :value => get_pid(geo)
 		  }	  		
 	  	end
 	  	
 	  	object.iconography.each do |icon|
   		  simpleSubjectArray << {
-		    :name => "Iconography",
-		    :value => icon.pid,			  
+		    :name => "Iconography", :value => get_pid(icon)
 		  }	  		
 	  	end
 	  	
 	  	object.occupation.each do |occ|
   		  simpleSubjectArray << {
-		    :name => "Occupation",
-		    :value => occ.pid,			  
+		    :name => "Occupation", :value => get_pid(occ)
 		  }	  		
 	  	end
 	  	
 	  	object.scientificName.each do |sci|
   		  simpleSubjectArray << {
-		    :name => "ScientificName",
-		    :value => sci.pid,			  
+		    :name => "ScientificName", :value => get_pid(sci)
 		  }	  		
 	  	end
 	  	
 	  	object.stylePeriod.each do |style|
   		  simpleSubjectArray << {
-		    :name => "StylePeriod",
-		    :value => style.pid,			  
+		    :name => "StylePeriod", :value => get_pid(style)
 		  }	  		
 	  	end
 	  	
 	  	object.technique.each do |tech|
   		  simpleSubjectArray << {
-		    :name => "Technique",
-		    :value => tech.pid,			  
+		    :name => "Technique", :value => get_pid(tech)
 		  }		  		
 	  	end
 	
 		simpleSubjectArray   
+    end
+	def get_pid(object)
+      if object.class == RDF::URI
+        object.to_s.gsub(/.*\//,'')
+      else
+        object.pid
+      end
     end
            
     def get_name_type(object)

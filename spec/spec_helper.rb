@@ -50,62 +50,44 @@ end
 def test_existing_attribute(datastream, name, value='blah')
    datastream.send(name).should == [value]
 end
+
 def solr_index (pid)
-    # index the record
-    begin
-        solrizer = Solrizer::Fedora::Solrizer.new
-        solrizer.solrize pid
-        rescue Exception => e
-        logger.warn "Error indexing #{pid}: #{e}"
-    end
+  # index the record
+  begin
+    solrizer = Solrizer::Fedora::Solrizer.new
+    solrizer.solrize pid
+  rescue Exception => e
+    logger.warn "Error indexing #{pid}: #{e}"
+  end
 end
 
+
 def mod_dams_object (id, unit)
-	damsObject = DamsObject.create!(pid: id, titleValue: "Test Title -- Unit #{unit}", unitURI: unit, copyrightURI: "bb05050505")
-	# reindex the record as a trick to fix the missing fields in SOLR
-	solr_index damsObject.id
-	damsObject
+	DamsObject.create!(pid: id, titleValue: "Test Title -- Unit #{unit}", unitURI: unit, copyrightURI: "bb05050505")
 end
 def mod_dams_provenance_collection (id, unit)
-	damsProvenanceCollection = DamsProvenanceCollection.create!(pid: id, titleValue: "Test ProvenanceCollection Title -- Unit #{unit}", unitURI: unit, visibility: "curator", resource_type: "text")
-	solr_index damsProvenanceCollection.id
-	damsProvenanceCollection
+	DamsProvenanceCollection.create!(pid: id, titleValue: "Test ProvenanceCollection Title -- Unit #{unit}", unitURI: unit, visibility: "curator", resource_type: "text")
 end
 def mod_dams_provenance_collection_part (id, unit)
-	damsProvenanceCollectionPart = DamsProvenanceCollectionPart.create!(pid: id, titleValue: "Test ProvenanceCollectionPart Title -- Unit #{unit}", unitURI: unit, visibility: "curator", resource_type: "text")
-	solr_index damsProvenanceCollectionPart.id
-	damsProvenanceCollectionPart
+	DamsProvenanceCollectionPart.create!(pid: id, titleValue: "Test ProvenanceCollectionPart Title -- Unit #{unit}", unitURI: unit, visibility: "curator", resource_type: "text")
 end
 def mod_dams_assembled_collection (id, unit)
-	damsAssembledCollection = DamsAssembledCollection.create!(pid: id, titleValue: "Test AssembledCollection Title -- Unit #{unit}", unitURI: unit, visibility: "curator", resource_type: "text")
-	solr_index damsAssembledCollection.id
-	damsAssembledCollection
+	DamsAssembledCollection.create!(pid: id, titleValue: "Test AssembledCollection Title -- Unit #{unit}", unitURI: unit, visibility: "curator", resource_type: "text")
 end
 def mod_dams_unit (id)
-	damsUnit = DamsUnit.create!(pid: id, name: "Test Unit Program", description: "A Unit for test.", uri: "http://test.ucsd.edu/", code: "test")
-	solr_index damsUnit.id
-	damsUnit
+	DamsUnit.create!(pid: id, name: "Test Unit Program", description: "A Unit for test.", uri: "http://test.ucsd.edu/", code: "test")
 end
 def mod_dams_copyright (id)
-	damsCopyright = DamsCopyright.create!(pid: id,status: "Under copyright test", jurisdiction: "us", purposeNote: "Test purpose note.", note: "Test note.", beginDate: "2013-12-31")
-	solr_index damsCopyright.id
-	damsCopyright
+	DamsCopyright.create!(pid: id,status: "Under copyright test", jurisdiction: "us", purposeNote: "Test purpose note.", note: "Test note.", beginDate: "2013-12-31")
 end
 def mod_mads_name (id)
-	madsName = MadsName.create!(pid: id, name: "Mads Name Test ", externalAuthority: "http://lccn.loc.gov/n90694888")
-	solr_index madsName.id
-	madsName
+	MadsName.create!(pid: id, name: "Mads Name Test ", externalAuthority: "http://lccn.loc.gov/n90694888")
 end
 def mod_mads_personal_name (id)
-	madsPersonalName = MadsPersonalName.create!(pid: id,name: "Mads Personal Name Test ", externalAuthority: "http://lccn.loc.gov/n90694888")
-	solr_index madsPersonalName.id
-	madsPersonalName
+	MadsPersonalName.create!(pid: id,name: "Mads Personal Name Test ", externalAuthority: "http://lccn.loc.gov/n90694888")
 end
 def mod_mads_topic (id)
-	madsTopic = MadsTopic.create!(pid: id, name: "Mads Topic Test Label", externalAuthority: "http://lccn.loc.gov/")
-	# reindex the record as a trick to fix the missing fields in SOLR
-	solr_index madsTopic.id
-	madsTopic
+	MadsTopic.create!(pid: id, name: "Mads Topic Test Label", externalAuthority: "http://lccn.loc.gov/")
 end
 
 

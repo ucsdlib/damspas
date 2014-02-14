@@ -1,7 +1,8 @@
 class DamsProvenanceCollectionPart < ActiveFedora::Base
+  include Hydra::AccessControls::Permissions
+
   has_metadata 'damsMetadata', :type => DamsProvenanceCollectionPartDatastream 
-    delegate_to "damsMetadata", [
-    :assembledCollection, 
+  has_attributes :assembledCollection, 
     :beginDate,
     :builtWorkPlace_attributes,
     :builtWorkPlace,
@@ -56,10 +57,6 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
     :personalName,
     :preferredCitationNote,
     :preferredCitationNote_attributes,
-    :provenanceCollection_attributes,
-    :provenanceCollection, 
-    :provenanceCollectionURI,
-    :provenanceCollectionPart, 
     :relatedResource_attributes,
     :relatedResource,
     :relatedResourceDescription, 
@@ -105,17 +102,16 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
     :topic_attributes,
     :topic,
     :typeOfResource,
+    :resource_type,
+    :provenanceCollection_attributes,
+    :provenanceCollection, 
+    :provenanceCollectionURI,
+    :provenanceCollectionPart, 
     :unit_attributes,
     :unit,
     :unitURI,
     :visibility,
-    :resource_type
-   ]
-
-  # rights metadata
-  has_metadata 'rightsMetadata', :type => Hydra::Datastream::RightsMetadata
-
-  include Hydra::ModelMixins::RightsMetadata
+      datastream: :damsMetadata, multiple: true
 
   def collections
     damsMetadata.load_collection damsMetadata.collection,damsMetadata.assembledCollection,damsMetadata.provenanceCollection,damsMetadata.provenanceCollectionPart
