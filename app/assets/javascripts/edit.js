@@ -36,6 +36,7 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
   var fieldName = null;
   var typeGet = null;
   var reg = null;
+  
   if (typeof link == "string") {
   	q = link;
   	fieldName = typeName+"URI";
@@ -65,6 +66,7 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
   else {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
+  
   if(q != null && q.length > 0) {
 	  $.get(url,function(data,status){
 	    var new_id = new Date().getTime();
@@ -111,6 +113,10 @@ function getEditDynamicFields(link,type,location,typeName)
   else if (typeName == 'relationshipName') {
     typeGet = "name";
     reg = "newRelationship";
+  }   
+  else if (typeName == 'rightsHolder') {
+    typeGet = "name";
+    reg = "newRightsHolder";
   }
 
   fieldName = typeName+"URI";
