@@ -143,7 +143,7 @@ module Dams
 	    insertSubjectsGraph
 	    insertCopyRightsInfoGraph
 	    insertNameGraph
-	    #insertRightsHolderGraph                      
+	    insertRightsHolderGraph                      
 	    super
 	  end
 	
