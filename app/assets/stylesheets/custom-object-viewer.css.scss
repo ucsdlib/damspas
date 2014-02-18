@@ -15,13 +15,13 @@ $complexFile: #AC6F2B !default;
 
 // CARTOGRAPHICS
 
-#map-canvas{width: 100%;height: 200px;margin-bottom: 20px;} // height required
+#map-canvas{width: 100%;height: 200px;margin-bottom: 10px;} // height required
 #map-canvas img{max-width:none;} // fix for bootstrap conflict
 #map-canvas label{width: auto;display:inline;} // fix for bootstrap conflict
 
 // COMPONENTS
-.component{display:none;background-color:$componentBG;margin:$viewerPadding;padding:$viewerPadding;border-radius: 10px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
-.simple-object{margin:$viewerPadding;padding:$viewerPadding;background-color:darken($objectBG,5%);border-radius: 3px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
+.component{display:none;background-color:$componentBG;margin:3% 0;padding:$viewerPadding;border-radius: 3px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
+.simple-object{margin:3% 0;padding:$viewerPadding;background-color:darken($objectBG,5%);border-radius: 3px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 
 .simple-object .table th,.simple-object .table td{border-color:rgba($simpleFile,0.25)}
 .simple-object .form-actions{background-color: rgba($simpleFile,0.15); border-top-color: rgba($simpleFile,0.75)}
@@ -31,10 +31,6 @@ $complexFile: #AC6F2B !default;
 .component .form-actions{background-color: rgba($complexFile,0.15); border-top-color: rgba($complexFile,0.75)}
 .component .form-actions .muted{color: rgba($complexFile,0.666)}
 
-.component .video-js,
-.component .audiojs,
-.simple-object .video-js{margin: 0 auto 20px auto;}
-.simple-object .audiojs{margin: 0 auto;}
 
 .component img{width:auto;margin:0 auto 20px auto;display:block;}
 .simple-object img{width:auto;margin:0 auto;display:block;}
@@ -45,8 +41,7 @@ $complexFile: #AC6F2B !default;
 
 .component .table,.simple-object .table{margin-bottom:0;}
 
-.component .alert,
-.simple-object .alert{margin-bottom:0;}
+.component .alert,.simple-object .alert{margin-bottom:0;}
 
 .component .table td p,.component .table td ul,.simple-object .table td p,.simple-object .table td ul{margin:0;}
 .component .table tr td:first-child,.simple-object .table tr td:first-child{font-weight: bold;}
@@ -56,9 +51,6 @@ $complexFile: #AC6F2B !default;
 //----------------------------------------------------------
 .dams-search-box h4{margin:0 0 10px 0;line-height:inherit;}
 .sidebar-button-list .btn{text-align:left;}
-.carousel .item img{width:100%;height:420px;}
-.carousel-caption{background-color:rgba(0,0,0,0.25);}
-.carousel-caption p{font-weight:bold;text-shadow: 0 0 3px rgba(0,0,0,0.75);}
 
 .dams-au{text-align: left;}
 .dams-au img{display:inline-block;}
@@ -69,15 +61,13 @@ $complexFile: #AC6F2B !default;
 
 // Viewer
 .dams-viewer{background-color:$objectBG;padding: $viewerPadding $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: none;}
-
 .dams-viewer > hgroup > h1{font-size:150%;padding:0;margin:0 0 5px 0;line-height:100%;color:  #00374E;}
 .dams-viewer > hgroup > h2{font-size:110%;padding:0;margin:0 0 5px 0;line-height:100%;color: lighten(#00374E,10%);}
 .dams-viewer > hgroup{margin-bottom: 0;}
-
+.dams-viewer img{max-width:auto;max-height:400px;}
 
 .dams-download-button{margin:0;}
 .dams-download-button p{margin: 0;text-align: center;}
-.dams-viewer img{max-width:auto;max-height:400px;}
 
 // Breadcrumbs
 .dams-breadcrumbs .breadcrumb{font-size: 12px;background-color:transparent;padding: 0;}
@@ -91,25 +81,23 @@ $complexFile: #AC6F2B !default;
   hr{border-top:1px solid #ddd;margin:0 15%;}
   .btn-link{font-weight:bold;}
   .label,.badge{margin-bottom:3px;}
-  dt{color:#F3876D;font-size:1.1em;margin:10px 0;font-weight:normal;}
+  dt{color:#AD6F2B;font-size:1.1em;margin:10px 0;font-weight:normal;}
   dt:first-child{margin-top: 0;}
   dd{color: #666;margin-left:0;}
   dd strong{color: #555;}
   dd,dt{line-height: normal;}
   dl,ul{margin-bottom:0;}
-
 }
-
-
 
 // Metadata label link
 .label:hover,.badge:hover{background-color:darken(#999,10%)}
-
-.component{
-	.label{background-color: lighten($complexFile,10%);}
-	.label:hover{background-color: $complexFile;}
+.component
+{
+  .label{background-color: lighten($complexFile,10%);}
+  .label:hover{background-color: $complexFile;}
 }
 
+// Culturally Sensitive Content
 .culturally-sensitive-thumbnail {border:2px solid #659EC7; width:100px; height:150px;}
 #sensitive-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 390px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
 
@@ -119,13 +107,10 @@ $complexFile: #AC6F2B !default;
 //---
 // Components Control
 //--
-
 .node-container{display:none;}
-
 .components-tree li{position: relative;}
 .node-icon{position:absolute;top: 3px;left: 0;}
 .components-tree .btn{margin-left:16px;}
-
 .dams-components-button,.components-tree .btn{text-align:left;}
 .components-tree > ul{margin-bottom:0;}
 .dams-components-button,.components-tree .btn{color:#333;}
@@ -134,7 +119,6 @@ $complexFile: #AC6F2B !default;
 .components-tree .btn{padding: 0;}
 .components-tree li ul{margin-left:16px;}
 .active-component{color: $componentHighlight !important;font-weight:bold !important;}
-
 
 //----------------------------------------------------------
 // MEDIA QUERIES
@@ -169,10 +153,8 @@ $complexFile: #AC6F2B !default;
 	 // OBJECT VIEWER PAGE
 	//.dams-viewer img{width:50%;}
 	.dams-download-button .btn{display:block;float:none;}
-	.component .video-js{height: 300px;}
 
 	// UNITS INDEX PAGE
-	.carousel .item img{height:280px;}
 
 }
  
@@ -181,10 +163,13 @@ $complexFile: #AC6F2B !default;
 {
 	 // OBJECT VIEWER PAGE
 	//.dams-viewer img{width:100%;}
+  .dams-viewer > hgroup > h1{font-size:125%;}
+  .dams-viewer > hgroup > h2{font-size:100%;}
+  .dams-metadata{font-size:13px;}
 
-	// UNITS INDEX PAGE
+
+// UNITS INDEX PAGE
 	.search-query-form .btn{width:100%;}
-	.carousel .item img{height:210px;}
 
 }
 
