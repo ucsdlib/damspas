@@ -30,14 +30,14 @@ module Dams
 	    map.topic(:in => DAMS, :class_name => 'MadsTopicInternal')
 
         # mads-like additions from vra core
-	    map.builtWorkPlace(:in => DAMS )#, :class_name => 'DamsBuiltWorkPlaceInternal')
-	    map.culturalContext(:in => DAMS )#, :class_name => 'DamsCulturalContextInternal')
-	    map.function(:in => DAMS )#, :class_name => 'DamsFunctionInternal')
+	    map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
+	    map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
+	    map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
         # XXX why does iconography work when mapped to a class when when other made-like additions don't?
 	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
-	    map.scientificName(:in => DAMS )#, :class_name => 'DamsScientificNameInternal')
-	    map.stylePeriod(:in => DAMS )#, :class_name => 'DamsStylePeriodInternal')
-	    map.technique(:in => DAMS )#, :class_name => 'DamsTechniqueInternal')
+	    map.scientificName(:in => DAMS, :class_name => 'DamsScientificNameInternal')
+	    map.stylePeriod(:in => DAMS, :class_name => 'DamsStylePeriodInternal')
+	    map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')
 	
 	    # subject names
 	    map.name(:in => DAMS, :class_name => 'MadsNameInternal')
