@@ -18,9 +18,9 @@
   <br>
   <%#= select_tag "#{object_type}[rightsHolderURI][]", options_for_select(@dams_personal_names) , :prompt=>"Select Rights Holder" %>
 
-  <%= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
-    <%= rightsPersonal.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal RightsHolder"%>
-  <% end %>  
+  <%#= f.fields_for :rightsHolderPersonal do |rightsPersonal| %>
+    <%#= rightsPersonal.select :id, options_for_select(@dams_personal_names) , :prompt=>"Select Personal RightsHolder"%>
+  <%# end %>  
 
   <%#= f.fields_for :rightsHolderCorporate do |rightsCorp| %>
     <%#= rightsCorp.select :id, options_for_select(@dams_corporate_names) , :prompt=>"Select Corporate RightsHolder"%>

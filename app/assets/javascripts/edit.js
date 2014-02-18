@@ -36,6 +36,7 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
   var fieldName = null;
   var typeGet = null;
   var reg = null;
+  
   if (typeof link == "string") {
     q = link;
     fieldName = typeName+"URI";
@@ -55,12 +56,17 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
     typeGet = "name";
     reg = "newRelationship";
   }
+  else if (typeName == 'rightsHolder') {
+    typeGet = "name";
+    reg = "newRightsHolder";
+  }
   if (relationship == "true") {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
   else {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
+  
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
       var new_id = new Date().getTime();
@@ -106,6 +112,10 @@ function getEditDynamicFields(link,type,location,typeName)
   else if (typeName == 'relationshipName') {
     typeGet = "name";
     reg = "newRelationship";
+  }   
+  else if (typeName == 'rightsHolder') {
+    typeGet = "name";
+    reg = "newRightsHolder";
   }
 
   fieldName = typeName+"URI";
@@ -297,18 +307,20 @@ function loadCreateNewObjectOption_generic(objType) {
 }
 
 function getObjectsPath(type) {
-  var objectPathArray =   [["BuiltWorkPlace","dams_built_work_places"],["CulturalContext","dams_cultural_contexts"], ["Function","dams_functions"], 
-               ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
-                 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
-                 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
-               ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
-               ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"]];
-  for(i = 0; i < objectPathArray.length; i++) {
-    if(type == objectPathArray[i][0]) {
-      return objectPathArray[i][1];
-    }
-  }
-  return null;
+	var	objectPathArray = 	[["BuiltWorkPlace","dams_built_work_places"],["CulturalContext","dams_cultural_contexts"], ["Function","dams_functions"], 
+							 ["GenreForm","mads_genre_forms"], ["Geographic","mads_geographics"], ["Iconography","dams_iconographies"], 
+						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
+						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
+							 ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
+							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"],
+							 ["RightsHolderConference", "mads_conference_names"],["RightsHolderCorporate", "mads_corporate_names"],
+             				 ["RightsHolderFamily", "mads_family_names"],["RightsHolderName", "mads_names"], ["RightsHolderPersonal", "mads_personal_names"]];
+	for(i = 0; i < objectPathArray.length; i++) {
+		if(type == objectPathArray[i][0]) {
+			return objectPathArray[i][1];
+		}
+	}
+	return null;
 }
 
 function firstToLowerCase( str ) {

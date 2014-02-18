@@ -340,6 +340,48 @@ logger.warn "XXX #{object.pid}"
 					  
     end
 
+   def get_rights_holders(object)   	
+    	rightsHolderArray = Array.new
+
+	  	object.rightsHolderConference.each do |conf|
+  		  rightsHolderArray << {
+		    :name => "RightsHolderConference",
+		    :value => conf.pid,			  
+		  }	  		
+	  	end
+	  	
+	  	object.rightsHolderCorporate.each do |corp|
+  		  rightsHolderArray << {
+		    :name => "RightsHolderCorporate",
+		    :value => corp.pid,			  
+		  }	  		
+	  	end
+
+		object.rightsHolderFamily.each do |fam|
+  		  rightsHolderArray << {
+		    :name => "RightsHolderFamily",
+		    :value => fam.pid,			  
+		  }	  		
+	  	end
+
+	   	object.rightsHolderName.each do |nam|
+  		  rightsHolderArray << {
+		    :name => "RightsHolderName",
+		    :value => nam.pid,			  
+		  }	  		
+	  	end
+
+	  	object.rightsHolderPersonal.each do |pers|
+  		  rightsHolderArray << {
+		    :name => "RightsHolderPersonal",
+		    :value => pers.pid,			  
+		  }
+	  	end
+
+		rightsHolderArray
+					  
+    end
+    
     def get_relationships(object)   	
     	relationshipArray = Array.new
 		relationship = object.relationship

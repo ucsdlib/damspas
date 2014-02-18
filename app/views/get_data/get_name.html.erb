@@ -13,7 +13,7 @@
 		<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][role_attributes][#{@fieldId}][id]", options_for_select(@mads_authorities) , :prompt=>"Select Role", :onChange=>"javascript: checkOption(this.id,true,'role');"%>
 	<% end %>
 <% else %>
-	<% if !@fieldName.nil? and @fieldName == "creatorURI"%>
+	<% if !@fieldName.nil? and (@fieldName == "creatorURI" or @fieldName == "rightsHolderURI")%>
 		<b><%= @label%></b><br/>
 		<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
 	<% else %>

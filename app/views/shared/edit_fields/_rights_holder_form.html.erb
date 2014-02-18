@@ -1,0 +1,10 @@
+<%
+     nameTypeArray = [["RightsHolderConference", "RightsHolderConference"],["RightsHolderCorporate", "RightsHolderCorporate"],
+             ["RightsHolderFamily", "RightsHolderFamily"],["RightsHolderName", "RightsHolderName"], ["RightsHolderPersonal", "RightsHolderPersonal"]]
+%>  
+
+<h3>RightsHolder</h3>  
+
+<%= render :partial => 'shared/edit_fields/rightsHolder_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => nameTypeArray}%>
+
+<p><%= link_to_add_dynamic_fields "Add Rights Holder", f, "#{object_type}", nameTypeArray, "rightsHolder", 0, 0 %></p>
