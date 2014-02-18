@@ -754,19 +754,38 @@ module Dams
 	    end
 	  end 
 	  
+	  #RightsHolder ###################
 	  def rightsHolderURI=(val)
-	    if val.class == Array
-	    	val = val.first
-	    end
-	    if(!val.nil? && val.length > 0)
-	    	@holderURI = RDF::Resource.new("#{Rails.configuration.id_namespace}#{val}")
-	    end
+		 @holderURI = Array.new
+		  val.each do |v|
+		    uri = v
+		    if(!v.include? Rails.configuration.id_namespace)
+		      uri = "#{Rails.configuration.id_namespace}#{v}"
+		    end
+		      if(!v.nil? && v.length > 0)
+		        @holderURI << RDF::Resource.new(uri)   
+		      end
+		  end
 	  end
 	  def rightsHolderURI
 	    if @holderURI != nil
 	      @holderURI
 	    end
-	  end 
+	  end   
+	
+	  def rightsHolderType
+	    @rightsHolderType
+	  end
+	  def rightsHolderType=(val)
+	    @rightsHolderType = Array.new
+	    i = 0
+		val.each do |v| 
+		    if(!v.nil? && v.length > 0)
+		    	 @rightsHolderType << v 	
+		    end
+			i+=1
+		end
+	  end      
 	        
 	end
 end

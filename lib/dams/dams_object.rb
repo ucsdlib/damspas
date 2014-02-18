@@ -146,7 +146,8 @@ module Dams
 	    end             
 	    insertSubjectsGraph
 	    insertCopyRightsInfoGraph
-	    insertNameGraph                      
+	    insertNameGraph
+	    insertRightsHolderGraph                      
 	    super
 	  end
 	
@@ -178,14 +179,7 @@ module Dams
 	      else
 	        graph.update([rdf_subject, DAMS.license, @licenURI])
 	      end
-	    end   
-		if(!@holderURI.nil?)
-	      if new?
-	        graph.insert([rdf_subject, DAMS.rightsHolder, @holderURI])
-	      else
-	        graph.update([rdf_subject, DAMS.rightsHolder, @holderURI])
-	      end
-	    end                     
+	    end                 
 	  end
 	  
 	  def insertSubjectsGraph
@@ -249,8 +243,25 @@ module Dams
 		        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @nameURI])
 		      end		
 			end		      	      
-	    end     
+	    end	         
 	  end
+	  def insertRightsHolderGraph       
+		if(!@holderURI.nil?)
+			if(@holderURI.class == Array)
+				i = 0
+				@holderURI.each do |holder|
+			        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@rightsHolderType[i].camelize(:lower)}"), holder])
+			        i = i + 1
+			    end
+			else
+		      if new?
+		        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@rightsHolderType[0].camelize(:lower)}"), @holderURI])
+		      else
+		        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@rightsHolderType[0].camelize(:lower)}"), @holderURI])
+		      end		
+			end		      	      
+	    end	         
+	  end	  
 	  def load_unit(unit)
 		if !unit.first.nil?
 		    u_pid = unit.first.pid

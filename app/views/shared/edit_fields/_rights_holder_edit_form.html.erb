@@ -1,0 +1,20 @@
+  <%
+     nameTypeArray = [["RightsHolderConference", "RightsHolderConference"],["RightsHolderCorporate", "RightsHolderCorporate"],
+             ["RightsHolderFamily", "RightsHolderFamily"],["RightsHolderName", "RightsHolderName"], ["RightsHolderPersonal", "RightsHolderPersonal"]]
+  %>  
+
+  <h3>RightsHolder</h3>  
+
+<% 
+  i = 0
+
+  @rHolders.each do |rHolder|
+	tmp = JSON.parse(rHolder.to_json)
+%>
+	<%= render :partial => 'shared/edit_fields/rightsHolder_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => nameTypeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
+<% 
+	i = i+1
+  end 
+%>
+
+<p><%= link_to_add_dynamic_fields "Add Rights Holder", f, "#{object_type}", nameTypeArray, "rightsHolder", "#{i}", 1 %></p>
