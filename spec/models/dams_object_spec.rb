@@ -119,7 +119,7 @@ describe DamsObject do
 		statuteURI: ["bb21212121"],
 		otherRightsURI: ["bb06060606"],
 		licenseURI: ["bb22222222"],
-		rightsHolderURI: ["bb09090909"],
+		#rightsHolderURI: ["bb09090909"],
 		rightsHolderName_attributes: [name: "inline rightsHolder name"],
 		rightsHolderPersonal_attributes: [name: "inline personal rightsHolder name"],
 		rightsHolderCorporate_attributes: [name: "inline corporate rightsHolder name"],
@@ -343,7 +343,6 @@ describe DamsObject do
        <mads:authoritativeLabel>inline family rightsHolder name</mads:authoritativeLabel>
      </mads:FamilyName>
    </dams:rightsHolderFamily>   
-   <dams:rightsHolder rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
    <dams:scopeContentNote>
      <dams:ScopeContentNote>
        <dams:displayLabel>Scope and contents</dams:displayLabel>
