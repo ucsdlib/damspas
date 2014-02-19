@@ -43,5 +43,8 @@ Subl.app/
 # precompile assets
 public/assets
 
+# sitemap
+public/sitemap.xml
+
 # version
 public/version.txt

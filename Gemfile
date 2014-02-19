@@ -11,6 +11,8 @@ gem 'blacklight_advanced_search' # 2.1.1
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
 gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
+gem 'sitemap', '~> 0.3.3'
+
 gem 'sqlite3' #, '1.3.7'
 
 gem 'devise' #, '2.2.3'

@@ -246,6 +246,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
+    sitemap (0.3.3)
     solrizer (3.1.1)
       activesupport
       daemons
@@ -328,6 +329,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   simplecov
+  sitemap (~> 0.3.3)
   solrizer (~> 3.1.0)
   solrizer-fedora!
   sqlite3
