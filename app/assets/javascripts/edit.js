@@ -7,29 +7,6 @@ function getName(type,q,location)
   });  
 }
 
-function getSubjects(type,q,location,fieldName,label)
-{
-  $.get(baseURL+"/get_subject/get_subject?label="+label+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
-    $(location).html(data);
-  }); 
-
-  if( label == 'Subject') {
-    $('#simpleSubjects').show();
-    
-    var subjectsArray =new Array("BuiltWorkPlace","CulturalContext","Function","GenreForm","Geographic","Iconography","Occupation","ScientificName","StylePeriod","Technique","Temporal","Topic");
-    for (var i in subjectsArray) {
-      if(subjectsArray[i] == q) {
-      $('#'+q).show();
-    }else {
-      $('#'+subjectsArray[i]).hide();
-    }
-    }
-   }
-  if( label == 'Name' && fieldName == 'nameURI') {
-    toggleRelationshipNames(q,"","names");
-   }   
-}
-
 function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
 {  
   var q = null;
@@ -353,6 +330,10 @@ function removeEmptyFields() {
       fieldId = "#"+inputElements[i].id;
       inputElementsArray.push(fieldId);
     }
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }    
   }      
     
   for (var i=0;i<inputElementsArray.length;i++) {
