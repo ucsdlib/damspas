@@ -159,6 +159,7 @@ function toggleRelationshipNames(value, label, section)
 
 //parsing parameters as "#dams_object_", #dams_provenance_collection_", "#dams_assembled_collection_","#dams_provenance_collection_part",etc,
 function processForm_generic(objType) {
+    
     var attributesArray =new Array("assembledCollection","provenanceCollection","provenanceCollectionPart","complexSubject","statute","license","copyright","language","unit","rightsHolderPersonal");
     fieldId = "";
     for (var j in attributesArray) {
@@ -240,7 +241,7 @@ function processForm_generic(objType) {
       }     
   }
           
-  removeEmptyFields();             
+  removeEmptyFields();    
     return true; 
 }
 
@@ -345,6 +346,14 @@ function removeEmptyFields() {
       inputElementsArray.push(fieldId);
     }
   }
+
+  inputElements= document.getElementsByClassName("newAttributeClass");  
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.indexOf("Create New") >= 0) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  }      
     
   for (var i=0;i<inputElementsArray.length;i++) {
     $(inputElementsArray[i]).remove();
