@@ -45,7 +45,17 @@ namespace :deploy do
     end
   end
 
+  desc 'Pre-compile assets'
+  task :update_sitemap do
+    on roles(:web) do
+      within release_path do
+        execute :rake, 'sitemap:generate'
+      end
+    end
+  end
+
   after :finishing, 'deploy:write_version'
+  after :finishing, 'deploy:update_sitemap'
   before :restart, 'deploy:assets:precompile'
   after :finishing, 'deploy:cleanup'
 
