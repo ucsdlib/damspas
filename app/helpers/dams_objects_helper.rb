@@ -225,6 +225,21 @@ module DamsObjectsHelper
      end
      data_arr
     end
+    
+    def getFilesType
+      ret = ""
+      index = getComponentIndex
+      fieldData = @document["#{index}files_tesim"]
+      if fieldData != nil
+        fieldData.each do |datum|
+          files = JSON.parse(datum)
+          if files['mimeType'].end_with?("pdf")
+            ret = files['formatName']
+          end
+        end
+      end
+      ret
+    end
    
    def export_as_openurl
         query_string = []
@@ -452,6 +467,30 @@ module DamsObjectsHelper
 
 		return result
 	end
+
+
+
+  def grabPDFFile(parameters={})
+
+    p = {:componentIndex=>nil}.merge(parameters)
+    componentIndex = p[:componentIndex]
+
+    prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+    fieldData = @document["#{prefix}files_tesim"]
+    result = nil
+
+    if fieldData != nil
+      fieldData.each do |datum|
+        files = JSON.parse(datum)
+        if files["use"].end_with?("document-service") || files["use"].end_with?("document-source")
+          result = files["id"]
+          break
+        end
+      end
+    end
+
+    return result
+  end
 
 	#---
 	# Get the file use value from the component's 'files_tesim' value. Replaces 'render_file_use'.
