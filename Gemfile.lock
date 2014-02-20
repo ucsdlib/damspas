@@ -330,7 +330,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   simplecov
-  sitemap_generator
+  sitemap_generator (~> 5.0.0)
   solrizer (~> 3.1.0)
   solrizer-fedora!
   sqlite3
