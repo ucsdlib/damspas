@@ -19,7 +19,7 @@ include MailForm::Delivery
   def headers
     {
       :subject => "Contact Form:#{subject}",
-      :to => "wengNY@gmail.com", 
+      :to => "dlp@ucsd.edu", 
       :from => %("#{name}" <#{email}>)
     }
   end
