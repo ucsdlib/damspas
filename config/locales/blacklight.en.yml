@@ -169,7 +169,7 @@ en:
         title: 'Number of results to display per page'
         submit: 'Update'
       sort:
-        label: 'Sort by %{field}'
+        label: 'Sort: %{field}'
         submit: 'sort results'
       form:
         search_field:
