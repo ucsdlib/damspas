@@ -45,11 +45,16 @@ namespace :deploy do
     end
   end
 
-  desc 'Pre-compile assets'
+  desc '(re) generate sitemap'
   task :update_sitemap do
-    on roles(:web) do
+    on roles(:sitemap) do
       within release_path do
-        execute :rake, 'sitemap:generate'
+        execute :rake, 'sitemap:refresh'
+      end
+    end
+    on roles(:sitemap_noping) do
+      within release_path do
+        execute :rake, 'sitemap:refresh:no_ping'
       end
     end
   end
