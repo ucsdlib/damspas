@@ -13,7 +13,7 @@
 
 		<% else %>
 
-          <% @page_title = t('blacklight.search.title', :application_name => application_name) %>
+          <% @page_title = t('blacklight.search.search_results') %>
           <% content_for(:head) do -%>
             <%= render_opensearch_response_metadata %>
             <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') ) %>
@@ -25,8 +25,9 @@
 			<%= render :partial => 'constraints' %>
 			<h3 class="hide-text"><%= t('blacklight.search.search_results') %></h3>
 			<%= render_document_index %>
-			<%= render 'results_pagination' %>
-
+			<div class="dams-search-results-footer">
+			<%= render :partial => 'paginate_compact' %>
+			</div>
 		<% end %>
 
 	</div>

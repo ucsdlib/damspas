@@ -1,0 +1,18 @@
+<% if show_sort_and_per_page? and !blacklight_config.per_page.blank? %>
+
+  <div class="btn-group hidden-phone">
+
+    <%= link_to '#', :class => 'btn btn-mini results-btn dropdown-toggle', :data => {:toggle=>'dropdown'} do %>
+      <%=t(:'blacklight.search.per_page.button_label', :count => current_per_page)%>
+      <b class="caret"></b>
+    <% end %>
+
+    <ul class="dropdown-menu">
+      <%- blacklight_config.per_page.each do |count| %>
+        <li><%= link_to(t(:'blacklight.search.per_page.label', :count => count).html_safe, url_for(params_for_search(:per_page => count))) %></li>
+      <%- end -%>
+    </ul>
+
+  </div>
+
+<% end %>

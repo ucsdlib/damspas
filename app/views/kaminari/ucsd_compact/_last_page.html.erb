@@ -1,0 +1,7 @@
+<%
+   bsBtnClass = 'btn'
+   bsBtnClass = bsBtnClass << ' disabled' if current_page.last?
+%>
+
+
+<%= link_to raw('<i class="glyphicon glyphicon-step-forward"></i>'), url, :title => 'Last page',  :remote => remote, :class => bsBtnClass %>
