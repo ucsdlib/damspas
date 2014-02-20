@@ -15,6 +15,7 @@
 config/database.yml
 config/fedora.yml
 config/solr.yml
+config/initializers/devise.rb
 config/initializers/secret_token.rb
 
 # Ignore bundler config
