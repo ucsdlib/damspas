@@ -44,7 +44,7 @@ Subl.app/
 public/assets
 
 # sitemap
-public/sitemap.xml
+public/sitemap*
 
 # version
 public/version.txt
