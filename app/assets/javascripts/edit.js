@@ -7,29 +7,6 @@ function getName(type,q,location)
   });  
 }
 
-function getSubjects(type,q,location,fieldName,label)
-{
-  $.get(baseURL+"/get_subject/get_subject?label="+label+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
-    $(location).html(data);
-  }); 
-
-  if( label == 'Subject') {
-    $('#simpleSubjects').show();
-    
-    var subjectsArray =new Array("BuiltWorkPlace","CulturalContext","Function","GenreForm","Geographic","Iconography","Occupation","ScientificName","StylePeriod","Technique","Temporal","Topic");
-    for (var i in subjectsArray) {
-      if(subjectsArray[i] == q) {
-      $('#'+q).show();
-    }else {
-      $('#'+subjectsArray[i]).hide();
-    }
-    }
-   }
-  if( label == 'Name' && fieldName == 'nameURI') {
-    toggleRelationshipNames(q,"","names");
-   }   
-}
-
 function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
 {  
   var q = null;
@@ -159,6 +136,7 @@ function toggleRelationshipNames(value, label, section)
 
 //parsing parameters as "#dams_object_", #dams_provenance_collection_", "#dams_assembled_collection_","#dams_provenance_collection_part",etc,
 function processForm_generic(objType) {
+    
     var attributesArray =new Array("assembledCollection","provenanceCollection","provenanceCollectionPart","complexSubject","statute","license","copyright","language","unit","rightsHolderPersonal");
     fieldId = "";
     for (var j in attributesArray) {
@@ -240,7 +218,7 @@ function processForm_generic(objType) {
       }     
   }
           
-  removeEmptyFields();             
+  removeEmptyFields();    
     return true; 
 }
 
@@ -345,6 +323,18 @@ function removeEmptyFields() {
       inputElementsArray.push(fieldId);
     }
   }
+
+  inputElements= document.getElementsByClassName("newAttributeClass");  
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.indexOf("Create New") >= 0) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }    
+  }      
     
   for (var i=0;i<inputElementsArray.length;i++) {
     $(inputElementsArray[i]).remove();
