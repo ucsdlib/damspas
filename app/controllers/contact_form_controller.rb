@@ -10,7 +10,7 @@ class ContactFormController < ApplicationController
     # not spam and a valid form
     logger.warn "*** MARK ***"
     if @contact_form.deliver
-      flash.now[:notice] = 'Thank you for your message!You message has been sent.'
+      flash.now[:notice] = 'Thank you for your message! You message has been sent.'
       after_deliver
       render :new
     else
