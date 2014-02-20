@@ -3,15 +3,7 @@
   Please use the contact form to submit general questions about the Digital Collections website, to report a problem you are experiencing with the system, or to provide feedback. See our Frequently Asked Questions (FAQ) for additional information.
 </div>
 
-<% if user_signed_in? %>
-  <% nm = current_user.name %>
-  <% em = current_user.email_address %>
-<% else %>
-  <% nm = '' %>
-  <% em = '' %>
-<% end %>
-
-<h2>Contact Form</h2>
+<h3>Contact Form</h3>
 <%= form_for @contact_form, url: {action: "create"}, :html => {:class => 'form-horizontal well'} do |f| %>
   <%= f.text_field :contact_method, :class => 'hide' %>
   <div class="control-group">
@@ -25,13 +17,13 @@
 
   <div class="control-group">
     <%= f.label :name, 'Your Name', :class=>"control-label" %>
-    <div class="controls"><%= f.text_field :name, :class=>"input-xlarge", :value => nm, :required => true %>  </div>
+    <div class="controls"><%= f.text_field :name, :class=>"input-xlarge", :value =>"", :required => true %>  </div>
   </div>
 
   <div class="control-group">
     <%= f.label :email, 'Your Email', :class=>"control-label" %>
     <div class="controls">
-    <%= f.text_field :email, :class=>"input-xlarge", :value => em, :required => true %>
+    <%= f.text_field :email, :class=>"input-xlarge", :value =>"", :required => true %>
     </div>
   </div>
 
