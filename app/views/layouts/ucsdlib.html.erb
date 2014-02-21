@@ -5,7 +5,7 @@
 		<link href="<%= opensearch_catalog_path(:format => 'xml', :only_path => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
 
 	  <script src="//libraries.ucsd.edu/jwplayer-6.8/jwplayer.js"></script>
-	  <script src="//libraries.ucsd.edu/jwplayer-6.8/key.js"></script>
+	  <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 
 		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? || Rails.env.staging? %>
 		<% if @document != nil && @document.instance_of?(SolrDocument) %>
