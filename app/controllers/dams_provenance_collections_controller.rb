@@ -86,6 +86,7 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.relationship.first.familyName.build
 
     @mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+    @mads_complex_subjects << "Create New Complex Subject"
     @dams_assembled_collections = get_objects_url('DamsAssembledCollection','title_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
