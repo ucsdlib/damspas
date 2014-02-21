@@ -1,7 +1,7 @@
 <div class="fields">
 	<div id="complexSubjectId">
 	    <br/>
-	    <%= f.select :id, options_for_select(@mads_complex_subjects, :selected => "#{Rails.configuration.id_namespace}#{@complexSubject_id}") , {:include_blank => 'Select Subject'}, :class=>"newAttributeClass", :onChange=>"javascript: checkOption(this.id,true,'mads_complex_subjects');" %>
+	    <%= f.select :id, options_for_select(@mads_complex_subjects, :selected => "#{Rails.configuration.id_namespace}#{@complexSubject_id}") , {:include_blank => 'Select Subject'}, :onChange=>"javascript: checkOption(this.id,true,'mads_complex_subjects');" %>
 	    <br/>
 	    <%= link_to_remove_fields "Remove Complex Subject", f %>
     </div>
