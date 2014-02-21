@@ -1,17 +1,16 @@
-<h1>Contact</h1>
+<h1>Contact Form</h1>
 <div class="alert">
   Please use the contact form to submit general questions about the Digital Collections website, to report a problem you are experiencing with the system, or to provide feedback. See our Frequently Asked Questions (FAQ) for additional information.
 </div>
 
-<h3>Contact Form</h3>
+
 <%= form_for @contact_form, url: {action: "create"}, :html => {:class => 'form-horizontal well'} do |f| %>
   <%= f.text_field :contact_method, :class => 'hide' %>
   <div class="control-group">
     <%= f.label :category, 'Issue Type', :class => "control-label" %>
     <div class="controls">
       <% issue_types = ContactForm::ISSUE_TYPES.dup %>
-      <% issue_types.unshift(['Select an Issue Type', nil]) %>
-      <%= f.select 'category', options_for_select(issue_types), {}, {:class=> 'input-large', :required => true } %>
+      <%= f.select 'category', options_for_select(issue_types), :prompt=>"Select an Issue Type", :class=> 'input-large', :required => true  %>
     </div>
   </div>
 
