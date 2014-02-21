@@ -59,6 +59,8 @@
                 <%# link_to 'Create Administrative Unit', new_dams_unit_path %>
                   <li class="divider"></li>
                   <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
+                <!-- use an image bug to keep the Shibboleth session alive -->
+                <img src="https://a4.ucsd.edu/tritON/imagebug">
               </ul>
             </li>
           <% elsif current_user %>
