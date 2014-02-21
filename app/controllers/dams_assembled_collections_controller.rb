@@ -84,6 +84,7 @@ class DamsAssembledCollectionsController < ApplicationController
     @dams_assembled_collection.relationship.first.familyName.build
 
     @mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
+    @mads_complex_subjects << "Create New Complex Subject"
     @dams_units = get_objects_url('DamsUnit','unit_name_tesim')
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
