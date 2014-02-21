@@ -17,7 +17,7 @@
       <nav class="nav-collapse collapse">
 
         <ul class="nav">
-          <li><%= link_to 'Home', root_path %></li>
+          <li class="visible-desktop"><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'About', about_path %></li>
           <!-- Link to general browse by collection, format and topic page -->
           <li class="dropdown">
@@ -34,7 +34,7 @@
             <ul class="dropdown-menu">
               <li><a href="mailto:dlp@ucsd.edu">Contact</a></li>
               <li><%= link_to 'FAQ', faq_path %></li>
-              <li><%= link_to 'Search Tips', search_tips_path%>
+              <li><%= link_to 'Search Tips', search_tips_path%></li>
               <li><%= link_to 'Take Down Policy', takedown_path %></li>
             </ul>
           </li>
@@ -48,32 +48,26 @@
                 	<li><%= link_to 'Create Object', new_dams_object_path %></li>
                 <% end %>
                 <% if can? :create, DamsProvenanceCollection %>
-	              <li><%= link_to 'Create Provenance Collection', new_dams_provenance_collection_path %></li>
+	                <li><%= link_to 'Create Provenance Collection', new_dams_provenance_collection_path %></li>
                 <% end %>
                 <% if can? :create, DamsProvenanceCollectionPart %>
-	              <li><%= link_to 'Create Provenance Collection Part', new_dams_provenance_collection_part_path %></li>
+	                <li><%= link_to 'Create Provenance Collection Part', new_dams_provenance_collection_part_path %></li>
                 <% end %>
                 <% if can? :create, DamsAssembledCollection %>
-	              <li><%= link_to 'Create Assembled Collection', new_dams_assembled_collection_path %></li>
+	                <li><%= link_to 'Create Assembled Collection', new_dams_assembled_collection_path %></li>
                 <% end %>
                 <%# link_to 'Create Administrative Unit', new_dams_unit_path %>
-                <li class="divider"></li>
-                <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
-                <!-- use an image bug to keep the Shibboleth session alive -->
-                <img src="https://a4.ucsd.edu/tritON/imagebug">
+                  <li class="divider"></li>
+                  <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
               </ul>
             </li>
           <% elsif current_user %>
 
             <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
           <% else %>
-            <li>
-              <%= link_to 'Sign In', new_user_session_path %>
-            </li>
+            <li><%= link_to 'Sign In', new_user_session_path %></li>
           <% end %>
-          <li>
-            <%= link_to 'The Library', 'http://libraries.ucsd.edu/' %>
-          </li>
+          <li><%= link_to 'The Library', 'http://libraries.ucsd.edu/' %></li>
  
         </ul>
       </nav>
