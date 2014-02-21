@@ -151,6 +151,9 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mail_form (1.5.0)
+      actionmailer (>= 3.2, < 5)
+      activemodel (>= 3.2, < 5)
     marc (0.8.1)
       ensure_valid_encoding
       unf
@@ -323,6 +326,7 @@ DEPENDENCIES
   jettywrapper
   jquery-rails
   launchy
+  mail_form
   omniauth
   omniauth-shibboleth
   rails (~> 4.0.0)

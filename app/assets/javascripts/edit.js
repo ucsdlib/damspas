@@ -228,7 +228,8 @@ function remove_fields(link) {
 
 function add_fields(link, association, content) {
     var new_id = new Date().getTime();
-    var regexp = new RegExp("new_" + association, "g");
+    //var regexp = new RegExp("new_" + association, "g");
+    var regexp = new RegExp("newClassName", "g");
     content = content.replace("newClassName",new_id);  
     if(association == "complexSubject") {
       content = content.replace("complexSubjectId",new_id);
@@ -322,9 +323,9 @@ function removeEmptyFields() {
       fieldId = "#"+inputElements[i].id;
       inputElementsArray.push(fieldId);
     }
-  }
-
-  inputElements= document.getElementsByClassName("newAttributeClass");  
+  } 
+ 
+  inputElements= document.getElementsByTagName("select");
   for (var i=0;i<inputElements.length;i++) {
     if(inputElements[i].value != null && inputElements[i].value.indexOf("Create New") >= 0) {     
       fieldId = "#"+inputElements[i].id;
@@ -332,10 +333,10 @@ function removeEmptyFields() {
     }
     if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
       fieldId = "#"+inputElements[i].id;
-      inputElementsArray.push(fieldId);
-    }    
-  }      
-    
+       inputElementsArray.push(fieldId);
+    }   
+  }
+      
   for (var i=0;i<inputElementsArray.length;i++) {
     $(inputElementsArray[i]).remove();
   }
