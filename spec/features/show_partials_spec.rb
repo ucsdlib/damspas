@@ -7,9 +7,9 @@ feature 'Visitor wants to view object fields' do
     visit dams_object_path(test_pid)
 
     # collections and unit
-    expect(page).to have_link('Sample Assembled Collection', href:"/dams_collections/bd3516400n")
-    expect(page).to have_link('Sample Provenance Collection', href:"/dams_collections/bd48133407")
-    expect(page).to have_link('Sample Provenance Part', href:"/dams_collections/bd6110278b")
+    expect(page).to have_link('Sample Assembled Collection',  href: dams_collection_path('bd3516400n'))
+    expect(page).to have_link('Sample Provenance Collection', href: dams_collection_path('bd48133407'))
+    expect(page).to have_link('Sample Provenance Part',       href: dams_collection_path('bd6110278b'))
     expect(page).to have_text('Library Digital Collections')
 
     # date and language
