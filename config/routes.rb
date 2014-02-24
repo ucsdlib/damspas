@@ -16,7 +16,7 @@ Hydra::Application.routes.draw do
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
-  resources :dams_collections, :only => [:show]
+  resources :collection, :only => [:show], :controller => 'dams_collections', :as => 'dams_collections'
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
   get '/rci', to: 'dams_units#show', :id => 'rci'
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
