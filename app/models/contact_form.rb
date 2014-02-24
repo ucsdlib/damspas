@@ -10,7 +10,6 @@ include MailForm::Delivery
   attribute :category,    :validate => true
   attribute :name,        :validate => true
   attribute :email,       :validate => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
-  attribute :subject,     :validate => true
   attribute :message,     :validate => true
   # - can't use this without ActiveRecord::Base validates_inclusion_of :issue_type, :in => ISSUE_TYPES
 
@@ -18,7 +17,7 @@ include MailForm::Delivery
   # in ActionMailer accepts.
   def headers
     {
-      :subject => "Contact Form:#{subject}",
+      :subject => "DAMS Contact Form: #{category}",
       :to => "dlp@ucsd.edu", 
       :from => %("#{name}" <#{email}>)
     }
