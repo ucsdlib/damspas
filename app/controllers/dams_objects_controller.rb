@@ -32,14 +32,7 @@ class DamsObjectsController < ApplicationController
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
 
-    # enforce access controls
-    authorize! :show, @document
-
-    if @document.nil?
-      raise ActionController::RoutingError.new('Not Found')
-    end
-
-    @rdfxml = @document['rdfxml_ssi']
+    @rdfxml = @document['rdfxml_ssi'] if !@document.nil?
     if @rdfxml == nil
       @rdfxml = "<rdf:RDF xmlns:dams='http://library.ucsd.edu/ontology/dams#'
           xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
@@ -47,10 +40,22 @@ class DamsObjectsController < ApplicationController
   <dams:error>content missing</dams:error>
 </rdf:RDF>"
     end
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @document }
-      format.rdf { render xml: @rdfxml }
+
+    # enforce access controls
+    if can? :show, @document
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @document }
+        format.rdf { render xml: @rdfxml }
+      end
+    elsif !@document.nil? && @document['discover_access_group_ssim'].include?("public")
+      respond_to do |format|
+        format.html { render :metadata }
+        format.json { render json: @document }
+        format.rdf { render xml: @rdfxml }
+      end
+    else
+      authorize! :show, @document # 403 forbidden
     end
   end
   def index

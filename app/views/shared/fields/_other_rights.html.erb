@@ -1,33 +1,26 @@
 <%
-	 if defined?(componentIndex) # Then we're working with a component
-		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td>"
-		 htmlClose = "</td></tr>"
-	 else # We're working with an object or collection
-		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd>"
-		 htmlClose = "</dd>"
-	 end
+if defined?(componentIndex) # Then we're working with a component
+	prefix = "component_#{componentIndex}_"
+	htmlOpen = "<tr><td>%s</td><td>"
+	htmlClose = "</td></tr>"
+else # We're working with an object or collection
+	prefix = ''
+	htmlOpen = "<dt>%s</dt><dd>"
+	htmlClose = "</dd>"
+end
 
-	 fieldData = @document["#{prefix}otherRights_tesim"]
+fieldData = @document["#{prefix}otherRights_tesim"]
 
-	 if fieldData != nil
+if fieldData != nil
+	htmlOpen %= 'Other Rights'
+	concat htmlOpen.html_safe
 
-		 htmlOpen %= 'Other Rights'
-		 concat htmlOpen.html_safe
-
-			 otherRights = JSON.parse(fieldData.first)
-%>
+	otherRights = JSON.parse(fieldData.first)
+	if otherRights['uri'].blank?  %>
+		<p><%= auto_link otherRights['note'].capitalize %></p>
+	<% else %>
 		<p><%= link_to otherRights['note'].capitalize, otherRights['uri'] %></p>
-	<%
-
-		 concat htmlClose.html_safe
-
-		 end
-	%>
-
-
-
-
-
-
+<% end
+concat htmlClose.html_safe
+end
+%>
