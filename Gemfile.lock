@@ -331,6 +331,7 @@ DEPENDENCIES
   omniauth-shibboleth
   rails (~> 4.0.0)
   rails_autolink
+  rake (~> 10.1.1)
   rspec-rails
   sass-rails
   simplecov
