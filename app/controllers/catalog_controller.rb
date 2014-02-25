@@ -80,6 +80,9 @@ class CatalogController < ApplicationController
 	  config.default_solr_params['hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim note_tesim' 
 	end
 
+    # thumbnails
+    config.index.thumbnail_method = :thumbnail_url
+
     # solr field configuration for search results/index views
     config.index.show_link = 'title_tesim'
     config.index.record_display_type = 'has_model_sim'
