@@ -25,7 +25,7 @@
 .browse-by-list li:last-child:before{content:" or "}
 .browse-by-list li:last-child:after{content:""}
 #bg-meta{position:absolute;bottom:0;left:0;padding:20px;color:#fff;color:rgba(255,255,255,0.75);}
-#bg-meta p{margin:0;text-shadow: 1px 2px 3px rgba(0,0,0,0.5);font-size:0.9em;line-height:normal;}
+#bg-meta p{margin:0;text-shadow: 1px 2px 3px rgba(0,0,0,0.5);font-size:18px;line-height:normal;}
 #bg-meta a{color:#fff;color:rgba(255,255,255,0.75);text-decoration:underline;transition: all 250ms ease-in-out;outline:none;}
 #bg-meta a:hover{color:#fff;}
 .category{display:inline-block;width:48%;vertical-align: top;}
