@@ -6,6 +6,7 @@
 #home-02,#home-02 a{color:#fff;}
 #home-02 h2{margin:0;font-family:"Archivo Narrow";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
 #home-02 h3{margin:20px;font-weight: normal;font-size:1.9em;line-height:normal;}
+.home-text{font-size:20px}
 #dc-logo{display:block;margin: 0 auto;padding-top:100px;}
 #dc-search-box{padding-top:0px;margin:0;}
 #dc-search-box fieldset{display:block;width:80%;padding:0;margin:0 auto;border:5px solid #fff;background-color:#fff;box-shadow: 0 0 10px rgba(0,0,0,0.5);position:relative;}
