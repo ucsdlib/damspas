@@ -32,8 +32,8 @@ feature 'Visitor wants to create/edit a DAMS OtherRight' do
 		fill_in "Restriction Type", :with => "restrict"
 		fill_in "Restriction Begin Date", :with => "2013"
 		fill_in "Restriction End Date", :with => "2014"
-		page.select('Authority Role Test', match: :first) 
-		page.select('Test Name', match: :first) 
+		#page.select('Authority Role Test', match: :first) 
+		#page.select('Test Name', match: :first) 
 		click_on "Save"	
 	end
 end
