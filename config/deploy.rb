@@ -49,12 +49,16 @@ namespace :deploy do
   task :update_sitemap do
     on roles(:sitemap) do
       within release_path do
-        execute :rake, 'sitemap:refresh'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'sitemap:refresh'
+        end
       end
     end
     on roles(:sitemap_noping) do
       within release_path do
-        execute :rake, 'sitemap:refresh:no_ping'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'sitemap:refresh:no_ping'
+        end
       end
     end
   end
