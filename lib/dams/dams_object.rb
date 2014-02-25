@@ -365,6 +365,13 @@ module Dams
 	      # insert solr field
 	      pre = (cid != nil) ? "file_#{cid}_" : "file_"
 	      Solrizer.insert_field(solr_doc, "#{pre}#{file.id}_filestore", file.filestore.first.to_s)
+
+          # thumbnail
+          if solr_doc['thumbnail_tesim'].blank? && file.use.first.to_s == 'image-thumbnail'
+            thumb_url = rdf_subject.to_s
+            thumb_url += cid.nil? ? "/#{file.id}" : "/#{cid}/#{file.id}"
+            Solrizer.insert_field(solr_doc, 'thumbnail', thumb_url)
+          end
 	    }
 	  end
 	  def insertCopyrightFields ( solr_doc, prefix, copyright )

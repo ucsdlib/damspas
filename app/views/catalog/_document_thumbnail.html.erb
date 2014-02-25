@@ -1,4 +1,3 @@
-<% resultClass, resultIcon, resultThumb = document_thumbnail( document ) %>
 <%
     if is_collection?(document)
       url = dams_collection_path(document, :counter => opts[:counter] )
@@ -7,11 +6,14 @@
     end
 %>
 <%= link_to url, :class => 'dams-search-thumbnail-link' do %>
-  <% if !resultThumb.blank? %>
-	<%= image_tag resultThumb, :alt => "", :class => 'dams-search-thumbnail' %>
-  <% else %>
-	<div class="dams-search-thumbnail <%=resultClass%>">
+  <%- if has_thumbnail?(document) && tn = thumbnail_url(document, nil) %>
+    <div class="document-thumbnail dams-search-thumbnail">
+      <%= tn %>
+    </div>  
+  <%- else %>
+    <% resultClass, resultIcon = document_icon( document ) %>
+    <div class="dams-search-thumbnail <%=resultClass%>">
       <i class="glyphicon <%=resultIcon%>"></i>
     </div>
-  <% end %>
+  <%- end %>
 <% end %>
