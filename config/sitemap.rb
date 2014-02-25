@@ -22,7 +22,9 @@ SitemapGenerator::Sitemap.create do
       done = 0
       total = 0
       more_records = true
-      solr = RSolr.connect( :url => ActiveFedora.solr_config[:url] )
+      solr_url = ActiveFedora.solr_config[:url]
+      puts "solr: #{solr_url}"
+      solr = RSolr.connect( :url => solr_url )
       while ( more_records )
         # get a batch of records from solr
         solr_response = solr.get 'select', :params => {:q => "has_model_ssim:\"info:fedora/afmodel:#{record_type}\" AND read_access_group_ssim:public", :rows => rows, :wt => :ruby, :start => done}
@@ -52,7 +54,7 @@ SitemapGenerator::Sitemap.create do
         end
       end
     rescue Exception => e
-      puts "Error: #{e}"
+      puts e.backtrace
     end
   end
 
