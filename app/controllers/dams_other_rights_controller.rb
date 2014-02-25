@@ -28,7 +28,8 @@ class DamsOtherRightsController < ApplicationController
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @mads_names = get_objects('MadsName','name_tesim')
     @name_id = @dams_other_right.name.to_s.gsub(/.*\//,'')[0..9]
-    @role_id = @dams_other_right.role.to_s.gsub(/.*\//,'')[0..9]  
+    @role_id = @dams_other_right.role.to_s.gsub(/.*\//,'')[0..9]
+    @relationships = get_relationships(@dams_other_right)
   end
   
   def new
@@ -36,6 +37,13 @@ class DamsOtherRightsController < ApplicationController
     @dams_other_right.permission_node.build
     @mads_authorities = get_objects('MadsAuthority','name_tesim')
     @mads_names = get_objects('MadsName','name_tesim')
+    @dams_other_right.relationship.build
+    @dams_other_right.relationship.first.role.build
+    @dams_other_right.relationship.first.personalName.build
+    @dams_other_right.relationship.first.name.build
+    @dams_other_right.relationship.first.corporateName.build
+    @dams_other_right.relationship.first.conferenceName.build
+    @dams_other_right.relationship.first.familyName.build
   end
 
   def create
@@ -49,7 +57,8 @@ class DamsOtherRightsController < ApplicationController
 
   def update
     @dams_other_right.restriction_node.clear
-    @dams_other_right.permission_node.clear 
+    @dams_other_right.permission_node.clear
+    @dams_other_right.relationship.clear
     @dams_other_right.attributes = params[:dams_other_right]
     if @dams_other_right.save
         redirect_to @dams_other_right, notice: "Successfully updated OtherRights"
