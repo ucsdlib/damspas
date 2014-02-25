@@ -21,7 +21,9 @@ namespace :deploy do
     task :precompile do
       on roles(:web) do
         within release_path do
-          execute :rake, 'RAILS_RELATIVE_URL_ROOT=/dc assets:precompile'
+          with rails_env: fetch(:rails_env) do
+            execute :rake, 'RAILS_RELATIVE_URL_ROOT=/dc assets:precompile'
+          end
         end
       end
     end
