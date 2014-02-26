@@ -21,7 +21,9 @@ namespace :deploy do
     task :precompile do
       on roles(:web) do
         within release_path do
-          execute :rake, 'RAILS_RELATIVE_URL_ROOT=/dc assets:precompile'
+          with rails_env: fetch(:rails_env) do
+            execute :rake, 'RAILS_RELATIVE_URL_ROOT=/dc assets:precompile'
+          end
         end
       end
     end
@@ -49,12 +51,16 @@ namespace :deploy do
   task :update_sitemap do
     on roles(:sitemap) do
       within release_path do
-        execute :rake, 'sitemap:refresh'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'sitemap:refresh'
+        end
       end
     end
     on roles(:sitemap_noping) do
       within release_path do
-        execute :rake, 'sitemap:refresh:no_ping'
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'sitemap:refresh:no_ping'
+        end
       end
     end
   end

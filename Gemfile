@@ -61,4 +61,5 @@ end
 
 group :staging do
   gem 'activerecord-postgresql-adapter'
+  gem 'rake', '~> 10.1.0'
 end
