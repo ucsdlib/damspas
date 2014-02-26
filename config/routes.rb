@@ -1,6 +1,9 @@
 Hydra::Application.routes.draw do
 
 
+  resources :pages
+  get '/p/:id', to: 'pages#view', :as => 'view_page'
+
   # Static page routes
   get '/faq', to: 'static_pages#faq'
   get '/about', to: 'static_pages#about'

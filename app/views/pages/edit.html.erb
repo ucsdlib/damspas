@@ -1,0 +1,24 @@
+<h1>Editing Page</h1>
+
+<%# render 'form', submit_button: 'save' %>
+<%= form_for @page do |f| %>
+  <p>
+    <%= f.label :code %>
+    <%= f.text_field :code %>
+  </p>
+
+  <p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :body %>
+    <%= f.text_area :body, size: '80x30', class: "x", style: 'width: 90%;' %>
+  </p>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>
+
+<%= link_to 'View', view_page_path(@page.code), class: "btn btn-primary" %>
+<%= link_to 'Page List', pages_path, class: "btn btn-primary" %>

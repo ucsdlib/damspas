@@ -117,6 +117,7 @@ class Ability
       cannot [:create], DamsAssembledCollection
       cannot [:create], DamsProvenanceCollection
       cannot [:create], DamsProvenanceCollectionPart
+      cannot [:create], Page
     else  # curators
       can [:read], DamsAssembledCollection
       can [:read], DamsProvenanceCollection
@@ -150,6 +151,7 @@ class Ability
       can [:read, :create, :update], MadsAuthority
       can [:read, :create, :update], MadsLanguage
       can [:read, :create, :update], MadsVariant
+      can [:read, :create, :update, :destroy], Page
     end
 
     # DamsUnit is a special case: super-user only
