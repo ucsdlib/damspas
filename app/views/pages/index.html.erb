@@ -1,34 +1,31 @@
-<h1>Listing Pages</h1>
+<h1>Pages</h1>
 
-<table>
+<table class="table">
   <thead>
-    <tr>
-      <th>Code</th>
-      <th>Title</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+    <th>Code</th>
+    <th>Title</th>
+    <% if can? :create, Page %>
+      <th colspan="2">Actions</th>
+    <% end %>
   </thead>
-
   <tbody>
     <% @pages.each do |page| %>
       <tr>
         <td><%= page.code %></td>
-        <td><%= page.title %></td>
-        <td><%= link_to 'View', view_page_path(page.code), class: "btn btn-primary" %></td>
+        <td><%= link_to page.title, view_page_path(page.code) %></td>
         <% if can? :create, Page %>
           <td><%= link_to 'Edit', edit_page_path(page), class: "btn btn-primary" %></td>
           <td><%= link_to 'Delete', page, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary" %></td>
         <% end %>
       </tr>
     <% end %>
+    <% if can? :create, Page %>
+      <tr>
+        <td colspan="4">
+          <%= link_to 'Add Page', new_page_path, class: "btn btn-primary" %>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 
-<br>
-
-<% if can? :create, Page %>
-  <%= link_to 'Add Page', new_page_path, class: "btn btn-primary" %>
-<% end %>

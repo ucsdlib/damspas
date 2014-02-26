@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'ckeditor/ckeditor' %>
 <h1>Editing Page</h1>
 
 <%# render 'form', submit_button: 'save' %>
@@ -14,8 +15,9 @@
 
   <p>
     <%= f.label :body %>
-    <%= f.text_area :body, size: '80x30', class: "x", style: 'width: 90%;' %>
+    <%= f.text_area :body, size: '70x30' %>
   </p>
+  <script>CKEDITOR.replace('page_body')</script>
 
   <%= f.submit "Save", class: "btn btn-primary" %>
 <% end %>
