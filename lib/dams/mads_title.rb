@@ -103,7 +103,6 @@ module Dams
 	    nons = nonSort
 	    pnam = partName
 	    pnum = partNumber
-	
 	    # make sure we have values not arrays
 	    main = main.first if main.class == Array
 	    subt = subt.first if subt.class == Array
@@ -111,9 +110,11 @@ module Dams
 	    pnam = pnam.first if pnam.class == Array
 	    pnum = pnum.first if pnum.class == Array
 
-	    authLabel = main
+        authLabel = ""
+  		authLabel += nons if nons
+	    authLabel += " " + main if main
 	    authLabel += ": " + subt if subt
-	    authLabel += ", " + nons if nons
+	    #authLabel += ", " + nons if nons
 	    authLabel += ", " + pnam if pnam
 	    authLabel += ", " + pnum if pnum
 	    authLabel if !authLabel.blank?

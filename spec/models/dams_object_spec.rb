@@ -353,7 +353,7 @@ describe DamsObject do
    <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
    <dams:title>
      <mads:Title>
-       <mads:authoritativeLabel>Sample Complex Object Record #1: a newspaper PDF with a single attached image, nonSortValue, partNameValue, partNumberValue</mads:authoritativeLabel>
+       <mads:authoritativeLabel>nonSortValue Sample Complex Object Record #1: a newspaper PDF with a single attached image, partNameValue, partNumberValue</mads:authoritativeLabel>
        <mads:elementList rdf:parseType="Collection">
          <mads:MainTitleElement>
            <mads:elementValue>Sample Complex Object Record #1</mads:elementValue>
