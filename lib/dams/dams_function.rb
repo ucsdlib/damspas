@@ -22,7 +22,7 @@ module Dams
       def functionElement_with_update_name= (attributes)
         self.functionElement_without_update_name= attributes
         if elementList && elementList.first && elementList.first.elementValue.present?
-          self.name = elementList.first.elementValue
+          self.name = elementList.first.elementValue.to_s
         end
       end
       alias_method :functionElement_without_update_name=, :functionElement_attributes=

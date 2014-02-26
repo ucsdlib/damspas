@@ -14,7 +14,7 @@ describe DamsStatuteDatastream do
         }
       }
 
-      subject = DamsStatuteDatastream.new(double("inner object", pid:"zzXXXXXXX1", new?: true))
+      subject = DamsStatuteDatastream.new(double("inner object", pid:"zzXXXXXXX1", new_record?: true))
       subject.attributes = params[:statute]
 
       xml =<<END
@@ -46,7 +46,7 @@ END
     
     describe "instance populated in-memory" do
 
-      subject { DamsStatuteDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new? => true), 'damsMetadata') }
+      subject { DamsStatuteDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
@@ -92,7 +92,7 @@ END
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsStatuteDatastream.new(double('inner object', :pid=>'bb05050505', :new? =>true), 'damsMetadata')
+        subject = DamsStatuteDatastream.new(double('inner object', :pid=>'bb05050505', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsStatute.rdf.xml').read
         subject
       end

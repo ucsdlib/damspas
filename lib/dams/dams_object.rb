@@ -30,14 +30,14 @@ module Dams
 	    map.topic(:in => DAMS, :class_name => 'MadsTopicInternal')
 
         # mads-like additions from vra core
-	    map.builtWorkPlace(:in => DAMS )#, :class_name => 'DamsBuiltWorkPlaceInternal')
-	    map.culturalContext(:in => DAMS )#, :class_name => 'DamsCulturalContextInternal')
-	    map.function(:in => DAMS )#, :class_name => 'DamsFunctionInternal')
+	    map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
+	    map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
+	    map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
         # XXX why does iconography work when mapped to a class when when other made-like additions don't?
 	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
-	    map.scientificName(:in => DAMS )#, :class_name => 'DamsScientificNameInternal')
-	    map.stylePeriod(:in => DAMS )#, :class_name => 'DamsStylePeriodInternal')
-	    map.technique(:in => DAMS )#, :class_name => 'DamsTechniqueInternal')
+	    map.scientificName(:in => DAMS, :class_name => 'DamsScientificNameInternal')
+	    map.stylePeriod(:in => DAMS, :class_name => 'DamsStylePeriodInternal')
+	    map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')
 	
 	    # subject names
 	    map.name(:in => DAMS, :class_name => 'MadsNameInternal')
@@ -87,7 +87,11 @@ module Dams
 	    							:rightsHolderFamily, :rightsHolderConference, :cartographics
 	  
 	  rdf_subject { |ds|
-	    RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        if ds.pid.nil?
+          RDF::URI.new
+        else
+	      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+        end
 	  }
 	  
 	  def serialize
@@ -142,7 +146,8 @@ module Dams
 	    end             
 	    insertSubjectsGraph
 	    insertCopyRightsInfoGraph
-	    insertNameGraph                      
+	    insertNameGraph
+	    insertRightsHolderGraph                      
 	    super
 	  end
 	
@@ -174,14 +179,7 @@ module Dams
 	      else
 	        graph.update([rdf_subject, DAMS.license, @licenURI])
 	      end
-	    end   
-		if(!@holderURI.nil?)
-	      if new?
-	        graph.insert([rdf_subject, DAMS.rightsHolder, @holderURI])
-	      else
-	        graph.update([rdf_subject, DAMS.rightsHolder, @holderURI])
-	      end
-	    end                     
+	    end                 
 	  end
 	  
 	  def insertSubjectsGraph
@@ -245,8 +243,25 @@ module Dams
 		        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@namesType[0].camelize(:lower)}"), @nameURI])
 		      end		
 			end		      	      
-	    end     
+	    end	         
 	  end
+	  def insertRightsHolderGraph       
+		if(!@holderURI.nil?)
+			if(@holderURI.class == Array)
+				i = 0
+				@holderURI.each do |holder|
+			        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@rightsHolderType[i].camelize(:lower)}"), holder])
+			        i = i + 1
+			    end
+			else
+		      if new?
+		        graph.insert([rdf_subject, RDF::URI.new("#{DAMS}#{@rightsHolderType[0].camelize(:lower)}"), @holderURI])
+		      else
+		        graph.update([rdf_subject, RDF::URI.new("#{DAMS}#{@rightsHolderType[0].camelize(:lower)}"), @holderURI])
+		      end		
+			end		      	      
+	    end	         
+	  end	  
 	  def load_unit(unit)
 		if !unit.first.nil?
 		    u_pid = unit.first.pid

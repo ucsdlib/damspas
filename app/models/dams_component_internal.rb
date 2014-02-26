@@ -2,7 +2,14 @@ class DamsComponentInternal
     include ActiveFedora::RdfObject
     include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.Component
-    rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    if ds.pid.nil?
+      RDF::URI.new
+    else
+      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+    end
+  }
+
     map_predicates do |map|
       map.title(:in => DAMS, :class_name => 'MadsTitle')
       map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')

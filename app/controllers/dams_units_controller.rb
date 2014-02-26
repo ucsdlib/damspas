@@ -12,7 +12,6 @@ class DamsUnitsController < ApplicationController
   def show
     parm={ :q => "unit_code_tesim:#{params[:id]} AND type_tesim:DamsUnit" }
     @document = get_single_doc_via_search(1,parm)
-logger.warn "solr: #{@document.inspect}"
     @current_unit = @document['unit_name_tesim']
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel AND unit_code_tesim:#{params[:id]}", :qt=>"standard")
   end
@@ -23,7 +22,9 @@ logger.warn "solr: #{@document.inspect}"
 
     # solr index
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsUnit"' )
-    @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
+    count_params = { :q => "has_model_ssim:\"info:fedora/afmodel:DamsObject\"", :rows => 0 }
+    apply_gated_discovery( count_params, nil )
+    @count_resp, @count_doc = get_search_results( count_params )
   end
 
   ##############################################################################

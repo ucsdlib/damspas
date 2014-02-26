@@ -17,7 +17,7 @@
 
   # parse notes
   notes = []
-  data = @document["#{prefix}note_json_tesim"]
+  data = @document["#{prefix}otherNote_json_tesim"]
   if data != nil
     data.each do |n|
       note = JSON.parse(n)

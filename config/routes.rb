@@ -9,10 +9,14 @@ Hydra::Application.routes.draw do
   get '/takedown', to: 'static_pages#takedown'
   get '/search_tips', to: 'static_pages#search_tips'
 
+  # Contact form routes
+  resources :contact_form, :only => [:new, :create]
+  post 'contact' => 'contact_form#create'
+  get 'contact' => 'contact_form#new'
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
-  resources :dams_collections, :only => [:show]
+  resources :collection, :only => [:show], :controller => 'dams_collections', :as => 'dams_collections'
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
   get '/rci', to: 'dams_units#show', :id => 'rci'
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"

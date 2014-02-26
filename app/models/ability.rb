@@ -86,7 +86,6 @@ class Ability
 	#### Override to allow read-access to all other non-DamsObject, non-collections classes for roles other than the super role dams-manager-admin####	
     group_intersection = user_groups & Rails.configuration.curator_groups
     if current_user.new_record? || current_user.anonymous || group_intersection.empty? # anonymous/non-curator
-      can [:read], DamsUnit
       can [:read], DamsCopyright
       can [:read], DamsOtherRight
       can [:read], DamsLicense
@@ -122,7 +121,6 @@ class Ability
       can [:read], DamsAssembledCollection
       can [:read], DamsProvenanceCollection
       can [:read], DamsProvenanceCollectionPart
-      can [:read], DamsUnit
       can [:read, :create, :update], DamsFunction
       can [:read, :create, :update], DamsCulturalContext
       can [:read, :create, :update], DamsTechnique
@@ -157,6 +155,8 @@ class Ability
     # DamsUnit is a special case: super-user only
     if user_groups.include?(Rails.configuration.super_role)
       can [:read, :create, :update], DamsUnit
+    else
+      can [:read], DamsUnit
     end
   end
 end

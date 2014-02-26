@@ -2,7 +2,7 @@
 #home-container{font-family:'Archivo Narrow',sans-serif !important;font-weight:normal !important;}
 #home-01,#home-02{width:100%;max-width:1200px;margin:0 auto;background-color:#333;}
 #home-01{position:relative;height:640px;background-position:center center;background-size:cover;}
-#home-02{background:#399dc8 url("home-page/bg-grid.png") no-repeat center top;text-align:center;border-top:1px solid #1f556d;padding:20px;}
+#home-02{background:#399dc8 url("../images/bg-grid.png") no-repeat center top;text-align:center;border-top:1px solid #1f556d;padding:20px;}
 #home-02,#home-02 a{color:#fff;}
 #home-02 h2{margin:0;font-family:"Archivo Narrow";font-weight: normal;;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
 #home-02 h3{margin:20px;font-weight: normal;font-size:1.9em;line-height:normal;}
@@ -32,8 +32,8 @@
 .category a:hover{transform:scale(1.03) rotate(-2deg);}
 .category img{display:block;}
 .category p{font-size:1.25em;margin:20px 20%;line-height:normal;}
-.cat-library{background:#f39d3d url("home-page/logo-library.png") center center no-repeat;}
-.cat-rci{background:#f39d3d url("home-page/logo-rci.png") center center no-repeat;}
+.cat-library{background:#f39d3d url("../images/logo-library.png") center center no-repeat;}
+.cat-rci{background:#f39d3d url("../images/logo-rci.png") center center no-repeat;}
 .invitation{font-family:"Archivo Narrow";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
 .visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
 
@@ -60,4 +60,5 @@ footer{margin-top:0;}
     .cat-library, .cat-rci{background-size:66%,66%;}
     .invitation{padding:0;}
     #browse-by{text-align:center;}
+    #bg-meta p{font-size:0.75em;}
 }

@@ -7,41 +7,19 @@ function getName(type,q,location)
   });  
 }
 
-function getSubjects(type,q,location,fieldName,label)
-{
-  $.get(baseURL+"/get_subject/get_subject?label="+label+"&fieldName="+fieldName+"&formType="+type+"&q="+q,function(data,status){
-    $(location).html(data);
-  }); 
-
-  if( label == 'Subject') {
-    $('#simpleSubjects').show();
-    
-    var subjectsArray =new Array("BuiltWorkPlace","CulturalContext","Function","GenreForm","Geographic","Iconography","Occupation","ScientificName","StylePeriod","Technique","Temporal","Topic");
-    for (var i in subjectsArray) {
-      if(subjectsArray[i] == q) {
-      $('#'+q).show();
-    }else {
-      $('#'+subjectsArray[i]).hide();
-    }
-    }
-   }
-  if( label == 'Name' && fieldName == 'nameURI') {
-    toggleRelationshipNames(q,"","names");
-   }   
-}
-
 function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
 {  
   var q = null;
   var fieldName = null;
   var typeGet = null;
   var reg = null;
+  
   if (typeof link == "string") {
-  	q = link;
-  	fieldName = typeName+"URI";
+    q = link;
+    fieldName = typeName+"URI";
   } else {
-  	q = link.value;
-  	fieldName = firstToLowerCase(q);
+    q = link.value;
+    fieldName = firstToLowerCase(q);
   }
   if (typeName == 'simpleSubject') {
     typeGet = "subject";
@@ -55,15 +33,20 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
     typeGet = "name";
     reg = "newRelationship";
   }
+  else if (typeName == 'rightsHolder') {
+    typeGet = "name";
+    reg = "newRightsHolder";
+  }
   if (relationship == "true") {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
   else {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
+  
   if(q != null && q.length > 0) {
-	  $.get(url,function(data,status){
-	    var new_id = new Date().getTime();
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
       var regexp = null;
       if (relationship == "true")
       {      
@@ -72,13 +55,18 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
         data = data.replace(regexp,"attributes_"+new_id);
         data = data.split(tmp).join("attributes]["+new_id+"]");
       }
-      regexp = new RegExp(reg, "g");
-	    data = data.replace(regexp,new_id); 
-	    if(location != null && location.length > 0)
-	    	$(location).html(data);
-	    else
-	    	$(link).parent().before(data);
-	  }); 
+      else
+      {
+        data = data.replace("attributes_"+fieldId,"attributes_"+new_id);
+        data = data.replace("attributes]["+fieldId+"]","attributes]["+new_id+"]");
+      }
+      regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id); 
+      if(location != null && location.length > 0)
+        $(location).html(data);
+      else
+        $(link).parent().before(data);
+    }); 
   }
 }
 
@@ -90,7 +78,6 @@ function getEditDynamicFields(link,type,location,typeName)
   var fieldName = null;
   var url = null;
 
-
   if (typeName == 'simpleSubject') {
     typeGet = "subject";
     reg = "newSimpleSubjects";
@@ -102,6 +89,10 @@ function getEditDynamicFields(link,type,location,typeName)
   else if (typeName == 'relationshipName') {
     typeGet = "name";
     reg = "newRelationship";
+  }   
+  else if (typeName == 'rightsHolder') {
+    typeGet = "name";
+    reg = "newRightsHolder";
   }
 
   fieldName = typeName+"URI";
@@ -114,13 +105,13 @@ function getEditDynamicFields(link,type,location,typeName)
   }
   
   if(q != null && q.length > 0) {
-	  $.get(url,function(data,status){
-	    var new_id = new Date().getTime();
-	    var regexp = new RegExp(reg, "g");
-	    data = data.replace(regexp,new_id);
-	    if(location != null && location.length > 0)
-	    	$(location).html(data);	
-	  }); 
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data); 
+    }); 
   }
 }
 
@@ -145,6 +136,7 @@ function toggleRelationshipNames(value, label, section)
 
 //parsing parameters as "#dams_object_", #dams_provenance_collection_", "#dams_assembled_collection_","#dams_provenance_collection_part",etc,
 function processForm_generic(objType) {
+    
     var attributesArray =new Array("assembledCollection","provenanceCollection","provenanceCollectionPart","complexSubject","statute","license","copyright","language","unit","rightsHolderPersonal");
     fieldId = "";
     for (var j in attributesArray) {
@@ -198,13 +190,13 @@ function processForm_generic(objType) {
     }    
 
     if($(objType+"relatedResource_attributes_0_description").val() != null && $(objType+"relatedResource_attributes_0_type").val() != null && 
-    	$(objType+"relatedResource_attributes_0_description").val().length < 1 && $(objType+"relatedResource_attributes_0_type").val().length < 1 )
+      $(objType+"relatedResource_attributes_0_description").val().length < 1 && $(objType+"relatedResource_attributes_0_type").val().length < 1 )
     {
       $("#relatedResourceSection").remove();
     }
     
     if($(objType+"cartographics_attributes_0_point").val() != null && $(objType+"cartographics_attributes_0_line").val() != null && 
-    	$(objType+"cartographics_attributes_0_point").val().length < 1 && $(objType+"cartographics_attributes_0_line").val().length < 1)
+      $(objType+"cartographics_attributes_0_point").val().length < 1 && $(objType+"cartographics_attributes_0_line").val().length < 1)
     {
       $("#cartographicsSection").remove();
     }    
@@ -219,14 +211,14 @@ function processForm_generic(objType) {
       $("#newLanguage").remove();
     }
     
-	for (var i=0;i<complexSubjectIdArray.length;i++) {
-	    if($(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val() != null && $(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val().length < 1)
-	    {
-	    	$("#"+complexSubjectIdArray[i]).remove();
-	    }	    
-	}
-	        
-	removeEmptyFields();             
+  for (var i=0;i<complexSubjectIdArray.length;i++) {
+      if($(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val() != null && $(objType+"complexSubject_attributes_"+complexSubjectIdArray[i]+"_id").val().length < 1)
+      {
+        $("#"+complexSubjectIdArray[i]).remove();
+      }     
+  }
+          
+  removeEmptyFields();    
     return true; 
 }
 
@@ -236,12 +228,13 @@ function remove_fields(link) {
 
 function add_fields(link, association, content) {
     var new_id = new Date().getTime();
-    var regexp = new RegExp("new_" + association, "g");
+    //var regexp = new RegExp("new_" + association, "g");
+    var regexp = new RegExp("newClassName", "g");
     content = content.replace("newClassName",new_id);  
     if(association == "complexSubject") {
-    	content = content.replace("complexSubjectId",new_id);
-    	complexSubjectIdArray.push(new_id);
-    } 	
+      content = content.replace("complexSubjectId",new_id);
+      complexSubjectIdArray.push(new_id);
+    }   
     $(link).parent().before(content.replace(regexp, new_id));
 }
 
@@ -260,7 +253,7 @@ function target_popup(target) {
 function setParentId_generic(parent_id, isId) {
   var target = "";
   if(isId == true) {  
-  	target=window.opener.document.getElementById(parent_id);
+    target=window.opener.document.getElementById(parent_id);
   } else {
     target=window.opener.document.getElementsByClassName(parent_id)[0];
   }
@@ -273,14 +266,14 @@ function setParentId_generic(parent_id, isId) {
 
 function checkOption(id,isId,type) {
   if( isId == true && $("#"+id).val().indexOf("Create New") >= 0) {
-	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
-	  type = getObjectsPath(type);
-	}  
+  if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {    
+    type = getObjectsPath(type);
+  }  
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_id="+id);
   } else if( isId == false && $("."+id).val().indexOf("Create New") >= 0) {
-	if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {  	
-	  type = getObjectsPath(type);
-	} 
+  if(type.indexOf("mads") < 0 && type.indexOf("dams") < 0) {    
+    type = getObjectsPath(type);
+  } 
     target_popup(baseURL.replace("get_data","")+type+"/new?parent_class="+id);
   }  
 }
@@ -298,7 +291,9 @@ function getObjectsPath(type) {
 						  	 ["Occupation","mads_occupations"], ["ScientificName","dams_scientific_names"], ["StylePeriod", "dams_style_periods"], 
 						  	 ["Technique","dams_techniques"], ["Temporal","mads_temporals"], ["Topic","mads_topics"],
 							 ["ConferenceName","mads_conference_names"],["Name","mads_names"],["PersonalName","mads_personal_names"],
-							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"]];
+							 ["CorporateName","mads_corporate_names"],["FamilyName","mads_family_names"],["role","mads_authority"],
+							 ["RightsHolderConference", "mads_conference_names"],["RightsHolderCorporate", "mads_corporate_names"],
+             				 ["RightsHolderFamily", "mads_family_names"],["RightsHolderName", "mads_names"], ["RightsHolderPersonal", "mads_personal_names"]];
 	for(i = 0; i < objectPathArray.length; i++) {
 		if(type == objectPathArray[i][0]) {
 			return objectPathArray[i][1];
@@ -312,37 +307,49 @@ function firstToLowerCase( str ) {
 }
 
 function removeEmptyFields() {
- 	var inputElements= document.getElementsByClassName("input-block-level");
- 	var fieldId = "";
- 	var inputElementsArray = new Array();
- 	for (var i=0;i<inputElements.length;i++) {
- 		if(inputElements[i].value != null && inputElements[i].value.length < 1) {			
- 			fieldId = "#"+inputElements[i].id;
- 			inputElementsArray.push(fieldId);
- 		}
- 	}
+  var inputElements= document.getElementsByClassName("input-block-level");
+  var fieldId = "";
+  var inputElementsArray = new Array();
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  }
 
-	inputElements= document.getElementsByClassName("input-drop-down");
- 	for (var i=0;i<inputElements.length;i++) {
- 		if(inputElements[i].value != null && inputElements[i].value.length < 1) {			
- 			fieldId = "#"+inputElements[i].id;
- 			inputElementsArray.push(fieldId);
- 		}
- 	}
- 		
- 	for (var i=0;i<inputElementsArray.length;i++) {
- 		$(inputElementsArray[i]).remove();
- 	}
+  inputElements= document.getElementsByClassName("input-drop-down");
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  } 
+ 
+  inputElements= document.getElementsByTagName("select");
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.indexOf("Create New") >= 0) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+       inputElementsArray.push(fieldId);
+    }   
+  }
+      
+  for (var i=0;i<inputElementsArray.length;i++) {
+    $(inputElementsArray[i]).remove();
+  }
 }
 
 function loadSensitiveImage(message,zoomFilePath,filePath) {
-	var imgObj = document.getElementById('sensitive-image');
-	var imgSrc = imgObj.src;
-	if (confirm(message + "\n " + "Would you like to view its content?")) 
-	{
-		html ='<a href="'+zoomFilePath+'">';
-		html += '<img id="sensitive-image" src="'+filePath+'" alt=""/>'
-		html += '</a>';
-		document.getElementsByClassName('simple-object')[0].innerHTML = html;
-	}
+  var imgObj = document.getElementById('sensitive-image');
+  var imgSrc = imgObj.src;
+  if (confirm(message + "\n " + "Would you like to view its content?")) 
+  {
+    html ='<a href="'+zoomFilePath+'">';
+    html += '<img id="sensitive-image" src="'+filePath+'" alt=""/>'
+    html += '</a>';
+    document.getElementsByClassName('simple-object')[0].innerHTML = html;
+  }
 }

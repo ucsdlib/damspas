@@ -1,6 +1,13 @@
 class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   include Dams::DamsHelper
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    if ds.pid.nil?
+      RDF::URI.new
+    else
+      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+    end
+  }
+
 
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
       collections = []
@@ -615,7 +622,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	  	  		
       # build sort title
       if sort_title == "" && cid == nil
-        sort_title = name.first
+        sort_title = name
       end
     end
 
@@ -830,7 +837,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     #insertProvenanceCollectionPartFields solr_doc, "provenanceCollectionPart", provenanceCollectionPart
 
     # note
-    insertNoteFields solr_doc, 'note', note
+    insertNoteFields solr_doc, 'otherNote', note
     insertNoteFields solr_doc, 'custodialResponsibilityNote', custodialResponsibilityNote
     insertNoteFields solr_doc, 'preferredCitationNote', preferredCitationNote
     insertNoteFields solr_doc, 'scopeContentNote', scopeContentNote
@@ -878,6 +885,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # event
     #insertEventFields solr_doc, "", event
+
+    # rdf/xml for end-user
+    Solrizer.insert_field(solr_doc, "rdfxml", self.content, Solrizer::Descriptor.new(:string, :indexed, :stored))
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|

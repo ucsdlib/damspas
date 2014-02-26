@@ -23,7 +23,7 @@ module Dams
       def topicElement_with_update_name= (attributes)
         self.topicElement_without_update_name= attributes
         if elementList && elementList.first && elementList.first.elementValue.present?
-          self.name = elementList.first.elementValue
+          self.name = elementList.first.elementValue.to_s
         end
       end
       alias_method :topicElement_without_update_name=, :topicElement_attributes=

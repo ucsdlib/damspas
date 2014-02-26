@@ -1,4 +1,4 @@
 class MadsScheme < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => MadsSchemeDatastream
-  delegate_to 'damsMetadata', [ :code, :name ]
+  has_attributes  :code, :name, datastream: :damsMetadata, multiple: true
 end

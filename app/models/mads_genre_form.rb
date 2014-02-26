@@ -1,5 +1,5 @@
 class MadsGenreForm < ActiveFedora::Base
   has_metadata 'damsMetadata', :type => MadsGenreFormDatastream 
-  delegate_to "damsMetadata", [:name, :scheme, :elementList, :externalAuthority, :genreFormElement_attributes, :genreFormElement, :scheme_attributes]
+  has_attributes :name, :scheme, :elementList, :externalAuthority, :genreFormElement_attributes, :genreFormElement, :scheme_attributes, datastream: :damsMetadata, multiple: true
   
 end

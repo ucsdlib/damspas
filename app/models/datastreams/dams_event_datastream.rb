@@ -6,7 +6,14 @@ class DamsEventDatastream < ActiveFedora::RdfxmlRDFDatastream
     map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
   end
   
-  rdf_subject { |ds| RDF::URI.new(Rails.configuration.id_namespace + ds.pid)}
+  rdf_subject { |ds|
+    if ds.pid.nil?
+      RDF::URI.new
+    else
+      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+    end
+  }
+
 
   def serialize
     graph.insert([rdf_subject, RDF.type, DAMS.DAMSEvent]) if new?
