@@ -728,6 +728,28 @@ module DamsObjectsHelper
 		return result
 	end
 	
+#---
+  
+  #
+  # return restricted object text from otherRights_tesim
+  # 
+  #---
+  
+  def getRestrictedObjText(data)
+    otherRights_value = nil
+
+     if data != nil
+        data.each do |n|
+          otherRights = JSON.parse(n)
+          if otherRights['note'].length > 0
+            otherRights_value = otherRights['note']
+          end
+        end
+      end
+      
+    return otherRights_value
+  end
+
   #---
   # /STREAMING
   #---
