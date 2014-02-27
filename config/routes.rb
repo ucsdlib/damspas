@@ -4,14 +4,6 @@ Hydra::Application.routes.draw do
   resources :pages
   get '/p/:id', to: 'pages#view', :as => 'view_page'
 
-  # Static page routes
-  get '/faq', to: 'static_pages#faq'
-  get '/about', to: 'static_pages#about'
-  get '/zotero', to: 'static_pages#zotero'
-  get '/mendeley', to: 'static_pages#mendeley'
-  get '/takedown', to: 'static_pages#takedown'
-  get '/search_tips', to: 'static_pages#search_tips'
-
   # Contact form routes
   resources :contact_form, :only => [:new, :create]
   post 'contact' => 'contact_form#create'
