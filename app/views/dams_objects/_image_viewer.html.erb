@@ -1,9 +1,12 @@
 <% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
-<% if displayFilePath.length > 0 %>
+<% if displayFilePath.length > 0 && getFilesType != "PDF"%>
    <%= link_to image_tag(displayFilePath, :alt => ''), zoomFilePath %>
 <% else %>
 	<% if getFilesType == "PDF" %>
-		<%= link_to image_tag(filePath, :alt => ''), pdfFilePath %>
+		<% if displayFilePath.to_s == ''%> 
+			<%= render :partial => 'metadata_data_file', :locals => {:fileName => filePath} %>
+		<% end %>
+		<%= render :partial => 'data_viewer', :locals => {:filePath => pdfFilePath, :objectType => 'simple', :displayFilePath => displayFilePath} %>
 	<% else %>
 		<%= link_to image_tag(filePath, :alt => ''), zoomFilePath %>
 	<% end %>

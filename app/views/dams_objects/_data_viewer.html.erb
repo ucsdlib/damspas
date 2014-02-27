@@ -11,12 +11,18 @@
 			btnColor = ''
 		end
 	%>
-
-	<div class="form-actions dams-download-button">
-		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>">
+ 	<% if displayFilePath.to_s != ''%>
+ 		<%= link_to image_tag(displayFilePath, :alt => ''), filePath %>
+ 		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>">
 			<i class="icon-download-alt icon-white"></i>
-			Download file
+			Download PDF
 		</a>
-	</div>
-
+	<% else %>
+		<div class="form-actions dams-download-button">
+			<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>">
+				<i class="icon-download-alt icon-white"></i>
+				Download file
+			</a>
+		</div>
+	<% end %>
 <% end %>

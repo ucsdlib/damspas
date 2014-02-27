@@ -40,8 +40,8 @@
 
 		<% elsif fileType == 'document' || fileType == 'data' %>
 
-			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => true} %>
-			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'complex'} %>
+			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => display_file_path.to_s==''} %>
+			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'complex', :displayFilePath => display_file_path} %>
 
 		<% else %>
 
