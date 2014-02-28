@@ -20,13 +20,13 @@ feature 'Visitor wants to search' do
     idx1 = page.body.index('Historical Dissertations')  # title matched, no date
     idx2 = page.body.index('Chicano and black radical activism of the 1960s: a comparison between the Brown Berets and the Black Panther Party in California')      # subject matched, 2010
     idx3 = page.body.index('Sample Complex Object Record #1') # subject matched, no date
-    idx4 = page.body.index('The real thing')   # collection matched, no date
+    idx4 = page.body.index('Le chose vrai')   # collection matched, no date
     idx3.should > idx1
     idx2.should > idx1
     idx4.should > idx3
     idx4.should > idx2
 
-    click_on "The real thing"
+    click_on "Le chose vrai"
     expect(page).to have_selector('div.search-results-pager')
   end
   scenario 'results sorted by object creation date' do
