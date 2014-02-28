@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'optparse'
+
+options = {}
+
+optparse = OptionParser.new do|opts|
+  opts.banner = "Usage: pagestubs [options]"
+
+  options[:hydra_home] = nil
+  opts.on( '--hydra_home PATH', 'Load the Hydra instance  at this path' ) do |path|
+    if File.exist?(File.join(path,"config","environment.rb"))
+      options[:hydra_home] = path
+    else 
+      puts "no --hydra_home specified, assuming current dir"
+      options[:hydra_home] = "."
+    end
+  end
+end
+
+if options[:hydra_home] == nil
+  puts "no --hydra_home specified, assuming current dir"
+  options[:hydra_home] = "."
+end
+
+optparse.parse!
+
+begin; require 'rubygems'; rescue; end
+
+puts "Loading app..."
+Dir.chdir(options[:hydra_home])
+require File.join(options[:hydra_home],"config","environment.rb")
+puts "app loaded"
+
+pages = {
+  :about       => "About",
+  :faq         => "Frequently Asked Questions (FAQ)",
+  :search_tips => "Search Tips",
+  :takedown    => "Notice and Takedown Policy",
+  :mendeley    => "Exporting to Mendeley",
+  :zotero      => "Exporting to Zotero"
+}
+
+pages.each { |k,v|
+  puts "#{k}: #{v}"
+  Page.create( {:code => k, :title => v, :body => "<p>#{v} stub page</p>"} )
+}
