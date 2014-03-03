@@ -273,6 +273,11 @@ class CatalogController < ApplicationController
       end
     end
   def collection_search
+    # check ip for unauthenticated users
+    if current_user == nil
+      current_user = User.anonymous(request.ip)
+    end
+
     # if we already have the parameters set below, then redirect to /search
     # this allows removing Collections limit, etc.
     #if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )

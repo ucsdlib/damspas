@@ -4,6 +4,19 @@ class ApplicationController < ActionController::Base
    include Hydra::Controller::ControllerBehavior 
   # Please be sure to impelement current_user and user_session. Blacklight depends on 
   # these methods in order to perform user specific actions. 
+  def current_ability
+    @current_ability ||= Ability.new(current_user)
+  end
+ 
+  helper_method :current_user
+  def current_user
+    if @current_user.nil? && session[:user_id]
+      @current_user = User.find(session[:user_id])
+    elsif @current_user.nil?
+      @current_user = User.anonymous(request.ip)
+    end
+    @current_user
+  end
 
   layout 'ucsdlib'
 
