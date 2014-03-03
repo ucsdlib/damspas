@@ -1,5 +1,4 @@
-  class RelatedResource
-    include ActiveFedora::RdfObject
+  class RelatedResource < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.RelatedResource
     map_predicates do |map|

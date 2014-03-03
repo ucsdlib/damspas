@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type DAMS.BuiltWorkPlace
+      #rdf_type DAMS.BuiltWorkPlace
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'DamsBuiltWorkPlaceElementList')
       end
@@ -40,14 +40,13 @@ module Dams
         solr_base solr_doc
       end
     end
-    class DamsBuiltWorkPlaceElementList
-      include ActiveFedora::RdfList
+    class DamsBuiltWorkPlaceElementList < ActiveFedora::Rdf::List
       map_predicates do |map|
         map.builtWorkPlaceElement(:in=> DAMS, :to =>"BuiltWorkPlaceElement", :class_name => "DamsBuiltWorkPlaceElement")
       end
       accepts_nested_attributes_for :builtWorkPlaceElement
     end
-    class DamsBuiltWorkPlaceElement
+    class DamsBuiltWorkPlaceElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type DAMS.BuiltWorkPlaceElement
       def persisted?

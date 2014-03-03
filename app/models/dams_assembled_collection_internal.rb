@@ -1,5 +1,4 @@
-class DamsAssembledCollectionInternal
-    include ActiveFedora::RdfObject
+class DamsAssembledCollectionInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     include Dams::AssembledCollection

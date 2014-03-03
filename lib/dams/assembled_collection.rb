@@ -6,14 +6,14 @@ module Dams
     include ModelHelper
     
   included do
-    rdf_type DAMS.AssembledCollection
-    rdf_subject { |ds|
-      if ds.pid.nil?
-        RDF::URI.new
-      else
-        RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
-      end
-    }
+    #rdf_type DAMS.AssembledCollection
+#    rdf_subject { |ds|
+#      if ds.pid.nil?
+#        RDF::URI.new
+#      else
+#        RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+#      end
+#    }
 
     map_predicates do |map|
         map.title(:in => DAMS, :to => 'title', :class_name => 'MadsTitle')

@@ -1,5 +1,4 @@
-class MadsComplexSubjectInternal
-  include ActiveFedora::RdfObject
+class MadsComplexSubjectInternal < ActiveFedora::Rdf::Resource
   include Dams::MadsComplexSubject
   def pid
       rdf_subject.to_s.gsub(/.*\//,'')

@@ -1,5 +1,4 @@
-class DamsComponentInternal
-    include ActiveFedora::RdfObject
+class DamsComponentInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.Component
   rdf_subject { |ds|

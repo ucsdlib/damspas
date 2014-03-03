@@ -1,5 +1,4 @@
-class DamsStylePeriodInternal
-    include ActiveFedora::RdfObject
+class DamsStylePeriodInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsStylePeriod
 
   def pid

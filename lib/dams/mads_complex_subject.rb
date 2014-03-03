@@ -5,7 +5,6 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type MADS.ComplexSubject
       map_predicates do |map|
         map.comp_list(:in => MADS, :to => 'componentList', :class_name=>'MadsComponentList')
       end
@@ -90,8 +89,7 @@ module Dams
         solr_base solr_doc
       end
     end
-    class MadsComponentList
-      include ActiveFedora::RdfList
+    class MadsComponentList < ActiveFedora::Rdf::List
       map_predicates do |map|
         map.topic(:in=> MADS, :to =>"Topic", :class_name => "MadsTopicInternal")
         map.temporal(:in=> MADS, :to =>"Temporal", :class_name => "MadsTemporalInternal")        

@@ -1,5 +1,4 @@
-class DamsFunctionInternal
-  include ActiveFedora::RdfObject
+class DamsFunctionInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsFunction
   def pid
       rdf_subject.to_s.gsub(/.*\//,'')

@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include ModelHelper
     included do
-      rdf_type DAMS.Copyright
+      #rdf_type DAMS.Copyright
       map_predicates do |map|
         map.status(:in => DAMS, :to => 'copyrightStatus')
 	    map.jurisdiction(:in => DAMS, :to => 'copyrightJurisdiction')
@@ -13,13 +13,13 @@ module Dams
 	    map.note(:in => DAMS, :to => 'copyrightNote')
 	    map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
       end
-      rdf_subject { |ds|
-        if ds.pid.nil?
-          RDF::URI.new
-        else
-          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
-        end
-      }
+#      rdf_subject { |ds|
+#        if ds.pid.nil?
+#          RDF::URI.new
+#        else
+#          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+#        end
+#      }
 
       accepts_nested_attributes_for :date
       

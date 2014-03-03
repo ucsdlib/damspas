@@ -1,5 +1,4 @@
-class MadsSchemeInternal
-  include ActiveFedora::RdfObject
+class MadsSchemeInternal < ActiveFedora::Rdf::Resource
   include ActiveFedora::Rdf::DefaultNodes
   include Dams::DamsHelper
   rdf_type MADS.MADSScheme

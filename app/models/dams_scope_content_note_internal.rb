@@ -1,5 +1,4 @@
-class DamsScopeContentNoteInternal
-    include ActiveFedora::RdfObject
+class DamsScopeContentNoteInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     rdf_type DAMS.ScopeContentNote

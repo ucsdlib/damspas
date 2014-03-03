@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type DAMS.Technique
+      #rdf_type DAMS.Technique
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'DamsTechniqueElementList')
       end
@@ -40,14 +40,13 @@ module Dams
         solr_base solr_doc
       end
     end
-    class DamsTechniqueElementList
-      include ActiveFedora::RdfList
+    class DamsTechniqueElementList < ActiveFedora::Rdf::List
       map_predicates do |map|
         map.techniqueElement(:in=> DAMS, :to =>"TechniqueElement", :class_name => "DamsTechniqueElement")
       end
       accepts_nested_attributes_for :techniqueElement
     end
-    class DamsTechniqueElement
+    class DamsTechniqueElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type DAMS.TechniqueElement
     end

@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type MADS.Occupation
+      #rdf_type MADS.Occupation
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsOccupationElementList')
       end
@@ -34,14 +34,13 @@ module Dams
         end
         solr_base solr_doc
       end
-      class MadsOccupationElementList
-        include ActiveFedora::RdfList
+      class MadsOccupationElementList < ActiveFedora::Rdf::List
         map_predicates do |map|
           map.occupationElement(:in=> MADS, :to =>"OccupationElement", :class_name => "MadsOccupationElement")
         end
         accepts_nested_attributes_for :occupationElement
       end
-	  class MadsOccupationElement
+	  class MadsOccupationElement < ActiveFedora::Rdf::Resource
     	include Dams::MadsElement
     	rdf_type MADS.OccupationElement
 	  end      

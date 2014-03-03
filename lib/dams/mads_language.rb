@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type MADS.Language
+      #rdf_type MADS.Language
       map_predicates do |map|
         map.code(:in => MADS)
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsLanguageElementList')
@@ -41,14 +41,13 @@ module Dams
 	    }
         solr_base solr_doc
       end
-      class MadsLanguageElementList
-        include ActiveFedora::RdfList
+      class MadsLanguageElementList < ActiveFedora::Rdf::List
         map_predicates do |map|
           map.languageElement(:in=> MADS, :to =>"LanguageElement", :class_name => "MadsLanguageElement")
         end
         accepts_nested_attributes_for :languageElement
       end
-	  class MadsLanguageElement
+	  class MadsLanguageElement < ActiveFedora::Rdf::Resource
 	    include Dams::MadsElement
 	    rdf_type MADS.LanguageElement
 	  end      

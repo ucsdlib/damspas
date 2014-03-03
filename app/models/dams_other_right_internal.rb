@@ -1,5 +1,4 @@
-class DamsOtherRightInternal
-  include ActiveFedora::RdfObject
+class DamsOtherRightInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsOtherRight
   include Dams::DamsHelper
   def pid

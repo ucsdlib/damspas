@@ -1,27 +1,27 @@
 module Dams
   module MadsNameElements
     # = MADS Name Element and subclasses
-    class MadsNameElement
+    class MadsNameElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type MADS.NameElement
     end
-    class MadsDateNameElement
+    class MadsDateNameElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type MADS.DateNameElement
     end
-    class MadsFamilyNameElement
+    class MadsFamilyNameElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type MADS.FamilyNameElement
     end
-    class MadsFullNameElement
+    class MadsFullNameElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type MADS.FullNameElement
     end
-    class MadsGivenNameElement
+    class MadsGivenNameElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type MADS.GivenNameElement
     end
-    class MadsTermsOfAddressNameElement
+    class MadsTermsOfAddressNameElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type MADS.TermsOfAddressNameElement
     end

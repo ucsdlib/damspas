@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type DAMS.Iconography
+      #rdf_type DAMS.Iconography
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'DamsIconographyElementList')
       end
@@ -40,14 +40,13 @@ module Dams
         solr_base solr_doc
       end
     end
-    class DamsIconographyElementList
-      include ActiveFedora::RdfList
+    class DamsIconographyElementList < ActiveFedora::Rdf::List
       map_predicates do |map|
         map.iconographyElement(:in=> DAMS, :to =>"IconographyElement", :class_name => "DamsIconographyElement")
       end
       accepts_nested_attributes_for :iconographyElement
     end
-    class DamsIconographyElement
+    class DamsIconographyElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type DAMS.IconographyElement
     end

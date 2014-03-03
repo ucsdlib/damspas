@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include ModelHelper
     included do
-      rdf_type DAMS.Statute
+      #rdf_type DAMS.Statute
       map_predicates do |map|
 	    map.citation(:in => DAMS, :to => 'statuteCitation')
 	    map.jurisdiction(:in => DAMS, :to => 'statuteJurisdiction')
@@ -13,13 +13,13 @@ module Dams
 	    map.restriction_node(:in => DAMS, :to=>'restriction', :class_name => 'DamsRestriction')
 	    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'DamsPermission')
       end
-      rdf_subject { |ds|
-        if ds.pid.nil?
-          RDF::URI.new
-        else
-          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
-        end
-      }
+#      rdf_subject { |ds|
+#        if ds.pid.nil?
+#          RDF::URI.new
+#        else
+#          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+#        end
+#      }
 
       accepts_nested_attributes_for :restriction_node, :permission_node
       

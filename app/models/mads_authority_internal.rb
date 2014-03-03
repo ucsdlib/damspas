@@ -1,5 +1,4 @@
-class MadsAuthorityInternal
-    include ActiveFedora::RdfObject
+class MadsAuthorityInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     rdf_type MADS.Authority

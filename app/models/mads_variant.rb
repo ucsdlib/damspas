@@ -1,5 +1,4 @@
-class MadsVariant
-  include ActiveFedora::RdfObject
+class MadsVariant < ActiveFedora::Rdf::Resource
   include ActiveFedora::Rdf::DefaultNodes
   rdf_type MADS.Variant
   map_predicates do |map|

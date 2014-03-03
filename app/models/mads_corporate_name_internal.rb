@@ -1,5 +1,4 @@
-class MadsCorporateNameInternal
-  include ActiveFedora::RdfObject
+class MadsCorporateNameInternal < ActiveFedora::Rdf::Resource
   include Dams::MadsCorporateName
   def pid
       rdf_subject.to_s.gsub(/.*\//,'')

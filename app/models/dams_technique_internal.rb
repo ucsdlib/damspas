@@ -1,5 +1,4 @@
-class DamsTechniqueInternal
-  include ActiveFedora::RdfObject
+class DamsTechniqueInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsTechnique
 
   def pid

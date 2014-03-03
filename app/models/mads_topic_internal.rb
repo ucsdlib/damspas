@@ -1,5 +1,4 @@
-class MadsTopicInternal
-  include ActiveFedora::RdfObject
+class MadsTopicInternal < ActiveFedora::Rdf::Resource
   include Dams::MadsTopic
 
   def pid

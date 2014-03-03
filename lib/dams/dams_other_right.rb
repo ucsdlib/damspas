@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include ModelHelper
     included do
-      rdf_type DAMS.OtherRights
+      #rdf_type DAMS.OtherRights
 	  map_predicates do |map|
 	    map.basis(:in => DAMS, :to => 'otherRightsBasis')
 	    map.note(:in => DAMS, :to => 'otherRightsNote')
@@ -14,13 +14,13 @@ module Dams
 	    map.permission_node(:in => DAMS, :to=>'permission', :class_name => 'DamsPermission')
 	    map.relationship(:in => DAMS, :class_name => 'DamsRelationshipInternal')
 	  end
-      rdf_subject { |ds|
-        if ds.pid.nil?
-          RDF::URI.new
-        else
-          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
-        end
-      }
+#      rdf_subject { |ds|
+#        if ds.pid.nil?
+#          RDF::URI.new
+#        else
+#          RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+#        end
+#      }
 
       accepts_nested_attributes_for :relationship, :permission_node, :restriction_node
 

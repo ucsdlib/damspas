@@ -1,5 +1,4 @@
-class DamsCulturalContextInternal
-  include ActiveFedora::RdfObject
+class DamsCulturalContextInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsCulturalContext
 
   def pid

@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type DAMS.CulturalContext
+      #rdf_type DAMS.CulturalContext
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'DamsCulturalContextElementList')
       end
@@ -40,14 +40,13 @@ module Dams
         solr_base solr_doc
       end
     end
-    class DamsCulturalContextElementList
-      include ActiveFedora::RdfList
+    class DamsCulturalContextElementList < ActiveFedora::Rdf::List
       map_predicates do |map|
         map.culturalContextElement(:in=> DAMS, :to =>"CulturalContextElement", :class_name => "DamsCulturalContextElement")
       end
       accepts_nested_attributes_for :culturalContextElement
     end
-    class DamsCulturalContextElement
+    class DamsCulturalContextElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type DAMS.CulturalContextElement
     end

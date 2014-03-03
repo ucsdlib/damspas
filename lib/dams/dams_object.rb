@@ -7,7 +7,6 @@ module Dams
     include ModelHelper
     include ControllerHelper
     included do
-      rdf_type DAMS.Object
 	  map_predicates do |map|
 	    map.title(:in => DAMS, :to => 'title', :class_name => 'MadsTitle')
 	    map.date(:in => DAMS, :to=>'date', :class_name => 'DamsDate')
@@ -86,13 +85,13 @@ module Dams
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderName, :rightsHolderCorporate, :rightsHolderPersonal,
 	    							:rightsHolderFamily, :rightsHolderConference, :cartographics
 	  
-	  rdf_subject { |ds|
-        if ds.pid.nil?
-          RDF::URI.new
-        else
-	      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
-        end
-	  }
+#	  rdf_subject { |ds|
+#        if ds.pid.nil?
+#          RDF::URI.new
+#        else
+#	      RDF::URI.new(Rails.configuration.id_namespace + ds.pid)
+#        end
+#	  }
 	  
 	  def serialize
         check_type( graph, rdf_subject, DAMS.Object )

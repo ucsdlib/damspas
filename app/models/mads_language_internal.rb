@@ -1,5 +1,4 @@
-class MadsLanguageInternal
-  include ActiveFedora::RdfObject
+class MadsLanguageInternal < ActiveFedora::Rdf::Resource
   include Dams::MadsLanguage
   def pid
       rdf_subject.to_s.gsub(/.*\//,'')

@@ -1,5 +1,4 @@
-class DamsNoteInternal
-    include ActiveFedora::RdfObject
+class DamsNoteInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     rdf_type DAMS.Note

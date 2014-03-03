@@ -1,5 +1,4 @@
-class DamsDate
-  include ActiveFedora::RdfObject
+class DamsDate < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
   rdf_type DAMS.Date
   map_predicates do |map|

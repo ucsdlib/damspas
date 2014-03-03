@@ -1,5 +1,4 @@
-class DamsRestriction
-  include ActiveFedora::RdfObject
+class DamsRestriction < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
   rdf_type DAMS.Restriction
   map_predicates do |map|

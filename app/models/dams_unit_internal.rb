@@ -1,5 +1,4 @@
-class DamsUnitInternal
-  include ActiveFedora::RdfObject
+class DamsUnitInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     rdf_type DAMS.Unit

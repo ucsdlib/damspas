@@ -1,5 +1,4 @@
-class DamsRightsHolderInternal
-    include ActiveFedora::RdfObject
+class DamsRightsHolderInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     map_predicates do |map|

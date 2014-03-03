@@ -1,5 +1,4 @@
-class MadsTemporalInternal
-  include ActiveFedora::RdfObject
+class MadsTemporalInternal < ActiveFedora::Rdf::Resource
   include Dams::MadsTemporal
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')

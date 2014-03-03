@@ -1,5 +1,4 @@
-class DamsEventInternal
-    include ActiveFedora::RdfObject
+class DamsEventInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     rdf_type DAMS.DAMSEvent

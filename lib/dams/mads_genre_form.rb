@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type MADS.GenreForm
+      #rdf_type MADS.GenreForm
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsGenreFormElementList')
       end
@@ -38,14 +38,13 @@ module Dams
 	    }
         solr_base solr_doc
       end
-      class MadsGenreFormElementList
-        include ActiveFedora::RdfList
+      class MadsGenreFormElementList < ActiveFedora::Rdf::List
         map_predicates do |map|
           map.genreFormElement(:in=> MADS, :to =>"GenreFormElement", :class_name => "MadsGenreFormElement")
         end
         accepts_nested_attributes_for :genreFormElement
       end
-	  class MadsGenreFormElement
+	  class MadsGenreFormElement < ActiveFedora::Rdf::Resource
 	    include Dams::MadsElement
 	    rdf_type MADS.GenreFormElement
 	  end      

@@ -6,7 +6,7 @@ module Dams
     include Dams::MadsSimpleType
     include Dams::MadsNameElements
     included do
-      rdf_type MADS.Name
+      #rdf_type MADS.Name
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsNameElementList')
       end
@@ -111,8 +111,7 @@ module Dams
 	    }        
         solr_base solr_doc
       end
-      class MadsNameElementList
-        include ActiveFedora::RdfList
+      class MadsNameElementList < ActiveFedora::Rdf::List
         map_predicates do |map|
           map.nameElement(:in=> MADS, :to =>"NameElement", :class_name => "MadsNameElement")
           map.givenNameElement(:in=> MADS, :to =>"GivenNameElement", :class_name => "MadsGivenNameElement")

@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type DAMS.Function
+      #rdf_type DAMS.Function
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'DamsFunctionElementList')
       end
@@ -39,14 +39,13 @@ module Dams
         solr_base solr_doc
       end
     end
-    class DamsFunctionElementList
-      include ActiveFedora::RdfList
+    class DamsFunctionElementList < ActiveFedora::Rdf::List
       map_predicates do |map|
         map.functionElement(:in=> DAMS, :to =>"FunctionElement", :class_name => "DamsFunctionElement")
       end
       accepts_nested_attributes_for :functionElement
     end
-    class DamsFunctionElement
+    class DamsFunctionElement < ActiveFedora::Rdf::Resource
       include Dams::MadsElement
       rdf_type DAMS.FunctionElement  
     end

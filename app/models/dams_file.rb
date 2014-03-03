@@ -1,5 +1,4 @@
-  class DamsFile
-    include ActiveFedora::RdfObject
+  class DamsFile < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     rdf_type DAMS.File
     map_predicates do |map|

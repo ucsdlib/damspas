@@ -1,5 +1,4 @@
-class DamsIconographyInternal
-  include ActiveFedora::RdfObject
+class DamsIconographyInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsIconography
 
   def pid

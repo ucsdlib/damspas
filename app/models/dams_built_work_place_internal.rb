@@ -1,5 +1,4 @@
-class DamsBuiltWorkPlaceInternal
-    include ActiveFedora::RdfObject
+class DamsBuiltWorkPlaceInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsBuiltWorkPlace
 
   def pid

@@ -1,5 +1,4 @@
-class MadsGenreFormInternal
-  include ActiveFedora::RdfObject
+class MadsGenreFormInternal < ActiveFedora::Rdf::Resource
   include Dams::MadsGenreForm
   def pid
     rdf_subject.to_s.gsub(/.*\//,'')

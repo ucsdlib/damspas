@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type MADS.Temporal
+      #rdf_type MADS.Temporal
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsTemporalElementList')
       end
@@ -41,14 +41,13 @@ module Dams
       def label
 		name[0]
 	  end
-      class MadsTemporalElementList
-        include ActiveFedora::RdfList
+      class MadsTemporalElementList < ActiveFedora::Rdf::List
         map_predicates do |map|
           map.temporalElement(:in=> MADS, :to =>"TemporalElement", :class_name => "MadsTemporalElement")
         end
         accepts_nested_attributes_for :temporalElement
       end
-	  class MadsTemporalElement
+	  class MadsTemporalElement < ActiveFedora::Rdf::Resource
 		include Dams::MadsElement
 		rdf_type MADS.TemporalElement
 	  end      

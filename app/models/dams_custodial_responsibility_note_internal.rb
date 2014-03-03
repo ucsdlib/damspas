@@ -1,5 +1,4 @@
-class DamsCustodialResponsibilityNoteInternal
-    include ActiveFedora::RdfObject
+class DamsCustodialResponsibilityNoteInternal < ActiveFedora::Rdf::Resource
     include ActiveFedora::Rdf::DefaultNodes
     include Dams::DamsHelper
     rdf_type DAMS.CustodialResponsibilityNote

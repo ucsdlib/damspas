@@ -1,5 +1,4 @@
-class DamsLicenseInternal
-  include ActiveFedora::RdfObject
+class DamsLicenseInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsLicense  
   include Dams::DamsHelper
   def pid

@@ -34,11 +34,8 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
            
-  class List 
-    include ActiveFedora::RdfList   
-    
-    class MainTitleElement
-      include ActiveFedora::RdfObject
+  class List < ActiveFedora::Rdf::List
+    class MainTitleElement < ActiveFedora::Rdf::Resource
       include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.MainTitleElement
       map_predicates do |map|
@@ -46,8 +43,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end    
     
-    class NonSortElement
-      include ActiveFedora::RdfObject
+    class NonSortElement < ActiveFedora::Rdf::Resource
       include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.NonSortElement
       map_predicates do |map|
@@ -55,8 +51,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end        
 
-    class PartNameElement
-      include ActiveFedora::RdfObject
+    class PartNameElement < ActiveFedora::Rdf::Resource
       include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.PartNameElement
       map_predicates do |map|
@@ -64,8 +59,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end      
     
-    class PartNumberElement
-      include ActiveFedora::RdfObject
+    class PartNumberElement < ActiveFedora::Rdf::Resource
       include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.PartNumberElement
       map_predicates do |map|
@@ -73,8 +67,7 @@ class MadsDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end    
 
-    class SubTitleElement
-      include ActiveFedora::RdfObject
+    class SubTitleElement < ActiveFedora::Rdf::Resource
       include ActiveFedora::Rdf::DefaultNodes
       rdf_type MADS.SubTitleElement
       map_predicates do |map|

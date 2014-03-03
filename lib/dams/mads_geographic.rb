@@ -5,7 +5,7 @@ module Dams
     extend ActiveSupport::Concern
     include Dams::MadsSimpleType
     included do
-      rdf_type MADS.Geographic
+      #rdf_type MADS.Geographic
       map_predicates do |map|
         map.elem_list(:in => MADS, :to => 'elementList', :class_name=>'MadsGeographicElementList')
       end
@@ -38,14 +38,13 @@ module Dams
 	    }
         solr_base solr_doc
       end
-      class MadsGeographicElementList
-        include ActiveFedora::RdfList
+      class MadsGeographicElementList < ActiveFedora::Rdf::List
         map_predicates do |map|
           map.geographicElement(:in=> MADS, :to =>"GeographicElement", :class_name => "MadsGeographicElement")
         end
         accepts_nested_attributes_for :geographicElement
       end
-	  class MadsGeographicElement
+	  class MadsGeographicElement < ActiveFedora::Rdf::Resource
 	    include Dams::MadsElement
 	    rdf_type MADS.GeographicElement
 	  end      

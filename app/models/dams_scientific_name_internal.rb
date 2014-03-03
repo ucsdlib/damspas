@@ -1,5 +1,4 @@
-class DamsScientificNameInternal
-    include ActiveFedora::RdfObject
+class DamsScientificNameInternal < ActiveFedora::Rdf::Resource
   include Dams::DamsScientificName
 
   def pid
