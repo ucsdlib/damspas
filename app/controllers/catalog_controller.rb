@@ -3,7 +3,6 @@ require 'blacklight/catalog'
 require 'rsolr'
 
 class CatalogController < ApplicationController  
-
   include Blacklight::Catalog
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
@@ -273,10 +272,6 @@ class CatalogController < ApplicationController
       end
     end
   def collection_search
-    # check ip for unauthenticated users
-    if current_user == nil
-      current_user = User.anonymous(request.ip)
-    end
 
     # if we already have the parameters set below, then redirect to /search
     # this allows removing Collections limit, etc.

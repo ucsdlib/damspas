@@ -10,11 +10,6 @@ class DamsCollectionsController < ApplicationController
       return
     end
 
-    # check ip for unauthenticated users
-    if current_user == nil
-      current_user = User.anonymous(request.ip)
-    end
-
     # import solr config from catalog_controller and setup next/prev docs
     @blacklight_config = CatalogController.blacklight_config
     setup_next_and_previous_documents

@@ -8,12 +8,6 @@ class DamsAssembledCollectionsController < ApplicationController
   skip_authorize_resource :only => :index
 
   def show
-    
-     # check ip for unauthenticated users
-    if current_user == nil
-      current_user = User.anonymous(request.ip)
-    end
-
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     if @document.nil?
       raise ActionController::RoutingError.new('Not Found')
