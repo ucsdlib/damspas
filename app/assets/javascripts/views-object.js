@@ -130,8 +130,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                         ]
                                 }],
                             width: "100%",
-                            height: 25,
-                            controlBar:'bottom',
+                            height: 30,
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false},
                             primary: "flash",

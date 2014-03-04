@@ -10,17 +10,12 @@ class DamsCollectionsController < ApplicationController
       return
     end
 
-    # check ip for unauthenticated users
-    if current_user == nil
-      current_user = User.anonymous(request.ip)
-    end
-
-    # fetch collection record from solr
-    @document = get_single_doc_via_search(1, {:q => "id_t:#{params[:id]}"} )
-
     # import solr config from catalog_controller and setup next/prev docs
     @blacklight_config = CatalogController.blacklight_config
     setup_next_and_previous_documents
+
+    # fetch collection record from solr
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
 
     @rdfxml = @document['rdfxml_ssi']
     if @rdfxml == nil
@@ -30,6 +25,7 @@ class DamsCollectionsController < ApplicationController
   <dams:error>content missing</dams:error>
 </rdf:RDF>"
     end
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @document }

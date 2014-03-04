@@ -3,7 +3,6 @@ require 'blacklight/catalog'
 require 'rsolr'
 
 class CatalogController < ApplicationController  
-
   include Blacklight::Catalog
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
@@ -273,6 +272,7 @@ class CatalogController < ApplicationController
       end
     end
   def collection_search
+
     # if we already have the parameters set below, then redirect to /search
     # this allows removing Collections limit, etc.
     #if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )

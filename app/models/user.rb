@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
     rescue Exception => e
-      puts "developer: #{e.to_s}"
+      logger.warn "developer: #{e.to_s}"
       uid = 1
       email = "zombie@ucsd.edu"
       provider = "developer"
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
     rescue Exception => e
-      puts "shibboleth: #{e.to_s}"
+      logger.warn "shibboleth: #{e.to_s}"
     end
     @anonymous = false
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
@@ -47,11 +47,10 @@ class User < ActiveRecord::Base
     @anonymous
   end
   def self.anonymous(ip)
-    u = User.where(:uid => 'anonymous',:provider => 'anonymous').first || User.create(:uid => 'anonymous',:provider => 'anonymous', :email => 'anonymous')
     role = role_from_ip(ip)
-    logger.warn "anonymous, role from ip: #{role}"
-    u.groups = [ role ]
+    u = User.where(:uid => role, :provider => 'anonymous').first || User.create(:uid => role, :provider => 'anonymous', :email => role + '@anonymous')
     u.anonymous = true
+	u.groups = [role]
     u
   end
 
@@ -59,6 +58,8 @@ class User < ActiveRecord::Base
     if @group_list == nil
       if provider == "developer"
         @group_list = Rails.configuration.developer_groups
+      elsif provider == "anonymous"
+        @group_list = [ uid ]
       elsif provider == "shibboleth"
         @group_list = ['shibboleth-authenticated']
       else

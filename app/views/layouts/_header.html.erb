@@ -63,8 +63,7 @@
                 <img src="https://a4.ucsd.edu/tritON/imagebug">
               </ul>
             </li>
-          <% elsif current_user %>
-
+          <% elsif current_user && current_user.provider != 'anonymous'  %>
             <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
           <% else %>
             <li><%= link_to 'Sign In', new_user_session_path %></li>

@@ -37,11 +37,6 @@ class FileController < ApplicationController
       end
     end
 
-    # check ip for unauthenticated users
-    if current_user == nil
-      current_user = User.anonymous(request.ip)
-    end
-
     # check permissions    
     if use.end_with?("source")
       logger.info "FileController: Master file access requires edit permission"
