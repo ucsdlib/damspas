@@ -37,6 +37,8 @@ GEM
       activesupport (= 4.0.3)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
+    activerecord-import (0.4.1)
+      activerecord (>= 3.0)
     activerecord-postgresql-adapter (0.0.1)
       pg
     activesupport (4.0.3)
@@ -91,6 +93,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    curb (0.8.5)
     daemons (1.1.9)
     database_cleaner (1.1.1)
     deprecation (0.1.0)
@@ -188,6 +191,13 @@ GEM
       blankslate (~> 2.0)
     pg (0.17.0)
     polyglot (0.3.4)
+    qa (0.0.3)
+      activerecord-import (>= 0.4.0)
+      curb
+      deprecation
+      nokogiri (~> 1.6.0)
+      rails (~> 4.0.0)
+      rest-client
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -329,6 +339,7 @@ DEPENDENCIES
   mail_form
   omniauth
   omniauth-shibboleth
+  qa
   rails (~> 4.0.0)
   rails_autolink
   rake (~> 10.1.0)
