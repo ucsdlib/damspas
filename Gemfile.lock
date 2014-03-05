@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/taf2/curb.git
+  revision: 74774f97c51e8922356de6ec2e27817f9c9d00e7
+  specs:
+    curb (0.8.5)
+
+GIT
   remote: git://github.com/ucsdlib/solrizer-fedora.git
   revision: 87c2d35e89df19bb4535e1f713a68b0dc469498a
   ref: 87c2d35e
@@ -93,7 +99,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    curb (0.8.5)
     daemons (1.1.9)
     database_cleaner (1.1.1)
     deprecation (0.1.0)
@@ -328,6 +333,7 @@ DEPENDENCIES
   capistrano-rails
   capybara
   coffee-rails
+  curb!
   database_cleaner
   devise
   equivalent-xml
