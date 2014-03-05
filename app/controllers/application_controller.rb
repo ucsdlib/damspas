@@ -1,13 +1,18 @@
 class ApplicationController < ActionController::Base
-  around_action :anonymous_user
+  #around_action :anonymous_user
 
   def anonymous_user
     # check ip for unauthenticated users
     if current_user == nil
-      @current_user = User.anonymous(request.ip)
-      logger.warn "#{self.class.name}: wrapping request in anonymous user session (#{current_user})"
+      anon = User.anonymous(request.ip)
+      if anon.to_s != 'public'
+        @current_user = anon
+        logger.warn "#{self.class.name}: wrapping request in anonymous user session (#{current_user}) to_s: #{anon.to_s}"
+      end
       begin
         yield
+      rescue Exception => e
+        logger.warn "Error wrapping anonymous request: #{e.backtrace}"
       ensure
         @current_user = nil
       end
