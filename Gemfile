@@ -35,6 +35,7 @@ gem 'curb', github: 'taf2/curb'
 # Deploy with Capistrano
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
+gem 'capistrano-rvm'
 gem 'capistrano-bundler'
 
 # To use debugger
