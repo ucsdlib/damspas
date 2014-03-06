@@ -29,7 +29,7 @@
       map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
 
       # mix
-      map.sourceCapture(:in=>DAMS, :to => 'sourceCapture')
+      map.sourceCapture(:in=>DAMS, :to => 'sourceCapture',:class_name=>'DamsSourceCaptureInternal')
     end
     def id
       fid = rdf_subject.to_s

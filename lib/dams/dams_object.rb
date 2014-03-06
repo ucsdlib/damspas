@@ -329,7 +329,7 @@ module Dams
 	
 	      # source capture
 	      srcCap = load_sourceCapture file.sourceCapture
-	      if srcCap.class == DamsSourceCapture
+	      if srcCap.class == DamsSourceCapture || srcCap.class == DamsSourceCaptureInternal
 	        file_json[:source_capture] = srcCap.pid
 	        file_json[:capture_source] = srcCap.captureSource.first.to_s
 	        file_json[:image_producer] = srcCap.imageProducer.first.to_s
