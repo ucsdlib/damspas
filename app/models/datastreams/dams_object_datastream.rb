@@ -61,15 +61,13 @@ class DamsObjectDatastream < DamsResourceDatastream
 
   def load_sourceCapture(sourceCapture)
     srcCap = sourceCapture.first
-    if srcCap.class.name == 'DamsSourceCaptureInternal'
+    if srcCap.class.name == 'DamsSourceCaptureInternal' && !srcCap.captureSource.first.blank?
       # use internal objects as-is
       srcCap
-    else
+    elsif !srcCap.nil?
       # fetch external records from the repo
-      uri = srcCap.to_s
-      pid = uri.gsub(/.*\//,'')
-      if pid != nil && pid != ""
-        obj = DamsSourceCapture.find(pid)
+      if !srcCap.pid.blank?
+        obj = DamsSourceCapture.find(srcCap.pid)
         obj
       end
     end

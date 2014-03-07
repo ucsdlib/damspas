@@ -85,13 +85,16 @@ class DamsComponentDatastream < DamsResourceDatastream
   end
 
   def load_sourceCapture(sourceCapture)
-    uri = sourceCapture.first.to_s
-    pid = uri.gsub(/.*\//,'')
-    if pid != nil && pid != ""
-      obj = DamsSourceCapture.find(pid)
-      obj
-    else
-      nil
+    srcCap = sourceCapture.first
+    if srcCap.class.name == 'DamsSourceCaptureInternal' && !srcCap.captureSource.first.blank?
+      # use internal objects as-is
+      srcCap
+    elsif !srcCap.nil?
+      # fetch external records from the repo
+      if !srcCap.pid.blank?
+        obj = DamsSourceCapture.find(srcCap.pid)
+        obj
+      end
     end
   end
   def insertSourceCapture( solr_doc, cid, fid, sourceCapture )
