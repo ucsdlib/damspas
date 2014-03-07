@@ -24,7 +24,7 @@ gem 'jquery-rails'
 gem 'rails_autolink'
 gem 'mail_form'
 gem 'qa'
-gem 'curb', github: 'taf2/curb'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
