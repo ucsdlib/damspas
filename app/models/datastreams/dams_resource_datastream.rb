@@ -643,8 +643,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      language_obj = nil
 	      language_uri = lang.to_s
 		  if lang.name.first.nil? && lang.pid != nil && !lang.pid.start_with?("_:")
-	        language_obj = lang.load
-	        language_json[:id] = language_obj.pid.first      
+	        language_obj = MadsLanguage.find(lang.pid)
+	        language_json[:id] = language_obj.pid
 	      else 
 	        language_obj = lang
 	      end
@@ -658,7 +658,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      Solrizer.insert_field(solr_doc, "#{field}", language_obj.name )
 	      Solrizer.insert_field(solr_doc, "all_fields", language_obj.name)        
         rescue Exception => e
-          puts "XXX: error loading language: #{lang}"
+          puts "XXX: error loading language: #{lang}: #{e.to_s}"
         end
       end
     end
