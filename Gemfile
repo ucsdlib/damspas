@@ -36,7 +36,7 @@ gem 'qa'
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
 gem 'capistrano-rvm'
-gem 'capistrano-bundler'
+gem 'capistrano-bundler', '~> 1.1.0'
 
 # To use debugger
 # gem 'debugger'
