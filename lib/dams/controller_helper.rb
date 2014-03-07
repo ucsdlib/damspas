@@ -19,7 +19,7 @@ module Dams
 				end
 			end
 		end
-		@objects     
+		@objects.sort {|a,b|a[0] <=> b[0]}     
     end
 
     def get_objects_url(object_type_param,field)
@@ -38,7 +38,8 @@ module Dams
 				end
 			end
 		end
-		@objects     
+		
+		@objects.sort {|a,b|a[0] <=> b[0]}     
     end
         
     def get_relationship_name_id(object)
