@@ -84,19 +84,6 @@ class DamsComponentDatastream < DamsResourceDatastream
     cid.to_i
   end
 
-  def load_sourceCapture(sourceCapture)
-    srcCap = sourceCapture.first
-    if srcCap.class.name == 'DamsSourceCaptureInternal' && !srcCap.captureSource.first.blank?
-      # use internal objects as-is
-      srcCap
-    elsif !srcCap.nil?
-      # fetch external records from the repo
-      if !srcCap.pid.blank?
-        obj = DamsSourceCapture.find(srcCap.pid)
-        obj
-      end
-    end
-  end
   def insertSourceCapture( solr_doc, cid, fid, sourceCapture )
     prefix = (cid != nil) ? "component_#{cid}_file_#{fid}" : "file_#{fid}"
     if sourceCapture.class == DamsSourceCapture

@@ -28,5 +28,27 @@ module Dams
         graph.insert( [ rdf_subject, MADS.authoritativeLabel, label ] )
       end
     end
+
+    # load source capture records (internal or external from repo)
+  def load_sourceCapture(sourceCapture)
+    srcCap = sourceCapture.first
+    if srcCap.class.name == 'DamsSourceCaptureInternal' && (!srcCap.captureSource.first.blank? || !srcCap.sourceType.first.blank? || !srcCap.imageProducer.first.blank?)
+      # use internal objects as-is
+      srcCap
+    elsif !srcCap.nil?
+      # fetch external records from the repo
+      if !srcCap.pid.blank? && !srcCap.pid.start_with?("_")
+        begin
+          obj = DamsSourceCapture.find(srcCap.pid)
+        rescue Exception => e
+          puts "Error loading SourceCapture: #{e}"
+        end
+        obj
+      else
+        puts "Empty SourceCapture and invalid pid: '#{srcCap.pid}'"
+      end
+    end
+  end
+
   end
 end
