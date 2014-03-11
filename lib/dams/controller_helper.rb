@@ -469,8 +469,18 @@ logger.warn "XXX #{object.pid}"
         end
       end
     end
-    
- 
+
+ 	def get_colletion_objects(collectionObjId, collectionObjArray,classType)
+	  if(!collectionObjId.nil?)
+        collectionObjId.each do |colId|
+		  collectionObj = classType.find( colId.to_s.gsub(/.*\//,'')[0..9] )
+		  if (!collectionObj.nil?)
+		    collectionObjArray << collectionObj
+		  end	
+		end
+	  end
+ 	end
+ 		
     def create_derivatives(object, file, fullPath)
       if file.nil? || !file.respond_to?(:original_filename)
         return { alert: "No file uploaded" }
