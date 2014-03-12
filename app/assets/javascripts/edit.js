@@ -1,3 +1,5 @@
+
+
 var complexSubjectIdArray = new Array();
 
 function getName(type,q,location)
