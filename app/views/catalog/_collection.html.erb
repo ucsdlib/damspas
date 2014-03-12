@@ -1,19 +1,17 @@
 <ul class="dams-search-results-fields">
-  <% dateVal = date_list(document) %>
-  <% if !dateVal.blank? %>
-    <li>
-      <span class="dams-search-results-fields-label">Date:</span>
-      <span><%= dateVal.gsub('""', '"') %></span>
-    </li>
-  <% end %>
   <% scn = document['scopeContentNote_json_tesim'] %>
   <% if scn != nil %>
     <% scn.each do |txt| %>
       <% note = JSON.parse(txt) %>
       <li>
-        <span class="dams-search-results-fields-label">Scope and Content:</span>
         <span><%= auto_link( note['value'].gsub('""', '"') ) %></span>
       </li>
     <% end %>
+  <% dateVal = date_list(document) %>
+  <% if !dateVal.blank? %>
+    <li>
+      <span><%= dateVal.gsub('""', '"') %></span>
+    </li>
+  <% end %>
   <% end %>
 </ul>

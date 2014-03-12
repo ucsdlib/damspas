@@ -237,7 +237,9 @@ class DamsObjectsController < ApplicationController
   end
   
   def create   
-    has_file = "false" 	    
+    has_file = "false"  
+    #collectionsId = params[:dams_object][:assembledCollection_attributes]
+
   	if @dams_object.save 
         flash[:notice] = "Object has been saved"
 
@@ -258,6 +260,24 @@ class DamsObjectsController < ApplicationController
         # reindex the record
         begin
           @dams_object.send :update_index
+		 # collectionsId.each do |colId|
+		 #	if colId.class == Array and colId.size > 1
+		 #	  collectionObj = DamsAssembledCollection.find( colId[1].to_s.gsub(/.*\//,'')[0..9] )
+		 #	  if (!collectionObj.nil?)
+		 #	    collectionObj.send :update_index
+		 #	  end	
+		 #	end    
+		 # end
+          colObjects = Array.new
+          get_colletion_objects(params[:dams_object][:assembledCollection_attributes],colObjects,DamsAssembledCollection)
+		  get_colletion_objects(params[:dams_object][:provenanceCollection_attributes],colObjects, DamsProvenanceCollection)
+          get_colletion_objects(params[:dams_object][:provenanceCollectionPart_attributes],colObjects, DamsProvenanceCollectionPart)
+
+          if(!colObjects.nil?)
+	        colObjects.each do |colObj|
+		  	  colObj.send :update_index
+		  	end
+		  end		           
         rescue Exception => e
           logger.warn "Error reindexing #{@dams_object.pid}: #{e}"
         end
@@ -322,11 +342,11 @@ class DamsObjectsController < ApplicationController
     @dams_object.rightsHolderFamily.clear
     @dams_object.rightsHolderName.clear    
 	has_file = "false"
-	
+	#collectionsId = params[:dams_object][:assembledCollectionURI]
+      
     @dams_object.attributes = params[:dams_object]  
   	if @dams_object.save
         @dams_object.reload
-
         # check for file upload
         if params[:file]
           file_status = attach_file( @dams_object, params[:file] )
@@ -342,6 +362,16 @@ class DamsObjectsController < ApplicationController
         # reindex the record
         begin
           @dams_object.send :update_index
+          colObjects = Array.new
+          get_colletion_objects(params[:dams_object][:assembledCollectionURI],colObjects,DamsAssembledCollection)
+		  get_colletion_objects(params[:dams_object][:provenanceCollectionURI],colObjects, DamsProvenanceCollection)
+          get_colletion_objects(params[:dams_object][:provenanceCollectionPartURI],colObjects, DamsProvenanceCollectionPart)
+
+          if(!colObjects.nil?)
+	        colObjects.each do |colObj|
+		  	  colObj.send :update_index
+		  	end
+		  end		  
         rescue Exception => e
           logger.warn "Error reindexing #{@dams_object.pid}: #{e}"
         end
