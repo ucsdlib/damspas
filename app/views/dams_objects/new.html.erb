@@ -14,8 +14,8 @@ $(document).ready(function(){
 <div class="dams-viewer">
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");', :multipart => true, :id => 'fileupload', :method => 'post'} do |f| %>
 
-<div class="loc-data">
-  <input id="auto-item" class="typeahead" type="text" placeholder="type subjects">
+<div id="subjectField">
+  <input  class="typeahead" type="text" placeholder="Type Subject">
 </div>
 
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
