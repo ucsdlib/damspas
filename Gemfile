@@ -23,6 +23,8 @@ gem 'equivalent-xml' #, '0.3.0'
 gem 'jquery-rails'
 gem 'rails_autolink'
 gem 'mail_form'
+gem 'qa'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -33,7 +35,8 @@ gem 'mail_form'
 # Deploy with Capistrano
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
-gem 'capistrano-bundler'
+gem 'capistrano-rvm'
+gem 'capistrano-bundler', '~> 1.1.0'
 
 # To use debugger
 # gem 'debugger'

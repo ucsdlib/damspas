@@ -84,16 +84,6 @@ class DamsComponentDatastream < DamsResourceDatastream
     cid.to_i
   end
 
-  def load_sourceCapture(sourceCapture)
-    uri = sourceCapture.first.to_s
-    pid = uri.gsub(/.*\//,'')
-    if pid != nil && pid != ""
-      obj = DamsSourceCapture.find(pid)
-      obj
-    else
-      nil
-    end
-  end
   def insertSourceCapture( solr_doc, cid, fid, sourceCapture )
     prefix = (cid != nil) ? "component_#{cid}_file_#{fid}" : "file_#{fid}"
     if sourceCapture.class == DamsSourceCapture

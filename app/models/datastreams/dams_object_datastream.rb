@@ -1,4 +1,5 @@
 class DamsObjectDatastream < DamsResourceDatastream
+  include Dams::ModelHelper
   include Dams::DamsObject
     
   def load_copyright ( copyright )
@@ -57,17 +58,6 @@ class DamsObjectDatastream < DamsResourceDatastream
 	      DamsOtherRight.find( otherRights.first.pid )
 	    end
 	end        
-  end
-
-  def load_sourceCapture(sourceCapture)
-    uri = sourceCapture.first.to_s
-    pid = uri.gsub(/.*\//,'')
-    if pid != nil && pid != ""
-      obj = DamsSourceCapture.find(pid)
-      obj
-    else
-      nil
-    end
   end
 
   def rightsHolder

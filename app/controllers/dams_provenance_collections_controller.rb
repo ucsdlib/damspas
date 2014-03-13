@@ -2,19 +2,12 @@ require 'net/http'
 require 'json'
 
 class DamsProvenanceCollectionsController < ApplicationController
-   include Blacklight::Catalog
+  include Blacklight::Catalog
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only =>[:show, :index]
 
-  
-
   def show
-    # check ip for unauthenticated users
-    if current_user == nil
-      current_user = User.anonymous(request.ip)
-    end
-
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     if @document.nil?
       raise ActionController::RoutingError.new('Not Found')

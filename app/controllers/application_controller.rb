@@ -1,4 +1,26 @@
 class ApplicationController < ActionController::Base
+  #around_action :anonymous_user
+
+  def anonymous_user
+    # check ip for unauthenticated users
+    if current_user == nil
+      anon = User.anonymous(request.ip)
+      if anon.to_s != 'public'
+        @current_user = anon
+        logger.warn "#{self.class.name}: wrapping request in anonymous user session (#{current_user}) to_s: #{anon.to_s}"
+      end
+      begin
+        yield
+      rescue Exception => e
+        logger.warn "Error wrapping anonymous request: #{e.backtrace}"
+      ensure
+        @current_user = nil
+      end
+    else
+      yield
+    end
+  end
+
   # Adds a few additional behaviors into the application controller 
    include Blacklight::Controller
    include Hydra::Controller::ControllerBehavior 

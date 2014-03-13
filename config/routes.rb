@@ -9,6 +9,8 @@ Hydra::Application.routes.draw do
   post 'contact' => 'contact_form#create'
   get 'contact' => 'contact_form#new'
 
+  mount Qa::Engine => '/qa'
+
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
   resources :collection, :only => [:show], :controller => 'dams_collections', :as => 'dams_collections'

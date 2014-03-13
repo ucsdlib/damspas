@@ -1,6 +1,7 @@
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Create a new DAMS OtherRights</h1>
 <%= form_for @dams_other_right, :html => { :onsubmit => 'processForm_generic("#dams_other_right_");'}  do |f| %>
+  <%= label_tag 'dams_other_right[basis]', "Basis" %><%= text_field_tag 'dams_other_right[basis]' %>
   <%= label_tag 'dams_other_right[note]', "Note" %><%= text_field_tag 'dams_other_right[note]' %>
   <%= label_tag 'dams_other_right[uri]', "URI" %><%= url_field_tag 'dams_other_right[uri]' %>
   <%= f.fields_for :permission_node do |pn| %>
