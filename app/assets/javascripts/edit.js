@@ -1,4 +1,63 @@
+function getAutocompleteItem(){
+ // var q = document.forms.fileupload.getElementsByID("auto-item").value;
+ var q1="TREE";
+ //constructs the suggestion engine
+ var labelsRemote = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 10,
+  prefetch: {
+    url: 'http://localhost:3000/qa/search/loc/subjects?q=cat',
+    // the json file contains an array of strings, but the Bloodhound
+    // suggestion engine expects JavaScript objects so this converts all of
+    // those strings
+    filter: function(list) {
+      return $.map(list, function(item) { return { value: item.label }; });
+    }
+  }
+});
 
+var q2 = [{"id":"info:lc/authorities/subjects/sh85061255","label":"History publishing"},{"id":"info:lc/authorities/subjects/sh85061236","label":"History, Modern"},{"id":"info:lc/authorities/subjects/sh85077565","label":"Literature and history"},{"id":"info:lc/authorities/subjects/sh2004001655","label":"History in mass media"},{"id":"info:lc/authorities/subjects/sh85061212","label":"History"}];
+
+ var labelsLocal = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 10,
+  local: $.map(q2, function(item) { return { value: item.label }; })
+});
+ 
+
+// kicks off the loading/processing of `local` and `prefetch`
+labelsRemote.initialize();
+labelsLocal.initialize();
+ 
+// instantiate the typeahead UI
+$('.loc-data .typeahead').typeahead(
+ {
+  hint: true,
+  highlight: true,
+  minLength: 1
+  },
+
+  {
+  
+  displayKey: 'value',
+  source: labelsRemote.ttAdapter(),
+  templates: {
+      header: '<h3 class="league-name">loc subjects</h3>'
+    }
+  },
+  {
+    
+    displayKey: 'value',
+    source: labelsLocal.ttAdapter(),
+    templates: {
+      header: '<h3 class="league-name">local subjects</h3>'
+    }
+  }
+  );
+
+}
 
 var complexSubjectIdArray = new Array();
 
