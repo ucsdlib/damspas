@@ -133,9 +133,10 @@ class GetDataController < ApplicationController
   	@objects = Array.new
   	@doc.each do |col| 
 	  if col.class == Array
-		col.each do |c|				
-		  @objects << c.id
-		  #puts "hey========== #{c}"
+		col.each do |c|						  
+		  if(c.key?("files_tesim") and c.fetch("files_tesim").to_s.include? ".tif")
+			@objects << c.id+"/1.tif"
+		  end
 		end
 	  end
 	end
