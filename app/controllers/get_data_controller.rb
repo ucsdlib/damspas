@@ -129,12 +129,13 @@ class GetDataController < ApplicationController
  
   def get_new_objects
   	#http://localhost:3000/get_data/get_new_objects/get_new_objects
-	@doc = get_search_results(:q => "timestamp:[NOW-1DAY TO NOW]", :rows => '10000')
+	@doc = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsObject" AND timestamp:[NOW-1DAY TO NOW]', :rows => '10000')
   	@objects = Array.new
   	@doc.each do |col| 
 	  if col.class == Array
 		col.each do |c|				
 		  @objects << c.id
+		  #puts "hey========== #{c}"
 		end
 	  end
 	end
