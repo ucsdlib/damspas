@@ -6,14 +6,23 @@ var q2 = [{"id":"info:lc/authorities/subjects/sh85061255","label":"History publi
 var subjectLabels = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  local: $.map(q2, function(item) { return { value: item.label }; }),
+  prefetch: {
+    url: 'http://gimili.ucsd.edu:8080/solr/blacklight/select?q=active_fedora_model_ssi:MadsTopic&fl=id,name_tesim&wt=json&rows=5',
+    // the json file contains an array of strings, but the Bloodhound
+    // suggestion engine expects JavaScript objects so this converts all of
+    // those strings
+    filter: function(list) {
+      return $.map(list.response.docs, function(item) { return { value: item.name_tesim }; });
+    }
+  },
   remote: {
       url:'http://localhost:3000/qa/search/loc/subjects?q=%QUERY',
       
       filter: function(list) {
       return $.map(list, function(item) { return { value: item.label }; });
-    }
-  }
+      }
+   }   
+  
 });
  
 subjectLabels.initialize();
@@ -22,6 +31,7 @@ $('#subjectField .typeahead').typeahead(null, {
   name: 'subject-label',
   displayKey: 'value',
   source: subjectLabels.ttAdapter()
+
 });
 
 }

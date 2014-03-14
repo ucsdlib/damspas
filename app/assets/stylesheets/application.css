@@ -16,5 +16,6 @@
  *= require custom-collections
  *= require custom-search
  *= require custom-advanced-search
+ *= require custom-edit
  *= require leaflet
 */
