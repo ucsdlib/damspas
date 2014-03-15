@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.0.0'
 gem 'blacklight'#, '~> 4.7.0'
 gem 'hydra-head', '~> 7.0.0.pre2'
-gem 'active-fedora', github: 'no-reply/active_fedora', branch: 'rdf'
+gem 'active-fedora', github: 'no-reply/active_fedora', branch: 'af7-rdf'
 gem 'solrizer', '~> 3.1.0'
 gem 'blacklight_advanced_search' # 2.1.1
 
