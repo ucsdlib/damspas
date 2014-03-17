@@ -1,28 +1,34 @@
 function getAutocompleteItem(){
  
-var q2 = [{"id":"info:lc/authorities/subjects/sh85061255","label":"History publishing"},{"id":"info:lc/authorities/subjects/sh85061236","label":"History, Modern"},{"id":"info:lc/authorities/subjects/sh85077565","label":"Literature and history"},{"id":"info:lc/authorities/subjects/sh2004001655","label":"History in mass media"},{"id":"info:lc/authorities/subjects/sh85061212","label":"History"}];
-
-
 var subjectLabels = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //prefetch: {
+  //   url: '/qa/search/loc/subjects?q=cat',
+  //   // the json file contains an array of strings, but the Bloodhound
+  //   // suggestion engine expects JavaScript objects so this converts all of
+  //   // those strings
+  //   filter: function(list) {
+  //     return $.map(list.response.docs, function(item) { return { value: item.name_tesim }; });
+  //   }
+  // },
+  // ,
   prefetch: {
-    url: 'http://gimili.ucsd.edu:8080/solr/blacklight/select?q=active_fedora_model_ssi:MadsTopic&fl=id,name_tesim&wt=json&rows=5',
+    url: '/get_data/get_dams_data/get_dams_data?q=Topic',
     // the json file contains an array of strings, but the Bloodhound
     // suggestion engine expects JavaScript objects so this converts all of
     // those strings
     filter: function(list) {
-      return $.map(list.response.docs, function(item) { return { value: item.name_tesim }; });
+      return $.map(list, function(item) { return { value: item.label }; });
     }
   },
   remote: {
-      url:'http://localhost:3000/qa/search/loc/subjects?q=%QUERY',
-      
+      url:'/qa/search/loc/subjects?q=%QUERY',
       filter: function(list) {
       return $.map(list, function(item) { return { value: item.label }; });
       }
-   }   
-  
+   }  
+
 });
  
 subjectLabels.initialize();

@@ -4,6 +4,56 @@ require 'json'
 class GetDataController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
+
+## Returns an array of JSON objects with id and label
+ #[{"id":"http://library.ucsd.edu/ark:/20775/xx00000143","label":"test_name1"},{"id":"http://library.ucsd.edu/ark:/20775/xx00000147","label":"test_name2"}]
+ # http://localhost:3000/get_data/get_dams_data/get_dams_data?q=Topic
+  
+  def get_dams_data
+
+  	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
+		@docs = get_objects_json('MadsTopic','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'BuiltWorkPlace')
+		@docs = get_objects_json('DamsBuiltWorkPlace','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CulturalContext')
+		@docs = get_objects_json('DamsCulturalContext','name_tesim')		
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Function')
+		@docs = get_objects_json('DamsFunction','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'GenreForm')
+		@docs = get_objects_json('MadsGenreForm','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Geographic')
+		@docs = get_objects_json('MadsGeographic','name_tesim')	
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Iconography')
+		@docs = get_objects_json('DamsIconography','name_tesim')		
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ScientificName')
+		@docs = get_objects_json('DamsScientificName','name_tesim')	
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Technique')
+		@docs = get_objects_json('DamsTechnique','name_tesim')	
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Temporal')
+		@docs = get_objects_json('MadsTemporal','name_tesim')
+	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'StylePeriod')
+		@docs = get_objects_json('DamsStylePeriod','name_tesim')		
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
+		@docs = get_objects_json('MadsCorporateName','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
+		@docs = get_objects_json('MadsPersonalName','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
+		@docs = get_objects_json('MadsConferenceName','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
+		@docs = get_objects_json('MadsFamilyName','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
+		@docs = get_objects_json('MadsName','name_tesim')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Occupation')
+		@docs = get_objects_json('MadsOccupation','name_tesim')																													
+	else
+		@docs = get_objects_json('MadsTopic','name_tesim')
+	end
+
+	render json: @docs
+  	
+  end
+
+
   def get_linked_data 	
   	#http://localhost:3000/get_data/get_data/get_data?q=dog&fl=suggestall
 	uri = URI('http://fast.oclc.org/fastSuggest/select')
