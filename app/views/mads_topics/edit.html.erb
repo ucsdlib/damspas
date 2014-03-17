@@ -1,5 +1,6 @@
 <% @page_title =  "Edit Topic" %>
 
+
 <div class="row-fluid">
   <div class="span10 offset1">
   
@@ -8,9 +9,12 @@
     <%= form_for @mads_topic do |f| %>
     
       <%= render 'error_messages', object: f.object %>
-    
+
+      
+      
       <%= label_tag 'mads_topic[name]', "Name" %>
       <%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "input-block-level" %>
+      
     
       <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
       <%= text_field_tag 'mads_topic[externalAuthority]', @mads_topic.externalAuthority, class: "input-block-level" %>
