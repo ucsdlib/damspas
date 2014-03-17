@@ -100,8 +100,11 @@ Hydra::Application.routes.draw do
 	post 'get_name', :on => :member	
 	get 'get_subject', :on => :member
 	post 'get_subject', :on => :member
-	get 'get_ark', :on => :member
-	get 'get_new_objects'		
+  get 'get_ark', :on => :member	
+  get 'get_new_objects'   
+  get 'get_dams_data', :on => :member
+  post 'get_dams_data', :on => :member	
+
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

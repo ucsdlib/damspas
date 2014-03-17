@@ -1,3 +1,47 @@
+function getAutocompleteItem(){
+ 
+var subjectLabels = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+  //prefetch: {
+  //   url: 'http://gimili.ucsd.edu:8080/solr/blacklight/select?q=active_fedora_model_ssi:MadsTopic&fl=id,name_tesim&wt=xml&rows=4000',
+  //   // the json file contains an array of strings, but the Bloodhound
+  //   // suggestion engine expects JavaScript objects so this converts all of
+  //   // those strings
+  //   filter: function(list) {
+  //     return $.map(list.response.docs, function(item) { return { value: item.name_tesim }; });
+  //   }
+  // },
+  // ,
+    prefetch: {
+      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
+      // the json file contains an array of strings, but the Bloodhound
+      // suggestion engine expects JavaScript objects so this converts all of
+      // those strings
+      filter: function(list) {
+        return $.map(list, function(item) { return { value: item.label }; });
+      }
+    },
+    remote: {
+        url:'/qa/search/loc/subjects?q=%QUERY',
+        filter: function(list) {
+        return $.map(list, function(item) { return { value: item.label }; });
+        }
+     }  
+
+  });
+ 
+  subjectLabels.initialize();
+   
+  $('#subjectField .typeahead').typeahead(null, {
+    name: 'subject-label',
+    displayKey: 'value',
+    source: subjectLabels.ttAdapter()
+
+  });
+
+}
+
 var complexSubjectIdArray = new Array();
 
 function getName(type,q,location)

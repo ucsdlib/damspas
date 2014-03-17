@@ -3,6 +3,7 @@
 <div class="dams-viewer">
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");', :multipart => true, :id => 'fileupload', :method => 'post'} do |f| %>
 
+
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
 
   <%= render :partial => 'shared/edit_fields/type_of_resource_form', :locals => {:f => f, :object => @dams_object, :object_type => "dams_object"}%>
@@ -33,6 +34,8 @@
 
   <%= render :partial => 'shared/edit_fields/cartographics_form' , :locals => {:f => f, :object_type => "dams_object"}%>  
 
+
+
   <h3>Add File</h3>
   <input type="file" name="file"/>
 
@@ -43,5 +46,3 @@
   <%= link_to "Cancel", dams_objects_path, class: "btn btn-primary" %>   
 <%end%>
 </div>
-
-
