@@ -1,13 +1,15 @@
 class ApplicationController < ActionController::Base
-  #around_action :anonymous_user
+  around_action :anonymous_user
 
   def anonymous_user
     # check ip for unauthenticated users
     if current_user == nil
-      anon = User.anonymous(request.ip)
+      anon = User.anonymous(request.remote_ip)
       if anon.to_s != 'public'
         @current_user = anon
-        logger.warn "#{self.class.name}: wrapping request in anonymous user session (#{current_user}) to_s: #{anon.to_s}"
+        logger.warn "#{self.class.name}: wrapping request in anonymous user session (#{current_user})  from ip #{request.remote_ip} to_s: #{anon.to_s}"
+      else
+      	logger.info "#{self.class.name}: wrapping request in anonymous user session (#{current_user}) from ip #{request.remote_ip} to_s: #{anon.to_s}"
       end
       begin
         yield

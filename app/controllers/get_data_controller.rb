@@ -126,7 +126,23 @@ class GetDataController < ApplicationController
     @ark = @ark[61..70]
     render :layout => false
   end
-        
+ 
+  def get_new_objects
+  	#http://localhost:3000/get_data/get_new_objects/get_new_objects
+	@doc = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsObject" AND timestamp:[NOW-1DAY TO NOW]', :rows => '10000')
+  	@objects = Array.new
+  	@doc.each do |col| 
+	  if col.class == Array
+		col.each do |c|						  
+		  if(c.key?("files_tesim") and c.fetch("files_tesim").to_s.include? ".tif")
+			@objects << c.id+"/1.tif"
+		  end
+		end
+	  end
+	end
+    render :layout => false
+  end
+          
   def show
 	redirect_to :action => 'get_linked_data'
   end
