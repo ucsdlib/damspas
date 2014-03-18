@@ -1,7 +1,7 @@
 <%
-	ark = render_document_show_field_value(:document=>@document, :field=>"id")
+	ark = render_document_show_field_value(:document=>@document, :field=>'id')
 	componentCount = @document['component_count_isi']
-	firstComponent = "first-component"
+	firstComponent = 'first-component'
 %>
 
 <% for i in 1..componentCount %>
@@ -38,10 +38,16 @@
 
 	    <%= render :partial => 'video_viewer_complex', :locals => {:componentIndex => i} %>
 
-		<% elsif fileType == 'document' || fileType == 'data' %>
+	  <% elsif fileType == 'document' %>
 
-			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => display_file_path.to_s==''} %>
-			<%= render :partial => 'data_viewer', :locals => {:filePath => service_file_path, :objectType => 'complex', :displayFilePath => display_file_path} %>
+	    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path} %>
+	    <%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
+	    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path} %>
+
+		<% elsif fileType == 'data' %>
+
+			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
+			<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path} %>
 
 		<% else %>
 
