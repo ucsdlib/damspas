@@ -32,6 +32,9 @@ class User < ActiveRecord::Base
       uid = access_token.uid
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
+      givenName = access_token['info']['givenName']
+      familyName =access_token['info']['familyName']
+      name = "#{givenName} #{familyName}"
     rescue Exception => e
       logger.warn "shibboleth: #{e.to_s}"
     end
