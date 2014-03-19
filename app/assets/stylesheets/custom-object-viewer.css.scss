@@ -24,12 +24,12 @@ $complexFile: #AC6F2B !default;
 .simple-object{margin:3% 0;padding:$viewerPadding;background-color:darken($objectBG,5%);border-radius: 3px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 
 .simple-object .table th,.simple-object .table td{border-color:rgba($simpleFile,0.25)}
-.simple-object .form-actions{background-color: rgba($simpleFile,0.15); border-top-color: rgba($simpleFile,0.75)}
-.simple-object .form-actions .muted{color: rgba($simpleFile,0.5)}
+.simple-object .dams-download-button{background-color: rgba($simpleFile,0.15); border-top-color: rgba($simpleFile,0.75)}
+.simple-object .dams-download-button .muted{color: rgba($simpleFile,0.5)}
 
 .component .table th,.component .table td{border-color:rgba($complexFile,0.25)}
-.component .form-actions{background-color: rgba($complexFile,0.15); border-top-color: rgba($complexFile,0.75)}
-.component .form-actions .muted{color: rgba($complexFile,0.666)}
+.component .dams-download-button{background-color: rgba($complexFile,0.15); border-top-color: rgba($complexFile,0.75)}
+.component .dams-download-button .muted{color: rgba($complexFile,0.666)}
 
 
 .component img{width:auto;margin:0 auto 20px auto;display:block;}
@@ -97,6 +97,10 @@ $complexFile: #AC6F2B !default;
   .label:hover{background-color: $complexFile;}
 }
 
+// Document Viewer
+.file-thumbnail{width:25%;height:auto;margin:0 auto;}
+.file-thumbnail img{margin-bottom: 20px;}
+
 // Culturally Sensitive Content
 .culturally-sensitive-thumbnail {border:2px solid #659EC7; width:100px; height:150px;}
 #sensitive-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 390px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
@@ -138,14 +142,12 @@ $complexFile: #AC6F2B !default;
 @media (min-width: 980px)
 {
 	// OBJECT VIEWER PAGE
-	//.dams-viewer img{width:40%;}
 }
 
 // PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP)
 @media (min-width: 768px) and (max-width: 979px)
 {
 	// OBJECT VIEWER PAGE
-	//.dams-viewer img{width:50%;}
 }
 
 // MOBILE (CUSTOM)
@@ -155,7 +157,6 @@ $complexFile: #AC6F2B !default;
 @media (max-width: 767px)
 {
 	 // OBJECT VIEWER PAGE
-	//.dams-viewer img{width:50%;}
 	.dams-download-button .btn{display:block;float:none;}
 
 	// UNITS INDEX PAGE
@@ -166,13 +167,14 @@ $complexFile: #AC6F2B !default;
 @media (max-width: 480px)
 {
 	 // OBJECT VIEWER PAGE
-	//.dams-viewer img{width:100%;}
   .dams-viewer > hgroup > h1{font-size:125%;}
   .dams-viewer > hgroup > h2{font-size:100%;}
-  .dams-metadata{font-size:13px;}
+  .dams-metadata{font-size:90%;}
 
 
-// UNITS INDEX PAGE
+
+
+  // UNITS INDEX PAGE
 	.search-query-form .btn{width:100%;}
 
 }

@@ -5,7 +5,7 @@
   fieldset{padding:1em 1.5em;}
   label{font-weight:bold;color:#666;}
   form{margin:0;}
-  .form-actions{padding-bottom:0;}
+  .adv-search-button{padding-bottom:0;}
 }
 
 /*---------------*/
@@ -28,8 +28,8 @@
 @media (max-width: 767px)
 {
 
-  .form-actions button, .dams-form select{width:100%;}
-  .form-actions{padding:1em 0 0 0;margin:1em 0 0 0;}
+  .adv-search-button button, .dams-form select{width:100%;}
+  .adv-search-button{padding:1em 0 0 0;margin:1em 0 0 0;}
   .dams-form h2{font-size: 1.5em;}
   .dams-form fieldset{padding:0;}
 

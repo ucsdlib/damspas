@@ -1,4 +1,5 @@
-<% if fileType %>
+<% if defined?(fileType) %>
+
 	<div class="simple-object">
 		<% case fileType %>
 		<% when 'image-service' %>
@@ -8,9 +9,9 @@
 		<% when 'video-service' %>
 			<%= render :partial => 'video_viewer', :locals => {:filePath => service_file_path, :icon => display_file_path} %>
 		<% when 'document-service' %>
-			<% if display_file_path.to_s == ''%> 
+	    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path} %>
+
 				<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
-			<% end %>
 			<%= render :partial => 'data_viewer', :locals => {:displayFilePath => display_file_path, :filePath => service_file_path, :objectType => 'simple', :pdfFilePath => pdf_file_path} %>
 		<% when 'data-service' %>
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
