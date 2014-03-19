@@ -26,9 +26,7 @@
 	       zoom_file_path = zoom_path(ark, "#{i}")
 	       dataForDynamicLoad = "{\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\"}"
 	    %>
-
 			<div data='<%=dataForDynamicLoad%>'></div>
-			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
 
 	  <% elsif fileType == 'audio' %>
 
@@ -41,12 +39,12 @@
 	  <% elsif fileType == 'document' %>
 
 	    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path} %>
-	    <%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
+	    <%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => true} %>
 	    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path} %>
 
 		<% elsif fileType == 'data' %>
 
-			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i} %>
+			<%= render :partial => 'metadata_component', :locals => {:fileName => service_file, :componentIndex => i, :fileMetadata => true} %>
 			<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path} %>
 
 		<% else %>
