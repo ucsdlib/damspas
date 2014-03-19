@@ -181,7 +181,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 $(document).ready(function()
 {
 	// Ensure all parent component containers are collapsed
-	$('.node-container').hide();
+	$('.node-container').show();
 
 	// Toggle parent component containers
 	$(".node-toggle").on("click",function()

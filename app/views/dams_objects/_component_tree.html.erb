@@ -1,12 +1,12 @@
 <%
 	component_count = @document['component_count_isi']
-	@firstButton = "first-component active-component"
+	@firstButton = 'first-component active-component'
 %>
 
 <% if component_count > 0   %>
 
 	<% initComponentTree component_count %>
-	<button type="button" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
+	<button type="button" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-collapsed">
 		<strong>Components of "<%= grabTitle %>"</strong>
 	</button>
 	<div class="components-tree">
