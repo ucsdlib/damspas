@@ -1,7 +1,9 @@
 <% collectionsView = defined?(greetingsFromCollectionsView) ? true : false %>
+<% notesToExclude = ['performers','extent','abstract','tableOfContents','identifier','existence and location of originals','general physical description','dimensions','digitalOrigin'] %>
 
 <% if collectionsView %>
-		<%= render :partial => 'shared/fields/note', :locals => {:type => 'description'} %>
+	<% notesToExclude << 'description' %>
+	<%= render :partial => 'shared/fields/note', :locals => {:type => 'description'} %>
 <% end %>
 
 <%= render :partial => 'shared/fields/relationships' %>
@@ -12,13 +14,7 @@
 <%= render :partial => 'shared/fields/scope_of_content' %>
 <%= render :partial => 'shared/fields/cartographic' %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'tableOfContents'} %>
-
-<% if collectionsView %>
-	<%= render :partial => 'shared/fields/note', :locals => {:exclude_type => ['description','performers','extent','abstract','tableOfContents','identifier','existence and location of originals','general physical description','dimensions','digitalOrigin'], :exclude_label => ['Digital object made available by'] } %>
-<% else %>
-	<%= render :partial => 'shared/fields/note', :locals => {:exclude_type => ['performers','extent','abstract','tableOfContents','identifier','existence and location of originals','general physical description','dimensions','digitalOrigin'], :exclude_label => ['Digital object made available by'] } %>
-<% end %>
-
+<%= render :partial => 'shared/fields/note', :locals => {:exclude_type => notesToExclude, :exclude_label => ['Digital object made available by'] } %>
 <%= render :partial => 'shared/fields/resource_type' %>
 <%= render :partial => 'shared/fields/language' %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'ARK'} %>
