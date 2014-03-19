@@ -14,7 +14,7 @@ var subjectLabels = new Bloodhound({
   // },
   // ,
     prefetch: {
-      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
+      url: '/dc/get_data/get_dams_data/get_dams_data?q=Topic',
       // the json file contains an array of strings, but the Bloodhound
       // suggestion engine expects JavaScript objects so this converts all of
       // those strings
@@ -23,7 +23,7 @@ var subjectLabels = new Bloodhound({
       }
     },
     remote: {
-        url:'/qa/search/loc/subjects?q=%QUERY',
+        url:'/dc/qa/search/loc/subjects?q=%QUERY',
         filter: function(list) {
         return $.map(list, function(item) { return { value: item.label }; });
         }
