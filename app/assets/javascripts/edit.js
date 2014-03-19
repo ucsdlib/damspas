@@ -218,21 +218,6 @@ function processForm_generic(objType) {
       $("#noteSection").remove();
     }
 
-    if($(objType+"scopeContentNote_attributes_0_value").val() != null && $(objType+"scopeContentNote_attributes_0_value").val().length < 1)
-    {
-      $("#scopeNoteSection").remove();
-    }
-    
-    if($(objType+"custodialResponsibilityNote_attributes_0_value").val() != null && $(objType+"custodialResponsibilityNote_attributes_0_value").val().length < 1)
-    {
-      $("#custodialNoteSection").remove();
-    }
-    
-    if($(objType+"preferredCitationNote_attributes_0_value").val() != null && $(objType+"preferredCitationNote_attributes_0_value").val().length < 1)
-    {
-      $("#preferredNoteSection").remove();
-    }    
-
     if($(objType+"relatedResource_attributes_0_description").val() != null && $(objType+"relatedResource_attributes_0_type").val() != null && 
       $(objType+"relatedResource_attributes_0_description").val().length < 1 && $(objType+"relatedResource_attributes_0_type").val().length < 1 )
     {
