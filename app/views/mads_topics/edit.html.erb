@@ -1,5 +1,12 @@
 <% @page_title =  "Edit Topic" %>
+<script type="text/javascript">
 
+$(document).ready(function(){
+
+  getAutocompleteItem();
+
+});
+</script>
 
 <div class="row-fluid">
   <div class="span10 offset1">
@@ -10,11 +17,14 @@
     
       <%= render 'error_messages', object: f.object %>
 
+      <div id="subjectField">
+       <input  class="typeahead" type="text" placeholder="Type Subject">
+      </div>
       
-      
+     <div id="subjectField">
       <%= label_tag 'mads_topic[name]', "Name" %>
-      <%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "input-block-level" %>
-      
+      <%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "typeahead" %>
+      </div>
     
       <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
       <%= text_field_tag 'mads_topic[externalAuthority]', @mads_topic.externalAuthority, class: "input-block-level" %>
