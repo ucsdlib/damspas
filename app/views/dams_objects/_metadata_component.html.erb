@@ -49,9 +49,9 @@
 			<tbody>
 
 				<%# File data %>
-				<% if defined?(fileMetadata) %>
+				<% if defined?(fileMetadata) and defined?(fileName) %>
 					<% if fileMetadata == true %>
-						<%= render :partial => 'shared/fields/file_size', :locals => {:componentIndex => componentIndex, :fileName => fileName} %>
+						<%= render :partial => 'shared/fields/file_size', :locals => {:componentIndex => componentIndex} %>
 						<%= render :partial => 'shared/fields/file_format', :locals => {:componentIndex => componentIndex, :fileName => fileName} %>
 					<% end %>
 				<% end %>
