@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
     end
     @anonymous = false
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
+    u.name = name
     u
   end
 
@@ -41,6 +42,7 @@ class User < ActiveRecord::Base
     end
     @anonymous = false
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
+    u.name = name
     u
   end
 
