@@ -599,7 +599,7 @@ module DamsObjectsHelper
 		btnID = "node-btn-#{index}"
 		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
 		btnCSS += (@isParent[index]) ? ' node-parent' : ''
-		iconCSS = (@isParent[index]) ? 'icon-chevron-right node-toggle' : grabIcon(fileUse)
+		iconCSS = (@isParent[index]) ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
 		btnTitle = grabTitle(:componentIndex=>index)
 
 		concat "<li>".html_safe
