@@ -5,7 +5,7 @@
 </div>
 
 <% if user_signed_in? %>
-  <% nm = current_user.givenName %>
+  <% nm = current_user.name %>
   <% em = current_user.email %>
 <% else %>
   <% nm = '' %>

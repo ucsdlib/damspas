@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
       name = access_token['info']['name'] 
-      givenName = access_token['info']['givenName']
+      
     rescue Exception => e
       logger.warn "shibboleth: #{e.to_s}"
     end
@@ -47,15 +47,8 @@ class User < ActiveRecord::Base
   def name
     @name
   end
-  def name=(name)
-    @name=name
-  end
-
-  def givenName
-    @givenName
-  end
-  def givenName=(givenName)
-    @givenName=givenName
+  def name=(ne)
+    @name=ne
   end
 
   def anonymous=(bool)
