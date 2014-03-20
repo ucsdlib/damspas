@@ -14,8 +14,8 @@
 //= require jquery_ujs
 //
 // BLACKLIGHT (REQUIRED)
-//= require blacklight/blacklight
 //= require bootstrap
+//= require blacklight/blacklight
 //
 // DAMS (3RD PARTY)
 //= require leaflet
