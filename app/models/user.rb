@@ -16,11 +16,13 @@ class User < ActiveRecord::Base
       uid = access_token.uid
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
+      name = access_token['info']['name'] 
     rescue Exception => e
       logger.warn "developer: #{e.to_s}"
       uid = 1
       email = "zombie@ucsd.edu"
       provider = "developer"
+      name = "zombie"
     end
     @anonymous = false
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
@@ -32,7 +34,7 @@ class User < ActiveRecord::Base
       uid = access_token.uid
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
-      name = access_token['info']['name']
+      name = access_token['info']['name'] 
     rescue Exception => e
       logger.warn "shibboleth: #{e.to_s}"
     end
@@ -40,6 +42,14 @@ class User < ActiveRecord::Base
     u = User.where(:uid => uid,:provider => provider).first || User.create(:uid => uid,:provider => provider, :email => email)
     u
   end
+
+  def name
+    @name
+  end
+  def name=(name)
+    @name=name
+  end
+
 
   def anonymous=(bool)
     @anonymous=bool

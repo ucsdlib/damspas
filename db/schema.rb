@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140226145852) do
   add_index "searches", ["user_id"], name: "index_searches_on_user_id"
 
   create_table "users", force: true do |t|
+    t.string   "name",              default: ""
     t.string   "email",              default: ""
     t.string   "uid",                default: "",    null: false
     t.string   "provider",           default: "",    null: false
