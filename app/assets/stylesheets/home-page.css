@@ -42,10 +42,16 @@
 
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
+
 /* RWD */
+@media (min-width: 1600px)
+{
+    #dc-logo{padding-top:180px;}
+    #home-01{height:800px;}
+    #dc-search-box fieldset,#browse-by{width:60%;}
+}
 @media (min-width: 1200px)
 {
-    #dc-search-box fieldset,#browse-by{width:60%;}
 }
 @media (max-width:640px)
 {
