@@ -1,44 +1,55 @@
 function getAutocompleteItem(){
  
-var subjectLabels = new Bloodhound({
+var subjectLocal = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
-  //prefetch: {
-  //   url: 'http://gimili.ucsd.edu:8080/solr/blacklight/select?q=active_fedora_model_ssi:MadsTopic&fl=id,name_tesim&wt=xml&rows=4000',
-  //   // the json file contains an array of strings, but the Bloodhound
-  //   // suggestion engine expects JavaScript objects so this converts all of
-  //   // those strings
-  //   filter: function(list) {
-  //     return $.map(list.response.docs, function(item) { return { value: item.name_tesim }; });
-  //   }
-  // },
-  // ,
+ 
     prefetch: {
       url: '/dc/get_data/get_dams_data/get_dams_data?q=Topic',
+      
       // the json file contains an array of strings, but the Bloodhound
       // suggestion engine expects JavaScript objects so this converts all of
       // those strings
       filter: function(list) {
         return $.map(list, function(item) { return { value: item.label }; });
       }
-    },
+    }
+  });
+ 
+var subjectLOC = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
         url:'/dc/qa/search/loc/subjects?q=%QUERY',
+       
         filter: function(list) {
         return $.map(list, function(item) { return { value: item.label }; });
         }
      }  
 
   });
- 
-  subjectLabels.initialize();
-   
-  $('#subjectField .typeahead').typeahead(null, {
-    name: 'subject-label',
-    displayKey: 'value',
-    source: subjectLabels.ttAdapter()
 
-  });
+  subjectLocal.initialize();
+  subjectLOC.initialize();
+  
+   
+  $('#subjectField .typeahead').typeahead(null, 
+  {
+    name: 'subject-local',
+    displayKey: 'value',
+    source: subjectLocal.ttAdapter(),
+    templates: {
+    header: '<h4 class="subject-name">DAMS</h4>'
+    }
+   },
+  {
+    name: 'subject-LOC',
+    displayKey: 'value',
+    source: subjectLOC.ttAdapter(),
+    templates: {
+    header: '<h4 class="subject-name">LOC</h4>'
+    }
+   });
 
 }
 
