@@ -14,12 +14,13 @@
 //= require jquery_ujs
 //
 // BLACKLIGHT (REQUIRED)
-//= require blacklight/blacklight
 //= require bootstrap
+//= require blacklight/blacklight
 //
 // DAMS (3RD PARTY)
 //= require leaflet
 //= require L.TileLayer.Zoomify
+//= require typeahead.bundle.js
 //
 // DAMS (CUSTOM)
 //= require search
@@ -28,3 +29,5 @@
 //= require edit
 
 Blacklight.do_search_context_behavior = function() {};
+
+

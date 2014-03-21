@@ -32,12 +32,10 @@ feature 'Visitor wants to create/edit a assembled collection' do
 		fill_in "dams_assembled_collection_date_attributes_0_type", :with => "TestDateType"
 		fill_in "dams_assembled_collection_date_attributes_0_encoding", :with => "TestDateEncoding"
 		#page.select('English', match: :first)
+		page.select('biography', match: :first)
 		fill_in "dams_assembled_collection_note_attributes_0_value", :with => "TestNote"
-		fill_in "dams_assembled_collection_note_attributes_0_type", :with => "TestNoteType"
+		#fill_in "dams_assembled_collection_note_attributes_0_type", :with => "TestNoteType"
 		fill_in "dams_assembled_collection_note_attributes_0_displayLabel", :with => "TestNoteDisplayLabel"
-		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_value", :with => "TestScopeContentNote"
-		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_type", :with => "TestScopeContentNoteType"
-		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_displayLabel", :with => "TestScopeContentNoteDisplayLabel"
 		page.select('CorporateName', match: :first)
 		page.select('artifact', match: :first)
 		fill_in "dams_assembled_collection_relatedResource_attributes_0_uri", :with => "http://www.google.com"
@@ -77,11 +75,9 @@ feature 'Visitor wants to create/edit a assembled collection' do
 		fill_in "dams_assembled_collection_date_attributes_0_type", :with => "TestDateType2"
 		fill_in "dams_assembled_collection_date_attributes_0_encoding", :with => "TestDateEncoding2"
 		#page.select('English', match: :first)
+		page.select('arrangement', match: :first)
 		fill_in "dams_assembled_collection_note_attributes_0_value", :with => "TestNote2"
-		fill_in "dams_assembled_collection_note_attributes_0_type", :with => "TestType2"
 		fill_in "dams_assembled_collection_note_attributes_0_displayLabel", :with => "TestNoteDisplayLabel2"
-		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_value", :with => "TestScopeContentNote2"
-		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_type", :with => "TestScopeContentNoteType2"
 		
 		click_on "Save"
 
@@ -114,11 +110,9 @@ feature 'Visitor wants to cancel unsaved edits' do
 		fill_in "dams_assembled_collection_date_attributes_0_type", :with => "CancelDateType"
 		fill_in "dams_assembled_collection_date_attributes_0_encoding", :with => "CancelDateEncoding"
 		#page.select('English', match: :first)
+		page.select('arrangement', match: :first)		
 		fill_in "dams_assembled_collection_note_attributes_0_value", :with => "CancelNote"
-		fill_in "dams_assembled_collection_note_attributes_0_type", :with => "CancelNoteType"
 		fill_in "dams_assembled_collection_note_attributes_0_displayLabel", :with => "CancelNoteDisplaylabel"
-		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_value", :with => "CancelScopeContentNote"
-		fill_in "dams_assembled_collection_scopeContentNote_attributes_0_type", :with => "CancelScopeContentNoteType"
 		click_on "Cancel"
 		visit Path.path
 		#pending "Works in browser but fails in rspec" do	

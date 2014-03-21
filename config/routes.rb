@@ -19,6 +19,7 @@ Hydra::Application.routes.draw do
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
   get '/solrdoc/:id', to: 'catalog#solrdoc', :as => "solrdoc"
   get "collections", :to => 'catalog#collection_search', :as => 'dams_collections'
+  get "collection/:id/data_view", :to => 'dams_collections#data_view', :as => 'data_view_dams_collections'
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
 
@@ -51,6 +52,7 @@ Hydra::Application.routes.draw do
   post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
+  get "object/:id/data_view", :to => 'dams_objects#data_view', :as => 'data_view'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   resources :dams_assembled_collections
   resources :dams_units do
@@ -100,7 +102,11 @@ Hydra::Application.routes.draw do
 	post 'get_name', :on => :member	
 	get 'get_subject', :on => :member
 	post 'get_subject', :on => :member
-	get 'get_ark', :on => :member		
+  get 'get_ark', :on => :member	
+  get 'get_new_objects'   
+  get 'get_dams_data', :on => :member
+  post 'get_dams_data', :on => :member	
+
   end
   # The priority is based upon order of creation:
   # first created -> highest priority.

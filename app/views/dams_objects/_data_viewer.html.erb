@@ -1,28 +1,17 @@
 <% if defined?(filePath) %>
 
 	<%
+	  btnColor = ''
 		if defined?(objectType)
 			btnColor = case objectType
 				when 'simple' then 'btn-primary'
 				when 'complex' then 'btn-inverse'
-				else ''
 			end
-		else
-			btnColor = ''
 		end
 	%>
- 	<% if displayFilePath.to_s != ''%>
- 		<%= link_to image_tag(displayFilePath, :alt => ''), filePath %>
- 		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>">
-			<i class="icon-download-alt icon-white"></i>
-			Download PDF
-		</a>
-	<% else %>
-		<div class="form-actions dams-download-button">
-			<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>">
-				<i class="icon-download-alt icon-white"></i>
-				Download file
-			</a>
-		</div>
-	<% end %>
+
+	<div class="form-actions dams-download-button">
+		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>"><i class="icon-download-alt icon-white"></i>Download file</a>
+	</div>
+
 <% end %>

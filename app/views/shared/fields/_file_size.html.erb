@@ -1,5 +1,4 @@
 <%
-if defined?(fileName)
 	if defined?(componentIndex) # Then we're working with a component
 		prefix = "component_#{componentIndex}_"
 		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
@@ -30,6 +29,5 @@ if defined?(fileName)
 		concat htmlClose.html_safe
 
 	end
-end
 %>
 

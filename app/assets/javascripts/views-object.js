@@ -100,7 +100,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	{
 
 		var componentID = "#component-" + componentIndex;
-		var container = componentID + " > div";
+		var container = componentID + " > div[data]";
 		var buttonID = "#node-btn-" + componentIndex;
 		var componentData = $(container).attr("data");
 
@@ -181,7 +181,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 $(document).ready(function()
 {
 	// Ensure all parent component containers are collapsed
-	$('.node-container').hide();
+	$('.node-container').show();
 
 	// Toggle parent component containers
 	$(".node-toggle").on("click",function()

@@ -1,7 +1,7 @@
 <section id="home-01">
   <%=image_tag '/images/logo-dc.png', :alt => 'Digital Collections', :id => 'dc-logo' %>
 	<section class="tagline">
-		<p><span class="home-text">Currently totaling <%= number_with_delimiter(@count_resp.total_count) %> images, audio recordings, videos, documents, &amp;&nbsp;data&nbsp;sets</span></p>
+		<p>Currently totaling <%= number_with_delimiter(@count_resp.total_count) %> images, audio recordings, videos, documents, &amp;&nbsp;data&nbsp;sets</p>
 	</section>
   <%= form_tag catalog_index_url, :method => :get, :class => '', :id => 'dc-search-box' do %>
 		<fieldset>

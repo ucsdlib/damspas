@@ -1,5 +1,26 @@
 module Dams
   module ControllerHelper
+
+ # Returns an array of JSON objects with id and label
+    def get_objects_json(object_type_param,field)
+	  	@doc = get_search_results(:q => "has_model_ssim:info:fedora/afmodel:#{object_type_param}", :rows => '10000')
+	  	@objects = Array.new
+	  	@doc.each do |col| 
+			if col.class == Array
+				col.each do |c|
+					if(c.key?("#{field}"))
+						@tmpObject = {:id =>Rails.configuration.id_namespace+c.id,:label=>c.fetch("#{field}").first}
+								
+						@objects << @tmpObject
+					end
+				end
+			end
+		end
+		
+		@objectsJson = @objects.to_json
+    end
+
+
     def get_objects(object_type_param,field)
 	  	@doc = get_search_results(:q => "has_model_ssim:info:fedora/afmodel:#{object_type_param}", :rows => '10000')
 	  	@objects = Array.new
@@ -19,7 +40,7 @@ module Dams
 				end
 			end
 		end
-		@objects.sort {|a,b|a[0] <=> b[0]}     
+		@objects.sort {|a,b|a[0].downcase <=> b[0].downcase}     
     end
 
     def get_objects_url(object_type_param,field)
@@ -39,7 +60,7 @@ module Dams
 			end
 		end
 		
-		@objects.sort {|a,b|a[0] <=> b[0]}     
+		@objects.sort {|a,b|a[0].downcase <=> b[0].downcase}     
     end
         
     def get_relationship_name_id(object)
@@ -469,8 +490,18 @@ logger.warn "XXX #{object.pid}"
         end
       end
     end
-    
- 
+
+ 	def get_colletion_objects(collectionObjId, collectionObjArray,classType)
+	  if(!collectionObjId.nil?)
+        collectionObjId.each do |colId|
+		  collectionObj = classType.find( colId.to_s.gsub(/.*\//,'')[0..9] )
+		  if (!collectionObj.nil?)
+		    collectionObjArray << collectionObj
+		  end	
+		end
+	  end
+ 	end
+ 		
     def create_derivatives(object, file, fullPath)
       if file.nil? || !file.respond_to?(:original_filename)
         return { alert: "No file uploaded" }
@@ -525,6 +556,14 @@ logger.warn "XXX #{object.pid}"
 	    end
       end
     end
-        
+    
+    def get_html_data ( pid )
+       baseurl = ActiveFedora.fedora_config.credentials[:url]
+       baseurl = baseurl.gsub(/\/fedora$/,'')
+       viewerUrl = "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=review.xsl"
+       uri = URI(viewerUrl)
+       res = Net::HTTP.get_response(uri)
+       res.body
+    end       
   end
 end

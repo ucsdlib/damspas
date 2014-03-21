@@ -599,7 +599,7 @@ module DamsObjectsHelper
 		btnID = "node-btn-#{index}"
 		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
 		btnCSS += (@isParent[index]) ? ' node-parent' : ''
-		iconCSS = (@isParent[index]) ? 'icon-chevron-right node-toggle' : grabIcon(fileUse)
+		iconCSS = (@isParent[index]) ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
 		btnTitle = grabTitle(:componentIndex=>index)
 
 		concat "<li>".html_safe
@@ -677,9 +677,9 @@ module DamsObjectsHelper
 	# /COMPONENT TREE METHODS
 	#-------------------------
 
-  #---
+  #-----------
   # STREAMING
-  #---
+  #-----------
 
   #---
   # Builds Wowza URL
@@ -706,53 +706,6 @@ module DamsObjectsHelper
     end
   end
 
-	#---
-	# Check to see if the object is culturallySensitive
-	#
-	# @return A string that indicate true or false
-	# 
-	#---
-	
-	def grabCulturallySensitiveText(data)
-		result = nil
-
-  		if data != nil
-    		data.each do |n|
-    			note = JSON.parse(n)
-      			note_value = note['value']
-      			if(note_value.include? "Culturally sensitive content")	
-					result = "#{note_value}"
-				end
-			end
-    	end
-		return result
-	end
-	
-#---
-  
-  #
-  # return restricted object text from otherRights_tesim
-  # 
-  #---
-  
-  def getRestrictedObjText(data)
-    otherRights_value = nil
-
-     if data != nil
-        data.each do |n|
-          otherRights = JSON.parse(n)
-          if otherRights['note'].length > 0
-            otherRights_value = otherRights['note']
-          end
-        end
-      end
-      
-    return otherRights_value
-  end
-
-  #---
-  # /STREAMING
-  #---
 
   ## video stream name encryption
   def encrypt_stream_name( pid, fid, ip )
@@ -780,6 +733,59 @@ module DamsObjectsHelper
     "#{nonce},#{b64}"
   end
 
+
+  #------------
+  # /STREAMING
+  #------------
+
+
+
+
+  #---
+  # Check to see if the object is culturallySensitive
+  #
+  # @return A string that indicate true or false
+  #
+  #---
+
+  def grabCulturallySensitiveText(data)
+    result = nil
+
+    if data != nil
+      data.each do |n|
+        note = JSON.parse(n)
+        note_value = note['value']
+        if(note_value.include? "Culturally sensitive content")
+          result = "#{note_value}"
+        end
+      end
+    end
+    return result
+  end
+
+#---
+
+#
+# return restricted object text from otherRights_tesim
+#
+#---
+
+  def getRestrictedObjText(data)
+    otherRights_value = nil
+
+    if data != nil
+      data.each do |n|
+        otherRights = JSON.parse(n)
+        if otherRights['note'].length > 0
+          otherRights_value = otherRights['note']
+        end
+      end
+    end
+
+    return otherRights_value
+  end
+
+
   ## normalized rdf view from DAMS4 REST API
   def normalized_rdf_path( pid )
     # get REST API url from AF config
@@ -787,4 +793,5 @@ module DamsObjectsHelper
     baseurl = baseurl.gsub(/\/fedora$/,'')
     "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
   end
+
 end

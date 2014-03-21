@@ -7,11 +7,7 @@
   <%#= button_to( "Generate Derivatives", deriv_path( @document['id'], @ds ), remote: true, data: {disable_with: 'Generating...'}, form: {id: "generate_derivatives"}, class: 'btn' ) %>
 <%# end %>
 
-<div class="row-fluid">
-  <div class="span12">
-    <%= render :partial => 'prev_next' %>
-  </div>
-</div>
+<%= render :partial => 'prev_next' %>
 
 <div class="row-fluid">
   <div id="content" class="show-document span9">
@@ -46,6 +42,7 @@
 		    <p class="sidebar-header"><strong>Editor Tools</strong></p>
 		    <ul class="unstyled sidebar-button-list">
 		      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, normalized_rdf_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+		      <li><%= link_to "<i class='icon-plus-sign'></i> Data View".html_safe, data_view_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		    </ul>
             <p><strong>Add File</strong></p>
