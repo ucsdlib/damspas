@@ -6,7 +6,7 @@ class DamsObjectsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   #skip_load_resource :only => :show
-  skip_load_and_authorize_resource :only => [:show, :zoom]
+  skip_load_and_authorize_resource :only => [:show, :zoom, :data_view]
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   ##############################################################################
@@ -391,5 +391,10 @@ class DamsObjectsController < ApplicationController
 
       redirect_to dams_object_path @obj    	
     end    
+  end
+  
+  def data_view
+  	data = get_html_data ( params[:id] )
+    render :text => data
   end
 end

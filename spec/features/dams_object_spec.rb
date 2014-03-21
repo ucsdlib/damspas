@@ -16,6 +16,14 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_link('RDF View')
     #end
   end
+  
+  scenario "review metadata of an object" do
+    sign_in_developer
+    visit Path.path
+    click_on "Data View"
+    expect(page).to have_selector('td', :text => "Object")
+    expect(page).to have_selector('td', :text => "http://library.ucsd.edu/ark:/20775/bd0922518w")
+  end
 
   scenario 'view a sample data file' do
     sign_in_developer

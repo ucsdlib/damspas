@@ -1,5 +1,6 @@
 class DamsCollectionsController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   DamsCollectionsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   def show
@@ -32,4 +33,10 @@ class DamsCollectionsController < ApplicationController
       format.rdf { render xml: @rdfxml }
     end
   end
+  
+  def data_view
+      data = get_html_data ( params[:id] )
+      render :text => data
+  end
+  
 end
