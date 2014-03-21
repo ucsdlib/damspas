@@ -193,6 +193,10 @@ def edit
      def index
      @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsProvenanceCollectionPart"', :rows => 100 )
    end
-
+   
+  def data_view
+      data = get_html_data ( params[:id] )
+      render :text => data
+  end
     
   end
