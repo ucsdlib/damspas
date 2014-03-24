@@ -9,6 +9,8 @@
 
  <%= render :partial => 'shared/edit_fields/title_edit_form', :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection"}%>
 
+  <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection", :f => f}%>
+  
   <%= render :partial => 'shared/edit_fields/resourceType_form', :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection"}%>
 
   <%= render :partial => 'shared/edit_fields/date_edit_form', :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection", :f => f}%>      
@@ -24,8 +26,6 @@
   <%= render :partial => 'shared/edit_fields/complex_subjects_edit_form' , :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection", :f => f}%> 
  
   <%= render :partial => 'shared/edit_fields/creator_edit_form' , :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection", :f => f}%>
-
-  <%= render :partial => 'shared/edit_fields/relationship_edit_form' , :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection", :f => f}%>
      
   <%= render :partial => 'shared/edit_fields/related_resource_edit_form' , :locals => {:object => @dams_assembled_collection, :object_type => "dams_assembled_collection", :f => f}%>
       

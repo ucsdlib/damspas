@@ -1,8 +1,8 @@
- <h3>Relationship</h3>
+ <h3>Creator</h3>
   <%
      typeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
   %>  
 
   <%= render :partial => 'shared/edit_fields/relationship_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray}%>
 
-  <p><%= link_to_add_dynamic_fields "Add Relationship", f, "#{object_type}", typeArray, "relationship", 0, 0%></p>
+  <p><%= link_to_add_dynamic_fields "Add Creator", f, "#{object_type}", typeArray, "relationship", 0, 0%></p>

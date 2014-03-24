@@ -1,4 +1,4 @@
-<h3>Relationship</h3>
+<h3>Creator</h3>
 <%#= select_tag "#{object_type}[relationshipRoleURI][]", options_for_select(@mads_authorities, :selected => @role_id), :prompt=>"Select Relationship Role" %>   
 <%
   typeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
@@ -15,5 +15,5 @@
   end 
 %>
 
-<p><%= link_to_add_dynamic_fields "Add Relationship", f, "#{object_type}", typeArray, "relationship", "#{i}", 1%></p>
+<p><%= link_to_add_dynamic_fields "Add Creator", f, "#{object_type}", typeArray, "relationship", "#{i}", 1%></p>
 
