@@ -26,8 +26,7 @@
 				<%#= text_field_tag "#{object_type}[#{type}_attributes][#{i}][type]", note[i].type, class: "input-block-level" %>
 				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", noteType + " Displaylabel" %>
 				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", note[i].displayLabel, class: "input-block-level" %>
-				<br/>
-    			<%= link_to_remove_fields "Remove #{noteType}", f %> 				
+    			<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>				
 			</div>					
 <%			
 			i +=1		
@@ -43,8 +42,7 @@
 				<%#= text_field_tag "#{object_type}[#{type}_attributes][#{i}][type]", "", class: "input-block-level" %>
 				<%= label_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", noteType + " Displaylabel" %>
 				<%= text_field_tag "#{object_type}[#{type}_attributes][#{i}][displayLabel]", "", class: "input-block-level" %>
-				<br/>
-    			<%= link_to_remove_fields "Remove #{noteType}", f %>
+    			<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>
 			</div>			
 <%	
 		end
@@ -52,4 +50,4 @@
 %>
 </div>
 
-<p><%= link_to_add_fields "Add #{noteType}", f, "#{type}", "Dams#{noteType.gsub(' ', '')}" , "#{object_type}"%></p>
+<p class="addIcon"><%= link_to_add_fields "+", f, "#{type}", "Dams#{noteType.gsub(' ', '')}" , "#{object_type}"%></p>

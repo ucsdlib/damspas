@@ -1,3 +1,5 @@
+$viewerPadding: 3% !default;
+
 #scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 150px;
   overflow-y: auto;
@@ -8,3 +10,12 @@
   padding: 3px 0;
   border-bottom: 1px solid #ccc;
 }
+
+.fields {/*background-color:$objectBG;*/padding: 0 $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;margin-bottom: 20px;}
+.nonSort {width:17%}
+.mainTitle {width:80%}
+.addField {font-size:2em; font-weight:bold;}
+.addField:hover, .removeField:hover{text-decoration:none;}
+.removeField{color:red; font-weight:bold; font-size:medium; margin-right:5px; }
+p.removeIcon {text-align:right;  margin:0 }
+p.addIcon {text-align:right; margin:0 3.3% 0 0;}

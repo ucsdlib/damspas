@@ -8,8 +8,7 @@
     <%= f.url_field :uri, :value => "", class: "input-block-level" %>
     <%= f.label :description, "Description" %>
     <%= f.text_field :description, :value => "", class: "input-block-level" %>    
-    <br/>
     <% if (f.object.class != RelatedResource) %>
-    	<%= link_to_remove_fields "Remove Related Resource", f %>
+    	<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>
     <% end %>    
 </div>

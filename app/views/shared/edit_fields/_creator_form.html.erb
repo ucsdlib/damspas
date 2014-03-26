@@ -6,4 +6,4 @@
 
 <%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray}%>
 
-<p><%= link_to_add_dynamic_fields "Add Name", f, "#{object_type}", typeArray, "creator", 0, 0 %></p>
+<p class="addIcon"><%= link_to_add_dynamic_fields "+", f, "#{object_type}", typeArray, "creator", 0, 0 %></p>

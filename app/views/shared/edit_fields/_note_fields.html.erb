@@ -13,6 +13,5 @@
   <%= f.text_field :value , :value => "", class: "input-block-level" %>    
   <%= f.label :displayLabel, "Note Display label" %>
   <%= f.text_field :displayLabel, :value => "", class: "input-block-level" %>
-  <br/>
-  <%= link_to_remove_fields "Remove Note", f %>
+  <p class="removeIcon"><%= link_to_remove_fields "X", f %></p><br/>
 </div>

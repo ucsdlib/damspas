@@ -5,6 +5,5 @@
     <%= f.text_field :type, :value => "", class: "input-block-level"%>
     <%= f.label :displayLabel, "Scope Content Note Display Label" %>
     <%= f.text_field :displayLabel, :value => "", class: "input-block-level"%>
-    <br/>    
-    <%= link_to_remove_fields "Remove Scope Content Note", f %>
+    <p class="removeIcon"><%= link_to_remove_fields "X", f %></p>
 </div>
