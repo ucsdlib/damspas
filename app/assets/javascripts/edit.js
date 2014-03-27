@@ -1,17 +1,17 @@
 function getAutocompleteItem(){
  
 var subjectLocal = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('id'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
  
     prefetch: {
-      url: '/dc/get_data/get_dams_data/get_dams_data?q=Topic',
+      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
       
       // the json file contains an array of strings, but the Bloodhound
       // suggestion engine expects JavaScript objects so this converts all of
       // those strings
       filter: function(list) {
-        return $.map(list, function(item) { return { value: item.label }; });
+        return $.map(list, function(item) { return { value: item.label, id: item.id }; });
       }
     }
   });
@@ -20,10 +20,10 @@ var subjectLOC = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-        url:'/dc/qa/search/loc/subjects?q=%QUERY',
+        url:'/qa/search/loc/subjects?q=%QUERY',
        
         filter: function(list) {
-        return $.map(list, function(item) { return { value: item.label }; });
+        return $.map(list, function(item) { return { value: item.label, id: item.id }; });
         }
      }  
 
@@ -33,7 +33,12 @@ var subjectLOC = new Bloodhound({
   subjectLOC.initialize();
   
    
-  $('#subjectField .typeahead').typeahead(null, 
+  $('#subjectField .typeahead').typeahead(
+  {
+  hint: true,
+  highlight: true,
+  minLength: 2
+  }, 
   {
     name: 'subject-local',
     displayKey: 'value',
@@ -98,6 +103,8 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
   else {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
+  
+
   
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
