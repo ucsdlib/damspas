@@ -1,0 +1,15 @@
+<h1>Edit DAMS Related Resource</h1>
+<%
+   resourceTypeArray = [["related", "related"],["online exhibit", "online exhibit"],["online finding aid", "online finding aid"],["news release", "news release"],
+   						["depiction", "depiction"],["journal entry", "journal entry"],["basket", "basket"],["artifact", "artifact"]]
+%> 
+<%= form_for @dams_related_resource do |f| %>
+  <%= select_tag "dams_related_resource[type]", options_for_select(resourceTypeArray, :selected => @dams_related_resource.type[0]) , :prompt=>"Select Type", :class=>"input-drop-down"%>
+  <br/>
+  <%= label_tag 'dams_related_resource[uri]', "URI" %><%= text_field_tag 'dams_related_resource[uri][]', @dams_related_resource.uri[0] %>
+  <br>
+  <%= label_tag 'dams_related_resource[description]', "Description" %><%= text_field_tag 'dams_related_resource[description][]', @dams_related_resource.description[0] %>
+  <br>
+  <%=f.submit "Save", class: "btn btn-primary" %>
+  <%= link_to "Cancel", dams_related_resource_path(@dams_related_resource), class: "btn btn-primary" %>
+<%end%>

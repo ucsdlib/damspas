@@ -275,13 +275,16 @@ function remove_fields(link) {
 
 function add_fields(link, association, content) {
     var new_id = new Date().getTime();
+     alert("content"+content);
     //var regexp = new RegExp("new_" + association, "g");
     var regexp = new RegExp("newClassName", "g");
-    content = content.replace("newClassName",new_id);  
+    content = content.replace("newClassName",new_id);
+    content = content.replace("new_",new_id);
     if(association == "complexSubject") {
       content = content.replace("complexSubjectId",new_id);
       complexSubjectIdArray.push(new_id);
     }   
+    alert("content"+content);
     $(link).parent().before(content.replace(regexp, new_id));
 }
 

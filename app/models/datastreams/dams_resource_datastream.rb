@@ -690,16 +690,41 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     n = 0
     relatedResource.map do |resource|
       n += 1
-      related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
-      Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
-      Solrizer.insert_field(solr_doc, "all_fields", resource.uri.first.to_s)
-      Solrizer.insert_field(solr_doc, "all_fields", resource.type.first.to_s)
-      Solrizer.insert_field(solr_doc, "all_fields", resource.description.first.to_s)
-      if resource.type.first.to_s == "thumbnail"
-        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
-      end
+       begin
+	      related_json = {}
+	      related_obj = nil
+	      related_uri = resource.to_s
+		  if resource.type.first.nil? && resource.pid != nil && !resource.pid.start_with?("_:")
+	        related_obj = DamsRelatedResource.find(resource.pid)
+	        related_json[:id] = related_obj.pid
+	      else 
+	        related_obj = resource
+	      end
+	          
+	      related_json = {:type=>related_obj.type.first.to_s, :uri=>related_obj.uri.first.to_s, :description=>related_obj.description.first.to_s}
+	      Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
+	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.uri.first.to_s)
+	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.type.first.to_s)
+	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.description.first.to_s)
+	
+	      if resource.type.first.to_s == "thumbnail"
+	        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
+	      end      
+	  rescue Exception => e
+	      puts "XXX: error loading relatedResource: #{lang}: #{e.to_s}"
+	  end
+        
+      #related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
+      #Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
+      #Solrizer.insert_field(solr_doc, "all_fields", resource.uri.first.to_s)
+      #Solrizer.insert_field(solr_doc, "all_fields", resource.type.first.to_s)
+      #Solrizer.insert_field(solr_doc, "all_fields", resource.description.first.to_s)
+      #if resource.type.first.to_s == "thumbnail"
+      #  Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
+      #end
     end
   end
+  
   def events_to_json( event )
     event_array = []
     events = load_events event

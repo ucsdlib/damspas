@@ -230,7 +230,32 @@ module Dams
 			@langURI = @langURI.first
 		end
 	  end
-	 
+
+	  ## RelatedResource ######################################################################  
+	  def relResourceURI
+	    if @relResourceURI != nil
+	      @relResourceURI
+	    end
+	  end 
+	  def relResourceURI=(val)
+	    if val.class == Array
+	    	#	val = val.first
+			@relResourceURI = Array.new
+			val.each do |v|
+				uri = v
+				if(!v.include? Rails.configuration.id_namespace)
+					uri = "#{Rails.configuration.id_namespace}#{v}"
+				end
+			    if(!v.nil? && v.length > 0)
+			    	@relResourceURI << RDF::Resource.new(uri) 	
+			    end
+			end  	
+		end
+		if(@relResourceURI.size == 1)
+			@lrelResourceURI = @relResourceURI.first
+		end
+	  end
+	  	 
 	  ## Unit ######################################################################
 	  def unitURI=(val)
 	    if val.class == Array

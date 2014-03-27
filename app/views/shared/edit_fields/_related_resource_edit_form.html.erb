@@ -1,49 +1,32 @@
 <h3>Related Resource</h3>
-<%
-    resourceTypeArray = [["related", "related"],["online exhibit", "online exhibit"],["online finding aid", "online finding aid"],["news release", "news release"],
-   						["depiction", "depiction"],["journal entry", "journal entry"],["basket", "basket"],["artifact", "artifact"]]
-
-    resource =object.relatedResource
+<% relatedResource =object.relatedResource
 	i = 0
 	first = 0 		#first is used to ensure there is no remove button for the first related resource
-	if resource != nil
-		while i < resource.size  do
-			if(!resource[i].type.nil? && resource[i].type.first.to_s == 'hydra-afmodel')
+	if relatedResource != nil
+		while i < relatedResource.size  do
+			if(!relatedResource[i].type.nil? && relatedResource[i].type.first.to_s == 'hydra-afmodel')
 %>
-				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][type]", resource[i].type%>
-				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri%>
-				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", resource[i].description %>
+				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][type]", relatedResource[i].type%>
+				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", relatedResource[i].uri%>
+				<%= hidden_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", relatedResource[i].description %>			
 <%
-			else
+			else	
 %>
 				<div class="fields">
-					<%= select_tag "#{object_type}[relatedResource_attributes][#{i}][type]", options_for_select(resourceTypeArray, :selected => resource[i].type) , :prompt=>"Select Type", :class=>"input-drop-down"%>					
-					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "URI" %>
-					<%= url_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", resource[i].uri, class: "input-block-level" %>
-					<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
-					<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", resource[i].description, class: "input-block-level" %>
-					<% if (f.object.class != RelatedResource && first != 0) %> 
-    					<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>
-    				<% end %> 			
+					<br/>
+					
+					<%= select_tag "#{object_type}[relResourceURI][]", options_for_select(@dams_related_resources, :selected => "#{Rails.configuration.id_namespace}#{relatedResource[i].pid}") , :prompt=>"Select Related Resource", required: true, :class=>"relatedResourceClass#{i}", :id=>"relatedResourceId#{i}", :onChange=>"javascript: checkOption(this.className,false,'dams_related_resources');"%>
+					<br/>
+					<% if i > 0%>
+	    			<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>
+	    			<% end %>					
 				</div>					
 <%			
 				first = 1
 			end
-			i +=1		
+			i +=1	
 		end
-
-		if resource.size == 1
-%>
-			<div class="fields">
-				<%= select_tag "#{object_type}[relatedResource_attributes][#{i}][type]", options_for_select(resourceTypeArray) , :prompt=>"Select Type", :class=>"input-drop-down"%>				
-				<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "URI" %>
-				<%= url_field_tag "#{object_type}[relatedResource_attributes][#{i}][uri]", "", class: "input-block-level" %>
-				<%= label_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "Description" %>
-				<%= text_field_tag "#{object_type}[relatedResource_attributes][#{i}][description]", "", class: "input-block-level" %>
-			</div>		
-<%	
-		end
-				
     end
 %> 
-<p class="addIcon"><%= link_to_add_fields "+", f, :relatedResource, "DamsNote", "DamsNote" %></p>
+
+<p class="addIcon"><%= link_to_add_edit_fields "+", f, :relatedResource, "#{object_type}"%></p>
