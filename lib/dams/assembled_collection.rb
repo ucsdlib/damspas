@@ -106,7 +106,20 @@ module Dams
                   graph.update([rdf_subject, DAMS.language, @langURI])
                 end     
           end
-      end    
+        end
+        if(!@relResourceURI.nil?)
+			if(@relResourceURI.class == Array)
+				@relResourceURI.each do |rel|
+			        graph.insert([rdf_subject, DAMS.relatedResource, rel])
+			    end
+			else
+			      if new?
+			        graph.insert([rdf_subject, DAMS.relatedResource, @relResourceURI])
+			      else
+			        graph.update([rdf_subject, DAMS.relatedResource, @relResourceURI])
+			      end			
+			end
+	    end	    
         # if(!@provenanceCollURI.nil?)
         #   if new?
         #     graph.insert([rdf_subject, DAMS.provenanceCollection, @provenanceCollURI])

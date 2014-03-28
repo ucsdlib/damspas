@@ -37,9 +37,9 @@ feature 'Visitor wants to create/edit a assembled collection' do
 		#fill_in "dams_assembled_collection_note_attributes_0_type", :with => "TestNoteType"
 		fill_in "dams_assembled_collection_note_attributes_0_displayLabel", :with => "TestNoteDisplayLabel"
 		page.select('CorporateName', match: :first)
-		page.select('artifact', match: :first)
-		fill_in "dams_assembled_collection_relatedResource_attributes_0_uri", :with => "http://www.google.com"
-		fill_in "dams_assembled_collection_relatedResource_attributes_0_description", :with => "TestRelatedResourceDescription"
+		#page.select('artifact', match: :first)
+		#fill_in "dams_assembled_collection_relatedResource_attributes_0_uri", :with => "http://www.google.com"
+		#fill_in "dams_assembled_collection_relatedResource_attributes_0_description", :with => "TestRelatedResourceDescription"
 		click_on "Save"
 
 		# Save path of assembled collection and expect results

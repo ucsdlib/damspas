@@ -59,7 +59,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
     @dams_provenance_collection_part.technique.build   
     @dams_provenance_collection_part.topic.build    
     @dams_provenance_collection_part.temporal.build     
-  @dams_provenance_collection_part.name.build
+    @dams_provenance_collection_part.name.build
     @dams_provenance_collection_part.personalName.build    
     @dams_provenance_collection_part.corporateName.build   
     @dams_provenance_collection_part.conferenceName.build    
@@ -88,7 +88,9 @@ class DamsProvenanceCollectionPartsController < ApplicationController
     @dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
     @dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
     @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
-   
+    @dams_related_resources =  get_objects_url('DamsRelatedResource','type_tesim')
+  	@dams_related_resources << "Create New Related Resource"
+  	
     @mads_schemes = get_objects('MadsScheme','name_tesim')
     @dams_units = get_objects_url('DamsUnit','unit_name_tesim')
   end
@@ -104,7 +106,9 @@ def edit
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
     @dams_names = get_objects('MadsPersonalName','name_tesim')
-    
+    @dams_related_resources =  get_objects_url('DamsRelatedResource','type_tesim')
+  	@dams_related_resources << "Create New Related Resource"
+  	
     @unit_id = @dams_provenance_collection_part.unit.to_s.gsub(/.*\//,'')[0..9]
     @language_id = @dams_provenance_collection_part.language.to_s.gsub(/.*\//,'')[0..9]
 
@@ -115,8 +119,8 @@ def edit
     @simpleSubjectValue = get_simple_subject_value(@dams_provenance_collection_part)
 
 
-   @simple_name_type = get_name_type(@dams_provenance_collection_part)
-   @simple_name_id = get_name_id(@dams_provenance_collection_part)   
+    @simple_name_type = get_name_type(@dams_provenance_collection_part)
+    @simple_name_id = get_name_id(@dams_provenance_collection_part)   
     @simple_names = get_objects("Mads#{@simple_name_type}",'name_tesim')  
     @simple_name_value = get_name_value(@dams_provenance_collection_part)
 
