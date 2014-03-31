@@ -1,4 +1,4 @@
 <div class="fields">
-	<%= f.select :id, options_for_select(@dams_related_resources) , {:include_blank => 'Select Related Resource'}, :id=>"newClassNameRelatedResourceId", :onChange=>"javascript: checkOption(this.id,true,'dams_related_resources');"%>    
+	<%= f.select :id, options_for_select(@dams_related_resources) , {:include_blank => 'Select Related Resource'}, :id=>"newClassNameRelatedResourceId", :onChange=>"javascript: checkOption(this.id,true,'dams_related_resources');", :style => "width:350px"%>    
     <p class="removeIcon"><%= link_to_remove_fields "X", f %></p>
 </div>

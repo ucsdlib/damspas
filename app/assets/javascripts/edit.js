@@ -283,7 +283,6 @@ function add_fields(link, association, content) {
       content = content.replace("complexSubjectId",new_id);
       complexSubjectIdArray.push(new_id);
     }   
-    alert("content"+content);
     $(link).parent().before(content.replace(regexp, new_id));
 }
 

@@ -15,7 +15,7 @@
 				<div class="fields">
 					<br/>
 					
-					<%= select_tag "#{object_type}[relResourceURI][]", options_for_select(@dams_related_resources, :selected => "#{Rails.configuration.id_namespace}#{relatedResource[i].pid}") , :prompt=>"Select Related Resource", required: true, :class=>"relatedResourceClass#{i}", :id=>"relatedResourceId#{i}", :onChange=>"javascript: checkOption(this.className,false,'dams_related_resources');"%>
+					<%= select_tag "#{object_type}[relResourceURI][]", options_for_select(@dams_related_resources, :selected => "#{Rails.configuration.id_namespace}#{relatedResource[i].pid}") , :prompt=>"Select Related Resource", required: true, :class=>"relatedResourceClass#{i}", :id=>"relatedResourceId#{i}", :onChange=>"javascript: checkOption(this.className,false,'dams_related_resources');", :style => "width:350px"%>
 					<br/>
 					<% if i > 0%>
 	    			<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>

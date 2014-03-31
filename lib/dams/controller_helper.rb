@@ -62,7 +62,44 @@ module Dams
 		
 		@objects.sort {|a,b|a[0].downcase <=> b[0].downcase}     
     end
-        
+
+    def get_related_resource_url(object_type_param,field1,field2)
+	  	@doc = get_search_results(:q => "has_model_ssim:info:fedora/afmodel:#{object_type_param}", :rows => '10000')
+	  	@objects = Array.new
+	  	@doc.each do |col| 
+			if col.class == Array
+				col.each do |c|	
+					type = nil
+					desc = nil
+					if(c.key?("#{field1}"))
+						type = c.fetch("#{field1}").first										
+					end
+					if(c.key?("#{field2}"))
+						desc = c.fetch("#{field2}").first											
+					end	
+					
+					@tmpArray = Array.new
+					resourceLabel = nil
+					if(!type.nil? && !desc.nil? && desc.length > 0 && type.length > 0)
+						resourceLabel = type + " - " + desc
+					elsif(desc.nil? && !type.nil? && type.length > 0)
+						resourceLabel = type
+					elsif(type.nil? && !desc.nil? && desc.length > 0)
+						resourceLabel = desc
+					end
+					
+					if(!resourceLabel.nil?)
+						@tmpArray << resourceLabel
+						@tmpArray << Rails.configuration.id_namespace+c.id		
+						@objects << @tmpArray
+					end		
+				end
+			end
+		end
+		
+		@objects.sort {|a,b|a[0].downcase <=> b[0].downcase}     
+    end
+            
     def get_relationship_name_id(object)
     	if(!object.relationshipNameURI.nil? && !object.relationshipNameURI.nil? && object.relationshipNameURI.class != Array)
 		  	if(!object.relationshipNameURI.personalName.nil? && !object.relationshipNameURI.personalName.empty?)

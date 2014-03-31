@@ -88,7 +88,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
     @dams_corporate_names = get_objects_url('MadsCorporateName','name_tesim')
     @dams_family_names = get_objects_url('MadsFamilyName','name_tesim')
     @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
-    @dams_related_resources =  get_objects_url('DamsRelatedResource','type_tesim')
+    @dams_related_resources =  get_related_resource_url('DamsRelatedResource','type_tesim','relatedResourceDescription_tesim')
   	@dams_related_resources << "Create New Related Resource"
   	
     @mads_schemes = get_objects('MadsScheme','name_tesim')
@@ -106,7 +106,7 @@ def edit
     @mads_languages =  get_objects_url('MadsLanguage','name_tesim')
     @mads_languages << "Create New Language"
     @dams_names = get_objects('MadsPersonalName','name_tesim')
-    @dams_related_resources =  get_objects_url('DamsRelatedResource','type_tesim')
+    @dams_related_resources =  get_related_resource_url('DamsRelatedResource','type_tesim','relatedResourceDescription_tesim')
   	@dams_related_resources << "Create New Related Resource"
   	
     @unit_id = @dams_provenance_collection_part.unit.to_s.gsub(/.*\//,'')[0..9]
