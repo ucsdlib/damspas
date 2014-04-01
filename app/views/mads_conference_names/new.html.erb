@@ -2,37 +2,37 @@
 <%= form_for @mads_conference_name do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_conference_name[name]', "Name" %>
-  <%= text_field_tag 'mads_conference_name[name]', '', required: true %>
+  <%= text_field_tag 'mads_conference_name[name]', '', required: true, class: "input-block-level"  %>
   <%= label_tag 'mads_conference_name[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'mads_conference_name[externalAuthority]' %> 
+  <%= url_field_tag 'mads_conference_name[externalAuthority]', '', class: "input-block-level"  %> 
     <%= f.fields_for :fullNameElement do |full| %>
       <%= full.label :elementValue, "Full Name" %>
-      <%= full.text_field :elementValue %>
+      <%= full.text_field :elementValue, class: "input-block-level"  %>
     <% end %>
     <%= f.fields_for :familyNameElement do |family| %>
       <%= family.label :elementValue, "Family Name" %>
-      <%= family.text_field :elementValue %>
+      <%= family.text_field :elementValue, class: "input-block-level"  %>
     <% end %>
     <%= f.fields_for :givenNameElement do |given| %>
       <%= given.label :elementValue, "Given Name" %>
-      <%= given.text_field :elementValue %>
+      <%= given.text_field :elementValue, class: "input-block-level"  %>
     <% end %>
     <%= f.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
       <%= termsOfAddress.label :elementValue, "Terms of Address" %>
-      <%= termsOfAddress.text_field :elementValue %>
+      <%= termsOfAddress.text_field :elementValue, class: "input-block-level"  %>
     <% end %>
     <%= f.fields_for :dateNameElement do |date| %>
       <%= date.label :elementValue, "Dates" %>
-      <%= date.text_field :elementValue %>
+      <%= date.text_field :elementValue, class: "input-block-level"  %>
     <% end %>
     <%= f.fields_for :nameElement do |na| %>
       <%= na.label :elementValue, "Other Name" %>
-      <%= na.text_field :elementValue %>
+      <%= na.text_field :elementValue, class: "input-block-level"  %>
     <% end %>    
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
   <br>
   <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
     <%=f.submit "Save", class: "btn btn-primary" %>
-  <%= link_to "Cancel", mads_conference_names_path, class: "btn btn-link pull-right" %>
+  <%= link_to "Cancel", mads_conference_names_path, class: "btn btn-primary" %>
 <%end%>

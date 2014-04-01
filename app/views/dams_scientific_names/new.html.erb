@@ -2,13 +2,13 @@
 <%= form_for @dams_scientific_name do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'dams_scientific_name[name]', "Name" %>
-  <%= text_field_tag 'dams_scientific_name[name]', '', required: true %>
+  <%= text_field_tag 'dams_scientific_name[name]', '', required: true, class: "input-block-level" %>
   <%= label_tag 'dams_scientific_name[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'dams_scientific_name[externalAuthority]' %> 
+  <%= url_field_tag 'dams_scientific_name[externalAuthority]', '', class: "input-block-level" %> 
   
   <%= f.fields_for :scientificNameElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue %>
+    <%= te.text_field :elementValue, class: "input-block-level" %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

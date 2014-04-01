@@ -2,13 +2,13 @@
 <%= form_for @dams_built_work_place do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'dams_built_work_place[name]', "Name" %>
-  <%= text_field_tag 'dams_built_work_place[name]', '', required: true %>
+  <%= text_field_tag 'dams_built_work_place[name]', '', required: true, class: "input-block-level" %>
   <%= label_tag 'dams_built_work_place[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'dams_built_work_place[externalAuthority]' %> 
+  <%= url_field_tag 'dams_built_work_place[externalAuthority]','' , class: "input-block-level" %> 
   
   <%= f.fields_for :builtWorkPlaceElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue %>
+    <%= te.text_field :elementValue, class: "input-block-level" %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

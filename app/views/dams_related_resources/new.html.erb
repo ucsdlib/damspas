@@ -6,8 +6,8 @@
 <%= form_for @dams_related_resource do |f| %>
   <%= f.select :type, options_for_select(resourceTypeArray) , {:include_blank => 'Select Type'}, :class=>"input-drop-down"%>
   <br>
-  <%= label_tag 'dams_related_resource[uri]', "URI" %><%= text_field_tag 'dams_related_resource[uri]' %>
-  <%= label_tag 'dams_related_resource[description]', "Description" %><%= text_field_tag 'dams_related_resource[description]' %>
+  <%= label_tag 'dams_related_resource[uri]', "URI" %><%= text_field_tag 'dams_related_resource[uri]', '', class: "input-block-level" %>
+  <%= label_tag 'dams_related_resource[description]', "Description" %><%= text_field_tag 'dams_related_resource[description]', '', class: "input-block-level" %>
   <br>
   <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
   <%=f.submit "Create", class: "btn btn-primary" %>

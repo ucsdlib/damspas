@@ -2,12 +2,12 @@
 <%= form_for @dams_function do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'dams_function[name]', "Name" %>
-  <%= text_field_tag 'dams_function[name]', '', required: true  %>
+  <%= text_field_tag 'dams_function[name]', '', required: true, class: "input-block-level"  %>
   <%= label_tag 'dams_function[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'dams_function[externalAuthority]' %> 
+  <%= url_field_tag 'dams_function[externalAuthority]', '', class: "input-block-level" %> 
   <%= f.fields_for :functionElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue %>
+    <%= te.text_field :elementValue, class: "input-block-level"%>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

@@ -2,13 +2,13 @@
 <%= form_for @dams_style_period do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'dams_style_period[name]', "Name" %>
-  <%= text_field_tag 'dams_style_period[name]', '', required: true %>
+  <%= text_field_tag 'dams_style_period[name]', '', required: true, class: "input-block-level"  %>
   <%= label_tag 'dams_style_period[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'dams_style_period[externalAuthority]' %> 
+  <%= url_field_tag 'dams_style_period[externalAuthority]', '', class: "input-block-level"  %> 
   
   <%= f.fields_for :stylePeriodElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue %>
+    <%= te.text_field :elementValue, class: "input-block-level"  %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
