@@ -19,3 +19,8 @@ $viewerPadding: 3% !default;
 .removeField{color:red; font-weight:bold; font-size:medium; margin-right:5px; }
 p.removeIcon {text-align:right;  margin:0 }
 p.addIcon {text-align:right; margin:0 3.3% 0 0;}
+input:valid, select:valid{background-color: #FFFFFF;}
+input:focus:invalid{background-color:  #FDD;}
+input:invalid{background-color:  #FDD;}
+select:invalid {background-color:  #FDD;}
+select:focus:invalid {background-color:  #FDD;}
