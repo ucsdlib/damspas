@@ -5,22 +5,7 @@
   <%= text_field_tag 'mads_corporate_name[name]', '', required: true, class: "input-block-level"  %>               
   <%= label_tag 'mads_corporate_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_corporate_name[externalAuthority]', '', class: "input-block-level"  %> 
-    <%= f.fields_for :fullNameElement do |full| %>
-      <%= full.label :elementValue, "Full Name" %>
-      <%= full.text_field :elementValue, class: "input-block-level"  %>
-    <% end %>
-    <%= f.fields_for :familyNameElement do |family| %>
-      <%= family.label :elementValue, "Family Name" %>
-      <%= family.text_field :elementValue, class: "input-block-level"  %>
-    <% end %>
-    <%= f.fields_for :givenNameElement do |given| %>
-      <%= given.label :elementValue, "Given Name" %>
-      <%= given.text_field :elementValue, class: "input-block-level"  %>
-    <% end %>
-    <%= f.fields_for :termsOfAddressNameElement do |termsOfAddress| %>
-      <%= termsOfAddress.label :elementValue, "Terms of Address" %>
-      <%= termsOfAddress.text_field :elementValue, class: "input-block-level"  %>
-    <% end %>
+    
     <%= f.fields_for :dateNameElement do |date| %>
       <%= date.label :elementValue, "Dates" %>
       <%= date.text_field :elementValue, class: "input-block-level"  %>
