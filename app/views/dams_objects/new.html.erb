@@ -1,8 +1,21 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  getAutocompleteItem();
+
+});
+</script>
+
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
 <h1>Create a new Dams Object</h1>
 <div class="dams-viewer">
 <%= form_for @dams_object , :html => { :onsubmit => 'processForm_generic("#dams_object_");', :multipart => true, :id => 'fileupload', :method => 'post'} do |f| %>
 
+ <div id="subjectField">
+      <input type="text" class="typeahead"  /><br/>
+      </div>
+      
   <%= render :partial => 'shared/edit_fields/title_form' , :locals => {:f => f}%>
 
   <%= render :partial => 'shared/edit_fields/relationship_form' , :locals => {:f => f, :object_type => "dams_object"}%>

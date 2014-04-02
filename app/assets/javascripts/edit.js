@@ -5,7 +5,7 @@ var subjectLocal = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
  
     prefetch: {
-      url: '/dc/get_data/get_dams_data/get_dams_data?q=Topic',
+      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
       
       // the json file contains an array of strings, but the Bloodhound
       // suggestion engine expects JavaScript objects so this converts all of
@@ -20,7 +20,7 @@ var subjectLOC = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-        url:'/dc/qa/search/loc/subjects?q=%QUERY',
+        url:'/qa/search/loc/subjects?q=%QUERY',
        
         filter: function(list) {
         return $.map(list, function(item) { return { value: item.label }; });

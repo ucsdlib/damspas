@@ -1,11 +1,21 @@
 <%#= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects) , :prompt=>"Select #{@label}" %>	
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
-<script src="/assets/edit.js" type="text/javascript"></script>
+
 <script src="/assets/jquery.js" type="text/javascript"></script>
+<script src="/assets/typeahead.bundle.js" type="text/javascript"></script>
+<script src="/assets/edit.js" type="text/javascript"></script>
+
+
 <% if !@fieldName.nil? and @fieldName == "simpleSubjectURI"%>
 	<b><%= @label%></b><br/>
 	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
+	 
 <% else %>
 	<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+
+      <div id="subjectField">
+      <input type="text" class="typeahead"  /><br/>
+      </div>
+      
 <% end %>
 <p class="removeIcon"><%= link_to_delete_fields "X"%></p>
