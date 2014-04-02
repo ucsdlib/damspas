@@ -129,48 +129,66 @@ class GetDataController < ApplicationController
  
   def get_subject	
   	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object&fieldName=simpleSubjectURI&label=Subject
+  	subType = nil
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
-		@subjects = get_objects_url('MadsTopic','name_tesim')
+  		subType = 'MadsTopic'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'BuiltWorkPlace')
-		@subjects = get_objects_url('DamsBuiltWorkPlace','name_tesim')
+  		subType = 'DamsBuiltWorkPlace'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CulturalContext')
-		@subjects = get_objects_url('DamsCulturalContext','name_tesim')		
+  		subType = 'DamsCulturalContext'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Function')
-		@subjects = get_objects_url('DamsFunction','name_tesim')
+  		subType = 'DamsFunction'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'GenreForm')
-		@subjects = get_objects_url('MadsGenreForm','name_tesim')
+  		subType = 'MadsGenreForm'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Geographic')
-		@subjects = get_objects_url('MadsGeographic','name_tesim')	
+  		subType = 'MadsGeographic'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Iconography')
-		@subjects = get_objects_url('DamsIconography','name_tesim')		
+  		subType = 'DamsIconography'	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ScientificName')
-		@subjects = get_objects_url('DamsScientificName','name_tesim')	
+  		subType = 'DamsScientificName'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Technique')
-		@subjects = get_objects_url('DamsTechnique','name_tesim')	
+  		subType = 'DamsTechnique'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Temporal')
-		@subjects = get_objects_url('MadsTemporal','name_tesim')
+  		subType = 'MadsTemporal'
 	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'StylePeriod')
-		@subjects = get_objects_url('DamsStylePeriod','name_tesim')		
+		subType = 'DamsStylePeriod'	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
-		@subjects = get_objects_url('MadsCorporateName','name_tesim')
+  		subType = 'MadsCorporateName'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
-		@subjects = get_objects_url('MadsPersonalName','name_tesim')
+  		subType = 'MadsPersonalName'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
-		@subjects = get_objects_url('MadsConferenceName','name_tesim')
+  		subType = 'MadsConferenceName'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
-		@subjects = get_objects_url('MadsFamilyName','name_tesim')
+  		subType = 'MadsFamilyName'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
-		@subjects = get_objects_url('MadsName','name_tesim')
+  		subType = 'MadsName'
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Occupation')
-		@subjects = get_objects_url('MadsOccupation','name_tesim')																													
+  		subType = 'MadsOccupation'																													
 	else
-		@subjects = get_objects_url('MadsTopic','name_tesim')
+		subType = 'MadsTopic'
 	end
+	
+	@subjects = get_objects_url(subType,'name_tesim')
 	@formType = params[:formType]
 	@fieldName = params[:fieldName]
 	@label = params[:q]
 	@fieldId = params[:fieldId]
 	@selectedValue = params[:selectedValue]
+	
+	@hasSubjectValue = "false"	
+	if !@selectedValue.nil? and !@selectedValue.include? "null" and !@selectedValue.include? "undefined" and @subjects.to_s.include? @selectedValue
+		@hasSubjectValue = "true"
+	end
+
+	if !@selectedValue.nil? and !@selectedValue.include? "null" and !@selectedValue.include? "undefined" and @hasSubjectValue.include? "false"
+		tmpSubObject = subType.constantize.find(@selectedValue)
+		if(!tmpSubObject.nil?)
+			tmpArray = Array.new
+			tmpArray << tmpSubObject.name.first
+			tmpArray << Rails.configuration.id_namespace+@selectedValue					
+			@subjects << tmpArray
+		end
+	end	
 	@subjects << "Create New #{@label}"
 	render :layout => false
   end
