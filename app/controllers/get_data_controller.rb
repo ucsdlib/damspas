@@ -103,11 +103,11 @@ class GetDataController < ApplicationController
 	@selectedValue = params[:selectedValue]
 	
 	@hasSelectedValue = "false"	
-	if !@selectedValue.nil? and @names.to_s.include? @selectedValue
+	if !@selectedValue.nil? and !@selectedValue.include? "null" and @names.to_s.include? @selectedValue
 		@hasSelectedValue = "true"
 	end
 
-	if !@selectedValue.nil? and @hasSelectedValue.include? "false"		
+	if !@selectedValue.nil? and !@selectedValue.include? "null" and @hasSelectedValue.include? "false"		
 		tmpNameObject = type.constantize.find(@selectedValue)
 		if(!tmpNameObject.nil?)
 			tmpArray = Array.new
