@@ -80,24 +80,43 @@ class GetDataController < ApplicationController
 
   def get_name 	
   	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
+  	type = nil;
   	if(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Corporate'))
-		@names = get_objects_url('MadsCorporateName','name_tesim')
+  		type = 'MadsCorporateName'		
   	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Personal'))
-		@names = get_objects_url('MadsPersonalName','name_tesim')			
+  		type = 'MadsPersonalName'			
   	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Conference'))
-		@names = get_objects_url('MadsConferenceName','name_tesim')		
+  		type = 'MadsConferenceName'	
   	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Family'))
-		@names = get_objects_url('MadsFamilyName','name_tesim')
+  		type = 'MadsFamilyName'
   	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Name'))
-		@names = get_objects_url('MadsName','name_tesim')							
+  		type = 'MadsName'						
 	else
-		@names = get_objects_url('MadsName','name_tesim')
+		type = 'MadsName'
 	end
+
+	@names = get_objects_url(type,'name_tesim')
 	@formType = params[:formType]
 	@fieldName = params[:fieldName]
 	@label = params[:q]
 	@fieldId = params[:fieldId]
 	@selectedValue = params[:selectedValue]
+	
+	@hasSelectedValue = "false"	
+	if !@selectedValue.nil? and @names.to_s.include? @selectedValue
+		@hasSelectedValue = "true"
+	end
+
+	if !@selectedValue.nil? and @hasSelectedValue.include? "false"		
+		tmpNameObject = type.constantize.find(@selectedValue)
+		if(!tmpNameObject.nil?)
+			tmpArray = Array.new
+			tmpArray << tmpNameObject.name.first
+			tmpArray << Rails.configuration.id_namespace+@selectedValue					
+			@names << tmpArray
+		end
+	end
+	
 	@names << "Create New #{@label}"
 	@relationship = params[:relationship]
 	if !@relationship.nil? and @relationship == "true"
