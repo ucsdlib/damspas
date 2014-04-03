@@ -1,5 +1,5 @@
 <h1>Edit DAMS Source Capture</h1>
-<%= form_for @dams_source_capture do |f| %>
+<%= form_for @dams_source_capture, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= label_tag 'dams_source_capture[scannerManufacturer]', "scannerManufacturer" %><%= text_field_tag 'dams_source_capture[scannerManufacturer][]', @dams_source_capture.scannerManufacturer[0] %>
   <%= label_tag 'dams_source_capture[sourceType]', "sourceType" %><%= text_field_tag 'dams_source_capture[sourceType][]', @dams_source_capture.sourceType[0] %>
   <%= label_tag 'dams_source_capture[scannerModelName]', "scannerModelName" %><%= text_field_tag 'dams_source_capture[scannerModelName][]', @dams_source_capture.scannerModelName[0] %>

@@ -1,5 +1,5 @@
 <h1>Create a new DAMS Copyright</h1>
-<%= form_for @dams_copyright do |f| %>
+<%= form_for @dams_copyright, :required=>true do |f| %>
   <%= label_tag 'dams_copyright[status]', "Status" %><%= text_field_tag 'dams_copyright[status]', '', class: "input-block-level" %>
   <%= label_tag 'dams_copyright[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_copyright[jurisdiction]','', class: "input-block-level" %>
   <%= label_tag 'dams_copyright[purposeNote]', "Purpose Note" %><%= text_field_tag 'dams_copyright[purposeNote]', '', class: "input-block-level" %>
@@ -7,7 +7,7 @@
   <%#= label_tag 'dams_copyright[beginDate]', "Begin Date" %><%#= text_field_tag 'dams_copyright[beginDate]', '', class: "input-block-level" %>
   <%= f.fields_for :date do |te| %>
     <%= te.label :value, "Date" %>
-    <%= te.text_field :value , :value => "", class: "input-block-level"%>    
+    <%= te.text_field :value , :value => "", class: "input-block-level", :required=>true%>    
     <%= te.label :beginDate, "Begin Date" %>
     <%= te.text_field :beginDate, :value => "", class: "input-block-level"%>
     <%= te.label :endDate, "End Date" %>

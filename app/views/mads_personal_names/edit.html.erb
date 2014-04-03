@@ -4,7 +4,7 @@
   <div class="span10 offset1">
     <h2>Edit Personal Name</h2>
 
-    <%= form_for @mads_personal_name do |f| %>
+    <%= form_for @mads_personal_name, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 
       <%= render 'error_messages', object: f.object %>
 

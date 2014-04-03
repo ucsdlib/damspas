@@ -1,11 +1,11 @@
 <h1>Create a new DAMS Statute</h1>
-<%= form_for @dams_statute do |f| %>
+<%= form_for @dams_statute, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= label_tag 'dams_statute[citation]', "Citation" %><%= text_field_tag 'dams_statute[citation]', '', class: "input-block-level"  %>
   <%= label_tag 'dams_statute[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_statute[jurisdiction]', '', class: "input-block-level"  %>
   <%= label_tag 'dams_statute[note]', "Note" %><%= text_field_tag 'dams_statute[note]', '', class: "input-block-level"  %>
   <%= f.fields_for :permission_node do |pn| %>
     <%= pn.label :type, "Permission Type" %>
-    <%= pn.text_field :type , :value => "", class: "input-block-level" %>    
+    <%= pn.text_field :type , :value => "", class: "input-block-level", :required=>true %>    
     <%= pn.label :beginDate, "Permission Begin Date" %>
     <%= pn.text_field :beginDate, :value => "", class: "input-block-level" %>
     <%= pn.label :endDate, "Permission End Date" %>
@@ -13,7 +13,7 @@
   <% end %>
   <%= f.fields_for :restriction_node do |rn| %>
     <%= rn.label :type, "Restriction Type" %>
-    <%= rn.text_field :type , :value => "", class: "input-block-level" %>    
+    <%= rn.text_field :type , :value => "", class: "input-block-level", :required=>true %>    
     <%= rn.label :beginDate, "Restriction Begin Date" %>
     <%= rn.text_field :beginDate, :value => "", class: "input-block-level" %>
     <%= rn.label :endDate, "Restriction End Date" %>

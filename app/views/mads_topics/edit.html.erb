@@ -13,7 +13,7 @@ $(document).ready(function(){
   
     <h2>Edit Topic</h2>
     
-    <%= form_for @mads_topic do |f| %>
+    <%= form_for @mads_topic, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
     
       <%= render 'error_messages', object: f.object %>
 
@@ -33,7 +33,7 @@ $(document).ready(function(){
       <% end %>
       <%= f.fields_for :topicElement do |te| %>
         <%= te.label :elementValue, "Element Value" %>
-        <%= te.text_field :elementValue, class: "input-block-level" %>
+        <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
       <% end %>
               
       <div class="form-actions">

@@ -1,5 +1,5 @@
 <h1>Create a new MADS Geographic</h1>
-<%= form_for @mads_geographic do |f| %>
+<%= form_for @mads_geographic, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_geographic[name]', "Name" %>
   <%= text_field_tag 'mads_geographic[name]', '', required: true, class: "input-block-level" %>
@@ -7,7 +7,7 @@
   <%= text_field_tag 'mads_geographic[externalAuthority]', '', class: "input-block-level" %>
   <%= f.fields_for :geographicElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue, class: "input-block-level" %>
+    <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

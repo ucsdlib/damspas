@@ -5,7 +5,7 @@
 	
 		<h2>Edit GenreForm</h2>
 		
-		<%= form_for @mads_genre_form do |f| %>
+		<%= form_for @mads_genre_form, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
 		
@@ -21,7 +21,7 @@
 		    <% end %>
 		    <%= f.fields_for :genreFormElement do |te| %>
 		        <%= te.label :elementValue, "Element Value" %>
-		        <%= te.text_field :elementValue, class: "input-block-level" %>
+		        <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
 		    <% end %>
 				
 			<div class="form-actions">

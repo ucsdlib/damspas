@@ -1,5 +1,5 @@
 <h1>Create a new MADS Personal Name</h1>
-<%= form_for @mads_personal_name do |f| %>
+<%= form_for @mads_personal_name , :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= render 'error_messages' %>
 
   <%= label_tag 'mads_personal_name[name]', "Name" %>

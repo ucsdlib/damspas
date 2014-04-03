@@ -365,6 +365,14 @@ function removeEmptyFields() {
     }
   }
 
+  inputElements= document.getElementsByClassName("nonSort");
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  }
+  
   inputElements= document.getElementsByClassName("input-drop-down");
   for (var i=0;i<inputElements.length;i++) {
     if(inputElements[i].value != null && inputElements[i].value.length < 1) {     

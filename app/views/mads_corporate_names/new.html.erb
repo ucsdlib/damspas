@@ -1,5 +1,5 @@
 <h1>Create a new MADS Corporate Name</h1>
-<%= form_for @mads_corporate_name do |f| %>
+<%= form_for @mads_corporate_name, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'mads_corporate_name[name]', "Name" %>
   <%= text_field_tag 'mads_corporate_name[name]', '', required: true, class: "input-block-level"  %>               

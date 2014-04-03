@@ -1,5 +1,5 @@
 <h1>Create a new MADS Family Name</h1>
-<%= form_for @mads_family_name do |f| %>
+<%= form_for @mads_family_name, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_family_name[name]', "Name" %>
   <%= text_field_tag 'mads_family_name[name]', '', required: true, class: "input-block-level"  %>

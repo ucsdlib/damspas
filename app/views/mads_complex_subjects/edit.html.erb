@@ -5,7 +5,7 @@
 	
 		<h2>Edit Complex Subject</h2>
 		
-		<%= form_for @mads_complex_subject do |f| %>
+		<%= form_for @mads_complex_subject, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 			<%= render 'error_messages', object: f.object %>
 			<%= label_tag 'mads_complex_subject[name][]', "Name" %>
 			<%= text_field_tag 'mads_complex_subject[name][]', @mads_complex_subject.name[0], class: "input-block-level" %>

@@ -1,5 +1,5 @@
 <h1>Create a new DAMS Cultural Context</h1>
-<%= form_for @dams_cultural_context do |f| %>
+<%= form_for @dams_cultural_context, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'dams_cultural_context[name]', "Name" %>
   <%= text_field_tag 'dams_cultural_context[name]', '', required: true , class: "input-block-level"%>
@@ -8,7 +8,7 @@
 
   <%= f.fields_for :culturalContextElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue, class: "input-block-level" %>
+    <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
