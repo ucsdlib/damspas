@@ -80,6 +80,7 @@ Hydra::Application.routes.draw do
   resources :dams_cultures
   resources :dams_cultural_contexts
   resources :dams_functions
+  resources :dams_related_resources
   resources :mads_personal_names
   resources :mads_family_names
   resources :mads_corporate_names

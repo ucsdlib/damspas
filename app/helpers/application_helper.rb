@@ -177,11 +177,12 @@ end
  
   def link_to_remove_fields(name, f)
     #f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
-    link_to_function name, "remove_fields(this)"
+    #link_to_function name, "remove_fields(this)"
+    link_to_function(name, "remove_fields(this)", :class => 'removeField')
   end
 
   def link_to_delete_fields(name)
-    link_to_function name, "remove_fields(this)"
+    link_to_function(name, "remove_fields(this)", :class => 'removeField')
   end
       
   def link_to_add_fields(name, f, association, type, objectType)
@@ -189,13 +190,13 @@ end
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
       render("shared/edit_fields/"+association.to_s.singularize + "_fields", :f => builder, :object_type => objectType, :is_first => "false")
     end
-    link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
+    link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => 'addField')
   end 
 
   def link_to_add_edit_fields(name, f, association, objectType)
     fields = render("shared/edit_fields/"+association.to_s.singularize + "_edit_fields", :f => f, :object_type => objectType)
 
-    link_to_function name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"
+    link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => 'addField')
   end
   
   def link_to_add_dynamic_fields(name, f, objectType, typeArray, className, index, edit)
@@ -204,7 +205,7 @@ end
     else
       fields = render("shared/edit_fields/#{className}_fields", :f => f, :object_type => objectType, :typeArray => typeArray)
     end
-    link_to_function name, "add_dynamic_fields(this, \"#{escape_javascript(fields)}\", \"#{escape_javascript(className.camelize)}\")"
+    link_to_function(name, "add_dynamic_fields(this, \"#{escape_javascript(fields)}\", \"#{escape_javascript(className.camelize)}\")", :class => 'addField')
   end
     
 end 

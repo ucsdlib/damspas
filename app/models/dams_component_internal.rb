@@ -46,7 +46,7 @@ class DamsComponentInternal
 	  map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
       # related resources
-      map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
+      map.relatedResource(:in => DAMS, :class_name => 'DamsRelatedResourceInternal')
 
       # components and files
       map.subcomponent(:in=>DAMS, :to=>'hasComponent', :class_name => 'DamsComponentInternal')

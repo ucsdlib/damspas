@@ -5,7 +5,7 @@
 	
 		<h2>Edit Family Name</h2>
 		
-		<%= form_for @mads_family_name do |f| %>
+		<%= form_for @mads_family_name, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
 		

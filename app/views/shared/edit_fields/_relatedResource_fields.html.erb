@@ -1,15 +1,4 @@
-<%
-   resourceTypeArray = [["related", "related"],["online exhibit", "online exhibit"],["online finding aid", "online finding aid"],["news release", "news release"],
-   						["depiction", "depiction"],["journal entry", "journal entry"],["basket", "basket"],["artifact", "artifact"]]
-%> 
 <div class="fields">
-    <%= f.select :type, options_for_select(resourceTypeArray) , {:include_blank => 'Select Type'}, :class=>"input-drop-down"%>    
-    <%= f.label :uri, "URI" %>
-    <%= f.url_field :uri, :value => "", class: "input-block-level" %>
-    <%= f.label :description, "Description" %>
-    <%= f.text_field :description, :value => "", class: "input-block-level" %>    
-    <br/>
-    <% if (f.object.class != RelatedResource) %>
-    	<%= link_to_remove_fields "Remove Related Resource", f %>
-    <% end %>    
+	<%= f.select :id, options_for_select(@dams_related_resources) , {:include_blank => 'Select Related Resource'}, :id=>"newClassNameRelatedResourceId", :onChange=>"javascript: checkOption(this.id,true,'dams_related_resources');", :style => "width:350px"%>    
+    <p class="removeIcon"><%= link_to_remove_fields "X", f %></p>
 </div>

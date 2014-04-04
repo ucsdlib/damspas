@@ -2,13 +2,13 @@
 <%= form_for @dams_unit do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'dams_unit[name]', "Name" %>
-  <%= text_field_tag 'dams_unit[name]' %>
+  <%= text_field_tag 'dams_unit[name]', '', class: "input-block-level"  %>
 	<%= label_tag 'dams_unit[code]', "Code" %>
-  <%= text_field_tag 'dams_unit[code]' %>
+  <%= text_field_tag 'dams_unit[code]', '', class: "input-block-level"  %>
   <%= label_tag 'dams_unit[description]', "Description" %>
-  <%= text_area_tag 'dams_unit[description]', "", :rows => 10 %>
+  <%= text_area_tag 'dams_unit[description]', "", :rows => 10, class: "input-block-level"  %>
   <%= label_tag 'dams_unit[uri]', "URI" %>
-  <%= url_field_tag 'dams_unit[uri]' %>
+  <%= url_field_tag 'dams_unit[uri]', '', class: "input-block-level"  %>
   <br>
 
   <%=f.submit "Submit", class: "btn btn-primary" %>

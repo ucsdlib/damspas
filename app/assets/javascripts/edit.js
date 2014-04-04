@@ -33,7 +33,12 @@ var subjectLOC = new Bloodhound({
   subjectLOC.initialize();
   
    
-  $('#subjectField .typeahead').typeahead(null, 
+  $('#subjectField .typeahead').typeahead(
+  {
+  hint: true,
+  highlight: true,
+  minLength: 2
+  }, 
   {
     name: 'subject-local',
     displayKey: 'value',
@@ -98,6 +103,8 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
   else {
     url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
   }
+  
+
   
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
@@ -270,7 +277,8 @@ function add_fields(link, association, content) {
     var new_id = new Date().getTime();
     //var regexp = new RegExp("new_" + association, "g");
     var regexp = new RegExp("newClassName", "g");
-    content = content.replace("newClassName",new_id);  
+    content = content.replace("newClassName",new_id);
+    content = content.replace("new_",new_id);
     if(association == "complexSubject") {
       content = content.replace("complexSubjectId",new_id);
       complexSubjectIdArray.push(new_id);
@@ -357,6 +365,14 @@ function removeEmptyFields() {
     }
   }
 
+  inputElements= document.getElementsByClassName("nonSort");
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  }
+  
   inputElements= document.getElementsByClassName("input-drop-down");
   for (var i=0;i<inputElements.length;i++) {
     if(inputElements[i].value != null && inputElements[i].value.length < 1) {     

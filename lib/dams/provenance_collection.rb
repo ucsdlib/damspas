@@ -55,7 +55,7 @@ module Dams
         map.personalName(:in => DAMS, :class_name => 'MadsPersonalNameInternal')
 
         # related resources and events
-        map.relatedResource(:in => DAMS, :class_name => 'RelatedResource')
+        map.relatedResource(:in => DAMS, :class_name => 'DamsRelatedResourceInternal')
         map.event(:in=>DAMS, :class_name => 'DamsEventInternal')
         
         # unit and collections
@@ -106,7 +106,20 @@ module Dams
                   graph.update([rdf_subject, DAMS.language, @langURI])
                 end     
           end
-      end    
+        end
+        if(!@relResourceURI.nil?)
+			if(@relResourceURI.class == Array)
+				@relResourceURI.each do |rel|
+			        graph.insert([rdf_subject, DAMS.relatedResource, rel])
+			    end
+			else
+			      if new?
+			        graph.insert([rdf_subject, DAMS.relatedResource, @relResourceURI])
+			      else
+			        graph.update([rdf_subject, DAMS.relatedResource, @relResourceURI])
+			      end			
+			end
+	    end	    
         if(!@damsObjURI.nil?)
           if new?
             graph.insert([rdf_subject, DAMS.object, @damsObjURI])

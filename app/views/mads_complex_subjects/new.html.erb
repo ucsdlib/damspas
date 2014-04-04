@@ -1,50 +1,50 @@
 <h1>Create a new MADS Complex Subject</h1>
-<%= form_for @mads_complex_subject do |f| %>
+<%= form_for @mads_complex_subject, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 	<%= render 'error_messages' %>
   <%= label_tag 'mads_complex_subject[name]', "Name" %>
-  <%= text_field_tag 'mads_complex_subject[name]', '', required: true%>
+  <%= text_field_tag 'mads_complex_subject[name]', '', required: true, class: "input-block-level"%>
   <%= label_tag 'mads_complex_subject[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'mads_complex_subject[externalAuthority]' %>
+  <%= url_field_tag 'mads_complex_subject[externalAuthority]','', class: "input-block-level" %>
   
   <%= f.fields_for :topic do |to| %>
     <%= to.label :name, "Topic" %>
-    <%= to.text_field :name, :value => "" %>
+    <%= to.text_field :name, :value => "", class: "input-block-level" %>
   <% end %> 
   <%= f.fields_for :temporal do |temp| %>
     <%= temp.label :name, "Temporal" %>
-    <%= temp.text_field :name, :value => "" %>
+    <%= temp.text_field :name, :value => "", class: "input-block-level" %>
   <% end %>
   <%= f.fields_for :genreForm do |genForm| %>
     <%= genForm.label :name, "GenreForm" %>
-    <%= genForm.text_field :name, :value => "" %>
+    <%= genForm.text_field :name, :value => "", class: "input-block-level" %>
   <% end %> 
   <%= f.fields_for :geographic do |geo| %>
     <%= geo.label :name, "Geographic" %>
-    <%= geo.text_field :name, :value => "" %>
+    <%= geo.text_field :name, :value => "", class: "input-block-level" %>
   <% end %>
   <%= f.fields_for :occupation do |oc| %>
     <%= oc.label :name, "Occupation" %>
-    <%= oc.text_field :name, :value => "" %>
+    <%= oc.text_field :name, :value => "", class: "input-block-level" %>
   <% end %> 
   <%= f.fields_for :personalName do |persName| %>
     <%= persName.label :name, "PersonalName" %>
-    <%= persName.text_field :name, :value => "" %>
+    <%= persName.text_field :name, :value => "", class: "input-block-level" %>
   <% end %>
   <%= f.fields_for :conferenceName do |confName| %>
     <%= confName.label :name, "ConferenceName" %>
-    <%= confName.text_field :name, :value => "" %>
+    <%= confName.text_field :name, :value => "", class: "input-block-level" %>
   <% end %>   
   <%= f.fields_for :corporateName do |corpName| %>
     <%= corpName.label :name, "CorporateName" %>
-    <%= corpName.text_field :name, :value => "" %>
+    <%= corpName.text_field :name, :value => "", class: "input-block-level" %>
   <% end %>
   <%= f.fields_for :familyName do |famName| %>
     <%= famName.label :name, "FamilyName" %>
-    <%= famName.text_field :name, :value => "" %>
+    <%= famName.text_field :name, :value => "", class: "input-block-level" %>
   <% end %>
   <%= f.fields_for :genericName do |genName| %>
     <%= genName.label :name, "Generic Name" %>
-    <%= genName.text_field :name, :value => "" %>
+    <%= genName.text_field :name, :value => "", class: "input-block-level" %>
   <% end %>                
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

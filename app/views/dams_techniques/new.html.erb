@@ -1,14 +1,14 @@
 <h1>Create a new Dams Technique</h1>
-<%= form_for @dams_technique do |f| %>
+<%= form_for @dams_technique, :html => { :onsubmit => 'removeEmptyFields();'}  do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'dams_technique[name]', "Name" %>
-  <%= text_field_tag 'dams_technique[name]', '', required: true %>
+  <%= text_field_tag 'dams_technique[name]', '', required: true, class: "input-block-level"  %>
   <%= label_tag 'dams_technique[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'dams_technique[externalAuthority]' %> 
+  <%= url_field_tag 'dams_technique[externalAuthority]', '', class: "input-block-level"  %> 
   
   <%= f.fields_for :techniqueElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue %>
+    <%= te.text_field :elementValue, class: "input-block-level", :required=>true  %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

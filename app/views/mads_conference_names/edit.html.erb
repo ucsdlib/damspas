@@ -4,7 +4,7 @@
 	<div class="span10 offset1">
 	
 		<h2>Edit Conference Name</h2>
-		<%= form_for @mads_conference_name do |f| %>
+		<%= form_for @mads_conference_name, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 			<%= render 'error_messages', object: f.object %>
 			<%= label_tag 'mads_conference_name[name][]', "Name" %>
 			<%= text_field_tag 'mads_conference_name[name][]', @mads_conference_name.name[0], class: "input-block-level" %>

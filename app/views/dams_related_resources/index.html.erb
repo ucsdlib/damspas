@@ -1,0 +1,16 @@
+<h1>DAMS Related Resource</h1>
+<div>
+  <% if can? :create, DamsRelatedResource%>
+    <%= link_to "Create DAMS Related Resource", new_dams_related_resource_path, :class => 'btn btn-primary'%>
+  <% end %>
+</div>
+
+<div class="span6">
+  <ul>
+    <% @document.each do |doc| %>
+      <%if doc['type_tesim']!=nil %>
+       <li><%= link_to doc['type_tesim'].first, dams_related_resource_path(doc['id']) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

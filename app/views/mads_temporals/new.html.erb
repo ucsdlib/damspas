@@ -1,13 +1,13 @@
 <h1>Create a new MADS Temporal</h1>
-<%= form_for @mads_temporal do |f| %>
+<%= form_for @mads_temporal, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= render 'error_messages' %>
   <%= label_tag 'mads_temporal[name]', "Name" %>
-  <%= text_field_tag 'mads_temporal[name]', '', required: true %>
+  <%= text_field_tag 'mads_temporal[name]', '', required: true, class: "input-block-level"  %>
   <%= label_tag 'mads_temporal[externalAuthority]', "ExternalAuthority" %>
-  <%= url_field_tag 'mads_temporal[externalAuthority]' %> 
+  <%= url_field_tag 'mads_temporal[externalAuthority]', '', class: "input-block-level"  %> 
   <%= f.fields_for :temporalElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue %>
+    <%= te.text_field :elementValue, class: "input-block-level", :required=>true  %>
   <% end %>  
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

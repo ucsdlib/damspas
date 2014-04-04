@@ -155,6 +155,8 @@ class DamsObjectsController < ApplicationController
   	@dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
   	@dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
   	@mads_schemes = get_objects('MadsScheme','name_tesim')
+  	@dams_related_resources =  get_related_resource_url('DamsRelatedResource','type_tesim','relatedResourceDescription_tesim')
+  	@dams_related_resources << "Create New Related Resource"
   	
 #	uri = URI('http://fast.oclc.org/fastSuggest/select')
 #	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
@@ -187,7 +189,9 @@ class DamsObjectsController < ApplicationController
   	@dams_other_rights = get_objects('DamsOtherRight','note_tesim')
   	@dams_licenses = get_objects('DamsLicense','note_tesim')
   	@dams_rightsHolders = get_objects('MadsPersonalName','name_tesim')
-  	 	
+  	@dams_related_resources =  get_related_resource_url('DamsRelatedResource','type_tesim','relatedResourceDescription_tesim')
+  	@dams_related_resources << "Create New Related Resource"
+  	  	 	
   	@unit_id = @dams_object.unit.to_s.gsub(/.*\//,'')[0..9]
   	#@assembled_collection_id = @dams_object.assembledCollectionURI.to_s.gsub(/.*\//,'')[0..9]
   	#@provenance_collection_id = @dams_object.provenanceCollectionURI.to_s.gsub(/.*\//,'')[0..9]
@@ -308,7 +312,7 @@ class DamsObjectsController < ApplicationController
     @dams_object.scopeContentNote.clear
     @dams_object.custodialResponsibilityNote.clear
     @dams_object.preferredCitationNote.clear
-    @dams_object.relatedResource.clear
+    #@dams_object.relatedResource.clear
     @dams_object.cartographics.clear
     @dams_object.complexSubject.clear
     @dams_object.builtWorkPlace.clear

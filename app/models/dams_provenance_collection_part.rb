@@ -57,6 +57,7 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
     :personalName,
     :preferredCitationNote,
     :preferredCitationNote_attributes,
+    :relResourceURI,
     :relatedResource_attributes,
     :relatedResource,
     :relatedResourceDescription, 

@@ -4,13 +4,13 @@
 <% if !@relationship.nil? and @relationship == "true"%>
 	<% if !@fieldName.nil? and @fieldName == "relationshipNameURI"%>
 		<b><%= @label%></b><br/>
-		<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
+		<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :required=>"required", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
 		<br/>
-		<%= select_tag "#{@formType}[relationshipRoleURI][]", options_for_select(@mads_authorities, :selected => "#{Rails.configuration.id_namespace}#{@selectedRole}") , :prompt=>"Select Role", :class=>"newClassNameRole", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'role');"%>
+		<%= select_tag "#{@formType}[relationshipRoleURI][]", options_for_select(@mads_authorities, :selected => "#{Rails.configuration.id_namespace}#{@selectedRole}") , :prompt=>"Select Role", :class=>"newClassNameRole", :required=>"required", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'role');"%>
 	<% else %>
-		<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+		<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :required=>"required", :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
 		<br/>
-		<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][role_attributes][#{@fieldId}][id]", options_for_select(@mads_authorities) , :prompt=>"Select Role", :onChange=>"javascript: checkOption(this.id,true,'role');"%>
+		<%= select_tag "#{@formType}[relationship_attributes][#{@fieldId}][role_attributes][#{@fieldId}][id]", options_for_select(@mads_authorities) , :prompt=>"Select Role", :required=>"required", :onChange=>"javascript: checkOption(this.id,true,'role');"%>
 	<% end %>
 <% else %>
 	<% if !@fieldName.nil? and (@fieldName == "creatorURI" or @fieldName == "rightsHolderURI")%>
@@ -20,5 +20,4 @@
 		<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
 	<% end %>
 <% end %>
-<br/>
-<%= link_to_delete_fields "Remove #{@label}"%>
+<p class="removeIcon"><%= link_to_delete_fields "X"%></p>

@@ -13,8 +13,16 @@ class ApplicationController < ActionController::Base
       end
       begin
         yield
+      rescue CanCan::AccessDenied => e
+        render file: "#{Rails.root}/public/403", formats: [:html], status: 403, layout: false
+      rescue ActionController::RoutingError => e
+        render file: "#{Rails.root}/public/404", formats: [:html], status: 404, layout: false
       rescue Exception => e
-        logger.warn "Error wrapping anonymous request: #{e.backtrace}"
+        render file: "#{Rails.root}/public/500", formats: [:html], status: 500, layout: false
+        logger.warn "Error wrapping anonymous request: #{e}"
+        e.backtrace.each do |line|
+          logger.warn line
+        end
       ensure
         @current_user = nil
       end
@@ -40,5 +48,9 @@ class ApplicationController < ActionController::Base
   # custom 403 error page
   rescue_from CanCan::AccessDenied do |exception|
     render file: "#{Rails.root}/public/403", formats: [:html], status: 403, layout: false
+  end
+  # custom 404 error page
+  rescue_from ActionController::RoutingError do |exception|
+    render file: "#{Rails.root}/public/404", formats: [:html], status: 404, layout: false
   end
 end

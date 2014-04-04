@@ -39,13 +39,13 @@ feature 'Visitor want to look at objects' do
   end
 
   scenario 'view a file from a non-existing object' do
-    expect { visit file_path('xxx','xxx') }.to raise_error(
-      ActionController::RoutingError)
+    visit file_path('xxx','xxx')
+    expect(page).to have_content "The page you were looking for does not exist."
   end
 
   scenario 'view a non-existing file from an existing object' do
-    expect { visit file_path('bd0922518w','xxx') }.to raise_error(
-      ActionController::RoutingError)
+    visit file_path('bd0922518w','xxx')
+    expect(page).to have_content "The page you were looking for does not exist."
   end
 
 end

@@ -88,7 +88,8 @@ class DamsAssembledCollectionsController < ApplicationController
     @dams_conference_names = get_objects_url('MadsConferenceName','name_tesim')
     @dams_provenance_collection_parts=get_objects_url('DamsProvenanceCollectionPart','title_tesim')
     @mads_schemes = get_objects('MadsScheme','name_tesim')
-    
+    @dams_related_resources =  get_related_resource_url('DamsRelatedResource','type_tesim','relatedResourceDescription_tesim')
+  	@dams_related_resources << "Create New Related Resource"
 end
 
   def edit
@@ -114,7 +115,8 @@ end
     @creator_id = get_name_id(@dams_assembled_collection)   
     @complexSubject_id = @dams_assembled_collection.complexSubject.to_s.gsub(/.*\//,'')[0..9] if !@dams_assembled_collection.complexSubject.nil?
     @simpleSubjectValue = get_simple_subject_value(@dams_assembled_collection)
-
+	@dams_related_resources =  get_related_resource_url('DamsRelatedResource','type_tesim','relatedResourceDescription_tesim')
+  	@dams_related_resources << "Create New Related Resource"
 
    @simple_name_type = get_name_type(@dams_assembled_collection)
    @creator_type = get_name_type(@dams_assembled_collection)

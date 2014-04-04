@@ -98,6 +98,7 @@ class Ability
       can [:read], DamsBuiltWorkPlace
       can [:read], DamsScientificName
       can [:read], DamsStylePeriod
+      can [:read], DamsRelatedResource      
       can [:read], MadsPersonalName
       can [:read], MadsComplexSubject
       can [:read], MadsTopic
@@ -122,6 +123,7 @@ class Ability
       can [:read], DamsAssembledCollection
       can [:read], DamsProvenanceCollection
       can [:read], DamsProvenanceCollectionPart
+      can [:read, :create, :update], DamsRelatedResource
       can [:read, :create, :update], DamsFunction
       can [:read, :create, :update], DamsCulturalContext
       can [:read, :create, :update], DamsTechnique
