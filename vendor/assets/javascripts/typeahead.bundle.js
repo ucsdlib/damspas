@@ -131,6 +131,7 @@
             }
         };
         function whitespace(s) {
+            
             return s.split(/\s+/);
         }
         function nonword(s) {
