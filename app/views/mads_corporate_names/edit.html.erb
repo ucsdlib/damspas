@@ -10,11 +10,11 @@
 
       <%= label_tag 'mads_corporate_name[name][]', "Name" %>
       <%= text_field_tag 'mads_corporate_name[name][]', @mads_corporate_name.name[0], class: "input-block-level" %>
-      <%= label_tag 'mads_corporate_name[externalAuthority][]', "ExternalAuthority" %>
+      <%= label_tag 'mads_corporate_name[externalAuthority][]', "URI" %>
       <%= text_field_tag 'mads_corporate_name[externalAuthority][]', @mads_corporate_name.externalAuthority, class: "input-block-level" %>
       <%= f.fields_for :scheme, include_id: false do |se| %>
-        <%= se.label :id, "Scheme" %>
-        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+        <%= se.label :id, "Vocabulary" %>
+        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select Vocabulary" %>
       <% end %>
         
       <%= label_tag 'mads_corporate_name[dateNameElement_attributes][0][elementValue]', "Dates" %>

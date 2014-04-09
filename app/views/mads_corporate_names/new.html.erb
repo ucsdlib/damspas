@@ -3,9 +3,10 @@
   <%= render 'error_messages' %>
   <%= label_tag 'mads_corporate_name[name]', "Name" %>
   <%= text_field_tag 'mads_corporate_name[name]', '', required: true, class: "input-block-level"  %>               
-  <%= label_tag 'mads_corporate_name[externalAuthority]', "ExternalAuthority" %>
+  <%= label_tag 'mads_corporate_name[externalAuthority]', "URI" %>
   <%= url_field_tag 'mads_corporate_name[externalAuthority]', '', class: "input-block-level"  %> 
-    
+   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
+  <br> 
     <%= f.fields_for :dateNameElement do |date| %>
       <%= date.label :elementValue, "Dates" %>
       <%= date.text_field :elementValue, class: "input-block-level"  %>
@@ -15,8 +16,7 @@
       <%= na.text_field :elementValue, class: "input-block-level"  %>
     <% end %>    
   <br>
-    <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
-  <br>
+    
   <%= render :partial => 'shared/edit_fields/new_form_hidden_fields' , :locals => {:parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
     <%=f.submit "Save", class: "btn btn-primary" %>
   <%= link_to "Cancel", mads_corporate_names_path, class: "btn btn-primary" %>
