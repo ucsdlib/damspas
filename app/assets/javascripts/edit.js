@@ -1,156 +1,140 @@
 function getAutocompleteList_callback(){
-   var s = [{"id":"http://library.ucsd.edu/ark:/20775/xx00000143","label":"abc"},{"id":"http://library.ucsd.edu/ark:/20775/xx00000147","label":"histo"}]
 
-var labels = new Bloodhound({
-    datumTokenizer: function (d) {
+    var labels = new Bloodhound({
+        datumTokenizer: function (d) {
 
-        return Bloodhound.tokenizers.whitespace(d.label);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    prefetch: {
-      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
-      ttl: 0,
-      // the json file contains an array of strings, but the Bloodhound
-      // suggestion engine expects JavaScript objects so this converts all of
-      // those strings
-      filter: function(items) {
-            return $.map(items, function(item) { 
-                   return { label: item.label, id: item.id }; 
-            });
-       }  
-    }
-});
+            return Bloodhound.tokenizers.whitespace(d.label);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: {
+          url: '/get_data/get_dams_data/get_dams_data?q=Topic',
+          ttl: 0,
+          // the json file contains an array of strings, but the Bloodhound
+          // suggestion engine expects JavaScript objects so this converts all of
+          // those strings
+          filter: function(items) {
+                return $.map(items, function(item) { 
+                       return { label: item.label, id: item.id }; 
+                });
+           }  
+        }
+    });
 
-// Initialise Bloodhound suggestion engines for each input
-labels.initialize();
+    // Initialise Bloodhound suggestion engines for each input
+    labels.initialize();
 
+    var subjectLabelTypeahead = $('#subject_label.typeahead');
+    var subjectIdTypeahead = $('#subject_id');
 
-var subjectLabelTypeahead = $('#subject_label.typeahead');
-var subjectIdTypeahead = $('#subject_id');
+    // Initialise typeahead 
+    subjectLabelTypeahead.typeahead({
+        highlight: true
+    }, {
+        name: 'label',
+        displayKey: 'label',
+        source: labels.ttAdapter()
+    });
 
-// Initialise typeahead 
-subjectLabelTypeahead.typeahead({
-    highlight: true
-}, {
-    name: 'label',
-    displayKey: 'label',
-    source: labels.ttAdapter()
-});
+    // Set-up callback event handlers so that the ID is auto-populated when label is selected
+    var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
+         //alert(suggestionObject.toSource());
+         subjectIdTypeahead.val(suggestionObject.id);
+    };
 
-
-var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
-     //alert(suggestionObject.toSource());
-     subjectIdTypeahead.val(suggestionObject.id);
-};
-
-subjectLabelTypeahead.on('typeahead:selected', subjectLabelItemSelectedHandler);
+    subjectLabelTypeahead.on('typeahead:selected', subjectLabelItemSelectedHandler);
 
 }
-
-
-
-
-
-function getAutocompleteItem3(){
-   var s = [{"id":"http://library.ucsd.edu/ark:/20775/xx00000143","label":"bbb"},{"id":"http://library.ucsd.edu/ark:/20775/xx00000147","label":"histo"}]
-
-var labels = new Bloodhound({
-    datumTokenizer: function (d) {
-        return Bloodhound.tokenizers.whitespace(d.label);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: s
-});
-
-// Initialise Bloodhound suggestion engines for each input
-labels.initialize();
-
-var subjectLabelTypeahead = $('#subject_label.typeahead');
-var subjectIdTypeahead = $('#subject_id');
-
-// Initialise typeahead 
-subjectLabelTypeahead.typeahead({
-    highlight: true
-}, {
-    name: 'label',
-    displayKey: 'label',
-    source: labels.ttAdapter()
-});
-
-// Set-up event handlers so that the ID is auto-populated in the id typeahead input when the name is
-
-var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
-    
-    
-    subjectIdTypeahead.val(suggestionObject.id);
-};
-
-// Associate the typeahead:selected event with the bespoke handler
-subjectLabelTypeahead.on('typeahead:selected', subjectLabelItemSelectedHandler);
-
-}
-
-
-
-
-
 
 function getAutoCompleteList_mixed(){
  
-var subjectLocal = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
- 
-    prefetch: {
-      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
-      
-      
-      filter: function(list) {
-        return $.map(list, function(item) { return { value: item.label }; });
-      }
-    }
-  });
- 
-var subjectLOC = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-        url:'/qa/search/loc/subjects?q=%QUERY',
-       
-        filter: function(list) {
-        return $.map(list, function(item) { return { value: item.label }; });
+    var subjectLocal = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+     
+        prefetch: {
+          url: '/get_data/get_dams_data/get_dams_data?q=Topic',
+          filter: function(list) {
+            return $.map(list, function(item) { return { value: item.label }; });
+          }
         }
-     }  
+      });
+     
+    var subjectLOC = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url:'/qa/search/loc/subjects?q=%QUERY',
+            filter: function(list) {
+            return $.map(list, function(item) { return { value: item.label }; });
+            }
+         }  
 
-  });
+      });
 
-  subjectLocal.initialize();
-  subjectLOC.initialize();
-  
-  
-   
-  $('#subjectField .typeahead').typeahead(
-  {
-  hint: true,
-  highlight: true,
-  minLength: 2
-  }, 
-  {
-    name: 'subject-local',
-    displayKey: 'value',
-    source: subjectLocal.ttAdapter(),
-    templates: {
-    header: '<h4 class="subject-name">DAMS</h4>'
-    }
-   },
-  {
-    name: 'subject-LOC',
-    displayKey: 'value',
-    source: subjectLOC.ttAdapter(),
-    templates: {
-    header: '<h4 class="subject-name">LOC</h4>'
-    }
-   });
+      subjectLocal.initialize();
+      subjectLOC.initialize();
+      
+      $('#subjectField .typeahead').typeahead(
+      {
+      hint: true,
+      highlight: true,
+      minLength: 2
+      }, 
+      {
+        name: 'subject-local',
+        displayKey: 'value',
+        source: subjectLocal.ttAdapter(),
+        templates: {
+        header: '<h4 class="subject-name">DAMS</h4>'
+        }
+       },
+      {
+        name: 'subject-LOC',
+        displayKey: 'value',
+        source: subjectLOC.ttAdapter(),
+        templates: {
+        header: '<h4 class="subject-name">LOC</h4>'
+        }
+       });
+
+}
+
+function getAutocompleteItem(){
+       var s = [{"id":"http://library.ucsd.edu/ark:/20775/xx00000143","label":"bbb"},{"id":"http://library.ucsd.edu/ark:/20775/xx00000147","label":"histo"}]
+
+    var labels = new Bloodhound({
+        datumTokenizer: function (d) {
+            return Bloodhound.tokenizers.whitespace(d.label);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: s
+    });
+
+    // Initialise Bloodhound suggestion engines for each input
+    labels.initialize();
+
+    var subjectLabelTypeahead = $('#subject_label.typeahead');
+    var subjectIdTypeahead = $('#subject_id');
+
+    // Initialise typeahead 
+    subjectLabelTypeahead.typeahead({
+        highlight: true
+    }, {
+        name: 'label',
+        displayKey: 'label',
+        source: labels.ttAdapter()
+    });
+
+    // Set-up event handlers so that the ID is auto-populated in the id typeahead input when the name is
+
+    var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
+        
+        
+        subjectIdTypeahead.val(suggestionObject.id);
+    };
+
+    // Associate the typeahead:selected event with the bespoke handler
+    subjectLabelTypeahead.on('typeahead:selected', subjectLabelItemSelectedHandler);
 
 }
 
