@@ -5,6 +5,11 @@
 	<% if getFilesType == "PDF" %>
 		<% if displayFilePath.to_s == ''%> 
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => filePath} %>
+		<% else %>
+			<div class="file-thumbnail">
+				<%= link_to image_tag(displayFilePath, :alt => ''), zoomFilePath %>
+			</div>
+			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
 		<% end %>
 		<%= render :partial => 'data_viewer', :locals => {:filePath => pdfFilePath, :objectType => 'simple', :displayFilePath => displayFilePath} %>
 	<% else %>
