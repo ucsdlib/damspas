@@ -11,9 +11,9 @@ class GetDataController < ApplicationController
   
   def get_dams_data
 
-  	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
+  	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'topic')
 		@docs = get_objects_json('MadsTopic','name_tesim')
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'BuiltWorkPlace')
+  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'builtWorkPlace')
 		@docs = get_objects_json('DamsBuiltWorkPlace','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CulturalContext')
 		@docs = get_objects_json('DamsCulturalContext','name_tesim')		

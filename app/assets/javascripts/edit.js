@@ -1,4 +1,10 @@
-function getAutocompleteList_callback(){
+function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel){
+    
+    
+    var IDTag='#'+elementID;
+    var typeaheadLabelTag='#'+elementLabel+'.typeahead';
+    alert(IDTag);
+    alert(typeaheadLabelTag);
 
     var labels = new Bloodhound({
         datumTokenizer: function (d) {
@@ -7,8 +13,8 @@ function getAutocompleteList_callback(){
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: {
-          url: '/get_data/get_dams_data/get_dams_data?q=Topic',
-          ttl: 0,
+          url: '/get_data/get_dams_data/get_dams_data?q='+fieldname,
+          
           // the json file contains an array of strings, but the Bloodhound
           // suggestion engine expects JavaScript objects so this converts all of
           // those strings
@@ -23,8 +29,8 @@ function getAutocompleteList_callback(){
     // Initialise Bloodhound suggestion engines for each input
     labels.initialize();
 
-    var subjectLabelTypeahead = $('#subject_label.typeahead');
-    var subjectIdTypeahead = $('#subject_id');
+    var subjectLabelTypeahead = $(typeaheadLabelTag);
+    var subjectId = $(IDTag);
 
     // Initialise typeahead 
     subjectLabelTypeahead.typeahead({
@@ -38,7 +44,7 @@ function getAutocompleteList_callback(){
     // Set-up callback event handlers so that the ID is auto-populated when label is selected
     var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
          //alert(suggestionObject.toSource());
-         subjectIdTypeahead.val(suggestionObject.id);
+         subjectId.val(suggestionObject.id);
     };
 
     subjectLabelTypeahead.on('typeahead:selected', subjectLabelItemSelectedHandler);
@@ -147,6 +153,85 @@ function getName(type,q,location)
   });  
 }
 
+function getTypeaheadFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
+{  
+  var q = null;
+  var fieldName = null;
+  var typeGet = null;
+  var reg = null;
+  
+  if (typeof link == "string") {
+    q = link;
+    fieldName = typeName+"URI";
+  } else {
+    q = link.value;
+    fieldName = firstToLowerCase(q);
+  }
+  if (typeName == 'simpleSubject') {
+    typeGet = "subject";
+    reg = "newSimpleSubjects";
+  }
+  else if (typeName == 'creator') {
+    typeGet = "name";
+    reg = "newCreator";
+  }
+  else if (typeName == 'relationshipName') {
+    typeGet = "name";
+    reg = "newRelationship";
+  }
+  else if (typeName == 'rightsHolder') {
+    typeGet = "name";
+    reg = "newRightsHolder";
+  }
+  if (relationship == "true") {
+    url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
+  }
+  else {
+    url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
+  }
+  
+
+  
+  if(q != null && q.length > 0) {
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = null;
+      if (relationship == "true")
+      {      
+        regexp = new RegExp("attributes_"+fieldId, "g");
+        var tmp = "attributes]["+fieldId+"]";
+        data = data.replace(regexp,"attributes_"+new_id);
+        data = data.split(tmp).join("attributes]["+new_id+"]");
+      }
+      else
+      {
+        data = data.replace("attributes_"+fieldId+"_id","attributes_"+new_id+"_id");
+        data = data.replace("attributes]["+fieldId+"][id]","attributes]["+new_id+"][id]");
+
+        data = data.replace("attributes_"+fieldId+"_label","attributes_"+new_id+"_label");
+        data = data.replace("attributes]["+fieldId+"][label]","attributes]["+new_id+"][label]");
+      }
+      regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id); 
+      if(location != null && location.length > 0)
+        $(location).html(data);
+      else
+        $(link).parent().before(data);
+      
+      if(typeName == 'simpleSubject')
+      {
+        var elementID= type+"_"+fieldName+"_attributes_"+new_id+"_id";
+        var elementLabel= type+"_"+fieldName+"_attributes_"+new_id+"_label"
+        getAutocompleteList_callback(type,fieldName,elementID,elementLabel);
+      }
+    }); 
+  }
+
+  
+}
+
+
+
 function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
 {  
   var q = null;
@@ -208,8 +293,11 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
         $(location).html(data);
       else
         $(link).parent().before(data);
+       
     }); 
   }
+
+  
 }
 
 function getEditDynamicFields(link,type,location,typeName)

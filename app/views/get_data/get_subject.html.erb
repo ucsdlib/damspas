@@ -7,21 +7,34 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+  
+  //alert ($('.temp_information').data('formtype') );
+  //alert ($('.temp_information').data('fieldId') );
+ // alert ($('.temp_information').data('fieldname') );
+  
+  
+ // getAutocompleteList_callback($('.temp_information').data('formtype'),$('.temp_information').data('fieldname') );
 
-  getAutocompleteList_callback();
-
+  
 });
 </script>
+
+
 
 <% if !@fieldName.nil? and @fieldName == "simpleSubjectURI"%>
 	<b><%= @label%></b><br/>
 	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
 	 
 <% else %>
-	<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+    <%= content_tag :div, class: "temp_information", data: {formtype: @formType, 
+	fieldId: @fieldId, fieldname: @fieldName  } do %>
+    <% end %>
 
-       <input type="text" class="typeahead" id="subject_label" /><br/>
-      <input type="text"  id="subject_id" class="input-block-level" /><br/>
+    <%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", "", class: "input-block-level" %>
+
+	<%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][label]", "", class: "typeahead" %>
       
+    
+     
 <% end %>
 <p class="removeIcon"><%= link_to_delete_fields "X"%></p>
