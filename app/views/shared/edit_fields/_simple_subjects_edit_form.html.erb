@@ -1,3 +1,14 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+  
+ var dataList=$('.temp_information').data('list');
+ alert(dataList.toSource());
+  
+
+  
+});
+</script>
 <h3>Simple Subject</h3>
 <%
 	typeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
@@ -8,6 +19,11 @@
   @simpleSubjects.each do |sub|
 	tmp = JSON.parse(sub.to_json)
 %>
+
+<%= content_tag :div, class: "temp_information", data: {list: @simpleSubjects, 
+	 } do %>
+    <% end %>
+
 	<%= render :partial => 'shared/edit_fields/simple_subjects_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
 <% 
 	i = i+1

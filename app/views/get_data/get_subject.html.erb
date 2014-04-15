@@ -23,16 +23,24 @@ $(document).ready(function(){
 
 <% if !@fieldName.nil? and @fieldName == "simpleSubjectURI"%>
 	<b><%= @label%></b><br/>
-	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
+	<%= text_field_tag "test2", "test2" %>
+    
+    <%= text_field_tag "newClassNameLabel", "0", class: "typeahead" %>
+    <%= text_field_tag "newClassNameID", "#{Rails.configuration.id_namespace}#{@selectedValue}", class: "input-block-level" %>
+
+	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>
+
+	
 	 
 <% else %>
+
+
     <%= content_tag :div, class: "temp_information", data: {formtype: @formType, 
 	fieldId: @fieldId, fieldname: @fieldName  } do %>
     <% end %>
 
-    <%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", "", class: "input-block-level" %>
-
-	<%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][label]", "", class: "typeahead" %>
+    <%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][label]", "", class: "typeahead" %>
+	<%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", "", class: "input-block-level" %>
       
     
      

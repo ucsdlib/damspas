@@ -153,20 +153,25 @@ function getName(type,q,location)
   });  
 }
 
-function getTypeaheadFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
+function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedValue)
 {  
+  
   var q = null;
   var fieldName = null;
   var typeGet = null;
   var reg = null;
   
-  if (typeof link == "string") {
-    q = link;
+  //For edit field
+  if (typeof linkTag == "string") {
+    q = linkTag;
     fieldName = typeName+"URI";
-  } else {
-    q = link.value;
+  } 
+  // For new field
+  else {
+    q = linkTag.value;
     fieldName = firstToLowerCase(q);
   }
+
   if (typeName == 'simpleSubject') {
     typeGet = "subject";
     reg = "newSimpleSubjects";
@@ -175,54 +180,39 @@ function getTypeaheadFields(link,type,location,fieldId,typeName,selectedValue,re
     typeGet = "name";
     reg = "newCreator";
   }
-  else if (typeName == 'relationshipName') {
-    typeGet = "name";
-    reg = "newRelationship";
-  }
-  else if (typeName == 'rightsHolder') {
-    typeGet = "name";
-    reg = "newRightsHolder";
-  }
-  if (relationship == "true") {
-    url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedRole="+selectedRole+"&relationship="+relationship+"&selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
-  }
-  else {
-    url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+type+"&q="+q;
-  }
+  
+ // new http://localhost:3000/get_data/get_subject/get_subject?selectedValue=undefined&fieldId=0&fieldName=builtWorkPlace&formType=dams_object&q=BuiltWorkPlace
+  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
+  
   
 
-  
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
       var new_id = new Date().getTime();
       var regexp = null;
-      if (relationship == "true")
-      {      
-        regexp = new RegExp("attributes_"+fieldId, "g");
-        var tmp = "attributes]["+fieldId+"]";
-        data = data.replace(regexp,"attributes_"+new_id);
-        data = data.split(tmp).join("attributes]["+new_id+"]");
-      }
-      else
-      {
+      
+     
         data = data.replace("attributes_"+fieldId+"_id","attributes_"+new_id+"_id");
         data = data.replace("attributes]["+fieldId+"][id]","attributes]["+new_id+"][id]");
 
         data = data.replace("attributes_"+fieldId+"_label","attributes_"+new_id+"_label");
         data = data.replace("attributes]["+fieldId+"][label]","attributes]["+new_id+"][label]");
-      }
+     
       regexp = new RegExp("newClassName", "g");
       data = data.replace(regexp,new_id); 
       if(location != null && location.length > 0)
         $(location).html(data);
       else
-        $(link).parent().before(data);
+        $(linkTag).parent().before(data);
       
       if(typeName == 'simpleSubject')
       {
+        if()
+        {
         var elementID= type+"_"+fieldName+"_attributes_"+new_id+"_id";
         var elementLabel= type+"_"+fieldName+"_attributes_"+new_id+"_label"
-        getAutocompleteList_callback(type,fieldName,elementID,elementLabel);
+        getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
+        }
       }
     }); 
   }
@@ -230,6 +220,48 @@ function getTypeaheadFields(link,type,location,fieldId,typeName,selectedValue,re
   
 }
 
+function getEditTypeaheadFields(link,formType,location,typeName)
+{  
+  var q = link.value;
+  var typeGet = null;
+  var reg = null;
+  var fieldName = null;
+  var url = null;
+
+  if (typeName == 'simpleSubject') {
+    typeGet = "subject";
+    reg = "newSimpleSubjects";
+  }
+  else if (typeName == 'creator') {
+    typeGet = "name";
+    reg = "newCreator";
+  }
+  
+
+  fieldName = typeName+"URI";
+
+  
+  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?fieldName="+fieldName+"&formType="+formType+"&q="+q;
+  alert(url);
+ 
+
+  if(q != null && q.length > 0) {
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data); 
+
+      if(typeName == 'simpleSubject')
+      {
+        var elementID= new_id+"ID";
+        var elementLabel= new_id+"Label"
+        getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
+      }
+    }); 
+  }
+}
 
 
 function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)

@@ -127,7 +127,19 @@ class GetDataController < ApplicationController
 	render :layout => false
   end
  
-  def get_subject	
+ def get_subject	
+  	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object&fieldName=simpleSubjectURI&label=Subject
+  	
+	@formType = params[:formType]
+	@fieldName = params[:fieldName]
+	@label = params[:q]
+	@fieldId = params[:fieldId]
+	@selectedValue = params[:selectedValue]
+	@subjects = "Create New #{@label}"
+	render :layout => false
+  end
+
+  def get_subject2	
   	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object&fieldName=simpleSubjectURI&label=Subject
   	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
 		@subjects = get_objects_url('MadsTopic','name_tesim')
