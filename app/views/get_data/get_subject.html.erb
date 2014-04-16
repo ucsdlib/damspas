@@ -10,9 +10,15 @@
 
 <% if !@fieldName.nil? and @fieldName == "simpleSubjectURI" %>
 	<b><%= @label%></b><br/>
-	
+    <% if !@selectedValue.nil? and @selectedValue != "0"%>
+
+   
     <%= text_field_tag "newClassNameLabel", "0", class: "typeahead" %>
-    <%= text_field_tag "newClassNameID", "#{Rails.configuration.id_namespace}#{@selectedValue}", class: "input-block-level" %>
+    <%= text_field_tag "#{@formType}[#{@fieldName}][]", "#{Rails.configuration.id_namespace}#{@selectedValue}", class: "input-block-level", id: "newClassNameId"%>
+    <% else %>
+    <%= text_field_tag "newClassNameLabel", "", class: "typeahead" %>
+    <%= text_field_tag "#{@formType}[#{@fieldName}][]", "", class: "input-block-level", id: "newClassNameId" %>
+    <% end %>
   
 <% else %>
    <%= content_tag :div, class: "temp_information", data: {formtype: @formType, 

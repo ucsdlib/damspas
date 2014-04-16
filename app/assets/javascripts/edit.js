@@ -182,7 +182,7 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
  // new http://localhost:3000/get_data/get_subject/get_subject?selectedValue=undefined&fieldId=0&fieldName=builtWorkPlace&formType=dams_object&q=BuiltWorkPlace
  // edit http://localhost:3000/get_data/get_subject/get_subject?selectedValue=xx00000174&fieldId=0&fieldName=simpleSubjectURI&formType=dams_object&q=Topic
   url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
-  alert(url);
+  
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
       var new_id = new Date().getTime();
@@ -209,15 +209,13 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
         getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
         }
         else{
-          var elementID= new_id+"ID";
+          var elementID= new_id+"Id";
          var elementLabel= new_id+"Label";
-        getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
+        getAutocompleteList_callback(formType,q,elementID,elementLabel);
         }
       }
     }); 
   }
-
-  
 }
 
 
@@ -228,6 +226,7 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
   var reg = null;
   var fieldName = null;
   var url = null;
+  var selectedValue = "0";
 
   if (typeName == 'simpleSubject') {
     typeGet = "subject";
@@ -238,11 +237,10 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
     reg = "newCreator";
   }
   
-
-   fieldName = firstToLowerCase(q);;
+  fieldName = typeName+"URI";
 
   //http://localhost:3000/get_data/get_subject/get_subject?fieldName=simpleSubjectURI&formType=dams_object&q=BuiltWorkPlace
-  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?fieldName="+fieldName+"&formType="+formType+"&q="+q;
+  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
   
   alert(url);
   if(q != null && q.length > 0) {
@@ -255,9 +253,9 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
 
       if(typeName == 'simpleSubject')
       {
-        var elementID= new_id+"ID";
+        var elementID= new_id+"Id";
         var elementLabel= new_id+"Label";
-        getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
+        getAutocompleteList_callback(formType,q,elementID,elementLabel);
       }
     }); 
   }
