@@ -224,79 +224,79 @@ logger.warn "XXX #{object.pid}"
 	  	end
 		value   
     end  
-
+    
     def get_simple_subjects(object)   	
     	simpleSubjectArray = Array.new
 
 	  	object.temporal.each do |temp|
   		  simpleSubjectArray << {
-		    :name => "Temporal", :value => get_pid(temp)
+		    :name => "Temporal", :value => get_pid(temp), :label => "temp.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.topic.each do |top|
   		  simpleSubjectArray << {
-		    :name => "Topic", :value => get_pid(top)
+		    :name => "Topic", :value => get_pid(top), :label => "top.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.builtWorkPlace.each do |built|
   		  simpleSubjectArray << {
-		    :name => "BuiltWorkPlace", :value => get_pid(built)
+		    :name => "BuiltWorkPlace", :value => get_pid(built), :label => "built.authoritativeLabel"
 		  }
 	  	end
 
 	  	object.culturalContext.each do |cultural|
   		  simpleSubjectArray << {
-		    :name => "CulturalContext", :value => get_pid(cultural)
+		    :name => "CulturalContext", :value => get_pid(cultural), :label => "cultural.authoritativeLabel"
 		  }	  		
 	  	end
 
 	  	object.function.each do |fun|
   		  simpleSubjectArray << {
-		    :name => "Function", :value => get_pid(fun)
+		    :name => "Function", :value => get_pid(fun), :label => "fun.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.genreForm.each do |genre|
   		  simpleSubjectArray << {
-		    :name => "GenreForm", :value => get_pid(genre)
+		    :name => "GenreForm", :value => get_pid(genre), :label => "genre.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.geographic.each do |geo|
   		  simpleSubjectArray << {
-		    :name => "Geographic", :value => get_pid(geo)
+		    :name => "Geographic", :value => get_pid(geo), :label => "geo.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.iconography.each do |icon|
   		  simpleSubjectArray << {
-		    :name => "Iconography", :value => get_pid(icon)
+		    :name => "Iconography", :value => get_pid(icon), :label => "icon.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.occupation.each do |occ|
   		  simpleSubjectArray << {
-		    :name => "Occupation", :value => get_pid(occ)
+		    :name => "Occupation", :value => get_pid(occ), :label => "occ.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.scientificName.each do |sci|
   		  simpleSubjectArray << {
-		    :name => "ScientificName", :value => get_pid(sci)
+		    :name => "ScientificName", :value => get_pid(sci), :label => "sci.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.stylePeriod.each do |style|
   		  simpleSubjectArray << {
-		    :name => "StylePeriod", :value => get_pid(style)
+		    :name => "StylePeriod", :value => get_pid(style), :label => "style.authoritativeLabel"
 		  }	  		
 	  	end
 	  	
 	  	object.technique.each do |tech|
   		  simpleSubjectArray << {
-		    :name => "Technique", :value => get_pid(tech)
+		    :name => "Technique", :value => get_pid(tech), :label => "tech.authoritativeLabel"
 		  }		  		
 	  	end
 	

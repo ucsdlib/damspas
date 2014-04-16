@@ -3,9 +3,7 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
     
     var IDTag='#'+elementID;
     var typeaheadLabelTag='#'+elementLabel+'.typeahead';
-    alert(IDTag);
-    alert(typeaheadLabelTag);
-
+    
     var labels = new Bloodhound({
         datumTokenizer: function (d) {
 
@@ -182,24 +180,21 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
   }
   
  // new http://localhost:3000/get_data/get_subject/get_subject?selectedValue=undefined&fieldId=0&fieldName=builtWorkPlace&formType=dams_object&q=BuiltWorkPlace
+ // edit http://localhost:3000/get_data/get_subject/get_subject?selectedValue=xx00000174&fieldId=0&fieldName=simpleSubjectURI&formType=dams_object&q=Topic
   url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
-  
-  
-
+  alert(url);
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
       var new_id = new Date().getTime();
       var regexp = null;
-      
-     
         data = data.replace("attributes_"+fieldId+"_id","attributes_"+new_id+"_id");
         data = data.replace("attributes]["+fieldId+"][id]","attributes]["+new_id+"][id]");
 
         data = data.replace("attributes_"+fieldId+"_label","attributes_"+new_id+"_label");
         data = data.replace("attributes]["+fieldId+"][label]","attributes]["+new_id+"][label]");
      
-      regexp = new RegExp("newClassName", "g");
-      data = data.replace(regexp,new_id); 
+        regexp = new RegExp("newClassName", "g");
+        data = data.replace(regexp,new_id); 
       if(location != null && location.length > 0)
         $(location).html(data);
       else
@@ -207,10 +202,15 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
       
       if(typeName == 'simpleSubject')
       {
-        if()
+        if(selectedValue ==null)
         {
-        var elementID= type+"_"+fieldName+"_attributes_"+new_id+"_id";
-        var elementLabel= type+"_"+fieldName+"_attributes_"+new_id+"_label"
+        var elementID= formType+"_"+fieldName+"_attributes_"+new_id+"_id";
+        var elementLabel= formType+"_"+fieldName+"_attributes_"+new_id+"_label"
+        getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
+        }
+        else{
+          var elementID= new_id+"ID";
+         var elementLabel= new_id+"Label";
         getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
         }
       }
@@ -220,9 +220,10 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
   
 }
 
-function getEditTypeaheadFields(link,formType,location,typeName)
+
+function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
 {  
-  var q = link.value;
+  var q = linkTag.value;
   var typeGet = null;
   var reg = null;
   var fieldName = null;
@@ -238,13 +239,12 @@ function getEditTypeaheadFields(link,formType,location,typeName)
   }
   
 
-  fieldName = typeName+"URI";
+   fieldName = firstToLowerCase(q);;
 
-  
+  //http://localhost:3000/get_data/get_subject/get_subject?fieldName=simpleSubjectURI&formType=dams_object&q=BuiltWorkPlace
   url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?fieldName="+fieldName+"&formType="+formType+"&q="+q;
+  
   alert(url);
- 
-
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
       var new_id = new Date().getTime();
@@ -256,7 +256,7 @@ function getEditTypeaheadFields(link,formType,location,typeName)
       if(typeName == 'simpleSubject')
       {
         var elementID= new_id+"ID";
-        var elementLabel= new_id+"Label"
+        var elementLabel= new_id+"Label";
         getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
       }
     }); 
