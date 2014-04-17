@@ -1,5 +1,16 @@
 <% if defined?(fileType) %>
 
+  <% culturallySensitiveText = grabCulturallySensitiveText(@document["otherNote_json_tesim"]) %>
+  <% if !culturallySensitiveText.nil? %>
+    <div class="masked-object">
+	    <div>
+	      <h3>Culturally Sensitive Content</h3>
+	      <p><%= culturallySensitiveText %></p>
+	      <button type="button" class="btn btn-danger btn-mini" onClick="$('.masked-object').hide();$('.simple-object').show();">View Content</button>
+	    </div>
+    </div>
+  <% end %>
+
 	<div class="simple-object">
 		<% case fileType %>
 		<% when 'image-service' %>
