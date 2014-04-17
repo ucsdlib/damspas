@@ -23,7 +23,7 @@ feature 'Visitor wants to create/edit a MADS Corporate Name' do
 		# Create new corporate name
 		fill_in "Other Name", :with => "FooCorp"
 		fill_in "Dates", :with => "1920"
-		fill_in "ExternalAuthority", :with => "http://misterdoe.com"
+		fill_in "URI", :with => "http://misterdoe.com"
 		page.select("Library of Congress Subject Headings", match: :first)
 		click_on "Save"
 		Path.path = current_path
@@ -39,7 +39,7 @@ feature 'Visitor wants to create/edit a MADS Corporate Name' do
 		fill_in "Name", :with => "Last1, 1970"
 		fill_in "Other Name", :with => "Last1"
 		fill_in "Dates", :with => "1970"
-		fill_in "ExternalAuthority", :with => "http://missdoes.com"
+		fill_in "URI", :with => "http://missdoes.com"
 		page.select("Library of Congress Name Authority File", match: :first)
 		click_on "Save changes"
 
@@ -57,7 +57,7 @@ feature 'Visitor wants to create/edit a MADS Corporate Name' do
 		visit Path.path
 		click_on "Edit"
 		#fill_in "Name", :with => "Newer Name"
-		fill_in "ExternalAuthority", :with => "http://corporatename.com"
+		fill_in "URI", :with => "http://corporatename.com"
 		page.select("Library of Congress Subject Headings", match: :first)
 		fill_in "Other Name", :with => "New Corporate Name"
 		fill_in "Dates", :with => "1990"
@@ -82,7 +82,7 @@ feature 'Visitor wants to cancel unsaved edits' do
 		expect(page).to have_selector('a', :text => "Edit")
 		click_on "Edit"
 		#fill_in "Name", :with => "Cancel"
-		fill_in "ExternalAuthority", :with => "http://cancel.com"
+		fill_in "URI", :with => "http://cancel.com"
 		page.select("Library of Congress Name Authority File", match: :first)
 		fill_in "Other Name", :with => "Can Cel"
 		fill_in "Dates", :with => "1999"
