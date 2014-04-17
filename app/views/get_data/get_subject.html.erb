@@ -16,6 +16,7 @@
     <%= text_field_tag "newClassNameLabel", "", class: "typeahead" %>
     <%= text_field_tag "#{@formType}[#{@fieldName}][]", "", class: "input-block-level", id: "newClassNameId" %>
     <% end %>
+
   
 <% else %>
    <%= content_tag :div, class: "temp_information", data: {formtype: @formType, 
@@ -25,7 +26,7 @@
     <%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][label]", "", class: "typeahead" %>
 	<%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", "", class: "input-block-level" %>
       
-    
+    <%=@subjects%>
      
 <% end %>
 <p class="removeIcon"><%= link_to_delete_fields "X"%></p>
