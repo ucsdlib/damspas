@@ -151,7 +151,7 @@ function getName(type,q,location)
   });  
 }
 
-function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedValue)
+function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedValue,selectedLabel)
 {  
   
   var q = null;
@@ -181,7 +181,7 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
   
  // new http://localhost:3000/get_data/get_subject/get_subject?selectedValue=undefined&fieldId=0&fieldName=builtWorkPlace&formType=dams_object&q=BuiltWorkPlace
  // edit http://localhost:3000/get_data/get_subject/get_subject?selectedValue=xx00000174&fieldId=0&fieldName=simpleSubjectURI&formType=dams_object&q=Topic
-  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
+  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&selectedLabel="+selectedLabel+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
   
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
@@ -242,7 +242,7 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
   //http://localhost:3000/get_data/get_subject/get_subject?fieldName=simpleSubjectURI&formType=dams_object&q=BuiltWorkPlace
   url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
   
-  alert(url);
+  
   if(q != null && q.length > 0) {
     $.get(url,function(data,status){
       var new_id = new Date().getTime();

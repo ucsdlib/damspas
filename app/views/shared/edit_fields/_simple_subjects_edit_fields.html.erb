@@ -8,7 +8,7 @@
     
 	<%= hidden_field_tag "#{object_type}[subjectType][]", "#{selected_type}" %>
 	<script type="text/javascript">
-	   getTypeaheadFields("<%= selected_type %>","<%= object_type %>","#newSimpleSubjects<%= index %>","0","simpleSubject","<%= selected_value %>");
+	   getTypeaheadFields("<%= selected_type %>","<%= object_type %>","#newSimpleSubjects<%= index %>","0","simpleSubject","<%= selected_value %>","<%= selected_label %>");
 	</script>
 	<div id="newSimpleSubjects<%= index %>"></div>
 	</div>	

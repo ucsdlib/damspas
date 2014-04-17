@@ -1,6 +1,23 @@
 module Dams
   module ControllerHelper
 
+# Retrieve label from solr index instead of external record from repo
+ def get_linked_object_label(id)
+	  	@doc = get_search_results(:q => "id:#{id}")
+	  	field = "name_tesim";
+		
+        @doc.each do |col| 
+			if col.class == Array
+				col.each do |c|
+					if(c.key?("#{field}"))
+						@label= c.fetch("#{field}").first
+				  end
+				end
+			end
+		end
+       @label
+  end
+
  # Returns an array of JSON objects with id and label
     def get_objects_json(object_type_param,field)
 	  	@doc = get_search_results(:q => "has_model_ssim:info:fedora/afmodel:#{object_type_param}", :rows => '10000')
@@ -230,73 +247,73 @@ logger.warn "XXX #{object.pid}"
 
 	  	object.temporal.each do |temp|
   		  simpleSubjectArray << {
-		    :name => "Temporal", :value => get_pid(temp)
+		    :name => "Temporal", :value => get_pid(temp), :label => get_linked_object_label(get_pid(temp))
 		  }	  		
 	  	end
 	  	
 	  	object.topic.each do |top|
   		  simpleSubjectArray << {
-		    :name => "Topic", :value => get_pid(top)
+		    :name => "Topic", :value => get_pid(top), :label => get_linked_object_label(get_pid(top))
 		  }	  		
 	  	end
 	  	
 	  	object.builtWorkPlace.each do |built|
   		  simpleSubjectArray << {
-		    :name => "BuiltWorkPlace", :value => get_pid(built)
+		    :name => "BuiltWorkPlace", :value => get_pid(built),:label => get_linked_object_label(get_pid(built))
 		  }
 	  	end
 
 	  	object.culturalContext.each do |cultural|
   		  simpleSubjectArray << {
-		    :name => "CulturalContext", :value => get_pid(cultural)
+		    :name => "CulturalContext", :value => get_pid(cultural), :label => get_linked_object_label(get_pid(cultural))
 		  }	  		
 	  	end
 
 	  	object.function.each do |fun|
   		  simpleSubjectArray << {
-		    :name => "Function", :value => get_pid(fun)
+		    :name => "Function", :value => get_pid(fun), :label => get_linked_object_label(get_pid(fun))
 		  }	  		
 	  	end
 	  	
 	  	object.genreForm.each do |genre|
   		  simpleSubjectArray << {
-		    :name => "GenreForm", :value => get_pid(genre)
+		    :name => "GenreForm", :value => get_pid(genre), :label => get_linked_object_label(get_pid(genre))
 		  }	  		
 	  	end
 	  	
 	  	object.geographic.each do |geo|
   		  simpleSubjectArray << {
-		    :name => "Geographic", :value => get_pid(geo)
+		    :name => "Geographic", :value => get_pid(geo), :label => get_linked_object_label(get_pid(geo))
 		  }	  		
 	  	end
 	  	
 	  	object.iconography.each do |icon|
   		  simpleSubjectArray << {
-		    :name => "Iconography", :value => get_pid(icon)
+		    :name => "Iconography", :value => get_pid(icon), :label => get_linked_object_label(get_pid(icon))
 		  }	  		
 	  	end
 	  	
 	  	object.occupation.each do |occ|
   		  simpleSubjectArray << {
-		    :name => "Occupation", :value => get_pid(occ)
+		    :name => "Occupation", :value => get_pid(occ), :label => get_linked_object_label(get_pid(occ))
 		  }	  		
 	  	end
 	  	
 	  	object.scientificName.each do |sci|
   		  simpleSubjectArray << {
-		    :name => "ScientificName", :value => get_pid(sci)
+		    :name => "ScientificName", :value => get_pid(sci), :label => get_linked_object_label(get_pid(sci))
 		  }	  		
 	  	end
 	  	
 	  	object.stylePeriod.each do |style|
   		  simpleSubjectArray << {
-		    :name => "StylePeriod", :value => get_pid(style)
+		    :name => "StylePeriod", :value => get_pid(style), :label => get_linked_object_label(get_pid(style))
 		  }	  		
 	  	end
 	  	
 	  	object.technique.each do |tech|
   		  simpleSubjectArray << {
-		    :name => "Technique", :value => get_pid(tech)
+		    :name => "Technique", :value => get_pid(tech), :label => get_linked_object_label(get_pid(tech))
 		  }		  		
 	  	end
 	

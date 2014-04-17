@@ -12,9 +12,9 @@
 
 <%= "#{tmp['name']}"%>
 <%= "#{tmp['value']}"%>
+<%= "#{tmp['label']}"%>
 
-
-	<%= render :partial => 'shared/edit_fields/simple_subjects_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
+ <%= render :partial => 'shared/edit_fields/simple_subjects_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray, :selected_type => "#{tmp['name']}", :index => "#{i}",:selected_label => "#{tmp['label']}",  :selected_value => "#{tmp['value']}"}%>       
 <% 
 	i = i+1
   end 
