@@ -548,6 +548,7 @@ module Dams
 	
 	      # facetable topics
 	      insertFacets solr_doc, "subject_topic", load_topics(component.topic)
+	      insertFacets solr_doc, "subject_topic", load_temporals(component.temporal)
 	      insertFacets solr_doc, "component_#{cid}_subject_topic", load_topics(component.topic)
 	
 	      insertFields solr_doc, "component_#{cid}_name", load_names(component.name)

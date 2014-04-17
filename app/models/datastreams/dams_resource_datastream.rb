@@ -892,12 +892,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
     insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
     insertFields solr_doc, 'technique', load_techniques(technique)
-    insertFields solr_doc, 'temporal', load_temporals(temporal)
+    #insertFields solr_doc, 'temporal', load_temporals(temporal)
 
     # subjects bundled under "Subjects" heading
     insertSubjectFields solr_doc, 'genreForm', load_genreForms(genreForm)
     insertSubjectFields solr_doc, 'geographic', load_geographics(geographic)
     insertSubjectFields solr_doc, 'topic', load_topics(topic)
+    insertSubjectFields solr_doc, 'temporal', load_temporals(temporal)
 
     # subject - names
     insertNameFields solr_doc, 'other_name', load_names(name)
