@@ -549,7 +549,19 @@ module Dams
 	      # facetable topics
 	      insertFacets solr_doc, "subject_topic", load_topics(component.topic)
 	      insertFacets solr_doc, "component_#{cid}_subject_topic", load_topics(component.topic)
-	
+	      insertFacets solr_doc, "subject_topic", load_temporals(component.temporal)
+	      
+	      insertFacets solr_doc, "subject_topic", load_builtWorkPlaces(component.builtWorkPlace)
+	      insertFacets solr_doc, "subject_topic", load_culturalContexts(component.culturalContext)
+	      insertFacets solr_doc, "subject_topic", load_functions(component.function)
+	      insertFacets solr_doc, "subject_topic", load_genreForms(component.genreForm)
+	      insertFacets solr_doc, "subject_topic", load_geographics(component.geographic)
+	      insertFacets solr_doc, "subject_topic", load_iconographies(component.iconography)
+	      insertFacets solr_doc, "subject_topic", load_occupations(component.occupation)
+	      insertFacets solr_doc, "subject_topic", load_scientificNames(component.scientificName)
+	      insertFacets solr_doc, "subject_topic", load_stylePeriods(component.stylePeriod)
+	      insertFacets solr_doc, "subject_topic", load_techniques(component.technique)
+	      	
 	      insertFields solr_doc, "component_#{cid}_name", load_names(component.name)
 	      insertFields solr_doc, "component_#{cid}_conferenceName", load_conferenceNames(component.conferenceName)
 	      insertFields solr_doc, "component_#{cid}_corporateName", load_corporateNames(component.corporateName)

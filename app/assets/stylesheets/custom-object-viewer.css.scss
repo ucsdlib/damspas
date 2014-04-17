@@ -101,13 +101,46 @@ $complexFile: #AC6F2B !default;
 .file-thumbnail{width:25%;height:auto;margin:0 auto;}
 .file-thumbnail img{margin-bottom: 20px;}
 
-// Culturally Sensitive Content
-.culturally-sensitive-thumbnail {border:2px solid #659EC7; width:100px; height:150px;}
-#sensitive-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 390px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
+// Masked Objects (Restricted, Sensitive, etc.)
+.masked-object
+{
+background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png) no-repeat center center;
+  background-size:75%,75%;
+  border-radius: 3px;
+  padding:0;
+  height:480px;
+  margin:3% 0;
+  div{
+  width:100%;
+  border:1px solid #fff;
+    border-right:none;
+    border-left:none;
+  background:#c00;
+  color:#fff;
+  padding:1em;
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+    h3,p{margin:0;padding:0;line-height:normal;}
+    h3{font-size:1em;}
+    p{font-size:0.85em;color:rgba(255,255,255,0.85);}
+    a{color:#fff;text-decoration: underline;}
+    button{margin-top:0.5em;}
+  }
+
+}
+
+
 
 // restricted object Content
 .restricted-obj-thumbnail {border:2px solid #659EC7; width:100px; height:150px;}
 #restricted-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 350px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
+
+
 
 // Sidebar
 .sidebar-header{border-bottom:1px solid #ddd;padding-bottom:5px;margin:10px 0}
@@ -176,6 +209,20 @@ $complexFile: #AC6F2B !default;
 
   // UNITS INDEX PAGE
 	.search-query-form .btn{width:100%;}
+
+
+  .masked-object
+  {
+    background-size:100%,100%;
+    height:300px;
+    div{
+      padding:0.5em;
+      h3{font-size:0.9em;}
+      p{font-size:0.8em;}
+    }
+
+  }
+
 
 }
 

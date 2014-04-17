@@ -231,6 +231,13 @@ $(document).ready(function()
 		dp.cartographics.load();
 	}
 
+    // Hide content if "Restricted/Sensitive" present
+    if($(".masked-object").length)
+    {
+         $(".simple-object").hide();
+    }
+
+
 	// handle derivatives generation callbacks
 	$('#generate_derivatives')
 		.bind('ajax:success', function(e) {
