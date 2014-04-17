@@ -30,7 +30,7 @@ feature 'Visitor wants to create/edit a MADS Geographic' do
 		fill_in "Name", :with => "Test Geographic"
 		fill_in "ExternalAuthority", :with => "http://geographic.com"
 		fill_in "Element Value", :with => "Mountain"
-		select('Test Scheme 3', from: 'Scheme')  
+		select('Test Scheme 3', from: 'Vocabulary')  
 		click_on "Submit"
 
 		# Save path of geographic for other test(s)
