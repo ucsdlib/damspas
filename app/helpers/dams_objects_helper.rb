@@ -754,9 +754,10 @@ module DamsObjectsHelper
     if data != nil
       data.each do |n|
         note = JSON.parse(n)
+        note_label = note['displayLabel'].downcase
         note_value = note['value']
-        if(note_value.include? "Culturally sensitive content")
-          result = "#{note_value}"
+        if(note_label.include? "culturally sensitive content")
+          result = note_value
         end
       end
     end

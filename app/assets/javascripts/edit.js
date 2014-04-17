@@ -398,14 +398,4 @@ function removeEmptyFields() {
   }
 }
 
-function loadSensitiveImage(message,zoomFilePath,filePath) {
-  var imgObj = document.getElementById('sensitive-image');
-  var imgSrc = imgObj.src;
-  if (confirm(message + "\n " + "Would you like to view its content?")) 
-  {
-    html ='<a href="'+zoomFilePath+'">';
-    html += '<img id="sensitive-image" src="'+filePath+'" alt=""/>'
-    html += '</a>';
-    document.getElementsByClassName('simple-object')[0].innerHTML = html;
-  }
-}
+

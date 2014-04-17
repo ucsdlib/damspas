@@ -65,7 +65,7 @@ ul.inline > li{padding-left:0;padding-right:0;}
 /* MOBILE NAVBAR (CUSTOM) */
 @media (max-width: 979px)
 {
-	.navbar-inverse .navbar-inner{background: url("ucsd/bg.png") repeat 0 0;}/* add campus background to mobile */
+	.navbar-inverse .navbar-inner{background: url("../images/bg.png") repeat 0 0;}/* add campus background to mobile */
 	.navbar-inverse .navbar-text{display:none;}/* hide "username" text in mobile for now. TODO: move "username" string elsewhere. */
 }
 
