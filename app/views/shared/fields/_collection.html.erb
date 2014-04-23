@@ -32,6 +32,15 @@
 	 end
 
 	 concat htmlClose.html_safe
+	 if @collectionDocArray.size > 0
+		 @collectionDocArray.each do |colDoc|
+%>
+		<%= render :partial => 'shared/fields/related_resource_collection' , :locals => {:collectionDoc => colDoc}%>
+<%
+		end
+	 end
+	 
+	 
 
 	 end
 %>

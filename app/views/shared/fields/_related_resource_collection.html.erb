@@ -1,0 +1,53 @@
+<%
+	 if defined?(componentIndex) # Then we're working with a component
+		 prefix = "component_#{componentIndex}_"
+		 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		 htmlClose = "</ul></td></tr>"
+	 else # We're working with an object or collection
+		 prefix = ''
+		 htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		 htmlClose = "</ul></dd>"
+	 end
+
+	 fieldData = collectionDoc["#{prefix}related_resource_json_tesim"]
+
+	 if fieldData != nil	
+	 	needLabel = "false"
+	 	fieldData.each do |datum|
+			relatedResource = JSON.parse(datum)
+			if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"	 
+				needLabel = "true"
+			end
+		end
+ 		
+ 		if(needLabel == "true")
+		 	htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
+			concat htmlOpen.html_safe
+		end
+					 
+		 fieldData.each do |datum|
+			 relatedResource = JSON.parse(datum)
+			 if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
+             	if relatedResource['type'] != 'thumbnail'
+%>
+					<p>
+						<strong>
+							<% if relatedResource['type'] != nil && !relatedResource['type'].blank? %>
+							<%= relatedResource['type'].upcase %>
+							<% else %>
+							General Related Resource
+							<% end %>
+						</strong>
+					</p>
+					<li><%= link_to relatedResource['description'], relatedResource['uri'] %></li>
+					<p/>
+<%
+      			end
+      		end
+	 	end
+	 	if(needLabel == "true")
+	 		concat htmlClose.html_safe
+	 	end
+
+	 end
+%>

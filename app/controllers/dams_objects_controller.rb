@@ -38,6 +38,16 @@ class DamsObjectsController < ApplicationController
 
     # enforce access controls
     if can? :show, @document
+      collectionData = @document["collection_json_tesim"]
+		
+	  @collectionDocArray = Array.new
+	  if collectionData.length > 0
+	  	collectionData.each do |datum|
+          collection = JSON.parse(datum)
+		  collectionDoc = get_single_doc_via_search(1, {:q => "id:#{collection['id']}"} )
+		  @collectionDocArray << collectionDoc
+	    end
+	  end
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @document }
