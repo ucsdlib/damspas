@@ -45,9 +45,18 @@ class DamsObjectsController < ApplicationController
 	  	collectionData.each do |datum|
           collection = JSON.parse(datum)
 		  collectionDoc = get_single_doc_via_search(1, {:q => "id:#{collection['id']}"} )
-		  @collectionDocArray << collectionDoc
+		  relatedResourceData = collectionDoc["related_resource_json_tesim"]
+
+		  relatedResourceData.each do |datum|
+			relatedResource = JSON.parse(datum)
+			if relatedResource['type'] != "hydra-afmodel"
+			  @collectionDocArray << collectionDoc
+			  break
+			end			
+		  end
 	    end
 	  end
+
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @document }

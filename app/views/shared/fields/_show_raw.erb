@@ -47,7 +47,7 @@
 <%= render :partial => 'shared/fields/technique' %>
 <%= render :partial => 'shared/fields/temporal' %>
 <%= render :partial => 'shared/fields/collection' %>
-<%= render :partial => 'shared/fields/related_resource' %>
+<%= render :partial => 'shared/fields/related_resource', :locals => {:collectionDoc => @document, :docType => "object"} %>
 <%= render :partial => 'shared/fields/custodial_responsibility_note' %>
 <%= render :partial => 'shared/fields/note', :locals => {:label => 'Digital object made available by'} %>
 <%= render :partial => 'shared/fields/preferred_citation_note' %>

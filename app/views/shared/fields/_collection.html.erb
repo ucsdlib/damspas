@@ -35,7 +35,7 @@
 	 if @collectionDocArray.size > 0
 		 @collectionDocArray.each do |colDoc|
 %>
-		<%= render :partial => 'shared/fields/related_resource_collection' , :locals => {:collectionDoc => colDoc}%>
+		<%= render :partial => 'shared/fields/related_resource' , :locals => {:collectionDoc => colDoc, :docType => "collection"}%>
 <%
 		end
 	 end
