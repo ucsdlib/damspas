@@ -484,6 +484,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
 
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     # build map: role => [name1,name2]
     rels = {}
     relationships.map do |relationship|
@@ -534,6 +535,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
             end
           end
           Solrizer.insert_field(solr_doc, "all_fields", roleValue)
+          Solrizer.insert_field(solr_doc, "creator", name, facetable) if roleValue.casecmp("Creator")==0
+          	  
           if rels[roleValue] == nil
             rels[roleValue] = [name]
           else
