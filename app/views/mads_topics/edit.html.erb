@@ -3,7 +3,7 @@
 
 $(document).ready(function(){
 
-  getAutocompleteList_callback();
+  getMultiAutoCompleteList("Topic");
 
 });
 </script>
@@ -17,11 +17,11 @@ $(document).ready(function(){
     
       <%= render 'error_messages', object: f.object %>
        
-       <label for="subject_label">auto selected items</label>
-      <input type="text" class="typeahead" id="subject_label" /><br/>
-      <input type="text"  id="subject_id" class="input-block-level" /><br/>
-      
-      
+       
+      <div id="subjectField">
+      <%= label_tag 'mads_topic[name]', "Name" %>
+      <%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "typeahead" %>
+      </div>
       
       <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
       <%= text_field_tag 'mads_topic[externalAuthority]', @mads_topic.externalAuthority, class: "input-block-level" %>

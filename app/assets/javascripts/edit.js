@@ -33,7 +33,8 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
     // Initialise typeahead 
     subjectLabelTypeahead.typeahead({
         highlight: true
-    }, {
+    }, 
+    {
         name: 'label',
         displayKey: 'label',
         source: labels.ttAdapter()
@@ -41,16 +42,26 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
 
     // Set-up callback event handlers so that the ID is auto-populated when label is selected
     var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
-         //alert(suggestionObject.toSource());
-         subjectId.val(suggestionObject.id);
+        
+         if (suggestionDataset == "label" ) {
+           subjectId.val(suggestionObject.id);
+         }
+         else
+         {
+           
+         }
+
+         
     };
 
     subjectLabelTypeahead.on('typeahead:selected', subjectLabelItemSelectedHandler);
 
 }
 
-function getAutoCompleteList_mixed(){
- 
+function getMultiAutoCompleteList(fieldname){
+    
+    fieldname="Topic";
+
     var subjectLocal = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,

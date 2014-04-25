@@ -172,6 +172,7 @@ class DamsObjectsController < ApplicationController
   
   def edit
     @dams_object = DamsObject.find(params[:id])
+    
 	#@mads_complex_subjects = get_objects('MadsComplexSubject','name_tesim')
 	@mads_complex_subjects = get_objects_url('MadsComplexSubject','name_tesim')
 	@mads_complex_subjects << "Create New Complex Subject"

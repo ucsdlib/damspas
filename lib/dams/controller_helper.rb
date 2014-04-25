@@ -245,6 +245,8 @@ logger.warn "XXX #{object.pid}"
     def get_simple_subjects(object)   	
     	simpleSubjectArray = Array.new
 
+      
+
 	  	object.temporal.each do |temp|
   		  simpleSubjectArray << {
 		    :name => "Temporal", :value => get_pid(temp), :label => get_linked_object_label(get_pid(temp))
