@@ -709,7 +709,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.uri.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.type.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.description.first.to_s)
-	
+		  puts "relatedResource #{n} - #{resource.type}"
 	      if resource.type.first.to_s == "thumbnail"
 	        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
 	      end      
