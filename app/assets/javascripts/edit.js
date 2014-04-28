@@ -58,62 +58,6 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
 
 }
 
-function getMultiAutoCompleteList2(fieldname){
-    
-    fieldname="Topic";
-
-    var subjectLocal = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-     
-        prefetch: {
-          url: '/get_data/get_dams_data/get_dams_data?q=Topic',
-          filter: function(list) {
-            return $.map(list, function(item) { return { value: item.label }; });
-          }
-        }
-      });
-     
-    var subjectLOC = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        remote: {
-            url:'/qa/search/loc/subjects?q=%QUERY',
-            filter: function(list) {
-            return $.map(list, function(item) { return { value: item.label }; });
-            }
-         }  
-
-      });
-
-      subjectLocal.initialize();
-      subjectLOC.initialize();
-      
-      $('#subjectField .typeahead').typeahead(
-      {
-      hint: true,
-      highlight: true,
-      minLength: 2
-      }, 
-      {
-        name: 'subject-local',
-        displayKey: 'value',
-        source: subjectLocal.ttAdapter(),
-        templates: {
-        header: '<h4 class="subject-name">DAMS</h4>'
-        }
-       },
-      {
-        name: 'subject-LOC',
-        displayKey: 'value',
-        source: subjectLOC.ttAdapter(),
-        templates: {
-        header: '<h4 class="subject-name">LOC</h4>'
-        }
-       });
-
-}
-
 function getMultiAutoCompleteList(fieldName){       
  
 var subjectLocal = new Bloodhound({
@@ -121,7 +65,7 @@ var subjectLocal = new Bloodhound({
     queryTokenizer: Bloodhound.tokenizers.whitespace,
  
     prefetch: {
-      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
+      url: '/get_data/get_dams_data/get_dams_data?q='+fieldName,
             
       filter: function(list) {
         return $.map(list, function(item) { return { value: item.label }; });
@@ -146,7 +90,30 @@ var subjectLOC = new Bloodhound({
   subjectLOC.initialize();
   
    
-  $('#subjectField .typeahead').typeahead(
+  $('#subjectField.typeahead').typeahead(
+  {
+  hint: true,
+  highlight: true,
+  minLength: 2
+  }, 
+  {
+    name: 'subject-local',
+    displayKey: 'value',
+    source: subjectLocal.ttAdapter(),
+    templates: {
+    header: '<h4 class="subject-name">DAMS</h4>'
+    }
+   },
+  {
+    name: 'subject-LOC',
+    displayKey: 'value',
+    source: subjectLOC.ttAdapter(),
+    templates: {
+    header: '<h4 class="subject-name">LOC</h4>'
+    }
+   });
+
+   $('#eleValue.typeahead').typeahead(
   {
   hint: true,
   highlight: true,
@@ -171,65 +138,7 @@ var subjectLOC = new Bloodhound({
 
 }
 
-function getAutocompleteItem(){
- 
-var subjectLocal = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
- 
-    prefetch: {
-      url: '/get_data/get_dams_data/get_dams_data?q=Topic',
-      
-      // the json file contains an array of strings, but the Bloodhound
-      // suggestion engine expects JavaScript objects so this converts all of
-      // those strings
-      filter: function(list) {
-        return $.map(list, function(item) { return { value: item.label }; });
-      }
-    }
-  });
- 
-var subjectLOC = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-        url:'/qa/search/loc/subjects?q=%QUERY',
-       
-        filter: function(list) {
-        return $.map(list, function(item) { return { value: item.label }; });
-        }
-     }
 
-  });
-
-  subjectLocal.initialize();
-  subjectLOC.initialize();
-  
-   
-  $('#subjectField .typeahead').typeahead(
-  {
-  hint: true,
-  highlight: true,
-  minLength: 2
-  },
-  {
-    name: 'subject-local',
-    displayKey: 'value',
-    source: subjectLocal.ttAdapter(),
-    templates: {
-    header: '<h4 class="subject-name">DAMS</h4>'
-    }
-   },
-  {
-    name: 'subject-LOC',
-    displayKey: 'value',
-    source: subjectLOC.ttAdapter(),
-    templates: {
-    header: '<h4 class="subject-name">LOC</h4>'
-    }
-   });
-
-}
 
 var complexSubjectIdArray = new Array();
 
