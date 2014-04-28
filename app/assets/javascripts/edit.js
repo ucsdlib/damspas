@@ -88,9 +88,9 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
 
 }
 
-function getMultiAutoCompleteList(fieldName){       
- 
-var subjectLocal = new Bloodhound({
+function getMultiAutoCompleteList(fieldName){ 
+
+ var subjectLocal = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
  
@@ -120,7 +120,7 @@ var subjectLOC = new Bloodhound({
   subjectLOC.initialize();
   
    
-  $('#subjectField.typeahead').typeahead(
+  $('#subjectField .typeahead').typeahead(
   {
   hint: true,
   highlight: true,
@@ -143,7 +143,13 @@ var subjectLOC = new Bloodhound({
     }
    });
 
-   
+  var eleValue = $('.eleTypeahead');
+
+  var itemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
+        eleValue.val(suggestionObject.value);
+     };
+
+    $('#subjectField .typeahead').on('typeahead:selected', itemSelectedHandler);
 
 }
 

@@ -1,4 +1,12 @@
 <% @page_title =  "Edit Scientific Name" %>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  getMultiAutoCompleteList("ScientificName");
+
+});
+</script>
 
 <div class="row-fluid">
 	<div class="span10 offset1">
@@ -10,7 +18,7 @@
 			<%= render 'error_messages', object: f.object %>
 		
 			<%= label_tag 'dams_scientific_name[name][]', "Name" %>
-			<%= text_field_tag 'dams_scientific_name[name][]', @dams_scientific_name.name[0], class: "input-block-level" %>
+			<%= text_field_tag 'dams_scientific_name[name][]', @dams_scientific_name.name[0], class: "typeahead" %>
 		
 			<%= label_tag 'dams_scientific_name[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'dams_scientific_name[externalAuthority][]', @dams_scientific_name.externalAuthority, class: "input-block-level" %>
@@ -20,8 +28,7 @@
 	        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
 	      <% end %>
 	      <%= f.fields_for :scientificNameElement do |te| %>
-	        <%= te.label :elementValue, "Element Value" %>
-	        <%= te.text_field :elementValue, class: "input-block-level" %>
+	        <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
 	      <% end %>
 							
 			<div class="form-actions">

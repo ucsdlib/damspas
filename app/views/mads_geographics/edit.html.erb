@@ -1,5 +1,12 @@
 <% @page_title =  "Edit Geographic" %>
+<script type="text/javascript">
 
+$(document).ready(function(){
+
+  getMultiAutoCompleteList("Geographic");
+
+});
+</script>
 <div class="row-fluid">
 	<div class="span10 offset1">
 	
@@ -10,7 +17,7 @@
 			<%= render 'error_messages', object: f.object %>
 		
 			<%= label_tag 'mads_geographic[name][]', "Name" %>
-			<%= text_field_tag 'mads_geographic[name][]', @mads_geographic.name[0], class: "input-block-level" %>
+			<%= text_field_tag 'mads_geographic[name][]', @mads_geographic.name[0], class: "typeahead" %>
 		
 			<%= label_tag 'mads_geographic[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_geographic[externalAuthority][]', @mads_geographic.externalAuthority, class: "input-block-level" %>
@@ -19,8 +26,7 @@
 		        <%= se.select :id, options_for_select(@mads_schemes , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
 		      <% end %>
 		      <%= f.fields_for :geographicElement do |te| %>
-		        <%= te.label :elementValue, "Element Value" %>
-		        <%= te.text_field :elementValue, class: "input-block-level" %>
+		        <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
 		      <% end %>
 				
 			<div class="form-actions">

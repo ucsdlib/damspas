@@ -29,8 +29,8 @@ $(document).ready(function(){
 	        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
 	      <% end %>
 	      <%= f.fields_for :builtWorkPlaceElement do |te| %>
-	        <%= te.label :elementValue, "Element Value" %>
-	        <%= te.text_field :elementValue, class: "typeahead" %>
+	       
+	        <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
 	      <% end %>
 				</div>			
 			<div class="form-actions">

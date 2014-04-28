@@ -18,9 +18,10 @@ $(document).ready(function(){
       <%= render 'error_messages', object: f.object %>
        
        
-      
+      <div id="subjectField">
       <%= label_tag 'mads_topic[name]', "Name" %>
-      <%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "typeahead", id: "subjectField"%>
+      <%= text_field_tag 'mads_topic[name]', @mads_topic.name[0], class: "typeahead" %>
+     </div>
       
       
       <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
@@ -33,8 +34,8 @@ $(document).ready(function(){
       
       
       <%= f.fields_for :topicElement do |te| %>
-        <%= te.label :elementValue, "Element Value" %>
-        <%= te.text_field :elementValue, class: "typeahead", id: "eleValue" %>
+        
+        <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
       <% end %>
     
    
