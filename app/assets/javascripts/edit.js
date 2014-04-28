@@ -4,7 +4,7 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
     var IDTag='#'+elementID;
     var typeaheadLabelTag='#'+elementLabel+'.typeahead';
     
-    var labels = new Bloodhound({
+    var labelsDAMS = new Bloodhound({
         datumTokenizer: function (d) {
 
             return Bloodhound.tokenizers.whitespace(d.label);
@@ -24,32 +24,62 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
         }
     });
 
+    var labelsLOC = new Bloodhound({
+        datumTokenizer: function (d) {
+
+            return Bloodhound.tokenizers.whitespace(d.label);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/qa/search/loc/subjects?q=%QUERY',
+          
+          filter: function(items) {
+                return $.map(items, function(item) { 
+                       return { label: item.label, id: item.id }; 
+                });
+           }  
+        }
+    });
+
     // Initialise Bloodhound suggestion engines for each input
-    labels.initialize();
+    labelsDAMS.initialize();
+    labelsLOC.initialize();
 
     var subjectLabelTypeahead = $(typeaheadLabelTag);
     var subjectId = $(IDTag);
 
     // Initialise typeahead 
     subjectLabelTypeahead.typeahead({
-        highlight: true
+        highlight: true,
+        minLength: 2
     }, 
     {
-        name: 'label',
+        name: 'labelDAMS',
         displayKey: 'label',
-        source: labels.ttAdapter()
+        source: labelsDAMS.ttAdapter(),
+        templates: {
+          header: '<h4 class="subject-name">DAMS</h4>'
+        }
+    },
+    {
+        name: 'labelLOC',
+        displayKey: 'label',
+        source: labelsLOC.ttAdapter(),
+        templates: {
+          header: '<h4 class="subject-name">LOC</h4>'
+        }
     });
 
     // Set-up callback event handlers so that the ID is auto-populated when label is selected
     var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
         
-         if (suggestionDataset == "label" ) {
+      //   if (suggestionDataset == "label" ) {
            subjectId.val(suggestionObject.id);
-         }
-         else
-         {
+       //  }
+       //  else
+       //  {
            
-         }
+       //  }
 
          
     };
@@ -113,28 +143,7 @@ var subjectLOC = new Bloodhound({
     }
    });
 
-   $('#eleValue.typeahead').typeahead(
-  {
-  hint: true,
-  highlight: true,
-  minLength: 2
-  }, 
-  {
-    name: 'subject-local',
-    displayKey: 'value',
-    source: subjectLocal.ttAdapter(),
-    templates: {
-    header: '<h4 class="subject-name">DAMS</h4>'
-    }
-   },
-  {
-    name: 'subject-LOC',
-    displayKey: 'value',
-    source: subjectLOC.ttAdapter(),
-    templates: {
-    header: '<h4 class="subject-name">LOC</h4>'
-    }
-   });
+   
 
 }
 

@@ -249,6 +249,10 @@ class DamsObjectsController < ApplicationController
         flash[:notice] = "Object has been saved"
 
         @dams_object.reload
+        puts "I'm paramteres"
+        puts params
+
+       # if params[]
 
         # check for file upload
         if params[:file]
@@ -352,6 +356,29 @@ class DamsObjectsController < ApplicationController
     @dams_object.attributes = params[:dams_object]  
   	if @dams_object.save
         @dams_object.reload
+       
+       
+
+       # Check for the subject field data from DAMS, or from external resource such as LOC, etc.
+       if !params["dams_object"]["simpleSubjectURI"].empty?
+         sub_arr = params["dams_object"]["simpleSubjectURI"]
+
+         sub_arr.each do |value|
+           if /library.ucsd.edu/.match(value)
+             puts "library url"
+           elsif /info:lc/.match(value)
+             # THE subject data from LOC handling here:
+             # 1. pulling "name", "topicElement_attributes", "scheme_attributes"
+             # 2. mapping to mad_topic class
+             # mads_topic = MadsTopic.new()
+             # 
+             # 3.get ark urlform new created MadsTopic record, 
+             # 4.replace the simpleSubjectURI array to replace the loc url with new created MadsTopic ark url
+             
+           end
+         end
+        end
+
         # check for file upload
         if params[:file]
           file_status = attach_file( @dams_object, params[:file] )
