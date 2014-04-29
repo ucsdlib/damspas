@@ -514,16 +514,15 @@ logger.warn "XXX #{object.pid}"
         ext = File.extname(file.original_filename)
         @ds += ext unless ext.nil?
 
-        # add the file and save the object
-        object.add_file( file, @ds, file.original_filename )
-        object.save!
-
         # check mime type and include derivatives hook if derivable
         mt = file.content_type
-        if mt.include?("audio") || mt.include?("image") || mt.include?("video")
+        if mt.include?("audio/wav") || mt.include?("image/tiff") || mt.include?("video/mov") || mt.include?("video/avi") || ext.include?("pdf")
+          # add the file and save the object
+	      object.add_file( file, @ds, file.original_filename )
+	      object.save!
           return { notice: "File Uploaded", deriv: @ds }
         else
-          return { notice: "File Uploaded", deriv: nil }
+          return { alert: "File Type #{mt} is not supported. Supported File Types: TIFF, WAV, MOV, AVI, PDF"}
         end
       end
     end

@@ -41,7 +41,7 @@ class DamsObjectsController < ApplicationController
       collectionData = @document["collection_json_tesim"]
 		
 	  @collectionDocArray = Array.new
-	  if collectionData.length > 0
+	  if !collectionData.nil? and collectionData.length > 0
 	  	collectionData.each do |datum|
           collection = JSON.parse(datum)
 		  collectionDoc = get_single_doc_via_search(1, {:q => "id:#{collection['id']}"} )
@@ -263,34 +263,30 @@ class DamsObjectsController < ApplicationController
     has_file = "false"  
     #collectionsId = params[:dams_object][:assembledCollection_attributes]
 
-  	if @dams_object.save 
-        flash[:notice] = "Object has been saved"
-
+	
+	    
+  	if @dams_object.save
         @dams_object.reload
 
-        # check for file upload
-        if params[:file]
-          file_status = attach_file( @dams_object, params[:file] )
-          flash[:alert] = file_status[:alert] if file_status[:alert]
-          flash[:deriv] = file_status[:deriv] if file_status[:deriv]
-
-          derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
-          flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
-          flash[:notice] = derivative_status[:alert] if derivative_status[:notice]
-          has_file = "true"
-        end
-
+		# check for file upload
+	    if params[:file]
+	      file_status = attach_file( @dams_object, params[:file] )
+	      flash[:alert] = file_status[:alert] if file_status[:alert]
+	      flash[:deriv] = file_status[:deriv] if file_status[:deriv]
+	
+		  if file_status[:deriv]
+	          #derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
+	          #flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
+	          #flash[:notice] = derivative_status[:alert] if derivative_status[:notice]
+	          has_file = "true"
+	      end
+	    
+		end
+	
         # reindex the record
         begin
           @dams_object.send :update_index
-		 # collectionsId.each do |colId|
-		 #	if colId.class == Array and colId.size > 1
-		 #	  collectionObj = DamsAssembledCollection.find( colId[1].to_s.gsub(/.*\//,'')[0..9] )
-		 #	  if (!collectionObj.nil?)
-		 #	    collectionObj.send :update_index
-		 #	  end	
-		 #	end    
-		 # end
+
           colObjects = Array.new
           get_colletion_objects(params[:dams_object][:assembledCollection_attributes],colObjects,DamsAssembledCollection)
 		  get_colletion_objects(params[:dams_object][:provenanceCollection_attributes],colObjects, DamsProvenanceCollection)
@@ -304,6 +300,11 @@ class DamsObjectsController < ApplicationController
         rescue Exception => e
           logger.warn "Error reindexing #{@dams_object.pid}: #{e}"
         end
+        if params[:file] and file_status[:alert]
+	  		redirect_to edit_dams_object_path @dams_object
+	  		return
+	    end	
+	    flash[:notice] = "Object has been saved"
 		if has_file == "false"
   			redirect_to @dams_object
   		end
@@ -376,10 +377,12 @@ class DamsObjectsController < ApplicationController
           flash[:alert] = file_status[:alert] if file_status[:alert]
           flash[:deriv] = file_status[:deriv] if file_status[:deriv]
           
-          derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
-          flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
-          flash[:notice] = derivative_status[:alert] if derivative_status[:notice]
-          has_file = "true"
+          if file_status[:deriv]
+	      #    derivative_status = create_derivatives( @dams_object.pid, params[:file], request.fullpath )
+	      #    flash[:alert] = derivative_status[:alert] if derivative_status[:alert]
+	      #    flash[:notice] = derivative_status[:alert] if derivative_status[:notice]
+	          has_file = "true"
+	      end
         end
 
         # reindex the record
@@ -398,6 +401,10 @@ class DamsObjectsController < ApplicationController
         rescue Exception => e
           logger.warn "Error reindexing #{@dams_object.pid}: #{e}"
         end
+        if params[:file] and file_status[:alert]
+	  		redirect_to edit_dams_object_path @dams_object
+	  		return
+	    end	        
         if has_file == "false"
   			redirect_to @dams_object, notice: "Successfully updated object"
   		end
