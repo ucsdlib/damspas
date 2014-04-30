@@ -3,6 +3,7 @@ class MadsTopicsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@mads_topic.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -39,7 +40,6 @@ class MadsTopicsController < ApplicationController
 
   def create
     if @mads_topic.save
-        Audit.create( description:'create_object', user: session[:user_id], object: @mads_topic.id )
 	    if(!params[:parent_id].nil?)
 			redirect_to mads_topic_path(@mads_topic, {:parent_id => params[:parent_id]})
 	    elsif(!params[:parent_class].nil?)
@@ -63,7 +63,6 @@ class MadsTopicsController < ApplicationController
 
     @mads_topic.attributes = params[:mads_topic]
     if @mads_topic.save
-        Audit.create( description:'update_object', user: session[:user_id], object: @mads_topic.id )
 		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
         	redirect_to edit_mads_complex_subject_path(params[:parent_id]), notice: "Successfully updated Topic."
         else

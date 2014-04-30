@@ -4,8 +4,8 @@
   <thead>
     <tr>
       <th>Description</th>
-      <th>User</th>
       <th>Object</th>
+      <th>User</th>
       <th>Created</th>
       <th></th>
     </tr>
@@ -15,8 +15,8 @@
     <% @audits.each do |audit| %>
       <tr>
         <td><%= audit.description %></td>
-        <td><%= audit.user %></td>
         <td><%= audit.object %></td>
+        <td><%= audit.user %></td>
         <td><%= audit.created_at %></td>
         <td><%= link_to 'View', audit %></td>
       </tr>

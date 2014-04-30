@@ -6,6 +6,7 @@ class DamsProvenanceCollectionsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only =>[:show, :index]
+  after_action 'audit("#{@dams_provenance_collection.id}")', :only => [:create, :update]
 
   def show
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )

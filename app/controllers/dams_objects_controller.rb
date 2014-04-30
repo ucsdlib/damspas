@@ -7,6 +7,7 @@ class DamsObjectsController < ApplicationController
   load_and_authorize_resource
   #skip_load_resource :only => :show
   skip_load_and_authorize_resource :only => [:show, :zoom, :data_view]
+  after_action 'audit("#{@dams_object.id}")', :only => [:create, :update]
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   ##############################################################################
