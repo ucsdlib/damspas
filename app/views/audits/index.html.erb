@@ -1,0 +1,25 @@
+<h1>Listing audits</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>User</th>
+      <th>Object</th>
+      <th>Created</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @audits.each do |audit| %>
+      <tr>
+        <td><%= audit.description %></td>
+        <td><%= audit.user %></td>
+        <td><%= audit.object %></td>
+        <td><%= audit.created_at %></td>
+        <td><%= link_to 'View', audit %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
