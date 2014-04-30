@@ -1,5 +1,6 @@
 class AuditsController < ApplicationController
   before_action :set_audit, only: [:show]
+  before_action :authorize
 
   # GET /audits
   def index
@@ -14,6 +15,10 @@ class AuditsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_audit
       @audit = Audit.find(params[:id])
+    end
+
+    def authorize
+      authorize! :show, Audit
     end
 
     # Only allow a trusted parameter "white list" through.

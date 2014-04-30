@@ -30,20 +30,27 @@ describe AuditsController do
   # AuditsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET index" do
-    it "assigns all audits as @audits" do
-      audit = Audit.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:audits).should eq([audit])
+  describe "authenticated" do
+    before do
+      sign_in User.create!( {:provider => 'developer'} )
     end
-  end
 
-  describe "GET show" do
-    it "assigns the requested audit as @audit" do
-      audit = Audit.create! valid_attributes
-      get :show, {:id => audit.to_param}, valid_session
-      assigns(:audit).should eq(audit)
+    describe "GET index" do
+      it "assigns all audits as @audits" do
+        audit = Audit.create! valid_attributes
+        get :index, {}, valid_session
+        assigns(:audits).should eq([audit])
+      end
     end
+
+    describe "GET show" do
+      it "assigns the requested audit as @audit" do
+        audit = Audit.create! valid_attributes
+        get :show, {:id => audit.to_param}, valid_session
+        assigns(:audit).should eq(audit)
+      end
+    end
+
   end
 
 end

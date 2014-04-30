@@ -120,6 +120,7 @@ class Ability
       cannot [:create], DamsProvenanceCollectionPart
       cannot [:create], Page
     else  # curators
+      can [:read], Audit
       can [:read], DamsAssembledCollection
       can [:read], DamsProvenanceCollection
       can [:read], DamsProvenanceCollectionPart

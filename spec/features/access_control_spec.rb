@@ -33,6 +33,21 @@ feature 'Access control' do
     response = page.driver.response
     expect(response.status).to eq( 200 )
   end
+  scenario 'anonymous user not allowed to view the audit log' do
+    visit audits_path
+    response = page.driver.response
+    expect(response.status).to eq( 403 )
+    expect(page).to have_selector('h1','You are not allowed to view this page.')
+    expect(page).to have_no_content('Audit Log')
+  end
+  scenario 'curator allowed to view the audit log' do
+    sign_in_developer
+    visit audits_path
+    response = page.driver.response
+    expect(response.status).to eq( 200 )
+    expect(page).to have_selector('h1', 'Audit Log')
+  end
+
 end
 
 def sign_in_developer
