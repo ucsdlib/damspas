@@ -515,7 +515,7 @@ module Dams
 
         # check mime type and include derivatives hook if derivable
         mt = file.content_type
-        if mt.include?("audio/wav") || mt.include?("image/tiff") || mt.include?("video/mov") || mt.include?("video/avi") || ext.include?("pdf")
+        if ext.include?("wav") || ext.include?("tif") || ext.include?("mov") || ext.include?("avi") || ext.include?("pdf")
           # add the file and save the object
 	      object.add_file( file, @ds, file.original_filename )
 	      object.save!
@@ -576,6 +576,7 @@ module Dams
 	    url += "#{@fid}/derivatives?format=json"
 
 	    # call damsrepo
+	    puts "URL to create derivatives --------------- #{url}"
 	    response = RestClient::Request.new(
 	        :method => :post, :url => url, :user => user, :password => pass
 	      ).execute
