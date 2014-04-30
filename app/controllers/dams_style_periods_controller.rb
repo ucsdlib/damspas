@@ -3,6 +3,7 @@ class DamsStylePeriodsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@dams_style_period.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################

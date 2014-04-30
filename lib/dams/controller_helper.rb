@@ -195,7 +195,6 @@ module Dams
     end
     
     def get_simple_subject_value(object)
-logger.warn "XXX #{object.pid}"
     	value = ""
     	if !object.temporal[0].nil?   
 	  		value = object.temporal.first.name.first
@@ -520,6 +519,8 @@ logger.warn "XXX #{object.pid}"
           # add the file and save the object
 	      object.add_file( file, @ds, file.original_filename )
 	      object.save!
+          logger.warn "audit: create File #{object.id}/#{@ds}, #{session[:user_id]}"
+          Audit.create( description: 'create File', user: session[:user_id], object: "#{object.id}/#{@ds}")
           return { notice: "File Uploaded", deriv: @ds }
         else
           return { alert: "File Type #{mt} is not supported. Supported File Types: TIFF, WAV, MOV, AVI, PDF"}
@@ -601,5 +602,12 @@ logger.warn "XXX #{object.pid}"
        res = Net::HTTP.get_response(uri)
        res.body
     end       
+
+    def audit( id = "unknown" )
+      desc = params[:action] + " " + self.class.name.gsub("sController","")
+      logger.warn "audit: #{desc} #{id}, #{session[:user_id]}"
+      Audit.create( description: desc, user: session[:user_id], object: id)
+    end
+
   end
 end

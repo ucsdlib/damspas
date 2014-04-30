@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @audit.description %>
+</p>
+
+<p>
+  <strong>Object:</strong>
+  <%= @audit.object %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @audit.user %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @audit.created_at %>
+</p>
+
+<%= link_to 'Back', audits_path %>
