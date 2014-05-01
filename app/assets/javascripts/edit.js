@@ -153,7 +153,47 @@ var subjectLOC = new Bloodhound({
 
 }
 
+function getSingleAutoCompleteList(){ 
 
+var subjectLOC = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+        url:'/qa/search/loc/subjects?q=%QUERY',
+       
+        filter: function(list) {
+        return $.map(list, function(item) { return { value: item.label }; });
+        }
+     }  
+
+  });
+
+  subjectLOC.initialize();
+  
+  $('#subjectField .typeahead').typeahead(
+  {
+  hint: true,
+  highlight: true,
+  minLength: 2
+  },
+  {
+    name: 'subject-LOC',
+    displayKey: 'value',
+    source: subjectLOC.ttAdapter(),
+    templates: {
+    header: '<h4 class="subject-name">LOC</h4>'
+    }
+   });
+
+  var eleValue = $('.eleTypeahead');
+
+  var itemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
+        eleValue.val(suggestionObject.value);
+     };
+
+    $('#subjectField .typeahead').on('typeahead:selected', itemSelectedHandler);
+
+}
 
 var complexSubjectIdArray = new Array();
 

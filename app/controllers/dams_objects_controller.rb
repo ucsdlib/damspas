@@ -303,7 +303,8 @@ class DamsObjectsController < ApplicationController
     
     puts "Updated params: "
     puts params
-
+    
+    @dams_object.attributes = params[:dams_object] 
   	if @dams_object.save 
         flash[:notice] = "Object has been saved"
 
