@@ -1,23 +1,32 @@
-<h1>Audit Log: Event <%=@audit.id%></h1>
+<h1>Audit Log: <%= @audit.id %></h1>
 
-<p>
-  <strong>Description:</strong>
-  <%= @audit.description %>
-</p>
+<table class="table">
+  <tbody>
+    <tr>
+      <th>User</th>
+      <td><%= @audit.user %></td>
+    </tr>
 
-<p>
-  <strong>Object:</strong>
-  <%= @audit.object %>
-</p>
+    <tr>
+      <th>Action</th>
+      <td><%= @audit.action %></td>
+    </tr>
 
-<p>
-  <strong>User:</strong>
-  <%= @audit.user %>
-</p>
+    <tr>
+      <th>Class</th>
+      <td><%= @audit.classname %></td>
+    </tr>
 
-<p>
-  <strong>Date:</strong>
-  <%= @audit.created_at %>
-</p>
+    <tr>
+      <th>Object</th>
+      <td><%= @audit.object %></td>
+    </tr>
 
-<%= link_to 'Back', audits_path %>
+    <tr>
+      <th>Date</th>
+      <td><%= @audit.created_at %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to 'Return to Audit Log', audits_path, class: 'btn' %>

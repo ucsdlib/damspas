@@ -519,8 +519,8 @@ module Dams
           # add the file and save the object
 	      object.add_file( file, @ds, file.original_filename )
 	      object.save!
-          logger.warn "audit: create File #{object.id}/#{@ds}, #{session[:user_id]}"
-          Audit.create( description: 'create File', user: session[:user_id], object: "#{object.id}/#{@ds}")
+          logger.warn "audit: #{session[:user_id]} create File #{object.id}/#{@ds}"
+          Audit.create( user: session[:user_id], action: "create", classname: "File", object: "#{object.id}/#{@ds}")
           return { notice: "File Uploaded", deriv: @ds }
         else
           return { alert: "File Type #{mt} is not supported. Supported File Types: TIFF, WAV, MOV, AVI, PDF"}
@@ -605,9 +605,9 @@ module Dams
     end       
 
     def audit( id = "unknown" )
-      desc = params[:action] + " " + self.class.name.gsub("sController","")
-      logger.warn "audit: #{desc} #{id}, #{session[:user_id]}"
-      Audit.create( description: desc, user: session[:user_id], object: id)
+      classname = self.class.name.gsub("sController","")
+      logger.warn "audit: #{session[:user_id]} #{params[:action]} #{classname} #{id}"
+      Audit.create( user: session[:user_id], action: params[:action], classname: classname, object: id)
     end
 
   end

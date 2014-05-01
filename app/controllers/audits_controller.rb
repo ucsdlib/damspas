@@ -23,6 +23,6 @@ class AuditsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def audit_params
-      params.require(:audit).permit(:description, :user, :object)
+      params.require(:audit).permit(:user, :action, :classname, :object)
     end
 end

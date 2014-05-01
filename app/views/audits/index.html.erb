@@ -1,24 +1,26 @@
 <h1>Audit Log</h1>
 
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Description</th>
-      <th>Object</th>
+      <th>#</th>
       <th>User</th>
-      <th>Created</th>
-      <th></th>
+      <th>Action</th>
+      <th>Class</th>
+      <th>Object</th>
+      <th>Date</th>
     </tr>
   </thead>
 
   <tbody>
     <% @audits.each do |audit| %>
       <tr>
-        <td><%= audit.description %></td>
-        <td><%= audit.object %></td>
+        <td><%= link_to "##{audit.id}", audit %></td>
         <td><%= audit.user %></td>
+        <td><%= audit.action %></td>
+        <td><%= audit.classname %></td>
+        <td><%= audit.object %></td>
         <td><%= audit.created_at %></td>
-        <td><%= link_to 'View', audit %></td>
       </tr>
     <% end %>
   </tbody>

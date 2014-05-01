@@ -1,8 +1,10 @@
 class CreateAudits < ActiveRecord::Migration
   def change
+    drop_table :audits
     create_table :audits do |t|
-      t.string :description
       t.string :user
+      t.string :action
+      t.string :classname
       t.string :object
 
       t.timestamps
