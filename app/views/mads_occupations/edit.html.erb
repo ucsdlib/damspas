@@ -15,10 +15,10 @@ $(document).ready(function(){
 		<%= form_for @mads_occupation do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
-		
+		  <div id="subjectField">
 			<%= label_tag 'mads_occupation[name][]', "Name" %>
 			<%= text_field_tag 'mads_occupation[name][]', @mads_occupation.name[0], class: "typeahead" %>
-		
+		  </div>
 			<%= label_tag 'mads_occupation[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_occupation[externalAuthority][]', @mads_occupation.externalAuthority, class: "input-block-level" %>
 

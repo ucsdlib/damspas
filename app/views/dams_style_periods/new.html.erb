@@ -1,14 +1,24 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+  getSingleAutoCompleteList();
+});
+
+</script>
+
 <h1>Create a new Dams Style Period</h1>
 <%= form_for @dams_style_period do |f| %>
 	<%= render 'error_messages' %>
+
+  <div id="subjectField">
   <%= label_tag 'dams_style_period[name]', "Name" %>
-  <%= text_field_tag 'dams_style_period[name]', '', required: true, class: "input-block-level"  %>
+  <%= text_field_tag 'dams_style_period[name]', '', required: true, class: "typeahead"  %>
+</div>
   <%= label_tag 'dams_style_period[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_style_period[externalAuthority]', '', class: "input-block-level"  %> 
   
   <%= f.fields_for :stylePeriodElement do |te| %>
-    <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue, class: "input-block-level"  %>
+    <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

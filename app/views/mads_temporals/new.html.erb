@@ -1,8 +1,18 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+  getSingleAutoCompleteList();
+});
+
+</script>
+
 <h1>Create a new MADS Temporal</h1>
 <%= form_for @mads_temporal do |f| %>
   <%= render 'error_messages' %>
+  <div id="subjectField">
   <%= label_tag 'mads_temporal[name]', "Name" %>
-  <%= text_field_tag 'mads_temporal[name]', '', required: true, class: "input-block-level"  %>
+  <%= text_field_tag 'mads_temporal[name]', '', required: true, class: "typeahead"  %>
+</div>
   <%= label_tag 'mads_temporal[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_temporal[externalAuthority]', '', class: "input-block-level"  %> 
   <%= f.fields_for :temporalElement do |te| %>
