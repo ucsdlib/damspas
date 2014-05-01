@@ -1,6 +1,5 @@
 class CreateAudits < ActiveRecord::Migration
   def change
-    drop_table :audits
     create_table :audits do |t|
       t.string :user
       t.string :action
