@@ -244,15 +244,71 @@ class DamsObjectsController < ApplicationController
   def create   
     has_file = "false"  
     #collectionsId = params[:dams_object][:assembledCollection_attributes]
+    puts "create a new record 5-1"
+    puts "old params: "
+    puts params
+    
+    # Handling autocompleted field for data ingested from remote website (LOC, etc.)
+    # create a Mads/Dams record and push uri to obj param list.
+       if !params["dams_object"].empty?
+         hash_of_param = params["dams_object"]
+          
+         hash_of_param.each do |k, v|
+
+           arr_of_attributes = ["builtWorkPlace_attributes", "culturalContext_attributes", "function_attributes", "genreForm_attributes", "geographic_attributes", "iconography_attributes", "occupation_attributes", "scientificName_attributes", "stylePeriod_attributes", "technique_attributes", "temporal_attributes", "topic_attributes" ]
+           
+           if arr_of_attributes.include?(k)              
+              
+              sub_type = k[0, k.index('_')]
+              sub_type = sub_type[0, 1].capitalize + sub_type[1..-1]
+              hash_of_value = v
+              
+              hash_of_value.each do |key, sub|
+                
+                 if sub["id"]!= nil
+
+                    value = sub["id"]
+                
+                    if /loc:/.match(value)
+                      
+                      name = value[value.index('_')+7, value.length-1]
+                      element_value = name
+                      scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+                      element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+                      sub_hash = {
+                        
+                        "name" => name, 
+                         element_attributes =>
+                         {"0" => {"elementValue" => element_value }},
+                         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                         
+                      }
+                     
+                     class_name = get_class_name(sub_type)
+                     class_ref = class_name.constantize
+                     obj = class_ref.new
+                     obj.attributes = sub_hash
+                     obj.save
+
+                     # add the uri to obje parameter list
+                     uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+                     sub["id"]= uri
+     
+                   end
+                end
+             end
+           end
+         end
+      end
+    
+    puts "Updated params: "
+    puts params
 
   	if @dams_object.save 
         flash[:notice] = "Object has been saved"
 
         @dams_object.reload
-        puts "I'm paramteres"
-        puts params
-
-       # if params[]
+        
 
         # check for file upload
         if params[:file]
@@ -352,33 +408,57 @@ class DamsObjectsController < ApplicationController
     @dams_object.rightsHolderName.clear    
 	has_file = "false"
 	#collectionsId = params[:dams_object][:assembledCollectionURI]
+     
+     puts params
+      # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams class.
+       if !params["dams_object"]["simpleSubjectURI"].empty?
+         hash_of_param = params["dams_object"]["simpleSubjectURI"]
+          
+         hash_of_param.each_with_index do |value, index|
+           
+           # Getting data from external resouce and mapping to Mads or Dams class
+           if /loc:/.match(value)
+ 
+              sub_type = nil
+              # subject type => Topic, BuiltWorkPlace, ScientificName etc.
+              # if !params["dams_object"]["subjectType"].empty?
+              #    sub_type = params["dams_object"]["subjectType"][index]
+              # end
+              sub_type = value[4, value.index('_') - 4]..capitalize
+              sub_type = "Topic" if sub_type == nil
+
+              name = value[value.index('_')+7, value.length-1]
+              element_value = name
+              scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+              element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+              sub_hash = {
+                
+                "name" => name, 
+                 element_attributes =>
+                 {"0" => {"elementValue" => element_value }},
+                 "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                 
+              }
+             
+             class_name = get_class_name(sub_type)
+             
+             class_ref = class_name.constantize
+             obj = class_ref.new
+             obj.attributes = sub_hash
+             obj.save
+
+              # add the uri to obje parameter list
+              uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+              hash_of_param[index]= uri
+              puts params
+           end
+         end
+        end
       
     @dams_object.attributes = params[:dams_object]  
   	if @dams_object.save
         @dams_object.reload
        
-       
-
-       # Check for the subject field data from DAMS, or from external resource such as LOC, etc.
-       if !params["dams_object"]["simpleSubjectURI"].empty?
-         sub_arr = params["dams_object"]["simpleSubjectURI"]
-
-         sub_arr.each do |value|
-           if /library.ucsd.edu/.match(value)
-             puts "library url"
-           elsif /info:lc/.match(value)
-             # THE subject data from LOC handling here:
-             # 1. pulling "name", "topicElement_attributes", "scheme_attributes"
-             # 2. mapping to mad_topic class
-             # mads_topic = MadsTopic.new()
-             # 
-             # 3.get ark urlform new created MadsTopic record, 
-             # 4.replace the simpleSubjectURI array to replace the loc url with new created MadsTopic ark url
-             
-           end
-         end
-        end
-
         # check for file upload
         if params[:file]
           file_status = attach_file( @dams_object, params[:file] )
@@ -428,5 +508,17 @@ class DamsObjectsController < ApplicationController
   def data_view
   	data = get_html_data ( params[:id] )
     render :text => data
-  end
+  end 
+
+
+  def get_class_name(name)
+    arr_of_dams = ["BuiltWorkPlace", "CulturalContext", "Function", "Iconography", "StylePeriod", "Technique", "ScientificName" ]
+  
+    if arr_of_dams.include?(name)
+      class_name = "Dams" + name
+    else
+      class_name = "Mads" + name 
+    end
+
+   end
 end

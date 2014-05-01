@@ -73,13 +73,13 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
     // Set-up callback event handlers so that the ID is auto-populated when label is selected
     var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
         
-      //   if (suggestionDataset == "label" ) {
+         if (suggestionDataset == "labelDAMS" ) {
            subjectId.val(suggestionObject.id);
-       //  }
-       //  else
-       //  {
-           
-       //  }
+         }
+         else
+         {
+           subjectId.val("loc:"+ fieldname + "_label:"+suggestionObject.label  );
+         }
 
          
     };
