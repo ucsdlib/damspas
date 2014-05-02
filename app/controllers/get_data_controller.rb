@@ -129,77 +129,17 @@ class GetDataController < ApplicationController
  
  def get_subject	
   	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object&fieldName=simpleSubjectURI&label=Subject
-<<<<<<< HEAD
-  	
-=======
-  	subType = nil
-  	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
-  		subType = 'MadsTopic'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'BuiltWorkPlace')
-  		subType = 'DamsBuiltWorkPlace'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CulturalContext')
-  		subType = 'DamsCulturalContext'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Function')
-  		subType = 'DamsFunction'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'GenreForm')
-  		subType = 'MadsGenreForm'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Geographic')
-  		subType = 'MadsGeographic'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Iconography')
-  		subType = 'DamsIconography'	
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ScientificName')
-  		subType = 'DamsScientificName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Technique')
-  		subType = 'DamsTechnique'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Temporal')
-  		subType = 'MadsTemporal'
-	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'StylePeriod')
-		subType = 'DamsStylePeriod'	
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
-  		subType = 'MadsCorporateName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
-  		subType = 'MadsPersonalName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
-  		subType = 'MadsConferenceName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
-  		subType = 'MadsFamilyName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
-  		subType = 'MadsName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Occupation')
-  		subType = 'MadsOccupation'																													
-	else
-		subType = 'MadsTopic'
-	end
-	
-	@subjects = get_objects_url(subType,'name_tesim')
->>>>>>> develop
+
 	@formType = params[:formType]
 	@fieldName = params[:fieldName]
 	@label = params[:q]
 	@fieldId = params[:fieldId]
 	@selectedValue = params[:selectedValue]
-<<<<<<< HEAD
+
 	@selectedLabel = params[:selectedLabel]
 	#@subjects = "Create New #{@label}"
   @subjects = ""
-=======
-	
-	@hasSubjectValue = "false"	
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and !@selectedValue.include? "undefined" and @subjects.to_s.include? @selectedValue
-		@hasSubjectValue = "true"
-	end
 
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and !@selectedValue.include? "undefined" and @hasSubjectValue.include? "false"
-		tmpSubObject = subType.constantize.find(@selectedValue)
-		if(!tmpSubObject.nil?)
-			tmpArray = Array.new
-			tmpArray << tmpSubObject.name.first
-			tmpArray << Rails.configuration.id_namespace+@selectedValue					
-			@subjects << tmpArray
-		end
-	end	
-	@subjects << "Create New #{@label}"
->>>>>>> develop
 	render :layout => false
   end
 

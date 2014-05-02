@@ -18,11 +18,9 @@ $(document).ready(function(){
   
   <%= f.fields_for :scientificNameElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-<<<<<<< HEAD
+
             <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
-=======
-    <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
->>>>>>> develop
+
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

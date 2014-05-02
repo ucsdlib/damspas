@@ -27,11 +27,9 @@ $(document).ready(function(){
 		      <% end %>
 		      <%= f.fields_for :geographicElement do |te| %>
 		        <%= te.label :elementValue, "Element Value" %>
-<<<<<<< HEAD
+
             <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
-=======
-		        <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
->>>>>>> develop
+
 		      <% end %>
 				
 			<div class="form-actions">

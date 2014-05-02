@@ -28,13 +28,10 @@ $(document).ready(function(){
 		      <% end %>
 		      <%= f.fields_for :occupationElement do |te| %>
 		        <%= te.label :elementValue, "Element Value" %>
-<<<<<<< HEAD
+
             <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
 		      <% end %>
-=======
-		        <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
-		      <% end %>
->>>>>>> develop
+
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
