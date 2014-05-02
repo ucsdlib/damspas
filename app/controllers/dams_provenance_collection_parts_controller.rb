@@ -277,8 +277,8 @@ def edit
  
               sub_type = nil
               # subject type => Topic, BuiltWorkPlace, ScientificName etc.
-              # if !params["dams_object"]["subjectType"].empty?
-              #    sub_type = params["dams_object"]["subjectType"][index]
+              # if !params["dams_provenance_collection_part"]["subjectType"].empty?
+              #    sub_type = params["dams_provenance_collection_part"]["subjectType"][index]
               # end
               sub_type = value[4, value.index('_') - 4]
               sub_type = "Topic" if sub_type == nil
@@ -339,6 +339,16 @@ def edit
   def data_view
       data = get_html_data ( params[:id] )
       render :text => data
+  end
+
+  def get_class_name(name)
+    arr_of_dams = ["BuiltWorkPlace", "CulturalContext", "Function", "Iconography", "StylePeriod", "Technique", "ScientificName" ]
+  
+    if arr_of_dams.include?(name)
+      class_name = "Dams" + name
+    else
+      class_name = "Mads" + name 
+    end
   end
     
   end
