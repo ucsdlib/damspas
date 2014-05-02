@@ -688,7 +688,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
-
     # relatedResource
     n = 0
     relatedResource.map do |resource|
@@ -709,12 +708,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.uri.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.type.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.description.first.to_s)
-		  puts "relatedResource #{n} - #{resource.type}"
 	      if resource.type.first.to_s == "thumbnail"
 	        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
 	      end      
 	  rescue Exception => e
-	      puts "XXX: error loading relatedResource: #{lang}: #{e.to_s}"
+	      puts "XXX: error loading relatedResource: #{resource}: #{e.to_s}"
 	  end
         
       #related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
@@ -725,6 +723,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       #if resource.type.first.to_s == "thumbnail"
       #  Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
       #end
+    end
+
+    # tear down object classes
+    begin
+      Object.send(:remove_const, :DamsRelatedResourceInternal) if defined? DamsRelatedResourceInternal
+      load "dams_related_resource_internal.rb"
+    rescue Exception => ex
+      puts "Error unloading classes: #{ex}"
     end
   end
   
