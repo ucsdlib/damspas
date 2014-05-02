@@ -308,6 +308,16 @@ class DamsProvenanceCollectionsController < ApplicationController
          end
         end
 
+          if params["dams_provenance_collection"]["subjectType"]!= nil && (!params["dams_provenance_collection"]["subjectType"].empty?)
+             arr_of_type = params["dams_provenance_collection"]["subjectType"]
+
+             arr_of_type.each_with_index do |v, i|
+ 
+               arr_of_type[i] = "Topic" if v == ""
+               
+             end
+          end
+
     @dams_provenance_collection.attributes = params[:dams_provenance_collection]
     if @dams_provenance_collection.save
         redirect_to @dams_provenance_collection, notice: "Successfully updated provenance_collection"

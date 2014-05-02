@@ -462,6 +462,16 @@ class DamsObjectsController < ApplicationController
            end
          end
         end
+
+        if params["dams_object"]["subjectType"]!= nil && (!params["dams_object"]["subjectType"].empty?)
+             arr_of_type = params["dams_object"]["subjectType"]
+
+             arr_of_type.each_with_index do |v, i|
+ 
+               arr_of_type[i] = "Topic" if v == ""
+               
+             end
+          end
       
     @dams_object.attributes = params[:dams_object]  
   	if @dams_object.save
