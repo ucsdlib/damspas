@@ -1,7 +1,7 @@
 # How to Contribute
 
-## UCSD Development Team
-For small changes, UCSD developers can work on the develop branch directly, if need be. If a significant update is needed, or a new feature is being developed, please use the following process for Pull Request.
+## UCSD Library Development Team
+For small changes, UCSD developers can work on the develop branch directly, if need be. If a significant update is needed, or a new feature is being developed, please use the following process for creating a new Pull Request.
 
 1. Create a feature branch for new work.
 2. Push commits to the feature branch, with appropriate test coverage (and tests passing).
@@ -12,7 +12,7 @@ For small changes, UCSD developers can work on the develop branch directly, if n
 
 ## Merging Changes from Pull Requests
 
-* It is considered "poor from" to merge your own request.
+* It is considered "poor form" to merge your own request.
 * Please take the time to review the changes and get a sense of what is being changed. Things to consider:
   * Does the commit message explain what is going on?
   * Does the code changes have tests? _Not all changes need new tests, some changes are refactorings_
