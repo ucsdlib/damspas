@@ -19,7 +19,8 @@ $(document).ready(function(){
   <%= url_field_tag 'dams_iconography[externalAuthority]', '', class: "input-block-level" %> 
   
   <%= f.fields_for :iconographyElement do |te| %>
-     <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
+     <%= te.label :elementValue, "Element Value" %>
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

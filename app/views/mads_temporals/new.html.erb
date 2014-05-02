@@ -17,7 +17,7 @@ $(document).ready(function(){
   <%= url_field_tag 'mads_temporal[externalAuthority]', '', class: "input-block-level"  %> 
   <%= f.fields_for :temporalElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue, class: "input-block-level"  %>
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
   <% end %>  
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

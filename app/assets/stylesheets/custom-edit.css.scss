@@ -4,6 +4,8 @@ $viewerPadding: 3% !default;
    width: 396px; 
 }
 
+.eleTypeahead {width: 396px; }
+
 #scrollable-dropdown-menu .tt-dropdown-menu {
   max-height: 150px;
   overflow-y: auto;
@@ -64,6 +66,7 @@ $viewerPadding: 3% !default;
 .tt-suggestion p {
     margin: 0;
 }
+
 
 
 .fields {/*background-color:$objectBG;*/padding: 0 $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;margin-bottom: 20px;}

@@ -27,7 +27,8 @@ $(document).ready(function(){
 		        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
 		      <% end %>
 		      <%= f.fields_for :occupationElement do |te| %>
-		        <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
+		        <%= te.label :elementValue, "Element Value" %>
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
 		      <% end %>
 				
 			<div class="form-actions">

@@ -158,15 +158,7 @@ class DamsObjectsController < ApplicationController
   	@dams_related_resources =  get_related_resource_url('DamsRelatedResource','type_tesim','relatedResourceDescription_tesim')
   	@dams_related_resources << "Create New Related Resource"
   	
-#	uri = URI('http://fast.oclc.org/fastSuggest/select')
-#	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-#	json = JSON.parse(res.body)
-#	@jdoc = json.fetch("response").fetch("docs")
-	
-#	@autocomplete_items = Array.new
-#	@jdoc.each do |value|
-#		@autocomplete_items << value['suggestall']
-#	end 
+
 	
   end
   
@@ -230,24 +222,16 @@ class DamsObjectsController < ApplicationController
 	@relationships = get_relationships(@dams_object)
 	@rHolders = get_rights_holders(@dams_object)
 	
-#	uri = URI('http://fast.oclc.org/fastSuggest/select')
-#	res = Net::HTTP.post_form(uri, 'q' => 'suggestall :*', 'fl' => 'suggestall', 'wt' => 'json', 'rows' => '100')
-#	json = JSON.parse(res.body)
-#	@jdoc = json.fetch("response").fetch("docs")
-	
-#	@autocomplete_items = Array.new
-#	@jdoc.each do |value|
-#		@autocomplete_items << value['suggestall']
-#	end   	 	 
+
   end
   
   def create   
     has_file = "false"  
     #collectionsId = params[:dams_object][:assembledCollection_attributes]
-    puts "create a new record 5-1"
+    puts "create a new record 5-6"
     puts "old params: "
     puts params
-    
+     @dams_object = DamsObject.new
     # Handling autocompleted field for data ingested from remote website (LOC, etc.)
     # create a Mads/Dams record and push uri to obj param list.
        if !params["dams_object"].empty?
@@ -265,9 +249,11 @@ class DamsObjectsController < ApplicationController
               
               hash_of_value.each do |key, sub|
                 
-                 if sub["id"]!= nil
+                 if sub[:id]!= nil
 
-                    value = sub["id"]
+                    value = sub[:id]
+                    puts "value: "
+                    puts value
                 
                     if /loc:/.match(value)
                       
@@ -292,9 +278,35 @@ class DamsObjectsController < ApplicationController
 
                      # add the uri to obje parameter list
                      uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
-                     sub["id"]= uri
+                     sub[:id]= uri
+                     puts "id: "
+                     puts sub[:id]
      
                    end
+                end
+                
+                if sub[:id]== nil && sub[:label]!= nil
+                  name = sub[:label]
+                  element_value = name
+                  scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+                  element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+
+                  sub_hash = {
+                        "name" => name, 
+                         element_attributes =>
+                         {"0" => {"elementValue" => element_value }},
+                         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                      }
+                     
+                     class_name = get_class_name(sub_type)
+                     class_ref = class_name.constantize
+                     obj = class_ref.new
+                     obj.attributes = sub_hash
+                     obj.save
+
+                     # add the uri to obje parameter list
+                     uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+                     sub[:id]= uri
                 end
              end
            end
@@ -304,7 +316,10 @@ class DamsObjectsController < ApplicationController
     puts "Updated params: "
     puts params
     
+
     @dams_object.attributes = params[:dams_object] 
+
+    
   	if @dams_object.save 
         flash[:notice] = "Object has been saved"
 

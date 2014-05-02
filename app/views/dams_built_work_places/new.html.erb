@@ -20,7 +20,8 @@ $(document).ready(function(){
   <%= url_field_tag 'dams_built_work_place[externalAuthority]','' , class: "input-block-level" %> 
   
   <%= f.fields_for :builtWorkPlaceElement do |te| %>
-    <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

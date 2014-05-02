@@ -15,10 +15,10 @@ $(document).ready(function(){
 		<%= form_for @mads_geographic do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
-		
+		  <div id="subjectField">
 			<%= label_tag 'mads_geographic[name][]', "Name" %>
 			<%= text_field_tag 'mads_geographic[name][]', @mads_geographic.name[0], class: "typeahead" %>
-		
+		  </div>
 			<%= label_tag 'mads_geographic[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_geographic[externalAuthority][]', @mads_geographic.externalAuthority, class: "input-block-level" %>
 		      <%= f.fields_for :scheme, include_id: false do |se| %>
@@ -26,7 +26,8 @@ $(document).ready(function(){
 		        <%= se.select :id, options_for_select(@mads_schemes , :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
 		      <% end %>
 		      <%= f.fields_for :geographicElement do |te| %>
-		        <%= te.hidden_field :elementValue, class: "eleTypeahead" %>
+		        <%= te.label :elementValue, "Element Value" %>
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
 		      <% end %>
 				
 			<div class="form-actions">
