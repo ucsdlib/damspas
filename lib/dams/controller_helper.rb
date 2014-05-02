@@ -617,7 +617,7 @@ logger.warn "XXX #{object.pid}"
     def get_html_data ( pid )
        baseurl = ActiveFedora.fedora_config.credentials[:url]
        baseurl = baseurl.gsub(/\/fedora$/,'')
-       viewerUrl = "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=review.xsl"
+       viewerUrl = "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=review.xsl&baseurl=" + URI.encode(baseurl)
        uri = URI(viewerUrl)
        res = Net::HTTP.get_response(uri)
        res.body

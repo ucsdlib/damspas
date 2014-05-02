@@ -1,5 +1,5 @@
 <h1>Create a new DAMS Source Capture</h1>
-<%= form_for @dams_source_capture do |f| %>
+<%= form_for @dams_source_capture, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= label_tag 'dams_source_capture[scannerManufacturer]', "scannerManufacturer" %><%= text_field_tag 'dams_source_capture[scannerManufacturer]', '', class: "input-block-level" %>
   <%= label_tag 'dams_source_capture[sourceType]', "sourceType" %><%= text_field_tag 'dams_source_capture[sourceType]', '', class: "input-block-level"  %>
   <%= label_tag 'dams_source_capture[scannerModelName]', "scannerModelName" %><%= text_field_tag 'dams_source_capture[scannerModelName]', '', class: "input-block-level"  %>

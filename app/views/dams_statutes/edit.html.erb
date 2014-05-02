@@ -1,5 +1,5 @@
 <h1>Edit DAMS Statute</h1>
-<%= form_for @dams_statute do |f| %>
+<%= form_for @dams_statute, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= label_tag 'dams_statute[citation]', "Citation" %><%= text_field_tag 'dams_statute[citation][]', @dams_statute.citation[0] %>
   <%= label_tag 'dams_statute[jurisdiction]', "Jurisdiction" %><%= text_field_tag 'dams_statute[jurisdiction][]', @dams_statute.jurisdiction[0] %>
   <%= label_tag 'dams_statute[note]', "Note" %><%= text_field_tag 'dams_statute[note][]', @dams_statute.note[0] %>

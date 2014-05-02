@@ -13,7 +13,7 @@ $(document).ready(function(){
 	
 		<h2>Edit Temporal</h2>
 		
-		<%= form_for @mads_temporal do |f| %>
+		<%= form_for @mads_temporal, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
 		<div id="subjectField">
@@ -29,9 +29,15 @@ $(document).ready(function(){
 		      <% end %>
 	        <%= f.fields_for :temporalElement do |te| %>
 	         	<%= te.label :elementValue, "Element Value" %>
+<<<<<<< HEAD
             <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
 	        <% end %>
 			</div>			
+=======
+	        	<%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
+	        <% end %>
+							
+>>>>>>> develop
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_temporal_path(@mads_temporal), class: "btn btn-link pull-right" %>

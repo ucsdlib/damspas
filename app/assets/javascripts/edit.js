@@ -616,6 +616,14 @@ function removeEmptyFields() {
     }
   }
 
+  inputElements= document.getElementsByClassName("nonSort");
+  for (var i=0;i<inputElements.length;i++) {
+    if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
+      fieldId = "#"+inputElements[i].id;
+      inputElementsArray.push(fieldId);
+    }
+  }
+  
   inputElements= document.getElementsByClassName("input-drop-down");
   for (var i=0;i<inputElements.length;i++) {
     if(inputElements[i].value != null && inputElements[i].value.length < 1) {     
@@ -641,14 +649,4 @@ function removeEmptyFields() {
   }
 }
 
-function loadSensitiveImage(message,zoomFilePath,filePath) {
-  var imgObj = document.getElementById('sensitive-image');
-  var imgSrc = imgObj.src;
-  if (confirm(message + "\n " + "Would you like to view its content?")) 
-  {
-    html ='<a href="'+zoomFilePath+'">';
-    html += '<img id="sensitive-image" src="'+filePath+'" alt=""/>'
-    html += '</a>';
-    document.getElementsByClassName('simple-object')[0].innerHTML = html;
-  }
-}
+

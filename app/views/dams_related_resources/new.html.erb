@@ -3,7 +3,7 @@
    resourceTypeArray = [["related", "related"],["online exhibit", "online exhibit"],["online finding aid", "online finding aid"],["news release", "news release"],
    						["depiction", "depiction"],["journal entry", "journal entry"],["basket", "basket"],["artifact", "artifact"]]
 %> 
-<%= form_for @dams_related_resource do |f| %>
+<%= form_for @dams_related_resource, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= f.select :type, options_for_select(resourceTypeArray) , {:include_blank => 'Select Type'}, :class=>"input-drop-down"%>
   <br>
   <%= label_tag 'dams_related_resource[uri]', "URI" %><%= text_field_tag 'dams_related_resource[uri]', '', class: "input-block-level" %>

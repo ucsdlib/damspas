@@ -86,7 +86,7 @@
 				<%= render :partial => 'shared/fields/license', :locals => {:componentIndex => componentIndex} %>
 				<%= render :partial => 'shared/fields/other_rights', :locals => {:componentIndex => componentIndex} %>
 				<%= render :partial => 'shared/fields/rights_holder', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/related_resource', :locals => {:componentIndex => componentIndex} %>
+				<%= render :partial => 'shared/fields/related_resource', :locals => {:componentIndex => componentIndex, :collectionDoc => @document, :docType => "object"} %>
 
 			</tbody>
 		</table>

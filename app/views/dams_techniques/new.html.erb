@@ -7,7 +7,7 @@ $(document).ready(function(){
 </script>
 
 <h1>Create a new Dams Technique</h1>
-<%= form_for @dams_technique do |f| %>
+<%= form_for @dams_technique, :html => { :onsubmit => 'removeEmptyFields();'}  do |f| %>
   <%= render 'error_messages' %>
 
   <div id="subjectField">
@@ -20,7 +20,11 @@ $(document).ready(function(){
   
   <%= f.fields_for :techniqueElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
+<<<<<<< HEAD
             <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+=======
+    <%= te.text_field :elementValue, class: "input-block-level", :required=>true  %>
+>>>>>>> develop
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

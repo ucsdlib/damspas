@@ -4,31 +4,19 @@
   <div class="span10 offset1">
     <h2>Edit Corporate Name</h2>
 
-    <%= form_for @mads_corporate_name do |f| %>
+    <%= form_for @mads_corporate_name, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 
       <%= render 'error_messages', object: f.object %>
 
       <%= label_tag 'mads_corporate_name[name][]', "Name" %>
       <%= text_field_tag 'mads_corporate_name[name][]', @mads_corporate_name.name[0], class: "input-block-level" %>
-      <%= label_tag 'mads_corporate_name[externalAuthority][]', "ExternalAuthority" %>
+      <%= label_tag 'mads_corporate_name[externalAuthority][]', "URI" %>
       <%= text_field_tag 'mads_corporate_name[externalAuthority][]', @mads_corporate_name.externalAuthority, class: "input-block-level" %>
       <%= f.fields_for :scheme, include_id: false do |se| %>
-        <%= se.label :id, "Scheme" %>
-        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select MadsScheme" %>
+        <%= se.label :id, "Vocabulary" %>
+        <%= se.select :id, options_for_select(@mads_schemes, :selected => @scheme_id) , :prompt=>"Select Vocabulary" %>
       <% end %>
-
-      <%= label_tag 'mads_corporate_name[fullNameElement_attributes][0][elementValue]', "Full Name" %>
-      <%= text_field_tag 'mads_corporate_name[fullNameElement_attributes][0][elementValue]', @mads_corporate_name.fullNameValue, class: "input-block-level" %>          
-
-      <%= label_tag 'mads_corporate_name[familyNameElement_attributes][0][elementValue]', "Family Name" %>
-      <%= text_field_tag 'mads_corporate_name[familyNameElement_attributes][0][elementValue]', @mads_corporate_name.familyNameValue, class: "input-block-level" %>          
-
-      <%= label_tag 'mads_corporate_name[givenNameElement_attributes][0][elementValue]', "Given Name" %>
-      <%= text_field_tag 'mads_corporate_name[givenNameElement_attributes][0][elementValue]', @mads_corporate_name.givenNameValue, class: "input-block-level" %>          
-
-      <%= label_tag 'mads_corporate_name[termsOfAddressNameElement_attributes][0][elementValue]', "Terms Of Address" %>
-      <%= text_field_tag 'mads_corporate_name[termsOfAddressNameElement_attributes][0][elementValue]', @mads_corporate_name.termsOfAddressNameValue, class: "input-block-level" %>          
-
+        
       <%= label_tag 'mads_corporate_name[dateNameElement_attributes][0][elementValue]', "Dates" %>
       <%= text_field_tag 'mads_corporate_name[dateNameElement_attributes][0][elementValue]', @mads_corporate_name.dateNameValue, class: "input-block-level" %>          
 

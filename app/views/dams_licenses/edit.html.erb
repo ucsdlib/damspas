@@ -1,11 +1,11 @@
 <h1>Edit DAMS License</h1>
-<%= form_for @dams_license do |f| %>
+<%= form_for @dams_license, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= label_tag 'dams_license[note]', "Note" %><%= text_field_tag 'dams_license[note][]', @dams_license.note[0] %>
   <%= label_tag 'dams_license[uri]', "URI" %><%= text_field_tag 'dams_license[uri][]', @dams_license.uri[0] %>
 
   <%= f.fields_for :permission_node do |pn| %>
     <%= pn.label :type, "Permission Type" %>
-    <%= pn.text_field :type , :value => @dams_license.permissionType[0]%>    
+    <%= pn.text_field :type , :value => @dams_license.permissionType[0], :required=>true%>    
     <%= pn.label :beginDate, "Permission Begin Date" %>
     <%= pn.text_field :beginDate, :value => @dams_license.permissionBeginDate[0]%>
     <%= pn.label :endDate, "Permission End Date" %>
@@ -14,7 +14,7 @@
 
   <%= f.fields_for :restriction_node do |rn| %>
     <%= rn.label :type, "Restriction Type" %>
-    <%= rn.text_field :type , :value => @dams_license.restrictionType[0]%>    
+    <%= rn.text_field :type , :value => @dams_license.restrictionType[0], :required=>true%>    
     <%= rn.label :beginDate, "Restriction Begin Date" %>
     <%= rn.text_field :beginDate, :value => @dams_license.restrictionBeginDate[0]%>
     <%= rn.label :endDate, "Restriction End Date" %>

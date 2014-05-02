@@ -7,7 +7,7 @@ $(document).ready(function(){
 </script>
 
 <h1>Create a new Dams Iconography</h1>
-<%= form_for @dams_iconography do |f| %>
+<%= form_for @dams_iconography, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 	<%= render 'error_messages' %>
 
   <div id="subjectField">
@@ -19,8 +19,13 @@ $(document).ready(function(){
   <%= url_field_tag 'dams_iconography[externalAuthority]', '', class: "input-block-level" %> 
   
   <%= f.fields_for :iconographyElement do |te| %>
+<<<<<<< HEAD
      <%= te.label :elementValue, "Element Value" %>
             <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+=======
+    <%= te.label :elementValue, "Element Value" %>
+    <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
+>>>>>>> develop
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

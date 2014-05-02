@@ -12,7 +12,7 @@ $(document).ready(function(){
 	
 		<h2>Edit Occupation</h2>
 		
-		<%= form_for @mads_occupation do |f| %>
+		<%= form_for @mads_occupation, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
 		  <div id="subjectField">
@@ -28,8 +28,13 @@ $(document).ready(function(){
 		      <% end %>
 		      <%= f.fields_for :occupationElement do |te| %>
 		        <%= te.label :elementValue, "Element Value" %>
+<<<<<<< HEAD
             <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
 		      <% end %>
+=======
+		        <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
+		      <% end %>
+>>>>>>> develop
 				
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>

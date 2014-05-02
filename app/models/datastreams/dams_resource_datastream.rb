@@ -884,21 +884,30 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertComplexSubjectFields solr_doc, nil, load_complexSubjects(complexSubject)
 
     # subject - simple
-    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
-    insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
-    insertFields solr_doc, 'function', load_functions(function)
-    insertFields solr_doc, 'iconography', load_iconographies(iconography)
-    insertFields solr_doc, 'occupation', load_occupations(occupation)
-    insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
-    insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
-    insertFields solr_doc, 'technique', load_techniques(technique)
-    insertFields solr_doc, 'temporal', load_temporals(temporal)
+    #insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
+    #insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
+    #insertFields solr_doc, 'function', load_functions(function)
+    #insertFields solr_doc, 'iconography', load_iconographies(iconography)
+    #insertFields solr_doc, 'occupation', load_occupations(occupation)
+    #insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
+    #insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
+    #insertFields solr_doc, 'technique', load_techniques(technique)
+    #insertFields solr_doc, 'temporal', load_temporals(temporal)
 
     # subjects bundled under "Subjects" heading
     insertSubjectFields solr_doc, 'genreForm', load_genreForms(genreForm)
     insertSubjectFields solr_doc, 'geographic', load_geographics(geographic)
     insertSubjectFields solr_doc, 'topic', load_topics(topic)
-
+    insertSubjectFields solr_doc, 'temporal', load_temporals(temporal)
+	insertSubjectFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
+    insertSubjectFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
+    insertSubjectFields solr_doc, 'function', load_functions(function)
+    insertSubjectFields solr_doc, 'iconography', load_iconographies(iconography)
+    insertSubjectFields solr_doc, 'occupation', load_occupations(occupation)
+    insertSubjectFields solr_doc, 'scientificName', load_scientificNames(scientificName)
+    insertSubjectFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
+    insertSubjectFields solr_doc, 'technique', load_techniques(technique)
+    
     # subject - names
     insertNameFields solr_doc, 'other_name', load_names(name)
     insertNameFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)

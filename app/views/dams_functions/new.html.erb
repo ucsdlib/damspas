@@ -7,7 +7,7 @@ $(document).ready(function(){
 </script>
 
 <h1>Create a new Dams Function</h1>
-<%= form_for @dams_function do |f| %>
+<%= form_for @dams_function, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 	<%= render 'error_messages' %>
 
    <div id="subjectField">
@@ -19,7 +19,11 @@ $(document).ready(function(){
   <%= url_field_tag 'dams_function[externalAuthority]', '', class: "input-block-level" %> 
   <%= f.fields_for :functionElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
+<<<<<<< HEAD
     <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+=======
+    <%= te.text_field :elementValue, class: "input-block-level", :required=>true%>
+>>>>>>> develop
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>
