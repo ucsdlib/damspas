@@ -11,10 +11,10 @@
     <% if !@selectedValue.nil? and @selectedValue != "0"%>
 
     <%= text_field_tag "newClassNameLabel", "#{@selectedLabel}", class: "typeahead" %>
-    <%= text_field_tag "#{@formType}[#{@fieldName}][]", "#{Rails.configuration.id_namespace}#{@selectedValue}", class: "input-block-level", id: "newClassNameId"%>
+    <%= hidden_field_tag "#{@formType}[#{@fieldName}][]", "#{Rails.configuration.id_namespace}#{@selectedValue}", class: "input-block-level", id: "newClassNameId"%>
     <% else %>
     <%= text_field_tag "newClassNameLabel", "", class: "typeahead" %>
-    <%= text_field_tag "#{@formType}[#{@fieldName}][]", "", class: "input-block-level", id: "newClassNameId" %>
+    <%= hidden_field_tag "#{@formType}[#{@fieldName}][]", "", class: "input-block-level", id: "newClassNameId" %>
     <% end %>
 
   
@@ -24,7 +24,7 @@
     <% end %>
 
     <%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][label]", "", class: "typeahead" %>
-	<%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", "", class: "input-block-level" %>
+	<%= hidden_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", "", class: "input-block-level" %>
       
     <%=@subjects%>
      

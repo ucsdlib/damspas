@@ -4,6 +4,15 @@ $viewerPadding: 3% !default;
    width: 396px; 
 }
 
+.twitter-typeahead {
+    z-index: 1;
+}
+
+.tt-dropdown-menu {
+    z-index: 100;
+    position: relative;
+}
+
 .eleTypeahead {width: 396px; }
 
 #scrollable-dropdown-menu .tt-dropdown-menu {

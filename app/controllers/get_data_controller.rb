@@ -136,7 +136,8 @@ class GetDataController < ApplicationController
 	@fieldId = params[:fieldId]
 	@selectedValue = params[:selectedValue]
 	@selectedLabel = params[:selectedLabel]
-	@subjects = "Create New #{@label}"
+	#@subjects = "Create New #{@label}"
+  @subjects = ""
 	render :layout => false
   end
 

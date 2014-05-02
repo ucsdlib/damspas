@@ -228,12 +228,11 @@ class DamsObjectsController < ApplicationController
   def create   
     has_file = "false"  
     #collectionsId = params[:dams_object][:assembledCollection_attributes]
-    puts "create a new record 5-6"
-    puts "old params: "
-    puts params
-     @dams_object = DamsObject.new
+ 
     # Handling autocompleted field for data ingested from remote website (LOC, etc.)
     # create a Mads/Dams record and push uri to obj param list.
+
+    @dams_object = DamsObject.new
        if !params["dams_object"].empty?
          hash_of_param = params["dams_object"]
           
@@ -252,9 +251,7 @@ class DamsObjectsController < ApplicationController
                  if sub[:id]!= nil
 
                     value = sub[:id]
-                    puts "value: "
-                    puts value
-                
+             
                     if /loc:/.match(value)
                       
                       name = value[value.index('_')+7, value.length-1]
@@ -279,8 +276,6 @@ class DamsObjectsController < ApplicationController
                      # add the uri to obje parameter list
                      uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
                      sub[:id]= uri
-                     puts "id: "
-                     puts sub[:id]
      
                    end
                 end
@@ -312,10 +307,7 @@ class DamsObjectsController < ApplicationController
            end
          end
       end
-    
-    puts "Updated params: "
-    puts params
-    
+   
 
     @dams_object.attributes = params[:dams_object] 
 
@@ -425,9 +417,9 @@ class DamsObjectsController < ApplicationController
 	has_file = "false"
 	#collectionsId = params[:dams_object][:assembledCollectionURI]
      
-     puts params
+     
       # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams class.
-       if !params["dams_object"]["simpleSubjectURI"].empty?
+       if params["dams_object"]["simpleSubjectURI"]!= nil && (!params["dams_object"]["simpleSubjectURI"].empty?)
          hash_of_param = params["dams_object"]["simpleSubjectURI"]
           
          hash_of_param.each_with_index do |value, index|
@@ -466,7 +458,7 @@ class DamsObjectsController < ApplicationController
               # add the uri to obje parameter list
               uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
               hash_of_param[index]= uri
-              puts params
+              
            end
          end
         end
