@@ -1,3 +1,5 @@
+require 'active_support/inflector'
+
 module Dams
 	module DamsHelper
 	    
@@ -811,6 +813,16 @@ module Dams
 			i+=1
 		end
 	  end      
-	        
-	end
+  
+    # Unload and reload a class to reset any broken mappings
+    def reload( klazz )
+      begin
+        Object.send(:remove_const, klazz.to_s) if defined? klazz
+        load "#{ActiveSupport::Inflector.underscore(klazz)}.rb"
+      rescue Exception => ex
+        puts "Error reloading class (#{klazz.to_s}): #{ex}"
+      end
+    end
+
+  end
 end
