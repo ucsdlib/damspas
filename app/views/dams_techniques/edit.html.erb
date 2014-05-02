@@ -1,5 +1,12 @@
 <% @page_title =  "Edit Technique" %>
+<script type="text/javascript">
 
+$(document).ready(function(){
+
+  getMultiAutoCompleteList("Technique");
+
+});
+</script>
 <div class="row-fluid">
 	<div class="span10 offset1">
 	
@@ -8,10 +15,10 @@
 		<%= form_for @dams_technique, :html => { :onsubmit => 'removeEmptyFields();'}  do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
-		
+		  <div id="subjectField">
 			<%= label_tag 'dams_technique[name][]', "Name" %>
-			<%= text_field_tag 'dams_technique[name][]', @dams_technique.name[0], class: "input-block-level" %>
-		
+			<%= text_field_tag 'dams_technique[name][]', @dams_technique.name[0], class: "typeahead" %>
+		  </div>
 			<%= label_tag 'dams_technique[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'dams_technique[externalAuthority][]', @dams_technique.externalAuthority, class: "input-block-level" %>
 
@@ -21,7 +28,9 @@
 	      <% end %>
 	      <%= f.fields_for :techniqueElement do |te| %>
 	        <%= te.label :elementValue, "Element Value" %>
-	        <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
+
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+
 	      <% end %>
 							
 			<div class="form-actions">

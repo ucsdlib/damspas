@@ -1,4 +1,12 @@
 <% @page_title =  "Edit Temporal" %>
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+  getMultiAutoCompleteList("Temporal");
+
+});
+</script>
 
 <div class="row-fluid">
 	<div class="span10 offset1">
@@ -8,9 +16,9 @@
 		<%= form_for @mads_temporal, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
-		
+		<div id="subjectField">
 			<%= label_tag 'mads_temporal[name]', "Name" %>
-			<%= text_field_tag 'mads_temporal[name]', @mads_temporal.name[0], class: "input-block-level" %>
+			<%= text_field_tag 'mads_temporal[name]', @mads_temporal.name[0], class: "typeahead" %>
 		
 			<%= label_tag 'mads_temporal[externalAuthority]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_temporal[externalAuthority]', @mads_temporal.externalAuthority, class: "input-block-level" %>
@@ -21,9 +29,15 @@
 		      <% end %>
 	        <%= f.fields_for :temporalElement do |te| %>
 	         	<%= te.label :elementValue, "Element Value" %>
+
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+	        <% end %>
+			</div>			
+
 	        	<%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
 	        <% end %>
 							
+>>>>>>> develop
 			<div class="form-actions">
 				<button type="submit" class="btn btn-primary pull-right">Save changes</button>
 				<%= link_to "Cancel", mads_temporal_path(@mads_temporal), class: "btn btn-link pull-right" %>
