@@ -484,6 +484,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
 
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     # build map: role => [name1,name2]
     rels = {}
     relationships.map do |relationship|
@@ -534,6 +535,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
             end
           end
           Solrizer.insert_field(solr_doc, "all_fields", roleValue)
+          Solrizer.insert_field(solr_doc, "creator", name, facetable) if roleValue.casecmp("Creator")==0
+          	  
           if rels[roleValue] == nil
             rels[roleValue] = [name]
           else
@@ -685,7 +688,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
-
     # relatedResource
     n = 0
     relatedResource.map do |resource|
@@ -706,12 +708,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.uri.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.type.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.description.first.to_s)
-	
 	      if resource.type.first.to_s == "thumbnail"
 	        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
 	      end      
 	  rescue Exception => e
-	      puts "XXX: error loading relatedResource: #{lang}: #{e.to_s}"
+	      puts "XXX: error loading relatedResource: #{resource}: #{e.to_s}"
 	  end
         
       #related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
@@ -723,8 +724,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       #  Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
       #end
     end
+
+    reload DamsRelatedResourceInternal
   end
-  
+
   def events_to_json( event )
     event_array = []
     events = load_events event

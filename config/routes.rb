@@ -1,6 +1,6 @@
 Hydra::Application.routes.draw do
 
-
+  resources :audits, :only => [:index, :show]
   resources :pages
   get '/p/:id', to: 'pages#view', :as => 'view_page'
 

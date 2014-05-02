@@ -1,6 +1,8 @@
 class DamsSourceCapturesController < ApplicationController
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => :index
+  after_action 'audit("#{@dams_source_capture.id}")', :only => [:create, :update]
 
   def show
     @dams_source_capture = DamsSourceCapture.find(params[:id])  

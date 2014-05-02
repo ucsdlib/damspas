@@ -212,7 +212,6 @@ module Dams
     end
     
     def get_simple_subject_value(object)
-logger.warn "XXX #{object.pid}"
     	value = ""
     	if !object.temporal[0].nil?   
 	  		value = object.temporal.first.name.first
@@ -534,16 +533,17 @@ logger.warn "XXX #{object.pid}"
         ext = File.extname(file.original_filename)
         @ds += ext unless ext.nil?
 
-        # add the file and save the object
-        object.add_file( file, @ds, file.original_filename )
-        object.save!
-
         # check mime type and include derivatives hook if derivable
         mt = file.content_type
-        if mt.include?("audio") || mt.include?("image") || mt.include?("video")
+        if ext.include?("wav") || ext.include?("tif") || ext.include?("mov") || ext.include?("avi") || ext.include?("pdf")
+          # add the file and save the object
+	      object.add_file( file, @ds, file.original_filename )
+	      object.save!
+          logger.warn "audit: #{session[:user_id]} create File #{object.id}/#{@ds}"
+          Audit.create( user: session[:user_id], action: "create", classname: "File", object: "#{object.id}/#{@ds}")
           return { notice: "File Uploaded", deriv: @ds }
         else
-          return { notice: "File Uploaded", deriv: nil }
+          return { alert: "File Type #{mt} is not supported. Supported File Types: TIFF, WAV, MOV, AVI, PDF"}
         end
       end
     end
@@ -596,6 +596,7 @@ logger.warn "XXX #{object.pid}"
 	    url += "#{@fid}/derivatives?format=json"
 
 	    # call damsrepo
+	    puts "URL to create derivatives --------------- #{url}"
 	    response = RestClient::Request.new(
 	        :method => :post, :url => url, :user => user, :password => pass
 	      ).execute
@@ -622,5 +623,12 @@ logger.warn "XXX #{object.pid}"
        res = Net::HTTP.get_response(uri)
        res.body
     end       
+
+    def audit( id = "unknown" )
+      classname = self.class.name.gsub("sController","")
+      logger.warn "audit: #{session[:user_id]} #{params[:action]} #{classname} #{id}"
+      Audit.create( user: session[:user_id], action: params[:action], classname: classname, object: id)
+    end
+
   end
 end

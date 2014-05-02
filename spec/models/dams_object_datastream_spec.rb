@@ -65,6 +65,7 @@ describe DamsObjectDatastream do
         solr_doc["title_tesim"].should include "Chicano and black radical activism of the 1960s: a comparison between the Brown Berets and the Black Panther Party in California"
         solr_doc["date_tesim"].should include "2010"
         solr_doc["name_tesim"].should include "Yañez, Angélica María"
+        solr_doc["creator_sim"].should include "Yañez, Angélica María"
       end
 
     end
