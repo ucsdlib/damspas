@@ -327,20 +327,12 @@ class DamsObjectsController < ApplicationController
            end
          end
       end
-   
-
-<<<<<<< HEAD
+ 
     @dams_object.attributes = params[:dams_object] 
 
-    
-  	if @dams_object.save 
-        flash[:notice] = "Object has been saved"
-
-=======
-	
 	    
   	if @dams_object.save
->>>>>>> 3a3bea8042e02369bcc50ba329b28325b63fafec
+       flash[:notice] = "Object has been saved"
         @dams_object.reload
         
 
