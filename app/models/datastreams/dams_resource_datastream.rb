@@ -725,15 +725,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       #end
     end
 
-    # tear down object classes
-    begin
-      Object.send(:remove_const, :DamsRelatedResourceInternal) if defined? DamsRelatedResourceInternal
-      load "dams_related_resource_internal.rb"
-    rescue Exception => ex
-      puts "Error unloading classes: #{ex}"
-    end
+    reload DamsRelatedResourceInternal
   end
-  
+
   def events_to_json( event )
     event_array = []
     events = load_events event
