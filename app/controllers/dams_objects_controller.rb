@@ -229,8 +229,8 @@ class DamsObjectsController < ApplicationController
     has_file = "false"  
     #collectionsId = params[:dams_object][:assembledCollection_attributes]
  
-    # Handling autocompleted field for data ingested from remote website (LOC, etc.)
-    # create a Mads/Dams record and push uri to obj param list.
+    # Handling autocompleted field for data returned from remote website (LOC, etc.)
+    # create Mads/Dams records and push uri to obj param list.
 
     @dams_object = DamsObject.new
        if !params["dams_object"].empty?
@@ -418,7 +418,7 @@ class DamsObjectsController < ApplicationController
 	#collectionsId = params[:dams_object][:assembledCollectionURI]
      
      
-      # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams class.
+      # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams classes.
        if params["dams_object"]["simpleSubjectURI"]!= nil && (!params["dams_object"]["simpleSubjectURI"].empty?)
          hash_of_param = params["dams_object"]["simpleSubjectURI"]
           
@@ -432,7 +432,7 @@ class DamsObjectsController < ApplicationController
               # if !params["dams_object"]["subjectType"].empty?
               #    sub_type = params["dams_object"]["subjectType"][index]
               # end
-              sub_type = value[4, value.index('_') - 4]..capitalize
+              sub_type = value[4, value.index('_') - 4]
               sub_type = "Topic" if sub_type == nil
 
               name = value[value.index('_')+7, value.length-1]
@@ -527,6 +527,5 @@ class DamsObjectsController < ApplicationController
     else
       class_name = "Mads" + name 
     end
-
-   end
+  end
 end
