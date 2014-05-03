@@ -1,15 +1,102 @@
-function getAutocompleteItem(){
- 
-var subjectLocal = new Bloodhound({
+function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel){
+    
+    
+    var IDTag='#'+elementID;
+    var typeaheadLabelTag='#'+elementLabel+'.typeahead';
+    
+    var labelsDAMS = new Bloodhound({
+        datumTokenizer: function (d) {
+
+            return Bloodhound.tokenizers.whitespace(d.label);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: {
+          url: '/dc/get_data/get_dams_data/get_dams_data?q='+fieldname,
+          
+          // the json file contains an array of strings, but the Bloodhound
+          // suggestion engine expects JavaScript objects so this converts all of
+          // those strings
+          filter: function(items) {
+                return $.map(items, function(item) { 
+                       return { label: item.label, id: item.id }; 
+                });
+           }  
+        }
+    });
+
+    var labelsLOC = new Bloodhound({
+        datumTokenizer: function (d) {
+
+            return Bloodhound.tokenizers.whitespace(d.label);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/dc/qa/search/loc/subjects?q=%QUERY',
+          
+          filter: function(items) {
+                return $.map(items, function(item) { 
+                       return { label: item.label, id: item.id }; 
+                });
+           }  
+        }
+    });
+
+    // Initialise Bloodhound suggestion engines for each input
+    labelsDAMS.initialize();
+    labelsLOC.initialize();
+
+    var subjectLabelTypeahead = $(typeaheadLabelTag);
+    var subjectId = $(IDTag);
+
+    // Initialise typeahead 
+    subjectLabelTypeahead.typeahead({
+        highlight: true,
+        minLength: 2
+    }, 
+    {
+        name: 'labelDAMS',
+        displayKey: 'label',
+        source: labelsDAMS.ttAdapter(),
+        templates: {
+          header: '<h4 class="subject-name">DAMS</h4>'
+        }
+    },
+    {
+        name: 'labelLOC',
+        displayKey: 'label',
+        source: labelsLOC.ttAdapter(),
+        templates: {
+          header: '<h4 class="subject-name">LOC</h4>'
+        }
+    });
+
+    // Set-up callback event handlers so that the ID is auto-populated when label is selected
+    var subjectLabelItemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
+        
+         if (suggestionDataset == "labelDAMS" ) {
+           subjectId.val(suggestionObject.id);
+         }
+         else
+         {
+           subjectId.val("loc:"+ fieldname + "_label:"+suggestionObject.label  );
+         }
+
+         
+    };
+
+    subjectLabelTypeahead.on('typeahead:selected', subjectLabelItemSelectedHandler);
+
+}
+
+function getMultiAutoCompleteList(fieldName){ 
+
+ var subjectLocal = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
  
     prefetch: {
-      url: '/dc/get_data/get_dams_data/get_dams_data?q=Topic',
-      
-      // the json file contains an array of strings, but the Bloodhound
-      // suggestion engine expects JavaScript objects so this converts all of
-      // those strings
+      url: '/dc/get_data/get_dams_data/get_dams_data?q='+fieldName,
+            
       filter: function(list) {
         return $.map(list, function(item) { return { value: item.label }; });
       }
@@ -56,6 +143,56 @@ var subjectLOC = new Bloodhound({
     }
    });
 
+  var eleValue = $('.eleTypeahead');
+
+  var itemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
+        eleValue.val(suggestionObject.value);
+     };
+
+    $('#subjectField .typeahead').on('typeahead:selected', itemSelectedHandler);
+
+}
+
+function getSingleAutoCompleteList(){ 
+
+var subjectLOC = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    remote: {
+        url:'/dc/qa/search/loc/subjects?q=%QUERY',
+       
+        filter: function(list) {
+        return $.map(list, function(item) { return { value: item.label }; });
+        }
+     }  
+
+  });
+
+  subjectLOC.initialize();
+  
+  $('#subjectField .typeahead').typeahead(
+  {
+  hint: true,
+  highlight: true,
+  minLength: 2
+  },
+  {
+    name: 'subject-LOC',
+    displayKey: 'value',
+    source: subjectLOC.ttAdapter(),
+    templates: {
+    header: '<h4 class="subject-name">LOC</h4>'
+    }
+   });
+
+  var eleValue = $('.eleTypeahead');
+
+  var itemSelectedHandler = function (eventObject, suggestionObject, suggestionDataset) {
+        eleValue.val(suggestionObject.value);
+     };
+
+    $('#subjectField .typeahead').on('typeahead:selected', itemSelectedHandler);
+
 }
 
 var complexSubjectIdArray = new Array();
@@ -66,6 +203,117 @@ function getName(type,q,location)
     $(location).html(data);
   });  
 }
+
+function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedValue,selectedLabel)
+{  
+  
+  var q = null;
+  var fieldName = null;
+  var typeGet = null;
+  var reg = null;
+  
+  //For edit field
+  if (typeof linkTag == "string") {
+    q = linkTag;
+    fieldName = typeName+"URI";
+  } 
+  // For new field
+  else {
+    q = linkTag.value;
+    fieldName = firstToLowerCase(q);
+  }
+
+  if (typeName == 'simpleSubject') {
+    typeGet = "subject";
+    reg = "newSimpleSubjects";
+  }
+  else if (typeName == 'creator') {
+    typeGet = "name";
+    reg = "newCreator";
+  }
+  
+ // new http://localhost:3000/get_data/get_subject/get_subject?selectedValue=undefined&fieldId=0&fieldName=builtWorkPlace&formType=dams_object&q=BuiltWorkPlace
+ // edit http://localhost:3000/get_data/get_subject/get_subject?selectedValue=xx00000174&fieldId=0&fieldName=simpleSubjectURI&formType=dams_object&q=Topic
+  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&selectedLabel="+selectedLabel+"&fieldId="+fieldId+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
+  
+  if(q != null && q.length > 0) {
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = null;
+        data = data.replace("attributes_"+fieldId+"_id","attributes_"+new_id+"_id");
+        data = data.replace("attributes]["+fieldId+"][id]","attributes]["+new_id+"][id]");
+
+        data = data.replace("attributes_"+fieldId+"_label","attributes_"+new_id+"_label");
+        data = data.replace("attributes]["+fieldId+"][label]","attributes]["+new_id+"][label]");
+     
+        regexp = new RegExp("newClassName", "g");
+        data = data.replace(regexp,new_id); 
+      if(location != null && location.length > 0)
+        $(location).html(data);
+      else
+        $(linkTag).parent().before(data);
+      
+      if(typeName == 'simpleSubject')
+      {
+        if(selectedValue ==null)
+        {
+        var elementID= formType+"_"+fieldName+"_attributes_"+new_id+"_id";
+        var elementLabel= formType+"_"+fieldName+"_attributes_"+new_id+"_label"
+        getAutocompleteList_callback(formType,fieldName,elementID,elementLabel);
+        }
+        else{
+          var elementID= new_id+"Id";
+         var elementLabel= new_id+"Label";
+        getAutocompleteList_callback(formType,q,elementID,elementLabel);
+        }
+      }
+    }); 
+  }
+}
+
+
+function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
+{  
+  var q = linkTag.value;
+  var typeGet = null;
+  var reg = null;
+  var fieldName = null;
+  var url = null;
+  var selectedValue = "0";
+
+  if (typeName == 'simpleSubject') {
+    typeGet = "subject";
+    reg = "newSimpleSubjects";
+  }
+  else if (typeName == 'creator') {
+    typeGet = "name";
+    reg = "newCreator";
+  }
+  
+  fieldName = typeName+"URI";
+
+  //http://localhost:3000/get_data/get_subject/get_subject?fieldName=simpleSubjectURI&formType=dams_object&q=BuiltWorkPlace
+  url = baseURL+"/get_"+typeGet+"/get_"+typeGet+"?selectedValue="+selectedValue+"&fieldName="+fieldName+"&formType="+formType+"&q="+q;
+  
+  
+  if(q != null && q.length > 0) {
+    $.get(url,function(data,status){
+      var new_id = new Date().getTime();
+      var regexp = new RegExp("newClassName", "g");
+      data = data.replace(regexp,new_id);
+      if(location != null && location.length > 0)
+        $(location).html(data); 
+
+      if(typeName == 'simpleSubject')
+      {
+        var elementID= new_id+"Id";
+        var elementLabel= new_id+"Label";
+        getAutocompleteList_callback(formType,q,elementID,elementLabel);
+      }
+    }); 
+  }
+}
+
 
 function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,relationship,selectedRole)
 {  
@@ -128,8 +376,11 @@ function getDynamicFields(link,type,location,fieldId,typeName,selectedValue,rela
         $(location).html(data);
       else
         $(link).parent().before(data);
+       
     }); 
   }
+
+  
 }
 
 function getEditDynamicFields(link,type,location,typeName)
