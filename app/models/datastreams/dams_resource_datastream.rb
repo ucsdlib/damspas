@@ -726,6 +726,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     reload DamsRelatedResourceInternal
+    reload MadsPersonalNameInternal
+    reload MadsNameInternal
+    reload MadsConferenceNameInternal
+    reload MadsCorporateNameInternal
+    reload MadsFamilyNameInternal
   end
 
   def events_to_json( event )
