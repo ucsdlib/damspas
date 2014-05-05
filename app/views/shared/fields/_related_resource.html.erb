@@ -36,7 +36,7 @@
 	 		fieldData = colDoc["#{prefix}related_resource_json_tesim"]
 	 		fieldData.each do |datum|
 			 relatedResource = JSON.parse(datum)
-			 if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
+			 if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel" && (relatedResource['type'].include?("online") || relatedResource['type'] == "news release")
           if relatedResource['type'] != 'thumbnail'
           	# add link information as value to hashmap
           	curr = [relatedResource['description'], relatedResource['uri']]
@@ -64,7 +64,7 @@
 				<p>
 					<strong>
 						<% if key != nil && !key.blank? %>
-						<%= key %>
+						<%= key.capitalize %>
 						<ul>
 						<% else %>
 						General Related Resource
@@ -96,7 +96,7 @@
 					<p>
 						<strong>
 							<% if key != nil && !key.blank? %>
-							<%= key %>
+							<%= key.capitalize %>
 							<ul>
 							<% else %>
 							General Related Resource

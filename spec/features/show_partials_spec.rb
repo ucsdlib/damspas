@@ -41,7 +41,7 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_selector('p', :text=>"CustodialResponsibilityNote value")
 
     # related resource
-    expect(page).to have_selector('strong', :text=>"exhibit")
+    expect(page).to have_selector('strong', :text=>"Exhibit")
     expect(page).to have_link('Related Resource value', href:"http://relatedresource.com/")
 
     # copyright

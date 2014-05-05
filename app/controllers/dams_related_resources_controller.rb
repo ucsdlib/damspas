@@ -2,7 +2,7 @@ class DamsRelatedResourcesController < ApplicationController
   include Blacklight::Catalog
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_related_resource.id}")', :only => [:create, :update]
+  #after_action 'audit("#{@dams_related_resource.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
