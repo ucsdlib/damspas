@@ -10,7 +10,7 @@ For small changes, UCSD developers can work on the develop branch directly. If a
 5. Give the pull request a short meaningful title, and put a link to the relevant JIRA ticket or other issue in the description.
 6. Add a link to the pull request in the JIRA ticket.
 7. Choose the __Request Code Review__ transition in the JIRA ticket.
-8. Another developer will be assigned to review the pull request and assigned responsibility for merging into the develop branch
+8. Development Manager will assign a developer to review the pull request.
 
 ## Merging Changes from Pull Requests
 
