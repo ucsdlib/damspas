@@ -1,14 +1,28 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+  getSingleAutoCompleteList();
+});
+
+</script>
+
 <h1>Create a new Dams Iconography</h1>
 <%= form_for @dams_iconography, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 	<%= render 'error_messages' %>
+
+  <div id="subjectField">
   <%= label_tag 'dams_iconography[name]', "Name" %>
-  <%= text_field_tag 'dams_iconography[name]', '', required: true, class: "input-block-level" %>
+  <%= text_field_tag 'dams_iconography[name]', '', required: true, class: "typeahead" %>
+  </div>
+  
   <%= label_tag 'dams_iconography[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_iconography[externalAuthority]', '', class: "input-block-level" %> 
   
   <%= f.fields_for :iconographyElement do |te| %>
-    <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
+
+     <%= te.label :elementValue, "Element Value" %>
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

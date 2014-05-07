@@ -14,17 +14,14 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector("div.dams-search-constraints")
     expect(page).to have_selector("span.dams-filter")
   end
-  scenario 'results sorted by relevance improvement: title name subject' do
+  scenario 'results sorted by title' do
     sign_in_developer
     visit catalog_index_path( {'q' => 'Dissertations', 'per_page' => 100, 'sort' => 'score desc, system_create_dtsi desc, title_ssi asc'} )
-    idx1 = page.body.index('Historical Dissertations')  # title matched, no date
+    idx1 = page.body.index('Sample Complex Object Record #1') # subject matched, no date
     idx2 = page.body.index('Chicano and black radical activism of the 1960s: a comparison between the Brown Berets and the Black Panther Party in California')      # subject matched, 2010
-    idx3 = page.body.index('Sample Complex Object Record #1') # subject matched, no date
-    idx4 = page.body.index('The real thing')   # collection matched, no date
-    idx3.should > idx1
+    idx3 = page.body.index('The real thing')   # collection matched, no date
     idx2.should > idx1
-    idx4.should > idx3
-    idx4.should > idx2
+    idx3.should > idx2
 
     click_on "The real thing"
     expect(page).to have_selector('div.search-results-pager')

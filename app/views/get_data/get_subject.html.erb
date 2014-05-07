@@ -1,11 +1,32 @@
 <%#= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects) , :prompt=>"Select #{@label}" %>	
 <%= javascript_tag "var baseURL = '#{url_for( :controller => 'get_data', :only_path => false )}';" %>
-<script src="/assets/edit.js" type="text/javascript"></script>
-<script src="/assets/jquery.js" type="text/javascript"></script>
-<% if !@fieldName.nil? and @fieldName == "simpleSubjectURI"%>
+
+<script src="/dc/assets/jquery.js" type="text/javascript"></script>
+<script src="/dc/assets/typeahead.bundle.js" type="text/javascript"></script>
+<script src="/dc/assets/edit.js" type="text/javascript"></script>
+
+
+<% if !@fieldName.nil? and @fieldName == "simpleSubjectURI" %>
 	<b><%= @label%></b><br/>
-	<%= select_tag "#{@formType}[#{@fieldName}][]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'#{@label}');" %>	
+    <% if !@selectedValue.nil? and @selectedValue != "0"%>
+
+    <%= text_field_tag "newClassNameLabel", "#{@selectedLabel}", class: "typeahead" %>
+    <%= hidden_field_tag "#{@formType}[#{@fieldName}][]", "#{Rails.configuration.id_namespace}#{@selectedValue}", class: "input-block-level", id: "newClassNameId"%>
+    <% else %>
+    <%= text_field_tag "newClassNameLabel", "", class: "typeahead" %>
+    <%= hidden_field_tag "#{@formType}[#{@fieldName}][]", "", class: "input-block-level", id: "newClassNameId" %>
+    <% end %>
+
+  
 <% else %>
-	<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@subjects, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
+   <%= content_tag :div, class: "temp_information", data: {formtype: @formType, 
+	fieldId: @fieldId, fieldname: @fieldName  } do %>
+    <% end %>
+
+    <%= text_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][label]", "", class: "typeahead" %>
+	<%= hidden_field_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", "", class: "input-block-level" %>
+      
+    <%=@subjects%>
+     
 <% end %>
 <p class="removeIcon"><%= link_to_delete_fields "X"%></p>

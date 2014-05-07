@@ -3,6 +3,7 @@ class MadsTopicsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@mads_topic.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -38,6 +39,8 @@ class MadsTopicsController < ApplicationController
   end
 
   def create
+    
+     
     if @mads_topic.save
 	    if(!params[:parent_id].nil?)
 			redirect_to mads_topic_path(@mads_topic, {:parent_id => params[:parent_id]})
@@ -53,12 +56,16 @@ class MadsTopicsController < ApplicationController
   end
 
   def update
+
+
     # Unclear if list memebers can be updated by id, so just clear the list
     @mads_topic.elementList.clear
 
     # Since the id (rdf_subject) is what we're looking to change for a scheme, we can't update it.
     # Must clear and re-add
     @mads_topic.scheme.clear
+
+    
 
     @mads_topic.attributes = params[:mads_topic]
     if @mads_topic.save

@@ -1,14 +1,26 @@
+<script type="text/javascript">
+
+$(document).ready(function(){
+  getSingleAutoCompleteList();
+});
+
+</script>
+
 <h1>Create a new Dams Scientific Name</h1>
 <%= form_for @dams_scientific_name, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 	<%= render 'error_messages' %>
+  <div id="subjectField">
   <%= label_tag 'dams_scientific_name[name]', "Name" %>
-  <%= text_field_tag 'dams_scientific_name[name]', '', required: true, class: "input-block-level" %>
+  <%= text_field_tag 'dams_scientific_name[name]', '', required: true, class: "typeahead" %>
+  </div>
   <%= label_tag 'dams_scientific_name[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'dams_scientific_name[externalAuthority]', '', class: "input-block-level" %> 
   
   <%= f.fields_for :scientificNameElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
+
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

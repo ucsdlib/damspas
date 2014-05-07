@@ -1,0 +1,32 @@
+<h1>Audit Log: <%= @audit.id %></h1>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>User</th>
+      <td><%= @audit.user %></td>
+    </tr>
+
+    <tr>
+      <th>Action</th>
+      <td><%= @audit.action %></td>
+    </tr>
+
+    <tr>
+      <th>Class</th>
+      <td><%= @audit.classname %></td>
+    </tr>
+
+    <tr>
+      <th>Object</th>
+      <td><%= @audit.object %></td>
+    </tr>
+
+    <tr>
+      <th>Date</th>
+      <td><%= @audit.created_at %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to 'Return to Audit Log', audits_path, class: 'btn' %>

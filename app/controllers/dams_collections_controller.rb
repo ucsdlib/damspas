@@ -26,11 +26,39 @@ class DamsCollectionsController < ApplicationController
   <dams:error>content missing</dams:error>
 </rdf:RDF>"
     end
+         if can? :show, @document
+      collectionData = @document["collection_json_tesim"]
+    
+    @collectionDocArray = Array.new
+    if !collectionData.nil? && collectionData.length > 0
+      collectionData.each do |datum|
+          collection = JSON.parse(datum)
+      collectionDoc = get_single_doc_via_search(1, {:q => "id:#{collection['id']}"} )
+      relatedResourceData = collectionDoc["related_resource_json_tesim"]
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @document }
-      format.rdf { render xml: @rdfxml }
+      relatedResourceData.each do |datum|
+      relatedResource = JSON.parse(datum)
+      if relatedResource['type'] != "hydra-afmodel"
+        @collectionDocArray << collectionDoc
+        break
+      end     
+      end
+      end
+    end
+
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json: @document }
+        format.rdf { render xml: @rdfxml }
+      end
+    elsif !@document.nil? && @document['discover_access_group_ssim'].include?("public")
+      respond_to do |format|
+        format.html { render :metadata }
+        format.json { render json: @document }
+        format.rdf { render xml: @rdfxml }
+      end
+    else
+      authorize! :show, @document # 403 forbidden
     end
   end
   

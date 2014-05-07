@@ -3,6 +3,7 @@ class MadsAuthorityController < ApplicationController
   include Dams::ControllerHelper  
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@mads_authority.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################

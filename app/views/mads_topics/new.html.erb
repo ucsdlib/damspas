@@ -1,14 +1,26 @@
+<script type="text/javascript">
+$(document).ready(function(){
+  getSingleAutoCompleteList();
+});
+</script>
+
 <h1>Create a new MADS Topic</h1>
 <%= form_for @mads_topic, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
   <%= render 'error_messages' %>
+
+  <div id="subjectField">
   <%= label_tag 'mads_topic[name]', "Name" %>
-  <%= text_field_tag 'mads_topic[name]', '', required: true, class: "input-block-level"  %>
+  <%= text_field_tag 'mads_topic[name]', '', required: true, class: "typeahead"  %>
+  </div>
+
   <%= label_tag 'mads_topic[externalAuthority]', "ExternalAuthority" %>
   <%= url_field_tag 'mads_topic[externalAuthority]', '', class: "input-block-level"  %> 
 
   <%= f.fields_for :topicElement do |te| %>
     <%= te.label :elementValue, "Element Value" %>
-    <%= te.text_field :elementValue, class: "input-block-level", :required=>true  %>
+
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+
   <% end %>
   <br>
   <%= render :partial => 'shared/edit_fields/scheme_fields' , :locals => {:f => f}%>

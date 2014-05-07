@@ -1,5 +1,12 @@
 <% @page_title =  "Edit Geographic" %>
+<script type="text/javascript">
 
+$(document).ready(function(){
+
+  getMultiAutoCompleteList("Geographic");
+
+});
+</script>
 <div class="row-fluid">
 	<div class="span10 offset1">
 	
@@ -8,10 +15,10 @@
 		<%= form_for @mads_geographic, :html => { :onsubmit => 'removeEmptyFields();'} do |f| %>
 		
 			<%= render 'error_messages', object: f.object %>
-		
+		  <div id="subjectField">
 			<%= label_tag 'mads_geographic[name][]', "Name" %>
-			<%= text_field_tag 'mads_geographic[name][]', @mads_geographic.name[0], class: "input-block-level" %>
-		
+			<%= text_field_tag 'mads_geographic[name][]', @mads_geographic.name[0], class: "typeahead" %>
+		  </div>
 			<%= label_tag 'mads_geographic[externalAuthority][]', "ExternalAuthority" %>
 			<%= text_field_tag 'mads_geographic[externalAuthority][]', @mads_geographic.externalAuthority, class: "input-block-level" %>
 		      <%= f.fields_for :scheme, include_id: false do |se| %>
@@ -20,7 +27,9 @@
 		      <% end %>
 		      <%= f.fields_for :geographicElement do |te| %>
 		        <%= te.label :elementValue, "Element Value" %>
-		        <%= te.text_field :elementValue, class: "input-block-level", :required=>true %>
+
+            <%= te.text_field :elementValue, class: "eleTypeahead", :required=>true %>
+
 		      <% end %>
 				
 			<div class="form-actions">
