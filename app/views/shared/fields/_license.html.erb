@@ -1,31 +1,40 @@
 <%
-	 if defined?(componentIndex) # Then we're working with a component
-		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td>"
-		 htmlClose = "</td></tr>"
-	 else # We're working with an object or collection
-		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd>"
-		 htmlClose = "</dd>"
-	 end
+if defined?(componentIndex) # Then we're working with a component
+	prefix = "component_#{componentIndex}_"
+	htmlOpen = "<tr><td>%s</td><td>"
+	htmlClose = "</td></tr>"
+else # We're working with an object or collection
+	prefix = ''
+	htmlOpen = "<dt>%s</dt><dd>"
+	htmlClose = "</dd>"
+end
 
-	 fieldData = @document["#{prefix}license_tesim"]
+fieldData = @document["#{prefix}license_tesim"]
+displayLicense = false
+if fieldData != nil
+	fieldData.each do |datum|
+		license = JSON.parse(datum)
+		if !license['note'].blank? && !license['uri'].blank?
+			displayLicense = true
+		end
+	end
+	if displayLicense == true
+		htmlOpen %= 'License'.pluralize(fieldData.count)
+		concat htmlOpen.html_safe
+	end
 
-	 if fieldData != nil
+	fieldData.each do |datum|
+		license = JSON.parse(datum)
+		if displayLicense == true
+			%>
+			<p><%= link_to license['note'], license['uri'] %></p>
+			<%
+		end
+	end
 
-		 htmlOpen %= 'License'.pluralize(fieldData.count)
-		 concat htmlOpen.html_safe
+	concat htmlClose.html_safe
 
-		 fieldData.each do |datum|
-			 license = JSON.parse(datum)
-%>
-		<p><%= link_to license['note'], license['uri'] %></p>
-<%
-		 end
-
-		 concat htmlClose.html_safe
-
-	 end
+end
 %>
 
 
