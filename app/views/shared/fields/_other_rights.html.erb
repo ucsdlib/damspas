@@ -10,17 +10,19 @@ else # We're working with an object or collection
 end
 
 fieldData = @document["#{prefix}otherRights_tesim"]
-
 if fieldData != nil
-	htmlOpen %= 'Other Rights'
-	concat htmlOpen.html_safe
+
 
 	otherRights = JSON.parse(fieldData.first)
-	if otherRights['uri'].blank?  %>
-		<p><%= auto_link otherRights['note'].capitalize %></p>
-	<% else %>
-		<p><%= link_to otherRights['note'].capitalize, otherRights['uri'] %></p>
-<% end
-concat htmlClose.html_safe
-end
-%>
+	if !otherRights['note'].blank?
+		htmlOpen %= 'Other Rights'
+		concat htmlOpen.html_safe
+		if otherRights['uri'].blank?  %>
+			<p><%= auto_link otherRights['note'].capitalize %></p>
+			<% else %>
+			<p><%= link_to otherRights['note'].capitalize, otherRights['uri'] %></p>
+			<% end
+		end
+		concat htmlClose.html_safe
+	end
+	%>
