@@ -346,6 +346,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "name", obj.name)
       end
     end
+    reload MadsPersonalNameInternal
+    reload MadsNameInternal
+    reload MadsConferenceNameInternal
+    reload MadsCorporateNameInternal
+    reload MadsFamilyNameInternal
   end
   def insertFacets (solr_doc, fieldName, objects)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
@@ -726,11 +731,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
 
     reload DamsRelatedResourceInternal
-    reload MadsPersonalNameInternal
-    reload MadsNameInternal
-    reload MadsConferenceNameInternal
-    reload MadsCorporateNameInternal
-    reload MadsFamilyNameInternal
   end
 
   def events_to_json( event )

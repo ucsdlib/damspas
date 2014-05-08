@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 4.0.5'
 gem 'blacklight', '~> 4.7.0'
 gem 'hydra-head', '~> 6.5.0.rc2'
 gem 'active-fedora', '~> 6.7.0'
@@ -24,7 +24,7 @@ gem 'jquery-rails'
 gem 'rails_autolink'
 gem 'mail_form'
 gem 'qa'
-
+gem 'sprockets', '=2.11.0'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
