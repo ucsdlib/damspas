@@ -11,7 +11,7 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: {
-          url: '/dc/get_data/get_dams_data/get_dams_data?q='+fieldname,
+          url: '/get_data/get_dams_data/get_dams_data?q='+fieldname,
           
           // the json file contains an array of strings, but the Bloodhound
           // suggestion engine expects JavaScript objects so this converts all of
@@ -31,7 +31,7 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-          url: '/dc/qa/search/loc/subjects?q=%QUERY',
+          url: '/qa/search/loc/subjects?q=%QUERY',
           
           filter: function(items) {
                 return $.map(items, function(item) { 
@@ -228,7 +228,7 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
     reg = "newSimpleSubjects";
   }
   else if (typeName == 'creator') {
-    typeGet = "name";
+    typeGet = "creator";
     reg = "newCreator";
   }
   
@@ -253,7 +253,7 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
       else
         $(linkTag).parent().before(data);
       
-      if(typeName == 'simpleSubject')
+      if(typeName == 'simpleSubject' || typeName == 'creator')
       {
         if(selectedValue ==null)
         {
@@ -304,7 +304,7 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
       if(location != null && location.length > 0)
         $(location).html(data); 
 
-      if(typeName == 'simpleSubject')
+      if(typeName == 'simpleSubject' || typeName == 'creator')
       {
         var elementID= new_id+"Id";
         var elementLabel= new_id+"Label";

@@ -8,7 +8,7 @@
   @creators.each do |creat|
 	tmp = JSON.parse(creat.to_json)
 %>
-	<%= render :partial => 'shared/edit_fields/creator_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_value => "#{tmp['value']}"}%>       
+	<%= render :partial => 'shared/edit_fields/creator_edit_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray, :selected_type => "#{tmp['name']}", :index => "#{i}", :selected_label => "#{tmp['label']}", :selected_value => "#{tmp['value']}"}%>       
 <% 
 	i = i+1
   end 
