@@ -11,7 +11,7 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: {
-          url: '/get_data/get_dams_data/get_dams_data?q='+fieldname,
+          url: '/dc/get_data/get_dams_data/get_dams_data?q='+fieldname,
           
           // the json file contains an array of strings, but the Bloodhound
           // suggestion engine expects JavaScript objects so this converts all of
@@ -31,7 +31,7 @@ function getAutocompleteList_callback(formtype,fieldname,elementID,elementLabel)
         },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-          url: '/qa/search/loc/subjects?q=%QUERY',
+          url: '/dc/qa/search/loc/subjects?q=%QUERY',
           
           filter: function(items) {
                 return $.map(items, function(item) { 
@@ -286,7 +286,7 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
     reg = "newSimpleSubjects";
   }
   else if (typeName == 'creator') {
-    typeGet = "name";
+    typeGet = "creator";
     reg = "newCreator";
   }
   
