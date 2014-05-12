@@ -1,132 +1,97 @@
 <%
 	if defined?(componentIndex) # Then we're working with a component
-		prefix = "component_#{componentIndex}_"
-		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
-		htmlClose = "</ul></td></tr>"
+	  prefix = "component_#{componentIndex}_"
+	  htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+	  htmlClose = "</ul></td></tr>"
 	else # We're working with an object or collection
-		prefix = ''
-		htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
-		htmlClose = "</ul></dd>"
+	  prefix = ''
+	  htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+	  htmlClose = "</ul></dd>"
 	end
 
 	types = Hash.new
 	types.compare_by_identity
 	needLabel = "false"
 
-	
-	fieldData = collectionDoc["#{prefix}related_resource_json_tesim"]
-	  			
-	if fieldData != nil		 	
-		fieldData.each do |datum|
-			relatedResource = JSON.parse(datum)
-			if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
-				needLabel = "true"
-			end	
-		end
 
-		fieldData.each do |datum|
-			relatedResource = JSON.parse(datum)
-			if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
-          		if relatedResource['type'] != 'thumbnail'
-          			# add link information as value to hashmap
-          			curr = [relatedResource['description'], relatedResource['uri']]
-					types[relatedResource['type']] = curr
-				end
-			end
-		end 
+	fieldData = collectionDoc["#{prefix}related_resource_json_tesim"]
+
+	if fieldData != nil
+	  fieldData.each do |datum|
+	    relatedResource = JSON.parse(datum)
+	    if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
+	      needLabel = "true"
+	    end
+	  end
+
+	  fieldData.each do |datum|
+	    relatedResource = JSON.parse(datum)
+	    if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
+	      if relatedResource['type'] != 'thumbnail'
+	        # add link information as value to hashmap
+	        curr = [relatedResource['description'], relatedResource['uri']]
+	        types[relatedResource['type']] = curr
+	      end
+	    end
+	  end
 	else
-		needLabel = "true"
+	  needLabel = "true"
 	end
 
 	if !@collectionDocArray.nil? && @collectionDocArray.size > 0
-		@collectionDocArray.each do |colDoc|
- 			fieldData = colDoc["#{prefix}related_resource_json_tesim"]
- 			if fieldData != nil
-	 			fieldData.each do |datum|
-			 		relatedResource = JSON.parse(datum)
-			 		if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel" && (relatedResource['type'].include?("online") || relatedResource['type'] == "news release")
-	      				if relatedResource['type'] != 'thumbnail'
-	          				# add link information as value to hashmap
-	          				curr = [relatedResource['description'], relatedResource['uri']]
-							types[relatedResource['type']] = curr
-							needLabel = "true"
-						end
-					end
-				end
-			end
-		end
+	  @collectionDocArray.each do |colDoc|
+	    fieldData = colDoc["#{prefix}related_resource_json_tesim"]
+	    if fieldData != nil
+	      fieldData.each do |datum|
+	        relatedResource = JSON.parse(datum)
+	        if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel" && (relatedResource['type'].include?("online") || relatedResource['type'] == "news release")
+	          if relatedResource['type'] != 'thumbnail'
+	            # add link information as value to hashmap
+	            curr = [relatedResource['description'], relatedResource['uri']]
+	            types[relatedResource['type']] = curr
+	            needLabel = "true"
+	          end
+	        end
+	      end
+	    end
+	  end
 	end
-			
-		count = 0
-		types.each do |c|
-			count += 1
-		end
+	types = types.group_by {|word| word[0]}
+	count = 0
+	types.each do |c|
+	  count += 1
+	end
 
-		if needLabel == "true" && count > 0
-		 	htmlOpen %= 'Related Resource'.pluralize(count)
-			concat htmlOpen.html_safe
-		end
-		prevkey = ''
-		types.each do |key, value|
-			if prevkey.blank?
-				prevkey = key
-				# first key
-			%>
-				<p>
-					<strong>
-						<% if key != nil && !key.blank? %>
-						<%= key.capitalize %>
-						<ul>
-						<% else %>
-						General Related Resource
-						<% end %>
-					</strong>
-				</p>
-				<li><%= link_to value[0], value[1]%></li>
-				</p>
-<%
-			elsif prevkey == key
-				# display rr, header exists already
-		%>
-				<p>
-						<strong>
-							<% if key != nil && !key.blank? %>
-							<% else %>
-							General Related Resource
-							<% end %>
-						</strong>
-					</p>
-					<li><%= link_to value[0], value[1]%></li>
-					</p>
-<%
-			else
-				# Case that key is different now (different related resource type)
-				prevkey = key
-				%>
-			</ul>
-					<p>
-						<strong>
-							<% if key != nil && !key.blank? %>
-							<%= key.capitalize %>
-							<ul>
-							<% else %>
-							General Related Resource
-							<% end %>
-						</strong>
-					</p>
-					<li><%= link_to value[0], value[1]%></li>
-					</p>
-<%
-			end
-		end
-			%>
-		</ul>
-			<%
+	if needLabel == "true" && count > 0
+	  htmlOpen %= 'Related Resource'.pluralize(count)
+	  concat htmlOpen.html_safe
+	end
+	types.each do |key, value|
+	%>
+	  <p>
+	    <strong>
+	    <% if key != nil && !key.blank? %>
+	      <%= key.capitalize %>
+	    <% else %>
+	      General Related Resource
+	    <% end %>
+	    </strong>
+	  </p>
+	  <ul>
+	  <%
+	  value.each do |k, v|
+	    %>
+	    <li><%= link_to v[0], v[1]%></li>
+	    </p>
+	    <%
+	  end
+	  %>
+	  </ul>
+	  <%
+	end
 
-		if(needLabel == "true")
-	 		concat htmlClose.html_safe
-	 	end
-	#end
-
+	if(needLabel == "true")
+	  concat htmlClose.html_safe
+	end
 
 %>
