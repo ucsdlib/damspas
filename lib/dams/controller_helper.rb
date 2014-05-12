@@ -382,35 +382,40 @@ module Dams
 	  	object.conferenceName.each do |conf|
   		  creatorArray << {
 		    :name => "ConferenceName",
-		    :value => conf.pid,			  
+		    :value => conf.pid,
+        :label => get_linked_object_label(get_pid(conf))			  
 		  }	  		
 	  	end
 	  	
 	  	object.corporateName.each do |corp|
   		  creatorArray << {
 		    :name => "CorporateName",
-		    :value => corp.pid,			  
+		    :value => corp.pid,	
+        :label => get_linked_object_label(get_pid(corp))		  
 		  }	  		
 	  	end
 
 		object.familyName.each do |fam|
   		  creatorArray << {
 		    :name => "FamilyName",
-		    :value => fam.pid,			  
+		    :value => fam.pid,
+        :label => get_linked_object_label(get_pid(fam))			  
 		  }	  		
 	  	end
 
 	   	object.name.each do |nam|
   		  creatorArray << {
 		    :name => "Name",
-		    :value => nam.pid,			  
+		    :value => nam.pid,
+        :label => get_linked_object_label(get_pid(nam))			  
 		  }	  		
 	  	end
 
 	  	object.personalName.each do |pers|
   		  creatorArray << {
 		    :name => "PersonalName",
-		    :value => pers.pid,			  
+		    :value => pers.pid,		
+        :label => get_linked_object_label(get_pid(pers))	  
 		  }
 	  	end
 

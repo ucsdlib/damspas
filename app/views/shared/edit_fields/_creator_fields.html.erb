@@ -1,6 +1,6 @@
 <div class="fields">
 <br/>
-<%= select_tag "#{object_type}[nameType][]",  options_for_select(typeArray) , :prompt=>"Select Name" , :onChange=>"javascript: getDynamicFields(this,'#{object_type}','#newCreator','0', 'creator');"%>
+<%= select_tag "#{object_type}[nameType][]",  options_for_select(typeArray) , :prompt=>"Select Name" , :onChange=>"javascript: getTypeaheadFields(this,'#{object_type}','#newCreator','0', 'creator');"%>
 
 <div id="newCreator"></div>
 </div>

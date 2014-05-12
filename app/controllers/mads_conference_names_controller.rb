@@ -42,6 +42,7 @@ class MadsConferenceNamesController < ApplicationController
   end
 
   def create
+    
     if @mads_conference_name.save
       if(!params[:parent_id].nil?)
       redirect_to mads_conference_name_path(@mads_conference_name, {:parent_id => params[:parent_id]})
