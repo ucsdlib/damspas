@@ -3,6 +3,7 @@ class MadsPersonalNamesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@mads_personal_name.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################

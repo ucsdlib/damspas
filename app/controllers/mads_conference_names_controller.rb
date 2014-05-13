@@ -3,6 +3,7 @@ class MadsConferenceNamesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@mads_conference_name.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -41,6 +42,7 @@ class MadsConferenceNamesController < ApplicationController
   end
 
   def create
+    
     if @mads_conference_name.save
       if(!params[:parent_id].nil?)
       redirect_to mads_conference_name_path(@mads_conference_name, {:parent_id => params[:parent_id]})

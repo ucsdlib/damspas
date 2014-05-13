@@ -346,6 +346,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         Solrizer.insert_field(solr_doc, "name", obj.name)
       end
     end
+    reload MadsPersonalNameInternal
+    reload MadsNameInternal
+    reload MadsConferenceNameInternal
+    reload MadsCorporateNameInternal
+    reload MadsFamilyNameInternal
   end
   def insertFacets (solr_doc, fieldName, objects)
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
@@ -484,6 +489,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
 
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
     # build map: role => [name1,name2]
     rels = {}
     relationships.map do |relationship|
@@ -534,6 +540,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
             end
           end
           Solrizer.insert_field(solr_doc, "all_fields", roleValue)
+          Solrizer.insert_field(solr_doc, "creator", name, facetable) if roleValue.casecmp("Creator")==0
+          	  
           if rels[roleValue] == nil
             rels[roleValue] = [name]
           else
@@ -685,7 +693,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
-
     # relatedResource
     n = 0
     relatedResource.map do |resource|
@@ -706,12 +713,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.uri.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.type.first.to_s)
 	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.description.first.to_s)
-	
 	      if resource.type.first.to_s == "thumbnail"
 	        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
 	      end      
 	  rescue Exception => e
-	      puts "XXX: error loading relatedResource: #{lang}: #{e.to_s}"
+	      puts "XXX: error loading relatedResource: #{resource}: #{e.to_s}"
 	  end
         
       #related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
@@ -723,8 +729,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       #  Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
       #end
     end
+
+    reload DamsRelatedResourceInternal
   end
-  
+
   def events_to_json( event )
     event_array = []
     events = load_events event
@@ -884,14 +892,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertComplexSubjectFields solr_doc, nil, load_complexSubjects(complexSubject)
 
     # subject - simple
-    insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
-    insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
-    insertFields solr_doc, 'function', load_functions(function)
-    insertFields solr_doc, 'iconography', load_iconographies(iconography)
-    insertFields solr_doc, 'occupation', load_occupations(occupation)
-    insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
-    insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
-    insertFields solr_doc, 'technique', load_techniques(technique)
+    #insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
+    #insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
+    #insertFields solr_doc, 'function', load_functions(function)
+    #insertFields solr_doc, 'iconography', load_iconographies(iconography)
+    #insertFields solr_doc, 'occupation', load_occupations(occupation)
+    #insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
+    #insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
+    #insertFields solr_doc, 'technique', load_techniques(technique)
     #insertFields solr_doc, 'temporal', load_temporals(temporal)
 
     # subjects bundled under "Subjects" heading
@@ -899,7 +907,15 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertSubjectFields solr_doc, 'geographic', load_geographics(geographic)
     insertSubjectFields solr_doc, 'topic', load_topics(topic)
     insertSubjectFields solr_doc, 'temporal', load_temporals(temporal)
-
+	insertSubjectFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
+    insertSubjectFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
+    insertSubjectFields solr_doc, 'function', load_functions(function)
+    insertSubjectFields solr_doc, 'iconography', load_iconographies(iconography)
+    insertSubjectFields solr_doc, 'occupation', load_occupations(occupation)
+    insertSubjectFields solr_doc, 'scientificName', load_scientificNames(scientificName)
+    insertSubjectFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
+    insertSubjectFields solr_doc, 'technique', load_techniques(technique)
+    
     # subject - names
     insertNameFields solr_doc, 'other_name', load_names(name)
     insertNameFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)

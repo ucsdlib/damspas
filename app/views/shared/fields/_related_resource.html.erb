@@ -1,53 +1,97 @@
 <%
-	 if defined?(componentIndex) # Then we're working with a component
-		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
-		 htmlClose = "</ul></td></tr>"
-	 else # We're working with an object or collection
-		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
-		 htmlClose = "</ul></dd>"
-	 end
+	if defined?(componentIndex) # Then we're working with a component
+	  prefix = "component_#{componentIndex}_"
+	  htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+	  htmlClose = "</ul></td></tr>"
+	else # We're working with an object or collection
+	  prefix = ''
+	  htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+	  htmlClose = "</ul></dd>"
+	end
 
-	 fieldData = @document["#{prefix}related_resource_json_tesim"]
+	types = Hash.new
+	types.compare_by_identity
+	needLabel = "false"
 
-	 if fieldData != nil	
-	 	needLabel = "false"
-	 	fieldData.each do |datum|
-			relatedResource = JSON.parse(datum)
-			if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"	 
-				needLabel = "true"
-			end
-		end
- 		
- 		if(needLabel == "true")
-		 	htmlOpen %= 'Related Resource'.pluralize(fieldData.count)
-			concat htmlOpen.html_safe
-		end
-					 
-		 fieldData.each do |datum|
-			 relatedResource = JSON.parse(datum)
-			 if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
-             	if relatedResource['type'] != 'thumbnail'
-%>
-					<p>
-						<strong>
-							<% if relatedResource['type'] != nil && !relatedResource['type'].blank? %>
-							<%= relatedResource['type'].upcase %>
-							<% else %>
-							General Related Resource
-							<% end %>
-						</strong>
-					</p>
-					<li><%= link_to relatedResource['description'], relatedResource['uri'] %></li>
-					<p/>
-<%
-      			end
-      		end
-	 	end
-	 	if(needLabel == "true")
-	 		concat htmlClose.html_safe
-	 	end
 
-	 end
+	fieldData = collectionDoc["#{prefix}related_resource_json_tesim"]
+
+	if fieldData != nil
+	  fieldData.each do |datum|
+	    relatedResource = JSON.parse(datum)
+	    if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
+	      needLabel = "true"
+	    end
+	  end
+
+	  fieldData.each do |datum|
+	    relatedResource = JSON.parse(datum)
+	    if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
+	      if relatedResource['type'] != 'thumbnail'
+	        # add link information as value to hashmap
+	        curr = [relatedResource['description'], relatedResource['uri']]
+	        types[relatedResource['type']] = curr
+	      end
+	    end
+	  end
+	else
+	  needLabel = "true"
+	end
+
+	if !@collectionDocArray.nil? && @collectionDocArray.size > 0
+	  @collectionDocArray.each do |colDoc|
+	    fieldData = colDoc["#{prefix}related_resource_json_tesim"]
+	    if fieldData != nil
+	      fieldData.each do |datum|
+	        relatedResource = JSON.parse(datum)
+	        if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel" && (relatedResource['type'].include?("online") || relatedResource['type'] == "news release")
+	          if relatedResource['type'] != 'thumbnail'
+	            # add link information as value to hashmap
+	            curr = [relatedResource['description'], relatedResource['uri']]
+	            types[relatedResource['type']] = curr
+	            needLabel = "true"
+	          end
+	        end
+	      end
+	    end
+	  end
+	end
+	types = types.group_by {|word| word[0]}
+	count = 0
+	types.each do |c|
+	  count += 1
+	end
+
+	if needLabel == "true" && count > 0
+	  htmlOpen %= 'Related Resource'.pluralize(count)
+	  concat htmlOpen.html_safe
+	end
+	types.each do |key, value|
+	%>
+	  <p>
+	    <strong>
+	    <% if key != nil && !key.blank? %>
+	      <%= key.capitalize %>
+	    <% else %>
+	      General Related Resource
+	    <% end %>
+	    </strong>
+	  </p>
+	  <ul>
+	  <%
+	  value.each do |k, v|
+	    %>
+	    <li><%= link_to v[0], v[1]%></li>
+	    </p>
+	    <%
+	  end
+	  %>
+	  </ul>
+	  <%
+	end
+
+	if(needLabel == "true")
+	  concat htmlClose.html_safe
+	end
+
 %>

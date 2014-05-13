@@ -1,12 +1,13 @@
 <div class="fields">
 <br/>
 <% if selected_type.nil?%>
-	<%= select_tag "#{object_type}[nameType][]",  options_for_select(typeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getEditDynamicFields(this,'#{object_type}','#newCreator','creator');"%>
+
+	<%= select_tag "#{object_type}[nameType][]",  options_for_select(typeArray) , :prompt=>"Select Name Type" , :onChange=>"javascript: getEditTypeaheadFields(this,'#{object_type}','#newCreator','0','creator');"%>
 	<div id="newCreator"></div>
 <% else %>
 	<%= hidden_field_tag "#{object_type}[nameType][]", "#{selected_type}" %>
 	<script type="text/javascript">
-	   getDynamicFields("<%= selected_type %>","<%= object_type %>","#newCreator<%= index %>","0","creator","<%= selected_value %>");
+	   getTypeaheadFields("<%= selected_type %>","<%= object_type %>","#newCreator<%= index %>","0","creator","<%= selected_value %>","<%= selected_label %>");
 	</script>
 	<div id="newCreator<%= index %>"></div>
 	</div>	

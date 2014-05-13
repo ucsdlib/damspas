@@ -1,6 +1,7 @@
 class DamsCartographicsController < ApplicationController
   load_and_authorize_resource
   skip_authorize_resource :only => :index
+  after_action 'audit("#{@dams_cartographics.id}")', :only => [:create, :update]
 
   def show
     @cartographic = DamsCartographics.find(params[:id])

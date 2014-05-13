@@ -57,7 +57,7 @@ class Path
   end
   # Variable to be used to store DAMS Object path
   # Used for editing specified object
-  @path = nil
+  # @path = nil
 end
 
 

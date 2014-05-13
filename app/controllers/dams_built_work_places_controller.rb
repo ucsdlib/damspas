@@ -3,6 +3,7 @@ class DamsBuiltWorkPlacesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@dams_built_work_place.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -38,7 +39,9 @@ class DamsBuiltWorkPlacesController < ApplicationController
     @scheme_id = Rails.configuration.id_namespace+@dams_built_work_place.scheme.to_s.gsub(/.*\//,'')[0..9]
   end
 
-  def create
+  def create 
+    puts "buuuuu"
+    puts params
     if @dams_built_work_place.save
 	    if(!params[:parent_id].nil?)
 			redirect_to dams_built_work_place_path(@dams_built_work_place, {:parent_id => params[:parent_id]})

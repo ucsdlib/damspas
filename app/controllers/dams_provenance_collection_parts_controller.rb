@@ -6,6 +6,7 @@ class DamsProvenanceCollectionPartsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => :index
+  after_action 'audit("#{@dams_provenance_collection_part.id}")', :only => [:create, :update]
 
   def show
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
@@ -137,6 +138,50 @@ def edit
   end
 
   def create
+      # Handling autocompleted field for data returned from remote website (LOC, etc.)
+    # create Mads/Dams records and push uri to obj param list.
+
+    @dams_provenance_collection_part = DamsProvenanceCollectionPart.new
+       if !params["dams_provenance_collection_part"].empty?
+         hash_of_param = params["dams_provenance_collection_part"]
+          
+          hash_of_param.each do |k, v|
+
+           arr_of_sub = 
+           ["builtWorkPlace_attributes", "culturalContext_attributes", "function_attributes", 
+            "genreForm_attributes", "geographic_attributes", "iconography_attributes", "occupation_attributes", 
+            "scientificName_attributes", "stylePeriod_attributes", "technique_attributes", "temporal_attributes", 
+            "topic_attributes"]
+
+            arr_of_name = 
+            ["conferenceName_attributes", "corporateName_attributes", "personalName_attributes",
+            "familyName_attributes", "name_attributes"]
+           
+           if arr_of_sub.include?(k) || arr_of_name.include?(k)             
+              
+              sub_type = k[0, k.index('_')]
+              sub_type = sub_type[0, 1].capitalize + sub_type[1..-1]
+              hash_of_value = v
+              
+              hash_of_value.each do |key, sub|
+                
+               if sub["id"]!= nil
+                  if /loc:/.match(sub["id"])
+                    #name = value[value.index('_')+7, value.length-1]
+                    name = sub["label"]
+                    do_mapping(sub_type, name, arr_of_sub, arr_of_name, k, sub)
+                  end
+               elsif sub["id"]== nil && sub["label"]!= nil
+                name = sub["label"]
+                do_mapping(sub_type, name, arr_of_sub, arr_of_name, k, sub) 
+               end
+             end
+           end
+         end
+      end
+    
+    @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part] 
+
     if @dams_provenance_collection_part.save
       @dams_provenance_collection_part.reload
       begin
@@ -184,6 +229,63 @@ def edit
     @dams_provenance_collection_part.provenanceCollection.clear 
     @dams_provenance_collection_part.relationship.clear 
     @dams_provenance_collection_part.unit.clear
+
+    # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams classes.
+       if params["dams_provenance_collection_part"]["simpleSubjectURI"]!= nil && (!params["dams_provenance_collection_part"]["simpleSubjectURI"].empty?)
+         hash_of_param = params["dams_provenance_collection_part"]["simpleSubjectURI"]
+          
+         hash_of_param.each_with_index do |value, index|
+           
+           # Getting data from external resouce and mapping to Mads or Dams class
+           if /loc:/.match(value)
+ 
+              sub_type = nil
+              # subject type => Topic, BuiltWorkPlace, ScientificName etc.
+              # if !params["dams_provenance_collection_part"]["subjectType"].empty?
+              #    sub_type = params["dams_provenance_collection_part"]["subjectType"][index]
+              # end
+              sub_type = value[4, value.index('_') - 4]
+              sub_type = "Topic" if sub_type == nil
+
+              name = value[value.index('_')+7, value.length-1]
+              element_value = name
+              scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+              element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+              sub_hash = {
+                
+                "name" => name, 
+                 element_attributes =>
+                 {"0" => {"elementValue" => element_value }},
+                 "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                 
+              }
+             
+             class_name = get_class_name(sub_type)
+             
+             class_ref = class_name.constantize
+             obj = class_ref.new
+             obj.attributes = sub_hash
+             obj.save
+
+              # add the uri to obje parameter list
+              uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+              hash_of_param[index]= uri
+              
+           end
+         end
+        end
+
+        if params["dams_provenance_collection_part"]["subjectType"]!= nil && (!params["dams_provenance_collection_part"]["subjectType"].empty?)
+             arr_of_type = params["dams_provenance_collection_part"]["subjectType"]
+
+             arr_of_type.each_with_index do |v, i|
+ 
+               arr_of_type[i] = "Topic" if v == ""
+               
+             end
+          end
+      
+    
      
     @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part]
     if @dams_provenance_collection_part.save
@@ -201,6 +303,44 @@ def edit
   def data_view
       data = get_html_data ( params[:id] )
       render :text => data
+  end
+
+  def do_mapping(sub_type, name, arr_of_sub, arr_of_name, k, sub)
+      element_value = name
+      scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+      element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+      
+      if arr_of_sub.include?(k)
+        sub_hash = {
+         "name" => name, 
+         element_attributes =>
+         {"0" => {"elementValue" => element_value }},
+         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+        }
+      elsif arr_of_name.include?(k)
+        sub_hash = {
+         "name" => name, 
+         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+        }
+      end
+     class_name = get_class_name(sub_type)
+     class_ref = class_name.constantize
+     obj = class_ref.new
+     obj.attributes = sub_hash
+     obj.save
+     # add the uri to obje parameter list
+     uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+     sub["id"]= uri
+  end
+
+  def get_class_name(name)
+    arr_of_dams = ["BuiltWorkPlace", "CulturalContext", "Function", "Iconography", "StylePeriod", "Technique", "ScientificName" ]
+  
+    if arr_of_dams.include?(name)
+      class_name = "Dams" + name
+    else
+      class_name = "Mads" + name 
+    end
   end
     
   end

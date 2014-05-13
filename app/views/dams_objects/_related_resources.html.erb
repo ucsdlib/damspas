@@ -1,4 +1,11 @@
-<% if @document['related_resource_json_tesim'] != nil
+
+<% 
+  if defined?(componentIndex) # Then we're working with a component
+     prefix = "component_#{componentIndex}_"
+   else # We're working with an object or collection
+     prefix = ''
+   end
+  if @document['related_resource_json_tesim'] != nil
   rel = nil
   related_description_arr = Array.new
   related_uri_arr = Array.new
@@ -9,7 +16,20 @@
       related_uri_arr << rel['uri']                   #Create array of URI's to link to after displaying header
     end
   end
-
+if !@collectionDocArray.nil? && @collectionDocArray.size > 0
+    @collectionDocArray.each do |colDoc|
+      fieldData = colDoc["#{prefix}related_resource_json_tesim"]
+      fieldData.each do |datum|
+       relatedResource = JSON.parse(datum)
+       if !relatedResource['description'].blank? && relatedResource['type'] != "hydra-afmodel"
+          if relatedResource['type'] != 'thumbnail'
+            related_description_arr << relatedResource['description']   #Create array of descriptions
+            related_uri_arr << relatedResource['uri']
+          end
+      end
+    end 
+  end
+    end
   if rel['type'] != 'thumbnail' && rel['type'] != 'hydra-afmodel' && rel['description'] != ''%>
     <p class="sidebar-header"><strong>Related Resources</strong></p>
   <% end %>

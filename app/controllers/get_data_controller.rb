@@ -78,119 +78,82 @@ class GetDataController < ApplicationController
 	end
   end
 
-  def get_name 	
-  	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
-  	type = nil;
-  	if(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Corporate'))
-  		type = 'MadsCorporateName'		
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Personal'))
-  		type = 'MadsPersonalName'			
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Conference'))
-  		type = 'MadsConferenceName'	
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Family'))
-  		type = 'MadsFamilyName'
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Name'))
-  		type = 'MadsName'						
-	else
-		type = 'MadsName'
-	end
+  def get_creator	
 
-	@names = get_objects_url(type,'name_tesim')
-	@formType = params[:formType]
-	@fieldName = params[:fieldName]
-	@label = params[:q]
-	@fieldId = params[:fieldId]
-	@selectedValue = params[:selectedValue]
-	
-	@hasSelectedValue = "false"	
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and @names.to_s.include? @selectedValue
-		@hasSelectedValue = "true"
-	end
-
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and @hasSelectedValue.include? "false"		
-		tmpNameObject = type.constantize.find(@selectedValue)
-		if(!tmpNameObject.nil?)
-			tmpArray = Array.new
-			tmpArray << tmpNameObject.name.first
-			tmpArray << Rails.configuration.id_namespace+@selectedValue					
-			@names << tmpArray
-		end
-	end
-	
-	@names << "Create New #{@label}"
-	@relationship = params[:relationship]
-	if !@relationship.nil? and @relationship == "true"
-		@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
-		@mads_authorities << "Create New Role"
-		@selectedRole = params[:selectedRole]
-	end
-	render :layout => false
+  	@formType = params[:formType]
+  	@fieldName = params[:fieldName]
+  	@label = params[:q]
+  	@fieldId = params[:fieldId]
+  	@selectedValue = params[:selectedValue]
+    @selectedLabel = params[:selectedLabel]
+    @names = ""
+  	
+  	render :layout => false
   end
  
-  def get_subject	
+ def get_subject	
   	#http://localhost:3000/get_data/get_subject/get_subject?q=Topic&formType=dams_object&fieldName=simpleSubjectURI&label=Subject
-  	subType = nil
-  	if(!params[:q].nil? && params[:q] != '' && params[:q] == 'Topic')
-  		subType = 'MadsTopic'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'BuiltWorkPlace')
-  		subType = 'DamsBuiltWorkPlace'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CulturalContext')
-  		subType = 'DamsCulturalContext'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Function')
-  		subType = 'DamsFunction'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'GenreForm')
-  		subType = 'MadsGenreForm'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Geographic')
-  		subType = 'MadsGeographic'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Iconography')
-  		subType = 'DamsIconography'	
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ScientificName')
-  		subType = 'DamsScientificName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Technique')
-  		subType = 'DamsTechnique'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Temporal')
-  		subType = 'MadsTemporal'
-	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'StylePeriod')
-		subType = 'DamsStylePeriod'	
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CorporateName')
-  		subType = 'MadsCorporateName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'PersonalName')
-  		subType = 'MadsPersonalName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ConferenceName')
-  		subType = 'MadsConferenceName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'FamilyName')
-  		subType = 'MadsFamilyName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Name')
-  		subType = 'MadsName'
-  	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Occupation')
-  		subType = 'MadsOccupation'																													
-	else
-		subType = 'MadsTopic'
-	end
-	
-	@subjects = get_objects_url(subType,'name_tesim')
+
 	@formType = params[:formType]
 	@fieldName = params[:fieldName]
 	@label = params[:q]
 	@fieldId = params[:fieldId]
 	@selectedValue = params[:selectedValue]
-	
-	@hasSubjectValue = "false"	
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and !@selectedValue.include? "undefined" and @subjects.to_s.include? @selectedValue
-		@hasSubjectValue = "true"
-	end
 
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and !@selectedValue.include? "undefined" and @hasSubjectValue.include? "false"
-		tmpSubObject = subType.constantize.find(@selectedValue)
-		if(!tmpSubObject.nil?)
-			tmpArray = Array.new
-			tmpArray << tmpSubObject.name.first
-			tmpArray << Rails.configuration.id_namespace+@selectedValue					
-			@subjects << tmpArray
-		end
-	end	
-	@subjects << "Create New #{@label}"
+	@selectedLabel = params[:selectedLabel]
+	#@subjects = "Create New #{@label}"
+  @subjects = ""
+
 	render :layout => false
+  end
+
+ def get_name   
+    #http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
+    type = nil;
+    if(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Corporate'))
+      type = 'MadsCorporateName'    
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Personal'))
+      type = 'MadsPersonalName'     
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Conference'))
+      type = 'MadsConferenceName' 
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Family'))
+      type = 'MadsFamilyName'
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Name'))
+      type = 'MadsName'           
+  else
+    type = 'MadsName'
+  end
+
+  @names = get_objects_url(type,'name_tesim')
+  @formType = params[:formType]
+  @fieldName = params[:fieldName]
+  @label = params[:q]
+  @fieldId = params[:fieldId]
+  @selectedValue = params[:selectedValue]
+  
+  @hasSelectedValue = "false" 
+  if !@selectedValue.nil? and !@selectedValue.include? "null" and @names.to_s.include? @selectedValue
+    @hasSelectedValue = "true"
+  end
+
+  if !@selectedValue.nil? and !@selectedValue.include? "null" and @hasSelectedValue.include? "false"    
+    tmpNameObject = type.constantize.find(@selectedValue)
+    if(!tmpNameObject.nil?)
+      tmpArray = Array.new
+      tmpArray << tmpNameObject.name.first
+      tmpArray << Rails.configuration.id_namespace+@selectedValue         
+      @names << tmpArray
+    end
+  end
+  
+  @names << "Create New #{@label}"
+  @relationship = params[:relationship]
+  if !@relationship.nil? and @relationship == "true"
+    @mads_authorities = get_objects_url('MadsAuthority','name_tesim')
+    @mads_authorities << "Create New Role"
+    @selectedRole = params[:selectedRole]
+  end
+  render :layout => false
   end
   
   def get_ark 	

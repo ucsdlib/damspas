@@ -1,0 +1,27 @@
+<h1>Audit Log</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>User</th>
+      <th>Action</th>
+      <th>Class</th>
+      <th>Object</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @audits.each do |audit| %>
+      <tr>
+        <td><%= link_to "##{audit.id}", audit %></td>
+        <td><%= audit.user %></td>
+        <td><%= audit.action %></td>
+        <td><%= audit.classname %></td>
+        <td><%= audit.object %></td>
+        <td><%= audit.created_at %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

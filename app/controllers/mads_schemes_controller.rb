@@ -1,7 +1,9 @@
 class MadsSchemesController < ApplicationController
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
+  after_action 'audit("#{@mads_scheme.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
