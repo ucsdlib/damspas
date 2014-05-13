@@ -1,12 +1,7 @@
+<%# This page is based on show.html.erb, so if that one gets updated we'll need to update this one too. -DT %>
+
 <% @page_title =  "#{grabTitle}" %>
 
-<% 
-restrictedObjText = getRestrictedObjText(@document["otherRights_tesim"])
-if !restrictedObjText.nil?
-  restrictedObjText= "We are sorry, but the image you have selected is not currently available for download or viewing. " +restrictedObjText
-end
-restricted_icon_path="ucsd/dc_not_available.jpg"
-  %>
 
 
 <div class="row-fluid">
@@ -22,17 +17,21 @@ restricted_icon_path="ucsd/dc_not_available.jpg"
     <div class="row-fluid">
       <section class="dams-viewer span12">
         <%= render :partial => 'shared/fields/title' %>
-       
-       <!-- Restricted object viewer --> 
-        <% if !restrictedObjText.nil? %>
-          <div class="simple-object" align="center">
-            <div id="restricted-object">
-              <%= image_tag(restricted_icon_path, :class => 'restricted-obj-thumbnail', :alt => '', :id =>"restricted-image" ) %>
-              <br><%= "#{restrictedObjText} "%>
-         
-           </div>
-         </div>
-       <%end%>
+
+
+<%# BEGIN RESTRICTED NOTICE %>
+        <% restrictedNotice = grabRestrictedText(@document['otherNote_json_tesim']) %>
+        <% unless restrictedNotice.nil? %>
+          <div class="masked-object">
+            <div>
+             <%= restrictedNotice %>
+            </div>
+          </div>
+        <% end %>
+<%# END RESTRICTED NOTICE %>
+
+        <div class="simple-object"></div>
+
 
       </section>
     </div>
