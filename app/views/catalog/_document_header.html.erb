@@ -20,6 +20,12 @@
 
 	<%# TODO... display this as a link, not a button... find test case %>
   <%# bookmark functions for items/docs -%>
-  <%= render_index_doc_actions document, :wrapping_class => '' %>
+  
+  <% if !current_user.nil?%>
+  	<% anon = User.anonymous(request.remote_ip) %>
+  	<% if anon.to_s != 'local' %>
+  		<%= render_index_doc_actions document, :wrapping_class => '' %>
+  	<% end %>
+  <% end %>
 
 </div>
