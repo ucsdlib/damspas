@@ -231,19 +231,26 @@ def edit
     @dams_provenance_collection_part.unit.clear
 
     # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams classes.
+       @dams_provenance_collection_part = DamsProvenanceCollectionPart.new
+       hash_of_param = nil
+       type_of_field = nil
+
        if params["dams_provenance_collection_part"]["simpleSubjectURI"]!= nil && (!params["dams_provenance_collection_part"]["simpleSubjectURI"].empty?)
-         hash_of_param = params["dams_provenance_collection_part"]["simpleSubjectURI"]
-          
+          hash_of_param = params["dams_provenance_collection_part"]["simpleSubjectURI"]
+          type_of_field = "subject"
+       elsif params["dams_provenance_collection_part"]["creatorURI"]!= nil && (!params["dams_provenance_collection_part"]["creatorURI"].empty?)
+          hash_of_param = params["dams_provenance_collection_part"]["creatorURI"]
+          type_of_field = "creator"
+       end
+
+       if hash_of_param != nil  
          hash_of_param.each_with_index do |value, index|
            
            # Getting data from external resouce and mapping to Mads or Dams class
            if /loc:/.match(value)
  
               sub_type = nil
-              # subject type => Topic, BuiltWorkPlace, ScientificName etc.
-              # if !params["dams_provenance_collection_part"]["subjectType"].empty?
-              #    sub_type = params["dams_provenance_collection_part"]["subjectType"][index]
-              # end
+              
               sub_type = value[4, value.index('_') - 4]
               sub_type = "Topic" if sub_type == nil
 
@@ -251,14 +258,20 @@ def edit
               element_value = name
               scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
               element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
-              sub_hash = {
-                
+
+              if type_of_field == "subject"
+                sub_hash = {
                 "name" => name, 
                  element_attributes =>
                  {"0" => {"elementValue" => element_value }},
                  "scheme_attributes"=>{"0" => {"id" => scheme_id}}
-                 
-              }
+               }
+              elsif type_of_field == "creator"
+                sub_hash = {
+                         "name" => name, 
+                         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                         }
+              end
              
              class_name = get_class_name(sub_type)
              
@@ -275,15 +288,19 @@ def edit
          end
         end
 
-        if params["dams_provenance_collection_part"]["subjectType"]!= nil && (!params["dams_provenance_collection_part"]["subjectType"].empty?)
+        if hash_of_param != nil && type_of_field != nil
+          if type_of_field == "subject"
              arr_of_type = params["dams_provenance_collection_part"]["subjectType"]
-
              arr_of_type.each_with_index do |v, i|
- 
                arr_of_type[i] = "Topic" if v == ""
-               
              end
-          end
+          elsif type_of_field == "creator"
+             arr_of_type = params["dams_provenance_collection_part"]["nameType"]
+             arr_of_type.each_with_index do |v, i|
+               arr_of_type[i] = "name" if v == ""
+             end
+          end 
+        end
       
     
      

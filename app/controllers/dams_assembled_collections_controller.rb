@@ -232,19 +232,26 @@ end
 	@dams_assembled_collection.unit.clear
 
     # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams classes.
+       @dams_assembled_collection = DamsAssembledCollection.new
+       hash_of_param = nil
+       type_of_field = nil
+
        if params["dams_assembled_collection"]["simpleSubjectURI"]!= nil && (!params["dams_assembled_collection"]["simpleSubjectURI"].empty?)
-         hash_of_param = params["dams_assembled_collection"]["simpleSubjectURI"]
-          
+          hash_of_param = params["dams_assembled_collection"]["simpleSubjectURI"]
+          type_of_field = "subject"
+       elsif params["dams_assembled_collection"]["creatorURI"]!= nil && (!params["dams_assembled_collection"]["creatorURI"].empty?)
+          hash_of_param = params["dams_assembled_collection"]["creatorURI"]
+          type_of_field = "creator"
+       end
+
+       if hash_of_param != nil  
          hash_of_param.each_with_index do |value, index|
            
            # Getting data from external resouce and mapping to Mads or Dams class
            if /loc:/.match(value)
  
               sub_type = nil
-              # subject type => Topic, BuiltWorkPlace, ScientificName etc.
-              # if !params["dams_assembled_collection"]["subjectType"].empty?
-              #    sub_type = params["dams_assembled_collection"]["subjectType"][index]
-              # end
+              
               sub_type = value[4, value.index('_') - 4]
               sub_type = "Topic" if sub_type == nil
 
@@ -252,14 +259,20 @@ end
               element_value = name
               scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
               element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
-              sub_hash = {
-                
+
+              if type_of_field == "subject"
+                sub_hash = {
                 "name" => name, 
                  element_attributes =>
                  {"0" => {"elementValue" => element_value }},
                  "scheme_attributes"=>{"0" => {"id" => scheme_id}}
-                 
-              }
+               }
+              elsif type_of_field == "creator"
+                sub_hash = {
+                         "name" => name, 
+                         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                         }
+              end
              
              class_name = get_class_name(sub_type)
              
@@ -276,15 +289,19 @@ end
          end
         end
 
-        if params["dams_assembled_collection"]["subjectType"]!= nil && (!params["dams_assembled_collection"]["subjectType"].empty?)
+        if hash_of_param != nil && type_of_field != nil
+          if type_of_field == "subject"
              arr_of_type = params["dams_assembled_collection"]["subjectType"]
-
              arr_of_type.each_with_index do |v, i|
- 
                arr_of_type[i] = "Topic" if v == ""
-               
              end
-          end
+          elsif type_of_field == "creator"
+             arr_of_type = params["dams_assembled_collection"]["nameType"]
+             arr_of_type.each_with_index do |v, i|
+               arr_of_type[i] = "name" if v == ""
+             end
+          end 
+        end
 
     @dams_assembled_collection.attributes = params[:dams_assembled_collection]
     if @dams_assembled_collection.save
