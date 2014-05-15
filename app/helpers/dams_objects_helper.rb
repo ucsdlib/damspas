@@ -748,20 +748,24 @@ module DamsObjectsHelper
   #
   #---
 
-  def grabCulturallySensitiveText(data)
+
+
+  def grabRestrictedText(data)
     result = nil
 
     if data != nil
-      data.each do |n|
-        note = JSON.parse(n)
+      data.each do |datum|
+        note = JSON.parse(datum)
         note_label = note['displayLabel'].downcase
-        note_value = note['value']
-        if(note_label.include? "culturally sensitive content")
-          result = note_value
+        if note_label.include? 'culturally sensitive content'
+          result = "<h3>Culturally Sensitive Content</h3><p>#{note['value']}</p><button type=\"button\" class=\"btn btn-danger btn-mini\" onClick=\"$('.masked-object').hide();$('.simple-object').show();\">View Content</button>".html_safe
+        elsif note_label.include? 'restricted content'
+          result = "<h3>Restricted Content</h3><p>We are sorry, but the image you have selected is not currently available for download or viewing. #{note['value']}".html_safe
         end
       end
     end
-    return result
+
+    result
   end
 
 #---
@@ -771,20 +775,20 @@ module DamsObjectsHelper
 #
 #---
 
-  def getRestrictedObjText(data)
-    otherRights_value = nil
+#  def getRestrictedObjText(data)
+#    otherRights_value = nil
+#
+#    if data != nil
+#      data.each do |n|
+#        otherRights = JSON.parse(n)
+#        if otherRights['note'].length > 0
+#          otherRights_value = otherRights['note']
+#        end
+#      end
+#    end
 
-    if data != nil
-      data.each do |n|
-        otherRights = JSON.parse(n)
-        if otherRights['note'].length > 0
-          otherRights_value = otherRights['note']
-        end
-      end
-    end
-
-    return otherRights_value
-  end
+#    return otherRights_value
+#  end
 
 
   ## normalized rdf view from DAMS4 REST API

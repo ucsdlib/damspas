@@ -147,7 +147,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'date_tesim', :label => 'Date:', :highlight => config.highlighting
     config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => config.highlighting
     config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => config.highlighting
-    config.add_index_field 'subject_tesim', :label => 'Subject:', :highlight => config.highlighting
+    config.add_index_field 'subject_tesim', :label => 'Topic:', :highlight => config.highlighting
 	config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
 	config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
     #config.add_index_field 'description_tesim', :label => 'Description:' 
