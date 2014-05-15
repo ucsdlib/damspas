@@ -52,6 +52,8 @@ class CatalogController < ApplicationController
     solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR has_model_ssim:\"info:fedora/afmodel:DamsUnit\" OR type_tesim:Collection)"
   end
 
+  
+
   configure_blacklight do |config|
 	
     config.default_solr_params = { 
@@ -59,6 +61,15 @@ class CatalogController < ApplicationController
       :rows => 20,
       :qf => 'title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id',
     }
+  
+  config.advanced_search = {
+      :form_solr_parameters => {
+        "facet.field" => ["collection_sim", "object_type_sim", "unit_sim"],
+        "facet.limit" => -1, # return all facet values
+        "facet.sort" => "index" # sort by byte order of values
+      }
+    }
+    
 	
 	#UCSD custom added argument config.highlighting to turn on/off hit highlighting with config.highlighting=true|false
 	#config.hlTagPre for custom highlighting fragment prefix tag
@@ -118,6 +129,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20 
     config.add_facet_field 'collection_sim', :label => 'Collection', :limit => 20
     config.add_facet_field 'unit_sim', :label => 'Unit'
+
+    
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
