@@ -504,7 +504,8 @@ module Dams
 	      @parents[cid] = Array.new
 	
 	      # child components
-	      component.subcomponent.map.each { |subcomponent|
+	      #component.subcomponent.map.each { |subcomponent|
+	      component.subcomponent.map.sort{ |c,d| c.id <=> d.id }.each { |subcomponent|
 	        if subcomponent.respond_to?(:id)
 	          gid = subcomponent.id
 	        else
