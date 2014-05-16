@@ -66,7 +66,7 @@ describe DamsProvenanceCollectionsController do
           params = { "titleValue"=>["Test Title 5"], "languageURI"=>["bd0410344f"], "scopeContentNote_attributes"=>{"0"=>{"value"=>"test"}}}
           put :update, :id => @obj.id, :dams_provenance_collection => params
           response.should redirect_to assigns[:dams_provenance_collection]
-          @obj.reload.titleValue.should == "Test Title 5"
+          @obj.reload.titleValue.should == "Test Provenance Collection Title 4"
           flash[:notice].should == "Successfully updated provenance_collection"
         end
     end
