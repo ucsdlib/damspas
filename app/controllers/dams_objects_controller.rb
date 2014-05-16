@@ -399,78 +399,64 @@ class DamsObjectsController < ApplicationController
     @dams_object.rightsHolderName.clear    
 	has_file = "false"
 	#collectionsId = params[:dams_object][:assembledCollectionURI]
+    
+    # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams classes.
+     @dams_object = DamsObject.new
 
-      # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams classes.
-       @dams_object = DamsObject.new
-       hash_of_param = nil
-       type_of_field = nil
+       if !params["dams_object"].empty?
+         hash_of_param = params["dams_object"]
 
-       if params["dams_object"]["simpleSubjectURI"]!= nil && (!params["dams_object"]["simpleSubjectURI"].empty?)
-          hash_of_param = params["dams_object"]["simpleSubjectURI"]
-          type_of_field = "subject"
-       elsif params["dams_object"]["creatorURI"]!= nil && (!params["dams_object"]["creatorURI"].empty?)
-          hash_of_param = params["dams_object"]["creatorURI"]
-          type_of_field = "creator"
-       end
+         hash_of_param.each do |k, v|
+           if k == "simpleSubjectURI" || k == "creatorURI"
 
-       if hash_of_param != nil  
-         hash_of_param.each_with_index do |value, index|
-           
-           # Getting data from external resouce and mapping to Mads or Dams class
-           if /loc:/.match(value)
- 
-              sub_type = nil
-              
-              sub_type = value[4, value.index('_') - 4]
-              sub_type = "Topic" if sub_type == nil
+             arr_of_uri = v
 
-              name = value[value.index('_')+7, value.length-1]
-              element_value = name
-              scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
-              element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+             arr_of_uri.each_with_index do |value, index|
+                if /loc:/.match(value)
+                    sub_type = nil
+                    sub_type = value[4, value.index('_') - 4]
+                    sub_type = "Topic" if sub_type == nil
+                    name = value[value.index('_')+7, value.length-1]
+                    element_value = name
+                    scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+                    element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
 
-              if type_of_field == "subject"
-                sub_hash = {
-                "name" => name, 
-                 element_attributes =>
-                 {"0" => {"elementValue" => element_value }},
-                 "scheme_attributes"=>{"0" => {"id" => scheme_id}}
-               }
-              elsif type_of_field == "creator"
-                sub_hash = {
-                         "name" => name, 
-                         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
-                         }
-              end
-             
-             class_name = get_class_name(sub_type)
-             
-             class_ref = class_name.constantize
-             obj = class_ref.new
-             obj.attributes = sub_hash
-             obj.save
+                    if k == "simpleSubjectURI"
+                      sub_hash = {
+                      "name" => name, 
+                       element_attributes =>
+                       {"0" => {"elementValue" => element_value }},
+                       "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                     }
+                    elsif k == "creatorURI"
+                      sub_hash = {
+                               "name" => name, 
+                               "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                               }
+                    end
+                   
+                   class_name = get_class_name(sub_type)
+                   class_ref = class_name.constantize
+                   obj = class_ref.new
+                   obj.attributes = sub_hash
+                   obj.save
 
-              # add the uri to obje parameter list
-              uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
-              hash_of_param[index]= uri
-              
+                    # add the uri to obje parameter list
+                    uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+                    arr_of_uri[index]= uri
+                end
+             end
+           end
+
+           if k == "subjectType" || k == "nameType"
+             arr_of_type = v
+             arr_of_type.each_with_index do |value, index|
+               arr_of_type[index] = "Topic" if value == ""
+             end
            end
          end
-        end
+       end
 
-        if hash_of_param != nil && type_of_field != nil
-          if type_of_field == "subject"
-             arr_of_type = params["dams_object"]["subjectType"]
-             arr_of_type.each_with_index do |v, i|
-               arr_of_type[i] = "Topic" if v == ""
-             end
-          elsif type_of_field == "creator"
-             arr_of_type = params["dams_object"]["nameType"]
-             arr_of_type.each_with_index do |v, i|
-               arr_of_type[i] = "name" if v == ""
-             end
-          end 
-        end
       
     @dams_object.attributes = params[:dams_object]  
   	if @dams_object.save
