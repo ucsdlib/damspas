@@ -22,7 +22,6 @@
   <%# bookmark functions for items/docs -%>
   
   <% if !current_user.nil? && current_user.provider != 'anonymous'%>
-  	<%= current_user.provider %>
  	<%= render_index_doc_actions document, :wrapping_class => '' %>
   <% end %>
 </div>
