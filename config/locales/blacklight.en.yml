@@ -201,7 +201,7 @@ en:
         selected:
           remove: '[remove]'
         description:
-          creator_sim: "Listed below are the names of individuals and organizations who have been identified as having created content found in the Digital Collections site."
+          creator_sim: "Listed below are the names of individuals and organizations who have been identified as having contributed in the creation of content found in the Digital Collections site."
           object_type_sim: "Choose from the following list of formats to view items found in the Digital Collections site. Formats span across different collections and topics.<br/>For more specifics on the definition of each format type, see FAQ."
           subject_topic_sim: "The alphabetical list below consists of select topics assigned to items found in the Digital Collections site. Topics span across different collections and format types."
       filters:
