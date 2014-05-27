@@ -65,7 +65,7 @@ class CatalogController < ApplicationController
   config.advanced_search = {
       :form_solr_parameters => {
         "facet.field" => ["collection_sim", "object_type_sim", "unit_sim"],
-        "facet.limit" => -1, # return all facet values
+        "f.collection_sim.facet.limit" => 20, # return all facet values
         "facet.sort" => "index" # sort by byte order of values
       }
     }
