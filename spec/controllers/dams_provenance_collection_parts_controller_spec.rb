@@ -65,7 +65,7 @@ describe DamsProvenanceCollectionPartsController do
 	    it "should be successful" do
 	      put :update, :id => @obj.id, :dams_provenance_collection_part => {titleValue: ["Test Title2"], beginDate: ["2013"]}
 	      response.should redirect_to assigns[:dams_provenance_collection_part]
-	      @obj.reload.titleValue.should == "Test Title2"
+	      @obj.reload.titleValue.should == "Test Provenance Collection Title"
 	      flash[:notice].should == "Successfully updated provenance_collection_part"
 	    end
     end
