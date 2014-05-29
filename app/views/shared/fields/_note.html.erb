@@ -18,7 +18,15 @@
   # parse notes
   notes = Hash.new
   notes.compare_by_identity
-  data = @document["#{prefix}otherNote_json_tesim"]
+  
+  # Temporary fix the bug that note field not displaying at component level. 
+  # The solr index will need to be updated to make it consistent.
+  if defined?(componentIndex)
+    data = @document["#{prefix}note_json_tesim"]
+  else
+    data = @document["otherNote_json_tesim"]
+  end
+
   if data != nil
     data.each do |n|
       note = JSON.parse(n)
