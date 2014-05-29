@@ -116,7 +116,24 @@ module Dams
 		
 		@objects.sort {|a,b|a[0].downcase <=> b[0].downcase}     
     end
-            
+
+    def get_related_resources(document)
+      relResourceData = document["related_resource_json_tesim"]
+	  @relResourceHash = Hash.new
+	  if !relResourceData.nil? and relResourceData.length > 0
+	    relResourceData.each do |datum|
+          relResource = JSON.parse(datum)
+          if(!relResource['uri'].nil? and relResource['uri'].length > 0 and relResource['uri'].start_with?( Rails.configuration.id_namespace ))         
+            doc = get_single_doc_via_search(1, {:q => "id:#{relResource['uri'].sub( Rails.configuration.id_namespace, '' )}"} )
+            if(!doc.nil?)
+	  			@relResourceHash.store(relResource['uri'],relResource['description']+"<>"+is_collection?(doc).to_s)
+	  		end
+	  	  end
+	  	end
+	  end
+	  return @relResourceHash
+    end
+               
     def get_relationship_name_id(object)
     	if(!object.relationshipNameURI.nil? && !object.relationshipNameURI.nil? && object.relationshipNameURI.class != Array)
 		  	if(!object.relationshipNameURI.personalName.nil? && !object.relationshipNameURI.personalName.empty?)

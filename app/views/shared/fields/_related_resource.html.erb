@@ -79,9 +79,25 @@
 	  </p>
 	  <ul>
 	  <%
-	  value.each do |k, v|
-	    %>
-	    <li><%= link_to v[0], v[1]%></li>
+	  value.each do |k, v| 
+	    url = v[1]
+		if(!@relResourceHash.nil? && @relResourceHash.has_key?(v[1]))
+           if(@relResourceHash.fetch(v[1]).to_s.include? "<>true")
+      %>
+      		<li><%= link_to v[0], dams_collection_path("#{url.sub( Rails.configuration.id_namespace, '' )}")%></li>
+      <%
+      	   else
+      %>
+     		<li><%= link_to v[0], dams_object_path("#{url.sub( Rails.configuration.id_namespace, '' )}") %></li> 
+      <%
+           end   
+        else
+      %>
+        	<li><%= link_to v[0], v[1] %></li>
+      <%
+        end
+	  %>
+	    
 	    </p>
 	    <%
 	  end

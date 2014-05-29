@@ -4,6 +4,7 @@ require 'json'
 class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
+  include CatalogHelper
   load_and_authorize_resource
   #skip_load_resource :only => :show
   skip_load_and_authorize_resource :only => [:show, :zoom, :data_view]
@@ -59,6 +60,8 @@ class DamsObjectsController < ApplicationController
 	    end
 	  end
 
+	  @relResourceHash = get_related_resources(@document)
+	  
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @document }
