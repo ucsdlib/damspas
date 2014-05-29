@@ -59,7 +59,7 @@ group :development, :test do
   gem 'launchy' #, '2.3.0'
   gem 'rspec-rails' #, '2.13.0'
   gem 'simplecov' #, '0.7.1'
-  gem 'unicorn' #, '4.6.2'
+  gem 'unicorn' #, '4.6.2's
 end
 
 group :staging do
