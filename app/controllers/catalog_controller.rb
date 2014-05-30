@@ -29,7 +29,6 @@ class CatalogController < ApplicationController
   CatalogController.solr_search_params_logic += [:transform_unit_scope]
 
  
-
   def transform_unit_scope(solr_parameters,params)
     if ((params[:f].nil? || params[:f][:type_sim].nil? || !params[:f][:type_sim].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
       params[:fq].each do |f|
@@ -55,8 +54,6 @@ class CatalogController < ApplicationController
     solr_parameters[:fq] << "(has_model_ssim:\"info:fedora/afmodel:DamsObject\" OR has_model_ssim:\"info:fedora/afmodel:DamsUnit\" OR type_tesim:Collection)"
   end
 
-  
-
   configure_blacklight do |config|
 	
     config.default_solr_params = { 
@@ -68,11 +65,10 @@ class CatalogController < ApplicationController
   config.advanced_search = {
       :form_solr_parameters => {
         "facet.field" => ["collection_sim", "object_type_sim", "unit_sim"],
-        "f.collection_sim.facet.limit" => 3, # return all facet values
+        "f.collection_sim.facet.limit" => -1, # return all facet values
         "facet.sort" => "index" # sort by byte order of values
       }
     }
-    
 	
 	#UCSD custom added argument config.highlighting to turn on/off hit highlighting with config.highlighting=true|false
 	#config.hlTagPre for custom highlighting fragment prefix tag
