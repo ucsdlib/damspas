@@ -6,7 +6,7 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
-
+  
   # support boolean operators, even in basic search
   include BlacklightAdvancedSearch::ParseBasicQ
 
@@ -27,6 +27,9 @@ class CatalogController < ApplicationController
 
   # convert unit joins to normal facet queries (unless type=collection)
   CatalogController.solr_search_params_logic += [:transform_unit_scope]
+
+ 
+
   def transform_unit_scope(solr_parameters,params)
     if ((params[:f].nil? || params[:f][:type_sim].nil? || !params[:f][:type_sim].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
       params[:fq].each do |f|
@@ -65,7 +68,7 @@ class CatalogController < ApplicationController
   config.advanced_search = {
       :form_solr_parameters => {
         "facet.field" => ["collection_sim", "object_type_sim", "unit_sim"],
-        "f.collection_sim.facet.limit" => 20, # return all facet values
+        "f.collection_sim.facet.limit" => 3, # return all facet values
         "facet.sort" => "index" # sort by byte order of values
       }
     }
