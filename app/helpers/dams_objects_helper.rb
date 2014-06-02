@@ -468,6 +468,35 @@ module DamsObjectsHelper
 		return result
 	end
 
+	#---
+	# Get the source file id value from the component's 'files_tesim' value.
+	#
+	# @param componentIndex (Optional) The component's index.
+	# @return A string that is the component's file id value
+	# @author escowles
+	#---
+	def grabSourceFile(parameters={})
+
+		p = {:componentIndex=>nil}.merge(parameters)
+		componentIndex = p[:componentIndex]
+
+		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+		fieldData = @document["#{prefix}files_tesim"]
+		result = nil
+
+		if fieldData != nil
+			fieldData.each do |datum|
+				files = JSON.parse(datum)
+				if files["use"].end_with?("-source")
+					result = files["id"]
+					break
+				end
+			end
+		end
+
+		return result
+	end
+
 
 
   def grabPDFFile(parameters={})
