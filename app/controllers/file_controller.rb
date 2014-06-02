@@ -46,8 +46,9 @@ class FileController < ApplicationController
     end
 
     # set headers
+    disposition = params[:disposition] || 'inline'
     filename = params["filename"] || "#{objid}#{fileid}"
-    headers['Content-Disposition'] = "inline; filename=#{filename}"
+    headers['Content-Disposition'] = "#{disposition}; filename=#{filename}"
     if ds.mimeType
       headers['Content-Type'] = ds.mimeType
     elsif filename.include?('.xml')

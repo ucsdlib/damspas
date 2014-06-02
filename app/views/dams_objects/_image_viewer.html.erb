@@ -16,3 +16,4 @@
 		<%= link_to image_tag(filePath, :alt => ''), zoomFilePath %>
 	<% end %>
 <% end %>
+<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath } %>

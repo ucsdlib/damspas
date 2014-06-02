@@ -14,9 +14,19 @@
 					fileType = grabFileUse
 					display_file = grabDisplayFile
 					service_file = grabServiceFile
+					source_file = grabSourceFile
 					pdf_file = grabPDFFile
 					display_file_path = (display_file != 'no_display') ? file_path(ark,"_#{display_file}") : ''
 					service_file_path = (service_file != nil) ? file_path(ark,"_#{service_file}") : ''
+                    if source_file != nil
+					  download_file_path = download_path(ark,"_#{source_file}")
+                    elsif service_file != nil
+					  download_file_path = download_path(ark,"_#{service_file}")
+                    elsif display_file != nil
+					  download_file_path = download_path(ark,"_#{display_file}")
+                    else
+                      download_file_path = ''
+                    end
 					pdf_file_path = (pdf_file != nil) ? file_path(ark, "_#{pdf_file}") : ''
 					zoom_file_path = zoom_path @document['id'], '0'
 				%>
@@ -26,6 +36,7 @@
 								:fileType => fileType,
 								:display_file_path => display_file_path,
 								:service_file_path => service_file_path,
+								:download_file_path => download_file_path,
 								:service_file => service_file,
 								:pdf_file_path => pdf_file_path,
 								:zoom_file_path => zoom_file_path
