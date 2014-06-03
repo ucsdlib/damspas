@@ -38,14 +38,12 @@
         ( label == nil || label == note_label ) &&
         ( exclude_type == nil || !exclude_type.include?(note_type) ) &&
         ( exclude_label == nil || !exclude_label.include?(note_label) )
-        if (!note_label.include? "ARK") #Hide ARK URL from display
-          if note_label != nil && !note_label.blank?
-            notes[note_label.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
-          elsif note_type != nil && !note_type.blank?
-            notes[note_type.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
-          else
-            notes['General Note'] = note
-          end
+        if note_label != nil && !note_label.blank?
+          notes[note_label.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
+        elsif note_type != nil && !note_type.blank?
+          notes[note_type.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
+        else
+          notes['General Note'] = note
         end
       end
     end
@@ -66,7 +64,13 @@
         concat htmlOpen.html_safe
         noteList.each do |k, note|
           %>
-          <p><%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%></p>
+
+          <p>
+            <% if !note['displayLabel'].blank? %>
+              <span class='dams-note-display-label'><%= note['displayLabel'].titleize %></span>:
+            <% end %>
+            <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+          </p>
           <%
         end
       end
@@ -77,7 +81,12 @@
       notes.each do |key, noteList| 
         noteList.each do |k, note|
         %>
-        <p><%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%></p>
+        <p>
+          <% if !note['displayLabel'].blank? %>
+            <span class='dams-note-display-label'><%= note['displayLabel'].titleize %></span>: 
+          <% end %>
+          <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+        </p>
         <%
         end
       end
