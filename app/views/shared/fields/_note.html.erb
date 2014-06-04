@@ -39,13 +39,12 @@
         ( exclude_type == [] || !exclude_type.include?(note_type) ) &&
         ( exclude_label == [] || !exclude_label.include?(note_label) )
         if note_label != nil && !note_label.blank?
-          key = note_label.titleize
+          notes[note_label.titleize] = note
         elsif note_type != nil && !note_type.blank?
-          key = note_type.titleize
+          notes[note_type.titleize] = note
         else
-          key = 'General Note'
+          notes['General Note'] = note
         end
-        notes[key] = note
       end
     end
   end
@@ -79,6 +78,6 @@
       <%
       end
     end
+    concat htmlClose.html_safe
   end
-  concat htmlClose.html_safe
 %>
