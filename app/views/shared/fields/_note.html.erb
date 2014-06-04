@@ -1,7 +1,7 @@
 <%
   # make sure locals are defined
   type = nil unless local_assigns[:type]
-  label = nil unless local_assigns[:label]
+  include_label = [] unless local_assigns[:include_label]
   exclude_type = [] unless local_assigns[:exclude_type]
   exclude_label = [] unless local_assigns[:exclude_label]
 
@@ -35,62 +35,50 @@
       # add notes[displaylabel] if exist, if not note[type] else put as general note
       # add notes if type/label match specification
       if ( type == nil || type == note_type ) &&
-        ( label == nil || label == note_label ) &&
-        ( exclude_type == nil || !exclude_type.include?(note_type) ) &&
-        ( exclude_label == nil || !exclude_label.include?(note_label) )
+        ( include_label == [] || include_label.include?(note_label) ) &&
+        ( exclude_type == [] || !exclude_type.include?(note_type) ) &&
+        ( exclude_label == [] || !exclude_label.include?(note_label) )
         if note_label != nil && !note_label.blank?
-          notes[note_label.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
+          key = note_label.titleize
         elsif note_type != nil && !note_type.blank?
-          notes[note_type.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
+          key = note_type.titleize
         else
-          notes['General Note'] = note
+          key = 'General Note'
         end
+        notes[key] = note
       end
     end
   end
+
   #group notes by displaylabel/type
   notes = notes.group_by {|word| word[0] }
   #notes is now a hash where key => {key => value}
-  count = 0
-  notes.each do |c|
-    count += 1
-  end
 
-  if count > 0
-    if type == nil
-      notes.each do |key, noteList|
-        htmlOpen = htmlOpenTemp
-        htmlOpen %= key
-        concat htmlOpen.html_safe
-        noteList.each do |k, note|
-          %>
-
-          <p>
-            <% if !note['displayLabel'].blank? %>
-              <span class='dams-note-display-label'><%= note['displayLabel'].titleize %></span>:
-            <% end %>
-            <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
-          </p>
-          <%
-        end
-      end
-    else
+  if !notes.empty?
+    # if type is specified, bundle all matching notes under type header
+    if type != nil
       htmlOpen = htmlOpenTemp
       htmlOpen %= type.to_s.capitalize
       concat htmlOpen.html_safe
-      notes.each do |key, noteList| 
-        noteList.each do |k, note|
-        %>
-        <p>
-          <% if !note['displayLabel'].blank? %>
-            <span class='dams-note-display-label'><%= note['displayLabel'].titleize %></span>: 
-          <% end %>
-          <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
-        </p>
-        <%
-        end
+    end
+    notes.each do |key, noteList| 
+      # if no type is provided, use types from note json
+      if type == nil
+        htmlOpen = htmlOpenTemp
+        htmlOpen %= key
+        concat htmlOpen.html_safe
+      end
+      noteList.each do |k, note|
+      %>
+      <p>
+        <% if type == 'identifier' && !note['displayLabel'].blank? %>
+          <span class='dams-note-display-label'><%= note['displayLabel'].titleize %></span>: 
+        <% end %>
+        <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+      </p>
+      <%
       end
     end
-    concat htmlClose.html_safe
   end
+  concat htmlClose.html_safe
 %>

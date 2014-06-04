@@ -1,9 +1,11 @@
 <% collectionsView = defined?(greetingsFromCollectionsView) ? true : false %>
-<% notesToExclude = ['performers','extent','abstract','table of contents','identifier','existence and location of originals','general physical description','dimensions','digital origin'] %>
+<% notesToExclude = ['performers','extent','abstract','table of contents','identifier',
+        'existence and location of originals','general physical description', 'dimensions',
+        'digital origin'] %>
 
 <% if collectionsView %>
-	<% notesToExclude << 'description' %>
-	<%= render :partial => 'shared/fields/note', :locals => {:type => 'description'} %>
+  <% notesToExclude << 'description' %>
+  <%= render :partial => 'shared/fields/note', :locals => {:type => 'description'} %>
 <% end %>
 
 <%= render :partial => 'shared/fields/relationships' %>
@@ -14,28 +16,19 @@
 <%= render :partial => 'shared/fields/scope_of_content' %>
 <%= render :partial => 'shared/fields/cartographic' %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'table of contents'} %>
-<%= render :partial => 'shared/fields/note', :locals => {:exclude_type => notesToExclude, :exclude_label => ['Digital object made available by'] } %>
+<%= render :partial => 'shared/fields/note', :locals => {:exclude_type => notesToExclude,
+        :exclude_label => ['Digital object made available by'] } %>
 <%= render :partial => 'shared/fields/resource_type' %>
 <%= render :partial => 'shared/fields/language' %>
-<%= render :partial => 'shared/fields/note', :locals => {:type => 'existence and location of originals'} %>
-<%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :exclude_label => ['ARK', 'ARK ID',
-                                                          'collection number', 'call number', 'filename', 'local',
-                                                          'negative', 'OCLC number', 'roger record', 'sequence']} %>
-
-<!-- bd22194583: has sample number for testing -->
-<!-- why isn't ARK showing up??? -->
+<%= render :partial => 'shared/fields/note',
+        :locals => {:type => 'existence and location of originals'} %>
 
 <% if can? :update, @document %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'ARK'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'ARK ID'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'call number'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'collection number'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'filename'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'local'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'negative'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'OCLC number'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'roger record'} %>
-  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier', :label => 'sequence'} %>
+  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier'} %>
+<% else %>
+  <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier',
+          :exclude_label => ['ARK', 'ARK ID', 'collection number', 'call number', 'filename',
+                             'local', 'negative', 'OCLC number', 'roger record', 'sequence']} %>
 <% end %>
 
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'general physical description'} %>
@@ -55,9 +48,11 @@
 <%= render :partial => 'shared/fields/technique' %>
 <%= render :partial => 'shared/fields/temporal' %>
 <%= render :partial => 'shared/fields/collection' %>
-<%= render :partial => 'shared/fields/related_resource', :locals => {:collectionDoc => @document, :docType => "object"} %>
+<%= render :partial => 'shared/fields/related_resource',
+        :locals => {:collectionDoc => @document, :docType => "object"} %>
 <%= render :partial => 'shared/fields/custodial_responsibility_note' %>
-<%= render :partial => 'shared/fields/note', :locals => {:label => 'Digital object made available by'} %>
+<%= render :partial => 'shared/fields/note',
+        :locals => {:include_label => 'Digital object made available by'} %>
 <%= render :partial => 'shared/fields/preferred_citation_note' %>
 <%= render :partial => 'shared/fields/copyright' %>
 
