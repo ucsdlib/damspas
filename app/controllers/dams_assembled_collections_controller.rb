@@ -303,7 +303,8 @@ end
   end
 
   def data_view
-      data = get_html_data ( params[:id] )
+  	  controller_path = dams_collection_path params[:id]
+      data = get_html_data params, controller_path
       render :text => data
   end
 

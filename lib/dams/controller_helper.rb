@@ -637,10 +637,12 @@ module Dams
       end
     end
     
-    def get_html_data ( pid )
+    def get_html_data ( params, controller_path )
        baseurl = ActiveFedora.fedora_config.credentials[:url]
        baseurl = baseurl.gsub(/\/fedora$/,'')
-       viewerUrl = "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=review.xsl&baseurl=" + URI.encode(baseurl)
+       xsl = (params[:xsl].nil? || params[:xsl].empty?)?'review.xsl':params[:xsl]
+       controller = (controller_path.nil? || controller_path.empty?)?'':'&controller=' + URI.encode(controller_path)
+       viewerUrl = "#{baseurl}/api/objects/#{params[:id]}/transform?recursive=true&xsl=#{xsl}&baseurl=" + URI.encode(baseurl) + controller
        uri = URI(viewerUrl)
        res = Net::HTTP.get_response(uri)
        res.body
