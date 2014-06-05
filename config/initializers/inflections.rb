@@ -13,3 +13,9 @@
 # ActiveSupport::Inflector.inflections do |inflect|
 #   inflect.acronym 'RESTful'
 # end
+ActiveSupport::Inflector.inflections do |inflect|
+  inflect.acronym 'ARK'
+  inflect.acronym 'ID'
+  inflect.acronym 'IGSN'
+  inflect.acronym 'OCLC'
+end
