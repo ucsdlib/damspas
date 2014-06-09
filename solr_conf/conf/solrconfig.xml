@@ -170,7 +170,7 @@
 	</lst>
   </searchComponent>
   
-  <!-- replication master config:
+  <!-- replication master config -->
   <requestHandler name="/replication" class="solr.ReplicationHandler"> 
     <lst name="master">
       <str name="replicateAfter">startup</str>
@@ -178,7 +178,6 @@
       <str name="confFiles">solrconfig_master.xml,solrconfig_slave.xml,solrconfig_standalone.xml,schema.xml</str>
     </lst>
   </requestHandler>
-  -->
   <!-- replication slave config:
   <requestHandler name="/replication" class="solr.ReplicationHandler">
     <lst name="slave">
