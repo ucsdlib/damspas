@@ -26,25 +26,32 @@ class DamsCollectionsController < ApplicationController
   <dams:error>content missing</dams:error>
 </rdf:RDF>"
     end
-         if can? :show, @document
-      collectionData = @document["collection_json_tesim"]
-    
-    @collectionDocArray = Array.new
-    if !collectionData.nil? && collectionData.length > 0
-      collectionData.each do |datum|
-          collection = JSON.parse(datum)
-      collectionDoc = get_single_doc_via_search(1, {:q => "id:#{collection['id']}"} )
-      relatedResourceData = collectionDoc["related_resource_json_tesim"]
 
-      relatedResourceData.each do |datum|
-      relatedResource = JSON.parse(datum)
-      if relatedResource['type'] != "hydra-afmodel"
-        @collectionDocArray << collectionDoc
-        break
-      end     
+    if can? :show, @document
+
+      # find related resources
+      collectionData = @document["collection_json_tesim"]
+      @collectionDocArray = Array.new
+      if !collectionData.nil? && collectionData.length > 0
+        collectionData.each do |datum|
+          collection = JSON.parse(datum)
+          collectionDoc = get_single_doc_via_search(1, {:q => "id:#{collection['id']}"} )
+          relatedResourceData = collectionDoc["related_resource_json_tesim"]
+
+          relatedResourceData.each do |datum|
+            relatedResource = JSON.parse(datum)
+            if relatedResource['type'] != "hydra-afmodel"
+              @collectionDocArray << collectionDoc
+              break
+            end     
+          end
+        end
       end
-      end
-    end
+
+      # find objects that are part of this collection
+      q = "collection_sim:\"#{@document['title_tesim'].first}\""
+      (object_response, object_list) = get_search_results :q => q
+      @object_count = object_response.total
 
       respond_to do |format|
         format.html # show.html.erb
