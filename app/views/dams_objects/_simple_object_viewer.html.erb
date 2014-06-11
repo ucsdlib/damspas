@@ -1,12 +1,10 @@
 <% if defined?(fileType) %>
 
-  <% culturallySensitiveText = grabCulturallySensitiveText(@document["otherNote_json_tesim"]) %>
-  <% if !culturallySensitiveText.nil? %>
+  <% restrictedNotice = grabRestrictedText(@document['otherNote_json_tesim']) %>
+  <% unless restrictedNotice.nil? %>
     <div class="masked-object">
 	    <div>
-	      <h3>Culturally Sensitive Content</h3>
-	      <p><%= culturallySensitiveText %></p>
-	      <button type="button" class="btn btn-danger btn-mini" onClick="$('.masked-object').hide();$('.simple-object').show();">View Content</button>
+	      <%= restrictedNotice %>
 	    </div>
     </div>
   <% end %>
@@ -21,8 +19,7 @@
 			<%= render :partial => 'video_viewer', :locals => {:filePath => service_file_path, :icon => display_file_path} %>
 		<% when 'document-service' %>
 	    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path} %>
-
-				<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
+			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
 			<%= render :partial => 'data_viewer', :locals => {:displayFilePath => display_file_path, :filePath => service_file_path, :objectType => 'simple', :pdfFilePath => pdf_file_path} %>
 		<% when 'data-service' %>
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
@@ -31,4 +28,5 @@
 			<%= render :partial => 'default_viewer', :locals => {:objectType => 'simple'} %>
 		<% end %>
 	</div>
+
 <% end %>

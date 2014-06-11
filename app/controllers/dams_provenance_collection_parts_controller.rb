@@ -145,11 +145,19 @@ def edit
        if !params["dams_provenance_collection_part"].empty?
          hash_of_param = params["dams_provenance_collection_part"]
           
-         hash_of_param.each do |k, v|
+          hash_of_param.each do |k, v|
 
-           arr_of_attributes = ["builtWorkPlace_attributes", "culturalContext_attributes", "function_attributes", "genreForm_attributes", "geographic_attributes", "iconography_attributes", "occupation_attributes", "scientificName_attributes", "stylePeriod_attributes", "technique_attributes", "temporal_attributes", "topic_attributes" ]
+           arr_of_sub = 
+           ["builtWorkPlace_attributes", "culturalContext_attributes", "function_attributes", 
+            "genreForm_attributes", "geographic_attributes", "iconography_attributes", "occupation_attributes", 
+            "scientificName_attributes", "stylePeriod_attributes", "technique_attributes", "temporal_attributes", 
+            "topic_attributes"]
+
+            arr_of_name = 
+            ["conferenceName_attributes", "corporateName_attributes", "personalName_attributes",
+            "familyName_attributes", "name_attributes"]
            
-           if arr_of_attributes.include?(k)              
+           if arr_of_sub.include?(k) || arr_of_name.include?(k)             
               
               sub_type = k[0, k.index('_')]
               sub_type = sub_type[0, 1].capitalize + sub_type[1..-1]
@@ -157,61 +165,16 @@ def edit
               
               hash_of_value.each do |key, sub|
                 
-                 if sub[:id]!= nil
-
-                    value = sub[:id]
-             
-                    if /loc:/.match(value)
-                      
-                      name = value[value.index('_')+7, value.length-1]
-                      element_value = name
-                      scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
-                      element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
-                      sub_hash = {
-                        
-                        "name" => name, 
-                         element_attributes =>
-                         {"0" => {"elementValue" => element_value }},
-                         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
-                         
-                      }
-                     
-                     class_name = get_class_name(sub_type)
-                     class_ref = class_name.constantize
-                     obj = class_ref.new
-                     obj.attributes = sub_hash
-                     obj.save
-
-                     # add the uri to obje parameter list
-                     uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
-                     sub[:id]= uri
-     
-                   end
-                end
-                
-                if sub[:id]== nil && sub[:label]!= nil
-                  name = sub[:label]
-                  element_value = name
-                  scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
-                  element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
-
-                  sub_hash = {
-                        "name" => name, 
-                         element_attributes =>
-                         {"0" => {"elementValue" => element_value }},
-                         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
-                      }
-                     
-                     class_name = get_class_name(sub_type)
-                     class_ref = class_name.constantize
-                     obj = class_ref.new
-                     obj.attributes = sub_hash
-                     obj.save
-
-                     # add the uri to obje parameter list
-                     uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
-                     sub[:id]= uri
-                end
+               if sub["id"]!= nil
+                  if /loc:/.match(sub["id"])
+                    #name = value[value.index('_')+7, value.length-1]
+                    name = sub["label"]
+                    do_mapping(sub_type, name, arr_of_sub, arr_of_name, k, sub)
+                  end
+               elsif sub["id"]== nil && sub["label"]!= nil
+                name = sub["label"]
+                do_mapping(sub_type, name, arr_of_sub, arr_of_name, k, sub) 
+               end
              end
            end
          end
@@ -268,62 +231,62 @@ def edit
     @dams_provenance_collection_part.unit.clear
 
     # Handling autocompleted field for data coming from remote website such as LOC, and mapping to Mads/Dams classes.
-       if params["dams_provenance_collection_part"]["simpleSubjectURI"]!= nil && (!params["dams_provenance_collection_part"]["simpleSubjectURI"].empty?)
-         hash_of_param = params["dams_provenance_collection_part"]["simpleSubjectURI"]
-          
-         hash_of_param.each_with_index do |value, index|
-           
-           # Getting data from external resouce and mapping to Mads or Dams class
-           if /loc:/.match(value)
- 
-              sub_type = nil
-              # subject type => Topic, BuiltWorkPlace, ScientificName etc.
-              # if !params["dams_provenance_collection_part"]["subjectType"].empty?
-              #    sub_type = params["dams_provenance_collection_part"]["subjectType"][index]
-              # end
-              sub_type = value[4, value.index('_') - 4]
-              sub_type = "Topic" if sub_type == nil
+     @dams_provenance_collection_part = DamsProvenanceCollectionPart.new
 
-              name = value[value.index('_')+7, value.length-1]
-              element_value = name
-              scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
-              element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
-              sub_hash = {
-                
-                "name" => name, 
-                 element_attributes =>
-                 {"0" => {"elementValue" => element_value }},
-                 "scheme_attributes"=>{"0" => {"id" => scheme_id}}
-                 
-              }
-             
-             class_name = get_class_name(sub_type)
-             
-             class_ref = class_name.constantize
-             obj = class_ref.new
-             obj.attributes = sub_hash
-             obj.save
+       if !params["dams_provenance_collection_part"].empty?
+         hash_of_param = params["dams_provenance_collection_part"]
 
-              # add the uri to obje parameter list
-              uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
-              hash_of_param[index]= uri
-              
+         hash_of_param.each do |k, v|
+           if k == "simpleSubjectURI" || k == "creatorURI"
+
+             arr_of_uri = v
+
+             arr_of_uri.each_with_index do |value, index|
+                if /loc:/.match(value)
+                    sub_type = nil
+                    sub_type = value[4, value.index('_') - 4]
+                    sub_type = "Topic" if sub_type == nil
+                    name = value[value.index('_')+7, value.length-1]
+                    element_value = name
+                    scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+                    element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+
+                    if k == "simpleSubjectURI"
+                      sub_hash = {
+                      "name" => name, 
+                       element_attributes =>
+                       {"0" => {"elementValue" => element_value }},
+                       "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                     }
+                    elsif k == "creatorURI"
+                      sub_hash = {
+                               "name" => name, 
+                               "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+                               }
+                    end
+                   
+                   class_name = get_class_name(sub_type)
+                   class_ref = class_name.constantize
+                   obj = class_ref.new
+                   obj.attributes = sub_hash
+                   obj.save
+
+                    # add the uri to obje parameter list
+                    uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+                    arr_of_uri[index]= uri
+                end
+             end
+           end
+
+           if k == "subjectType" || k == "nameType"
+             arr_of_type = v
+             arr_of_type.each_with_index do |value, index|
+               arr_of_type[index] = "Topic" if value == ""
+             end
            end
          end
-        end
+       end
 
-        if params["dams_provenance_collection_part"]["subjectType"]!= nil && (!params["dams_provenance_collection_part"]["subjectType"].empty?)
-             arr_of_type = params["dams_provenance_collection_part"]["subjectType"]
-
-             arr_of_type.each_with_index do |v, i|
- 
-               arr_of_type[i] = "Topic" if v == ""
-               
-             end
-          end
-      
-    
-     
     @dams_provenance_collection_part.attributes = params[:dams_provenance_collection_part]
     if @dams_provenance_collection_part.save
         redirect_to @dams_provenance_collection_part, notice: "Successfully updated provenance_collection_part"
@@ -340,6 +303,34 @@ def edit
   def data_view
       data = get_html_data ( params[:id] )
       render :text => data
+  end
+
+  def do_mapping(sub_type, name, arr_of_sub, arr_of_name, k, sub)
+      element_value = name
+      scheme_id = "http://library.ucsd.edu/ark:/20775/bd9386739x"
+      element_attributes = sub_type[0, 1].downcase + sub_type[1..-1] +"Element_attributes"
+      
+      if arr_of_sub.include?(k)
+        sub_hash = {
+         "name" => name, 
+         element_attributes =>
+         {"0" => {"elementValue" => element_value }},
+         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+        }
+      elsif arr_of_name.include?(k)
+        sub_hash = {
+         "name" => name, 
+         "scheme_attributes"=>{"0" => {"id" => scheme_id}}
+        }
+      end
+     class_name = get_class_name(sub_type)
+     class_ref = class_name.constantize
+     obj = class_ref.new
+     obj.attributes = sub_hash
+     obj.save
+     # add the uri to obje parameter list
+     uri = "#{Rails.configuration.id_namespace}#{obj.pid}"
+     sub["id"]= uri
   end
 
   def get_class_name(name)

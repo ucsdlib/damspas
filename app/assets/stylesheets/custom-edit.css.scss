@@ -1,23 +1,14 @@
 $viewerPadding: 3% !default;
 
+.eleTypeahead {width: 396px; }
+
 .typeahead.tt-input {
    width: 396px; 
 }
 
-.twitter-typeahead {
-    z-index: 1;
-}
-
 .tt-dropdown-menu {
-    z-index: 100;
-    position: relative;
-}
-
-.eleTypeahead {width: 396px; }
-
-#scrollable-dropdown-menu .tt-dropdown-menu {
-  max-height: 150px;
-  overflow-y: auto;
+  z-index: 100;
+  position:absolute;
 }
 
 .tt-query,
@@ -32,6 +23,7 @@ $viewerPadding: 3% !default;
     -moz-border-radius: 8px;
     border-radius: 8px;
     outline: none;
+
 }
 
 .tt-query {
@@ -57,13 +49,13 @@ $viewerPadding: 3% !default;
     -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
-    
 }
 
 .tt-suggestion {
     padding: 3px 20px;
     font-size: 18px;
     line-height: 24px;
+     
 }
 
 .tt-suggestion.tt-is-under-cursor {
@@ -75,8 +67,6 @@ $viewerPadding: 3% !default;
 .tt-suggestion p {
     margin: 0;
 }
-
-
 
 .fields {/*background-color:$objectBG;*/padding: 0 $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;margin-bottom: 20px;}
 .nonSort {width:17%}

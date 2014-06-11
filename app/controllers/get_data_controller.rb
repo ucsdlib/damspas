@@ -78,53 +78,17 @@ class GetDataController < ApplicationController
 	end
   end
 
-  def get_name 	
-  	#http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
-  	type = nil;
-  	if(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Corporate'))
-  		type = 'MadsCorporateName'		
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Personal'))
-  		type = 'MadsPersonalName'			
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Conference'))
-  		type = 'MadsConferenceName'	
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Family'))
-  		type = 'MadsFamilyName'
-  	elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Name'))
-  		type = 'MadsName'						
-	else
-		type = 'MadsName'
-	end
+  def get_creator	
 
-	@names = get_objects_url(type,'name_tesim')
-	@formType = params[:formType]
-	@fieldName = params[:fieldName]
-	@label = params[:q]
-	@fieldId = params[:fieldId]
-	@selectedValue = params[:selectedValue]
-	
-	@hasSelectedValue = "false"	
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and @names.to_s.include? @selectedValue
-		@hasSelectedValue = "true"
-	end
-
-	if !@selectedValue.nil? and !@selectedValue.include? "null" and @hasSelectedValue.include? "false"		
-		tmpNameObject = type.constantize.find(@selectedValue)
-		if(!tmpNameObject.nil?)
-			tmpArray = Array.new
-			tmpArray << tmpNameObject.name.first
-			tmpArray << Rails.configuration.id_namespace+@selectedValue					
-			@names << tmpArray
-		end
-	end
-	
-	@names << "Create New #{@label}"
-	@relationship = params[:relationship]
-	if !@relationship.nil? and @relationship == "true"
-		@mads_authorities = get_objects_url('MadsAuthority','name_tesim')
-		@mads_authorities << "Create New Role"
-		@selectedRole = params[:selectedRole]
-	end
-	render :layout => false
+  	@formType = params[:formType]
+  	@fieldName = params[:fieldName]
+  	@label = params[:q]
+  	@fieldId = params[:fieldId]
+  	@selectedValue = params[:selectedValue]
+    @selectedLabel = params[:selectedLabel]
+    @names = ""
+  	
+  	render :layout => false
   end
  
  def get_subject	
@@ -143,7 +107,54 @@ class GetDataController < ApplicationController
 	render :layout => false
   end
 
- 
+ def get_name   
+    #http://localhost:3000/get_data/get_name/get_name?q=PersonalName&formType=dams_object
+    type = nil;
+    if(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Corporate'))
+      type = 'MadsCorporateName'    
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Personal'))
+      type = 'MadsPersonalName'     
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Conference'))
+      type = 'MadsConferenceName' 
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Family'))
+      type = 'MadsFamilyName'
+    elsif(!params[:q].nil? && params[:q] != '' && (params[:q].include? 'Name'))
+      type = 'MadsName'           
+  else
+    type = 'MadsName'
+  end
+
+  @names = get_objects_url(type,'name_tesim')
+  @formType = params[:formType]
+  @fieldName = params[:fieldName]
+  @label = params[:q]
+  @fieldId = params[:fieldId]
+  @selectedValue = params[:selectedValue]
+  
+  @hasSelectedValue = "false" 
+  if !@selectedValue.nil? and !@selectedValue.include? "null" and @names.to_s.include? @selectedValue
+    @hasSelectedValue = "true"
+  end
+
+  if !@selectedValue.nil? and !@selectedValue.include? "null" and @hasSelectedValue.include? "false"    
+    tmpNameObject = type.constantize.find(@selectedValue)
+    if(!tmpNameObject.nil?)
+      tmpArray = Array.new
+      tmpArray << tmpNameObject.name.first
+      tmpArray << Rails.configuration.id_namespace+@selectedValue         
+      @names << tmpArray
+    end
+  end
+  
+  @names << "Create New #{@label}"
+  @relationship = params[:relationship]
+  if !@relationship.nil? and @relationship == "true"
+    @mads_authorities = get_objects_url('MadsAuthority','name_tesim')
+    @mads_authorities << "Create New Role"
+    @selectedRole = params[:selectedRole]
+  end
+  render :layout => false
+  end
   
   def get_ark 	
   	#http://localhost:8080/dams/api/next_id?count=1

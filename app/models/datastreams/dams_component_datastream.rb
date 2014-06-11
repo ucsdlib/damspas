@@ -115,7 +115,7 @@ class DamsComponentDatastream < DamsResourceDatastream
       @parents[cid] = Array.new
 
       # child components
-      component.subcomponent.map.sort.each { |subcomponent|
+      component.subcomponent.map.sort{ |c,d| c.id <=> d.id }.each { |subcomponent|
         subid = /\/(\w*)$/.match(subcomponent.to_s)
         gid = subid[1].to_i
         @children << gid

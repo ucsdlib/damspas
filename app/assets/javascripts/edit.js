@@ -228,7 +228,7 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
     reg = "newSimpleSubjects";
   }
   else if (typeName == 'creator') {
-    typeGet = "name";
+    typeGet = "creator";
     reg = "newCreator";
   }
   
@@ -253,7 +253,7 @@ function getTypeaheadFields(linkTag,formType,location,fieldId,typeName,selectedV
       else
         $(linkTag).parent().before(data);
       
-      if(typeName == 'simpleSubject')
+      if(typeName == 'simpleSubject' || typeName == 'creator')
       {
         if(selectedValue ==null)
         {
@@ -286,7 +286,7 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
     reg = "newSimpleSubjects";
   }
   else if (typeName == 'creator') {
-    typeGet = "name";
+    typeGet = "creator";
     reg = "newCreator";
   }
   
@@ -304,7 +304,7 @@ function getEditTypeaheadFields(linkTag,formType,location,fieldId,typeName)
       if(location != null && location.length > 0)
         $(location).html(data); 
 
-      if(typeName == 'simpleSubject')
+      if(typeName == 'simpleSubject' || typeName == 'creator')
       {
         var elementID= new_id+"Id";
         var elementLabel= new_id+"Label";

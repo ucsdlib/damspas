@@ -6,7 +6,7 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
-
+  
   # support boolean operators, even in basic search
   include BlacklightAdvancedSearch::ParseBasicQ
 
@@ -27,6 +27,8 @@ class CatalogController < ApplicationController
 
   # convert unit joins to normal facet queries (unless type=collection)
   CatalogController.solr_search_params_logic += [:transform_unit_scope]
+
+ 
   def transform_unit_scope(solr_parameters,params)
     if ((params[:f].nil? || params[:f][:type_sim].nil? || !params[:f][:type_sim].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
       params[:fq].each do |f|
@@ -58,6 +60,14 @@ class CatalogController < ApplicationController
       :qt => 'search',
       :rows => 20,
       :qf => 'title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id',
+    }
+  
+  config.advanced_search = {
+      :form_solr_parameters => {
+        "facet.field" => ["collection_sim", "object_type_sim", "unit_sim"],
+        "f.collection_sim.facet.limit" => -1, # return all facet values
+        "facet.sort" => "index" # sort by byte order of values
+      }
     }
 	
 	#UCSD custom added argument config.highlighting to turn on/off hit highlighting with config.highlighting=true|false
@@ -119,6 +129,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'collection_sim', :label => 'Collection', :limit => 20
     config.add_facet_field 'unit_sim', :label => 'Unit'
 
+    
+
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
@@ -134,7 +146,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'date_tesim', :label => 'Date:', :highlight => config.highlighting
     config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => config.highlighting
     config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => config.highlighting
-    config.add_index_field 'subject_tesim', :label => 'Subject:', :highlight => config.highlighting
+    config.add_index_field 'subject_tesim', :label => 'Topic:', :highlight => config.highlighting
 	config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
 	config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
     #config.add_index_field 'description_tesim', :label => 'Description:' 

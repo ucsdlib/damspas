@@ -22,9 +22,9 @@
   <h3>Sorting</h3>
 
   <fieldset>
-	  <%= label_tag(:sort, 'Sort by') %>
-	  <%= select_tag(:sort, options_for_select(sort_fields, h(params[:sort]))) %>
-	  <%= hidden_field_tag(:search_field, blacklight_config.advanced_search[:url_key]) %>
+    <%= label_tag(:sort, 'Sort by') %>
+    <%= select_tag(:sort, options_for_select(sort_fields, h(params[:sort]))) %>
+    <%= hidden_field_tag(:search_field, blacklight_config.advanced_search[:url_key]) %>
   </fieldset>
 
   <div class="form-actions adv-search-button">

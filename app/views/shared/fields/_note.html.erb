@@ -16,48 +16,70 @@
   end
 
   # parse notes
-  notes = []
-  data = @document["#{prefix}otherNote_json_tesim"]
+  notes = Hash.new
+  notes.compare_by_identity
+  
+  # Temporary fix the bug that note field not displaying at component level. 
+  # The solr index will need to be updated to make it consistent.
+  if defined?(componentIndex)
+    data = @document["#{prefix}note_json_tesim"]
+  else
+    data = @document["otherNote_json_tesim"]
+  end
+
   if data != nil
     data.each do |n|
       note = JSON.parse(n)
       note_type = note['type']
       note_label = note['displayLabel']
-
+      # add notes[displaylabel] if exist, if not note[type] else put as general note
       # add notes if type/label match specification
       if ( type == nil || type == note_type ) &&
-         ( label == nil || label == note_label ) &&
-         ( exclude_type == nil || !exclude_type.include?(note_type) ) &&
-         ( exclude_label == nil || !exclude_label.include?(note_label) )
-        notes << note
+        ( label == nil || label == note_label ) &&
+        ( exclude_type == nil || !exclude_type.include?(note_type) ) &&
+        ( exclude_label == nil || !exclude_label.include?(note_label) )
+        if (!note_label.include? "ARK") #Hide ARK URL from display
+          if note_label != nil && !note_label.blank?
+            notes[note_label.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
+          elsif note_type != nil && !note_type.blank?
+            notes[note_type.gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')] = note
+          else
+            notes['General Note'] = note
+          end
+        end
       end
     end
   end
+  #group notes by displaylabel/type
+  notes = notes.group_by {|word| word[0] }
+  #notes is now a hash where key => {key => value}
+  count = 0
+  notes.each do |c|
+    count += 1
+  end
 
-  if notes.count > 0
+  if count > 0
     if type == nil
-      notes.each do |note| 
-        if (!note['displayLabel'].include? "ARK") #Hide ARK URL from display
-          htmlOpen = htmlOpenTemp
-          if note['displayLabel'] != nil && !note['displayLabel'].blank?
-            htmlOpen %= note['displayLabel'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
-          elsif note['type'] != nil && !note['type'].blank?
-            htmlOpen %= note['type'].gsub(/(?<=[A-Za-z])(?=[A-Z])/, ' ').split.map(&:capitalize).join(' ')
-          else
-            htmlOpen %= 'General Note'
-          end
-          concat htmlOpen.html_safe %>
+      notes.each do |key, noteList|
+        htmlOpen = htmlOpenTemp
+        htmlOpen %= key
+        concat htmlOpen.html_safe
+        noteList.each do |k, note|
+          %>
           <p><%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%></p>
-<%      end
+          <%
+        end
       end
     else
-      notes.each do |note|
-        if (!note['displayLabel'].include? "ARK") #Hide ARK URL from display
-          htmlOpen = htmlOpenTemp
-          htmlOpen %= type.to_s.capitalize
-          concat htmlOpen.html_safe %>
-          <p><%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%></p>
-<%      end
+      htmlOpen = htmlOpenTemp
+      htmlOpen %= type.to_s.capitalize
+      concat htmlOpen.html_safe
+      notes.each do |key, noteList| 
+        noteList.each do |k, note|
+        %>
+        <p><%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%></p>
+        <%
+        end
       end
     end
     concat htmlClose.html_safe

@@ -21,6 +21,7 @@
          will be overridden by parameters in the request
       -->
      <lst name="defaults">
+       <str name="f.collection_sim.facet.limit">3</str>
        <str name="defType">edismax</str>
        <str name="echoParams">explicit</str>
        <str name="q.alt">*:*</str>
@@ -116,6 +117,7 @@
   
   <requestHandler name="standard" class="solr.SearchHandler">
      <lst name="defaults">
+       
        <str name="echoParams">explicit</str>
        <str name="defType">lucene</str>
      </lst>
