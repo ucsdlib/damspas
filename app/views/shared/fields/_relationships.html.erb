@@ -1,12 +1,12 @@
 <%
 	if defined?(componentIndex) # Then we're working with a component
 		prefix = "component_#{componentIndex}_"
-		htmlOpen = "<tr><td>%s</td><td><ul>"
-		htmlClose = "</ul></td></tr>"
+		htmlOpen = '<tr><td>%s</td><td><ul class="unstyled">'
+		htmlClose = '</ul></td></tr>'
 	else # We're working with an object or collection
 		prefix = ''
-		htmlOpen = "<dt>%s</dt><dd><ul>"
-		htmlClose = "</ul></dd>"
+		htmlOpen = '<dt>%s</dt><dd><ul class="unstyled">'
+		htmlClose = '</ul></dd>'
 	end
 
 	fieldData = @document["#{prefix}relationship_json_tesim"]

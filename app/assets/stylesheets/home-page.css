@@ -42,7 +42,7 @@
 
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
-
+.alert{border-radius:0;margin:0;}
 /* RWD */
 @media (min-width: 1600px)
 {
@@ -56,7 +56,7 @@ footer{margin-top:0;}
 @media (max-width:640px)
 {
     #dc-logo{width:80%;padding-top:50px;}
-    #browse-by{font-size:100%;}
+    #browse-by{font-size:95%;}
     .category{width:100%;}
 }
 @media (max-width:480px)
