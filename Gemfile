@@ -23,7 +23,8 @@ gem 'equivalent-xml' #, '0.3.0'
 gem 'jquery-rails'
 gem 'rails_autolink'
 gem 'mail_form'
-gem 'qa'
+#gem 'qa'
+gem 'qa', '~> 0.2.1'
 gem 'sprockets', '=2.11.0'
 
 # To use ActiveModel has_secure_password

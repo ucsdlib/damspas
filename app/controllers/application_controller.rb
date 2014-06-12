@@ -1,4 +1,3 @@
-require 'pry'
 
 class ApplicationController < ActionController::Base
   around_action :anonymous_user
@@ -7,7 +6,6 @@ class ApplicationController < ActionController::Base
     # check ip for unauthenticated users
     if current_user == nil && self.class != Qa::TermsController
      
-      # binding.pry
       anon = User.anonymous(request.remote_ip)
       if anon.to_s != 'public'
         @current_user = anon
