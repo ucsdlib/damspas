@@ -1,5 +1,3 @@
-require 'pry'
-
 class ApplicationController < ActionController::Base
   around_action :anonymous_user
 
