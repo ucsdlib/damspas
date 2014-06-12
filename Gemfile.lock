@@ -192,11 +192,7 @@ GEM
       blankslate (~> 2.0)
     pg (0.17.0)
     polyglot (0.3.4)
-<<<<<<< HEAD
     qa (0.2.1)
-=======
-    qa (0.1.0)
->>>>>>> 50c209d986009d122e712d35d2a061524fc8268f
       activerecord-import
       deprecation
       nokogiri (~> 1.6.0)
