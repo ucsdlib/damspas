@@ -1,15 +1,14 @@
+// OVERRIDES
+.well{margin-bottom:10px;}
+
+// COLLECTIONS LANDING PAGE
 #collections-masthead, #collections-masthead hgroup{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box;}
 
-
-
 .dams-collections .span8{border-bottom:3px double #ddd;margin-bottom:20px;}
-
 .dams-collections dl{margin-top:0;}
 .dams-collections dt{font-size: 125%;line-height: 200%; color: #AD702B;font-weight: normal;}
 .dams-collections dd{text-align: justify;margin-left:0;}
-
 .dams-collections a{word-break: break-all;}
-
 .dams-collections .input-append{text-align:center;display:block;}
 .dams-collections .input-append input[type=text]{width:70% !important;}
 .dams-collections .sidebar-button-list{margin:0;}
@@ -29,7 +28,6 @@
 .item-block div {display:block;float:left;margin:0 0 0 10px;padding:0;}
 .item-block a {margin:0;padding:0;display:block;}
 
-
 .collections-search-box
 {
   margin-top:20px;
@@ -45,13 +43,9 @@
   border-radius: 5px 5px 0 0;
   position:relative;
   .bug{position: absolute;bottom:0; right:0;margin:0 5px 5px 0; color:rgba(0,0,0,0.33)}
-
   hgroup{border-bottom: 3px solid rgba(0,0,0,0.33);  padding:20px; }
-
   h1, h2{line-height:normal;margin:0;padding-bottom:0;text-shadow: 0px 0px 3px rgba(0,0,0,0.5);color:#fff;font-weight: normal;}
   h2{color:rgba(255,255,255,0.75);}
-
-
 }
 
 #collections-image
@@ -62,17 +56,19 @@
   margin-bottom: 20px;
   border-radius: 5px 5px 0 0;
   border-bottom: 3px solid rgba(0,0,0,0.33);
-
   height:340px;
   width:100%;
   position:relative;
-  .bug{position: absolute;top:0; left:0;margin:5px 0 0 5px; color:rgba(0,0,0,0.33)}
-
+  .bug{position: absolute;top:0; right:0;margin:5px 5px 0 0; color:rgba(0,0,0,0.33)}
 }
 
-// MEDIA QUERIES
+.alert-phone{margin-bottom:10px !important;}
+.crumb{color:rgba(173,111,43,0.75);line-height: normal;}
 
-/* LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP) */
+//---
+// MEDIA QUERIES
+//---
+// LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP)
 @media (max-width: 767px)
 {
   #collections-masthead h1, #collections-masthead h2, .dams-collections h3{font-size: 125%;}

@@ -4,8 +4,6 @@
 body{padding-top:0;}/* remove blacklight's crazy top padding */
 .navbar .brand{width:inherit;background:none;display:inherit;text-indent:inherit;white-space:inherit;overflow:inherit;padding-right:0;margin:0;padding-left:0;}/* remove blacklight's branding */
 
-#main-container{margin:0 auto;max-width:960px;overflow:hidden;}
-
 /*---------------------*/
 /* BOOTSTRAP OVERRIDES */
 /*---------------------*/
@@ -35,6 +33,12 @@ ul.inline > li{padding-left:0;padding-right:0;}
 .ucsd-head{background:url("../images/bg.jpg") repeat 0 0;border-bottom:#e8f3ff solid 1px;}
 .ucsd-head-logo{padding:20px 0;}
 .ucsd-head .brand{color:#fff;display:block;float:left;font-size:24px;margin:32px 0 0 0;padding:0;text-transform:uppercase;}
+
+/* MAIN */
+#main-container{margin:0 auto;max-width:960px;overflow:hidden;}
+
+/* CUSTOM CLASSES */
+.alert-no-dismiss{padding-right:14px;}
 
 /*------------*/
 /* GLYPHICONS */
