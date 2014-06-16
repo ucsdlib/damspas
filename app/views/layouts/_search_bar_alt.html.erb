@@ -6,10 +6,16 @@
         <input type="hidden" name="f[unit_sim][]" value="<%=@current_unit.first%>"/>
       <% end %>
       <label class="hide-text" for="q">Search Digital Collections</label>
-      <input type="text" placeholder="Search Digital Collections" name="q" id="q" class="search-query">
+      <input type="text" placeholder="Search Digital Collections" name="q" id="q" class="search-query" value="<%= params['q'] %>">
       <button class="btn btn-inverse" type="submit" id="mobile-search-button">
         <i class="icon-search icon-white"></i>
       </button>
+      <% if params['f'] %>
+        <div class="dams-search-within">
+          <input type="checkbox" checked="checked" name="x" value="<%= params['f'] %>"/>
+          <label for="x">Search within results</label>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </section>
