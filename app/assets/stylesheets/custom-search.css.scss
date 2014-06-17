@@ -130,6 +130,9 @@
 .btn-navsearch{padding:4px 12px 3px 12px !important;margin-right:10px !important;}
 .mobile-search-bar-alt{background-color: #eee;background-image: linear-gradient(to bottom, #efefef, #f6f6f6);margin-bottom: 20px;border-bottom: 1px solid #eee;}
 .mobile-search-bar-alt .input-append{width:100%;text-align: right;}
+.mobile-search-bar-alt input[type=checkbox]{vertical-align: baseline; margin-right: 4px; }
+.mobile-search-bar-alt input[type=checkbox]{vertical-align: middle; margin-right: 4px;}
+.mobile-search-bar-alt label{vertical-align: bottom; margin-right: 4px;}
 
 //---
 // SEARCH RESULTS PAGER
