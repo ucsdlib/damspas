@@ -1,5 +1,5 @@
 set :stage, :pontos
-set :branch, 'develop'
+set :branch, 'feature/search-within-results'
 server 'pontos.ucsd.edu', user: 'rvm', roles: %w{app db}
 set :rails_env, "pontos"
 if ENV["CAP_SSHKEY_PONTOS"]
