@@ -8,9 +8,7 @@
 # ...
 # by hweng
 
-require 'fileutils'
 require 'open-uri' 
-require 'yaml'
 
 desc "Automate the process to create countries YAML"
 task :authorities do 
