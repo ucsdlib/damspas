@@ -1,10 +1,16 @@
 
 <section class="container-fluid mobile-search-bar-alt clearfix">
+  <% if params['f'] %>
+    <div class="form-search-limits">
+      <span class="dams-search-constraints-label">Showing results for</span>
+      <%= render_constraints_filters(params) %>
+    </div>
+  <% end %>
+
   <%= form_tag catalog_index_url, :method => :get, :class => 'form-search' do %>
     <div class="input-append">
       <% if params['f'] %>
-        <input type="checkbox" checked="checked" name="xf" value="<%= params['f'] %>"/>
-        <label for="xf">Use current limits</label>
+        <input type="hidden" name="xf" value="<%= params['f'] %>"/>
       <% end %>
       <label class="hide-text" for="q">Search Digital Collections</label>
       <input type="text" placeholder="Search Digital Collections" name="q" id="q" class="search-query" value="<%= params['q'] %>">
