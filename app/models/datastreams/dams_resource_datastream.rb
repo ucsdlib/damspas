@@ -1,3 +1,5 @@
+require 'timeout'
+
 class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   include Dams::DamsHelper
   rdf_subject { |ds|
@@ -929,7 +931,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     #insertEventFields solr_doc, "", event
 
     # rdf/xml for end-user
-    Solrizer.insert_field(solr_doc, "rdfxml", self.content, Solrizer::Descriptor.new(:string, :indexed, :stored))
+    begin
+      Timeout::timeout(5) do
+        Solrizer.insert_field(solr_doc, "rdfxml", self.content, Solrizer::Descriptor.new(:string, :indexed, :stored))
+      end
+    rescue Timeout::Error
+      puts "RDF/XML indexing timeout"
+    end
 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi','object_create_dtsi'].each {|f|
