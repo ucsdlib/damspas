@@ -1,5 +1,5 @@
 set :stage, :qa
-set :branch, 'qa'
+set :branch, 'feature/rbenv'
 server 'lib-hydrahead-qa.ucsd.edu', user: 'rvm', roles: %w{web app db sitemap_noping}
 set :rails_env, "qa"
 if ENV["CAP_SSHKEY_QA"]

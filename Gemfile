@@ -35,7 +35,8 @@ gem 'sprockets', '=2.11.0'
 # Deploy with Capistrano
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
-gem 'capistrano-rvm'
+#gem 'capistrano-rvm'
+gem 'capistrano-rbenv'
 gem 'capistrano-bundler', '~> 1.1.0'
 
 # To use debugger
