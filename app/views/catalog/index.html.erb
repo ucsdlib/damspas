@@ -21,8 +21,10 @@
           <% end -%>
 
 	    <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
+		<%= render :partial => 'searchbox' %>
+		<%= render :partial => 'constraints' %>
 	    <%= render 'sort_and_per_page' %>
-			<%= render :partial => 'constraints' %>
+			<%= render :partial => 'spellcheck' %>
 			<h3 class="hide-text"><%= t('blacklight.search.search_results') %></h3>
 			<%= render_document_index %>
 			<div class="dams-search-results-footer">

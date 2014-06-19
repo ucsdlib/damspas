@@ -28,13 +28,10 @@
   margin-bottom:20px;
   .btn-toolbar{margin:0;}
 }
-.dams-search-constraints{margin-bottom: 20px;color:#666;}
+.dams-search-constraints{margin-bottom: 1em; padding-bottom: 1em; color:#666; border-bottom: solid #888 1px; }
 .dams-search-constraints-label{font-size:100%;line-height: inherit;}
 .appliedFilter{margin-bottom: 0;}
 .dams-search-instead{color:#444;font-size:90%;}
-
-.form-search-limits { margin: 8px; float: left; color: #666; }
-.form-search { float: right; margin: 2px; }
 
 .dams-search-results-footer
 {
@@ -133,8 +130,6 @@
 .btn-navsearch{padding:4px 12px 3px 12px !important;margin-right:10px !important;}
 .mobile-search-bar-alt{background-color: #eee;background-image: linear-gradient(to bottom, #efefef, #f6f6f6);margin-bottom: 20px;border-bottom: 1px solid #eee;}
 .mobile-search-bar-alt .input-append{width:100%;text-align: right;}
-.mobile-search-bar-alt input[type=checkbox]{vertical-align: middle; margin-right: 4px;}
-.mobile-search-bar-alt label{vertical-align: bottom; margin-right: 4px;}
 
 //---
 // SEARCH RESULTS PAGER
