@@ -2,6 +2,18 @@
 // Search Results View
 //----------------------------------------------------------
 
+// test search box on results page
+
+#dc-search-box-mini{padding-top:0px;margin:5px 0 1em 0;}
+#dc-search-box-mini fieldset{display:block;width:100%;padding:0;margin:0 auto;border:3px solid #fff;background-color:#fff;box-shadow: 0 0 1px rgba(0,0,0,0.75);position:relative;}
+#dc-search-box-mini input[type=text]{color:#333;display:inline-block;margin:0;padding:0;border:none;font-size: 1em;width:80%;outline:none;height:24px;border-radius:0;box-shadow:none;line-height:normal;}
+#dc-search-box-mini input[type=submit]{height:24px;display:inline-block;margin:0;padding:0;border:none;font-size:1em;color:#fff;background-color:#e67a00;width:20%;position:absolute;top:0;right:0;border-radius:0;font-family:"Glyphicons Halflings";}
+#dc-search-box-mini input[type=text]::-ms-clear{display:none;}
+#dc-search-box-mini input[type=text]::-webkit-input-placeholder{color:#999;}
+#dc-search-box-mini input[type=text]:-moz-placeholder{color:#666;}
+#dc-search-box-mini input[type=text]::-moz-placeholder{color:#666;}
+#dc-search-box-mini input[type=text]:-ms-input-placeholder{color:#999;}
+
 // highlighted results
 .search-highlight {font-weight:bold;}
 
@@ -28,8 +40,16 @@
   margin-bottom:20px;
   .btn-toolbar{margin:0;}
 }
-.dams-search-constraints{margin-bottom: 1em; padding-bottom: 1em; color:#666; border-bottom: solid #888 1px; }
-.dams-search-constraints-label{font-size:100%;line-height: inherit;}
+.dams-search-constraints{margin-bottom: 0.5em; padding-bottom: 1em; border-bottom: solid #eee 1px; }
+
+.dams-search-constraints-label{
+  color: #AAAAAA;
+  display: block;
+  font-size: 80%;
+  line-height: normal;
+  margin-bottom: 5px;
+}
+
 .appliedFilter{margin-bottom: 0;}
 .dams-search-instead{color:#444;font-size:90%;}
 
