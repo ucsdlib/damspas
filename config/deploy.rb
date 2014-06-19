@@ -4,6 +4,13 @@ set :repo_url, 'https://github.com/ucsdlib/damspas.git'
 set :deploy_to, '/pub/capistrano'
 set :scm, :git
 
+# rbenv
+set :rbenv_type, :user
+set :rbenv_ruby, '2.0.0-p481'
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all # default value
+
 # set :format, :pretty
 # set :log_level, :debug
 # set :pty, true
