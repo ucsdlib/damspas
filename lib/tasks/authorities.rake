@@ -6,7 +6,6 @@
 #   :term: Andorra
 #   :active: true
 # ...
-# by hweng
 
 require 'open-uri' 
 
@@ -17,24 +16,17 @@ task :authorities do
 
   url = "http://download.geonames.org/export/dump/countryInfo.txt"
   local_fname = "config/authorities/countries.yml"
-  tmp = "config/tmp.txt"
   arr_of_country = []
   hash_of_terms = {}
 
-  File.open(tmp, "w") {|file| file.write(open(url).read)}
-
-  File.open(tmp, "r") do |file|
-    file.readlines.each do |line|
-
-      if line[0,1] != "#"
-        tokens = line.split("\t")
-        arr_of_country << {id: tokens[0], term: tokens[4], active: true }
-       end
-     end   
+  open(url).each_line do |line|
+    if line[0,1] != "#"
+      tokens = line.split("\t")
+      arr_of_country << {id: tokens[0], term: tokens[4], active: true }
+     end
   end
-  hash_of_terms = {terms: arr_of_country}
 
-  File.delete(tmp)
+  hash_of_terms = {terms: arr_of_country}
 
   File.open(local_fname, "w") {|file| file.write(hash_of_terms.to_yaml)}
 end
