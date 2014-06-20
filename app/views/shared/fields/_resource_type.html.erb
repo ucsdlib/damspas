@@ -1,25 +1,29 @@
 <%
 	 if defined?(componentIndex) # Then we're working with a component
 		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td>"
-		 htmlClose = "</td></tr>"
+		 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
+		 htmlClose = "</ul></td></tr>"
 	 else # We're working with an object or collection
 		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd>"
-		 htmlClose = "</dd>"
+		 htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
+		 htmlClose = "</ul></dd>"
 	 end
 
-	 resource_type = @document["#{prefix}resource_type_tesim"]
+	 fieldData = @document["#{prefix}resource_type_tesim"]
 
-	 if resource_type != nil
+	 if fieldData != nil
 
-		htmlOpen %= 'Format'
+		htmlOpen %= 'Format'.pluralize(fieldData.count)
 		concat htmlOpen.html_safe
+
+		fieldData.each do |datum|
+			resource_type = datum
 %>
-		<ul class="unstyled">
-			<li><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type.first.titleize}".html_safe, facet_uri(resource_type.first, 'object_type_sim'), :class => "label" %></li>
-		</ul>
+			<li><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %></li>
+		
 <%
+ 		end
+
 		concat htmlClose.html_safe
 
 	 end
