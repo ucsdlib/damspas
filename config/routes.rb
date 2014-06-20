@@ -54,6 +54,7 @@ Hydra::Application.routes.draw do
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
   get "object/:id/data_view", :to => 'dams_objects#data_view', :as => 'data_view'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
+  get "object/:id/:ds/download", :to => 'file#show', defaults: { disposition: 'attachment' }, :constraints => { :ds => /[^\/]+/ }, :as => 'download'
   resources :dams_assembled_collections
   resources :dams_units do
     member do

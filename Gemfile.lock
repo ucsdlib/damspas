@@ -37,7 +37,7 @@ GEM
       activesupport (= 4.0.5)
       arel (~> 4.0.0)
     activerecord-deprecated_finders (1.0.3)
-    activerecord-import (0.4.1)
+    activerecord-import (0.5.0)
       activerecord (>= 3.0)
     activerecord-postgresql-adapter (0.0.1)
       pg
@@ -192,7 +192,7 @@ GEM
       blankslate (~> 2.0)
     pg (0.17.0)
     polyglot (0.3.4)
-    qa (0.1.0)
+    qa (0.2.1)
       activerecord-import
       deprecation
       nokogiri (~> 1.6.0)
@@ -339,7 +339,7 @@ DEPENDENCIES
   mail_form
   omniauth
   omniauth-shibboleth
-  qa
+  qa (~> 0.2.1)
   rails (~> 4.0.5)
   rails_autolink
   rake (~> 10.1.0)

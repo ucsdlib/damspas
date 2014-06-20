@@ -1,0 +1,7 @@
+:terms:
+    - :id: id1
+      :term: Andorra
+      :active: true
+    - :id: id2
+      :term: United Arab Emirates
+      :active: false

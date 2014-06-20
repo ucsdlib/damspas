@@ -141,7 +141,7 @@ module ApplicationHelper
   
   # render page titles for all application pages using Digital Library Collections prefix
   def full_title(page_title)
-    base_title = 'UC San Diego Library Digital Collections'
+    base_title = 'Digital Collections | UC San Diego Library'
     if(page_title.blank?)
       base_title
     else

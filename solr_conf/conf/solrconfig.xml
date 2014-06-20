@@ -21,7 +21,7 @@
          will be overridden by parameters in the request
       -->
      <lst name="defaults">
-       <str name="f.collection_sim.facet.limit">3</str>
+       <str name="f.collection_sim.facet.limit">99</str>
        <str name="defType">edismax</str>
        <str name="echoParams">explicit</str>
        <str name="q.alt">*:*</str>
@@ -170,7 +170,7 @@
 	</lst>
   </searchComponent>
   
-  <!-- replication master config:
+  <!-- replication master config -->
   <requestHandler name="/replication" class="solr.ReplicationHandler"> 
     <lst name="master">
       <str name="replicateAfter">startup</str>
@@ -178,7 +178,6 @@
       <str name="confFiles">solrconfig_master.xml,solrconfig_slave.xml,solrconfig_standalone.xml,schema.xml</str>
     </lst>
   </requestHandler>
-  -->
   <!-- replication slave config:
   <requestHandler name="/replication" class="solr.ReplicationHandler">
     <lst name="slave">

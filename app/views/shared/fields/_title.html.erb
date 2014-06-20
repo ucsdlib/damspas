@@ -9,7 +9,7 @@
 	<% fieldData.each do |datum| %>
 		<% title = JSON.parse(datum) %>
 		<h1><%= title['nonSort']%> <%= title['value'].gsub('""', '"') %></h1>
-		<% if title['subtitle'] != [] %>
+		<% if title['subtitle'] != '' %>
 			<h2><%= title['subtitle'].gsub('""', '"') %></h2>
 		<% end %>
 		<% break %>

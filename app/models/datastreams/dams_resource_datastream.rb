@@ -540,7 +540,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
             end
           end
           Solrizer.insert_field(solr_doc, "all_fields", roleValue)
-          Solrizer.insert_field(solr_doc, "creator", name, facetable) if roleValue.casecmp("Creator")==0
+          Solrizer.insert_field(solr_doc, "creator", name, facetable)
           	  
           if rels[roleValue] == nil
             rels[roleValue] = [name]
