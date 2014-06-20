@@ -241,6 +241,12 @@ class CatalogController < ApplicationController
   end
       # get search results from the solr index
     def index
+      if params['xf'] != nil
+        params['f'] = JSON.parse params.delete('xf').gsub('=>', ':')
+      end
+      if params['xq'] != nil
+        params['q'] = (params['q'].blank?) ? params['xq'] : "#{params['q']} AND #{params['xq']}"
+      end
       (@response, @document_list) = get_search_results
 	  spelling_words = @response.spelling.words
 	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
