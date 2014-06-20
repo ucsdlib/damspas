@@ -17,7 +17,7 @@
 <%= render :partial => 'shared/fields/cartographic' %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'table of contents'} %>
 <%= render :partial => 'shared/fields/note', :locals => {:exclude_type => notesToExclude,
-        :exclude_label => ['Digital object made available by'] } %>
+        :exclude_label => ['digital object made available by'] } %>
 <%= render :partial => 'shared/fields/resource_type' %>
 <%= render :partial => 'shared/fields/language' %>
 <%= render :partial => 'shared/fields/note',
@@ -27,8 +27,8 @@
   <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier'} %>
 <% else %>
   <%= render :partial => 'shared/fields/note', :locals => {:type => 'identifier',
-          :exclude_label => ['ARK', 'ARK ID', 'collection number', 'call number', 'filename',
-                             'local', 'negative', 'OCLC number', 'roger record', 'sequence']} %>
+          :exclude_label => ['ark', 'ark id', 'collection number', 'call number', 'filename',
+          'local', 'negative', 'negative number', 'oclc number', 'roger record', 'sequence']} %>
 <% end %>
 
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'general physical description'} %>
@@ -52,7 +52,7 @@
         :locals => {:collectionDoc => @document, :docType => "object"} %>
 <%= render :partial => 'shared/fields/custodial_responsibility_note' %>
 <%= render :partial => 'shared/fields/note',
-        :locals => {:include_label => 'Digital object made available by'} %>
+        :locals => {:include_label => 'digital object made available by'} %>
 <%= render :partial => 'shared/fields/preferred_citation_note' %>
 <%= render :partial => 'shared/fields/copyright' %>
 
@@ -63,7 +63,7 @@
   <%= render :partial => 'shared/fields/rights_holder' %>
 <% end %>
 
-<%= render :partial => 'shared/fields/note', :locals => {:type => 'digitalOrigin'} %>
+<%= render :partial => 'shared/fields/note', :locals => {:type => 'digitalorigin'} %>
 <%= render :partial => 'shared/fields/unit' %>
 
 <%# if can? :update, @document %>
