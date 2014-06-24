@@ -67,6 +67,7 @@ GEM
       activesupport (>= 2.0)
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
+    bower-rails (0.7.3)
     builder (3.1.4)
     cancan (1.6.10)
     capistrano (3.0.1)
@@ -323,6 +324,7 @@ DEPENDENCIES
   blacklight (~> 4.7.0)
   blacklight_advanced_search
   bootstrap-sass
+  bower-rails (~> 0.7.3)
   capistrano (~> 3.0.0)
   capistrano-bundler (~> 1.1.0)
   capistrano-rails
