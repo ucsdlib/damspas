@@ -1,0 +1,17 @@
+{
+  "lib": {
+    "name": "bower-rails generated lib assets",
+    "dependencies": {
+      
+    }
+  },
+  "vendor": {
+    "name": "bower-rails generated vendor assets",
+    "dependencies": {
+      "leaflet"                : "git@github.com:Leaflet/Leaflet.git",
+      "L.TileLayer.Zoomify"    : "git@github.com:turban/Leaflet.Zoomify.git",
+      "typeahead"              : "git@github.com:twitter/typeahead.js.git",
+      "ckeditor"               : "git://github.com/ckeditor/ckeditor-releases.git"
+    }
+  }
+}
