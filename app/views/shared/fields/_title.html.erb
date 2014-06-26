@@ -7,10 +7,21 @@
 
 	<hgroup>
 	<% fieldData.each do |datum| %>
-		<% title = JSON.parse(datum) %>
-		<h1><%= title['nonSort']%> <%= title['value'].gsub('""', '"') %></h1>
-		<% if title['subtitle'] != '' %>
-			<h2><%= title['subtitle'].gsub('""', '"') %></h2>
+		<%
+          t = JSON.parse(datum)
+          title = "#{t['nonSort']} #{t['value'].gsub('""', '"')}"
+          unless t['partName'].blank?
+            title += ", " unless title.blank?
+            title += t['partName']
+          end
+          unless t['partNumber'].blank?
+            title += ", " unless title.blank?
+            title += t['partNumber']
+          end
+        %>
+		<h1><%= title %></h1>
+		<% if t['subtitle'] != '' %>
+			<h2><%= t['subtitle'].gsub('""', '"') %></h2>
 		<% end %>
 		<% break %>
 	<% end %>

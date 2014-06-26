@@ -577,10 +577,12 @@ module DamsObjectsHelper
 		if fieldData != nil
 			title = JSON.parse(fieldData.first)
 			result = title['value']
+            result = title['partName'] if result.blank?
+            result = title['partNumber'] if result.blank?
     else
       result = "Generic Component Title #{componentIndex}"
 		end
-
+      result
 	end
 
 	#---

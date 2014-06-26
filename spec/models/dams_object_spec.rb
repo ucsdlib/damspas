@@ -53,7 +53,8 @@ describe DamsObject do
   it "should load a complex object from RDF/XML file" do
     obj = DamsObject.find('bb80808080')
     obj.titleValue.should == "Sample Complex Object Record #1"
-    obj.component.first.title.first.value.should == "Supplementary Image"
+    titles = ["Supplementary Image","Part 2 of 2"]
+    titles.include?( obj.component.first.title.first.name.first ).should be_true
   end
 	exturi = RDF::Resource.new "http://id.loc.gov/authorities/subjects/sh85148221"
 	topic_uri = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd46424836"
