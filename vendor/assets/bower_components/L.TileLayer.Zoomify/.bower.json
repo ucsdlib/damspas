@@ -1,5 +1,5 @@
 {
-  "name": "tileLayer.zoomify",
+  "name": "L.TileLayer.Zoomify",
   "homepage": "https://github.com/turban/Leaflet.Zoomify",
   "_release": "dacef4201f",
   "_resolution": {
