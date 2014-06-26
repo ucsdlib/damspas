@@ -193,11 +193,11 @@ GEM
       blankslate (~> 2.0)
     pg (0.17.0)
     polyglot (0.3.4)
-    qa (0.2.1)
+    qa (0.3.0)
       activerecord-import
       deprecation
       nokogiri (~> 1.6.0)
-      rails (~> 4.0.0)
+      rails (>= 3.2.13, < 5.0)
       rest-client
     rack (1.5.2)
     rack-test (0.6.2)
@@ -340,7 +340,7 @@ DEPENDENCIES
   mail_form
   omniauth
   omniauth-shibboleth
-  qa (~> 0.2.1)
+  qa (~> 0.3.0)
   rails (~> 4.0.5)
   rails_autolink
   rake (~> 10.1.0)
