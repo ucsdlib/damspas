@@ -98,18 +98,18 @@ Hydra::Application.routes.draw do
   resources :mads_languages
 
   resources :get_data do
-	get 'get_linked_data', :on => :member
-	post 'get_linked_data', :on => :member
-	get 'get_name', :on => :member
-	post 'get_name', :on => :member	
-	get 'get_subject', :on => :member
-	post 'get_subject', :on => :member
+  get 'get_linked_data', :on => :member
+  post 'get_linked_data', :on => :member
+  get 'get_name', :on => :member
+  post 'get_name', :on => :member 
+  get 'get_subject', :on => :member
+  post 'get_subject', :on => :member
   get 'get_creator', :on => :member
   post 'get_creator', :on => :member
-  get 'get_ark', :on => :member	
+  get 'get_ark', :on => :member 
   get 'get_new_objects'   
   get 'get_dams_data', :on => :member
-  post 'get_dams_data', :on => :member	
+  post 'get_dams_data', :on => :member  
 
   end
   # The priority is based upon order of creation:
