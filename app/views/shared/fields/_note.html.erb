@@ -1,7 +1,7 @@
 <%
   # make sure locals are defined
   type = nil unless local_assigns[:type]
-  include_label = [] unless local_assigns[:include_label]
+  include_label = nil unless local_assigns[:include_label]
   exclude_type = [] unless local_assigns[:exclude_type]
   exclude_label = [] unless local_assigns[:exclude_label]
 
@@ -35,7 +35,7 @@
       # add notes[displaylabel] if exist, if not note[type] else put as general note
       # add notes if type/label match specification
       if ( type == nil || type == note_type ) &&
-        ( include_label == [] || include_label.include?(note_label.downcase) ) &&
+        ( include_label == nil || include_label == note_label.downcase) &&
         ( exclude_type == [] || !exclude_type.include?(note_type.downcase) ) &&
         ( exclude_label == [] || !exclude_label.include?(note_label.downcase) )
         if note_label != nil && !note_label.blank?
