@@ -154,26 +154,15 @@ module ApplicationHelper
   # params[:action],params[:controller],...
 
   def breadcrumbs
+    result = "".html_safe
 
-result = "".html_safe
-
- 
-
-association_chain.each_with_index do |item, index|
-
-# note that .name works for both classes and objects
-
-result << link_to(item.name.humanize.titlecase, association_chain[0..index])
-
-result << " &raquo; ".html_safe
-
-end
-
- 
-
-result << resource.name.humanize.titleize
-
-end
+    association_chain.each_with_index do |item, index|
+    # note that .name works for both classes and objects
+    result << link_to(item.name.humanize.titlecase, association_chain[0..index])
+    result << " &raquo; ".html_safe
+    end
+    result << resource.name.humanize.titleize 
+  end
  
   def link_to_remove_fields(name, f)
     #f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
