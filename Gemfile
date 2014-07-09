@@ -23,7 +23,7 @@ gem 'equivalent-xml' #, '0.3.0'
 gem 'jquery-rails'
 gem 'rails_autolink'
 gem 'mail_form'
-gem 'qa', '~> 0.2.1'
+gem 'qa', '~> 0.3.0'
 gem 'sprockets', '=2.11.0'
 
 # To use ActiveModel has_secure_password
@@ -35,7 +35,8 @@ gem 'sprockets', '=2.11.0'
 # Deploy with Capistrano
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
-gem 'capistrano-rvm'
+#gem 'capistrano-rvm'
+gem 'capistrano-rbenv'
 gem 'capistrano-bundler', '~> 1.1.0'
 
 # To use debugger
@@ -44,6 +45,7 @@ gem 'capistrano-bundler', '~> 1.1.0'
 gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
 gem "i18n", '0.6.9'
 gem "bootstrap-sass" #, '2.2.2.0'
+gem "bower-rails", "~> 0.7.3"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '0.12.0', :platforms => :ruby

@@ -18,8 +18,12 @@ For small changes, UCSD developers can work on the develop branch directly. If a
   * Does the commit message explain what is going on?
   * Does the code changes have tests? _Not all changes need new tests, some changes are refactorings_
   * Does the commit contain more than it should? Are two separate concerns being addressed in one commit?
-  * Do all the tests pass successfully?
-  * Does the new code follow Ruby and Rails style guides? Run RuboCop on the new/updated files and report any "offenses" in JIRA. 
+  * Does the new code follow Ruby and Rails style guides? Run RuboCop on the new/updated files and report any "offenses" in JIRA.
+* Do all tests pass successfully? You can review a feature branch by using the damspas.sh script in private_config as follows:  
+` cd private_config `  
+` ./damspas.sh name-of-feature feature/name-of-feature test `  
+` cd name-of-feature `  
+` bundle exec rspec `  
 * If you are uncertain, bring other contributors into the conversation by creating a comment that includes their @username.
 * If you like the pull request, but want others to chime in, create a +1 comment and tag a user.
 * If the Pull Request is approved and merged, choose the __Approve Pull Request__ transition in the JIRA ticket and assign back to original developer.

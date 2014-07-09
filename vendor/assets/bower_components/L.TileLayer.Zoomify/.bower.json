@@ -1,0 +1,13 @@
+{
+  "name": "L.TileLayer.Zoomify",
+  "homepage": "https://github.com/turban/Leaflet.Zoomify",
+  "_release": "dacef4201f",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "dacef4201f95ef32050ff88577e5278b2746fba4"
+  },
+  "_source": "git@github.com:turban/Leaflet.Zoomify.git",
+  "_target": "*",
+  "_originalSource": "git@github.com:turban/Leaflet.Zoomify.git"
+}

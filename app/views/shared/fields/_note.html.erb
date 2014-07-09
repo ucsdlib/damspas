@@ -35,9 +35,9 @@
       # add notes[displaylabel] if exist, if not note[type] else put as general note
       # add notes if type/label match specification
       if ( type == nil || type == note_type ) &&
-        ( include_label == [] || include_label.include?(note_label) ) &&
-        ( exclude_type == [] || !exclude_type.include?(note_type) ) &&
-        ( exclude_label == [] || !exclude_label.include?(note_label) )
+        ( include_label == [] || include_label.include?(note_label.downcase) ) &&
+        ( exclude_type == [] || !exclude_type.include?(note_type.downcase) ) &&
+        ( exclude_label == [] || !exclude_label.include?(note_label.downcase) )
         if note_label != nil && !note_label.blank?
           notes[note_label.titleize] = note
         elsif note_type != nil && !note_type.blank?

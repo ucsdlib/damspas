@@ -1,7 +1,758 @@
+---
 :terms:
-    - :id: id1
-      :term: Andorra
-      :active: true
-    - :id: id2
-      :term: United Arab Emirates
-      :active: false
+- :id: AD
+  :term: Andorra
+  :active: true
+- :id: AE
+  :term: United Arab Emirates
+  :active: true
+- :id: AF
+  :term: Afghanistan
+  :active: true
+- :id: AG
+  :term: Antigua and Barbuda
+  :active: true
+- :id: AI
+  :term: Anguilla
+  :active: true
+- :id: AL
+  :term: Albania
+  :active: true
+- :id: AM
+  :term: Armenia
+  :active: true
+- :id: AO
+  :term: Angola
+  :active: true
+- :id: AQ
+  :term: Antarctica
+  :active: true
+- :id: AR
+  :term: Argentina
+  :active: true
+- :id: AS
+  :term: American Samoa
+  :active: true
+- :id: AT
+  :term: Austria
+  :active: true
+- :id: AU
+  :term: Australia
+  :active: true
+- :id: AW
+  :term: Aruba
+  :active: true
+- :id: AX
+  :term: Aland Islands
+  :active: true
+- :id: AZ
+  :term: Azerbaijan
+  :active: true
+- :id: BA
+  :term: Bosnia and Herzegovina
+  :active: true
+- :id: BB
+  :term: Barbados
+  :active: true
+- :id: BD
+  :term: Bangladesh
+  :active: true
+- :id: BE
+  :term: Belgium
+  :active: true
+- :id: BF
+  :term: Burkina Faso
+  :active: true
+- :id: BG
+  :term: Bulgaria
+  :active: true
+- :id: BH
+  :term: Bahrain
+  :active: true
+- :id: BI
+  :term: Burundi
+  :active: true
+- :id: BJ
+  :term: Benin
+  :active: true
+- :id: BL
+  :term: Saint Barthelemy
+  :active: true
+- :id: BM
+  :term: Bermuda
+  :active: true
+- :id: BN
+  :term: Brunei
+  :active: true
+- :id: BO
+  :term: Bolivia
+  :active: true
+- :id: BQ
+  :term: 'Bonaire, Saint Eustatius and Saba '
+  :active: true
+- :id: BR
+  :term: Brazil
+  :active: true
+- :id: BS
+  :term: Bahamas
+  :active: true
+- :id: BT
+  :term: Bhutan
+  :active: true
+- :id: BV
+  :term: Bouvet Island
+  :active: true
+- :id: BW
+  :term: Botswana
+  :active: true
+- :id: BY
+  :term: Belarus
+  :active: true
+- :id: BZ
+  :term: Belize
+  :active: true
+- :id: CA
+  :term: Canada
+  :active: true
+- :id: CC
+  :term: Cocos Islands
+  :active: true
+- :id: CD
+  :term: Democratic Republic of the Congo
+  :active: true
+- :id: CF
+  :term: Central African Republic
+  :active: true
+- :id: CG
+  :term: Republic of the Congo
+  :active: true
+- :id: CH
+  :term: Switzerland
+  :active: true
+- :id: CI
+  :term: Ivory Coast
+  :active: true
+- :id: CK
+  :term: Cook Islands
+  :active: true
+- :id: CL
+  :term: Chile
+  :active: true
+- :id: CM
+  :term: Cameroon
+  :active: true
+- :id: CN
+  :term: China
+  :active: true
+- :id: CO
+  :term: Colombia
+  :active: true
+- :id: CR
+  :term: Costa Rica
+  :active: true
+- :id: CU
+  :term: Cuba
+  :active: true
+- :id: CV
+  :term: Cape Verde
+  :active: true
+- :id: CW
+  :term: Curacao
+  :active: true
+- :id: CX
+  :term: Christmas Island
+  :active: true
+- :id: CY
+  :term: Cyprus
+  :active: true
+- :id: CZ
+  :term: Czech Republic
+  :active: true
+- :id: DE
+  :term: Germany
+  :active: true
+- :id: DJ
+  :term: Djibouti
+  :active: true
+- :id: DK
+  :term: Denmark
+  :active: true
+- :id: DM
+  :term: Dominica
+  :active: true
+- :id: DO
+  :term: Dominican Republic
+  :active: true
+- :id: DZ
+  :term: Algeria
+  :active: true
+- :id: EC
+  :term: Ecuador
+  :active: true
+- :id: EE
+  :term: Estonia
+  :active: true
+- :id: EG
+  :term: Egypt
+  :active: true
+- :id: EH
+  :term: Western Sahara
+  :active: true
+- :id: ER
+  :term: Eritrea
+  :active: true
+- :id: ES
+  :term: Spain
+  :active: true
+- :id: ET
+  :term: Ethiopia
+  :active: true
+- :id: FI
+  :term: Finland
+  :active: true
+- :id: FJ
+  :term: Fiji
+  :active: true
+- :id: FK
+  :term: Falkland Islands
+  :active: true
+- :id: FM
+  :term: Micronesia
+  :active: true
+- :id: FO
+  :term: Faroe Islands
+  :active: true
+- :id: FR
+  :term: France
+  :active: true
+- :id: GA
+  :term: Gabon
+  :active: true
+- :id: GB
+  :term: United Kingdom
+  :active: true
+- :id: GD
+  :term: Grenada
+  :active: true
+- :id: GE
+  :term: Georgia
+  :active: true
+- :id: GF
+  :term: French Guiana
+  :active: true
+- :id: GG
+  :term: Guernsey
+  :active: true
+- :id: GH
+  :term: Ghana
+  :active: true
+- :id: GI
+  :term: Gibraltar
+  :active: true
+- :id: GL
+  :term: Greenland
+  :active: true
+- :id: GM
+  :term: Gambia
+  :active: true
+- :id: GN
+  :term: Guinea
+  :active: true
+- :id: GP
+  :term: Guadeloupe
+  :active: true
+- :id: GQ
+  :term: Equatorial Guinea
+  :active: true
+- :id: GR
+  :term: Greece
+  :active: true
+- :id: GS
+  :term: South Georgia and the South Sandwich Islands
+  :active: true
+- :id: GT
+  :term: Guatemala
+  :active: true
+- :id: GU
+  :term: Guam
+  :active: true
+- :id: GW
+  :term: Guinea-Bissau
+  :active: true
+- :id: GY
+  :term: Guyana
+  :active: true
+- :id: HK
+  :term: Hong Kong
+  :active: true
+- :id: HM
+  :term: Heard Island and McDonald Islands
+  :active: true
+- :id: HN
+  :term: Honduras
+  :active: true
+- :id: HR
+  :term: Croatia
+  :active: true
+- :id: HT
+  :term: Haiti
+  :active: true
+- :id: HU
+  :term: Hungary
+  :active: true
+- :id: ID
+  :term: Indonesia
+  :active: true
+- :id: IE
+  :term: Ireland
+  :active: true
+- :id: IL
+  :term: Israel
+  :active: true
+- :id: IM
+  :term: Isle of Man
+  :active: true
+- :id: IN
+  :term: India
+  :active: true
+- :id: IO
+  :term: British Indian Ocean Territory
+  :active: true
+- :id: IQ
+  :term: Iraq
+  :active: true
+- :id: IR
+  :term: Iran
+  :active: true
+- :id: IS
+  :term: Iceland
+  :active: true
+- :id: IT
+  :term: Italy
+  :active: true
+- :id: JE
+  :term: Jersey
+  :active: true
+- :id: JM
+  :term: Jamaica
+  :active: true
+- :id: JO
+  :term: Jordan
+  :active: true
+- :id: JP
+  :term: Japan
+  :active: true
+- :id: KE
+  :term: Kenya
+  :active: true
+- :id: KG
+  :term: Kyrgyzstan
+  :active: true
+- :id: KH
+  :term: Cambodia
+  :active: true
+- :id: KI
+  :term: Kiribati
+  :active: true
+- :id: KM
+  :term: Comoros
+  :active: true
+- :id: KN
+  :term: Saint Kitts and Nevis
+  :active: true
+- :id: KP
+  :term: North Korea
+  :active: true
+- :id: KR
+  :term: South Korea
+  :active: true
+- :id: XK
+  :term: Kosovo
+  :active: true
+- :id: KW
+  :term: Kuwait
+  :active: true
+- :id: KY
+  :term: Cayman Islands
+  :active: true
+- :id: KZ
+  :term: Kazakhstan
+  :active: true
+- :id: LA
+  :term: Laos
+  :active: true
+- :id: LB
+  :term: Lebanon
+  :active: true
+- :id: LC
+  :term: Saint Lucia
+  :active: true
+- :id: LI
+  :term: Liechtenstein
+  :active: true
+- :id: LK
+  :term: Sri Lanka
+  :active: true
+- :id: LR
+  :term: Liberia
+  :active: true
+- :id: LS
+  :term: Lesotho
+  :active: true
+- :id: LT
+  :term: Lithuania
+  :active: true
+- :id: LU
+  :term: Luxembourg
+  :active: true
+- :id: LV
+  :term: Latvia
+  :active: true
+- :id: LY
+  :term: Libya
+  :active: true
+- :id: MA
+  :term: Morocco
+  :active: true
+- :id: MC
+  :term: Monaco
+  :active: true
+- :id: MD
+  :term: Moldova
+  :active: true
+- :id: ME
+  :term: Montenegro
+  :active: true
+- :id: MF
+  :term: Saint Martin
+  :active: true
+- :id: MG
+  :term: Madagascar
+  :active: true
+- :id: MH
+  :term: Marshall Islands
+  :active: true
+- :id: MK
+  :term: Macedonia
+  :active: true
+- :id: ML
+  :term: Mali
+  :active: true
+- :id: MM
+  :term: Myanmar
+  :active: true
+- :id: MN
+  :term: Mongolia
+  :active: true
+- :id: MO
+  :term: Macao
+  :active: true
+- :id: MP
+  :term: Northern Mariana Islands
+  :active: true
+- :id: MQ
+  :term: Martinique
+  :active: true
+- :id: MR
+  :term: Mauritania
+  :active: true
+- :id: MS
+  :term: Montserrat
+  :active: true
+- :id: MT
+  :term: Malta
+  :active: true
+- :id: MU
+  :term: Mauritius
+  :active: true
+- :id: MV
+  :term: Maldives
+  :active: true
+- :id: MW
+  :term: Malawi
+  :active: true
+- :id: MX
+  :term: Mexico
+  :active: true
+- :id: MY
+  :term: Malaysia
+  :active: true
+- :id: MZ
+  :term: Mozambique
+  :active: true
+- :id: NA
+  :term: Namibia
+  :active: true
+- :id: NC
+  :term: New Caledonia
+  :active: true
+- :id: NE
+  :term: Niger
+  :active: true
+- :id: NF
+  :term: Norfolk Island
+  :active: true
+- :id: NG
+  :term: Nigeria
+  :active: true
+- :id: NI
+  :term: Nicaragua
+  :active: true
+- :id: NL
+  :term: Netherlands
+  :active: true
+- :id: 'NO'
+  :term: Norway
+  :active: true
+- :id: NP
+  :term: Nepal
+  :active: true
+- :id: NR
+  :term: Nauru
+  :active: true
+- :id: NU
+  :term: Niue
+  :active: true
+- :id: NZ
+  :term: New Zealand
+  :active: true
+- :id: OM
+  :term: Oman
+  :active: true
+- :id: PA
+  :term: Panama
+  :active: true
+- :id: PE
+  :term: Peru
+  :active: true
+- :id: PF
+  :term: French Polynesia
+  :active: true
+- :id: PG
+  :term: Papua New Guinea
+  :active: true
+- :id: PH
+  :term: Philippines
+  :active: true
+- :id: PK
+  :term: Pakistan
+  :active: true
+- :id: PL
+  :term: Poland
+  :active: true
+- :id: PM
+  :term: Saint Pierre and Miquelon
+  :active: true
+- :id: PN
+  :term: Pitcairn
+  :active: true
+- :id: PR
+  :term: Puerto Rico
+  :active: true
+- :id: PS
+  :term: Palestinian Territory
+  :active: true
+- :id: PT
+  :term: Portugal
+  :active: true
+- :id: PW
+  :term: Palau
+  :active: true
+- :id: PY
+  :term: Paraguay
+  :active: true
+- :id: QA
+  :term: Qatar
+  :active: true
+- :id: RE
+  :term: Reunion
+  :active: true
+- :id: RO
+  :term: Romania
+  :active: true
+- :id: RS
+  :term: Serbia
+  :active: true
+- :id: RU
+  :term: Russia
+  :active: true
+- :id: RW
+  :term: Rwanda
+  :active: true
+- :id: SA
+  :term: Saudi Arabia
+  :active: true
+- :id: SB
+  :term: Solomon Islands
+  :active: true
+- :id: SC
+  :term: Seychelles
+  :active: true
+- :id: SD
+  :term: Sudan
+  :active: true
+- :id: SS
+  :term: South Sudan
+  :active: true
+- :id: SE
+  :term: Sweden
+  :active: true
+- :id: SG
+  :term: Singapore
+  :active: true
+- :id: SH
+  :term: Saint Helena
+  :active: true
+- :id: SI
+  :term: Slovenia
+  :active: true
+- :id: SJ
+  :term: Svalbard and Jan Mayen
+  :active: true
+- :id: SK
+  :term: Slovakia
+  :active: true
+- :id: SL
+  :term: Sierra Leone
+  :active: true
+- :id: SM
+  :term: San Marino
+  :active: true
+- :id: SN
+  :term: Senegal
+  :active: true
+- :id: SO
+  :term: Somalia
+  :active: true
+- :id: SR
+  :term: Suriname
+  :active: true
+- :id: ST
+  :term: Sao Tome and Principe
+  :active: true
+- :id: SV
+  :term: El Salvador
+  :active: true
+- :id: SX
+  :term: Sint Maarten
+  :active: true
+- :id: SY
+  :term: Syria
+  :active: true
+- :id: SZ
+  :term: Swaziland
+  :active: true
+- :id: TC
+  :term: Turks and Caicos Islands
+  :active: true
+- :id: TD
+  :term: Chad
+  :active: true
+- :id: TF
+  :term: French Southern Territories
+  :active: true
+- :id: TG
+  :term: Togo
+  :active: true
+- :id: TH
+  :term: Thailand
+  :active: true
+- :id: TJ
+  :term: Tajikistan
+  :active: true
+- :id: TK
+  :term: Tokelau
+  :active: true
+- :id: TL
+  :term: East Timor
+  :active: true
+- :id: TM
+  :term: Turkmenistan
+  :active: true
+- :id: TN
+  :term: Tunisia
+  :active: true
+- :id: TO
+  :term: Tonga
+  :active: true
+- :id: TR
+  :term: Turkey
+  :active: true
+- :id: TT
+  :term: Trinidad and Tobago
+  :active: true
+- :id: TV
+  :term: Tuvalu
+  :active: true
+- :id: TW
+  :term: Taiwan
+  :active: true
+- :id: TZ
+  :term: Tanzania
+  :active: true
+- :id: UA
+  :term: Ukraine
+  :active: true
+- :id: UG
+  :term: Uganda
+  :active: true
+- :id: UM
+  :term: United States Minor Outlying Islands
+  :active: true
+- :id: US
+  :term: United States
+  :active: true
+- :id: UY
+  :term: Uruguay
+  :active: true
+- :id: UZ
+  :term: Uzbekistan
+  :active: true
+- :id: VA
+  :term: Vatican
+  :active: true
+- :id: VC
+  :term: Saint Vincent and the Grenadines
+  :active: true
+- :id: VE
+  :term: Venezuela
+  :active: true
+- :id: VG
+  :term: British Virgin Islands
+  :active: true
+- :id: VI
+  :term: U.S. Virgin Islands
+  :active: true
+- :id: VN
+  :term: Vietnam
+  :active: true
+- :id: VU
+  :term: Vanuatu
+  :active: true
+- :id: WF
+  :term: Wallis and Futuna
+  :active: true
+- :id: WS
+  :term: Samoa
+  :active: true
+- :id: YE
+  :term: Yemen
+  :active: true
+- :id: YT
+  :term: Mayotte
+  :active: true
+- :id: ZA
+  :term: South Africa
+  :active: true
+- :id: ZM
+  :term: Zambia
+  :active: true
+- :id: ZW
+  :term: Zimbabwe
+  :active: true
+- :id: CS
+  :term: Serbia and Montenegro
+  :active: true
+- :id: AN
+  :term: Netherlands Antilles
+  :active: true

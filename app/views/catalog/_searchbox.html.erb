@@ -1,0 +1,16 @@
+<% if query_has_constraints? %>
+  <%= form_tag catalog_index_url, :method => :get, :class => 'form-search', :id => 'dc-search-box-mini' do %>
+    <% if params['f'] %>
+      <input type="hidden" name="xf" value="<%= params['f'] %>"/>
+    <% end %>
+
+<fieldset>
+    <label class="hide-text" for="q">Search Digital Collections</label>
+    <input type="text" placeholder="Search Digital Collections" name="q" id="q" class="" value="<%= params['q'] %>">
+  <input type="submit" id="search-button" value="">
+</fieldset>
+
+  <% end %>
+<% end %>
+
+
