@@ -10,6 +10,7 @@ module ApplicationHelper
 		hitsonly = options[:'hitsonly']
 	end
   if field == "date_tesim"
+
     return date_Val document
   end
 	if highlighting
@@ -162,39 +163,6 @@ module ApplicationHelper
     result << " &raquo; ".html_safe
     end
     result << resource.name.humanize.titleize 
-  end
- 
-  def link_to_remove_fields(name, f)
-    #f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")
-    #link_to_function name, "remove_fields(this)"
-    link_to_function(name, "remove_fields(this)", :class => 'removeField')
-  end
-
-  def link_to_delete_fields(name)
-    link_to_function(name, "remove_fields(this)", :class => 'removeField')
-  end
-      
-  def link_to_add_fields(name, f, association, type, objectType)
-    new_object = type.constantize.new()
-    fields = f.fields_for(association, new_object, :child_index => "new_#{association}") do |builder|
-      render("shared/edit_fields/"+association.to_s.singularize + "_fields", :f => builder, :object_type => objectType, :is_first => "false")
-    end
-    link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => 'addField')
-  end 
-
-  def link_to_add_edit_fields(name, f, association, objectType)
-    fields = render("shared/edit_fields/"+association.to_s.singularize + "_edit_fields", :f => f, :object_type => objectType)
-
-    link_to_function(name, "add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")", :class => 'addField')
-  end
-  
-  def link_to_add_dynamic_fields(name, f, objectType, typeArray, className, index, edit)
-    if edit == 1
-      fields = render("shared/edit_fields/#{className}_edit_fields", :f => f, :object_type => objectType, :typeArray => typeArray, :selected_type => nil)
-    else
-      fields = render("shared/edit_fields/#{className}_fields", :f => f, :object_type => objectType, :typeArray => typeArray)
-    end
-    link_to_function(name, "add_dynamic_fields(this, \"#{escape_javascript(fields)}\", \"#{escape_javascript(className.camelize)}\")", :class => 'addField')
   end
     
 end 
