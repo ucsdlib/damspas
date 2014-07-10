@@ -8,7 +8,7 @@
 			<div class="fields">
 				<br/>
 				<%= select_tag "#{object_type}[subjectURI][]", options_for_select(@mads_complex_subjects, :selected => "#{Rails.configuration.id_namespace}#{complexSubject[i].pid}") , :prompt=>"Select Subject", :class=>"complexSubjectClass#{i}", :id=>"complexSubjectId#{i}", :onChange=>"javascript: checkOption(this.className,false,'mads_complex_subjects');"%>
-    			<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>				
+    					
 			</div>					
 <%			
 			i +=1		
@@ -19,7 +19,7 @@
 		<div class="fields">
 			<br/>
 			<%= select_tag "#{object_type}[subjectURI][]", options_for_select(@mads_complex_subjects) , :prompt=>"Select Subject", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'mads_complex_subjects');"%>
-			<p class="removeIcon"><%= link_to_remove_fields "X", f %></p>				
+					
 		</div>	
 <%	
     end
