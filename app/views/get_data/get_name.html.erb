@@ -20,4 +20,3 @@
 		<%= select_tag "#{@formType}[#{@fieldName}_attributes][#{@fieldId}][id]", options_for_select(@names, :selected => "#{Rails.configuration.id_namespace}#{@selectedValue}") , :prompt=>"Select #{@label}", :onChange=>"javascript: checkOption(this.id,true,'#{@label}');" %>
 	<% end %>
 <% end %>
-<p class="removeIcon"><%= link_to_delete_fields "X"%></p>
