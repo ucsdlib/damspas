@@ -5,7 +5,7 @@ class ContactFormsController < ApplicationController
   end
 
   def create
-    @contact_form = ContactForm.new(params[:contact_form])
+    @contact_form = ContactForm.new(contact_params)
     @contact_form.request = request
     # not spam and a valid form
     logger.warn "*** MARK ***"
@@ -30,7 +30,7 @@ class ContactFormsController < ApplicationController
   private
   
   def contact_params
-    params.require(:contact_form).permit!
+    params.require(:contact_form).permit(:contact_method, :category, :name, :email, :message)
   end
   
 end
