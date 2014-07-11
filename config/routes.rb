@@ -5,9 +5,9 @@ Hydra::Application.routes.draw do
   get '/p/:id', to: 'pages#view', :as => 'view_page'
 
   # Contact form routes
-  resources :contact_form, :only => [:new, :create]
-  post 'contact' => 'contact_form#create'
-  get 'contact' => 'contact_form#new'
+  resources :contact_forms, :only => [:new, :create]
+  post 'contact' => 'contact_forms#create'
+  get 'contact' => 'contact_forms#new'
 
   mount Qa::Engine => '/qa'
 
