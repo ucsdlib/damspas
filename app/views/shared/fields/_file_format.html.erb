@@ -16,30 +16,27 @@
 
 			 htmlOpen %= 'File Format'
 			 concat htmlOpen.html_safe
-
+			 fileFormat = ""
 			 fieldData.each do |datum|
 				 files = JSON.parse(datum)
 				 if files["use"].end_with?("-service")
-
-
-					 fileFormat = files['formatName']
-
-					 if fileFormat == 'bytestream'
-						 fileFormat = File.extname(fileName.upcase)
-						 fileFormat[0] = '' # Zap the leading '.' E.g., .MP3 -> MP3
-					 end
-
-
+					fileFormat = files['formatName']
+					if(files["use"].end_with?("document-service"))
+						break
+					end
+				 end
+			 end
+			  
+			 if fileFormat == 'bytestream'
+				 fileFormat = File.extname(fileName.upcase)
+				 fileFormat[0] = '' # Zap the leading '.' E.g., .MP3 -> MP3
+			 end
 %>
-				<li><%= fileFormat %></li>
-			<%
-				 break
-				 end
-				 end
+			 <li><%= fileFormat %></li>
+<%
+			 concat htmlClose.html_safe
 
-				 concat htmlClose.html_safe
-
-				 end
-				 end
-			%>
+		  end
+		end
+%>
 
