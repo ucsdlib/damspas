@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   def anonymous_user
     # check ip for unauthenticated users
     if current_user == nil && self.class != Qa::TermsController
-     
+
       anon = User.anonymous(request.remote_ip)
       if anon.to_s != 'public'
         @current_user = anon

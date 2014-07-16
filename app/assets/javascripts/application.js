@@ -19,8 +19,8 @@
 //
 // DAMS (3RD PARTY)
 //= require leaflet
-//= require L.TileLayer.Zoomify
-//= require typeahead.bundle.js
+//= require L.TileLayer.Zoomify/L.TileLayer.Zoomify.js
+//= require typeahead
 //
 // DAMS (CUSTOM)
 //= require search

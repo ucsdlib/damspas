@@ -56,7 +56,7 @@ module Hydra
     config.assets.enabled = true    
     # Default SASS Configuration, check out https://github.com/rails/sass-rails for details
     config.assets.compress = !Rails.env.development?
-
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
 
 
     # Version of your assets, change this if you want to expire all your assets

@@ -460,7 +460,9 @@ module DamsObjectsHelper
 				files = JSON.parse(datum)
 				if files["use"].end_with?("-service")
 					result = files["id"]
-					break
+					if(result == "document-service")
+						break
+					end
 				end
 			end
 		end
@@ -542,7 +544,9 @@ module DamsObjectsHelper
 				files = JSON.parse(datum)
 				if files["use"].end_with?("-service")
 					result = files["use"]
-					break
+					if(result == "document-service")
+						break
+					end
 				end
 			end
 		end
@@ -573,10 +577,12 @@ module DamsObjectsHelper
 		if fieldData != nil
 			title = JSON.parse(fieldData.first)
 			result = title['value']
+            result = title['partName'] if result.blank?
+            result = title['partNumber'] if result.blank?
     else
       result = "Generic Component Title #{componentIndex}"
 		end
-
+      result
 	end
 
 	#---

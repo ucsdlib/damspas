@@ -1,0 +1,10 @@
+<% if query_has_constraints? %>
+  <div class="dams-search-spellcheck">
+    <% if params['spellcheck.q'] != params['q'] %>
+      <span class="dams-search-instead">
+        <em>Search instead for <%= link_to_query(params['spellcheck.q'])%></em>
+      </span>
+    <% end %>
+    <%= render :partial => 'did_you_mean' %>
+  </div>
+<% end %>
