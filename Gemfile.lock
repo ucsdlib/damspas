@@ -348,11 +348,12 @@ DEPENDENCIES
   jquery-rails
   launchy
   mail_form
+  minitest
   omniauth
   omniauth-shibboleth
   qa (~> 0.3.0)
-  rails (~> 4.1.4)
   rack-dev-mark
+  rails (~> 4.1.4)
   rails_autolink
   rake (~> 10.1.0)
   rspec-rails
