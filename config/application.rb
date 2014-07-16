@@ -58,13 +58,12 @@ module Hydra
     config.assets.compress = !Rails.env.development?
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
 
-
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
    
     # DAMS-specific config 
     config.id_namespace = 'http://library.ucsd.edu/ark:/20775/'
     config.format_map = { "moving image" => "video", "still image" => "image" }
+    config.rack_dev_mark.enable = !Rails.env.production?
   end
 end
-
