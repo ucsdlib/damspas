@@ -7,7 +7,7 @@
 .dams-collections .span8{border-bottom:3px double #ddd;margin-bottom:20px;}
 .dams-collections dl{margin-top:0;}
 .dams-collections dt{font-size: 125%;line-height: 200%; color: #AD702B;font-weight: normal;}
-.dams-collections dd{text-align: justify;margin-left:0;}
+.dams-collections dd{margin-left:0;}
 .dams-collections a{word-break: break-all;}
 .dams-collections .input-append{text-align:center;display:block;}
 .dams-collections .input-append input[type=text]{width:70% !important;}
@@ -51,7 +51,7 @@
 #collections-image
 {
   background-color: #888;
-  background-position:middle center;
+  background-position:center center;
   background-size:cover;
   margin-bottom: 20px;
   border-radius: 5px 5px 0 0;
