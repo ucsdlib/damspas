@@ -47,7 +47,6 @@ gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
 gem "i18n", '0.6.9'
 gem "bootstrap-sass" #, '2.2.2.0'
 gem "bower-rails", "~> 0.7.3"
-gem "minitest"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '0.12.0', :platforms => :ruby
@@ -61,6 +60,7 @@ group :development, :test do
   gem 'database_cleaner' #, '0.9.1'
   gem 'jettywrapper' #, '1.4.1'
   gem 'launchy' #, '2.3.0'
+  gem "minitest"
   gem 'rspec-rails' #, '2.13.0'
   gem 'simplecov' #, '0.7.1'
   gem 'unicorn' #, '4.6.2's
