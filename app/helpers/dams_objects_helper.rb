@@ -627,7 +627,7 @@ module DamsObjectsHelper
 	# @return nil
 	# @author David T.
 	#---
-	def displayNode(index)
+	def displayNode2(index)
 
 		fileUse = grabFileUse(:componentIndex=>index)
 		btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
@@ -665,7 +665,7 @@ module DamsObjectsHelper
 	# @return nil
 	# @author David T.
 	#---
-	def displayComponentTree(component_count)
+	def displayComponentTree2(component_count)
 		if component_count != nil && component_count > 0
 			concat '<ul class="unstyled">'.html_safe
 			for i in 1..component_count
@@ -685,7 +685,7 @@ module DamsObjectsHelper
 	# @return nil
 	# @author David T.
 	#---
-	def initComponentTree(component_count)
+	def initComponentTree2(component_count)
 		if component_count != nil
 			@isParent = []
 			@isChild = []
@@ -711,6 +711,104 @@ module DamsObjectsHelper
 	#-------------------------
 	# /COMPONENT TREE METHODS
 	#-------------------------
+
+  def initComponentTree(component_count)
+    if component_count != nil
+      @isParent = []
+      @isChild = []
+      @tag = []
+
+      for i in 1..component_count
+        @isParent[i] = false
+      end
+
+      for i in 1..component_count
+
+        if @document["component_#{i}_children_isim"] != nil
+          @isParent[i] = true
+          @document["component_#{i}_children_isim"].each_with_index do |value, index|
+
+            order = value.to_i
+            @isChild[order]= true 
+            if index == 0
+              @tag[order]={parent_node: i, first_child:true}
+            elsif index == @document["component_#{i}_children_isim"].size-1
+              @tag[order]={parent_node: i, last_child:true}
+            else
+              @tag[order]={parent_node: i}
+            end
+
+          end
+        end
+      end
+    end
+    
+    return nil
+  end
+
+  def displayComponentTree(component_count)
+    if component_count != nil && component_count > 0
+      concat '<ul class="unstyled">'.html_safe
+      for i in 1..component_count
+        if @isParent[i] == false
+
+          displayNode i
+        end
+      end
+      concat '</ul>'.html_safe
+    end
+    return nil
+  end
+
+  def renderHTML(index, attach_parent )
+    fileUse = grabFileUse(:componentIndex=>index)
+    btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
+    btnID = "node-btn-#{index}"
+    btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
+    btnCSS += attach_parent ? ' node-parent' : ''
+    iconCSS = attach_parent ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
+    btnTitle = grabTitle(:componentIndex=> index)
+
+    concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
+  end
+
+  def displayNode(index)
+    if @isChild[index] == true
+      if @tag[index][:first_child] == true
+        #attach parent
+        parent_node_index = @tag[index][:parent_node]
+        attach_parent = true
+        concat "<li>".html_safe
+        renderHTML(parent_node_index, attach_parent)
+
+        # then attach first child
+        attach_parent = false
+        concat "<ul class='unstyled node-container'>".html_safe
+        concat "<li>".html_safe
+        renderHTML(parent_node_index, attach_parent)
+        concat "</li>".html_safe
+      elsif @tag[index][:last_child] == true
+        attach_parent = false
+        concat "<li>".html_safe
+        renderHTML(parent_node_index, attach_parent)
+        concat "</li>".html_safe
+        concat "</ul>".html_safe
+      else
+        attach_parent = false
+        concat "<li>".html_safe
+        renderHTML(parent_node_index, attach_parent)
+        concat "</li>".html_safe
+      end
+    else 
+      attach_parent = false
+        concat "<li>".html_safe
+        renderHTML(parent_node_index, attach_parent)
+        concat "</li>".html_safe
+    end
+
+    @firstButton = nil
+  end
+
 
   #-----------
   # STREAMING
