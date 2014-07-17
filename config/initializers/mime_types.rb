@@ -1,8 +1,8 @@
-# Be sure to restart your server when you modify this file.# Mime Types Added By Hydra Head:
+# Be sure to restart your server when you modify this file.
 
-# Mime::Type.register "text/html", :html
-# Mime::Type.register "application/pdf", :pdf
-# Mime::Type.register "image/jpeg2000", :jp2
+# Add new mime types for use in respond_to blocks:
+# Mime::Type.register "text/richtext", :rtf
+
 Mime::Type.register_alias "text/html", :textile
 Mime::Type.register_alias "text/html", :inline
 
@@ -13,9 +13,7 @@ Mime::Type.register "application/marc", :marc
 Mime::Type.register "application/marcxml+xml", :marcxml, 
       ["application/x-marc+xml", "application/x-marcxml+xml", 
        "application/marc+xml"]
-
-
-# Add new mime types for use in respond_to blocks:
-# Mime::Type.register "text/richtext", :rtf
-# Mime::Type.register_alias "text/html", :iphone
 Mime::Type.register "application/rdf+xml", :rdf
+
+
+

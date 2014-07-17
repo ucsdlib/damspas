@@ -1,5 +1,5 @@
 <div class="fields">
 	<br/>
 	<%= select_tag "#{object_type}[relResourceURI][]", options_for_select(@dams_related_resources) , :prompt=>"Select Related Resource", :class=>"newClassName", :id=>"newClassNameId", :onChange=>"javascript: checkOption(this.className,false,'dams_related_resources');", :style => "width:350px"%>
-	<p class="removeIcon"><%= link_to_remove_fields "X", f%></p>			
+				
 </div>

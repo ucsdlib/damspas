@@ -1,0 +1,49 @@
+<h1>Contact Us!</h1>
+<div class="alert">
+  Please use the contact form to submit general questions about the Digital Collections website, to report a problem you are experiencing with the system, or to provide feedback. See our  
+  <%= link_to 'Frequently Asked Questions (FAQ)', view_page_path('faq') %> for additional information.
+</div>
+
+<% if user_signed_in? %>
+  <% nm = session[:user_name] %>
+  <% em = current_user.email %>
+<% else %>
+  <% nm = '' %>
+  <% em = '' %>
+<% end %>
+
+<div class='well'>
+  <%= form_for @contact_form do |f| %>
+    <%= f.hidden_field :contact_method %>
+    <div class="control-group">
+      <%= f.label :category, 'Issue Type', :class => "control-label" %>
+      <div class="controls">
+        <% issue_types = ContactForm::ISSUE_TYPES.dup %>
+        <%= f.select 'category', options_for_select(issue_types), :prompt=>"Select an Issue Type", :class=> 'input-large', :required => true  %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :name, 'Your Name', :class=>"control-label" %>
+      <div class="controls"><%= f.text_field :name, :class=>"input-xlarge", :value => nm, :required => true %>  </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :email, 'Your Email', :class=>"control-label" %>
+      <div class="controls">
+      <%= f.text_field :email, :class=>"input-xlarge", :value => em, :required => true %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :message, 'Message', :class=>"control-label" %>
+      <div class="controls">
+      <%= f.text_area :message, :class=>"input-xlarge", :value=>"", :required => true %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit :value => "Send", :class => "btn-primary btn-large"  %>
+    </div>
+  <% end %>
+</div>
