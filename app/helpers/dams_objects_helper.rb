@@ -760,7 +760,9 @@ module DamsObjectsHelper
     return nil
   end
 
-  def renderHTML(index, attach_parent )
+  def render_node_HTML(index, attach_parent )
+    concat "<li>".html_safe
+
     fileUse = grabFileUse(:componentIndex=>index)
     btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
     btnID = "node-btn-#{index}"
@@ -769,7 +771,13 @@ module DamsObjectsHelper
     iconCSS = attach_parent ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
     btnTitle = grabTitle(:componentIndex=> index)
 
+
     concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
+  end
+
+  def render_pnode_html(index, attach_parent )
+    render_node_HTML(index, attach_parent )
+    concat "</li>".html_safe
   end
 
   def displayNode(index)
@@ -778,34 +786,23 @@ module DamsObjectsHelper
         #attach parent
         parent_node_index = @tag[index][:parent_node]
         attach_parent = true
-        concat "<li>".html_safe
-        renderHTML(parent_node_index, attach_parent)
-
+        render_node_HTML(parent_node_index, attach_parent)
         # then attach first child
         attach_parent = false
         concat "<ul class='unstyled node-container'>".html_safe
-        concat "<li>".html_safe
-        renderHTML(parent_node_index, attach_parent)
-        concat "</li>".html_safe
+        render_pnode_html(index, attach_parent)
       elsif @tag[index][:last_child] == true
         attach_parent = false
-        concat "<li>".html_safe
-        renderHTML(parent_node_index, attach_parent)
-        concat "</li>".html_safe
+        render_pnode_html(index, attach_parent )
         concat "</ul>".html_safe
       else
         attach_parent = false
-        concat "<li>".html_safe
-        renderHTML(parent_node_index, attach_parent)
-        concat "</li>".html_safe
+        render_pnode_html(index, attach_parent )
       end
     else 
       attach_parent = false
-        concat "<li>".html_safe
-        renderHTML(parent_node_index, attach_parent)
-        concat "</li>".html_safe
+      render_pnode_html(index, attach_parent )
     end
-
     @firstButton = nil
   end
 
