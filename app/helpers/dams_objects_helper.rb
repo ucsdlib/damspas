@@ -719,10 +719,6 @@ module DamsObjectsHelper
       @tag = []
 
       for i in 1..component_count
-        @isParent[i] = false
-      end
-
-      for i in 1..component_count
 
         if @document["component_#{i}_children_isim"] != nil
           @isParent[i] = true
@@ -750,10 +746,9 @@ module DamsObjectsHelper
     if component_count != nil && component_count > 0
       concat '<ul class="unstyled">'.html_safe
       for i in 1..component_count
-        if @isParent[i] == false
 
-          displayNode i
-        end
+          displayNode i if @isParent[i].nil?
+       
       end
       concat '</ul>'.html_safe
     end
