@@ -627,7 +627,7 @@ module DamsObjectsHelper
 	# @return nil
 	# @author David T.
 	#---
-	def displayNode2(index)
+	def displayNode(index)
 
 		fileUse = grabFileUse(:componentIndex=>index)
 		btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
@@ -665,7 +665,7 @@ module DamsObjectsHelper
 	# @return nil
 	# @author David T.
 	#---
-	def displayComponentTree2(component_count)
+	def displayComponentTree(component_count)
 		if component_count != nil && component_count > 0
 			concat '<ul class="unstyled">'.html_safe
 			for i in 1..component_count
@@ -685,7 +685,7 @@ module DamsObjectsHelper
 	# @return nil
 	# @author David T.
 	#---
-	def initComponentTree2(component_count)
+	def initComponentTree(component_count)
 		if component_count != nil
 			@isParent = []
 			@isChild = []
@@ -708,98 +708,87 @@ module DamsObjectsHelper
 		return nil
 	end
 
-	#-------------------------
-	# /COMPONENT TREE METHODS
-	#-------------------------
+	#-------------------------------------------------------------------------------
+	# The below is the new version of component tree display, 
+  # which fixed the following probelms of old version tree display:
+  # 1. the order issue: always display the nested parent-child nodes at bottom of the list.
+  # 2. Display twice for the child node which is both at top level and nested level.
+  # And separated the logic code from display code.
+  #
+  # by hweng@ucsd.edu
+	#-------------------------------------------------------------------------------
 
-  def initComponentTree(component_count)
+  def init_Tree(component_count)
     if component_count != nil
-      @isParent = []
-      @isChild = []
+      @is_parent = []
+      @is_child = []
       @tag = []
+      @checked = []
 
       for i in 1..component_count
 
         if @document["component_#{i}_children_isim"] != nil
-          @isParent[i] = true
+          @is_parent[i] = true
           @document["component_#{i}_children_isim"].each_with_index do |value, index|
-
             order = value.to_i
-            @isChild[order]= true 
-            if index == 0
-              @tag[order]={parent_node: i, first_child:true}
-            elsif index == @document["component_#{i}_children_isim"].size-1
-              @tag[order]={parent_node: i, last_child:true}
-            else
-              @tag[order]={parent_node: i}
-            end
-
+            @is_child[order]= true 
+            @tag[order]={parent_node: i}
           end
         end
       end
     end
-    
-    return nil
   end
 
-  def displayComponentTree(component_count)
+  def display_tree(component_count)
     if component_count != nil && component_count > 0
       concat '<ul class="unstyled">'.html_safe
       for i in 1..component_count
 
-          displayNode i if @isParent[i].nil?
+          display_node i if @is_parent[i].nil? && @checked[i].nil?
        
       end
       concat '</ul>'.html_safe
     end
-    return nil
   end
 
-  def render_node_HTML(index, attach_parent )
-    concat "<li>".html_safe
+def display_node(index)
+    if @is_child[index] == nil
+      render_tree_HTML(index, false )
+    elsif @is_child[index] == true
+      parent_node_index = @tag[index][:parent_node]
+      render_node_HTML(parent_node_index, true)
 
+      concat "<ul class='unstyled node-container'>".html_safe
+      @document["component_#{parent_node_index}_children_isim"].each do |value|
+        node_index = value.to_i
+        render_node_HTML(node_index, false)
+        @checked[node_index]= true
+      end
+      concat "</ul>".html_safe
+    end
+    @firstButton = nil
+  end
+
+  def render_node_HTML(index, is_parent_node)
+    concat "<li>".html_safe
     fileUse = grabFileUse(:componentIndex=>index)
     btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
     btnID = "node-btn-#{index}"
     btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
-    btnCSS += attach_parent ? ' node-parent' : ''
-    iconCSS = attach_parent ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
+    btnCSS += is_parent_node ? ' node-parent' : ''
+    iconCSS = is_parent_node ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
     btnTitle = grabTitle(:componentIndex=> index)
-
-
     concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
   end
 
-  def render_pnode_html(index, attach_parent )
-    render_node_HTML(index, attach_parent )
+  def render_tree_HTML(index, is_parent_node )
+    render_node_HTML(index, is_parent_node )
     concat "</li>".html_safe
   end
 
-  def displayNode(index)
-    if @isChild[index] == true
-      if @tag[index][:first_child] == true
-        #attach parent
-        parent_node_index = @tag[index][:parent_node]
-        attach_parent = true
-        render_node_HTML(parent_node_index, attach_parent)
-        # then attach first child
-        attach_parent = false
-        concat "<ul class='unstyled node-container'>".html_safe
-        render_pnode_html(index, attach_parent)
-      elsif @tag[index][:last_child] == true
-        attach_parent = false
-        render_pnode_html(index, attach_parent )
-        concat "</ul>".html_safe
-      else
-        attach_parent = false
-        render_pnode_html(index, attach_parent )
-      end
-    else 
-      attach_parent = false
-      render_pnode_html(index, attach_parent )
-    end
-    @firstButton = nil
-  end
+  #-------------------------------
+  # End of Component Tree Display
+  #-------------------------------
 
 
   #-----------
