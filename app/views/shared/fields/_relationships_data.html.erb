@@ -1,0 +1,12 @@
+<%
+        temp = htmlOpen
+        temp %= key.pluralize(value.count).titleize
+        concat temp.html_safe
+        value.each do |name|
+%>
+          <li><%= link_to "<i class='icon-tag icon-white'></i> #{name}".html_safe, facet_uri(name, 'creator_sim'), :class => "label" %></li>
+          
+<%
+        end
+        concat htmlClose.html_safe
+%>
