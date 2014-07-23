@@ -52,3 +52,4 @@ Hydra::Application.configure do
   config.zoomify_baseurl = 'http://rohan.ucsd.edu/zoomify/'
   config.shibboleth = false
 end
+

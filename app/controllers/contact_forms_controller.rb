@@ -1,11 +1,11 @@
-class ContactFormController < ApplicationController
+class ContactFormsController < ApplicationController
   
   def new
     @contact_form = ContactForm.new
   end
 
   def create
-    @contact_form = ContactForm.new(params[:contact_form])
+    @contact_form = ContactForm.new(contact_params)
     @contact_form.request = request
     # not spam and a valid form
     logger.warn "*** MARK ***"
@@ -15,7 +15,7 @@ class ContactFormController < ApplicationController
       render :new
     else
       flash[:error] = 'Sorry, this message was not sent successfully. ' 
-      flash[:error] << @contact_form.errors.full_messages.map { |s| s.to_s }.join(",")
+      flash[:error] << @contact_form.errors.full_messages.map { |s| s.to_s }.join(", ")
       render :new
     end
   rescue 
@@ -25,6 +25,12 @@ class ContactFormController < ApplicationController
 
   def after_deliver
      return unless false
+  end
+  
+  private
+  
+  def contact_params
+    params.require(:contact_form).permit(:contact_method, :category, :name, :email, :message)
   end
   
 end

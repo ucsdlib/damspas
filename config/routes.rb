@@ -5,9 +5,9 @@ Hydra::Application.routes.draw do
   get '/p/:id', to: 'pages#view', :as => 'view_page'
 
   # Contact form routes
-  resources :contact_form, :only => [:new, :create]
-  post 'contact' => 'contact_form#create'
-  get 'contact' => 'contact_form#new'
+  resources :contact_forms, :only => [:new, :create]
+  post 'contact' => 'contact_forms#create'
+  get 'contact' => 'contact_forms#new'
 
   mount Qa::Engine => '/qa'
 
@@ -98,18 +98,18 @@ Hydra::Application.routes.draw do
   resources :mads_languages
 
   resources :get_data do
-	get 'get_linked_data', :on => :member
-	post 'get_linked_data', :on => :member
-	get 'get_name', :on => :member
-	post 'get_name', :on => :member	
-	get 'get_subject', :on => :member
-	post 'get_subject', :on => :member
+  get 'get_linked_data', :on => :member
+  post 'get_linked_data', :on => :member
+  get 'get_name', :on => :member
+  post 'get_name', :on => :member 
+  get 'get_subject', :on => :member
+  post 'get_subject', :on => :member
   get 'get_creator', :on => :member
   post 'get_creator', :on => :member
-  get 'get_ark', :on => :member	
+  get 'get_ark', :on => :member 
   get 'get_new_objects'   
   get 'get_dams_data', :on => :member
-  post 'get_dams_data', :on => :member	
+  post 'get_dams_data', :on => :member  
 
   end
   # The priority is based upon order of creation:
