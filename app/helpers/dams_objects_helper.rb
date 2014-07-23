@@ -460,7 +460,7 @@ module DamsObjectsHelper
 				files = JSON.parse(datum)
 				if files["use"].end_with?("-service")
 					result = files["id"]
-					if(result == "document-service")
+					if(files["use"].end_with?("document-service"))
 						break
 					end
 				end

@@ -40,8 +40,7 @@ class DamsBuiltWorkPlacesController < ApplicationController
   end
 
   def create 
-    puts "buuuuu"
-    puts params
+    
     if @dams_built_work_place.save
 	    if(!params[:parent_id].nil?)
 			redirect_to dams_built_work_place_path(@dams_built_work_place, {:parent_id => params[:parent_id]})

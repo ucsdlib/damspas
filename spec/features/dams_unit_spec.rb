@@ -20,7 +20,7 @@ feature 'Visitor wants to look at units' do
     click_on('search-button')
 
     expect(page).to have_content('Search Results')
-    expect(page).to have_content('Limit your search')
+    expect(page).to have_content('Refine your search')
     expect(page).to have_content('Sample Complex Object Record #3: Format Sampler')
   end
 

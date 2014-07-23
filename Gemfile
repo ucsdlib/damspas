@@ -25,6 +25,7 @@ gem 'rails_autolink'
 gem 'mail_form'
 gem 'qa', '~> 0.3.0'
 gem 'sprockets', '=2.11.0'
+gem "rack-dev-mark"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -59,6 +60,7 @@ group :development, :test do
   gem 'database_cleaner' #, '0.9.1'
   gem 'jettywrapper' #, '1.4.1'
   gem 'launchy' #, '2.3.0'
+  gem "minitest"
   gem 'rspec-rails' #, '2.13.0'
   gem 'simplecov' #, '0.7.1'
   gem 'unicorn' #, '4.6.2's

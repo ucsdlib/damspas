@@ -210,6 +210,8 @@ GEM
       rails (>= 3.2.13, < 5.0)
       rest-client
     rack (1.5.2)
+    rack-dev-mark (0.6.0)
+      rack (>= 1.1)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.1.4)
@@ -353,10 +355,12 @@ DEPENDENCIES
   jquery-rails
   launchy
   mail_form
+  minitest
   omniauth
   omniauth-shibboleth
   pry
   qa (~> 0.3.0)
+  rack-dev-mark
   rails (~> 4.1.4)
   rails_autolink
   rake (~> 10.1.0)
