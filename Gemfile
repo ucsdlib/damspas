@@ -64,7 +64,7 @@ group :development, :test do
   gem 'rspec-rails' #, '2.13.0'
   gem 'simplecov' #, '0.7.1'
   gem 'unicorn' #, '4.6.2's
-  
+  gem 'rspec_junit_formatter'
 end
 
 group :staging do
