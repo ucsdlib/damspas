@@ -708,9 +708,88 @@ module DamsObjectsHelper
 		return nil
 	end
 
-	#-------------------------
-	# /COMPONENT TREE METHODS
-	#-------------------------
+	#-------------------------------------------------------------------------------
+	# The below is the new version of component tree display, 
+  # which fixed the following probelms of old version tree display:
+  # 1. the order issue: always display the nested parent-child nodes at bottom of the list.
+  # 2. Display twice for the child node which is both at top level and nested level.
+  # And separated the logic code from display code.
+  #
+  # by hweng@ucsd.edu
+	#-------------------------------------------------------------------------------
+
+  def init_Tree(component_count)
+    if component_count != nil
+      @is_parent = []
+      @is_child = []
+      @tag = []
+      @checked = []
+
+      for i in 1..component_count
+
+        if @document["component_#{i}_children_isim"] != nil
+          @is_parent[i] = true
+          @document["component_#{i}_children_isim"].each_with_index do |value, index|
+            order = value.to_i
+            @is_child[order]= true 
+            @tag[order]={parent_node: i}
+          end
+        end
+      end
+    end
+  end
+
+  def display_tree(component_count)
+    if component_count != nil && component_count > 0
+      concat '<ul class="unstyled">'.html_safe
+      for i in 1..component_count
+
+          display_node i if @is_parent[i].nil? && @checked[i].nil?
+       
+      end
+      concat '</ul>'.html_safe
+    end
+  end
+
+def display_node(index)
+    if @is_child[index] == nil
+      render_tree_HTML(index, false )
+    elsif @is_child[index] == true
+      parent_node_index = @tag[index][:parent_node]
+      render_node_HTML(parent_node_index, true)
+
+      concat "<ul class='unstyled node-container'>".html_safe
+      @document["component_#{parent_node_index}_children_isim"].each do |value|
+        node_index = value.to_i
+        render_node_HTML(node_index, false)
+        @checked[node_index]= true
+      end
+      concat "</ul>".html_safe
+    end
+    @firstButton = nil
+  end
+
+  def render_node_HTML(index, is_parent_node)
+    concat "<li>".html_safe
+    fileUse = grabFileUse(:componentIndex=>index)
+    btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
+    btnID = "node-btn-#{index}"
+    btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
+    btnCSS += is_parent_node ? ' node-parent' : ''
+    iconCSS = is_parent_node ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
+    btnTitle = grabTitle(:componentIndex=> index)
+    concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
+  end
+
+  def render_tree_HTML(index, is_parent_node )
+    render_node_HTML(index, is_parent_node )
+    concat "</li>".html_safe
+  end
+
+  #-------------------------------
+  # End of Component Tree Display
+  #-------------------------------
+
 
   #-----------
   # STREAMING
