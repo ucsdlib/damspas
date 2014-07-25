@@ -52,3 +52,5 @@ public/sitemap*
 
 # version
 public/version.txt
+
+.project
