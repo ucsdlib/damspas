@@ -15,17 +15,27 @@
 		fieldData.each do |datum|
 			relationship = JSON.parse(datum)
 			relationship.each do |key, value|
-				temp = htmlOpen
-				temp %= key.pluralize(value.count).titleize
-				concat temp.html_safe
-				value.each do |name|
+				if key == "Principal investigator"
 %>
-          <li><%= link_to "<i class='icon-tag icon-white'></i> #{name}".html_safe, facet_uri(name, 'creator_sim'), :class => "label" %></li>
-					
+					 <%=	render 'shared/fields/relationships_data', key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose %>
 <%
-				end
-				concat htmlClose.html_safe
-			end
+       end
+     end
+    relationship.each do |key, value|
+				if key == "Co-principal investigator"
+%>
+					 <%=	render 'shared/fields/relationships_data', key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose %>
+
+<%
+       end
+     end
+    relationship.each do |key, value|
+				if key != "Principal investigator" && key != "Co-principal investigator"
+%>
+					 <%=	render 'shared/fields/relationships_data', key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose %>
+<%
+      end
+     end 
 		end
 	end
 %>
