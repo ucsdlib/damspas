@@ -61,12 +61,14 @@ module Dams
         # unit and collections
         map.unit(:in => DAMS, :to=>'unit', :class_name => 'DamsUnitInternal')
         map.collection(:in => DAMS)
-        map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
         map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
         map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
 
         # child parts
         map.part_node(:in=>DAMS,:to=>'hasPart')
+
+        # parent node
+        map.assembledCollection(:in => DAMS, :to => 'assembledCollection')
 
         # related collections
         map.relatedCollection(:in => DAMS)

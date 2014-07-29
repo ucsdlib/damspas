@@ -12,6 +12,7 @@
 	 fieldData = @document["#{prefix}collection_json_tesim"] || []
      fieldData.concat( @document['provenanceCollection_json_tesim'] || [] )
      fieldData.concat( @document['part_json_tesim'] || [] )
+     fieldData.concat( @document['assembledCollection_json_tesim'] || [] )
 
 	 if fieldData.length > 0
 
