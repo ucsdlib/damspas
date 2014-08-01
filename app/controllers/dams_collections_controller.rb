@@ -27,6 +27,12 @@ class DamsCollectionsController < ApplicationController
 </rdf:RDF>"
     end
 
+    # redirect to object path if it is a type of object record
+    if !@document.nil? && @document["active_fedora_model_ssi"].include?("DamsObject") 
+      redirect_to dams_object_path(params[:id])
+      return
+    end
+
     if can? :show, @document
 
       # find related resources

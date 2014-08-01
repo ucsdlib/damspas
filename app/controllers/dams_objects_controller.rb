@@ -38,6 +38,16 @@ class DamsObjectsController < ApplicationController
 </rdf:RDF>"
     end
 
+    # redirect to collection path if it is a type of collection record
+    arr_of_col = [ "DamsAssembledCollection",
+                   "DamsProvenanceCollection", 
+                   "DamsProvenanceCollectionPart"]
+
+    if !@document.nil? && arr_of_col.include?(@document["active_fedora_model_ssi"])
+      redirect_to dams_collection_path(params[:id])
+      return
+    end
+
     # enforce access controls
     if can? :show, @document
       collectionData = @document["collection_json_tesim"]
