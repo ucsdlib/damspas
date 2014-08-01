@@ -88,15 +88,9 @@
 	      related_resource_class = ' class=related_resources_link'
 	    end
 		if(!@relResourceHash.nil? && @relResourceHash.has_key?(v[1]))
-           if(@relResourceHash.fetch(v[1]).to_s.include? "<>true")
       %>
-      		<li<%= related_resource_class%>><%= link_to v[0], dams_collection_path("#{url.sub( Rails.configuration.id_namespace, '' )}")%></li>
+      		<li<%= related_resource_class%>><%= link_to v[0], dams_object_path("#{url.sub( Rails.configuration.id_namespace, '' )}")%></li>
       <%
-      	   else
-      %>
-     		<li<%= related_resource_class%>><%= link_to v[0], dams_object_path("#{url.sub( Rails.configuration.id_namespace, '' )}") %></li> 
-      <%
-           end   
          else
       %>
         	<li<%= related_resource_class%>><%= link_to v[0], v[1] %></li>
