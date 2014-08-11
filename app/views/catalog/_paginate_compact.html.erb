@@ -1,5 +1,5 @@
 <% if @response.total_pages > 1 %>
-	<%= paginate @response, :theme => 'ucsd_compact' %>
+	<%= paginate @response, :left => 1, :right => 1, :window => 2, :theme => 'ucsd_goto' %>
 <% else %>
-	Results <%= page_entries_info(@response) %>
+	<div class="pagination-note">Results <%= page_entries_info(@response) %></div>
 <% end %>

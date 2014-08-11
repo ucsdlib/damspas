@@ -1,0 +1,35 @@
+<%# The container tag
+  - available local variables
+    current_page:  a page object for the currently displayed page
+    num_pages:     total number of pages
+    per_page:      number of items to fetch per page
+    remote:        data-remote
+    paginator:     the paginator that renders the pagination tags inside
+
+   Paginator now using the Bootstrap paginator class
+-%>
+<div class="btn-toolbar pagination-toolbar">
+<%= paginator.render do -%>
+  <div class="btn-group">
+    <%= prev_page_tag %>
+    <% each_relevant_page do |page| -%>
+      <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
+        <%= page_tag page %>
+      <% elsif !page.was_truncated? -%>
+        <%= gap_tag %>
+      <% end -%>
+    <% end -%>
+    <%= next_page_tag %>
+  </div>
+
+  <div class="input-append btn-group">
+    <input type="number" min="1" onkeyup="$(this).keyup(function(event){if(event.keyCode == 13){$(this).next().click();}});">
+    <button class="btn btn-mini" type="button" onClick="var a=$(this).prev().val();if(parseInt(a)>0){var b=location.href;var c='page='+a;var d=/([?\&]{1})page=[1-9]{1}[0-9]*/;if(d.test(b)){location.href=b.replace(d,'$1'+c);}else{location.href=b+'&'+c;}}">Go</button>
+  </div>
+
+<% end -%>
+</div>
+<p class="muted visible-phone text-center pagination-note">Page <%= current_page %> of <%= num_pages %></p>
+
+
+

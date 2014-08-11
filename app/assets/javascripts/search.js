@@ -3,4 +3,6 @@ $(document).ready(function() {
 	$('#dams-search').change(function(){
 		$(".search_q").attr("placeholder", "For "+$('#dams-search option:selected').text()+"...");
 	});
+    //disable link clicks
+    $('a.disabled').click(function(){return false;});
 });
