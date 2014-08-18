@@ -564,6 +564,7 @@ module DamsObjectsHelper
 	# @param componentIndex (Optional) The component's index.
 	# @return A string that is the title value for our object.
 	# @author David T.
+  # Updated by hweng@ucsd.edu to fix the label/title display issue.
 	#---
 	def grabTitle(parameters={})
 
@@ -575,10 +576,15 @@ module DamsObjectsHelper
 		result = nil
 
 		if fieldData != nil
-			title = JSON.parse(fieldData.first)
-			result = title['value']
-            result = title['partName'] if result.blank?
-            result = title['partNumber'] if result.blank?
+			fieldData.each do |datum|
+        title = JSON.parse(datum)
+        if !title['value'].blank?
+            result = title['value'] 
+            break
+        else
+            result = title['name']
+        end
+      end
     else
       result = "Generic Component Title #{componentIndex}"
 		end
