@@ -124,10 +124,7 @@ module Dams
 	    relResourceData.each do |datum|
           relResource = JSON.parse(datum)
           if(!relResource['uri'].nil? and relResource['uri'].length > 0 and relResource['uri'].start_with?( Rails.configuration.id_namespace ))         
-            doc = get_single_doc_via_search(1, {:q => "id:#{relResource['uri'].sub( Rails.configuration.id_namespace, '' )}"} )
-            if(!doc.nil?)
-	  			@relResourceHash.store(relResource['uri'],relResource['description']+"<>"+is_collection?(doc).to_s)
-	  		end
+	  		@relResourceHash.store(relResource['uri'],relResource['description'])
 	  	  end
 	  	end
 	  end

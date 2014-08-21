@@ -5,12 +5,12 @@
 
 <% if component_count > 0   %>
 
-	<% initComponentTree component_count %>
+	<% init_Tree component_count %>
 	<button type="button" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
 		<strong>Components of "<%= grabTitle %>"</strong>
 	</button>
 	<div class="components-tree">
-		<% displayComponentTree component_count %>
+		<% display_tree component_count %>
 	</div>
 
 <% end %>

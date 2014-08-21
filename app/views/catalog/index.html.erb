@@ -1,10 +1,10 @@
 <div class="row-fluid">
 
-	<div id="sidebar00" class="span3">
+	<div id="sidebar" class="span3">
 		<%= render :partial=>'facets' %>
 	</div>
 
-	<div id="content00" class="span9">
+	<div id="content" class="span9">
 
 		<% if @document_list.nil? || @document_list.size == 0 %>
 
@@ -13,23 +13,24 @@
 
 		<% else %>
 
-          <% @page_title = t('blacklight.search.search_results') %>
-          <% content_for(:head) do -%>
-            <%= render_opensearch_response_metadata %>
-            <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') ) %>
-            <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') ) %>
-          <% end -%>
+      <% @page_title = t('blacklight.search.search_results') %>
+      <% content_for(:head) do -%>
+        <%= render_opensearch_response_metadata %>
+        <%= auto_discovery_link_tag(:rss, url_for(params.merge(:format => 'rss')), :title => t('blacklight.search.rss_feed') ) %>
+        <%= auto_discovery_link_tag(:atom, url_for(params.merge(:format => 'atom')), :title => t('blacklight.search.atom_feed') ) %>
+      <% end -%>
 
-	    <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
-		<%= render :partial => 'searchbox' %>
-		<%= render :partial => 'constraints' %>
-	    <%= render 'sort_and_per_page' %>
+		  <h2 class="hide-text top-content-title"><%= t('blacklight.search.search_results_header') %></h2>
+			<%= render :partial => 'searchbox' %>
+			<%= render :partial => 'constraints' %>
+      <%= render 'sort_and_per_page' %>
 			<%= render :partial => 'spellcheck' %>
 			<h3 class="hide-text"><%= t('blacklight.search.search_results') %></h3>
 			<%= render_document_index %>
 			<div class="dams-search-results-footer">
-			<%= render :partial => 'paginate_compact' %>
+				<%= render :partial => 'paginate_compact' %>
 			</div>
+
 		<% end %>
 
 	</div>

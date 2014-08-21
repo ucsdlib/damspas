@@ -12,7 +12,7 @@
 	types = Hash.new
 	types.compare_by_identity
 	needLabel = "false"
-
+    linkNumber = 20
 
 	fieldData = collectionDoc["#{prefix}related_resource_json_tesim"]
 
@@ -79,27 +79,32 @@
 	  </p>
 	  <ul>
 	  <%
+	  link_count = 0
 	  value.each do |k, v| 
 	    url = v[1]
+	    link_count += 1
+	    related_resource_class = ""
+	    if(link_count > linkNumber )
+	      related_resource_class = ' class=related_resources_link'
+	    end
 		if(!@relResourceHash.nil? && @relResourceHash.has_key?(v[1]))
-           if(@relResourceHash.fetch(v[1]).to_s.include? "<>true")
       %>
-      		<li><%= link_to v[0], dams_collection_path("#{url.sub( Rails.configuration.id_namespace, '' )}")%></li>
+      		<li<%= related_resource_class%>><%= link_to v[0], dams_object_path("#{url.sub( Rails.configuration.id_namespace, '' )}")%></li>
       <%
-      	   else
+         else
       %>
-     		<li><%= link_to v[0], dams_object_path("#{url.sub( Rails.configuration.id_namespace, '' )}") %></li> 
-      <%
-           end   
-        else
-      %>
-        	<li><%= link_to v[0], v[1] %></li>
+        	<li<%= related_resource_class%>><%= link_to v[0], v[1] %></li>
       <%
         end
-	  %>
-	    
-	    </p>
-	    <%
+      %>  
+        </p>
+      <%
+        if(link_count == linkNumber && value.size > linkNumber)
+      %>
+      	  <a href="#more_related_resources" id="more_related_resources">More ...</a>
+      <%
+        end
+	  	
 	  end
 	  %>
 	  </ul>

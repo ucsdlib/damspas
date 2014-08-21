@@ -686,7 +686,8 @@ module Dams
       def find_parents( solr_doc, col )
         begin
           col.assembledCollection.each do |acol|
-            parent_obj = DamsAssembledCollection.find(acol.pid)
+            cpid = (acol.respond_to? :pid) ? acol.pid : acol.to_s.gsub(/.*\//,'')
+            parent_obj = DamsAssembledCollection.find(cpid)
             ptitle = parent_obj.title.first.value
             Solrizer.insert_field(solr_doc, "collection", ptitle, @facetable)
             find_parents( solr_doc, parent_obj)
@@ -696,7 +697,8 @@ module Dams
         end
         begin
           col.provenanceCollection.each do |pcol|
-            parent_obj = DamsProvenanceCollection.find(pcol.pid)
+            cpid = (pcol.respond_to? :pid) ? pcol.pid : pcol.to_s.gsub(/.*\//,'')
+            parent_obj = DamsProvenanceCollection.find(cpid)
             ptitle = parent_obj.title.first.value
             Solrizer.insert_field(solr_doc, "collection", ptitle, @facetable)
             find_parents( solr_doc, parent_obj)

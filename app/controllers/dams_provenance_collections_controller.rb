@@ -67,8 +67,6 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.conferenceName.build    
     @dams_provenance_collection.familyName.build
    
-    @dams_provenance_collection.assembledCollection.build    
-   
     @dams_provenance_collection.provenanceCollectionPart.build
     
     @dams_provenance_collection.relationship.build
@@ -222,7 +220,6 @@ class DamsProvenanceCollectionsController < ApplicationController
     @dams_provenance_collection.corporateName.clear   
     @dams_provenance_collection.conferenceName.clear    
     @dams_provenance_collection.familyName.clear  
-    @dams_provenance_collection.assembledCollection.clear     
     @dams_provenance_collection.provenanceCollectionPart.clear
     @dams_provenance_collection.relationship.clear    
     @dams_provenance_collection.unit.clear

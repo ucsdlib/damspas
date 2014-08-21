@@ -22,11 +22,13 @@
 //---
 #dams-search-results{margin:0;padding:0;}
 #dams-search-results > li{list-style-type:none;margin:0 0 2em 0;padding:0;color:#555;}
+#dams-search-results > li:last-child{margin:0}
 #dams-search-results > li h3{margin:0 0 0.25em 0;font-size:125%;line-height: inherit;font-weight:normal;}
 #dams-search-results > li a{text-decoration:underline;}
 #dams-search-results > li{overflow: auto;}
 #dams-search-results > li > img{display:block;width:70px;height:auto;margin:0;padding:0;float:left;}
 #dams-search-results > li > div{margin-left:90px;}
+
 .dams-search-thumbnail{display:block;width:70px;height:70px;margin:0 !important;padding:0;float:left;font-size:30px;text-align:center;line-height:70px;}
 .thumb-complex{background-color:#F3B46D;color:rgba(0,0,0,0.25);}
 .thumb-simple{background-color:#F3CD6D;color:rgba(0,0,0,0.25);}
@@ -35,11 +37,6 @@
 .dams-search-results-fields li{margin-right:0.25em;list-style-type: none;}
 .dams-search-results-fields span{line-height: 90%;}
 .dams-search-results-fields-label {color:#F3876D; }
-.dams-search-results-header{
-  color:#aaa;
-  margin-bottom:20px;
-  .btn-toolbar{margin:0;}
-}
 .dams-search-constraints{margin-bottom: 0.5em; padding-bottom: 1em; border-bottom: solid #eee 1px; }
 
 .dams-search-constraints-label{
@@ -53,18 +50,44 @@
 .appliedFilter{margin-bottom: 0;}
 .dams-search-instead{color:#444;font-size:90%;}
 
+.dams-search-results-header{
+  color:#aaa;
+  margin-bottom:20px;
+  .btn-toolbar
+  {
+     margin:0;
+    .btn
+    {
+      background-image:none;
+      border-color:#ccc;
+      color:#888;
+    }
+  }
+}
+
 .dams-search-results-footer
 {
-  padding-top:20px;
+  margin-top:20px;
+  padding-top:10px;
   border-top:1px solid #eee;
   color:#888;
+}
+
+.pagination-toolbar
+{
+  margin:0;
   .btn
   {
     background-image:none;
+    background-color: #fff;
     border-color:#ccc;
     color:#888;
   }
+  .glyphicon{font-size:10px;}
+  .btn-group{margin-bottom:0;}
+  input[type=number]{height:12px;width:30px;font-size:10.5px;line-height:normal;}
 }
+.pagination-note{font-size:75%;margin:5px 0 0 0;line-height:normal;}
 
 .page_links
 {
@@ -72,7 +95,6 @@
   line-height: normal;
   clear:both;
   overflow:auto;
-  strong{font-weight:normal;}
 }
 
 .results-tools
@@ -178,7 +200,7 @@
 @media (max-width: 979px) {
 
   .mobile-search-bar-alt{height:auto;}
-  .mobile-search-bar-alt .input-append{text-align: center;}
+  .mobile-search-bar-alt .input-append, .pagination-note{text-align: center;}
 
 }
 
@@ -186,7 +208,7 @@
 @media (max-width: 767px) {
 
   .mobile-search-bar-alt input[type=text]{width:206px;}
-
+  .pagination-toolbar{text-align:center;}
 }
 
 /* LANDSCAPE PHONES AND DOWN (BOOTSTRAP) */
@@ -195,7 +217,7 @@
   .dams-search-results-header {margin-bottom:1em;}
   .sidenav{margin-bottom:0;}
   .facets{margin-bottom:10px;}
-  .dams-search-results-footer{text-align:center;}
+
 
   #dams-search-results > li h3{font-size:110%;}
   .dams-search-results-fields{
