@@ -21,23 +21,17 @@ class Ability
 
  	#### Override create DamsProvenanceCollection for curator roles only ####
     can :create, DamsProvenanceCollection do |obj|
-    	result = can_create_collection?(obj)
-      logger.debug("[CANCAN] DamsProvenanceCollection creation decision: #{result}: #{obj.damsMetadata.unit}")
-      result
+    	can_create_collection?(obj)
     end
 
  	##### Override create DamsProvenanceCollectionPart for curator roles only ####
     can :create, DamsProvenanceCollectionPart do |obj|
-      result = can_create_collection?(obj)
-      logger.debug("[CANCAN] DamsProvenanceCollection creation decision: #{result}: #{obj.damsMetadata.unit}")
-      result
+      can_create_collection?(obj)
     end
 
  	#### Override create DamsAssembledCollection for curator roles only ####
     can :create, DamsAssembledCollection do |obj|
-      result = can_create_collection?(obj)
-      logger.debug("[CANCAN] DamsProvenanceCollection creation decision: #{result}: #{obj.damsMetadata.unit}")
-      result
+      can_create_collection?(obj)
     end
 
 	#### Override to allow read-access to all other non-DamsObject, non-collections classes for roles other than the super role dams-manager-admin####
@@ -129,6 +123,8 @@ class Ability
      else
        user_in_group?(obj.damsMetadata.load_unit obj.damsMetadata.unit)
      end
+     logger.debug("[CANCAN] #{obj.class} creation decision: #{result}: #{obj.damsMetadata.unit}")
+     result
   end
 
   def user_in_group?(unit)
