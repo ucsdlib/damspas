@@ -3,8 +3,8 @@ require 'spec_helper'
 feature 'Visitor wants to look at units' do
   scenario 'is on units landing page' do
     visit dams_units_path
-    expect(page).to have_selector('h3', :text => 'Library Digital Collections')
-    expect(page).to have_selector('h3', :text => 'UCSD Research Data Collections')
+    expect(page).to have_selector('h3', :text => 'UC San Diego LibraryDigital Collections')
+    expect(page).to have_selector('h3', :text => 'UC San DiegoResearch Data Collections')
     expect(page).to have_selector('a', :text => 'Collection')
     expect(page).to have_selector('a', :text => 'Format')
     expect(page).to have_selector('a', :text => 'Topic')
