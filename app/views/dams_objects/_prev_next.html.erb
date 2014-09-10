@@ -1,8 +1,8 @@
 <% if @previous_document || @next_document %>
+
   <div class="row-fluid">
     <div class="span12">
-
-		  <div class="search-results-pager">
+	  <div class="search-results-pager">		  
 		    <%#= render_constraints(session[:search]) %>
 		    <%
 		      curr = session[:search][:counter].to_i
@@ -20,15 +20,15 @@
 					  bonus_text = ''
 			    end
 		     %>
+		     
 		    <% if prev_item > 0 %>
 		      <%= link_to_document @previous_document, :label => '<i class="icon-backward"></i> <span>Previous</span>'.html_safe, :counter => prev_item, :force_label => true %>
 		    <% end %>
-		    <span><%= item_page_entry_info %> results <%= bonus_text.html_safe %></span>
+		    <span><%= item_page_entry_info %> <%= link_to "results", session[:search_results], :class => "results_link"%> <%= bonus_text.html_safe %></span>
 		    <% if next_item <= total %>
 		      <%= link_to_document @next_document, :label => '<span>Next</span> <i class="icon-forward"></i>'.html_safe, :counter => next_item, :force_label => true %>
 		    <% end %>
-		  </div>
-
+	  </div>
     </div>
   </div>
 
