@@ -20,16 +20,16 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_selector('li', :text=>"English")
 
     # image
-    expect(page).to have_link('image', href:'/search?f%5Bobject_type_sim%5D%5B%5D=image&id='+test_pid)
+    expect(page).to have_link('image', href:'/search?id='+test_pid+'&f%5Bobject_type_sim%5D%5B%5D=image')
 
     # conference name
-    expect(page).to have_link('mads:ConferenceName value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AConferenceName+value&id="+test_pid)
+    expect(page).to have_link('mads:ConferenceName value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=mads%3AConferenceName+value')
 
     # corporate name
     expect(page).to have_selector('li', :text=>"mads:CorporateName value")
 
     # family name
-    expect(page).to have_link('mads:FamilyName value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AFamilyName+value&id="+test_pid)
+    expect(page).to have_link('mads:FamilyName value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=mads%3AFamilyName+value')
 
     # personal name
     expect(page).to have_selector('li', :text=>"Smith, John, Dr., 1965-")
@@ -75,40 +75,40 @@ feature 'Visitor wants to view object fields' do
     visit dams_object_path(test_pid)
 
     # BuiltWorkPlace
-    expect(page).to have_link('dams:BuiltWorkPlace value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3ABuiltWorkPlace+value&id="+test_pid)
+    expect(page).to have_link('dams:BuiltWorkPlace value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=dams%3ABuiltWorkPlace+value')
 
     # Cultural Context
-    expect(page).to have_link('dams:CulturalContext value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3ACulturalContext+value&id="+test_pid)
+    expect(page).to have_link('dams:CulturalContext value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=dams%3ACulturalContext+value')
 
     # Function
-    expect(page).to have_link('dams:Function value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AFunction+value&id="+test_pid)
+    expect(page).to have_link('dams:Function value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=dams%3AFunction+value')
 
     # Genre Form
     expect(page).to have_selector('li', :text=>"mads:GenreForm value")
 
     # Geographic
-    expect(page).to have_link('mads:Geographic value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AGeographic+value&id="+test_pid)
+     expect(page).to have_link('mads:Geographic value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=mads%3AGeographic+value')
 
     # Iconography
-    expect(page).to have_link('dams:Iconography value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AIconography+value&id="+test_pid)
+    expect(page).to have_link('dams:Iconography value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=dams%3AIconography+value')
 
     # Occupation
-    expect(page).to have_link('mads:Occupation value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3AOccupation+value&id="+test_pid)
+    expect(page).to have_link('mads:Occupation value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=mads%3AOccupation+value')
 
     # Scientific Name
-    expect(page).to have_link('dams:ScientificName value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AScientificName+value&id="+test_pid)
+    expect(page).to have_link('dams:ScientificName value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=dams%3AScientificName+value')
 
     # Style Period
-    expect(page).to have_link('dams:StylePeriod value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3AStylePeriod+value&id="+test_pid)
+    expect(page).to have_link('dams:StylePeriod value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=dams%3AStylePeriod+value')
 
     # Technique
-    expect(page).to have_link('dams:Technique value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=dams%3ATechnique+value&id="+test_pid)
+    expect(page).to have_link('dams:Technique value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=dams%3ATechnique+value')
 
     # Temporal
-    expect(page).to have_link('mads:Temporal value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3ATemporal+value&id="+test_pid)
+    expect(page).to have_link('mads:Temporal value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=mads%3ATemporal+value')
 
     # Topic
-    expect(page).to have_link('mads:Topic value', href:"/search?f%5Bsubject_topic_sim%5D%5B%5D=mads%3ATopic+value&id="+test_pid)
+    expect(page).to have_link('mads:Topic value', href:'/search?id='+test_pid+'&f%5Bsubject_topic_sim%5D%5B%5D=mads%3ATopic+value')
   end
 
   scenario 'Title, is on Solr view page' do
