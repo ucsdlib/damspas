@@ -1,8 +1,19 @@
 <% btnColor = (@document['component_count_isi'] != nil) ? 'btn-inverse' : 'btn-primary' %>
 <% if can? :update, @document then %>
   <div class="form-actions dams-download-button">
+    <% if !downloadDerivativePath.nil?%>
+      <a class="btn <%=btnColor%> pull-right" href="<%= downloadDerivativePath %>">
+        <i class="icon-download-alt icon-white"></i>Download derivative
+      </a>
+    <% end %>  
     <a class="btn <%=btnColor%> pull-right" href="<%= downloadFilePath %>">
       <i class="icon-download-alt icon-white"></i>Download file
     </a>
+  </div>
+<% else %>
+  <div class="form-actions dams-download-button">
+    <a class="btn <%=btnColor%> pull-right" href="<%= downloadDerivativePath %>">
+      <i class="icon-download-alt icon-white"></i>Download file
+    </a> 
   </div>
 <% end %>
