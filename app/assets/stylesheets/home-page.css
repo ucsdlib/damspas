@@ -32,8 +32,8 @@
 .category a:hover{transform:scale(1.03) rotate(-2deg);}
 .category img{display:block;}
 .category p{font-size:1.25em;margin:20px 20%;line-height:normal;}
-.cat-library{background:#f39d3d url("../images/logo-library.png") center center no-repeat;}
-.cat-rci{background:#f39d3d url("../images/logo-rci.png") center center no-repeat;}
+.cat-library{background:#f39d3d url("../images/logo-library.png") center center no-repeat;background-size:80%;}
+.cat-rci{background:#f39d3d url("../images/logo-rdcp.png") center center no-repeat;background-size:80%;}
 .invitation{font-family:"Archivo Narrow";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
 .visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
 
