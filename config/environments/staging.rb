@@ -25,7 +25,7 @@ Hydra::Application.configure do
   config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += ['home-page.js','home-page.css']
+  config.assets.precompile += ['ckeditor/ckeditor.js','home-page.js','home-page.css']
 
    # action mailer 
   config.action_mailer.delivery_method = :sendmail
