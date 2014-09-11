@@ -76,3 +76,22 @@ feature "Access control enforcement" do
     expect(page.driver.response.status).to eq( 200 )
   end
 end
+
+feature "Derivative download" do 
+  scenario 'is on the view page for single image object' do
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"
+    expect(page).to have_link('Download file', href:"/object/bd3379993m/_2.jpg/download")
+  end
+  scenario 'is on the view page for single audio object' do
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "The Sample Audio Object: I need another green form"
+    expect(page).to have_link('Download file', href:"/object/bd5939745h/_2.mp3/download")
+  end
+  scenario 'is on the view page for single video object' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Video Object"
+    expect(page).to have_link('Download derivative', href:"/object/bd0786115s/_2.mp4/download")
+  end    
+end
