@@ -37,7 +37,8 @@
   <div class="span8">
 	  <p class="crumb hidden-phone"><b>Collections</b> &raquo;</p>
     <div class="hidden-phone"><%= render :partial => 'shared/fields/title' %></div>
-    <h3>About this collection</h3>
+    <h3>About this collection
+    <%= render :partial => 'dams_objects/social_links' %></h3>
     <dl><%= render :partial => 'shared/fields/show_raw', :locals => {:greetingsFromCollectionsView => 'Wish you were here!'} %></dl>
   </div>
 	<%# Sidebar %>
