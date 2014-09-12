@@ -87,11 +87,5 @@ feature "Derivative download" do
     visit catalog_index_path( {:q => 'sample'} )
     click_link "The Sample Audio Object: I need another green form"
     expect(page).to have_link('Download file', href:"/object/bd5939745h/_2.mp3/download")
-  end
-  scenario 'is on the view page for single video object' do
-    sign_in_developer
-    visit catalog_index_path( {:q => 'sample'} )
-    click_link "Sample Video Object"
-    expect(page).to have_link('Download derivative', href:"/object/bd0786115s/_2.mp4/download")
-  end    
+  end  
 end
