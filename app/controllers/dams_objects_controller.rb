@@ -22,6 +22,9 @@ class DamsObjectsController < ApplicationController
       return
     end
 
+	search_results = request.env["HTTP_REFERER"]	
+    session[:search_results] = search_results if (!search_results.nil? && search_results.include?("search"))
+      
     # import solr config from catalog_controller and setup next/prev docs
     @blacklight_config = CatalogController.blacklight_config
     setup_next_and_previous_documents
