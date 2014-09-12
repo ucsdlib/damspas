@@ -1,12 +1,12 @@
 <%
-        temp = htmlOpen
-        temp %= key.pluralize(value.count).titleize
-        concat temp.html_safe
-        value.sort.each do |name|
+	htmlOpen %= key.pluralize(value.count).titleize
+	concat htmlOpen.html_safe
 %>
-          <li><%= link_to "<i class='icon-tag icon-white'></i> #{name}".html_safe, facet_uri(name, 'creator_sim'), :class => "label" %></li>
-          
-<%
-        end
-        concat htmlClose.html_safe
-%>
+
+	<ul class="unstyled glyphicon-list glyphicon-list-tag">
+		<% value.sort.each do |name| %>
+			<li><%= link_to name, facet_uri(name, 'creator_sim') %></li>
+		<% end %>
+	</ul>
+
+	<% concat htmlClose.html_safe %>

@@ -65,6 +65,33 @@
 .alert-phone{margin-bottom:10px !important;}
 .crumb{color:rgba(173,111,43,0.75);line-height: normal;}
 
+// Glyphicon Lists
+.glyphicon-list:before{content:normal;}
+
+.glyphicon-list li {
+  margin-left:10px;
+  padding: 0 0 0 18px;
+  display: block;
+  position: relative;
+}
+.glyphicon-list li:before {
+  font-family: 'Glyphicons Halflings';
+  position: absolute;
+  left: 0px;
+  top:0;
+  font-size:80%;
+  content:'';
+}
+.glyphicon-list-tag li:before {content:'\e041';}
+.glyphicon-list-search li:before {content:'\e003';}
+
+// Field notes (Metadata)
+
+.field-note,.field-title{line-height:normal}
+.field-title{margin-bottom:0;margin-top: 5px;}
+.field-note{font-size:75%;color:#999;}
+
+
 //---
 // MEDIA QUERIES
 //---

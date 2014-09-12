@@ -1,32 +1,37 @@
 <%
-	 if defined?(componentIndex) # Then we're working with a component
-		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
-		 htmlClose = "</ul></td></tr>"
-	 else # We're working with an object or collection
-		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
-		 htmlClose = "</ul></dd>"
-	 end
+   if defined?(componentIndex) # Then we're working with a component
+     prefix = "component_#{componentIndex}_"
+     htmlOpen = '<tr><td>%s</td><td>'
+     htmlClose = '</td></tr>'
+   else # We're working with an object or collection
+     prefix = ''
+     htmlOpen = '<dt>%s</dt><dd>'
+     htmlClose = '</dd>'
+   end
+
+	 modelType = @document["active_fedora_model_ssi"] == 'DamsObject' ? 'object' : 'collection'
+	 fieldPrefix = '<p class="field-title">'.html_safe
+	 fieldPostfix = "</p><p class='field-note'>View formats within this #{modelType}</p>".html_safe
 
 	 fieldData = @document["#{prefix}resource_type_tesim"]
 
 	 if fieldData != nil
 
-		htmlOpen %= 'Format'.pluralize(fieldData.count)
+		htmlOpen %= fieldPrefix + 'Format'.pluralize(fieldData.count) + fieldPostfix
 		concat htmlOpen.html_safe
-
-		fieldData.each do |datum|
-			resource_type = datum
-%>
-			<li><%= link_to "<i class='icon-tag icon-white'></i> #{resource_type}".html_safe, facet_uri(resource_type, 'object_type_sim'), :class => "label" %></li>
-		
-<%
- 		end
-
-		concat htmlClose.html_safe
-
-	 end
 %>
 
+		<ul class="unstyled glyphicon-list glyphicon-list-tag">
+		  <% fieldData.each do |resource_type| %>
+				<% if modelType == 'object' %>
+			    <li><%= link_to resource_type, facet_uri(resource_type, 'object_type_sim') %></li>
+				<% else %>
+		      <li><%= link_to resource_type, facet_uri(resource_type, 'object_type_sim') %></li>
+				<% end %>
+		  <% end %>
+		</ul>
+
+		<% concat htmlClose.html_safe %>
+
+	<% end %>
 
