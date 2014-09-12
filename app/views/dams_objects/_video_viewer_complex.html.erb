@@ -12,4 +12,4 @@
   <div id="dams-video-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</div>
 
 <% end %>
-<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath } %>
+<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath  } %>

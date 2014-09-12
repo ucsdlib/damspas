@@ -27,6 +27,11 @@
                     else
                       download_file_path = ''
                     end
+                    
+                    if service_file != nil
+					  download_derivative_path = download_path(ark,"_#{service_file}")
+					end
+					
 					pdf_file_path = (pdf_file != nil) ? download_path(ark, "_#{pdf_file}") : ''
 					zoom_file_path = zoom_path @document['id'], '0'
 				%>
@@ -37,6 +42,7 @@
 								:display_file_path => display_file_path,
 								:service_file_path => service_file_path,
 								:download_file_path => download_file_path,
+								:download_derivative_path => download_derivative_path,
 								:service_file => service_file,
 								:pdf_file_path => pdf_file_path,
 								:zoom_file_path => zoom_file_path
