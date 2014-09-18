@@ -21,6 +21,7 @@
 //= require leaflet
 //= require L.TileLayer.Zoomify/L.TileLayer.Zoomify.js
 //= require typeahead
+//= require ckeditor/ckeditor
 //
 // DAMS (CUSTOM)
 //= require search
