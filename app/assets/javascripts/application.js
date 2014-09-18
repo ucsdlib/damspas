@@ -21,14 +21,14 @@
 //= require leaflet
 //= require L.TileLayer.Zoomify/L.TileLayer.Zoomify.js
 //= require typeahead
-//= require ckeditor/ckeditor
 //
 // DAMS (CUSTOM)
 //= require search
 //= require views-object
 //= require views-units
 //= require edit
-
+//
+// CKEDITOR
+//= require ckeditor/ckeditor
+//
 Blacklight.do_search_context_behavior = function() {};
-
-
