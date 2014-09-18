@@ -27,8 +27,5 @@
 //= require views-object
 //= require views-units
 //= require edit
-//
-// CKEDITOR
-//= require ckeditor/ckeditor
-//
+
 Blacklight.do_search_context_behavior = function() {};

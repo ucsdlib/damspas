@@ -16,6 +16,7 @@
     <%= f.label :body %>
     <%= f.text_area :body, size: '70x30' %>
   </p>
+  <script src="//cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script>
   <script>CKEDITOR.replace('page_body')</script>
 
   <%= f.submit "Save Page", class: "btn btn-primary" %>
