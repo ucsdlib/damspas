@@ -1,0 +1,20 @@
+<% 
+  if(!params['id'].nil? && params['id'].to_s != 'object_type_sim')
+    Array browse_array = ("A".."Z").to_a
+    params_copy = params.dup
+    browse_array.each { |x| 
+	  params_copy['facet.prefix'] = x if (!params_copy['facet.sort'].nil? && params_copy['facet.sort'].to_s != 'count')
+
+      if(params['facet.prefix'].to_s == "#{x}")
+%>
+      	<span class="selected-letter"><%= x %></span>
+<%
+      else
+%>
+	    <span class="letter-link" onmouseover="this.style.borderColor = '#2E6AB1'"><%=  link_to( x, @pagination.params_for_resort_url('index', params_copy), :class => "letter") %></span>	
+<%
+      end
+	}
+  end
+%>
+

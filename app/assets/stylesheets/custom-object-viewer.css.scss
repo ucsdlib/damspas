@@ -65,6 +65,9 @@ $complexFile: #AC6F2B !default;
 .dams-viewer > hgroup > h2{font-size:110%;padding:0;margin:0 0 5px 0;line-height:100%;color: lighten(#00374E,10%);}
 .dams-viewer > hgroup{margin-bottom: 0;}
 .dams-viewer img{max-width:auto;max-height:400px;}
+.letter-link {border: 1px solid #9AAFE5; padding:4px;}
+.letter, .letter:hover {text-decoration: none;}
+.selected-letter {background-color: #2e6ab1; border: 1px solid #2e6ab1; color: #FFFFFF; font-weight: bold; padding:4px; }
 
 .dams-download-button{margin:0;}
 .dams-download-button p{margin: 0;text-align: center;}
