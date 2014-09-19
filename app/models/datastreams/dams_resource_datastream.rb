@@ -442,30 +442,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         dateVal = nil
         dateBeg = nil
         if(!date.nil? && !date.value.empty?)
-          dateVal = date.value.first
-          
-          if dateVal.include?(",")
-            dateVal = dateVal.slice(0..dateVal.index(',') - 1)
-          end
+          dateVal = clean_date date.value.first
         end
       	if(!date.nil? && !date.beginDate.empty?)
-          dateBeg = date.beginDate.first
-        end
-
-        # pad out YYYY or YYYY-MM to iso 8601 dates
-        if !dateVal.nil? && dateVal.match( '^\d{4}$' ) != nil
-          dateVal += "-01-01"
-        elsif !dateVal.nil? && dateVal.match( '^\d{4}-\d{2}$' ) != nil
-          dateVal += "-01"
-        end
-        if !dateBeg.nil? && dateBeg.match( '^\d{4}$' ) != nil
-          dateBeg += "-01-01"
-        elsif !dateBeg.nil? && dateBeg.match( '^\d{4}-\d{2}$' ) != nil
-          dateBeg += "-01"
+          dateBeg = clean_date date.beginDate.first
         end
 
         # parse dates
-        if(!dateVal.nil?)
+        if(!dateVal.blank?)
           if date.type.first == 'creation'
             begin
               creation_date = DateTime.parse(dateVal) if creation_date.nil?
@@ -492,6 +476,23 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     elsif other_date
       Solrizer.insert_field(solr_doc, "object_create", other_date, datesort)
     end
+  end
+  def clean_date( date )
+    d = date || ''
+    # pad yyyy or yyyy-mm dates out to yyyy-mm-dd
+    if d.match( '^\d{4}$' )
+      d += "-01-01"
+    elsif d.match( '^\d{4}-\d{2}$' )
+      d += "-01"
+    end
+
+    # remove everything after yyyy-mm-dd unless we have a full iso8601 date
+    if d.match('^\d{4}-\d{2}-\d{2}')
+      unless d.match('^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}')
+        d = d[0,10]
+      end
+    end
+    d
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
 
