@@ -229,6 +229,21 @@ feature 'Visitor wants to cancel unsaved objects' do
 
 end
 
+feature 'Visitor wants to click the results link to go back to the search results' do
+  
+  scenario "is on the main page" do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('div.pagination-note', :text => "Results 1 - 8 of 8")
+    expect(page).to have_selector('span.dams-filter', :text => "sample")    
+    click_link "Sample Image Component"
+    
+    expect(page).to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+
+    expect(page).to have_link('results', href:"http://www.example.com/search?q=sample")
+    
+  end
+end
+
 def sign_in_developer
   visit new_user_session_path
   fill_in "name", :with => "name"

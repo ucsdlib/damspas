@@ -1,36 +1,35 @@
 <%
-  if defined?(componentIndex) # Then we're working with a component
-    prefix = "component_#{componentIndex}_"
-    htmlOpen = "<tr><td>%s</td><td>"
-    htmlClose = "</td></tr>"
-  else # We're working with an object or collection
-    prefix = ''
-    htmlOpen = "<dt>%s</dt><dd>"
-    htmlClose = "</dd>"
-  end
+   if defined?(componentIndex) # Then we're working with a component
+     prefix = "component_#{componentIndex}_"
+     htmlOpen = '<tr><td>%s</td><td>'
+     htmlClose = '</td></tr>'
+   else # We're working with an object or collection
+     prefix = ''
+     htmlOpen = '<dt>%s</dt><dd>'
+     htmlClose = '</dd>'
+   end
 
   fieldData = []
-  bundle = ['genreForm_tesim', 'geographic_tesim', 'topic_tesim',
-    'conferenceName_tesim', 'corporateName_tesim', 'familyName_tesim',
-    'personalName_tesim', 'other_name_tesim', 'subject_tesim']
+  bundle = ['genreForm_tesim', 'geographic_tesim', 'topic_tesim','conferenceName_tesim', 'corporateName_tesim', 'familyName_tesim','personalName_tesim', 'other_name_tesim', 'subject_tesim']
   bundle.each do |field|
     values = @document["#{prefix}#{field}"]
     fieldData.concat(values) unless values.nil?
   end
 
   fieldData.sort!
-  if !fieldData.empty?
 
-    htmlOpen %= 'Topic'
+  unless fieldData.empty?
+
+    htmlOpen %= 'Topic'.pluralize(fieldData.count)
     concat htmlOpen.html_safe
 %>
-      <ul class="unstyled">
-        <% fieldData.each do |subject| %>
-          <li><%= link_to "<i class='icon-tag icon-white'></i> #{subject}".html_safe, facet_uri(subject, 'subject_topic_sim'), :class => "label" %></li>
-        <% end %>
-      </ul>
-<%
-    concat htmlClose.html_safe
 
-  end
-%>
+    <ul class="unstyled glyphicon-list glyphicon-list-tag">
+      <% fieldData.each do |topic| %>
+        <li><%= link_to topic, facet_uri(topic, 'subject_topic_sim') %></li>
+      <% end %>
+    </ul>
+
+	  <% concat htmlClose.html_safe %>
+
+	<% end %>

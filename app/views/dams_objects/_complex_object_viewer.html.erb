@@ -24,7 +24,7 @@
           download_file_path = download_path(ark,"_#{display_file}")
         else
           download_file_path = ''
-        end
+        end     
 	%>
 
 	<div id="component-<%= i %>" class="component <%= firstComponent %>" <%= loadFirstComponent %>>
@@ -38,29 +38,29 @@
 	       dataForDynamicLoad = "{\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\",\"download_file_path\":\"#{download_file_path}\"}"
 	    %>
 			<div data='<%=dataForDynamicLoad%>'></div>
-        <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path } %>
+        <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
 
 	  <% elsif fileType == 'audio' %>
 
-	    <%= render :partial => 'audio_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path} %>
+	    <%= render :partial => 'audio_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
 
 	  <% elsif fileType == 'video' %>
 
-	    <%= render :partial => 'video_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path} %>
+	    <%= render :partial => 'video_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
 
 	  <% elsif fileType == 'document' %>
 
-	    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path} %>
+	    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path, :downloadDerivativePath => service_file_path  } %>
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-	    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path} %>
+	    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path  } %>
 
 		<% elsif fileType == 'data' %>
 
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-			<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path} %>
+			<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path  } %>
 
 		<% else %>
 

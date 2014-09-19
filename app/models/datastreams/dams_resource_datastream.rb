@@ -443,6 +443,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         dateBeg = nil
         if(!date.nil? && !date.value.empty?)
           dateVal = date.value.first
+          
+          if dateVal.include?(",")
+            dateVal = dateVal.slice(0..dateVal.index(',') - 1)
+          end
         end
       	if(!date.nil? && !date.beginDate.empty?)
           dateBeg = date.beginDate.first

@@ -1,30 +1,28 @@
 <%
 	 prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
 	 fieldData = @document["#{prefix}title_json_tesim"]
+   title = nil
+   subtitle = nil
 %>
 
 <% if fieldData != nil %>
 
 	<hgroup>
-	<% fieldData.each do |datum| %>
-		<%
-          t = JSON.parse(datum)
-          title = "#{t['nonSort']} #{t['value'].gsub('""', '"')}"
-          unless t['partName'].blank?
-            title += ", " unless title.blank?
-            title += t['partName']
-          end
-          unless t['partNumber'].blank?
-            title += ", " unless title.blank?
-            title += t['partNumber']
-          end
-        %>
-		<h1><%= title %></h1>
-		<% if t['subtitle'] != '' %>
-			<h2><%= t['subtitle'].gsub('""', '"') %></h2>
-		<% end %>
-		<% break %>
-	<% end %>
+	<% fieldData.each do |datum| 
+      result = JSON.parse(datum)
+      if !result['value'].blank?
+         title = result['value'] 
+         subtitle = result['subtitle'] if !result['subtitle'].blank?
+        break
+      else
+        title = result['name']
+        subtitle = result['subtitle'] if !result['subtitle'].blank?
+      end
+    end
+  %>
+    
+	<% if title %><h1><%= title %></h1><% end %>
+	<% if subtitle %><h2><%= subtitle %></h2> <% end %>
 	</hgroup>
 
 <% elsif defined?(componentIndex) %>

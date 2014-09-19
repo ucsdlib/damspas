@@ -1,41 +1,41 @@
 <%
 	if defined?(componentIndex) # Then we're working with a component
 		prefix = "component_#{componentIndex}_"
-		htmlOpen = '<tr><td>%s</td><td><ul class="unstyled">'
-		htmlClose = '</ul></td></tr>'
+		htmlOpen = '<tr><td>%s</td><td>'
+		htmlClose = '</td></tr>'
 	else # We're working with an object or collection
 		prefix = ''
-		htmlOpen = '<dt>%s</dt><dd><ul class="unstyled">'
-		htmlClose = '</ul></dd>'
+		htmlOpen = '<dt>%s</dt><dd>'
+		htmlClose = '</dd>'
 	end
 
 	fieldData = @document["#{prefix}relationship_json_tesim"]
+%>
 
-	if fieldData != nil
-		fieldData.each do |datum|
-			relationship = JSON.parse(datum)
-			relationship.each do |key, value|
-				if key == "Principal investigator"
-%>
-					 <%=	render 'shared/fields/relationships_data', key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose %>
-<%
-       end
-     end
-    relationship.each do |key, value|
-				if key == "Co-principal investigator"
-%>
-					 <%=	render 'shared/fields/relationships_data', key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose %>
+	<% if fieldData != nil %>
 
-<%
-       end
-     end
-    relationship.each do |key, value|
-				if key != "Principal investigator" && key != "Co-principal investigator"
-%>
-					 <%=	render 'shared/fields/relationships_data', key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose %>
-<%
-      end
-     end 
-		end
-	end
-%>
+		<% fieldData.each do |datum| %>
+
+			<% relationship = JSON.parse(datum) %>
+
+      <% relationship.each do |key, value| %>
+				<% if key == 'Principal investigator' %>
+					<%= render :partial => 'shared/fields/relationships_data', :locals => {key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose} %>
+				<% end %>
+			<% end %>
+
+      <% relationship.each do |key, value| %>
+				<% if key == 'Co-principal investigator' %>
+					<%= render :partial => 'shared/fields/relationships_data', :locals => {key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose} %>
+				<% end %>
+			<% end %>
+
+      <% relationship.each do |key, value| %>
+				<% if key != 'Principal investigator' && key != 'Co-principal investigator' %>
+					<%= render :partial => 'shared/fields/relationships_data', :locals => {key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose} %>
+				<% end %>
+			<% end %>
+
+		<% end %>
+
+	<% end %>

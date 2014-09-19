@@ -15,6 +15,7 @@ body{padding-top:0;}/* remove blacklight's crazy top padding */
 .navbar-inverse .nav-collapse .nav > li > a:hover{background:rgba(0,53,87,0.75);}/* mobile .nav link hover effect fix */
 .typeahead .active > a, .typeahead .active > a:hover {color: white;background-color: #999;}
 .alert a{color:#907953;text-decoration:underline;}
+.alert .close{text-decoration:none !important;}
 .alert-error a{color:#8b4d4b !important;}
 .alert-success a{color:#416641 !important;}
 .alert-info a{color:#416d82 !important;}
