@@ -356,10 +356,10 @@ class CatalogController < ApplicationController
         
     solr_params[:"facet.prefix"] = user_params['facet.prefix'] if (!user_params['facet.prefix'].nil? && user_params['facet.prefix'].to_s.length > 0)
     
-    if (!user_params['facet.sort'].nil? && user_params['facet.sort'].to_s == 'count')
-      solr_params.delete :"facet.prefix"
-      user_params.delete :"facet.prefix"
-    end
+#    if (!user_params['facet.sort'].nil? && user_params['facet.sort'].to_s == 'count')
+#      solr_params.delete :"facet.prefix"
+#      user_params.delete :"facet.prefix"
+#    end
     
     # Make the solr call
     response =find(blacklight_config.qt, solr_params)

@@ -63,6 +63,22 @@ feature 'Visitor wants to browse Topic A-Z ' do
     page.all('.facet_select')[1].text.should include 'Cosmology'
     page.all('.facet_select')[2].text.should include 'Cosmology--Observations'   
   end
+  
+  scenario 'wants to select Numerical Sort' do
+    sign_in_developer
+    visit catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index', :'facet.prefix' => 'S')
+    
+    expect(page).to have_selector('span.selected-letter', :text => 'S')
+    page.all(:css, '.facet_select').size.should eq(2)
+    page.all('.facet_select')[0].text.should include 'San Diego Supercomputer Center.'
+    page.all('.facet_select')[1].text.should include 'Smith, John, Dr., 1965-'    
+    
+    click_on("Numerical Sort", match: :first)
+    expect(page).to have_selector('span.selected-letter', :text => 'S')
+    page.all(:css, '.facet_select').size.should eq(2)
+    page.all('.facet_select')[0].text.should include 'Smith, John, Dr., 1965-'      
+    page.all('.facet_select')[1].text.should include 'San Diego Supercomputer Center.'
+  end  
 end
 
 feature 'Visitor wants to browse Creator A-Z ' do
