@@ -449,7 +449,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
 
         # parse dates
-        if(!dateVal.nil?)
+        if(!dateVal.blank?)
           if date.type.first == 'creation'
             begin
               creation_date = DateTime.parse(dateVal) if creation_date.nil?
@@ -478,20 +478,21 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def clean_date( date )
+    d = date || ''
     # pad yyyy or yyyy-mm dates out to yyyy-mm-dd
-    if !date.nil? && date.match( '^\d{4}$' ) != nil
-      date += "-01-01"
-    elsif !date.nil? && date.match( '^\d{4}-\d{2}$' ) != nil
-      date += "-01"
+    if d.match( '^\d{4}$' )
+      d += "-01-01"
+    elsif d.match( '^\d{4}-\d{2}$' )
+      d += "-01"
     end
 
     # remove everything after yyyy-mm-dd unless we have a full iso8601 date
-    if !date.nil? && date.match('^\d{4}-\d{2}-\d{2}') != nil
-      unless date.match('^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}')
-        date = date[0,10]
+    if d.match('^\d{4}-\d{2}-\d{2}')
+      unless d.match('^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}')
+        d = d[0,10]
       end
     end
-    date
+    d
   end
   def insertRelationshipFields ( solr_doc, prefix, relationships )
 

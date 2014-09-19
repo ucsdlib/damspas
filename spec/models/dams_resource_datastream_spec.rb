@@ -3,6 +3,9 @@ require 'spec_helper'
 describe DamsResourceDatastream do
   subject { DamsResourceDatastream.new }
   describe "date_clean" do
+    it "should handle nil dates" do
+      subject.clean_date(nil).should == ''
+    end
     it "should leave non-ISO8601 values alone" do
       d = "May 24, 1975"
       subject.clean_date(d).should == d
