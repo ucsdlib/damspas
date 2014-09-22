@@ -244,6 +244,21 @@ feature 'Visitor wants to click the results link to go back to the search result
   end
 end
 
+feature 'Format link(s) need to be scoped to the collection level ' do
+  
+  scenario "is on the object view page" do
+    visit dams_object_path(:id => 'bd3379993m')
+      expect(page).to have_link('image')
+
+    click_link "image"
+    expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Dissertations")
+    expect(page).to have_selector('span.dams-filter a', :text => "image")
+
+  
+    
+  end
+end
+
 def sign_in_developer
   visit new_user_session_path
   fill_in "name", :with => "name"
