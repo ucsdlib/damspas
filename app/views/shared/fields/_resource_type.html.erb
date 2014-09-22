@@ -9,9 +9,35 @@
      htmlClose = '</dd>'
    end
 
-	 modelType = @document["active_fedora_model_ssi"] == 'DamsObject' ? 'object' : 'collection'
+	  modelType = @document["active_fedora_model_ssi"] == 'DamsObject' ? 'object' : 'collection'
 	 fieldPrefix = '<p class="field-title">'.html_safe
 	 fieldPostfix = "</p><p class='field-note'>View formats within this #{modelType}</p>".html_safe
+
+   # Handle facet link
+   collection_title = ""
+   collectionData = ""
+   facet_uri_list = {}
+
+   if modelType == "object"
+     if !@document['assembledCollection_json_tesim'].blank?
+       collectionData = @document['assembledCollection_json_tesim']
+     elsif !@document['provenanceCollection_json_tesim'].blank?
+      collectionData = @document['provenanceCollection_json_tesim']
+     elsif !@document['part_json_tesim'].blank?
+      collectionData = @document['part_json_tesim']
+     elsif !@document["#{prefix}collection_json_tesim"].blank?
+        collectionData = @document["#{prefix}collection_json_tesim"]
+     end
+     
+     if !collectionData.blank?
+       collectionData.each do |datum|
+        collection = JSON.parse(datum)
+        collection_title = collection['name']
+       end
+     end
+   else
+     collection_title = @document['title_tesim'].first
+   end
 
 	 fieldData = @document["#{prefix}resource_type_tesim"]
 
@@ -22,12 +48,18 @@
 %>
 
 		<ul class="unstyled glyphicon-list glyphicon-list-tag">
-		  <% fieldData.each do |resource_type| %>
-				<% if modelType == 'object' %>
-			    <li><%= link_to resource_type, facet_uri(resource_type, 'object_type_sim') %></li>
-				<% else %>
-		      <li><%= link_to resource_type, facet_uri(resource_type, 'object_type_sim') %></li>
-				<% end %>
+		  <% fieldData.each do |resource_type| 
+        if collection_title.blank?
+          facet_uri_list.merge!({"f"=>{"object_type_sim"=>["#{resource_type}"]}})
+        else
+          facet_uri_list.merge!({"f"=>{"object_type_sim"=>["#{resource_type}"], "collection_sim"=>["#{collection_title}"]}})
+        end
+          
+          facet_uri_list.merge!({"controller" => "catalog", :action=> "index"})
+        %>
+
+			    <li><%= link_to resource_type, facet_uri_list %></li>
+				
 		  <% end %>
 		</ul>
 

@@ -59,6 +59,30 @@ module CatalogHelper
     return add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index"})
   end
 
+  
+  
+  def facet_uri_list1
+
+   # return add_facet_params("text", "object_type_sim").merge!(add_facet_params("collection_sim", "Baja California")).merge!({"controller" => "catalog", :action=> "index"})
+
+ #    return {"action"=>"index",
+ # "controller"=>"catalog",
+ # "id"=>"bb03030303",
+ # "f"=>{"object_type_sim"=>["text"], "collection_sim"=>["Baja California"]}}
+
+#return {"f"=>{"object_type_sim"=>["text"], "collection_sim"=>["Baja California"]}, "controller"=>"catalog", "action"=>"index"}
+
+
+ #      return 
+ # {"f"=>{"object_type_sim"=>["text"], "collection_sim"=>["Baja California"]}}.merge!({"controller" => "catalog", "action"=> "index"})
+  end
+  
+  def link_to_facet_list(values, solr_field, empty_message="No value entered", separator=", ")
+      return empty_message if values.blank?
+      facet_field = Solrizer.solr_name(solr_field, :facetable)
+      safe_join(values.map{ |item| link_to_facet(item, facet_field) }, separator)
+    end
+
   #override of blacklight helper function: 
   # https://github.com/projectblacklight/blacklight/blob/master/app/helpers/blacklight/blacklight_helper_behavior.rb#L353
   # uses a semi-colon delimiter in for search result field values
