@@ -29,5 +29,3 @@
 //= require edit
 
 Blacklight.do_search_context_behavior = function() {};
-
-

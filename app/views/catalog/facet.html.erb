@@ -6,6 +6,7 @@
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
   <h3>Browse by <%= facet_field_labels[params[:id]] %></h3>
   <p><%= t("blacklight.search.facets.description." + params[:id]).html_safe %></p>
+  <%= render :partial=>'browse_listing' %>
 </div>
 <div class="modal-body">
   <div class="facet_extended_list">
