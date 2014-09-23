@@ -9,9 +9,10 @@
      htmlClose = '</dd>'
    end
 
-	  modelType = @document["active_fedora_model_ssi"] == 'DamsObject' ? 'object' : 'collection'
+	 modelType = @document["active_fedora_model_ssi"] == 'DamsObject' ? 'object' : 'collection'
 	 fieldPrefix = '<p class="field-title">'.html_safe
-	 fieldPostfix = "</p><p class='field-note'>View formats within this #{modelType}</p>".html_safe
+  
+	 fieldPostfix = "</p><p class='field-note'>View formats within this collection</p>".html_safe
 
    # Handle facet link
    collection_title = ""
@@ -49,15 +50,15 @@
 
 		<ul class="unstyled glyphicon-list glyphicon-list-tag">
 		  <% fieldData.each do |resource_type| 
-        if collection_title.blank?
-          facet_uri_list.merge!({"f"=>{"object_type_sim"=>["#{resource_type}"]}})
-        else
-          facet_uri_list.merge!({"f"=>{"object_type_sim"=>["#{resource_type}"], "collection_sim"=>["#{collection_title}"]}})
-        end
+          if collection_title.blank?
+            facet_uri_list.merge!({"f"=>{"object_type_sim"=>["#{resource_type}"]}})
+          else
+            facet_uri_list.merge!({"f"=>{"object_type_sim"=>["#{resource_type}"], "collection_sim"=>["#{collection_title}"]}})
+          end
           
           facet_uri_list.merge!({"controller" => "catalog", :action=> "index"})
         %>
-
+         
 			    <li><%= link_to resource_type, facet_uri_list %></li>
 				
 		  <% end %>
