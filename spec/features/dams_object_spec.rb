@@ -248,13 +248,11 @@ feature 'Format link(s) need to be scoped to the collection level ' do
   
   scenario "is on the object view page" do
     visit dams_object_path(:id => 'bd3379993m')
-      expect(page).to have_link('image')
+    expect(page).to have_link('image')
 
     click_link "image"
     expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Dissertations")
     expect(page).to have_selector('span.dams-filter a', :text => "image")
-
-  
     
   end
 end
