@@ -37,9 +37,9 @@
        end
      end
    else
-     collection_title = @document['title_tesim'].first
+     collection_title = @document['title_tesim'].first if !@document['title_tesim'].blank?
    end
-
+  
 	 fieldData = @document["#{prefix}resource_type_tesim"]
 
 	 if fieldData != nil
