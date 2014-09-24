@@ -3,7 +3,7 @@
   <h2>Advanced Search</h2>
 
 	<fieldset>
-		<%= search_as_hidden_fields(:params => advanced_search_context ) %>
+		<%= render_hash_as_hidden_fields(params_for_search(advanced_search_context, {})) %>
 		<label for="op">Matching</label>
 		<%= select_tag(:op, options_for_select({'Match all fields'=>'AND','Match any field'=>'OR'}.sort,'all'), :class => '') %>
 		<%= render 'advanced/advanced_search_fields' %>
