@@ -66,6 +66,11 @@ module CatalogHelper
     '; '
   end
 
+  # Is facet value in adv facet search results?
+  def facet_checked?(field, value, params)
+    params.has_key?('f') && params['f'].has_key?(field) && params['f'][field].include?(value)
+  end
+
   def date_list( document )
     dateVal = ''
     dates = document['date_json_tesim']
