@@ -68,18 +68,7 @@ module CatalogHelper
 
   # Is facet value in adv facet search results?
   def facet_checked?(field, value, params)
-    is_checked = false
-
-    if !params["f"].blank?
-      params["f"].each do |k,v|
-        if k == field && v.first == value
-          is_checked = true
-          break
-        end
-      end
-    end
-
-    return is_checked 
+    params.has_key?('f') && params['f'].has_key?(field) && params['f'][field].include?(value)
   end
 
   def date_list( document )
