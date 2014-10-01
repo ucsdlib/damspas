@@ -1,6 +1,6 @@
 <% if query_has_constraints? %>
   <div class="dams-search-constraints">
-    <span class="dams-search-constraints-label">Showing results for</span>
+    <span class="dams-search-constraints-label">Showing results for <%= page_entries_info(@response) %></span>
     <%= render_constraints_query(params) %>
     <%= render_constraints_filters(params) %>
   </div>

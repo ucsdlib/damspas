@@ -347,4 +347,29 @@ class CatalogController < ApplicationController
     render xml: xml.add( @obj.to_solr )
   end
 
+  # a solr query method
+  # used to paginate through a single facet field's values
+  # /catalog/facet/language_facet
+  def get_facet_pagination(facet_field, user_params=params || {}, extra_controller_params={})
+    
+    solr_params = solr_facet_params(facet_field, user_params, extra_controller_params)
+        
+    solr_params[:"facet.prefix"] = user_params['facet.prefix'] if (!user_params['facet.prefix'].nil? && user_params['facet.prefix'].to_s.length > 0)
+    
+    # Make the solr call
+    response =find(blacklight_config.qt, solr_params)
+
+    limit = solr_params[:"f.#{facet_field}.facet.limit"] -1
+      
+    # Actually create the paginator!
+    # NOTE: The sniffing of the proper sort from the solr response is not
+    # currently tested for, tricky to figure out how to test, since the
+    # default setup we test against doesn't use this feature. 
+    return     Blacklight::Solr::FacetPaginator.new(response.facets.first.items, 
+      :offset => solr_params[:"f.#{facet_field}.facet.offset"], 
+      :limit => limit,
+      :sort => response["responseHeader"]["params"][:"f.#{facet_field}.facet.sort"] || response["responseHeader"]["params"]["facet.sort"]
+    )
+  end
+
 end 
