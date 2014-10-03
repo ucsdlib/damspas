@@ -876,11 +876,13 @@ def display_node(index)
     if data != nil
       data.each do |datum|
         note = JSON.parse(datum)
-        note_label = note['displayLabel'].downcase
+        note_label = note['value'].downcase
         if note_label.include? 'culturally sensitive content'
           result = "<h3>Culturally Sensitive Content</h3><p>#{note['value']}</p><button type=\"button\" class=\"btn btn-danger btn-mini\" onClick=\"$('.masked-object').hide();$('.simple-object').show();\">View Content</button>".html_safe
         elsif note_label.include? 'restricted content'
           result = "<h3>Restricted Content</h3><p>We are sorry, but the image you have selected is not currently available for download or viewing. #{note['value']}".html_safe
+        elsif note_label.include?('we are sorry') || note_label.include?('image not available')
+          result = "<p>#{note['value']}".html_safe
         end
       end
     end
@@ -888,6 +890,7 @@ def display_node(index)
     result
   end
 
+  
 #---
 
 #
