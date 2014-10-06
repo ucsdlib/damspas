@@ -3,7 +3,6 @@ class DamsFunctionsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_function.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -23,47 +22,4 @@ class DamsFunctionsController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsFunction"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    @dams_function.scheme.build
-    @dams_function.elementList.functionElement.build
-    #Check schemes ####################################################################
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-  end
-
-  def edit
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    @scheme_id = Rails.configuration.id_namespace+@dams_function.scheme.to_s.gsub(/.*\//,'')[0..9]
-  end
-
-  def create
-    if @dams_function.save
-	    if(!params[:parent_id].nil?)
-			redirect_to dams_function_path(@dams_function, {:parent_id => params[:parent_id]})
-	    elsif(!params[:parent_class].nil?)
-			redirect_to dams_function_path(@dams_function, {:parent_class => params[:parent_class]}) 	    			 	    
-	    else    
-        	redirect_to @dams_function, notice: "function has been saved"
-        end
-    else
-      flash[:alert] = "Unable to save function"
-      render :new
-    end
-  end
-
-  def update
-    @dams_function.elementList.clear
-    @dams_function.scheme.clear
-    @dams_function.attributes = params[:dams_function]
-    if @dams_function.save
-      redirect_to @dams_function, notice: "Successfully updated function"
-    else
-      flash[:alert] = "Unable to save function"
-      render :edit
-    end
-  end
-
 end

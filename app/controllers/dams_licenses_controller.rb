@@ -3,7 +3,7 @@ class DamsLicensesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_license.id}")', :only => [:create, :update]
+  
 
   ##############################################################################
   # solr actions ###############################################################
@@ -21,37 +21,4 @@ class DamsLicensesController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsLicense"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    @dams_license.restriction_node.build
-    @dams_license.permission_node.build
-  end
-
-  def edit
-  end
-
-  def create
-    if @dams_license.save
-        redirect_to @dams_license, notice: "License has been saved"
-    else
-      flash[:alert] = "Unable to save License"
-      render :new
-    end
-  end
-
-  def update
-    @dams_license.restriction_node.clear
-    @dams_license.permission_node.clear 
-    @dams_license.attributes = params[:dams_license]
-    if @dams_license.save
-        redirect_to @dams_license, notice: "Successfully updated License"
-    else
-      flash[:alert] = "Unable to save License"
-      render :edit
-    end
-  end
-
 end
