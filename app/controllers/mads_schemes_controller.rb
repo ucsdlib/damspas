@@ -3,7 +3,6 @@ class MadsSchemesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@mads_scheme.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -16,37 +15,4 @@ class MadsSchemesController < ApplicationController
   def index
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsScheme"' )
   end
-
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-
-  end
-
-  def edit
-
-  end
-
-  def create
-    @mads_scheme.attributes = params[:mads_scheme]
-    if @mads_scheme.save
-        redirect_to @mads_scheme, notice: "MADSScheme has been saved"
-    else
-      flash[:alert] = "Unable to save MADSScheme"
-      render :new
-    end
-  end
-
-  def update
-    @mads_scheme.attributes = params[:mads_scheme]
-    if @mads_scheme.save
-        redirect_to mads_scheme_path(@mads_scheme), notice: "Successfully updated MADSScheme"
-    else
-      flash[:alert] = "Unable to save MADSScheme"
-      render :edit
-    end
-  end
-
 end
