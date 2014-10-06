@@ -1,7 +1,0 @@
-<div class="fields">
-<br/>
-
-<%= select_tag "#{object_type}[subjectType][]",  options_for_select(typeArray) , :prompt=>"Select Subject Type" , :onChange=>"javascript: getTypeaheadFields(this,'#{object_type}','#newSimpleSubjects','0','simpleSubject');"%>
-
-<div id="newSimpleSubjects"></div>
-</div>

@@ -1,7 +1,0 @@
-<h3>Related Resource</h3>
-<div id="relatedResourceSection">
-   <%= f.fields_for :relatedResource do |builder| %>
-		<%= render "shared/edit_fields/relatedResource_fields", :f => builder , :object_type => object_type%>       
-   <% end %>
-</div>
-<!-- Workaround to add multiple RelatedResources because RelatedResource has no datastream. -->
