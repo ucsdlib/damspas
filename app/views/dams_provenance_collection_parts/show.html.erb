@@ -15,7 +15,7 @@
 		<br>
 		
 		<% if can? :update, @dams_provenance_collection_part then %>
-					<%= link_to "Edit", edit_dams_provenance_collection_part_path(@dams_provenance_collection_part), class: "btn btn-primary"%>
+					
 					<%= link_to "RDF View", normalized_rdf_path(@dams_provenance_collection_part.id), class: "btn btn-primary"%>
 					<%= link_to "Data View", data_view_dams_collections_path(@dams_provenance_collection_part.id), class: "btn btn-primary"%>
 		<% end %>
