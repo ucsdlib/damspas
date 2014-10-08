@@ -251,7 +251,7 @@ feature 'Format link(s) need to be scoped to the collection level ' do
     expect(page).to have_link('image')
 
     click_link "image"
-    expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Dissertations")
+    expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Diss…")
     expect(page).to have_selector('span.dams-filter a', :text => "image")
     
   end
