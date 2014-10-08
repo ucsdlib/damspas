@@ -3,7 +3,6 @@ class MadsLanguagesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@mads_language.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -15,47 +14,4 @@ class MadsLanguagesController < ApplicationController
   def index
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsLanguage"' )
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    @mads_language.elementList.languageElement.build
-    @mads_language.scheme.build
-  	@mads_schemes = get_objects('MadsScheme','name_tesim')
-    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
-  end
-  def edit
-  	@mads_schemes = get_objects('MadsScheme','name_tesim')
-    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
-    @scheme_id = Rails.configuration.id_namespace+@mads_language.scheme.to_s.gsub(/.*\//,'')[0..9]
-  end
-
-  def create
-    if @mads_language.save
-	    if(!params[:parent_id].nil?)
-			redirect_to mads_language_path(@mads_language, {:parent_id => params[:parent_id]})
-	    elsif(!params[:parent_class].nil?)
-			redirect_to mads_language_path(@mads_language, {:parent_class => params[:parent_class]}) 	    			 	    
-	    else
-        	redirect_to @mads_language, notice: "Language has been saved"
-        end
-    else
-      flash[:alert] = "Unable to save Language"
-      render :new
-    end
-  end
-
-  def update
-    @mads_language.elementList.clear
-    @mads_language.scheme.clear  
-    @mads_language.attributes = params[:mads_language]
-    if @mads_language.save
-        redirect_to mads_language_path(@mads_language), notice: "Successfully updated Language"
-    else
-      flash[:alert] = "Unable to save Language"
-      render :edit
-    end
-  end
-
 end

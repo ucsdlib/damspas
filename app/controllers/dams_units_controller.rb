@@ -5,7 +5,6 @@ class DamsUnitsController < ApplicationController
   include Blacklight::Catalog
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_unit.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -27,36 +26,4 @@ class DamsUnitsController < ApplicationController
     apply_gated_discovery( count_params, nil )
     @count_resp, @count_doc = get_search_results( count_params )
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-
-  end
-
-  def edit
-    #@dams_unit = DamsUnit.find(params[:id])
-  end
-
-  def create
-    @dams_unit.attributes = params[:dams_unit]
-    if @dams_unit.save
-        redirect_to dams_unit_path @dams_unit, notice: "Unit has been saved"
-    else
-      flash[:alert] = "Unable to save unit"
-      render :new
-    end
-  end
-
-  def update
-    @dams_unit.attributes = params[:dams_unit]
-    if @dams_unit.save
-        redirect_to dams_unit_path @dams_unit, notice: "Successfully updated unit"
-    else
-      flash[:alert] = "Unable to save unit"
-      render :edit
-    end
-  end
-
 end

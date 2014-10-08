@@ -3,7 +3,6 @@ class DamsCopyrightsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_copyright.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -23,37 +22,6 @@ class DamsCopyrightsController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsCopyright"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    @dams_copyright.date.build
-  end
-
-  def edit
-  end
-
-  def create
-    if @dams_copyright.save
-        redirect_to @dams_copyright, notice: "Copyright has been saved"
-    else
-      flash[:alert] = "Unable to save Copyright"
-      render :new
-    end
-  end
-
-  def update
-    @dams_copyright.date.clear
-
-    @dams_copyright.attributes = params[:dams_copyright]
-    if @dams_copyright.save
-        redirect_to @dams_copyright, notice: "Successfully updated Copyright"        
-    else
-      flash[:alert] = "Unable to save Copyright"
-      render :edit
-    end
-  end
-
+  
 end
 

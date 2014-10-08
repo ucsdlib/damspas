@@ -62,29 +62,7 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_no_content('Sample Simple Object')
   end
 end
-feature 'Visitor should only see edit button when it will work' do
-  scenario 'an anonymous user' do
-    visit dams_unit_path('dlp')
-    expect(page).not_to have_selector('a', :text => 'Edit')
-  end
-  scenario 'a logged in user' do
-    sign_in_developer
-    visit dams_unit_path('dlp')
-    expect(page).to have_selector('a', :text => 'Edit')
-  end
-end
 
-feature 'Visitor should only see edit button when it will work' do
-  scenario 'an anonymous user' do
-    visit dams_unit_path('dlp')
-    expect(page).not_to have_selector('a', :text => 'Edit')
-  end
-  scenario 'a logged in user' do
-    sign_in_developer
-    visit dams_unit_path('dlp')
-    expect(page).to have_selector('a', :text => 'Edit')
-  end
-end
 
 feature "Visitor wants to view the unit's collections" do
   scenario 'an anonymous user' do

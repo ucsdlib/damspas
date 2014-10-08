@@ -18,47 +18,6 @@ describe DamsSourceCapturesController do
           @newobj.scannerManufacturer.should == @obj.scannerManufacturer
 	    end
 	  end
-	  
-	  describe "New" do
-	    it "should be successful" do 
-	      get :new
-	      response.should be_successful 
-	      assigns[:dams_source_capture].should be_kind_of DamsSourceCapture
-	    end
-	  end
-	  
-	  describe "Edit" do
-	    before do
-	      @obj = DamsSourceCapture.create(scannerManufacturer: "transmission scanner")
-	    end    
-	    it "should be successful" do 
-	      get :edit, id: @obj.id
-	      response.should be_successful 
-	      @newobj = assigns[:dams_source_capture]
-          @newobj.scannerManufacturer.should == @obj.scannerManufacturer
-	    end
-	  end
-	  
-	  describe "Create" do
-	    it "should be successful" do
-	      expect { 
-	        post :create, :dams_source_capture => {scannerManufacturer: ["transmission scanner"]}
-        }.to change { DamsSourceCapture.count }.by(1)
-	      response.should redirect_to assigns[:dams_source_capture]
-	      assigns[:dams_source_capture].should be_kind_of DamsSourceCapture
-	    end
-	  end
-	  
-	  describe "Update" do
-	    before do
- 	      @obj = DamsSourceCapture.create(scannerManufacturer: "transmission scanner")
- 	    end
-	    it "should be successful" do
-	      put :update, :id => @obj.id, :dams_source_capture => {scannerManufacturer: ["transmission scanner"]}
-	      response.should redirect_to assigns[:dams_source_capture]
-	      flash[:notice].should == "Successfully updated source capture"
-	    end
-    end
   end
 end
 

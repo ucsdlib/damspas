@@ -7,10 +7,5 @@
     <p>code: <%= code %></p>
   </div>
 
-  <% if can? :update, @document then %>
-    <p><strong>Editor Tools</strong></p>
-    <ul class="unstyled sidebar-button-list">
-      <li><%= link_to "<i class='icon-plus-sign'></i> Edit".html_safe, edit_mads_scheme_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-    </ul>
-  <% end %>
+ 
 </div>

@@ -3,7 +3,6 @@
 	@page_title = "Object | #{collection_title}"
 %>
 
-<%= render :partial => 'shared/edit_fields/view_form_hidden_fields' , :locals => {:object => @dams_assembled_collection, :parent_id => params[:parent_id], :parent_class => params[:parent_class]}%>
 
 <% if(params[:parent_id].nil? and params[:parent_class].nil?) %>	
 
@@ -16,7 +15,7 @@
 			
 			<br>
 			<% if can? :update, @dams_assembled_collection then %>
-						<%= link_to "Edit", edit_dams_assembled_collection_path(@dams_assembled_collection), class: "btn btn-primary"%>
+						
 						<%= link_to "RDF View", normalized_rdf_path(@dams_assembled_collection.id), class: "btn btn-primary"%>
 						<%= link_to "Data View", data_view_dams_collections_path(@dams_assembled_collection.id), class: "btn btn-primary"%>
 			<% end %>
