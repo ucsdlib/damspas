@@ -1,6 +1,16 @@
 require 'spec_helper'
 require 'rack/test'
 
+# Class to store the path of the object
+class Path
+  class << self
+    attr_accessor :path
+  end
+  # Variable to be used to store DAMS Object path
+  # Used for editing specified object
+  # @path = nil
+end
+
 feature 'Visitor want to look at objects' do
 
   scenario 'view a sample object record' do
@@ -19,7 +29,7 @@ feature 'Visitor want to look at objects' do
   
   scenario "review metadata of an object" do
     sign_in_developer
-    visit Path.path
+    visit dams_object_path('bd0922518w')
     click_on "Data View"
     expect(page).to have_selector('td', :text => "Object")
     expect(page).to have_selector('td', :text => "http://library.ucsd.edu/ark:/20775/bd0922518w")
@@ -48,16 +58,6 @@ feature 'Visitor want to look at objects' do
     expect(page).to have_content "The page you were looking for does not exist."
   end
 
-end
-
-# Class to store the path of the object
-class Path
-  class << self
-    attr_accessor :path
-  end
-  # Variable to be used to store DAMS Object path
-  # Used for editing specified object
-  # @path = nil
 end
 
 
