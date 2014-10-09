@@ -43,7 +43,7 @@
 
 	  <% elsif fileType == 'audio' %>
 
-	    <%= render :partial => 'audio_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
+	    <%= render :partial => 'audio_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => nil  } %>
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
 
 	  <% elsif fileType == 'video' %>

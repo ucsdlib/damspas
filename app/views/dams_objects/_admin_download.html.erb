@@ -6,7 +6,7 @@
       <i class="icon-download-alt icon-white"></i>Download file
     </a>
   </div>
-<% elsif ucsd_local_display == 'false' %>
+<% elsif ucsd_local_display == 'false' && !downloadDerivativePath.nil?%>
   <div class="form-actions dams-download-button">
     <a class="btn <%=btnColor%> pull-right" href="<%= downloadDerivativePath %>">
       <i class="icon-download-alt icon-white"></i>Download file
