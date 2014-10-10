@@ -239,12 +239,17 @@ $(document).ready(function()
 		dp.cartographics.load();
 	}
 
-    // Hide content if "Restricted/Sensitive" present
-    if($(".masked-object").length)
+    // Hide content if "restricted notice" present
+    if($(".restricted-notice").length)
     {
-         $(".simple-object").hide();
+        $(".simple-object, .first-component, .dams-sidebar").hide();
     }
 
+    // Show hidden "restricted notice" objects
+    $("#view-masked-object").click(function() {
+        $('.restricted-notice').hide();
+        $(".simple-object, .first-component, .dams-sidebar").show();
+    });
 
 	// handle derivatives generation callbacks
 	$('#generate_derivatives')

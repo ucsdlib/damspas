@@ -4,6 +4,17 @@
 	firstComponent = 'first-component'
 %>
 
+<%# CHECK FOR RESTRICTED NOTICE %>
+<% restrictedNotice = grabRestrictedText(@document['otherNote_json_tesim']) %>
+<% unless restrictedNotice.nil? %>
+  <div class="restricted-notice">
+    <div>
+      <%= restrictedNotice %>
+    </div>
+  </div>
+<% end %>
+
+<%# DRAW COMPONENTS %>
 <% for i in 1..componentCount %>
 
 	<%
@@ -33,10 +44,9 @@
 
 		<% if fileType == 'image' %>
 
-	    <%
-	       zoom_file_path = zoom_path(ark, "#{i}")
-	       dataForDynamicLoad = "{\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\",\"download_file_path\":\"#{download_file_path}\"}"
-	    %>
+			<% zoom_file_path = zoom_path(ark, "#{i}") %>
+			<% dataForDynamicLoad = "{\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\",\"download_file_path\":\"#{download_file_path}\"}" %>
+
 			<div data='<%=dataForDynamicLoad%>'></div>
         <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>

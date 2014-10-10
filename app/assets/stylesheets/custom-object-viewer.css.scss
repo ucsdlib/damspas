@@ -106,29 +106,29 @@ $complexFile: #AC6F2B !default;
 .file-thumbnail img{margin-bottom: 20px;}
 
 // Masked Objects (Restricted, Sensitive, etc.)
-.masked-object
+.restricted-notice
 {
-background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png) no-repeat center center;
+  background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png) no-repeat center center;
   background-size:75%,75%;
   border-radius: 3px;
   padding:0;
   height:480px;
   margin:3% 0;
-  div{
-  width:100%;
-  border:1px solid #fff;
+  div
+  {
+    width:100%;
+    border:1px solid #fff;
     border-right:none;
     border-left:none;
-  background:#c00;
-  color:#fff;
-  padding:1em;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    background:#c00;
+    color:#fff;
+    padding:1em;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
     position: relative;
     top: 50%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-
     h3,p{margin:0;padding:0;line-height:normal;}
     h3{font-size:1em;}
     p{font-size:0.85em;color:rgba(255,255,255,0.85);}
@@ -230,16 +230,16 @@ background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png
 	.search-query-form .btn{width:100%;}
 
 
-  .masked-object
+  .restricted-notice
   {
     background-size:100%,100%;
     height:300px;
-    div{
+    div
+    {
       padding:0.5em;
       h3{font-size:0.9em;}
       p{font-size:0.8em;}
     }
-
   }
 
 

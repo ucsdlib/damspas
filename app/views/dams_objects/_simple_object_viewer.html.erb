@@ -2,7 +2,7 @@
 
   <% restrictedNotice = grabRestrictedText(@document['otherNote_json_tesim']) %>
   <% unless restrictedNotice.nil? %>
-    <div class="masked-object">
+    <div class="restricted-notice">
 	    <div>
 	      <%= restrictedNotice %>
 	    </div>
