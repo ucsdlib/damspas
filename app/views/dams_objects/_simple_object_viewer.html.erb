@@ -14,7 +14,7 @@
 		<% when 'image-service' %>
 			<%= render :partial => 'image_viewer', :locals => {:displayFilePath => display_file_path, :zoomFilePath  => zoom_file_path, :filePath => service_file_path, :pdfFilePath => pdf_file_path, :service_file => service_file, :downloadFilePath => download_file_path, :downloadDerivativePath => download_derivative_path} %>
 		<% when 'audio-service' %>
-			<%= render :partial => 'audio_viewer', :locals => {:filePath => service_file_path, :downloadFilePath => download_file_path, :downloadDerivativePath => download_derivative_path} %>
+			<%= render :partial => 'audio_viewer', :locals => {:filePath => service_file_path, :downloadFilePath => download_file_path, :downloadDerivativePath => nil} %>
 		<% when 'video-service' %>
 			<%= render :partial => 'video_viewer', :locals => {:filePath => service_file_path, :icon => display_file_path, :downloadFilePath => download_file_path, :downloadDerivativePath => download_derivative_path} %>
 		<% when 'document-service' %>
