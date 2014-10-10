@@ -47,7 +47,7 @@ Hydra::Application.routes.draw do
 
   resources :dams_subjects, :only => [:show]
 
-  resources :object, :controller => 'dams_objects', :as => 'dams_objects'
+  resources :object, :controller => 'dams_objects', :as => 'dams_objects', only: [:index, :show]
 
   post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
@@ -55,47 +55,47 @@ Hydra::Application.routes.draw do
   get "object/:id/data_view", :to => 'dams_objects#data_view', :as => 'data_view'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   get "object/:id/:ds/download", :to => 'file#show', defaults: { disposition: 'attachment' }, :constraints => { :ds => /[^\/]+/ }, :as => 'download'
-  resources :dams_assembled_collections
-  resources :dams_units do
+  resources :dams_assembled_collections, only: [:index, :show]
+  resources :dams_units, only: [:index, :show] do
     member do
       get 'collections'
     end
   end
-  resources :dams_copyrights
-  resources :dams_licenses
-  resources :dams_other_rights
-  resources :dams_statutes
-  resources :dams_languages
-  resources :dams_vocabularies
-  resources :dams_roles
-  resources :dams_provenance_collections
-  resources :dams_provenance_collection_parts
-  resources :dams_vocabulary_entries
-  resources :dams_source_captures
-  resources :dams_cartographics
-  resources :dams_built_work_places
-  resources :dams_iconographies
-  resources :dams_style_periods
-  resources :dams_scientific_names
-  resources :dams_techniques
-  resources :dams_cultures
-  resources :dams_cultural_contexts
-  resources :dams_functions
-  resources :dams_related_resources
-  resources :mads_personal_names
-  resources :mads_family_names
-  resources :mads_corporate_names
-  resources :mads_conference_names
-  resources :mads_complex_subjects
-  resources :mads_topics
-  resources :mads_temporals
-  resources :mads_names
-  resources :mads_occupations
-  resources :mads_genre_forms
-  resources :mads_geographics
-  resources :mads_schemes
-  resources :mads_authority, :as => 'mads_authorities'
-  resources :mads_languages
+  resources :dams_copyrights, only: [:index, :show]
+  resources :dams_licenses, only: [:index, :show]
+  resources :dams_other_rights, only: [:index, :show]
+  resources :dams_statutes, only: [:index, :show]
+  resources :dams_languages, only: [:index, :show]
+  resources :dams_vocabularies, only: [:index, :show]
+  resources :dams_roles, only: [:index, :show]
+  resources :dams_provenance_collections, only: [:index, :show]
+  resources :dams_provenance_collection_parts, only: [:index, :show]
+  resources :dams_vocabulary_entries, only: [:index, :show]
+  resources :dams_source_captures, only: [:index, :show]
+  resources :dams_cartographics, only: [:index, :show]
+  resources :dams_built_work_places, only: [:index, :show]
+  resources :dams_iconographies, only: [:index, :show]
+  resources :dams_style_periods, only: [:index, :show]
+  resources :dams_scientific_names, only: [:index, :show]
+  resources :dams_techniques, only: [:index, :show]
+  resources :dams_cultures, only: [:index, :show]
+  resources :dams_cultural_contexts, only: [:index, :show]
+  resources :dams_functions, only: [:index, :show]
+  resources :dams_related_resources, only: [:index, :show]
+  resources :mads_personal_names, only: [:index, :show]
+  resources :mads_family_names, only: [:index, :show]
+  resources :mads_corporate_names, only: [:index, :show]
+  resources :mads_conference_names, only: [:index, :show]
+  resources :mads_complex_subjects, only: [:index, :show]
+  resources :mads_topics, only: [:index, :show]
+  resources :mads_temporals, only: [:index, :show]
+  resources :mads_names, only: [:index, :show]
+  resources :mads_occupations, only: [:index, :show]
+  resources :mads_genre_forms, only: [:index, :show]
+  resources :mads_geographics, only: [:index, :show]
+  resources :mads_schemes, only: [:index, :show]
+  resources :mads_authority, :as => 'mads_authorities', only: [:index, :show]
+  resources :mads_languages, only: [:index, :show]
 
   resources :get_data do
   get 'get_linked_data', :on => :member

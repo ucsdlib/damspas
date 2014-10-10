@@ -1,7 +1,0 @@
-<h3>Date</h3>
-<div id="dateSection">
-  <%= f.fields_for :date do |d| %>
-    <%= render "shared/edit_fields/date_fields", :f => d %>
-  <% end %>
-</div>
-<!-- Workaround to add multiple Dates because DamsDate has no datastream. -->

@@ -3,7 +3,6 @@ class DamsIconographiesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_iconography.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -23,51 +22,4 @@ class DamsIconographiesController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsIconography"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    #Check schemes ####################################################################
-    @dams_iconography.scheme.build
-    @dams_iconography.elementList.iconographyElement.build
-	@mads_schemes = get_objects('MadsScheme','name_tesim')
-  end
-
-  def edit
-  	@mads_schemes = get_objects('MadsScheme','name_tesim')
-    @scheme_id = Rails.configuration.id_namespace+@dams_iconography.scheme.to_s.gsub(/.*\//,'')[0..9]
-  end
-
-  def create
-    if @dams_iconography.save
-	    if(!params[:parent_id].nil?)
-			redirect_to dams_iconography_path(@dams_iconography, {:parent_id => params[:parent_id]})
-	    elsif(!params[:parent_class].nil?)
-			redirect_to dams_iconography_path(@dams_iconography, {:parent_class => params[:parent_class]}) 	    			 	    
-	    else    
-        	redirect_to @dams_iconography, notice: "iconography has been saved"
-        end
-    else
-      flash[:alert] = "Unable to save iconography"
-      render :new
-    end
-  end
-
-  def update
-    @dams_iconography.elementList.clear
-    @dams_iconography.scheme.clear  
-    @dams_iconography.attributes = params[:dams_iconography]
-    if @dams_iconography.save
-		if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-        	redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated iconography"
-        else      
-        	redirect_to @dams_iconography, notice: "Successfully updated iconography"
-        end
-    else
-      flash[:alert] = "Unable to save iconography"
-      render :edit
-    end
-  end
-
 end

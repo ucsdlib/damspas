@@ -40,46 +40,16 @@
             </ul>
           </li>
 
-          <% if can?(:create, DamsObject) || can?(:create, DamsProvenanceCollection) || can?(:create, DamsProvenanceCollectionPart) || can?(:create, DamsAssembledCollection) %>
-            <li class="dropdown">
-              <!-- Logged in as <%= current_user.uid %> -->
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Editor Tools <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <% if can? :create, DamsObject %>
-                	<li><%= link_to 'Create Object', new_dams_object_path %></li>
-                <% end %>
-                <% if can? :create, DamsProvenanceCollection %>
-	                <li><%= link_to 'Create Provenance Collection', new_dams_provenance_collection_path %></li>
-                <% end %>
-                <% if can? :create, DamsProvenanceCollectionPart %>
-	                <li><%= link_to 'Create Provenance Collection Part', new_dams_provenance_collection_part_path %></li>
-                <% end %>
-                <% if can? :create, DamsAssembledCollection %>
-	                <li><%= link_to 'Create Assembled Collection', new_dams_assembled_collection_path %></li>
-                <% end %>
-                <%# link_to 'Create Administrative Unit', new_dams_unit_path %>
-                <li class="divider">
-                  <!-- use an image bug to keep the Shibboleth session alive -->
-                  <img src="https://a4.ucsd.edu/tritON/imagebug">
-                </li>
-                <li><%= link_to 'Bookmarks', bookmarks_path %></li>
-                <li class="divider">
-                  <!-- use an image bug to keep the Shibboleth session alive -->
-                  <img src="https://a4.ucsd.edu/tritON/imagebug">
-                </li>
-                <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
-              </ul>
-            </li>
-          <% elsif current_user && current_user.provider != 'anonymous'  %>
-            <li><%= link_to 'Bookmarks', bookmarks_path %></li>
-            <li class="divider">
-              <!-- use an image bug to keep the Shibboleth session alive -->
+          <%if current_user && current_user.provider != 'anonymous'  %>
+          <!-- use an image bug to keep the Shibboleth session alive -->
               <img src="https://a4.ucsd.edu/tritON/imagebug">
+            <li><%= link_to 'Bookmarks', bookmarks_path %></li>
+            <li><%= link_to 'Sign Out', destroy_user_session_path %>
             </li>
-            <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
           <% else %>
             <li><%= link_to 'Sign In', new_user_session_path %></li>
           <% end %>
+
           <li><%= link_to 'The Library', 'http://libraries.ucsd.edu/' %></li>
  
         </ul>

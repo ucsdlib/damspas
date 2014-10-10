@@ -3,7 +3,7 @@ class DamsScientificNamesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_scientific_name.id}")', :only => [:create, :update]
+  
 
   ##############################################################################
   # solr actions ###############################################################
@@ -23,51 +23,4 @@ class DamsScientificNamesController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsScientificName"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    #Check schemes ####################################################################
-    @dams_scientific_name.scheme.build
-    @dams_scientific_name.elementList.scientificNameElement.build
-  @mads_schemes = get_objects('MadsScheme','name_tesim')
-  end
-
-  def edit
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    @scheme_id = Rails.configuration.id_namespace+@dams_scientific_name.scheme.to_s.gsub(/.*\//,'')[0..9]
-  end
-
-  def create
-    if @dams_scientific_name.save
-	    if(!params[:parent_id].nil?)
-			redirect_to dams_scientific_name_path(@dams_scientific_name, {:parent_id => params[:parent_id]})
-	    elsif(!params[:parent_class].nil?)
-			redirect_to dams_scientific_name_path(@dams_scientific_name, {:parent_class => params[:parent_class]}) 	    			 	    
-	    else    
-        	redirect_to @dams_scientific_name, notice: "scientific name has been saved"
-        end
-    else
-      flash[:alert] = "Unable to save scientific name"
-      render :new
-    end
-  end
-
-  def update
-    @dams_scientific_name.elementList.clear
-    @dams_scientific_name.scheme.clear  
-    @dams_scientific_name.attributes = params[:dams_scientific_name]
-    if @dams_scientific_name.save
-    if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-          redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated scientific name"
-        else      
-          redirect_to @dams_scientific_name, notice: "Successfully updated scientific name"
-        end
-    else
-      flash[:alert] = "Unable to save scientific name"
-      render :edit
-    end
-  end
-
 end
