@@ -3,7 +3,6 @@ class DamsBuiltWorkPlacesController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_built_work_place.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -22,53 +21,6 @@ class DamsBuiltWorkPlacesController < ApplicationController
     # solr index
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsBuiltWorkPlace"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
-  end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    #Check schemes ####################################################################
-    @dams_built_work_place.scheme.build
-    @dams_built_work_place.elementList.builtWorkPlaceElement.build
-  @mads_schemes = get_objects('MadsScheme','name_tesim')
-  end
-
-  def edit
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    @scheme_id = Rails.configuration.id_namespace+@dams_built_work_place.scheme.to_s.gsub(/.*\//,'')[0..9]
-  end
-
-  def create 
-    
-    if @dams_built_work_place.save
-	    if(!params[:parent_id].nil?)
-			redirect_to dams_built_work_place_path(@dams_built_work_place, {:parent_id => params[:parent_id]})
-	    elsif(!params[:parent_class].nil?)
-			redirect_to dams_built_work_place_path(@dams_built_work_place, {:parent_class => params[:parent_class]}) 	    			 	    
-	    else    
-        	redirect_to @dams_built_work_place, notice: "built work place has been saved"
-        end
-    else
-      flash[:alert] = "Unable to save built work place"
-      render :new
-    end
-  end
-
-  def update
-    @dams_built_work_place.elementList.clear
-    @dams_built_work_place.scheme.clear  
-    @dams_built_work_place.attributes = params[:dams_built_work_place]
-    if @dams_built_work_place.save
-    if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-          redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated built work place"
-        else      
-          redirect_to @dams_built_work_place, notice: "Successfully updated built work place"
-        end
-    else
-      flash[:alert] = "Unable to save built work place"
-      render :edit
-    end
   end
 
 end

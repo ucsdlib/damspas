@@ -3,7 +3,6 @@ class MadsComplexSubjectsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@mads_complex_subject.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -23,50 +22,5 @@ class MadsComplexSubjectsController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:MadsComplexSubject"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    @mads_complex_subject.scheme.build
-    @mads_complex_subject.componentList.topic.build
-    @mads_schemes = get_objects('MadsScheme','name_tesim')  
-	#@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
-  end
-
-  def edit
-    @mads_complex_subject = MadsComplexSubject.find(params[:id])
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    #@mads_schemes = MadsScheme.all( :order=>"system_create_dtsi asc" )
-    @scheme_id = Rails.configuration.id_namespace+@mads_complex_subject.scheme.to_s.gsub(/.*\//,'')[0..9]
-  end
-
-  def create
-    #@mads_complex_subject.attributes = params[:mads_complex_subject]
-    if @mads_complex_subject.save
-	    if(!params[:parent_id].nil?)
-			redirect_to mads_complex_subject_path(@mads_complex_subject, {:parent_id => params[:parent_id]})
-	    elsif(!params[:parent_class].nil?)
-			redirect_to mads_complex_subject_path(@mads_complex_subject, {:parent_class => params[:parent_class]}) 	    			 	    
-	    else    
-        	redirect_to @mads_complex_subject, notice: "ComplexSubject has been saved"
-        end
-    else
-      flash[:alert] = "Unable to save ComplexSubject"
-      render :new
-    end
-  end
-
-  def update
-    @mads_complex_subject.componentList.clear
-    @mads_complex_subject.scheme.clear  
-    @mads_complex_subject.attributes = params[:mads_complex_subject]
-    if @mads_complex_subject.save
-        redirect_to @mads_complex_subject, notice: "Successfully updated ComplexSubject"
-    else
-      flash[:alert] = "Unable to save ComplexSubject"
-      render :edit
-    end
-  end
-
+ 
 end
