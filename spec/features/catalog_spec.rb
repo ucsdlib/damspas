@@ -46,6 +46,13 @@ feature 'Visitor wants to search' do
   end
 end
 
+feature 'Visitor is on search result page' do
+  scenario 'should see the constraints' do
+    visit catalog_index_path( {:q => 'fish'} )
+    expect(page).to have_selector('span.dams-filter a')
+  end
+end
+
 feature 'Visitor wants to browse Topic A-Z ' do
   scenario 'is on Browse by Topic page' do
     sign_in_developer
