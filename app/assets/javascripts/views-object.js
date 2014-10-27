@@ -64,7 +64,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 			split = points[i].split(",");
 			points[i] = [ parseFloat(split[0]), parseFloat(split[1]) ];
 		}
-		var map = L.map('map-canvas',{scrollWheelZoom:false}).fitBounds(points);
+		var map = L.map('map-canvas',{scrollWheelZoom:false}).fitBounds(points).zoomOut(10);
 		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
 		L.polyline(points).addTo(map);
 	}

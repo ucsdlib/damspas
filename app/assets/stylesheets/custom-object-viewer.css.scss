@@ -144,6 +144,17 @@ $complexFile: #AC6F2B !default;
 .restricted-obj-thumbnail {border:2px solid #659EC7; width:100px; height:150px;}
 #restricted-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 350px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
 
+
+//admin download
+#etc-menu{margin-top:3%;}
+
+.adl
+{
+  display:block;
+  color:rgba(0,0,0,0.3);
+  &:hover{text-decoration: none;color:rgba(0,0,0,0.5);}
+}
+
 // AddThis Sharing Menu
 
 .addthis_sharing_toolbox
@@ -154,6 +165,9 @@ $complexFile: #AC6F2B !default;
   .addthis_20x20_style .at15t
   {
     background: url("../images/sharing-icon.png") no-repeat scroll center center rgba(0, 0, 0, 0) !important;
+    background-size: 15px 15px !important;
+    width:15px !important;
+    height:15px !important;
   }
 }
 

@@ -44,6 +44,20 @@ feature 'Visitor wants to search' do
     visit catalog_index_path( {:fq => ['{!join from=collections_tesim to=id}unit_code_tesim:dlp']} )
     expect(page).to have_selector('ol#dams-search-results li div h3')
   end
+#  scenario 'is on search results page for restricted object' do
+#    sign_in_developer
+#    visit catalog_index_path( {:q => 'women'} )
+#    expect(page).to have_selector('h3:first', :text => 'Women wrapping food.')
+#    expect(page).to have_selector("img.dams-search-thumbnail:first")
+#    expect(page).to have_css("img[src*='thumb-restricted.png']:first")
+#  end  
+end
+
+feature 'Visitor is on search result page' do
+  scenario 'should see the constraints' do
+    visit catalog_index_path( {:q => 'fish'} )
+    expect(page).to have_selector('span.dams-filter a')
+  end
 end
 
 feature 'Visitor wants to browse Topic A-Z ' do
@@ -51,13 +65,13 @@ feature 'Visitor wants to browse Topic A-Z ' do
     sign_in_developer
     visit catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index', :'facet.prefix' => 'A')
     
-    expect(page).to have_selector('span.selected-letter', :text => 'A')
+    expect(page).to have_selector('.btn', :text => 'A')
     page.all(:css, '.facet_select').size.should eq(2)
     page.all('.facet_select')[0].text.should include 'Academic dissertations'
     page.all('.facet_select')[1].text.should include 'African Americans--Relations with Mexican Americans--History--20th Century'    
     
     click_on "C"
-    expect(page).to have_selector('span.selected-letter', :text => 'C')
+    expect(page).to have_selector('.btn', :text => 'C')
     page.all(:css, '.facet_select').size.should eq(3)
     page.all('.facet_select')[0].text.should include 'Cosmic background radiation'
     page.all('.facet_select')[1].text.should include 'Cosmology'
@@ -68,13 +82,13 @@ feature 'Visitor wants to browse Topic A-Z ' do
     sign_in_developer
     visit catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index', :'facet.prefix' => 'S')
     
-    expect(page).to have_selector('span.selected-letter', :text => 'S')
+    expect(page).to have_selector('.btn', :text => 'S')
     page.all(:css, '.facet_select').size.should eq(2)
     page.all('.facet_select')[0].text.should include 'San Diego Supercomputer Center.'
     page.all('.facet_select')[1].text.should include 'Smith, John, Dr., 1965-'    
     
-    click_on("Numerical Sort", match: :first)
-    expect(page).to have_selector('span.selected-letter', :text => 'S')
+    click_on("Sort 1-9", match: :first)
+    expect(page).to have_selector('.btn', :text => 'S')
     page.all(:css, '.facet_select').size.should eq(2)
     page.all('.facet_select')[0].text.should include 'Smith, John, Dr., 1965-'      
     page.all('.facet_select')[1].text.should include 'San Diego Supercomputer Center.'
@@ -86,12 +100,12 @@ feature 'Visitor wants to browse Creator A-Z ' do
     sign_in_developer
     visit catalog_facet_path("creator_sim", :'facet.sort' => 'index', :'facet.prefix' => 'A')
     
-    expect(page).to have_selector('span.selected-letter', :text => 'A')
+    expect(page).to have_selector('.btn', :text => 'A')
     page.all(:css, '.facet_select').size.should eq(1)
     page.all('.facet_select')[0].text.should include 'Artist, Alice, 1966-'
     
     click_on "B"
-    expect(page).to have_selector('span.selected-letter', :text => 'B')
+    expect(page).to have_selector('.btn', :text => 'B')
     page.all(:css, '.facet_select').size.should eq(1)
     page.all('.facet_select')[0].text.should include 'Burns, Jack O.'
   end

@@ -15,11 +15,11 @@
       # add notes if type/label match specification
       if ( !note_type.nil? && note_type.include?("description"))
 %>
-        <meta content="<%= note['value']%>" name="DESCRIPTION"/> 
+        <meta content="<%= note['value']%>" name="DESCRIPTION"/>
 <%
       end
     end
-  end 
+  end
 end%>
 <title><%= full_title(@page_title) %></title>
 
@@ -27,7 +27,7 @@ end%>
 <%= javascript_include_tag "application" %>
 
 <%# YE OLDE CSS %>
-<%= favicon_link_tag asset_path('favicon.ico') %>
+<%= favicon_link_tag asset_path('ucsd.ico') %>
 <%= stylesheet_link_tag "application", :media => "all" %>
 
 <%= csrf_meta_tags %>
