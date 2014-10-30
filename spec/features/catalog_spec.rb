@@ -44,6 +44,20 @@ feature 'Visitor wants to search' do
     visit catalog_index_path( {:fq => ['{!join from=collections_tesim to=id}unit_code_tesim:dlp']} )
     expect(page).to have_selector('ol#dams-search-results li div h3')
   end
+#  scenario 'is on search results page for restricted object' do
+#    sign_in_developer
+#    visit catalog_index_path( {:q => 'women'} )
+#    expect(page).to have_selector('h3:first', :text => 'Women wrapping food.')
+#    expect(page).to have_selector("img.dams-search-thumbnail:first")
+#    expect(page).to have_css("img[src*='thumb-restricted.png']:first")
+#  end  
+end
+
+feature 'Visitor is on search result page' do
+  scenario 'should see the constraints' do
+    visit catalog_index_path( {:q => 'fish'} )
+    expect(page).to have_selector('span.dams-filter a')
+  end
 end
 
 feature 'Visitor wants to browse Topic A-Z ' do

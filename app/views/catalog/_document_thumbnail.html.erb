@@ -4,9 +4,15 @@
     else
       url = dams_object_path(document, :counter => opts[:counter] )
     end
+    
+    restrictedNotice = grabRestrictedText(document['otherNote_json_tesim'])
 %>
 <%= link_to url, :class => 'dams-search-thumbnail-link' do %>
-  <%- if has_thumbnail?(document) && tn = thumbnail_url(document, nil) %>
+  <%- if !restrictedNotice.nil? && rtn = restricted_object_url%>
+    <div class="document-thumbnail dams-search-thumbnail">
+      <%= rtn %>
+    </div> 
+  <%- elsif has_thumbnail?(document) && tn = thumbnail_url(document, nil)%>
     <div class="document-thumbnail dams-search-thumbnail">
       <%= tn %>
     </div>  

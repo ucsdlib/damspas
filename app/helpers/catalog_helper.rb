@@ -112,6 +112,13 @@ module CatalogHelper
 
     image_tag( url, :alt => "", :class => 'dams-search-thumbnail') unless url.blank?
   end
+
+  def restricted_object_url()
+    url = "http://libraries.ucsd.edu/assets/dams/site/thumb-restricted.png"
+    
+    image_tag( url, :alt => "", :class => 'dams-search-thumbnail')
+  end
+    
   def document_icon( document )
     # generic default icon
     resultClass = 'thumb-simple'
