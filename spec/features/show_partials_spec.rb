@@ -6,6 +6,11 @@ feature 'Visitor wants to view object fields' do
   scenario 'Metadata on Solr view page' do
     visit dams_object_path(test_pid)
 
+    # Title, subtitle, part name and part number
+    expect(page).to have_content('Sample Simple Object')
+    expect(page).to have_content('An Image Object')
+    expect(page).to have_content('Allegro 1')
+
     # collections and unit
     expect(page).to have_link('Sample Assembled Collection',  href: dams_collection_path('bd3516400n'))
     expect(page).to have_link('Sample Provenance Collection', href: dams_collection_path('bd48133407'))
