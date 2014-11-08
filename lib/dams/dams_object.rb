@@ -666,9 +666,9 @@ module Dams
 	      Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
 	      Solrizer.insert_field(solr_doc, "all_fields", carto_json.to_json)
 	    end 
-	    Solrizer.insert_field(solr_doc, "resource_type", format_name(typeOfResource.first))
+	    Solrizer.insert_field(solr_doc, "resource_type", format_name(typeOfResource))
 	    Solrizer.insert_field(solr_doc, "all_fields", format_name(typeOfResource))
-	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource.first),@facetable)    
+	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource),@facetable)    
 	
 	    #Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 	

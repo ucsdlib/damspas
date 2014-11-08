@@ -3,6 +3,8 @@
 	 fieldData = @document["#{prefix}title_json_tesim"]
    title = nil
    subtitle = nil
+   partName = nil
+   partNumber = nil
 %>
 
 <% if fieldData != nil %>
@@ -10,19 +12,25 @@
 	<hgroup>
 	<% fieldData.each do |datum| 
       result = JSON.parse(datum)
+      partName = result['partName'] || ""
+      partNumber = result['partNumber'] || ""
+      subtitle = result['subtitle'] || ""
+
       if !result['value'].blank?
-         title = result['value'] 
-         subtitle = result['subtitle'] if !result['subtitle'].blank?
+         title = result['value']
         break
       else
-        title = result['name']
-        subtitle = result['subtitle'] if !result['subtitle'].blank?
+        title = result['name'] || ""
       end
     end
   %>
     
-	<% if title %><h1><%= title %></h1><% end %>
-	<% if subtitle %><h2><%= subtitle %></h2> <% end %>
+	<h1><%= title %></h1>
+  <% if !subtitle.empty? && !partName.empty? %>
+    <h2><%= "#{subtitle}, #{partName} #{partNumber}" %></h2>
+  <% else %>
+	  <h2><%= "#{subtitle}#{partName} #{partNumber}" %></h2> 
+  <% end %>
 	</hgroup>
 
 <% elsif defined?(componentIndex) %>

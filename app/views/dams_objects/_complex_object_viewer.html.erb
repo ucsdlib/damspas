@@ -48,8 +48,8 @@
 			<% dataForDynamicLoad = "{\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\",\"download_file_path\":\"#{download_file_path}\"}" %>
 
 			<div data='<%=dataForDynamicLoad%>'></div>
-        <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
+	    <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 
 	  <% elsif fileType == 'audio' %>
 

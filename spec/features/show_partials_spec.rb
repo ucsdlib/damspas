@@ -1,10 +1,16 @@
 require 'spec_helper'
 
 test_pid = 'bd22194583'
+test_pid2 = 'bb41653353'
 
 feature 'Visitor wants to view object fields' do
   scenario 'Metadata on Solr view page' do
     visit dams_object_path(test_pid)
+
+    # Title, subtitle, part name and part number
+    expect(page).to have_content('Sample Simple Object')
+    expect(page).to have_content('An Image Object')
+    expect(page).to have_content('Allegro 1')
 
     # collections and unit
     expect(page).to have_link('Sample Assembled Collection',  href: dams_collection_path('bd3516400n'))
@@ -12,8 +18,9 @@ feature 'Visitor wants to view object fields' do
     expect(page).to have_link('Sample Provenance Part',       href: dams_collection_path('bd6110278b'))
     expect(page).to have_text('Library Digital Collections')
     
-    # relationship - need to add relationship field into sample record bd22194583
-    #expect(page).to have_link('Sample Creator', href:"/search?f%5Bcreator_sim%5D%5B%5D=Sample+Creator&id="+test_pid)
+    # relationship 
+    expect(page).to have_content('Donor')
+    expect(page).to have_content('Wagner, Rick, 1972-')
 
     # date and language
     expect(page).to have_selector('li', :text=>"Easter 2012")
