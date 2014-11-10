@@ -110,3 +110,11 @@ feature 'Visitor wants to browse Creator A-Z ' do
     page.all('.facet_select')[0].text.should include 'Burns, Jack O.'
   end
 end
+
+feature 'Visitor wants to download JSON' do
+  scenario 'Performing a search' do
+    visit catalog_index_path( {:q => 'sample', :format => 'json'} )
+    page.status_code.should == 200
+    page.response_headers['Content-Type'].should include 'application/json'
+  end
+end
