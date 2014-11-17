@@ -4,7 +4,7 @@ class AuditsController < ApplicationController
 
   # GET /audits
   def index
-    @audits = Audit.all
+    @audits = Audit.all.page params[:page]
   end
 
   # GET /audits/1

@@ -49,7 +49,7 @@ gem "bootstrap-sass" #, '2.2.2.0'
 gem "bower-rails", "~> 0.7.3"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '0.12.0', :platforms => :ruby
+gem 'therubyracer', '~> 0.12.0', :platforms => :ruby
 gem 'uglifier' #, '2.0.1'
 
 group :development, :test do
