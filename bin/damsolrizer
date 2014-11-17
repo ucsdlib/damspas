@@ -100,10 +100,14 @@ begin
         $stderr.puts "Unknown Method: #{method}"
       end
       puts  "updated solr index for #{@msg.headers["pid"]}\n"
+      @conn.ack @msg.headers["message-id"]
     rescue Exception => e
-      p e.backtrace
+      Audit.create!(user: "solrizer@ucsd.edu", action: method, classname: "DamsSolrizer", object: pid )
+      puts e.to_s
+      e.backtrace.each do |line|
+        puts line
+      end
     end
-    @conn.ack @msg.headers["message-id"]
   end
   @conn.join
 
