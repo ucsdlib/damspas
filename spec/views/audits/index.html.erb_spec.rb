@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "audits/index" do
   before(:each) do
-    assign(:audits, [
+    assign(:audits, Kaminari.paginate_array([
       stub_model(Audit,
         :user => "User",
         :action => "Action",
@@ -15,7 +15,7 @@ describe "audits/index" do
         :classname => "Classname",
         :object => "Object"
       )
-    ])
+    ]).page(1))
   end
 
   it "renders a list of audits" do
