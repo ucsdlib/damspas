@@ -5,6 +5,8 @@
    subtitle = nil
    partName = nil
    partNumber = nil
+   translationVariant = nil
+   subtitleVal = nil
 %>
 
 <% if fieldData != nil %>
@@ -15,22 +17,30 @@
       partName = result['partName'] || ""
       partNumber = result['partNumber'] || ""
       subtitle = result['subtitle'] || ""
+      translationVariant = result['translationVariant'] || ""
 
+      subtitleVal = subtitle      
+      if !partName.blank?
+      	subtitleVal += (subtitleVal.blank? ? "" : ", ") + partName     	
+      	subtitleVal += " " + partNumber if !partNumber.blank?
+      end
+      
+      if !translationVariant.blank?    
+          subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
+      end
+      
       if !result['value'].blank?
          title = result['value']
         break
       else
         title = result['name'] || ""
       end
+      
     end
   %>
     
 	<h1><%= title %></h1>
-  <% if !subtitle.empty? && !partName.empty? %>
-    <h2><%= "#{subtitle}, #{partName} #{partNumber}" %></h2>
-  <% else %>
-	  <h2><%= "#{subtitle}#{partName} #{partNumber}" %></h2> 
-  <% end %>
+    <h2><%= subtitleVal %></h2>
 	</hgroup>
 
 <% elsif defined?(componentIndex) %>
