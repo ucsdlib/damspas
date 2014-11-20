@@ -27,6 +27,21 @@ feature 'Visitor want to look at objects' do
     #end
   end
   
+  scenario 'view a sample object record with subtitle, part, and a translation variant title' do
+    sign_in_developer
+    # Create a sample object with subtitle and variant titles
+    damsObj = DamsObject.new(pid: 'bd6212468x')
+ 	damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewModel.xml').read
+    damsObj.save!
+    solr_index 'bd6212468x'
+
+    visit dams_object_path('bd6212468x')
+    expect(page).to have_selector('h2', :text => 'Name/Note/Subject Sampler, sample partname sample partnumber, Translation Variant')
+
+    # Delete the sample object after test
+    damsObj.delete
+  end  
+  
   scenario "review metadata of an object" do
     sign_in_developer
     visit dams_object_path('bd0922518w')
