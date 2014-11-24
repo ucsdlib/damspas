@@ -24,7 +24,7 @@
 			<p><strong><%= copyright['status'].gsub(/--/, ' – ') %></strong></p>
 		<% end %>
 		<p><%= copyright['purposeNote'] %></p>
-		<p><%= copyright['note'] %></p>
+		<p class="muted"><small><%= copyright['note'] %></small></p>
 	<%
 
 		 concat htmlClose.html_safe
