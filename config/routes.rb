@@ -49,7 +49,7 @@ Hydra::Application.routes.draw do
 
   resources :object, :controller => 'dams_objects', :as => 'dams_objects', only: [:index, :show]
 
-  post "object/:id/upload", :to => 'file#create', :as => 'upload'
+  #post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
   get "object/:id/data_view", :to => 'dams_objects#data_view', :as => 'data_view'

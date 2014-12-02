@@ -285,6 +285,7 @@ class CatalogController < ApplicationController
       
       respond_to do |format|
         format.html { }
+        format.json { render json: @response }
         format.rss  { render :layout => false }
         format.atom { render :layout => false }
       end
