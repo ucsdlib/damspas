@@ -47,12 +47,17 @@ Hydra::Application.routes.draw do
 
   resources :dams_subjects, :only => [:show]
 
-  resources :object, :controller => 'dams_objects', :as => 'dams_objects', only: [:index, :show]
+  resources :object, :controller => 'dams_objects', :as => 'dams_objects', only: [:index, :show] do
+    member do
+      get 'dams5'
+      get 'data'
+      get 'rdf'
+    end
+  end
 
   #post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
-  get "object/:id/data_view", :to => 'dams_objects#data_view', :as => 'data_view'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   get "object/:id/:ds/download", :to => 'file#show', defaults: { disposition: 'attachment' }, :constraints => { :ds => /[^\/]+/ }, :as => 'download'
   resources :dams_assembled_collections, only: [:index, :show]

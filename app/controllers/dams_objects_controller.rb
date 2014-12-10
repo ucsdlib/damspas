@@ -6,8 +6,7 @@ class DamsObjectsController < ApplicationController
   include Dams::ControllerHelper
   include CatalogHelper
   load_and_authorize_resource
-  #skip_load_resource :only => :show
-  skip_load_and_authorize_resource :only => [:show, :zoom, :data_view]
+  skip_load_and_authorize_resource :only => [:show, :zoom, :dams5, :data, :rdf]
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   ##############################################################################
@@ -110,10 +109,26 @@ class DamsObjectsController < ApplicationController
     render layout: 'minimal'
   end
   
-  def data_view
+  def dams5
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    params[:xsl] = "dams5.xsl"
+    data = get_html_data params, nil
+    render :xml => data
+  end 
+  def data
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
   	controller_path = dams_collection_path params[:id]
     data = get_html_data params, controller_path
     render :text => data
+  end 
+  def rdf
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    params[:xsl] = "normalize.xsl"
+    data = get_html_data params, nil
+    render :xml => data
   end 
   
 end
