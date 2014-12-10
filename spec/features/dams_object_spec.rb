@@ -14,29 +14,31 @@ end
 feature 'Visitor want to look at objects' do
 
   scenario 'view a sample object record' do
-    #pending "visit not working, getting / instead of /object/bd0922518w" do
-      sign_in_developer
-      visit dams_object_path('bd0922518w')
-      Path.path = current_path
-      expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
-      expect(page).to have_selector('h2',:text=>'Format Sampler')
-      #expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    Path.path = current_path
+    expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
+    expect(page).to have_selector('h2',:text=>'Format Sampler')
+    #expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
 
-      # admin links
-      expect(page).to have_link('RDF View')
-    #end
+    # admin links
+    expect(page).to have_link('RDF View')
   end
   
   scenario 'view a sample object record with subtitle, part, and a translation variant title' do
+    ark = 'bd6212468x'
     sign_in_developer
     # Create a sample object with subtitle and variant titles
-    damsObj = DamsObject.new(pid: 'bd6212468x')
+    damsObj = DamsObject.new(pid: ark)
  	damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewModel.xml').read
     damsObj.save!
-    solr_index 'bd6212468x'
+    solr_index ark
 
-    visit dams_object_path('bd6212468x')
+    visit dams_object_path(ark)
     expect(page).to have_selector('h2', :text => 'Name/Note/Subject Sampler, sample partname sample partnumber, Translation Variant')
+    expect(page).to have_link('RDF View', rdf_dams_object_path(ark))
+    expect(page).to have_link('Data View', data_dams_object_path(ark))
+    expect(page).to have_link('DAMS5 View', dams5_dams_object_path(ark))
 
     # Delete the sample object after test
     damsObj.delete
@@ -48,6 +50,22 @@ feature 'Visitor want to look at objects' do
     click_on "Data View"
     expect(page).to have_selector('td', :text => "Object")
     expect(page).to have_selector('td', :text => "http://library.ucsd.edu/ark:/20775/bd0922518w")
+  end
+
+  scenario "view RDF/XML of an object" do
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'application/xml'
+  end
+
+  scenario "view DAMS5 RDF/XML of an object" do
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "DAMS5 View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'application/xml'
   end
 
   scenario 'view a sample data file' do

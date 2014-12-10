@@ -44,8 +44,9 @@
 		  <div class="row-fluid">
 		    <p class="sidebar-header"><strong>Editor Tools</strong></p>
 		    <ul class="unstyled sidebar-button-list">
-		      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, normalized_rdf_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-		      <li><%= link_to "<i class='icon-plus-sign'></i> Data View".html_safe, data_view_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+		      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, rdf_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+		      <li><%= link_to "<i class='icon-plus-sign'></i> Data View".html_safe, data_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+		      <li><%= link_to "<i class='icon-plus-sign'></i> DAMS5 View".html_safe, dams5_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		    </ul>
 		  </div>
 		<% end %>
