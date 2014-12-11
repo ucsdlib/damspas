@@ -1,0 +1,45 @@
+<% unless @document.nil? %>
+
+  <%#- site -%>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@ucsdlibrary">
+  <meta property="og:site_name" content="UC San Diego Library | Digital Collections">
+  <meta property="og:url" content="<%= request.original_url %>">
+
+  <%#- title -%>
+  <% trimmed_title = truncate(@page_title, length: 70) %>
+  <meta name="twitter:title" content="<%= trimmed_title %>">
+  <meta property="og:title" content="<%= trimmed_title %>">
+
+  <%#- description -%>
+  <%
+    description = ""
+    date = @document[:date_json_tesim]
+    unless date.blank? || date.first.blank?
+      date_json = JSON.parse(date.first)
+      description = "Date: " + date_json["value"]
+    end
+    [ "name", "resource_type", "language" ].each do |field|
+      values = @document[field + "_tesim"]
+      unless ( values.nil? || values.empty? )
+        description += "; " unless description.blank?
+        description += field.titleize + ": " 
+        values.each.with_index do |value, index|
+          description += ", " if index > 0
+          description += value
+        end
+      end
+    end
+    description = truncate(description, length: 199)
+  %>
+  <meta name="twitter:description" content="<%= description %>">
+  <meta property="og:description" content="<%= description %>">
+
+  <%#- image preview -%>
+  <% ark = @document[:id]
+     file = grabAnyDisplayFile
+     unless file == 'no_display' %>
+  <meta name="twitter:image" content="<%= file_url(ark,file) %>">
+  <meta property="og:image" content="<%= file_url(ark,file) %>">
+  <% end %>
+<% end %>
