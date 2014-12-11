@@ -439,6 +439,17 @@ module DamsObjectsHelper
 		return result
 	end
 
+    def grabAnyDisplayFile
+      file = grabDisplayFile
+      component_count = @document[:component_count_isi] || 0
+      i = 0
+      while file == 'no_display' && i < component_count do
+        i = i + 1
+	    file = grabDisplayFile(componentIndex: i)
+      end
+      return file
+    end
+
 	#---
 	# Get the service file id value from the component's 'files_tesim' value. Replaces 'render_service_file'.
 	#
