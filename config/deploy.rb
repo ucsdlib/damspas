@@ -45,7 +45,7 @@ namespace :deploy do
     end
   end
 
-  desc "Write the current version to publicl/revision.txt"
+  desc "Write the current version to public/version.txt"
   task :write_version do
     on roles(:app), in: :sequence do
       within repo_path do
@@ -74,7 +74,7 @@ namespace :deploy do
 
   after :finishing, 'deploy:write_version'
   after :finishing, 'deploy:update_sitemap'
-  before :restart, 'deploy:assets:precompile'
+  after :finishing, 'deploy:assets:precompile'
   after :finishing, 'deploy:cleanup'
 
 end

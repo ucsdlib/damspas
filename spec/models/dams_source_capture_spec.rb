@@ -14,6 +14,7 @@ describe DamsSourceCapture do
     subject.scanningSoftware = "Epson Twain Pro"
     subject.captureSource = "B&W negative , 2 1/2 x 2 1/2"
     xml =<<END
+<?xml version="1.0" ecoding="UTF-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#">
  <dams:SourceCapture rdf:about="#{Rails.configuration.id_namespace}bb49494949">

@@ -73,11 +73,3 @@ feature "Visitor wants to view the unit's collections" do
     expect(page).to have_no_content('Santa Fe Light Cone')
   end
 end
-
-def sign_in_developer
-  visit new_user_session_path
-  fill_in "name", :with => "name"
-  fill_in "email", :with => "email@email.com"
-  click_on "Sign In"
-end
-
