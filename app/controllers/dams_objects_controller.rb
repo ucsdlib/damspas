@@ -58,7 +58,7 @@ class DamsObjectsController < ApplicationController
 	  	collectionData.each do |datum|
           collection = JSON.parse(datum)
 		  collectionDoc = get_single_doc_via_search(1, {:q => "id:#{collection['id']}"} )
-		  relatedResourceData = collectionDoc["related_resource_json_tesim"]
+		  relatedResourceData = collectionDoc["related_resource_json_tesim"] unless collectionDoc.nil?
 		  if !relatedResourceData.nil?
 			relatedResourceData.each do |datum|
 			  relatedResource = JSON.parse(datum)
