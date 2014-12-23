@@ -247,10 +247,8 @@ $(document).ready(function()
 
     // Show hidden "restricted notice" objects
     $("#view-masked-object").click(function() {        
-       	if(confirm(sensitive_popup)){
-           $('.restricted-notice').hide();
-           $(".simple-object, .first-component, .dams-sidebar").show();
-        }
+        $('.restricted-notice').hide();
+        $(".simple-object, .first-component, .dams-sidebar").show();
     });
 
 	// handle derivatives generation callbacks
