@@ -14,8 +14,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 
     var data;
 	var tile_url = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
-	var tile_att = 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>';
-
+	var tile_att = 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>'; 
 
 	//------
 	// LOAD
@@ -247,8 +246,12 @@ $(document).ready(function()
 
     // Show hidden "restricted notice" objects
     $("#view-masked-object").click(function() {
-        $('.restricted-notice').hide();
-        $(".simple-object, .first-component, .dams-sidebar").show();
+        var sensitive_popup = "Culturally sensitive content: This is an image of a person or persons now deceased. In some Aboriginal Communities, hearing names or seeing images of deceased persons may cause sadness or distress, particularly to the relatives of these people.\nWould you like to view its content?";
+        
+       	if(confirm(sensitive_popup)){
+       	    $('.restricted-notice').hide();
+        	$(".simple-object, .first-component, .dams-sidebar").show();
+        }        
     });
 
 	// handle derivatives generation callbacks
