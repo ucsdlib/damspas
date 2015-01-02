@@ -649,7 +649,8 @@ module Dams
 	    rh = rh.concat(rightsHolderPersonal) unless rightsHolderPersonal.nil?
 	    rh = rh.concat(rightsHolderConference) unless rightsHolderConference.nil?
 	    rh = rh.concat(rightsHolderFamily) unless rightsHolderFamily.nil?
-	    insertRightsHolderFields solr_doc, "", rh
+	    rh = rh.concat(rightsHolderName) unless rightsHolderName.nil?
+      insertRightsHolderFields solr_doc, "", rh
 	    
 	    cartographics.each do |cart|
           # make sure we have some data to index
