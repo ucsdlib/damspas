@@ -56,14 +56,14 @@ namespace :deploy do
 
   desc '(re) generate sitemap'
   task :update_sitemap do
-    on roles(:sitemap) do
+    on roles(:sitemap_ping), in: :sequence do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :rake, 'sitemap:refresh'
         end
       end
     end
-    on roles(:sitemap_noping) do
+    on roles(:sitemap_noping), in: :sequence do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :rake, 'sitemap:refresh:no_ping'
@@ -73,7 +73,7 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:write_version'
-  #after :finishing, 'deploy:update_sitemap'
+  after :finishing, 'deploy:update_sitemap'
   after :finishing, 'deploy:assets:precompile'
   after :finishing, 'deploy:cleanup'
 
