@@ -402,6 +402,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "#{fieldName}", note_obj.value )
       Solrizer.insert_field(solr_doc, "note", note_obj.value )
       Solrizer.insert_field(solr_doc, "all_fields", note_obj.value)
+
+      # event id (see https://lib-jira.ucsd.edu:8443/browse/DHH-597)
+      if note_obj.displayLabel.first.to_s == 'event id'
+        Solrizer.insert_field(solr_doc, "event", note_obj.value.first.to_s, Solrizer::Descriptor.new(:string, :indexed, :stored))
+      end
     end
   end
   def insertDateFields (solr_doc, cid, dates)

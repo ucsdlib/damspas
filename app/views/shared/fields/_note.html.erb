@@ -73,7 +73,11 @@
         <% if type == 'identifier' && !note['displayLabel'].blank? %>
           <span class='dams-note-display-label'><%= note['displayLabel'].titleize %></span>: 
         <% end %>
-        <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+        <% if note['displayLabel'] == 'event id' %>
+          <%= link_to note['value'], catalog_index_path({'f[event_ssi][]' => note['value']}) %>
+        <% else %>
+          <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+        <% end %>
       </p>
       <%
       end
