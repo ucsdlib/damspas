@@ -108,19 +108,20 @@ $complexFile: #AC6F2B !default;
 // Masked Objects (Restricted, Sensitive, etc.)
 .restricted-notice
 {
-  background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/thumb-restricted.png) no-repeat center center;
-  background-size:100%,100%;
+  background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/restricted.png) no-repeat center center;
+  background-size:150%,150%;
   border-radius: 3px;
   padding:0;
   height:480px;
   margin:3% 0;
   div
   {
+    overflow: hidden;
     width:100%;
     border:1px solid #fff;
     border-right:none;
     border-left:none;
-    background:#c00;
+    background:#3383A5;
     color:#fff;
     padding:1em;
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
