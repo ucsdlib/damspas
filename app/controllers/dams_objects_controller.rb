@@ -6,7 +6,7 @@ class DamsObjectsController < ApplicationController
   include Dams::ControllerHelper
   include CatalogHelper
   load_and_authorize_resource
-  skip_load_and_authorize_resource :only => [:show, :zoom, :dams42, :data, :rdf]
+  skip_load_and_authorize_resource :only => [:show, :zoom, :dams42, :data, :ezid, :rdf]
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   ##############################################################################
@@ -127,5 +127,11 @@ class DamsObjectsController < ApplicationController
     data = get_html_data params, nil
     render :xml => data
   end 
-  
+  def ezid
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    #authorize! :update, @document
+    render :json => datacite( @document )
+    #identifier = Ezid::Identifier.create(metadata: meta)
+    #puts identifier
+  end
 end

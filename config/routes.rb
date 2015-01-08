@@ -51,6 +51,7 @@ Hydra::Application.routes.draw do
     member do
       get 'dams42'
       get 'data'
+      get 'ezid'
       get 'rdf'
     end
   end

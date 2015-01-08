@@ -1,0 +1,9 @@
+Ezid::Client.configure do |config|
+  config.user     = "username"
+  config.password = "password"
+  config.host     = "ezid.cdlib.org"
+  config.use_ssl  = true
+  config.logger   = Logger.new(File::NULL)
+  config.default_shoulder = "doi:10.5072/FK2"
+  config.identifier.defaults = { profile: "datacite" }
+end

@@ -16,6 +16,7 @@ config/database.yml
 config/fedora.yml
 config/solr.yml
 config/secrets.yml
+config/initializers/ezid.rb
 config/initializers/devise.rb
 config/initializers/secret_token.rb
 

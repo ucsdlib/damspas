@@ -651,5 +651,19 @@ module Dams
       Audit.create( user: session[:user_id], action: params[:action], classname: classname, object: id)
     end
 
+    def datacite( solr_doc )
+      data = Hash.new
+      data['datacite.title'] = JSON.parse(solr_doc["title_json_tesim"].first)["name"]
+      data['datacite.creator'] = solr_doc["name_tesim"].join(", ")
+      # XXX: we don't really store this, use collection record date?
+      #data['datacite.publicationyear'] = "XXX"
+      # XXX: need to make sure these are in vocab
+      data['datacite.resourcetype'] = solr_doc["resource_type_tesim"].join(", ")
+      data['datacite.publisher'] = 'UC San Diego Library Digital Collections'
+      data['_target'] = dams_object_url solr_doc[:id]
+
+      data
+    end
+
   end
 end
