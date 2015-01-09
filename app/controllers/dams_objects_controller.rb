@@ -16,17 +16,21 @@ class DamsObjectsController < ApplicationController
     # update session counter, then redirect to URL w/o counter param
     if params[:counter]
       session[:search][:counter] = params[:counter]
-      redirect_to dams_object_path(params[:id])
-      return
+   
+      # import solr config from catalog_controller and setup next/prev docs
+      @blacklight_config = CatalogController.blacklight_config
+	    setup_next_and_previous_documents  
     end
 
-	search_results = request.env["HTTP_REFERER"]	
-    session[:search_results] = search_results if (!search_results.nil? && search_results.include?("search"))
-      
-    # import solr config from catalog_controller and setup next/prev docs
-    @blacklight_config = CatalogController.blacklight_config
-    setup_next_and_previous_documents
-
+	  search_results = request.env["HTTP_REFERER"]
+	  if (!search_results.nil? && search_results.include?("search"))
+	    session[:search_results] = search_results
+	    # import solr config from catalog_controller and setup next/prev docs
+      @blacklight_config = CatalogController.blacklight_config
+	    setup_next_and_previous_documents
+    end 
+   
+	  
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
 
