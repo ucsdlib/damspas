@@ -75,6 +75,14 @@ feature 'Visitor want to look at objects' do
     expect(response.status).to eq( 200 )
     expect(response.header["Content-Type"]).to eq( "image/jpeg" )
   end
+  
+  scenario 'view a sample public html content file' do
+    visit file_path('bb01010101','_2_2.html')
+    response = page.driver.response
+    expect(response.status).to eq( 200 )
+    expect(response.header["Content-Type"]).to have_content( "text/html" )
+    expect(page).to have_link('MP3 Audio File', href: '/ark:/20775/bb07178662/1-2.mp3&name=ghio_sdhsoh.mp3')
+  end
 
   scenario 'view a non-existent record' do
     visit dams_object_path('xxx')
