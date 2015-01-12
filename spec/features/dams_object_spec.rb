@@ -131,6 +131,20 @@ feature 'Visitor wants to click the results link to go back to the search result
   end
 end
 
+feature 'Visitor wants to click the direct object link when the referrer is not a search' do
+  
+  scenario "is on the main page" do
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"   
+    expect(page).to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+
+    #visit another object view page
+    visit dams_object_path(:id => 'bd22194583')
+    expect(page).to have_selector('h1', :text => "Sample Simple Object")
+    expect(page).not_to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+  end
+end
+
 feature 'Format link(s) need to be scoped to the collection level ' do
   
   scenario "is on the object view page" do
