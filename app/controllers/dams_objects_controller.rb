@@ -13,18 +13,12 @@ class DamsObjectsController < ApplicationController
   # solr actions ###############################################################
   ##############################################################################
   def show
-    # update session counter, then redirect to URL w/o counter param
-    if params[:counter]
-      session[:search][:counter] = params[:counter]
-   
-      # import solr config from catalog_controller and setup next/prev docs
-      @blacklight_config = CatalogController.blacklight_config
-	    setup_next_and_previous_documents  
-    end
+    session[:search][:counter] = params[:counter] if params[:counter]
 
-	  search_results = request.env["HTTP_REFERER"]
-	  if (!search_results.nil? && search_results.include?("search"))
-	    session[:search_results] = search_results
+	  search_results = request.env["HTTP_REFERER"]	
+    session[:search_results] = search_results if (!search_results.nil? && search_results.include?("search"))
+   
+    if(params[:counter] || (!search_results.nil? && search_results.include?("search")) )
 	    # import solr config from catalog_controller and setup next/prev docs
       @blacklight_config = CatalogController.blacklight_config
 	    setup_next_and_previous_documents
