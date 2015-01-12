@@ -344,9 +344,9 @@
       </dams:CustodialResponsibilityNote> 
     </dams:custodialResponsibilityNote>   
     <dams:occupation rdf:resource="http://library.ucsd.edu/ark:/20775/bd72363644"/>
-    <dams:provenanceCollection> rdf:resource="http://library.ucsd.edu/ark:/20775/bd24241158">
-    <dams:assembledCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303">
-    <dams:provenanceCollectionPart rdf:resource="http://library.ucsd.edu/ark:/20775/bb25252525">
+    <dams:provenanceCollection> rdf:resource="http://library.ucsd.edu/ark:/20775/bd24241158"/>
+    <dams:assembledCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
+    <dams:provenanceCollectionPart rdf:resource="http://library.ucsd.edu/ark:/20775/bb25252525"/>
     <dams:topic rdf:resource="http://library.ucsd.edu/ark:/20775/bd46424836"/>  
 
     <dams:topic>
