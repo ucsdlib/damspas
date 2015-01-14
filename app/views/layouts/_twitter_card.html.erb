@@ -18,7 +18,7 @@
     elsif @document[:collection_name_tesim]
       description = "Item from the " + @document[:collection_name_tesim].first + " collection"
     end
-    description = "Foo generic note without even a collection" if description.blank?
+    description = "Item from the UC San Diego Library Digital Collections" if description.blank?
     description = truncate(description, length: 199)
   %>
   <meta name="twitter:description" content="<%= description %>">
