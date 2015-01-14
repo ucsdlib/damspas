@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "twitter cards" do
-  scenario "should have meta tags" do
+  scenario "objects should have meta tags" do
     obj = 'bd22194583'
     visit dams_object_path obj
 
@@ -27,5 +27,13 @@ feature "twitter cards" do
     # image preview
     page.should have_css 'meta[name="twitter:image"][content="' + preview + '"]', :visible => false
     page.should have_css 'meta[property="og:image"][content="' + preview + '"]', :visible => false
+  end
+  scenario "collections should have meta tags" do
+    col = 'bb24242424'
+    visit dams_collection_path col
+
+    desc = 'Collection from the UC San Diego Library Digital Collections'
+    page.should have_css 'meta[name="twitter:description"][content="' + desc + '"]', :visible => false
+    page.should have_css 'meta[property="og:description"][content="' + desc + '"]', :visible => false
   end
 end
