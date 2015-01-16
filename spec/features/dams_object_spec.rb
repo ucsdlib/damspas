@@ -38,7 +38,7 @@ feature 'Visitor want to look at objects' do
     expect(page).to have_selector('h2', :text => 'Name/Note/Subject Sampler, sample partname sample partnumber, Translation Variant')
     expect(page).to have_link('RDF View', rdf_dams_object_path(ark))
     expect(page).to have_link('Data View', data_dams_object_path(ark))
-    expect(page).to have_link('DAMS5 View', dams5_dams_object_path(ark))
+    expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_object_path(ark))
 
     # Delete the sample object after test
     damsObj.delete
@@ -60,10 +60,10 @@ feature 'Visitor want to look at objects' do
     expect(response_headers['Content-Type']).to include 'application/xml'
   end
 
-  scenario "view DAMS5 RDF/XML of an object" do
+  scenario "view DAMS 4.2 RDF/XML of an object" do
     sign_in_developer
     visit dams_object_path('bd0922518w')
-    click_on "DAMS5 View"
+    click_on "DAMS 4.2 Preview"
     expect(page.status_code).to eq 200
     expect(response_headers['Content-Type']).to include 'application/xml'
   end

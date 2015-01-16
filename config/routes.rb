@@ -49,7 +49,7 @@ Hydra::Application.routes.draw do
 
   resources :object, :controller => 'dams_objects', :as => 'dams_objects', only: [:index, :show] do
     member do
-      get 'dams5'
+      get 'dams42'
       get 'data'
       get 'rdf'
     end
