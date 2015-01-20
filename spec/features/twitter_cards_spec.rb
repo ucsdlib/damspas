@@ -10,7 +10,7 @@ feature "twitter cards" do
     title1 = 'Digital Collections: Sample Simple Object'
     title2 = 'Sample Simple Object'
     desc = "ScopeContentNote value\nNow with linebreaks."
-    preview = file_url(obj,'3.jpg')
+    preview = file_url(obj,'_3.jpg')
 
     # twitter card and site info
     page.should have_css 'meta[name="twitter:card"][content="summary"]', :visible => false
