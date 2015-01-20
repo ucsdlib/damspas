@@ -38,7 +38,7 @@ feature 'Visitor want to look at objects' do
     expect(page).to have_selector('h2', :text => 'Name/Note/Subject Sampler, sample partname sample partnumber, Translation Variant')
     expect(page).to have_link('RDF View', rdf_dams_object_path(ark))
     expect(page).to have_link('Data View', data_dams_object_path(ark))
-    expect(page).to have_link('DAMS5 View', dams5_dams_object_path(ark))
+    expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_object_path(ark))
 
     # Delete the sample object after test
     damsObj.delete
@@ -60,10 +60,10 @@ feature 'Visitor want to look at objects' do
     expect(response_headers['Content-Type']).to include 'application/xml'
   end
 
-  scenario "view DAMS5 RDF/XML of an object" do
+  scenario "view DAMS 4.2 RDF/XML of an object" do
     sign_in_developer
     visit dams_object_path('bd0922518w')
-    click_on "DAMS5 View"
+    click_on "DAMS 4.2 Preview"
     expect(page.status_code).to eq 200
     expect(response_headers['Content-Type']).to include 'application/xml'
   end
@@ -74,6 +74,14 @@ feature 'Visitor want to look at objects' do
     response = page.driver.response
     expect(response.status).to eq( 200 )
     expect(response.header["Content-Type"]).to eq( "image/jpeg" )
+  end
+  
+  scenario 'view a sample public html content file' do
+    visit file_path('bb01010101','_2_2.html')
+    response = page.driver.response
+    expect(response.status).to eq( 200 )
+    expect(response.header["Content-Type"]).to have_content( "text/html" )
+    expect(page).to have_link('MP3 Audio File', href: '/ark:/20775/bb07178662/1-2.mp3&name=ghio_sdhsoh.mp3')
   end
 
   scenario 'view a non-existent record' do
@@ -120,6 +128,20 @@ feature 'Visitor wants to click the results link to go back to the search result
 
     expect(page).to have_link('results', href:"http://www.example.com/search?q=sample")
     
+  end
+end
+
+feature 'Visitor wants to click the direct object link when the referrer is not a search' do
+  
+  scenario "is on the main page" do
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"   
+    expect(page).to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+
+    #visit another object view page
+    visit dams_object_path(:id => 'bd22194583')
+    expect(page).to have_selector('h1', :text => "Sample Simple Object")
+    expect(page).not_to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
   end
 end
 

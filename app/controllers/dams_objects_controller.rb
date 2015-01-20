@@ -6,27 +6,24 @@ class DamsObjectsController < ApplicationController
   include Dams::ControllerHelper
   include CatalogHelper
   load_and_authorize_resource
-  skip_load_and_authorize_resource :only => [:show, :zoom, :dams5, :data, :rdf]
+  skip_load_and_authorize_resource :only => [:show, :zoom, :dams42, :data, :rdf]
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   ##############################################################################
   # solr actions ###############################################################
   ##############################################################################
   def show
-    # update session counter, then redirect to URL w/o counter param
-    if params[:counter]
-      session[:search][:counter] = params[:counter]
-      redirect_to dams_object_path(params[:id])
-      return
-    end
+    session[:search][:counter] = params[:counter] if params[:counter]
 
-	search_results = request.env["HTTP_REFERER"]	
+    search_results = request.env["HTTP_REFERER"]	
     session[:search_results] = search_results if (!search_results.nil? && search_results.include?("search"))
-      
-    # import solr config from catalog_controller and setup next/prev docs
-    @blacklight_config = CatalogController.blacklight_config
-    setup_next_and_previous_documents
-
+   
+    if(params[:counter] || (!search_results.nil? && search_results.include?("search")) )
+      # import solr config from catalog_controller and setup next/prev docs
+      @blacklight_config = CatalogController.blacklight_config
+      setup_next_and_previous_documents
+    end 
+   
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
 
@@ -109,10 +106,10 @@ class DamsObjectsController < ApplicationController
     render layout: 'minimal'
   end
   
-  def dams5
+  def dams42
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
-    params[:xsl] = "dams5.xsl"
+    params[:xsl] = "dams4.2.xsl"
     data = get_html_data params, nil
     render :xml => data
   end 

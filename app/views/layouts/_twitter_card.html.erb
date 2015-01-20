@@ -7,29 +7,19 @@
   <meta property="og:url" content="<%= request.original_url %>">
 
   <%#- title -%>
-  <% trimmed_title = truncate(@page_title, length: 70) %>
-  <meta name="twitter:title" content="<%= trimmed_title %>">
+  <% trimmed_title = truncate(@page_title.gsub(/ \| .*/,''), length: 49) %>
+  <meta name="twitter:title" content="Digital Collections: <%= trimmed_title %>">
   <meta property="og:title" content="<%= trimmed_title %>">
 
   <%#- description -%>
   <%
-    description = ""
-    date = @document[:date_json_tesim]
-    unless date.blank? || date.first.blank?
-      date_json = JSON.parse(date.first)
-      description = "Date: " + date_json["value"]
+    if @document[:scopeContentNote_tesim]
+      description = @document[:scopeContentNote_tesim].first
+    elsif @document[:collection_name_tesim]
+      description = "Item from the " + @document[:collection_name_tesim].first + " collection"
     end
-    [ "name", "resource_type", "language" ].each do |field|
-      values = @document[field + "_tesim"]
-      unless ( values.nil? || values.empty? )
-        description += "; " unless description.blank?
-        description += field.titleize + ": " 
-        values.each.with_index do |value, index|
-          description += ", " if index > 0
-          description += value
-        end
-      end
-    end
+    rec_type = @document["active_fedora_model_ssi"] == 'DamsObject' ? "Item" : "Collection"
+    description = "#{rec_type} from the UC San Diego Library Digital Collections" if description.blank?
     description = truncate(description, length: 199)
   %>
   <meta name="twitter:description" content="<%= description %>">
