@@ -30,6 +30,16 @@ module CatalogHelper
       url = dams_object_path(doc, :counter => opts[:counter] )
     end
 
+    # Remove duplicated names
+    names = doc['name_tesim']
+    if (!names.blank?)
+        nameList = names.dup
+        names.clear
+        nameList.each do |name| 
+            names << name if !names.include? name
+        end
+    end
+
     link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :force_label, :results_view].include? k  })
 
   end
