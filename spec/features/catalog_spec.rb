@@ -58,6 +58,23 @@ feature 'Visitor is on search result page' do
     visit catalog_index_path( {:q => 'fish'} )
     expect(page).to have_selector('span.dams-filter a')
   end
+  scenario 'should not see repeated/duplicated names' do
+    ark = 'bd08080808'
+    sign_in_developer
+    # Create a sample object with subtitle and variant titles
+    damsObj = DamsObject.new(pid: ark)
+ 	damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectDuplicatedNames.rdf.xml').read
+    damsObj.save!
+    solr_index ark
+
+    visit catalog_index_path( {:q => '"Record With Duplicated Names"'} )
+    expect(page).to have_content('Wagner, Rick, 1972-')
+    expect(page).to have_content('Yañez, Angélica María')
+    expect(page).not_to have_content('Wagner, Rick, 1972-; Wagner, Rick, 1972-')
+
+    # Delete the sample object after test
+    damsObj.delete
+  end
 end
 
 feature 'Visitor wants to browse Topic A-Z ' do
