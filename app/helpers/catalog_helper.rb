@@ -33,11 +33,7 @@ module CatalogHelper
     # Remove duplicated names
     names = doc['name_tesim']
     if (!names.blank?)
-        nameList = names.dup
-        names.clear
-        nameList.each do |name| 
-            names << name if !names.include? name
-        end
+        names.uniq!
     end
 
     link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :force_label, :results_view].include? k  })
