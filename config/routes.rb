@@ -117,6 +117,10 @@ Hydra::Application.routes.draw do
   post 'get_dams_data', :on => :member  
 
   end
+
+  # ruby-version utility
+  get '/ruby-version' => 'application#ruby_version'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
