@@ -655,15 +655,26 @@ module Dams
       data = Hash.new
       data['datacite.title'] = JSON.parse(solr_doc["title_json_tesim"].first)["name"]
       data['datacite.creator'] = solr_doc["name_tesim"].join(", ")
-      # XXX: we don't really store this, use collection record date?
-      #data['datacite.publicationyear'] = "XXX"
+
+      # find publication year
+      solr_doc["date_json_tesim"].each do |date_json|
+        date = JSON.parse(date_json)
+        if date['type'] == 'published'
+          if date['value'].match( '^\d{4}' )
+            data['datacite.publicationyear'] = date['value'].sub("-*","")
+          elsif date['beginDate'].match('^\d{4}' )
+            data['datacite.publicationyear'] = date['beginDate'].sub("-*","")
+          end
+        end
+      end
+           
       # XXX: need to make sure these are in vocab
+      solr_doc["resource_type_tesim"].map {|t| t.capitalize!}.join(", ")
       data['datacite.resourcetype'] = solr_doc["resource_type_tesim"].join(", ")
       data['datacite.publisher'] = 'UC San Diego Library Digital Collections'
       data['_target'] = dams_object_url solr_doc[:id]
 
       data
     end
-
   end
 end

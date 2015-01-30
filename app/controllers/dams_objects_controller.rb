@@ -1,12 +1,13 @@
 require 'net/http'
 require 'json'
+require 'ezid-client'
 
 class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
   include CatalogHelper
   load_and_authorize_resource
-  skip_load_and_authorize_resource :only => [:show, :zoom, :dams42, :data, :ezid, :rdf]
+  skip_load_and_authorize_resource :only => [:show, :zoom, :dams42, :data, :rdf]
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   ##############################################################################
@@ -128,10 +129,36 @@ class DamsObjectsController < ApplicationController
     render :xml => data
   end 
   def ezid
+    # generate datacite metadata
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
-    #authorize! :update, @document
-    render :json => datacite( @document )
-    #identifier = Ezid::Identifier.create(metadata: meta)
-    #puts identifier
+    data = datacite( @document )
+
+    # validate data
+    ['title','creator','publicationyear','resourcetype'].each do |field|
+      if data["datacite.#{field}"].blank?
+        redirect_to @dams_object, alert: "Error: #{field} is blank"
+        return
+      end
+    end
+
+    # mint doi
+    begin
+      identifier = Ezid::Identifier.create(metadata: data)
+      logger.info "minted doi: #{identifier.to_s}"
+    rescue Exception => e
+      redirect_to @dams_object, alert: "Error minting DOI: #{e.to_s}"
+      return
+    end
+      
+    # update object
+    @dams_object.note << DamsNote.new(type: "identifier", displayLabel: "DOI", value: identifier.to_s)
+    logger.info "note created"
+    if @dams_object.save
+      redirect_to @dams_object, notice: "DOI minted"
+      return
+    else
+      redirect_to @dams_object, alert: "Unable to save DOI"
+      return
+    end
   end
 end

@@ -8,7 +8,7 @@ class Ability
     end
 
     # Override create dams:Object for curator roles: dams-curator, dams-rci, dams-manager-admin etc.
-    can :create, DamsObject do |obj|
+    can [:create, :ezid], DamsObject do |obj|
       can_create_dams_resource?(obj)
     end
 
