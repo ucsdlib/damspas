@@ -29,7 +29,7 @@
   <% ark = @document[:id]
      file = grabAnyDisplayFile
      unless file == 'no_display' %>
-  <meta name="twitter:image" content="<%= file_url(ark,file) %>">
-  <meta property="og:image" content="<%= file_url(ark,file) %>">
+  <meta name="twitter:image" content="<%= file_url(ark,'_'+file) %>">
+  <meta property="og:image" content="<%= file_url(ark,'_'+file) %>">
   <% end %>
 <% end %>
