@@ -151,8 +151,8 @@ class DamsObjectsController < ApplicationController
     end
       
     # update object
-    @dams_object.note << DamsNote.new(type: "identifier", displayLabel: "DOI", value: identifier.to_s)
-    logger.info "note created"
+    # XXX: = [{...}] works, << {...} doesn't...
+    @dams_object.note_attributes << {type: "identifier", displayLabel: "DOI", value: identifier.to_s}]
     if @dams_object.save
       redirect_to @dams_object, notice: "DOI minted"
       return

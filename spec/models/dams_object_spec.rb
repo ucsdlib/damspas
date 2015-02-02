@@ -22,7 +22,7 @@ describe DamsObject do
     @damsObj.titleValue.should == "Dams Object Title 2"
   end
 
-  it "should create/update a subject" do
+  pending "should create/update a subject" do
     @damsObj.topic_attributes = [{name: "topic 1"}]
     @damsObj.topic.first.name.should == ["topic 1"]
     @damsObj.topic_attributes = [{name: "topic 2"}]
@@ -60,8 +60,9 @@ describe DamsObject do
 	topic_uri = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/bd46424836"
 	topic_uri_2 = RDF::Resource.new "http://library.ucsd.edu/ark:/20775/xx00000999"
 	
-  let(:params) {	
-    {  
+  pending "nested attributes implementation" do
+  it "should create a rdf/xml" do
+    params = {	
        title_attributes: [
     	  name: "Sample Complex Object Record #1",
           mainTitleElement_attributes: [{ elementValue: "Sample Complex Object Record #1" }],
@@ -86,7 +87,7 @@ describe DamsObject do
         complexSubject_attributes: [
         		name: "World politics--American politics--20th Century",
 		        topic_attributes: [
-		        	{name:"World politics", externalAuthority: exturi, 
+			        {name:"World politics", externalAuthority: exturi, 
 		        	 topicElement_attributes: [{ elementValue: "World politics" }]
 			        },
 		        	{id: topic_uri_2, name:"American politics", externalAuthority: exturi,
@@ -128,14 +129,11 @@ describe DamsObject do
 		rightsHolderFamily_attributes: [name: "inline family rightsHolder name"],
 		typeOfResource: "text",
 		cartographics_attributes: [point: "29.67459,-82.37873", line: "123", polygon: "456", projection: "equirectangular", referenceSystem: "WGS84", scale: "1:20000"]
-  }}
-  subject do
-    DamsObject.new(pid: 'xx80808080').tap do |t|
+    }
+    obj = DamsObject.new(pid: 'xx80808080').tap do |t|
       t.attributes = params
     end
-  end
 
-  it "should create a rdf/xml" do
 #    subject.titleValue = "Sample Complex Object Record #1"
 #    subject.subtitle = "a newspaper PDF with a single attached image"
 #    subject.titleVariant = "The Whale"
@@ -163,7 +161,7 @@ describe DamsObject do
 #    subject.otherRightsURI = ["bb06060606"]
 #    subject.licenseURI = ["bb22222222"]
 #    subject.rightsHolderURI = ["bb09090909"]
-	bn_id = subject.title[0].hasVariant[0].rdf_subject.id
+    bn_id = subject.title[0].hasVariant[0].rdf_subject.id
     bn_id_trans = subject.title[0].hasTranslationVariant[0].rdf_subject.id
     bn_id_abb = subject.title[0].hasAbbreviationVariant[0].rdf_subject.id
     bn_id_acro = subject.title[0].hasAcronymVariant[0].rdf_subject.id
@@ -413,4 +411,25 @@ describe DamsObject do
 END
     subject.damsMetadata.content.should be_equivalent_to xml
   end  
+  end
+
+  it "should allow attaching a note" do
+    obj = DamsObject.new(pid: 'bb99999999')
+    obj.note_attributes = [{type: "foo", displayLabel: "bar", value: "baz"}]
+    note_xml =<<END
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb99999999">
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>bar</dams:displayLabel>
+        <dams:type>foo</dams:type>
+        <rdf:value>baz</rdf:value>
+      </dams:Note>
+    </dams:note>
+  </dams:Object>
+</rdf:RDF>
+END
+    obj.damsMetadata.content.should be_equivalent_to note_xml
+  end
 end

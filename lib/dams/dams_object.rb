@@ -77,14 +77,7 @@ module Dams
 	    map.cartographics(:in => DAMS, :to => 'cartographics', :class_name => 'DamsCartographicsInternal')
 	  end
 	
-      accepts_nested_attributes_for :title, :date, :relationship,:language,  
-      								:note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote,  
-      								:complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
-      								:iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
-	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
-	    							:copyright, :license, :otherRights, :statute, :rightsHolderName, :rightsHolderCorporate, :rightsHolderPersonal,
-	    							:rightsHolderFamily, :rightsHolderConference, :cartographics
+      accepts_nested_attributes_for :note
 	  
 	  rdf_subject { |ds|
         if ds.pid.nil?
