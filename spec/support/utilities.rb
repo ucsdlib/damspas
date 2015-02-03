@@ -1,5 +1,6 @@
 #include Helper specs here
 #eg. include DamsUnitsHelper
+include Warden::Test::Helpers
 
 #define methods to reuse across various tests, they are included by default in RSPEC
 
@@ -9,6 +10,9 @@ def sign_in_developer
   fill_in "name", :with => "name"
   fill_in "email", :with => "email@email.com"
   click_on "Sign In"
+end
+def sign_in_anonymous(ip)
+  login_as( User.anonymous(ip), scope: :user)
 end
 
 #remove need for redundant tests for flash messages, using "have_TYPE_message"
