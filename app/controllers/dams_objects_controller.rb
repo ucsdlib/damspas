@@ -1,6 +1,5 @@
 require 'net/http'
 require 'json'
-require 'ezid-client'
 
 class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
@@ -129,36 +128,18 @@ class DamsObjectsController < ApplicationController
     render :xml => data
   end 
   def ezid
-    # generate datacite metadata
-    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
-    data = datacite( @document )
-
-    # validate data
-    ['title','creator','publicationyear','resourcetype'].each do |field|
-      if data["datacite.#{field}"].blank?
-        redirect_to @dams_object, alert: "Error: #{field} is blank"
-        return
-      end
-    end
-
     # mint doi
     begin
-      identifier = Ezid::Identifier.create(metadata: data)
-      logger.info "minted doi: #{identifier.to_s}"
+      json = dams_post "#{dams_api_path}/api/objects/#{id}/mint_doi?format=json"
+      if json['statusCode'] == 200
+        logger.info json['message']
+        redirect_to @dams_object, notice: "DOI minted, please allow a few minutes for Solr reindexing before the display is updated."
+      else
+        redirect_to @dams_object, alert: "Minting DOI failed: #{json['message']}"
     rescue Exception => e
       redirect_to @dams_object, alert: "Error minting DOI: #{e.to_s}"
       return
     end
       
-    # update object
-    # XXX: = [{...}] works, << {...} doesn't...
-    @dams_object.note_attributes << {type: "identifier", displayLabel: "DOI", value: identifier.to_s}]
-    if @dams_object.save
-      redirect_to @dams_object, notice: "DOI minted"
-      return
-    else
-      redirect_to @dams_object, alert: "Unable to save DOI"
-      return
-    end
   end
 end

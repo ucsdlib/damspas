@@ -13,7 +13,6 @@ gem 'kaminari', '~> 0.15.0' # 0.16.0 breaks pagination
 gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
 gem 'sitemap_generator', '~> 5.0.5'
-gem 'ezid-client', '~> 0.11.0'
 
 gem 'sqlite3', '~> 1.3.10'
 

@@ -907,10 +907,11 @@ def display_node(index)
   #---
 
   def normalized_rdf_path( pid )
+    "#{dams_api_path}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
+  end
+  def dams_api_path
     # get REST API url from AF config
-    baseurl = ActiveFedora.fedora_config.credentials[:url]
-    baseurl = baseurl.gsub(/\/fedora$/,'')
-    "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
+    ActiveFedora.fedora_config.credentials[:url].gsub(/\/fedora$/,'')
   end
 
 end

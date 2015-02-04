@@ -608,9 +608,7 @@ module Dams
 	    # build url to make damsrepo generate derivs
 	    user = ActiveFedora.fedora_config.credentials[:user]
 	    pass = ActiveFedora.fedora_config.credentials[:password]
-	    baseurl = ActiveFedora.fedora_config.credentials[:url]
-	    baseurl = baseurl.gsub(/\/fedora$/,'')
-	    url = "#{baseurl}/api/files/#{object}/"
+	    url = "#{dams_api_path}/api/files/#{object}/"
 	    url += "#{@cid}/" unless @cid.nil?
 	    url += "#{@fid}/derivatives?format=json"
 
@@ -634,12 +632,24 @@ module Dams
       end
     end
     
+    def dams_api_path
+	  ActiveFedora.fedora_config.credentials[:url].gsub(/\/fedora$/,'')
+    end
+    def mint_doi( id )
+      dams_post "#{dams_api_path}/api/objects/#{id}/mint_doi?format=json"
+    end
+    def dams_post( uri )
+      user = ActiveFedora.fedora_config.credentials[:user]
+      pass = ActiveFedora.fedora_config.credentials[:password]
+      response = RestClient::Request.new(
+        :method => :post, :url => url, :user => user, :password => pass
+      ).execute
+      JSON.parse(response.to_str)
+    end
     def get_html_data ( params, controller_path )
-       baseurl = ActiveFedora.fedora_config.credentials[:url]
-       baseurl = baseurl.gsub(/\/fedora$/,'')
        xsl = (params[:xsl].nil? || params[:xsl].empty?)?'review.xsl':params[:xsl]
        controller = (controller_path.nil? || controller_path.empty?)?'':'&controller=' + URI.encode(controller_path)
-       viewerUrl = "#{baseurl}/api/objects/#{params[:id]}/transform?recursive=true&xsl=#{xsl}&baseurl=" + URI.encode(baseurl) + controller
+       viewerUrl = "#{dams_api_path}/api/objects/#{params[:id]}/transform?recursive=true&xsl=#{xsl}&baseurl=" + URI.encode(dams_api_path) + controller
        uri = URI(viewerUrl)
        res = Net::HTTP.get_response(uri)
        res.body
@@ -649,32 +659,6 @@ module Dams
       classname = self.class.name.gsub("sController","")
       logger.warn "audit: #{session[:user_id]} #{params[:action]} #{classname} #{id}"
       Audit.create( user: session[:user_id], action: params[:action], classname: classname, object: id)
-    end
-
-    def datacite( solr_doc )
-      data = Hash.new
-      data['datacite.title'] = JSON.parse(solr_doc["title_json_tesim"].first)["name"]
-      data['datacite.creator'] = solr_doc["name_tesim"].join(", ")
-
-      # find publication year
-      solr_doc["date_json_tesim"].each do |date_json|
-        date = JSON.parse(date_json)
-        if date['type'] == 'published'
-          if date['value'].match( '^\d{4}' )
-            data['datacite.publicationyear'] = date['value'].sub("-*","")
-          elsif date['beginDate'].match('^\d{4}' )
-            data['datacite.publicationyear'] = date['beginDate'].sub("-*","")
-          end
-        end
-      end
-           
-      # XXX: need to make sure these are in vocab
-      solr_doc["resource_type_tesim"].map {|t| t.capitalize!}.join(", ")
-      data['datacite.resourcetype'] = solr_doc["resource_type_tesim"].join(", ")
-      data['datacite.publisher'] = 'UC San Diego Library Digital Collections'
-      data['_target'] = dams_object_url solr_doc[:id]
-
-      data
     end
   end
 end
