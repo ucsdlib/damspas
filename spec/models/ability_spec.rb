@@ -93,7 +93,7 @@ describe Ability do
 	      relationship_attributes: [name: RDF::Resource.new("#{Rails.configuration.id_namespace}bd7509406v"),role: RDF::Resource.new("#{Rails.configuration.id_namespace}bd0785823z")]
   	}}
 	subject do
-      Ability.new(User.anonymous("192.168.0.3"))
+      Ability.new(User.anonymous("132.239.0.3"))
     end
     describe "to access a ucsd local display DamsObject" do
     	before do

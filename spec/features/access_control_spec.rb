@@ -49,7 +49,7 @@ feature 'Access control' do
   end
 
   scenario 'local user should be able to see a localDisplay object' do
-    sign_in_anonymous '192.168.0.3'
+    sign_in_anonymous '132.239.0.3'
     visit dams_object_path 'bd86037516'
     expect(page.driver.response.status).to eq( 200 )
   end
