@@ -109,19 +109,12 @@ class FileController < ApplicationController
       @fid += ext unless ext.nil?
 
       # build url to make damsrepo generate derivs
-      user = ActiveFedora.fedora_config.credentials[:user]
-      pass = ActiveFedora.fedora_config.credentials[:password]
-      baseurl = ActiveFedora.fedora_config.credentials[:url]
-      baseurl = baseurl.gsub(/\/fedora$/,'')
-      url = "#{baseurl}/api/files/#{@obj}/"
+      url = "#{dams_api_path}/api/files/#{@obj}/"
       url += "#{@cid}/" unless @cid.nil?
       url += "#{@fid}/derivatives?format=json"
 
       # call damsrepo
-      response = RestClient::Request.new(
-        :method => :post, :url => url, :user => user, :password => pass
-      ).execute
-      json = JSON.parse(response.to_str)
+      json = dams_post url
       if json['status'] == 'OK'
         flash[:notice] = json['message']
       else

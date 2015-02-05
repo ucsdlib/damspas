@@ -13,13 +13,20 @@ Hydra::Application.routes.draw do
 
   #resources :units, :only => [:index, :show]
   root :to => "dams_units#index"
-  resources :collection, :only => [:show], :controller => 'dams_collections', :as => 'dams_collections'
+  resources :collection, :only => [:show], :controller => 'dams_collections', :as => 'dams_collections' do
+    member do
+      get 'dams42'
+      get 'data'
+      get 'ezid'
+      get 'rdf'
+    end
+  end
+
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
   get '/rci', to: 'dams_units#show', :id => 'rci'
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
   get '/solrdoc/:id', to: 'catalog#solrdoc', :as => "solrdoc"
   get "collections", :to => 'catalog#collection_search', :as => 'dams_collections'
-  get "collection/:id/data_view", :to => 'dams_collections#data_view', :as => 'data_view_dams_collections'
 
   Blacklight.add_routes(self, :except => [:solr_document, :catalog]  )
 
@@ -51,6 +58,7 @@ Hydra::Application.routes.draw do
     member do
       get 'dams42'
       get 'data'
+      get 'ezid'
       get 'rdf'
     end
   end

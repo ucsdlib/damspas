@@ -1,4 +1,4 @@
-<% unless @document.nil? %>
+<% if !@document.nil? && @document.class == SolrDocument %>
 
   <%#- site -%>
   <meta name="twitter:card" content="summary">
@@ -7,7 +7,10 @@
   <meta property="og:url" content="<%= request.original_url %>">
 
   <%#- title -%>
-  <% trimmed_title = truncate(@page_title.gsub(/ \| .*/,''), length: 49) %>
+  <%
+    title = @page_title || ""
+    trimmed_title = truncate(title.gsub(/ \| .*/,''), length: 49)
+  %>
   <meta name="twitter:title" content="Digital Collections: <%= trimmed_title %>">
   <meta property="og:title" content="<%= trimmed_title %>">
 
