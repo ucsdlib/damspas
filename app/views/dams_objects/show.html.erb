@@ -44,10 +44,13 @@
 		  <div class="row-fluid">
 		    <p class="sidebar-header"><strong>Editor Tools</strong></p>
 		    <ul class="unstyled sidebar-button-list">
-		      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, rdf_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-		      <li><%= link_to "<i class='icon-plus-sign'></i> Data View".html_safe, data_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-		      <li><%= link_to "<i class='icon-plus-sign'></i> DAMS 4.2 Preview".html_safe, dams42_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
-              <li><%= link_to "<i class='icon-plus-sign'></i> Mint DOI".html_safe, ezid_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+              <% links = { "rdf" => "RDF View", "data" => "Data View",
+                           "dams42" => "DAMS 4.2 Preview", "ezid" => "Mint DOI" }
+                links.each { |key,label| %>
+              <li><%= link_to "<i class='icon-plus-sign'></i> #{label}".html_safe,
+                  send("#{key}_dams_collection_path".to_sym, @document['id']),
+                  class: "btn btn-block btn-small btn-link" %>
+              <% } %>
 		    </ul>
 		  </div>
 		<% end %>
