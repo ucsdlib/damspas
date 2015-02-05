@@ -608,9 +608,7 @@ module Dams
 	    # build url to make damsrepo generate derivs
 	    user = ActiveFedora.fedora_config.credentials[:user]
 	    pass = ActiveFedora.fedora_config.credentials[:password]
-	    baseurl = ActiveFedora.fedora_config.credentials[:url]
-	    baseurl = baseurl.gsub(/\/fedora$/,'')
-	    url = "#{baseurl}/api/files/#{object}/"
+	    url = "#{dams_api_path}/api/files/#{object}/"
 	    url += "#{@cid}/" unless @cid.nil?
 	    url += "#{@fid}/derivatives?format=json"
 
@@ -633,13 +631,27 @@ module Dams
 	    end
       end
     end
+
+    def dams_api_path
+      ActiveFedora.fedora_config.credentials[:url].gsub(/\/fedora$/,'')
+    end
+    def mint_doi( id )
+      dams_post "#{dams_api_path}/api/objects/#{id}/mint_doi?format=json"
+    end
+    def dams_post( uri )
+      user = ActiveFedora.fedora_config.credentials[:user]
+      pass = ActiveFedora.fedora_config.credentials[:password]
+      response = RestClient::Request.new(
+        :method => :post, :url => url, :user => user, :password => pass
+      ).execute
+      JSON.parse(response.to_str)
+    end
+
     
     def get_html_data ( params, controller_path )
-       baseurl = ActiveFedora.fedora_config.credentials[:url]
-       baseurl = baseurl.gsub(/\/fedora$/,'')
        xsl = (params[:xsl].nil? || params[:xsl].empty?)?'review.xsl':params[:xsl]
        controller = (controller_path.nil? || controller_path.empty?)?'':'&controller=' + URI.encode(controller_path)
-       viewerUrl = "#{baseurl}/api/objects/#{params[:id]}/transform?recursive=true&xsl=#{xsl}&baseurl=" + URI.encode(baseurl) + controller
+       viewerUrl = "#{dams_api_path}/api/objects/#{params[:id]}/transform?recursive=true&xsl=#{xsl}&baseurl=" + URI.encode(dams_api_path) + controller
        uri = URI(viewerUrl)
        res = Net::HTTP.get_response(uri)
        res.body

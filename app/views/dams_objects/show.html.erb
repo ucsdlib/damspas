@@ -47,6 +47,7 @@
 		      <li><%= link_to "<i class='icon-plus-sign'></i> RDF View".html_safe, rdf_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		      <li><%= link_to "<i class='icon-plus-sign'></i> Data View".html_safe, data_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		      <li><%= link_to "<i class='icon-plus-sign'></i> DAMS 4.2 Preview".html_safe, dams42_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
+              <li><%= link_to "<i class='icon-plus-sign'></i> Mint DOI".html_safe, ezid_dams_object_path(@document['id']), class: "btn btn-block btn-small btn-link"%>
 		    </ul>
 		  </div>
 		<% end %>

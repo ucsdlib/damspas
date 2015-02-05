@@ -5,8 +5,6 @@ class DamsObjectsController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
   include CatalogHelper
-  load_and_authorize_resource
-  skip_load_and_authorize_resource :only => [:show, :zoom, :dams42, :data, :rdf]
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
   ##############################################################################
@@ -127,5 +125,23 @@ class DamsObjectsController < ApplicationController
     data = get_html_data params, nil
     render :xml => data
   end 
-  
+  def ezid
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :create, @document
+
+    # mint doi
+    begin
+      json = dams_post "#{dams_api_path}/api/objects/#{id}/mint_doi?format=json"
+      if json['statusCode'] == 200
+        logger.info json['message']
+        redirect_to @dams_object, notice: "DOI minted, please allow a few minutes for Solr reindexing before the display is updated."
+      else
+        redirect_to @dams_object, alert: "Minting DOI failed: #{json['message']}"
+      end
+    rescue Exception => e
+      redirect_to @dams_object, alert: "Error minting DOI: #{e.to_s}"
+      return
+    end
+  end
+
 end
