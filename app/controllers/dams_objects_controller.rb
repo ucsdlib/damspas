@@ -139,8 +139,13 @@ class DamsObjectsController < ApplicationController
         redirect_to dams_object_path(params[:id]), alert: "Minting DOI failed: #{json['message']}"
       end
     rescue Exception => e
-      redirect_to @dams_object, alert: "Error minting DOI: #{e.to_s}"
-      return
+      begin
+        resp = JSON.parse( e.response.body )
+        err = resp["message"]
+      rescue
+        err = "Error minting DOI: Unable to process server response"
+      end
+      redirect_to dams_object_path(params[:id]), alert: err
     end
   end
 
