@@ -131,12 +131,12 @@ class DamsObjectsController < ApplicationController
 
     # mint doi
     begin
-      json = dams_post "#{dams_api_path}/api/objects/#{id}/mint_doi?format=json"
+      json = dams_post "#{dams_api_path}/api/objects/#{params[:id]}/mint_doi?format=json"
       if json['statusCode'] == 200
         logger.info json['message']
-        redirect_to @dams_object, notice: "DOI minted, please allow a few minutes for Solr reindexing before the display is updated."
+        redirect_to dams_object_path(params[:id]), notice: "DOI minted, please allow a few minutes for Solr reindexing before the display is updated."
       else
-        redirect_to @dams_object, alert: "Minting DOI failed: #{json['message']}"
+        redirect_to dams_object_path(params[:id]), alert: "Minting DOI failed: #{json['message']}"
       end
     rescue Exception => e
       redirect_to @dams_object, alert: "Error minting DOI: #{e.to_s}"

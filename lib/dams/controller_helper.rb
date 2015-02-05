@@ -638,7 +638,7 @@ module Dams
     def mint_doi( id )
       dams_post "#{dams_api_path}/api/objects/#{id}/mint_doi?format=json"
     end
-    def dams_post( uri )
+    def dams_post( url )
       user = ActiveFedora.fedora_config.credentials[:user]
       pass = ActiveFedora.fedora_config.credentials[:password]
       response = RestClient::Request.new(
