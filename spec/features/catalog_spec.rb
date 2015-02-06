@@ -135,3 +135,26 @@ feature 'Visitor wants to download JSON' do
     page.response_headers['Content-Type'].should include 'application/json'
   end
 end
+
+feature 'Visitor wants to search with single or double quote' do
+  scenario 'should see the result page' do
+    visit catalog_index_path( {:q => 'fish'} )
+    expect(page).to have_selector('h3:first', :text => 'Sample Document Object')
+    
+    visit catalog_index_path( {:q => '"fish'} )
+    expect(page).to have_selector('h3:first', :text => 'Sample Document Object')
+    
+    visit catalog_index_path( {:q => 'fish"'} )
+    expect(page).to have_selector('h3:first', :text => 'Sample Document Object')    
+
+    visit catalog_index_path( {:q => 'fish""'} )
+    expect(page).to have_selector('h3:first', :text => 'Sample Document Object')    
+    
+    visit catalog_index_path( {:q => '""fish'} )
+    expect(page).to have_selector('h3:first', :text => 'Sample Document Object')   
+    
+    visit catalog_index_path( {:q => '"fish"'} )
+    expect(page).to have_selector('h3:first', :text => 'Sample Document Object')    
+             
+  end
+end
