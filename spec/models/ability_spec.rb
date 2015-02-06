@@ -9,29 +9,35 @@ describe Ability do
     end
     
   	describe "to access a DamsObject" do
-	    before do
-	      @obj = DamsObject.create!(pid: "ac00000001", titleValue: "Test Title")
+	    before(:all) do
+	      @obj1 = DamsObject.create!(pid: "ac00000001", titleValue: "Test Title")
+	    end
+	    after(:all) do
+	      @obj1.delete
 	    end
 	
 	    it "should not be able to show damsObject" do
-	      subject.can?(:show,@obj).should be_false
+	      subject.can?(:show,@obj1).should be_false
 	    end
 	    it "should not be able to create damsObject" do
-	      subject.can?(:create,@obj).should be_false
+	      subject.can?(:create,@obj1).should be_false
 	    end
 	    
 	    it "should not be able to edit damsObject" do
-	      subject.can?(:edit,@obj).should be_false
+	      subject.can?(:edit,@obj1).should be_false
 	    end
 	    
 	    it "should not be able to update damsObject" do
-	      subject.can?(:update,@obj).should be_false
+	      subject.can?(:update,@obj1).should be_false
 	    end
     end
     
     describe "to access a DamsProvenanceCollection" do
-		before do
+		before(:all) do
 	      	@damsProvenanceCollection = DamsProvenanceCollection.create!(pid: "ac00000011", titleValue: "Test ProvenanceCollection Title", visibility: "curator", resource_type: "text")
+	    end
+		after(:all) do
+	      	@damsProvenanceCollection.delete
 	    end
 	    it "should not be allowed to show" do
 	      subject.can?(:show,@damsProvenanceCollection).should be_false
@@ -51,6 +57,9 @@ describe Ability do
         before do
         	@damsCopyright = mod_dams_copyright "ac00000021"
 	    end
+        after do
+          @damsCopyright.delete
+        end
 	    it "should be allowed to show" do
 	      subject.can?(:show,@damsCopyright).should be_true
 	    end
@@ -68,6 +77,9 @@ describe Ability do
     describe "to access a MadsTopic" do
     	before do
 		  @madsTopic = mod_mads_topic "ac00000031"
+	    end
+    	after do
+		  @madsTopic.delete
 	    end
 	    it "should be allowed to show" do
 	      subject.can?(:show,@madsTopic).should be_true
@@ -102,18 +114,18 @@ describe Ability do
 		      t.attributes = params
 		    end
 			damsOtherRight.save
-	    	@obj = DamsObject.create!(pid: "ac00000051", titleValue: "Test UCSD Local Title", unitURI: "bb02020202", copyrightURI: "bb05050505", otherRights: [RDF::Resource.new("#{Rails.configuration.id_namespace}ac00000041")])
+	    	@obj2 = DamsObject.create!(pid: "ac00000051", titleValue: "Test UCSD Local Title", unitURI: "bb02020202", copyrightURI: "bb05050505", otherRights: [RDF::Resource.new("#{Rails.configuration.id_namespace}ac00000041")])
 	    end
 	  	pending "should be able to show record ac00000051" do   
-		    subject.can?(:show,@obj).should be_true
+		    subject.can?(:show,@obj2).should be_true
 		 end
 	 end
 	 describe "to access a ucsd local display DamsProvenanceCollection" do
 	 	before do
-	    	@obj = DamsProvenanceCollection.create!(pid: "ac00000061", titleValue: "Test UCSD Local Provanence Collection Title", unitURI: "bb02020202", visibility: "local")
+	    	@obj3 = DamsProvenanceCollection.create!(pid: "ac00000061", titleValue: "Test UCSD Local Provanence Collection Title", unitURI: "bb02020202", visibility: "local")
 	    end
 		 pending "should be able to show record ac00000061" do   
-		    subject.can?(:show,@obj).should be_true
+		    subject.can?(:show,@obj3).should be_true
 		 end
 	 end
   end
@@ -137,6 +149,9 @@ describe Ability do
 		      # DLP unit: bb02020202
 		      @damsObjectDlp = mod_dams_object "ac00000100", "bb02020202" 
 		    end
+		    after do
+		      @damsObjectDlp.delete
+		    end
 		    pending "should be able to show" do
 		      subject.can?(:show,@damsObjectDlp).should be_true
 		    end
@@ -154,6 +169,9 @@ describe Ability do
 	    	before do
 		      # RCI unit: bb48484848
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848" 
+		    end
+	    	after do
+		      @damsObjectRci.delete
 		    end
 		    pending "should be able to show" do
 		      subject.can?(:show,@damsObjectRci).should be_true
@@ -173,6 +191,9 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
 		    end
+    		after do
+			  @damsProvenanceCollectionDlp.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_true
 		    end
@@ -190,6 +211,9 @@ describe Ability do
     		before do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
+		    end
+    		after do
+			  @damsProvenanceCollectionRci.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionRci).should be_true
@@ -209,6 +233,9 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
+    		after do
+			  @damsProvenanceCollectionPartDlp.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_true
 		    end
@@ -227,6 +254,9 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
 		    end
+    		after do
+			  @damsProvenanceCollectionPartRci.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_true
 		    end
@@ -243,25 +273,31 @@ describe Ability do
     	describe "to access a dlp DamsAssembledCollection" do
     	    before do
 		      # DLP unit: bb02020202
-			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
+			  @damsAssembledCollectionDlp5 = mod_dams_assembled_collection "ac00000204", "bb02020202"
+		    end
+    	    after do
+			  @damsAssembledCollectionDlp5.delete
 		    end
 		    it "should be allowed to show" do
-		      subject.can?(:show,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:show,@damsAssembledCollectionDlp5).should be_true
 		    end
 		    it "should be allowed to create" do
-		      subject.can?(:create,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:create,@damsAssembledCollectionDlp5).should be_true
 		    end
 		    it "should be allowed edit" do
-		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:edit,@damsAssembledCollectionDlp5).should be_true
 		    end
 		    it "should be allowed to update" do
-		      subject.can?(:update,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:update,@damsAssembledCollectionDlp5).should be_true
 		    end
 	    end
     	describe "to access a rci DamsAssembledCollection" do
     		before do
 		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
+		    end
+    		after do
+			  @damsAssembledCollectionRci.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionRci).should be_true
@@ -281,6 +317,9 @@ describe Ability do
 	       before do
 		      @damsUnit = mod_dams_unit "ac00000300"
 		    end
+            after do
+              @damsUnit.delete
+            end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
 		    end
@@ -297,6 +336,9 @@ describe Ability do
 	    describe "to access a DamsCopyright" do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
+		    end
+	        after do
+	        	@damsCopyright.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
@@ -316,6 +358,9 @@ describe Ability do
 	        before do
 			  @madsName = mod_mads_name "ac00000400"
 		    end
+	        after do
+			  @madsName.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
@@ -333,6 +378,9 @@ describe Ability do
 	        before do
 			  @madsPersonalName = mod_mads_personal_name "ac00000401"
 		    end
+	        after do
+			  @madsPersonalName.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
@@ -349,6 +397,9 @@ describe Ability do
 	    describe "to access a MadsTopic" do
 	        before do
 			  @madsTopic = mod_mads_topic "ac00000402"
+		    end
+	        after do
+			  @madsTopic.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsTopic).should be_true
@@ -392,6 +443,9 @@ describe Ability do
 		      # RCI unit: bb48484848
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848"
 		    end
+    		after do
+		      @damsObjectRci.delete
+		    end
     		it "should not be allowed to show" do
 		      subject.can?(:show,@damsObjectRci).should be_false
 		    end
@@ -409,6 +463,9 @@ describe Ability do
     		before do
 		      # DLP unit: bb02020202
 		      @damsObjectDlp = mod_dams_object "ac00000100", "bb02020202"
+		    end
+    		after do
+		      @damsObjectDlp.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsObjectDlp).should be_true
@@ -429,6 +486,9 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
 		    end
+	    	after do
+			  @damsProvenanceCollectionRci.delete
+		    end
 	    	it "should be allowed to show record ac00000201" do
 		      subject.can?(:show,@damsProvenanceCollectionRci).should be_true
 		    end
@@ -447,6 +507,9 @@ describe Ability do
     		before do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
+		    end
+    		after do
+			  @damsProvenanceCollectionPartRci.delete
 		    end
 		    it "should be allowed to show record ac00000203" do
 		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_true
@@ -467,6 +530,9 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
 		    end
+    		after do
+			  @damsAssembledCollectionRci.delete
+		    end
 		    it "should be allowed to show record ac00000205" do
 		      subject.can?(:show,@damsAssembledCollectionRci).should be_true
 		    end
@@ -485,6 +551,9 @@ describe Ability do
     		before do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
+		    end
+    		after do
+			  @damsProvenanceCollectionDlp.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_true
@@ -505,6 +574,9 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
+            after do
+			  @damsProvenanceCollectionPartDlp.delete
+            end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_true
 		    end
@@ -522,25 +594,31 @@ describe Ability do
     	describe "to access a dlp DamsAssembledCollection" do
     	    before do
 		      # DLP unit: bb02020202
-			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
+			  @damsAssembledCollectionDlp6 = mod_dams_assembled_collection "ac00000204", "bb02020202"
+		    end
+    	    after do
+			  @damsAssembledCollectionDlp6.delete
 		    end
 		    it "should be allowed to show" do
-		      subject.can?(:show,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:show,@damsAssembledCollectionDlp6).should be_true
 		    end
 		    it "should be allowed to create" do
-		      subject.can?(:create,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:create,@damsAssembledCollectionDlp6).should be_true
 		    end
 		    it "should be allowed edit" do
-		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:edit,@damsAssembledCollectionDlp6).should be_true
 		    end
 		    it "should be allowed to update" do
-		      subject.can?(:update,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:update,@damsAssembledCollectionDlp6).should be_true
 		    end
 	    end
 	    
 	    describe "to access a DamsUnit" do
 	        before do
 		      @damsUnit = mod_dams_unit "ac00000300"
+		    end
+	        after do
+		      @damsUnit.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
@@ -559,6 +637,9 @@ describe Ability do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
 		    end
+	        before do
+	        	@damsCopyright.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
 		    end
@@ -576,6 +657,9 @@ describe Ability do
 		describe "to access a MadsName" do
 		    before do
 			  @madsName = mod_mads_name "ac00000400"
+		    end
+		    before do
+			  @madsName.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
@@ -745,11 +829,12 @@ describe Ability do
     	describe "to access a dlp DamsProvenanceCollection" do
     	    before do
 		      # DLP unit: bb02020202
-			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
-		    end
-    		before do
-		      # DLP unit: bb02020202
+			  @damsAssembledCollectionDlp2 = mod_dams_assembled_collection "ac00000204", "bb02020202"
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
+		    end
+    		after do
+			  @damsAssembledCollectionDlp2.delete
+			  @damsProvenanceCollectionDlp.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_true
@@ -770,6 +855,9 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
+	    	after do
+			  @damsProvenanceCollectionPartDlp.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_true
 		    end
@@ -787,25 +875,31 @@ describe Ability do
     	describe "to access a dlp DamsAssembledCollection" do
     	    before do
 		      # DLP unit: bb02020202
-			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
+			  @damsAssembledCollectionDlp3 = mod_dams_assembled_collection "ac00000204", "bb02020202"
+		    end
+    	    after do
+			  @damsAssembledCollectionDlp3.delete
 		    end
 		    it "should be allowed to show" do
-		      subject.can?(:show,@damsAssembledCollectionDlp).should be_true
+		      subject.can?(:show,@damsAssembledCollectionDlp3).should be_true
 		    end
 		    it "should not be allowed to create" do
-		      subject.can?(:create,@damsAssembledCollectionDlp).should be_false
+		      subject.can?(:create,@damsAssembledCollectionDlp3).should be_false
 		    end
 		    it "should not be allowed edit" do
-		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_false
+		      subject.can?(:edit,@damsAssembledCollectionDlp3).should be_false
 		    end
 		    it "should not be allowed to update" do
-		      subject.can?(:update,@damsAssembledCollectionDlp).should be_false
+		      subject.can?(:update,@damsAssembledCollectionDlp3).should be_false
 		    end
 	    end
 	    
 	    describe "to access a DamsUnit" do
 	       before do
 		      @damsUnit = mod_dams_unit "ac00000300"
+		    end
+	       before do
+		      @damsUnit.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
@@ -823,6 +917,9 @@ describe Ability do
 	    describe "to access a DamsCopyright" do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
+		    end
+	        after do
+	        	@damsCopyright.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
@@ -842,6 +939,9 @@ describe Ability do
 		    before do
 			  @madsName = mod_mads_name "ac00000400"
 		    end
+		    after do
+			  @madsName.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
@@ -859,6 +959,9 @@ describe Ability do
 		    before do
 			  @madsPersonalName = mod_mads_personal_name "ac00000401"
 		    end
+		    after do
+			  @madsPersonalName.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
@@ -875,6 +978,9 @@ describe Ability do
 	    describe "to access a MadsTopic" do
 	    	before do
 			  @madsTopic = mod_mads_topic "ac00000402"
+		    end
+	    	after do
+			  @madsTopic.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsTopic).should be_true
@@ -917,6 +1023,9 @@ describe Ability do
 		      # RCI unit: bb48484848
 		      @damsObjectRci = mod_dams_object "ac00000101", "bb48484848" 
 		    end
+    	    after do
+		      @damsObjectRci.delete
+		    end
     		it "should not be allowed to show" do
 		      subject.can?(:show,@damsObjectRci).should be_false
 		    end
@@ -934,6 +1043,9 @@ describe Ability do
     		before do
 		      # DLP unit: bb02020202
 		      @damsObjectDlp = mod_dams_object "ac00000100", "bb02020202" 
+		    end
+    		after do
+		      @damsObjectDlp.delete
 		    end
 		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsObjectDlp).should be_false
@@ -954,6 +1066,9 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionRci = mod_dams_provenance_collection "ac00000201", "bb48484848"
 		    end
+	    	after do
+			  @damsProvenanceCollectionRci.delete
+		    end
 		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionRci).should be_false
 		    end
@@ -973,6 +1088,9 @@ describe Ability do
 		      # RCI unit: bb48484848
 			  @damsProvenanceCollectionPartRci = mod_dams_provenance_collection_part "ac00000203", "bb48484848"
 		    end
+    		after do
+			  @damsProvenanceCollectionPartRci.delete
+		    end
 		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartRci).should be_false
 		    end
@@ -989,8 +1107,10 @@ describe Ability do
     	
     	describe "to access a rci DamsAssembledCollection" do
     		before do
-		      # RCI unit: bb48484848
 			  @damsAssembledCollectionRci = mod_dams_assembled_collection "ac00000205", "bb48484848"
+		    end
+    		after do
+			  @damsAssembledCollectionRci.delete
 		    end
     		it "should not be allowed to show" do
 		      subject.can?(:show,@damsAssembledCollectionRci).should be_false
@@ -1011,6 +1131,9 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionDlp = mod_dams_provenance_collection "ac00000200", "bb02020202"
 		    end
+    		after do
+			  @damsProvenanceCollectionDlp.delete
+		    end
 		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionDlp).should be_false
 		    end
@@ -1030,6 +1153,9 @@ describe Ability do
 		      # DLP unit: bb02020202
 			  @damsProvenanceCollectionPartDlp = mod_dams_provenance_collection_part "ac00000204", "bb02020202"
 		    end
+	    	after do
+			  @damsProvenanceCollectionPartDlp.delete
+		    end
 		    it "should not be allowed to show" do
 		      subject.can?(:show,@damsProvenanceCollectionPartDlp).should be_false
 		    end
@@ -1047,25 +1173,31 @@ describe Ability do
     	describe "to access a dlp DamsAssembledCollection" do
     	    before do
 		      # DLP unit: bb02020202
-			  @damsAssembledCollectionDlp = mod_dams_assembled_collection "ac00000204", "bb02020202"
+			  @damsAssembledCollectionDlp4 = mod_dams_assembled_collection "ac00000204", "bb02020202"
+		    end
+    	    after do
+			  @damsAssembledCollectionDlp4.delete
 		    end
 		    it "should not be allowed to show" do
-		      subject.can?(:show,@damsAssembledCollectionDlp).should be_false
+		      subject.can?(:show,@damsAssembledCollectionDlp4).should be_false
 		    end
 		    it "should not be allowed to create" do
-		      subject.can?(:create,@damsAssembledCollectionDlp).should be_false
+		      subject.can?(:create,@damsAssembledCollectionDlp4).should be_false
 		    end
 		    it "should not be allowed edit" do
-		      subject.can?(:edit,@damsAssembledCollectionDlp).should be_false
+		      subject.can?(:edit,@damsAssembledCollectionDlp4).should be_false
 		    end
 		    it "should not be allowed to update" do
-		      subject.can?(:update,@damsAssembledCollectionDlp).should be_false
+		      subject.can?(:update,@damsAssembledCollectionDlp4).should be_false
 		    end
 	    end
 	    
 	    describe "to access a DamsUnit" do
 	       before do
 		      @damsUnit = mod_dams_unit "ac00000300"
+		    end
+	       after do
+		      @damsUnit.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsUnit).should be_true
@@ -1083,6 +1215,9 @@ describe Ability do
 	    describe "to access a DamsCopyright" do
 	        before do
 	        	@damsCopyright = mod_dams_copyright "ac00000301"
+		    end
+	        after do
+	        	@damsCopyright.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@damsCopyright).should be_true
@@ -1102,6 +1237,9 @@ describe Ability do
 		    before do
 			  @madsName = mod_mads_name "ac00000400"
 		    end
+		    after do
+			  @madsName.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsName).should be_true
 		    end
@@ -1119,6 +1257,9 @@ describe Ability do
 		    before do
 			  @madsPersonalName = mod_mads_personal_name "ac00000401"
 		    end
+		    after do
+			  @madsPersonalName.delete
+		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsPersonalName).should be_true
 		    end
@@ -1135,6 +1276,9 @@ describe Ability do
 	    describe "to access a MadsTopic" do
 	    	before do
 			  @madsTopic = mod_mads_topic "ac00000402"
+		    end
+	    	after do
+			  @madsTopic.delete
 		    end
 		    it "should be allowed to show" do
 		      subject.can?(:show,@madsTopic).should be_true

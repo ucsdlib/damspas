@@ -9,8 +9,10 @@ describe DamsSourceCapturesController do
 	  describe "Show" do
 	    before do
 	      @obj = DamsSourceCapture.create(scannerManufacturer: "transmission scanner")
-	      #puts @obj.id
 	    end
+        after do
+          @obj.delete
+        end
 	    it "should be successful" do 
 	      get :show, id: @obj.id
 	      response.should be_successful 

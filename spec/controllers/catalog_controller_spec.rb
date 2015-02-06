@@ -10,6 +10,9 @@ describe CatalogController do
     @obj.attributes = {titleValue:"Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unit: unit, copyrightURI: "bd0513099p" }
     @obj.save
   end
+  after(:all) do
+    @obj.delete
+  end
   describe "Blacklight search" do
   
     it "should scope searches to unit" do

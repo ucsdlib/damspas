@@ -32,11 +32,11 @@ feature 'Visitor want to look at objects' do
   end
 
   scenario 'view a sample object record with subtitle, part, and a translation variant title' do
-    ark = 'bd6212468x'
+    ark = 'zz55555555'
     sign_in_developer
     # Create a sample object with subtitle and variant titles
     damsObj = DamsObject.new(pid: ark)
- 	damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewModel.xml').read
+ 	damsObj.damsMetadata.content = File.new('spec/fixtures/titleTest.xml').read
     damsObj.save!
     solr_index ark
 

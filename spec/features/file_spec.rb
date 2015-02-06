@@ -2,13 +2,18 @@ require 'spec_helper'
 require 'cancan'
 
 
-# create a single (public) test record
-@obj = DamsObject.new
-@obj.attributes = {titleValue:"File Upload Test", copyrightURI: "bd0513099p"}
-@obj.save
-test_pid = @obj.pid
 
 feature "Access control enforcement" do
+  # create a single (public) test record
+  before(:all) do
+    @obj = DamsObject.new
+    @obj.attributes = {titleValue:"File Upload Test", copyrightURI: "bd0513099p"}
+    @obj.save
+    test_pid = @obj.pid
+  end
+  after(:all) do
+    @obj.delete
+  end
   scenario "Anonymous should be able to access public object files" do
     visit file_path( 'bd22194583', '_4.jpg' )
     expect(page.driver.response.status).to eq( 200 )

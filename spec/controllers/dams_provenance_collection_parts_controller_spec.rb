@@ -10,6 +10,9 @@ describe DamsProvenanceCollectionPartsController do
 	    before do
 	      @obj = DamsProvenanceCollectionPart.create(titleValue: "Test Provenance Collection Part Title", beginDate: "2012", endDate: "2013", visibility: "public", resource_type: "text")
 	    end
+        after do
+          @obj.delete
+        end
 	    it "should be successful" do 
 	      get :show, id: @obj.id
 	      response.should be_successful 

@@ -418,19 +418,19 @@ END
         #it "should have note" do
 		testIndexNoteFields solr_doc, "note","Note internal value."
 		
-        pending do
-          solr_doc["copyright_tesim"].to_s.should include "Under copyright"
+        solr_doc["copyright_tesim"].to_s.should include "Under copyright"
+		
+        pending "sample data records" do
+		  solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
+		  solr_doc["rightsHolder_tesim"].should include "UC Regents"
+		
+		  #internal license
+          solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
+          solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
+          solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
+          solr_doc["license_tesim"].first.should include '"permissionType":"display"'
+          solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
         end
-		
-		solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
-		solr_doc["rightsHolder_tesim"].should include "UC Regents"
-		
-		#internal license
-        solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
-        solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
-        solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
-        solr_doc["license_tesim"].first.should include '"permissionType":"display"'
-        solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
         
 		# other rights
         solr_doc["otherRights_tesim"].first.should include '"id":"zz06060606"'

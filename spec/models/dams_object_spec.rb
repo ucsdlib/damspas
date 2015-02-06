@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe DamsObject do
   
-  before  do
-    #@damsObj = DamsObject.new(pid: 'bb52572546') # nuking test record needed for other tests...
+  before (:all) do
     @damsObj = DamsObject.new(pid: 'xx00000001')
+    @nameObj = MadsPersonalName.create! pid: "zzXXXXXXX1", name: "Maria", externalAuthority: "someUrl"
+  end
+  after (:all) do
+    @damsObj.delete
+    @nameObj.delete
   end
   
   it "should have the specified datastreams" do
@@ -35,12 +39,6 @@ describe DamsObject do
   end
 
   describe "Store to a repository" do
-    before do
-      MadsPersonalName.create! pid: "zzXXXXXXX1", name: "Maria", externalAuthority: "someUrl"
-    end
-    after do
-      #@damsObj.delete
-    end
     it "should store/retrieve from a repository" do
       @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
       @damsObj.save!
