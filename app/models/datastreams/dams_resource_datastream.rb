@@ -345,7 +345,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     if objects != nil
       insertFacets( solr_doc, "name", objects )
       objects.each do |obj|
-        Solrizer.insert_field(solr_doc, "name", obj.name)
+        insert_unique_field_value solr_doc, "name", obj.name 
       end
     end
     reload MadsPersonalNameInternal
@@ -535,7 +535,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
 
         # retrieval
-        Solrizer.insert_field( solr_doc, "name", name )
+        insert_unique_field_value solr_doc, "name", name 
         
         begin        
           relRole = relationship.role.first.name.first.to_s
@@ -958,5 +958,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     }
     return solr_doc
+  end
+  
+  #Insert unique field value to a solr field
+  def insert_unique_field_value (solr_doc, fieldName, value)
+    solrField = fieldName + "_tesim";
+    Solrizer.insert_field(solr_doc, fieldName, value) if solr_doc[solrField].nil? || !(solr_doc[solrField].include? value)
   end
 end
