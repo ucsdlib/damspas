@@ -157,4 +157,24 @@ feature 'Visitor wants to search with single or double quote' do
     expect(page).to have_selector('h3', :text => 'Sample Image Component') 
              
   end
+
+  feature 'Visitor wants to limit search with a provided Solr filter query' do
+    before do
+      @public = DamsCopyright.create(status: "Public domain")
+      @obj1 = DamsObject.create(titleValue: "Query Sample 1", copyrightURI: @public.pid)
+      solr_index @obj1.pid
+      @obj2 = DamsObject.create(titleValue: "Query Sample 2", copyrightURI: @public.pid)
+      solr_index @obj2.pid
+    end
+    after do
+      @obj1.delete
+      @obj2.delete
+    end
+
+    scenario 'search with filter query' do
+      visit catalog_index_path( {q: 'query sample', fq: ['title_tesim:1']} )
+      expect(page).to have_selector('h3', text: 'Query Sample 1')
+      expect(page).not_to have_selector('h3', text: 'Query Sample 2')
+    end
+  end
 end
