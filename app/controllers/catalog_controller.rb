@@ -40,6 +40,9 @@ class CatalogController < ApplicationController
           name = lookup_unit_name( f.gsub( /.*unit_code_tesim:/,"" ) )
           params[:f] = {} unless params[:f]
           params[:f][:unit_sim] = [name]
+        else
+          # passthrough for other params
+          solr_parameters[:fq] << f
         end
       end
     end
@@ -251,7 +254,7 @@ class CatalogController < ApplicationController
       	 end
         end
       end
-           
+
       if params['xf'] != nil
         params['f'] = JSON.parse params.delete('xf').gsub('=>', ':')
       end
