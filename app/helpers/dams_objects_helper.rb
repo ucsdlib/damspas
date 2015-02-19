@@ -774,6 +774,12 @@ def display_node(index)
       render_tree_HTML(index, false )
     elsif @is_child[index] == true
       parent_node_index = @tag[index][:parent_node]
+      grand_parent_node_index = @tag[parent_node_index][:parent_node]
+      
+      if(!grand_parent_node_index.nil?)
+        render_node_HTML(@tag[parent_node_index][:parent_node], true)
+        concat "<ul class='unstyled node-container'>".html_safe 
+      end
       render_node_HTML(parent_node_index, true)
 
       concat "<ul class='unstyled node-container'>".html_safe
@@ -783,6 +789,7 @@ def display_node(index)
         @checked[node_index]= true
       end
       concat "</ul>".html_safe
+      concat "</ul>".html_safe if(!grand_parent_node_index.nil?)
     end
     @firstButton = nil
   end
