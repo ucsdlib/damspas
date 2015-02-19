@@ -43,7 +43,7 @@ Hydra::Application.configure do
   # environment-specific DAMS config
   # ip-based role assignment
   config.public_ips = []
-  config.local_ip_blocks = [ "192.168.0.", "192.168.1." ]
+  config.local_ip_blocks = [ "192.168.0.", "192.168.1.", "132.239." ]
   config.wowza_directory = '/pub/data2/dams/'
   config.wowza_baseurl = 'lib-streaming.ucsd.edu:1935/dams4-test/_definst_/'
   config.role_vocab = "#{config.id_namespace}bb14141414"

@@ -75,6 +75,6 @@ namespace :deploy do
   after :finishing, 'deploy:write_version'
   after :finishing, 'deploy:update_sitemap'
   after :finishing, 'deploy:assets:precompile'
-  after :finishing, 'deploy:cleanup'
+  after :finishing, 'deploy:restart'
 
 end

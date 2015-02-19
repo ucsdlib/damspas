@@ -48,4 +48,14 @@ feature 'Access control' do
     expect(page).to have_selector('h1', 'Audit Log')
   end
 
+  scenario 'local user should be able to see a localDisplay object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path 'bd86037516'
+    expect(page.driver.response.status).to eq( 200 )
+  end
+  scenario 'non-local user should not be able to see a localDisplay object' do
+    visit dams_object_path 'bd86037516'
+    expect(page.driver.response.status).to eq( 403 )
+  end
+
 end

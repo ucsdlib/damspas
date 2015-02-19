@@ -161,19 +161,17 @@ $complexFile: #AC6F2B !default;
 .addthis_sharing_toolbox
 {
   float:right;
-  .addthis_20x20_style .dummy .at300bs,
-  .addthis_20x20_style .at300bs,
-  .addthis_20x20_style .at15t
+  #atstbx
   {
-    background: url("../images/sharing-icon.png") no-repeat scroll center center rgba(0, 0, 0, 0) !important;
-    background-size: 15px 15px !important;
-    width:15px !important;
-    height:15px !important;
+    .at4-icon.aticon-compact, .at4-icon.aticon-more, .at4-icon.aticon-expanded, .at4-icon.aticon-addthis
+    {
+      background: url("../images/sharing-icon.png") no-repeat scroll center center rgba(0, 0, 0, 0) !important;
+      background-size: 15px 15px !important;
+      width: 15px !important;
+      height: 15px !important;
+    }
+    a.at-svc-compact{background-color: transparent !important;}
   }
-}
-
-.at4m-menu .at4m-menu-content ul li a {
-  width: auto !important;
 }
 
 // Sidebar
