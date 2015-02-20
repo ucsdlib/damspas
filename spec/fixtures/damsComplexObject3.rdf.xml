@@ -294,5 +294,16 @@
       </dams:Note>
     </dams:note>
    
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb48484848"/>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>
+
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx97626129/3"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx97626129/4"/>
+
   </dams:Object>
 </rdf:RDF>

@@ -160,7 +160,7 @@ end
 
 describe "complex object view" do
   before do
-    @damsComplexObj = DamsObject.create!(pid: "xx97626129", titleValue: "PPTU04WT-027D (dredge, rock)")
+    @damsComplexObj = DamsObject.new(pid: "xx97626129")
   end
   after do
     @damsComplexObj.delete
@@ -169,7 +169,6 @@ describe "complex object view" do
     @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
     @damsComplexObj.save!
     solr_index (@damsComplexObj.pid)
-    sign_in_developer
     visit dams_object_path(@damsComplexObj.pid)
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
