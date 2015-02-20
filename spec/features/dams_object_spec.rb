@@ -60,6 +60,24 @@ feature 'Visitor want to look at objects' do
     expect(response_headers['Content-Type']).to include 'application/xml'
   end
 
+  pending "Enabled once damsrepo enable RDF Turtle format: view RDF Turtle of an object" do
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF Turtle View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'text'
+    expect(page).to have_content("@prefix");
+  end
+
+  scenario "view RDF N-Triples of an object" do
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF N-Triples View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'text'
+    expect(page).to have_content("\" .");
+  end
+
   scenario "view DAMS 4.2 RDF/XML of an object" do
     sign_in_developer
     visit dams_object_path('bd0922518w')
