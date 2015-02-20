@@ -841,6 +841,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
  		  Solrizer.insert_field(solr_doc, "#{fieldName}_id", part_pid)
       	end  
       	part_json.merge!(:name => part_obj.title.first.value,
+                       :visibility => part_obj.visibility.first.to_s,
                        :thumbnail => thumbnail(part_obj.relatedResource) )
       	Solrizer.insert_field(solr_doc, "#{fieldName}_json", part_json.to_json )
       end

@@ -3,6 +3,40 @@ require 'spec_helper'
 test_pid = 'bd22194583'
 test_pid2 = 'bb41653353'
 
+feature 'Visitor wants to view collection links' do
+  before do
+    test_pid3 = 'xx03030303'
+    test_pid4 = 'xx48133407'
+    
+    @damsColl1 = DamsProvenanceCollection.new(pid: test_pid4)
+    @damsColl1.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection4Curator.rdf.xml').read
+    @damsColl1.save!
+    solr_index test_pid4
+    
+    @damsColl2 = DamsAssembledCollection.new(pid: test_pid3)
+    @damsColl2.damsMetadata.content = File.new('spec/fixtures/damsAssembledCollection4Access.rdf.xml').read
+    @damsColl2.save!
+    solr_index test_pid3
+  end
+  after do
+    @damsColl1.delete
+    @damsColl2.delete
+  end
+
+  scenario 'A anonymous user should not see a curator collection link' do
+    visit dams_object_path('xx03030303')
+    expect(page).not_to have_link('DAMS Curator Collection',   href: dams_collection_path('xx48133407'))
+    expect(page).to have_link('Sample Provenance Collection',  href: dams_collection_path('bd48133407'))
+  end
+  
+  scenario 'A curator should see any collection links, including curator collections' do
+    sign_in_developer
+    visit dams_object_path('xx03030303')
+    expect(page).to have_link('DAMS Curator Collection',       href: dams_collection_path('xx48133407'))
+    expect(page).to have_link('Sample Provenance Collection',  href: dams_collection_path('bd48133407'))
+  end
+end
+
 feature 'Visitor wants to view object fields' do
   scenario 'Metadata on Solr view page' do
     visit dams_object_path(test_pid)
