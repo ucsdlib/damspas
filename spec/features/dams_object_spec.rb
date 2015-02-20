@@ -157,3 +157,32 @@ feature 'Format link(s) need to be scoped to the collection level ' do
     
   end
 end
+
+describe "complex object view" do
+  before do
+    @damsComplexObj = DamsObject.new(pid: "xx97626129")
+  end
+  after do
+    @damsComplexObj.delete
+  end
+  it "should see the component hierarchy view" do
+    @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
+    @damsComplexObj.save!
+    solr_index (@damsComplexObj.pid)
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-1',:text => 'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-2',:text => 'Files')
+    
+    #click on grand child link
+    click_on 'Image 001'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Image 001')
+        
+    #return to the top level record
+    click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')         
+  end     
+end

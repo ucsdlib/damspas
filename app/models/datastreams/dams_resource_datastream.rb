@@ -577,72 +577,76 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertTitleFields ( solr_doc, cid, titles )
     sort_title = ""
     titles.each do |t|
-      if(t.name.class == ActiveFedora::RdfNode::TermProxy)
-      	name = t.name.first || ""
-      else
-      	name = t.name || ""
-      end
-      external = t.externalAuthority || ""
+      begin
+        if(t.name.class == ActiveFedora::RdfNode::TermProxy)
+      	  name = t.name.first || ""
+        else
+      	  name = t.name || ""
+        end
+        external = t.externalAuthority || ""
 
-      # walk through chain of title elements
-      value = t.value || ""
-      nonSort = t.nonSort || ""
-      partName = t.partName || ""
-      partNumber = t.partNumber || ""
-      subtitle = t.subtitle || ""
-	  variant = t.variant || ""
-	  translationVariant = t.translationVariant || ""
-	  abbreviationVariant = t.abbreviationVariant || ""
-	  acronymVariant = t.acronymVariant || ""
-	  expansionVariant = t.expansionVariant || ""
+        # walk through chain of title elements
+        value = t.value || ""
+        nonSort = t.nonSort || ""
+        partName = t.partName || ""
+        partNumber = t.partNumber || ""
+        subtitle = t.subtitle || ""
+	    variant = t.variant || ""
+	    translationVariant = t.translationVariant || ""
+	    abbreviationVariant = t.abbreviationVariant || ""
+	    acronymVariant = t.acronymVariant || ""
+	    expansionVariant = t.expansionVariant || ""
 	  
-      # structured
-      title_json = { :name => name, :external => external, :value => value,
-                     :nonSort => nonSort, :partName => partName,
-                     :partNumber => partNumber, :subtitle => subtitle, 
-                     :variant => variant, :translationVariant => translationVariant,
-                     :abbreviationVariant => abbreviationVariant, :acronymVariant => acronymVariant,
-                     :expansionVariant => expansionVariant }
-      if cid != nil
-        Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
-      else
-        Solrizer.insert_field(solr_doc, "title_json", title_json.to_json)
-      end
+        # structured
+        title_json = { :name => name, :external => external, :value => value,
+                       :nonSort => nonSort, :partName => partName,
+                       :partNumber => partNumber, :subtitle => subtitle, 
+                       :variant => variant, :translationVariant => translationVariant,
+                       :abbreviationVariant => abbreviationVariant, :acronymVariant => acronymVariant,
+                       :expansionVariant => expansionVariant }
+        if cid != nil
+          Solrizer.insert_field(solr_doc, "component_#{cid}_title_json", title_json.to_json)
+        else
+          Solrizer.insert_field(solr_doc, "title_json", title_json.to_json)
+        end
 
-      # retrieval
-      Solrizer.insert_field(solr_doc, "title", name)
-      Solrizer.insert_field(solr_doc, "all_fields", name)
-	  Solrizer.insert_field(solr_doc, "all_fields", external) if external.length > 0
-	  #Solrizer.insert_field(solr_doc, "all_fields", value) if value.length > 0
-	  Solrizer.insert_field(solr_doc, "all_fields", nonSort) if nonSort.length > 0
-	  Solrizer.insert_field(solr_doc, "all_fields", partName) if partName.length > 0
-	  Solrizer.insert_field(solr_doc, "all_fields", partNumber) if partNumber.length > 0
-	  Solrizer.insert_field(solr_doc, "all_fields", subtitle) if subtitle.length > 0
+        # retrieval
+        Solrizer.insert_field(solr_doc, "title", name)
+        Solrizer.insert_field(solr_doc, "all_fields", name)
+	    Solrizer.insert_field(solr_doc, "all_fields", external) if external.length > 0
+	    #Solrizer.insert_field(solr_doc, "all_fields", value) if value.length > 0
+	    Solrizer.insert_field(solr_doc, "all_fields", nonSort) if nonSort.length > 0
+	    Solrizer.insert_field(solr_doc, "all_fields", partName) if partName.length > 0
+	    Solrizer.insert_field(solr_doc, "all_fields", partNumber) if partNumber.length > 0
+	    Solrizer.insert_field(solr_doc, "all_fields", subtitle) if subtitle.length > 0
 	        
-      if variant.length > 0
-      	Solrizer.insert_field(solr_doc, "titleVariant", variant)
-      	Solrizer.insert_field(solr_doc, "all_fields", variant)
-      end 
-      if translationVariant.length > 0
-      	Solrizer.insert_field(solr_doc, "titleTranslationVariant", translationVariant)
-      	Solrizer.insert_field(solr_doc, "all_fields", translationVariant)
-      end
-      if abbreviationVariant.length > 0
-      	Solrizer.insert_field(solr_doc, "titleAbbreviationVariant", abbreviationVariant)
-      	Solrizer.insert_field(solr_doc, "all_fields", abbreviationVariant)
-      end
-      if acronymVariant.length > 0
-      	Solrizer.insert_field(solr_doc, "titleAcronymVariant", acronymVariant)
-      	Solrizer.insert_field(solr_doc, "all_fields", acronymVariant)
-      end
-      if expansionVariant.length > 0
-      	Solrizer.insert_field(solr_doc, "titleExpansionVariant", expansionVariant) 
-        Solrizer.insert_field(solr_doc, "all_fields", expansionVariant)
-      end
+        if variant.length > 0
+      	  Solrizer.insert_field(solr_doc, "titleVariant", variant)
+      	  Solrizer.insert_field(solr_doc, "all_fields", variant)
+        end 
+        if translationVariant.length > 0
+      	  Solrizer.insert_field(solr_doc, "titleTranslationVariant", translationVariant)
+      	  Solrizer.insert_field(solr_doc, "all_fields", translationVariant)
+        end
+        if abbreviationVariant.length > 0
+      	  Solrizer.insert_field(solr_doc, "titleAbbreviationVariant", abbreviationVariant)
+      	  Solrizer.insert_field(solr_doc, "all_fields", abbreviationVariant)
+        end
+        if acronymVariant.length > 0
+      	  Solrizer.insert_field(solr_doc, "titleAcronymVariant", acronymVariant)
+      	  Solrizer.insert_field(solr_doc, "all_fields", acronymVariant)
+        end
+        if expansionVariant.length > 0
+      	  Solrizer.insert_field(solr_doc, "titleExpansionVariant", expansionVariant) 
+          Solrizer.insert_field(solr_doc, "all_fields", expansionVariant)
+        end
 	  	  		
-      # build sort title
-      if sort_title == "" && cid == nil
-        sort_title = name
+        # build sort title
+        if sort_title == "" && cid == nil
+          sort_title = name
+        end
+      rescue Exception => e
+        logger.warn "XXX insertTitleFields: #{e.to_s}"
       end
     end
 
