@@ -103,6 +103,18 @@ class DamsResourceController < ApplicationController
     params[:xsl] = "normalize.xsl"
     data = get_html_data params, nil
     render :xml => data
+  end
+  def rdf_nt
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    data = get_data("nt")
+    render :text => data
+  end
+  def rdf_turtle
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    data = get_data("turtle")
+    render :text => data
   end 
   def ezid
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )

@@ -657,6 +657,14 @@ module Dams
        res.body
     end       
 
+    def get_data ( format )
+       format = format.blank? ? 'xml':format
+       viewerUrl = "#{dams_api_path}/api/objects/#{params[:id]}?recursive=true&format=#{format}"
+       uri = URI(viewerUrl)
+       res = Net::HTTP.get_response(uri)
+       res.body
+    end
+
     def audit( id = "unknown" )
       classname = self.class.name.gsub("sController","")
       logger.warn "audit: #{session[:user_id]} #{params[:action]} #{classname} #{id}"

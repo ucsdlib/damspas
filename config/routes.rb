@@ -19,6 +19,8 @@ Hydra::Application.routes.draw do
       get 'data'
       get 'ezid'
       get 'rdf'
+      get 'rdf_nt'
+      get 'rdf_turtle'
     end
   end
 
@@ -60,6 +62,8 @@ Hydra::Application.routes.draw do
       get 'data'
       get 'ezid'
       get 'rdf'
+      get 'rdf_nt'
+      get 'rdf_turtle'
     end
   end
 
