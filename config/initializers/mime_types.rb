@@ -14,6 +14,8 @@ Mime::Type.register "application/marcxml+xml", :marcxml,
       ["application/x-marc+xml", "application/x-marcxml+xml", 
        "application/marc+xml"]
 Mime::Type.register "application/rdf+xml", :rdf
+Mime::Type.register "text/plain", :nt
+Mime::Type.register "text/turtle", :ttl
 
 
 
