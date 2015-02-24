@@ -20,7 +20,7 @@ Hydra::Application.routes.draw do
       get 'ezid'
       get 'rdf'
       get 'rdf_nt'
-      get 'rdf_turtle'
+      get 'rdf_ttl'
     end
   end
 
@@ -63,7 +63,7 @@ Hydra::Application.routes.draw do
       get 'ezid'
       get 'rdf'
       get 'rdf_nt'
-      get 'rdf_turtle'
+      get 'rdf_ttl'
     end
   end
 

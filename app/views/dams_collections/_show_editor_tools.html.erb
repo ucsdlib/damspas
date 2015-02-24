@@ -1,6 +1,6 @@
 <p class="sidebar-header"><b>Collection Tools</b></p>
 <ul class="unstyled sidebar-button-list">
-  <% links = { "rdf" => "RDF View", "rdf_nt" => "RDF N-Triples View", "rdf_turtle" => "RDF Turtle View", "data" => "Data View", "dams42" => "DAMS 4.2 Preview",
+  <% links = { "rdf" => "RDF View", "rdf_nt" => "RDF N-Triples View", "rdf_ttl" => "RDF Turtle View", "data" => "Data View", "dams42" => "DAMS 4.2 Preview",
                "ezid" => "Mint DOI" }
     links.each { |key,label| %>
   <li><%= link_to "<i class='icon-plus-sign'></i> #{label}".html_safe,

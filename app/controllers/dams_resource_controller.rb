@@ -68,12 +68,16 @@ class DamsResourceController < ApplicationController
         format.html # show.html.erb
         format.json { render json: @document }
         format.rdf { render xml: @rdfxml }
+        format.nt { rdf_nt }
+        format.ttl { rdf_ttl }
       end
     elsif !@document.nil? && @document['discover_access_group_ssim'].include?("public")
       respond_to do |format|
         format.html { render :metadata }
         format.json { render json: @document }
         format.rdf { render xml: @rdfxml }
+        format.nt { rdf_nt }
+        format.ttl { rdf_ttl }
       end
     else
       authorize! :show, @document # 403 forbidden
@@ -110,7 +114,7 @@ class DamsResourceController < ApplicationController
     data = get_data("nt")
     render :text => data
   end
-  def rdf_turtle
+  def rdf_ttl
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     data = get_data("turtle")
