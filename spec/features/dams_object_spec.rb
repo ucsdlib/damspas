@@ -24,7 +24,13 @@ feature 'Visitor want to look at objects' do
     # admin links
     expect(page).to have_link('RDF View')
   end
-  
+
+  scenario 'view full title with non filing characters' do
+    visit dams_object_path('bd22194583')
+    expect(page).to have_selector('h1',:text=>'The Sample Simple Object')
+    expect(page).to have_selector('h2',:text=>'An Image Object, Allegro 1')
+  end
+
   scenario 'view a sample object record with subtitle, part, and a translation variant title' do
     ark = 'bd6212468x'
     sign_in_developer
