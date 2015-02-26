@@ -63,7 +63,8 @@ module Dams
         map.assembledCollection(:in => DAMS, :class_name => 'DamsAssembledCollectionInternal')
         map.provenanceCollection(:in => DAMS, :class_name => 'DamsProvenanceCollectionInternal')
         map.provenanceCollectionPart(:in => DAMS, :class_name => 'DamsProvenanceCollectionPartInternal')
-
+        map.provenanceCollection_node(:in=>DAMS,:to=>'provenanceCollection')
+        
         # related collections
         map.relatedCollection(:in => DAMS)
 
@@ -76,7 +77,7 @@ module Dams
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
                       :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                       :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
-                      :unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :allow_destroy => true 
+                      :unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :provenanceCollection_node, :allow_destroy => true 
 
       
 
