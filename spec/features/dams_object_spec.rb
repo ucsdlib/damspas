@@ -176,7 +176,7 @@ feature 'Format link(s) need to be scoped to the collection level ' do
     expect(page).to have_link('image')
 
     click_link "image"
-    expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Diss…")
+    expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Diss")
     expect(page).to have_selector('span.dams-filter a', :text => "image")
     
   end
@@ -209,4 +209,29 @@ describe "complex object view" do
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')         
   end     
+end
+
+describe "to look at a simple SIO object" do
+  before do
+    @damsSioObj = DamsObject.new(pid: "xx3243380c")
+  end
+  after do
+    @damsSioObj.delete
+  end
+  it "should not see the accession number in public view" do
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)   
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).not_to have_selector('span.dams-note-display-label:first',:text=>'Accession Number')                 
+  end
+  
+   it "should see the accession number in curator view" do
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)    
+    sign_in_developer       
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).to have_selector('span.dams-note-display-label',:text=>'Accession Number')
+   end     
 end
