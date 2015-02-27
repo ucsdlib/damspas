@@ -33,4 +33,9 @@ feature 'Visitor wants to look at collections' do
     visit dams_collection_path 'bd5905304g' # santa fe light cone
     expect(page).to have_link('RDF View')
   end
+  scenario 'damsProvenanceCollectionPart view with parent collection name' do
+    solr_index ("bb25252525")
+    visit dams_collection_path 'bb25252525'
+    expect(page).to have_link('Historical Dissertations') 
+  end  
 end
