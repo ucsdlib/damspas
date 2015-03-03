@@ -5,13 +5,14 @@ describe CatalogController do
     @controller.instance_variable_get("@response")
   end
   before(:all) do
-    unit = RDF::Resource.new("#{Rails.configuration.id_namespace}bb02020202")
-    @obj = DamsObject.new
-    @obj.attributes = {titleValue:"Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unit: unit, copyrightURI: "bd0513099p" }
-    @obj.save
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @copy = DamsCopyright.create
+    @obj = DamsObject.create titleValue: "Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unitURI: @unit.pid, copyrightURI: @copy.pid
   end
   after(:all) do
     @obj.delete
+    @unit.delete
+    @copy.delete
   end
   describe "Blacklight search" do
   
