@@ -1,130 +1,138 @@
 require 'spec_helper'
 
 feature 'Visitor wants to search' do
+  before(:all) do
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @copy = DamsCopyright.create status: "Public domain"
+
+    @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
+    @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
+
+    @obj1 = DamsObject.create titleValue: "Sample Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, beginDate: '2000', subjectURI: [@sub1.pid]
+    @obj2 = DamsObject.create titleValue: "Sample Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, beginDate: '1999', subjectURI: [@sub2.pid]
+    @obj3 = DamsObject.create titleValue: "Sample Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
+
+    solr_index @obj1.pid
+    solr_index @obj2.pid
+    solr_index @obj3.pid
+  end
+  after(:all) do
+    @obj1.delete
+    @obj2.delete
+    @obj3.delete
+
+    @copy.delete
+    @unit.delete
+  end
+
   scenario 'is on search results page' do
-    visit catalog_index_path( {:q => 'sample'} )
+    visit catalog_index_path( {:q => 'Sample'} )
     expect(page).to have_selector('h4', :text => 'Refine your search')
-    expect(page).to have_selector('h3', :text => 'Sample Simple Object')
-    expect(page).to have_selector("img.dams-search-thumbnail:first")
-    expect(page).to have_selector("a.dams-search-thumbnail-link:first")
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')
+    expect(page).to have_selector('h3', :text => 'Sample Object 2')
+    expect(page).to have_selector('h3', :text => 'Sample Object 3')
   end
   scenario 'is on a browse results page' do
     # should show links to remove facets, even when there is no query
-    visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections'} )
+    visit catalog_index_path( {'f[unit_sim][]' => 'Test Unit'} )
     expect(page).to have_selector("div.dams-search-constraints")
     expect(page).to have_selector("span.dams-filter")
   end
   scenario 'results sorted by title' do
     sign_in_developer
-    visit catalog_index_path( {'q' => 'Dissertations', 'per_page' => 100, 'sort' => 'score desc, system_create_dtsi desc, title_ssi asc'} )
-    idx1 = page.body.index('Sample Complex Object Record #1') # subject matched, no date
-    idx2 = page.body.index('Chicano and black radical activism of the 1960s: a comparison between the Brown Berets and the Black Panther Party in California')      # subject matched, 2010
-    idx3 = page.body.index('Sample Complex Object Record #3')   # collection matched, no date
+    visit catalog_index_path( {'q' => 'sample', 'per_page' => 100, 'sort' => 'title_ssi asc'} )
+    idx1 = page.body.index('Sample Object 1')
+    idx2 = page.body.index('Sample Object 2')
+    idx3 = page.body.index('Sample Object 3')
     idx2.should > idx1
     idx3.should > idx2
 
-    click_on "Sample Complex Object Record #3"
+    click_on "Sample Object 1"
     expect(page).to have_selector('div.search-results-pager')
   end
+
+  scenario 'Search with single or double quotes' do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')
+    
+    visit catalog_index_path( {:q => '"sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')
+    
+    visit catalog_index_path( {:q => 'sample"'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')    
+
+    visit catalog_index_path( {:q => 'sample""'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')    
+    
+    visit catalog_index_path( {:q => '""sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')   
+    
+    visit catalog_index_path( {:q => '"sample"'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1') 
+  end
+
   scenario 'results sorted by object creation date' do
     sign_in_developer
-    visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', 'per_page' => 100, 'sort' => 'object_create_dtsi asc, title_ssi asc'} )
-    idx1 = page.body.index('Sample Audio Object: I need another')  # no date
-    idx2 = page.body.index('Sample Complex Object Record #1')      # 1980
-    idx3 = page.body.index('Chicano and black radical activism')   # 2010
-    idx4 = page.body.index('Sample Simple Object')                 # 2012-04-08
-    idx4.should >( idx3 )
+    visit catalog_index_path( {'f[unit_sim][]' => 'Test Unit', 'per_page' => 100, 'sort' => 'object_create_dtsi asc'} )
+    idx1 = page.body.index('Sample Object 1')  # 2000
+    idx2 = page.body.index('Sample Object 2')  # 1999
+    idx3 = page.body.index('Sample Object 3')  # no date
     idx3.should >( idx2 )
     idx2.should >( idx1 )
 
-    click_on "Chicano and black radical activism"
+    click_on "Sample Object 3"
     expect(page).to have_selector('div.search-results-pager')
   end
   scenario 'system queries should show search results' do
-    visit catalog_index_path( {:fq => ['{!join from=collections_tesim to=id}unit_code_tesim:dlp']} )
+    visit catalog_index_path( {:fq => ['{!join from=collections_tesim to=id}unit_code_tesim:tu']} )
     expect(page).to have_selector('ol#dams-search-results li div h3')
   end
-#  scenario 'is on search results page for restricted object' do
-#    sign_in_developer
-#    visit catalog_index_path( {:q => 'women'} )
-#    expect(page).to have_selector('h3:first', :text => 'Women wrapping food.')
-#    expect(page).to have_selector("img.dams-search-thumbnail:first")
-#    expect(page).to have_css("img[src*='thumb-restricted.png']:first")
-#  end  
-end
-
-feature 'Visitor is on search result page' do
   scenario 'should see the constraints' do
-    visit catalog_index_path( {:q => 'fish'} )
+    visit catalog_index_path( {:q => 'sample'} )
     expect(page).to have_selector('span.dams-filter a')
   end
-  scenario 'should not see repeated/duplicated names' do
-    ark = 'bd08080808'
-    sign_in_developer
-    # Create a sample object with subtitle and variant titles
-    damsObj = DamsObject.new(pid: ark)
- 	damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectDuplicatedNames.rdf.xml').read
-    damsObj.save!
-    solr_index ark
 
-    visit catalog_index_path( {:q => '"Record With Duplicated Names"'} )
-    expect(page).to have_content('Wagner, Rick, 1972-')
-    expect(page).to have_content('Yañez, Angélica María')
-    expect(page).not_to have_content('Wagner, Rick, 1972-; Wagner, Rick, 1972-')
-
-    # Delete the sample object after test
-    damsObj.delete
-  end
-end
-
-feature 'Visitor wants to browse Topic A-Z ' do
-  scenario 'is on Browse by Topic page' do
-    sign_in_developer
-    visit catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index', :'facet.prefix' => 'A')
+  scenario 'Browse by Topic page' do
+    visit catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
     
-    expect(page).to have_selector('.btn', :text => 'A')
-    page.all(:css, '.facet_select').size.should eq(2)
-    page.all('.facet_select')[0].text.should include 'Academic dissertations'
-    page.all('.facet_select')[1].text.should include 'African Americans--Relations with Mexican Americans--History--20th Century'    
-    
-    click_on "C"
-    expect(page).to have_selector('.btn', :text => 'C')
-    page.all(:css, '.facet_select').size.should eq(3)
-    page.all('.facet_select')[0].text.should include 'Cosmic background radiation'
-    page.all('.facet_select')[1].text.should include 'Cosmology'
-    page.all('.facet_select')[2].text.should include 'Cosmology--Observations'   
-  end
-  
-  scenario 'wants to select Numerical Sort' do
-    sign_in_developer
-    visit catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index', :'facet.prefix' => 'S')
-    
-    expect(page).to have_selector('.btn', :text => 'S')
-    page.all(:css, '.facet_select').size.should eq(2)
-    page.all('.facet_select')[0].text.should include 'San Diego Supercomputer Center.'
-    page.all('.facet_select')[1].text.should include 'Smith, John, Dr., 1965-'    
+    expect(page).to have_selector('.btn', :text => 'Z')
+    idx1 = page.body.index('ZZZ Test Subject 1')
+    idx2 = page.body.index('ZZZ Test Subject 2')
+    idx2.should >( idx1 )
     
     click_on("Sort 1-9", match: :first)
-    expect(page).to have_selector('.btn', :text => 'S')
-    page.all(:css, '.facet_select').size.should eq(2)
-    page.all('.facet_select')[0].text.should include 'Smith, John, Dr., 1965-'      
-    page.all('.facet_select')[1].text.should include 'San Diego Supercomputer Center.'
+    expect(page).to have_selector('.btn', :text => 'Z')
+    idx1 = page.body.index('ZZZ Test Subject 1')
+    idx2 = page.body.index('ZZZ Test Subject 2')
+    idx1.should <( idx2 )
   end  
 end
 
-feature 'Visitor wants to browse Creator A-Z ' do
-  scenario 'is on Browse by Creator page' do
+feature "Search and browse linked names and subjects" do
+  before(:all) do
+    @damsObj = DamsObject.new(pid: 'bd08080808')
+    @damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectDuplicatedNames.rdf.xml').read
+    @damsObj.save!
+    solr_index 'bd08080808'
+  end
+  after(:all) do
+    @damsObj.delete
+  end
+  scenario "Record with duplicate name entries" do
     sign_in_developer
-    visit catalog_facet_path("creator_sim", :'facet.sort' => 'index', :'facet.prefix' => 'A')
-    
-    expect(page).to have_selector('.btn', :text => 'A')
-    page.all(:css, '.facet_select').size.should eq(1)
-    page.all('.facet_select')[0].text.should include 'Artist, Alice, 1966-'
-    
-    click_on "B"
-    expect(page).to have_selector('.btn', :text => 'B')
-    page.all(:css, '.facet_select').size.should eq(1)
-    page.all('.facet_select')[0].text.should include 'Burns, Jack O.'
+    # Create a sample object with subtitle and variant titles
+
+    # search display
+    visit catalog_index_path( {:q => '"Record With Duplicated Names"'} )
+    expect(page).to have_content('ZZZ Name, Duplicated')
+    expect(page).to have_content('ZZZ Name, Singleton')
+    expect(page).not_to have_content('ZZZ Name, Duplicatd; ZZZ Name, Duplicated')
+  end
+  scenario 'Browse by name' do
+    sign_in_developer
+    visit catalog_facet_path("creator_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Name, Duplicated')
+    expect(page).to have_content('ZZZ Name, Singleton')
   end
 end
 
@@ -136,45 +144,22 @@ feature 'Visitor wants to download JSON' do
   end
 end
 
-feature 'Visitor wants to search with single or double quote' do
-  scenario 'should see the result page' do
-    visit catalog_index_path( {:q => 'sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')
-    
-    visit catalog_index_path( {:q => '"sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')
-    
-    visit catalog_index_path( {:q => 'sample"'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')    
-
-    visit catalog_index_path( {:q => 'sample""'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')    
-    
-    visit catalog_index_path( {:q => '""sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')   
-    
-    visit catalog_index_path( {:q => '"sample"'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component') 
-             
+feature 'Visitor wants to limit search with a provided Solr filter query' do
+  before do
+    @public = DamsCopyright.create(status: "Public domain")
+    @obj1 = DamsObject.create(titleValue: "Query Sample 1", copyrightURI: @public.pid)
+    solr_index @obj1.pid
+    @obj2 = DamsObject.create(titleValue: "Query Sample 2", copyrightURI: @public.pid)
+    solr_index @obj2.pid
+  end
+  after do
+    @obj1.delete
+    @obj2.delete
   end
 
-  feature 'Visitor wants to limit search with a provided Solr filter query' do
-    before do
-      @public = DamsCopyright.create(status: "Public domain")
-      @obj1 = DamsObject.create(titleValue: "Query Sample 1", copyrightURI: @public.pid)
-      solr_index @obj1.pid
-      @obj2 = DamsObject.create(titleValue: "Query Sample 2", copyrightURI: @public.pid)
-      solr_index @obj2.pid
-    end
-    after do
-      @obj1.delete
-      @obj2.delete
-    end
-
-    scenario 'search with filter query' do
-      visit catalog_index_path( {q: 'query sample', fq: ['title_tesim:1']} )
-      expect(page).to have_selector('h3', text: 'Query Sample 1')
-      expect(page).not_to have_selector('h3', text: 'Query Sample 2')
-    end
+  scenario 'search with filter query' do
+    visit catalog_index_path( {q: 'query sample', fq: ['title_tesim:1']} )
+    expect(page).to have_selector('h3', text: 'Query Sample 1')
+    expect(page).not_to have_selector('h3', text: 'Query Sample 2')
   end
 end
