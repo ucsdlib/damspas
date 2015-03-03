@@ -72,12 +72,12 @@ describe DamsObjectDatastream do
 
     describe "a complex object with flat component list" do
       subject do
-        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bb80808080', :new_record? =>true), 'descMetadata')
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'xx80808080', :new_record? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
         subject
       end
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb80808080"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx80808080"
       end
       it "should have a repeated date" do
         solr_doc = subject.to_solr
@@ -87,16 +87,15 @@ describe DamsObjectDatastream do
       it "should have fields" do
         subject.typeOfResource.should == ["mixed material"]
         subject.titleValue.should == "Sample Complex Object Record #1"
-        subject.subtitle.should == "a dissertation with a single attached image"
+        subject.subtitle.should == "a newspaper PDF with a single attached image"
         subject.relatedResource.first.type.should == ["online exhibit"]
         subject.relatedResource.first.uri.should == ["http://foo.com/1234"]
         subject.relatedResource.first.description.should == ["Sample Complex Object Record #1: The Exhibit!"]
       end
 
-	  it "should have repeated title" do
+	  it "should have title" do
 	  	solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "Sample Complex Object Record #1: a dissertation with a single attached image"
-        solr_doc["title_tesim"].should include "Other Title #2: Subtitle #2"
+        solr_doc["title_tesim"].should include "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
 	  end
 	
       it "should have inline subjects" do
@@ -104,7 +103,7 @@ describe DamsObjectDatastream do
       end
 
       it "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "bbXXXXXXX1"
+        subject.relationship.first.name.first.pid.should == "xxXXXXXXX1"
         subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
@@ -121,8 +120,8 @@ describe DamsObjectDatastream do
         subject.component.first.note.first.type.should == ["dimensions"]
       end
       it "should have a first component with two attached files" do
-        subject.component.first.file[0].rdf_subject.should == "#{Rails.configuration.id_namespace}bb80808080/1/1.pdf"
-        subject.component.first.file[1].rdf_subject.should == "#{Rails.configuration.id_namespace}bb80808080/1/2.jpg"
+        subject.component.first.file[0].rdf_subject.should == "#{Rails.configuration.id_namespace}xx80808080/1/1.pdf"
+        subject.component.first.file[1].rdf_subject.should == "#{Rails.configuration.id_namespace}xx80808080/1/2.jpg"
       end
       it "should have a first component with a first file with file metadata" do
         subject.component.first.file.first.sourcePath.should == ["src/sample/files"]
@@ -132,9 +131,9 @@ describe DamsObjectDatastream do
         subject.component.first.file.first.mimeType.should == ["application/pdf"]
         subject.component.first.file.first.use.should == ["document-service"]
         subject.component.first.file.first.size.should == ["20781"]
-        subject.component.first.file.first.crc32checksum.should == ["2bbbc159"]
+        subject.component.first.file.first.crc32checksum.should == ["2xxbc159"]
         subject.component.first.file.first.md5checksum.should == ["733b4bf1c94e13104dab7b6c759a4a1d"]
-        subject.component.first.file.first.sha1checksum.should == ["afe6fd487d598b158d593e8309d15178bba76332"]
+        subject.component.first.file.first.sha1checksum.should == ["afe6fd487d598b158d593e8309d15178xxa76332"]
         subject.component.first.file.first.dateCreated.should == ["2012-06-24T08:38:21-0800"]
         subject.component.first.file.first.objectCategory.should == ["file"]
         subject.component.first.file.first.compositionLevel.should == ["0"]
@@ -142,37 +141,19 @@ describe DamsObjectDatastream do
       end
 	  it "should have a first component with repeating title" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "The Static Image: Foo!"
-        solr_doc["title_tesim"].should include "The Static Image #2: Foo! #2"
-        solr_doc["title_tesim"].should include "The Static Image #3: Foo! #3"
-      end
-	  it "should have a second component with repeating title" do
-        solr_doc = subject.to_solr
         solr_doc["title_tesim"].should include "Supplementary Image"
-        solr_doc["title_tesim"].should include "Supplementary Image #2"
+        solr_doc["title_tesim"].should include "Supplementary Image Foo"
       end
-	  it "should have a first component with repeating date" do
+	  it "should have a second component" do
         solr_doc = subject.to_solr
-        solr_doc["date_tesim"].should include "June 24-25, 2012"
-        solr_doc["date_tesim"].should include "2012-06-24"
-        solr_doc["date_tesim"].should include "2012-06-25"
-        solr_doc["date_tesim"].should include "June 24-25, 2012 #2"
-        solr_doc["date_tesim"].should include "2012-06-24 #2"
-        solr_doc["date_tesim"].should include "2012-06-25 #2"
+        solr_doc["title_tesim"].should include "Part 2 of 2"
       end
-	  it "should have a second component with repeating date" do
+	  it "should have a dates" do
         solr_doc = subject.to_solr
-        solr_doc["date_tesim"].should include "May 24, 2012"
-        solr_doc["date_tesim"].should include "2012-05-24"
-        solr_doc["date_tesim"].should include "2012-05-24"
-        solr_doc["date_tesim"].should include "May 24, 2012 #2"
-        solr_doc["date_tesim"].should include "2012-05-24 #2"
-        solr_doc["date_tesim"].should include "2012-05-24 #2"
-      end
-      it "should index component metadata" do
-        solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "The Static Image: Foo!"
-        solr_doc["title_tesim"].should include "Supplementary Image"
+        solr_doc["date_tesim"].should include "Tuesday, May 20, 1980"
+        solr_doc["date_tesim"].should include "May 24, 1980"
+        solr_doc["date_tesim"].should include "1980-05-20"
+        solr_doc["date_tesim"].should include "1980-05-24"
       end
 	  it "should index component topics at component and object level" do
         solr_doc = subject.to_solr
@@ -203,7 +184,7 @@ describe DamsObjectDatastream do
         solr_doc = subject.to_solr
 
         # copyright
-        solr_doc["copyright_tesim"].first.should include '"id":"bb05050505"'
+        solr_doc["copyright_tesim"].first.should include '"id":"xx05050505"'
         solr_doc["copyright_tesim"].first.should include '"status":"Under copyright"'
         solr_doc["copyright_tesim"].first.should include '"jurisdiction":"us"'
         solr_doc["copyright_tesim"].first.should include '"note":"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."'
@@ -211,14 +192,14 @@ describe DamsObjectDatastream do
         solr_doc["copyright_tesim"].first.should include '"beginDate":"1993-12-31"'
 
         # license
-        solr_doc["license_tesim"].first.should include '"id":"bb22222222"'
+        solr_doc["license_tesim"].first.should include '"id":"xx22222222"'
         solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
         solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
         solr_doc["license_tesim"].first.should include '"permissionType":"display"'
         solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'
 
         # statute
-        solr_doc["statute_tesim"].first.should include '"id":"bb21212121"'
+        solr_doc["statute_tesim"].first.should include '"id":"xx21212121"'
         solr_doc["statute_tesim"].first.should include '"citation":"Family Education Rights and Privacy Act (FERPA)"'
         solr_doc["statute_tesim"].first.should include '"jurisdiction":"us"'
         solr_doc["statute_tesim"].first.should include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
@@ -226,12 +207,12 @@ describe DamsObjectDatastream do
         solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'
 
         # other rights
-        solr_doc["otherRights_tesim"].first.should include '"id":"bb06060606"'
+        solr_doc["otherRights_tesim"].first.should include '"id":"xx06060606"'
         solr_doc["otherRights_tesim"].first.should include '"basis":"fair use"'
         solr_doc["otherRights_tesim"].first.should include '"uri":"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"'
         solr_doc["otherRights_tesim"].first.should include '"permissionType":"display"'
         solr_doc["otherRights_tesim"].first.should include '"permissionBeginDate":"2011-09-24"'
-        solr_doc["otherRights_tesim"].first.should include "\"name\":\"#{Rails.configuration.id_namespace}bb09090909\""
+        solr_doc["otherRights_tesim"].first.should include "\"name\":\"#{Rails.configuration.id_namespace}xx09090909\""
         solr_doc["otherRights_tesim"].first.should include "\"role\":\"#{Rails.configuration.id_namespace}bd3004227d\""
       end
       it "should index unit" do
@@ -241,7 +222,6 @@ describe DamsObjectDatastream do
       it "should index collection" do
         solr_doc = subject.to_solr
         solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
-        solr_doc["collection_json_tesim"].join(" ").should include "May 2009"
       end
 #      it "should have event" do
 #        solr_doc = subject.to_solr
@@ -346,10 +326,7 @@ END
         testIndexFields solr_doc, "stylePeriod","Impressionism"
 
         #it "should index topic" do
-        solr_doc["topic_tesim"].should include "Baseball"
-        pending "internal impl" do
-          solr_doc["topic_tesim"].should include "Marine sediments"
-        end
+        solr_doc["topic_tesim"].should include "Marine sediments"
 
         #it "should index function" do
         solr_doc["function_tesim"].should == ["Sample Function", "dams:Function value"]
@@ -361,84 +338,71 @@ END
         solr_doc = subject.to_solr
 
         #it "should index personalName" do
-        solr_doc["personalName_tesim"].should include "Burns, Jack O."
         solr_doc["personalName_tesim"].should include "Burns, Jack O....."
         solr_doc["personalName_tesim"].should include "Burns, Jack O.....2"
 
         #it "should index familyName" do
-        solr_doc["familyName_tesim"].should include "Calder (Family : 1757-1959 : N.C.)"
         solr_doc["familyName_tesim"].should include "Calder (Family : 1757-1959 : N.C.)...."
 
         #it "should index name" do
-        pending "internal impl" do
-          solr_doc["name_tesim"].should include "Scripps Institute of Oceanography, Geological Collections"
-          solr_doc["name_tesim"].should include "Yañez, Angélica María"
-        end
+        solr_doc["name_tesim"].should include "Scripps Institute of Oceanography, Geological Collections"
+        solr_doc["name_tesim"].should include "Yañez, Angélica María"
         solr_doc["name_tesim"].should include "Personal Name 2"
         solr_doc["name_tesim"].should include "Name 4"
         solr_doc["name_tesim"].should include "Conference Name 2"
         solr_doc["name_tesim"].should include "Family Name 2"
-        solr_doc["name_tesim"].should include "Generic Name"
         solr_doc["name_tesim"].should include "Generic Name Internal"
-        solr_doc["name_tesim"].should include "American Library Association. Annual Conference"
         solr_doc["name_tesim"].should include "American Library Association. Annual Conference...."
-        solr_doc["name_tesim"].should include "Lawrence Livermore Laboratory"
         solr_doc["name_tesim"].should include "Lawrence Livermore Laboratory......"
-        solr_doc["name_tesim"].should include "Calder (Family : 1757-1959 : N.C.)"
         solr_doc["name_tesim"].should include "Calder (Family : 1757-1959 : N.C.)...."
-        solr_doc["name_tesim"].should include "Burns, Jack O."
         solr_doc["name_tesim"].should include "Burns, Jack O....."
         solr_doc["name_tesim"].should include "Burns, Jack O.....2"
 
         #it "should index conferenceName" do
-        solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference", "American Library Association. Annual Conference...."]
+        solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference...."]
 
         #it "should index corporateName" do
-        solr_doc["corporateName_tesim"].should == ["Lawrence Livermore Laboratory", "Lawrence Livermore Laboratory......"]
+        solr_doc["corporateName_tesim"].should == ["Lawrence Livermore Laboratory......"]
 
         #it "should index complexSubject" do
-        testComplexSubjectFields solr_doc, "complexSubject","Galaxies--Clusters"
+        testComplexSubjectFields solr_doc, "complexSubject", "Test linked subject--More test"
       end
 
       it "should index mads fields, part 2" do
         solr_doc = subject.to_solr
-        #it "should index subjects" do
-        solr_doc["subject_tesim"].to_s.should include "Galaxies--Clusters"
-        solr_doc["subject_tesim"].to_s.should include "Test linked subject--More test"
         
         #it "should have scopeContentNote" do
-        solr_doc["scopeContentNote_tesim"].should == ["Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.","scope content note internal value"]        
+        solr_doc["scopeContentNote_tesim"].should == ["scope content note internal value"]        
 
         #it "should have preferredCitationNote" do
-        solr_doc["preferredCitationNote_tesim"].should == ["Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.", "citation note internal value"]                
+        solr_doc["preferredCitationNote_tesim"].should == ["citation note internal value"]                
 
         #it "should have CustodialResponsibilityNote" do
-        solr_doc["custodialResponsibilityNote_tesim"].should == ["Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.", "Mandeville Special Collections Library....Internal value"]
+        solr_doc["custodialResponsibilityNote_tesim"].should == ["Mandeville Special Collections Library....Internal value"]
 
         #it "should have note" do
 		testIndexNoteFields solr_doc, "note","Note internal value."
 		
         solr_doc["copyright_tesim"].to_s.should include "Under copyright"
 		
-        pending "sample data records" do
-		  solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
-		  solr_doc["rightsHolder_tesim"].should include "UC Regents"
+        solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
+        solr_doc["rightsHolder_tesim"].should include "UC Regents"
 		
-		  #internal license
-          solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
-          solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
-          solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
-          solr_doc["license_tesim"].first.should include '"permissionType":"display"'
-          solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
-        end
+        #internal license
+        solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
+        solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
+        solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
+        solr_doc["license_tesim"].first.should include '"permissionType":"display"'
+        solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
         
 		# other rights
+        puts "other: #{solr_doc["otherRights_tesim"]}"
         solr_doc["otherRights_tesim"].first.should include '"id":"zz06060606"'
         solr_doc["otherRights_tesim"].first.should include '"basis":"fair use"'
         solr_doc["otherRights_tesim"].first.should include '"uri":"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"'
         solr_doc["otherRights_tesim"].first.should include '"permissionType":"display"'
         solr_doc["otherRights_tesim"].first.should include '"permissionBeginDate":"2011-09-24"'
-        solr_doc["otherRights_tesim"].first.should include "\"name\":\"#{Rails.configuration.id_namespace}bb09090909\""
+        solr_doc["otherRights_tesim"].first.should include "\"name\":\"#{Rails.configuration.id_namespace}xx09090909\""
         solr_doc["otherRights_tesim"].first.should include "\"role\":\"#{Rails.configuration.id_namespace}bd3004227d\""
         
         # statute

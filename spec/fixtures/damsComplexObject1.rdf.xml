@@ -1,241 +1,248 @@
 <rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
-    xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
-  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080">
-    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
-    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
-    <dams:provenanceCollectionPart rdf:resource="http://library.ucsd.edu/ark:/20775/bb25252525"/>
-    <dams:assembledCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb03030303"/>
-
-    <dams:license rdf:resource="http://library.ucsd.edu/ark:/20775/bb22222222"/>
-    <dams:rightsHolderPersonal rdf:resource="http://library.ucsd.edu/ark:/20775/bb09090909"/>
-    <dams:copyright rdf:resource="http://library.ucsd.edu/ark:/20775/bb05050505"/>
-    <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/bb06060606"/>
-    <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/bb21212121"/>
-    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb07070707"/>
-    <dams:typeOfResource>mixed material</dams:typeOfResource>
-    <dams:relatedResource>
-      <dams:RelatedResource>
-        <dams:type>online exhibit</dams:type>
-        <dams:uri>http://foo.com/1234</dams:uri>
-        <dams:description>Sample Complex Object Record #1: The Exhibit!</dams:description>
-      </dams:RelatedResource>
-    </dams:relatedResource>
-    <dams:relationship>
-      <dams:Relationship>
-        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX1"/>
-        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
-      </dams:Relationship>
-    </dams:relationship>
-    <dams:note>
-      <dams:Note>
-        <dams:displayLabel>Local ID</dams:displayLabel>
-        <rdf:value>b6700311</rdf:value>
-        <dams:type>identifier</dams:type>
-      </dams:Note>
-    </dams:note>
-    <dams:note>
-      <dams:Note>
-        <dams:displayLabel>ARK ID</dams:displayLabel>
-        <rdf:value>http://library.ucsd.edu/ark:/20775/bb80808080</rdf:value>
-        <dams:type>identifier</dams:type>
-      </dams:Note>
-    </dams:note>
-    <dams:subject>
-      <mads:ComplexSubject>
-        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
-        <mads:elementList rdf:parseType="Collection">
-          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX7"/>
-          <rdf:Description rdf:about="http://library.ucsd.edu/ark:/20775/bbXXXXXXX4"/>
-        </mads:elementList>
-      </mads:ComplexSubject>
-    </dams:subject>
-    <dams:subject rdf:resource="http://library.ucsd.edu/ark:/20775/bbXXXXXXX5"/>
-    <dams:note>
-      <dams:Note>
-        <rdf:value>Dissertation is in English.</rdf:value>
-        <dams:displayLabel>language</dams:displayLabel>
-        <dams:type>language_of_materials</dams:type>
-      </dams:Note>
-    </dams:note>
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080">
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/3">
+        <dams:typeOfResource>text</dams:typeOfResource>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Part 2 of 2</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:PartNumberElement>
+                <mads:elementValue>Part 2 of 2</mads:elementValue>
+              </mads:PartNumberElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+      </dams:Component>
+    </dams:hasComponent>
     <dams:title>
       <mads:Title>
-        <mads:authoritativeLabel>Sample Complex Object Record #1: a dissertation with a single attached image</mads:authoritativeLabel>
+        <mads:authoritativeLabel>Sample Complex Object Record #1: a newspaper PDF with a single attached image</mads:authoritativeLabel>
         <mads:elementList rdf:parseType="Collection">
           <mads:MainTitleElement>
             <mads:elementValue>Sample Complex Object Record #1</mads:elementValue>
           </mads:MainTitleElement>
           <mads:SubTitleElement>
-            <mads:elementValue>a dissertation with a single attached image</mads:elementValue>
+            <mads:elementValue>a newspaper PDF with a single attached image</mads:elementValue>
           </mads:SubTitleElement>
         </mads:elementList>
       </mads:Title>
     </dams:title>
-    <dams:title>
-      <mads:Title>
-        <mads:authoritativeLabel>Other Title #2: Subtitle #2</mads:authoritativeLabel>
-        <mads:elementList rdf:parseType="Collection">
-          <mads:MainTitleElement>
-            <mads:elementValue>Other Title #2</mads:elementValue>
-          </mads:MainTitleElement>
-          <mads:SubTitleElement>
-            <mads:elementValue>Subtitle #2</mads:elementValue>
-          </mads:SubTitleElement>
-        </mads:elementList>
-      </mads:Title>
-    </dams:title>  
-    <dams:date>
-      <dams:Date>
-        <rdf:value>2013</rdf:value>
-        <dams:beginDate>2013</dams:beginDate>
-        <dams:endDate>2013</dams:endDate>
-      </dams:Date>
-    </dams:date>
-     <dams:date>
-      <dams:Date>
-        <rdf:value>2012</rdf:value>
-        <dams:beginDate>2012</dams:beginDate>
-        <dams:endDate>2012</dams:endDate>
-      </dams:Date>
-    </dams:date>  
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:name>
+          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX1">
+            <mads:authoritativeLabel>Yañez, Angélica María</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:GivenNameElement>
+                <mads:elementValue>Angélica María</mads:elementValue>
+              </mads:GivenNameElement>
+              <mads:FamilyNameElement>
+                <mads:elementValue>Yañez</mads:elementValue>
+              </mads:FamilyNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:name>
+        <dams:role>
+          <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd55639754">
+            <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+                <rdfs:label>MARC Relator Codes</rdfs:label>
+                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+            </mads:isMemberOfMADSScheme>
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
+            <mads:code>cre</mads:code>
+            <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:typeOfResource>mixed material</dams:typeOfResource>
+    <dams:otherRights>
+      <dams:OtherRights rdf:about="http://library.ucsd.edu/ark:/20775/xx06060606">
+        <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
+        <dams:otherRightsURI rdf:resource="http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"/>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd3004227d">
+                <mads:isMemberOfMADSScheme rdf:resource="http://library.ucsd.edu/ark:/20775/bd5837217p"/>
+                <mads:authoritativeLabel>Decision Maker</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+            <dams:personalName>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xx09090909">
+                <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977-</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:FullNameElement>
+                    <mads:elementValue>Administrator, Bob,</mads:elementValue>
+                  </mads:FullNameElement>
+                  <mads:DateNameElement>
+                    <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+                  </mads:DateNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+          </dams:Relationship>
+        </dams:relationship>
+        <dams:permission>
+          <dams:Permission>
+            <dams:type>display</dams:type>
+            <dams:beginDate>2011-09-24</dams:beginDate>
+          </dams:Permission>
+        </dams:permission>
+      </dams:OtherRights>
+    </dams:otherRights>
     <dams:hasComponent>
-      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1">
-        <dams:note>
-          <dams:Note>
-            <rdf:value>1 PDF (xi, 111 p.)</rdf:value>
-            <dams:displayLabel>Extent</dams:displayLabel>
-            <dams:type>dimensions</dams:type>
-          </dams:Note>
-        </dams:note>
-        <dams:title>
-          <mads:Title>
-            <mads:authoritativeLabel>The Static Image: Foo!</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:MainTitleElement>
-                <mads:elementValue>The Static Image</mads:elementValue>
-              </mads:MainTitleElement>
-              <mads:SubTitleElement>
-                <mads:elementValue>Foo!</mads:elementValue>
-              </mads:SubTitleElement>
-            </mads:elementList>
-          </mads:Title>
-        </dams:title>
-		<dams:title>
-          <mads:Title>
-            <mads:authoritativeLabel>The Static Image #2: Foo! #2</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:MainTitleElement>
-                <mads:elementValue>The Static Image #2</mads:elementValue>
-              </mads:MainTitleElement>
-              <mads:SubTitleElement>
-                <mads:elementValue>Foo! #2</mads:elementValue>
-              </mads:SubTitleElement>
-            </mads:elementList>
-          </mads:Title>
-        </dams:title> 
-        <dams:title>
-          <mads:Title>
-            <mads:authoritativeLabel>The Static Image #3: Foo! #3</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:MainTitleElement>
-                <mads:elementValue>The Static Image #3</mads:elementValue>
-              </mads:MainTitleElement>
-              <mads:SubTitleElement>
-                <mads:elementValue>Foo! #3</mads:elementValue>
-              </mads:SubTitleElement>
-            </mads:elementList>
-          </mads:Title>
-        </dams:title>       
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2">
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2/2.jpg">
+            <dams:crc32checksum>f6e7bda7</dams:crc32checksum>
+            <dams:md5checksum>3c6ff5bcd72d419cd68aeb7746491bc9</dams:md5checksum>
+            <dams:quality>667x768</dams:quality>
+            <dams:use>image-service</dams:use>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:sha1checksum>5b4adf14afc2a79dbeff0dc309427ca1fc2f06cf</dams:sha1checksum>
+            <dams:dateCreated>2015-03-03T03:37:48-0500</dams:dateCreated>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sourceFileName>20775-xx80808080-2-2.jpg</dams:sourceFileName>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:size>26106</dams:size>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2/7.jpg">
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sha1checksum>8b5706b86837ba1cdfaa37ca099a4a6913aa96da</dams:sha1checksum>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:size>67549</dams:size>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:crc32checksum>b0d2cc91</dams:crc32checksum>
+            <dams:dateCreated>2015-03-03T03:37:48-0500</dams:dateCreated>
+            <dams:sourceFileName>20775-xx80808080-2-7.jpg</dams:sourceFileName>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:quality>1390x1600</dams:quality>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:md5checksum>28ec2fea5c3ced0e903044e2f3712f00</dams:md5checksum>
+            <dams:use>image-huge</dams:use>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2/1.jpg">
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:quality>667x768</dams:quality>
+            <dams:sourcePath>dams/bin/../sample/files</dams:sourcePath>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:dateCreated>2015-03-03T03:37:47-0500</dams:dateCreated>
+            <dams:size>25627</dams:size>
+            <dams:md5checksum>302fcca8b3aaa6499035db8825a527f0</dams:md5checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:sha1checksum>c9751e26be5f620fab0c37fd85356bd88c4124c6</dams:sha1checksum>
+            <dams:sourceFileName>image.jpg</dams:sourceFileName>
+            <dams:use>image-service</dams:use>
+            <dams:crc32checksum>590970ad</dams:crc32checksum>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2/3.jpg">
+            <dams:sha1checksum>91xx9d0d580169708f37362054c08b1e0b453ac2</dams:sha1checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:sourceFileName>20775-xx80808080-2-3.jpg</dams:sourceFileName>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:use>image-preview</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:crc32checksum>81c29bff</dams:crc32checksum>
+            <dams:md5checksum>a07966a8efc736ff65a66096990d1a5b</dams:md5checksum>
+            <dams:dateCreated>2015-03-03T03:37:48-0500</dams:dateCreated>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:quality>391x450</dams:quality>
+            <dams:size>13989</dams:size>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2/6.jpg">
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sourceFileName>20775-xx80808080-2-6.jpg</dams:sourceFileName>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:use>image-large</dams:use>
+            <dams:sha1checksum>ca73388dc0125692d2648e378cd1e36512e3c939</dams:sha1checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:crc32checksum>139482f7</dams:crc32checksum>
+            <dams:dateCreated>2015-03-03T03:37:48-0500</dams:dateCreated>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:md5checksum>01feab6dc657e63316bdf5648c7993xx</dams:md5checksum>
+            <dams:quality>889x1024</dams:quality>
+            <dams:size>35963</dams:size>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2/4.jpg">
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:md5checksum>559ba117f197eb8251609c8450e17ea3</dams:md5checksum>
+            <dams:use>image-thumbnail</dams:use>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:sourceFileName>20775-xx80808080-2-4.jpg</dams:sourceFileName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:crc32checksum>6626dd61</dams:crc32checksum>
+            <dams:dateCreated>2015-03-03T03:37:48-0500</dams:dateCreated>
+            <dams:sha1checksum>e92d8ed7e07d44cb41fcadcf6499f53da2662b9b</dams:sha1checksum>
+            <dams:size>4469</dams:size>
+            <dams:quality>130x150</dams:quality>
+            <dams:preservationLevel>full</dams:preservationLevel>
+          </dams:File>
+        </dams:hasFile>
         <dams:date>
           <dams:Date>
-            <rdf:value>June 24-25, 2012</rdf:value>
-            <dams:beginDate>2012-06-24</dams:beginDate>
-            <dams:endDate>2012-06-25</dams:endDate>
+            <rdf:value>May 24, 1980</rdf:value>
+            <dams:beginDate>1980-05-24</dams:beginDate>
+            <dams:endDate>1980-05-24</dams:endDate>
           </dams:Date>
         </dams:date>
-       <dams:date>
-          <dams:Date>
-            <rdf:value>June 24-25, 2012 #2</rdf:value>
-            <dams:beginDate>2012-06-24 #2</dams:beginDate>
-            <dams:endDate>2012-06-25 #2</dams:endDate>
-          </dams:Date>
-        </dams:date>
-        <dams:topic>
-          <mads:Topic>
-            <mads:authoritativeLabel>Subject 1</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:TopicElement>
-                <mads:elementValue>Subject 1</mads:elementValue>
-              </mads:TopicElement>
-            </mads:elementList>
-          </mads:Topic>
-        </dams:topic>
-        <dams:complexSubject>
-          <mads:ComplexSubject>
-            <mads:authoritativeLabel>Topic 2--Topic 3</mads:authoritativeLabel>
-            <mads:componentList rdf:parseType="Collection">
-              <mads:Topic>
-                <mads:authoritativeLabel>Topic 2</mads:authoritativeLabel>
-                <mads:elementList rdf:parseType="Collection">
-                  <mads:TopicElement>
-                    <mads:elementValue>Topic 2</mads:elementValue>
-                  </mads:TopicElement>
-                </mads:elementList>
-              </mads:Topic>
-              <mads:Topic>
-                <mads:authoritativeLabel>Topic 3</mads:authoritativeLabel>
-                <mads:elementList rdf:parseType="Collection">
-                  <mads:TopicElement>
-                    <mads:elementValue>Topic 3</mads:elementValue>
-                  </mads:TopicElement>
-                </mads:elementList>
-              </mads:Topic>
-            </mads:componentList>
-          </mads:ComplexSubject>
-        </dams:complexSubject>
+        <dams:typeOfResource>image</dams:typeOfResource>
         <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf">
-            <dams:sourceCapture rdf:resource="http://library.ucsd.edu/ark:/20775/bb49494949"/>
-            <dams:sourcePath>src/sample/files</dams:sourcePath>
-            <dams:sourceFileName>comparison-1.pdf</dams:sourceFileName>
-            <dams:formatName>PDF</dams:formatName>
-            <dams:formatVersion>1.3</dams:formatVersion>
-            <dams:mimeType>application/pdf</dams:mimeType>
-            <dams:use>document-service</dams:use>
-            <dams:size>20781</dams:size>
-            <dams:crc32checksum>2bbbc159</dams:crc32checksum>
-            <dams:md5checksum>733b4bf1c94e13104dab7b6c759a4a1d</dams:md5checksum>
-            <dams:sha1checksum>afe6fd487d598b158d593e8309d15178bba76332</dams:sha1checksum>
-            <dams:dateCreated>2012-06-24T08:38:21-0800</dams:dateCreated>
-            <dams:objectCategory>file</dams:objectCategory>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2/5.jpg">
             <dams:compositionLevel>0</dams:compositionLevel>
-            <dams:preservationLevel>full</dams:preservationLevel>
-          </dams:File>
-        </dams:hasFile>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/2.jpg">
-            <dams:crc32checksum>4393b6cf</dams:crc32checksum>
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:md5checksum>795d1bad143b3344e8ee4350ee9a6aca</dams:md5checksum>
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:use>visual-thumbnail</dams:use>
             <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:md5checksum>e0334d1d20b80b8cc635dd5d8cc419dd</dams:md5checksum>
+            <dams:sha1checksum>547e70cf5bd3dd6eb6936264905076ee5579eafb</dams:sha1checksum>
+            <dams:use>image-icon</dams:use>
+            <dams:formatVersion>1.01</dams:formatVersion>
             <dams:objectCategory>file</dams:objectCategory>
-            <dams:sha1checksum>692058cb537545542b1d5fdd94e41d2250a51ba8</dams:sha1checksum>
-            <dams:sourcePath>/pub/data1/dams/localStore/bb/80/80/80/80</dams:sourcePath>
-            <dams:dateCreated>2013-01-31T09:02:33-0500</dams:dateCreated>
-            <dams:quality>154x200</dams:quality>
-            <dams:sourceFileName>20775-bb80808080-1-2.jpg</dams:sourceFileName>
-            <dams:size>115038</dams:size>
-            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:crc32checksum>95cc3883</dams:crc32checksum>
+            <dams:dateCreated>2015-03-03T03:37:48-0500</dams:dateCreated>
+            <dams:size>1805</dams:size>
+            <dams:sourceFileName>20775-xx80808080-2-5.jpg</dams:sourceFileName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:quality>56x65</dams:quality>
           </dams:File>
         </dams:hasFile>
-      </dams:Component>
-    </dams:hasComponent>
-    <dams:hasComponent>
-      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/2">
         <dams:title>
           <mads:Title>
             <mads:authoritativeLabel>Supplementary Image</mads:authoritativeLabel>
@@ -248,67 +255,433 @@
         </dams:title>
         <dams:title>
           <mads:Title>
-            <mads:authoritativeLabel>Supplementary Image #2</mads:authoritativeLabel>
+            <mads:authoritativeLabel>Supplementary Image Foo</mads:authoritativeLabel>
             <mads:elementList rdf:parseType="Collection">
               <mads:MainTitleElement>
-                <mads:elementValue>Supplementary Image #2</mads:elementValue>
+                <mads:elementValue>Supplementary Image Foo</mads:elementValue>
               </mads:MainTitleElement>
             </mads:elementList>
           </mads:Title>
         </dams:title>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:license>
+      <dams:License rdf:about="http://library.ucsd.edu/ark:/20775/xx22222222">
+        <dams:licenseNote>License note text here...</dams:licenseNote>
+        <dams:licenseURI rdf:resource="http://library.ucsd.edu/licenses/lic12341.pdf"/>
+        <dams:permission>
+          <dams:Permission>
+            <dams:type>display</dams:type>
+            <dams:beginDate>2010-01-01</dams:beginDate>
+          </dams:Permission>
+        </dams:permission>
+      </dams:License>
+    </dams:license>
+    <dams:assembledCollection>
+      <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/xx03030303">
+        <dams:custodialResponsibilityNote>
+          <dams:CustodialResponsibilityNote>
+            <rdf:value>Inline custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Scope and contents</dams:displayLabel>
+            <dams:type>custodial_responsibility</dams:type>
+          </dams:CustodialResponsibilityNote>
+        </dams:custodialResponsibilityNote>
+        <dams:hasProvenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/xx24242424"/>
+        <dams:language>
+          <mads:Language rdf:about="http://library.ucsd.edu/ark:/20775/bd0410344f">
+            <mads:authoritativeLabel>English</mads:authoritativeLabel>
+            <mads:code>eng</mads:code>
+            <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd71341600">
+                <rdfs:label>ISO 639 Languages</rdfs:label>
+              </mads:MADSScheme>
+            </mads:isMemberOfMADSScheme>
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/languages/eng"/>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:LanguageElement>
+                <mads:elementValue>English</mads:elementValue>
+              </mads:LanguageElement>
+            </mads:elementList>
+          </mads:Language>
+        </dams:language>
+        <dams:preferredCitationNote>
+          <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/bd3959888k">
+            <rdf:value>Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Preferred citation</dams:displayLabel>
+            <dams:type>preferred_citation</dams:type>
+          </dams:PreferredCitationNote>
+        </dams:preferredCitationNote>
+        <dams:relatedResource>
+          <dams:RelatedResource>
+            <dams:uri>http://library.ucsd.edu/ark:/20775/bd0922518w/4/3.jpg</dams:uri>
+            <dams:type>thumbnail</dams:type>
+          </dams:RelatedResource>
+        </dams:relatedResource>
+        <dams:note>
+          <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd52568274">
+            <rdf:value>Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Abstract</dams:displayLabel>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+            <dams:name>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xx08080808">
+                <mads:authoritativeLabel xml:lang="en">Artist, Alice, 1966-</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:FullNameElement>
+                    <mads:elementValue>Artist, Alice,</mads:elementValue>
+                  </mads:FullNameElement>
+                  <mads:DateNameElement>
+                    <mads:elementValue xml:lang="en">1966-</mads:elementValue>
+                  </mads:DateNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:name>
+          </dams:Relationship>
+        </dams:relationship>
+        <dams:preferredCitationNote>
+          <dams:PreferredCitationNote>
+            <rdf:value>Inline preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Preferred citation</dams:displayLabel>
+            <dams:type>preferred_citation</dams:type>
+          </dams:PreferredCitationNote>
+        </dams:preferredCitationNote>
+        <dams:unit>
+          <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/xx02020202">
+            <dams:unitName>Library Digital Collections</dams:unitName>
+            <dams:code>dlp</dams:code>
+            <dams:unitDescription>Search over 56,690 images, documents and video files from the UCSD Libraries.</dams:unitDescription>
+            <dams:unitURI>http://library.ucsd.edu/dams/</dams:unitURI>
+            <dams:unitGroup>dams-curator</dams:unitGroup>
+          </dams:Unit>
+        </dams:unit>
+        <dams:typeOfResource>text</dams:typeOfResource>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>UCSD Electronic Theses and Dissertations</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>UCSD Electronic Theses and Dissertations</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:scopeContentNote>
+          <dams:ScopeContentNote>
+            <rdf:value>Inline scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Scope and contents</dams:displayLabel>
+            <dams:type>scope_and_content</dams:type>
+          </dams:ScopeContentNote>
+        </dams:scopeContentNote>
+        <dams:note>
+          <dams:Note>
+            <dams:displayLabel>ARK ID</dams:displayLabel>
+            <rdf:value>http://library.ucsd.edu/ark:/20775/xx80808080</rdf:value>
+            <dams:type>identifier</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:custodialResponsibilityNote>
+          <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd9113515d">
+            <rdf:value>Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Custodial responsibility</dams:displayLabel>
+            <dams:type>custodial_responsibility</dams:type>
+          </dams:CustodialResponsibilityNote>
+        </dams:custodialResponsibilityNote>
         <dams:date>
           <dams:Date>
-            <rdf:value>May 24, 2012</rdf:value>
-            <dams:beginDate>2012-05-24</dams:beginDate>
-            <dams:endDate>2012-05-24</dams:endDate>
+            <dams:beginDate>2009-05-03</dams:beginDate>
           </dams:Date>
         </dams:date>
-        <dams:date>
-          <dams:Date>
-            <rdf:value>May 24, 2012 #2</rdf:value>
-            <dams:beginDate>2012-05-24 #2</dams:beginDate>
-            <dams:endDate>2012-05-24 #2</dams:endDate>
-          </dams:Date>
-        </dams:date>
+        <dams:scopeContentNote>
+          <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/bd1366006j">
+            <rdf:value>Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Scope and contents</dams:displayLabel>
+            <dams:type>scope_and_content</dams:type>
+          </dams:ScopeContentNote>
+        </dams:scopeContentNote>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>Inline note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Abstract</dams:displayLabel>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:visibility>public</dams:visibility>
+      </dams:AssembledCollection>
+    </dams:assembledCollection>
+    <dams:subject>
+      <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX5">
+        <mads:authoritativeLabel>Academic dissertations</mads:authoritativeLabel>
+        <mads:componentList rdf:parseType="Collection">
+          <mads:GenreForm>
+            <mads:hasExactExternalAuthority rdf:resource="http://www.rbms.info/committees/bibliographic_standards/controlled_vocabularies/genre/tr19.htm"/>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:GenreFormElement>
+                <mads:elementValue>Academic dissertations</mads:elementValue>
+              </mads:GenreFormElement>
+            </mads:elementList>
+          </mads:GenreForm>
+        </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:subject>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Dissertation is in English.</rdf:value>
+        <dams:displayLabel>language</dams:displayLabel>
+        <dams:type>language_of_materials</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx02020202"/>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>ARK ID</dams:displayLabel>
+        <rdf:value>http://library.ucsd.edu/ark:/20775/xx80808080</rdf:value>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:type>online exhibit</dams:type>
+        <dams:uri>http://foo.com/1234</dams:uri>
+        <dams:description>Sample Complex Object Record #1: The Exhibit!</dams:description>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:rightsHolderPersonal rdf:resource="http://library.ucsd.edu/ark:/20775/xx09090909"/>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>Local ID</dams:displayLabel>
+        <rdf:value>b6700311</rdf:value>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1">
+        <dams:typeOfResource>text</dams:typeOfResource>
         <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/2/1.jpg">
-            <dams:sourcePath>src/sample/files</dams:sourcePath>
-            <dams:sourceFileName>comparison-2a.jpg</dams:sourceFileName>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:mimeType>image/jpeg</dams:mimeType>
-            <dams:use>visual-service</dams:use>
-            <dams:size>103440</dams:size>
-            <dams:quality>400x400</dams:quality>
-            <dams:crc32checksum>c68da20e</dams:crc32checksum>
-            <dams:md5checksum>c332f2230f9fb0f902821993eba740f3</dams:md5checksum>
-            <dams:sha1checksum>7c03ef1630da9d3a4109f18e4fa486d1b089f9cd</dams:sha1checksum>
-            <dams:dateCreated>2012-05-24T09:00:21-0800</dams:dateCreated>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/1.pdf">
+            <dams:sha1checksum>b077f16ff520044d07704bd07eb96e17de085256</dams:sha1checksum>
+            <dams:use>document-service</dams:use>
+            <dams:mimeType>application/pdf</dams:mimeType>
             <dams:objectCategory>file</dams:objectCategory>
-            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:formatVersion>1.3</dams:formatVersion>
+            <dams:sourceFileName>document.pdf</dams:sourceFileName>
+            <dams:size>34095</dams:size>
+            <dams:crc32checksum>0372e6c5</dams:crc32checksum>
+            <dams:formatName>PDF</dams:formatName>
+            <dams:sourcePath>dams/bin/../sample/files</dams:sourcePath>
             <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:md5checksum>4f235d635504caa802a18d5f0f76dfd1</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:dateCreated>2015-03-03T03:37:44-0500</dams:dateCreated>
+            <dams:sourceCapture>
+              <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/bb49494949">
+                <dams:scannerManufacturer>Epson</dams:scannerManufacturer>
+                <dams:sourceType>transmission scanner</dams:sourceType>
+                <dams:scannerModelName>Expression 1600</dams:scannerModelName>
+                <dams:imageProducer>Luna Imaging, Inc.</dams:imageProducer>
+                <dams:scanningSoftwareVersion>2.10E</dams:scanningSoftwareVersion>
+                <dams:scanningSoftware>Epson Twain Pro</dams:scanningSoftware>
+                <dams:captureSource>B&amp;W negative , 2 1/2 x 2 1/2</dams:captureSource>
+              </dams:SourceCapture>
+            </dams:sourceCapture>
           </dams:File>
         </dams:hasFile>
         <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/2/2.jpg">
-            <dams:crc32checksum>7f261fc2</dams:crc32checksum>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/2.jpg">
             <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:md5checksum>3d882164cc604943f07b70fbacf7108b</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:crc32checksum>026f47d9</dams:crc32checksum>
+            <dams:use>image-service</dams:use>
+            <dams:size>160088</dams:size>
+            <dams:quality>593x768</dams:quality>
+            <dams:sha1checksum>f0a203cab22b7d2a3975e4b542b8427379cee555</dams:sha1checksum>
+            <dams:sourceFileName>20775-xx80808080-1-2.jpg</dams:sourceFileName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:md5checksum>75e158b3d2de130dc6b8d42df3060fb2</dams:md5checksum>
             <dams:preservationLevel>full</dams:preservationLevel>
             <dams:formatName>JPEG</dams:formatName>
-            <dams:use>visual-thumbnail</dams:use>
+            <dams:dateCreated>2015-03-03T03:37:45-0500</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/4.jpg">
+            <dams:preservationLevel>full</dams:preservationLevel>
             <dams:mimeType>image/jpeg</dams:mimeType>
             <dams:objectCategory>file</dams:objectCategory>
-            <dams:sha1checksum>b6cdbfee111f984ca168f7e0a96035d836197d6b</dams:sha1checksum>
-            <dams:sourcePath>/pub/data1/dams/localStore/bb/80/80/80/80</dams:sourcePath>
-            <dams:dateCreated>2013-01-31T09:02:33-0500</dams:dateCreated>
-            <dams:quality>200x200</dams:quality>
-            <dams:sourceFileName>20775-bb80808080-3-2.jpg</dams:sourceFileName>
-            <dams:size>26516</dams:size>
+            <dams:sha1checksum>9eb06904a08af881ac8f161286ae277b397feca6</dams:sha1checksum>
+            <dams:md5checksum>6cd900cdf35c4f4ca634ccb614e2c78e</dams:md5checksum>
             <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:use>image-thumbnail</dams:use>
+            <dams:sourceFileName>20775-xx80808080-1-4.jpg</dams:sourceFileName>
+            <dams:size>7300</dams:size>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:quality>116x150</dams:quality>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:crc32checksum>6ac3a3da</dams:crc32checksum>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:dateCreated>2015-03-03T03:37:46-0500</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/5.jpg">
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:crc32checksum>xx37ae8e</dams:crc32checksum>
+            <dams:sha1checksum>b5f9d053331f230883539392cd9e482462e9e42b</dams:sha1checksum>
+            <dams:size>1441</dams:size>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourceFileName>20775-xx80808080-1-5.jpg</dams:sourceFileName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:dateCreated>2015-03-03T03:37:46-0500</dams:dateCreated>
+            <dams:md5checksum>b9bd918c2d12cbd7e7afd72c1546d090</dams:md5checksum>
+            <dams:use>image-icon</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:quality>50x65</dams:quality>
+          </dams:File>
+        </dams:hasFile>
+        <dams:date>
+          <dams:Date>
+            <rdf:value>Tuesday, May 20, 1980</rdf:value>
+            <dams:beginDate>1980-05-20</dams:beginDate>
+            <dams:endDate>1980-05-20</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/7.jpg">
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:crc32checksum>2e6e7f45</dams:crc32checksum>
+            <dams:quality>1236x1600</dams:quality>
+            <dams:md5checksum>70c312f717144f0fa7b1443aacaa4d5a</dams:md5checksum>
+            <dams:sha1checksum>f4c6211105e0039e103935c23447fa857fc125d6</dams:sha1checksum>
+            <dams:dateCreated>2015-03-03T03:37:47-0500</dams:dateCreated>
+            <dams:size>371849</dams:size>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:use>image-huge</dams:use>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sourceFileName>20775-xx80808080-1-7.jpg</dams:sourceFileName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+          </dams:File>
+        </dams:hasFile>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>1 PDF (8 p.)</rdf:value>
+            <dams:displayLabel>Extent</dams:displayLabel>
+            <dams:type>dimensions</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/6.jpg">
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:dateCreated>2015-03-03T03:37:47-0500</dams:dateCreated>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:quality>791x1024</dams:quality>
+            <dams:sha1checksum>6482a5dfe82d460877e857e4b4e7578f53d87674</dams:sha1checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:size>238858</dams:size>
+            <dams:sourceFileName>20775-xx80808080-1-6.jpg</dams:sourceFileName>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:use>image-large</dams:use>
+            <dams:crc32checksum>0ced56a0</dams:crc32checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:md5checksum>9ec46a30ea0ab2b3b934955587f75dd4</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+          </dams:File>
+        </dams:hasFile>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>The Daily Guardian: Volume 40, Number 37</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>The Daily Guardian</mads:elementValue>
+              </mads:MainTitleElement>
+              <mads:PartNumberElement>
+                <mads:elementValue>Volume 40, Number 37</mads:elementValue>
+              </mads:PartNumberElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/3.jpg">
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:sourceFileName>20775-xx80808080-1-3.jpg</dams:sourceFileName>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:md5checksum>3ea2913f4cc564c5585612ea6def766a</dams:md5checksum>
+            <dams:sha1checksum>2ab2762beb67bfd937e05768f39966032b452c77</dams:sha1checksum>
+            <dams:use>image-preview</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:quality>348x450</dams:quality>
+            <dams:size>61072</dams:size>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:crc32checksum>04afcba2</dams:crc32checksum>
+            <dams:dateCreated>2015-03-03T03:37:45-0500</dams:dateCreated>
           </dams:File>
         </dams:hasFile>
       </dams:Component>
     </dams:hasComponent>
+    <dams:subject>
+      <mads:ComplexSubject>
+        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
+        <mads:componentList rdf:parseType="Collection">
+          <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX7">
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n80095585"/>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:NameElement>
+                <mads:elementValue>Black Panther Party</mads:elementValue>
+              </mads:NameElement>
+            </mads:elementList>
+          </mads:CorporateName>
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX4">
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/subjects/sh99005024"/>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>History</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:subject>
+    <dams:copyright>
+      <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/xx05050505">
+        <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+        <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.</dams:copyrightPurposeNote>
+        <dams:copyrightNote>This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by "fair use" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.</dams:copyrightNote>
+        <dams:date>
+          <dams:Date>
+            <dams:beginDate>1993-12-31</dams:beginDate>
+          </dams:Date>
+        </dams:date>
+      </dams:Copyright>
+    </dams:copyright>
+    <dams:statute>
+      <dams:Statute rdf:about="http://library.ucsd.edu/ark:/20775/xx21212121">
+        <dams:statuteCitation>Family Education Rights and Privacy Act (FERPA)</dams:statuteCitation>
+        <dams:statuteJurisdiction>us</dams:statuteJurisdiction>
+        <dams:statuteNote>Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances.</dams:statuteNote>
+        <dams:restriction>
+          <dams:Restriction>
+            <dams:type>display</dams:type>
+            <dams:beginDate>1974-08-21</dams:beginDate>
+            <rdf:value>Until 50 years after death</rdf:value>
+          </dams:Restriction>
+        </dams:restriction>
+      </dams:Statute>
+    </dams:statute>
   </dams:Object>
 </rdf:RDF>
