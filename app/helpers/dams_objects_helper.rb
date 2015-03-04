@@ -774,7 +774,7 @@ def display_node(index)
       render_tree_HTML(index, false )
     elsif @is_child[index] == true
       parent_node_index = @tag[index][:parent_node]
-      grand_parent_node_index = @tag[parent_node_index][:parent_node]
+      grand_parent_node_index = @tag[parent_node_index][:parent_node] if(!parent_node_index.nil? && !@tag[parent_node_index].nil?)
       
       if(!grand_parent_node_index.nil?)
         render_node_HTML(@tag[parent_node_index][:parent_node], true)
