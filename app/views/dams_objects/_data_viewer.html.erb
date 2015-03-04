@@ -11,6 +11,9 @@
 	%>
 
 	<div class="form-actions dams-download-button">
+        <% if (defined?(sourcefilePath) && sourcefilePath != filePath)%>
+            <a class="btn <%=btnColor%> pull-right-space" href="<%= sourcefilePath %>"><i class="icon-download-alt icon-white"></i> Download TGZ file</a>
+        <% end %>	
 		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>"><i class="icon-download-alt icon-white"></i> Download file</a>
 	</div>
 

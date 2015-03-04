@@ -1,0 +1,197 @@
+<rdf:RDF xmlns:mads="http://www.loc.gov/mads/rdf/v1#" xmlns:damsid="http://library.ucsd.edu/ark:/20775/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293">
+  
+    <dams:note>
+      <dams:Note>
+        <dams:type>note</dams:type>
+        <rdf:value>PDF file includes photographs</rdf:value>
+      </dams:Note>
+    </dams:note>
+   <dams:note>
+      <dams:Note>
+        <dams:type>publication</dams:type>
+        <rdf:value>Vol. 1, no. 1 (May 24, 1982)-</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:date>
+      <dams:Date>
+        <rdf:value>March 1991</rdf:value>
+        <dams:beginDate>1991-03-01</dams:beginDate>
+        <dams:endDate>1991-03-31</dams:endDate>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:type>creation</dams:type>
+      </dams:Date>
+    </dams:date>
+   
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293/5.jpg">
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:size>2621</dams:size>
+        <dams:dateCreated>2013-05-12T12:21:56-0700</dams:dateCreated>
+        <dams:crc32checksum>e8df874b</dams:crc32checksum>
+        <dams:sourceFileName>20775-xx21171293-0-5.jpg</dams:sourceFileName>
+        <dams:sha1checksum>e16564fcc92d8c4f9d8638ff7561665e11f42498</dams:sha1checksum>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:use>image-icon</dams:use>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd03099821"/>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/21/17/12/93</dams:sourcePath>
+        <dams:quality>45x65</dams:quality>
+        <dams:md5checksum>e64792313d8163e187c6d8ef4c6e8358</dams:md5checksum>
+      </dams:File>
+    </dams:hasFile>
+    <dams:note>
+      <dams:Note>
+        <dams:type>note</dams:type>
+        <rdf:value>"A Conservative journal." Imprint varies. Published: La Jolla, Calif., Oct. 1983-</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293/4.jpg">
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd2903863b"/>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:size>11028</dams:size>
+        <dams:sourceFileName>20775-xx21171293-0-4.jpg</dams:sourceFileName>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/21/17/12/93</dams:sourcePath>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:dateCreated>2013-05-12T12:21:49-0700</dams:dateCreated>
+        <dams:quality>103x150</dams:quality>
+        <dams:md5checksum>6b6d3052d6f53cca339f4ac872e9d573</dams:md5checksum>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:use>image-thumbnail</dams:use>
+        <dams:crc32checksum>1906752a</dams:crc32checksum>
+        <dams:sha1checksum>2e8584829dd759bf7efa244c4a02f61217a8acd7</dams:sha1checksum>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:formatName>JPEG</dams:formatName>
+      </dams:File>
+    </dams:hasFile>
+    <dams:note>
+      <dams:Note>
+        <dams:type>series</dams:type>
+        <rdf:value>Volume 10, Issue 4</rdf:value>
+      </dams:Note>
+    </dams:note>
+    
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293/2.tgz">
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/21/17/12/93</dams:sourcePath>
+        <dams:dateCreated>2010-02-26T14:48:00</dams:dateCreated>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:crc32checksum>214eecda</dams:crc32checksum>
+        <dams:sourceFileName>20775-xx21171293-0-2.tgz</dams:sourceFileName>
+        <dams:formatName>GZIP</dams:formatName>
+        <dams:md5checksum>0cf88ac3a9eb2871ee4cb43a1478bdbf</dams:md5checksum>
+        <dams:mimeType>application/x-gzip</dams:mimeType>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:sha1checksum>9f2249583e8158836fd905e0c8a2deb24b6e92c7</dams:sha1checksum>
+        <dams:size>167403230</dams:size>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd4200803d"/>
+        <dams:use>image-source</dams:use>
+      </dams:File>
+    </dams:hasFile>
+    <dams:note>
+      <dams:Note>
+        <dams:type>identifier</dams:type>
+        <dams:displayLabel>filename</dams:displayLabel>
+        <rdf:value>cr_MARCH_1991.pdf</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:typeOfResource>text</dams:typeOfResource>
+    <dams:title>
+      <mads:Title>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>California Review</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>California Review</mads:authoritativeLabel>
+      </mads:Title>
+    </dams:title>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293/1.pdf">
+        <dams:formatName>PDF</dams:formatName>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:crc32checksum>73e81df1</dams:crc32checksum>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/21/17/12/93</dams:sourcePath>
+        <dams:formatVersion>1.2</dams:formatVersion>
+        <dams:mimeType>application/pdf</dams:mimeType>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd16069248"/>
+        <dams:use>document-service</dams:use>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:sha1checksum>7ce494b32acb5d0dbf9add483e6aee9b68c6934e</dams:sha1checksum>
+        <dams:md5checksum>3b4a4e8942c174c54ac3aa59c9f7a2a0</dams:md5checksum>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:sourceFileName>20775-xx21171293-0-1.pdf</dams:sourceFileName>
+        <dams:size>35281952</dams:size>
+        <dams:dateCreated>2010-02-26T13:55:29</dams:dateCreated>
+        <dams:quality>3510x5120</dams:quality>
+        <dams:objectCategory>file</dams:objectCategory>
+      </dams:File>
+    </dams:hasFile>
+  
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293/2.jpg">
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:sha1checksum>60ace02751dd579f402073ec090927547125ccc2</dams:sha1checksum>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:crc32checksum>85ebaa18</dams:crc32checksum>
+        <dams:dateCreated>2013-05-12T12:21:56-0700</dams:dateCreated>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/21/17/12/93</dams:sourcePath>
+        <dams:quality>528x768</dams:quality>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:md5checksum>8e8676927076aee6c8f379f78a0af3ea</dams:md5checksum>
+        <dams:size>254939</dams:size>
+        <dams:use>image-service</dams:use>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd7750325q"/>
+        <dams:sourceFileName>20775-xx21171293-0-2.jpg</dams:sourceFileName>
+      </dams:File>
+    </dams:hasFile>
+   
+    <dams:note>
+      <dams:Note>
+        <dams:type>publication</dams:type>
+        <rdf:value>La Jolla, CA</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293/3.jpg">
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:md5checksum>1e6af048b57358f6d35a4cf58703cc05</dams:md5checksum>
+        <dams:dateCreated>2013-05-12T12:21:56-0700</dams:dateCreated>
+        <dams:sourceFileName>20775-xx21171293-0-3.jpg</dams:sourceFileName>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:quality>309x450</dams:quality>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:use>image-preview</dams:use>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/21/17/12/93</dams:sourcePath>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:size>86328</dams:size>
+        <dams:crc32checksum>e043dc94</dams:crc32checksum>
+        <dams:sha1checksum>dec1173f33634ae29993c5ce76cd42ae7e769884</dams:sha1checksum>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd9013134q"/>
+        <dams:formatVersion>1.01</dams:formatVersion>
+      </dams:File>
+    </dams:hasFile>
+        <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb48484848"/>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>
+  </dams:Object>
+</rdf:RDF>
