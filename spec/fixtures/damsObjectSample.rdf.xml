@@ -39,9 +39,13 @@ Now with linebreaks.</rdf:value>
       <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx6212468x/1.tif">
         <dams:use>image-source</dams:use>
       </dams:File>
+    </dams:hasFile>
+    <dams:hasFile>
       <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx6212468x/2.jpg">
         <dams:use>image-service</dams:use>
       </dams:File>
+    </dams:hasFile>
+    <dams:hasFile>
       <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx6212468x/3.jpg">
         <dams:use>image-preview</dams:use>
       </dams:File>

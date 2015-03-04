@@ -1,9 +1,11 @@
 require 'spec_helper'
 
 feature 'Visitor wants to look at collections' do
-  before do
+  before(:all) do
     @part = DamsProvenanceCollectionPart.create titleValue: "Sample Provenance Part", visibility: "public"
     @prov = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", provenanceCollectionPartURI: @part.pid, visibility: "public"
+    @part.provenanceCollectionURI = @prov.pid
+    @part.save
     @assm = DamsAssembledCollection.create titleValue: "Sample Assembled Collection", visibility: "public"
     @priv = DamsProvenanceCollection.create titleValue: "curator-only collection", visibility: "curator"
 
@@ -13,12 +15,12 @@ feature 'Visitor wants to look at collections' do
     solr_index @priv.pid
 
     @copy = DamsCopyright.create status: 'Public domain'
+    @partObj = DamsObject.create titleValue: 'Test Object in Provenance Part', provenanceCollectionPartURI: @part.pid, copyrightURI: @copy.pid
     @provObj = DamsObject.create titleValue: 'Test Object in Provenance Collection', provenanceCollectionURI: @prov.pid, copyrightURI: @copy.pid
-    @partObj = DamsObject.create titleValue: 'Test Object in Provenance Part', provenanceCollectionURI: @part.pid, copyrightURI: @copy.pid
     solr_index @partObj.pid
     solr_index @provObj.pid
   end
-  after do
+  after(:all) do
     @partObj.delete
     @provObj.delete
     @copy.delete
@@ -39,7 +41,6 @@ feature 'Visitor wants to look at collections' do
   scenario 'recursive collection membership' do
     sign_in_developer
     visit catalog_index_path({'f[collection_sim][]' => 'Sample Provenance Collection'})
-    expect(page).to have_selector('a', :text => 'Test Object in Provenance Collection')
     expect(page).to have_selector('a', :text => 'Test Object in Provenance Part')
   end
 

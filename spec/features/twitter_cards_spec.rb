@@ -3,16 +3,15 @@ require 'spec_helper'
 feature "twitter cards" do
   before(:all) do
     @col = DamsAssembledCollection.create titleValue: "Test Collection", visibility: "public"
-    @obj = DamsObject.new
+    @obj = DamsObject.new pid: 'xx6212468x'
     @obj.damsMetadata.content = File.new('spec/fixtures/damsObjectSample.rdf.xml').read
-    @obj.save!
+    @obj.save
     solr_index @obj.pid
     solr_index @col.pid
   end
   after(:all) do
     #@obj.delete
     @col.delete
-    @copy.delete
   end
   scenario "objects should have meta tags" do
     visit dams_object_path @obj
