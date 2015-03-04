@@ -31,15 +31,19 @@ describe DamsProvenanceCollectionDatastream do
 
     describe "an instance loaded from fixture xml" do
       subject do
-        @part1 = DamsProvenanceCollectionPart.create pid: 'xx25252525', titleValue: "May 2009", visibility: 'public'
-        @part2 = DamsProvenanceCollectionPart.create pid: 'xx6110278b', titleValue: "Sample Provenance Part", visibility: 'public'
-        @parent = DamsAssembledCollection.create pid: 'xx03030303', titleValue: "UCSD Electronic Theses and Dissertations", visibility: 'public'
         subject = DamsProvenanceCollectionDatastream.new(double('inner object', :pid=>'bb24242424', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsProvenanceCollection.rdf.xml').read
         subject
       end
+      before(:all) do
+        @part1 = DamsProvenanceCollectionPart.create pid: 'xx25252525', titleValue: "May 2009", visibility: 'public'
+        @part2 = DamsProvenanceCollectionPart.create pid: 'xx6110278b', titleValue: "Sample Provenance Part", visibility: 'public'
+        @parent = DamsAssembledCollection.create pid: 'xx03030303', titleValue: "UCSD Electronic Theses and Dissertations", visibility: 'public'
+      end
       after(:all) do
         @parent.delete
+        @part1.delete
+        @part2.delete
       end
 
       it "should have a subject" do

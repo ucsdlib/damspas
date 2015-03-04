@@ -371,7 +371,7 @@ module Dams
 	            Solrizer.insert_field(solr_doc, "fulltext", fulltext.content)
 	          end
 	        rescue Exception => e
-	          puts "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
+	          logger.warn "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
 	        end
 	      end
 	

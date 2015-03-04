@@ -6,10 +6,10 @@ describe DamsAssembledCollectionDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { DamsAssembledCollectionDatastream.new(double('inner object', :pid=>'bb03030303', :new_record? => true), 'damsMetadata') }
+      subject { DamsAssembledCollectionDatastream.new(double('inner object', :pid=>'xx03030303', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx03030303"
       end
       it "should have a title" do
         subject.titleValue = "UCSD Electronic Theses and Dissertations"
@@ -31,13 +31,28 @@ describe DamsAssembledCollectionDatastream do
 
     describe "an instance loaded from fixture xml" do
       subject do
-        subject = DamsAssembledCollectionDatastream.new(double('inner object', :pid=>'bb03030303', :new_record? =>true), 'damsMetadata')
+        subject = DamsAssembledCollectionDatastream.new(double('inner object', :pid=>'xx03030303', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsAssembledCollection2.rdf.xml').read
         subject
       end
 
+      before(:all) do
+        @part1 = DamsProvenanceCollectionPart.create(pid: 'xx25252525', titleValue: 'May 2009', visibility: 'public', relatedResource_attributes: [{type: 'thumbnail', uri: 'http://pontos.ucsd.edu/images/dmca.jpg'}])
+        @part2 = DamsProvenanceCollectionPart.create(pid: 'xx6110278b', titleValue: 'Sample Provenance Part', visibility: 'public', relatedResource_attributes: [{type: 'thumbnail', uri: 'http://pontos.ucsd.edu/images/newsrel.jpg'}])
+        @prov1 = DamsProvenanceCollection.create(pid: 'xx24242424', titleValue: 'Historical Dissertations', provenanceCollectionPartURI: @part1.pid, visibility: 'public', relatedResource_attributes: [{type: 'thumbnail', uri: 'http://pontos.ucsd.edu/images/siogeo.jpg'}]) 
+        @prov2 = DamsProvenanceCollection.create(pid: 'xx24241158', titleValue: 'Scripps Institution of Oceanography, Geological Collections', visibility: 'public', relatedResource_attributes: [{type: 'thumbnail', uri: 'http://pontos.ucsd.edu/images/siogeo.jpg'}] )
+        @lang = MadsAuthority.create(pid: 'xx0410344f', name: 'English', code: 'eng')
+      end
+      after(:all) do
+        @prov1.delete
+        @prov2.delete
+        @part1.delete
+        @part2.delete
+        @lang.delete
+      end
+
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb03030303"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx03030303"
       end
       it "should have a title" do
         subject.titleValue.should == "UCSD Electronic Theses and Dissertations"
@@ -90,11 +105,11 @@ describe DamsAssembledCollectionDatastream do
       it "should index parts" do
         solr_doc = subject.to_solr
         solr_doc["provenanceCollection_name_tesim"].should == ["Historical Dissertations"]
-        solr_doc["provenanceCollection_id_tesim"].should == ["bb24242424"]
-        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"bb24242424","name":"Historical Dissertations","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}', '{"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}']
+        solr_doc["provenanceCollection_id_tesim"].should == ["xx24242424"]
+        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"xx24242424","name":"Historical Dissertations","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}', '{"id":"xx24241158","name":"Scripps Institution of Oceanography, Geological Collections","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}']
         solr_doc["part_name_tesim"].should == ["May 2009"]
-        solr_doc["part_id_tesim"].should == ["bb25252525"]
-        solr_doc["part_json_tesim"].should == ['{"id":"bb25252525","name":"May 2009","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}', '{"id":"bd6110278b","name":"Sample Provenance Part","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/newsrel.jpg"}']		
+        solr_doc["part_id_tesim"].should == ["xx25252525"]
+        solr_doc["part_json_tesim"].should == ['{"id":"xx25252525","name":"May 2009","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}', '{"id":"xx6110278b","name":"Sample Provenance Part","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/newsrel.jpg"}']		
 		solr_doc["unit_code_tesim"].should == ["rci"]
       end
 

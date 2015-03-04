@@ -36,37 +36,13 @@
     </dams:title>
     <dams:relationship>
       <dams:Relationship>
-        <dams:name>
-          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX1">
-            <mads:authoritativeLabel>Yañez, Angélica María</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:GivenNameElement>
-                <mads:elementValue>Angélica María</mads:elementValue>
-              </mads:GivenNameElement>
-              <mads:FamilyNameElement>
-                <mads:elementValue>Yañez</mads:elementValue>
-              </mads:FamilyNameElement>
-            </mads:elementList>
-          </mads:PersonalName>
-        </dams:name>
-        <dams:role>
-          <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd55639754">
-            <mads:isMemberOfMADSScheme>
-              <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
-                <rdfs:label>MARC Relator Codes</rdfs:label>
-                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
-              </mads:MADSScheme>
-            </mads:isMemberOfMADSScheme>
-            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
-            <mads:code>cre</mads:code>
-            <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
-          </mads:Authority>
-        </dams:role>
+        <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/xxXXXXXXX1"/>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
       </dams:Relationship>
     </dams:relationship>
     <dams:typeOfResource>mixed material</dams:typeOfResource>
-    <dams:otherRights>
-      <dams:OtherRights rdf:about="http://library.ucsd.edu/ark:/20775/xx06060606">
+    <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/xx06060606"/>
+<!--
         <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
         <dams:otherRightsURI rdf:resource="http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"/>
         <dams:relationship>
@@ -100,6 +76,7 @@
         </dams:permission>
       </dams:OtherRights>
     </dams:otherRights>
+-->
     <dams:hasComponent>
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/2">
         <dams:hasFile>
@@ -478,7 +455,7 @@
             <dams:compositionLevel>0</dams:compositionLevel>
             <dams:dateCreated>2015-03-03T03:37:44-0500</dams:dateCreated>
             <dams:sourceCapture>
-              <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/bb49494949">
+              <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/xx49494949">
                 <dams:scannerManufacturer>Epson</dams:scannerManufacturer>
                 <dams:sourceType>transmission scanner</dams:sourceType>
                 <dams:scannerModelName>Expression 1600</dams:scannerModelName>
