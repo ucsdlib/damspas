@@ -20,6 +20,7 @@
 					service_file_path = (service_file != nil) ? download_path(ark,"_#{service_file}") : ''
                     if source_file != nil
 					  download_file_path = download_path(ark,"_#{source_file}")
+					  source_file_path = download_path(ark,"_#{source_file}")
                     elsif service_file != nil
 					  download_file_path = download_path(ark,"_#{service_file}")
                     elsif display_file != nil
@@ -43,6 +44,7 @@
 								:service_file_path => service_file_path,
 								:download_file_path => download_file_path,
 								:download_derivative_path => download_derivative_path,
+								:source_file_path => source_file_path,
 								:service_file => service_file,
 								:pdf_file_path => pdf_file_path,
 								:zoom_file_path => zoom_file_path
