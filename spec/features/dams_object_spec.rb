@@ -24,7 +24,13 @@ feature 'Visitor want to look at objects' do
     # admin links
     expect(page).to have_link('RDF View')
   end
-  
+
+  scenario 'view full title with non filing characters' do
+    visit dams_object_path('bd22194583')
+    expect(page).to have_selector('h1',:text=>'The Sample Simple Object')
+    expect(page).to have_selector('h2',:text=>'An Image Object, Allegro 1')
+  end
+
   scenario 'view a sample object record with subtitle, part, and a translation variant title' do
     ark = 'bd6212468x'
     sign_in_developer
@@ -58,6 +64,24 @@ feature 'Visitor want to look at objects' do
     click_on "RDF View"
     expect(page.status_code).to eq 200
     expect(response_headers['Content-Type']).to include 'application/xml'
+  end
+
+  pending "Enabled once damsrepo enable RDF Turtle format: view RDF Turtle of an object" do
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF Turtle View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'text'
+    expect(page).to have_content("@prefix");
+  end
+
+  scenario "view RDF N-Triples of an object" do
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF N-Triples View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'text'
+    expect(page).to have_content("\" .");
   end
 
   scenario "view DAMS 4.2 RDF/XML of an object" do
@@ -156,4 +180,58 @@ feature 'Format link(s) need to be scoped to the collection level ' do
     expect(page).to have_selector('span.dams-filter a', :text => "image")
     
   end
+end
+
+describe "complex object view" do
+  before do
+    @damsComplexObj = DamsObject.new(pid: "xx97626129")
+  end
+  after do
+    @damsComplexObj.delete
+  end
+  it "should see the component hierarchy view" do
+    @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
+    @damsComplexObj.save!
+    solr_index (@damsComplexObj.pid)
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-1',:text => 'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-2',:text => 'Files')
+    
+    #click on grand child link
+    click_on 'Image 001'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Image 001')
+        
+    #return to the top level record
+    click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')         
+  end     
+end
+
+describe "to look at a simple SIO object" do
+  before do
+    @damsSioObj = DamsObject.new(pid: "xx3243380c")
+  end
+  after do
+    @damsSioObj.delete
+  end
+  it "should not see the accession number in public view" do
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)   
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).not_to have_selector('span.dams-note-display-label:first',:text=>'Accession Number')                 
+  end
+  
+   it "should see the accession number in curator view" do
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)    
+    sign_in_developer       
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).to have_selector('span.dams-note-display-label',:text=>'Accession Number')
+   end     
 end

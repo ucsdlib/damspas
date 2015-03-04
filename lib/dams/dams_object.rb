@@ -613,7 +613,8 @@ module Dams
 	          Solrizer.insert_field(solr_doc, "collections", collection.pid)
 	          col_json = {
 	            :id => collection.pid,
-	            :name => collection.titleValue
+	            :name => collection.titleValue,
+	            :visibility => collection.visibility.first
 	          }
 	
 	          if ( collection.to_s.include? 'DamsProvenanceCollectionInternal' )

@@ -1,0 +1,185 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+ <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx3243380c">
+    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd9494057m"/>
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>"A&amp;E New Constr Revelle 4-5-71"</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>"A&amp;E New Constr Revelle 4-5-71"</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx3243380c/4.jpg">
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:dateCreated>2013-05-12T07:53:39-0700</dams:dateCreated>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/32/43/38/0c</dams:sourcePath>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:use>image-thumbnail</dams:use>
+        <dams:sha1checksum>b0d258663e50663c8e406b4ff0296bbfc073daf3</dams:sha1checksum>
+        <dams:crc32checksum>359f21ab</dams:crc32checksum>
+        <dams:size>15901</dams:size>
+        <dams:objectCategory>file</dams:objectCategory>
+        
+        <dams:quality>150x124</dams:quality>
+        <dams:sourceFileName>20775-xx3243380c-0-4.jpg</dams:sourceFileName>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:md5checksum>568dc8789e81b40987fdf76ea525543c</dams:md5checksum>
+        <dams:preservationLevel>full</dams:preservationLevel>
+      </dams:File>
+    </dams:hasFile>
+    <dams:typeOfResource>still image</dams:typeOfResource>
+    
+    <dams:note>
+      <dams:Note>
+        <rdf:value>original b/w/ negative</rdf:value>
+        <dams:type>note</dams:type>
+      </dams:Note>
+    </dams:note>
+  
+    <dams:note>
+      <dams:Note>
+        <dams:type>identifier</dams:type>
+        <dams:displayLabel>accession number</dams:displayLabel>
+        <rdf:value>85-8</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:date>
+      <dams:Date>
+        <dams:type>creation</dams:type>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:beginDate>1971-04-05</dams:beginDate>
+        <dams:endDate>1971-04-05</dams:endDate>
+        <rdf:value>1971-04-05</rdf:value>
+      </dams:Date>
+    </dams:date>
+   
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx3243380c/1.tif">
+        <dams:crc32checksum>f5a40789</dams:crc32checksum>
+       
+        <dams:formatVersion>5.0</dams:formatVersion>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:size>12868226</dams:size>
+        <dams:sourceCapture>
+          <dams:SourceCapture>
+            <dams:sourceType>B&amp;W photographic negative , 6cm x 7cm</dams:sourceType>
+            <dams:imageProducer>SIO Archives Staff</dams:imageProducer>
+          </dams:SourceCapture>
+        </dams:sourceCapture>
+        <dams:quality>3940x3266</dams:quality>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:mimeType>image/tiff</dams:mimeType>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:use>image-source</dams:use>
+        <dams:formatName>TIFF</dams:formatName>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:md5checksum>fc2e39de290568562876e5091bd921f0</dams:md5checksum>
+        <dams:sourceFileName>20775-xx3243380c-0-1.tif</dams:sourceFileName>
+        <dams:dateCreated>2007-05-07T14:32:29</dams:dateCreated>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/32/43/38/0c</dams:sourcePath>
+        <dams:sha1checksum>9cfeda80590107a6053a20a0a7498b2f003c2f16</dams:sha1checksum>
+      </dams:File>
+    </dams:hasFile>
+   
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx3243380c/3.jpg">
+        <dams:md5checksum>f66776578fe20b78606f87890ef87765</dams:md5checksum>
+        <dams:dateCreated>2013-05-12T07:53:39-0700</dams:dateCreated>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:crc32checksum>f04b3429</dams:crc32checksum>
+        <dams:quality>450x373</dams:quality>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/32/43/38/0c</dams:sourcePath>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:sourceFileName>20775-xx3243380c-0-3.jpg</dams:sourceFileName>
+        <dams:sha1checksum>ff38809e1937d74c5abc2ce4a05344dec7e4e9ff</dams:sha1checksum>
+        <dams:size>129964</dams:size>
+       
+        <dams:use>image-preview</dams:use>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:filestore>localStore</dams:filestore>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:formatVersion>1.01</dams:formatVersion>
+      </dams:File>
+    </dams:hasFile>
+    
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx3243380c/2.jpg">
+        <dams:filestore>localStore</dams:filestore>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:formatName>JPEG</dams:formatName>
+     
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:size>365475</dams:size>
+        <dams:quality>768x637</dams:quality>
+        <dams:sha1checksum>50a2af879998255b21d1c6bc08a1b64c454f95ed</dams:sha1checksum>
+        <dams:sourceFileName>20775-xx3243380c-0-2.jpg</dams:sourceFileName>
+        <dams:use>image-service</dams:use>
+        <dams:md5checksum>2721e8d59e59c6e60efb7cd663e27227</dams:md5checksum>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/32/43/38/0c</dams:sourcePath>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:dateCreated>2013-05-12T07:53:39-0700</dams:dateCreated>
+        <dams:crc32checksum>a4dbecd1</dams:crc32checksum>
+      </dams:File>
+    </dams:hasFile>
+   
+    <dams:note>
+      <dams:Note>
+        <rdf:value>This digital image is a surrogate of an item from the SIO Photographic Laboratory Photographs, 1949-2000</rdf:value>
+        <dams:type>location of originals</dams:type>
+      </dams:Note>
+    </dams:note>
+   
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx3243380c/5.jpg">
+        <dams:filestore>localStore</dams:filestore>
+        <dams:crc32checksum>4c83d04a</dams:crc32checksum>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:sourceFileName>20775-xx3243380c-0-5.jpg</dams:sourceFileName>
+        <dams:use>image-icon</dams:use>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:dateCreated>2013-05-12T07:53:39-0700</dams:dateCreated>
+        <dams:size>3327</dams:size>
+        
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/32/43/38/0c</dams:sourcePath>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:sha1checksum>0c8b509647832101da9a46509b73437b566f86ac</dams:sha1checksum>
+        <dams:md5checksum>5872763bbbecb93ff37afc475a34b05e</dams:md5checksum>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:quality>65x54</dams:quality>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+      </dams:File>
+    </dams:hasFile>
+  
+    <dams:note>
+      <dams:Note>
+        <dams:type>identifier</dams:type>
+        <dams:displayLabel>filename</dams:displayLabel>
+        <rdf:value>caljsioa_85-8-3511a</rdf:value>
+      </dams:Note>
+    </dams:note>
+
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb48484848"/>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>
+
+  </dams:Object>
+</rdf:RDF>

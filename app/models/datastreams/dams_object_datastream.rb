@@ -49,15 +49,13 @@ class DamsObjectDatastream < DamsResourceDatastream
     load_otherRights(otherRights)
   end
   def load_otherRights (otherRights)
-    if otherRights.first.instance_of?(DamsOtherRightInternal) && !otherRights.first.uri.first.nil?
-      otherRights.first
-	elsif !otherRights.first.nil?
-	    if !otherRights.first.uri.first.nil? && otherRights.first.uri.first.length > 0
-	      otherRights.first
-	    elsif otherRights.first.pid.to_s.length > 0
-	      DamsOtherRight.find( otherRights.first.pid )
-	    end
-	end        
+    if !otherRights.first.nil?
+      if !otherRights.first.pid.nil? && !otherRights.first.pid.start_with?('_')
+        DamsOtherRight.find( otherRights.first.pid )
+      else
+        otherRights.first
+      end
+    end
   end
 
   def rightsHolder

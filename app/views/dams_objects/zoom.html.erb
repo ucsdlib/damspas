@@ -26,6 +26,10 @@
     p2 = @object[2,2]
     dir = p1 + "/" + p2 + "/" + @object
     dir += "-#{@cmp}" if @cmp != '0'
+
+    # round image dimensions up to multiple of 256
+    width = 256; width *= 2 while width < dim[0].to_i
+    height = 256; height *= 2 while height < dim[1].to_i
 %>
   <style type="text/css">
     html, body, #map {
@@ -36,7 +40,7 @@
   <script type="text/javascript">
     var map = L.map('map').setView(new L.LatLng(0,0), 0);
     L.tileLayer.zoomify('<%=Rails.configuration.zoomify_baseurl%><%=dir%>/', { 
-      width: <%=dim[0]%>, height: <%=dim[1]%>
+      width: <%=width%>, height: <%=height%>
     }).addTo(map);
   </script>
 <% end %>
