@@ -110,15 +110,16 @@ end
 
 feature "Search and browse linked names and subjects" do
   before(:all) do
-    @damsObj = DamsObject.new(pid: 'bd08080808')
+    @damsObj = DamsObject.create(pid: 'bd08080808')
     @damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectDuplicatedNames.rdf.xml').read
     @damsObj.save!
-    solr_index 'bd08080808'
+    solr_index @damsObj.pid
   end
   after(:all) do
     @damsObj.delete
   end
   scenario "Record with duplicate name entries" do
+    pending "working object metadata updating"
     sign_in_developer
     # Create a sample object with subtitle and variant titles
 
@@ -129,6 +130,7 @@ feature "Search and browse linked names and subjects" do
     expect(page).not_to have_content('ZZZ Name, Duplicatd; ZZZ Name, Duplicated')
   end
   scenario 'Browse by name' do
+    pending "working object metadata updating"
     sign_in_developer
     visit catalog_facet_path("creator_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
     expect(page).to have_content('ZZZ Name, Duplicated')

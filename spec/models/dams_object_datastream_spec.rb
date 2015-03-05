@@ -85,15 +85,15 @@ describe DamsObjectDatastream do
       before(:all) do
         @role1 = MadsAuthority.create pid: 'bd55639754', name: 'Creator'
         @role2 = MadsAuthority.create pid: 'bd3004227d', name: 'Decision Maker'
-        @other = DamsOtherRight.create pid: 'xx06060606', basis: 'fair use', uri:"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf", permissionType: 'display', permissionBeginDate: '2011-09-24', name:['xx09090909'], role:['bd3004227d']
         @name = MadsPersonalName.create pid: 'xx09090909', name: 'Administrator, Bob, 1977-'
+        @other = DamsOtherRight.create pid: 'xx06060606', basis: 'fair use', uri:"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf", permissionType: 'display', permissionBeginDate: '2011-09-24', name:['xx09090909'], role:['bd3004227d']
 
       end
       after(:all) do
-        @other.delete
         @name.delete
         @role1.delete
         @role2.delete
+        @other.delete
       end
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx80808080"
@@ -294,12 +294,14 @@ END
         @role = MadsAuthority.create pid: 'bd3004227d', name: 'Decision Maker'
         @name = MadsPersonalName.create pid: 'xx09090909', name: 'Administrator, Bob, 1977-'
         @other = DamsOtherRight.create pid: 'zz06060606', basis: 'fair use', uri:"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf", permissionType: 'display', permissionBeginDate: '2011-09-24', name:['xx09090909'], role:['bd3004227d']
+        @statute = DamsStatute.create pid: 'zz21212121', citation:"Family Education Rights and Privacy Act (FERPA)", jurisdiction:"us", note:"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances.", restrictionType:"display", restrictionBeginDate:"1974-08-21"
       end
       after(:all) do
         @subj.delete
         @other.delete
         @name.delete
         @role.delete
+        @statute.delete
       end
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd6212468x"

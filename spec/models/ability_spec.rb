@@ -144,7 +144,7 @@ describe Ability do
     describe "#{Rails.configuration.super_role} (super user)" do
 	    subject do
 	      @user = User.create!
-	  	  @user_groups = @user.groups # XXX group mgmt?
+	  	  @user_groups = @user.groups
 	      logger.debug("[CANCAN rspec user roles default: #{@user.groups.inspect}]")	    
 	      @bak_user_groups = [];
 	      @user_groups.each do |g|
@@ -157,6 +157,7 @@ describe Ability do
 	    describe "to access a DLP DamsObject" do
 		    before(:all) do
 		      @damsObjectUnit1 = mod_dams_object "ac00000100", @unit1.pid, @copy.pid
+              solr_index @damsObjectUnit1.pid
 		    end
 		    after(:all) do
 		      @damsObjectUnit1.delete
@@ -177,6 +178,7 @@ describe Ability do
 	    describe "to access a RCI DamsObject" do
 	    	before(:all) do
 		      @damsObjectUnit2 = mod_dams_object "ac00000101", @unit2.pid, @copy.pid
+              solr_index @damsObjectUnit2.pid
 		    end
 	    	after(:all) do
 		      @damsObjectUnit2.delete
@@ -197,6 +199,7 @@ describe Ability do
     	describe "to access a unit1 DamsProvenanceCollection" do
     		before(:all) do
 			  @damsProvenanceCollectionUnit1 = mod_dams_provenance_collection "ac00000200", @unit1.pid
+			  solr_index @damsProvenanceCollectionUnit1.pid
 		    end
     		after(:all) do
 			  @damsProvenanceCollectionUnit1.delete
@@ -217,6 +220,7 @@ describe Ability do
     	describe "to access a unit2 DamsProvenanceCollection" do
     		before(:all) do
 			  @damsProvenanceCollectionUnit2 = mod_dams_provenance_collection "ac00000201", @unit2.pid
+			  solr_index @damsProvenanceCollectionUnit2.pid
 		    end
     		after(:all) do
 			  @damsProvenanceCollectionUnit2.delete
@@ -237,6 +241,7 @@ describe Ability do
     	describe "to access a unit1 DamsProvenanceCollectionPart" do
     		before(:all) do
 			  @damsProvenanceCollectionPartUnit1 = mod_dams_provenance_collection_part "ac00000204", @unit1.pid
+			  solr_index @damsProvenanceCollectionPartUnit1.pid
 		    end
     		after(:all) do
 			  @damsProvenanceCollectionPartUnit1.delete
@@ -257,6 +262,7 @@ describe Ability do
     	describe "to access a unit2 DamsProvenanceCollectionPart" do
     		before(:all) do
 			  @damsProvenanceCollectionPartUnit2 = mod_dams_provenance_collection_part "ac00000203", @unit2.pid
+			  solr_index @damsProvenanceCollectionPartUnit2.pid
 		    end
     		after(:all) do
 			  @damsProvenanceCollectionPartUnit2.delete
@@ -297,6 +303,7 @@ describe Ability do
     	describe "to access a unit2 DamsAssembledCollection" do
     		before(:all) do
 			  @damsAssembledCollectionUnit2 = mod_dams_assembled_collection "ac00000205", @unit2.pid
+			  solr_index @damsAssembledCollectionUnit2.pid
 		    end
     		after(:all) do
 			  @damsAssembledCollectionUnit2.delete
