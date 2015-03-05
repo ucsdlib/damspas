@@ -10,8 +10,12 @@ feature "twitter cards" do
     solr_index @col.pid
   end
   after(:all) do
-    #@obj.delete
+    @obj.delete
     @col.delete
+    @unit = DamsUnit.find('xx48484848')
+    @unit.delete
+    @scope = DamsScopeContentNote.find('xx11111111')
+    @scope.delete
   end
   scenario "objects should have meta tags" do
     visit dams_object_path @obj

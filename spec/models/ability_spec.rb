@@ -134,6 +134,9 @@ describe Ability do
 	 	before(:all) do
 	    	@obj3 = DamsProvenanceCollection.create!(pid: "ac00000061", titleValue: "Test UCSD Local Provanence Collection Title", unitURI: @unit1.pid, visibility: "local")
 	    end
+        after(:all) do
+          @obj3.delete
+        end
 		 pending "should be able to show record ac00000061" do   
 		    subject.can?(:show,@obj3).should be_true
 		 end

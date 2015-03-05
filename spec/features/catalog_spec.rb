@@ -23,6 +23,9 @@ feature 'Visitor wants to search' do
 
     @copy.delete
     @unit.delete
+
+    @sub1.delete
+    @sub2.delete
   end
 
   scenario 'is on search results page' do
@@ -117,6 +120,12 @@ feature "Search and browse linked names and subjects" do
   end
   after(:all) do
     @damsObj.delete
+    @copy = DamsCopyright.find('xx1639537b')
+    @copy.delete
+    @name = MadsPersonalName.find('xx78854103')
+    @name.delete
+    @role = MadsAuthority.find('xx6486002k')
+    @role.delete
   end
   scenario "Record with duplicate name entries" do
     pending "working object metadata updating"
@@ -157,6 +166,7 @@ feature 'Visitor wants to limit search with a provided Solr filter query' do
   after do
     @obj1.delete
     @obj2.delete
+    @public.delete
   end
 
   scenario 'search with filter query' do

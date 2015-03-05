@@ -37,6 +37,7 @@ feature 'Visitor wants to view collection links' do
     @damsColl2.delete
     @damsColl3.delete
     @damsObj.delete
+    @copy.delete
   end
 
   scenario 'A anonymous user should not see a curator collection link' do

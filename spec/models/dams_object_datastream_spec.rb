@@ -25,6 +25,10 @@ describe DamsObjectDatastream do
         @name = MadsPersonalName.create pid: 'xxXXXXXXX1', name: "Yañez, Angélica María"
       end
       after(:all) do
+        @role.delete
+        @name.delete
+        @copy = DamsCopyright.find('xx15151515')
+        @copy.delete
       end
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx1111111x"

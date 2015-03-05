@@ -18,6 +18,7 @@ feature 'Units' do
   after(:all) do
     @obj.delete
     @obj2.delete
+    @col2.delete
     @copy.delete
     @unit.delete
     @unit2.delete
