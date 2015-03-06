@@ -1,113 +1,191 @@
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
-         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
-<dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb24242424">
-    <dams:visibility>public</dams:visibility>
-    <dams:typeOfResource>text</dams:typeOfResource>
-    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#ProvenanceCollection"/>
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bb24242424">
+    <dams:unit>
+      <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb02020202">
+        <dams:unitName>Library Digital Collections</dams:unitName>
+        <dams:code>dlp</dams:code>
+        <dams:unitDescription>Search over 56,690 images, documents and video files from the UCSD Libraries.</dams:unitDescription>
+        <dams:unitURI>http://library.ucsd.edu/dams/</dams:unitURI>
+        <dams:unitGroup>dams-curator</dams:unitGroup>
+      </dams:Unit>
+    </dams:unit>
+    <dams:language>
+      <mads:Language rdf:about="http://library.ucsd.edu/ark:/20775/bd0410344f">
+        <mads:authoritativeLabel>English</mads:authoritativeLabel>
+        <mads:code>eng</mads:code>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd71341600">
+            <rdfs:label>ISO 639 Languages</rdfs:label>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/languages/eng"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:LanguageElement>
+            <mads:elementValue>English</mads:elementValue>
+          </mads:LanguageElement>
+        </mads:elementList>
+      </mads:Language>
+    </dams:language>
     <dams:title>
-<mads:Title>
-  <mads:authoritativeLabel>Historical Dissertations</mads:authoritativeLabel>
-  <mads:elementList rdf:parseType="Collection">
-    <mads:MainTitleElement>
-      <mads:elementValue>Historical Dissertations</mads:elementValue>
-    </mads:MainTitleElement>
-  </mads:elementList>
-</mads:Title>
+      <mads:Title>
+        <mads:authoritativeLabel>Historical Dissertations</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Historical Dissertations</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
     </dams:title>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:type>thumbnail</dams:type>
+        <dams:uri>http://pontos.ucsd.edu/images/siogeo.jpg</dams:uri>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:visibility>public</dams:visibility>
     <dams:date>
       <dams:Date>
         <dams:beginDate>2009-05-03</dams:beginDate>
         <dams:endDate>2010-06-30</dams:endDate>
       </dams:Date>
     </dams:date>
-    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
-  <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd1366006j"/> 
-    <dams:scopeContentNote>
-      <dams:ScopeContentNote>
-        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
-        <dams:displayLabel>Scope and contents</dams:displayLabel>
-        <dams:type>scope_and_content</dams:type>
-      </dams:ScopeContentNote>
-    </dams:scopeContentNote>      
-    <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
     <dams:note>
       <dams:Note>
-        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
-        <dams:displayLabel>Scope and contents</dams:displayLabel>
-        <dams:type>scope_and_content</dams:type>
+        <rdf:value>4 digital objects.</rdf:value>
+        <dams:type>extent</dams:type>
       </dams:Note>
-    </dams:note>    
-    <dams:note>
-      <dams:Note>
-        <dams:displayLabel>ARK ID</dams:displayLabel>
-        <rdf:value>http://library.ucsd.edu/ark:/20775/bb80808080</rdf:value>
-        <dams:type>identifier</dams:type>
-      </dams:Note>
-    </dams:note>    
-    <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
-    <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>
+    </dams:note>
+    <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/xx25252525"/>
+    <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/xx6110278b"/>
+    <dams:typeOfResource>text</dams:typeOfResource>
+    <dams:assembledCollection>
+      <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/xx03030303">
+        <dams:note>
+          <dams:Note>
+            <rdf:value>Inline note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Abstract</dams:displayLabel>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:date>
+          <dams:Date>
+            <dams:beginDate>2009-05-03</dams:beginDate>
+          </dams:Date>
+        </dams:date>
+        <dams:hasProvenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+        <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+        <dams:preferredCitationNote>
+          <dams:PreferredCitationNote rdf:about="http://library.ucsd.edu/ark:/20775/bd3959888k">
+            <rdf:value>Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Preferred citation</dams:displayLabel>
+            <dams:type>preferred_citation</dams:type>
+          </dams:PreferredCitationNote>
+        </dams:preferredCitationNote>
+        <dams:note>
+          <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/bd52568274">
+            <rdf:value>Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Abstract</dams:displayLabel>
+            <dams:type>abstract</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:relatedResource>
+          <dams:RelatedResource>
+            <dams:uri>http://library.ucsd.edu/ark:/20775/bd0922518w/4/3.jpg</dams:uri>
+            <dams:type>thumbnail</dams:type>
+          </dams:RelatedResource>
+        </dams:relatedResource>
+        <dams:preferredCitationNote>
+          <dams:PreferredCitationNote>
+            <rdf:value>Inline preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Preferred citation</dams:displayLabel>
+            <dams:type>preferred_citation</dams:type>
+          </dams:PreferredCitationNote>
+        </dams:preferredCitationNote>
+        <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb02020202"/>
+        <dams:typeOfResource>text</dams:typeOfResource>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>UCSD Electronic Theses and Dissertations</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>UCSD Electronic Theses and Dissertations</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:custodialResponsibilityNote>
+          <dams:CustodialResponsibilityNote rdf:about="http://library.ucsd.edu/ark:/20775/bd9113515d">
+            <rdf:value>Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Custodial responsibility</dams:displayLabel>
+            <dams:type>custodial_responsibility</dams:type>
+          </dams:CustodialResponsibilityNote>
+        </dams:custodialResponsibilityNote>
+        <dams:scopeContentNote>
+          <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/bd1366006j">
+            <rdf:value>Linked scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Scope and contents</dams:displayLabel>
+            <dams:type>scope_and_content</dams:type>
+          </dams:ScopeContentNote>
+        </dams:scopeContentNote>
+        <dams:scopeContentNote>
+          <dams:ScopeContentNote>
+            <rdf:value>Inline scope content note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Scope and contents</dams:displayLabel>
+            <dams:type>scope_and_content</dams:type>
+          </dams:ScopeContentNote>
+        </dams:scopeContentNote>
+        <dams:custodialResponsibilityNote>
+          <dams:CustodialResponsibilityNote>
+            <rdf:value>Inline custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+            <dams:displayLabel>Scope and contents</dams:displayLabel>
+            <dams:type>custodial_responsibility</dams:type>
+          </dams:CustodialResponsibilityNote>
+        </dams:custodialResponsibilityNote>
+        <dams:visibility>public</dams:visibility>
         <dams:relationship>
-      <dams:Relationship>
-        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
-        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb08080808"/>
-      </dams:Relationship>
-    </dams:relationship>   
-    <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/bb25252525"/>
-    <dams:hasPart rdf:resource="http://library.ucsd.edu/ark:/20775/bd6110278b"/>
-    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb29292929"/>
-   <dams:unit>
-      <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb48484848">
-        <dams:event>
-          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2014471p">
-            <dams:relationship rdf:parseType="Resource">
-              <dams:role rdf:resource="dams:initiator"/>
-              <dams:name rdf:resource="dams:unknownUser"/>
-            </dams:relationship>
-            <dams:outcome>success</dams:outcome>
-            <dams:eventDate>2013-02-19T10:46:30-0800</dams:eventDate>
-            <dams:type>record edited</dams:type>
-          </dams:DAMSEvent>
-        </dams:event>
-        <dams:unitName>Research Data Curation Program</dams:unitName>
-        <dams:code>rci</dams:code>
-        <dams:event>
-          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9659686g">
-            <dams:relationship rdf:parseType="Resource">
-              <dams:role rdf:resource="dams:initiator"/>
-              <dams:name rdf:resource="dams:unknownUser"/>
-            </dams:relationship>
-            <dams:outcome>success</dams:outcome>
-            <dams:eventDate>2013-03-14T07:19:48-0700</dams:eventDate>
-            <dams:type>record edited</dams:type>
-          </dams:DAMSEvent>
-        </dams:event>
-        <dams:event>
-          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3720971c">
-            <dams:relationship rdf:parseType="Resource">
-              <dams:role rdf:resource="dams:initiator"/>
-              <dams:name rdf:resource="dams:unknownUser"/>
-            </dams:relationship>
-            <dams:outcome>success</dams:outcome>
-            <dams:eventDate>2013-02-19T12:56:09-0800</dams:eventDate>
-            <dams:type>record edited</dams:type>
-          </dams:DAMSEvent>
-        </dams:event>
-        <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
-        <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
-        <dams:event>
-          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8362747n">
-            <dams:relationship rdf:parseType="Resource">
-              <dams:role rdf:resource="dams:initiator"/>
-              <dams:name rdf:resource="dams:unknownUser"/>
-            </dams:relationship>
-            <dams:outcome>success</dams:outcome>
-            <dams:eventDate>2013-03-14T07:21:05-0700</dams:eventDate>
-            <dams:type>record edited</dams:type>
-          </dams:DAMSEvent>
-        </dams:event>
-        <dams:unitGroup>dams-rci</dams:unitGroup>
-      </dams:Unit>
-    </dams:unit>        
+          <dams:Relationship>
+            <dams:role>
+              <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/bd55639754">
+                <mads:isMemberOfMADSScheme>
+                  <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd5837217p">
+                    <rdfs:label>MARC Relator Codes</rdfs:label>
+                    <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+                  </mads:MADSScheme>
+                </mads:isMemberOfMADSScheme>
+                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
+                <mads:code>cre</mads:code>
+                <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+            <dams:name>
+              <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bb08080808">
+                <mads:authoritativeLabel xml:lang="en">Artist, Alice, 1966-</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:FullNameElement>
+                    <mads:elementValue>Artist, Alice,</mads:elementValue>
+                  </mads:FullNameElement>
+                  <mads:DateNameElement>
+                    <mads:elementValue xml:lang="en">1966-</mads:elementValue>
+                  </mads:DateNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:name>
+          </dams:Relationship>
+        </dams:relationship>
+        <dams:note>
+          <dams:Note>
+            <dams:displayLabel>ARK ID</dams:displayLabel>
+            <rdf:value>http://library.ucsd.edu/ark:/20775/bb80808080</rdf:value>
+            <dams:type>identifier</dams:type>
+          </dams:Note>
+        </dams:note>
+      </dams:AssembledCollection>
+    </dams:assembledCollection>
   </dams:ProvenanceCollection>
 </rdf:RDF>

@@ -362,16 +362,16 @@ module Dams
 	
 	      # fulltext extraction for pdfs
 	      if file.mimeType.first.to_s == "application/pdf"
-	        if @parent_obj == nil
-	          @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
-	        end
 	        begin
+	          if @parent_obj == nil
+	            @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
+	          end
 	          fulltext = @parent_obj.datastreams[ "fulltext_#{file.id}" ]
 	          if fulltext != nil
 	            Solrizer.insert_field(solr_doc, "fulltext", fulltext.content)
 	          end
 	        rescue Exception => e
-	          puts "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
+	          logger.warn "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
 	        end
 	      end
 	

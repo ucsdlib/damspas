@@ -8,10 +8,21 @@ describe "keyword field" do
 end
 
 describe "facet field" do
+  before(:all) do
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "test", group: "dams-curator", uri: "http://example.com/"
+    @copy = DamsCopyright.create status: "Public domain"
+    @obj = DamsObject.create typeOfResource: 'still image', unitURI: @unit.pid, titleValue: 'Test', copyrightURI: @copy.pid
+    solr_index @obj.pid
+  end
+  after(:all) do
+    @obj.delete
+    @copy.delete
+    @unit.delete
+  end
   it "should prefill the facet if the facet params exist" do
-      visit '/advanced?f[unit_sim][]=Library+Digital+Collections&f[object_type_sim][]=image'
+      visit '/advanced?f[unit_sim][]=Test+Unit&f[object_type_sim][]=image'
       expect(page).to have_selector("input[id='f_inclusive_object_type_sim_image'][checked='checked']")
-      expect(page).to have_selector("input[id='f_inclusive_unit_sim_Library_Digital_Collections'][checked='checked']")
+      expect(page).to have_selector("input[id='f_inclusive_unit_sim_Test_Unit'][checked='checked']")
   end
 
   it "should not prefill the facet if the facet params does not exist" do

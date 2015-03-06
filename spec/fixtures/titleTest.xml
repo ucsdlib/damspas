@@ -1,0 +1,60 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/zz55555555">
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Sample Object Record #8: Name/Note/Subject Sampler</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Sample Object Record #8</mads:elementValue>
+          </mads:MainTitleElement>
+          <mads:SubTitleElement>
+            <mads:elementValue>Name/Note/Subject Sampler</mads:elementValue>
+          </mads:SubTitleElement>
+          <mads:PartNameElement>
+            <mads:elementValue>sample partname</mads:elementValue>
+          </mads:PartNameElement>
+          <mads:PartNumberElement>
+            <mads:elementValue>sample partnumber</mads:elementValue>
+          </mads:PartNumberElement>
+          <mads:NonSortElement>
+            <mads:elementValue>The</mads:elementValue>
+          </mads:NonSortElement>
+        </mads:elementList>
+        <mads:hasVariant>
+          <mads:Variant>
+            <mads:variantLabel>The Whale</mads:variantLabel>
+          </mads:Variant>
+        </mads:hasVariant>
+        <mads:hasTranslationVariant>
+          <mads:Variant>
+            <mads:variantLabel>Translation Variant</mads:variantLabel>
+          </mads:Variant>
+        </mads:hasTranslationVariant>          
+        <mads:hasAbbreviationVariant>
+          <mads:Variant>
+            <mads:variantLabel>Abbreviation Variant</mads:variantLabel>
+          </mads:Variant>
+        </mads:hasAbbreviationVariant>
+        <mads:hasAcronymVariant>
+          <mads:Variant>
+            <mads:variantLabel>Acronym Variant</mads:variantLabel>
+          </mads:Variant>
+        </mads:hasAcronymVariant>   
+        <mads:hasExpansionVariant>
+          <mads:Variant>
+            <mads:variantLabel>Expansion Variant</mads:variantLabel>
+          </mads:Variant>
+        </mads:hasExpansionVariant>         
+      </mads:Title>
+    </dams:title>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb48484848"/>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+    <dams:copyright>
+       <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+      </dams:Copyright>
+    </dams:copyright>    
+  </dams:Object>
+</rdf:RDF>

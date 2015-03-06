@@ -1,0 +1,54 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx6212468x">
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote rdf:about="http://library.ucsd.edu/ark:/20775/xx11111111">
+        <rdf:value>ScopeContentNote value
+Now with linebreaks.</rdf:value>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>    
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Test Object</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Test Object</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+   <dams:unit>
+      <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/xx48484848">
+        <dams:unitName>Test Unit</dams:unitName>
+        <dams:code>tun</dams:code>
+        <dams:unitDescription>Test unit description</dams:unitDescription>
+        <dams:unitURI>http://example.com/</dams:unitURI>
+        <dams:unitGroup>test</dams:unitGroup>
+      </dams:Unit>
+    </dams:unit>    
+    <dams:copyright>
+       <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/xx15151515">
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>    
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx6212468x/1.tif">
+        <dams:use>image-source</dams:use>
+      </dams:File>
+    </dams:hasFile>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx6212468x/2.jpg">
+        <dams:use>image-service</dams:use>
+      </dams:File>
+    </dams:hasFile>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx6212468x/3.jpg">
+        <dams:use>image-preview</dams:use>
+      </dams:File>
+    </dams:hasFile>
+  </dams:Object>
+</rdf:RDF>
