@@ -182,6 +182,15 @@ feature 'Visitor wants to click the direct object link when the referrer is not 
   end
 end
 
+feature 'Visitor wants to click the object link and does not want to see the counter parameter in the url' do
+  
+  scenario "is on the main page" do
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"
+    URI.parse(current_url).request_uri.should == "/object/bd3379993m"
+  end
+end
+
 feature 'Format link(s) need to be scoped to the collection level ' do
   
   scenario "is on the object view page" do
