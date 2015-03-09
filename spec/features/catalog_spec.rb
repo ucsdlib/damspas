@@ -109,6 +109,21 @@ feature 'Visitor wants to search' do
     idx2 = page.body.index('ZZZ Test Subject 2')
     idx1.should <( idx2 )
   end  
+
+  scenario 'search results paging' do
+    visit catalog_index_path( {'q' => 'sample', 'sort' => 'title_ssi asc'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')
+    expect(page).to have_selector('h3', :text => 'Sample Object 2')
+    expect(page).to have_selector('h3', :text => 'Sample Object 3')
+
+    expect(page).to have_selector('div', :text => 'Results 1 - 3 of 3')
+    click_on "Sample Object 2"
+    expect(page).to have_link('Previous', href: dams_object_path(@obj1, counter: 1) )
+    expect(page).to have_link('Next', href: dams_object_path(@obj3, counter: 3) )
+
+    click_on "Next"
+    expect(page).to have_link('Previous', href: dams_object_path(@obj2, counter: 2) )
+  end
 end
 
 feature "Search and browse linked names and subjects" do
