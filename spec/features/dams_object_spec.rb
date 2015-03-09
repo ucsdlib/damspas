@@ -185,6 +185,7 @@ end
 feature 'Visitor wants to click the object link and does not want to see the counter parameter in the url' do
   
   scenario "is on the main page" do
+    pending "working object metadata updates"
     visit catalog_index_path( {:q => 'sample'} )
     click_link "Sample Image Component"
     URI.parse(current_url).request_uri.should == "/object/bd3379993m"

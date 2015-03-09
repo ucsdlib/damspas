@@ -10,8 +10,8 @@ class DamsResourceController < ApplicationController
   # solr actions ###############################################################
   ##############################################################################
   def show
-	search_results = request.env["HTTP_REFERER"]
-    session[:search_results] = search_results if (!search_results.nil? && search_results.include?("search"))	
+    search_results = request.env["HTTP_REFERER"]
+    session[:search_results] = search_results if (!search_results.nil? && search_results.include?("search"))
      
     if(params[:counter])
       session[:search][:counter] = params[:counter]
@@ -21,7 +21,7 @@ class DamsResourceController < ApplicationController
   
     # import solr config from catalog_controller and setup next/prev docs
     @blacklight_config = CatalogController.blacklight_config
-	setup_next_and_previous_documents
+    setup_next_and_previous_documents
    
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
