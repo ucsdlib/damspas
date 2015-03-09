@@ -5,11 +5,13 @@ require 'json'
 describe DamsObjectsController do
   before(:all) do
     @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/" 
-    @copy = DamsCopyright.create 
+    @copy = DamsCopyright.create status: 'Public domain'
     @obj = DamsObject.create titleValue: "Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unitURI: @unit.pid, copyrightURI: @copy.pid
+    @obj2 = DamsObject.create titleValue: "Test Record #2", unitURI: @unit.pid, copyrightURI: @copy.pid
   end
   after(:all) do
     @obj.delete
+    @obj2.delete
     @copy.delete
     @unit.delete
   end
@@ -41,6 +43,16 @@ describe DamsObjectsController do
       sign_in User.create! ({:provider => 'developer'})
       get :ezid, { id: @obj.pid }
       flash[:alert].should include "Minting DOI failed"
+    end
+  end
+
+  describe "search results counter" do
+    it "should redirect requests with a counter param" do
+      ref = 'http://test.com/search?q=test'
+      @request.env['HTTP_REFERER'] = ref
+      get :show, { id: @obj.pid, counter: 1 }
+      response.should redirect_to dams_object_path @obj.pid
+      expect(session[:search_results]).to eq(ref)
     end
   end
 end

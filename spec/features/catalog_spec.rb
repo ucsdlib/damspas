@@ -109,6 +109,28 @@ feature 'Visitor wants to search' do
     idx2 = page.body.index('ZZZ Test Subject 2')
     idx1.should <( idx2 )
   end  
+
+  scenario 'search results paging' do
+    visit catalog_index_path( {'q' => 'sample', 'sort' => 'title_ssi asc'} )
+    expect(page).to have_selector('h3', :text => 'Sample Object 1')
+    expect(page).to have_selector('h3', :text => 'Sample Object 2')
+    expect(page).to have_selector('h3', :text => 'Sample Object 3')
+
+    # viewing item from search results should have pager
+    click_on "Sample Object 2"
+    expect(page).to have_selector('div', :text => 'Previous 2 of 3 results Next')
+    expect(page).to have_link('Previous', href: dams_object_path(@obj1, counter: 1) )
+    expect(page).to have_link('Next', href: dams_object_path(@obj3, counter: 3) )
+
+    # pager should remain when paging through results
+    click_on "Next"
+    expect(page).to have_link('Previous', href: dams_object_path(@obj2, counter: 2) )
+    expect(page).to have_selector('div', :text => 'Previous 3 of 3 results')
+
+    # should not have pager on direct links
+    visit dams_object_path @obj1
+    expect(page).to_not have_selector('div', :text => 'Previous 3 of 3 results')
+  end
 end
 
 feature "Search and browse linked names and subjects" do
