@@ -116,13 +116,20 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector('h3', :text => 'Sample Object 2')
     expect(page).to have_selector('h3', :text => 'Sample Object 3')
 
-    expect(page).to have_selector('div', :text => 'Results 1 - 3 of 3')
+    # viewing item from search results should have pager
     click_on "Sample Object 2"
+    expect(page).to have_selector('div', :text => 'Previous 2 of 3 results Next')
     expect(page).to have_link('Previous', href: dams_object_path(@obj1, counter: 1) )
     expect(page).to have_link('Next', href: dams_object_path(@obj3, counter: 3) )
 
+    # pager should remain when paging through results
     click_on "Next"
     expect(page).to have_link('Previous', href: dams_object_path(@obj2, counter: 2) )
+    expect(page).to have_selector('div', :text => 'Previous 3 of 3 results')
+
+    # should not have pager on direct links
+    visit dams_object_path @obj1
+    expect(page).to_not have_selector('div', :text => 'Previous 3 of 3 results')
   end
 end
 
