@@ -10,19 +10,21 @@ class DamsResourceController < ApplicationController
   # solr actions ###############################################################
   ##############################################################################
   def show
-    search_results = request.env["HTTP_REFERER"]
-    session[:search_results] = search_results if (!search_results.nil? && search_results.include?("search"))
-     
-    if(params[:counter])
+    ref = Rails.application.routes.recognize_path(request.referrer) || {}
+    if params[:counter]
+      # if there is a counter, update pager state & redirect to no-counter view
       session[:search][:counter] = params[:counter]
+      session[:search_results] = request.referer if ref[:controller] == "catalog"
       redirect_to dams_object_path(params[:id])
       return
-    end   
-  
-    # import solr config from catalog_controller and setup next/prev docs
-    @blacklight_config = CatalogController.blacklight_config
-    setup_next_and_previous_documents
-   
+    else
+      @blacklight_config = CatalogController.blacklight_config
+
+      # if we were redirected from counter, setup next/prev
+      controllers = ["catalog", "dams_collections", "dams_objects"]
+      setup_next_and_previous_documents if controllers.include?(ref[:controller])
+    end
+
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
 

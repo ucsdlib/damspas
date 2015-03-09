@@ -8,6 +8,7 @@ describe DamsObjectsController do
     @copy = DamsCopyright.create status: 'Public domain'
     @obj = DamsObject.create titleValue: "Spellcheck Test", subtitle: "Subtitle Test", beginDate: "2013", unitURI: @unit.pid, copyrightURI: @copy.pid
     @obj2 = DamsObject.create titleValue: "Test Record #2", unitURI: @unit.pid, copyrightURI: @copy.pid
+    solr_index @obj.pid
   end
   after(:all) do
     @obj.delete
@@ -51,8 +52,16 @@ describe DamsObjectsController do
       ref = 'http://test.com/search?q=test'
       @request.env['HTTP_REFERER'] = ref
       get :show, { id: @obj.pid, counter: 1 }
+      expect(response.status).to eq( 302 )
       response.should redirect_to dams_object_path @obj.pid
       expect(session[:search_results]).to eq(ref)
+    end
+    it "should handle pages with external referrers" do
+      ref = 'https://www.google.com/search?q=foo'
+      @request.env['HTTP_REFERER'] = ref
+      get :show, { id: @obj.pid }
+      expect(response.status).to eq( 200 )
+      expect(session[:search_results]).to be_nil
     end
   end
 end
