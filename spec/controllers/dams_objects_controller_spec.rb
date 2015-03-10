@@ -49,7 +49,7 @@ describe DamsObjectsController do
 
   describe "search results counter" do
     it "should redirect requests with a counter param" do
-      ref = 'http://test.com/search?q=test'
+      ref = 'http://test.host/search?q=test'
       @request.env['HTTP_REFERER'] = ref
       get :show, { id: @obj.pid, counter: 1 }
       expect(response.status).to eq( 302 )

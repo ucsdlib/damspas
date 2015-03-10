@@ -671,5 +671,13 @@ module Dams
       Audit.create( user: session[:user_id], action: params[:action], classname: classname, object: id)
     end
 
+    # parse a request's referrer and figure out which controller it came from
+    def referrer_controller( request )
+      uri = URI(request.referrer || "")
+      if uri.host == request.host
+        ref = Rails.application.routes.recognize_path(uri.path.gsub(/^\/dc/,""))
+        ref[:controller]
+      end
+    end
   end
 end

@@ -10,11 +10,11 @@ class DamsResourceController < ApplicationController
   # solr actions ###############################################################
   ##############################################################################
   def show
-    ref = Rails.application.routes.recognize_path(request.referrer) || {}
+    refcon = referrer_controller request
     if params[:counter]
       # if there is a counter, update pager state & redirect to no-counter view
       session[:search][:counter] = params[:counter]
-      session[:search_results] = request.referer if ref[:controller] == "catalog"
+      session[:search_results] = request.referer if refcon == "catalog"
       redirect_to dams_object_path(params[:id])
       return
     else
@@ -22,7 +22,7 @@ class DamsResourceController < ApplicationController
 
       # if we were redirected from counter, setup next/prev
       controllers = ["catalog", "dams_collections", "dams_objects"]
-      setup_next_and_previous_documents if controllers.include?(ref[:controller])
+      setup_next_and_previous_documents if controllers.include?(refcon)
     end
 
     # get metadata from solr
