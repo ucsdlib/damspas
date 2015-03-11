@@ -245,6 +245,8 @@ describe "complex object component view" do
   end
   after(:all) do
     @damsComplexObj4.delete
+    damsUnit = DamsUnit.find('xx080808uu')
+    damsUnit.delete
   end
   it "should not see the generic component title" do
     visit dams_object_path(@damsComplexObj4.pid)
