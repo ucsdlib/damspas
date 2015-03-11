@@ -1,6 +1,9 @@
 <%
 	ark = render_document_show_field_value(:document=>@document, :field=>'id')
 	componentCount = @document['component_count_isi']
+	component_map = @document['component_map_tesim']
+    components = listComponents component_map
+
 	firstComponent = 'first-component'
 %>
 
@@ -15,7 +18,7 @@
 <% end %>
 
 <%# DRAW COMPONENTS %>
-<% for i in 1..componentCount %>
+<% components.each do |i| %>
 
 	<%
 		fileUse = grabFileUse(:componentIndex=>i)
