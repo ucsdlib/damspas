@@ -1,16 +1,18 @@
 <%
 	component_count = @document['component_count_isi']
+	component_map = @document['component_map_tesim']
+	components = listComponents component_map
 	@firstButton = 'first-component active-component'
 %>
 
 <% if component_count > 0   %>
 
-	<% init_Tree component_count %>
-	<button type="button" onclick="dp.COV.showComponent(1);" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
+	<% init_Tree components %>
+	<button type="button" onclick="dp.COV.showComponent(components[0]);" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
 		<strong>Components of "<%= grabTitle %>"</strong>
 	</button>
 	<div class="components-tree">
-		<% display_tree component_count %>
+		<% display_tree components %>
 	</div>
 
 <% end %>

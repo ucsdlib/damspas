@@ -236,6 +236,28 @@ describe "complex object view" do
   end     
 end
 
+describe "complex object component view" do
+  before(:all) do
+    @damsComplexObj4 = DamsObject.create(pid: "xx080808xx")
+    @damsComplexObj4.damsMetadata.content = File.new('spec/fixtures/damsComplexObject4.rdf.xml').read
+    @damsComplexObj4.save!
+    solr_index (@damsComplexObj4.pid)
+  end
+  after(:all) do
+    @damsComplexObj4.delete
+    damsUnit = DamsUnit.find('xx080808uu')
+    damsUnit.delete
+  end
+  it "should not see the generic component title" do
+    visit dams_object_path(@damsComplexObj4.pid)
+    expect(page).not_to have_content "Generic Component Title"
+    expect(page).to have_content "Component 1 Title"
+    expect(page).to have_content "Component 2 Title"
+    expect(page).to have_content "Component 3 Title"
+    expect(page).to have_content "Component 4 Title"
+  end
+end
+
 describe "to look at a simple SIO object" do
   before(:all) do
     @damsSioObj = DamsObject.create(pid: "xx3243380c")

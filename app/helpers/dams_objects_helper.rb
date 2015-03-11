@@ -736,14 +736,14 @@ module DamsObjectsHelper
   # by hweng@ucsd.edu
 	#-------------------------------------------------------------------------------
 
-  def init_Tree(component_count)
-    if component_count != nil
+  def init_Tree(components)
+    if components != nil
       @is_parent = []
       @is_child = []
       @tag = []
       @checked = []
 
-      for i in 1..component_count
+      components.each do |i|
 
         if @document["component_#{i}_children_isim"] != nil
           @is_parent[i] = true
@@ -757,11 +757,10 @@ module DamsObjectsHelper
     end
   end
 
-  def display_tree(component_count)
-    if component_count != nil && component_count > 0
+  def display_tree(components)
+    if !components.nil?
       concat '<ul class="unstyled">'.html_safe
-      for i in 1..component_count
-
+      components.each do |i|
           display_node i if @is_parent[i].nil? && @checked[i].nil?
        
       end
@@ -809,6 +808,11 @@ def display_node(index)
   def render_tree_HTML(index, is_parent_node )
     render_node_HTML(index, is_parent_node )
     concat "</li>".html_safe
+  end
+
+  def listComponents (component_map)
+    components = component_map.nil? ? [] : component_map.first.dup.gsub!(':', ',').gsub!(/[\[\]{}"]/, '').split(',')
+    components.reject! { |c| c.blank? }.map! { |i| i.to_i } 
   end
 
   #-------------------------------
