@@ -812,7 +812,7 @@ def display_node(index)
 
   def listComponents (component_map)
     components = component_map.nil? ? [] : component_map.first.dup.gsub!(':', ',').gsub!(/[\[\]{}"]/, '').split(',')
-    components.reject! { |c| c.blank? }.map! { |i| i.to_i } 
+    components.reject { |c| c.blank? }.map! { |i| i.to_i } 
   end
 
   #-------------------------------
