@@ -8,7 +8,7 @@
 <% if component_count > 0   %>
 
 	<% init_Tree components %>
-	<button type="button" onclick="dp.COV.showComponent(components[0]);" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
+	<button type="button" onclick="dp.COV.showComponent(<%= components[0] %>);" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
 		<strong>Components of "<%= grabTitle %>"</strong>
 	</button>
 	<div class="components-tree">
