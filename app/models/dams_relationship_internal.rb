@@ -24,24 +24,23 @@ class DamsRelationshipInternal
  	accepts_nested_attributes_for :name, :personalName, :corporateName, :conferenceName, :familyName, :role
  
     def load
-      if !name.first.nil? && !name.first.pid.nil? && !(name.first.pid.include? 'dams:')   
-        MadsName.find(name.first.pid)
-      elsif !personalName.first.nil? && !personalName.first.pid.nil? && !(personalName.first.pid.include? 'dams:')  
-        MadsPersonalName.find(personalName.first.pid)
-      elsif !corporateName.first.nil? && !corporateName.first.pid.nil? && !(corporateName.first.pid.include? 'dams:')  
-        MadsCorporateName.find(corporateName.first.pid)
-      elsif !conferenceName.first.nil? && !conferenceName.first.pid.nil? && !(conferenceName.first.pid.include? 'dams:')  
-        MadsConferenceName.find(conferenceName.first.pid)
-      elsif !familyName.first.nil? && !familyName.first.pid.nil? && !(familyName.first.pid.include? 'dams:')  
-        MadsFamilyName.find(familyName.first.pid)                
+      relName = nil
+      if !name.first.nil?
+        relName = loadRdfObjects name, MadsName
+      elsif !personalName.first.nil?
+        relName = loadRdfObjects personalName, MadsPersonalName
+      elsif !corporateName.first.nil?
+        relName = loadRdfObjects corporateName, MadsCorporateName
+      elsif !conferenceName.first.nil?
+        relName = loadRdfObjects conferenceName, MadsConferenceName
+      elsif !familyName.first.nil?
+        relName = loadRdfObjects familyName, MadsFamilyName
       end
+      relName.first
     end
     
-    def loadRole      
-      if !role.first.nil? && role.first.pid != '' && !(role.first.pid.include? 'dams:')
-        uri = role.first.pid
-        MadsAuthority.find(uri)
-      end
+    def loadRole
+      loadRdfObjects(role, MadsAuthority).first
     end   
     
 	def pid

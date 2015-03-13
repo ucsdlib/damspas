@@ -824,5 +824,28 @@ module Dams
       end
     end
 
+  # helper method to load external class objects
+  def loadRdfObjects (object, className)
+    objects = []
+    if !object.first.nil?
+      object.each do |o|
+        o_pid = o.pid;
+        if o_pid.nil? || o_pid.start_with?("_") || o.respond_to?(:name) && !o.name.first.nil? || o.respond_to?(:value) && !o.value.first.nil?
+          # inline records, use as-is
+          objects << o
+        else
+          # unmapped records, fetch from repo
+          begin
+            o = className.find(o_pid)
+            objects << o
+          rescue
+            logger.warn "Error loading  #{className.to_s}: #{o_pid}"
+          end
+        end
+      end
+    end
+    return objects
+  end
+
   end
 end
