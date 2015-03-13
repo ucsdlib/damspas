@@ -284,3 +284,69 @@ describe "to look at a simple SIO object" do
     expect(page).to have_selector('span.dams-note-display-label',:text=>'Accession Number')
    end     
 end
+
+describe "to visit object with internal class instances" do
+  before(:all) do
+    @damsObjXX = DamsObject.create(pid: "xx221945xx")
+    @damsObjXX.damsMetadata.content = File.new('spec/fixtures/damsObjectLoading.xml').read
+    @damsObjXX.save!
+    solr_index (@damsObjXX.pid)
+  end
+  after(:all) do
+    @damsObjXX.delete
+    delObj = DamsProvenanceCollection.find 'xx010101pr'
+    delObj.delete
+    delObj = DamsAssembledCollection.find 'xx010101pr'
+    delObj.delete
+    delObj = DamsRelatedResource.find 'xx010101re'
+    delObj.delete
+    delObj = MadsComplexSubject.find 'xx010101co'
+    delObj.delete
+    delObj = MadsComplexSubject.find 'xx0101coto'
+    delObj.delete
+    delObj = MadsComplexSubject.find 'xx0101cote'
+    delObj.delete
+    delObj = MadsTopic.find 'xx010101to'
+    delObj.delete
+    delObj = MadsPersonalName.find 'xx010101pe'
+    delObj.delete
+    delObj = MadsGeographic.find 'xx010101ge'
+    delObj.delete
+    delObj = MadsCorporateName.find 'xx010101co'
+    delObj.delete
+    delObj = MadsLanguage.find 'xx010101la'
+    delObj.delete
+    delObj = MadsLanguage.find 'xx010101pe'
+    delObj.delete
+    delObj = MadsLanguage.find 'xx010101no'
+    delObj.delete
+  end
+  it "should work with internal classes" do
+    sign_in_developer
+    visit dams_object_path(@damsObjXX.pid)
+    expect(page).to have_content('dams:ProvenanceCollection Internal')
+    expect(page).to have_content('dams:ProvenanceCollection External')
+    expect(page).to have_content('dams:Copyright copyrightNote Internal')
+    expect(page).to have_content('Otherrights note internal')
+    expect(page).to have_content('dams:Statute note Internal')
+    expect(page).to have_content('mads:PersonalName Internal - rightsHolderPersonal')
+    expect(page).to have_content('mads:PersonalName External - rightsHolderPersonal')
+    expect(page).to have_content('dams:Unit unitName Internal')
+    expect(page).to have_content('dams:RelatedResource description Internal')
+    #expect(page).to have_content('dams:RelatedResource description External')
+    expect(page).to have_content('dams:Note Internal')
+    expect(page).to have_content('dams:Note External')
+    expect(page).to have_content('29.67459,82.37873')
+    expect(page).to have_content('mads:Language Internal')
+    expect(page).to have_content('mads:Language External')
+    expect(page).to have_content('mads:Topic Internal')
+    expect(page).to have_content('mads:Topic External')
+    expect(page).to have_content('mads:ComplexSubject Topic Internal -- mads:ComplexSubject Temporal Internal')
+    expect(page).to have_content('mads:ComplexSubject Topic External -- mads:ComplexSubject Temporal External')
+    expect(page).to have_content('PersonalName Internal')
+    expect(page).to have_content('PersonalName External')
+    expect(page).to have_content('dams:Relationship PersonalName Internal')
+    expect(page).to have_content('mads:Name Internal')
+    expect(page).to have_content('mads:Name External')
+  end
+end
