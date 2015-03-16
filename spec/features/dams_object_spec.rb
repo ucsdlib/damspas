@@ -320,6 +320,8 @@ describe "to visit object with internal class instances" do
     delObj.delete
     delObj = MadsLanguage.find 'xx010101no'
     delObj.delete
+    delObj = MadsName.find 'xx010101na'
+    delObj.delete
   end
   it "should work with internal classes" do
     sign_in_developer
