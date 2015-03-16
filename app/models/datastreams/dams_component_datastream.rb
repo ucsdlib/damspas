@@ -141,10 +141,10 @@ class DamsComponentDatastream < DamsResourceDatastream
       	Solrizer.insert_field(solr_doc, "component_#{cid}_#{n}_endDate", date.endDate)
       end
 
-      insertNoteFields solr_doc, "component_#{cid}_note",component.note
-      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
-      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
-      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
+      insertNoteFields solr_doc, "component_#{cid}_note",component.note, DamsNote
+      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote, damsCustodialResponsibilityNote
+      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote, DamsPreferredCitationNote
+      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote, DamsScopeContentNote
 
       insertComplexSubjectFields solr_doc, "component_#{cid}_complexSubject", load_complexSubjects(component.complexSubject)
       insertFields solr_doc, "component_#{cid}_builtWorkPlace", load_builtWorkPlaces(component.builtWorkPlace)

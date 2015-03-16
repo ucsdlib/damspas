@@ -1,0 +1,506 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx221945xx">
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>DAMS Object - Internal Instances</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>DAMS Object - Internal Instances</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+        <dams:copyrightPurposeNote>dams:Copyright copyrightPurposeNote Internal</dams:copyrightPurposeNote>
+        <dams:copyrightNote>dams:Copyright copyrightNote Internal</dams:copyrightNote>
+      </dams:Copyright>
+    </dams:copyright>
+    <dams:otherRights>
+      <dams:OtherRights>
+        <dams:otherRightsBasis>Otherrights basis internal</dams:otherRightsBasis>
+        <dams:otherRightsNote>Otherrights note internal</dams:otherRightsNote>
+        <dams:otherRightsURI>Otherrights uri internal</dams:otherRightsURI>
+        <dams:permission>
+          <dams:Permission>
+            <dams:beginDate>2012-12-31</dams:beginDate>
+            <dams:endDate>2062-12-31</dams:endDate>
+            <dams:type>display</dams:type>
+          </dams:Permission>
+        </dams:permission>
+      </dams:OtherRights>
+    </dams:otherRights>
+    <dams:license>
+      <dams:License>
+        <dams:licenseNote>dams:License note Internal</dams:licenseNote>
+        <dams:permission>
+          <dams:Permission>
+            <dams:type>display</dams:type>
+          </dams:Permission>
+        </dams:permission>
+      </dams:License>
+    </dams:license>
+    <dams:statute>
+      <dams:Statute>
+        <dams:statuteNote>dams:Statute note Internal</dams:statuteNote>
+        <dams:statuteCitation>Statute Citation</dams:statuteCitation>
+        <dams:statuteJurisdiction>us</dams:statuteJurisdiction>
+        <dams:restriction>
+          <dams:Restriction>
+            <dams:beginDate>2015-01-01</dams:beginDate>
+            <dams:endDate>2015-12-31</dams:endDate>
+            <dams:type>display</dams:type>
+          </dams:Restriction>
+        </dams:restriction>
+      </dams:Statute>
+    </dams:statute>
+    <dams:rightsHolderPersonal>
+      <mads:PersonalName>
+        <mads:authoritativeLabel>mads:PersonalName Internal - rightsHolderPersonal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>mads:PersonalName Internal - rightsHolderPersonal</mads:elementValue>
+          </mads:FullNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:rightsHolderPersonal>
+    <dams:rightsHolderPersonal>
+      <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xx010101pe">
+        <mads:authoritativeLabel>mads:PersonalName External - rightsHolderPersonal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>mads:PersonalName External - rightsHolderPersonal</mads:elementValue>
+          </mads:FullNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:rightsHolderPersonal>
+    <dams:unit>
+      <dams:Unit>
+        <dams:unitName>dams:Unit unitName Internal</dams:unitName>
+        <dams:code>dams:Unit code Internal</dams:code>
+        <dams:unitDescription>dams:Unit unitDescription Internal</dams:unitDescription>
+        <dams:unitURI>dams:Unit unitURI Internal</dams:unitURI>
+        <dams:unitGroup>dams:Unit unitGroup Internal</dams:unitGroup>
+      </dams:Unit>
+    </dams:unit>
+    <dams:provenanceCollection>
+      <dams:ProvenanceCollection>
+        <dams:visibility>public</dams:visibility>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>dams:ProvenanceCollection Internal</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>dams:ProvenanceCollection Internal</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+      </dams:ProvenanceCollection>
+    </dams:provenanceCollection>
+    <dams:provenanceCollection>
+      <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/xx010101pr">
+        <dams:visibility>public</dams:visibility>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>dams:ProvenanceCollection External</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>dams:ProvenanceCollection External</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+      </dams:ProvenanceCollection>
+    </dams:provenanceCollection>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:uri>dams:RelatedResource uri Internal</dams:uri>
+        <dams:type>dams:RelatedResource type Internal</dams:type>
+        <dams:description>dams:RelatedResource description Internal</dams:description>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:relatedResource>
+      <dams:RelatedResource rdf:about="http://library.ucsd.edu/ark:/20775/xx010101re">
+        <dams:uri>dams:RelatedResource uri External</dams:uri>
+        <dams:type>dams:RelatedResource type External</dams:type>
+        <dams:description>dams:RelatedResource description External</dams:description>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:cartographics>
+      <dams:Cartographics>
+        <dams:scale>dams:Cartographics scale Internal</dams:scale>
+        <dams:projection>dams:Cartographics projection Internal</dams:projection>
+        <dams:referenceSystem>dams:Cartographics referenceSystem Internal</dams:referenceSystem>
+        <dams:point>29.67459,82.37873</dams:point>
+      </dams:Cartographics>
+    </dams:cartographics>
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>dams:Note displayLabel Internal</dams:displayLabel>
+        <rdf:value>dams:Note Internal</rdf:value>
+        <dams:type>dams:Note type Internal</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:note>
+      <dams:Note rdf:about="http://library.ucsd.edu/ark:/20775/xx010101no">
+        <dams:displayLabel>dams:Note displayLabel External</dams:displayLabel>
+        <rdf:value>dams:Note External</rdf:value>
+        <dams:type>dams:Note type External</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:language>
+      <mads:Language>
+        <mads:authoritativeLabel>mads:Language Internal</mads:authoritativeLabel>
+        <mads:code>mads:code Internal</mads:code>
+        <mads:isMemberOfMADSScheme rdf:resource="http://library.ucsd.edu/ark:/20775/bd71341600"/>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/languages/eng"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:LanguageElement>
+            <mads:elementValue>mads:Language Internal</mads:elementValue>
+          </mads:LanguageElement>
+        </mads:elementList>
+      </mads:Language>
+    </dams:language>
+    <dams:language>
+      <mads:Language rdf:about="http://library.ucsd.edu/ark:/20775/xx010101la">
+        <mads:authoritativeLabel>mads:Language External</mads:authoritativeLabel>
+        <mads:code>mads:code Internal</mads:code>
+        <mads:isMemberOfMADSScheme rdf:resource="http://library.ucsd.edu/ark:/20775/bd71341600"/>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/languages/eng"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:LanguageElement>
+            <mads:elementValue>mads:Language External</mads:elementValue>
+          </mads:LanguageElement>
+        </mads:elementList>
+      </mads:Language>
+    </dams:language>
+    <dams:name>
+      <mads:Name>
+        <mads:authoritativeLabel>mads:Name Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:Name Internal</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:Name>
+    </dams:name>
+    <dams:name>
+      <mads:Name rdf:about="http://library.ucsd.edu/ark:/20775/xx010101na">
+        <mads:authoritativeLabel>mads:Name External</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:Name External</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:Name>
+    </dams:name>
+    <dams:personalName>
+      <mads:PersonalName>
+        <mads:authoritativeLabel>mads:PersonalName Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>PersonalName Internal</mads:elementValue>
+          </mads:FullNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:personalName>
+    <dams:personalName>
+      <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xx010101pe">
+        <mads:authoritativeLabel>mads:PersonalName External</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>mads:PersonalName External</mads:elementValue>
+          </mads:FullNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:personalName>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>dams:Relationship PersonalName Internal</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>dams:Relationship PersonalName Internal</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:code>cre</mads:code>
+            <mads:authoritativeLabel>dams:Relationship Role Internal</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/xx010101pe"/>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:complexSubject>
+      <mads:ComplexSubject>
+        <mads:authoritativeLabel>mads:ComplexSubject Topic Internal -- mads:ComplexSubject Temporal Internal</mads:authoritativeLabel>
+        <mads:componentList rdf:parseType="Collection">
+          <mads:Topic>
+            <mads:authoritativeLabel>mads:ComplexSubject Topic Innternal</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>mads:ComplexSubject Topic Internal</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+          <mads:Temporal>
+            <mads:authoritativeLabel>mads:ComplexSubject Temporal Internal</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TemporalElement>
+                <mads:elementValue>mads:ComplexSubject Temporal Internal</mads:elementValue>
+              </mads:TemporalElement>
+            </mads:elementList>
+          </mads:Temporal>
+        </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:complexSubject>
+    <dams:complexSubject>
+      <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/xx010101co">
+        <mads:authoritativeLabel>mads:ComplexSubject Topic External -- mads:ComplexSubject Temporal External</mads:authoritativeLabel>
+        <mads:componentList rdf:parseType="Collection">
+          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/xx0101coto">
+            <mads:authoritativeLabel>mads:ComplexSubject Topic External</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>mads:ComplexSubject Topic External</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+          <mads:Temporal rdf:about="http://library.ucsd.edu/ark:/20775/xx0101cote">
+            <mads:authoritativeLabel>mads:ComplexSubject Temporal Exnternal</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TemporalElement>
+                <mads:elementValue>mads:ComplexSubject Temporal Exnternal</mads:elementValue>
+              </mads:TemporalElement>
+            </mads:elementList>
+          </mads:Temporal>
+        </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:complexSubject>
+    <dams:topic>
+      <mads:Topic >
+        <mads:authoritativeLabel>mads:Topic Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:TopicElement>
+            <mads:elementValue>mads:Topic Internal</mads:elementValue>
+          </mads:TopicElement>
+        </mads:elementList>
+      </mads:Topic>
+    </dams:topic>
+    <dams:topic>
+      <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/xx010101to">
+        <mads:authoritativeLabel>mads:Topic External</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:TopicElement>
+            <mads:elementValue>mads:Topic External</mads:elementValue>
+          </mads:TopicElement>
+        </mads:elementList>
+      </mads:Topic>
+    </dams:topic>
+    <dams:corporateName>
+      <mads:CorporateName>
+        <mads:authoritativeLabel>mads:CorporateName Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:CorporateName Internal</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:CorporateName>
+    </dams:corporateName>
+    <dams:corporateName>
+      <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/xx010101co">
+        <mads:authoritativeLabel>mads:CorporateName External</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:CorporateName External</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:CorporateName>
+    </dams:corporateName>
+    <dams:geographic>
+      <mads:Geographic>
+        <mads:authoritativeLabel>mads:Geographic Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GeographicElement>
+            <mads:elementValue>mads:Geographic Internal</mads:elementValue>
+          </mads:GeographicElement>
+        </mads:elementList>
+      </mads:Geographic>
+    </dams:geographic>
+    <dams:geographic>
+      <mads:Geographic rdf:about="http://library.ucsd.edu/ark:/20775/xx010101ge">
+        <mads:authoritativeLabel>mads:Geographic External</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GeographicElement>
+            <mads:elementValue>mads:Geographic External</mads:elementValue>
+          </mads:GeographicElement>
+        </mads:elementList>
+      </mads:Geographic>
+    </dams:geographic>
+    <dams:builtWorkPlace>
+      <dams:BuiltWorkPlace>
+        <mads:authoritativeLabel>dams:BuiltWorkPlace Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:BuiltWorkPlaceElement>
+            <mads:elementValue>dams:BuiltWorkPlace Internal</mads:elementValue>
+          </dams:BuiltWorkPlaceElement>
+        </mads:elementList>
+      </dams:BuiltWorkPlace>
+    </dams:builtWorkPlace>
+    <dams:temporal>
+      <mads:Temporal>
+        <mads:authoritativeLabel>mads:Temporal Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:TemporalElement>
+            <mads:elementValue>mads:Temporal Internal</mads:elementValue>
+          </mads:TemporalElement>
+        </mads:elementList>
+      </mads:Temporal>
+    </dams:temporal>
+    <dams:function>
+      <dams:Function>
+        <mads:authoritativeLabel>dams:Function Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:FunctionElement>
+            <mads:elementValue>dams:Function Internal</mads:elementValue>
+          </dams:FunctionElement>
+        </mads:elementList>
+      </dams:Function>
+    </dams:function>
+    <dams:typeOfResource>still image</dams:typeOfResource>
+    <dams:technique>
+      <dams:Technique>
+        <mads:authoritativeLabel>dams:Technique Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:TechniqueElement>
+            <mads:elementValue>dams:Technique Internal</mads:elementValue>
+          </dams:TechniqueElement>
+        </mads:elementList>
+      </dams:Technique>
+    </dams:technique>
+    <dams:corporateName>
+      <mads:CorporateName>
+        <mads:authoritativeLabel>mads:CorporateName Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:CorporateName Internal</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:CorporateName>
+    </dams:corporateName>
+    <dams:geographic>
+      <mads:Geographic>
+        <mads:authoritativeLabel>mads:Geographic Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GeographicElement>
+            <mads:elementValue>mads:Geographic Internal</mads:elementValue>
+          </mads:GeographicElement>
+        </mads:elementList>
+      </mads:Geographic>
+    </dams:geographic>
+    <dams:iconography>
+      <dams:Iconography>
+        <mads:authoritativeLabel>dams:Iconography Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:IconographyElement>
+            <mads:elementValue>dams:Iconography Internal</mads:elementValue>
+          </dams:IconographyElement>
+        </mads:elementList>
+      </dams:Iconography>
+    </dams:iconography>
+    <dams:occupation>
+      <mads:Occupation>
+        <mads:authoritativeLabel>mads:Occupation Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:OccupationElement>
+            <mads:elementValue>mads:Occupation Internal</mads:elementValue>
+          </mads:OccupationElement>
+        </mads:elementList>
+      </mads:Occupation>
+    </dams:occupation>
+    <dams:stylePeriod>
+      <dams:StylePeriod>
+        <mads:authoritativeLabel>dams:StylePeriod Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:StylePeriodElement>
+            <mads:elementValue>dams:StylePeriod Internal</mads:elementValue>
+          </dams:StylePeriodElement>
+        </mads:elementList>
+      </dams:StylePeriod>
+    </dams:stylePeriod>
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote>
+        <dams:displayLabel>dams:ScopeContentNote displayLabel Internal</dams:displayLabel>
+        <rdf:value>dams:ScopeContentNote Internal</rdf:value>
+        <dams:type>dams:ScopeContentNote type Internal</dams:type>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>
+    <dams:conferenceName>
+      <mads:ConferenceName>
+        <mads:authoritativeLabel>mads:ConferenceName Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>mads:ConferenceName Internal</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:ConferenceName>
+    </dams:conferenceName>
+    <dams:familyName>
+      <mads:FamilyName>
+        <mads:authoritativeLabel>mads:FamilyName Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>mads:FamilyName Internal</mads:elementValue>
+          </mads:FamilyNameElement>
+        </mads:elementList>
+      </mads:FamilyName>
+    </dams:familyName>
+    <dams:scientificName>
+      <dams:ScientificName>
+        <mads:authoritativeLabel>dams:ScientificName Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:ScientificNameElement>
+            <mads:elementValue>dams:ScientificName Internal</mads:elementValue>
+          </dams:ScientificNameElement>
+        </mads:elementList>
+      </dams:ScientificName>
+    </dams:scientificName>
+    <dams:culturalContext>
+      <dams:CulturalContext>
+        <mads:authoritativeLabel>dams:CulturalContext Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:CulturalContextElement>
+            <mads:elementValue>dams:CulturalContext Internal</mads:elementValue>
+          </dams:CulturalContextElement>
+        </mads:elementList>
+      </dams:CulturalContext>
+    </dams:culturalContext>
+    <dams:genreForm>
+      <mads:GenreForm>
+        <mads:authoritativeLabel>mads:GenreForm Internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:GenreFormElement>
+            <mads:elementValue>mads:GenreForm Internal</mads:elementValue>
+          </mads:GenreFormElement>
+        </mads:elementList>
+      </mads:GenreForm>
+    </dams:genreForm>
+  </dams:Object>
+</rdf:RDF>

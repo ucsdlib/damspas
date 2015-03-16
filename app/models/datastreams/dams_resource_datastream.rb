@@ -12,50 +12,22 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
 
   def load_collection (collection,assembledCollection,provenanceCollection,provenanceCollectionPart)
-      collections = []
-      [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
-        coltype.each do |col|
-          begin
-            # if we have usable metadata, use as-is
-            if col.title.first != nil
-              collections << col
-              colfound = true
-            end
-          rescue
-            colfound = false
-          end
-  
-          if !colfound
-            # if we don't, find the pid and fetch colobj from repo
-            cpid = (col.class.name.include? "Collection") ? cpid = col.pid : col.to_s.gsub(/.*\//,'')
-            begin
-              collections << ActiveFedora::Base.find(cpid, :cast => true)
-            rescue
-              logger.warn "Couldn't load collection from repo: #{cpid}"
-            end
-          end
-        end
+    collections = []
+    [collection,assembledCollection,provenanceCollection,provenanceCollectionPart].each do |coltype|
+      if coltype.length > 0
+        collections << loadRdfObjects(coltype, coltype.first.class)
       end
-      collections
     end
+    collections.flatten
+  end
 
-   def load_unit(unit)
-	if !unit.first.nil?
-	    u_pid = unit.first.pid
-	    
-	    if !unit.first.name.first.nil? && unit.first.name.first.to_s.length > 0
-	      unit.first
-	    elsif u_pid.to_s.length > 0
-          begin
-	        DamsUnit.find(u_pid)
-          rescue
-            logger.warn "XXX: error loading unit: #{u_pid}"
-          end
-	    end
-	else
-		nil
-	end
 
+  def load_unit(unit)
+    loadRdfObjects(unit, DamsUnit).first
+  end
+
+  def load_cartographics(cartographics)
+    loadRdfObjects cartographics, DamsCartographics
   end
   
  ## Language ##################################################################
@@ -63,23 +35,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_languages(language)
   end
   def load_languages(language)
-    languages = []
-    begin
-      language.each do |lang|
-        foo = lang.to_s
-        if lang.name.first != nil && lang.code.first != nil
-          # use inline data if available
-          languages << lang
-        elsif lang.pid != nil && lang.pid.length > 0
-          # load external records
-          languages << MadsLanguage.find(lang.pid)
-        end
-      end
-    rescue Exception => e
-      puts "trapping language error"
-      puts e.backtrace
-    end
-    languages
+    loadRdfObjects language, MadsLanguage
   end
    
   # tmp lang class
@@ -106,22 +62,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_provenanceCollectionParts(provenanceCollectionPart)
   end
   def load_provenanceCollectionParts(provenanceCollectionPart)
-    provenanceCollectionParts = []
-    begin
-      provenanceCollectionPart.each do |part|
-        if part.title.first != nil 
-          # use inline data if available
-          provenanceCollectionParts << part
-        elsif part.pid != nil
-          # load external records
-          provenanceCollectionParts << DamsProvenanceCollectionPart.find(part.pid)
-        end
-      end
-    rescue Exception => e
-      puts "trapping provenanceCollectionPart error"
-      puts e.backtrace
-    end
-    provenanceCollectionParts
+    loadRdfObjects provenanceCollectionPart, DamsProvenanceCollectionPart
   end
 
 ## provenanceCollection ##################################################################
@@ -129,22 +70,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_provenanceCollections(provenanceCollection)
   end
   def load_provenanceCollections(provenanceCollection)
-    provenanceCollections = []
-    begin
-      provenanceCollection.each do |part|
-        if part.title.first != nil 
-          # use inline data if available
-          provenanceCollections << part
-        elsif part.pid != nil
-          # load external records
-          provenanceCollections << DamsProvenanceCollection.find(part.pid)
-        end
-      end
-    rescue Exception => e
-      puts "trapping provenanceCollection error"
-      puts e.backtrace
-    end
-    provenanceCollections
+    loadRdfObjects provenanceCollection, DamsProvenanceCollection
   end
 
   ## Subject ###################################################################
@@ -154,7 +80,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     loadComplexSubjects(complexSubject)
   end
   def load_complexSubjects(complexSubject)
-	loadMadsObjects complexSubject,MadsComplexSubject
+	loadRdfObjects complexSubject,MadsComplexSubject
   end
 
   # MADS simple subjects + extensions (VRA, etc.)
@@ -162,73 +88,73 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_builtWorkPlaces(builtWorkPlace)
   end
   def load_builtWorkPlaces(builtWorkPlace)
-	loadMadsObjects builtWorkPlace,DamsBuiltWorkPlace
+	loadRdfObjects builtWorkPlace,DamsBuiltWorkPlace
   end
   def load_culturalContexts
     load_culturalContexts(culturalContext)
   end
   def load_culturalContexts(culturalContext)
-	loadMadsObjects culturalContext,DamsCulturalContext
+	loadRdfObjects culturalContext,DamsCulturalContext
   end
   def load_functions
     load_functions(function)
   end
   def load_functions(function)
-	loadMadsObjects function,DamsFunction
+	loadRdfObjects function,DamsFunction
   end
   def load_genreForms
     load_genreForms(genreForm)
   end
   def load_genreForms(genreForm)
-	loadMadsObjects genreForm,MadsGenreForm
+	loadRdfObjects genreForm,MadsGenreForm
   end
   def load_geographics
     load_geographics(geographic)
   end
   def load_geographics(geographic)
-	loadMadsObjects geographic,MadsGeographic
+	loadRdfObjects geographic,MadsGeographic
   end
   def load_iconographies
     load_iconographies(iconography)
   end
   def load_iconographies(iconography)
-    loadMadsObjects iconography,DamsIconography
+    loadRdfObjects iconography,DamsIconography
   end
   def load_occupations
     load_occupations(occupation)
   end
   def load_occupations(occupation)
-	loadMadsObjects occupation,MadsOccupation
+	loadRdfObjects occupation,MadsOccupation
   end
   def load_scientificNames
     load_scientificNames(scientificName)
   end
   def load_scientificNames(scientificName)
-	loadMadsObjects scientificName,DamsScientificName
+	loadRdfObjects scientificName,DamsScientificName
   end
   def load_stylePeriods
     load_stylePeriods(stylePeriod)
   end
   def load_stylePeriods(stylePeriod)
-	loadMadsObjects stylePeriod,DamsStylePeriod
+	loadRdfObjects stylePeriod,DamsStylePeriod
   end
   def load_techniques
     load_techniques(technique)
   end
   def load_techniques(technique)
-	loadMadsObjects technique,DamsTechnique
+	loadRdfObjects technique,DamsTechnique
   end
   def load_temporals
     load_temporals( temporal )
   end
   def load_temporals( temporal )
-	loadMadsObjects temporal,MadsTemporal
+	loadRdfObjects temporal,MadsTemporal
   end
   def load_topics
     load_topics(topic)
   end
   def load_topics(topic)
-	loadMadsObjects topic,MadsTopic
+	loadRdfObjects topic,MadsTopic
   end
 
   # MADS names
@@ -236,31 +162,31 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     load_names(name)
   end
   def load_names(name)
-	loadMadsObjects name,MadsName
+	loadRdfObjects name,MadsName
   end
   def load_conferenceNames
     load_conferenceNames(conferenceName)
   end
   def load_conferenceNames(conferenceName)
-	loadMadsObjects conferenceName,MadsConferenceName
+	loadRdfObjects conferenceName,MadsConferenceName
   end
   def load_corporateNames
     load_corporateNames(corporateName)
   end
   def load_corporateNames(corporateName)
-	loadMadsObjects corporateName,MadsCorporateName
+	loadRdfObjects corporateName,MadsCorporateName
   end
   def load_familyNames
     load_familyNames(familyName)
   end
   def load_familyNames(familyName)
-	loadMadsObjects familyName,MadsFamilyName
+	loadRdfObjects familyName,MadsFamilyName
   end
   def load_personalNames
     load_personalNames(personalName)
   end
   def load_personalNames(personalName)
-	loadMadsObjects personalName,MadsPersonalName
+	loadRdfObjects personalName,MadsPersonalName
   end
 
   ## Event #####################################################################
@@ -303,31 +229,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       end
     end
     kids
-  end
-
-  # helper method to load external mads classes
-  def loadMadsObjects (object,className)
-    objects = []
-    object.each do |o|
-      if o.to_s.include?("Internal") && !o.name.first.blank?
-        # inline records, use as-is
-        objects << o
-      elsif o.to_s.include?("Internal") && o.name.first.blank? && !o.pid.blank?
-        # external records, use pid and fetch from repo
-        if !o.pid.start_with?("_")
-          o2 = className.find(o.pid)
-          objects << o2
-        end
-      else
-        # unmapped records, get pid from URI and fetch from repo
-        pid = o.to_s.gsub(/.*\//,'')
-        if !pid.blank?
-      	  o2 = className.find(pid)
-          objects << o2
-        end
-      end
-    end
-  	return objects
   end
 
   ## Solr ######################################################################
@@ -381,18 +282,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
 
-  def insertNoteFields (solr_doc, fieldName, objects)
-    objects.map do |no|
+  def insertNoteFields (solr_doc, fieldName, objects, className)
+    notes = loadRdfObjects objects, className
+    notes.map do |no|
       note_json = {}
-      note_obj = nil
-      note_uri = no.to_s
-	  if no.value.first.nil? && no.pid != nil && !no.pid.start_with?("_:")
-        note_obj = no.load
-        note_json[:id] = note_obj.pid.first      
-      else 
-      	note_obj = no
-      end
-        
+      note_obj = no
+      note_json[:id] = no.pid.first
+
       note_json.merge!( :type => note_obj.type.first.to_s,
                        :value => note_obj.value.first.to_s,
                 :displayLabel => note_obj.displayLabel.first.to_s )
@@ -505,34 +401,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     # build map: role => [name1,name2]
     rels = {}
     relationships.map do |relationship|
-      obj = relationship.name.first.to_s      
 
-      rel = nil
-	  if !relationship.corporateName.first.nil?
-	    rel = relationship.corporateName
-	  elsif !relationship.personalName.first.nil?
-	    rel = relationship.personalName
-	  elsif !relationship.conferenceName.first.nil?
-	    rel = relationship.conferenceName
-	  elsif !relationship.familyName.first.nil?
-	    rel = relationship.familyName 	     	        
-      elsif !relationship.name.first.nil?
-	    rel = relationship.name    
-	  end
-
-      foo = rel.to_s
-      if rel != nil && (rel.first.nil? || rel.first.name.first.nil?)
-        rel = relationship.load  
-      end
+      rel = relationship.load
 
       if ( rel != nil )
-        if(rel.to_s.include? 'Internal')
-            name = rel.first.name.first.to_s
-            Solrizer.insert_field(solr_doc, "all_fields", rel.first.name)
-        else
-            name = rel.name.first.to_s
-            Solrizer.insert_field(solr_doc, "all_fields", rel.name)
-        end
+        name = rel.name.first.to_s
+        Solrizer.insert_field(solr_doc, "all_fields", rel.name)
 
         # retrieval
         insert_unique_field_value solr_doc, "name", name 
@@ -710,42 +584,22 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def insertRelatedResourceFields ( solr_doc, prefix, relatedResource )
     # relatedResource
-    n = 0
-    relatedResource.map do |resource|
-      n += 1
-       begin
-	      related_json = {}
-	      related_obj = nil
-	      related_uri = resource.to_s
-		  if resource.type.first.nil? && resource.pid != nil && !resource.pid.start_with?("_:")
-	        related_obj = DamsRelatedResource.find(resource.pid)
-	        related_json[:id] = related_obj.pid
-	      else 
-	        related_obj = resource
-	      end
-	          
-	      related_json = {:type=>related_obj.type.first.to_s, :uri=>related_obj.uri.first.to_s, :description=>related_obj.description.first.to_s}
-	      Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
-	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.uri.first.to_s)
-	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.type.first.to_s)
-	      Solrizer.insert_field(solr_doc, "all_fields", related_obj.description.first.to_s)
-	      if resource.type.first.to_s == "thumbnail"
-	        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
-	      end      
-	  rescue Exception => e
-	      puts "XXX: error loading relatedResource: #{resource}: #{e.to_s}"
-	  end
-        
-      #related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
-      #Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
-      #Solrizer.insert_field(solr_doc, "all_fields", resource.uri.first.to_s)
-      #Solrizer.insert_field(solr_doc, "all_fields", resource.type.first.to_s)
-      #Solrizer.insert_field(solr_doc, "all_fields", resource.description.first.to_s)
-      #if resource.type.first.to_s == "thumbnail"
-      #  Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
-      #end
-    end
+    relResources = loadRdfObjects(relatedResource, DamsRelatedResource)
+    relResources.map do |resource|
+      related_json = {}
+      related_obj = nil
+      related_uri = resource.to_s
+      related_json[:id] = resource.pid
 
+      related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
+      Solrizer.insert_field(solr_doc, "related_resource_json", related_json.to_json)
+      Solrizer.insert_field(solr_doc, "all_fields", resource.uri.first.to_s)
+      Solrizer.insert_field(solr_doc, "all_fields", resource.type.first.to_s)
+      Solrizer.insert_field(solr_doc, "all_fields", resource.description.first.to_s)
+      if resource.type.first.to_s == "thumbnail"
+        Solrizer.insert_field(solr_doc, "thumbnail", resource.uri.first.to_s)
+	  end
+    end
     reload DamsRelatedResourceInternal
   end
 
@@ -887,10 +741,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     #insertProvenanceCollectionPartFields solr_doc, "provenanceCollectionPart", provenanceCollectionPart
 
     # note
-    insertNoteFields solr_doc, 'otherNote', note
-    insertNoteFields solr_doc, 'custodialResponsibilityNote', custodialResponsibilityNote
-    insertNoteFields solr_doc, 'preferredCitationNote', preferredCitationNote
-    insertNoteFields solr_doc, 'scopeContentNote', scopeContentNote
+    insertNoteFields solr_doc, 'otherNote', note, DamsNote
+    insertNoteFields solr_doc, 'custodialResponsibilityNote', custodialResponsibilityNote, DamsCustodialResponsibilityNote
+    insertNoteFields solr_doc, 'preferredCitationNote', preferredCitationNote, DamsPreferredCitationNote
+    insertNoteFields solr_doc, 'scopeContentNote', scopeContentNote, DamsScopeContentNote
 
     # subject - old
     subject.map do |sn|

@@ -528,10 +528,10 @@ module Dams
 	      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
 	      insertLanguageFields solr_doc, "component_#{cid}_", component.language
 	
-	      insertNoteFields solr_doc, "component_#{cid}_note",component.note
-	      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
-	      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
-	      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
+	      insertNoteFields solr_doc, "component_#{cid}_note",component.note, DamsNote
+	      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote, DamsCustodialResponsibilityNote
+	      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote, DamsPreferredCitationNote
+	      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote, DamsScopeContentNote
 	
 	      insertComplexSubjectFields solr_doc, cid, load_complexSubjects(component.complexSubject)
 	      insertFields solr_doc, "component_#{cid}_builtWorkPlace", load_builtWorkPlaces(component.builtWorkPlace)
@@ -651,13 +651,10 @@ module Dams
 	    rh = rh.concat(rightsHolderConference) unless rightsHolderConference.nil?
 	    rh = rh.concat(rightsHolderFamily) unless rightsHolderFamily.nil?
 	    rh = rh.concat(rightsHolderName) unless rightsHolderName.nil?
-      insertRightsHolderFields solr_doc, "", rh
-	    
-	    cartographics.each do |cart|
-          # make sure we have some data to index
-          if cart.point.blank? && cart.line.blank? && cart.polygon.blank?
-            cart = DamsCartographics.find( cart.pid )
-          end
+        insertRightsHolderFields solr_doc, "", rh
+
+        carts = load_cartographics cartographics
+        carts.each do |cart|
 	      carto_json = {
 	        :point => cart.point,
 	        :line => cart.line,
