@@ -670,7 +670,7 @@
 	</dams:otherRights>  	
     <dams:statute rdf:resource="http://library.ucsd.edu/ark:/20775/zz21212121"/>
 	<dams:cartographics>
-	  <dams:Cartographics rdf:about="http://library.ucsd.edu/ark:/20775/bb20202020">
+	  <dams:Cartographics>
 	    <dams:scale>1:20000</dams:scale>
 	    <dams:projection>equirectangular</dams:projection>
 	    <dams:referenceSystem>WGS84</dams:referenceSystem>
