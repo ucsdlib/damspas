@@ -66,7 +66,6 @@
         </dams:date>
         <dams:hasFile>
           <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bb80808080/1/1.pdf">
-            <dams:sourceCapture rdf:resource="http://library.ucsd.edu/ark:/20775/bb49494949"/>
             <dams:sourcePath>src/sample/files</dams:sourcePath>
             <dams:sourceFileName>comparison-1.pdf</dams:sourceFileName>
             <dams:formatName>PDF</dams:formatName>

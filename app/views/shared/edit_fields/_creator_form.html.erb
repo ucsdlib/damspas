@@ -1,9 +1,0 @@
-  <%
-     typeArray = [["ConferenceName", "ConferenceName"],["CorporateName", "CorporateName"],["FamilyName", "FamilyName"],["Name", "Name"], ["PersonalName", "PersonalName"]]
-  %>  
-
-  <h3>Subject Name</h3>  
-
-<%= render :partial => 'shared/edit_fields/creator_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray}%>
-
-

@@ -1,15 +1,14 @@
-<% btnColor = (@document['component_count_isi'] != nil) ? 'btn-inverse' : 'btn-primary' %>
-<% ucsd_local_display = (@document['otherRights_tesim'] != nil && @document['otherRights_tesim'].first.to_s.include?('localDisplay')) ? 'true' : 'false' %>
-<% if can? :update, @document then %>
-  <div class="form-actions dams-download-button">
-    <a class="btn <%=btnColor%> pull-right" href="<%= downloadFilePath %>">
-      <i class="icon-download-alt icon-white"></i>Download file
-    </a>
-  </div>
-<% elsif ucsd_local_display == 'false' %>
-  <div class="form-actions dams-download-button">
-    <a class="btn <%=btnColor%> pull-right" href="<%= downloadDerivativePath %>">
-      <i class="icon-download-alt icon-white"></i>Download file
-    </a>
-  </div>
-<% end %>
+<div id="etc-menu">
+
+	<% ucsd_local_display = (@document['otherRights_tesim'] != nil && @document['otherRights_tesim'].first.to_s.include?('localDisplay')) ? 'true' : 'false' %>
+	<% adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i>'.html_safe %>
+	<% adl_title = 'Download File' %>
+	<% adl_class = 'adl pull-right' %>
+
+	<% if can? :update, @document then %>
+	  <%= link_to adl_glyph, downloadFilePath, class:adl_class, title:adl_title %>
+	<% elsif ucsd_local_display == 'false' && !downloadDerivativePath.nil?%>
+	  <%= link_to adl_glyph, downloadDerivativePath, class:adl_class, title:adl_title %>
+	<% end %>
+
+</div>

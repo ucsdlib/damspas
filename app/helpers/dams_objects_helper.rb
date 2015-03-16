@@ -439,6 +439,18 @@ module DamsObjectsHelper
 		return result
 	end
 
+    def grabAnyDisplayFile
+      file = grabDisplayFile
+      component_count = @document[:component_count_isi] || 0
+      i = 0
+      while file == 'no_display' && i < component_count do
+        i = i + 1
+	    file = grabDisplayFile(componentIndex: i)
+        file = "_#{i}_#{file}" if file != 'no_display'
+      end
+      return file
+    end
+
 	#---
 	# Get the service file id value from the component's 'files_tesim' value. Replaces 'render_service_file'.
 	#
@@ -724,14 +736,14 @@ module DamsObjectsHelper
   # by hweng@ucsd.edu
 	#-------------------------------------------------------------------------------
 
-  def init_Tree(component_count)
-    if component_count != nil
+  def init_Tree(components)
+    if components != nil
       @is_parent = []
       @is_child = []
       @tag = []
       @checked = []
 
-      for i in 1..component_count
+      components.each do |i|
 
         if @document["component_#{i}_children_isim"] != nil
           @is_parent[i] = true
@@ -745,11 +757,10 @@ module DamsObjectsHelper
     end
   end
 
-  def display_tree(component_count)
-    if component_count != nil && component_count > 0
+  def display_tree(components)
+    if !components.nil?
       concat '<ul class="unstyled">'.html_safe
-      for i in 1..component_count
-
+      components.each do |i|
           display_node i if @is_parent[i].nil? && @checked[i].nil?
        
       end
@@ -762,6 +773,12 @@ def display_node(index)
       render_tree_HTML(index, false )
     elsif @is_child[index] == true
       parent_node_index = @tag[index][:parent_node]
+      grand_parent_node_index = @tag[parent_node_index][:parent_node] if(!parent_node_index.nil? && !@tag[parent_node_index].nil?)
+      
+      if(!grand_parent_node_index.nil?)
+        render_node_HTML(@tag[parent_node_index][:parent_node], true)
+        concat "<ul class='unstyled node-container'>".html_safe 
+      end
       render_node_HTML(parent_node_index, true)
 
       concat "<ul class='unstyled node-container'>".html_safe
@@ -771,6 +788,7 @@ def display_node(index)
         @checked[node_index]= true
       end
       concat "</ul>".html_safe
+      concat "</ul>".html_safe if(!grand_parent_node_index.nil?)
     end
     @firstButton = nil
   end
@@ -790,6 +808,11 @@ def display_node(index)
   def render_tree_HTML(index, is_parent_node )
     render_node_HTML(index, is_parent_node )
     concat "</li>".html_safe
+  end
+
+  def listComponents (component_map)
+    components = component_map.nil? ? [] : component_map.first.dup.gsub!(':', ',').gsub!(/[\[\]{}"]/, '').split(',')
+    components.reject { |c| c.blank? }.map! { |i| i.to_i } 
   end
 
   #-------------------------------
@@ -858,64 +881,45 @@ def display_node(index)
   # /STREAMING
   #------------
 
-
-
-
   #---
-  # Check to see if the object is culturallySensitive
+  # Check to see if an object has a "Restricted Notice"
   #
-  # @return A string that indicate true or false
-  #
+  # @return An HTML string if a restricted notice is present, nil otherwise
   #---
-
-
 
   def grabRestrictedText(data)
+
     result = nil
 
     if data != nil
       data.each do |datum|
+
         note = JSON.parse(datum)
-        note_label = note['displayLabel'].downcase
-        if note_label.include? 'culturally sensitive content'
-          result = "<h3>Culturally Sensitive Content</h3><p>#{note['value']}</p><button type=\"button\" class=\"btn btn-danger btn-mini\" onClick=\"$('.masked-object').hide();$('.simple-object').show();\">View Content</button>".html_safe
-        elsif note_label.include? 'restricted content'
-          result = "<h3>Restricted Content</h3><p>We are sorry, but the image you have selected is not currently available for download or viewing. #{note['value']}".html_safe
+
+        if note['value'].start_with?('Culturally sensitive content: ', 'Copyrighted content: ','Embargoed content: ')
+          note_array = note['value'].split(': ')
+          result = "<h3>#{note_array[0].titleize}</h3><p>#{note_array[1]}</p>".html_safe
         end
+
+        # Add 'View Content' button to certain cases
+        if note['value'].start_with?('Culturally sensitive content: ')
+          result += '<p>Would you like to view this content?</p><button type="button" id="view-masked-object" class="btn btn-primary btn-mini pull-right">Yes, I would like to view this content.</button>'.html_safe
+        end
+
       end
     end
 
     result
+
   end
 
-#---
+  #---
+  # Normalized rdf view from DAMS4 REST API
+  #---
 
-#
-# return restricted object text from otherRights_tesim
-#
-#---
-
-#  def getRestrictedObjText(data)
-#    otherRights_value = nil
-#
-#    if data != nil
-#      data.each do |n|
-#        otherRights = JSON.parse(n)
-#        if otherRights['note'].length > 0
-#          otherRights_value = otherRights['note']
-#        end
-#      end
-#    end
-
-#    return otherRights_value
-#  end
-
-
-  ## normalized rdf view from DAMS4 REST API
   def normalized_rdf_path( pid )
     # get REST API url from AF config
-    baseurl = ActiveFedora.fedora_config.credentials[:url]
-    baseurl = baseurl.gsub(/\/fedora$/,'')
+    baseurl = ActiveFedora.fedora_config.credentials[:url].gsub(/\/fedora$/,'')
     "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
   end
 

@@ -1,10 +1,31 @@
 require 'spec_helper'
 
-feature 'Visitor wants to look at units' do
+feature 'Units' do
+  before(:all) do
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @copy = DamsCopyright.create status: "Public domain"
+    @obj = DamsObject.create unitURI: @unit.pid, titleValue: "First Test Object", copyrightURI: @copy.pid
+
+    @unit2 = DamsUnit.create name: "Another Test Unit", description: "Another Test Description", code: "ano", uri: "http://example.com/"
+    @obj2 = DamsObject.create unitURI: @unit2.pid, titleValue: "Another Test Object", copyrightURI: @copy.pid
+    @col2 = DamsAssembledCollection.create(unitURI: @unit2.pid, titleValue: 'Test Collection', visibility: 'public', scopeContentNote_attributes:[{value:'Test scope content note'}])
+    solr_index @col2.pid
+    solr_index @unit2.pid
+    solr_index @obj2.pid
+    solr_index @obj.pid
+    solr_index @unit.pid
+  end
+  after(:all) do
+    @obj.delete
+    @obj2.delete
+    @col2.delete
+    @copy.delete
+    @unit.delete
+    @unit2.delete
+  end
+
   scenario 'is on units landing page' do
     visit dams_units_path
-    expect(page).to have_selector('h3', :text => 'UC San Diego LibraryDigital Collections')
-    expect(page).to have_selector('h3', :text => 'UC San DiegoResearch Data Collections')
     expect(page).to have_selector('a', :text => 'Collection')
     expect(page).to have_selector('a', :text => 'Format')
     expect(page).to have_selector('a', :text => 'Topic')
@@ -12,94 +33,46 @@ feature 'Visitor wants to look at units' do
     expect(page).to have_field('Search...')
   end
 
-  scenario 'does a search for items' do
-    sign_in_developer
-    visit dams_units_path
-
-    fill_in 'Search...', :with => "Sample Complex Object Record #3: Format Sampler", :match => :prefer_exact
-    click_on('search-button')
-
-    expect(page).to have_content('Search Results')
-    expect(page).to have_content('Refine your search')
-    expect(page).to have_content('Sample Complex Object Record #3: Format Sampler')
-  end
-
   scenario 'retrieve a unit record' do
-    # can we find the unit record
     sign_in_developer
     visit dams_units_path
     expect(page).to have_field('Search...')
-    fill_in 'Search...', :with => 'bb02020202', :match => :prefer_exact
+    fill_in 'Search...', :with => @unit.pid, :match => :prefer_exact
 
     click_on('search-button')
 
     # Check description on the page
-    expect(page).to have_content("bb02020202")
+    expect(page).to have_content(@unit.pid)
   end
 
   scenario 'unit pages should have scoped browse links' do
-    visit dams_unit_path :id => 'dlp'
-    expect(page).to have_selector('h1', :text => 'Library Digital Collections')
+    visit dams_unit_path :id => 'tu'
+    expect(page).to have_selector('h1', :text => 'Test Unit')
 
     # browse links should be scoped to the unit
     topiclink = find('ul.sidebar-button-list li a', text: "Topic")
-    expect(topiclink[:href]).to have_content('dlp')
   end
 
   scenario 'scoped search (inclusion)' do
     # search for the object in the unit and find it
-    visit catalog_index_path( {'f[unit_sim][]' => 'Library Digital Collections', :q => 'sample'} )
+    visit catalog_index_path( {'f[unit_sim][]' => 'Test Unit', :q => 'test'} )
     expect(page).to have_content('Search Results')
-    expect(page).to have_content('Sample Simple Object')
+    expect(page).to have_content('First Test Object')
   end
 
   scenario 'scoped search (exclusion)' do
-    visit dams_unit_path :id => 'rci'
-    expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
+    visit dams_unit_path :id => 'ano'
+    expect(page).to have_selector('h1', :text => 'Another Test Unit')
 
     # search for the object in the unit and find it
-    visit catalog_index_path( {'f[unit_sim][]' => 'Research+Data+Curation+Program', :q => 'sample'} )
-    expect(page).to have_no_content('Sample Simple Object')
+    visit catalog_index_path( {'f[unit_sim][]' => 'Another+Test+Unit', :q => 'test'} )
+    expect(page).to have_no_content('First Test Object')
   end
-end
-feature 'Visitor should only see edit button when it will work' do
+
   scenario 'an anonymous user' do
-    visit dams_unit_path('dlp')
-    expect(page).not_to have_selector('a', :text => 'Edit')
-  end
-  scenario 'a logged in user' do
-    sign_in_developer
-    visit dams_unit_path('dlp')
-    expect(page).to have_selector('a', :text => 'Edit')
+    visit dams_unit_collections_path('ano')
+    expect(page).to have_selector('h3','Browse by Collection: Another Test Unit')
+    expect(page).to have_selector('a', :text => 'Test Collection')
+    expect(page).to have_selector('li', :text => 'Test scope content note')
   end
 end
-
-feature 'Visitor should only see edit button when it will work' do
-  scenario 'an anonymous user' do
-    visit dams_unit_path('dlp')
-    expect(page).not_to have_selector('a', :text => 'Edit')
-  end
-  scenario 'a logged in user' do
-    sign_in_developer
-    visit dams_unit_path('dlp')
-    expect(page).to have_selector('a', :text => 'Edit')
-  end
-end
-
-feature "Visitor wants to view the unit's collections" do
-  scenario 'an anonymous user' do
-    visit dams_unit_collections_path('dlp')
-    expect(page).to have_selector('h3','Browse by Collection: Library Digital Collections')
-    expect(page).to have_selector('a', :text => 'UCSD Electronic Theses and Dissertations')
-    expect(page).to have_selector('li', :text => 'Linked scope content note')
-    expect(page).to have_no_content('Santa Fe Light Cone')
-  end
-end
-
-def sign_in_developer
-  visit new_user_session_path
-  fill_in "name", :with => "name"
-  fill_in "email", :with => "email@email.com"
-  click_on "Sign In"
-end
-

@@ -16,6 +16,7 @@
  *= require custom-collections
  *= require custom-search
  *= require custom-advanced-search
+ *= require custom-catalog
  *= require custom-edit
  *= require leaflet
  *= require typeahead.js-bootstrap

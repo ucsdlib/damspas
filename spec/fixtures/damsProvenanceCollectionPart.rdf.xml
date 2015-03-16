@@ -1,7 +1,7 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#"
          xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
-<dams:ProvenanceCollectionPart rdf:about="http://library.ucsd.edu/ark:/20775/bb25252525">
+<dams:ProvenanceCollectionPart rdf:about="http://library.ucsd.edu/ark:/20775/xx25252525">
     <dams:visibility>public</dams:visibility>
     <dams:typeOfResource>text</dams:typeOfResource>
     <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
@@ -21,8 +21,8 @@
         <dams:endDate>2009-05-31</dams:endDate>
       </dams:Date>
     </dams:date>
-    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
-  <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd1366006j"/> 
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/xx0410344f"/>
+  <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/xx1366006j"/> 
     <dams:scopeContentNote>
       <dams:ScopeContentNote>
         <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
@@ -30,7 +30,7 @@
         <dams:type>scope_and_content</dams:type>
       </dams:ScopeContentNote>
     </dams:scopeContentNote>      
-    <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
+    <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/xx52568274"/>
     <dams:note>
       <dams:Note>
         <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
@@ -41,19 +41,19 @@
     <dams:note>
       <dams:Note>
         <dams:displayLabel>ARK ID</dams:displayLabel>
-        <rdf:value>http://library.ucsd.edu/ark:/20775/bb80808080</rdf:value>
+        <rdf:value>http://library.ucsd.edu/ark:/20775/xx80808080</rdf:value>
         <dams:type>identifier</dams:type>
       </dams:Note>
     </dams:note>    
-    <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
+    <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/xx9113515d"/>
         <dams:relationship>
       <dams:Relationship>
-        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
-        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb08080808"/>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/xx55639754"/>
+        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/xx08080808"/>
       </dams:Relationship>
     </dams:relationship>   
-    <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>    
-    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+    <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/xx3959888k"/>    
+    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/xx24242424"/>
     <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb30303030"/>
    <dams:unit>
       <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb48484848">

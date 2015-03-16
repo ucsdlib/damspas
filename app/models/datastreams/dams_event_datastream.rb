@@ -37,10 +37,10 @@ class DamsEventDatastream < ActiveFedora::RdfxmlRDFDatastream
         end
       end
       relRole = relationship.loadRole
-      if ( rel != nil )
-        Solrizer.insert_field(solr_doc, 'role', relationship.loadRole.name )
-        Solrizer.insert_field(solr_doc, 'role_code', relationship.loadRole.code )
-        Solrizer.insert_field(solr_doc, 'role_externalAuthority', relationship.loadRole.externalAuthority.to_s )
+      if ( relRole != nil )
+        Solrizer.insert_field(solr_doc, 'role', relRole.name )
+        Solrizer.insert_field(solr_doc, 'role_code', relRole.code )
+        Solrizer.insert_field(solr_doc, 'role_externalAuthority', relRole.externalAuthority.to_s )
       end      
     end
     names.sort.each do |n|

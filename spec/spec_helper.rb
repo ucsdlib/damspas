@@ -1,4 +1,6 @@
 require 'simplecov'
+require 'rspec/matchers'
+require 'equivalent-xml'
 SimpleCov.start 'rails'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
@@ -63,8 +65,8 @@ def solr_index (pid)
 end
 
 
-def mod_dams_object (id, unit)
-	DamsObject.create!(pid: id, titleValue: "Test Title -- Unit #{unit}", unitURI: unit, copyrightURI: "bb05050505")
+def mod_dams_object (id, unit, copy)
+	DamsObject.create!(pid: id, titleValue: "Test Title -- Unit #{unit}", unitURI: unit, copyrightURI: copy)
 end
 def mod_dams_provenance_collection (id, unit)
 	DamsProvenanceCollection.create!(pid: id, titleValue: "Test ProvenanceCollection Title -- Unit #{unit}", unitURI: unit, visibility: "curator", resource_type: "text")

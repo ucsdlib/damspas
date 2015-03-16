@@ -4,9 +4,4 @@
 	<ul><%= render_cartographic_list %></ul>
 </div>
 
-<div>
-	<% if can? :create, DamsCartographics%>
-	<%= link_to "Create Cartographics", new_dams_cartographics_path, :class => 'btn btn-primary' %>
-	<% end %>
-</div>
-</div>
+

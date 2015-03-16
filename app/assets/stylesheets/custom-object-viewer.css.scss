@@ -65,9 +65,13 @@ $complexFile: #AC6F2B !default;
 .dams-viewer > hgroup > h2{font-size:110%;padding:0;margin:0 0 5px 0;line-height:100%;color: lighten(#00374E,10%);}
 .dams-viewer > hgroup{margin-bottom: 0;}
 .dams-viewer img{max-width:auto;max-height:400px;}
+.letter-link {border: 1px solid #9AAFE5; padding:4px;}
+.letter, .letter:hover {text-decoration: none;}
+.selected-letter {background-color: #2e6ab1; border: 1px solid #2e6ab1; color: #FFFFFF; font-weight: bold; padding:4px; }
 
 .dams-download-button{margin:0;}
 .dams-download-button p{margin: 0;text-align: center;}
+.pull-right-space {    float: right; margin-left: 10px;}
 
 // Breadcrumbs
 .dams-breadcrumbs .breadcrumb{font-size: 12px;background-color:transparent;padding: 0;}
@@ -103,29 +107,30 @@ $complexFile: #AC6F2B !default;
 .file-thumbnail img{margin-bottom: 20px;}
 
 // Masked Objects (Restricted, Sensitive, etc.)
-.masked-object
+.restricted-notice
 {
-background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png) no-repeat center center;
-  background-size:75%,75%;
+  background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/restricted.png) no-repeat center center;
+  background-size:150%,150%;
   border-radius: 3px;
   padding:0;
   height:480px;
   margin:3% 0;
-  div{
-  width:100%;
-  border:1px solid #fff;
+  div
+  {
+    overflow: hidden;
+    width:100%;
+    border:1px solid #fff;
     border-right:none;
     border-left:none;
-  background:#c00;
-  color:#fff;
-  padding:1em;
-  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+    background:#3383A5;
+    color:#fff;
+    padding:1em;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
     position: relative;
     top: 50%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-
     h3,p{margin:0;padding:0;line-height:normal;}
     h3{font-size:1em;}
     p{font-size:0.85em;color:rgba(255,255,255,0.85);}
@@ -141,21 +146,33 @@ background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png
 .restricted-obj-thumbnail {border:2px solid #659EC7; width:100px; height:150px;}
 #restricted-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 350px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
 
+
+//admin download
+#etc-menu{margin-top:3%;}
+
+.adl
+{
+  display:block;
+  color:rgba(0,0,0,0.3);
+  &:hover{text-decoration: none;color:rgba(0,0,0,0.5);}
+}
+
 // AddThis Sharing Menu
 
 .addthis_sharing_toolbox
 {
   float:right;
-  .addthis_20x20_style .dummy .at300bs,
-  .addthis_20x20_style .at300bs,
-  .addthis_20x20_style .at15t
+  #atstbx
   {
-    background: url("../images/sharing-icon.png") no-repeat scroll center center rgba(0, 0, 0, 0) !important;
+    .at4-icon.aticon-compact, .at4-icon.aticon-more, .at4-icon.aticon-expanded, .at4-icon.aticon-addthis
+    {
+      background: url("../images/sharing-icon.png") no-repeat scroll center center rgba(0, 0, 0, 0) !important;
+      background-size: 15px 15px !important;
+      width: 15px !important;
+      height: 15px !important;
+    }
+    a.at-svc-compact{background-color: transparent !important;}
   }
-}
-
-.at4m-menu .at4m-menu-content ul li a {
-  width: auto !important;
 }
 
 // Sidebar
@@ -227,16 +244,16 @@ background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png
 	.search-query-form .btn{width:100%;}
 
 
-  .masked-object
+  .restricted-notice
   {
     background-size:100%,100%;
     height:300px;
-    div{
+    div
+    {
       padding:0.5em;
       h3{font-size:0.9em;}
       p{font-size:0.8em;}
     }
-
   }
 
 

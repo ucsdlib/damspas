@@ -1,7 +1,0 @@
-<h3>Simple Subject</h3>
-<%
-   typeArray = [["BuiltWorkPlace", "BuiltWorkPlace"],["CulturalContext", "CulturalContext"],["Function", "Function"],["GenreForm", "GenreForm"],["Geographic", "Geographic"],["Iconography", "Iconography"],["Occupation", "Occupation"],["ScientificName", "ScientificName"],["StylePeriod", "StylePeriod"],["Technique", "Technique"],["Temporal", "Temporal"],["Topic", "Topic"]]
-%>
-
-<%= render :partial => 'shared/edit_fields/simple_subjects_fields' , :locals => {:f => f, :object_type => object_type, :typeArray => typeArray}%>
-    

@@ -45,7 +45,7 @@ namespace :deploy do
     end
   end
 
-  desc "Write the current version to publicl/revision.txt"
+  desc "Write the current version to public/version.txt"
   task :write_version do
     on roles(:app), in: :sequence do
       within repo_path do
@@ -56,14 +56,14 @@ namespace :deploy do
 
   desc '(re) generate sitemap'
   task :update_sitemap do
-    on roles(:sitemap) do
+    on roles(:sitemap_ping), in: :sequence do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :rake, 'sitemap:refresh'
         end
       end
     end
-    on roles(:sitemap_noping) do
+    on roles(:sitemap_noping), in: :sequence do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :rake, 'sitemap:refresh:no_ping'
@@ -74,7 +74,7 @@ namespace :deploy do
 
   after :finishing, 'deploy:write_version'
   after :finishing, 'deploy:update_sitemap'
-  before :restart, 'deploy:assets:precompile'
-  after :finishing, 'deploy:cleanup'
+  after :finishing, 'deploy:assets:precompile'
+  after :finishing, 'deploy:restart'
 
 end

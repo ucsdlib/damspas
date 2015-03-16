@@ -1,36 +1,120 @@
 require 'spec_helper'
 require 'rack/test'
 
+# Class to store the path of the object
+class Path
+  class << self
+    attr_accessor :path
+  end
+  # Variable to be used to store DAMS Object path
+  # Used for editing specified object
+  # @path = nil
+end
+
 feature 'Visitor want to look at objects' do
 
   scenario 'view a sample object record' do
-    #pending "visit not working, getting / instead of /object/bd0922518w" do
-      sign_in_developer
-      visit dams_object_path('bd0922518w')
-      Path.path = current_path
-      expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
-      expect(page).to have_selector('h2',:text=>'Format Sampler')
-      #expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
+    pending "working object metadata updates"
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    Path.path = current_path
+    expect(page).to have_selector('h1',:text=>'Sample Complex Object Record #3')
+    expect(page).to have_selector('h2',:text=>'Format Sampler')
+    #expect(page).to have_link('http://library.ucsd.edu/ark:/20775/bd0922518w', href: 'http://library.ucsd.edu/ark:/20775/bd0922518w')
 
-      # admin links
-      expect(page).to have_link('RDF View')
-    #end
+    # admin links
+    expect(page).to have_link('RDF View')
   end
+
+  scenario 'view full title with non filing characters' do
+    pending "working object metadata updates"
+    visit dams_object_path('bd22194583')
+    expect(page).to have_selector('h1',:text=>'The Sample Simple Object')
+    expect(page).to have_selector('h2',:text=>'An Image Object, Allegro 1')
+  end
+
+  scenario 'view a sample object record with subtitle, part, and a translation variant title' do
+    pending "working object metadata updates"
+    ark = 'zz55555555'
+    sign_in_developer
+    # Create a sample object with subtitle and variant titles
+    damsObj = DamsObject.new(pid: ark)
+ 	damsObj.damsMetadata.content = File.new('spec/fixtures/titleTest.xml').read
+    damsObj.save!
+    solr_index ark
+
+    visit dams_object_path(ark)
+    expect(page).to have_selector('h2', :text => 'Name/Note/Subject Sampler, sample partname sample partnumber, Translation Variant')
+    expect(page).to have_link('RDF View', rdf_dams_object_path(ark))
+    expect(page).to have_link('Data View', data_dams_object_path(ark))
+    expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_object_path(ark))
+
+    # Delete the sample object after test
+    damsObj.delete
+  end  
   
   scenario "review metadata of an object" do
+    pending "working object metadata updates"
     sign_in_developer
-    visit Path.path
+    visit dams_object_path('bd0922518w')
     click_on "Data View"
     expect(page).to have_selector('td', :text => "Object")
     expect(page).to have_selector('td', :text => "http://library.ucsd.edu/ark:/20775/bd0922518w")
   end
 
+  scenario "view RDF/XML of an object" do
+    pending "working object metadata updates"
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'application/xml'
+  end
+
+  pending "Enabled once damsrepo enable RDF Turtle format: view RDF Turtle of an object" do
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF Turtle View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'text'
+    expect(page).to have_content("@prefix");
+  end
+
+  scenario "view RDF N-Triples of an object" do
+    pending "working object metadata updates"
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "RDF N-Triples View"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'text'
+    expect(page).to have_content("\" .");
+  end
+
+  scenario "view DAMS 4.2 RDF/XML of an object" do
+    pending "working object metadata updates"
+    sign_in_developer
+    visit dams_object_path('bd0922518w')
+    click_on "DAMS 4.2 Preview"
+    expect(page.status_code).to eq 200
+    expect(response_headers['Content-Type']).to include 'application/xml'
+  end
+
   scenario 'view a sample data file' do
+    pending "working object metadata updates"
     sign_in_developer
     visit file_path('bd0922518w','_5_5.jpg')
     response = page.driver.response
     expect(response.status).to eq( 200 )
     expect(response.header["Content-Type"]).to eq( "image/jpeg" )
+  end
+  
+  scenario 'view a sample public html content file' do
+    pending "working object metadata updates"
+    visit file_path('bb01010101','_2_2.html')
+    response = page.driver.response
+    expect(response.status).to eq( 200 )
+    expect(response.header["Content-Type"]).to have_content( "text/html" )
+    expect(page).to have_link('MP3 Audio File', href: '/ark:/20775/bb07178662/1-2.mp3&name=ghio_sdhsoh.mp3')
   end
 
   scenario 'view a non-existent record' do
@@ -50,179 +134,17 @@ feature 'Visitor want to look at objects' do
 
 end
 
-# Class to store the path of the object
-class Path
-  class << self
-    attr_accessor :path
-  end
-  # Variable to be used to store DAMS Object path
-  # Used for editing specified object
-  # @path = nil
-end
 
-
-# Need Test Language, Copyright, Select collection
-
-feature 'Visitor wants to create/edit a DAMS Object' do
-  let!(:scheme1) { MadsScheme.create!(name: 'Library of Congress Subject Headings') }
-  let!(:scheme2) { MadsScheme.create!(name: 'Library of Congress Name Authority File') }
-
-  after do
-    scheme1.destroy
-    scheme2.destroy
-  end
-  
-  pending 'is on new DAMS Object Create page' do
-    sign_in_developer
-
-    visit new_dams_object_path
-    current_path.should == new_dams_object_path
-
-    fill_in "MainTitle", :with => "Dams Test Object"
-    fill_in "SubTitle", :with => "New Object"
-    fill_in "PartName", :with => "ep1"
-    fill_in "PartNumber", :with => "999"
-    fill_in "NonSort", :with => "this"
-    page.select('Research Data Curation Program', match: :first) 
-    page.select('UCSD Electronic Theses and Dissertations', match: :first) 
-    fill_in "dams_object_date_attributes_0_value", :with => "2013"
-    fill_in "Begin Date", :with => "2012"
-    fill_in "End Date", :with => "2014"
-	fill_in "Date Type", :with => "Testdatetype"
-	fill_in "Date Encoding", :with => "TestDateEncoding"    
-    page.select('text', match: :first)
-    #fill_in "Type", :with => "Person"
-    page.select('artifact', match: :first)
-    fill_in "URI", :with => "http://JohnDoe.com"
-    fill_in "Description", :with => "Mathematician"
-    page.select("French", match: :first)
-    page.select('Public domain', match: :first)
-    fill_in "Point", :with => "98"
-    fill_in "Scale", :with => "100%"
-
-    # works in browser, but clobbers metadata in rspec
-    # SHOULD NOT be pending, because pending tests are still run
-    #page.attach_file 'file', File.join(Rails.root,'/spec/fixtures/madsScheme.rdf.xml')
-
-    click_on "Save"
-
-    # Save path of object for other test(s)
-    Path.path = current_path
-
-    # Checking the view
-    pending "Works in browser but fails in rspec" do
-      expect(page).to have_selector('h1', :text => "Dams Test Object")
-      expect(page).to have_selector('h2', :text => "New Object")
-      expect(page).to have_selector('a', :text => "UCSD Electronic Theses and Dissertations")
-      expect(page).to have_selector('a', :text => "Research Data Curation Program")
-      expect(page).to have_selector('li', :text => "2013")
-      expect(page).to have_selector('dt', :text => "Testdatetype")
-      expect(page).to have_selector('a', :text => "Text")
-      #expect(page).to have_selector('strong', :text => "Public domain") # XXX not displaying
-      expect(page).to have_selector('a', :text => "Mathematician")
-      expect(page).to have_selector('div', :text => 'Object has been saved')
-
-      # check uploaded file
-      visit Path.path + '/_1.xml'
-      response = page.driver.response
-      expect(response.status).to eq( 200 )
-    end
-
-    visit Path.path
-    click_on "Edit"
-    fill_in "dams_object_titleValue_", :with => "Edited Dams Object"
-    fill_in "dams_object_date_attributes_0_value", :with => "2013", match: :first
-    fill_in "Begin Date", :with => "2014"
-    fill_in "dams_object_note_attributes_0_value", :with => "Science"
-    fill_in "Description", :with => "Student"
-    page.select('Library Digital Collections', match: :first)
-    click_on "Save"
-
-    # Check that changes are saved
-    expect(page).to have_selector('p', :text => "Science")
-    expect(page).to have_selector('li', :text => "2013")
-    expect(page).to have_selector('h1', :text => "Edited Dams Object")
-    #expect(page).to have_selector('a', :text => "Library Digital Collections") # XXX: not displaying
-    expect(page).to have_selector('li', :text => "Student")
-
-    # check new object link
-    click_on "New Object"
-    expect(current_path).to eq(dams_object_path('new'))
-  end
-
-  scenario "Edit an object" do
-    pending "Works in browser but fails in rspec" do
-      sign_in_developer
-
-      visit Path.path
-      click_on "Edit"
-      fill_in "MainTitle", :with => "Final Dams Object"
-      fill_in "Note Displaylabel", :with => "Displays"
-      fill_in "Date", :with => "2012", match: :first
-      page.select('still image', match: :first)
-      click_on "Save"
-
-      expect(page).to have_selector('h1', :text => "Final Dams Object")
-      expect(page).to have_selector('strong', :text => "DISPLAYS")
-      expect(page).to have_selector('a', :text => "Image")
-    end
-  end
-
-end
-
-# visit not working, getting / instead of /object/
-#feature 'Visitor wants to view an object' do
-#  scenario 'is on Object index page' do
-#    sign_in_developer
-#    visit dams_objects_path
-#    current_path.should == dams_objects_path
-#    expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
-#    click_on "Sample Audio Object: I need another green form"
-#    expect(page).to have_selector('li', :text => "English")
-#    expect(page).to have_selector('h1', :text => "Sample Audio Object")
-#    expect(page).to have_selector('h2', :text => "I need another green form")
-#  end
-#end
-
-feature 'Visitor wants to cancel unsaved objects' do
-  
-  # works in browser, but failing in rspec
-  scenario "is on Edit Object page" do
-    sign_in_developer
-    visit Path.path
-    expect(page).to have_selector('a', :text => "Edit")
-    click_on "Edit"
-    pending "Not loading page, going to / instead" do
-      fill_in "MainTitle", :with => "Nothing"
-      fill_in "Date", :with => "1241", match: :first
-      click_on "Cancel"
-      visit(Path.path)
-      current_path.should == Path.path
-      expect(page).to_not have_content("Nothing")
-      expect(page).to_not have_content("1241")
-      expect(page).to have_content("Final Dams Object")
-    end
-  end
-
-#  scenario "Cancel creating an object" do
-#    pending "Works in browser but fails in rspec" do
-#      sign_in_developer
-#      visit new_dams_object_path
-#      fill_in "MainTitle", :with => "Dams Test Object"
-#      fill_in "Date", :with => "NO DATE", match: :first
-#      click_on "Cancel"
-#      expect('/object').to eq(current_path)
-#      expect(page).to have_selector('a', :text => "Sample Audio Object: I need another green form")
-#      expect(page).to have_selector('a', :text => "Create Object")
-#    end
-#  end
+feature 'Visitor wants to look at pan/zoom image viewer' do
 
   scenario 'valid pan/zoom image viewer' do
+    pending "working object metadata updates"
     visit zoom_path 'bd3379993m', '0'
     expect(page).to have_selector('div#map')
     expect(page).not_to have_selector('header')
   end
   scenario 'invalide pan/zoom image viewer' do
+    pending "working object metadata updates"
     visit zoom_path 'bd3379993m', '9'
     expect(page).to have_selector('p', :text => "Error: unable to find zoomable image.")
   end
@@ -232,6 +154,7 @@ end
 feature 'Visitor wants to click the results link to go back to the search results' do
   
   scenario "is on the main page" do
+    pending "working object metadata updates"
     visit catalog_index_path( {:q => 'sample'} )
     expect(page).to have_selector('div.pagination-note', :text => "Results 1 - 8 of 8")
     expect(page).to have_selector('span.dams-filter', :text => "sample")    
@@ -244,9 +167,188 @@ feature 'Visitor wants to click the results link to go back to the search result
   end
 end
 
-def sign_in_developer
-  visit new_user_session_path
-  fill_in "name", :with => "name"
-  fill_in "email", :with => "email@email.com"
-  click_on "Sign In"
+feature 'Visitor wants to click the direct object link when the referrer is not a search' do
+  
+  scenario "is on the main page" do
+    pending "working object metadata updates"
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"   
+    expect(page).to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+
+    #visit another object view page
+    visit dams_object_path(:id => 'bd22194583')
+    expect(page).to have_selector('h1', :text => "Sample Simple Object")
+    expect(page).not_to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+  end
+end
+
+feature 'Visitor wants to click the object link and does not want to see the counter parameter in the url' do
+  
+  scenario "is on the main page" do
+    pending "working object metadata updates"
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"
+    URI.parse(current_url).request_uri.should == "/object/bd3379993m"
+  end
+end
+
+feature 'Format link(s) need to be scoped to the collection level ' do
+  
+  scenario "is on the object view page" do
+    pending "working object metadata updates"
+    visit dams_object_path(:id => 'bd3379993m')
+    expect(page).to have_link('image')
+
+    click_link "image"
+    expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Diss…")
+    expect(page).to have_selector('span.dams-filter a', :text => "image")
+    
+  end
+end
+
+describe "complex object view" do
+  before(:all) do
+    @damsComplexObj = DamsObject.create(pid: "xx97626129")
+  end
+  after(:all) do
+    @damsComplexObj.delete
+  end
+  it "should see the component hierarchy view" do
+    pending "working object metadata updates"
+    @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
+    @damsComplexObj.save!
+    solr_index (@damsComplexObj.pid)
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-1',:text => 'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-2',:text => 'Files')
+    
+    #click on grand child link
+    click_on 'Image 001'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Image 001')
+        
+    #return to the top level record
+    click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')         
+  end     
+end
+
+describe "complex object component view" do
+  before(:all) do
+    @damsComplexObj4 = DamsObject.create(pid: "xx080808xx")
+    @damsComplexObj4.damsMetadata.content = File.new('spec/fixtures/damsComplexObject4.rdf.xml').read
+    @damsComplexObj4.save!
+    solr_index (@damsComplexObj4.pid)
+  end
+  after(:all) do
+    @damsComplexObj4.delete
+    damsUnit = DamsUnit.find('xx080808uu')
+    damsUnit.delete
+  end
+  it "should not see the generic component title" do
+    visit dams_object_path(@damsComplexObj4.pid)
+    expect(page).not_to have_content "Generic Component Title"
+    expect(page).to have_content "Component 1 Title"
+    expect(page).to have_content "Component 2 Title"
+    expect(page).to have_content "Component 3 Title"
+    expect(page).to have_content "Component 4 Title"
+  end
+end
+
+describe "to look at a simple SIO object" do
+  before(:all) do
+    @damsSioObj = DamsObject.create(pid: "xx3243380c")
+  end
+  after(:all) do
+    @damsSioObj.delete
+  end
+  it "should not see the accession number in public view" do
+    pending "working object metadata updates"
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)   
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).not_to have_selector('span.dams-note-display-label:first',:text=>'Accession Number')                 
+  end
+  
+   it "should see the accession number in curator view" do
+    pending "working object metadata updates"
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)    
+    sign_in_developer       
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).to have_selector('span.dams-note-display-label',:text=>'Accession Number')
+   end     
+end
+
+describe "to visit object with internal class instances" do
+  before(:all) do
+    @damsObjXX = DamsObject.create(pid: "xx221945xx")
+    @damsObjXX.damsMetadata.content = File.new('spec/fixtures/damsObjectLoading.xml').read
+    @damsObjXX.save!
+    solr_index (@damsObjXX.pid)
+  end
+  after(:all) do
+    @damsObjXX.delete
+    delObj = DamsProvenanceCollection.find 'xx010101pr'
+    delObj.delete
+    delObj = DamsAssembledCollection.find 'xx010101pr'
+    delObj.delete
+    delObj = DamsRelatedResource.find 'xx010101re'
+    delObj.delete
+    delObj = MadsComplexSubject.find 'xx010101co'
+    delObj.delete
+    delObj = MadsComplexSubject.find 'xx0101coto'
+    delObj.delete
+    delObj = MadsComplexSubject.find 'xx0101cote'
+    delObj.delete
+    delObj = MadsTopic.find 'xx010101to'
+    delObj.delete
+    delObj = MadsPersonalName.find 'xx010101pe'
+    delObj.delete
+    delObj = MadsGeographic.find 'xx010101ge'
+    delObj.delete
+    delObj = MadsCorporateName.find 'xx010101co'
+    delObj.delete
+    delObj = MadsLanguage.find 'xx010101la'
+    delObj.delete
+    delObj = MadsLanguage.find 'xx010101pe'
+    delObj.delete
+    delObj = MadsLanguage.find 'xx010101no'
+    delObj.delete
+    delObj = MadsName.find 'xx010101na'
+    delObj.delete
+  end
+  it "should work with internal classes" do
+    sign_in_developer
+    visit dams_object_path(@damsObjXX.pid)
+    expect(page).to have_content('dams:ProvenanceCollection Internal')
+    expect(page).to have_content('dams:ProvenanceCollection External')
+    expect(page).to have_content('dams:Copyright copyrightNote Internal')
+    expect(page).to have_content('Otherrights note internal')
+    expect(page).to have_content('dams:Statute note Internal')
+    expect(page).to have_content('mads:PersonalName Internal - rightsHolderPersonal')
+    expect(page).to have_content('mads:PersonalName External - rightsHolderPersonal')
+    expect(page).to have_content('dams:Unit unitName Internal')
+    expect(page).to have_content('dams:RelatedResource description Internal')
+    #expect(page).to have_content('dams:RelatedResource description External')
+    expect(page).to have_content('dams:Note Internal')
+    expect(page).to have_content('dams:Note External')
+    expect(page).to have_content('29.67459,82.37873')
+    expect(page).to have_content('mads:Language Internal')
+    expect(page).to have_content('mads:Language External')
+    expect(page).to have_content('mads:Topic Internal')
+    expect(page).to have_content('mads:Topic External')
+    expect(page).to have_content('mads:ComplexSubject Topic Internal -- mads:ComplexSubject Temporal Internal')
+    expect(page).to have_content('mads:ComplexSubject Topic External -- mads:ComplexSubject Temporal External')
+    expect(page).to have_content('PersonalName Internal')
+    expect(page).to have_content('PersonalName External')
+    expect(page).to have_content('dams:Relationship PersonalName Internal')
+    expect(page).to have_content('mads:Name Internal')
+    expect(page).to have_content('mads:Name External')
+  end
 end

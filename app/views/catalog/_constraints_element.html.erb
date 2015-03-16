@@ -9,18 +9,18 @@
     options[:escape_value] = true unless options.has_key?(:escape_value)
 -%>
 
-<span class="dams-filter label" title="Remove filter">
+<span class="dams-filter label">
 
 	<%- unless label.blank? -%>
-		<% yoyo = options[:escape_label] ? h(label) : raw(label) %>
+		<% filter_link_text = options[:escape_label] ? h(label) : raw(label) %>
 	<%- end -%>
 
   <%- unless value.blank? -%>
-		<% yoyo = options[:escape_value] ? h(value) : raw(value) %>
+		<% filter_link_text = options[:escape_value] ? h(value) : raw(value) %>
 	<%- end -%>
 
 	<%- unless options[:remove].blank? -%>
-		<%= link_to(yoyo+' <i class="icon-white icon-remove"></i>'.html_safe, options[:remove], :class=>'') %>
+		<%= link_to( "#{filter_link_text.truncate(32,omission:'…')} <i class=\"icon-white icon-remove\"></i>".html_safe, options[:remove], :title=>'Remove filter: "'+filter_link_text+'"' ) %>
 	<%- end -%>
 
 </span>

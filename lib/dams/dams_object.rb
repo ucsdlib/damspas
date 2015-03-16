@@ -362,16 +362,16 @@ module Dams
 	
 	      # fulltext extraction for pdfs
 	      if file.mimeType.first.to_s == "application/pdf"
-	        if @parent_obj == nil
-	          @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
-	        end
 	        begin
+	          if @parent_obj == nil
+	            @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
+	          end
 	          fulltext = @parent_obj.datastreams[ "fulltext_#{file.id}" ]
 	          if fulltext != nil
 	            Solrizer.insert_field(solr_doc, "fulltext", fulltext.content)
 	          end
 	        rescue Exception => e
-	          puts "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
+	          logger.warn "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
 	        end
 	      end
 	
@@ -528,10 +528,10 @@ module Dams
 	      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
 	      insertLanguageFields solr_doc, "component_#{cid}_", component.language
 	
-	      insertNoteFields solr_doc, "component_#{cid}_note",component.note
-	      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote
-	      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote
-	      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote
+	      insertNoteFields solr_doc, "component_#{cid}_note",component.note, DamsNote
+	      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote, DamsCustodialResponsibilityNote
+	      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote, DamsPreferredCitationNote
+	      insertNoteFields solr_doc, "component_#{cid}_scopeContentNote",component.scopeContentNote, DamsScopeContentNote
 	
 	      insertComplexSubjectFields solr_doc, cid, load_complexSubjects(component.complexSubject)
 	      insertFields solr_doc, "component_#{cid}_builtWorkPlace", load_builtWorkPlaces(component.builtWorkPlace)
@@ -613,7 +613,8 @@ module Dams
 	          Solrizer.insert_field(solr_doc, "collections", collection.pid)
 	          col_json = {
 	            :id => collection.pid,
-	            :name => collection.titleValue
+	            :name => collection.titleValue,
+	            :visibility => collection.visibility.first
 	          }
 	
 	          if ( collection.to_s.include? 'DamsProvenanceCollectionInternal' )
@@ -649,13 +650,11 @@ module Dams
 	    rh = rh.concat(rightsHolderPersonal) unless rightsHolderPersonal.nil?
 	    rh = rh.concat(rightsHolderConference) unless rightsHolderConference.nil?
 	    rh = rh.concat(rightsHolderFamily) unless rightsHolderFamily.nil?
-	    insertRightsHolderFields solr_doc, "", rh
-	    
-	    cartographics.each do |cart|
-          # make sure we have some data to index
-          if cart.point.blank? && cart.line.blank? && cart.polygon.blank?
-            cart = DamsCartographics.find( cart.pid )
-          end
+	    rh = rh.concat(rightsHolderName) unless rightsHolderName.nil?
+        insertRightsHolderFields solr_doc, "", rh
+
+        carts = load_cartographics cartographics
+        carts.each do |cart|
 	      carto_json = {
 	        :point => cart.point,
 	        :line => cart.line,
@@ -666,9 +665,9 @@ module Dams
 	      Solrizer.insert_field(solr_doc, "cartographics_json", carto_json.to_json)
 	      Solrizer.insert_field(solr_doc, "all_fields", carto_json.to_json)
 	    end 
-	    Solrizer.insert_field(solr_doc, "resource_type", format_name(typeOfResource.first))
+	    Solrizer.insert_field(solr_doc, "resource_type", format_name(typeOfResource))
 	    Solrizer.insert_field(solr_doc, "all_fields", format_name(typeOfResource))
-	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource.first),@facetable)    
+	    Solrizer.insert_field(solr_doc, "object_type", format_name(typeOfResource),@facetable)    
 	
 	    #Solrizer.insert_field(solr_doc, "rdfxml", self.content, singleString)
 	

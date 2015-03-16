@@ -6,10 +6,10 @@ describe DamsProvenanceCollectionPartDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { DamsProvenanceCollectionPartDatastream.new(double('inner object', :pid=>'bb25252525', :new_record? => true), 'damsMetadata') }
+      subject { DamsProvenanceCollectionPartDatastream.new(double('inner object', :pid=>'xx25252525', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb25252525"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx25252525"
       end
       it "should have a title" do
         subject.titleValue = "May 2009"
@@ -27,21 +27,37 @@ describe DamsProvenanceCollectionPartDatastream do
         subject.resource_type = "text"
         subject.resource_type.should == ["text"]
       end
-#      it "should have a language" do
-#        subject.language.build.rdf_subject = "#{Rails.configuration.id_namespace}bd0410344f"
-#        subject.language.first.to_s.should == "#{Rails.configuration.id_namespace}bd0410344f"
-#      end
     end
 
     describe "an instance loaded from fixture xml" do
       subject do
-        subject = DamsProvenanceCollectionPartDatastream.new(double('inner object', :pid=>'bb25252525', :new_record? =>true), 'damsMetadata')
+        subject = DamsProvenanceCollectionPartDatastream.new(double('inner object', :pid=>'xx25252525', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsProvenanceCollectionPart.rdf.xml').read
         subject
       end
+      before(:all) do
+        @prov = DamsProvenanceCollection.create(pid: 'xx24242424', titleValue: 'Historical Dissertations')
+        @name = MadsPersonalName.create(pid: 'xx08080808', name: 'Artist, Alice, 1966-')
+        @role = MadsAuthority.create(pid: 'xx55639754', name: 'Creator')
+        @note1 = DamsNote.create(pid: 'xx52568274', value: 'Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.')
+        @note2 = DamsCustodialResponsibilityNote.create(pid: 'xx9113515d', value: 'Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.')
+        @note3 = DamsPreferredCitationNote.create(pid: 'xx3959888k', value: 'Linked preferred citation note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.')
+        @note4 = DamsScopeContentNote.create(pid: 'xx1366006j', value: 'Test Scope Content Note')
+        @lang = MadsAuthority.create(pid: 'xx0410344f', name: 'English', code: 'eng')
+      end
+      after(:all) do
+        @prov.delete
+        @name.delete
+        @role.delete
+        @note1.delete
+        @note2.delete
+        @note3.delete
+        @note4.delete
+        @lang.delete
+      end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb25252525"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx25252525"
       end
       it "should have a title" do
         subject.titleValue.should == "May 2009"
@@ -68,7 +84,7 @@ describe DamsProvenanceCollectionPartDatastream do
  	  it "should have notes" do
         solr_doc = subject.to_solr
         solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}bb80808080"
+        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}xx80808080"
         solr_doc["note_tesim"].should include "Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end
       
@@ -85,8 +101,8 @@ describe DamsProvenanceCollectionPartDatastream do
 		testIndexNoteFields solr_doc, "custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end  
       it "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "bb08080808"
-        subject.relationship.first.role.first.pid.should == "bd55639754"
+        subject.relationship.first.name.first.pid.should == "xx08080808"
+        subject.relationship.first.role.first.pid.should == "xx55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should include "Artist, Alice, 1966-"
       end       

@@ -3,7 +3,6 @@ class DamsStylePeriodsController < ApplicationController
   include Dams::ControllerHelper
   load_and_authorize_resource
   skip_load_and_authorize_resource :only => [:index, :show]
-  after_action 'audit("#{@dams_style_period.id}")', :only => [:create, :update]
 
   ##############################################################################
   # solr actions ###############################################################
@@ -23,51 +22,4 @@ class DamsStylePeriodsController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsStylePeriod"' )
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel")
   end
-
-  ##############################################################################
-  # hydra actions ##############################################################
-  ##############################################################################
-  def new
-    #Check schemes ####################################################################
-    @dams_style_period.scheme.build
-    @dams_style_period.elementList.stylePeriodElement.build
-  @mads_schemes = get_objects('MadsScheme','name_tesim')
-  end
-
-  def edit
-    @mads_schemes = get_objects('MadsScheme','name_tesim')
-    @scheme_id = Rails.configuration.id_namespace+@dams_style_period.scheme.to_s.gsub(/.*\//,'')[0..9]
-  end
-
-  def create
-    if @dams_style_period.save
-	    if(!params[:parent_id].nil?)
-			redirect_to dams_style_period_path(@dams_style_period, {:parent_id => params[:parent_id]})
-	    elsif(!params[:parent_class].nil?)
-			redirect_to dams_style_period_path(@dams_style_period, {:parent_class => params[:parent_class]}) 	    			 	    
-	    else    
-        	redirect_to @dams_style_period, notice: "style period has been saved"
-        end
-    else
-      flash[:alert] = "Unable to save style period"
-      render :new
-    end
-  end
-
-  def update
-    @dams_style_period.elementList.clear
-    @dams_style_period.scheme.clear  
-    @dams_style_period.attributes = params[:dams_style_period]
-    if @dams_style_period.save
-    if(!params[:parent_id].nil? && params[:parent_id].to_s != "")
-          redirect_to edit_dams_complex_subject_path(params[:parent_id]), notice: "Successfully updated style period"
-        else      
-          redirect_to @dams_style_period, notice: "Successfully updated style period"
-        end
-    else
-      flash[:alert] = "Unable to save style period"
-      render :edit
-    end
-  end
-
 end

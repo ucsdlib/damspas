@@ -1,6 +1,10 @@
 <p class="sidebar-header"><b>Collection Tools</b></p>
 <ul class="unstyled sidebar-button-list">
-  <li><%= link_to "<i class='icon-plus-sign'></i> View RDF document".html_safe, normalized_rdf_path(@document['id']), class: 'btn btn-link' %>
-  <li><%= link_to "<i class='icon-plus-sign'></i> View Data".html_safe, data_view_dams_collections_path(@document['id']), class: 'btn btn-link' %>
-  <li><%= link_to "<i class='icon-plus-sign'></i> Edit collection".html_safe, send(@edit,@document['id']), class: "btn btn-link"%>
+  <% links = { "rdf" => "RDF View", "rdf_nt" => "RDF N-Triples View", "rdf_ttl" => "RDF Turtle View", "data" => "Data View", "dams42" => "DAMS 4.2 Preview",
+               "ezid" => "Mint DOI" }
+    links.each { |key,label| %>
+  <li><%= link_to "<i class='icon-plus-sign'></i> #{label}".html_safe,
+      send("#{key}_dams_collection_path".to_sym, @document['id']),
+      class: "btn btn-block btn-small btn-link" %>
+  <% } %>
 </ul>

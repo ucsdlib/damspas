@@ -64,7 +64,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 			split = points[i].split(",");
 			points[i] = [ parseFloat(split[0]), parseFloat(split[1]) ];
 		}
-		var map = L.map('map-canvas',{scrollWheelZoom:false}).fitBounds(points);
+		var map = L.map('map-canvas',{scrollWheelZoom:false}).fitBounds(points).zoomOut(10);
 		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
 		L.polyline(points).addTo(map);
 	}
@@ -239,12 +239,17 @@ $(document).ready(function()
 		dp.cartographics.load();
 	}
 
-    // Hide content if "Restricted/Sensitive" present
-    if($(".masked-object").length)
+    // Hide content if "restricted notice" present
+    if($(".restricted-notice").length)
     {
-         $(".simple-object").hide();
+        $(".simple-object, .first-component, .dams-sidebar").hide();
     }
 
+    // Show hidden "restricted notice" objects
+    $("#view-masked-object").click(function() {        
+        $('.restricted-notice').hide();
+        $(".simple-object, .first-component, .dams-sidebar").show();
+    });
 
 	// handle derivatives generation callbacks
 	$('#generate_derivatives')

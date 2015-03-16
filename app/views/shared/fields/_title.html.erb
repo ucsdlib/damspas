@@ -3,6 +3,11 @@
 	 fieldData = @document["#{prefix}title_json_tesim"]
    title = nil
    subtitle = nil
+   partName = nil
+   partNumber = nil
+   translationVariant = nil
+   subtitleVal = nil
+   nonSortVal = nil
 %>
 
 <% if fieldData != nil %>
@@ -10,19 +15,34 @@
 	<hgroup>
 	<% fieldData.each do |datum| 
       result = JSON.parse(datum)
+      partName = result['partName'] || ""
+      partNumber = result['partNumber'] || ""
+      nonSortVal = result['nonSort'] || ""
+      subtitle = result['subtitle'] || ""
+      translationVariant = result['translationVariant'] || ""
+
+      subtitleVal = subtitle      
+      if !partName.blank?
+      	subtitleVal += (subtitleVal.blank? ? "" : ", ") + partName     	
+      	subtitleVal += " " + partNumber if !partNumber.blank?
+      end
+      
+      if !translationVariant.blank?    
+          subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
+      end
+      
       if !result['value'].blank?
-         title = result['value'] 
-         subtitle = result['subtitle'] if !result['subtitle'].blank?
+         title = (nonSortVal.blank? ? "":nonSortVal + " ") + result['value']
         break
       else
-        title = result['name']
-        subtitle = result['subtitle'] if !result['subtitle'].blank?
+        title = result['name'] || ""
       end
+      
     end
   %>
     
-	<% if title %><h1><%= title %></h1><% end %>
-	<% if subtitle %><h2><%= subtitle %></h2> <% end %>
+	<h1><%= title %></h1>
+    <h2><%= subtitleVal %></h2>
 	</hgroup>
 
 <% elsif defined?(componentIndex) %>

@@ -194,8 +194,8 @@ en:
       facets:
         title: 'Refine your search'
         sort:
-          count: 'Numerical Sort'
-          index: 'A-Z Sort'
+          count: 'Sort 1-9'
+          index: 'Sort A-Z'
         count: '%{number}'
         more: 'more »'
         selected:

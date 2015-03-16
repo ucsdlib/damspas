@@ -52,13 +52,13 @@ describe DamsSourceCaptureDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsSourceCaptureDatastream.new(double('inner object', :pid=>'bb49494949', :new_record? =>true), 'damsMetadata')
+        subject = DamsSourceCaptureDatastream.new(double('inner object', :pid=>'xz49494949', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsSourceCapture.rdf.xml').read
         subject
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb49494949"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xz49494949"
       end
 
  	  it "should have a scannerManufacturer" do

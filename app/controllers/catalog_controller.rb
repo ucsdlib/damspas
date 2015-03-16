@@ -40,6 +40,9 @@ class CatalogController < ApplicationController
           name = lookup_unit_name( f.gsub( /.*unit_code_tesim:/,"" ) )
           params[:f] = {} unless params[:f]
           params[:f][:unit_sim] = [name]
+        else
+          # passthrough for other params
+          solr_parameters[:fq] << f
         end
       end
     end
@@ -240,6 +243,18 @@ class CatalogController < ApplicationController
   end
       # get search results from the solr index
     def index
+      if params['q'] != nil
+        params['q'].gsub!('""','')
+        single_quote_count = params['q'].to_s.count('"') 
+        if(single_quote_count != nil && single_quote_count.odd?)
+          if(params['q'].to_s.end_with?('"'))
+            params['q'] = params['q'][0, params['q'].length - 1]
+      	  else
+      	   params['q'] << '"'
+      	 end
+        end
+      end
+
       if params['xf'] != nil
         params['f'] = JSON.parse params.delete('xf').gsub('=>', ':')
       end
@@ -285,6 +300,7 @@ class CatalogController < ApplicationController
       
       respond_to do |format|
         format.html { }
+        format.json { render json: @response }
         format.rss  { render :layout => false }
         format.atom { render :layout => false }
       end
@@ -345,6 +361,31 @@ class CatalogController < ApplicationController
     @obj = ActiveFedora::Base.find(params[:id], :cast=>true)
     xml = RSolr::Xml::Generator.new
     render xml: xml.add( @obj.to_solr )
+  end
+
+  # a solr query method
+  # used to paginate through a single facet field's values
+  # /catalog/facet/language_facet
+  def get_facet_pagination(facet_field, user_params=params || {}, extra_controller_params={})
+    
+    solr_params = solr_facet_params(facet_field, user_params, extra_controller_params)
+        
+    solr_params[:"facet.prefix"] = user_params['facet.prefix'] if (!user_params['facet.prefix'].nil? && user_params['facet.prefix'].to_s.length > 0)
+    
+    # Make the solr call
+    response =find(blacklight_config.qt, solr_params)
+
+    limit = solr_params[:"f.#{facet_field}.facet.limit"] -1
+      
+    # Actually create the paginator!
+    # NOTE: The sniffing of the proper sort from the solr response is not
+    # currently tested for, tricky to figure out how to test, since the
+    # default setup we test against doesn't use this feature. 
+    return     Blacklight::Solr::FacetPaginator.new(response.facets.first.items, 
+      :offset => solr_params[:"f.#{facet_field}.facet.offset"], 
+      :limit => limit,
+      :sort => response["responseHeader"]["params"][:"f.#{facet_field}.facet.sort"] || response["responseHeader"]["params"]["facet.sort"]
+    )
   end
 
 end 

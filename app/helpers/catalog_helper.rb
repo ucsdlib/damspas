@@ -66,6 +66,11 @@ module CatalogHelper
     '; '
   end
 
+  # Is facet value in adv facet search results?
+  def facet_checked?(field, value, params)
+    params.has_key?('f') && params['f'].has_key?(field) && params['f'][field].include?(value)
+  end
+
   def date_list( document )
     dateVal = ''
     dates = document['date_json_tesim']
@@ -107,6 +112,13 @@ module CatalogHelper
 
     image_tag( url, :alt => "", :class => 'dams-search-thumbnail') unless url.blank?
   end
+
+  def restricted_object_url()
+    url = "http://libraries.ucsd.edu/assets/dams/site/thumb-restricted.png"
+    
+    image_tag( url, :alt => "", :class => 'dams-search-thumbnail')
+  end
+    
   def document_icon( document )
     # generic default icon
     resultClass = 'thumb-simple'

@@ -1,0 +1,611 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd6212468x">
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote>
+        <dams:type>scope_and_content</dams:type>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <rdf:value>scope content note internal value</rdf:value>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>    
+    <dams:preferredCitationNote>
+      <dams:PreferredCitationNote>
+        <dams:type>citation</dams:type>
+        <dams:displayLabel>Citation</dams:displayLabel>
+        <rdf:value>citation note internal value</rdf:value>
+      </dams:PreferredCitationNote>   
+    </dams:preferredCitationNote> 
+    <dams:title>
+<mads:Title>
+  <mads:authoritativeLabel>Sample Object Record #8: Name/Note/Subject Sampler</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>Sample Object Record #8</mads:elementValue>
+    </mads:MainTitleElement>
+    <mads:SubTitleElement>
+      <mads:elementValue>Name/Note/Subject Sampler</mads:elementValue>
+    </mads:SubTitleElement>
+    <mads:PartNameElement>
+      <mads:elementValue>sample partname</mads:elementValue>
+    </mads:PartNameElement>
+    <mads:PartNumberElement>
+      <mads:elementValue>sample partnumber</mads:elementValue>
+    </mads:PartNumberElement>
+    <mads:NonSortElement>
+      <mads:elementValue>The</mads:elementValue>
+    </mads:NonSortElement>
+  </mads:elementList>
+    <mads:hasVariant>
+      <mads:Variant>
+        <mads:variantLabel>The Whale</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasVariant>
+    <mads:hasTranslationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Translation Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasTranslationVariant>          
+    <mads:hasAbbreviationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Abbreviation Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAbbreviationVariant>
+    <mads:hasAcronymVariant>
+      <mads:Variant>
+        <mads:variantLabel>Acronym Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAcronymVariant>   
+    <mads:hasExpansionVariant>
+      <mads:Variant>
+        <mads:variantLabel>Expansion Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasExpansionVariant>         
+</mads:Title>
+    </dams:title>
+    <dams:familyName>
+       <mads:FamilyName>
+        <mads:authoritativeLabel>Calder (Family : 1757-1959 : N.C.)....</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme>
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n2012026835"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Calder (Family :</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:DateNameElement>
+            <mads:elementValue>1757-1959 :</mads:elementValue>
+          </mads:DateNameElement>
+          <mads:TermsOfAddressNameElement>
+            <mads:elementValue>N.C.)</mads:elementValue>
+          </mads:TermsOfAddressNameElement>
+        </mads:elementList>
+      </mads:FamilyName>   
+    </dams:familyName>
+      
+   <dams:unit>
+      <dams:Unit>
+        <dams:unitName>Research Data Curation Program</dams:unitName>
+        <dams:code>rci</dams:code>
+        <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
+        <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
+        <dams:unitGroup>dams-rci</dams:unitGroup>
+      </dams:Unit>
+    </dams:unit>    
+    <dams:name>
+      <mads:Name>
+        <mads:authoritativeLabel>Generic Name Internal</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme>
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/n9999999999"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>Generic Name</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:Name>
+    </dams:name>
+    <dams:copyright>
+       <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+        <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.</dams:copyrightPurposeNote>
+        <dams:copyrightNote>This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by "fair use" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries.</dams:copyrightNote>
+        <dams:date>
+          <dams:Date>
+            <dams:beginDate>1993-12-31</dams:beginDate>
+          </dams:Date>
+        </dams:date>
+      </dams:Copyright>
+    </dams:copyright>    
+    
+    <dams:personalName>
+       <mads:PersonalName>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n90694888"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Burns, Jack O.....</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme>
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+      </mads:PersonalName>
+    </dams:personalName>
+    <dams:personalName>
+       <mads:PersonalName>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n90694888"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Burns</mads:elementValue>
+          </mads:FamilyNameElement>
+          <mads:GivenNameElement>
+            <mads:elementValue>Jack O.</mads:elementValue>
+          </mads:GivenNameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Burns, Jack O.....2</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme>
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+      </mads:PersonalName>
+    </dams:personalName>    
+    <dams:conferenceName>
+       <mads:ConferenceName>
+        <mads:authoritativeLabel>American Library Association. Annual Conference....</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme>
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n2009036967"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>American Library Association.</mads:elementValue>
+          </mads:NameElement>
+          <mads:NameElement>
+            <mads:elementValue>Annual Conference</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:ConferenceName>   
+    </dams:conferenceName>    
+    <dams:function>
+      <dams:Function>
+        <mads:authoritativeLabel>dams:Function value</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme>
+            <rdfs:label>Functions</rdfs:label>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/XXX02"/>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:FunctionElement>
+            <mads:elementValue>Sample Function</mads:elementValue>
+          </dams:FunctionElement>
+        </mads:elementList>
+      </dams:Function>    
+    </dams:function>
+    <dams:corporateName>
+      <mads:CorporateName>
+        <mads:authoritativeLabel>Lawrence Livermore Laboratory......</mads:authoritativeLabel>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme>
+            <rdfs:label>Library of Congress Name Authority File</rdfs:label>
+            <mads:code>naf</mads:code>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://lccn.loc.gov/n50000352"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>Lawrence Livermore Laboratory</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+      </mads:CorporateName>    
+    </dams:corporateName>
+    <dams:note>
+      <dams:Note>
+        <dams:type>abstract</dams:type>
+        <dams:displayLabel>Abstract</dams:displayLabel>
+        <rdf:value>Note internal value.</rdf:value>
+      </dams:Note>    
+    </dams:note>    
+    <dams:custodialResponsibilityNote>
+      <dams:CustodialResponsibilityNote>
+        <dams:type>custodial_history</dams:type>
+        <dams:displayLabel>Digital object made available by</dams:displayLabel>
+        <rdf:value>Mandeville Special Collections Library....Internal value</rdf:value>
+      </dams:CustodialResponsibilityNote> 
+    </dams:custodialResponsibilityNote>   
+
+    <dams:iconography>
+       <mads:Iconography>
+         <mads:authoritativeLabel>Madonna and Child</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:IconographyElement>
+             <mads:elementValue>Madonna and Child</mads:elementValue>
+           </mads:IconographyElement>
+         </mads:elementList>
+       </mads:Iconography>
+     </dams:iconography>   
+    <dams:topic>
+       <mads:Topic>
+         <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:TopicElement>
+             <mads:elementValue>Marine sediments</mads:elementValue>
+           </mads:TopicElement>
+         </mads:elementList>
+       </mads:Topic>
+     </dams:topic>   
+    <dams:scientificName>
+       <dams:ScientificName>
+         <mads:authoritativeLabel>Western lowland gorilla (Gorilla gorilla gorilla)</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:ScientificNameElement>
+             <mads:elementValue>Western lowland gorilla (Gorilla gorilla gorilla)</mads:elementValue>
+           </mads:ScientificNameElement>
+         </mads:elementList>
+       </dams:ScientificName>
+     </dams:scientificName>
+    <dams:technique>
+       <mads:Technique>
+         <mads:authoritativeLabel>Impasto</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:TechniqueElement>
+             <mads:elementValue>Impasto</mads:elementValue>
+           </mads:TechniqueElement>
+         </mads:elementList>
+       </mads:Technique>
+     </dams:technique>
+    <dams:occupation>
+       <mads:Occupation>
+         <mads:authoritativeLabel>Pharmacist</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:OccupationElement>
+             <mads:elementValue>Pharmacist</mads:elementValue>
+           </mads:OccupationElement>
+         </mads:elementList>
+       </mads:Occupation>
+     </dams:occupation>
+    <dams:builtWorkPlace>
+       <dams:BuiltWorkPlace>
+         <mads:authoritativeLabel>The Getty Center</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:BuiltWorkPlaceElement>
+             <mads:elementValue>The Getty Center</mads:elementValue>
+           </mads:BuiltWorkPlaceElement>
+         </mads:elementList>
+       </dams:BuiltWorkPlace>
+     </dams:builtWorkPlace>
+    <dams:geographic>
+       <mads:Geographic>
+         <mads:authoritativeLabel>Ness, Loch (Scotland)</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:GeographicElement>
+             <mads:elementValue>Ness, Loch (Scotland)</mads:elementValue>
+           </mads:GeographicElement>
+         </mads:elementList>
+       </mads:Geographic>
+     </dams:geographic>
+    <dams:temporal>
+       <mads:Temporal>
+         <mads:authoritativeLabel>16th century</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:TemporalElement>
+             <mads:elementValue>16th century</mads:elementValue>
+           </mads:TemporalElement>
+         </mads:elementList>
+       </mads:Temporal>
+     </dams:temporal>
+    <dams:culturalContext>
+       <dams:CulturalContext>
+         <mads:authoritativeLabel>Dutch</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:CulturalContextElement>
+             <mads:elementValue>Dutch</mads:elementValue>
+           </mads:CulturalContextElement>
+         </mads:elementList>
+       </dams:CulturalContext>
+     </dams:culturalContext>
+    <dams:stylePeriod>
+       <dams:StylePeriod>
+         <mads:authoritativeLabel>Impressionism</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:StylePeriodElement>
+             <mads:elementValue>Impressionism</mads:elementValue>
+           </mads:StylePeriodElement>
+         </mads:elementList>
+       </dams:StylePeriod>
+     </dams:stylePeriod>
+    <dams:genreForm>
+       <mads:GenreForm>
+         <mads:authoritativeLabel>Film and video adaptions</mads:authoritativeLabel>
+         <mads:elementList rdf:parseType="Collection">
+           <mads:GenreFormElement>
+             <mads:elementValue>Film and video adaptions</mads:elementValue>
+           </mads:GenreFormElement>
+         </mads:elementList>
+       </mads:GenreForm>
+     </dams:genreForm>
+     
+       <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme>
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+            <dams:corporateName>
+              <mads:CorporateName>
+                <mads:authoritativeLabel>Scripps Institute of Oceanography, Geological Collections</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:CorporateName>
+            </dams:corporateName>
+          </dams:Relationship>
+        </dams:relationship>     
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:personalName>
+              <mads:PersonalName>
+                <mads:authoritativeLabel>Yañez, Angélica María</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:GivenNameElement>
+                    <mads:elementValue>Angélica María</mads:elementValue>
+                  </mads:GivenNameElement>
+                  <mads:FamilyNameElement>
+                    <mads:elementValue>Yañez</mads:elementValue>
+                  </mads:FamilyNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+            <dams:role>
+              <mads:Authority>
+                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/cre"/>
+                <mads:code>cre</mads:code>
+                <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+          </dams:Relationship>
+        </dams:relationship>    
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme>
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+           <dams:personalName>
+              <mads:PersonalName>
+                <mads:authoritativeLabel>Personal Name 2</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+          </dams:Relationship>
+        </dams:relationship>
+
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+<mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme>
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+           <dams:name>
+              <mads:Name>
+                <mads:authoritativeLabel>Name 4</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Scripps Institute of Oceanography, Geological Collections</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:Name>
+            </dams:name>
+          </dams:Relationship>
+        </dams:relationship>
+
+       <dams:relationship>
+         <dams:Relationship>
+           <dams:role>
+             <mads:Authority>
+               <mads:isMemberOfMADSScheme>
+                 <mads:MADSScheme>
+                   <rdfs:label>MARC Relator Codes</rdfs:label>
+                   <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+                 </mads:MADSScheme>
+               </mads:isMemberOfMADSScheme>
+               <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+               <mads:code>rps</mads:code>
+               <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+             </mads:Authority>
+           </dams:role>
+           <dams:conferenceName>
+             <mads:ConferenceName>
+               <mads:authoritativeLabel>Conference Name 2</mads:authoritativeLabel>
+               <mads:elementList rdf:parseType="Collection">
+                 <mads:NameElement>
+                   <mads:elementValue>Conference Name 2</mads:elementValue>
+                 </mads:NameElement>
+               </mads:elementList>
+             </mads:ConferenceName>
+           </dams:conferenceName>
+         </dams:Relationship>
+       </dams:relationship>
+       <dams:relationship>
+          <dams:Relationship>
+            <dams:role>
+              <mads:Authority>
+                <mads:isMemberOfMADSScheme>
+                  <mads:MADSScheme>
+                    <rdfs:label>MARC Relator Codes</rdfs:label>
+                    <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+                  </mads:MADSScheme>
+                </mads:isMemberOfMADSScheme>
+                <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+                <mads:code>rps</mads:code>
+                <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+            </dams:role>
+           <dams:familyName>
+              <mads:FamilyName>
+                <mads:authoritativeLabel>Family Name 2</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:NameElement>
+                    <mads:elementValue>Family Name 2</mads:elementValue>
+                  </mads:NameElement>
+                </mads:elementList>
+              </mads:FamilyName>
+            </dams:familyName>
+          </dams:Relationship>
+        </dams:relationship>
+    <dams:rightsHolderPersonal>
+      <mads:PersonalName>
+        <mads:authoritativeLabel xml:lang="en">Administrator, Bob, 1977- internal</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>Administrator, Bob,</mads:elementValue>
+          </mads:FullNameElement>
+          <mads:DateNameElement>
+            <mads:elementValue xml:lang="en">1977-</mads:elementValue>
+          </mads:DateNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:rightsHolderPersonal>  
+    <dams:rightsHolderCorporate>
+      <mads:CorporateName>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:NameElement>
+            <mads:elementValue>UC Regents</mads:elementValue>
+          </mads:NameElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>UC Regents</mads:authoritativeLabel>
+      </mads:CorporateName>
+    </dams:rightsHolderCorporate>     
+	<dams:license>
+	  <dams:License>
+	    <dams:licenseNote>License note text here...</dams:licenseNote>
+	    <dams:licenseURI rdf:resource="http://library.ucsd.edu/licenses/lic12341.pdf"/>
+	    <dams:permission>
+	      <dams:Permission>
+	        <dams:type>display</dams:type>
+	        <dams:beginDate>2010-01-01</dams:beginDate>
+	      </dams:Permission>
+	    </dams:permission>
+	  </dams:License>
+	</dams:license>    
+	<dams:otherRights>
+		<dams:OtherRights>
+	    <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
+	    <dams:otherRightsURI rdf:resource="http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"/>
+	    <dams:relationship>
+	      <dams:Relationship>
+	        <dams:role>
+	        <mads:Authority>
+              <mads:isMemberOfMADSScheme>
+              <mads:MADSScheme>
+              <rdfs:label>MARC Relator Codes</rdfs:label>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators"/>
+              </mads:MADSScheme>
+              </mads:isMemberOfMADSScheme>
+              <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/relators/rps"/>
+              <mads:code>rps</mads:code>
+              <mads:authoritativeLabel>Repository</mads:authoritativeLabel>
+              </mads:Authority>
+	        </dams:role>
+	        <dams:personalName>
+              <mads:PersonalName>
+                <mads:authoritativeLabel>Administrator, Bob, 1977-</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:FullNameElement>
+                    <mads:elementValue>Administrator, Bob, 1977-</mads:elementValue>
+                  </mads:FullNameElement>
+                </mads:elementList>
+              </mads:PersonalName>
+            </dams:personalName>
+	      </dams:Relationship>
+	    </dams:relationship>
+	    <dams:permission>
+	      <dams:Permission>
+	        <dams:type>display</dams:type>
+	        <dams:beginDate>2011-09-24</dams:beginDate>
+	      </dams:Permission>
+	    </dams:permission>
+	  </dams:OtherRights>	
+	</dams:otherRights>  	
+	<dams:cartographics>
+	  <dams:Cartographics>
+	    <dams:scale>1:20000</dams:scale>
+	    <dams:projection>equirectangular</dams:projection>
+	    <dams:referenceSystem>WGS84</dams:referenceSystem>
+	    <dams:point>29.67459,-82.37873</dams:point>
+	  </dams:Cartographics>  
+    </dams:cartographics>    
+  </dams:Object>
+</rdf:RDF>

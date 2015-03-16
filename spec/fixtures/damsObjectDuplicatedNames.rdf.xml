@@ -1,0 +1,111 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd08080808">
+    <dams:unit>
+      <dams:Unit>
+        <dams:unitURI>http://example.com/</dams:unitURI>
+        <dams:code>exam</dams:code>
+        <dams:unitGroup>exgrp</dams:unitGroup>
+        <dams:unitName>Sample Group</dams:unitName>
+        <dams:unitDescription>Sample group description</dams:unitDescription>
+      </dams:Unit>
+    </dams:unit>
+    <dams:copyright>
+      <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/xx1639537b">
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>
+    <dams:typeOfResource>mixed material</dams:typeOfResource>
+
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xx78854103">
+            <mads:authoritativeLabel>ZZZ Name, Duplicated</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>ZZZ Name, Duplicated</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority rdf:about="http://library.ucsd.edu/ark:/20775/xx6486002k">
+            <mads:code>cre</mads:code>
+            <mads:authoritativeLabel>Creator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/xx78854104">
+            <mads:authoritativeLabel>ZZZ Name, Singleton</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>ZZZ Name, Singleton</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/xx6486002k"/>
+      </dams:Relationship>
+    </dams:relationship>
+
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Record With Duplicated Names</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Record With Duplicated Names</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd08080808/1">
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Component 1</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Component 1</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/xx78854103"/>
+            <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/xx6486002k"/>
+          </dams:Relationship>
+        </dams:relationship>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd08080808/2">
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Component 2</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Component 2</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:relationship>
+          <dams:Relationship>
+            <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/xx78854103"/>
+            <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/xx6486002k"/>
+          </dams:Relationship>
+        </dams:relationship>
+      </dams:Component>
+    </dams:hasComponent>
+  </dams:Object>
+</rdf:RDF>

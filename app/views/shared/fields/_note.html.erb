@@ -26,7 +26,7 @@
   else
     data = @document["otherNote_json_tesim"]
   end
-
+ 
   if data != nil
     data.each do |n|
       note = JSON.parse(n)
@@ -48,7 +48,7 @@
       end
     end
   end
-
+  
   #group notes by displaylabel/type
   notes = notes.group_by {|word| word[0] }
   #notes is now a hash where key => {key => value}
@@ -73,7 +73,11 @@
         <% if type == 'identifier' && !note['displayLabel'].blank? %>
           <span class='dams-note-display-label'><%= note['displayLabel'].titleize %></span>: 
         <% end %>
-        <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+        <% if note['displayLabel'] == 'event id' %>
+          <%= link_to note['value'], catalog_index_path({'f[event_ssi][]' => note['value']}) %>
+        <% else %>
+          <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+        <% end %>
       </p>
       <%
       end
