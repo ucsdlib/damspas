@@ -352,3 +352,26 @@ describe "to visit object with internal class instances" do
     expect(page).to have_content('mads:Name External')
   end
 end
+
+describe "Object with internal-only notes" do
+  before(:all) do
+    notes = [{value: 'public note'}, {value: 'internal note', internalOnly: true}]
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @obj = DamsObject.create unitURI: @unit.pid, titleValue: "Note Test Object", copyright_attributes: [{status: 'Public domain'}], note_attributes: notes
+    solr_index @obj.pid
+  end
+  after(:all) do
+    @obj.delete
+  end
+  it "should show only public notes to anonymous users" do
+    visit dams_object_path @obj
+    expect(page).to have_content('public note')
+    expect(page).not_to have_content('internal note')
+  end
+  it "should show internal-only notes to a curator" do
+    sign_in_developer
+    visit dams_object_path @obj
+    expect(page).to have_content('public note')
+    expect(page).to have_content('internal note')
+  end
+end

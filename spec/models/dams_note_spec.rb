@@ -9,6 +9,7 @@ describe DamsNote do
     subject.value = "#{Rails.configuration.id_namespace}bb80808080"
     subject.type = "identifier"
     subject.displayLabel =  "ARK ID"
+    subject.internalOnly =  "true"
     xml =<<END
 <rdf:RDF
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -16,6 +17,7 @@ describe DamsNote do
   <dams:Note rdf:about="#{Rails.configuration.id_namespace}zzXXXXXXX1">
     <dams:displayLabel>ARK ID</dams:displayLabel>
     <dams:type>identifier</dams:type>    
+    <dams:internalOnly>true</dams:internalOnly>    
     <rdf:value>#{Rails.configuration.id_namespace}bb80808080</rdf:value>
  </dams:Note>
 </rdf:RDF>

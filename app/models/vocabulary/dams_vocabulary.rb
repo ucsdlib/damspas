@@ -170,4 +170,5 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :FooBar
   property :FooBarElement
   property :fooBarElement
+  property :internalOnly
 end
