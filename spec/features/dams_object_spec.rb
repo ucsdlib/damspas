@@ -361,8 +361,7 @@ describe "Object with internal-only notes" do
     solr_index @obj.pid
   end
   after(:all) do
-    #@obj.delete
-    puts "obj: #{@obj.pid}"
+    @obj.delete
   end
   it "should show only public notes to anonymous users" do
     visit dams_object_path @obj
