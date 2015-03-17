@@ -291,7 +291,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       note_json.merge!( :type => note_obj.type.first.to_s,
                        :value => note_obj.value.first.to_s,
-                :displayLabel => note_obj.displayLabel.first.to_s )
+                :displayLabel => note_obj.displayLabel.first.to_s,
+                :internalOnly => note_obj.internalOnly.first.to_s )
       Solrizer.insert_field(solr_doc, "#{fieldName}_json", note_json.to_json )
 
       # retrieval

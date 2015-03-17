@@ -23,6 +23,10 @@ describe DamsNoteDatastream do
         subject.displayLabel = "ARK ID"
         subject.displayLabel.should == ["ARK ID"]
       end               
+      it "should have internalOnly" do
+        subject.internalOnly = "true"
+        subject.internalOnly.should == ["true"]
+      end               
     end
 
     describe "an instance with content" do
@@ -43,6 +47,9 @@ describe DamsNoteDatastream do
       it "should have a displayLabel" do
         subject.displayLabel.should == ["ARK ID"]
       end
+      it "should have a internalOnly" do
+        subject.internalOnly.should == ["true"]
+      end
            
          
       it "should have a fields from solr doc" do
@@ -50,6 +57,7 @@ describe DamsNoteDatastream do
         solr_doc["note_value_tesim"].should == ["#{Rails.configuration.id_namespace}bb80808080"]
         solr_doc["note_type_tesim"].should == ["identifier"]
         solr_doc["note_displayLabel_tesim"].should == ["ARK ID"]
+        solr_doc["note_internalOnly_tesim"].should == ["true"]
       end    
     end
   end

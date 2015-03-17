@@ -7,6 +7,7 @@ class DamsCustodialResponsibilityNoteInternal
       map.value(:in=> RDF)
       map.displayLabel(:in=>DAMS)
       map.type(:in=>DAMS)
+      map.internalOnly(:in=>DAMS)
     end
   rdf_subject { |ds|
     if ds.pid.nil?
