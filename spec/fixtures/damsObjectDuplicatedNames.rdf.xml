@@ -58,11 +58,14 @@
 
     <dams:title>
       <mads:Title>
-        <mads:authoritativeLabel>Record With Duplicated Names</mads:authoritativeLabel>
+        <mads:authoritativeLabel>The Record With Duplicated Names</mads:authoritativeLabel>
         <mads:elementList rdf:parseType="Collection">
           <mads:MainTitleElement>
             <mads:elementValue>Record With Duplicated Names</mads:elementValue>
           </mads:MainTitleElement>
+          <mads:NonSortElement>
+            <mads:elementValue>The</mads:elementValue>
+          </mads:NonSortElement>
         </mads:elementList>
       </mads:Title>
     </dams:title>
