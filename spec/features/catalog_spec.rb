@@ -135,22 +135,24 @@ end
 
 feature "Search and browse linked names and subjects" do
   before(:all) do
-    @damsObj = DamsObject.create(pid: 'bd08080808')
-    @damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectDuplicatedNames.rdf.xml').read
-    @damsObj.save!
-    solr_index @damsObj.pid
+    ns = Rails.configuration.id_namespace
+    @role = MadsAuthority.create name: 'Creator', code: 'cre'
+    @name1 = MadsName.create name: 'ZZZ Name, Duplicated'
+    @name2 = MadsName.create name: 'ZZZ Name, Singleton'
+    @obj = DamsObject.create( titleValue: 'Record With Duplicated Names',
+      relationship_attributes: [
+        {name: [RDF::URI.new("#{ns}#{@name1.pid}")], role: [RDF::URI.new("#{ns}#{@role.pid}")]},
+        {name: [RDF::URI.new("#{ns}#{@name2.pid}")], role: [RDF::URI.new("#{ns}#{@role.pid}")]},
+        {name: [RDF::URI.new("#{ns}#{@name1.pid}")], role: [RDF::URI.new("#{ns}#{@role.pid}")]}  ])
+    solr_index @obj.pid
   end
   after(:all) do
-    @damsObj.delete
-    @copy = DamsCopyright.find('xx1639537b')
-    @copy.delete
-    @name = MadsPersonalName.find('xx78854103')
-    @name.delete
-    @role = MadsAuthority.find('xx6486002k')
+    @obj.delete
+    @name1.delete
+    @name2.delete
     @role.delete
   end
   scenario "Record with duplicate name entries" do
-    pending "working object metadata updating"
     sign_in_developer
     # Create a sample object with subtitle and variant titles
 
@@ -161,7 +163,6 @@ feature "Search and browse linked names and subjects" do
     expect(page).not_to have_content('ZZZ Name, Duplicatd; ZZZ Name, Duplicated')
   end
   scenario 'Browse by name' do
-    pending "working object metadata updating"
     sign_in_developer
     visit catalog_facet_path("creator_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
     expect(page).to have_content('ZZZ Name, Duplicated')

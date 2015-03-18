@@ -3,9 +3,9 @@ require 'active_support/concern'
 module Dams
   module AssembledCollection
    extend ActiveSupport::Concern
-    include ModelHelper
     
   included do
+    include ModelHelper
     rdf_type DAMS.AssembledCollection
     rdf_subject { |ds|
       if ds.pid.nil?

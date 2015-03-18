@@ -106,7 +106,6 @@ feature 'Visitor want to look at objects' do
       @temp = MadsTemporal.create( name: 'Test Temporal' )
       @topic = MadsTopic.create( name: 'Test Topic' )
 
-      @copy = DamsCopyright.create( status: 'Public domain' )
       @lic = DamsLicense.create( note: 'Creative Commons Attribution 4.0',
                  uri: 'https://creativecommons.org/licenses/by/4.0/' )
       @other = DamsOtherRight.create( note: 'Test Other Rights' )
@@ -141,7 +140,7 @@ feature 'Visitor want to look at objects' do
            personalName_attributes: [{ id: RDF::URI.new("#{ns}#{@pers.pid}") }],
            temporal_attributes: [{ id: RDF::URI.new("#{ns}#{@temp.pid}") }],
            topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic.pid}") }],
-           copyright_attributes: [{ id: RDF::URI.new("#{ns}#{@copy.pid}") }],
+           copyright_attributes: [{status: 'Public domain'}],
            license_attributes: [{ id: RDF::URI.new("#{ns}#{@lic.pid}") }],
            otherRights_attributes: [{ id: RDF::URI.new("#{ns}#{@other.pid}") }],
            statute_attributes: [{ id: RDF::URI.new("#{ns}#{@stat.pid}") }]    )
@@ -178,7 +177,6 @@ feature 'Visitor want to look at objects' do
       @pers.delete
       @temp.delete
       @topic.delete
-      @copy.delete
       @lic.delete
       @other.delete
       @stat.delete
@@ -221,8 +219,6 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
 
-      expect(page).to have_selector('p', text: 'Public domain')
-
     end
     it "should display curator-only linked metadata" do
 
@@ -241,17 +237,16 @@ feature 'Visitor want to look at objects' do
                   visibility: 'public' )
       @part = DamsProvenanceCollectionPart.create( titleValue: 'Test Provenance Part Collection',
                   visibility: 'public' )
-      @copy = DamsCopyright.create( status: 'Public domain' )
-      @o = DamsObject.create( titleValue: 'Internal Metadata Test',
+      @o = DamsObject.create( titleValue: 'Internal Metadata Test', typeOfResource: 'image',
         assembledCollectionURI: [ @acol.pid ],
         provenanceCollectionURI: [ @pcol.pid ],
         provenanceCollectionPartURI: [ @part.pid ],
-        copyrightURI: [ @copy.pid ],
+        copyright_attributes: [{status: 'Public domain'}],
         cartographics_attributes: [{ point: 'Test Point', line: 'Test Line',
             polygon: 'Test Polygon' }],
         unit_attributes: [{ name: 'Test Unit', description: 'Test Description', code: 'tu',
             group: 'dams-curator', uri: 'http://example.com/' }],
-        note_attributes: [{ value: 'Test Note' }],
+        note_attributes: [{ value: 'Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
         custodialResponsibilityNote_attributes: [{ value: 'Test Custodial Responsibility Note' }],
         preferredCitationNote_attributes: [{ value: 'Test Preferred Citation Note' }],
         scopeContentNote_attributes: [{ value: 'Test Scope Content Note' }],
@@ -285,7 +280,6 @@ feature 'Visitor want to look at objects' do
       @acol.delete
       @pcol.delete
       @part.delete
-      @copy.delete
     end
     it "should display linked metadata" do
 
@@ -325,8 +319,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
 
-      expect(page).to have_selector('p', text: 'Public domain')
-
+      expect(page).to_not have_selector('p', text: '85-8')
     end
     it "should display curator-only internal metadata" do
 
@@ -334,6 +327,16 @@ feature 'Visitor want to look at objects' do
       visit dams_object_path @o
       expect(page).to have_selector('p', text: 'Creative Commons Attribution 4.0')
       expect(page).to have_selector('p', text: 'Test Statute')
+      expect(page).to have_selector('p', text: '85-8')
+    end
+    it "should have a collection-scoped format link" do
+      sign_in_developer
+      visit dams_object_path @o
+      expect(page).to have_link('image')
+
+      click_link "image"
+      expect(page).to have_selector('span.dams-filter a', :text => "Collection")
+      expect(page).to have_selector('span.dams-filter a', :text => "image")
     end
   end
 
@@ -352,129 +355,114 @@ feature 'Visitor want to look at objects' do
     end
   end
 
+  describe "viewing files" do
+    before(:all) do
+      @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
+      @o = DamsObject.create( titleValue: 'Image File Test', copyright_attributes: [ {status: 'Public domain'} ],
+                  assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
+      jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
+      @o.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
+      @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2.html", "test.html" )
+      @o.save
+      solr_index @col.pid
+      solr_index @o.pid
+    end
+    after(:all) do
+      @o.delete
+      @col.delete
+    end
+    it 'should show a data file' do
+      sign_in_developer
+      visit file_path( @o.pid, '_1.jpg' )
+      response = page.driver.response
+      expect(response.status).to eq( 200 )
+      expect(response.header["Content-Type"]).to eq( "image/jpeg" )
+    end
+    it 'should show a sample public html content file' do
+      sign_in_developer
+      visit file_path( @o.pid, '_2.html' )
+      response = page.driver.response
+      expect(response.status).to eq( 200 )
+      expect(response.header["Content-Type"]).to have_content( "text/html" )
+      expect(page).to have_link('test link', href: '/test')
+    end
+    it 'should show a pan/zoom viewer' do
+      sign_in_developer
+      visit zoom_path @o.pid, '0'
+      expect(page).to have_selector('div#map')
+      expect(page).not_to have_selector('header')
+    end
+    it 'should not show a pan/zoom viewer for non-existing files' do
+      sign_in_developer
+      visit zoom_path @o.pid, '9'
+      expect(page).to have_selector('p', :text => "Error: unable to find zoomable image.")
+    end
+  end
+
+  describe "results pager and counter parameter" do
+    before(:all) do
+      @o1 = DamsObject.create( titleValue: 'Zyp4H8YRJzfXhq7q4Ps One', copyright_attributes: [{status: 'Public domain'}] )
+      @o2 = DamsObject.create( titleValue: 'Zyp4H8YRJzfXhq7q4Ps Two', copyright_attributes: [{status: 'Public domain'}] )
+      solr_index @o1.pid
+      solr_index @o2.pid
+    end
+    after(:all) do
+      @o1.delete
+      @o2.delete
+    end
+    it 'should show results pager when clicking on search results' do
+      # perform search
+      visit catalog_index_path( { q: 'Zyp4H8YRJzfXhq7q4Ps', sort: 'title_ssi asc' } )
+      expect(page).to have_selector('div.pagination-note', :text => "Results 1 - 2 of 2")
+      expect(page).to have_selector('span.dams-filter', :text => "Zyp4H8YRJzfXhq7q4Ps")
+
+      # click search result link, should see pager, no counter
+      click_link "Zyp4H8YRJzfXhq7q4Ps One"
+      expect(page).to have_selector('div.search-results-pager', :text => "1 of 2 results Next")
+      URI.parse(current_url).request_uri.should == "/object/#{@o1.pid}"
+
+      # view another object through direct link, should not have pager
+      visit dams_object_path @o2
+      expect(page).to have_selector('h1', :text => "Zyp4H8YRJzfXhq7q4Ps Two")
+      expect(page).not_to have_selector('div.search-results-pager', :text => "1 of 2 results Next")
+    end
+  end
+
+end
+
 ####################################################################################################
 
-  scenario 'view a sample data file' do
-    pending "working object metadata updates"
-    sign_in_developer
-    visit file_path('bd0922518w','_5_5.jpg')
-    response = page.driver.response
-    expect(response.status).to eq( 200 )
-    expect(response.header["Content-Type"]).to eq( "image/jpeg" )
-  end
-  
-  scenario 'view a sample public html content file' do
-    pending "working object metadata updates"
-    visit file_path('bb01010101','_2_2.html')
-    response = page.driver.response
-    expect(response.status).to eq( 200 )
-    expect(response.header["Content-Type"]).to have_content( "text/html" )
-    expect(page).to have_link('MP3 Audio File', href: '/ark:/20775/bb07178662/1-2.mp3&name=ghio_sdhsoh.mp3')
-  end
-
-
-end
-
-
-feature 'Visitor wants to look at pan/zoom image viewer' do
-
-  scenario 'valid pan/zoom image viewer' do
-    pending "working object metadata updates"
-    visit zoom_path 'bd3379993m', '0'
-    expect(page).to have_selector('div#map')
-    expect(page).not_to have_selector('header')
-  end
-  scenario 'invalide pan/zoom image viewer' do
-    pending "working object metadata updates"
-    visit zoom_path 'bd3379993m', '9'
-    expect(page).to have_selector('p', :text => "Error: unable to find zoomable image.")
-  end
-
-end
-
-feature 'Visitor wants to click the results link to go back to the search results' do
-  
-  scenario "is on the main page" do
-    pending "working object metadata updates"
-    visit catalog_index_path( {:q => 'sample'} )
-    expect(page).to have_selector('div.pagination-note', :text => "Results 1 - 8 of 8")
-    expect(page).to have_selector('span.dams-filter', :text => "sample")    
-    click_link "Sample Image Component"
-    
-    expect(page).to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
-
-    expect(page).to have_link('results', href:"http://www.example.com/search?q=sample")
-    
-  end
-end
-
-feature 'Visitor wants to click the direct object link when the referrer is not a search' do
-  
-  scenario "is on the main page" do
-    pending "working object metadata updates"
-    visit catalog_index_path( {:q => 'sample'} )
-    click_link "Sample Image Component"   
-    expect(page).to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
-
-    #visit another object view page
-    visit dams_object_path(:id => 'bd22194583')
-    expect(page).to have_selector('h1', :text => "Sample Simple Object")
-    expect(page).not_to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
-  end
-end
-
-feature 'Visitor wants to click the object link and does not want to see the counter parameter in the url' do
-  
-  scenario "is on the main page" do
-    pending "working object metadata updates"
-    visit catalog_index_path( {:q => 'sample'} )
-    click_link "Sample Image Component"
-    URI.parse(current_url).request_uri.should == "/object/bd3379993m"
-  end
-end
-
-feature 'Format link(s) need to be scoped to the collection level ' do
-  
-  scenario "is on the object view page" do
-    pending "working object metadata updates"
-    visit dams_object_path(:id => 'bd3379993m')
-    expect(page).to have_link('image')
-
-    click_link "image"
-    expect(page).to have_selector('span.dams-filter a', :text => "UCSD Electronic Theses and Diss…")
-    expect(page).to have_selector('span.dams-filter a', :text => "image")
-    
-  end
-end
 
 describe "complex object view" do
   before(:all) do
+    @unit = DamsUnit.create( pid: 'xx48484848', name: 'Test Unit', description: 'Test Description',
+            code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
     @damsComplexObj = DamsObject.create(pid: "xx97626129")
-  end
-  after(:all) do
-    @damsComplexObj.delete
-  end
-  it "should see the component hierarchy view" do
-    pending "working object metadata updates"
     @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
     @damsComplexObj.save!
     solr_index (@damsComplexObj.pid)
+  end
+  after(:all) do
+    @damsComplexObj.delete
+    @unit.delete
+  end
+  it "should see the component hierarchy view" do
     visit dams_object_path(@damsComplexObj.pid)
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
     expect(page).to have_selector('button#node-btn-1',:text => 'Interval 1 (dredge, rock)')
     expect(page).to have_selector('button#node-btn-2',:text => 'Files')
-    
+
     #click on grand child link
     click_on 'Image 001'
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Image 001')
-        
+
     #return to the top level record
     click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
-    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')         
-  end     
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
+  end
 end
 
 describe "complex object component view" do
@@ -497,31 +485,4 @@ describe "complex object component view" do
     expect(page).to have_content "Component 3 Title"
     expect(page).to have_content "Component 4 Title"
   end
-end
-
-describe "to look at a simple SIO object" do
-  before(:all) do
-    @damsSioObj = DamsObject.create(pid: "xx3243380c")
-  end
-  after(:all) do
-    @damsSioObj.delete
-  end
-  it "should not see the accession number in public view" do
-    pending "working object metadata updates"
-    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
-    @damsSioObj.save!
-    solr_index (@damsSioObj.pid)   
-    visit dams_object_path(@damsSioObj.pid)
-    expect(page).not_to have_selector('span.dams-note-display-label:first',:text=>'Accession Number')                 
-  end
-  
-   it "should see the accession number in curator view" do
-    pending "working object metadata updates"
-    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
-    @damsSioObj.save!
-    solr_index (@damsSioObj.pid)    
-    sign_in_developer       
-    visit dams_object_path(@damsSioObj.pid)
-    expect(page).to have_selector('span.dams-note-display-label',:text=>'Accession Number')
-   end     
 end

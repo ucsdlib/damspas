@@ -73,7 +73,6 @@ describe DamsEventDatastream do
         subject.relationship.first.role.first.pid.should == "bd55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
-        pending
         solr_doc["role_tesim"].should == ["Creator"]
         solr_doc["role_code_tesim"].should == ["cre"]
       end
