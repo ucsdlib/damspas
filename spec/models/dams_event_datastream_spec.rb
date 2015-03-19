@@ -6,10 +6,10 @@ describe DamsEventDatastream do
 
     describe "instance populated in-memory" do
 
-      subject { DamsEventDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new_record? => true), 'damsMetadata') }
+      subject { DamsEventDatastream.new(double('inner object', :pid=>'xxXXXXXX24', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xxXXXXXX24"
       end
 
       it "should have a type" do
@@ -32,13 +32,13 @@ describe DamsEventDatastream do
     describe "an instance loaded from fixture xml" do
 
       subject do
-        subject = DamsEventDatastream.new(double('inner object', :pid=>'bb28282828', :new_record? =>true), 'damsMetadata')
+        subject = DamsEventDatastream.new(double('inner object', :pid=>'xx28282828', :new_record? =>true), 'damsMetadata')
         subject.content = File.new('spec/fixtures/damsEvent.rdf.xml').read
         subject
       end
       before(:all) do
         @name = MadsPersonalName.create pid: 'xx08080808', name: 'Artist, Alice, 1966-'
-        @role = MadsAuthority.create pid: 'bd55639754', name: 'Creator', code: 'cre'
+        @role = MadsAuthority.create pid: 'xx55639754', name: 'Creator', code: 'cre'
       end
       after(:all) do
         @name.delete
@@ -46,7 +46,7 @@ describe DamsEventDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb28282828"
+        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx28282828"
       end
 
       it "should have a type" do
@@ -70,7 +70,7 @@ describe DamsEventDatastream do
       
       it "should have relationship" do
         subject.relationship.first.personalName.first.pid.should == "xx08080808"
-        subject.relationship.first.role.first.pid.should == "bd55639754"
+        subject.relationship.first.role.first.pid.should == "xx55639754"
         solr_doc = subject.to_solr
         solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
         solr_doc["role_tesim"].should == ["Creator"]

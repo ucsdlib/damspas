@@ -311,10 +311,10 @@ END
         solr_doc = subject.to_solr
 		
         #it "should index iconography" do
-        testIndexFields solr_doc, "iconography","Madonna and Child"
+        solr_doc["iconography_tesim"].should == ["Madonna and Child"]
 
         #it "should index technique" do
-        testIndexFields solr_doc, "technique","Impasto"
+        solr_doc["technique_tesim"].should == ["Impasto"]
 
         #it "should index personalName" do
         solr_doc["personalName_tesim"].should include "Burns, Jack O....."
@@ -344,7 +344,7 @@ END
         solr_doc["corporateName_tesim"].should == ["Lawrence Livermore Laboratory......"]
 
         #it "should index complexSubject" do
-        testComplexSubjectFields solr_doc, "complexSubject", "Test linked subject--More test"
+        solr_doc["complexSubject_tesim"].should include "Test linked subject--More test"
         
         #it "should have scopeContentNote" do
         solr_doc["scopeContentNote_tesim"].should == ["scope content note internal value"]        
@@ -356,7 +356,7 @@ END
         solr_doc["custodialResponsibilityNote_tesim"].should == ["Mandeville Special Collections Library....Internal value"]
 
         #it "should have note" do
-		testIndexNoteFields solr_doc, "note","Note internal value."
+		solr_doc["note_tesim"].should include "Note internal value."
 		
         solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
         solr_doc["rightsHolder_tesim"].should include "UC Regents"
@@ -371,6 +371,17 @@ END
         solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant"]
         solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant"]
         solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant"]
+
+        # subject
+        solr_doc["subject_topic_sim"].should include "Test linked subject--More test"
+        solr_doc["subject_topic_sim"].should include "Madonna and Child"
+        solr_doc["subject_topic_sim"].should include "Impasto"
+        solr_doc["subject_topic_sim"].should include "Generic Name Internal"
+        solr_doc["subject_topic_sim"].should include "American Library Association. Annual Conference...."
+        solr_doc["subject_topic_sim"].should include "Lawrence Livermore Laboratory......"
+        solr_doc["subject_topic_sim"].should include "Calder (Family : 1757-1959 : N.C.)...."
+        solr_doc["subject_topic_sim"].should include "Burns, Jack O....."
+        solr_doc["subject_topic_sim"].should include "Burns, Jack O.....2"
       end
 
       it "should index relationship" do
@@ -383,19 +394,6 @@ END
         solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
         solr_doc["collection_json_tesim"].join(" ").should include "Scripps Institution of Oceanography, Geological Collections"
         solr_doc["collection_json_tesim"].join(" ").should include "May 2009"
-      end
-      
-      def testIndexFields (solr_doc,fieldName,name)
-        solr_doc["#{fieldName}_tesim"].should == ["#{name}"]
-      end
-      def testIndexNameFields (solr_doc,fieldName,name)
-        solr_doc["#{fieldName}_tesim"].should == ["#{name}"]
-      end
-      def testIndexNoteFields (solr_doc,fieldName,value)
-        solr_doc["#{fieldName}_tesim"].should include value
-      end
-      def testComplexSubjectFields (solr_doc,fieldName,name)
-        solr_doc["#{fieldName}_tesim"].should include name
       end
    end
 
