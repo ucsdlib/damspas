@@ -164,5 +164,10 @@ module ApplicationHelper
     end
     result << resource.name.humanize.titleize 
   end
+
+  def getFullTitle (title_json)
+    nonSortVal = title_json['nonSort'] || ""
+    (nonSortVal.blank? ? "":nonSortVal + " ") + title_json['value']
+  end
     
 end 

@@ -41,7 +41,7 @@ module DamsObjectsHelper
          fieldData.each do |datum|
           title = JSON.parse(datum)
           if title['value'] != ''
-             title_value=title['value']
+             title_value = getFullTitle title
              if title['subtitle'] != ''
               title_value=title_value+ title['subtitle']
              end
@@ -591,7 +591,7 @@ module DamsObjectsHelper
 			fieldData.each do |datum|
         title = JSON.parse(datum)
         if !title['value'].blank?
-            result = title['value'] 
+            result = getFullTitle title
             break
         else
             result = title['name']
