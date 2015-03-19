@@ -58,24 +58,13 @@ describe DamsObjectDatastream do
         subject.complexSubject[2].should_not be_external
       end
 
-      pending "should have relationship" do
-        subject.relationship[0].personalName.first.pid.should == "xxXXXXXXX1"
+      it "should have relationship" do
+        subject.relationship[0].name.first.pid.should == "xxXXXXXXX2"
         subject.relationship[0].role.first.pid.should == "bd55639754"        
       end
 
       it "should have date" do
         subject.dateValue.should == ["2010"]
-      end
-
-      pending "should create a solr document" do
-        solr_doc = subject.to_solr
-        solr_doc["subject_tesim"].should include "Black Panther Party--History"
-        solr_doc["subject_tesim"].should include "African Americans--Relations with Mexican Americans--History--20th Century"
-        solr_doc["subject_tesim"].should include "Academic dissertations"
-        solr_doc["title_tesim"].should include "Chicano and black radical activism of the 1960s: a comparison between the Brown Berets and the Black Panther Party in California"
-        solr_doc["date_tesim"].should include "2010"
-        solr_doc["name_tesim"].should include "Yañez, Angélica María"
-        solr_doc["creator_sim"].should include "Yañez, Angélica María"
       end
 
     end
@@ -121,42 +110,40 @@ describe DamsObjectDatastream do
         solr_doc["title_tesim"].should include "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
 	  end
 	
-      pending "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "xxXXXXXXX1"
+      it "should have relationship" do
+        subject.relationship.first.personalName.first.pid.should == "xxXXXXXXX1"
         subject.relationship.first.role.first.pid.should == "bd55639754"
-        solr_doc = subject.to_solr
-        solr_doc["name_tesim"].should == ["Yañez, Angélica María"]
       end
 
-      pending "should have a first component with basic metadata" do
-        subject.component.first.title.first.value.should == "The Static Image"
-        subject.component.first.title.first.subtitle.should == "Foo!"
-        subject.component.first.date.first.value.should == ["June 24-25, 2012"]
-        subject.component.first.date.first.beginDate.should == ["2012-06-24"]
-        subject.component.first.date.first.endDate.should == ["2012-06-25"]
-        subject.component.first.note.first.value.should == ["1 PDF (xi, 111 p.)"]
+      it "should have a first component with basic metadata" do
+        subject.component.first.title.first.value.should == "The Daily Guardian"
+        subject.component.first.date.first.value.should == ["Tuesday, May 20, 1980"]
+        subject.component.first.date.first.beginDate.should == ["1980-05-20"]
+        subject.component.first.date.first.endDate.should == ["1980-05-20"]
+        subject.component.first.note.first.value.should == ["1 PDF (8 p.)"]
         subject.component.first.note.first.displayLabel.should == ["Extent"]
         subject.component.first.note.first.type.should == ["dimensions"]
       end
-      pending "should have a first component with two attached files" do
+      it "should create a solr document" do
+        solr_doc = subject.to_solr
+        solr_doc["title_tesim"].should include "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
+        solr_doc["date_tesim"].should include "1980-05-24"
+        solr_doc["language_tesim"].should include "English"
+        solr_doc["note_tesim"].should include "Dissertation is in English."
+        solr_doc["note_tesim"].should include "http://library.ucsd.edu/ark:/20775/xx80808080"
+        solr_doc["note_tesim"].should include "b6700311"
+        solr_doc["note_tesim"].should include "1 PDF (8 p.)"
+        solr_doc["related_resource_json_tesim"].to_s.should include "online exhibit"
+        solr_doc["related_resource_json_tesim"].to_s.should include "Sample Complex Object Record #1: The Exhibit!"
+        solr_doc["object_type_sim"].should include "text"
+        solr_doc["object_type_sim"].should include "image"
+        solr_doc["object_type_sim"].should include "mixed material"
+
+      end
+
+      it "should have a first component with two attached files" do
         subject.component.first.file[0].rdf_subject.should == "#{Rails.configuration.id_namespace}xx80808080/1/1.pdf"
         subject.component.first.file[1].rdf_subject.should == "#{Rails.configuration.id_namespace}xx80808080/1/2.jpg"
-      end
-      pending "should have a first component with a first file with file metadata" do
-        subject.component.first.file.first.sourcePath.should == ["src/sample/files"]
-        subject.component.first.file.first.sourceFileName.should == ["comparison-1.pdf"]
-        subject.component.first.file.first.formatName.should == ["PDF"]
-        subject.component.first.file.first.formatVersion.should == ["1.3"]
-        subject.component.first.file.first.mimeType.should == ["application/pdf"]
-        subject.component.first.file.first.use.should == ["document-service"]
-        subject.component.first.file.first.size.should == ["20781"]
-        subject.component.first.file.first.crc32checksum.should == ["2xxbc159"]
-        subject.component.first.file.first.md5checksum.should == ["733b4bf1c94e13104dab7b6c759a4a1d"]
-        subject.component.first.file.first.sha1checksum.should == ["afe6fd487d598b158d593e8309d15178xxa76332"]
-        subject.component.first.file.first.dateCreated.should == ["2012-06-24T08:38:21-0800"]
-        subject.component.first.file.first.objectCategory.should == ["file"]
-        subject.component.first.file.first.compositionLevel.should == ["0"]
-        subject.component.first.file.first.preservationLevel.should == ["full"]
       end
 	  it "should have a first component with repeating title" do
         solr_doc = subject.to_solr
@@ -196,7 +183,6 @@ describe DamsObjectDatastream do
         solr_doc = subject.to_solr
 
         # copyright
-        solr_doc["copyright_tesim"].first.should include '"id":"xx05050505"'
         solr_doc["copyright_tesim"].first.should include '"status":"Under copyright"'
         solr_doc["copyright_tesim"].first.should include '"jurisdiction":"us"'
         solr_doc["copyright_tesim"].first.should include '"note":"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."'
@@ -321,7 +307,7 @@ END
 	    subject.titleExpansionVariant.should == "Expansion Variant"        
       end
       
-      it "should index mads simple subjects" do
+      it "should index metadata" do
         solr_doc = subject.to_solr
 		
         #it "should index iconography" do
@@ -329,9 +315,6 @@ END
 
         #it "should index technique" do
         testIndexFields solr_doc, "technique","Impasto"
-      end
-      it "should index mads names" do
-        solr_doc = subject.to_solr
 
         #it "should index personalName" do
         solr_doc["personalName_tesim"].should include "Burns, Jack O....."
@@ -362,10 +345,6 @@ END
 
         #it "should index complexSubject" do
         testComplexSubjectFields solr_doc, "complexSubject", "Test linked subject--More test"
-      end
-
-      it "should index mads fields, part 2" do
-        solr_doc = subject.to_solr
         
         #it "should have scopeContentNote" do
         solr_doc["scopeContentNote_tesim"].should == ["scope content note internal value"]        
@@ -379,40 +358,11 @@ END
         #it "should have note" do
 		testIndexNoteFields solr_doc, "note","Note internal value."
 		
-        solr_doc["copyright_tesim"].to_s.should include "Under copyright"
-		
         solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
         solr_doc["rightsHolder_tesim"].should include "UC Regents"
 		
-        #internal license
-        solr_doc["license_tesim"].first.should include '"id":"zz22222222"'
-        solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
-        solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
-        solr_doc["license_tesim"].first.should include '"permissionType":"display"'
-        solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'		
-        
-		# other rights
-        solr_doc["otherRights_tesim"].first.should include '"id":"zz06060606"'
-        solr_doc["otherRights_tesim"].first.should include '"basis":"fair use"'
-        solr_doc["otherRights_tesim"].first.should include '"uri":"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"'
-        solr_doc["otherRights_tesim"].first.should include '"permissionType":"display"'
-        solr_doc["otherRights_tesim"].first.should include '"permissionBeginDate":"2011-09-24"'
-        solr_doc["otherRights_tesim"].first.should include "\"name\":\"#{Rails.configuration.id_namespace}xx09090909\""
-        solr_doc["otherRights_tesim"].first.should include "\"role\":\"#{Rails.configuration.id_namespace}bd3004227d\""
-        
-        # statute
-        solr_doc["statute_tesim"].first.should include '"id":"zz21212121"'
-        solr_doc["statute_tesim"].first.should include '"citation":"Family Education Rights and Privacy Act (FERPA)"'
-        solr_doc["statute_tesim"].first.should include '"jurisdiction":"us"'
-        solr_doc["statute_tesim"].first.should include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
-        solr_doc["statute_tesim"].first.should include '"restrictionType":"display"'
-        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'      
-        
         solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
 
-        #solr_doc["event_json_tesim"].first.should include '"pid":"bd0990660f","type":"record created"' 
-        #solr_doc["event_json_tesim"].first.should include '"name":"dams:unknownUser","role":"dams:initiator"'
-        
         solr_doc["unit_json_tesim"].first.should include '"id":"xx48484848","code":"rci","name":"Research Data Curation Program"'
         
         solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":"The Whale","translationVariant":"Translation Variant","abbreviationVariant":"Abbreviation Variant","acronymVariant":"Acronym Variant","expansionVariant":"Expansion Variant"'
@@ -423,14 +373,12 @@ END
         solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant"]
       end
 
-      pending "internal impl" do
-	    it "should index relationship" do
-	  	  solr_doc = subject.to_solr
-	  	  solr_doc["relationship_json_tesim"].first.should == '{"Repository":["Conference Name 2","Family Name 2","Name 4","Personal Name 2","Scripps Institute of Oceanography, Geological Collections"]}'
-	    end
+      it "should index relationship" do
+        solr_doc = subject.to_solr
+        solr_doc["relationship_json_tesim"].first.should == '{"Repository":["Conference Name 2","Family Name 2","Name 4","Personal Name 2","Scripps Institute of Oceanography, Geological Collections"],"Creator":["Yañez, Angélica María"]}'
       end
 	    
-      pending "should index collection" do
+      it "should index collection" do
         solr_doc = subject.to_solr
         solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
         solr_doc["collection_json_tesim"].join(" ").should include "Scripps Institution of Oceanography, Geological Collections"
@@ -451,7 +399,7 @@ END
       end
    end
 
-    pending "a complex object with internal classes" do
+    describe "a complex object with internal classes" do
       subject do
         subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd0171551x', :new_record? =>true), 'descMetadata')
         subject.content = File.new('spec/fixtures/damsObjectInternal.rdf.xml').read
@@ -460,11 +408,39 @@ END
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd0171551x"
       end
-      it "should have a repeated date" do
+      it "should index title and collection" do
         solr_doc = subject.to_solr
         solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
-        solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","type":"ProvenanceCollection"'     
+        solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","visibility":"public","type":"ProvenanceCollection"'     
 		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
       end
     end
+    describe "a complex object with internal classes" do
+      subject do
+        subject = DamsObjectDatastream.new(double('inner object', :pid=>'bd0171551x', :new_record? =>true), 'descMetadata')
+        subject.content = File.new('spec/fixtures/damsObjectComponentFileMetadata.rdf.xml').read
+        subject
+      end
+      it "should have a component with a first file with file metadata" do
+        subject.component.first.file.first.sourcePath.should == ["/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data"]
+        subject.component.first.file.first.sourceFileName.should == ["rndb11wt-074P_A_600-748cm_xrfdata_50kV_001.XLS"]
+        subject.component.first.file.first.formatName.should == ["bytestream"]
+        subject.component.first.file.first.formatVersion.should == ["4.0"]
+        subject.component.first.file.first.mimeType.should == ["application/octet-stream"]
+        subject.component.first.file.first.use.should == ["data-service"]
+        subject.component.first.file.first.size.should == ["212480"]
+        subject.component.first.file.first.crc32checksum.should == ["66518753"]
+        subject.component.first.file.first.md5checksum.should == ["688061e851f069bf52513210bd55eef3"]
+        subject.component.first.file.first.sha1checksum.should == ["969e1d6125cec163afd22bb3ff0878e3e5e84695"]
+        subject.component.first.file.first.dateCreated.should == ["2013-01-11T12:29:47-0800"]
+        subject.component.first.file.first.objectCategory.should == ["file"]
+        subject.component.first.file.first.compositionLevel.should == ["0"]
+        subject.component.first.file.first.preservationLevel.should == ["full"]
+      end
+    end
+  describe "Solr indexing" do
+    subject do
+      DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new_record? =>true), 'descMetadata')
+    end
+  end
 end

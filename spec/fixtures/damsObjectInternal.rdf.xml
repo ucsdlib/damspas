@@ -54,6 +54,7 @@
     </dams:hasComponent>
     <dams:provenanceCollection>
       <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/bd24241158">
+        <dams:visibility>public</dams:visibility>
         <dams:title>
 <mads:Title>
   <mads:authoritativeLabel>Scripps Institution of Oceanography, Geological Collections</mads:authoritativeLabel>

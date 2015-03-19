@@ -1,0 +1,54 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x">
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/1">
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/bd0171551x/1/1.xls">
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:use>data-service</dams:use>
+            <dams:formatName>bytestream</dams:formatName>
+            <dams:formatVersion>4.0</dams:formatVersion>
+            <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data</dams:sourcePath>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:event>
+              <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd1605014b">
+                <dams:relationship rdf:parseType="Resource">
+                  <dams:role rdf:resource="dams:initiator"/>
+                  <dams:name rdf:resource="dams:unknownUser"/>
+                </dams:relationship>
+                <dams:outcome>success</dams:outcome>
+                <dams:outcomeNote>Well-Formed and valid</dams:outcomeNote>
+                <dams:eventDate>2013-03-15T01:54:27-0700</dams:eventDate>
+                <dams:type>checksum calculated</dams:type>
+              </dams:DAMSEvent>
+            </dams:event>
+            <dams:filestore>openStack</dams:filestore>
+            <dams:dateCreated>2013-01-11T12:29:47-0800</dams:dateCreated>
+            <dams:sha1checksum>969e1d6125cec163afd22bb3ff0878e3e5e84695</dams:sha1checksum>
+            <dams:mimeType>application/octet-stream</dams:mimeType>
+            <dams:crc32checksum>66518753</dams:crc32checksum>
+            <dams:md5checksum>688061e851f069bf52513210bd55eef3</dams:md5checksum>
+            <dams:sourceFileName>rndb11wt-074P_A_600-748cm_xrfdata_50kV_001.XLS</dams:sourceFileName>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:size>212480</dams:size>
+          </dams:File>
+        </dams:hasFile>
+        <dams:order>1</dams:order>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>600-748cm 50kV (heavy weight elements)</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>600-748cm 50kV (heavy weight elements)</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+      </dams:Component>
+    </dams:hasComponent>
+  </dams:Object>
+</rdf:RDF>
