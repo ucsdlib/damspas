@@ -17,7 +17,6 @@
       result = JSON.parse(datum)
       partName = result['partName'] || ""
       partNumber = result['partNumber'] || ""
-      nonSortVal = result['nonSort'] || ""
       subtitle = result['subtitle'] || ""
       translationVariant = result['translationVariant'] || ""
 
@@ -32,7 +31,7 @@
       end
       
       if !result['value'].blank?
-         title = (nonSortVal.blank? ? "":nonSortVal + " ") + result['value']
+         title = getFullTitle result
         break
       else
         title = result['name'] || ""

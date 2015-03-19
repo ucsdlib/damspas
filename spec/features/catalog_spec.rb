@@ -133,7 +133,7 @@ feature 'Visitor wants to search' do
   end
 end
 
-feature "Search and browse linked names and subjects" do
+feature "Search and browse links and subjects" do
   before(:all) do
     @damsObj = DamsObject.create(pid: 'bd08080808')
     @damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectDuplicatedNames.rdf.xml').read
@@ -148,6 +148,19 @@ feature "Search and browse linked names and subjects" do
     @name.delete
     @role = MadsAuthority.find('xx6486002k')
     @role.delete
+  end
+  scenario "Title with non filing characters" do
+    sign_in_developer
+    # search display
+    visit catalog_index_path( {:q => '"Record With Duplicated Names"'} )
+
+    # The document link includes the non-filing characters
+    expect(page).to have_content('The Record With Duplicated Names')
+
+    # the title and the top component tree link should include the non-filing characters
+    click_on "The Record With Duplicated Names"
+    expect(page).to have_selector('h1',:text=>'The Record With Duplicated Names')
+    expect(page).to have_content('Components of "The Record With Duplicated Names"')
   end
   scenario "Record with duplicate name entries" do
     pending "working object metadata updating"
