@@ -140,6 +140,8 @@ feature "Search and browse links and subjects" do
     @name1 = MadsName.create name: 'ZZZ Name, Duplicated'
     @name2 = MadsName.create name: 'ZZZ Name, Singleton'
     @obj = DamsObject.create( titleValue: 'Record With Duplicated Names',
+      titleNonSort: 'The',
+      component_attributes: [{titleValue: 'Comp 1'}, {titleValue: 'Comp 2'}],
       relationship_attributes: [
         {name: [RDF::URI.new("#{ns}#{@name1.pid}")], role: [RDF::URI.new("#{ns}#{@role.pid}")]},
         {name: [RDF::URI.new("#{ns}#{@name2.pid}")], role: [RDF::URI.new("#{ns}#{@role.pid}")]},
