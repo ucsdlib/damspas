@@ -186,7 +186,7 @@
         <dams:formatVersion>1.01</dams:formatVersion>
       </dams:File>
     </dams:hasFile>
-        <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb48484848"/>
+        <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
     <dams:copyright>
       <dams:Copyright>
         <dams:copyrightStatus>Public domain</dams:copyrightStatus>

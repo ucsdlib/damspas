@@ -96,7 +96,7 @@ class DamsResourceController < ApplicationController
     authorize! :show, @document
     params[:xsl] = "dams4.2.xsl"
     data = get_html_data params, nil
-    render :xml => data
+    render :xml => data, :content_type => 'application/rdf+xml'
   end 
   def data
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
@@ -110,19 +110,19 @@ class DamsResourceController < ApplicationController
     authorize! :show, @document
     params[:xsl] = "normalize.xsl"
     data = get_html_data params, nil
-    render :xml => data
+    render :xml => data, :content_type => 'application/rdf+xml'
   end
   def rdf_nt
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     data = get_data("nt")
-    render :text => data
+    render :text => data, :content_type => 'application/n-triples'
   end
   def rdf_ttl
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     data = get_data("turtle")
-    render :text => data
+    render :text => data, :content_type => 'text/turtle'
   end 
   def ezid
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
