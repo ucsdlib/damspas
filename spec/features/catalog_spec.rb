@@ -8,9 +8,9 @@ feature 'Visitor wants to search' do
     @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
     @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
 
-    @obj1 = DamsObject.create titleValue: "Sample Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, beginDate: '2000', subjectURI: [@sub1.pid]
-    @obj2 = DamsObject.create titleValue: "Sample Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, beginDate: '1999', subjectURI: [@sub2.pid]
-    @obj3 = DamsObject.create titleValue: "Sample Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
+    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, beginDate: '2000', subjectURI: [@sub1.pid]
+    @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, beginDate: '1999', subjectURI: [@sub2.pid]
+    @obj3 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
 
     solr_index @obj1.pid
     solr_index @obj2.pid
@@ -29,11 +29,11 @@ feature 'Visitor wants to search' do
   end
 
   scenario 'is on search results page' do
-    visit catalog_index_path( {:q => 'Sample'} )
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_selector('h4', :text => 'Refine your search')
-    expect(page).to have_selector('h3', :text => 'Sample Object 1')
-    expect(page).to have_selector('h3', :text => 'Sample Object 2')
-    expect(page).to have_selector('h3', :text => 'Sample Object 3')
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 2')
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 3')
   end
   scenario 'is on a browse results page' do
     # should show links to remove facets, even when there is no query
@@ -43,47 +43,47 @@ feature 'Visitor wants to search' do
   end
   scenario 'results sorted by title' do
     sign_in_developer
-    visit catalog_index_path( {'q' => 'sample', 'per_page' => 100, 'sort' => 'title_ssi asc'} )
-    idx1 = page.body.index('Sample Object 1')
-    idx2 = page.body.index('Sample Object 2')
-    idx3 = page.body.index('Sample Object 3')
+    visit catalog_index_path( {'q' => 'QE8iWjhafTRpc', 'per_page' => 100, 'sort' => 'title_ssi asc'} )
+    idx1 = page.body.index('QE8iWjhafTRpc Object 1')
+    idx2 = page.body.index('QE8iWjhafTRpc Object 2')
+    idx3 = page.body.index('QE8iWjhafTRpc Object 3')
     idx2.should > idx1
     idx3.should > idx2
 
-    click_on "Sample Object 1"
+    click_on "QE8iWjhafTRpc Object 1"
     expect(page).to have_selector('div.search-results-pager')
   end
 
   scenario 'Search with single or double quotes' do
-    visit catalog_index_path( {:q => 'sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Object 1')
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')
     
-    visit catalog_index_path( {:q => '"sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Object 1')
+    visit catalog_index_path( {:q => '"QE8iWjhafTRpc'} )
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')
     
-    visit catalog_index_path( {:q => 'sample"'} )
-    expect(page).to have_selector('h3', :text => 'Sample Object 1')    
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc"'} )
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')    
 
-    visit catalog_index_path( {:q => 'sample""'} )
-    expect(page).to have_selector('h3', :text => 'Sample Object 1')    
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc""'} )
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')    
     
-    visit catalog_index_path( {:q => '""sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Object 1')   
+    visit catalog_index_path( {:q => '""QE8iWjhafTRpc'} )
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')   
     
-    visit catalog_index_path( {:q => '"sample"'} )
-    expect(page).to have_selector('h3', :text => 'Sample Object 1') 
+    visit catalog_index_path( {:q => '"QE8iWjhafTRpc"'} )
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1') 
   end
 
   scenario 'results sorted by object creation date' do
     sign_in_developer
     visit catalog_index_path( {'f[unit_sim][]' => 'Test Unit', 'per_page' => 100, 'sort' => 'object_create_dtsi asc'} )
-    idx1 = page.body.index('Sample Object 1')  # 2000
-    idx2 = page.body.index('Sample Object 2')  # 1999
-    idx3 = page.body.index('Sample Object 3')  # no date
+    idx1 = page.body.index('QE8iWjhafTRpc Object 1')  # 2000
+    idx2 = page.body.index('QE8iWjhafTRpc Object 2')  # 1999
+    idx3 = page.body.index('QE8iWjhafTRpc Object 3')  # no date
     idx3.should >( idx2 )
     idx2.should >( idx1 )
 
-    click_on "Sample Object 3"
+    click_on "QE8iWjhafTRpc Object 3"
     expect(page).to have_selector('div.search-results-pager')
   end
   scenario 'system queries should show search results' do
@@ -91,7 +91,7 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector('ol#dams-search-results li div h3')
   end
   scenario 'should see the constraints' do
-    visit catalog_index_path( {:q => 'sample'} )
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_selector('span.dams-filter a')
   end
 
@@ -111,13 +111,13 @@ feature 'Visitor wants to search' do
   end  
 
   scenario 'search results paging' do
-    visit catalog_index_path( {'q' => 'sample', 'sort' => 'title_ssi asc'} )
-    expect(page).to have_selector('h3', :text => 'Sample Object 1')
-    expect(page).to have_selector('h3', :text => 'Sample Object 2')
-    expect(page).to have_selector('h3', :text => 'Sample Object 3')
+    visit catalog_index_path( {'q' => 'QE8iWjhafTRpc', 'sort' => 'title_ssi asc'} )
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 2')
+    expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 3')
 
     # viewing item from search results should have pager
-    click_on "Sample Object 2"
+    click_on "QE8iWjhafTRpc Object 2"
     expect(page).to have_selector('div', :text => 'Previous 2 of 3 results Next')
     expect(page).to have_link('Previous', href: dams_object_path(@obj1, counter: 1) )
     expect(page).to have_link('Next', href: dams_object_path(@obj3, counter: 3) )
