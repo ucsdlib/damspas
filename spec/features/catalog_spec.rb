@@ -110,3 +110,26 @@ feature 'Visitor wants to browse Creator A-Z ' do
     page.all('.facet_select')[0].text.should include 'Burns, Jack O.'
   end
 end
+
+feature 'Visitor wants to search with single quote' do
+  scenario 'should see the result page' do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')
+    
+    visit catalog_index_path( {:q => '"sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')
+    
+    visit catalog_index_path( {:q => 'sample"'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')    
+
+    visit catalog_index_path( {:q => 'sample""'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')    
+    
+    visit catalog_index_path( {:q => '""sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')   
+    
+    visit catalog_index_path( {:q => '"sample"'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')    
+             
+  end
+end

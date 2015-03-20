@@ -1,0 +1,59 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+<dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/xx20151229">
+    
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote>
+        <rdf:value>Selections from archival collections held by the UC San Diego Library that document the history and activities of Scripps Institution of Oceanography.</rdf:value>
+        <dams:type>scopeAndContent</dams:type>
+        <dams:displayLabel>Scope and Contents</dams:displayLabel>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>
+    <dams:visibility>public</dams:visibility>
+
+   
+  
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Selections from many SIO archival collections such as the SIO Photographic Lab, the Roger Revelle Papers, and the MidPac Expedition, that illustrate the history and activities of Scripps Institution of Oceanography faculty, staff, and students, both on land and on sea.</rdf:value>
+        <dams:type>description</dams:type>
+      </dams:Note>
+    </dams:note>
+   
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:type>thumbnail</dams:type>
+        <dams:uri rdf:resource="http://library.ucsd.edu/ark:/20775/bb0376723m/4.jpg"/>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+  
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Scripps Institution of Oceanography Photographs</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Scripps Institution of Oceanography Photographs</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:date>
+      <dams:Date>
+        <dams:beginDate>1930s</dams:beginDate>
+        <dams:endDate>2000s</dams:endDate>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:type>creation</dams:type>
+        <rdf:value>1930s-2000s</rdf:value>
+      </dams:Date>
+    </dams:date>
+    <dams:typeOfResource>image</dams:typeOfResource>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>14769 digital objects.</rdf:value>
+        <dams:type>extent</dams:type>
+      </dams:Note>
+    </dams:note>
+    
+  </dams:ProvenanceCollection>
+</rdf:RDF>

@@ -28,10 +28,11 @@ module CatalogHelper
       url = dams_collection_path(doc, :counter => opts[:counter] )
     else
       url = dams_object_path(doc, :counter => opts[:counter] )
+      #url = dams_object_path(doc)
     end
 
-    link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :force_label, :results_view].include? k  })
-
+    #link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :force_label, :results_view].include? k  })
+    link_to label, url, opts.reject { |k,v| [:label, :counter, :force_label, :results_view].include? k  }
   end
 
   def should_render_index_field? document, solr_field
@@ -114,9 +115,9 @@ module CatalogHelper
   end
 
   def restricted_object_url()
-    url = "http://libraries.ucsd.edu/assets/dams/site/thumb-restricted.png"
+   # url = "http://libraries.ucsd.edu/assets/dams/site/no-content.png"
     
-    image_tag( url, :alt => "", :class => 'dams-search-thumbnail')
+   # image_tag( url, :alt => "", :class => 'dams-search-thumbnail')
   end
     
   def document_icon( document )

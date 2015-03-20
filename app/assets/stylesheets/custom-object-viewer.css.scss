@@ -68,7 +68,7 @@ $complexFile: #AC6F2B !default;
 .letter-link {border: 1px solid #9AAFE5; padding:4px;}
 .letter, .letter:hover {text-decoration: none;}
 .selected-letter {background-color: #2e6ab1; border: 1px solid #2e6ab1; color: #FFFFFF; font-weight: bold; padding:4px; }
-
+.pull-right-space {    float: right; margin-left: 10px;}
 .dams-download-button{margin:0;}
 .dams-download-button p{margin: 0;text-align: center;}
 
@@ -109,7 +109,7 @@ $complexFile: #AC6F2B !default;
 .restricted-notice
 {
   background:#b1b1b1 url(http://libraries.ucsd.edu/assets/dams/site/no-content.png) no-repeat center center;
-  background-size:75%,75%;
+  background-size:100%,100%;
   border-radius: 3px;
   padding:0;
   height:480px;

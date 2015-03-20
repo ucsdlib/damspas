@@ -108,6 +108,7 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
     :provenanceCollection, 
     :provenanceCollectionURI,
     :provenanceCollectionPart, 
+    :provenanceCollection_node,
     :unit_attributes,
     :unit,
     :unitURI,

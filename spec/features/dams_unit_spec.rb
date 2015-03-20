@@ -54,7 +54,7 @@ feature 'Visitor wants to look at units' do
   end
 
   scenario 'scoped search (exclusion)' do
-    visit dams_unit_path :id => 'rci'
+    visit dams_unit_path :id => 'rdcp'
     expect(page).to have_selector('h1', :text => 'Research Data Curation Program')
 
     # search for the object in the unit and find it

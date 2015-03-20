@@ -1,0 +1,113 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+         xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+<dams:ProvenanceCollectionPart rdf:about="http://library.ucsd.edu/ark:/20775/zz25252525">
+    <dams:visibility>public</dams:visibility>
+    <dams:typeOfResource>text</dams:typeOfResource>
+    <rdf:type rdf:resource="http://library.ucsd.edu/ontology/dams#Collection"/>
+    <dams:title>
+<mads:Title>
+  <mads:authoritativeLabel>May 2009</mads:authoritativeLabel>
+  <mads:elementList rdf:parseType="Collection">
+    <mads:MainTitleElement>
+      <mads:elementValue>May 2009</mads:elementValue>
+    </mads:MainTitleElement>
+  </mads:elementList>
+</mads:Title>
+    </dams:title>
+    <dams:date>
+      <dams:Date>
+        <dams:beginDate>2009-05-03</dams:beginDate>
+        <dams:endDate>2009-05-31</dams:endDate>
+      </dams:Date>
+    </dams:date>
+    <dams:language rdf:resource="http://library.ucsd.edu/ark:/20775/bd0410344f"/>
+  <dams:scopeContentNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd1366006j"/> 
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote>
+        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <dams:type>scope_and_content</dams:type>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>      
+    <dams:note rdf:resource="http://library.ucsd.edu/ark:/20775/bd52568274"/>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs.</rdf:value>
+        <dams:displayLabel>Scope and contents</dams:displayLabel>
+        <dams:type>scope_and_content</dams:type>
+      </dams:Note>
+    </dams:note>    
+    <dams:note>
+      <dams:Note>
+        <dams:displayLabel>ARK ID</dams:displayLabel>
+        <rdf:value>http://library.ucsd.edu/ark:/20775/bb80808080</rdf:value>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>    
+    <dams:custodialResponsibilityNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd9113515d"/>
+        <dams:relationship>
+      <dams:Relationship>
+        <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+        <dams:name rdf:resource="http://library.ucsd.edu/ark:/20775/bb08080808"/>
+      </dams:Relationship>
+    </dams:relationship>   
+    <dams:preferredCitationNote rdf:resource="http://library.ucsd.edu/ark:/20775/bd3959888k"/>    
+    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bb24242424"/>
+    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb30303030"/>
+   <dams:unit>
+      <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/bb48484848">
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd2014471p">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-02-19T10:46:30-0800</dams:eventDate>
+            <dams:type>record edited</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitName>Research Data Curation Program</dams:unitName>
+        <dams:code>rci</dams:code>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd9659686g">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-14T07:19:48-0700</dams:eventDate>
+            <dams:type>record edited</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd3720971c">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-02-19T12:56:09-0800</dams:eventDate>
+            <dams:type>record edited</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.</dams:unitDescription>
+        <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
+        <dams:event>
+          <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bd8362747n">
+            <dams:relationship rdf:parseType="Resource">
+              <dams:role rdf:resource="dams:initiator"/>
+              <dams:name rdf:resource="dams:unknownUser"/>
+            </dams:relationship>
+            <dams:outcome>success</dams:outcome>
+            <dams:eventDate>2013-03-14T07:21:05-0700</dams:eventDate>
+            <dams:type>record edited</dams:type>
+          </dams:DAMSEvent>
+        </dams:event>
+        <dams:unitGroup>dams-rci</dams:unitGroup>
+      </dams:Unit>
+    </dams:unit>    
+    
+  </dams:ProvenanceCollectionPart>
+</rdf:RDF>

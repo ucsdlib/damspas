@@ -749,9 +749,7 @@ module DamsObjectsHelper
     if component_count != nil && component_count > 0
       concat '<ul class="unstyled">'.html_safe
       for i in 1..component_count
-
           display_node i if @is_parent[i].nil? && @checked[i].nil?
-       
       end
       concat '</ul>'.html_safe
     end
@@ -762,6 +760,13 @@ def display_node(index)
       render_tree_HTML(index, false )
     elsif @is_child[index] == true
       parent_node_index = @tag[index][:parent_node]
+      grand_parent_node_index = @tag[parent_node_index][:parent_node] if(!parent_node_index.nil? && !@tag[parent_node_index].nil?)
+      
+      if(!grand_parent_node_index.nil?)
+        render_node_HTML(@tag[parent_node_index][:parent_node], true)
+        concat "<ul class='unstyled node-container'>".html_safe 
+      end
+      
       render_node_HTML(parent_node_index, true)
 
       concat "<ul class='unstyled node-container'>".html_safe
@@ -770,7 +775,8 @@ def display_node(index)
         render_node_HTML(node_index, false)
         @checked[node_index]= true
       end
-      concat "</ul>".html_safe
+      concat "</ul>".html_safe    
+      concat "</ul>".html_safe if(!grand_parent_node_index.nil?)
     end
     @firstButton = nil
   end

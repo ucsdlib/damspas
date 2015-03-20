@@ -317,6 +317,8 @@ END
       
       it "should index mads simple subjects" do
         solr_doc = subject.to_solr
+		puts "yeahhhhh......."
+		puts solr_doc["rightsHolder_tesim"].to_s
 		
         #it "should index iconography" do
         testIndexFields solr_doc, "iconography","Madonna and Child"

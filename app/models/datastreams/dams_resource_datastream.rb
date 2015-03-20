@@ -332,8 +332,14 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
   ## Solr ######################################################################
   def insertFields (solr_doc, fieldName, objects)
+    puts "hey1"
     if objects != nil
+      puts "hey2 #{objects} + #{fieldName}"
       objects.each do |obj|
+        if(fieldName.include?("topic"))
+        	puts "hey3 #{obj}"
+        	puts "hey4 #{obj.name.first}"
+        end
         Solrizer.insert_field(solr_doc, fieldName, obj.name)
         Solrizer.insert_field(solr_doc, "all_fields", obj.name)
       end
@@ -912,6 +918,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     # subjects bundled under "Subjects" heading
     insertSubjectFields solr_doc, 'genreForm', load_genreForms(genreForm)
     insertSubjectFields solr_doc, 'geographic', load_geographics(geographic)
+    puts "heyyyyyy #{topic}"
     insertSubjectFields solr_doc, 'topic', load_topics(topic)
     insertSubjectFields solr_doc, 'temporal', load_temporals(temporal)
 	insertSubjectFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)

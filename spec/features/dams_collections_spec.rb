@@ -33,7 +33,16 @@ feature 'Visitor wants to look at collections' do
     visit dams_collection_path 'bd5905304g' # santa fe light cone
     expect(page).to have_link('View RDF document')
   end
+  scenario 'damsProvenanceCollectionPart view with parent collection name' do
+    #sign_in_developer
+    solr_index ("bb25252525")
+    puts "hello"
+    visit dams_collection_path 'bb25252525'
+    expect(page).to have_link('Historical Dissertations') 
+  end  
 end
+
+
 def sign_in_developer
   visit new_user_session_path
   fill_in "name", :with => "name"

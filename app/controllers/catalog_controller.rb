@@ -240,6 +240,19 @@ class CatalogController < ApplicationController
   end
       # get search results from the solr index
     def index
+      if params['q'] != nil
+        params['q'].gsub!('""','')
+        single_quote_count = params['q'].to_s.count('"') 
+        if(single_quote_count != nil && single_quote_count.odd?)
+          if(params['q'].to_s.end_with?('"'))
+            params['q'] = params['q'][0, params['q'].length - 1]
+      	  else
+      	   params['q'] << '"'
+      	 end
+        end
+      end
+      
+      
       if params['xf'] != nil
         params['f'] = JSON.parse params.delete('xf').gsub('=>', ':')
       end
@@ -248,6 +261,8 @@ class CatalogController < ApplicationController
       end
       (@response, @document_list) = get_search_results
 	  spelling_words = @response.spelling.words
+	  
+	  #puts "hello again 999999999 77777 #{@response}"
 	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
 		params['spellsuggestions'] = 'false'
 		if(params['spellcheck.q'].nil?)

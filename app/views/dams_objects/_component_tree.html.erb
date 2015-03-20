@@ -2,12 +2,12 @@
 	component_count = @document['component_count_isi']
 	@firstButton = 'first-component active-component'
 %>
-
+abcd
 <% if component_count > 0   %>
 
 	<% init_Tree component_count %>
-	<button type="button" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
-		<strong>Components of "<%= grabTitle %>"</strong>
+	<button type="button" onclick="dp.COV.showComponent(1);" id="sidebar-header" class="btn btn-block btn-link dams-components-button sidebar-header tree-expanded">
+		<strong>Components of "<%= grabTitle%>"</strong>
 	</button>
 	<div class="components-tree">
 		<% display_tree component_count %>

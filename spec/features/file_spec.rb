@@ -89,3 +89,20 @@ feature "Derivative download" do
     expect(page).not_to have_link('', href:"/object/bd5939745h/_2.mp3/download")
   end  
 end
+
+describe "to download more than one master file" do
+  before do
+    @damsNewspaperObj = DamsObject.new(pid: "xx21171293")
+  end
+  after do
+    @damsNewspaperObj.delete
+  end
+  it "should see two buttons to download two master files" do
+    @damsNewspaperObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
+    @damsNewspaperObj.save!
+    solr_index (@damsNewspaperObj.pid)   
+    visit dams_object_path(@damsNewspaperObj.pid)
+    expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download")
+    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download")
+  end
+end

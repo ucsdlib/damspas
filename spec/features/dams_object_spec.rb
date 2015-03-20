@@ -90,6 +90,29 @@ feature 'Visitor wants to click the results link to go back to the search result
   end
 end
 
+feature 'Visitor wants to click the direct object link when the referrer is not a search' do
+  
+  scenario "is on the main page" do
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"   
+    expect(page).to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+
+    #visit another object view page
+    visit dams_object_path(:id => 'bd22194583')
+    expect(page).to have_selector('h1', :text => "Sample Simple Object")
+    expect(page).not_to have_selector('div.search-results-pager', :text => "1 of 8 results Next")
+  end
+end
+
+feature 'Visitor wants to click the object link and does not want to see the counter parameter in the url' do
+  
+  scenario "is on the main page" do
+    visit catalog_index_path( {:q => 'sample'} )
+    click_link "Sample Image Component"
+    URI.parse(current_url).request_uri.should == "/object/bd3379993m"
+  end
+end
+
 feature 'Format link(s) need to be scoped to the collection level ' do
   
   scenario "is on the object view page" do
@@ -103,6 +126,61 @@ feature 'Format link(s) need to be scoped to the collection level ' do
   end
 end
 
+describe "to look at a complex object" do
+  before do
+    @damsComplexObj = DamsObject.new(pid: "xx97626129")
+  end
+  after do
+    @damsComplexObj.delete
+  end
+  it "should see the component hierarchy view" do
+    @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
+    @damsComplexObj.save!
+    solr_index (@damsComplexObj.pid)
+    sign_in_developer
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-1',:text => 'Interval 1 (dredge, rock)')
+    expect(page).to have_selector('button#node-btn-2',:text => 'Files')
+    
+    #click on grand child link
+    click_on 'Image 001'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Image 001')
+        
+    #return to the top level record
+    click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
+    expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
+    expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')         
+         
+  end     
+end
+
+describe "to look at a simple SIO object" do
+  before do
+    @damsSioObj = DamsObject.new(pid: "xx3243380c")
+  end
+  after do
+    @damsSioObj.delete
+  end
+  it "should not see the accession number in public view" do
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)   
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).not_to have_selector('span.dams-note-display-label:first',:text=>'Accession Number')                 
+  end
+  
+   it "should see the accession number in curator view" do
+    @damsSioObj.damsMetadata.content = File.new('spec/fixtures/damsSioObject.rdf.xml').read
+    @damsSioObj.save!
+    solr_index (@damsSioObj.pid)    
+    sign_in_developer       
+    visit dams_object_path(@damsSioObj.pid)
+    expect(page).to have_selector('span.dams-note-display-label',:text=>'Accession Number')
+   end     
+end
 def sign_in_developer
   visit new_user_session_path
   fill_in "name", :with => "name"
