@@ -25,7 +25,7 @@ Hydra::Application.routes.draw do
   end
 
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
-  get '/rci', to: 'dams_units#show', :id => 'rci'
+  get '/rdcp', to: 'dams_units#show', :id => 'rdcp'
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
   get '/solrdoc/:id', to: 'catalog#solrdoc', :as => "solrdoc"
   get "collections", :to => 'catalog#collection_search', :as => 'dams_collections'

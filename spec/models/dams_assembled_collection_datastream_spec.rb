@@ -110,7 +110,7 @@ describe DamsAssembledCollectionDatastream do
         solr_doc["part_name_tesim"].should == ["May 2009"]
         solr_doc["part_id_tesim"].should == ["xx25252525"]
         solr_doc["part_json_tesim"].should == ['{"id":"xx25252525","name":"May 2009","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}', '{"id":"xx6110278b","name":"Sample Provenance Part","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/newsrel.jpg"}']		
-		solr_doc["unit_code_tesim"].should == ["rci"]
+		solr_doc["unit_code_tesim"].should == ["rdcp"]
       end
 
 #      it "should have event" do

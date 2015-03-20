@@ -363,7 +363,7 @@ END
 		
         solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
 
-        solr_doc["unit_json_tesim"].first.should include '"id":"xx48484848","code":"rci","name":"Research Data Curation Program"'
+        solr_doc["unit_json_tesim"].first.should include '"id":"xx48484848","code":"rdcp","name":"Research Data Curation Program"'
         
         solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":"The Whale","translationVariant":"Translation Variant","abbreviationVariant":"Abbreviation Variant","acronymVariant":"Acronym Variant","expansionVariant":"Expansion Variant"'
         solr_doc["titleVariant_tesim"].should == ["The Whale"]

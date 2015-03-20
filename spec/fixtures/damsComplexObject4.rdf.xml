@@ -28,7 +28,7 @@
     <dams:unit>
       <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/xx080808uu">
         <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
-        <dams:code>rci</dams:code>
+        <dams:code>rdcp</dams:code>
         <dams:unitGroup>dams-rci</dams:unitGroup>
         <dams:unitName>UCSD Research Data Collections</dams:unitName>
         <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.

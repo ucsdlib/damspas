@@ -55,7 +55,7 @@ describe DamsUnitDatastream do
       end
 
       it "should have a code" do
-        subject.code.should == ["rci"]
+        subject.code.should == ["rdcp"]
       end
 
       it "should have a uri" do
