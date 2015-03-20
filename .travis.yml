@@ -1,7 +1,0 @@
-language: ruby
-rvm:
-  - 1.9.3-p392
-
-notifications:
-  email:
-  - tchu@ucsd.edu
