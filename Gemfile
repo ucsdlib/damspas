@@ -38,6 +38,7 @@ gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
 gem "i18n", '~> 0.6.9'
 gem "bootstrap-sass", '~> 2.3.0'
 gem "bower-rails", "~> 0.9.2"
+gem 'coveralls', require: false
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
