@@ -82,9 +82,14 @@ describe "Download more than one master file" do
   after do
     @newspaper.delete
   end
-  it "should see two buttons to download two master files" do
+  it "should see one download button in public view and two download buttons in curator view" do
     visit dams_object_path(@newspaper.pid)
     expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download")
-    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download")
+    expect(page).to_not have_link('', href:"/object/xx21171293/_2.tgz/download")
+    
+    sign_in_developer
+    visit dams_object_path(@newspaper.pid)
+    expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download")
+    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download")    
   end
 end
