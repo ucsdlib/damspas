@@ -104,6 +104,12 @@ GEM
       execjs
     coffee-script-source (1.8.0)
     colorize (0.7.3)
+    coveralls (0.7.1)
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      term-ansicolor
+      thor
     daemons (1.1.9)
     deprecation (0.1.0)
       activesupport
@@ -319,12 +325,15 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stomp (1.3.3)
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    tins (1.3.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uber (0.0.11)
@@ -361,6 +370,7 @@ DEPENDENCIES
   capistrano-rbenv (~> 2.0.2)
   capybara (~> 2.4.4)
   coffee-rails (~> 4.1.0)
+  coveralls
   devise (~> 3.4.1)
   equivalent-xml (~> 0.5.1)
   hydra-head (~> 6.5.2)
