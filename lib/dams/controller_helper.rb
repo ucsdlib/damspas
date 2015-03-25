@@ -675,8 +675,12 @@ module Dams
     def referrer_controller( request )
       uri = URI(request.referrer || "")
       if uri.host == request.host
-        ref = Rails.application.routes.recognize_path(uri.path.gsub(/^\/dc/,""))
-        ref[:controller]
+        begin
+          ref = Rails.application.routes.recognize_path(uri.path.gsub(/^\/dc/,""))
+          ref[:controller]
+        rescue Exception => e
+          logger.warn "Referer controller error: #{e}"
+        end
       end
     end
   end
