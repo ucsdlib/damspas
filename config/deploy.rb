@@ -15,7 +15,7 @@ set :rbenv_roles, :all # default value
 # set :log_level, :debug
 # set :pty, true
 
-set :linked_files, %w{config/database.yml config/fedora.yml config/solr.yml config/initializers/secret_token.rb config/initializers/devise.rb}
+set :linked_files, %w{config/database.yml config/fedora.yml config/solr.yml config/initializers/secret_token.rb config/initializers/devise.rb config/.coveralls.yml}
 set :linked_dirs, %w{config/environments}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

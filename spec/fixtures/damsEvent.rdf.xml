@@ -1,12 +1,12 @@
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:dams="http://library.ucsd.edu/ontology/dams#"
          xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
-  <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/bb28282828">
+  <dams:DAMSEvent rdf:about="http://library.ucsd.edu/ark:/20775/xx28282828">
     <dams:type>record created</dams:type>
     <dams:eventDate>2012-11-06T09:26:34-0500</dams:eventDate>
     <dams:outcome>success</dams:outcome>
     <dams:relationship rdf:parseType="Resource">
-      <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/bd55639754"/>
+      <dams:role rdf:resource="http://library.ucsd.edu/ark:/20775/xx55639754"/>
       <dams:personalName rdf:resource="http://library.ucsd.edu/ark:/20775/xx08080808"/>
     </dams:relationship>
   </dams:DAMSEvent>

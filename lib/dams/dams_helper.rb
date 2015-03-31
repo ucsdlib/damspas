@@ -830,7 +830,7 @@ module Dams
     if !object.first.nil?
       object.each do |o|
         o_pid = o.pid;
-        if o_pid.nil? || o_pid.start_with?("_") || o.respond_to?(:name) && !o.name.first.nil? || o.respond_to?(:value) && !o.value.first.nil?
+        if ( o_pid.nil? || o_pid.start_with?("_") || (o.respond_to?(:name) && !o.name.first.nil?) || (o.respond_to?(:value) && !o.value.first.nil?) )
           # inline records, use as-is
           objects << o
         else

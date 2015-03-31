@@ -4,6 +4,7 @@
   include_label = nil unless local_assigns[:include_label]
   exclude_type = [] unless local_assigns[:exclude_type]
   exclude_label = [] unless local_assigns[:exclude_label]
+  internal = false unless local_assigns[:internal]
 
   if defined?(componentIndex) # Then we're working with a component
     prefix = "component_#{componentIndex}_"
@@ -32,12 +33,14 @@
       note = JSON.parse(n)
       note_type = note['type']
       note_label = note['displayLabel']
+      note_internal = note['internalOnly'] == 'true'
       # add notes[displaylabel] if exist, if not note[type] else put as general note
       # add notes if type/label match specification
       if ( type == nil || type == note_type ) &&
         ( include_label == nil || include_label == note_label.downcase) &&
         ( exclude_type == [] || !exclude_type.include?(note_type.downcase) ) &&
-        ( exclude_label == [] || !exclude_label.include?(note_label.downcase) )
+        ( exclude_label == [] || !exclude_label.include?(note_label.downcase) ) &&
+        ( internal == note_internal )
         if note_label != nil && !note_label.blank?
           notes[note_label.titleize] = note
         elsif note_type != nil && !note_type.blank?

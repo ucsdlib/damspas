@@ -3,6 +3,7 @@ class DamsCustodialResponsibilityNoteDatastream < ActiveFedora::RdfxmlRDFDatastr
     map.value(:in=> RDF)
     map.displayLabel(:in=>DAMS)
     map.type(:in=>DAMS)
+    map.internalOnly(:in=>DAMS)
   end
 
   rdf_subject { |ds|
@@ -21,6 +22,7 @@ class DamsCustodialResponsibilityNoteDatastream < ActiveFedora::RdfxmlRDFDatastr
     Solrizer.insert_field(solr_doc, 'custodialResponsibilityNote_value', value)
 	Solrizer.insert_field(solr_doc, 'custodialResponsibilityNote_displayLabel', displayLabel)
 	Solrizer.insert_field(solr_doc, 'custodialResponsibilityNote_type', type) 
+	Solrizer.insert_field(solr_doc, 'custodialResponsibilityNote_internalOnly', internalOnly) 
     # hack to strip "+00:00" from end of dates, because that makes solr barf
     ['system_create_dtsi','system_modified_dtsi'].each { |f|
       if solr_doc[f].kind_of?(Array)

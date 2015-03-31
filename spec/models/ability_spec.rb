@@ -119,25 +119,31 @@ describe Ability do
     end
     describe "to access a ucsd local display DamsObject" do
     	before do
-			damsOtherRight = DamsOtherRight.create(pid: 'ac00000041')
-		    damsOtherRight.tap do |t|
+			@damsOtherRight = DamsOtherRight.create(pid: 'ac00000041')
+		    @damsOtherRight.tap do |t|
 		      t.attributes = params
 		    end
-			damsOtherRight.save
+			@damsOtherRight.save
 	    	@obj2 = DamsObject.create!(pid: "ac00000051", titleValue: "Test UCSD Local Title", unitURI: @unit1.pid, copyrightURI: @copy.pid, otherRightsURI: "ac00000041")
+            solr_index @obj2.pid
 	    end
-	  	pending "should be able to show record ac00000051" do   
+        after do
+          @obj2.delete
+          @damsOtherRight.delete
+        end
+	  	it "should be able to show record ac00000051" do   
 		    subject.can?(:show,@obj2).should be_true
 		 end
 	 end
 	 describe "to access a ucsd local display DamsProvenanceCollection" do
 	 	before(:all) do
 	    	@obj3 = DamsProvenanceCollection.create!(pid: "ac00000061", titleValue: "Test UCSD Local Provanence Collection Title", unitURI: @unit1.pid, visibility: "local")
+            solr_index @obj3.pid
 	    end
         after(:all) do
           @obj3.delete
         end
-		 pending "should be able to show record ac00000061" do   
+		 it "should be able to show record ac00000061" do   
 		    subject.can?(:show,@obj3).should be_true
 		 end
 	 end
@@ -165,7 +171,7 @@ describe Ability do
 		    after(:all) do
 		      @damsObjectUnit1.delete
 		    end
-		    pending "should be able to show" do
+		    it "should be able to show" do
 		      subject.can?(:show,@damsObjectUnit1).should be_true
 		    end
 		    it "should be able to create" do
@@ -186,7 +192,7 @@ describe Ability do
 	    	after(:all) do
 		      @damsObjectUnit2.delete
 		    end
-		    pending "should be able to show" do
+		    it "should be able to show" do
 		      subject.can?(:show,@damsObjectUnit2).should be_true
 		    end
 		    it "should be allowed to create" do
@@ -620,6 +626,7 @@ describe Ability do
 	    describe "to access a DamsUnit" do
 	        before(:all) do
 		      @damsUnit = mod_dams_unit "ac00000300"
+              solr_index @damsUnit.pid
 		    end
 	        after(:all) do
 		      @damsUnit.delete
@@ -630,10 +637,10 @@ describe Ability do
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_false
 		    end
-		    pending "should not be allowed edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_false
 		    end
-		    pending "should not be allowed to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_false
 		    end
 	    end
@@ -893,8 +900,9 @@ describe Ability do
 	    describe "to access a DamsUnit" do
 	       before(:all) do
 		      @damsUnit = mod_dams_unit "ac00000300"
-		    end
-	       before(:all) do
+              solr_index @damsUnit.pid
+		   end
+	       after(:all) do
 		      @damsUnit.delete
 		    end
 		    it "should be allowed to show" do
@@ -903,10 +911,10 @@ describe Ability do
 		    it "should not be allowed to create" do
 		      subject.can?(:create,@damsUnit).should be_false
 		    end
-		    pending "should not be allowed edit" do
+		    it "should not be allowed edit" do
 		      subject.can?(:edit,@damsUnit).should be_false
 		    end
-		    pending "should not be allowed to update" do
+		    it "should not be allowed to update" do
 		      subject.can?(:update,@damsUnit).should be_false
 		    end
 	    end
