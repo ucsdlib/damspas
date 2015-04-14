@@ -1,0 +1,271 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#"
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x">
+    <dams:title>
+      <mads:Title>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Sample Wagner Record Structure</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Sample Wagner Record Structure</mads:authoritativeLabel>
+      </mads:Title>
+    </dams:title>
+    <dams:unit>
+      <dams:Unit rdf:about="http://library.ucsd.edu/ark:/20775/xx080808uu">
+        <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>
+        <dams:code>rdcp</dams:code>
+        <dams:unitGroup>dams-rci</dams:unitGroup>
+        <dams:unitName>UCSD Research Data Collections</dams:unitName>
+        <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program that offers campus researchers facilities, storage, data curation, computing, and networking to facilitate their research using shared cyberinfrastructure services across campus.
+</dams:unitDescription>
+      </dams:Unit>
+    </dams:unit>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>
+    <dams:typeOfResource>data</dams:typeOfResource>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/1">
+        <dams:typeOfResource>data</dams:typeOfResource>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/4">
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:hasComponent>
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/5">
+                <dams:typeOfResource>data</dams:typeOfResource>
+                <dams:title>
+                  <mads:Title>
+                    <mads:elementList rdf:parseType="Collection">
+                      <mads:MainTitleElement>
+                        <mads:elementValue>Grid metadata</mads:elementValue>
+                      </mads:MainTitleElement>
+                    </mads:elementList>
+                    <mads:authoritativeLabel>Grid metadata</mads:authoritativeLabel>
+                  </mads:Title>
+                </dams:title>
+                <dams:order>1</dams:order>
+                <dams:hasFile>
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/5/1.hierarchy">
+                    <dams:use>data-service</dams:use>
+                    <dams:sha1checksum>90bb6de0b62486a3e1ae97fab47dddd27cd1a184</dams:sha1checksum>
+                    <dams:mimeType>application/octet-stream</dams:mimeType>
+                    <dams:sourceFileName>https://cloud.sdsc.edu/v1/AUTH_rci-cdl/SFLCSRProject/RD0035.hierarchy</dams:sourceFileName>
+                    <dams:formatName>bytestream</dams:formatName>
+                    <dams:objectCategory>file</dams:objectCategory>
+                    <dams:crc32checksum>9f817dcf</dams:crc32checksum>
+                    <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb5974125r"/>
+                    <dams:size>263092119</dams:size>
+                    <dams:preservationLevel>full</dams:preservationLevel>
+                    <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                    <dams:filestore>openStack</dams:filestore>
+                    <dams:md5checksum>af415c6cbb9eeba9d990c5afbf65396a</dams:md5checksum>
+                    <dams:compositionLevel>0</dams:compositionLevel>
+                    <dams:dateCreated>2013-07-19T12:43:41-0700</dams:dateCreated>
+                  </dams:File>
+                </dams:hasFile>
+              </dams:Component>
+            </dams:hasComponent>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>Grid hierarchy and metadata</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Grid hierarchy and metadata</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:order>3</dams:order>
+            <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/5"/>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/3">
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/3/1.boundary">
+                <dams:crc32checksum>5f904709</dams:crc32checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:sha1checksum>d9530c0cdcbd0c8a2f2167f85fb0741976b4f06f</dams:sha1checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                <dams:filestore>openStack</dams:filestore>
+                <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb5598692v"/>
+                <dams:dateCreated>2013-07-19T12:55:47-0700</dams:dateCreated>
+                <dams:formatName>ASCII</dams:formatName>
+                <dams:mimeType>text/plain; charset=US-ASCII</dams:mimeType>
+                <dams:use>data-service</dams:use>
+                <dams:compositionLevel>0</dams:compositionLevel>
+                <dams:sourceFileName>https://cloud.sdsc.edu/v1/AUTH_rci-cdl/SFLCSRProject/RD0035.boundary</dams:sourceFileName>
+                <dams:size>236</dams:size>
+                <dams:md5checksum>a7d0ec74879014dc9ef1de31115cdc21</dams:md5checksum>
+              </dams:File>
+            </dams:hasFile>
+            <dams:title>
+              <mads:Title>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Boundary condition parameters</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+                <mads:authoritativeLabel>Boundary condition parameters</mads:authoritativeLabel>
+              </mads:Title>
+            </dams:title>
+            <dams:order>2</dams:order>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/2">
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:order>1</dams:order>
+            <dams:title>
+              <mads:Title>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Simulation parameters</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+                <mads:authoritativeLabel>Simulation parameters</mads:authoritativeLabel>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/2/1">
+                <dams:mimeType>text/plain; charset=US-ASCII</dams:mimeType>
+                <dams:sha1checksum>c83d3b6997bf41a675d04dccd06ad005c4fa9a57</dams:sha1checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:dateCreated>2013-07-19T02:03:39-0700</dams:dateCreated>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:crc32checksum>42a973f6</dams:crc32checksum>
+                <dams:size>6597</dams:size>
+                <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                <dams:compositionLevel>0</dams:compositionLevel>
+                <dams:use>data-service</dams:use>
+                <dams:md5checksum>2f86352e4d5fa0ef18e691f20a5bb472</dams:md5checksum>
+                <dams:formatName>ASCII</dams:formatName>
+                <dams:sourceFileName>https://cloud.sdsc.edu/v1/AUTH_rci-cdl/SFLCSRProject/RD0035</dams:sourceFileName>
+                <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb7509973c"/>
+                <dams:filestore>openStack</dams:filestore>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:order>1</dams:order>
+        <dams:title>
+          <mads:Title>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Parameters</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+            <mads:authoritativeLabel>Parameters</mads:authoritativeLabel>
+          </mads:Title>
+        </dams:title>
+        <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/2"/>
+        <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/3"/>
+        <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/4"/>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/6">
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/7">
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>RD0035 data set, including parameters and grid data</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+                <mads:authoritativeLabel>RD0035 data set, including parameters and grid data</mads:authoritativeLabel>
+              </mads:Title>
+            </dams:title>
+            <dams:order>1</dams:order>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/7/1.tar">
+                <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb9114082v"/>
+                <dams:size>30455326720</dams:size>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:crc32checksum>69aea003</dams:crc32checksum>
+                <dams:dateCreated>2013-07-19T01:45:41-0700</dams:dateCreated>
+                <dams:sourceFileName>https://cloud.sdsc.edu/v1/AUTH_rci-cdl/SFLCSRProject/RD0035.tar</dams:sourceFileName>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:md5checksum>2d3d5578f2d3a3b674c452f13126551e</dams:md5checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:use>data-service</dams:use>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:filestore>openStack</dams:filestore>
+                <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                <dams:sha1checksum>f74da3b30c1b8b4fccce48acaab42decec3d13b1</dams:sha1checksum>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/8">
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>RD0035 data set checksum</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+                <mads:authoritativeLabel>RD0035 data set checksum</mads:authoritativeLabel>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx2322141x/8/1.md5">
+                <dams:sourceFileName>https://cloud.sdsc.edu/v1/AUTH_rci-cdl/SFLCSRProject/RD0035.tar.md5</dams:sourceFileName>
+                <dams:size>45</dams:size>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:formatName>ASCII</dams:formatName>
+                <dams:compositionLevel>0</dams:compositionLevel>
+                <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
+                <dams:md5checksum>8ff64b810c93ffacdf443a121e75b3ed</dams:md5checksum>
+                <dams:dateCreated>2013-07-19T12:55:53-0700</dams:dateCreated>
+                <dams:use>data-service</dams:use>
+                <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bb1707875z"/>
+                <dams:filestore>openStack</dams:filestore>
+                <dams:crc32checksum>a07ba35d</dams:crc32checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:mimeType>text/plain; charset=US-ASCII</dams:mimeType>
+                <dams:sha1checksum>36ac3b9ed229b9128695c208e8520e664b5d19b1</dams:sha1checksum>
+              </dams:File>
+            </dams:hasFile>
+            <dams:order>2</dams:order>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:title>
+          <mads:Title>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Complete data set</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+            <mads:authoritativeLabel>Complete data set</mads:authoritativeLabel>
+          </mads:Title>
+        </dams:title>
+        <dams:order>2</dams:order>
+        <dams:typeOfResource>data</dams:typeOfResource>
+        <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/7"/>
+        <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/8"/>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/1"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/6"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/2"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/3"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/4"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/7"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/8"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx2322141x/5"/>
+  </dams:Object>
+</rdf:RDF>
