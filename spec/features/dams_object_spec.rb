@@ -486,3 +486,23 @@ describe "complex object component view" do
     expect(page).to have_content "Component 4 Title"
   end
 end
+
+describe "complex object component view" do
+  before(:all) do
+    @damsComplexObj5 = DamsObject.create(pid: "xx2322141x")
+    @damsComplexObj5.damsMetadata.content = File.new('spec/fixtures/damsComplexObject5.rdf.xml').read
+    @damsComplexObj5.save!
+    solr_index (@damsComplexObj5.pid)
+  end
+  after(:all) do
+    @damsComplexObj5.delete
+    damsUnit = DamsUnit.find('xx080808uu')
+    damsUnit.delete
+  end
+  it "should not see repeated component title" do
+    visit dams_object_path(@damsComplexObj5.pid)
+    expect(page).to have_content "Sample Wagner Record Structure"
+    expect(page).to have_selector('button#node-btn-1:first',:text=>'Parameters')
+    page.should_not have_css("button#node-btn-1", :count => 2)
+  end
+end
