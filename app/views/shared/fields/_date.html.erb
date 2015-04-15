@@ -20,7 +20,14 @@
 %>
 	     <% if date['type']!=nil && date['type']!=''&& date['value']!=nil &&date['value']!=''%>
 	     
-		    <% datetype= date['type'].capitalize+' Date' %>
+		    <%
+		      date_labels = t('date_labels')
+		      type = date['type']
+		      datetype = date_labels[type.to_sym]
+		      if (datetype.blank?)
+		        datetype = type.capitalize + ' Date'
+		      end
+		    %>
 		    <% htmlOpen = htmlOpenTemp %>
 		    <% htmlOpen %= datetype %>
 			<% concat htmlOpen.html_safe %>

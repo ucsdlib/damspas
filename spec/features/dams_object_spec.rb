@@ -505,4 +505,9 @@ describe "complex object component view" do
     expect(page).to have_selector('button#node-btn-1:first',:text=>'Parameters')
     page.should_not have_css("button#node-btn-1", :count => 2)
   end
+  it "should see label Creation Date and Date Issued" do
+    visit dams_object_path(@damsComplexObj5.pid)
+    expect(page).to have_selector('dt', :text=>'Creation Date')
+    expect(page).to have_selector('dt', :text=>'Date Issued')
+  end
 end
