@@ -23,5 +23,8 @@ en:
   hello: "Hello world"
   sensitive_message: "Culturally sensitive content: This is an image of a person or persons now deceased. In some Aboriginal Communities, hearing names or seeing images of deceased persons may cause sadness or distress, particularly to the relatives of these people.  Would you like to view its content?"
   date_labels: {
+    collected: "Date Collected",
+    copyright: "Copyright Date",
+    creation: "Creation Date",
     issued: "Date Issued",
-    collected: "Date Collected"}
+    event: "Event Date"}
