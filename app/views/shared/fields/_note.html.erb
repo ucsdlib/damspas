@@ -46,7 +46,7 @@
         elsif note_type != nil && !note_type.blank?
           notes[note_type.titleize] = note
         else
-          notes['General Note'] = note
+          notes['General Note'.to_s] = note
         end
       end
     end
