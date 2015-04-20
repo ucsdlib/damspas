@@ -18,7 +18,6 @@
 
   # parse notes
   notes = Hash.new
-  notes.compare_by_identity
   
   # Temporary fix the bug that note field not displaying at component level. 
   # The solr index will need to be updated to make it consistent.
@@ -34,6 +33,7 @@
       note_type = note['type']
       note_label = note['displayLabel']
       note_internal = note['internalOnly'] == 'true'
+      key = 'General Note'
       # add notes[displaylabel] if exist, if not note[type] else put as general note
       # add notes if type/label match specification
       if ( type == nil || type == note_type ) &&
@@ -41,20 +41,18 @@
         ( exclude_type == [] || !exclude_type.include?(note_type.downcase) ) &&
         ( exclude_label == [] || !exclude_label.include?(note_label.downcase) ) &&
         ( internal == note_internal )
-        if note_label != nil && !note_label.blank?
-          notes[note_label.titleize] = note
-        elsif note_type != nil && !note_type.blank?
-          notes[note_type.titleize] = note
-        else
-          notes['General Note'.to_s] = note
+        if !note_label.blank?
+          key = note_label
+        elsif !note_type.blank?
+          key = note_type
         end
+
+        key = key.titleize
+        notes[key] = [] if notes[key].nil? 
+        notes[key] << note
       end
     end
   end
-  
-  #group notes by displaylabel/type
-  notes = notes.group_by {|word| word[0] }
-  #notes is now a hash where key => {key => value}
 
   if !notes.empty?
     # if type is specified, bundle all matching notes under type header
@@ -70,7 +68,7 @@
         htmlOpen %= key
         concat htmlOpen.html_safe
       end
-      noteList.each do |k, note|
+      noteList.each do |note|
       %>
       <p>
         <% if type == 'identifier' && !note['displayLabel'].blank? %>
