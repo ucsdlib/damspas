@@ -1,0 +1,576 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289">
+   <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/1">
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/1/2.jpg">
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:size>132242</dams:size>
+            <dams:use>image-service</dams:use>
+            <dams:quality>590x768</dams:quality>
+            <dams:sha1checksum>27c34a518bd5e2f07ec8a7e0345fde7b68214335</dams:sha1checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:sourceFileName>20775-zz57691289-1-2.jpg</dams:sourceFileName>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd8265905g"/>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:crc32checksum>60f76dfe</dams:crc32checksum>
+            <dams:md5checksum>91d26c9382546a0910ee48ad567ce35e</dams:md5checksum>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:preservationLevel>full</dams:preservationLevel>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/1/1.jpg">
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:use>image-source</dams:use>
+            <dams:sourceCapture>
+              <dams:SourceCapture>
+                <dams:sourceType>Typescript in black and red ink , 8 1/2 x 11</dams:sourceType>
+                <dams:imageProducer>SIO Archives Staff</dams:imageProducer>
+              </dams:SourceCapture>
+            </dams:sourceCapture>
+            <dams:md5checksum>e23919690c302bd6d454f298dd3b4d2d</dams:md5checksum>
+            <dams:sourceFileName>20775-zz57691289-1-1.jpg</dams:sourceFileName>
+            <dams:size>135060</dams:size>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:crc32checksum>27411525</dams:crc32checksum>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd3794876t"/>
+            <dams:formatVersion>1.02</dams:formatVersion>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sha1checksum>c64d8b36f90c3080c8419169ae85c746121c50f2</dams:sha1checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:quality>768x999</dams:quality>
+            <dams:dateCreated>2004-09-14T14:40:00</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/1/5.jpg">
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd0245356g"/>
+            <dams:size>14797</dams:size>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:sourceFileName>20775-zz57691289-1-5.jpg</dams:sourceFileName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:use>image-icon</dams:use>
+            <dams:md5checksum>533f5f6162091b25a634aaf8aab6ab7a</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:sha1checksum>3a5ad901ef73ca8598d9a5b38bea1e987f9d6576</dams:sha1checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:quality>50x65</dams:quality>
+            <dams:crc32checksum>384f4a2e</dams:crc32checksum>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/1/3.jpg">
+            <dams:quality>346x450</dams:quality>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:crc32checksum>f21162b3</dams:crc32checksum>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd5398984m"/>
+            <dams:sha1checksum>2a642985d2ca23bf54d84e9500d7ca5ddfbbe0e6</dams:sha1checksum>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:use>image-preview</dams:use>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:md5checksum>b3c4f00a502a9c99489b0462d311b6b7</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourceFileName>20775-zz57691289-1-3.jpg</dams:sourceFileName>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:size>59896</dams:size>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/1/4.jpg">
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:crc32checksum>2e7d5c9a</dams:crc32checksum>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:size>18941</dams:size>
+            <dams:use>image-thumbnail</dams:use>
+            <dams:sha1checksum>3e5c0ce1be8bbc1c40d96993e4335aade15d657b</dams:sha1checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd0586656s"/>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:quality>115x150</dams:quality>
+            <dams:md5checksum>eef74c180c757de494c8f95dde37ef6b</dams:md5checksum>
+            <dams:sourceFileName>20775-zz57691289-1-4.jpg</dams:sourceFileName>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Page 1</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Page 1</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:order>1</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+
+   
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>1940 Gulf of California Expedition Station 179 7:30 A.M. List of Species</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>1940 Gulf of California Expedition Station 179 7:30 A.M. List of Species</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:note>
+      <dams:Note>
+        <dams:type>identifier</dams:type>
+        <dams:displayLabel>local</dams:displayLabel>
+        <rdf:value>caljsioa_mc621250052</rdf:value>
+      </dams:Note>
+    </dams:note>
+   
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/3">
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/3/3.jpg">
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sha1checksum>b868ba96e1e3da488507905ba37359c289fdefc5</dams:sha1checksum>
+            <dams:quality>346x450</dams:quality>
+            <dams:size>45438</dams:size>
+            <dams:crc32checksum>a93a93e8</dams:crc32checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd79587350"/>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:use>image-preview</dams:use>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:sourceFileName>20775-zz57691289-3-3.jpg</dams:sourceFileName>
+            <dams:md5checksum>f10be32d330e3013f5a24b831880d1d0</dams:md5checksum>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:filestore>localStore</dams:filestore>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/3/5.jpg">
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:md5checksum>9004b3f6c2077d2b6d295be45ba90a3c</dams:md5checksum>
+            <dams:quality>50x65</dams:quality>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd0518394h"/>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:crc32checksum>a6d494ff</dams:crc32checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:size>4763</dams:size>
+            <dams:sourceFileName>20775-zz57691289-3-5.jpg</dams:sourceFileName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:use>image-icon</dams:use>
+            <dams:sha1checksum>44d3a8f7bbc04b98228d6cf2a46a08d1e6fd42ac</dams:sha1checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/3/4.jpg">
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd8607206s"/>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:size>8891</dams:size>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:md5checksum>c5c94ced34f1cd4f3afa21a989710ea7</dams:md5checksum>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:use>image-thumbnail</dams:use>
+            <dams:sourceFileName>20775-zz57691289-3-4.jpg</dams:sourceFileName>
+            <dams:sha1checksum>b9ce175dd5a3907b028d2e99301c5f01cc91891f</dams:sha1checksum>
+            <dams:crc32checksum>c9b1b07d</dams:crc32checksum>
+            <dams:quality>115x150</dams:quality>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/3/1.jpg">
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:dateCreated>2004-09-14T14:40:00</dams:dateCreated>
+            <dams:formatVersion>1.02</dams:formatVersion>
+            <dams:quality>591x768</dams:quality>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:md5checksum>a5cd23b5bf761b2da23d458489761211</dams:md5checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:size>71716</dams:size>
+            <dams:sourceFileName>20775-zz57691289-3-1.jpg</dams:sourceFileName>
+            <dams:use>image-source</dams:use>
+            <dams:sha1checksum>42842171fd4f41e8c1b00767abe21e2ad160ece4</dams:sha1checksum>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd8948505k"/>
+            <dams:crc32checksum>2c950c2e</dams:crc32checksum>
+            <dams:sourceCapture>
+              <dams:SourceCapture>
+                <dams:sourceType>Typescript in black and red ink , 8 1/2 x 11</dams:sourceType>
+                <dams:imageProducer>SIO Archives Staff</dams:imageProducer>
+              </dams:SourceCapture>
+            </dams:sourceCapture>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/3/2.jpg">
+            <dams:crc32checksum>bc77c843</dams:crc32checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd28392361"/>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:use>image-service</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:quality>591x768</dams:quality>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sha1checksum>ceb76d3073b743803c3a3865714fe02a8ea123fd</dams:sha1checksum>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:sourceFileName>20775-zz57691289-3-2.jpg</dams:sourceFileName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:md5checksum>d20e74c9edbeec81ce33196f5744c671</dams:md5checksum>
+            <dams:size>83706</dams:size>
+          </dams:File>
+        </dams:hasFile>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Page 3</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Page 3</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:order>3</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+   
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/2">
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/2/4.jpg">
+            <dams:quality>115x150</dams:quality>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:md5checksum>67255d0ea94c4de2ee6abded7e0bc60d</dams:md5checksum>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:size>17935</dams:size>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd5364856z"/>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:sha1checksum>e553f6e8eafd45c6da2664140240d641cbb09e66</dams:sha1checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:sourceFileName>20775-zz57691289-2-4.jpg</dams:sourceFileName>
+            <dams:crc32checksum>f3fa63c7</dams:crc32checksum>
+            <dams:use>image-thumbnail</dams:use>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/2/5.jpg">
+            <dams:sourceFileName>20775-zz57691289-2-5.jpg</dams:sourceFileName>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:use>image-icon</dams:use>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:size>13891</dams:size>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:md5checksum>003855e228ac844e2ddabb9ef854e23e</dams:md5checksum>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sha1checksum>4a02dda1eb9998960866f58a9e3e54fc5d71390e</dams:sha1checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:crc32checksum>0f90f769</dams:crc32checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd57061557"/>
+            <dams:quality>50x65</dams:quality>
+            <dams:formatName>JPEG</dams:formatName>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/2/1.jpg">
+            <dams:sha1checksum>67dbd94eb0872d657e1d518da9477c72313639f7</dams:sha1checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:dateCreated>2004-09-14T14:40:00</dams:dateCreated>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:sourceCapture>
+              <dams:SourceCapture>
+                <dams:sourceType>Typescript in black and red ink , 8 1/2 x 11</dams:sourceType>
+                <dams:imageProducer>SIO Archives Staff</dams:imageProducer>
+              </dams:SourceCapture>
+            </dams:sourceCapture>
+            <dams:use>image-source</dams:use>
+            <dams:crc32checksum>11e5d1f4</dams:crc32checksum>
+            <dams:size>125080</dams:size>
+            <dams:md5checksum>76f0c015ec41013cc553fce2a4ad25dc</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:quality>768x1000</dams:quality>
+            <dams:sourceFileName>20775-zz57691289-2-1.jpg</dams:sourceFileName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:formatVersion>1.02</dams:formatVersion>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd3453576h"/>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/2/3.jpg">
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:md5checksum>2897b05c66f9b1f5d2fd60ec7de3a8d4</dams:md5checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:quality>346x450</dams:quality>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd1200997b"/>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:sha1checksum>2a3902a6a9ccf2c351a7be1543e02fd5f33e7cfc</dams:sha1checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:size>56939</dams:size>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:use>image-preview</dams:use>
+            <dams:crc32checksum>54f5c516</dams:crc32checksum>
+            <dams:sourceFileName>20775-zz57691289-2-3.jpg</dams:sourceFileName>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:formatVersion>1.01</dams:formatVersion>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/2/2.jpg">
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:crc32checksum>52e9949c</dams:crc32checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:sha1checksum>6fe5ac97b4c955c063030ae064380194d6b1eb95</dams:sha1checksum>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd7992866f"/>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:use>image-service</dams:use>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:quality>590x768</dams:quality>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:md5checksum>1167b3308dbae4e011560a88b062c7bd</dams:md5checksum>
+            <dams:size>125507</dams:size>
+            <dams:sourceFileName>20775-zz57691289-2-2.jpg</dams:sourceFileName>
+          </dams:File>
+        </dams:hasFile>
+        <dams:title>
+          <mads:Title>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Page 2</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+            <mads:authoritativeLabel>Page 2</mads:authoritativeLabel>
+          </mads:Title>
+        </dams:title>
+        <dams:order>2</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:note>
+      <dams:Note>
+        <dams:type>identifier</dams:type>
+        <dams:displayLabel>filename</dams:displayLabel>
+        <rdf:value>1841</rdf:value>
+      </dams:Note>
+    </dams:note>
+    
+    <dams:date>
+      <dams:Date>
+        <dams:type>creation</dams:type>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:beginDate>1940</dams:beginDate>
+        <dams:endDate>1940</dams:endDate>
+        <rdf:value>1940</rdf:value>
+      </dams:Date>
+    </dams:date>
+   
+    <dams:typeOfResource>still image</dams:typeOfResource>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/4">
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/4/5.jpg">
+            <dams:filestore>localStore</dams:filestore>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:quality>50x65</dams:quality>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:size>4618</dams:size>
+            <dams:md5checksum>9aa0905f752f680612d9942ed205acf2</dams:md5checksum>
+            <dams:sha1checksum>bc34ab611b2e9771c9b80d32a59a9ffa4a905264</dams:sha1checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd31122766"/>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:crc32checksum>189a014d</dams:crc32checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourceFileName>20775-zz57691289-4-5.jpg</dams:sourceFileName>
+            <dams:use>image-icon</dams:use>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/4/1.jpg">
+            <dams:sha1checksum>8f2b9306c540ce20079b8dad668e0215d58b51a0</dams:sha1checksum>
+            <dams:quality>587x768</dams:quality>
+            <dams:use>image-source</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:crc32checksum>ff826254</dams:crc32checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:formatVersion>1.02</dams:formatVersion>
+            <dams:md5checksum>20b2bcf3dcfce7c49550256c3503a890</dams:md5checksum>
+            <dams:size>62310</dams:size>
+            <dams:sourceFileName>20775-zz57691289-4-1.jpg</dams:sourceFileName>
+            <dams:dateCreated>2004-09-14T14:40:00</dams:dateCreated>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd0859695b"/>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:sourceCapture>
+              <dams:SourceCapture>
+                <dams:sourceType>Typescript in black and red ink , 8 1/2 x 11</dams:sourceType>
+                <dams:imageProducer>SIO Archives Staff</dams:imageProducer>
+              </dams:SourceCapture>
+            </dams:sourceCapture>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/4/4.jpg">
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:sha1checksum>28e356ef843cbbff9deeed7d1fa0f3bfb4a87a03</dams:sha1checksum>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd6047454w"/>
+            <dams:quality>115x150</dams:quality>
+            <dams:use>image-thumbnail</dams:use>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:size>8398</dams:size>
+            <dams:md5checksum>2788d4195b3f8e2dfad3bc1bb3ff5d16</dams:md5checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:sourceFileName>20775-zz57691289-4-4.jpg</dams:sourceFileName>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:crc32checksum>f02708f3</dams:crc32checksum>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/4/2.jpg">
+            <dams:quality>587x768</dams:quality>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sha1checksum>146cac27106c00d0b48d476f39e6efdc394e445a</dams:sha1checksum>
+            <dams:sourceFileName>20775-zz57691289-4-2.jpg</dams:sourceFileName>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:size>72697</dams:size>
+            <dams:md5checksum>dc827753dfe4b3713844921c67142cf9</dams:md5checksum>
+            <dams:use>image-service</dams:use>
+            <dams:crc32checksum>844ae2be</dams:crc32checksum>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd6354624h"/>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz57691289/4/3.jpg">
+            <dams:md5checksum>48779846557abc444ba5a9d58403f063</dams:md5checksum>
+            <dams:crc32checksum>4fd4652b</dams:crc32checksum>
+            <dams:size>40821</dams:size>
+            <dams:quality>344x450</dams:quality>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:filestore>localStore</dams:filestore>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:sha1checksum>af49deba99a090ff13cc9ca2bc0080a8d0f20a18</dams:sha1checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/57/69/12/89</dams:sourcePath>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:dateCreated>2013-05-14T12:25:32-0700</dams:dateCreated>
+            <dams:use>image-preview</dams:use>
+            <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd3180534d"/>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourceFileName>20775-zz57691289-4-3.jpg</dams:sourceFileName>
+            <dams:formatVersion>1.01</dams:formatVersion>
+          </dams:File>
+        </dams:hasFile>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Page 4</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Page 4</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:order>4</dams:order>
+      </dams:Component>
+    </dams:hasComponent>
+   
+    <dams:note>
+      <dams:Note>
+        <dams:type>location of originals</dams:type>
+        <rdf:value>This digital image is a surrogate of an item from the Roger Revelle Papers, 1929-1980</rdf:value>
+      </dams:Note>
+    </dams:note>
+   
+    <dams:note>
+      <dams:Note>
+        <dams:internalOnly>true</dams:internalOnly>
+        <dams:type>note</dams:type>
+        <rdf:value>National Science Digital Library - Scripps Institution of Oceanography Explorer</rdf:value>
+      </dams:Note>
+    </dams:note>
+ 
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb48484848"/>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>                                                                                                                                                                                                                                                                                                                                                              
+  </dams:Object>
+</rdf:RDF>
