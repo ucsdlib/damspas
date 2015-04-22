@@ -31,11 +31,11 @@
 
         source_file = grabSourceFile
         if source_file != nil
-          download_file_path = download_path(ark,"_#{source_file}")
+          download_file_path = download_path(ark,"_#{i}_#{source_file}")
         elsif service_file != nil
-          download_file_path = service_file_path
+          download_file_path = download_path(ark,"_#{i}_#{service_file}")
         elsif display_file != nil
-          download_file_path = download_path(ark,"_#{display_file}")
+          download_file_path = download_path(ark,"_#{i}_#{display_file}")
         else
           download_file_path = ''
         end     
