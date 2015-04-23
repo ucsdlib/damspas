@@ -565,12 +565,12 @@
       </dams:Note>
     </dams:note>
  
-    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb48484848"/>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
     <dams:copyright>
       <dams:Copyright>
-        <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
         <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
       </dams:Copyright>
-    </dams:copyright>                                                                                                                                                                                                                                                                                                                                                              
+    </dams:copyright>                                                                                                                                                                                                                                                                                                                                                             
   </dams:Object>
 </rdf:RDF>
