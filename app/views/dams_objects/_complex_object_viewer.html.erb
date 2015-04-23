@@ -74,7 +74,9 @@
 
 	    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
 			<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path  } %>
-
+        <% elsif fileType == 'text' %>
+	      <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
+		  <%= render :partial => 'text_viewer', :locals => {:objectType => 'complex', :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 		<% else %>
 
 			<%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
