@@ -246,7 +246,7 @@ feature 'Visitor want to look at objects' do
             polygon: 'Test Polygon' }],
         unit_attributes: [{ name: 'Test Unit', description: 'Test Description', code: 'tu',
             group: 'dams-curator', uri: 'http://example.com/' }],
-        note_attributes: [{ value: 'Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
+        note_attributes: [{ value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
         custodialResponsibilityNote_attributes: [{ value: 'Test Custodial Responsibility Note' }],
         preferredCitationNote_attributes: [{ value: 'Test Preferred Citation Note' }],
         scopeContentNote_attributes: [{ value: 'Test Scope Content Note' }],
@@ -295,6 +295,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Unit')
 
       expect(page).to have_selector('p', text: 'Test Note')
+      expect(page).to have_selector('p', text: 'Another Test Note')
       expect(page).to have_selector('p', text: 'Test Custodial Responsibility Note')
       expect(page).to have_selector('p', text: 'Test Preferred Citation Note')
       expect(page).to have_selector('p', text: 'Test Scope Content Note')
@@ -484,5 +485,30 @@ describe "complex object component view" do
     expect(page).to have_content "Component 2 Title"
     expect(page).to have_content "Component 3 Title"
     expect(page).to have_content "Component 4 Title"
+  end
+end
+
+describe "complex object component view" do
+  before(:all) do
+    @damsComplexObj5 = DamsObject.create(pid: "xx2322141x")
+    @damsComplexObj5.damsMetadata.content = File.new('spec/fixtures/damsComplexObject5.rdf.xml').read
+    @damsComplexObj5.save!
+    solr_index (@damsComplexObj5.pid)
+  end
+  after(:all) do
+    @damsComplexObj5.delete
+    damsUnit = DamsUnit.find('xx080808uu')
+    damsUnit.delete
+  end
+  it "should not see repeated component title" do
+    visit dams_object_path(@damsComplexObj5.pid)
+    expect(page).to have_content "Sample Wagner Record Structure"
+    expect(page).to have_selector('button#node-btn-1:first',:text=>'Parameters')
+    page.should_not have_css("button#node-btn-1", :count => 2)
+  end
+  it "should see label Creation Date and Date Issued" do
+    visit dams_object_path(@damsComplexObj5.pid)
+    expect(page).to have_selector('dt', :text=>'Creation Date')
+    expect(page).to have_selector('dt', :text=>'Date Issued')
   end
 end

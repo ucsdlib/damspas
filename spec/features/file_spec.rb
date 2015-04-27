@@ -93,3 +93,22 @@ describe "Download more than one master file" do
     expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download")    
   end
 end
+
+describe "Download file in a CEO complex object" do
+  pending "Works when the rdf loads correctly" do
+    before do
+      @ceoComplexObj = DamsObject.new(pid: "zz57691289")
+    end
+    after do
+      @ceoComplexObj.delete
+    end
+    it "should see a download button for the component file" do
+      @ceoComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObjectCeo.rdf.xml').read
+      @ceoComplexObj.save!
+      solr_index (@ceoComplexObj.pid)
+      sign_in_developer 
+      visit dams_object_path(@ceoComplexObj.pid)
+      expect(page).to have_link('', href:"/object/zz57691289/_1_2.jpg/download")  
+    end
+  end
+end
