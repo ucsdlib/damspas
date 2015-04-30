@@ -10,15 +10,20 @@ feature 'Access control' do
     @publicObj = DamsObject.create titleValue: "Public Object", unitURI: @unit.pid, copyrightURI: @copyPublic.pid
     @curatorObj = DamsObject.create titleValue: "Curator Object", unitURI: @unit.pid, copyrightURI: @copyCurator.pid
     @localObj = DamsObject.create titleValue: "Local Object", unitURI: @unit.pid, copyrightURI: @copyCurator.pid, otherRightsURI: @otherLocal.pid
+    @hiddenObj = DamsObject.create titleValue: "Hidden Object", unitURI: @unit.pid, copyright_attributes: [{status: "Public domain"}], otherRights_attributes: [{ restriction_node_attributes: [{ type: 'hidden' }] }]
+    @hiddenObj.add_file( "test content", "_1.txt", "test.txt" )
+    @hiddenObj.save
 
     solr_index @publicObj.pid
     solr_index @curatorObj.pid
     solr_index @localObj.pid
+    solr_index @hiddenObj.pid
   end
   after(:all) do
     @publicObj.delete
     @curatorObj.delete
     @localObj.delete
+    @hiddenObj.delete
     @unit.delete
     @copyPublic.delete
     @copyCurator.delete
@@ -31,6 +36,7 @@ feature 'Access control' do
     expect(page).to have_selector('h3', 'Public Object')
     expect(page).to have_no_content('Curator Object')
     expect(page).to have_no_content('Local Object')
+    expect(page).to have_no_content('Hidden Object')
   end
   scenario 'anonymous user viewing public object' do
     visit dams_object_path @publicObj.pid
@@ -46,6 +52,12 @@ feature 'Access control' do
     visit dams_object_path @localObj.pid
     expect(page).to have_selector('h1','You are not allowed to view this page.')
     expect(page).to have_no_content('Local Object')
+  end
+  scenario 'anonymous user viewing file attached to hidden object' do
+    visit file_path( @hiddenObj, '_1.txt' )
+    expect(page.driver.response.status).to eq( 200 )
+    expect(response_headers['Content-Type']).to include 'text/plain'
+    expect(page).to have_content('test content')
   end
 
   # local
