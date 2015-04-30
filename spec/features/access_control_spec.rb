@@ -10,7 +10,7 @@ feature 'Access control' do
     @publicObj = DamsObject.create titleValue: "Public Object", unitURI: @unit.pid, copyrightURI: @copyPublic.pid
     @curatorObj = DamsObject.create titleValue: "Curator Object", unitURI: @unit.pid, copyrightURI: @copyCurator.pid
     @localObj = DamsObject.create titleValue: "Local Object", unitURI: @unit.pid, copyrightURI: @copyCurator.pid, otherRightsURI: @otherLocal.pid
-    @hiddenObj = DamsObject.create titleValue: "Hidden Object", unitURI: @unit.pid, copyright_attributes: [{status: "Public domain"}], otherRights_attributes: [{ restriction_node_attributes: [{ type: 'hidden' }] }]
+    @hiddenObj = DamsObject.create titleValue: "Hidden Object", unitURI: @unit.pid, copyright_attributes: [{status: "Public domain"}], otherRights_attributes: [{ restriction_node_attributes: [{ type: 'suppressDiscovery' }] }]
     @hiddenObj.add_file( "test content", "_1.txt", "test.txt" )
     @hiddenObj.save
 
