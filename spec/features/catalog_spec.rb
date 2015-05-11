@@ -213,3 +213,18 @@ feature 'Visitor wants to limit search with a provided Solr filter query' do
     expect(page).not_to have_selector('h3', text: 'Query Sample 2')
   end
 end
+
+feature 'Visitor wants to see collection info in the search results view' do
+  scenario 'should see the results page with collection info' do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')   
+    expect(page).to have_selector("span.dams-search-results-fields-label:first", :text => 'Collection:')     
+  end
+  
+  scenario 'should see the collection info before other fields in single object viewer' do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('h3', :text => 'Sample Image Component')   
+    click_on "Sample Image Component"
+    expect(page).to have_selector("dt:first", :text => 'Collection')     
+  end
+end
