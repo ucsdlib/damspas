@@ -29,6 +29,9 @@ class CatalogController < ApplicationController
   CatalogController.solr_search_params_logic += [:transform_unit_scope]
 
  
+  def discovery_permissions
+    @discovery_permissions ||= ["discover"]
+  end
   def transform_unit_scope(solr_parameters,params)
     if ((params[:f].nil? || params[:f][:type_sim].nil? || !params[:f][:type_sim].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
       params[:fq].each do |f|
