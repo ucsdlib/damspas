@@ -221,6 +221,13 @@ feature 'Visitor wants to see collection info in the search results view' do
     expect(page).to have_selector("span.dams-search-results-fields-label:first", :text => 'Collection:')     
   end
   
+  scenario 'should see the results page with multiple collection display' do
+    visit catalog_index_path( {:q => 'The Sample Simple Object: An Image Object'} )
+    expect(page).to have_selector('h3', :text => 'The Sample Simple Object: An Image Object')   
+    expect(page).to have_selector("span.dams-search-results-fields-label:first", :text => 'Collection:')
+    expect(page).to have_selector("ul.dams-search-results-fields:first li span[2]", :text => 'Sample Assembled Collection, The: Subtitle, Allegro, 1; Sample Provenance Part, The: Subtitle, Allegro, 1')    
+  end
+  
   scenario 'should see the collection info before other fields in single object viewer' do
     visit catalog_index_path( {:q => 'sample'} )
     expect(page).to have_selector('h3', :text => 'Sample Image Component')   
