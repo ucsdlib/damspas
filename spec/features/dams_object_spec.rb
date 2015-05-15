@@ -512,3 +512,26 @@ describe "complex object component view" do
     expect(page).to have_selector('dt', :text=>'Date Issued')
   end
 end
+
+describe "curator embargoed object view" do
+  before do
+    @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
+                note: "Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object."
+    @damsEmbObj = DamsObject.new(pid: "zz2765588d")
+    @damsEmbObj.damsMetadata.content = File.new('spec/fixtures/embargoedObject.rdf.xml').read
+    @damsEmbObj.save!
+    solr_index (@damsEmbObj.pid) 
+  end
+  after do
+    @damsEmbObj.delete
+    @otherRights.delete
+  end
+
+  it "should see the view content button and click on the button to see the download button" do  
+    sign_in_developer       
+    visit dams_object_path(@damsEmbObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+    click_on "Yes, I would like to view this content."
+    expect(page).to have_link('', href:"/object/zz2765588d/_1.tif/download")
+   end     
+end

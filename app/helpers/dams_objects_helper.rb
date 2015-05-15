@@ -878,7 +878,7 @@ def display_node(index)
         end
 
         # Add 'View Content' button to certain cases
-        if note['value'].start_with?('Culturally sensitive content: ')
+        if note['value'].start_with?('Culturally sensitive content: ') || note['value'].start_with?('Embargoed content: ')
           result += '<p>Would you like to view this content?</p><button type="button" id="view-masked-object" class="btn btn-primary btn-mini pull-right">Yes, I would like to view this content.</button>'.html_safe
         end
 
