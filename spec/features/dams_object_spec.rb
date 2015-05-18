@@ -535,3 +535,24 @@ describe "curator embargoed object view" do
     expect(page).to have_link('', href:"/object/zz2765588d/_1.tif/download")
    end     
 end
+
+describe "Display Note fields in alphabetical order" do
+ before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @ctsObject = DamsObject.create(pid: "xx21171293")
+    @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
+    @ctsObject.save!
+    solr_index (@ctsObject.pid)   
+  end
+  after do
+    @ctsObject.delete
+    @unit.delete
+  end 
+  it "should sort the note fields" do
+    visit dams_object_path(@ctsObject.pid)
+    expect(page).to have_selector('section#metadata-fold dl dt[3]',:text=>'Description') 
+    expect(page).to have_selector('section#metadata-fold dl dt[5]',:text=>'Note') 
+    expect(page).to have_selector('section#metadata-fold dl dt[7]',:text=>'Preferred Citation')   
+  end
+end
