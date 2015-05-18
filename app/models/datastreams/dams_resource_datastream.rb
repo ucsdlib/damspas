@@ -342,33 +342,26 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       begin
         # get date string from value or beginDate
         dateVal = nil
-        dateBeg = nil
-        if(!date.nil? && !date.value.empty?)
-          dateVal = clean_date date.value.first
-        end
-      	if(!date.nil? && !date.beginDate.empty?)
-          dateBeg = clean_date date.beginDate.first
+        if (!date.nil?)
+          if(!date.value.empty?)
+            dateVal = clean_date date.value.first
+          end
+      	  if(dateVal.empty? && !date.beginDate.empty?)
+            dateVal = clean_date date.beginDate.first
+          end
         end
 
         # parse dates
         if(!dateVal.blank?)
           if date.type.first == 'creation'
-            begin
-              creation_date = DateTime.parse(dateVal) if creation_date.nil?
-            rescue
-              creation_date = DateTime.parse(dateBeg) if creation_date.nil?
-            end
+            creation_date = DateTime.parse(dateVal) if creation_date.nil?
           else
-            begin
-              other_date = DateTime.parse(dateVal) if other_date.nil?
-            rescue
-              other_date = DateTime.parse(dateBeg) if other_date.nil?
-            end
+            other_date = DateTime.parse(dateVal) if other_date.nil?
           end
+
         end
       rescue Exception => e
         logger.info "error parsing date '#{dateVal}' (#{e.to_s})"
-        #puts e.backtrace
       end
     end
 
@@ -381,6 +374,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def clean_date( date )
     d = date || ''
+    return '' unless d.match( '^\d{4}' )
+
     # pad yyyy or yyyy-mm dates out to yyyy-mm-dd
     if d.match( '^\d{4}$' )
       d += "-01-01"

@@ -6,9 +6,9 @@ describe DamsResourceDatastream do
     it "should handle nil dates" do
       subject.clean_date(nil).should == ''
     end
-    it "should leave non-ISO8601 values alone" do
+    it "should remove non-ISO8601 values" do
       d = "May 24, 1975"
-      subject.clean_date(d).should == d
+      subject.clean_date(d).should == ''
     end
     it "should leave valid ISO8601 dates alone" do
       d1 = "2014-09-19T12:44:00Z"
