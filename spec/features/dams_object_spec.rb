@@ -517,6 +517,8 @@ describe "curator embargoed object view" do
   before do
     @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
                 note: "Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object."
+    @damsUnit = DamsUnit.create( pid: 'zz48484848', name: 'Test Unit', description: 'Test Description',
+            code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
     @damsEmbObj = DamsObject.new(pid: "zz2765588d")
     @damsEmbObj.damsMetadata.content = File.new('spec/fixtures/embargoedObject.rdf.xml').read
     @damsEmbObj.save!
@@ -525,6 +527,7 @@ describe "curator embargoed object view" do
   after do
     @damsEmbObj.delete
     @otherRights.delete
+    @damsUnit.delete
   end
 
   it "should see the view content button and click on the button to see the download button" do  
