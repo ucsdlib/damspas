@@ -22,7 +22,19 @@
         <dams:type>creation</dams:type>
       </dams:Date>
     </dams:date>
-   
+    <dams:note>
+      <dams:Note>
+        <rdf:value>In order to determine whether the probability that an adolescent will become a future current established smoker is relate to both previous smoking experience and cognitions regarding future smoking, in addition to the California Tobacco Survey (CTS), a Teen Longitudinal Survey was conducted from 1993 through 1996, and from 1996 through 1999. The 1993 CTS Teen Survey provided baseline data for the 1996 Teen Longitudinal Survey, and the 1996 CTS Teen Survey provided baseline data for the 1999 Teen Longitudinal Survey. Data for these Teen Longitudinal Surveys were summarized in the 1996 and 1999 CTS final reports, respectively. Additional funding for these Teen Longitudinal Surveys was provided by the Robert Wood Johnson Foundation.</rdf:value>
+        <dams:type>description</dams:type>
+      </dams:Note>
+    </dams:note>
+
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Pierce, John P; et al. (2015): California Tobacco Survey (CTS) 1993-1996-1999 Teen Longitudinal Surveys. In California Tobacco Survey. UC San Diego Library Digital Collections.</rdf:value>
+        <dams:type>preferred citation</dams:type>
+      </dams:Note>
+    </dams:note>   
     <dams:hasFile>
       <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx21171293/5.jpg">
         <dams:formatVersion>1.01</dams:formatVersion>

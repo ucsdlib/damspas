@@ -28,7 +28,7 @@
   end
  
   if data != nil
-    data.each do |n|
+    data.sort.each do |n|
       note = JSON.parse(n)
       note_type = note['type']
       note_label = note['displayLabel']
