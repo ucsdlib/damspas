@@ -224,7 +224,7 @@ feature 'Visitor wants to see collection info in the search results view' do
               visibility: 'public' )
       @unit = DamsUnit.create( name: 'Test Unit', description: 'Test Description', code: 'tu',
               group: 'dams-curator', uri: 'http://example.com/' )
-      @obj  = DamsObject.create( titleValue: 'Sample Image Component',
+      @obj  = DamsObject.create( titleValue: 'YQu9XjFgDT4UYA7WBQRsg Object',
               assembledCollectionURI: [ @acol.pid ], provenanceCollectionPartURI: [ @part.pid ],
               unit_attributes: [{ id: RDF::URI.new("#{Rails.configuration.id_namespace}#{@unit.pid}") }],
               copyright_attributes: [{status: 'Public domain'}] )
@@ -238,13 +238,13 @@ feature 'Visitor wants to see collection info in the search results view' do
   end
   scenario 'should see the results page with collection info' do
     visit catalog_index_path( {:q => 'sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')   
+    expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')   
     expect(page).to have_selector("span.dams-search-results-fields-label:first", :text => 'Collection:')     
   end
   
   scenario 'should see the results page with multiple collection display' do
-    visit catalog_index_path( {:q => 'Sample Image Component'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')   
+    visit catalog_index_path( {:q => 'YQu9XjFgDT4UYA7WBQRsg Object'} )
+    expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')   
     expect(page).to have_selector("span.dams-search-results-fields-label:first", :text => 'Collection:')
     expect(page).to have_selector("ul.dams-search-results-fields:first li span[2]", :text => 'The Sample Assembled Collection: Subtitle, Allegro, 1')    
     expect(page).to have_selector("ul.dams-search-results-fields:first li span[2]", :text => 'The Sample Provenance Part: Subtitle, Allegro, 1')    
@@ -252,8 +252,8 @@ feature 'Visitor wants to see collection info in the search results view' do
   
   scenario 'should see the collection info before other fields in single object viewer' do
     visit catalog_index_path( {:q => 'sample'} )
-    expect(page).to have_selector('h3', :text => 'Sample Image Component')   
-    click_on "Sample Image Component"
+    expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')   
+    click_on "YQu9XjFgDT4UYA7WBQRsg Object"
     expect(page).to have_selector("dt:first", :text => 'Collection')     
   end
 end
