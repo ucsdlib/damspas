@@ -382,6 +382,7 @@ END
         solr_doc["subject_topic_sim"].should include "Calder (Family : 1757-1959 : N.C.)...."
         solr_doc["subject_topic_sim"].should include "Burns, Jack O....."
         solr_doc["subject_topic_sim"].should include "Burns, Jack O.....2"
+
       end
 
       it "should index relationship" do
@@ -439,6 +440,19 @@ END
   describe "Solr indexing" do
     subject do
       DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new_record? =>true), 'descMetadata')
+    end
+  end
+
+  describe "sort date indexing" do
+    subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new_record? =>true), 'descMetadata') }
+	before do
+      subject.dateValue = "January 1-31, 1993"
+      subject.beginDate = "1993-12-01"
+	end
+    it "should index a sort date" do
+      # sort date
+      solr_doc = subject.to_solr
+      solr_doc["object_create_dtsi"].should == "1993-12-01T00:00:00Z"
     end
   end
 end

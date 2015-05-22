@@ -512,3 +512,69 @@ describe "complex object component view" do
     expect(page).to have_selector('dt', :text=>'Date Issued')
   end
 end
+
+describe "curator embargoed object view" do
+  before do
+    @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
+                note: "Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object."
+    @damsUnit = DamsUnit.create( pid: 'zz48484848', name: 'Test Unit', description: 'Test Description',
+            code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+    @damsEmbObj = DamsObject.new(pid: "zz2765588d")
+    @damsEmbObj.damsMetadata.content = File.new('spec/fixtures/embargoedObject.rdf.xml').read
+    @damsEmbObj.save!
+    solr_index (@damsEmbObj.pid) 
+  end
+  after do
+    @damsEmbObj.delete
+    @otherRights.delete
+    @damsUnit.delete
+  end
+
+  it "should see the view content button and click on the button to see the download button" do  
+    sign_in_developer       
+    visit dams_object_path(@damsEmbObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+    click_on "Yes, I would like to view this content."
+    expect(page).to have_link('', href:"/object/zz2765588d/_1.tif/download")
+   end     
+end
+
+describe "Display Note fields in alphabetical order" do
+ before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @ctsObject = DamsObject.create(pid: "xx21171293")
+    @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
+    @ctsObject.save!
+    solr_index (@ctsObject.pid)   
+  end
+  after do
+    @ctsObject.delete
+    @unit.delete
+  end 
+  it "should sort the note fields" do
+    visit dams_object_path(@ctsObject.pid)
+    expect(page).to have_selector('section#metadata-fold dl dt[3]',:text=>'Description') 
+    expect(page).to have_selector('section#metadata-fold dl dt[5]',:text=>'Note') 
+    expect(page).to have_selector('section#metadata-fold dl dt[7]',:text=>'Preferred Citation')   
+  end
+end
+
+describe "Display internal personal name field" do
+ before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @ctsObject = DamsObject.create(pid: "xx21171293")
+    @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
+    @ctsObject.save!
+    solr_index (@ctsObject.pid)   
+  end
+  after do
+    @ctsObject.delete
+    @unit.delete
+  end 
+  it "should sort the note fields" do
+    visit dams_object_path(@ctsObject.pid)
+    expect(page).to have_content "Internal Personal Name"
+  end
+end

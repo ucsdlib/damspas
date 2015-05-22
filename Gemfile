@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.1.10'
+gem 'rails', '~> 4.2.1'
 gem 'blacklight', '~> 4.7.0' # 5.7.2
 gem 'hydra-head', '~> 6.5.2' # 7.2.2
 gem 'active-fedora', '~> 6.7.8' # 7.1.2
@@ -35,10 +35,11 @@ gem 'capistrano-rbenv', '~> 2.0.2'
 gem 'capistrano-bundler', '~> 1.1.3'
 
 gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
-gem "i18n", '~> 0.6.9'
+gem "i18n", '~> 0.7.0'
 gem "bootstrap-sass", '~> 2.3.0'
 gem "bower-rails", "~> 0.9.2"
 gem 'coveralls', require: false
+gem "responders", "~> 2.1.0"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1', :platforms => :ruby

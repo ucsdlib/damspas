@@ -1,0 +1,210 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/zz2765588d">
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/zz48484848"/>
+    <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/zz58718348"/>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>
+    
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Embargoed content: Image not available due to cultural sensitivities of the community depicted. Access may be granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533.</rdf:value>
+        <dams:type>note</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:date>
+      <dams:Date>
+        <rdf:value>1979</rdf:value>
+        <dams:beginDate>1979</dams:beginDate>
+        <dams:endDate>1979</dams:endDate>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:type>creation</dams:type>
+      </dams:Date>
+    </dams:date>
+   
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz2765588d/2.jpg">
+        <dams:dateCreated>2013-05-12T01:26:47-0700</dams:dateCreated>
+        <dams:md5checksum>ba185a32f53a0581a336330f0e24785c</dams:md5checksum>
+        <dams:use>image-service</dams:use>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:crc32checksum>5c02a7c5</dams:crc32checksum>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd2595682r"/>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:size>262422</dams:size>
+        <dams:quality>522x768</dams:quality>
+        <dams:sha1checksum>65d30e41d30be05e204f144cbcea6185401078e8</dams:sha1checksum>
+        <dams:sourceFileName>20775-zz2765588d-0-2.jpg</dams:sourceFileName>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/27/65/58/8d</dams:sourcePath>
+        <dams:compositionLevel>0</dams:compositionLevel>
+      </dams:File>
+    </dams:hasFile>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>an2_m427_90_22</rdf:value>
+        <dams:displayLabel>filename</dams:displayLabel>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+   
+    <dams:note>
+      <dams:Note>
+        <rdf:value>[Title, Date]. Roger Keesing Papers. MSS 427. Mandeville Special Collections Library, UCSD.</rdf:value>
+        <dams:type>preferred citation</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz2765588d/3.jpg">
+        <dams:quality>306x450</dams:quality>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:dateCreated>2013-05-12T01:26:47-0700</dams:dateCreated>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:sha1checksum>f5e0c5b3ccb07094b0ac360db6ba3d4055c613b5</dams:sha1checksum>
+        <dams:md5checksum>1c3e49818edbefa4f97d46206cb3fe23</dams:md5checksum>
+        <dams:sourceFileName>20775-zz2765588d-0-3.jpg</dams:sourceFileName>
+        <dams:size>104888</dams:size>
+        <dams:use>image-preview</dams:use>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd74080116"/>
+        <dams:crc32checksum>e7986660</dams:crc32checksum>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/27/65/58/8d</dams:sourcePath>
+      </dams:File>
+    </dams:hasFile>
+   
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz2765588d/4.jpg">
+        <dams:md5checksum>a1c3ed34af9780fb6a85dacd901044af</dams:md5checksum>
+        <dams:crc32checksum>9edc89c6</dams:crc32checksum>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/27/65/58/8d</dams:sourcePath>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd8704952c"/>
+        <dams:size>29070</dams:size>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:sourceFileName>20775-zz2765588d-0-4.jpg</dams:sourceFileName>
+        <dams:dateCreated>2013-05-12T01:26:47-0700</dams:dateCreated>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:use>image-thumbnail</dams:use>
+        <dams:quality>102x150</dams:quality>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:sha1checksum>840275872858277b186cfa7abbbc432cd71c7267</dams:sha1checksum>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:preservationLevel>full</dams:preservationLevel>
+      </dams:File>
+    </dams:hasFile>
+ 
+    <dams:license>
+      <dams:License>
+        <dams:restriction>
+          <dams:Restriction>
+            <dams:endDate>2059-01-01</dams:endDate>
+            <dams:beginDate>2009-01-01</dams:beginDate>
+            <dams:type>display</dams:type>
+          </dams:Restriction>
+        </dams:restriction>
+        <dams:permission>
+          <dams:Permission>
+            <dams:type>display</dams:type>
+          </dams:Permission>
+        </dams:permission>
+        <dams:licenseNote>Display currently prohibited.</dams:licenseNote>
+      </dams:License>
+    </dams:license>
+   
+    <dams:note>
+      <dams:Note>
+        <rdf:value>This digital image is a surrogate of an item from the Roger M. Keesing Papers (MSS 427) - Roll 75, Item 22.</rdf:value>
+        <dams:type>location of originals</dams:type>
+      </dams:Note>
+    </dams:note>
+   
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz2765588d/1.tif">
+        <dams:crc32checksum>74654cd5</dams:crc32checksum>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd0001804d"/>
+        <dams:formatVersion>6.0</dams:formatVersion>
+        <dams:sha1checksum>4fae449af27e943cf22da21b00739682b735bdb7</dams:sha1checksum>
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/27/65/58/8d</dams:sourcePath>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:mimeType>image/tiff</dams:mimeType>
+        <dams:use>image-source</dams:use>
+        <dams:sourceFileName>20775-zz2765588d-0-1.tif</dams:sourceFileName>
+        <dams:size>12597004</dams:size>
+        <dams:quality>2922x4300</dams:quality>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:sourceCapture>
+          <dams:SourceCapture>
+            <dams:scanningSoftwareVersion>4.0.0</dams:scanningSoftwareVersion>
+            <dams:scanningSoftware>Nikon Scan</dams:scanningSoftware>
+            <dams:scannerModelName>Super Coolscan 9000 ED</dams:scannerModelName>
+            <dams:scannerManufacturer>Nikon</dams:scannerManufacturer>
+            <dams:captureSource>transmission scanner</dams:captureSource>
+            <dams:imageProducer>LUNA Imaging Inc.</dams:imageProducer>
+            <dams:sourceType>B&amp;W negative</dams:sourceType>
+          </dams:SourceCapture>
+        </dams:sourceCapture>
+        <dams:md5checksum>8bada8a4260fa0fe600973b463a1bd86</dams:md5checksum>
+        <dams:dateCreated>2009-11-12T08:27:38</dams:dateCreated>
+        <dams:formatName>TIFF</dams:formatName>
+        <dams:preservationLevel>full</dams:preservationLevel>
+      </dams:File>
+    </dams:hasFile>
+    <dams:otherRights>
+		 <dams:OtherRights>
+		
+		    <dams:permission>
+		      <dams:Permission>
+		        <dams:type>metadataDisplay</dams:type>
+		      </dams:Permission>
+		    </dams:permission>
+		    <dams:otherRightsNote>Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object.</dams:otherRightsNote>
+		    <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
+		  </dams:OtherRights> 
+    </dams:otherRights>
+    <dams:typeOfResource>still image</dams:typeOfResource>
+    <dams:hasFile>
+      <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz2765588d/5.jpg">
+        <dams:sourcePath>/pub/data2/dams/localStore/bb/27/65/58/8d</dams:sourcePath>
+        <dams:use>image-icon</dams:use>
+        <dams:formatName>JPEG</dams:formatName>
+        <dams:event rdf:resource="http://library.ucsd.edu/ark:/20775/bd12987446"/>
+        <dams:compositionLevel>0</dams:compositionLevel>
+        <dams:crc32checksum>886208ef</dams:crc32checksum>
+        <dams:sha1checksum>922b2c1690e94f520dbba17b0a3db89f072bb205</dams:sha1checksum>
+        <dams:mimeType>image/jpeg</dams:mimeType>
+        <dams:formatVersion>1.01</dams:formatVersion>
+        <dams:preservationLevel>full</dams:preservationLevel>
+        <dams:md5checksum>470d46718999796272abf66573c5e126</dams:md5checksum>
+        <dams:dateCreated>2013-05-12T01:26:47-0700</dams:dateCreated>
+        <dams:objectCategory>file</dams:objectCategory>
+        <dams:sourceFileName>20775-zz2765588d-0-5.jpg</dams:sourceFileName>
+        <dams:quality>44x65</dams:quality>
+        <dams:size>19798</dams:size>
+      </dams:File>
+    </dams:hasFile>
+  
+    <dams:title>
+      <mads:Title>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Gawlau wearing la'oniasi incised clamshell pendant.</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Gawlau wearing la'oniasi incised clamshell pendant.</mads:authoritativeLabel>
+      </mads:Title>
+    </dams:title>
+  </dams:Object>
+</rdf:RDF>
