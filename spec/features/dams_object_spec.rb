@@ -363,7 +363,7 @@ feature 'Visitor want to look at objects' do
                   assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
       jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
       @o.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
-      @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2.html", "test.html" )
+      @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2_1.html", "test.html" )
       @o.save
       solr_index @col.pid
       solr_index @o.pid
@@ -381,7 +381,7 @@ feature 'Visitor want to look at objects' do
     end
     it 'should show a sample public html content file' do
       sign_in_developer
-      visit file_path( @o.pid, '_2.html' )
+      visit file_path( @o.pid, '_2_1.html' )
       response = page.driver.response
       expect(response.status).to eq( 200 )
       expect(response.header["Content-Type"]).to have_content( "text/html" )
@@ -397,6 +397,10 @@ feature 'Visitor want to look at objects' do
       sign_in_developer
       visit zoom_path @o.pid, '9'
       expect(page).to have_selector('p', :text => "Error: unable to find zoomable image.")
+    end
+    it 'should index fulltext of complex object html file' do
+      visit catalog_index_path( { q: 'test link', sort: 'title_ssi asc' } )
+      expect(page).to have_selector('h3', :text => "Image File Test")
     end
   end
 
