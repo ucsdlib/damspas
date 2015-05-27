@@ -64,3 +64,23 @@ feature 'Visitor wants to look at collections' do
     expect(page).to have_link('Sample Provenance Collection') 
   end  
 end
+
+feature 'Visitor wants to look at the collection search results view with no issued date' do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+    @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection3.rdf.xml').read
+    @provCollection.save!
+    solr_index (@provCollection.pid)   
+  end
+  after do
+    @provCollection.delete
+    @unit.delete
+  end 
+  scenario 'should see the collection result page with no issued date' do
+    visit catalog_index_path( {:q => "#{@provCollection.pid}"} )
+    expect(page).to have_selector('h3', :text => 'Heavy Metals in the Ocean Insect, Halobates')   
+    expect(page).to have_selector("ul.dams-search-results-fields:first li span", :text => '1961-1978')     
+  end
+
+end

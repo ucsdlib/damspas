@@ -74,7 +74,7 @@ module CatalogHelper
     if dates != nil
       dates.each do |txt|
         date = JSON.parse(txt)
-        if date['value']
+        if date['value'] && date['type'].casecmp("issued") != 0
           dateVal += ", " if !dateVal.blank?
           dateVal += date['value']
         elsif date['beginDate']
@@ -86,6 +86,7 @@ module CatalogHelper
         end
       end
     end
+    dateVal = dateVal[0,dateVal.length()-2] if !dateVal.blank? && dateVal.end_with?(', ')
     dateVal
   end
   def is_collection?( document )
