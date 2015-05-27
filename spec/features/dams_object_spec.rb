@@ -364,6 +364,7 @@ feature 'Visitor want to look at objects' do
       jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
       @o.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
       @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2_1.html", "test.html" )
+      @o.add_file( 'THsdtk', "_2_2.txt", "test.txt" )
       @o.save
       solr_index @col.pid
       solr_index @o.pid
@@ -400,6 +401,10 @@ feature 'Visitor want to look at objects' do
     end
     it 'should index fulltext of complex object html file' do
       visit catalog_index_path( { q: 'test link', sort: 'title_ssi asc' } )
+      expect(page).to have_selector('h3', :text => "Image File Test")
+    end
+    it 'should index fulltext of complex object text file' do
+      visit catalog_index_path( { q: 'THsdtk', sort: 'title_ssi asc' } )
       expect(page).to have_selector('h3', :text => "Image File Test")
     end
   end
