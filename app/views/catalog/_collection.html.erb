@@ -6,12 +6,12 @@
       <li>
         <span><%= auto_link( note['value'].gsub('""', '"') ) %></span>
       </li>
-    <% end %>
+    <% end %> 
+  <% end %>    
   <% dateVal = date_list(document) %>
   <% if !dateVal.blank? %>
     <li>
       <span><%= dateVal.gsub('""', '"') %></span>
     </li>
-  <% end %>
   <% end %>
 </ul>
