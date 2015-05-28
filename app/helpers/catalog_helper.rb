@@ -86,7 +86,7 @@ module CatalogHelper
         end
       end
     end
-    dateVal = dateVal[0,dateVal.length()-2] if !dateVal.blank? && dateVal.end_with?(', ')
+    dateVal = dateVal.gsub(/, $/,'') if dateVal
     dateVal
   end
   def is_collection?( document )

@@ -80,7 +80,8 @@ feature 'Visitor wants to look at the collection search results view with no iss
   scenario 'should see the collection result page with no issued date' do
     visit catalog_index_path( {:q => "#{@provCollection.pid}"} )
     expect(page).to have_selector('h3', :text => 'Heavy Metals in the Ocean Insect, Halobates')   
-    expect(page).to have_selector("ul.dams-search-results-fields:first li span", :text => '1961-1978')     
+    expect(page).to have_selector("ul.dams-search-results-fields:first li span", :text => '1961-1978')
+    expect(page).to have_no_content('1000-2015')     
   end
 
 end

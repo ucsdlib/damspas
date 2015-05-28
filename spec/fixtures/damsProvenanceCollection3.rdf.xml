@@ -21,7 +21,7 @@
       <dams:Date>
         <dams:type>issued</dams:type>
         <dams:encoding>w3cdtf</dams:encoding>
-        <rdf:value>2015</rdf:value>
+        <rdf:value>1000-2015</rdf:value>
       </dams:Date>
     </dams:date>
     <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
