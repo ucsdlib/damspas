@@ -85,3 +85,26 @@ feature 'Visitor wants to look at the collection search results view with no iss
   end
 
 end
+
+feature 'Visitor wants to see the collection record with names display in order' do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+    @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection3.rdf.xml').read
+    @provCollection.save!
+    solr_index (@provCollection.pid)   
+  end
+  after do
+    @provCollection.delete
+    @unit.delete
+  end 
+  scenario 'should see the collection record with names in order' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Principal Investigator')  
+    expect(page).to have_selector("div.span8 dl dt[3]", :text => 'Co Principal Investigator')
+    expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Author')
+    expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Contributors')
+    expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Creator')    
+  end
+
+end
