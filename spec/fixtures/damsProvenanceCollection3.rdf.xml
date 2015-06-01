@@ -45,6 +45,20 @@
         </mads:elementList>
       </mads:Title>
     </dams:title>
-    
+
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:description>Scripps Scholars webpage</dams:description>
+        <dams:uri rdf:resource="http://scrippsscholars.ucsd.edu/lcheng"/>
+        <dams:type>related</dams:type>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+     <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:description>The physical materials are held at UC San Diego Library</dams:description>
+        <dams:type>related</dams:type>
+      </dams:RelatedResource>
+    </dams:relatedResource>   
+        
   </dams:ProvenanceCollection>
 </rdf:RDF>
