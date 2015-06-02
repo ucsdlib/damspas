@@ -8,27 +8,20 @@
 		htmlOpen = '<dt>%s</dt><dd>'
 		htmlClose = '</dd>'
 	end
-
+    names = ['Principal investigator','principal investigator','Co-principal investigator','co-principal investigator']	
 	fieldData = @document["#{prefix}relationship_json_tesim"] || {}
 %>
-
-		<% fieldData.each do |datum| %>
-
-			<% relationship = JSON.parse(datum).sort.to_h %>
-
-      <% if relationship.has_key?("Principal investigator") %>
-				<%= render :partial => 'shared/fields/relationships_data', :locals => {key: "Principal investigator", value: relationship["Principal investigator"], htmlOpen: htmlOpen, htmlClose: htmlClose} %>
-				<% relationship.delete("Principal investigator") %>
-		  <% end %>
-
-      <% if relationship.has_key?("Co-principal investigator") %>
-				<%= render :partial => 'shared/fields/relationships_data', :locals => {key: "Co-principal investigator", value: relationship["Co-principal investigator"], htmlOpen: htmlOpen, htmlClose: htmlClose} %>
-				<% relationship.delete("Co-principal investigator") %>
-		  <% end %>
-
-      <% relationship.each do |key, value| %>
-					<%= render :partial => 'shared/fields/relationships_data', :locals => {key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose} %>
-			<% end %>
-		<% end %>
+    <% fieldData.each do |datum| %>
+    <% relationship = JSON.parse(datum).sort.to_h %>
+        <% names.each do |n| %>
+            <% if relationship.has_key?(n)%>
+                <%= render :partial => 'shared/fields/relationships_data', :locals => {key: n, value: relationship[n], htmlOpen: htmlOpen, htmlClose: htmlClose} %>
+                <% relationship.delete(n) %>
+		    <% end %>
+	    <% end %>
+        <% relationship.each do |key, value| %>
+            <%= render :partial => 'shared/fields/relationships_data', :locals => {key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose} %>
+        <% end %>
+    <% end %>
 
 		

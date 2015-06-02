@@ -86,7 +86,7 @@ feature 'Visitor wants to look at the collection search results view with no iss
 
 end
 
-feature 'Visitor wants to see the collection record with no URI related resource' do
+feature 'Visitor wants to see the collection record' do
   before do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
     @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
@@ -98,10 +98,18 @@ feature 'Visitor wants to see the collection record with no URI related resource
     @provCollection.delete
     @unit.delete
   end 
-  scenario 'should see the collection record with no URI related resource' do
+  scenario 'should see the related resource with no URI' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_content('The physical materials are held at UC San Diego Library')
     expect(page).not_to have_link('The physical materials are held at UC San Diego Library', {href: ''})    
+  end
+  scenario 'should see the names in order' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Principal Investigator')  
+    expect(page).to have_selector("div.span8 dl dt[3]", :text => 'Co Principal Investigator')
+    expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Author')
+    expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Contributors')
+    expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Creator')    
   end
 
 end
