@@ -64,6 +64,35 @@ feature 'Visitor want to look at objects' do
       expect(page.status_code).to eq 200
       expect(response_headers['Content-Type']).to include 'application/rdf+xml'
     end
+    it "should load the Edit Form" do
+      sign_in_developer
+      visit dams_object_path @o
+      click_on 'Edit'
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
+    end
+    it "should get 400 Bad Request message for submitting invalid RDF" do
+      sign_in_developer
+      visit edit_path @o
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
+      content = @o.damsMetadata.content.gsub(':Title', ':TitleNon')
+      first("textarea[name='dams_object[damsMetadata]']").set(content)
+      click_on 'Submit'
+      expect(page.status_code).to eq 200
+      expect(page).to have_content('400 Bad Request')
+    end
+    it "should be able to update object record" do
+      sign_in_developer
+      visit edit_path @o
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
+      newTitle = @o.damsMetadata.content.gsub! 'Test Title', 'Edited Test Title'
+      first("textarea[name='dams_object[damsMetadata]']").set(newTitle)
+      click_on 'Submit'
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h1',:text=>'The Edited Test Title')
+    end
   end
 
   describe "linked metadata records" do

@@ -37,5 +37,48 @@ class DamsObjectsController < DamsResourceController
 
     render layout: 'minimal'
   end
-  
+
+  def edit
+
+    # get metadata from solr
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+
+    # enforce access controls
+    authorize! :edit, @document
+
+    @format = params[:format].blank? ? 'xml' : params[:format]
+    @data = get_data false, @format
+    @edit_form = DamsObject.find(pid: params[:id])
+  end
+
+  def update
+    # get metadata from solr
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+
+    # enforce access controls
+    authorize! :edit, @document
+
+    begin
+        @damsObj = DamsObject.find(pid: params[:id]).first
+        @damsObj.damsMetadata.content = params[:dams_object]['damsMetadata']
+
+        if @damsObj.save!
+          flash[:notice] = 'Update Successfully!'
+          redirect_to dams_object_path
+          return
+        else
+          flash[:alert] = "Failed to update record: " + @damsObj.errors.full_messages.map { |s| s.to_s }.join(", ")
+        end
+    rescue Exception => e
+      err = e.to_s
+      if (!err.downcase.index('400 bad request').nil?)
+        flash[:error] = 'Error status code ' + err + ': ' + 'Invalid RDF Input.'
+      else
+        flash[:error] = "Failed to update record: " + err
+      end 
+    end
+
+    redirect_to edit_path
+  end
+
 end

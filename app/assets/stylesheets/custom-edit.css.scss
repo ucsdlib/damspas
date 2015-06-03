@@ -68,6 +68,11 @@ $viewerPadding: 3% !default;
     margin: 0;
 }
 
+.rdf-container {
+    cols: 600;
+    rows: 200;
+}
+
 .fields {/*background-color:$objectBG;*/padding: 0 $viewerPadding 0 $viewerPadding;border: 1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;margin-bottom: 20px;}
 .nonSort {width:17%}
 .mainTitle {width:80%}
