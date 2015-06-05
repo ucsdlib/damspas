@@ -181,4 +181,20 @@ module CatalogHelper
     end
     return icon
   end
+  
+  def link_to_query(query)
+    p = params.except(:page, :action)
+    p[:q]=query
+    link_url = search_action_path(p)
+    link_to(query, link_url)
+  end
+
+  def search_action_path *args
+
+    if args.first.is_a? Hash
+      args.first[:only_path] = true
+    end
+
+    search_action_url *args
+  end
 end
