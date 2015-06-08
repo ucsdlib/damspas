@@ -19,7 +19,7 @@ class MadsAuthorityDatastream < ActiveFedora::RdfxmlRDFDatastream
   }
 
   def serialize
-    graph.insert([rdf_subject, RDF.type, MADS.MadsAuthority]) if new?
+    graph.insert([rdf_subject, RDF.type, MADS.Authority]) if new?
     super
   end
   #def scheme=(val)

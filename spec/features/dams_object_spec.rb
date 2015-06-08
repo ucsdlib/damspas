@@ -64,6 +64,35 @@ feature 'Visitor want to look at objects' do
       expect(page.status_code).to eq 200
       expect(response_headers['Content-Type']).to include 'application/rdf+xml'
     end
+    it "should load the Edit Form" do
+      sign_in_developer
+      visit dams_object_path @o
+      click_on 'Edit'
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
+    end
+    it "should get 400 Bad Request message for submitting invalid RDF" do
+      sign_in_developer
+      visit edit_path @o
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
+      content = @o.damsMetadata.content.gsub(':Title', ':TitleNon')
+      first("textarea[name='dams_object[damsMetadata]']").set(content)
+      click_on 'Submit'
+      expect(page.status_code).to eq 200
+      expect(page).to have_content('400 Bad Request')
+    end
+    it "should be able to update object record" do
+      sign_in_developer
+      visit edit_path @o
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
+      newTitle = @o.damsMetadata.content.gsub! 'Test Title', 'Edited Test Title'
+      first("textarea[name='dams_object[damsMetadata]']").set(newTitle)
+      click_on 'Submit'
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h1',:text=>'The Edited Test Title')
+    end
   end
 
   describe "linked metadata records" do
@@ -363,7 +392,8 @@ feature 'Visitor want to look at objects' do
                   assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
       jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
       @o.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
-      @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2.html", "test.html" )
+      @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2_1.html", "test.html" )
+      @o.add_file( 'THsdtk', "_2_2.txt", "test.txt" )
       @o.save
       solr_index @col.pid
       solr_index @o.pid
@@ -381,7 +411,7 @@ feature 'Visitor want to look at objects' do
     end
     it 'should show a sample public html content file' do
       sign_in_developer
-      visit file_path( @o.pid, '_2.html' )
+      visit file_path( @o.pid, '_2_1.html' )
       response = page.driver.response
       expect(response.status).to eq( 200 )
       expect(response.header["Content-Type"]).to have_content( "text/html" )
@@ -397,6 +427,14 @@ feature 'Visitor want to look at objects' do
       sign_in_developer
       visit zoom_path @o.pid, '9'
       expect(page).to have_selector('p', :text => "Error: unable to find zoomable image.")
+    end
+    it 'should index fulltext of complex object html file' do
+      visit catalog_index_path( { q: 'test link', sort: 'title_ssi asc' } )
+      expect(page).to have_selector('h3', :text => "Image File Test")
+    end
+    it 'should index fulltext of complex object text file' do
+      visit catalog_index_path( { q: 'THsdtk', sort: 'title_ssi asc' } )
+      expect(page).to have_selector('h3', :text => "Image File Test")
     end
   end
 
