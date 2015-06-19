@@ -48,6 +48,7 @@ class DamsObjectsController < DamsResourceController
 
     @format = params[:format].blank? ? 'xml' : params[:format]
     @data = get_data false, @format
+    @data.to_s.force_encoding("UTF-8")
     @edit_form = DamsObject.find(pid: params[:id])
   end
 

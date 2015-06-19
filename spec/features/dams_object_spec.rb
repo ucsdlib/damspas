@@ -95,6 +95,28 @@ feature 'Visitor want to look at objects' do
     end
   end
 
+  describe "RDF Edit form" do
+    before(:all) do
+      @o = DamsObject.create titleValue: 'The Test Title - Carta Abierta al Gobierno de la Concertación',
+               copyright_attributes: [{status: 'Public domain'}]
+      solr_index @o.pid
+    end
+    after(:all) do
+      @o.delete
+    end
+    it "should be able to load and edit record with special characters and diacritic" do
+      sign_in_developer
+      visit edit_path @o
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h3',:text=>"The Test Title - Carta Abierta al Gobierno de la Concertación")
+      newTitle = @o.damsMetadata.content.gsub! 'The Test Title', "The Editor's New Title"
+      first("textarea[name='dams_object[damsMetadata]']").set(newTitle)
+      click_on 'Submit'
+      expect(page.status_code).to eq 200
+      expect(page).to have_selector('h1',:text=>"The Editor's New Title - Carta Abierta al Gobierno de la Concertación")
+    end
+  end
+
   describe "linked metadata records" do
     before(:all) do
       ns = Rails.configuration.id_namespace
