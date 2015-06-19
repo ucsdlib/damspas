@@ -19,8 +19,8 @@
     </div>
 
     <div class="form-actions">
-      <%= f.submit :value => "Cancel", :class => "btn-primary btn-large", :onclick => "javascript: document.location.href='#{dams_object_path}';"  %>&nbsp;
-      <%= f.submit :value => "Submit", :class => "btn-primary btn-large"  %>
+      <%= f.submit :value => "Submit", :class => "btn-primary btn-large"  %>&nbsp;
+      <%= link_to 'Cancel', dams_object_path, {:id => 'cancel', :class => 'btn btn-large'} %>
     </div>
   <% end %>
 </div>
