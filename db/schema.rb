@@ -13,54 +13,54 @@
 
 ActiveRecord::Schema.define(version: 20140501112514) do
 
-  create_table "audits", force: true do |t|
-    t.string   "user"
-    t.string   "action"
-    t.string   "classname"
-    t.string   "object"
+  create_table "audits", force: :cascade do |t|
+    t.string   "user",       limit: 255
+    t.string   "action",     limit: 255
+    t.string   "classname",  limit: 255
+    t.string   "object",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "bookmarks", force: true do |t|
-    t.integer  "user_id",     null: false
-    t.string   "document_id"
-    t.string   "title"
+  create_table "bookmarks", force: :cascade do |t|
+    t.integer  "user_id",                 null: false
+    t.string   "document_id", limit: 255
+    t.string   "title",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_type"
+    t.string   "user_type",   limit: 255
   end
 
-  create_table "pages", force: true do |t|
-    t.string   "code"
-    t.string   "title"
+  create_table "pages", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.string   "title",      limit: 255
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "searches", force: true do |t|
+  create_table "searches", force: :cascade do |t|
     t.text     "query_params"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_type"
+    t.string   "user_type",    limit: 255
   end
 
   add_index "searches", ["user_id"], name: "index_searches_on_user_id"
 
-  create_table "users", force: true do |t|
-    t.string   "email",              default: ""
-    t.string   "uid",                default: "",    null: false
-    t.string   "provider",           default: "",    null: false
-    t.integer  "sign_in_count",      default: 0
+  create_table "users", force: :cascade do |t|
+    t.string   "email",              limit: 255, default: ""
+    t.string   "uid",                limit: 255, default: "",    null: false
+    t.string   "provider",           limit: 255, default: "",    null: false
+    t.integer  "sign_in_count",                  default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip", limit: 255
+    t.string   "last_sign_in_ip",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "guest",              default: false
+    t.boolean  "guest",                          default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
