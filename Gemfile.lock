@@ -424,3 +424,6 @@ DEPENDENCIES
   uglifier (~> 2.5.3)
   unicode (= 0.4.4)
   unicorn (~> 4.8.3)
+
+BUNDLED WITH
+   1.10.3

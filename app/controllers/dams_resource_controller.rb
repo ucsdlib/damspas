@@ -23,6 +23,19 @@ class DamsResourceController < ApplicationController
       # if we were redirected from counter, setup next/prev
       controllers = ["catalog", "dams_collections", "dams_objects"]
       setup_next_and_previous_documents if controllers.include?(refcon)
+      
+      logger.info "setup_next_and_previous_documents start ..."
+      logger.info "#{Time.now}"
+      logger.debug "refcon: #{refcon} "
+      
+      if controllers.include?(refcon)
+        if search_session[:counter] and current_search_session
+          logger.debug "search_session[:counter] is: #{search_session[:counter]}"
+          logger.debug "@search_context_response is: #{@search_context_response}"
+          logger.debug "@previous_document is: #{@previous_document}"
+        end
+      end
+      
     end
 
     # get metadata from solr
