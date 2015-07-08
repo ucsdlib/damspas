@@ -85,7 +85,7 @@
   }
   .glyphicon{font-size:10px;}
   .btn-group{margin-bottom:0;}
-  input[type=number]{height:12px;width:30px;font-size:10.5px;line-height:normal;}
+  input[type=number]{height:12px;width:30px;font-size:10.5px;line-height:normal;-moz-appearance:textfield;}
 }
 .pagination-note{font-size:75%;margin:5px 0 0 0;line-height:normal;}
 
