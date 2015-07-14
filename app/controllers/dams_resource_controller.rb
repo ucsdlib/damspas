@@ -26,13 +26,13 @@ class DamsResourceController < ApplicationController
       
       logger.info "setup_next_and_previous_documents start ..."
       logger.info "#{Time.now}"
-      logger.debug "refcon: #{refcon} "
+      logger.info "refcon: #{refcon} "
       
       if controllers.include?(refcon)
         if search_session[:counter] and current_search_session
-          logger.debug "search_session[:counter] is: #{search_session[:counter]}"
-          logger.debug "@search_context_response is: #{@search_context_response}"
-          logger.debug "@previous_document is: #{@previous_document}"
+          logger.info "search_session[:counter] is: #{search_session[:counter]}"
+          logger.info "@search_context_response is: #{@search_context_response}"
+          logger.info "@previous_document is: #{@previous_document}"
         end
       end
       
