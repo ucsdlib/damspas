@@ -899,4 +899,8 @@ def display_node(index)
     "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
   end
 
+  def rdf_edit_url (pid)
+     proxy_url = ActiveFedora.fedora_config.credentials[:proxy]
+     "#{proxy_url.nil? ? '' : proxy_url}/damsmanager/rdfImport.do?ark=#{pid}"
+  end
 end

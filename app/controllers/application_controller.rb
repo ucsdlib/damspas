@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   # Adds a few additional behaviors into the application controller   
 # Adds Hydra behaviors into the application controller 
 
-  protect_from_forgery
+  protect_from_forgery with: :exception
 #  before_filter :authenticate_user!
 
   # custom 403 error page

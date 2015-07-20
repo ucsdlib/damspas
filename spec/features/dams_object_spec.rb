@@ -64,56 +64,10 @@ feature 'Visitor want to look at objects' do
       expect(page.status_code).to eq 200
       expect(response_headers['Content-Type']).to include 'application/rdf+xml'
     end
-    it "should load the Edit Form" do
+    it "should contain damsmanger url for RDF Edit" do
       sign_in_developer
       visit dams_object_path @o
-      click_on 'Edit'
-      expect(page.status_code).to eq 200
-      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
-    end
-    it "should get 400 Bad Request message for submitting invalid RDF" do
-      sign_in_developer
-      visit edit_path @o
-      expect(page.status_code).to eq 200
-      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
-      content = @o.damsMetadata.content.gsub(':Title', ':TitleNon')
-      first("textarea[name='dams_object[damsMetadata]']").set(content)
-      click_on 'Submit'
-      expect(page.status_code).to eq 200
-      expect(page).to have_content('400 Bad Request')
-    end
-    it "should be able to update object record" do
-      sign_in_developer
-      visit edit_path @o
-      expect(page.status_code).to eq 200
-      expect(page).to have_selector('h3',:text=>'Edit The Test Title')
-      newTitle = @o.damsMetadata.content.gsub! 'Test Title', 'Edited Test Title'
-      first("textarea[name='dams_object[damsMetadata]']").set(newTitle)
-      click_on 'Submit'
-      expect(page.status_code).to eq 200
-      expect(page).to have_selector('h1',:text=>'The Edited Test Title')
-    end
-  end
-
-  describe "RDF Edit form" do
-    before(:all) do
-      @o = DamsObject.create titleValue: 'The Test Title - Carta Abierta al Gobierno de la Concertación',
-               copyright_attributes: [{status: 'Public domain'}]
-      solr_index @o.pid
-    end
-    after(:all) do
-      @o.delete
-    end
-    it "should be able to load and edit record with special characters and diacritic" do
-      sign_in_developer
-      visit edit_path @o
-      expect(page.status_code).to eq 200
-      expect(page).to have_selector('h3',:text=>"The Test Title - Carta Abierta al Gobierno de la Concertación")
-      newTitle = @o.damsMetadata.content.gsub! 'The Test Title', "The Editor's New Title"
-      first("textarea[name='dams_object[damsMetadata]']").set(newTitle)
-      click_on 'Submit'
-      expect(page.status_code).to eq 200
-      expect(page).to have_selector('h1',:text=>"The Editor's New Title - Carta Abierta al Gobierno de la Concertación")
+      expect(page).to have_xpath "//a[contains(@href,'/damsmanager/rdfImport.do?ark=#{@o.pid}')]"
     end
   end
 

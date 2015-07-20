@@ -71,25 +71,4 @@ describe DamsObjectsController do
       expect(session[:search_results]).to be_nil
     end
   end
-
-  describe "edit" do
-    it "should redirect edit page" do
-      sign_in User.create! ({:provider => 'developer'})
-
-      get :edit, { id: @obj.pid }
-      expect(response.status).to eq( 200 )
-    end
-    it "should update object" do
-      sign_in User.create({:provider => 'developer'})
-      put :update, { id: @obj.pid, format: 'xml', dams_object: {"damsMetadata" => @obj.damsMetadata.content} }
-      flash[:notice].should include "Update Successfully!"
-    end
-    it "should get 400 Bad Request error with invalid RDF" do
-      sign_in User.create! ({:provider => 'developer'})
-      content = @obj.damsMetadata.content.gsub(':title', ':titleN')
-      put :update, { id: @obj.pid, format: 'xml', dams_object: {"damsMetadata" => content} }
-      flash[:error].should_not be_nil
-      flash[:error].should include "400 Bad Request"
-    end
-  end
 end
