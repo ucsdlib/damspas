@@ -1,9 +1,8 @@
 class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :title
-  property :subtitle
-  property :relatedTitle
   property :type
   property :date
+  property :Date
   property :beginDate
   property :endDate
   property :encoding
@@ -21,7 +20,6 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :corporateName
   property :familyName
   property :personalName
-  property :elementList
   property :assembledCollection
   property :AssembledCollection
   property :provenanceCollection
@@ -41,22 +39,31 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :complexSubject
   property :builtWorkPlace
   property :builtWorkPlaceElement
+  property :commonName
+  property :commonNameElement
+  property :CommonName
+  property :CommonNameElement
   property :culturalContext
+  property :CulturalContext
   property :culturalContextElement
   property :CulturalContextElement
   property :function
+  property :Function
   property :functionElement
   property :FunctionElement
   property :genreForm
   property :geographic
   property :iconography
+  property :Iconography
   property :iconographyElement
   property :IconographyElement
   property :occupation
   property :scientificName
+  property :ScientificName
   property :scientificNameElement
   property :ScientificNameElement
   property :stylePeriod
+  property :StylePeriod
   property :stylePeriodElement
   property :StylePeriodElement
   property :technique
@@ -101,12 +108,9 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :otherRightsNote
   property :otherRightsURI
   property :code
-  property :valueURI
-  property :vocabulary
   property :component
   property :Component
   property :filestore
-  property :file
   property :File
   property :sourcePath
   property :sourceFileName
@@ -125,6 +129,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :compositionLevel
   property :preservationLevel
   property :quality
+  property :duration
   property :hasComponent
   property :hasFile
   property :note
@@ -136,8 +141,6 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :hasPart
   property :part_node
   property :relatedCollection
-  property :authority
-  property :authorityURI  
   property :scannerManufacturer
   property :sourceType
   property :scannerModelName
@@ -147,6 +150,7 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :captureSource
   property :SourceCapture
   property :sourceCapture
+  property :BuiltWorkPlace
   property :BuiltWorkPlaceElement
   property :cartographics
   property :Cartographics
@@ -157,18 +161,24 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :referenceSystem
   property :scale
   property :eventDate
+  property :detail
   property :outcome
   property :DAMSEvent
   property :event
-  property :partNumber
-  property :partName
-  property :nonSort  
   property :visibility  
-  property :Foo
-  property :FooElement
-  property :fooElement
-  property :FooBar
-  property :FooBarElement
-  property :fooBarElement
   property :internalOnly
+  property :object
+  property :order
+  property :visibility
+
+  # superclasses/superproperties that would not be used in implementation, but
+  # included for completeness
+  property :Collection
+  property :DAMSResource
+  property :DAMSThing
+  property :Rights
+  property :RightsAction
+  property :checksum
+  property :hasCollection
+  property :rightsAction
 end
