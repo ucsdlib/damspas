@@ -13,6 +13,7 @@ class DamsResourceController < ApplicationController
     refcon = referrer_controller request
     if params[:counter]
       # if there is a counter, update pager state & redirect to no-counter view
+      logger.info "dams_resource_controller#show (#{refcon}) adding query to session and redirecting"
       session[:search][:counter] = params[:counter]
       session[:search_results] = request.referer if refcon == "catalog"
       redirect_to dams_object_path(params[:id])
@@ -22,20 +23,8 @@ class DamsResourceController < ApplicationController
 
       # if we were redirected from counter, setup next/prev
       controllers = ["catalog", "dams_collections", "dams_objects"]
+      logger.info "dams_resource_controller#show (#{refcon}) controllers.include?(refcon)? #{controllers.include?(refcon)}"
       setup_next_and_previous_documents if controllers.include?(refcon)
-      
-      logger.info "setup_next_and_previous_documents start ..."
-      logger.info "#{Time.now}"
-      logger.debug "refcon: #{refcon} "
-      
-      if controllers.include?(refcon)
-        if search_session[:counter] and current_search_session
-          logger.debug "search_session[:counter] is: #{search_session[:counter]}"
-          logger.debug "@search_context_response is: #{@search_context_response}"
-          logger.debug "@previous_document is: #{@previous_document}"
-        end
-      end
-      
     end
 
     # get metadata from solr
