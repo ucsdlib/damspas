@@ -126,6 +126,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_occupations(occupation)
 	loadRdfObjects occupation,MadsOccupation
   end
+  def load_commonNames
+    load_commonNames(commonName)
+  end
+  def load_commonNames(commonName)
+    loadRdfObjects commonName,DamsCommonName
+  end
   def load_scientificNames
     load_scientificNames(scientificName)
   end
@@ -773,6 +779,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertSubjectFields solr_doc, 'function', load_functions(function)
     insertSubjectFields solr_doc, 'iconography', load_iconographies(iconography)
     insertSubjectFields solr_doc, 'occupation', load_occupations(occupation)
+    insertSubjectFields solr_doc, 'commonName', load_commonNames(commonName)
     insertSubjectFields solr_doc, 'scientificName', load_scientificNames(scientificName)
     insertSubjectFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
     insertSubjectFields solr_doc, 'technique', load_techniques(technique)

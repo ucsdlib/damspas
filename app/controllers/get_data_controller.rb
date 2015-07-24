@@ -25,6 +25,8 @@ class GetDataController < ApplicationController
 		@docs = get_objects_json('MadsGeographic','name_tesim')	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Iconography')
 		@docs = get_objects_json('DamsIconography','name_tesim')		
+	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'CommonName')
+        @docs = get_objects_json('DamsCommonName','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'ScientificName')
 		@docs = get_objects_json('DamsScientificName','name_tesim')	
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Technique')
