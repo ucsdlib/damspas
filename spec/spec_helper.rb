@@ -1,5 +1,4 @@
-require 'coveralls'
-Coveralls.wear!
+require 'codeclimate-test-reporter'
 require 'simplecov'
 require 'rspec/matchers'
 require 'equivalent-xml'
