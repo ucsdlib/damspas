@@ -32,6 +32,7 @@ class DamsComponentInternal
 	  map.geographic(:in => DAMS, :class_name => 'MadsGeographicInternal')
 	  map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
 	  map.occupation(:in => DAMS, :class_name => 'MadsOccupationInternal')
+	  map.commonName(:in => DAMS, :class_name => 'DamsCommonNameInternal')
 	  map.scientificName(:in => DAMS, :class_name => 'DamsScientificNameInternal')
 	  map.stylePeriod(:in => DAMS, :class_name => 'DamsStylePeriodInternal')
 	  map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')

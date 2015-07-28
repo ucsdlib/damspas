@@ -17,6 +17,9 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :role
   property :name
   property :conferenceName
+  property :commonName
+  property :commonNameElement
+  property :CommonNameElement
   property :corporateName
   property :familyName
   property :personalName

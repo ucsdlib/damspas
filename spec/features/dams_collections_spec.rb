@@ -89,6 +89,7 @@ end
 feature 'Visitor wants to see the collection record' do
   before do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @commonName = DamsCommonName.create pid: "xx000101ac", name:"thale-cress external"
     @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
     @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection3.rdf.xml').read
     @provCollection.save!
@@ -97,6 +98,7 @@ feature 'Visitor wants to see the collection record' do
   after do
     @provCollection.delete
     @unit.delete
+    @commonName.delete
   end 
   scenario 'should see the related resource with no URI' do
     visit dams_collection_path("#{@provCollection.pid}")
@@ -111,5 +113,9 @@ feature 'Visitor wants to see the collection record' do
     expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Contributors')
     expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Creator')    
   end
-
+  scenario 'should see the internal and external common names' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_selector('li', text: 'thale-cress')
+    expect(page).to have_selector('li', text: 'thale-cress external')
+  end
 end

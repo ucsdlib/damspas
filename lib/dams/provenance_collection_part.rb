@@ -40,6 +40,7 @@ module Dams
         map.geographic(:in => DAMS, :class_name => 'MadsGeographicInternal')
         map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
         map.occupation(:in => DAMS, :class_name => 'MadsOccupationInternal')
+        map.commonName(:in => DAMS, :class_name => 'DamsCommonNameInternal')
         map.scientificName(:in => DAMS, :class_name => 'DamsScientificNameInternal')
         map.stylePeriod(:in => DAMS, :class_name => 'DamsStylePeriodInternal')
         map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')
@@ -75,7 +76,7 @@ module Dams
       accepts_nested_attributes_for :title, :date, :relationship, :language, :visibility, :resource_type,
                       :note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote, 
                       :complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
-                      :iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
+                      :iconography, :occupation, :commonName, :scientificName, :stylePeriod, :technique, :temporal, :topic,
                       :name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
                       :unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :provenanceCollection_node, :allow_destroy => true 
 
