@@ -138,6 +138,8 @@ class DamsObject < ActiveFedora::Base
     :unit_attributes,
     :unit,
     :unitURI,
+    :commonName_attributes,
+    :commonName,
       datastream: :damsMetadata, multiple: true
   
   def languages

@@ -95,6 +95,7 @@ feature 'Visitor want to look at objects' do
       @cult = DamsCulturalContext.create( name: 'Test Cultural Context' )
       @func = DamsFunction.create( name: 'Test Function' )
       @icon = DamsIconography.create( name: 'Test Iconography' )
+      @cci = DamsCommonName.create( name: 'Test Common Name' )
       @sci = DamsScientificName.create( name: 'Test Scientific Name' )
       @style = DamsStylePeriod.create( name: 'Test Style Period' )
       @tech = DamsTechnique.create( name: 'Test Technique' )
@@ -130,6 +131,7 @@ feature 'Visitor want to look at objects' do
            culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
            function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
            iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
+           commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@cci.pid}") }],
            scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@sci.pid}") }],
            stylePeriod_attributes: [{ id: RDF::URI.new("#{ns}#{@style.pid}") }],
            technique_attributes: [{ id: RDF::URI.new("#{ns}#{@tech.pid}") }],
@@ -167,6 +169,7 @@ feature 'Visitor want to look at objects' do
       @cult.delete
       @func.delete
       @icon.delete
+      @cci.delete
       @sci.delete
       @style.delete
       @tech.delete
@@ -208,6 +211,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Cultural Context')
       expect(page).to have_selector('li', text: 'Test Function')
       expect(page).to have_selector('li', text: 'Test Iconography')
+      expect(page).to have_selector('li', text: 'Test Common Name')
       expect(page).to have_selector('li', text: 'Test Scientific Name')
       expect(page).to have_selector('li', text: 'Test Style Period')
       expect(page).to have_selector('li', text: 'Test Technique')
@@ -259,6 +263,7 @@ feature 'Visitor want to look at objects' do
         culturalContext_attributes: [{ name: 'Test Cultural Context' }],
         function_attributes: [{ name: 'Test Function' }],
         iconography_attributes: [{ name: 'Test Iconography' }],
+        commonName_attributes: [{ name: 'Test Common Name' }],
         scientificName_attributes: [{ name: 'Test Scientific Name' }],
         stylePeriod_attributes: [{ name: 'Test Style Period' }],
         technique_attributes: [{ name: 'Test Technique' }],
@@ -309,6 +314,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Cultural Context')
       expect(page).to have_selector('li', text: 'Test Function')
       expect(page).to have_selector('li', text: 'Test Iconography')
+      expect(page).to have_selector('li', text: 'Test Common Name')
       expect(page).to have_selector('li', text: 'Test Scientific Name')
       expect(page).to have_selector('li', text: 'Test Style Period')
       expect(page).to have_selector('li', text: 'Test Technique')
@@ -452,6 +458,7 @@ describe "complex object view" do
   before(:all) do
     @unit = DamsUnit.create( pid: 'xx48484848', name: 'Test Unit', description: 'Test Description',
             code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+    @commonName = DamsCommonName.create(pid: 'xx484848cn', name: 'thale-cress')
     @damsComplexObj = DamsObject.create(pid: "xx97626129")
     @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
     @damsComplexObj.save!
@@ -460,6 +467,7 @@ describe "complex object view" do
   after(:all) do
     @damsComplexObj.delete
     @unit.delete
+    @commonName.delete
   end
   it "should see the component hierarchy view" do
     visit dams_object_path(@damsComplexObj.pid)
@@ -477,6 +485,11 @@ describe "complex object view" do
     click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
+  end
+  it "should display iternal and external reference common names in object level and components" do
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('li', text: 'thale-cress')
+    expect(page).to have_selector('li', text: 'thale-cress component')
   end
 end
 
