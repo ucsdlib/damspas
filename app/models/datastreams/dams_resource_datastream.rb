@@ -368,10 +368,21 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     datesort = Solrizer::Descriptor.new(:date, :indexed, :stored)
     if creation_date
-      Solrizer.insert_field(solr_doc, "object_create", creation_date, datesort)
+      insert_sort_dates solr_doc, creation_date
     elsif other_date
-      Solrizer.insert_field(solr_doc, "object_create", other_date, datesort)
+      insert_sort_dates solr_doc, other_date
     end
+  end
+  def insert_sort_dates( solr_doc={}, date )
+    stored_date = Solrizer::Descriptor.new(:date, :indexed, :stored)
+    stored_string = Solrizer::Descriptor.new(:string, :indexed, :stored)
+    Solrizer.insert_field(solr_doc, "object_create", date, stored_date)
+    Solrizer.insert_field(solr_doc, "decade", decade(date), stored_string)
+  end
+  def decade( date = DateTime.now )
+    year = date.strftime('%Y').to_i
+    year -= (year % 10)
+    "#{year}s"
   end
   def clean_date( date )
     d = date || ''
