@@ -126,6 +126,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_occupations(occupation)
 	loadRdfObjects occupation,MadsOccupation
   end
+  def load_commonNames
+    load_commonNames(commonName)
+  end
+  def load_commonNames(commonName)
+    loadRdfObjects commonName,DamsCommonName
+  end
   def load_scientificNames
     load_scientificNames(scientificName)
   end
@@ -362,10 +368,21 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     datesort = Solrizer::Descriptor.new(:date, :indexed, :stored)
     if creation_date
-      Solrizer.insert_field(solr_doc, "object_create", creation_date, datesort)
+      insert_sort_dates solr_doc, creation_date
     elsif other_date
-      Solrizer.insert_field(solr_doc, "object_create", other_date, datesort)
+      insert_sort_dates solr_doc, other_date
     end
+  end
+  def insert_sort_dates( solr_doc={}, date )
+    stored_date = Solrizer::Descriptor.new(:date, :indexed, :stored)
+    stored_string = Solrizer::Descriptor.new(:string, :indexed, :stored)
+    Solrizer.insert_field(solr_doc, "object_create", date, stored_date)
+    Solrizer.insert_field(solr_doc, "decade", decade(date), stored_string)
+  end
+  def decade( date = DateTime.now )
+    year = date.strftime('%Y').to_i
+    year -= (year % 10)
+    "#{year}s"
   end
   def clean_date( date )
     d = date || ''
@@ -773,6 +790,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertSubjectFields solr_doc, 'function', load_functions(function)
     insertSubjectFields solr_doc, 'iconography', load_iconographies(iconography)
     insertSubjectFields solr_doc, 'occupation', load_occupations(occupation)
+    insertSubjectFields solr_doc, 'commonName', load_commonNames(commonName)
     insertSubjectFields solr_doc, 'scientificName', load_scientificNames(scientificName)
     insertSubjectFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
     insertSubjectFields solr_doc, 'technique', load_techniques(technique)

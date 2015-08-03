@@ -16,6 +16,26 @@
       </dams:Date>
     </dams:date>
    
+    <dams:commonName>
+      <dams:CommonName>
+        <mads:authoritativeLabel>thale-cress</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:CommonNameElement>
+            <mads:elementValue>thale-cress</mads:elementValue>
+          </dams:CommonNameElement>
+        </mads:elementList>
+      </dams:CommonName>
+    </dams:commonName>
+    <dams:commonName>
+      <dams:CommonName rdf:about="http://library.ucsd.edu/ark:/20775/xx000101ac">
+        <mads:authoritativeLabel>thale-cress external</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:CommonNameElement>
+            <mads:elementValue>thale-cress external</mads:elementValue>
+          </dams:CommonNameElement>
+        </mads:elementList>
+      </dams:CommonName>
+    </dams:commonName>
     <dams:typeOfResource>text</dams:typeOfResource>
     <dams:date>
       <dams:Date>

@@ -38,7 +38,6 @@ gem "unicode", '0.4.4', :platforms => [:mri_18, :mri_19]
 gem "i18n", '~> 0.7.0'
 gem "bootstrap-sass", '~> 2.3.0'
 gem "bower-rails", "~> 0.9.2"
-gem 'coveralls', require: false
 gem "responders", "~> 2.1.0"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -56,6 +55,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.9.1'
   gem 'unicorn', '~> 4.8.3'
   gem 'rspec_junit_formatter', '~> 0.2.0'
+  gem "codeclimate-test-reporter", require: nil
 end
 
 group :staging do

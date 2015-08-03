@@ -35,6 +35,7 @@ module Dams
 	    map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
         # XXX why does iconography work when mapped to a class when when other made-like additions don't?
 	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
+        map.commonName(:in => DAMS, :class_name => 'DamsCommonNameInternal')
 	    map.scientificName(:in => DAMS, :class_name => 'DamsScientificNameInternal')
 	    map.stylePeriod(:in => DAMS, :class_name => 'DamsStylePeriodInternal')
 	    map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')
@@ -80,7 +81,7 @@ module Dams
       accepts_nested_attributes_for :title, :date, :relationship,:language,  
       								:note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote,  
       								:complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
-      								:iconography, :occupation, :scientificName, :stylePeriod, :technique, :temporal, :topic,
+      								:iconography, :occupation, :commonName, :scientificName, :stylePeriod, :technique, :temporal, :topic,
 	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
 	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderName, :rightsHolderCorporate, :rightsHolderPersonal,
@@ -544,6 +545,7 @@ module Dams
 	      insertFields solr_doc, "component_#{cid}_geographic", load_geographics(component.geographic)
 	      insertFields solr_doc, "component_#{cid}_iconography", load_iconographies(component.iconography)
 	      insertFields solr_doc, "component_#{cid}_occupation", load_occupations(component.occupation)
+          insertFields solr_doc, "component_#{cid}_commonName", load_commonNames(component.commonName)
 	      insertFields solr_doc, "component_#{cid}_scientificName", load_scientificNames(component.scientificName)
 	      insertFields solr_doc, "component_#{cid}_stylePeriod", load_stylePeriods(component.stylePeriod)
 	      insertFields solr_doc, "component_#{cid}_technique", load_techniques(component.technique)
@@ -562,6 +564,7 @@ module Dams
 	      insertFacets solr_doc, "subject_topic", load_geographics(component.geographic)
 	      insertFacets solr_doc, "subject_topic", load_iconographies(component.iconography)
 	      insertFacets solr_doc, "subject_topic", load_occupations(component.occupation)
+          insertFacets solr_doc, "subject_topic", load_commonNames(component.commonName)
 	      insertFacets solr_doc, "subject_topic", load_scientificNames(component.scientificName)
 	      insertFacets solr_doc, "subject_topic", load_stylePeriods(component.stylePeriod)
 	      insertFacets solr_doc, "subject_topic", load_techniques(component.technique)

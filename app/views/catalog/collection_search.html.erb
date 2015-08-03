@@ -5,11 +5,12 @@
   <div id="content" class="span9">
     <% @page_title = 'Browse By Collection' %>
     <h3>Browse by Collection<%if !@current_unit.blank?%>: <%=@current_unit%><%end%></h3>
-
+    
     <div class="alert alert-info alert-no-dismiss">
       View current collections below. Click an image or link for a full description.
     </div>
 
+    <%= render :partial => 'searchbox' %>
     <%= render 'sort_and_per_page' %>
     <%#= render :partial => 'constraints' %>
     <h3 class="hide-text"><%= t('blacklight.search.search_results') %></h3>
