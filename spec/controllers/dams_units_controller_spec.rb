@@ -13,7 +13,7 @@ describe DamsUnitsController do
 
     it "returns http success" do
       get 'show', :id => 'unrdcp'
-      response.should be_success
+      expect(response.status).to eq(200)
     end
   end
 

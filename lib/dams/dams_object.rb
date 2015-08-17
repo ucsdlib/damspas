@@ -362,22 +362,13 @@ module Dams
 	      #Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
 	
 	      # fulltext extraction for pdfs
-	      mime_type = file.mimeType.first.to_s.gsub(/;.*/,"")
-	      if ["application/pdf", "text/html", "text/plain"].include?(mime_type)
-	        begin
-	          if @parent_obj == nil
-	            @parent_obj = ActiveFedora::Base.find(pid, :cast=>true)
-	          end
-              fid = (cid != nil) ? "_#{cid}_#{file.id}" : "_" + file.id
-              fid = "fulltext#{fid}" if mime_type == "application/pdf"
-	          fulltext = @parent_obj.datastreams[fid]
-	          if fulltext != nil
-	            Solrizer.insert_field(solr_doc, "fulltext", fulltext.content)
-	          end
-	        rescue Exception => e
-	          logger.warn "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
-	        end
-	      end
+          begin
+            @parent_obj = ActiveFedora::Base.find(pid, :cast=>true) if @parent_obj.nil?
+            fulltext = fulltext( @parent_obj, file, cid )
+            Solrizer.insert_field(solr_doc, "fulltext", fulltext) unless fulltext.blank?
+          rescue Exception => e
+            logger.warn "Error retrieving fulltext content: fulltext_#{file.id}: #{e.message}"
+          end
 	
 	      # insert solr field
 	      pre = (cid != nil) ? "file_#{cid}_" : "file_"
@@ -391,6 +382,23 @@ module Dams
           end
 	    }
 	  end
+      def fulltext( object, file, cid )
+        mime_type = file.mimeType.first.to_s.gsub(/;.*/,"")
+        if ["application/pdf", "text/html", "text/plain"].include?(mime_type)
+          fid = (cid != nil) ? "_#{cid}_#{file.id}" : "_" + file.id
+          fid = "fulltext#{fid}" if mime_type == "application/pdf"
+          fulltext = @parent_obj.datastreams[fid]
+          escape_text(fulltext.content) unless fulltext.nil?
+        end
+      end
+      # Escape text for inclusion in XML
+      # see http://www.w3.org/TR/2000/REC-xml-20001006#charsets
+      def escape_text( text )
+        text.encode('utf-8', replace: ' ').each_codepoint do |c|
+          c if (c == 0x9 || c == 0xA || c == 0xD || (c >= 0x20 && c <= 0xD7FF) ||
+               (c >= 0xE000 && c <= 0xFFFD) || (c >= 0x10000 && c <= 0x10FFFF) )
+        end
+      end
 	  def insertCopyrightFields ( solr_doc, prefix, copyright )
 	    copy = load_copyright copyright
 	    if copy != nil

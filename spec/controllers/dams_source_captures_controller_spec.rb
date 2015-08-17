@@ -15,7 +15,7 @@ describe DamsSourceCapturesController do
         end
 	    it "should be successful" do 
 	      get :show, id: @obj.id
-	      response.should be_successful 
+	      expect(response.status).to eq(200)
 	      @newobj = assigns[:dams_source_capture]
           @newobj.scannerManufacturer.should == @obj.scannerManufacturer
 	    end
