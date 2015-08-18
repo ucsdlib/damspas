@@ -19,6 +19,7 @@ Options:
         -u, --user USERNAME        User name for stomp listener
         -w, --password PASSWORD    Password for stomp listener
         -d, --destination TOPIC    Topic to listen to (default: /topic/fedora.apim.update)
+        -x, --priority PRIORITY    Priority to listen at (default: 0=all)
         -h, --help                 Display this screen
 EOC
 
