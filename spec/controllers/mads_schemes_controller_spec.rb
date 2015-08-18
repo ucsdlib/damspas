@@ -12,7 +12,7 @@ describe MadsSchemesController do
 	  describe "Show" do
 	    it "should be successful" do 
 	      get :show, id: @obj.id
-	      response.should be_successful 
+	      expect(response.status).to eq(200)
 	    end
 	  end
   end

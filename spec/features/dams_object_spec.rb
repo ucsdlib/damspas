@@ -375,7 +375,7 @@ feature 'Visitor want to look at objects' do
       jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
       @o.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
       @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2_1.html", "test.html" )
-      @o.add_file( 'THsdtk', "_2_2.txt", "test.txt" )
+      @o.add_file( 'THsdtk 100.5°', "_2_2.txt", "test.txt" )
       @o.save
       solr_index @col.pid
       solr_index @o.pid
