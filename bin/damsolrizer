@@ -44,6 +44,11 @@ optparse = OptionParser.new do|opts|
     options[:destination] = destination
   end
 
+  options[:priority] = 0
+  opts.on('-x','--priority PRIORITY', 'Priority to listen at') do |priority|
+    options[:priority] = priority.to_i
+  end
+
   opts.on('-h', '--help', 'Display this screen') do
     puts opts
     exit
@@ -76,36 +81,40 @@ begin
   @reliable = false
   @clientid = "damsolrizer"
   @destination = options[:destination]
+  @priority = options[:priority]
 
 
   $stderr.print "Connecting to stomp://#{@host}:#{@port} as #{@user}\n"
   @conn = Stomp::Connection.open(@user, @password, @host, @port)
-  $stderr.print "Getting output from #{@destination}\n"
+  $stderr.print "Getting output from #{@destination} (priority > #{@priority})\n"
   
   @conn.subscribe(@destination, {:ack =>"client" })
   while true
     @msg = @conn.receive
     pid = @msg.headers["pid"]
     method = @msg.headers["methodName"]
+    priority = @msg.headers["priority"].to_i
 
-    puts @msg.headers.inspect
-    puts "\nPID: #{@msg.headers["pid"]}\n"
-    begin
-      if ["addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
-        solrizer = Solrizer::Fedora::Solrizer.new
-        solrizer.solrize @msg.headers["pid"], solropts
-      elsif method == "purgeObject"
-        ActiveFedora::SolrService.instance.conn.delete_by_id(pid)
-      else
-        $stderr.puts "Unknown Method: #{method}"
-      end
-      puts  "updated solr index for #{@msg.headers["pid"]}\n"
-      @conn.ack @msg.headers["message-id"]
-    rescue Exception => e
-      Audit.create!(user: "solrizer@ucsd.edu", action: method, classname: "DamsSolrizer", object: pid )
-      puts e.to_s
-      e.backtrace.each do |line|
-        puts line
+    if priority > @priority
+      puts @msg.headers.inspect
+      puts "PID: #{@msg.headers["pid"]}"
+      begin
+        if ["addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
+          solrizer = Solrizer::Fedora::Solrizer.new
+          solrizer.solrize @msg.headers["pid"], solropts
+        elsif method == "purgeObject"
+          ActiveFedora::SolrService.instance.conn.delete_by_id(pid)
+        else
+          $stderr.puts "Unknown Method: #{method}"
+        end
+        puts  "updated solr index for #{@msg.headers["pid"]}\n"
+        @conn.ack @msg.headers["message-id"]
+      rescue Exception => e
+        Audit.create!(user: "solrizer@ucsd.edu", action: method, classname: "DamsSolrizer", object: pid )
+        puts e.to_s
+        e.backtrace.each do |line|
+          puts line
+        end
       end
     end
   end
