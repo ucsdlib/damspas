@@ -382,15 +382,23 @@ module Dams
           end
 	    }
 	  end
+
+      # extract fulltext from a content file
       def fulltext( object, file, cid )
         mime_type = file.mimeType.first.to_s.gsub(/;.*/,"")
         if ["application/pdf", "text/html", "text/plain"].include?(mime_type)
           fid = (cid != nil) ? "_#{cid}_#{file.id}" : "_" + file.id
-          fid = "fulltext#{fid}" if mime_type == "application/pdf"
+          fid = extracted_text(fid) if mime_type == "application/pdf"
           fulltext = @parent_obj.datastreams[fid]
           escape_text(fulltext.content) unless fulltext.nil?
         end
       end
+
+      # file_id of text extracted from a content file
+      def extracted_text( file_id )
+        "fulltext#{file_id}"
+      end
+
       # Escape text for inclusion in XML
       # see http://www.w3.org/TR/2000/REC-xml-20001006#charsets
       def escape_text( text )
@@ -399,6 +407,7 @@ module Dams
                (c >= 0xE000 && c <= 0xFFFD) || (c >= 0x10000 && c <= 0x10FFFF) )
         end
       end
+
 	  def insertCopyrightFields ( solr_doc, prefix, copyright )
 	    copy = load_copyright copyright
 	    if copy != nil
