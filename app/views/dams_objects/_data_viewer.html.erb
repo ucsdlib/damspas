@@ -11,9 +11,11 @@
 	%>
 
 	<div class="form-actions dams-download-button">
+	  <% if can? :update, @document%>	
         <% if (defined?(sourcefilePath) && !sourcefilePath.nil? && sourcefilePath != filePath)%>
             <a class="btn <%=btnColor%> pull-right-space" href="<%= sourcefilePath %>"><i class="icon-download-alt icon-white"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> file</a>
-        <% end %>	
+        <% end %>
+      <% end %>	
 		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>"><i class="icon-download-alt icon-white"></i> Download file</a>
 	</div>
 

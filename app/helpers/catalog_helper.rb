@@ -15,12 +15,9 @@ module CatalogHelper
 
       if doc['title_json_tesim'] != nil
         titlehash = JSON.parse doc['title_json_tesim'].first
-        if titlehash['subtitle'] != nil
-          label = titlehash['value'].gsub('""', '"').html_safe
-          label += ": #{titlehash['subtitle']}".gsub('""', '"').html_safe if !titlehash['subtitle'].blank?
-        else
-          label = titlehash['value'].gsub('""', '"').html_safe
-        end
+        
+        label = getFullTitle(titlehash).gsub('""', '"').html_safe
+        label += ": #{titlehash['subtitle']}".gsub('""', '"').html_safe if !titlehash['subtitle'].blank?
       end
     end
 
@@ -77,7 +74,7 @@ module CatalogHelper
     if dates != nil
       dates.each do |txt|
         date = JSON.parse(txt)
-        if date['value']
+        if date['value'] && date['type'].casecmp("issued") != 0
           dateVal += ", " if !dateVal.blank?
           dateVal += date['value']
         elsif date['beginDate']
@@ -89,6 +86,7 @@ module CatalogHelper
         end
       end
     end
+    dateVal = dateVal.gsub(/, $/,'') if dateVal
     dateVal
   end
   def is_collection?( document )

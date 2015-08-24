@@ -105,7 +105,7 @@ describe DamsObject do
         conferenceName_attributes: [name: "inline conference name"],
         familyName_attributes: [name: "inline family name"],
         relatedResource_attributes: [type: "online exhibit", description: "Sample Complex Object Record #1: The Exhibit!", uri: "http://foo.com/1234"],
-        unit_attributes: [name: "Research Data Curation Program", description: "ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program", uri: "http://rci.ucsd.edu/", code: "rci"],
+        unit_attributes: [name: "Research Data Curation Program", description: "ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program", uri: "http://rci.ucsd.edu/", code: "rdcp"],
 		assembledCollectionURI: ["bb03030303"],
 		provenanceCollectionURI: ["bb24242424"],
 		copyrightURI: ["bb05050505"],
@@ -379,7 +379,7 @@ describe DamsObject do
    <dams:typeOfResource>text</dams:typeOfResource>
    <dams:unit>
      <dams:Unit>
-       <dams:code>rci</dams:code>
+       <dams:code>rdcp</dams:code>
        <dams:unitDescription>ResearchCyberinfrastructure (RCI) is a UCSD-sponsored program</dams:unitDescription>
        <dams:unitName>Research Data Curation Program</dams:unitName>
        <dams:unitURI>http://rci.ucsd.edu/</dams:unitURI>

@@ -7,7 +7,7 @@
   <% notesToExclude << 'description' %>
   <%= render :partial => 'shared/fields/note', :locals => {:type => 'description'} %>
 <% end %>
-
+<%= render :partial => 'shared/fields/collection' %>
 <%= render :partial => 'shared/fields/relationships' %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'performers'} %>
 <%= render :partial => 'shared/fields/date' %>
@@ -43,11 +43,11 @@
 <%= render :partial => 'shared/fields/function' %>
 <%= render :partial => 'shared/fields/iconography' %>
 <%= render :partial => 'shared/fields/occupation' %>
+<%= render :partial => 'shared/fields/common_name' %>
 <%= render :partial => 'shared/fields/scientific_name' %>
 <%= render :partial => 'shared/fields/style_period' %>
 <%= render :partial => 'shared/fields/technique' %>
 <%= render :partial => 'shared/fields/temporal' %>
-<%= render :partial => 'shared/fields/collection' %>
 <%= render :partial => 'shared/fields/related_resource',
         :locals => {:collectionDoc => @document, :docType => "object"} %>
 <%= render :partial => 'shared/fields/custodial_responsibility_note' %>
@@ -65,6 +65,6 @@
 <%= render :partial => 'shared/fields/rights_holder' %>
 <%= render :partial => 'shared/fields/unit' %>
 
-<%# if can? :update, @document %>
-  <%# <!-- dams:note internalOnly=yes placeholder --> %>
-<%# end %>
+<% if can? :update, @document %>
+  <%= render :partial => 'shared/fields/note', :locals => { :internal => true } %>
+<% end %>

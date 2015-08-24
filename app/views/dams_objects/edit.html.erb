@@ -1,0 +1,26 @@
+<% @page_title =  "#{grabTitle}"%>
+<h3>Edit <%= grabTitle%></h3>
+
+<div class='well'>
+  <%= form_for @edit_form, :method => 'put' do |f| %>
+    <div class="control-group">
+      <%= f.label :format, 'Format', :class => "control-label" %>
+      <div class="controls">
+        <% formats = [['rdf/xml', 'xml']].dup %>
+        <%= select_tag(:format, options_for_select(formats, @format)) %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.label :damsMetadata, 'RDF ' + @format.upcase, :class=>"control-label" %>
+      <div>
+      <%= f.text_area :damsMetadata, :rows=>"40", :style=>"width:840px", :value=>@data, :required => true %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit :value => "Submit", :class => "btn-primary btn-large"  %>&nbsp;
+      <%= link_to 'Cancel', dams_object_path, {:id => 'cancel', :class => 'btn btn-large'} %>
+    </div>
+  <% end %>
+</div>

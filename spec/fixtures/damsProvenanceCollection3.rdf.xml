@@ -1,0 +1,215 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/uu8056206n">    
+    <dams:typeOfResource>still image</dams:typeOfResource>   
+    <dams:date>
+      <dams:Date>
+        <dams:type>collected</dams:type>
+        <rdf:value>1961-1978</rdf:value>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:beginDate>1961</dams:beginDate>
+        <dams:endDate>1978</dams:endDate>
+      </dams:Date>
+    </dams:date>
+   
+    <dams:commonName>
+      <dams:CommonName>
+        <mads:authoritativeLabel>thale-cress</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:CommonNameElement>
+            <mads:elementValue>thale-cress</mads:elementValue>
+          </dams:CommonNameElement>
+        </mads:elementList>
+      </dams:CommonName>
+    </dams:commonName>
+    <dams:commonName>
+      <dams:CommonName rdf:about="http://library.ucsd.edu/ark:/20775/xx000101ac">
+        <mads:authoritativeLabel>thale-cress external</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <dams:CommonNameElement>
+            <mads:elementValue>thale-cress external</mads:elementValue>
+          </dams:CommonNameElement>
+        </mads:elementList>
+      </dams:CommonName>
+    </dams:commonName>
+    <dams:typeOfResource>text</dams:typeOfResource>
+    <dams:date>
+      <dams:Date>
+        <dams:type>issued</dams:type>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <rdf:value>1000-2015</rdf:value>
+      </dams:Date>
+    </dams:date>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
+   
+    <dams:visibility>public</dams:visibility>
+    
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Cheng, Lanna; Schulz-Baldes, Meinhard; Alexander, George V; Franco, Paul J; Ott, John (2015): Heavy Metals in the Ocean Insect, Halobates. UC San Diego Library Digital Collections. http://dx.doi.org/10.6075/J06Q1V5H</rdf:value>
+        <dams:type>preferred citation</dams:type>
+      </dams:Note>
+    </dams:note>  
+    <dams:typeOfResource>data</dams:typeOfResource>  
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Heavy Metals in the Ocean Insect, Halobates</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Heavy Metals in the Ocean Insect, Halobates</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:description>Scripps Scholars webpage</dams:description>
+        <dams:uri rdf:resource="http://scrippsscholars.ucsd.edu/lcheng"/>
+        <dams:type>related</dams:type>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+     <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:description>The physical materials are held at UC San Diego Library</dams:description>
+        <dams:type>related</dams:type>
+      </dams:RelatedResource>
+    </dams:relatedResource>   
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Cheng, Lanna</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Cheng, Lanna</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>principal investigator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Schulz-Baldes, Meinhard</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Schulz-Baldes, Meinhard</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>co-principal investigator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+          <mads:authoritativeLabel>Alexander, George V.</mads:authoritativeLabel>
+          <mads:elementList rdf:parseType="Collection">
+            <mads:FullNameElement>
+              <mads:elementValue>Alexander, George V.</mads:elementValue>
+            </mads:FullNameElement>
+          </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>contributor</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Franco, Paul J.</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Franco, Paul J.</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>contributor</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Ott, John</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Ott, John</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>contributor</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Test Creator</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Test Creator</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>creator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>    
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>test author</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>test author</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>author</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>   
+  </dams:ProvenanceCollection>
+</rdf:RDF>

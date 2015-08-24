@@ -6,6 +6,204 @@
     xmlns:dams="http://library.ucsd.edu/ontology/dams#"
     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080">
+    <dams:complexSubject>
+      <mads:ComplexSubject>
+        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
+        <mads:componentList rdf:parseType="Collection">
+          <mads:CorporateName>
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n80095585"/>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:NameElement>
+                <mads:elementValue>Black Panther Party</mads:elementValue>
+              </mads:NameElement>
+            </mads:elementList>
+          </mads:CorporateName>
+          <mads:Topic>
+            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/subjects/sh99005024"/>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:TopicElement>
+                <mads:elementValue>History</mads:elementValue>
+              </mads:TopicElement>
+            </mads:elementList>
+          </mads:Topic>
+        </mads:componentList>
+      </mads:ComplexSubject>
+    </dams:complexSubject>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1">
+        <dams:typeOfResource>text</dams:typeOfResource>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>The Daily Guardian: Volume 40, Number 37</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>The Daily Guardian</mads:elementValue>
+              </mads:MainTitleElement>
+              <mads:PartNumberElement>
+                <mads:elementValue>Volume 40, Number 37</mads:elementValue>
+              </mads:PartNumberElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:date>
+          <dams:Date>
+            <rdf:value>Tuesday, May 20, 1980</rdf:value>
+            <dams:beginDate>1980-05-20</dams:beginDate>
+            <dams:endDate>1980-05-20</dams:endDate>
+          </dams:Date>
+        </dams:date>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>1 PDF (8 p.)</rdf:value>
+            <dams:displayLabel>Extent</dams:displayLabel>
+            <dams:type>dimensions</dams:type>
+          </dams:Note>
+        </dams:note>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/1.pdf">
+            <dams:sha1checksum>b077f16ff520044d07704bd07eb96e17de085256</dams:sha1checksum>
+            <dams:use>document-service</dams:use>
+            <dams:mimeType>application/pdf</dams:mimeType>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:formatVersion>1.3</dams:formatVersion>
+            <dams:sourceFileName>document.pdf</dams:sourceFileName>
+            <dams:size>34095</dams:size>
+            <dams:crc32checksum>0372e6c5</dams:crc32checksum>
+            <dams:formatName>PDF</dams:formatName>
+            <dams:sourcePath>dams/bin/../sample/files</dams:sourcePath>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:md5checksum>4f235d635504caa802a18d5f0f76dfd1</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:dateCreated>2015-03-03T03:37:44-0500</dams:dateCreated>
+            <dams:sourceCapture>
+              <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/xx49494949">
+                <dams:scannerManufacturer>Epson</dams:scannerManufacturer>
+                <dams:sourceType>transmission scanner</dams:sourceType>
+                <dams:scannerModelName>Expression 1600</dams:scannerModelName>
+                <dams:imageProducer>Luna Imaging, Inc.</dams:imageProducer>
+                <dams:scanningSoftwareVersion>2.10E</dams:scanningSoftwareVersion>
+                <dams:scanningSoftware>Epson Twain Pro</dams:scanningSoftware>
+                <dams:captureSource>B&amp;W negative , 2 1/2 x 2 1/2</dams:captureSource>
+              </dams:SourceCapture>
+            </dams:sourceCapture>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/2.jpg">
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:crc32checksum>026f47d9</dams:crc32checksum>
+            <dams:use>image-service</dams:use>
+            <dams:size>160088</dams:size>
+            <dams:quality>593x768</dams:quality>
+            <dams:sha1checksum>f0a203cab22b7d2a3975e4b542b8427379cee555</dams:sha1checksum>
+            <dams:sourceFileName>20775-xx80808080-1-2.jpg</dams:sourceFileName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:md5checksum>75e158b3d2de130dc6b8d42df3060fb2</dams:md5checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:dateCreated>2015-03-03T03:37:45-0500</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/4.jpg">
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sha1checksum>9eb06904a08af881ac8f161286ae277b397feca6</dams:sha1checksum>
+            <dams:md5checksum>6cd900cdf35c4f4ca634ccb614e2c78e</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:use>image-thumbnail</dams:use>
+            <dams:sourceFileName>20775-xx80808080-1-4.jpg</dams:sourceFileName>
+            <dams:size>7300</dams:size>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:quality>116x150</dams:quality>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:crc32checksum>6ac3a3da</dams:crc32checksum>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:dateCreated>2015-03-03T03:37:46-0500</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/5.jpg">
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:crc32checksum>xx37ae8e</dams:crc32checksum>
+            <dams:sha1checksum>b5f9d053331f230883539392cd9e482462e9e42b</dams:sha1checksum>
+            <dams:size>1441</dams:size>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourceFileName>20775-xx80808080-1-5.jpg</dams:sourceFileName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:dateCreated>2015-03-03T03:37:46-0500</dams:dateCreated>
+            <dams:md5checksum>b9bd918c2d12cbd7e7afd72c1546d090</dams:md5checksum>
+            <dams:use>image-icon</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:quality>50x65</dams:quality>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/7.jpg">
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:crc32checksum>2e6e7f45</dams:crc32checksum>
+            <dams:quality>1236x1600</dams:quality>
+            <dams:md5checksum>70c312f717144f0fa7b1443aacaa4d5a</dams:md5checksum>
+            <dams:sha1checksum>f4c6211105e0039e103935c23447fa857fc125d6</dams:sha1checksum>
+            <dams:dateCreated>2015-03-03T03:37:47-0500</dams:dateCreated>
+            <dams:size>371849</dams:size>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:use>image-huge</dams:use>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sourceFileName>20775-xx80808080-1-7.jpg</dams:sourceFileName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/6.jpg">
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:dateCreated>2015-03-03T03:37:47-0500</dams:dateCreated>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:quality>791x1024</dams:quality>
+            <dams:sha1checksum>6482a5dfe82d460877e857e4b4e7578f53d87674</dams:sha1checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:size>238858</dams:size>
+            <dams:sourceFileName>20775-xx80808080-1-6.jpg</dams:sourceFileName>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:use>image-large</dams:use>
+            <dams:crc32checksum>0ced56a0</dams:crc32checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:md5checksum>9ec46a30ea0ab2b3b934955587f75dd4</dams:md5checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/3.jpg">
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:sourceFileName>20775-xx80808080-1-3.jpg</dams:sourceFileName>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
+            <dams:md5checksum>3ea2913f4cc564c5585612ea6def766a</dams:md5checksum>
+            <dams:sha1checksum>2ab2762beb67bfd937e05768f39966032b452c77</dams:sha1checksum>
+            <dams:use>image-preview</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:quality>348x450</dams:quality>
+            <dams:size>61072</dams:size>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:crc32checksum>04afcba2</dams:crc32checksum>
+            <dams:dateCreated>2015-03-03T03:37:45-0500</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+      </dams:Component>
+    </dams:hasComponent>
     <dams:hasComponent>
       <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/3">
         <dams:typeOfResource>text</dams:typeOfResource>
@@ -389,7 +587,7 @@
         <dams:visibility>public</dams:visibility>
       </dams:AssembledCollection>
     </dams:assembledCollection>
-    <dams:subject>
+    <dams:complexSubject>
       <mads:ComplexSubject rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX5">
         <mads:authoritativeLabel>Academic dissertations</mads:authoritativeLabel>
         <mads:componentList rdf:parseType="Collection">
@@ -403,7 +601,7 @@
           </mads:GenreForm>
         </mads:componentList>
       </mads:ComplexSubject>
-    </dams:subject>
+    </dams:complexSubject>
     <dams:note>
       <dams:Note>
         <rdf:value>Dissertation is in English.</rdf:value>
@@ -435,206 +633,8 @@
         <dams:type>identifier</dams:type>
       </dams:Note>
     </dams:note>
-    <dams:hasComponent>
-      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1">
-        <dams:typeOfResource>text</dams:typeOfResource>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/1.pdf">
-            <dams:sha1checksum>b077f16ff520044d07704bd07eb96e17de085256</dams:sha1checksum>
-            <dams:use>document-service</dams:use>
-            <dams:mimeType>application/pdf</dams:mimeType>
-            <dams:objectCategory>file</dams:objectCategory>
-            <dams:formatVersion>1.3</dams:formatVersion>
-            <dams:sourceFileName>document.pdf</dams:sourceFileName>
-            <dams:size>34095</dams:size>
-            <dams:crc32checksum>0372e6c5</dams:crc32checksum>
-            <dams:formatName>PDF</dams:formatName>
-            <dams:sourcePath>dams/bin/../sample/files</dams:sourcePath>
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:md5checksum>4f235d635504caa802a18d5f0f76dfd1</dams:md5checksum>
-            <dams:compositionLevel>0</dams:compositionLevel>
-            <dams:dateCreated>2015-03-03T03:37:44-0500</dams:dateCreated>
-            <dams:sourceCapture>
-              <dams:SourceCapture rdf:about="http://library.ucsd.edu/ark:/20775/xx49494949">
-                <dams:scannerManufacturer>Epson</dams:scannerManufacturer>
-                <dams:sourceType>transmission scanner</dams:sourceType>
-                <dams:scannerModelName>Expression 1600</dams:scannerModelName>
-                <dams:imageProducer>Luna Imaging, Inc.</dams:imageProducer>
-                <dams:scanningSoftwareVersion>2.10E</dams:scanningSoftwareVersion>
-                <dams:scanningSoftware>Epson Twain Pro</dams:scanningSoftware>
-                <dams:captureSource>B&amp;W negative , 2 1/2 x 2 1/2</dams:captureSource>
-              </dams:SourceCapture>
-            </dams:sourceCapture>
-          </dams:File>
-        </dams:hasFile>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/2.jpg">
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:compositionLevel>0</dams:compositionLevel>
-            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
-            <dams:crc32checksum>026f47d9</dams:crc32checksum>
-            <dams:use>image-service</dams:use>
-            <dams:size>160088</dams:size>
-            <dams:quality>593x768</dams:quality>
-            <dams:sha1checksum>f0a203cab22b7d2a3975e4b542b8427379cee555</dams:sha1checksum>
-            <dams:sourceFileName>20775-xx80808080-1-2.jpg</dams:sourceFileName>
-            <dams:objectCategory>file</dams:objectCategory>
-            <dams:mimeType>image/jpeg</dams:mimeType>
-            <dams:md5checksum>75e158b3d2de130dc6b8d42df3060fb2</dams:md5checksum>
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:dateCreated>2015-03-03T03:37:45-0500</dams:dateCreated>
-          </dams:File>
-        </dams:hasFile>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/4.jpg">
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:mimeType>image/jpeg</dams:mimeType>
-            <dams:objectCategory>file</dams:objectCategory>
-            <dams:sha1checksum>9eb06904a08af881ac8f161286ae277b397feca6</dams:sha1checksum>
-            <dams:md5checksum>6cd900cdf35c4f4ca634ccb614e2c78e</dams:md5checksum>
-            <dams:compositionLevel>0</dams:compositionLevel>
-            <dams:use>image-thumbnail</dams:use>
-            <dams:sourceFileName>20775-xx80808080-1-4.jpg</dams:sourceFileName>
-            <dams:size>7300</dams:size>
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:quality>116x150</dams:quality>
-            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
-            <dams:crc32checksum>6ac3a3da</dams:crc32checksum>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:dateCreated>2015-03-03T03:37:46-0500</dams:dateCreated>
-          </dams:File>
-        </dams:hasFile>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/5.jpg">
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:compositionLevel>0</dams:compositionLevel>
-            <dams:crc32checksum>xx37ae8e</dams:crc32checksum>
-            <dams:sha1checksum>b5f9d053331f230883539392cd9e482462e9e42b</dams:sha1checksum>
-            <dams:size>1441</dams:size>
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:sourceFileName>20775-xx80808080-1-5.jpg</dams:sourceFileName>
-            <dams:mimeType>image/jpeg</dams:mimeType>
-            <dams:dateCreated>2015-03-03T03:37:46-0500</dams:dateCreated>
-            <dams:md5checksum>b9bd918c2d12cbd7e7afd72c1546d090</dams:md5checksum>
-            <dams:use>image-icon</dams:use>
-            <dams:objectCategory>file</dams:objectCategory>
-            <dams:quality>50x65</dams:quality>
-          </dams:File>
-        </dams:hasFile>
-        <dams:date>
-          <dams:Date>
-            <rdf:value>Tuesday, May 20, 1980</rdf:value>
-            <dams:beginDate>1980-05-20</dams:beginDate>
-            <dams:endDate>1980-05-20</dams:endDate>
-          </dams:Date>
-        </dams:date>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/7.jpg">
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:compositionLevel>0</dams:compositionLevel>
-            <dams:mimeType>image/jpeg</dams:mimeType>
-            <dams:crc32checksum>2e6e7f45</dams:crc32checksum>
-            <dams:quality>1236x1600</dams:quality>
-            <dams:md5checksum>70c312f717144f0fa7b1443aacaa4d5a</dams:md5checksum>
-            <dams:sha1checksum>f4c6211105e0039e103935c23447fa857fc125d6</dams:sha1checksum>
-            <dams:dateCreated>2015-03-03T03:37:47-0500</dams:dateCreated>
-            <dams:size>371849</dams:size>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:use>image-huge</dams:use>
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:objectCategory>file</dams:objectCategory>
-            <dams:sourceFileName>20775-xx80808080-1-7.jpg</dams:sourceFileName>
-            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
-          </dams:File>
-        </dams:hasFile>
-        <dams:note>
-          <dams:Note>
-            <rdf:value>1 PDF (8 p.)</rdf:value>
-            <dams:displayLabel>Extent</dams:displayLabel>
-            <dams:type>dimensions</dams:type>
-          </dams:Note>
-        </dams:note>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/6.jpg">
-            <dams:objectCategory>file</dams:objectCategory>
-            <dams:dateCreated>2015-03-03T03:37:47-0500</dams:dateCreated>
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:quality>791x1024</dams:quality>
-            <dams:sha1checksum>6482a5dfe82d460877e857e4b4e7578f53d87674</dams:sha1checksum>
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:size>238858</dams:size>
-            <dams:sourceFileName>20775-xx80808080-1-6.jpg</dams:sourceFileName>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
-            <dams:use>image-large</dams:use>
-            <dams:crc32checksum>0ced56a0</dams:crc32checksum>
-            <dams:mimeType>image/jpeg</dams:mimeType>
-            <dams:md5checksum>9ec46a30ea0ab2b3b934955587f75dd4</dams:md5checksum>
-            <dams:compositionLevel>0</dams:compositionLevel>
-          </dams:File>
-        </dams:hasFile>
-        <dams:title>
-          <mads:Title>
-            <mads:authoritativeLabel>The Daily Guardian: Volume 40, Number 37</mads:authoritativeLabel>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:MainTitleElement>
-                <mads:elementValue>The Daily Guardian</mads:elementValue>
-              </mads:MainTitleElement>
-              <mads:PartNumberElement>
-                <mads:elementValue>Volume 40, Number 37</mads:elementValue>
-              </mads:PartNumberElement>
-            </mads:elementList>
-          </mads:Title>
-        </dams:title>
-        <dams:hasFile>
-          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx80808080/1/3.jpg">
-            <dams:formatVersion>1.01</dams:formatVersion>
-            <dams:sourceFileName>20775-xx80808080-1-3.jpg</dams:sourceFileName>
-            <dams:formatName>JPEG</dams:formatName>
-            <dams:sourcePath>/Users/escowles/src/git/damsrepo-tomcat/dams/localStore/xx/80/80/80/80</dams:sourcePath>
-            <dams:md5checksum>3ea2913f4cc564c5585612ea6def766a</dams:md5checksum>
-            <dams:sha1checksum>2ab2762beb67bfd937e05768f39966032b452c77</dams:sha1checksum>
-            <dams:use>image-preview</dams:use>
-            <dams:objectCategory>file</dams:objectCategory>
-            <dams:quality>348x450</dams:quality>
-            <dams:size>61072</dams:size>
-            <dams:compositionLevel>0</dams:compositionLevel>
-            <dams:preservationLevel>full</dams:preservationLevel>
-            <dams:mimeType>image/jpeg</dams:mimeType>
-            <dams:crc32checksum>04afcba2</dams:crc32checksum>
-            <dams:dateCreated>2015-03-03T03:37:45-0500</dams:dateCreated>
-          </dams:File>
-        </dams:hasFile>
-      </dams:Component>
-    </dams:hasComponent>
-    <dams:subject>
-      <mads:ComplexSubject>
-        <mads:authoritativeLabel>Black Panther Party--History</mads:authoritativeLabel>
-        <mads:componentList rdf:parseType="Collection">
-          <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX7">
-            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/names/n80095585"/>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:NameElement>
-                <mads:elementValue>Black Panther Party</mads:elementValue>
-              </mads:NameElement>
-            </mads:elementList>
-          </mads:CorporateName>
-          <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/xxXXXXXXX4">
-            <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/authorities/subjects/sh99005024"/>
-            <mads:elementList rdf:parseType="Collection">
-              <mads:TopicElement>
-                <mads:elementValue>History</mads:elementValue>
-              </mads:TopicElement>
-            </mads:elementList>
-          </mads:Topic>
-        </mads:componentList>
-      </mads:ComplexSubject>
-    </dams:subject>
     <dams:copyright>
-      <dams:Copyright rdf:about="http://library.ucsd.edu/ark:/20775/xx05050505">
+      <dams:Copyright>
         <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
         <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
         <dams:copyrightPurposeNote>This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study.</dams:copyrightPurposeNote>

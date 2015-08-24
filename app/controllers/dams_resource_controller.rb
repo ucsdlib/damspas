@@ -13,6 +13,7 @@ class DamsResourceController < ApplicationController
     refcon = referrer_controller request
     if params[:counter]
       # if there is a counter, update pager state & redirect to no-counter view
+      logger.info "dams_resource_controller#show (#{refcon}) adding query to session and redirecting"
       session[:search][:counter] = params[:counter]
       session[:search_results] = request.referer if refcon == "catalog"
       redirect_to dams_object_path(params[:id])
@@ -22,6 +23,7 @@ class DamsResourceController < ApplicationController
 
       # if we were redirected from counter, setup next/prev
       controllers = ["catalog", "dams_collections", "dams_objects"]
+      logger.info "dams_resource_controller#show (#{refcon}) controllers.include?(refcon)? #{controllers.include?(refcon)}"
       setup_next_and_previous_documents if controllers.include?(refcon)
     end
 
@@ -96,7 +98,7 @@ class DamsResourceController < ApplicationController
     authorize! :show, @document
     params[:xsl] = "dams4.2.xsl"
     data = get_html_data params, nil
-    render :xml => data
+    render :xml => data, :content_type => 'application/rdf+xml'
   end 
   def data
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
@@ -110,19 +112,19 @@ class DamsResourceController < ApplicationController
     authorize! :show, @document
     params[:xsl] = "normalize.xsl"
     data = get_html_data params, nil
-    render :xml => data
+    render :xml => data, :content_type => 'application/rdf+xml'
   end
   def rdf_nt
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     data = get_data("nt")
-    render :text => data
+    render :text => data, :content_type => 'application/n-triples'
   end
   def rdf_ttl
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     data = get_data("turtle")
-    render :text => data
+    render :text => data, :content_type => 'text/turtle'
   end 
   def ezid
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )

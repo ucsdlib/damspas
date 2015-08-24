@@ -657,9 +657,9 @@ module Dams
        res.body
     end       
 
-    def get_data ( format )
+    def get_data ( recursive = true, format )
        format = format.blank? ? 'xml':format
-       viewerUrl = "#{dams_api_path}/api/objects/#{params[:id]}?recursive=true&format=#{format}"
+       viewerUrl = "#{dams_api_path}/api/objects/#{params[:id]}?" + (recursive ? "recursive=true&" : "") + "format=#{format}"
        uri = URI(viewerUrl)
        res = Net::HTTP.get_response(uri)
        res.body
@@ -675,8 +675,12 @@ module Dams
     def referrer_controller( request )
       uri = URI(request.referrer || "")
       if uri.host == request.host
-        ref = Rails.application.routes.recognize_path(uri.path.gsub(/^\/dc/,""))
-        ref[:controller]
+        begin
+          ref = Rails.application.routes.recognize_path(uri.path.gsub(/^\/dc/,""))
+          ref[:controller]
+        rescue Exception => e
+          logger.warn "Referer controller error: #{e}"
+        end
       end
     end
   end

@@ -25,7 +25,7 @@ Hydra::Application.routes.draw do
   end
 
   get '/dlp', to: 'dams_units#show', :id => 'dlp'
-  get '/rci', to: 'dams_units#show', :id => 'rci'
+  get '/rdcp', to: 'dams_units#show', :id => 'rdcp'
   get '/:id/collections', to: 'catalog#collection_search', :as => "dams_unit_collections"
   get '/solrdoc/:id', to: 'catalog#solrdoc', :as => "solrdoc"
   get "collections", :to => 'catalog#collection_search', :as => 'dams_collections'
@@ -70,6 +70,8 @@ Hydra::Application.routes.draw do
   #post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
+  get "object/:id/edit", :to => 'dams_objects#edit', :as => 'edit'
+  put "object/:id", :to => 'dams_objects#update', :as => 'update'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
   get "object/:id/:ds/download", :to => 'file#show', defaults: { disposition: 'attachment' }, :constraints => { :ds => /[^\/]+/ }, :as => 'download'
   resources :dams_assembled_collections, only: [:index, :show]

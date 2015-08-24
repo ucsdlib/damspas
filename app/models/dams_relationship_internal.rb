@@ -36,7 +36,7 @@ class DamsRelationshipInternal
       elsif !familyName.first.nil?
         relName = loadRdfObjects familyName, MadsFamilyName
       end
-      relName.first
+      relName.first if !relName.nil?
     end
     
     def loadRole

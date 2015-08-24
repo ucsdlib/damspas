@@ -41,7 +41,7 @@ module DamsObjectsHelper
          fieldData.each do |datum|
           title = JSON.parse(datum)
           if title['value'] != ''
-             title_value=title['value']
+             title_value = getFullTitle title
              if title['subtitle'] != ''
               title_value=title_value+ title['subtitle']
              end
@@ -591,7 +591,7 @@ module DamsObjectsHelper
 			fieldData.each do |datum|
         title = JSON.parse(datum)
         if !title['value'].blank?
-            result = title['value'] 
+            result = getFullTitle title
             break
         else
             result = title['name']
@@ -734,67 +734,48 @@ module DamsObjectsHelper
   # And separated the logic code from display code.
   #
   # by hweng@ucsd.edu
-	#-------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------
+  # @author listu@ucsd.edu
+  # @date 04/14/2015
+  # Updated note:
+  # - Fixed the flataten/repeated components display problem when component tree depth > 2
+  # - Fixed the missing </li> end tag for some of the components that may distort the tree displayed.
+  #-------------------------------------------------------------------------------
 
   def init_Tree(components)
-    if components != nil
-      @is_parent = []
-      @is_child = []
-      @tag = []
-      @checked = []
-
-      components.each do |i|
-
-        if @document["component_#{i}_children_isim"] != nil
-          @is_parent[i] = true
-          @document["component_#{i}_children_isim"].each_with_index do |value, index|
-            order = value.to_i
-            @is_child[order]= true 
-            @tag[order]={parent_node: i}
-          end
-        end
-      end
-    end
   end
 
   def display_tree(components)
-    if !components.nil?
+    @checked = []
+    if !components.nil? && !components.empty? 
       concat '<ul class="unstyled">'.html_safe
       components.each do |i|
-          display_node i if @is_parent[i].nil? && @checked[i].nil?
-       
+          display_node i if @checked[i].nil? || !@checked[i]
       end
       concat '</ul>'.html_safe
     end
   end
 
 def display_node(index)
-    if @is_child[index] == nil
-      render_tree_HTML(index, false )
-    elsif @is_child[index] == true
-      parent_node_index = @tag[index][:parent_node]
-      grand_parent_node_index = @tag[parent_node_index][:parent_node] if(!parent_node_index.nil? && !@tag[parent_node_index].nil?)
-      
-      if(!grand_parent_node_index.nil?)
-        render_node_HTML(@tag[parent_node_index][:parent_node], true)
-        concat "<ul class='unstyled node-container'>".html_safe 
-      end
-      render_node_HTML(parent_node_index, true)
+    children_list = @document["component_#{index}_children_isim"]
+    concat "<li>".html_safe
+    if children_list.nil? || children_list.empty?
+      render_node_HTML(index, false )
+    else
+      render_node_HTML(index, true)
 
       concat "<ul class='unstyled node-container'>".html_safe
-      @document["component_#{parent_node_index}_children_isim"].each do |value|
-        node_index = value.to_i
-        render_node_HTML(node_index, false)
-        @checked[node_index]= true
+      children_list.each do |value|
+        display_node(value.to_i)
       end
       concat "</ul>".html_safe
-      concat "</ul>".html_safe if(!grand_parent_node_index.nil?)
     end
+    concat "</li>".html_safe
     @firstButton = nil
   end
 
   def render_node_HTML(index, is_parent_node)
-    concat "<li>".html_safe
+    @checked[index]= true
     fileUse = grabFileUse(:componentIndex=>index)
     btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
     btnID = "node-btn-#{index}"
@@ -803,11 +784,6 @@ def display_node(index)
     iconCSS = is_parent_node ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
     btnTitle = grabTitle(:componentIndex=> index)
     concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
-  end
-
-  def render_tree_HTML(index, is_parent_node )
-    render_node_HTML(index, is_parent_node )
-    concat "</li>".html_safe
   end
 
   def listComponents (component_map)
@@ -902,7 +878,7 @@ def display_node(index)
         end
 
         # Add 'View Content' button to certain cases
-        if note['value'].start_with?('Culturally sensitive content: ')
+        if note['value'].start_with?('Culturally sensitive content: ') || note['value'].start_with?('Embargoed content: ')
           result += '<p>Would you like to view this content?</p><button type="button" id="view-masked-object" class="btn btn-primary btn-mini pull-right">Yes, I would like to view this content.</button>'.html_safe
         end
 
@@ -923,4 +899,8 @@ def display_node(index)
     "#{baseurl}/api/objects/#{pid}/transform?recursive=true&xsl=normalize.xsl"
   end
 
+  def rdf_edit_url (pid)
+     proxy_url = ActiveFedora.fedora_config.credentials[:proxy]
+     "#{proxy_url.nil? ? '' : proxy_url}/damsmanager/rdfImport.do?ark=#{pid}"
+  end
 end

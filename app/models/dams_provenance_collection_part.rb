@@ -70,6 +70,8 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
     :relationshipRoleURI,
     #:role,
     #:role_attributes,
+    :commonName_attributes,
+    :commonName,
     :scientificName_attributes,
     :scientificName,
     :scopeContentNote_attributes,

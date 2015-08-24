@@ -37,5 +37,4 @@ class DamsObjectsController < DamsResourceController
 
     render layout: 'minimal'
   end
-  
 end

@@ -53,11 +53,18 @@ describe DamsObjectsController do
       @request.env['HTTP_REFERER'] = ref
       get :show, { id: @obj.pid, counter: 1 }
       expect(response.status).to eq( 302 )
-      response.should redirect_to dams_object_path @obj.pid
+      response.should redirect_to action: :show, id: @obj.pid
       expect(session[:search_results]).to eq(ref)
     end
     it "should handle pages with external referrers" do
       ref = 'https://www.google.com/search?q=foo'
+      @request.env['HTTP_REFERER'] = ref
+      get :show, { id: @obj.pid }
+      expect(response.status).to eq( 200 )
+      expect(session[:search_results]).to be_nil
+    end
+    it "should handle pages with referrers from other internal urls" do
+      ref = 'https://test.host/foo'
       @request.env['HTTP_REFERER'] = ref
       get :show, { id: @obj.pid }
       expect(response.status).to eq( 200 )

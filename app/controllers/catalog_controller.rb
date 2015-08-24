@@ -29,6 +29,9 @@ class CatalogController < ApplicationController
   CatalogController.solr_search_params_logic += [:transform_unit_scope]
 
  
+  def discovery_permissions
+    @discovery_permissions ||= ["discover"]
+  end
   def transform_unit_scope(solr_parameters,params)
     if ((params[:f].nil? || params[:f][:type_sim].nil? || !params[:f][:type_sim].include?('Collection')) && params[:fq] && params[:action] != "collection_search")
       params[:fq].each do |f|
@@ -129,6 +132,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'unit_sim', :label => 'Repository'
     config.add_facet_field 'collection_sim', :label => 'Collection', :limit => 20
     config.add_facet_field 'creator_sim', :label => 'Creator', :limit => 20 
+    config.add_facet_field 'decade_ssi', :label => 'Decade', :limit => 20 
     config.add_facet_field 'object_type_sim', :label => 'Format' 
     config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20 
     
@@ -144,10 +148,10 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
 	#	UCSD custom added argument :hitsonly to display the values that has hit text.
+    config.add_index_field 'collection_name_tesim', :label => 'Collection:', :highlight => config.highlighting
     config.add_index_field 'name_tesim', :label => 'Name:', :highlight => config.highlighting   
     config.add_index_field 'date_tesim', :label => 'Date:', :highlight => config.highlighting
     config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => config.highlighting
-    config.add_index_field 'collection_1_name_tesim', :label => 'Collection:', :highlight => config.highlighting
     config.add_index_field 'subject_tesim', :label => 'Topic:', :highlight => config.highlighting
 	config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
 	config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting

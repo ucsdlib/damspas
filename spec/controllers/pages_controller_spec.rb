@@ -66,12 +66,12 @@ describe PagesController do
         it "assigns a newly created page as @page" do
           post :create, {:page => valid_attributes}
           assigns(:page).should be_a(Page)
-          assigns(:page).should be_persisted
+          expect(assigns(:page).persisted?).to be_true
         end
   
         it "redirects to the created page" do
           post :create, {:page => valid_attributes}
-          response.should redirect_to(pages_url)
+          response.should redirect_to action: :index
         end
       end
   
@@ -113,7 +113,7 @@ describe PagesController do
         it "redirects to the page" do
           page = Page.create! valid_attributes
           put :update, {:id => page.to_param, :page => valid_attributes}
-          response.should redirect_to(edit_page_path page)
+          response.should redirect_to action: :edit, id: page.id
         end
       end
   
@@ -147,7 +147,7 @@ describe PagesController do
       it "redirects to the pages list" do
         page = Page.create! valid_attributes
         delete :destroy, {:id => page.to_param}
-        response.should redirect_to(pages_url)
+        response.should redirect_to action: :index
       end
     end
 
