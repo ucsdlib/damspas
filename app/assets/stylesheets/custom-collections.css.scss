@@ -37,25 +37,27 @@
 #collections-masthead
 {
   background-color: #888;
-  background-position:center center;
-  background-size:200%;
-  background-repeat: no-repeat;
+  background-position:top center;
+  background-size:cover;
   margin-bottom: 20px;
   border-radius: 5px 5px 0 0;
   position:relative;
   .bug{position: absolute;bottom:0; right:0;margin:0 5px 5px 0; color:rgba(0,0,0,0.33)}
-  hgroup{border-bottom: 3px solid rgba(1,60,86,0.9);  padding:20px; }
-  h1, h2{line-height:normal;margin:0;padding-bottom:0;text-shadow: 0px 0px 5px rgba(0,0,0,0.75),1px 1px 1px rgba(0,0,0,0.85); ;color:#fff;font-weight: normal;}
+  hgroup{border-bottom: 3px solid rgba(0,0,0,0.33);  padding:20px; }
+  h1, h2{line-height:normal;margin:0;padding-bottom:0;text-shadow: 0px 0px 3px rgba(0,0,0,0.5);color:#fff;font-weight: normal;}
   h2{color:rgba(255,255,255,0.75);}
 }
 
 #collections-image
 {
-  img
-  {
-    width:100%;
-  }
+  background-color: #888;
+  background-position:center center;
+  background-size:cover;
   margin-bottom: 20px;
+  border-radius: 5px 5px 0 0;
+  border-bottom: 3px solid rgba(0,0,0,0.33);
+  height:210px;
+  width:100%;
   position:relative;
   .bug{position: absolute;top:0; right:0;margin:5px 5px 0 0; color:rgba(0,0,0,0.33)}
 }
