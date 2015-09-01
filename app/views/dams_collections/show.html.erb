@@ -18,9 +18,8 @@
 <%# Collections controls for phone layout %>
 <div class="row-fluid visible-phone dams-collections">
   <%# Collection masthead %>
-  <div id="collections-masthead" class="span12" style="background-image:url(http://libraries.ucsd.edu/assets/dams/home-page/img/<%=@document['id']%>.jpg),url(http://libraries.ucsd.edu/assets/dams/home-page/img/default.jpg)">
+  <div id="collections-masthead" class="span12" style="background-image:linear-gradient(to right, rgba(1, 60, 86, 0.85),  rgba(1, 60, 86, 0.75)),url(http://library.ucsd.edu/assets/dams/collections/img/<%=@document['id']%>.jpg),url(http://libraries.ucsd.edu/assets/dams/home-page/img/default.jpg)">
     <%= render :partial => 'shared/fields/title' %>
-    <div class="bug">Collection</div>
   </div>
   <%# Collection controls %>
   <% if @object_count > 0 %>
@@ -46,7 +45,9 @@
 	  <%# Collections controls for desktop layout %>
     <div class="hidden-phone">
 	    <%# Collection image %>
-	    <div id="collections-image" class="hidden-phone" style="background-image:url(http://libraries.ucsd.edu/assets/dams/home-page/img/<%=@document['id']%>.jpg),url(http://libraries.ucsd.edu/assets/dams/home-page/img/default.jpg)"></div>
+	    <div id="collections-image" class="hidden-phone">
+		    <img src="http://library.ucsd.edu/assets/dams/collections/img/<%=@document['id']%>.jpg" alt="">
+	    </div>
 	    <%# Collection controls %>
 	    <% if @object_count > 0 %>
 	      <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
