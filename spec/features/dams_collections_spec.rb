@@ -119,3 +119,32 @@ feature 'Visitor wants to see the collection record' do
     expect(page).to have_selector('li', text: 'thale-cress external')
   end
 end
+
+feature 'COLLECTIONS IMAGES --' do
+
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @commonName = DamsCommonName.create pid: "xx000101ac", name:"thale-cress external"
+    @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+    @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection3.rdf.xml').read
+    @provCollection.save!
+    solr_index (@provCollection.pid)
+  end
+  after do
+    @provCollection.delete
+    @unit.delete
+    @commonName.delete
+  end
+
+  scenario 'PAGE SHOULD HAVE COLLECTION IMAGE CONTAINERS' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_selector("#collections-masthead")
+    expect(page).to have_selector("#collections-image")
+  end
+
+  scenario 'PAGE SHOULD HAVE COLLECTION IMAGE <IMG> ELEMENT IN DESKTOP VIEW' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_selector("#collections-image img")
+  end
+
+end
