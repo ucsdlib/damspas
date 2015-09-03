@@ -28,8 +28,8 @@
 		service_file_path = (service_file != nil) ? download_path(ark, "_#{i}_#{service_file}") : ''
 		fileType = grabFileType(fileUse)
 		loadFirstComponent = (firstComponent != nil) ? "data=#{i}" : ''
-
-        source_file = grabSourceFile
+		source_file = grabSourceFile(:componentIndex=>i)
+   
         if source_file != nil
           download_file_path = download_path(ark,"_#{i}_#{source_file}")
         elsif service_file != nil
