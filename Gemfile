@@ -42,7 +42,7 @@ gem "responders", "~> 2.1.0"
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
-gem 'uglifier', '~> 2.5.3'
+gem 'uglifier', '2.7.2'
 
 group :development, :test do
   gem 'sass-rails', '~> 4.0.5'
