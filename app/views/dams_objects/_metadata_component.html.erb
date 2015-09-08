@@ -1,48 +1,3 @@
-<%#
-
-[/] Title (title)
-[x] Date (date)
-[x] Language (language)
-[x] Note
-	(
-		[x] note,
-		[x] custodialResponsibilityNote,
-		[x] preferredCitationNote,
-		[x] scopeContentNote
-	)
-[x] Relationship (relationship)
-[] MADSType
-	(
-		[x] builtWorkPlace,
-		[] complexSubject,
-		[x] conferenceName,
-		[x] corporateName,
-		[x] culturalContext,
-		[x] familyName,
-		[x] function,
-		[x] genreForm,
-		[x] geographic,
-		[x] iconography,
-		[x] name,
-		[x] occupation,
-		[x] personalName,
-		[x] commonName,
-		[x] scientificName,
-		[x] stylePeriod,
-		[x] technique,
-		[x] temporal,
-		[x] topic
-	)
-[x] Copyright (copyright)
-[x] Statute (statute)
-[x] License (license)
-[x] Other Rights (otherRights)
-[x] Name (rightsHolder)
-[x] Related Resource (relatedResource)
-[] DAMS Event (event)
-
-%>
-
 <% if defined?(componentIndex) %>
 
 	<div class="file-metadata">
@@ -56,40 +11,9 @@
 						<%= render :partial => 'shared/fields/file_format', :locals => {:componentIndex => componentIndex, :fileName => fileName} %>
 					<% end %>
 				<% end %>
-								
-				<%# Metadata %>
-				<%= render :partial => 'shared/fields/date', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/language', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/note', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/custodial_responsibility_note', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/preferred_citation_note', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/scope_of_content', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/relationships', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/built_work_place', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/conference_name', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/corporate_name', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/cultural_context', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/family_name', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/function', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/genre_form', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/geographic', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/iconography', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/name', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/occupation', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/personal_name', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/common_name', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/scientific_name', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/style_period', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/technique', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/temporal', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/topic', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/copyright', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/statute', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/license', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/other_rights', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/rights_holder', :locals => {:componentIndex => componentIndex} %>
-				<%= render :partial => 'shared/fields/related_resource', :locals => {:componentIndex => componentIndex, :collectionDoc => @document, :docType => "object"} %>
 
+				<%= render :partial => 'shared/fields/show_raw', :locals => {:componentIndex => componentIndex} %>
+								
 			</tbody>
 		</table>
 	</div>
