@@ -3,12 +3,12 @@
 		<% if @document['id'] != nil %>
 			<% if @document['component_count_isi'] != nil %>
 
-				<%# THE COMPLEX OBJECT SAYS, "IPSA SCIENTIA POTESTAS EST" %>
+				<%# COMPLEX OBJECTS %>
 				<%= render :partial => 'complex_object_viewer' %>
 
 			<% else %>
 
-				<%# THE SIMPLE OBJECT SEZ, "DERP" %>
+				<%# SIMPLE OBJECTS %>
 				<%
 					ark = render_document_show_field_value(:document=>@document, :field=>'id')
 					fileType = grabFileUse
