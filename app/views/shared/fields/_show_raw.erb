@@ -1,7 +1,7 @@
 <%
   component = defined?(componentIndex) ? {:componentIndex => componentIndex} : { }
 %>
-<% collectionsView = defined?(greetingsFromCollectionsView) ? true : false %>
+<% collectionsView = defined?(greetingsFromCollectionsView) %>
 <% notesToExclude = ['performers','extent','abstract','table of contents','identifier',
         'existence and location of originals','general physical description', 'dimensions',
         'digital origin', 'physical description'] %>
@@ -21,9 +21,7 @@
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'table of contents'}.merge(component) %>
 <%= render :partial => 'shared/fields/note', :locals => {:exclude_type => notesToExclude,
         :exclude_label => ['digital object made available by'] }.merge(component) %>
-<% unless defined?(componentIndex) %>
-  <%= render :partial => 'shared/fields/resource_type', :locals => component %>
-<% end %>
+<%= render :partial => 'shared/fields/resource_type', :locals => component %>
 <%= render :partial => 'shared/fields/language', :locals => component %>
 <%= render :partial => 'shared/fields/note',
         :locals => {:type => 'existence and location of originals'}.merge(component) %>
@@ -69,9 +67,7 @@
 <% end %>
 
 <%= render :partial => 'shared/fields/rights_holder', :locals => component %>
-<% unless defined?(componentIndex) %>
-  <%= render :partial => 'shared/fields/unit' %>
-<% end %>
+<%= render :partial => 'shared/fields/unit', :locals => component %>
 
 <% if can? :update, @document %>
   <%= render :partial => 'shared/fields/note', :locals => { :internal => true }.merge(component) %>
