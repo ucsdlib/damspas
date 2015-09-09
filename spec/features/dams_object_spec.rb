@@ -513,6 +513,13 @@ describe "complex object component view" do
     expect(page).to have_content "Component 3 Title"
     expect(page).to have_content "Component 4 Title"
   end
+  it "should have component notes" do
+    sign_in_developer       
+    visit dams_object_path(@damsComplexObj4.pid)
+    expect(page).to have_selector('div.file-metadata td', 'Identifier')
+    expect(page).to have_selector('div.file-metadata p', 'abc123')
+    expect(page).to have_selector('div.file-metadata span.dams-note-display-label', 'Local')
+  end
 end
 
 describe "complex object component view" do

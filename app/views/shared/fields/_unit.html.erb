@@ -1,32 +1,5 @@
-
-<%
-	 if defined?(componentIndex) # Then we're working with a component
-		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td>"
-		 htmlClose = "</td></tr>"
-	 else # We're working with an object or collection
-		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd>"
-		 htmlClose = "</dd>"
-	 end
-
-	 fieldData = @document["#{prefix}unit_json_tesim"]
-
-	 if fieldData != nil
-
-		 htmlOpen %= 'Repository'
-		 concat htmlOpen.html_safe
-
-		 unit = JSON.parse(fieldData.first)
-%>
-	<ul>
-    <%#= link_to unit['name'], catalog_index_path( {'f[unit_sim][]' => unit['name']} ) %>
-		<li><%= unit['name'] %></li>
-	</ul>
-<%
-
-	 concat htmlClose.html_safe
-
-	 end
-%>
-
+<% if @document['unit_json_tesim'] != nil && !defined?(componentIndex)
+     unit = JSON.parse(@document['unit_json_tesim'].first) %>
+  <dt>Repository</dt>
+  <dd><ul><li><%= unit['name'] %></li></ul></dd>
+<% end %>

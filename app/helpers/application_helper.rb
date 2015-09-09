@@ -169,5 +169,23 @@ module ApplicationHelper
     nonSortVal = title_json['nonSort'] || ""
     (nonSortVal.blank? ? "":nonSortVal + " ") + title_json['value']
   end
+
+  def collection_title(solr_doc)
+    if solr_doc["active_fedora_model_ssi"] == 'DamsObject'
+      ['assembledCollection', 'provenanceCollection', 'part', 'collection'].each do |type|
+        if !solr_doc["#{type}_json_tesim"].blank?
+          return parse_collection_title solr_doc["#{type}_json_tesim"]
+        end
+      end
+    else
+     return solr_doc['title_tesim'].first if !solr_doc['title_tesim'].blank?
+    end
+  end
+  def parse_collection_title(json)
+    '' if json.blank?
+    json.each do |datum|
+      return JSON.parse(datum)['name']
+    end
+  end
     
 end 
