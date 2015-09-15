@@ -102,12 +102,15 @@ begin
         if ["addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
           solrizer = Solrizer::Fedora::Solrizer.new
           solrizer.solrize @msg.headers["pid"], solropts
+          puts  "updated solr index for #{@msg.headers["pid"]}\n"
         elsif method == "purgeObject"
           ActiveFedora::SolrService.instance.conn.delete_by_id(pid)
+          puts  "removed solr index for #{@msg.headers["pid"]}\n"
+        elsif method == "testIndexer"
+          puts "Ignoring test record..."
         else
           $stderr.puts "Unknown Method: #{method}"
         end
-        puts  "updated solr index for #{@msg.headers["pid"]}\n"
         @conn.ack @msg.headers["message-id"]
       rescue Exception => e
         Audit.create!(user: "solrizer@ucsd.edu", action: method, classname: "DamsSolrizer", object: pid )
