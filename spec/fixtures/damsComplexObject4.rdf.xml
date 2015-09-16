@@ -100,6 +100,13 @@
           </mads:Title>
         </dams:title>
         <dams:order>3</dams:order>
+        <dams:note>
+          <dams:Note>
+            <rdf:value>abc123</rdf:value>
+            <dams:type>identifier</dams:type>
+            <dams:displayLabel>local</dams:displayLabel>
+          </dams:Note>
+        </dams:note>
       </dams:Component>
     </dams:hasComponent>
   </dams:Object>

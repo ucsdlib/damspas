@@ -513,6 +513,13 @@ describe "complex object component view" do
     expect(page).to have_content "Component 3 Title"
     expect(page).to have_content "Component 4 Title"
   end
+  it "should have component notes" do
+    sign_in_developer       
+    visit dams_object_path(@damsComplexObj4.pid)
+    expect(page).to have_selector('div.file-metadata td', 'Identifier')
+    expect(page).to have_selector('div.file-metadata p', 'abc123')
+    expect(page).to have_selector('div.file-metadata span.dams-note-display-label', 'Local')
+  end
 end
 
 describe "complex object component view" do
@@ -603,5 +610,28 @@ describe "Display internal personal name field" do
   it "should sort the note fields" do
     visit dams_object_path(@ctsObject.pid)
     expect(page).to have_content "Internal Personal Name"
+  end
+end
+
+describe "Curator complex object viewer" do
+  before(:all) do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @damsComplexObj8 = DamsObject.create(pid: "xx080808xx")
+    @damsComplexObj8.damsMetadata.content = File.new('spec/fixtures/damsComplexObject8.rdf.xml').read
+    @damsComplexObj8.add_file( 'dummy tiff content', "_1_1.tif", "test.tif" )
+    @damsComplexObj8.add_file( 'dummy jpeg content', "_1_2.jpg", "test.jpg" )
+    @damsComplexObj8.save!
+    solr_index (@damsComplexObj8.pid)
+  end
+  after(:all) do
+    @damsComplexObj8.delete
+    @unit.delete
+  end
+  it "should have download link to master file" do
+    sign_in_developer
+    visit dams_object_path(@damsComplexObj8.pid)
+    expect(page).to have_content "Component 1 Title"
+    expect(page).to have_link('', href:"/object/xx080808xx/_1_1.tif/download")
   end
 end

@@ -4,7 +4,7 @@
    @collection_type =  @collection_type.gsub("info:fedora/afmodel:", '').gsub(/(?<=[a-z])(?=[A-Z])/, '_').downcase
    @edit = "edit_" + "#{@collection_type}_path"
    @page_title = "#{@collection_title} | Collection"
-	 no_collection_items_notice = 'There are no items in this collection to view or search for.'
+   no_collection_items_notice = 'There are no items in this collection to view or search for.'
 %>
 
 <!--
@@ -18,9 +18,8 @@
 <%# Collections controls for phone layout %>
 <div class="row-fluid visible-phone dams-collections">
   <%# Collection masthead %>
-  <div id="collections-masthead" class="span12" style="background-image:url(http://libraries.ucsd.edu/assets/dams/home-page/img/<%=@document['id']%>.jpg),url(http://libraries.ucsd.edu/assets/dams/home-page/img/default.jpg)">
+  <div id="collections-masthead" class="span12" style="background-image:linear-gradient(to right,rgba(1,60,86,0.85),rgba(1,60,86,0.75)),url(/assets/dams/collections/img/<%=@document['id']%>.jpg))">
     <%= render :partial => 'shared/fields/title' %>
-    <div class="bug">Collection</div>
   </div>
   <%# Collection controls %>
   <% if @object_count > 0 %>
@@ -33,32 +32,34 @@
 
 <%# Main container %>
 <div class="row-fluid dams-collections">
-	<%# Corpus %>
+  <%# Corpus %>
   <div class="span8">
-	  <p class="crumb hidden-phone"><b>Collections</b> &raquo;</p>
+    <p class="crumb hidden-phone"><b>Collections</b> &raquo;</p>
     <div class="hidden-phone"><%= render :partial => 'shared/fields/title' %></div>
     <h3>About this collection
-    <%= render :partial => 'dams_objects/social_links' %></h3>
+      <%= render :partial => 'dams_objects/social_links' %></h3>
     <dl><%= render :partial => 'shared/fields/show_raw', :locals => {:greetingsFromCollectionsView => 'Wish you were here!'} %></dl>
   </div>
-	<%# Sidebar %>
+  <%# Sidebar %>
   <div class="span4">
-	  <%# Collections controls for desktop layout %>
+    <%# Collections controls for desktop layout %>
     <div class="hidden-phone">
-	    <%# Collection image %>
-	    <div id="collections-image" class="hidden-phone" style="background-image:url(http://libraries.ucsd.edu/assets/dams/home-page/img/<%=@document['id']%>.jpg),url(http://libraries.ucsd.edu/assets/dams/home-page/img/default.jpg)"></div>
-	    <%# Collection controls %>
-	    <% if @object_count > 0 %>
-	      <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
-	      <div class="well collections-search-box"><%= render :partial => 'search' %></div>
-	    <% else %>
-	      <p class="alert alert-no-dismiss"><%=no_collection_items_notice%></p>
-	    <% end %>
-	  </div>
+      <%# Collection image %>
+      <div id="collections-image" class="hidden-phone">
+        <img src="/assets/dams/collections/img/<%=@document['id']%>.jpg" alt="">
+      </div>
+      <%# Collection controls %>
+      <% if @object_count > 0 %>
+        <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
+        <div class="well collections-search-box"><%= render :partial => 'search' %></div>
+      <% else %>
+        <p class="alert alert-no-dismiss"><%=no_collection_items_notice%></p>
+      <% end %>
+    </div>
     <%# Editor menus %>
     <% if can? :update, @document %>
       <%= render :partial => 'dams_collections/show_editor_tools' %>
-	  <% end %>
+    <% end %>
     <%# DAMS tools %>
     <%= render :partial => 'show_damstools' %>
   </div>
@@ -70,4 +71,3 @@
     <%= render :partial => 'dams_objects/comments' %>
   </section>
 </div>
-
