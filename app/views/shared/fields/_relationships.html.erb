@@ -8,7 +8,8 @@
 		htmlOpen = '<dt>%s</dt><dd>'
 		htmlClose = '</dd>'
 	end
-    names = ['Principal investigator','principal investigator','Co-principal investigator','co-principal investigator']	
+  
+    names = ['Principal investigator','principal investigator','Co-principal investigator','co-principal investigator', 'Creator', 'creator']	
 	fieldData = @document["#{prefix}relationship_json_tesim"] || {}
 %>
     <% fieldData.each do |datum| %>

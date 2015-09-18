@@ -109,9 +109,10 @@ feature 'Visitor wants to see the collection record' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Principal Investigator')  
     expect(page).to have_selector("div.span8 dl dt[3]", :text => 'Co Principal Investigator')
-    expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Author')
-    expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Contributors')
-    expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Creator')    
+    expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Creator')
+    expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Author')
+    expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Contributors')
+        
   end
   scenario 'should see the internal and external common names' do
     visit dams_collection_path("#{@provCollection.pid}")
