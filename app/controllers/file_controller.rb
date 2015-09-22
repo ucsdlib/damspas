@@ -15,8 +15,10 @@ class FileController < ApplicationController
         cmp_part = nil
         file_part = fileid[1,fileid.length]
       end
+      prefix = cmp_part ? "component_#{cmp_part}_" : ""
+      field = "#{prefix}files_tesim"
 
-      @solr_doc = get_single_doc_via_search(1, {:q => "id:#{objid}"} )
+      @solr_doc = get_single_doc_via_search(1, {:q => "id:#{objid}", :fl => "#{field},read_access_group_ssim,edit_access_group_ssim,discover_access_group"} )
       asset = ActiveFedora::Base.load_instance_from_solr(objid,@solr_doc)
     rescue
       raise ActionController::RoutingError.new('Not Found')
@@ -28,8 +30,7 @@ class FileController < ApplicationController
 
     # load use value from solr
     use = "image-source" # default use to source, which requires curator privs
-    prefix = cmp_part ? "component_#{cmp_part}_" : ""
-    file_json = @solr_doc["#{prefix}files_tesim"]
+    file_json = @solr_doc[field]
     file_json.each do |json|
       file_info = JSON.parse(json)
       if file_info["id"] == file_part
