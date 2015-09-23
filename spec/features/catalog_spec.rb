@@ -104,6 +104,7 @@ feature 'Visitor wants to search' do
     idx2.should >( idx1 )
     
     click_on("Sort 1-9", match: :first)
+    expect(page).to have_link('A', href: '/search/facet/subject_topic_sim?facet.prefix=A&facet.sort=index' )
     expect(page).to have_selector('.btn', :text => 'Z')
     idx1 = page.body.index('ZZZ Test Subject 1')
     idx2 = page.body.index('ZZZ Test Subject 2')
