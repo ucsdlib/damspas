@@ -6,7 +6,7 @@
 
 			<% Array browse_array = ("A".."Z").to_a %>
 			<% browse_array.each { |x| %>
-				<% params_copy['facet.prefix'] = x if (!params_copy['facet.sort'].nil? && params_copy['facet.sort'].to_s != 'count') %>
+				<% params_copy['facet.prefix'] = x if (!params_copy['facet.sort'].nil?) %>
 				<% if params['facet.prefix'].to_s == "#{x}"  %>
 	        <%= link_to x, @pagination.params_for_resort_url('index', params_copy), class: 'btn btn-mini active' %>
 				<% else %>
