@@ -104,6 +104,7 @@ feature 'Visitor wants to search' do
     idx2.should >( idx1 )
     
     click_on("Sort 1-9", match: :first)
+    expect(page).to have_link('A', href: '/search/facet/subject_topic_sim?facet.prefix=A&facet.sort=index' )
     expect(page).to have_selector('.btn', :text => 'Z')
     idx1 = page.body.index('ZZZ Test Subject 1')
     idx2 = page.body.index('ZZZ Test Subject 2')
@@ -131,10 +132,12 @@ feature 'Visitor wants to search' do
     visit dams_object_path @obj1
     expect(page).to_not have_selector('div', :text => 'Previous 3 of 3 results')
   end
-  scenario 'decade faceting' do
+
+  scenario 'decade faceting displays in chronological order ' do
     visit catalog_index_path( {'q' => 'QE8iWjhafTRpc'} )
-    expect(page).to have_selector('div.blacklight-decade_ssi')
     expect(page).to have_link('2000s', href: catalog_index_path({'f[decade_ssi][]' => '2000s', 'q' => 'QE8iWjhafTRpc', 'spellcheck.q' => 'QE8iWjhafTRpc'}))
+    expect(page).to have_selector("div.blacklight-decade_ssi ul li[1]", :text => '2000s 1')  
+    expect(page).to have_selector("div.blacklight-decade_ssi ul li[2]", :text => '1990s 1')
   end
 end
 
