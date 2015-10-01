@@ -8,13 +8,14 @@ feature 'Visitor wants to search' do
     @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
     @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
 
-    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000', value: '2000'}], subjectURI: [@sub1.pid]
+    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000', value: '2000-2008'}], subjectURI: [@sub1.pid]
     @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], subjectURI: [@sub2.pid]
     @obj3 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
-
+  
     solr_index @obj1.pid
     solr_index @obj2.pid
     solr_index @obj3.pid
+    
   end
   after(:all) do
     @obj1.delete
@@ -74,12 +75,12 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1') 
   end
 
-  scenario 'results sorted by object creation date' do
+  scenario 'results sorted by object creation date should work for both single date and range date' do
     sign_in_developer
     visit catalog_index_path( {'f[unit_sim][]' => 'Test Unit', 'per_page' => 100, 'sort' => 'object_create_dtsi asc'} )
     idx1 = page.body.index('QE8iWjhafTRpc Object 3')  # no date
     idx2 = page.body.index('QE8iWjhafTRpc Object 2')  # 1999
-    idx3 = page.body.index('QE8iWjhafTRpc Object 1')  # 2000
+    idx3 = page.body.index('QE8iWjhafTRpc Object 1')  # 2000-2008
     idx3.should >( idx2 )
     idx2.should >( idx1 )
 
