@@ -8,15 +8,20 @@
 				when 'complex' then 'btn-inverse'
 			end
 		end
+
+		 viewFilePath = filePath.gsub('/download', '')
 	%>
 
 	<div class="form-actions dams-download-button">
-	  <% if can? :update, @document%>	
-        <% if (defined?(sourcefilePath) && !sourcefilePath.nil? && sourcefilePath != filePath)%>
-            <a class="btn <%=btnColor%> pull-right-space" href="<%= sourcefilePath %>"><i class="icon-download-alt icon-white"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> file</a>
-        <% end %>
-      <% end %>	
-		<a class="btn <%=btnColor%> pull-right" href="<%= filePath %>"><i class="icon-download-alt icon-white"></i> Download file</a>
+	  <a class="btn <%=btnColor%> pull-right" href="<%= viewFilePath %>"><i class="glyphicon glyphicon-eye-open icon-white"></i> View file</a>
+	  <a class="btn btn-link pull-left btn-mini hidden-phone" href="<%= filePath %>"><i class="glyphicon glyphicon-download-alt"></i> Download file</a>
+	  <a class="btn pull-left visible-phone btn-mini" href="<%= filePath %>"><i class="glyphicon glyphicon-download-alt"></i> Download file</a>
+	  <% if can? :update, @document%>
+	    <% if (defined?(sourcefilePath) && !sourcefilePath.nil? && sourcefilePath != filePath)%>
+	      <a class="btn btn-link pull-left btn-mini hidden-phone" href="<%= sourcefilePath %>"><i class="glyphicon glyphicon-download-alt"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> source</a>
+	      <a class="btn pull-left visible-phone btn-mini" href="<%= sourcefilePath %>"><i class="glyphicon glyphicon-download-alt"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> source</a>
+	    <% end %>
+	  <% end %>
 	</div>
 
 <% end %>

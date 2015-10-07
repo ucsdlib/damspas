@@ -14,7 +14,6 @@ $complexFile: #AC6F2B !default;
 //----------------------------------------------------------
 
 // CARTOGRAPHICS
-
 #map-canvas{width: 100%;height: 200px;margin-bottom: 10px;} // height required
 #map-canvas img{max-width:none;} // fix for bootstrap conflict
 #map-canvas label{width: auto;display:inline;} // fix for bootstrap conflict
@@ -22,27 +21,19 @@ $complexFile: #AC6F2B !default;
 // COMPONENTS
 .component{display:none;background-color:$componentBG;margin:3% 0;padding:$viewerPadding;border-radius: 3px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 .simple-object{margin:3% 0;padding:$viewerPadding;background-color:darken($objectBG,5%);border-radius: 3px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
-
 .simple-object .table th,.simple-object .table td{border-color:rgba($simpleFile,0.25)}
 .simple-object .dams-download-button{background-color: rgba($simpleFile,0.15); border-top-color: rgba($simpleFile,0.75)}
 .simple-object .dams-download-button .muted{color: rgba($simpleFile,0.5)}
-
 .component .table th,.component .table td{border-color:rgba($complexFile,0.25)}
 .component .dams-download-button{background-color: rgba($complexFile,0.15); border-top-color: rgba($complexFile,0.75)}
 .component .dams-download-button .muted{color: rgba($complexFile,0.666)}
-
-
 .component img{width:auto;margin:0 auto 20px auto;display:block;}
 .simple-object img{width:auto;margin:0 auto;display:block;}
-
 .component > hgroup > h1{font-size:125%;padding:0;margin:0 0 5px 0;line-height:100%;color: $componentHighlight;}
 .component > hgroup > h2{font-size:100%;padding:0;margin:0 0 5px 0;line-height:100%;color: lighten($componentHighlight,10%);}
 .component > hgroup{margin-bottom: 20px;}
-
 .component .table,.simple-object .table{margin-bottom:0;}
-
 .component .alert,.simple-object .alert{margin-bottom:0;}
-
 .component .table td p,.component .table td ul,.simple-object .table td p,.simple-object .table td ul{margin:0;}
 .component .table tr td:first-child,.simple-object .table tr td:first-child{font-weight: bold;}
 
@@ -51,7 +42,6 @@ $complexFile: #AC6F2B !default;
 //----------------------------------------------------------
 .dams-search-box h4{margin:0 0 10px 0;line-height:inherit;}
 .sidebar-button-list .btn{text-align:left;}
-
 .dams-au{text-align: left;}
 .dams-au img{display:inline-block;}
 
@@ -68,10 +58,9 @@ $complexFile: #AC6F2B !default;
 .letter-link {border: 1px solid #9AAFE5; padding:4px;}
 .letter, .letter:hover {text-decoration: none;}
 .selected-letter {background-color: #2e6ab1; border: 1px solid #2e6ab1; color: #FFFFFF; font-weight: bold; padding:4px; }
-
 .dams-download-button{margin:0;}
 .dams-download-button p{margin: 0;text-align: center;}
-.pull-right-space {    float: right; margin-left: 10px;}
+.dams-download-button .btn-mini{margin-top:5px;}
 
 // Breadcrumbs
 .dams-breadcrumbs .breadcrumb{font-size: 12px;background-color:transparent;padding: 0;}
@@ -137,15 +126,11 @@ $complexFile: #AC6F2B !default;
     a{color:#fff;text-decoration: underline;}
     button{margin-top:0.5em;}
   }
-
 }
-
-
 
 // restricted object Content
 .restricted-obj-thumbnail {border:2px solid #659EC7; width:100px; height:150px;}
 #restricted-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 350px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
-
 
 //admin download
 #etc-menu{margin-top:3%;}
@@ -158,7 +143,6 @@ $complexFile: #AC6F2B !default;
 }
 
 // AddThis Sharing Menu
-
 .addthis_sharing_toolbox
 {
   float:right;
@@ -205,16 +189,10 @@ $complexFile: #AC6F2B !default;
 @media (min-width: 980px) and (max-width:1199px) {}
 
 // DESKTOP (CUSTOM)
-@media (min-width: 980px)
-{
-	// OBJECT VIEWER PAGE
-}
+@media (min-width: 980px) {}
 
 // PORTRAIT TABLET TO LANDSCAPE AND DESKTOP (BOOTSTRAP)
-@media (min-width: 768px) and (max-width: 979px)
-{
-	// OBJECT VIEWER PAGE
-}
+@media (min-width: 768px) and (max-width: 979px) {}
 
 // MOBILE (CUSTOM)
 @media (max-width: 979px) {}
@@ -222,27 +200,20 @@ $complexFile: #AC6F2B !default;
 // LANDSCAPE PHONE TO PORTRAIT TABLET (BOOTSTRAP)
 @media (max-width: 767px)
 {
-	 // OBJECT VIEWER PAGE
-	.dams-download-button .btn{display:block;float:none;}
-
-	// UNITS INDEX PAGE
-
+  .dams-download-button .btn{display:block;float:none;}
+  .dams-download-button .visible-phone{margin-top:0.75em;}
 }
  
 // LANDSCAPE PHONES AND DOWN (BOOTSTRAP)
 @media (max-width: 480px)
 {
-	 // OBJECT VIEWER PAGE
+  // OBJECT VIEWER PAGE
   .dams-viewer > hgroup > h1{font-size:125%;}
   .dams-viewer > hgroup > h2{font-size:100%;}
   .dams-metadata{font-size:90%;}
 
-
-
-
   // UNITS INDEX PAGE
-	.search-query-form .btn{width:100%;}
-
+  .search-query-form .btn{width:100%;}
 
   .restricted-notice
   {
@@ -256,7 +227,4 @@ $complexFile: #AC6F2B !default;
     }
   }
 
-
 }
-
-

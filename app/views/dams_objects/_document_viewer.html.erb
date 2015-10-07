@@ -1,5 +1,9 @@
 <% if defined?(filePath) and defined?(displayFilePath)%>
+
+  <% viewFilePath = filePath.gsub('/download', '') %>
+
   <div class="file-thumbnail">
-    <%= link_to image_tag(displayFilePath, :alt => ''), filePath %>
+    <%= link_to image_tag(displayFilePath, :alt => ''), viewFilePath %>
   </div>
+
 <% end %>
