@@ -21,15 +21,14 @@
 // SEARCH RESULTS
 //---
 #dams-search-results{margin:0;padding:0;}
-#dams-search-results > li{list-style-type:none;margin:0 0 2em 0;padding:0;color:#555;}
+#dams-search-results > li{list-style-type:none;margin:0 0 2em 0;padding:0;color:#555;overflow:auto;}
 #dams-search-results > li:last-child{margin:0}
 #dams-search-results > li h3{margin:0 0 0.25em 0;font-size:125%;line-height: inherit;font-weight:normal;}
 #dams-search-results > li a{text-decoration:underline;}
-#dams-search-results > li{overflow: auto;}
 #dams-search-results > li > img{display:block;width:70px;height:auto;margin:0;padding:0;float:left;}
 #dams-search-results > li > div{margin-left:90px;}
 
-.dams-search-thumbnail{display:block;width:70px;height:70px;margin:0 !important;padding:0;float:left;font-size:30px;text-align:center;line-height:70px;}
+.dams-search-thumbnail{display:block;width:70px;max-height:100px;margin:0 !important;padding:0;float:left;font-size:30px;text-align:center;line-height:70px;}
 .thumb-complex{background-color:#F3B46D;color:rgba(0,0,0,0.25);}
 .thumb-simple{background-color:#F3CD6D;color:rgba(0,0,0,0.25);}
 .thumb-collection{background-color:#F3876D;color:rgba(0,0,0,0.25);}
