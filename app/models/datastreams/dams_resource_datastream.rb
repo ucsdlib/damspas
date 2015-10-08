@@ -310,6 +310,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def insertDateFields (solr_doc, cid, dates)
     creation_date = nil
     other_date = nil
+    date_val = nil
 
     dates.map do |date|
       # display
@@ -341,44 +342,46 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
       # save dates for sort date
       begin
-        # get date string from value or beginDate
-        dateVal = nil
+        # get date string from beginDate or value 
         if (!date.nil?)
-          if(!date.value.empty?)
-            dateVal = clean_date date.value.first
-          end
-      	  if(dateVal.empty? && !date.beginDate.empty?)
-            dateVal = clean_date date.beginDate.first
-          end
+          date_val = clean_date date.beginDate.first if(!date.beginDate.first.blank?)
+          date_val = clean_date date.value.first if(date_val.blank? && !date.value.first.blank?)
         end
-
-        # parse dates
-        if(!dateVal.blank?)
+          
+        # parse dates 
+        if(!date_val.blank?)
           if date.type.first == 'creation'
-            creation_date = DateTime.parse(dateVal) if creation_date.nil?
+            creation_date = DateTime.parse(date_val) if creation_date.nil?
           else
-            other_date = DateTime.parse(dateVal) if other_date.nil?
+            other_date = DateTime.parse(date_val) if other_date.nil?
           end
-
         end
       rescue Exception => e
-        logger.info "error parsing date '#{dateVal}' (#{e.to_s})"
+        logger.info "error parsing date '#{date_val}' (#{e.to_s})"
       end
     end
-
+  
     datesort = Solrizer::Descriptor.new(:date, :indexed, :stored)
+
     if creation_date
-      insert_sort_dates solr_doc, creation_date
+      insert_sort_decades solr_doc, creation_date
     elsif other_date
-      insert_sort_dates solr_doc, other_date
+      insert_sort_decades solr_doc, other_date
     end
+    
+    insert_sort_dates solr_doc, DateTime.parse(date_val) if date_val
   end
-  def insert_sort_dates( solr_doc={}, date )
-    stored_date = Solrizer::Descriptor.new(:date, :indexed, :stored)
+
+  def insert_sort_decades( solr_doc={}, date )
     stored_string = Solrizer::Descriptor.new(:string, :indexed, :stored)
-    Solrizer.insert_field(solr_doc, "object_create", date, stored_date)
     Solrizer.insert_field(solr_doc, "decade", decade(date), stored_string)
   end
+
+  def insert_sort_dates( solr_doc={}, date )
+    stored_date = Solrizer::Descriptor.new(:date, :indexed, :stored)
+    Solrizer.insert_field(solr_doc, "object_create", date, stored_date)
+  end
+
   def decade( date = DateTime.now )
     year = date.strftime('%Y').to_i
     year -= (year % 10)

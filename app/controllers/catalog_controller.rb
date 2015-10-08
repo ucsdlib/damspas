@@ -240,6 +240,7 @@ class CatalogController < ApplicationController
     config.add_sort_field 'title_ssi asc', :label => 'title'
     config.add_sort_field 'object_create_dtsi asc, title_ssi asc', :label => "date\u00A0created\u00A0\u25B2"
     config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date\u00A0created\u00A0\u25BC"
+   
 
     # If there are more than this many search results, no spelling ("did you 
     # mean") suggestion is offered.
@@ -247,6 +248,7 @@ class CatalogController < ApplicationController
   end
       # get search results from the solr index
     def index
+
       if params['q'] != nil
         params['q'].gsub!('""','')
         single_quote_count = params['q'].to_s.count('"') 
@@ -266,6 +268,7 @@ class CatalogController < ApplicationController
         params['q'] = (params['q'].blank?) ? params['xq'] : "#{params['q']} AND #{params['xq']}"
       end
       (@response, @document_list) = get_search_results
+
 	  spelling_words = @response.spelling.words
 	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
 		params['spellsuggestions'] = 'false'
