@@ -405,6 +405,13 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('div#map')
       expect(page).not_to have_selector('header')
     end
+
+    it 'should show a "View file" button and a "Download file" button' do
+      expect(page).to have_selector('#data-view-file')
+      expect(page).to have_selector('#data-download-file')
+      expect(page).to have_selector('#data-download-file-phone')
+    end
+
     it 'should not show a pan/zoom viewer for non-existing files' do
       sign_in_developer
       visit zoom_path @o.pid, '9'
