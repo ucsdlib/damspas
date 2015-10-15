@@ -406,12 +406,6 @@ feature 'Visitor want to look at objects' do
       expect(page).not_to have_selector('header')
     end
 
-    it 'should show a "View file" button and a "Download file" button' do
-      expect(page).to have_selector('#data-view-file')
-      expect(page).to have_selector('#data-download-file')
-      expect(page).to have_selector('#data-download-file-phone')
-    end
-
     it 'should not show a pan/zoom viewer for non-existing files' do
       sign_in_developer
       visit zoom_path @o.pid, '9'
@@ -424,6 +418,28 @@ feature 'Visitor want to look at objects' do
     it 'should index fulltext of complex object text file' do
       visit catalog_index_path( { q: 'THsdtk', sort: 'title_ssi asc' } )
       expect(page).to have_selector('h3', :text => "Image File Test")
+    end
+  end
+
+  describe "Curator PDF Viewer" do
+    before(:all) do
+      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                  code: "tu", uri: "http://example.com/"
+      @damsPdfObj = DamsObject.create(pid: "xx21171293")
+      @damsPdfObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
+      @damsPdfObj.save!
+      solr_index (@damsPdfObj.pid)
+    end
+    after(:all) do
+      @damsPdfObj.delete
+      @unit.delete
+    end
+    it "should show a 'View file' button and a 'Download file' button " do
+      sign_in_developer
+      visit dams_object_path(@damsPdfObj.pid)
+      expect(page).to have_selector('#data-view-file')
+      expect(page).to have_selector('#data-download-file')
+      expect(page).to have_selector('#data-download-file-phone')
     end
   end
 
