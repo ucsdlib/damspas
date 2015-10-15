@@ -420,29 +420,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('h3', :text => "Image File Test")
     end
   end
-
-  describe "Curator PDF Viewer" do
-    before(:all) do
-      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
-                  code: "tu", uri: "http://example.com/"
-      @damsPdfObj = DamsObject.create(pid: "xx21171293")
-      @damsPdfObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
-      @damsPdfObj.save!
-      solr_index (@damsPdfObj.pid)
-    end
-    after(:all) do
-      @damsPdfObj.delete
-      @unit.delete
-    end
-    it "should show a 'View file' button and a 'Download file' button " do
-      sign_in_developer
-      visit dams_object_path(@damsPdfObj.pid)
-      expect(page).to have_selector('#data-view-file')
-      expect(page).to have_selector('#data-download-file')
-      expect(page).to have_selector('#data-download-file-phone')
-    end
-  end
-
+  
   describe "results pager and counter parameter" do
     before(:all) do
       @o1 = DamsObject.create( titleValue: 'Zyp4H8YRJzfXhq7q4Ps One', copyright_attributes: [{status: 'Public domain'}] )
@@ -656,5 +634,26 @@ describe "Curator complex object viewer" do
     visit dams_object_path(@damsComplexObj8.pid)
     expect(page).to have_content "Component 1 Title"
     expect(page).to have_link('', href:"/object/xx080808xx/_1_1.tif/download")
+  end
+end
+
+describe "PDF Viewer" do
+  before(:all) do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @damsPdfObj = DamsObject.create(pid: "xx21171293")
+    @damsPdfObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
+    @damsPdfObj.save!
+    solr_index (@damsPdfObj.pid)
+  end
+  after(:all) do
+    @damsPdfObj.delete
+    @unit.delete
+  end
+  it "should show a 'View file' button and a 'Download file' button " do
+    visit dams_object_path(@damsPdfObj.pid)
+    expect(page).to have_selector('#data-view-file')
+    expect(page).to have_selector('#data-download-file')
+    expect(page).to have_selector('#data-download-file-phone')
   end
 end
