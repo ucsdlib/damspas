@@ -825,7 +825,7 @@ module Dams
     end
 
   # helper method to load external class objects
-  def loadRdfObjects (object, className)
+  def loadRdfObjects (object, className, reload: true)
     objects = []
     if !object.first.nil?
       object.each do |o|
@@ -838,8 +838,9 @@ module Dams
           begin
             o = className.find(o_pid)
             objects << o
-          rescue
-            logger.warn "Error loading  #{className.to_s}: #{o_pid}"
+          rescue => e
+             logger.warn "Error loading #{o_pid} in class #{className.to_s}: #{e}. Reloading..."
+             loadRdfObjects object, className, false if reload
           end
         end
       end
