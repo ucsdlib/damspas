@@ -825,7 +825,7 @@ module Dams
     end
 
   # helper method to load external class objects
-  def loadRdfObjects (object, className, reload: true)
+  def loadRdfObjects (object, className, reload = true)
     objects = []
     if !object.first.nil?
       object.each do |o|
