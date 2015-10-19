@@ -95,7 +95,7 @@ describe DamsObjectDatastream do
         solr_doc = subject.to_solr
         solr_doc["date_tesim"].should include "1980-05-20"
         solr_doc["date_tesim"].should include "1980-05-24"
-        solr_doc["decade_ssi"].should include "1980s"
+        solr_doc["decade_sim"].should include "1980s"
       end
       it "should have fields" do
         subject.typeOfResource.should == ["mixed material"]
