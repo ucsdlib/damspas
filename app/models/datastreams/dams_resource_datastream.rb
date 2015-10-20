@@ -308,8 +308,8 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     end
   end
   def insertDateFields (solr_doc, cid, dates)
-    creation_date = nil
-    other_date = nil
+    date_begin = nil
+    date_end = nil
     date_val = nil
 
     dates.map do |date|
@@ -339,42 +339,40 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       Solrizer.insert_field(solr_doc, "all_fields", date.endDate)
       Solrizer.insert_field(solr_doc, "all_fields", date.type)
       Solrizer.insert_field(solr_doc, "all_fields", date.encoding)
-
-      # save dates for sort date
-      begin
-        # get date string from beginDate or value 
-        if (!date.nil?)
-          date_val = clean_date date.beginDate.first if(!date.beginDate.first.blank?)
-          date_val = clean_date date.value.first if(date_val.blank? && !date.value.first.blank?)
-        end
-          
-        # parse dates 
-        if(!date_val.blank?)
-          if date.type.first == 'creation'
-            creation_date = DateTime.parse(date_val) if creation_date.nil?
-          else
-            other_date = DateTime.parse(date_val) if other_date.nil?
-          end
-        end
-      rescue Exception => e
-        logger.info "error parsing date '#{date_val}' (#{e.to_s})"
+       
+      # save dates for sort date and facet decade
+      if (!date.nil?)
+        date_begin = clean_date date.beginDate.first unless date.beginDate.first.blank?
+        date_end = clean_date date.endDate.first unless date.endDate.first.blank?
+        date_val = clean_date date.value.first unless date.value.first.blank?
       end
     end
-  
-    datesort = Solrizer::Descriptor.new(:date, :indexed, :stored)
-
-    if creation_date
-      insert_sort_decades solr_doc, creation_date
-    elsif other_date
-      insert_sort_decades solr_doc, other_date
-    end
     
-    insert_sort_dates solr_doc, DateTime.parse(date_val) if date_val
+    if !date_begin.blank?
+      insert_sort_dates solr_doc, DateTime.parse(date_begin)
+    elsif !date_val.blank?
+      insert_sort_dates solr_doc, DateTime.parse(date_val)
+    end 
+     
+    # parsing for decade year
+    begin_year = (DateTime.parse(date_begin).strftime('%Y').to_i)/10 unless date_begin.blank?
+    end_year = (DateTime.parse(date_end).strftime('%Y').to_i)/10 unless date_end.blank?
+    val_year = (DateTime.parse(date_val).strftime('%Y').to_i)/10 unless date_val.blank?
+
+    if begin_year && end_year && begin_year != end_year
+      for i in begin_year..end_year do
+        insert_sort_decades solr_doc, "#{i*10}s"
+      end
+    elsif begin_year
+      insert_sort_decades solr_doc, "#{begin_year*10}s"
+    elsif val_year
+      insert_sort_decades solr_doc, "#{val_year*10}s"
+    end
   end
 
   def insert_sort_decades( solr_doc={}, date )
-    stored_string = Solrizer::Descriptor.new(:string, :indexed, :stored)
-    Solrizer.insert_field(solr_doc, "decade", decade(date), stored_string)
+    facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
+    Solrizer.insert_field(solr_doc, "decade", date, facetable)
   end
 
   def insert_sort_dates( solr_doc={}, date )
@@ -382,11 +380,6 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     Solrizer.insert_field(solr_doc, "object_create", date, stored_date)
   end
 
-  def decade( date = DateTime.now )
-    year = date.strftime('%Y').to_i
-    year -= (year % 10)
-    "#{year}s"
-  end
   def clean_date( date )
     d = date || ''
     return '' unless d.match( '^\d{4}' )
@@ -403,9 +396,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
       unless d.match('^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}')
         d = d[0,10]
       end
+    else
+      d = ''
     end
     d
   end
+
   def insertRelationshipFields ( solr_doc, prefix, relationships )
 
     facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
@@ -737,7 +733,7 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
 
     # title
     insertTitleFields solr_doc, nil, title
-
+    
     # date
     insertDateFields solr_doc, nil, date
 

@@ -8,7 +8,7 @@ feature 'Visitor wants to search' do
     @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
     @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
 
-    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000', value: '2000-2008'}], subjectURI: [@sub1.pid]
+    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], subjectURI: [@sub1.pid]
     @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], subjectURI: [@sub2.pid]
     @obj3 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
   
@@ -136,9 +136,14 @@ feature 'Visitor wants to search' do
 
   scenario 'decade faceting displays in chronological order ' do
     visit catalog_index_path( {'q' => 'QE8iWjhafTRpc'} )
-    expect(page).to have_link('2000s', href: catalog_index_path({'f[decade_ssi][]' => '2000s', 'q' => 'QE8iWjhafTRpc', 'spellcheck.q' => 'QE8iWjhafTRpc'}))
-    expect(page).to have_selector("div.blacklight-decade_ssi ul li[1]", :text => '2000s 1')  
-    expect(page).to have_selector("div.blacklight-decade_ssi ul li[2]", :text => '1990s 1')
+    expect(page).to have_link('2000s', href: catalog_index_path({'f[decade_sim][]' => '2000s', 'q' => 'QE8iWjhafTRpc', 'spellcheck.q' => 'QE8iWjhafTRpc'}))
+    expect(page).to have_selector("div.blacklight-decade_sim ul li[1]", :text => '2050s 1') 
+    expect(page).to have_selector("div.blacklight-decade_sim ul li[2]", :text => '2040s 1') 
+    expect(page).to have_selector("div.blacklight-decade_sim ul li[3]", :text => '2030s 1') 
+    expect(page).to have_selector("div.blacklight-decade_sim ul li[4]", :text => '2020s 1') 
+    expect(page).to have_selector("div.blacklight-decade_sim ul li[5]", :text => '2010s 1')  
+    expect(page).to have_selector("div.blacklight-decade_sim ul li[6]", :text => '2000s 1')
+    expect(page).to have_selector("div.blacklight-decade_sim ul li[7]", :text => '1990s 1')
   end
 end
 

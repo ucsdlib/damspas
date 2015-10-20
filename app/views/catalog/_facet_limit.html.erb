@@ -3,7 +3,7 @@
       Blacklight::Solr::FacetPaginator.new(display_facet.items,        
         :limit => facet_limit_for(solr_field))
 
-     if solr_field == "decade_ssi"
+     if solr_field == "decade_sim"
        paginator_items = paginator.items.sort_by{ |a| a[:value] }.reverse
      else
        paginator_items = paginator.items
