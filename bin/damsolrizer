@@ -89,6 +89,8 @@ begin
   $stderr.print "Getting output from #{@destination} (priority > #{@priority})\n"
   
   @conn.subscribe(@destination, {:ack =>"client" })
+
+  failed_count = 0
   while true
     @msg = @conn.receive
     pid = @msg.headers["pid"]
@@ -96,6 +98,7 @@ begin
     priority = @msg.headers["priority"].to_i
 
     if priority > @priority
+      max_tries = 2
       puts @msg.headers.inspect
       puts "PID: #{@msg.headers["pid"]}"
       begin
@@ -113,10 +116,24 @@ begin
         end
         @conn.ack @msg.headers["message-id"]
       rescue Exception => e
-        Audit.create!(user: "solrizer@ucsd.edu", action: method, classname: "DamsSolrizer", object: pid )
-        puts e.to_s
-        e.backtrace.each do |line|
-          puts line
+        max_tries -= 1
+        # Log the error
+        if max_tries == 1
+          Audit.create!(user: "solrizer@ucsd.edu", action: method, classname: "DamsSolrizer", object: pid )
+          puts e.to_s
+          e.backtrace.each do |line|
+            puts line
+          end
+        end
+
+        # retry otherwise acknowledge ActiveMQ
+        if max_tries > 0
+          retry
+        else
+          failed_count += 1
+          puts "#{failed_count} failed. Error: #{e.to_s}"
+          STDOUT.flush
+          @conn.ack @msg.headers["message-id"]
         end
       end
     end
