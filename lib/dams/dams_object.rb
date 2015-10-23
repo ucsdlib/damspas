@@ -544,7 +544,6 @@ module Dams
 	      Solrizer.insert_field(solr_doc, "component_#{cid}_resource_type", format_name(component.typeOfResource.first))
 	      Solrizer.insert_field(solr_doc, "object_type", format_name(component.typeOfResource.first),@facetable)    
 	      Solrizer.insert_field(solr_doc, "all_fields", format_name(component.typeOfResource))
-	
 	      insertDateFields solr_doc, cid, component.date
 	      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
 	      insertLanguageFields solr_doc, "component_#{cid}_", component.language
