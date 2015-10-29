@@ -1,10 +1,17 @@
+<% if advanced_search_context == {"f"=>{"type_sim"=>["Collection"]}}
+     reset_params = {"spellcheck.q"=>"", "utf8"=>"✓"}
+   else
+     reset_params = params
+   end
+%>
+
 <div class="dams-search-results-header clearfix">
 
 	<div class="btn-toolbar results-tools hidden-phone">
     <%= render :partial => 'sort_widget' %>
     <%= render :partial => 'per_page_widget' %>
 	  <div class="btn-group"><%#= link_to 'Advanced Search', advanced_path, :class => 'btn btn-mini' %>
-     <%= link_to 'Advanced Search', params.merge(:controller=>"advanced", :action=>"index") , 
+     <%= link_to 'Advanced Search', reset_params.merge(:controller=>"advanced", :action=>"index") , 
         :class => 'btn btn-mini' %> 
     </div>
 	</div>
