@@ -537,7 +537,7 @@ module Dams
 	        Solrizer.insert_field(solr_doc, "component_#{cid}_children", gid, storedIntMulti)
 	        @parents[cid] << gid
 	      }
-	
+	     
 	      # titles
 	      insertTitleFields solr_doc, cid, component.title
 	
@@ -547,6 +547,7 @@ module Dams
 	      insertDateFields solr_doc, cid, component.date
 	      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
 	      insertLanguageFields solr_doc, "component_#{cid}_", component.language
+	      insertRelatedResourceFields solr_doc, "component_#{cid}_", component.relatedResource
 	
 	      insertNoteFields solr_doc, "component_#{cid}_note",component.note, DamsNote
 	      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote, DamsCustodialResponsibilityNote
