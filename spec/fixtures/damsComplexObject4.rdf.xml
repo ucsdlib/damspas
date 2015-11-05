@@ -55,6 +55,13 @@
             </mads:elementList>
           </mads:Title>
         </dams:title>
+        <dams:relatedResource>
+          <dams:RelatedResource>
+            <dams:description>RELATED RESOURCE:DEPICTION</dams:description>
+            <dams:type>depiction</dams:type>
+            <dams:uri rdf:resource="http://library.ucsd.edu/dc/object/bb9182008x"/>
+          </dams:RelatedResource>
+        </dams:relatedResource>
       </dams:Component>
     </dams:hasComponent>
     <dams:hasComponent>

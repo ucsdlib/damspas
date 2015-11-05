@@ -521,6 +521,13 @@ describe "complex object component view" do
     expect(page).to have_selector('div.file-metadata p', 'abc123')
     expect(page).to have_selector('div.file-metadata span.dams-note-display-label', 'Local')
   end
+  it "should have component related resources" do
+    sign_in_developer       
+    visit dams_object_path(@damsComplexObj4.pid)
+    expect(page).to have_selector('div.file-metadata td', 'Related Resource')
+    expect(page).to have_selector('div.file-metadata p', 'Depiction')
+    expect(page).to have_selector('div.file-metadata li','RELATED RESOURCE:DEPICTION')
+  end
 end
 
 describe "complex object component view" do
