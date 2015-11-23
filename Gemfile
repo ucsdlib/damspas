@@ -39,6 +39,7 @@ gem "i18n", '~> 0.7.0'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
 gem "bower-rails", "~> 0.10.0"
 gem "responders", "~> 2.1.0"
+gem 'nokogiri', '1.6.7.rc4'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
@@ -50,10 +51,10 @@ group :development, :test do
   gem 'pry', '~> 0.10.3'
   gem 'capybara', '~> 2.5.0'
   gem 'launchy', '~> 2.4.3'
-  gem "minitest", '~> 5.8.2'
+  gem "minitest", '~> 5.8.3'
   gem 'rspec-rails', '~> 2.14.2' # locked (2.99+ breaks rspec_junit_formatter)
   gem 'simplecov', '~> 0.10.0'
-  gem 'unicorn', '~> 5.0.0'
+  gem 'unicorn', '~> 5.0.1'
   gem 'rspec_junit_formatter', '~> 0.2.3'
   gem "codeclimate-test-reporter", '~> 0.4.8', require: nil
 end
