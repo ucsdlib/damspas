@@ -483,7 +483,7 @@ describe "complex object view" do
     expect(page).to have_selector('h1[1]',:text=>'Image 001')
 
     #return to the top level record
-    click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
+    click_on 'Components'
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
   end
@@ -642,6 +642,11 @@ describe "Curator complex object viewer" do
     expect(page).to have_content "Component 1 Title"
     expect(page).to have_link('', href:"/object/xx080808xx/_1_1.tif/download")
   end
+  it "should have the label 'Components' in the component header" do
+    sign_in_developer
+    visit dams_object_path(@damsComplexObj8.pid)
+    expect(page).to have_selector('strong',:text=>'Components')
+  end  
 end
 
 describe "PDF Viewer" do
