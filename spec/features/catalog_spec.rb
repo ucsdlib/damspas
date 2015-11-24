@@ -179,7 +179,7 @@ feature "Search and browse links and subjects" do
     # the title and the top component tree link should include the non-filing characters
     click_on "The Record With Duplicated Names"
     expect(page).to have_selector('h1',:text=>'The Record With Duplicated Names')
-    expect(page).to have_content('Components of "The Record With Duplicated Names"')
+    expect(page).to have_content('Components')
   end
   scenario "Record with duplicate name entries" do
     sign_in_developer
