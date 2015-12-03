@@ -506,7 +506,13 @@ module Dams
 	      elsif type.include? "TermsOfAddressNameElement"
 	        elem = Dams::MadsNameElements::MadsTermsOfAddressNameElement.new(elementList.first.graph)
 		  elsif type.include? "NameElement"
-	        elem = Dams::MadsNameElements::MadsNameElement.new(elementList.first.graph)                                                  
+	        elem = Dams::MadsNameElements::MadsNameElement.new(elementList.first.graph)
+		  elsif type.include? "LithologyElement"
+	        elem = DamsDatastream::List::LithologyElement.new(elementList.first.graph)
+		  elsif type.include? "SeriesElement"
+	        elem = DamsDatastream::List::SeriesElement.new(elementList.first.graph)
+		  elsif type.include? "CruiseElement"
+	        elem = DamsDatastream::List::CruiseElement.new(elementList.first.graph)	        	        	                                                          
 	      end
 	      elem.elementValue = val
 

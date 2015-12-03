@@ -95,6 +95,9 @@ feature 'Visitor want to look at objects' do
       @cult = DamsCulturalContext.create( name: 'Test Cultural Context' )
       @func = DamsFunction.create( name: 'Test Function' )
       @icon = DamsIconography.create( name: 'Test Iconography' )
+      @lith = DamsLithology.create( name: 'Test Lithology' )
+      @ser = DamsSeries.create( name: 'Test Series' )
+      @cru = DamsCruise.create( name: 'Test Cruise' )
       @cci = DamsCommonName.create( name: 'Test Common Name' )
       @sci = DamsScientificName.create( name: 'Test Scientific Name' )
       @style = DamsStylePeriod.create( name: 'Test Style Period' )
@@ -130,7 +133,10 @@ feature 'Visitor want to look at objects' do
            builtWorkPlace_attributes: [{ id: RDF::URI.new("#{ns}#{@built.pid}") }],
            culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
            function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
-           iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
+           iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],          
+           lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
+           series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
+           cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],                      
            commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@cci.pid}") }],
            scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@sci.pid}") }],
            stylePeriod_attributes: [{ id: RDF::URI.new("#{ns}#{@style.pid}") }],
@@ -227,7 +233,10 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
-
+      expect(page).to have_selector('li', text: 'Test Lithology')
+      expect(page).to have_selector('li', text: 'Test Series')
+      expect(page).to have_selector('li', text: 'Test Cruise')
+      
     end
     it "should display curator-only linked metadata" do
 
@@ -262,7 +271,10 @@ feature 'Visitor want to look at objects' do
         builtWorkPlace_attributes: [{ name: 'Test Built Work Place' }],
         culturalContext_attributes: [{ name: 'Test Cultural Context' }],
         function_attributes: [{ name: 'Test Function' }],
-        iconography_attributes: [{ name: 'Test Iconography' }],
+        iconography_attributes: [{ name: 'Test Iconography' }],        
+        lithology_attributes: [{ name: 'Test Lithology' }],
+        series_attributes: [{ name: 'Test Series' }],
+        cruise_attributes: [{ name: 'Test Cruise' }],                
         commonName_attributes: [{ name: 'Test Common Name' }],
         scientificName_attributes: [{ name: 'Test Scientific Name' }],
         stylePeriod_attributes: [{ name: 'Test Style Period' }],
@@ -330,7 +342,10 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
-
+      expect(page).to have_selector('li', text: 'Test Lithology')
+      expect(page).to have_selector('li', text: 'Test Series')
+      expect(page).to have_selector('li', text: 'Test Cruise')
+      
       expect(page).to_not have_selector('p', text: '85-8')
     end
     it "should display curator-only internal metadata" do

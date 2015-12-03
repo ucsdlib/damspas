@@ -1,0 +1,29 @@
+<%
+   if defined?(componentIndex) # Then we're working with a component
+     prefix = "component_#{componentIndex}_"
+     htmlOpen = '<tr><td>%s</td><td>'
+     htmlClose = '</td></tr>'
+   else # We're working with an object or collection
+     prefix = ''
+     htmlOpen = '<dt>%s</dt><dd>'
+     htmlClose = '</dd>'
+   end
+
+	fieldData = @document["#{prefix}cruise_tesim"]
+
+	if fieldData != nil
+
+		htmlOpen %= 'Cruise'.pluralize(fieldData.count)
+		concat htmlOpen.html_safe
+%>
+
+	  <ul class="unstyled glyphicon-list glyphicon-list-tag">
+	    <% fieldData.each do |topic| %>
+	      <li><%= link_to topic, facet_uri(topic, 'subject_topic_sim') %></li>
+	    <% end %>
+	  </ul>
+
+	  <% concat htmlClose.html_safe %>
+
+	<% end %>
+
