@@ -314,17 +314,26 @@ END
         #it "should index iconography" do
         solr_doc["iconography_tesim"].should == ["Madonna and Child"]
 
+        #it "should index lithology" do
+        solr_doc["lithology_tesim"].should == ["test lithology"]
+        
+        #it "should index series" do
+        solr_doc["series_tesim"].should == ["test series"]
+        
+        #it "should index cruise" do
+        solr_doc["cruise_tesim"].should == ["test cruise"]
+                        
         #it "should index technique" do
         solr_doc["technique_tesim"].should == ["Impasto"]
 
         #it "should index personalName" do
         solr_doc["personalName_tesim"].should include "Burns, Jack O....."
         solr_doc["personalName_tesim"].should include "Burns, Jack O.....2"
-
+        
         #it "should index familyName" do
         solr_doc["familyName_tesim"].should include "Calder (Family : 1757-1959 : N.C.)...."
 
-        #it "should index name" do
+        #it "should index name" do        
         solr_doc["name_tesim"].should include "Scripps Institute of Oceanography, Geological Collections"
         solr_doc["name_tesim"].should include "Yañez, Angélica María"
         solr_doc["name_tesim"].should include "Personal Name 2"

@@ -191,6 +191,12 @@ module Dams
 	  		type = "MadsStylePeriod" 	  	
 	  	elsif !object.technique[0].nil?
 	  		type = "DamsTechnique"
+	  	elsif !object.lithology[0].nil?
+	  		type = "DamsLithology"
+	  	elsif !object.series[0].nil?
+	  		type = "DamsSeries"
+	  	elsif !object.cruise[0].nil?
+	  		type = "DamsCruise"	  			  			  		
 	  	end 	  	 		  		
 		type   
     end
@@ -221,6 +227,12 @@ module Dams
 	  		id = object.stylePeriod.to_s.gsub(/.*\//,'')[0..9] 	  	
 	  	elsif !object.technique[0].nil?
 	  		id = object.technique.to_s.gsub(/.*\//,'')[0..9]
+	  	elsif !object.lithology[0].nil?
+	  		id = object.lithology.to_s.gsub(/.*\//,'')[0..9]
+	  	elsif !object.series[0].nil?
+	  		id = object.series.to_s.gsub(/.*\//,'')[0..9]
+	  	elsif !object.cruise[0].nil?
+	  		id = object.cruise.to_s.gsub(/.*\//,'')[0..9]	  			  			  		
 	  	end
 		id   
     end
@@ -251,6 +263,12 @@ module Dams
 	  		value = object.stylePeriod.first.name.first 	  	
 	  	elsif !object.technique[0].nil?
 	  		value = object.technique.first.name.first 	  	 		  		
+	  	elsif !object.lithology[0].nil?
+	  		value = object.lithology.first.name.first
+	  	elsif !object.series[0].nil?
+	  		value = object.series.first.name.first 	  	
+	  	elsif !object.cruise[0].nil?
+	  		value = object.cruise.first.name.first
 	  	end
 		value   
     end  
@@ -332,7 +350,25 @@ module Dams
 		    :name => "Technique", :value => get_pid(tech), :label => get_linked_object_label(get_pid(tech))
 		  }		  		
 	  	end
-	
+
+	  	object.lithology.each do |li|
+  		  simpleSubjectArray << {
+		    :name => "Lithology", :value => get_pid(li), :label => get_linked_object_label(get_pid(li))
+		  }	  		
+	  	end
+	  	
+	  	object.series.each do |ser|
+  		  simpleSubjectArray << {
+		    :name => "Series", :value => get_pid(ser), :label => get_linked_object_label(get_pid(ser))
+		  }	  		
+	  	end
+	  	
+	  	object.cruise.each do |cru|
+  		  simpleSubjectArray << {
+		    :name => "Cruise", :value => get_pid(cru), :label => get_linked_object_label(get_pid(cru))
+		  }		  		
+	  	end
+	  		
 		simpleSubjectArray   
     end
 	def get_pid(object)
