@@ -595,10 +595,9 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     relResources.map do |resource|
       related_json = {}
       related_obj = nil
-      related_uri = resource.to_s
       related_json[:id] = resource.pid
 
-      related_json = {:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s}
+      related_json.merge!(:type=>resource.type.first.to_s, :uri=>resource.uri.first.to_s, :description=>resource.description.first.to_s)
       Solrizer.insert_field(solr_doc, "#{prefix}related_resource_json", related_json.to_json)
       Solrizer.insert_field(solr_doc, "all_fields", resource.uri.first.to_s)
       Solrizer.insert_field(solr_doc, "all_fields", resource.type.first.to_s)
