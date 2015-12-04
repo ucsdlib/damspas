@@ -349,7 +349,37 @@
            </mads:IconographyElement>
          </mads:elementList>
        </mads:Iconography>
-     </dams:iconography>   
+     </dams:iconography>    
+    <dams:lithology>
+       <mads:Lithology>
+         <mads:authoritativeLabel>test lithology</mads:authoritativeLabel>
+           <mads:elementList rdf:parseType="Collection">
+            <dams:LithologyElement>
+              <mads:elementValue>test lithology</mads:elementValue>
+            </dams:LithologyElement>
+          </mads:elementList>
+       </mads:Lithology>
+     </dams:lithology>     
+     <dams:series>
+       <mads:Series>
+         <mads:authoritativeLabel>test series</mads:authoritativeLabel>
+           <mads:elementList rdf:parseType="Collection">
+            <dams:SeriesElement>
+              <mads:elementValue>test series</mads:elementValue>
+            </dams:SeriesElement>
+          </mads:elementList>
+       </mads:Series>
+     </dams:series>
+    <dams:cruise>
+       <mads:Cruise>
+         <mads:authoritativeLabel>test cruise</mads:authoritativeLabel>
+           <mads:elementList rdf:parseType="Collection">
+            <dams:CruiseElement>
+              <mads:elementValue>test lithology</mads:elementValue>
+            </dams:CruiseElement>
+          </mads:elementList>
+       </mads:Cruise>
+     </dams:cruise>                     
     <dams:topic>
        <mads:Topic>
          <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>

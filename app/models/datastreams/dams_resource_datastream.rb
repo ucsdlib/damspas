@@ -119,6 +119,24 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   end
   def load_iconographies(iconography)
     loadRdfObjects iconography,DamsIconography
+  end  
+  def load_lithologies
+    load_lithologies(lithology)
+  end
+  def load_lithologies(lithology)
+    loadRdfObjects lithology,DamsLithology
+  end  
+  def load_series
+    load_series(series)
+  end
+  def load_series(series)
+    loadRdfObjects series,DamsSeries
+  end
+  def load_cruises
+    load_cruises(cruise)
+  end
+  def load_cruises(cruise)
+    loadRdfObjects cruise,DamsCruise
   end
   def load_occupations
     load_occupations(occupation)
@@ -791,7 +809,10 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertSubjectFields solr_doc, 'commonName', load_commonNames(commonName)
     insertSubjectFields solr_doc, 'scientificName', load_scientificNames(scientificName)
     insertSubjectFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
-    insertSubjectFields solr_doc, 'technique', load_techniques(technique)
+    insertSubjectFields solr_doc, 'technique', load_techniques(technique)    
+    insertSubjectFields solr_doc, 'lithology', load_lithologies(lithology)
+    insertSubjectFields solr_doc, 'series', load_series(series)
+    insertSubjectFields solr_doc, 'cruise', load_cruises(cruise)
     
     # subject - names
     insertNameFields solr_doc, 'other_name', load_names(name)

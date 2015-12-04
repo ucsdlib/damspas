@@ -60,6 +60,18 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :Iconography
   property :iconographyElement
   property :IconographyElement
+  property :lithology
+  property :Lithology
+  property :lithologyElement
+  property :LithologyElement
+  property :series
+  property :Series
+  property :seriesElement
+  property :SeriesElement
+  property :cruise
+  property :Cruise
+  property :cruiseElement
+  property :CruiseElement
   property :occupation
   property :scientificName
   property :ScientificName
