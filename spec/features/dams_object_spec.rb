@@ -95,6 +95,9 @@ feature 'Visitor want to look at objects' do
       @cult = DamsCulturalContext.create( name: 'Test Cultural Context' )
       @func = DamsFunction.create( name: 'Test Function' )
       @icon = DamsIconography.create( name: 'Test Iconography' )
+      @lith = DamsLithology.create( name: 'Test Lithology' )
+      @ser = DamsSeries.create( name: 'Test Series' )
+      @cru = DamsCruise.create( name: 'Test Cruise' )
       @cci = DamsCommonName.create( name: 'Test Common Name' )
       @sci = DamsScientificName.create( name: 'Test Scientific Name' )
       @style = DamsStylePeriod.create( name: 'Test Style Period' )
@@ -130,7 +133,10 @@ feature 'Visitor want to look at objects' do
            builtWorkPlace_attributes: [{ id: RDF::URI.new("#{ns}#{@built.pid}") }],
            culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
            function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
-           iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
+           iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],          
+           lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
+           series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
+           cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],                      
            commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@cci.pid}") }],
            scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@sci.pid}") }],
            stylePeriod_attributes: [{ id: RDF::URI.new("#{ns}#{@style.pid}") }],
@@ -227,7 +233,10 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
-
+      expect(page).to have_selector('li', text: 'Test Lithology')
+      expect(page).to have_selector('li', text: 'Test Series')
+      expect(page).to have_selector('li', text: 'Test Cruise')
+      
     end
     it "should display curator-only linked metadata" do
 
@@ -262,7 +271,10 @@ feature 'Visitor want to look at objects' do
         builtWorkPlace_attributes: [{ name: 'Test Built Work Place' }],
         culturalContext_attributes: [{ name: 'Test Cultural Context' }],
         function_attributes: [{ name: 'Test Function' }],
-        iconography_attributes: [{ name: 'Test Iconography' }],
+        iconography_attributes: [{ name: 'Test Iconography' }],        
+        lithology_attributes: [{ name: 'Test Lithology' }],
+        series_attributes: [{ name: 'Test Series' }],
+        cruise_attributes: [{ name: 'Test Cruise' }],                
         commonName_attributes: [{ name: 'Test Common Name' }],
         scientificName_attributes: [{ name: 'Test Scientific Name' }],
         stylePeriod_attributes: [{ name: 'Test Style Period' }],
@@ -330,7 +342,10 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
-
+      expect(page).to have_selector('li', text: 'Test Lithology')
+      expect(page).to have_selector('li', text: 'Test Series')
+      expect(page).to have_selector('li', text: 'Test Cruise')
+      
       expect(page).to_not have_selector('p', text: '85-8')
     end
     it "should display curator-only internal metadata" do
@@ -483,7 +498,7 @@ describe "complex object view" do
     expect(page).to have_selector('h1[1]',:text=>'Image 001')
 
     #return to the top level record
-    click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
+    click_on 'Components'
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
   end
@@ -521,12 +536,14 @@ describe "complex object component view" do
     expect(page).to have_selector('div.file-metadata p', 'abc123')
     expect(page).to have_selector('div.file-metadata span.dams-note-display-label', 'Local')
   end
-  it "should have component related resources" do
+  it "should have multiple related resources in component" do
     sign_in_developer       
     visit dams_object_path(@damsComplexObj4.pid)
     expect(page).to have_selector('div.file-metadata td', 'Related Resource')
-    expect(page).to have_selector('div.file-metadata p', 'Depiction')
-    expect(page).to have_selector('div.file-metadata li','RELATED RESOURCE:DEPICTION')
+    expect(page).to have_content 'Related'
+    expect(page).to have_content 'RELATED RESOURCE CONTENT 1'
+    expect(page).to have_content 'Related'
+    expect(page).to have_content 'RELATED RESOURCE CONTENT 2'
   end
 end
 
@@ -642,6 +659,11 @@ describe "Curator complex object viewer" do
     expect(page).to have_content "Component 1 Title"
     expect(page).to have_link('', href:"/object/xx080808xx/_1_1.tif/download")
   end
+  it "should have the label 'Components' in the component header" do
+    sign_in_developer
+    visit dams_object_path(@damsComplexObj8.pid)
+    expect(page).to have_selector('strong',:text=>'Components')
+  end  
 end
 
 describe "PDF Viewer" do

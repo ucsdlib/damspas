@@ -57,9 +57,16 @@
         </dams:title>
         <dams:relatedResource>
           <dams:RelatedResource>
-            <dams:description>RELATED RESOURCE:DEPICTION</dams:description>
-            <dams:type>depiction</dams:type>
+            <dams:description>RELATED RESOURCE CONTENT 1</dams:description>
+            <dams:type>related</dams:type>
             <dams:uri rdf:resource="http://library.ucsd.edu/dc/object/bb9182008x"/>
+          </dams:RelatedResource>
+        </dams:relatedResource>
+        <dams:relatedResource>
+          <dams:RelatedResource>
+            <dams:description>RELATED RESOURCE CONTENT 2</dams:description>
+            <dams:type>related</dams:type>
+            <dams:uri rdf:resource="http://librarytest.ucsd.edu/dc/object/bd9226232f"/>
           </dams:RelatedResource>
         </dams:relatedResource>
       </dams:Component>
