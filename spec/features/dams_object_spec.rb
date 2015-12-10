@@ -615,7 +615,7 @@ describe "Display Note fields in alphabetical order" do
     visit dams_object_path(@ctsObject.pid)
     expect(page).to have_selector('section#metadata-fold dl dt[3]',:text=>'Description') 
     expect(page).to have_selector('section#metadata-fold dl dt[5]',:text=>'Note') 
-    expect(page).to have_selector('section#metadata-fold dl dt[7]',:text=>'Preferred Citation')   
+    expect(page).to have_selector('section#metadata-fold dl dt[7]',:text=>'Cite This Work')   
   end
 end
 
