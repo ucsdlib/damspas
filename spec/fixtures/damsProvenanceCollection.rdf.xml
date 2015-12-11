@@ -40,6 +40,56 @@
             <mads:elementValue>Historical Dissertations</mads:elementValue>
           </mads:MainTitleElement>
         </mads:elementList>
+   <mads:hasVariant>
+      <mads:Variant>
+        <mads:variantLabel>The Whale 2</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasVariant>  
+    <mads:hasVariant>
+      <mads:Variant>
+        <mads:variantLabel>The Whale</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasVariant>
+    <mads:hasTranslationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Translation Variant 2</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasTranslationVariant>      
+    <mads:hasTranslationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Translation Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasTranslationVariant> 
+    <mads:hasAbbreviationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Abbreviation Variant 2</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAbbreviationVariant>             
+    <mads:hasAbbreviationVariant>
+      <mads:Variant>
+        <mads:variantLabel>Abbreviation Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAbbreviationVariant>
+    <mads:hasAcronymVariant>
+      <mads:Variant>
+        <mads:variantLabel>Acronym Variant 2</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAcronymVariant>     
+    <mads:hasAcronymVariant>
+      <mads:Variant>
+        <mads:variantLabel>Acronym Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasAcronymVariant>
+    <mads:hasExpansionVariant>
+      <mads:Variant>
+        <mads:variantLabel>Expansion Variant 2</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasExpansionVariant>       
+    <mads:hasExpansionVariant>
+      <mads:Variant>
+        <mads:variantLabel>Expansion Variant</mads:variantLabel>
+      </mads:Variant>
+    </mads:hasExpansionVariant>         
       </mads:Title>
     </dams:title>
     <dams:relatedResource>
