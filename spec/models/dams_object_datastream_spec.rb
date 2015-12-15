@@ -301,11 +301,11 @@ END
       it "should have fields" do
         subject.titleValue.should == "Sample Object Record #8"
         subject.subtitle.should == "Name/Note/Subject Sampler"
-        subject.titleVariant.should == "The Whale"
-        subject.titleTranslationVariant.should == "Translation Variant"
-	    subject.titleAbbreviationVariant.should == "Abbreviation Variant"
-	    subject.titleAcronymVariant.should == "Acronym Variant"
-	    subject.titleExpansionVariant.should == "Expansion Variant"        
+        subject.titleVariant.should == ["The Whale 2", "The Whale"]
+        subject.titleTranslationVariant.should == ["Translation Variant 2", "Translation Variant"]
+	    subject.titleAbbreviationVariant.should == ["Abbreviation Variant 2", "Abbreviation Variant"]
+	    subject.titleAcronymVariant.should == ["Acronym Variant 2", "Acronym Variant"]
+	    subject.titleExpansionVariant.should == ["Expansion Variant 2", "Expansion Variant"]
       end
       
       it "should index metadata" do
@@ -375,12 +375,13 @@ END
 
         solr_doc["unit_json_tesim"].first.should include '"id":"xx48484848","code":"rdcp","name":"Research Data Curation Program"'
         
-        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":"The Whale","translationVariant":"Translation Variant","abbreviationVariant":"Abbreviation Variant","acronymVariant":"Acronym Variant","expansionVariant":"Expansion Variant"'
-        solr_doc["titleVariant_tesim"].should == ["The Whale"]
-        solr_doc["titleTranslationVariant_tesim"].should == ["Translation Variant"]
-        solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant"]
-        solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant"]
-        solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant"]
+        # title and variant titles
+        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":["The Whale 2","The Whale"],"translationVariant":["Translation Variant 2","Translation Variant"],"abbreviationVariant":["Abbreviation Variant 2","Abbreviation Variant"],"acronymVariant":["Acronym Variant 2","Acronym Variant"],"expansionVariant":["Expansion Variant 2","Expansion Variant"]'
+        solr_doc["titleVariant_tesim"].should == ["The Whale 2", "The Whale"]
+        solr_doc["titleTranslationVariant_tesim"].should == ["Translation Variant 2", "Translation Variant"]
+        solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant 2", "Abbreviation Variant"]
+        solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant 2", "Acronym Variant"]
+        solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant 2", "Expansion Variant"]
 
         # subject
         solr_doc["subject_topic_sim"].should include "Test linked subject--More test"

@@ -18,7 +18,7 @@
       partName = result['partName'] || ""
       partNumber = result['partNumber'] || ""
       subtitle = result['subtitle'] || ""
-      translationVariant = result['translationVariant'] || ""
+      translationVariant = result['translationVariant'] || []
 
       subtitleVal = subtitle      
       if !partName.blank?
@@ -26,8 +26,8 @@
       	subtitleVal += " " + partNumber if !partNumber.blank?
       end
       
-      if !translationVariant.blank?    
-          subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
+      translationVariant.each do |transV|
+        subtitleVal += (subtitleVal.blank? ? "" : ", ") + transV
       end
       
       if !result['value'].blank?

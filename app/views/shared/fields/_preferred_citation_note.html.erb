@@ -1,4 +1,5 @@
 <%
+
 	if defined?(componentIndex) # Then we're working with a component
 		prefix = "component_#{componentIndex}_"
 		htmlOpen = "<tr><td>%s</td><td><ul class='unstyled'>"
@@ -8,17 +9,20 @@
 		htmlOpen = "<dt>%s</dt><dd><ul class='unstyled'>"
 		htmlClose = "</ul></dd>"
 	end
-
+ 
 	fieldData = @document["#{prefix}preferredCitationNote_json_tesim"]
-
+  
 	if fieldData != nil
+
 		htmlOpen %= 'Preferred Citation Note'.pluralize(fieldData.count)
 		concat htmlOpen.html_safe
 				
 		fieldData.each do |datum|
 	 		preferredCitationNote = JSON.parse(datum)
+	 		 
 	 		if !preferredCitationNote['value'].blank?		
 %>
+
 				<p><%= auto_link(preferredCitationNote['value'].gsub('""', '"').gsub("\n","<br/>")) %></p>
 <%
 			end
