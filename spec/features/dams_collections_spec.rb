@@ -62,7 +62,14 @@ feature 'Visitor wants to look at collections' do
   scenario 'damsProvenanceCollectionPart view with parent collection name' do
     visit dams_collection_path @part.pid
     expect(page).to have_link('Sample Provenance Collection') 
-  end  
+  end
+
+  scenario 'search results and see access control information (curator view)' do
+    sign_in_developer
+    visit dams_collections_path({:per_page=>100})
+    expect(page).to have_content('Access: Curator Only')
+  end
+
 end
 
 feature 'Visitor wants to look at the collection search results view with no issued date' do
@@ -146,6 +153,30 @@ feature 'COLLECTIONS IMAGES --' do
   scenario 'PAGE SHOULD HAVE COLLECTION IMAGE <IMG> ELEMENT IN DESKTOP VIEW' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_selector("#collections-image img")
+  end
+
+end
+
+feature "Visitor wants to view a collection's page" do
+
+  before(:all) do
+    @part = DamsProvenanceCollectionPart.create titleValue: 'Sample Provenance Part', visibility: 'curator'
+    @prov = DamsProvenanceCollection.create titleValue: 'Sample Provenance Collection', provenanceCollectionPartURI: @part.pid, visibility: 'curator'
+    @part.provenanceCollectionURI = @prov.pid
+    @part.save
+    solr_index @prov.pid
+    solr_index @part.pid
+  end
+
+  after(:all) do
+    @prov.delete
+    @part.delete
+  end
+
+  scenario 'should see access control information (curator view)' do
+    sign_in_developer
+    visit dams_collection_path @prov.pid
+    expect(page).to have_content('AccessCurator Only')
   end
 
 end
