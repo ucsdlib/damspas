@@ -1,0 +1,31 @@
+<%
+	htmlOpen = "<dt>%s</dt><dd><ul>"
+	htmlClose = '</ul></dd>'
+	accessGroup = @document['read_access_group_ssim']
+	viewAccess = nil
+
+	if accessGroup != nil
+
+	  accessGroup.each do |group|
+	    case group
+	      when 'public'
+	        viewAccess = nil
+	        break
+	      when 'local'
+	        viewAccess = 'Restricted to UC San Diego use only'
+	        break
+	      when 'dams-curator'
+	        viewAccess = 'Curator Only'
+	        break
+	    end
+		end
+
+		if viewAccess != nil
+			htmlOpen %= 'Access'
+			concat htmlOpen.html_safe
+			concat "<li>#{viewAccess}</li>".html_safe
+			concat htmlClose.html_safe
+		end
+
+	end
+%>

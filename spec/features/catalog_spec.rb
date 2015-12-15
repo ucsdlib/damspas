@@ -268,6 +268,54 @@ feature 'Visitor wants to see collection info in the search results view' do
     visit catalog_index_path( {:q => 'sample'} )
     expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')   
     click_on "YQu9XjFgDT4UYA7WBQRsg Object"
-    expect(page).to have_selector("dt:first", :text => 'Collection')     
+    expect(page).to have_selector("dt:first", :text => 'Collection')
   end
+
+  scenario 'should not see access control information (public) in single object viewer' do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')
+    click_on "YQu9XjFgDT4UYA7WBQRsg Object"
+    expect(page).to have_no_content('AccessPublic')
+  end
+
+end
+
+#---
+
+feature 'User wants to see search results' do
+  before(:all) do
+    @unit = DamsUnit.create name: 'Test Unit', description: 'Test Description', code: 'tu', uri: 'http://example.com/', group: 'dams-curator'
+    @copy = DamsCopyright.create status: 'Public domain'
+    @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
+    @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
+    @obj1 = DamsObject.create titleValue: 'QE8iWjhafTRpc Object 1', unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], subjectURI: [@sub1.pid]
+    @obj2 = DamsObject.create titleValue: 'QE8iWjhafTRpc Object 2', unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], subjectURI: [@sub2.pid]
+    @obj3 = DamsObject.create titleValue: 'QE8iWjhafTRpc Object 3', unitURI: @unit.pid
+    solr_index @obj1.pid
+    solr_index @obj2.pid
+    solr_index @obj3.pid
+  end
+
+  after(:all) do
+    @obj1.delete
+    @obj2.delete
+    @obj3.delete
+    @copy.delete
+    @unit.delete
+    @sub1.delete
+    @sub2.delete
+  end
+
+  scenario 'should see access control information (curator)' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_content('Access: Curator Only')
+  end
+
+  scenario 'should not see access control information (public)' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_no_content('Access: Public')
+  end
+
 end
