@@ -64,7 +64,7 @@ feature 'Visitor wants to look at collections' do
     expect(page).to have_link('Sample Provenance Collection') 
   end
 
-  scenario 'search results and see access control information (curator view)' do
+  scenario 'search results and see access control information (curator)' do
     sign_in_developer
     visit dams_collections_path({:per_page=>100})
     expect(page).to have_content('Access: Curator Only')
@@ -121,6 +121,12 @@ feature 'Visitor wants to see the collection record' do
     expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Contributors')
         
   end
+
+  scenario 'should not see access control information (public)' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_no_content('AccessPublic')
+  end
+
   scenario 'should see the internal and external common names' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_selector('li', text: 'thale-cress')
@@ -157,6 +163,8 @@ feature 'COLLECTIONS IMAGES --' do
 
 end
 
+#---
+
 feature "Visitor wants to view a collection's page" do
 
   before(:all) do
@@ -173,7 +181,7 @@ feature "Visitor wants to view a collection's page" do
     @part.delete
   end
 
-  scenario 'should see access control information (curator view)' do
+  scenario 'should see access control information (curator)' do
     sign_in_developer
     visit dams_collection_path @prov.pid
     expect(page).to have_content('AccessCurator Only')

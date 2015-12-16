@@ -270,6 +270,14 @@ feature 'Visitor wants to see collection info in the search results view' do
     click_on "YQu9XjFgDT4UYA7WBQRsg Object"
     expect(page).to have_selector("dt:first", :text => 'Collection')
   end
+
+  scenario 'should not see access control information (public) in single object viewer' do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')
+    click_on "YQu9XjFgDT4UYA7WBQRsg Object"
+    expect(page).to have_no_content('AccessPublic')
+  end
+
 end
 
 #---
@@ -298,10 +306,16 @@ feature 'User wants to see search results' do
     @sub2.delete
   end
 
-  scenario 'with access control information (curator)' do
+  scenario 'should see access control information (curator)' do
     sign_in_developer
     visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_content('Access: Curator Only')
+  end
+
+  scenario 'should not see access control information (public)' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_no_content('Access: Public')
   end
 
 end
