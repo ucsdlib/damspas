@@ -135,6 +135,8 @@ Hydra::Application.routes.draw do
 
   end
 
+  resources :random
+  
   # ruby-version utility
   get '/ruby-version' => 'application#ruby_version'
 
