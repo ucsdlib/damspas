@@ -102,7 +102,7 @@ module CatalogHelper
             viewAccess = nil
             break
           when 'local'
-            viewAccess = 'UC San Diego Only'
+            viewAccess = 'Restricted to UC San Diego use only'
             break
           when 'dams-curator'
             viewAccess = 'Curator Only'
