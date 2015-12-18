@@ -1,6 +1,4 @@
-<%
-  component = defined?(componentIndex) ? {:componentIndex => componentIndex} : { }
-%>
+<% component = defined?(componentIndex) ? {:componentIndex => componentIndex} : { } %>
 <% collectionsView = defined?(greetingsFromCollectionsView) %>
 <% notesToExclude = ['performers','extent','abstract','table of contents','identifier',
         'existence and location of originals','general physical description', 'dimensions',
@@ -10,6 +8,8 @@
   <% notesToExclude << 'description' %>
   <%= render :partial => 'shared/fields/note', :locals => {:type => 'description'}.merge(component) %>
 <% end %>
+
+<%= render :partial => 'shared/fields/access_control_level' %>
 <%= render :partial => 'shared/fields/collection', :locals => component %>
 <%= render :partial => 'shared/fields/relationships', :locals => component %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'performers'}.merge(component) %>
