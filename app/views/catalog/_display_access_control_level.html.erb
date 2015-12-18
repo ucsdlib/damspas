@@ -1,0 +1,4 @@
+<% acl = display_access_control_level(document) %>
+<% if acl != nil %>
+  <li><span class="dams-search-results-fields-label">Access:</span> <span><%= acl %></span></li>
+<% end %>
