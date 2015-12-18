@@ -89,6 +89,30 @@ module CatalogHelper
     dateVal = dateVal.gsub(/, $/,'') if dateVal
     dateVal
   end
+
+  def display_access_control_level(document)
+
+    accessGroup = document['read_access_group_ssim'] #["public","local","dams-curator"]
+    viewAccess = nil
+
+    if accessGroup != nil
+      accessGroup.each do |group|
+        case group
+          when 'public'
+            viewAccess = nil
+            break
+          when 'local'
+            viewAccess = 'Restricted to UC San Diego use only'
+            break
+          when 'dams-curator'
+            viewAccess = 'Curator Only'
+            break
+        end
+      end
+    end
+    viewAccess
+  end
+
   def is_collection?( document )
     type = document['type_tesim']
     type != nil && type.include?("Collection")

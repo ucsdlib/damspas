@@ -1,6 +1,8 @@
 <%# default partial to display solr document fields in catalog index view -%>
 <ul class="dams-search-results-fields">
-  
+
+  <%= render :partial => 'catalog/display_access_control_level', :locals => {:document => document} %>
+
   <% index_fields.each do |solr_fname, field| -%>
     <% if should_render_index_field? document, field %>
 			<li>
