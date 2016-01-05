@@ -95,6 +95,9 @@ feature 'Visitor want to look at objects' do
       @cult = DamsCulturalContext.create( name: 'Test Cultural Context' )
       @func = DamsFunction.create( name: 'Test Function' )
       @icon = DamsIconography.create( name: 'Test Iconography' )
+      @lith = DamsLithology.create( name: 'Test Lithology' )
+      @ser = DamsSeries.create( name: 'Test Series' )
+      @cru = DamsCruise.create( name: 'Test Cruise' )
       @cci = DamsCommonName.create( name: 'Test Common Name' )
       @sci = DamsScientificName.create( name: 'Test Scientific Name' )
       @style = DamsStylePeriod.create( name: 'Test Style Period' )
@@ -131,6 +134,9 @@ feature 'Visitor want to look at objects' do
            culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
            function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
            iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
+           lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
+           series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
+           cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],
            commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@cci.pid}") }],
            scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@sci.pid}") }],
            stylePeriod_attributes: [{ id: RDF::URI.new("#{ns}#{@style.pid}") }],
@@ -227,6 +233,9 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
+      expect(page).to have_selector('li', text: 'Test Lithology')
+      expect(page).to have_selector('li', text: 'Test Series')
+      expect(page).to have_selector('li', text: 'Test Cruise')
 
     end
     it "should display curator-only linked metadata" do
@@ -263,6 +272,9 @@ feature 'Visitor want to look at objects' do
         culturalContext_attributes: [{ name: 'Test Cultural Context' }],
         function_attributes: [{ name: 'Test Function' }],
         iconography_attributes: [{ name: 'Test Iconography' }],
+        lithology_attributes: [{ name: 'Test Lithology' }],
+        series_attributes: [{ name: 'Test Series' }],
+        cruise_attributes: [{ name: 'Test Cruise' }],
         commonName_attributes: [{ name: 'Test Common Name' }],
         scientificName_attributes: [{ name: 'Test Scientific Name' }],
         stylePeriod_attributes: [{ name: 'Test Style Period' }],
@@ -330,6 +342,9 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
+      expect(page).to have_selector('li', text: 'Test Lithology')
+      expect(page).to have_selector('li', text: 'Test Series')
+      expect(page).to have_selector('li', text: 'Test Cruise')
 
       expect(page).to_not have_selector('p', text: '85-8')
     end
@@ -420,7 +435,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('h3', :text => "Image File Test")
     end
   end
-  
+
   describe "results pager and counter parameter" do
     before(:all) do
       @o1 = DamsObject.create( titleValue: 'Zyp4H8YRJzfXhq7q4Ps One', copyright_attributes: [{status: 'Public domain'}] )
@@ -483,7 +498,7 @@ describe "complex object view" do
     expect(page).to have_selector('h1[1]',:text=>'Image 001')
 
     #return to the top level record
-    click_on 'Components of "PPTU04WT-027D (dredge, rock)"'
+    click_on 'Components'
     expect(page).to have_selector('h1:first',:text=>'PPTU04WT-027D (dredge, rock)')
     expect(page).to have_selector('h1[1]',:text=>'Interval 1 (dredge, rock)')
   end
@@ -515,18 +530,20 @@ describe "complex object component view" do
     expect(page).to have_content "Component 4 Title"
   end
   it "should have component notes" do
-    sign_in_developer       
+    sign_in_developer
     visit dams_object_path(@damsComplexObj4.pid)
     expect(page).to have_selector('div.file-metadata td', 'Identifier')
     expect(page).to have_selector('div.file-metadata p', 'abc123')
     expect(page).to have_selector('div.file-metadata span.dams-note-display-label', 'Local')
   end
-  it "should have component related resources" do
-    sign_in_developer       
+  it "should have multiple related resources in component" do
+    sign_in_developer
     visit dams_object_path(@damsComplexObj4.pid)
     expect(page).to have_selector('div.file-metadata td', 'Related Resource')
-    expect(page).to have_selector('div.file-metadata p', 'Depiction')
-    expect(page).to have_selector('div.file-metadata li','RELATED RESOURCE:DEPICTION')
+    expect(page).to have_content 'Related'
+    expect(page).to have_content 'RELATED RESOURCE CONTENT 1'
+    expect(page).to have_content 'Related'
+    expect(page).to have_content 'RELATED RESOURCE CONTENT 2'
   end
 end
 
@@ -564,7 +581,7 @@ describe "curator embargoed object view" do
     @damsEmbObj = DamsObject.new(pid: "zz2765588d")
     @damsEmbObj.damsMetadata.content = File.new('spec/fixtures/embargoedObject.rdf.xml').read
     @damsEmbObj.save!
-    solr_index (@damsEmbObj.pid) 
+    solr_index (@damsEmbObj.pid)
   end
   after do
     @damsEmbObj.delete
@@ -572,13 +589,13 @@ describe "curator embargoed object view" do
     @damsUnit.delete
   end
 
-  it "should see the view content button and click on the button to see the download button" do  
-    sign_in_developer       
+  it "should see the view content button and click on the button to see the download button" do
+    sign_in_developer
     visit dams_object_path(@damsEmbObj.pid)
     expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
     click_on "Yes, I would like to view this content."
     expect(page).to have_link('', href:"/object/zz2765588d/_1.tif/download")
-   end     
+   end
 end
 
 describe "Display Note fields in alphabetical order" do
@@ -588,17 +605,17 @@ describe "Display Note fields in alphabetical order" do
     @ctsObject = DamsObject.create(pid: "xx21171293")
     @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
     @ctsObject.save!
-    solr_index (@ctsObject.pid)   
+    solr_index (@ctsObject.pid)
   end
   after do
     @ctsObject.delete
     @unit.delete
-  end 
+  end
   it "should sort the note fields" do
     visit dams_object_path(@ctsObject.pid)
-    expect(page).to have_selector('section#metadata-fold dl dt[3]',:text=>'Description') 
+    expect(page).to have_selector('section#metadata-fold dl dt[3]',:text=>'Description')
     expect(page).to have_selector('section#metadata-fold dl dt[5]',:text=>'Note') 
-    expect(page).to have_selector('section#metadata-fold dl dt[7]',:text=>'Preferred Citation')   
+    expect(page).to have_selector('section#metadata-fold dl dt[7]',:text=>'Cite This Work')   
   end
 end
 
@@ -609,12 +626,12 @@ describe "Display internal personal name field" do
     @ctsObject = DamsObject.create(pid: "xx21171293")
     @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
     @ctsObject.save!
-    solr_index (@ctsObject.pid)   
+    solr_index (@ctsObject.pid)
   end
   after do
     @ctsObject.delete
     @unit.delete
-  end 
+  end
   it "should sort the note fields" do
     visit dams_object_path(@ctsObject.pid)
     expect(page).to have_content "Internal Personal Name"
@@ -642,6 +659,11 @@ describe "Curator complex object viewer" do
     expect(page).to have_content "Component 1 Title"
     expect(page).to have_link('', href:"/object/xx080808xx/_1_1.tif/download")
   end
+  it "should have the label 'Components' in the component header" do
+    sign_in_developer
+    visit dams_object_path(@damsComplexObj8.pid)
+    expect(page).to have_selector('strong',:text=>'Components')
+  end
 end
 
 describe "PDF Viewer" do
@@ -662,5 +684,27 @@ describe "PDF Viewer" do
     expect(page).to have_selector('#data-view-file')
     expect(page).to have_selector('#data-download-file')
     expect(page).to have_selector('#data-download-file-phone')
+  end
+end
+
+#---
+
+describe 'User wants to see object view' do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                            code: "tu", uri: "http://example.com/", group: 'dams-curator'
+    @ctsObject = DamsObject.create(pid: "xx21171293")
+    @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsComplexObject1.rdf.xml').read
+    @ctsObject.save!
+    solr_index (@ctsObject.pid)
+  end
+  after do
+    @ctsObject.delete
+    @unit.delete
+  end
+  it 'with access control information on page (curator)' do
+    sign_in_developer
+    visit dams_object_path(@ctsObject.pid)
+    expect(page).to have_content('AccessCurator Only')
   end
 end

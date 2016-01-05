@@ -1,0 +1,27 @@
+<%
+	htmlOpen = "<dt>%s</dt><dd><ul>"
+	htmlClose = '</ul></dd>'
+	accessGroup = @document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci"
+	viewAccess = nil
+
+	if accessGroup != nil
+
+		if accessGroup.include?('public')
+		  viewAccess = nil
+	  elsif accessGroup.include?('local')
+		    viewAccess = 'Restricted to UC San Diego use only'
+		elsif accessGroup.include?('dams-curator')
+		  viewAccess = 'Curator Only'
+		elsif accessGroup.include?('dams-rci')
+		  viewAccess = 'Curator Only'
+		end
+
+		if viewAccess != nil
+			htmlOpen %= 'Access'
+			concat htmlOpen.html_safe
+			concat "<li>#{viewAccess}</li>".html_safe
+			concat htmlClose.html_safe
+		end
+
+	end
+%>

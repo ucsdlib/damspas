@@ -28,7 +28,10 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.technique(:in => DAMS)
     map.temporal(:in => DAMS)
     map.topic(:in => DAMS)
-
+    map.lithology(:in => DAMS)
+    map.series(:in => DAMS)
+    map.cruise(:in => DAMS)
+    
     # subject names
     map.name(:in => DAMS, :class_name => 'MadsNameInternal')
     map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')

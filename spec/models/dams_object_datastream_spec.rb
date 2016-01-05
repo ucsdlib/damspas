@@ -301,11 +301,11 @@ END
       it "should have fields" do
         subject.titleValue.should == "Sample Object Record #8"
         subject.subtitle.should == "Name/Note/Subject Sampler"
-        subject.titleVariant.should == "The Whale"
-        subject.titleTranslationVariant.should == "Translation Variant"
-	    subject.titleAbbreviationVariant.should == "Abbreviation Variant"
-	    subject.titleAcronymVariant.should == "Acronym Variant"
-	    subject.titleExpansionVariant.should == "Expansion Variant"        
+        subject.titleVariant.should == ["The Whale 2", "The Whale"]
+        subject.titleTranslationVariant.should == ["Translation Variant 2", "Translation Variant"]
+	    subject.titleAbbreviationVariant.should == ["Abbreviation Variant 2", "Abbreviation Variant"]
+	    subject.titleAcronymVariant.should == ["Acronym Variant 2", "Acronym Variant"]
+	    subject.titleExpansionVariant.should == ["Expansion Variant 2", "Expansion Variant"]
       end
       
       it "should index metadata" do
@@ -314,17 +314,26 @@ END
         #it "should index iconography" do
         solr_doc["iconography_tesim"].should == ["Madonna and Child"]
 
+        #it "should index lithology" do
+        solr_doc["lithology_tesim"].should == ["test lithology"]
+        
+        #it "should index series" do
+        solr_doc["series_tesim"].should == ["test series"]
+        
+        #it "should index cruise" do
+        solr_doc["cruise_tesim"].should == ["test cruise"]
+                        
         #it "should index technique" do
         solr_doc["technique_tesim"].should == ["Impasto"]
 
         #it "should index personalName" do
         solr_doc["personalName_tesim"].should include "Burns, Jack O....."
         solr_doc["personalName_tesim"].should include "Burns, Jack O.....2"
-
+        
         #it "should index familyName" do
         solr_doc["familyName_tesim"].should include "Calder (Family : 1757-1959 : N.C.)...."
 
-        #it "should index name" do
+        #it "should index name" do        
         solr_doc["name_tesim"].should include "Scripps Institute of Oceanography, Geological Collections"
         solr_doc["name_tesim"].should include "Yañez, Angélica María"
         solr_doc["name_tesim"].should include "Personal Name 2"
@@ -366,12 +375,13 @@ END
 
         solr_doc["unit_json_tesim"].first.should include '"id":"xx48484848","code":"rdcp","name":"Research Data Curation Program"'
         
-        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":"The Whale","translationVariant":"Translation Variant","abbreviationVariant":"Abbreviation Variant","acronymVariant":"Acronym Variant","expansionVariant":"Expansion Variant"'
-        solr_doc["titleVariant_tesim"].should == ["The Whale"]
-        solr_doc["titleTranslationVariant_tesim"].should == ["Translation Variant"]
-        solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant"]
-        solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant"]
-        solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant"]
+        # title and variant titles
+        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":["The Whale 2","The Whale"],"translationVariant":["Translation Variant 2","Translation Variant"],"abbreviationVariant":["Abbreviation Variant 2","Abbreviation Variant"],"acronymVariant":["Acronym Variant 2","Acronym Variant"],"expansionVariant":["Expansion Variant 2","Expansion Variant"]'
+        solr_doc["titleVariant_tesim"].should == ["The Whale 2", "The Whale"]
+        solr_doc["titleTranslationVariant_tesim"].should == ["Translation Variant 2", "Translation Variant"]
+        solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant 2", "Abbreviation Variant"]
+        solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant 2", "Acronym Variant"]
+        solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant 2", "Expansion Variant"]
 
         # subject
         solr_doc["subject_topic_sim"].should include "Test linked subject--More test"

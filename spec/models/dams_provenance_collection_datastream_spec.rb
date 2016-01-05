@@ -49,8 +49,13 @@ describe DamsProvenanceCollectionDatastream do
       it "should have a subject" do
         subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb24242424"
       end
-      it "should have a title" do
+      it "should have a title and variant titles" do
         subject.titleValue.should == "Historical Dissertations"
+        subject.titleVariant.should == ["The Whale 2", "The Whale"]
+        subject.titleTranslationVariant.should == ["Translation Variant 2", "Translation Variant"]
+	    subject.titleAbbreviationVariant.should == ["Abbreviation Variant 2", "Abbreviation Variant"]
+	    subject.titleAcronymVariant.should == ["Acronym Variant 2", "Acronym Variant"]
+	    subject.titleExpansionVariant.should == ["Expansion Variant 2", "Expansion Variant"]        
       end
       it "should have a date" do
         subject.beginDate.should == ["2009-05-03"]
@@ -70,6 +75,15 @@ describe DamsProvenanceCollectionDatastream do
         solr_doc["part_json_tesim"].should == ['{"id":"xx25252525","name":"May 2009","visibility":"public","thumbnail":[]}', '{"id":"xx6110278b","name":"Sample Provenance Part","visibility":"public","thumbnail":[]}']
 		solr_doc["unit_code_tesim"].should == ["dlp"]
       end
+      
+      it "should index variant titles" do
+        solr_doc = subject.to_solr
+        solr_doc["titleVariant_tesim"].should == ["The Whale 2", "The Whale"]
+        solr_doc["titleTranslationVariant_tesim"].should == ["Translation Variant 2", "Translation Variant"]
+        solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant 2", "Abbreviation Variant"]
+        solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant 2", "Acronym Variant"]
+        solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant 2", "Expansion Variant"]      
+     end
     end
   end
 end

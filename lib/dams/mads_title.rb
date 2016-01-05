@@ -152,35 +152,35 @@ module Dams
 	  end
 
 	  def variant
-	    get_variant(hasVariant)
+	    variants(hasVariant)
 	  end
 	  def variant=(val)
 		set_variant(hasVariant,val)
 	  end
 
 	  def translationVariant
-	    get_variant(hasTranslationVariant)
+	    variants(hasTranslationVariant)
 	  end
 	  def translationVariant=(val)
 	    set_variant(hasTranslationVariant,val)
 	  end
 
 	  def abbreviationVariant
-	    get_variant(hasAbbreviationVariant)
+	    variants(hasAbbreviationVariant)
 	  end
 	  def abbreviationVariant=(val)
 		set_variant(hasAbbreviationVariant,val)
 	  end
 	  
 	  def acronymVariant
-	    get_variant(hasAcronymVariant)
+	    variants(hasAcronymVariant)
 	  end
 	  def acronymVariant=(val)
 		set_variant(hasAcronymVariant,val)
 	  end
 	  
 	  def expansionVariant
-	    get_variant(hasExpansionVariant)
+	    variants(hasExpansionVariant)
 	  end
 	  def expansionVariant=(val)
 		set_variant(hasExpansionVariant,val)
@@ -196,10 +196,12 @@ module Dams
 	    end	  	
 	  end
 	  	  
-	  def get_variant(type)
-	  	if (!type.nil? && type.length > 0)
-	  		type[0] ? type[0].variantLabel.first: []
-	  	end
+	  def variants(type)
+	  	variants = Array.new
+	    type.each do |var|
+	      variants << var.variantLabel.first
+	    end
+	    variants
 	  end
 	    
       def get_elem(klass)

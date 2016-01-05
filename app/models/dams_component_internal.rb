@@ -38,7 +38,10 @@ class DamsComponentInternal
 	  map.technique(:in => DAMS, :class_name => 'DamsTechniqueInternal')
 	  map.temporal(:in => DAMS, :class_name => 'MadsTemporalInternal')
 	  map.topic(:in => DAMS, :class_name => 'MadsTopicInternal')
-
+	  map.lithology(:in => DAMS, :class_name => 'DamsLithologyInternal')
+	  map.series(:in => DAMS, :class_name => 'DamsSeriesInternal')
+	  map.cruise(:in => DAMS, :class_name => 'DamsCruiseInternal')
+	  
       # subject names
       map.name(:in => DAMS, :class_name => 'MadsNameInternal')
 	  map.conferenceName(:in => DAMS, :class_name => 'MadsConferenceNameInternal')

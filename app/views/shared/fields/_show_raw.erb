@@ -1,22 +1,24 @@
-<%
-  component = defined?(componentIndex) ? {:componentIndex => componentIndex} : { }
-%>
+<% component = defined?(componentIndex) ? {:componentIndex => componentIndex} : { } %>
 <% collectionsView = defined?(greetingsFromCollectionsView) %>
 <% notesToExclude = ['performers','extent','abstract','table of contents','identifier',
         'existence and location of originals','general physical description', 'dimensions',
-        'digital origin', 'physical description'] %>
+        'digital origin', 'physical description', 'edition', 'site', 'funding', 'related publications'] %>
 
 <% if collectionsView %>
   <% notesToExclude << 'description' %>
   <%= render :partial => 'shared/fields/note', :locals => {:type => 'description'}.merge(component) %>
 <% end %>
+
+<%= render :partial => 'shared/fields/access_control_level' %>
 <%= render :partial => 'shared/fields/collection', :locals => component %>
 <%= render :partial => 'shared/fields/relationships', :locals => component %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'performers'}.merge(component) %>
 <%= render :partial => 'shared/fields/date', :locals => component %>
+<%= render :partial => 'shared/fields/note', :locals => {:type => 'edition'}.merge(component) %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'extent'}.merge(component) %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'abstract'}.merge(component) %>
 <%= render :partial => 'shared/fields/scope_of_content', :locals => component %>
+<%= render :partial => 'shared/fields/note', :locals => {:type => 'site'}.merge(component) %>
 <%= render :partial => 'shared/fields/cartographic', :locals => component %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'table of contents'}.merge(component) %>
 <%= render :partial => 'shared/fields/note', :locals => {:exclude_type => notesToExclude,
@@ -49,9 +51,14 @@
 <%= render :partial => 'shared/fields/occupation', :locals => component %>
 <%= render :partial => 'shared/fields/common_name', :locals => component %>
 <%= render :partial => 'shared/fields/scientific_name', :locals => component %>
+<%= render :partial => 'shared/fields/lithology', :locals => component %>
+<%= render :partial => 'shared/fields/series', :locals => component %>
+<%= render :partial => 'shared/fields/cruise', :locals => component %>
 <%= render :partial => 'shared/fields/style_period', :locals => component %>
 <%= render :partial => 'shared/fields/technique', :locals => component %>
 <%= render :partial => 'shared/fields/temporal', :locals => component %>
+<%= render :partial => 'shared/fields/note', :locals => {:type => 'funding'}.merge(component) %>
+<%= render :partial => 'shared/fields/note', :locals => {:type => 'related publications'}.merge(component) %>
 <%= render :partial => 'shared/fields/related_resource',
         :locals => {:collectionDoc => @document, :docType => 'object'}.merge(component) %>
 <%= render :partial => 'shared/fields/custodial_responsibility_note' , :locals => component%>

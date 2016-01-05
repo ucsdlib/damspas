@@ -145,6 +145,45 @@
 
 		htmlOpen = "<dt>%s</dt><dd>"
 
+		if @document["lithology_element_tesim"] != nil 
+		    htmlOpen %= 'LithologyElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"lithology_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["series_element_tesim"] != nil 
+		    htmlOpen %= 'SeriesElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"series_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+		
+		htmlOpen = "<dt>%s</dt><dd>"
+
+		if @document["cruise_element_tesim"] != nil 
+		    htmlOpen %= 'CruiseElement'
+		    concat htmlOpen.html_safe
+%>		    
+			<ul class="unstyled sidebar-button-list">
+				<li><%= render_document_show_field_value(:document=>@document, :field=>"cruise_element_tesim").html_safe %></li>
+			</ul>
+<%
+			concat htmlClose.html_safe			
+		end
+						
+		htmlOpen = "<dt>%s</dt><dd>"
+
 		if @document["stylePeriod_element_tesim"] != nil 
 		    htmlOpen %= 'StylePeriodElement'
 		    concat htmlOpen.html_safe

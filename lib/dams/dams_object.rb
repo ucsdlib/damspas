@@ -33,6 +33,10 @@ module Dams
 	    map.builtWorkPlace(:in => DAMS, :class_name => 'DamsBuiltWorkPlaceInternal')
 	    map.culturalContext(:in => DAMS, :class_name => 'DamsCulturalContextInternal')
 	    map.function(:in => DAMS, :class_name => 'DamsFunctionInternal')
+	    map.lithology(:in => DAMS, :class_name => 'DamsLithologyInternal')
+	    map.series(:in => DAMS, :class_name => 'DamsSeriesInternal')
+	    map.cruise(:in => DAMS, :class_name => 'DamsCruiseInternal')
+	    
         # XXX why does iconography work when mapped to a class when when other made-like additions don't?
 	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
         map.commonName(:in => DAMS, :class_name => 'DamsCommonNameInternal')
@@ -81,7 +85,8 @@ module Dams
       accepts_nested_attributes_for :title, :date, :relationship,:language,  
       								:note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote,  
       								:complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
-      								:iconography, :occupation, :commonName, :scientificName, :stylePeriod, :technique, :temporal, :topic,
+      								:iconography, :occupation, :commonName, :scientificName, :stylePeriod,
+      								:technique, :temporal, :topic, :lithology, :series, :cruise,
 	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
 	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderName, :rightsHolderCorporate, :rightsHolderPersonal,
@@ -523,7 +528,7 @@ module Dams
 	    component.map.sort{ |a,b| a.id <=> b.id }.each { |component|
 	      cid = component.id
 	      @parents[cid] = Array.new
-	
+	      
 	      # child components
 	      #component.subcomponent.map.each { |subcomponent|
 	      component.subcomponent.map.sort{ |c,d| c.id <=> d.id }.each { |subcomponent|
@@ -548,7 +553,7 @@ module Dams
 	      insertRelationshipFields solr_doc, "component_#{cid}_", component.relationship
 	      insertLanguageFields solr_doc, "component_#{cid}_", component.language
 	      insertRelatedResourceFields solr_doc, "component_#{cid}_", component.relatedResource
-	
+	      
 	      insertNoteFields solr_doc, "component_#{cid}_note",component.note, DamsNote
 	      insertNoteFields solr_doc, "component_#{cid}_custodialResponsibilityNote",component.custodialResponsibilityNote, DamsCustodialResponsibilityNote
 	      insertNoteFields solr_doc, "component_#{cid}_preferredCitationNote",component.preferredCitationNote, DamsPreferredCitationNote
@@ -567,8 +572,11 @@ module Dams
 	      insertFields solr_doc, "component_#{cid}_stylePeriod", load_stylePeriods(component.stylePeriod)
 	      insertFields solr_doc, "component_#{cid}_technique", load_techniques(component.technique)
 	      insertFields solr_doc, "component_#{cid}_temporal", load_temporals(component.temporal)
-	      insertFields solr_doc, "component_#{cid}_topic", load_topics(component.topic)
-	
+	      insertFields solr_doc, "component_#{cid}_topic", load_topics(component.topic)	      
+	      insertFields solr_doc, "component_#{cid}_lithology", load_lithologies(component.lithology)
+	      insertFields solr_doc, "component_#{cid}_series", load_series(component.series)
+	      insertFields solr_doc, "component_#{cid}_cruise", load_cruises(component.cruise)
+	      	
 	      # facetable topics
 	      insertFacets solr_doc, "subject_topic", load_topics(component.topic)
 	      insertFacets solr_doc, "component_#{cid}_subject_topic", load_topics(component.topic)
@@ -585,7 +593,10 @@ module Dams
 	      insertFacets solr_doc, "subject_topic", load_scientificNames(component.scientificName)
 	      insertFacets solr_doc, "subject_topic", load_stylePeriods(component.stylePeriod)
 	      insertFacets solr_doc, "subject_topic", load_techniques(component.technique)
-	      	
+	      insertFacets solr_doc, "subject_topic", load_lithologies(component.lithology)
+	      insertFacets solr_doc, "subject_topic", load_series(component.series)
+	      insertFacets solr_doc, "subject_topic", load_cruises(component.cruise)
+	      	      	
 	      insertFields solr_doc, "component_#{cid}_name", load_names(component.name)
 	      insertFields solr_doc, "component_#{cid}_conferenceName", load_conferenceNames(component.conferenceName)
 	      insertFields solr_doc, "component_#{cid}_corporateName", load_corporateNames(component.corporateName)
