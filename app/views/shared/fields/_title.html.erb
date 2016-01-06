@@ -24,10 +24,14 @@
       if !partName.blank?
       	subtitleVal += (subtitleVal.blank? ? "" : ", ") + partName     	
       	subtitleVal += " " + partNumber if !partNumber.blank?
-      end
+      end      
       
-      translationVariant.each do |transV|
-        subtitleVal += (subtitleVal.blank? ? "" : ", ") + transV
+      if translationVariant.class == Array
+        translationVariant.each do |transV|
+          subtitleVal += (subtitleVal.blank? ? "" : ", ") + transV
+        end
+      elsif translationVariant.class == String && !translationVariant.blank?      
+        subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
       end
       
       if !result['value'].blank?
