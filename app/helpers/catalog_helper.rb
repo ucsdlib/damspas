@@ -92,7 +92,7 @@ module CatalogHelper
 
   def display_access_control_level(document)
 
-    accessGroup = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci"
+    accessGroup = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
     viewAccess = nil
 
     if accessGroup != nil
@@ -101,9 +101,7 @@ module CatalogHelper
         viewAccess = nil
       elsif accessGroup.include?('local')
         viewAccess = 'Restricted to UC San Diego use only'
-      elsif accessGroup.include?('dams-curator')
-        viewAccess = 'Curator Only'
-      elsif accessGroup.include?('dams-rci')
+      else
         viewAccess = 'Curator Only'
       end
 
