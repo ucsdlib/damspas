@@ -60,9 +60,12 @@ feature 'Visitor wants to look at collections' do
     expect(page).to have_link('RDF View')
   end
   scenario 'damsProvenanceCollectionPart view with parent collection name and collection from faceting' do
+    sign_in_developer
     visit dams_collection_path @part.pid
     expect(page).to have_link('Sample Provenance Collection') 
     expect(page).to have_link('Sample Assembled Collection')
+    expect(page).not_to have_link('Sample Provenance Part', :href => "#{dams_collection_path @part.pid}" )
+    expect(page).not_to have_link('curator-only collection')
   end
 
   scenario 'search results and see access control information (curator)' do

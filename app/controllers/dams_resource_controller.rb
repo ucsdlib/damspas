@@ -36,7 +36,7 @@ class DamsResourceController < ApplicationController
     # generate facet collection list for collection page only
     models = @document["active_fedora_model_ssi"]
     if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
-        facet_collection_params = { 'f[collection_sim][]'=>"#{@document['title_tesim'].first.to_s}", :id=>params[:id], :rows => 0 }
+        facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
         apply_gated_discovery( facet_collection_params, nil )
         @facet_collection_resp = get_search_results( facet_collection_params )
         @collections_map = collections
