@@ -16,7 +16,7 @@
             htmlOpen %= 'Collection'.pluralize(@facet_collections.count)
             concat htmlOpen.html_safe
             @facet_collections.each_slice(2) do |collectionName, *_|
-                facet_collection_names << collectionName.strip
+                facet_collection_names << collectionName.strip if !collectionName.strip.eql? @document['title_tesim'].first.strip.to_s
             end
             facet_collection_names.sort.each do |collectionName|
 %>
