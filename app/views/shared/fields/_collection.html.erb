@@ -9,12 +9,32 @@
 		 htmlClose = '</ul></dd>'
 	 end
 
-	 fieldData = @document["#{prefix}collection_json_tesim"] || []
-     fieldData.concat( @document['provenanceCollection_json_tesim'] || [] )
-     fieldData.concat( @document['part_json_tesim'] || [] )
-     fieldData.concat( @document['assembledCollection_json_tesim'] || [] )
+     if defined?(@facet_collection_resp)
+        facet_collection_names = []
+        @facet_collections = @facet_collection_resp[0].facet_counts["facet_fields"]["collection_sim"]
+        if !@facet_collections.nil? && @facet_collections.length > 0
+            htmlOpen %= 'Collection'.pluralize(@facet_collections.count)
+            concat htmlOpen.html_safe
+            @facet_collections.each_slice(2) do |collectionName, *_|
+                facet_collection_names << collectionName.strip if !collectionName.strip.eql? @document['title_tesim'].first.strip.to_s
+            end
+            facet_collection_names.sort.each do |collectionName|
+%>
+                <li>
+                    <%= link_to( dams_collection_path(@collections_map[collectionName]) ) do %>
+                        <%= collectionName %>
+                    <% end %>
+                </li>
+<%
+            end 
+       end
+     else
+       fieldData = @document["#{prefix}collection_json_tesim"] || []
+       fieldData.concat( @document['provenanceCollection_json_tesim'] || [] )
+       fieldData.concat( @document['part_json_tesim'] || [] )
+       fieldData.concat( @document['assembledCollection_json_tesim'] || [] )
 
-	 if fieldData.length > 0
+       if fieldData.length > 0
 
 		 htmlOpen %= 'Collection'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
@@ -36,7 +56,8 @@
 		</li>
 <%
          end
-	 end
+      end
+    end
 
 	 concat htmlClose.html_safe
 

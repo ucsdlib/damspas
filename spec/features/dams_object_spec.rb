@@ -370,7 +370,7 @@ feature 'Visitor want to look at objects' do
   describe "viewing non-existing records" do
     it 'should show an error when viewing a non-existing record' do
       visit dams_object_path('xxx')
-      expect(page).to have_content 'You are not allowed to view this page.'
+      expect(page).to have_content 'The page you were looking for does not exist.'
     end
     it 'should show an error when viewing a file from a non-existing object' do
       visit file_path('xxx','xxx')

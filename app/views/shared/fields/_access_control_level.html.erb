@@ -1,7 +1,7 @@
 <%
 	htmlOpen = "<dt>%s</dt><dd><ul>"
 	htmlClose = '</ul></dd>'
-	accessGroup = @document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci"
+	accessGroup = @document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
 	viewAccess = nil
 
 	if accessGroup != nil
@@ -10,9 +10,7 @@
 		  viewAccess = nil
 	  elsif accessGroup.include?('local')
 		    viewAccess = 'Restricted to UC San Diego use only'
-		elsif accessGroup.include?('dams-curator')
-		  viewAccess = 'Curator Only'
-		elsif accessGroup.include?('dams-rci')
+		else
 		  viewAccess = 'Curator Only'
 		end
 
