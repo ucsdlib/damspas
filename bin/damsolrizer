@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'optparse'
 require 'stomp'
+require 'benchmark'
 
 options = {}
 
@@ -103,8 +104,11 @@ begin
       puts "PID: #{@msg.headers["pid"]}"
       begin
         if ["addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
-          solrizer = Solrizer::Fedora::Solrizer.new
-          solrizer.solrize @msg.headers["pid"], solropts
+          tim = Benchmark.measure { 
+            solrizer = Solrizer::Fedora::Solrizer.new
+            solrizer.solrize @msg.headers["pid"], solropts
+          }
+          puts "#{@msg.headers["pid"]} solr time: #{tim.to_s}"
           puts  "updated solr index for #{@msg.headers["pid"]}\n"
         elsif method == "purgeObject"
           ActiveFedora::SolrService.instance.conn.delete_by_id(pid)

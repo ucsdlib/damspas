@@ -1,5 +1,6 @@
 require 'active_support/concern'
 require 'date'
+require 'benchmark'
 
 module Dams
   module DamsObject
@@ -512,6 +513,7 @@ module Dams
 	  end
 	          
 	  def to_solr (solr_doc = {})
+	    tim = Benchmark.measure {
 		super(solr_doc)
 	
 	    @facetable = Solrizer::Descriptor.new(:string, :indexed, :multivalued)
@@ -713,6 +715,9 @@ module Dams
 	        solr_doc[f] = solr_doc[f].sub('+00:00','Z').sub('-01:00','Z')
 	      end
 	    }
+	    }
+ 
+        puts "#{solr_doc[:id]} doc time: #{tim.to_s}"
 	
 	    solr_doc
 	  end 
