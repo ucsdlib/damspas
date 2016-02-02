@@ -15,10 +15,12 @@ feature 'Visitor wants to look at collections' do
     solr_index @priv.pid
 
     @copy = DamsCopyright.create status: 'Public domain'
-    @partObj = DamsObject.create titleValue: 'Test Object in Provenance Part', provenanceCollectionPartURI: @part.pid, copyrightURI: @copy.pid
+    @partObj = DamsObject.create titleValue: 'Test Object in Provenance Part', provenanceCollectionPartURI: [@part.pid], assembledCollectionURI: [@assm.pid], copyrightURI: @copy.pid
     @provObj = DamsObject.create titleValue: 'Test Object in Provenance Collection', provenanceCollectionURI: @prov.pid, copyrightURI: @copy.pid
+    @privObj = DamsObject.create titleValue: 'Test Object in curator-only collection', provenanceCollectionURI: @priv.pid, copyrightURI: @copy.pid
     solr_index @partObj.pid
     solr_index @provObj.pid
+    solr_index @privObj.pid
   end
   after(:all) do
     @partObj.delete
@@ -59,9 +61,19 @@ feature 'Visitor wants to look at collections' do
     visit dams_collection_path @prov.pid # santa fe light cone
     expect(page).to have_link('RDF View')
   end
-  scenario 'damsProvenanceCollectionPart view with parent collection name' do
+  scenario 'damsProvenanceCollectionPart view with parent collection name and collection from faceting' do
+    sign_in_developer
     visit dams_collection_path @part.pid
     expect(page).to have_link('Sample Provenance Collection') 
+    expect(page).to have_link('Sample Assembled Collection')
+    expect(page).not_to have_link('Sample Provenance Part', :href => "#{dams_collection_path @part.pid}" )
+    expect(page).not_to have_link('curator-only collection')
+  end
+  scenario 'damsProvenanceCollection view with objects but no parent collection' do
+    sign_in_developer
+    visit dams_collection_path @priv.pid
+    expect(page).to have_selector('h1', :text => 'curator-only collection')
+    expect(page).not_to have_selector('dt', :text => 'Collections')
   end
 
   scenario 'search results and see access control information (curator)' do

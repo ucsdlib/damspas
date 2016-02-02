@@ -29,8 +29,20 @@ class DamsResourceController < ApplicationController
 
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    if @document.nil?
+        raise ActionController::RoutingError.new('Not Found')
+    end
 
-    @rdfxml = @document['rdfxml_ssi'] if !@document.nil?
+    # generate facet collection list for collection page only
+    models = @document["active_fedora_model_ssi"]
+    if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
+        facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
+        apply_gated_discovery( facet_collection_params, nil )
+        @facet_collection_resp = get_search_results( facet_collection_params )
+        @collections_map = collections
+    end
+
+    @rdfxml = @document['rdfxml_ssi']
     if @rdfxml == nil
       @rdfxml = "<rdf:RDF xmlns:dams='http://library.ucsd.edu/ontology/dams#'
           xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
@@ -77,7 +89,7 @@ class DamsResourceController < ApplicationController
         format.nt { rdf_nt }
         format.ttl { rdf_ttl }
       end
-    elsif !@document.nil? && @document['discover_access_group_ssim'].include?("public")
+    elsif @document['discover_access_group_ssim'].include?("public")
       respond_to do |format|
         format.html { render :metadata }
         format.json { render json: @document }
@@ -150,4 +162,12 @@ class DamsResourceController < ApplicationController
     end
   end
 
+  def collections
+    colls_map = {}
+    cols_response, col_documents = get_search_results(:q => 'type_tesim:Collection', :rows => 200 )
+    cols_response.docs.each do |doc|
+        colls_map[doc['title_tesim'].first.to_s.strip] = doc['id_t'].to_s
+    end
+    colls_map
+  end
 end

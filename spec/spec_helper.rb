@@ -45,6 +45,23 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
 #  config.order = "random"
+  config.before(:suite) do
+    cleanout_solr_and_fedora
+  end
+  config.after(:suite) do
+    cleanout_solr_and_fedora
+  end
+end
+# This loads the Fedora and Solr config info from /config/fedora.yml
+# You can load it from a different location by passing a file path as an argument.
+def restore_spec_configuration
+  ActiveFedora.init(fedora_config_path: File.join(File.dirname(__FILE__), "..", "config", "fedora.yml"))
+end
+
+def cleanout_solr_and_fedora
+  ActiveFedora::Base.destroy_all
+  restore_spec_configuration if ActiveFedora::SolrService.instance.nil? || ActiveFedora::SolrService.instance.conn.nil?
+  ActiveFedora::SolrService.instance.conn.delete_by_query('*:*', params: {'softCommit' => true})
 end
 def test_attribute_xpath(datastream, name, xpath, value='blah')
    datastream.send(name.to_s+'=', value)
