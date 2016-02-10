@@ -366,7 +366,7 @@ module Dams
 	      Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
 	      #Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
 	
-	      # fulltext extraction for pdfs
+	      # fulltext extraction for pdf, document, excel, html, txt, csv etc
           begin
             @parent_obj = ActiveFedora::Base.find(pid, :cast=>true) if @parent_obj.nil?
             fulltext = fulltext( @parent_obj, file, cid )
@@ -390,11 +390,11 @@ module Dams
 
       # extract fulltext from a content file
       def fulltext( object, file, cid )
-        mime_type = file.mimeType.first.to_s.gsub(/;.*/,"")
-        if ["application/pdf", "text/html", "text/plain"].include?(mime_type)
-          fid = (cid != nil) ? "_#{cid}_#{file.id}" : "_" + file.id
-          fid = extracted_text(fid) if mime_type == "application/pdf"
-          fulltext = @parent_obj.datastreams[fid]
+        mime_type = file.mimeType.first.to_s.gsub(/;.*/,"").gsub(/\s.*/,"").gsub(/\..*/,"")
+        fid = (cid != nil) ? "_#{cid}_#{file.id}" : "_" + file.id
+        if ["application/pdf", "text/html", "text/plain", "application/msword", "application/vnd"].include?(mime_type) || fid.end_with?(".doc", ".docx", ".xls",".xlsx")
+          fid = extracted_text(fid)
+          fulltext = object.datastreams[fid]
           escape_text(fulltext.content) unless fulltext.nil?
         end
       end
