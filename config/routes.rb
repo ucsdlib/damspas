@@ -21,6 +21,8 @@ Hydra::Application.routes.draw do
       get 'rdf'
       get 'rdf_nt'
       get 'rdf_ttl'
+      get 'osf_api'
+      get 'osf_push'
     end
   end
 

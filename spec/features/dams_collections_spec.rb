@@ -178,7 +178,6 @@ end
 #---
 
 feature "Visitor wants to view a collection's page" do
-
   before(:all) do
     @part = DamsProvenanceCollectionPart.create titleValue: 'Sample Provenance Part', visibility: 'curator'
     @prov = DamsProvenanceCollection.create titleValue: 'Sample Provenance Collection', provenanceCollectionPartURI: @part.pid, visibility: 'curator'
@@ -198,5 +197,41 @@ feature "Visitor wants to view a collection's page" do
     visit dams_collection_path @prov.pid
     expect(page).to have_content('AccessCurator Only')
   end
+end
 
+feature "Vistor wants to view the OSF API" do
+  before do
+      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+      @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+      @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection_osf.rdf.xml').read
+      @provCollection.save!
+      solr_index (@provCollection.pid)   
+    end
+    after do
+      @provCollection.delete
+      @unit.delete
+    end
+    
+    scenario 'should see SHARE output' do
+      sign_in_developer
+      visit osf_api_dams_collection_path @provCollection.pid
+      expect(page).to have_content('"Test Title : "')
+      expect(page).to have_content('{"name":"test contributor"}')
+      expect(page).to have_content('{"name":"test contributor2"}')
+      expect(page).to have_content('{"name":"test contributor3"}')
+      expect(page).to have_content('{"name":"Test Creator"}')
+      expect(page).to have_content('{"name":"test principal investigator"}')
+      expect(page).to have_content('{"name":"test author"}')
+      expect(page).to have_content("http://library.ucsd.edu/dc/collection/uu8056206n")
+      expect(page).to have_content("No linguistic content")
+      expect(page).to have_content("1961")
+      expect(page).to have_content("Test Topic")
+      expect(page).to have_content("Test Common Name")
+      expect(page).to have_content("Test Scientific Name")
+      expect(page).to have_content("Test Corporate Name")
+      expect(page).to have_content("Test Corporate Name")
+      expect(page).to have_content("Test Personal Name")
+      expect(page).to have_content("UC San Diego Library, Digital Collections")
+      expect(page).to have_content("http://library.ucsd.edu/dc")
+    end
 end
