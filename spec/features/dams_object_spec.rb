@@ -594,13 +594,11 @@ describe "curator embargoed object view" do
     @damsUnit.delete
   end
 
-  it "should see the view content button and click on the button to see the download button" do
+  it "should not see the view content button" do
     sign_in_developer
     visit dams_object_path(@damsEmbObj.pid)
-    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
-    click_on "Yes, I would like to view this content."
-    expect(page).to have_link('', href:"/object/zz2765588d/_1.tif/download")
-   end
+    expect(page).to have_no_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
 end
 
 describe "Display Note fields in alphabetical order" do
