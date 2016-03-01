@@ -2,7 +2,7 @@ require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start
 
 require 'rspec/matchers'
-require 'equivalent-xml'
+#require 'equivalent-xml'
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'

@@ -18,6 +18,7 @@ config/solr.yml
 config/secrets.yml
 config/initializers/devise.rb
 config/initializers/secret_token.rb
+config/share_notify.yml
 
 
 

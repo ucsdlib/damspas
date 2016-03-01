@@ -1,7 +1,7 @@
 <p class="sidebar-header"><b>Collection Tools</b></p>
 <ul class="unstyled sidebar-button-list">
   <% links = { "rdf" => "RDF View", "rdf_nt" => "RDF N-Triples View", "rdf_ttl" => "RDF Turtle View", "data" => "Data View", "dams42" => "DAMS 4.2 Preview",
-               "ezid" => "Mint DOI" }
+               "ezid" => "Mint DOI", "osf_push" => "Push to OSF Share Staging Area" }
     links.each { |key,label| %>
   <li><%= link_to "<i class='icon-plus-sign'></i> #{label}".html_safe,
       send("#{key}_dams_collection_path".to_sym, @document['id']),
