@@ -19,6 +19,8 @@ describe PagesController do
 
     describe "GET show" do
       it "assigns the requested page as @page" do
+        pending("something else getting finished")
+        this_should_not_get_executed
         page = Page.create! valid_attributes
         get :show, {:id => page.to_param}
         assigns(:page).should eq(page)
