@@ -264,7 +264,7 @@ feature 'Visitor want to look at objects' do
             polygon: 'Test Polygon' }],
         unit_attributes: [{ name: 'Test Unit', description: 'Test Description', code: 'tu',
             group: 'dams-curator', uri: 'http://example.com/' }],
-        note_attributes: [{ value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
+        note_attributes: [{value: 'test related publications', type: 'related publications'}, { value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
         custodialResponsibilityNote_attributes: [{ value: 'Test Custodial Responsibility Note' }],
         preferredCitationNote_attributes: [{ value: 'Test Preferred Citation Note' }],
         scopeContentNote_attributes: [{ value: 'Test Scope Content Note' }],
@@ -315,7 +315,9 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test Line')
       expect(page).to have_selector('p', text: 'Test Polygon')
       expect(page).to have_selector('li', text: 'Test Unit')
-
+      
+      expect(page).to have_content('Related Publications')
+      
       expect(page).to have_selector('p', text: 'Test Note')
       expect(page).to have_selector('p', text: 'Another Test Note')
       expect(page).to have_selector('p', text: 'Test Custodial Responsibility Note')
@@ -385,12 +387,13 @@ feature 'Visitor want to look at objects' do
   describe "viewing files" do
     before(:all) do
       @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
-      @o = DamsObject.create( titleValue: 'Image File Test', copyright_attributes: [ {status: 'Public domain'} ],
+      @o = DamsObject.create( titleValue: 'Object Files Test', copyright_attributes: [ {status: 'Public domain'} ],
                   assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
       jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
       @o.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
       @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2_1.html", "test.html" )
       @o.add_file( 'THsdtk 100.5°', "_2_2.txt", "test.txt" )
+      @o.add_file( '"Testing CSV", Format', "_2_3.csv", "test.csv" )
       @o.save
       solr_index @col.pid
       solr_index @o.pid
@@ -428,11 +431,15 @@ feature 'Visitor want to look at objects' do
     end
     it 'should index fulltext of complex object html file' do
       visit catalog_index_path( { q: 'test link', sort: 'title_ssi asc' } )
-      expect(page).to have_selector('h3', :text => "Image File Test")
+      expect(page).to have_selector('h3', :text => "Object Files Test")
     end
     it 'should index fulltext of complex object text file' do
       visit catalog_index_path( { q: 'THsdtk', sort: 'title_ssi asc' } )
-      expect(page).to have_selector('h3', :text => "Image File Test")
+      expect(page).to have_selector('h3', :text => "Object Files Test")
+    end
+    it 'should index fulltext of complex object CSV file' do
+      visit catalog_index_path( { q: 'Testing CSV', sort: 'title_ssi asc' } )
+      expect(page).to have_content("Object Files Test")
     end
   end
 
@@ -589,13 +596,11 @@ describe "curator embargoed object view" do
     @damsUnit.delete
   end
 
-  it "should see the view content button and click on the button to see the download button" do
+  it "should not see the view content button" do
     sign_in_developer
     visit dams_object_path(@damsEmbObj.pid)
-    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
-    click_on "Yes, I would like to view this content."
-    expect(page).to have_link('', href:"/object/zz2765588d/_1.tif/download")
-   end
+    expect(page).to have_no_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
 end
 
 describe "Display Note fields in alphabetical order" do

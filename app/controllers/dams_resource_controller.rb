@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'open-uri'
 
 class DamsResourceController < ApplicationController
   include Blacklight::Catalog
@@ -169,5 +170,12 @@ class DamsResourceController < ApplicationController
         colls_map[doc['title_tesim'].first.to_s.strip] = doc['id_t'].to_s
     end
     colls_map
+  end
+
+  def osf_api
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    data = export_to_API(@document)
+    render :json => data
   end
 end
