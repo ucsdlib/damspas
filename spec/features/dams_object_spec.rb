@@ -5,7 +5,7 @@ feature 'Visitor want to look at objects' do
 
   describe "titles and curator data views" do
     before(:all) do
-      @o = DamsObject.create titleValue: 'Test Title',
+      @o = DamsObject.create titleValue: 'Test Title, Test Part',
                subtitle: 'Test Subtitle', titleNonSort: 'The',
                titlePartName: 'Test Part', titlePartNumber: 'Test Number',
                titleTranslationVariant: 'Test Translation Variant',
@@ -17,7 +17,7 @@ feature 'Visitor want to look at objects' do
     end
     it "should display titles" do
       visit dams_object_path @o
-      expect(page).to have_selector('h1',:text=>'The Test Title')
+      expect(page).to have_selector('h1',:text=>'The Test Title, Test Part')
       expect(page).to have_selector('h2',:text=>'Test Subtitle, Test Part Test Number, Test Translation Variant')
     end
     it "should display admin links" do
