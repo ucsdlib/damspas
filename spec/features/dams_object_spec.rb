@@ -264,7 +264,7 @@ feature 'Visitor want to look at objects' do
             polygon: 'Test Polygon' }],
         unit_attributes: [{ name: 'Test Unit', description: 'Test Description', code: 'tu',
             group: 'dams-curator', uri: 'http://example.com/' }],
-        note_attributes: [{ value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
+        note_attributes: [{value: 'test related publications', type: 'related publications'}, { value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
         custodialResponsibilityNote_attributes: [{ value: 'Test Custodial Responsibility Note' }],
         preferredCitationNote_attributes: [{ value: 'Test Preferred Citation Note' }],
         scopeContentNote_attributes: [{ value: 'Test Scope Content Note' }],
@@ -315,7 +315,9 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test Line')
       expect(page).to have_selector('p', text: 'Test Polygon')
       expect(page).to have_selector('li', text: 'Test Unit')
-
+      
+      expect(page).to have_content('Related Publications')
+      
       expect(page).to have_selector('p', text: 'Test Note')
       expect(page).to have_selector('p', text: 'Another Test Note')
       expect(page).to have_selector('p', text: 'Test Custodial Responsibility Note')

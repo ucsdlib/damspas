@@ -56,22 +56,25 @@
 
   if !notes.empty?
     # if type is specified, bundle all matching notes under type header
-    if type != nil
+
+    if type != nil 
       htmlOpen = htmlOpenTemp
-      htmlOpen %= type.to_s.capitalize
+      htmlOpen %= type.to_s.titleize
       concat htmlOpen.html_safe
     end
+    
     notes.each do |key, noteList| 
       # customized label required
       key = 'Cite This Work' if key == 'Preferred Citation'
       key = 'Publication Information' if key == 'Publication'
       
       # if no type is provided, use types from note json
-      if type == nil
+      if type == nil 
         htmlOpen = htmlOpenTemp
         htmlOpen %= key
         concat htmlOpen.html_safe
       end
+      
       noteList.each do |note|
       %>
       <p>
