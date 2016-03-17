@@ -34,11 +34,11 @@
         subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
       end
       
-      if !result['value'].blank?
-         title = getFullTitle result
+      if !result['name'].blank?
+         title = result['name'] 
         break
       else
-        title = result['name'] || ""
+        title = getFullTitle result || ""
       end
       
     end
