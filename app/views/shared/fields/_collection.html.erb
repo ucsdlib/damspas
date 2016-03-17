@@ -1,12 +1,13 @@
 <%
 	 if defined?(componentIndex) # Then we're working with a component
 		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td><ul>"
-		 htmlClose = '</ul></td></tr>'
+     htmlOpen = "<tr><td>%s</td><td><ul>"
+     htmlClose = '</ul></td></tr>'
 	 else # We're working with an object or collection
 		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd><ul>"
-		 htmlClose = '</ul></dd>'
+		 htmlOpen = "<dt>%s</dt>"
+     htmlOpen_l = '<ul><dd>'
+		 htmlClose_l = '</ul></dd>'
 	 end
 
      if defined?(@facet_collection_resp)
@@ -21,17 +22,18 @@
                 htmlOpen %= 'Collection'.pluralize(facet_collection_names.count)
                 concat htmlOpen.html_safe
                 facet_collection_names.sort.each do |collectionName|
-    %>
-                    <li>
-                        <%= link_to( dams_collection_path(@collections_map[collectionName]) ) do %>
-                            <%= collectionName %>
-                        <% end %>
-                    </li>
-    <%
+                  concat htmlOpen_l.html_safe unless defined?(componentIndex)
+ %>
+                  <li>
+                      <%= link_to( dams_collection_path(@collections_map[collectionName]) ) do %>
+                          <%= collectionName %>
+                      <% end %>
+                  </li>
+<%                concat htmlClose_l.html_safe unless defined?(componentIndex)
                 end 
-                concat htmlClose.html_safe
+                concat htmlClose.html_safe if defined?(componentIndex) 
             end
-       end
+        end
      else
        fieldData = @document["#{prefix}collection_json_tesim"] || []
        fieldData.concat( @document['provenanceCollection_json_tesim'] || [] )
@@ -52,16 +54,16 @@
            # Check anonymous user for linked collection access 
            anons = User.anonymous(request.remote_ip)
            if current_user != nil || visibility == 'public' || visibility == anons
+            concat htmlOpen_l.html_safe unless defined?(componentIndex)
 %>
-		<li>
-			<%= link_to( dams_collection_path(collection['id']) ) do %>
-				<%= collectionName %>
-			<% end %>
-		</li>
-<%
-         end
-
-         concat htmlClose.html_safe
+        		<li>
+        			<%= link_to( dams_collection_path(collection['id']) ) do %>
+        				<%= collectionName %>
+        			<% end %>
+        		</li>
+<%          concat htmlClose_l.html_safe unless defined?(componentIndex)
+           end
+          concat htmlClose.html_safe if defined?(componentIndex)
       end
     end
 
