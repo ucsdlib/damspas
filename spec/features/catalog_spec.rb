@@ -199,6 +199,118 @@ feature "Search and browse links and subjects" do
   end
 end
 
+feature "Search and browse custom subject facet links" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @copy = DamsCopyright.create status: "Public domain"
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    #@anatomy = DamsAnatomy.create( name: 'ZZZ Test Anatomy' )
+    @common = DamsCommonName.create( name: 'ZZZ Test Common Name' )
+    @cruise = DamsCruise.create( name: 'ZZZ Test Cruise' )
+    @cultural = DamsCulturalContext.create( name: 'ZZZ Test Cultural Context' )
+    @lithology = DamsLithology.create( name: 'ZZZ Test Lithology' )
+    @science = DamsScientificName.create( name: 'ZZZ Test Scientific Name' )
+    @series = DamsSeries.create( name: 'ZZZ Test Series' )
+    @obj = DamsObject.create( 
+        titleValue: 'QE8iWjhafTRpc Test Object', 
+        unitURI: @unit.pid, 
+        copyrightURI: @copy.pid, 
+        #anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@anatomy.pid}") }],
+        commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@common.pid}") }],
+        cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cruise.pid}") }],
+        culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cultural.pid}") }],
+        lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lithology.pid}") }],
+        scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@science.pid}") }],
+        series_attributes: [{ id: RDF::URI.new("#{ns}#{@series.pid}") }],
+        )
+
+    solr_index @obj.pid
+  end
+  after(:all) do
+    @obj.delete
+    @unit.delete
+    @copy.delete
+    #@anatomy.delete
+    @common.delete
+    @cruise.delete
+    @cultural.delete
+    @lithology.delete
+    @science.delete
+    @series.delete
+  end
+
+  pending 'Browse by anatomy' do
+    sign_in_developer
+    visit catalog_facet_path("subject_anatomy_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Anatomy')
+    click_on "ZZZ Test Anatomy"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+  scenario 'Browse by common name' do
+    sign_in_developer
+    visit catalog_facet_path("subject_common_name_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Common Name')
+    click_on "ZZZ Test Common Name"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+    scenario 'Browse by cruise' do
+    sign_in_developer
+    visit catalog_facet_path("subject_cruise_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Cruise')
+    click_on "ZZZ Test Cruise"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+  scenario 'Browse by cultural context' do
+    sign_in_developer
+    visit catalog_facet_path("subject_cultural_context_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Cultural Context')
+    click_on "ZZZ Test Cultural Context"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+    scenario 'Browse by lithology' do
+    sign_in_developer
+    visit catalog_facet_path("subject_lithology_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Lithology')
+    click_on "ZZZ Test Lithology"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end    
+  scenario 'Browse by scientific name' do
+    sign_in_developer
+    visit catalog_facet_path("subject_scientific_name_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Scientific Name')
+    click_on "ZZZ Test Scientific Name"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+  scenario 'Browse by series' do
+    sign_in_developer
+    visit catalog_facet_path("subject_series_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Series')
+    click_on "ZZZ Test Series"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+end
+
+describe "Search and browse custom subject facets from complex object" do
+  before(:all) do
+    @damsComplexObj = DamsObject.create pid: "xx808080zz"
+    @damsComplexObj.damsMetadata.content = File.new( "spec/fixtures/damsComplexObject9.rdf.xml" ).read
+    @damsComplexObj.save!
+    solr_index (@damsComplexObj.pid)
+  end
+  after(:all) do
+    @damsComplexObj.delete
+  end
+
+  it "Browse by common name should include subjects from both object and components" do
+    sign_in_developer
+    visit catalog_facet_path("subject_common_name_sim", :'facet.sort' => 'index')
+    expect(page).to have_content('ZZZ Test Common Name in Object')
+    expect(page).to have_content('ZZZ Test Common Name in Component')
+    click_on "ZZZ Test Common Name in Component"
+    expect(page).to have_content('Test Complex Object 9')
+  end
+end
+
 feature 'Visitor wants to download JSON' do
   scenario 'Performing a search' do
     visit catalog_index_path( {:q => 'sample', :format => 'json'} )
