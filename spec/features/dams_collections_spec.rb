@@ -223,7 +223,7 @@ feature "Vistor wants to view the OSF API" do
       expect(page).to have_content('{"name":"test principal investigator"}')
       expect(page).to have_content('{"name":"test author"}')
       expect(page).to have_content("http://library.ucsd.edu/dc/collection/uu8056206n")
-      expect(page).to have_content("No linguistic content")
+      expect(page).to have_content("English")
       expect(page).to have_content("1961")
       expect(page).to have_content("Test Topic")
       expect(page).to have_content("Test Common Name")
