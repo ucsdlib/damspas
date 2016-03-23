@@ -345,7 +345,9 @@ module Dams
 	  	elsif !object.series[0].nil?
 	  		type = "DamsSeries"
 	  	elsif !object.cruise[0].nil?
-	  		type = "DamsCruise"	  			  			  		
+	  		type = "DamsCruise"	 
+	  	elsif !object.anatomy[0].nil?
+	  		type = "DamsAnatomy"	 			  			  		
 	  	end 	  	 		  		
 		type   
     end
@@ -381,7 +383,9 @@ module Dams
 	  	elsif !object.series[0].nil?
 	  		id = object.series.to_s.gsub(/.*\//,'')[0..9]
 	  	elsif !object.cruise[0].nil?
-	  		id = object.cruise.to_s.gsub(/.*\//,'')[0..9]	  			  			  		
+	  		id = object.cruise.to_s.gsub(/.*\//,'')[0..9]	
+	  	elsif !object.anatomy[0].nil?
+	  		id = object.anatomy.to_s.gsub(/.*\//,'')[0..9]  			  			  		
 	  	end
 		id   
     end
@@ -418,6 +422,8 @@ module Dams
 	  		value = object.series.first.name.first 	  	
 	  	elsif !object.cruise[0].nil?
 	  		value = object.cruise.first.name.first
+	  	elsif !object.anatomy[0].nil?
+	  		value = object.anatomy.first.name.first
 	  	end
 		value   
     end  
@@ -516,6 +522,12 @@ module Dams
   		  simpleSubjectArray << {
 		    :name => "Cruise", :value => get_pid(cru), :label => get_linked_object_label(get_pid(cru))
 		  }		  		
+	  	end
+
+	  	object.anatomy.each do |an|
+  		  simpleSubjectArray << {
+		    :name => "Anatomy", :value => get_pid(an), :label => get_linked_object_label(get_pid(an))
+		  }	  		
 	  	end
 	  		
 		simpleSubjectArray   

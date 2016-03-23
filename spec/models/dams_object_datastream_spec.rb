@@ -322,6 +322,9 @@ END
         
         #it "should index cruise" do
         solr_doc["cruise_tesim"].should == ["test cruise"]
+
+        #it "should index lithology" do
+        solr_doc["anatomy_tesim"].should == ["test anatomy"]
                         
         #it "should index technique" do
         solr_doc["technique_tesim"].should == ["Impasto"]

@@ -72,6 +72,10 @@ class DAMS < RDF::Vocabulary("http://library.ucsd.edu/ontology/dams#")
   property :Cruise
   property :cruiseElement
   property :CruiseElement
+  property :anatomy
+  property :Anatomy
+  property :anatomyElement
+  property :AnatomyElement
   property :occupation
   property :scientificName
   property :ScientificName

@@ -31,6 +31,7 @@ class DamsComponentDatastream < DamsResourceDatastream
     map.lithology(:in => DAMS)
     map.series(:in => DAMS)
     map.cruise(:in => DAMS)
+    map.anatomy(:in => DAMS)
     
     # subject names
     map.name(:in => DAMS, :class_name => 'MadsNameInternal')
