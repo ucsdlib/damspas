@@ -36,6 +36,7 @@ module Dams
 	    map.lithology(:in => DAMS, :class_name => 'DamsLithologyInternal')
 	    map.series(:in => DAMS, :class_name => 'DamsSeriesInternal')
 	    map.cruise(:in => DAMS, :class_name => 'DamsCruiseInternal')
+	    map.anatomy(:in => DAMS, :class_name => 'DamsAnatomyInternal')
 	    
         # XXX why does iconography work when mapped to a class when when other made-like additions don't?
 	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
@@ -86,7 +87,7 @@ module Dams
       								:note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote,  
       								:complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
       								:iconography, :occupation, :commonName, :scientificName, :stylePeriod,
-      								:technique, :temporal, :topic, :lithology, :series, :cruise,
+      								:technique, :temporal, :topic, :lithology, :series, :cruise, :anatomy,
 	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
 	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderName, :rightsHolderCorporate, :rightsHolderPersonal,
@@ -576,6 +577,8 @@ module Dams
 	      insertFields solr_doc, "component_#{cid}_lithology", load_lithologies(component.lithology)
 	      insertFields solr_doc, "component_#{cid}_series", load_series(component.series)
 	      insertFields solr_doc, "component_#{cid}_cruise", load_cruises(component.cruise)
+        insertFields solr_doc, "component_#{cid}_anatomy", load_anatomies(component.anatomy)
+
 	      	
 	      # facetable topics
 	      insertFacets solr_doc, "subject_topic", load_topics(component.topic)
@@ -595,9 +598,10 @@ module Dams
 	      insertFacets solr_doc, "subject_topic", load_lithologies(component.lithology)
 	      insertFacets solr_doc, "subject_topic", load_series(component.series)
 	      insertFacets solr_doc, "subject_topic", load_cruises(component.cruise)
+	      insertFacets solr_doc, "subject_topic", load_anatomies(component.anatomy)
 	      	      	
           # uncomment for subject anatomy
-          #insertFacets solr_doc, "subject_anatomy", load_anatomys(component.anatomy)
+          insertFacets solr_doc, "subject_anatomy", load_anatomies(component.anatomy)
           insertFacets solr_doc, "subject_common_name", load_commonNames(component.commonName)
           insertFacets solr_doc, "subject_cruise", load_cruises(component.cruise)
           insertFacets solr_doc, "subject_cultural_context", load_culturalContexts(component.culturalContext)

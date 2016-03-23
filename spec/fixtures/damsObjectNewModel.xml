@@ -404,7 +404,17 @@
             </dams:CruiseElement>
           </mads:elementList>
        </mads:Cruise>
-     </dams:cruise>                     
+     </dams:cruise> 
+     <dams:anatomy>
+       <mads:Anatomy>
+         <mads:authoritativeLabel>test anatomy</mads:authoritativeLabel>
+           <mads:elementList rdf:parseType="Collection">
+            <dams:AnatomyElement>
+              <mads:elementValue>test anatomy</mads:elementValue>
+            </dams:AnatomyElement>
+          </mads:elementList>
+       </mads:Anatomy>
+     </dams:Anatomy>                      
     <dams:topic>
        <mads:Topic>
          <mads:authoritativeLabel>Marine sediments</mads:authoritativeLabel>

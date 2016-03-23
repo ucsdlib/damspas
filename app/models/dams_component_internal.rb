@@ -41,6 +41,7 @@ class DamsComponentInternal
 	  map.lithology(:in => DAMS, :class_name => 'DamsLithologyInternal')
 	  map.series(:in => DAMS, :class_name => 'DamsSeriesInternal')
 	  map.cruise(:in => DAMS, :class_name => 'DamsCruiseInternal')
+    map.anatomy(:in => DAMS, :class_name => 'DamsAnatomyInternal')
 	  
       # subject names
       map.name(:in => DAMS, :class_name => 'MadsNameInternal')

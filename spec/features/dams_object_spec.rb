@@ -95,6 +95,7 @@ feature 'Visitor want to look at objects' do
       @cult = DamsCulturalContext.create( name: 'Test Cultural Context' )
       @func = DamsFunction.create( name: 'Test Function' )
       @icon = DamsIconography.create( name: 'Test Iconography' )
+      @ana = DamsAnatomy.create( name: 'Test Anatomy' )
       @lith = DamsLithology.create( name: 'Test Lithology' )
       @ser = DamsSeries.create( name: 'Test Series' )
       @cru = DamsCruise.create( name: 'Test Cruise' )
@@ -134,6 +135,7 @@ feature 'Visitor want to look at objects' do
            culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
            function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
            iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
+           anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@ana.pid}") }],
            lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
            series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
            cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],
@@ -236,6 +238,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Lithology')
       expect(page).to have_selector('li', text: 'Test Series')
       expect(page).to have_selector('li', text: 'Test Cruise')
+      expect(page).to have_selector('li', text: 'Test Anatomy')
 
     end
     it "should display curator-only linked metadata" do
@@ -275,6 +278,7 @@ feature 'Visitor want to look at objects' do
         lithology_attributes: [{ name: 'Test Lithology' }],
         series_attributes: [{ name: 'Test Series' }],
         cruise_attributes: [{ name: 'Test Cruise' }],
+        anatomy_attributes: [{ name: 'Test Anatomy' }],
         commonName_attributes: [{ name: 'Test Common Name' }],
         scientificName_attributes: [{ name: 'Test Scientific Name' }],
         stylePeriod_attributes: [{ name: 'Test Style Period' }],
@@ -347,6 +351,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Lithology')
       expect(page).to have_selector('li', text: 'Test Series')
       expect(page).to have_selector('li', text: 'Test Cruise')
+      expect(page).to have_selector('li', text: 'Test Anatomy')
 
       expect(page).to_not have_selector('p', text: '85-8')
     end

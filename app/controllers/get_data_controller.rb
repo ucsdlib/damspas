@@ -52,7 +52,9 @@ class GetDataController < ApplicationController
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Series')
 		@docs = get_objects_json('DamsSeries','name_tesim')
   	elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Cruise')
-		@docs = get_objects_json('DamsCruise','name_tesim')																																			
+		@docs = get_objects_json('DamsCruise','name_tesim')	
+    elsif(!params[:q].nil? && params[:q] != '' && params[:q] == 'Anatomy')
+    @docs = get_objects_json('DamsAnatomy','name_tesim')   																																		
 	else
 		@docs = get_objects_json('MadsTopic','name_tesim')
 	end
