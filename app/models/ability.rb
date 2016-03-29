@@ -42,6 +42,7 @@ class Ability
       can [:read], DamsLithology
       can [:read], DamsSeries
       can [:read], DamsCruise
+      can [:read], DamsAnatomy
       can [:read], DamsBuiltWorkPlace
       can [:read], DamsCommonName
       can [:read], DamsScientificName
@@ -79,7 +80,8 @@ class Ability
       can [:read, :create, :update], DamsIconography
       can [:read, :create, :update], DamsLithology
       can [:read, :create, :update], DamsSeries
-      can [:read, :create, :update], DamsCruise            
+      can [:read, :create, :update], DamsCruise 
+      can [:read, :create, :update], DamsAnatomy            
       can [:read, :create, :update], DamsBuiltWorkPlace
       can [:read, :create, :update], DamsCommonName
       can [:read, :create, :update], DamsScientificName

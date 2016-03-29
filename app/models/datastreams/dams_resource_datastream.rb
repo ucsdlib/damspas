@@ -138,6 +138,12 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
   def load_cruises(cruise)
     loadRdfObjects cruise,DamsCruise
   end
+  def load_anatomies
+    load_anatomies(anatomy)
+  end
+  def load_anatomies(anatomy)
+    loadRdfObjects anatomy,DamsAnatomy
+  end 
   def load_occupations
     load_occupations(occupation)
   end
@@ -813,7 +819,17 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertSubjectFields solr_doc, 'lithology', load_lithologies(lithology)
     insertSubjectFields solr_doc, 'series', load_series(series)
     insertSubjectFields solr_doc, 'cruise', load_cruises(cruise)
-    
+    insertSubjectFields solr_doc, 'anatomy', load_lithologies(anatomy)
+  
+    # subjects factets
+    insertFacets solr_doc, "subject_anatomy", load_anatomies(anatomy)
+    insertFacets solr_doc, "subject_common_name", load_commonNames(commonName)
+    insertFacets solr_doc, "subject_cruise", load_cruises(cruise)
+    insertFacets solr_doc, "subject_cultural_context", load_culturalContexts(culturalContext)
+    insertFacets solr_doc, "subject_lithology", load_lithologies(lithology)
+    insertFacets solr_doc, "subject_scientific_name", load_scientificNames(scientificName)
+    insertFacets solr_doc, "subject_series", load_series(series)
+  
     # subject - names
     insertNameFields solr_doc, 'other_name', load_names(name)
     insertNameFields solr_doc, 'conferenceName', load_conferenceNames(conferenceName)

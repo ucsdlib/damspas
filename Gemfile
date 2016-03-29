@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.5'
+gem 'rails', '~> 4.2.5.2'
 gem 'blacklight', '~> 4.7.0' # locked
 gem 'hydra-head', '~> 6.5.2' # locked
 gem 'active-fedora', '~> 6.7.8' # locked

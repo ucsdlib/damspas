@@ -120,6 +120,7 @@ Hydra::Application.routes.draw do
   resources :dams_lithologies, only: [:index, :show]
   resources :dams_series, only: [:index, :show]
   resources :dams_cruises, only: [:index, :show]
+  resources :dams_anatomies, only: [:index, :show]
   
   resources :get_data do
   get 'get_linked_data', :on => :member

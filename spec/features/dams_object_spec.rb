@@ -5,7 +5,7 @@ feature 'Visitor want to look at objects' do
 
   describe "titles and curator data views" do
     before(:all) do
-      @o = DamsObject.create titleValue: 'Test Title',
+      @o = DamsObject.create titleValue: 'Test Title, Test Part',
                subtitle: 'Test Subtitle', titleNonSort: 'The',
                titlePartName: 'Test Part', titlePartNumber: 'Test Number',
                titleTranslationVariant: 'Test Translation Variant',
@@ -17,7 +17,7 @@ feature 'Visitor want to look at objects' do
     end
     it "should display titles" do
       visit dams_object_path @o
-      expect(page).to have_selector('h1',:text=>'The Test Title')
+      expect(page).to have_selector('h1',:text=>'The Test Title, Test Part')
       expect(page).to have_selector('h2',:text=>'Test Subtitle, Test Part Test Number, Test Translation Variant')
     end
     it "should display admin links" do
@@ -95,6 +95,7 @@ feature 'Visitor want to look at objects' do
       @cult = DamsCulturalContext.create( name: 'Test Cultural Context' )
       @func = DamsFunction.create( name: 'Test Function' )
       @icon = DamsIconography.create( name: 'Test Iconography' )
+      @ana = DamsAnatomy.create( name: 'Test Anatomy' )
       @lith = DamsLithology.create( name: 'Test Lithology' )
       @ser = DamsSeries.create( name: 'Test Series' )
       @cru = DamsCruise.create( name: 'Test Cruise' )
@@ -134,6 +135,7 @@ feature 'Visitor want to look at objects' do
            culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
            function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
            iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
+           anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@ana.pid}") }],
            lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
            series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
            cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],
@@ -236,6 +238,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Lithology')
       expect(page).to have_selector('li', text: 'Test Series')
       expect(page).to have_selector('li', text: 'Test Cruise')
+      expect(page).to have_selector('li', text: 'Test Anatomy')
 
     end
     it "should display curator-only linked metadata" do
@@ -264,7 +267,7 @@ feature 'Visitor want to look at objects' do
             polygon: 'Test Polygon' }],
         unit_attributes: [{ name: 'Test Unit', description: 'Test Description', code: 'tu',
             group: 'dams-curator', uri: 'http://example.com/' }],
-        note_attributes: [{ value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
+        note_attributes: [{value: 'test related publications', type: 'related publications'}, { value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
         custodialResponsibilityNote_attributes: [{ value: 'Test Custodial Responsibility Note' }],
         preferredCitationNote_attributes: [{ value: 'Test Preferred Citation Note' }],
         scopeContentNote_attributes: [{ value: 'Test Scope Content Note' }],
@@ -275,6 +278,7 @@ feature 'Visitor want to look at objects' do
         lithology_attributes: [{ name: 'Test Lithology' }],
         series_attributes: [{ name: 'Test Series' }],
         cruise_attributes: [{ name: 'Test Cruise' }],
+        anatomy_attributes: [{ name: 'Test Anatomy' }],
         commonName_attributes: [{ name: 'Test Common Name' }],
         scientificName_attributes: [{ name: 'Test Scientific Name' }],
         stylePeriod_attributes: [{ name: 'Test Style Period' }],
@@ -315,7 +319,9 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test Line')
       expect(page).to have_selector('p', text: 'Test Polygon')
       expect(page).to have_selector('li', text: 'Test Unit')
-
+      
+      expect(page).to have_content('Related Publications')
+      
       expect(page).to have_selector('p', text: 'Test Note')
       expect(page).to have_selector('p', text: 'Another Test Note')
       expect(page).to have_selector('p', text: 'Test Custodial Responsibility Note')
@@ -345,6 +351,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Lithology')
       expect(page).to have_selector('li', text: 'Test Series')
       expect(page).to have_selector('li', text: 'Test Cruise')
+      expect(page).to have_selector('li', text: 'Test Anatomy')
 
       expect(page).to_not have_selector('p', text: '85-8')
     end
@@ -594,13 +601,11 @@ describe "curator embargoed object view" do
     @damsUnit.delete
   end
 
-  it "should see the view content button and click on the button to see the download button" do
+  it "should not see the view content button" do
     sign_in_developer
     visit dams_object_path(@damsEmbObj.pid)
-    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
-    click_on "Yes, I would like to view this content."
-    expect(page).to have_link('', href:"/object/zz2765588d/_1.tif/download")
-   end
+    expect(page).to have_no_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
 end
 
 describe "Display Note fields in alphabetical order" do
