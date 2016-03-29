@@ -178,4 +178,26 @@ class DamsResourceController < ApplicationController
     data = export_to_API(@document)
     render :json => data
   end
+
+  def osf_push
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}", osf_date(@document))
+    document.title = osf_title(@document)
+    document.description = osf_description(@document)
+    document.publisher = osf_publisher
+    document.languages = osf_languages(@document)
+    document.tags = osf_mads_fields(@document)
+    osf_contributors(@document).each do |contributor|
+      document.add_contributor(contributor)
+    end
+
+    if document.valid?
+      api = ShareNotify::API.new
+      api.post(document.to_share.to_json)
+      redirect_to dams_object_path(params[:id]), notice: "Your record has been pushed to OSF Share Staging area."
+    else
+      redirect_to dams_object_path(params[:id]), alert: "Your record is not valid."
+    end
+  end
 end

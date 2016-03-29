@@ -8,6 +8,8 @@ gem 'solrizer', '~> 3.1.0' # locked
 gem 'blacklight_advanced_search', '~> 2.2.0' # locked
 gem 'kaminari', '~> 0.15.1' # locked (0.16.0+ breaks pagination)
 
+gem 'share_notify', '~> 0.2.0'
+
 # private fork of solrizer-fedora with auto-commit disabled
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
 gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
@@ -55,7 +57,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.2' # locked (2.99+ breaks rspec_junit_formatter)
   gem 'simplecov', '~> 0.11.1'
   gem 'unicorn', '~> 5.0.1'
-  gem 'rspec_junit_formatter', '~> 0.2.3'
+ # gem 'rspec_junit_formatter', '~> 0.2.3'
   gem "codeclimate-test-reporter", '~> 0.4.8', require: nil
 end
 
