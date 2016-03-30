@@ -235,3 +235,26 @@ feature "Vistor wants to view the OSF API" do
       expect(page).to have_content("http://library.ucsd.edu/dc")
     end
 end
+
+feature "Vistor wants to push a record to OSF Share Staging area" do
+   before do
+      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+      @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+      @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection_osf.rdf.xml').read
+      @provCollection.save!
+      solr_index (@provCollection.pid)   
+    end
+    after do
+      @provCollection.delete
+      @unit.delete
+    end
+    scenario 'should call ShareNotify' do
+      sign_in_developer
+      visit osf_push_dams_collection_path @provCollection.pid
+      
+      mock_document = double("new document")
+      mock_api = double("new api")
+      ShareNotify::PushDocument.stub(:new).with("http://library.ucsd.edu/dc/collection/uu8056206n") {mock_document}
+      ShareNotify::API.stub(:new) {mock_api}
+    end
+end
