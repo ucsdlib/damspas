@@ -78,25 +78,27 @@ module Dams
 			if dams_data != nil
 		    dams_data.each do |datum|
 		      date = JSON.parse(datum)
-		      osf_data = Time.now
-		      osf_data = date['beginDate'] if date['type'] == 'issued'
+		      if date['type'] == 'issued'
+						d_date = date['beginDate']|| ''
+						osf_data = DateTime.new(d_date.to_i,1,1) if d_date.match( '^\d{4}$' )
+					end
 		    end
 		  end
-		  osf_data
+		  osf_data = (osf_data.is_a?(Time) || osf_data.is_a?(DateTime)) ? osf_data : Time.now
 		end
 
 		def osf_languages(document)
 			field_name = "language_tesim"
 			dams_data = document["#{field_name}"]
       langs = dams_data || []
-      osf_data = ''
+      osf_data = []
 
       if langs.class == Array
       	langs.each do |lang|  
-      		osf_data +=	lang
+      		osf_data <<	lang
       	end
       elsif langs.class == String
-      	osf_data +=	langs
+      	osf_data <<	langs
       end
 			osf_data 
 		end
@@ -133,7 +135,7 @@ module Dams
 		end
 
 		def osf_publisher
-			osf_data = { "name": "UC San Diego Library, Digital Collections", "uri": "http://library.ucsd.edu/dc"}
+			osf_data = {"name": "UC San Diego Library, Digital Collections", "uri": "http://library.ucsd.edu/dc"}
 		end
 
 		def export_to_API(document)
