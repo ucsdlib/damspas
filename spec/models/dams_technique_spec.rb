@@ -38,11 +38,11 @@ describe DamsTechnique do
   </dams:Technique>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have techniqueElement" do
-    subject.techniqueElement.first.elementValue.should == 'Impasto'
+    expect(subject.techniqueElement.first.elementValue).to eq('Impasto')
   end
 
   it "should be able to build a new techniqueElement" do

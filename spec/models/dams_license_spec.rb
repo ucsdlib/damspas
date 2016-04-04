@@ -37,22 +37,22 @@ describe DamsLicense do
   </dams:License>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
 
   end
 
   it "should have restriction" do
-    subject.restrictionBeginDate.should == ["1993-12-31"]
-    subject.restrictionEndDate.should == ["2043-12-31"]
-    subject.restrictionType.should == ["display"]
+    expect(subject.restrictionBeginDate).to eq(["1993-12-31"])
+    expect(subject.restrictionEndDate).to eq(["2043-12-31"])
+    expect(subject.restrictionType).to eq(["display"])
     
-    subject.restriction_node[0].beginDate.should == ["1993-12-31"]
-    subject.restriction_node[0].endDate.should == ["2043-12-31"]
-    subject.restriction_node[0].type.should == ["display"]    
+    expect(subject.restriction_node[0].beginDate).to eq(["1993-12-31"])
+    expect(subject.restriction_node[0].endDate).to eq(["2043-12-31"])
+    expect(subject.restriction_node[0].type).to eq(["display"])    
   end
 
   it "should be able to build a new restriction" do
     subject.restriction_node.build
-    subject.restriction_node.size.should == 2
+    expect(subject.restriction_node.size).to eq(2)
   end   
 end

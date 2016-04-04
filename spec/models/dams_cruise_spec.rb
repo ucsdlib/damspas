@@ -38,11 +38,11 @@ describe DamsCruise do
   </dams:Cruise>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have cruiseElement" do
-    subject.cruiseElement.first.elementValue.should == 'Test Cruise'
+    expect(subject.cruiseElement.first.elementValue).to eq('Test Cruise')
   end
 
   it "should be able to build a new cruiseElement" do

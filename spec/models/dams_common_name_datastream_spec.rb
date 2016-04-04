@@ -42,28 +42,28 @@ describe DamsCommonNameDatastream do
   </dams:CommonName>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     describe "a new instance" do
       subject { DamsCommonNameDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a name" do
         subject.name = "Baseball"
-        subject.name.should == ["Baseball"]
+        expect(subject.name).to eq(["Baseball"])
       end
 
       it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "Original"
         subject.commonNameElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Test"]
+        expect(subject.name).to eq(["Test"])
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
         subject.commonNameElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["Original"]
+        expect(subject.name).to eq(["Original"])
       end
     end
 
@@ -75,26 +75,26 @@ END
       end
 
       it "should have name" do
-        subject.name.should == ["thale-cress"]
+        expect(subject.name).to eq(["thale-cress"])
       end
 
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd6792855f"
+        expect(subject.scheme.first.pid).to eq("bd6792855f")
       end
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of Dams::DamsCommonName::DamsCommonNameElement
-        list[0].elementValue.should == "thale-cress"
-        list.size.should == 1
+        expect(list[0]).to be_kind_of Dams::DamsCommonName::DamsCommonNameElement
+        expect(list[0].elementValue).to eq("thale-cress")
+        expect(list.size).to eq(1)
       end
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["common_name_tesim"].should == ["thale-cress"]
-        solr_doc["common_name_element_tesim"].should == ["thale-cress"]
-        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd6792855f"]
-        solr_doc["scheme_name_tesim"].should == ["Common Names"]
+        expect(solr_doc["common_name_tesim"]).to eq(["thale-cress"])
+        expect(solr_doc["common_name_element_tesim"]).to eq(["thale-cress"])
+        expect(solr_doc["scheme_tesim"]).to eq(["#{Rails.configuration.id_namespace}bd6792855f"])
+        expect(solr_doc["scheme_name_tesim"]).to eq(["Common Names"])
       end
     end
 

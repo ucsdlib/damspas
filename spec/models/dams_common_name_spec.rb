@@ -38,11 +38,11 @@ describe DamsCommonName do
   </dams:CommonName>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have commonNameElement" do
-    subject.commonNameElement.first.elementValue.should == 'thale-cress'
+    expect(subject.commonNameElement.first.elementValue).to eq('thale-cress')
   end
 
   it "should be able to build a new commonNameElement" do

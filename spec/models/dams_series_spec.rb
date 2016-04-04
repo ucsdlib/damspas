@@ -38,11 +38,11 @@ describe DamsSeries do
   </dams:Series>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have seriesElement" do
-    subject.seriesElement.first.elementValue.should == 'Test Series'
+    expect(subject.seriesElement.first.elementValue).to eq('Test Series')
   end
 
   it "should be able to build a new seriesElement" do

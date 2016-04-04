@@ -10,15 +10,15 @@ describe Dams::SolrSearchParamsLogic do
   describe "#scope_search_to_unit" do
     it "should scope the search to a unit using an fq" do
       unit = double(:id => 'bXXXXXXX7')
-      DamsUnit.stub(:find).and_return(unit) 
-      subject.stub(:fq_for_unit => 'zzz')
-      subject.stub(:blacklight_config => double(:unit_id_solr_field => 'unit_id' ))
+      allow(DamsUnit).to receive(:find).and_return(unit) 
+      allow(subject).to receive_messages(:fq_for_unit => 'zzz')
+      allow(subject).to receive_messages(:blacklight_config => double(:unit_id_solr_field => 'unit_id' ))
 
       params = { :unit => 'bXXXXXXX7'}
       output = {}
       subject.scope_search_to_unit(output, params)
 
-      output[:fq].should include('zzz')
+      expect(output[:fq]).to include('zzz')
     end
   end
 

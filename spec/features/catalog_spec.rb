@@ -48,8 +48,8 @@ feature 'Visitor wants to search' do
     idx1 = page.body.index('QE8iWjhafTRpc Object 1')
     idx2 = page.body.index('QE8iWjhafTRpc Object 2')
     idx3 = page.body.index('QE8iWjhafTRpc Object 3')
-    idx2.should > idx1
-    idx3.should > idx2
+    expect(idx2).to be > idx1
+    expect(idx3).to be > idx2
 
     click_on "QE8iWjhafTRpc Object 1"
     expect(page).to have_selector('div.search-results-pager')
@@ -81,8 +81,8 @@ feature 'Visitor wants to search' do
     idx1 = page.body.index('QE8iWjhafTRpc Object 3')  # no date
     idx2 = page.body.index('QE8iWjhafTRpc Object 2')  # 1999
     idx3 = page.body.index('QE8iWjhafTRpc Object 1')  # 2000-2008
-    idx3.should >( idx2 )
-    idx2.should >( idx1 )
+    expect(idx3).to be >( idx2 )
+    expect(idx2).to be >( idx1 )
 
     click_on "QE8iWjhafTRpc Object 3"
     expect(page).to have_selector('div.search-results-pager')
@@ -102,14 +102,14 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector('.btn', :text => 'Z')
     idx1 = page.body.index('ZZZ Test Subject 1')
     idx2 = page.body.index('ZZZ Test Subject 2')
-    idx2.should >( idx1 )
+    expect(idx2).to be >( idx1 )
     
     click_on("Sort 1-9", match: :first)
     expect(page).to have_link('A', href: '/search/facet/subject_topic_sim?facet.prefix=A&facet.sort=index' )
     expect(page).to have_selector('.btn', :text => 'Z')
     idx1 = page.body.index('ZZZ Test Subject 1')
     idx2 = page.body.index('ZZZ Test Subject 2')
-    idx1.should <( idx2 )
+    expect(idx1).to be <( idx2 )
   end  
 
   scenario 'search results paging' do
@@ -239,7 +239,7 @@ feature "Search and browse custom subject facet links" do
     @series.delete
   end
 
-  pending 'Browse by anatomy' do
+  skip 'Browse by anatomy' do
     sign_in_developer
     visit catalog_facet_path("subject_anatomy_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
     expect(page).to have_content('ZZZ Test Anatomy')
@@ -314,8 +314,8 @@ end
 feature 'Visitor wants to download JSON' do
   scenario 'Performing a search' do
     visit catalog_index_path( {:q => 'sample', :format => 'json'} )
-    page.status_code.should == 200
-    page.response_headers['Content-Type'].should include 'application/json'
+    expect(page.status_code).to eq(200)
+    expect(page.response_headers['Content-Type']).to include 'application/json'
   end
 end
 

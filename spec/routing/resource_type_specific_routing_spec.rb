@@ -6,8 +6,8 @@ describe 'resources should be routed to resource-type specific paths' do
   it "should route SolrDocuments for DamsObjects correctly" do
   	doc = SolrDocument.new(:id => 'zzz', :has_model_ssim => ['info:fedora/afmodel:DamsObject'], :object_profile_ssm => '{"datastreams": {} }')
 
-    {:get => polymorphic_path(doc)}.
-      should route_to(:controller => "dams_objects", :action => "show", :id => 'zzz')
+    expect({:get => polymorphic_path(doc)}).
+      to route_to(:controller => "dams_objects", :action => "show", :id => 'zzz')
   end	
 
 end

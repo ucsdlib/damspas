@@ -37,10 +37,10 @@ describe MadsConferenceName do
   </mads:CorporateName>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
   it "should have nameElement" do
-    subject.nameValue.should == 'American Library Association. Annual Conference'
+    expect(subject.nameValue).to eq('American Library Association. Annual Conference')
   end
   it "should be able to build a new nameElement" do
     subject.elementList.nameElement.build

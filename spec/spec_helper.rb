@@ -51,6 +51,17 @@ RSpec.configure do |config|
   config.after(:suite) do
     cleanout_solr_and_fedora
   end
+
+  # rspec-rails 3 will no longer automatically infer an example group's spec type
+  # from the file location. You can explicitly opt-in to the feature using this
+  # config option.
+  # To explicitly tag specs without using automatic inference, set the `:type`
+  # metadata manually:
+  #
+  #     describe ThingsController, :type => :controller do
+  #       # Equivalent to being in spec/controllers
+  #     end
+  config.infer_spec_type_from_file_location!
 end
 # This loads the Fedora and Solr config info from /config/fedora.yml
 # You can load it from a different location by passing a file path as an argument.
@@ -65,11 +76,11 @@ def cleanout_solr_and_fedora
 end
 def test_attribute_xpath(datastream, name, xpath, value='blah')
    datastream.send(name.to_s+'=', value)
-   datastream.send(name).should == [value]
-   datastream.send(name).xpath.should == xpath
+   expect(datastream.send(name)).to eq([value])
+   expect(datastream.send(name).xpath).to eq(xpath)
 end
 def test_existing_attribute(datastream, name, value='blah')
-   datastream.send(name).should == [value]
+   expect(datastream.send(name)).to eq([value])
 end
 
 def solr_index (pid)
