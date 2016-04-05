@@ -195,9 +195,9 @@ class DamsResourceController < ApplicationController
     if document.valid?
       api = ShareNotify::API.new
       api.post(document.to_share.to_json)
-      redirect_to dams_object_path(params[:id]), notice: "Your record has been pushed to OSF Share Staging area."
+      redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share Staging area."
     else
-      redirect_to dams_object_path(params[:id]), alert: "Your record is not valid."
+      redirect_to dams_collection_path(params[:id]), alert: "Your record is not valid."
     end
   end
 
