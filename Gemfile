@@ -53,7 +53,8 @@ group :development, :test do
   gem 'capybara', '~> 2.6.0'
   gem 'launchy', '~> 2.4.3'
   gem "minitest", '~> 5.8.4'
-  gem 'rspec-rails', '~> 2.14.2' # locked (2.99+ breaks rspec_junit_formatter)
+  gem 'rspec-rails', '~> 3.0' 
+  gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.11.1'
   gem 'unicorn', '~> 5.0.1'
   gem 'rspec_junit_formatter', '~> 0.2.3'

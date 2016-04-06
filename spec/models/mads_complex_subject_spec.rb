@@ -122,12 +122,12 @@ describe MadsComplexSubject do
   </mads:ComplexSubject>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have topicElement" do
-    subject.topic.first.name.should == ['World politics']
-    subject.topic[0].class.should == MadsTopicInternal
+    expect(subject.topic.first.name).to eq(['World politics'])
+    expect(subject.topic[0].class).to eq(MadsTopicInternal)
     # TO DO -need to convert the class RDF::URI into MadsTopicInternal
     #subject.topic[1].class.should == MadsTopicInternal
   end

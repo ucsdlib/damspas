@@ -254,7 +254,7 @@ feature "Vistor wants to push a record to OSF Share Staging area" do
       
       mock_document = double("new document")
       mock_api = double("new api")
-      ShareNotify::PushDocument.stub(:new).with("http://library.ucsd.edu/dc/collection/uu8056206n") {mock_document}
-      ShareNotify::API.stub(:new) {mock_api}
+      allow(ShareNotify::PushDocument).to receive(:new).with("http://library.ucsd.edu/dc/collection/uu8056206n") {mock_document}
+      allow(ShareNotify::API).to receive(:new) {mock_api}
     end
 end

@@ -9,27 +9,27 @@ describe DamsUnitDatastream do
       subject { DamsUnitDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXX24")
       end
 
       it "should have a name" do
         subject.name = "Test Unit"
-        subject.name.should == ["Test Unit"]
+        expect(subject.name).to eq(["Test Unit"])
       end
 
       it "should have a description" do
         subject.description = "Test Unit Description"
-        subject.description.should == ["Test Unit Description"]
+        expect(subject.description).to eq(["Test Unit Description"])
       end
 
       it "should have a code" do
         subject.code = "xyz"
-        subject.code.should == ["xyz"]
+        expect(subject.code).to eq(["xyz"])
       end
 
       it "should have a uri" do
         subject.uri = "http://library.ucsd.edu/units/test/"
-        subject.uri.should == ["http://library.ucsd.edu/units/test/"]
+        expect(subject.uri).to eq(["http://library.ucsd.edu/units/test/"])
       end
 
     end
@@ -43,23 +43,23 @@ describe DamsUnitDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb45454545"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bb45454545")
       end
 
       it "should have a name" do
-        subject.name.should == ["Research Data Curation Program"]
+        expect(subject.name).to eq(["Research Data Curation Program"])
       end
 
       it "should have a description" do
-        subject.description.should == ["Research Cyberinfrastructure: the hardware, software, and people that support scientific research."]
+        expect(subject.description).to eq(["Research Cyberinfrastructure: the hardware, software, and people that support scientific research."])
       end
 
       it "should have a code" do
-        subject.code.should == ["rdcp"]
+        expect(subject.code).to eq(["rdcp"])
       end
 
       it "should have a uri" do
-        subject.uri.should == ["http://rci.ucsd.edu/"]
+        expect(subject.uri).to eq(["http://rci.ucsd.edu/"])
       end
 
     end

@@ -47,22 +47,22 @@ describe DamsOtherRight do
   </dams:OtherRights>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
 
   end
   
   it "should have permission" do
-    subject.permissionBeginDate.should == ["2012-01-01"]
-    subject.permissionEndDate.should == ["2012-12-31"]
-    subject.permissionType.should == ["display"]
+    expect(subject.permissionBeginDate).to eq(["2012-01-01"])
+    expect(subject.permissionEndDate).to eq(["2012-12-31"])
+    expect(subject.permissionType).to eq(["display"])
     
-    subject.permission_node[0].beginDate.should == ["2012-01-01"]
-    subject.permission_node[0].endDate.should == ["2012-12-31"]
-    subject.permission_node[0].type.should == ["display"]    
+    expect(subject.permission_node[0].beginDate).to eq(["2012-01-01"])
+    expect(subject.permission_node[0].endDate).to eq(["2012-12-31"])
+    expect(subject.permission_node[0].type).to eq(["display"])    
   end
 
   it "should be able to build a new permission" do
     subject.permission_node.build
-    subject.permission_node.size.should == 2
+    expect(subject.permission_node.size).to eq(2)
   end  
 end

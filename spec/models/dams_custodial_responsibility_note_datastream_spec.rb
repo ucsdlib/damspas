@@ -8,20 +8,20 @@ describe DamsCustodialResponsibilityNoteDatastream do
     describe "a new instance" do
       subject { DamsCustodialResponsibilityNoteDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a value" do
         subject.value = "Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"
-        subject.value.should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"]
+        expect(subject.value).to eq(["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"])
       end   
       it "should have type" do
         subject.type = "custodial_history"
-        subject.type.should == ["custodial_history"]
+        expect(subject.type).to eq(["custodial_history"])
       end   
       it "should have displayLabel" do
         subject.displayLabel = "Digital object made available by"
-        subject.displayLabel.should == ["Digital object made available by"]
+        expect(subject.displayLabel).to eq(["Digital object made available by"])
       end               
     end
 
@@ -33,23 +33,23 @@ describe DamsCustodialResponsibilityNoteDatastream do
       end
            
       it "should have value" do
-        subject.value.should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"]
+        expect(subject.value).to eq(["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"])
       end
 
       it "should have a type" do
-        subject.type.should == ["custodial_history"]
+        expect(subject.type).to eq(["custodial_history"])
       end
  
       it "should have a displayLabel" do
-        subject.displayLabel.should == ["Digital object made available by"]
+        expect(subject.displayLabel).to eq(["Digital object made available by"])
       end
            
          
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["custodialResponsibilityNote_value_tesim"].should == ["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"]
-        solr_doc["custodialResponsibilityNote_type_tesim"].should == ["custodial_history"]
-        solr_doc["custodialResponsibilityNote_displayLabel_tesim"].should == ["Digital object made available by"]
+        expect(solr_doc["custodialResponsibilityNote_value_tesim"]).to eq(["Mandeville Special Collections Library, University of California, San Diego, La Jolla, 92093-0175 (http://library.ucsd.edu/locations/mscl/)"])
+        expect(solr_doc["custodialResponsibilityNote_type_tesim"]).to eq(["custodial_history"])
+        expect(solr_doc["custodialResponsibilityNote_displayLabel_tesim"]).to eq(["Digital object made available by"])
       end    
     end
   end

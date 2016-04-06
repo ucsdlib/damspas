@@ -38,7 +38,7 @@ describe RandomController do
     it 'get the random url' do
       get :index
       expect(response.status).to eq( 200 )
-      response.header['Content-Type'].should match /json/
+      expect(response.header['Content-Type']).to match /json/
       
       random_obj_id = response.body.to_s[/\w{10}$/]
       expect(@items).to include(random_obj_id)

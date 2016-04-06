@@ -24,12 +24,12 @@ describe CatalogController do
   
     it "should have search results for a poor query with multiple key words" do
       get :index, :q => '"Spellchecl Testx"', :qf => 'title_tesim'
-      assigns_response.spelling.words.size.should > 0
+      expect(assigns_response.spelling.words.size).to be > 0
     end
   
     it "should have a collation phrase spelling suggestion for a poor query with multiple key words, and the original query should not be altered" do
       get :index, :q => '"Spellchecl Testx"', :qf => 'title_tesim', 'spellcheck.q' => '"Spellchecl Testx"'
-      assigns_response.params[:q].downcase.should == '"spellchecl testx"'
+      expect(assigns_response.params[:q].downcase).to eq('"spellchecl testx"')
     end
 
   end

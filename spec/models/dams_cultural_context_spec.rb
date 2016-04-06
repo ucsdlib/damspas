@@ -38,11 +38,11 @@ describe DamsCulturalContext do
   </dams:CulturalContext>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have culturalContextElement" do
-    subject.culturalContextElement.first.elementValue.should == 'Dutch'
+    expect(subject.culturalContextElement.first.elementValue).to eq('Dutch')
   end
 
   it "should be able to build a new culturalContextElement" do

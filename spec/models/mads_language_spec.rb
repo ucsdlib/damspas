@@ -38,11 +38,11 @@ describe MadsLanguage do
   </mads:Language>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have languageElement" do
-    subject.languageElement.first.elementValue.should == 'French'
+    expect(subject.languageElement.first.elementValue).to eq('French')
   end
 
   it "should be able to build a new languageElement" do
