@@ -6,7 +6,7 @@ feature 'Visitor wants to look at collections' do
     @prov = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", provenanceCollectionPartURI: @part.pid, visibility: "public"
     @part.provenanceCollectionURI = @prov.pid
     @part.save
-    @assm = DamsAssembledCollection.create titleValue: "Sample Assembled Collection", visibility: "public"
+    @assm = DamsAssembledCollection.create titleValue: "Sample('s): Assembled Collection", visibility: "public"
     @priv = DamsProvenanceCollection.create titleValue: "curator-only collection", visibility: "curator"
 
     solr_index @prov.pid
@@ -48,12 +48,12 @@ feature 'Visitor wants to look at collections' do
 
   scenario 'collections search without query' do
     visit dams_collections_path
-    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('a', :text => "Sample('s): Assembled Collection")
     expect(page).to have_selector('a', :text => 'Sample Provenance Collection')
   end
   scenario 'collections search with query' do
     visit dams_collections_path( {:q => 'assembled'} )
-    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('a', :text => "Sample('s): Assembled Collection")
     expect(page).not_to have_selector('a', :text => 'Sample Provenance Collection')
   end
   scenario 'curator view' do
@@ -65,7 +65,7 @@ feature 'Visitor wants to look at collections' do
     sign_in_developer
     visit dams_collection_path @part.pid
     expect(page).to have_link('Sample Provenance Collection') 
-    expect(page).to have_link('Sample Assembled Collection')
+    expect(page).to have_link("Sample('s): Assembled Collection")
     expect(page).not_to have_link('Sample Provenance Part', :href => "#{dams_collection_path @part.pid}" )
     expect(page).not_to have_link('curator-only collection')
   end
