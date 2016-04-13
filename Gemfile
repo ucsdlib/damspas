@@ -46,6 +46,8 @@ gem 'nokogiri', '1.6.7.2'
 gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
 gem 'uglifier', '~> 2.7.2'
 
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'sass-rails', '~> 5.0.4'
   gem 'coffee-rails', '~> 4.1.1'
