@@ -38,11 +38,11 @@ describe DamsLithology do
   </dams:Lithology>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have lithologyElement" do
-    subject.lithologyElement.first.elementValue.should == 'Test Lithology'
+    expect(subject.lithologyElement.first.elementValue).to eq('Test Lithology')
   end
 
   it "should be able to build a new lithologyElement" do

@@ -38,46 +38,46 @@ describe DamsLicenseDatastream do
   </dams:License>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     describe "instance populated in-memory" do
 
       subject { DamsLicenseDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXX24")
       end
       it "should have a note" do
         subject.note = "Creative Commons Attribution 3.0 Unported (CC BY 3.0)"
-        subject.note.should == ["Creative Commons Attribution 3.0 Unported (CC BY 3.0)"]
+        expect(subject.note).to eq(["Creative Commons Attribution 3.0 Unported (CC BY 3.0)"])
       end
       it "should have a uri" do
         subject.uri = "http://creativecommons.org/licenses/by/3.0/"
-        subject.uri.should == ["http://creativecommons.org/licenses/by/3.0/"]
+        expect(subject.uri).to eq(["http://creativecommons.org/licenses/by/3.0/"])
       end
       it "should have a restriction begin date" do
         subject.restrictionBeginDate = "1993-12-31"
-        subject.restrictionBeginDate.should == ["1993-12-31"]
+        expect(subject.restrictionBeginDate).to eq(["1993-12-31"])
       end
       it "should have a restriction end date" do
         subject.restrictionEndDate = "2043-12-31"
-        subject.restrictionEndDate.should == ["2043-12-31"]
+        expect(subject.restrictionEndDate).to eq(["2043-12-31"])
       end
       it "should have a restriction type" do
         subject.restrictionType = "display"
-        subject.restrictionType.should == ["display"]
+        expect(subject.restrictionType).to eq(["display"])
       end
       it "should have a permission begin date" do
         subject.permissionBeginDate = "1993-12-31"
-        subject.permissionBeginDate.should == ["1993-12-31"]
+        expect(subject.permissionBeginDate).to eq(["1993-12-31"])
       end
       it "should have a permission end date" do
         subject.permissionEndDate = "2043-12-31"
-        subject.permissionEndDate.should == ["2043-12-31"]
+        expect(subject.permissionEndDate).to eq(["2043-12-31"])
       end
       it "should have a permission type" do
         subject.permissionType = "display"
-        subject.permissionType.should == ["display"]
+        expect(subject.permissionType).to eq(["display"])
       end
     end
 
@@ -90,29 +90,29 @@ END
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb05050505"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bb05050505")
       end
       it "should have a note" do
-        subject.note.should == ["Creative Commons Attribution 3.0 Unported (CC BY 3.0)"]
+        expect(subject.note).to eq(["Creative Commons Attribution 3.0 Unported (CC BY 3.0)"])
       end
       it "should have a uri" do
-        subject.uri.should == ["http://creativecommons.org/licenses/by/3.0/"]
+        expect(subject.uri).to eq(["http://creativecommons.org/licenses/by/3.0/"])
       end
       it "should have a permission begin date" do
-        subject.permissionBeginDate.should == ["1993-12-31"]
+        expect(subject.permissionBeginDate).to eq(["1993-12-31"])
       end
       it "should have a permission end date" do
-        subject.permissionEndDate.should == ["2043-12-31"]
+        expect(subject.permissionEndDate).to eq(["2043-12-31"])
       end
       it "should have a permission type" do
-        subject.permissionType.should == ["display"]
+        expect(subject.permissionType).to eq(["display"])
       end
 
       it "should have solr fields" do
         solr_doc = subject.to_solr
-        solr_doc["permissionType_tesim"].should == ["display"]
-        solr_doc["permissionBeginDate_tesim"].should == ["1993-12-31"]
-        solr_doc["permissionEndDate_tesim"].should == ["2043-12-31"]
+        expect(solr_doc["permissionType_tesim"]).to eq(["display"])
+        expect(solr_doc["permissionBeginDate_tesim"]).to eq(["1993-12-31"])
+        expect(solr_doc["permissionEndDate_tesim"]).to eq(["2043-12-31"])
       end
       
     end

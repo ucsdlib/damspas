@@ -38,11 +38,11 @@ describe DamsBuiltWorkPlace do
   </dams:BuiltWorkPlace>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have builtWorkPlaceElement" do
-    subject.builtWorkPlaceElement.first.elementValue.should == 'The Getty Center'
+    expect(subject.builtWorkPlaceElement.first.elementValue).to eq('The Getty Center')
   end
 
   it "should be able to build a new builtWorkPlaceElement" do

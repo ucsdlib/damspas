@@ -42,28 +42,28 @@ describe DamsLithologyDatastream do
   </dams:Lithology>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     describe "a new instance" do
       subject { DamsLithologyDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a name" do
         subject.name = "Baseball"
-        subject.name.should == ["Baseball"]
+        expect(subject.name).to eq(["Baseball"])
       end
 
       it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "Original"
         subject.lithologyElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Test"]
+        expect(subject.name).to eq(["Test"])
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
         subject.lithologyElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["Original"]
+        expect(subject.name).to eq(["Original"])
       end
     end
 
@@ -75,26 +75,26 @@ END
       end
 
       it "should have name" do
-        subject.name.should == ["Test Lithology"]
+        expect(subject.name).to eq(["Test Lithology"])
       end
 
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd1980525k"
+        expect(subject.scheme.first.pid).to eq("bd1980525k")
       end
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of Dams::DamsLithology::DamsLithologyElement
-        list[0].elementValue.should == "Test Lithology"
-        list.size.should == 1
+        expect(list[0]).to be_kind_of Dams::DamsLithology::DamsLithologyElement
+        expect(list[0].elementValue).to eq("Test Lithology")
+        expect(list.size).to eq(1)
       end
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["lithology_tesim"].should == ["Test Lithology"]
-        solr_doc["lithology_element_tesim"].should == ["Test Lithology"]
-        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd1980525k"]
-        solr_doc["scheme_name_tesim"].should == ["Lithology"]
+        expect(solr_doc["lithology_tesim"]).to eq(["Test Lithology"])
+        expect(solr_doc["lithology_element_tesim"]).to eq(["Test Lithology"])
+        expect(solr_doc["scheme_tesim"]).to eq(["#{Rails.configuration.id_namespace}bd1980525k"])
+        expect(solr_doc["scheme_name_tesim"]).to eq(["Lithology"])
       end
     end
 

@@ -9,17 +9,17 @@ describe MadsSchemeDatastream do
       subject { MadsSchemeDatastream.new(double('inner object', :pid=>'bd9386739x', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd9386739x"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bd9386739x")
       end
 
       it "should have a name" do
         subject.name = "Test Scheme Name"
-        subject.name.should == ["Test Scheme Name"]
+        expect(subject.name).to eq(["Test Scheme Name"])
       end
 
       it "should have a code" do
         subject.code = "Test Scheme Code"
-        subject.code.should == ["Test Scheme Code"]
+        expect(subject.code).to eq(["Test Scheme Code"])
       end
 
     end
@@ -33,15 +33,15 @@ describe MadsSchemeDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd9386739x"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bd9386739x")
       end
 
       it "should have a name" do
-        subject.name.should == ["Library of Congress Subject Headings"]
+        expect(subject.name).to eq(["Library of Congress Subject Headings"])
       end
 
       it "should have a code" do
-        subject.code.should == ["lcsh"]
+        expect(subject.code).to eq(["lcsh"])
       end
 
     end

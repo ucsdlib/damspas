@@ -38,11 +38,11 @@ describe DamsAnatomy do
   </dams:Anatomy>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have anatomyElement" do
-    subject.anatomyElement.first.elementValue.should == 'Test Anatomy'
+    expect(subject.anatomyElement.first.elementValue).to eq('Test Anatomy')
   end
 
   it "should be able to build a new anatomyElement" do

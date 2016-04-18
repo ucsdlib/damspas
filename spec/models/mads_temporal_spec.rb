@@ -37,11 +37,11 @@ describe MadsTemporal do
   </mads:Temporal>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
   
   it "should have temporalElement" do
-    subject.temporalElement.first.elementValue.should == '16th century'
+    expect(subject.temporalElement.first.elementValue).to eq('16th century')
   end
 
   it "should be able to build a new temporalElement" do

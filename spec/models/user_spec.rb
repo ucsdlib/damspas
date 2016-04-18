@@ -5,22 +5,22 @@ describe User do
   describe ".find_or_create_for_developer" do
     it "should create a User for a new patron" do
       token = { 'info' => { 'email' => nil } }
-      token.stub(:uid => "test_user", :provider => "developer")
+      allow(token).to receive_messages(:uid => "test_user", :provider => "developer")
       user = User.find_or_create_for_developer(token)
 
-      user.should be_persisted
-      user.provider.should == "developer"
-      user.uid.should == "test_user"
-      user.groups.should include('developer-authenticated')
+      expect(user).to be_persisted
+      expect(user.provider).to eq("developer")
+      expect(user.uid).to eq("test_user")
+      expect(user.groups).to include('developer-authenticated')
     end
 
     it "should reuse an existing User if the access token matches" do
 
       token = { 'info' => { 'email' => nil } }
-      token.stub(:uid => "test_user", :provider => "developer")
+      allow(token).to receive_messages(:uid => "test_user", :provider => "developer")
       user = User.find_or_create_for_developer(token)
 
-      lambda { User.find_or_create_for_developer(token) }.should_not change(User, :count) 
+      expect { User.find_or_create_for_developer(token) }.not_to change(User, :count) 
     
     end
   end
@@ -30,20 +30,20 @@ describe User do
     it "should create a User when a user is first authenticated" do
 
       token = { 'info' => { 'email' => nil } }
-      token.stub(:uid => "test_user", :provider => "shibboleth")
+      allow(token).to receive_messages(:uid => "test_user", :provider => "shibboleth")
       user = User.find_or_create_for_shibboleth(token)
 
-      user.should be_persisted
-      user.provider.should == "shibboleth"
-      user.uid.should == "test_user"
+      expect(user).to be_persisted
+      expect(user.provider).to eq("shibboleth")
+      expect(user.uid).to eq("test_user")
       
-      user.groups.should include('shibboleth-authenticated')
+      expect(user.groups).to include('shibboleth-authenticated')
     end
   end
 
   describe "#groups" do
     it "should default to 'unknown'" do
-      subject.groups.should == ['unknown']
+      expect(subject.groups).to eq(['unknown'])
     end
   end
 end

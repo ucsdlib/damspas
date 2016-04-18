@@ -49,10 +49,10 @@ describe MadsPersonalName do
   </mads:PersonalName>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
   it "should have givenNameElement" do
-    subject.givenNameValue.should == 'Jack O.'
+    expect(subject.givenNameValue).to eq('Jack O.')
   end
   it "should be able to build a new givenNameElement" do
     subject.elementList.givenNameElement.build

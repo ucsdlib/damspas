@@ -9,23 +9,23 @@ describe DamsProvenanceCollectionPartDatastream do
       subject { DamsProvenanceCollectionPartDatastream.new(double('inner object', :pid=>'xx25252525', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx25252525"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}xx25252525")
       end
       it "should have a title" do
         subject.titleValue = "May 2009"
-        subject.titleValue.should == "May 2009"
+        expect(subject.titleValue).to eq("May 2009")
       end
       it "should have a date" do
         subject.dateValue = "2009-05-03"
-        subject.dateValue.should == ["2009-05-03"]
+        expect(subject.dateValue).to eq(["2009-05-03"])
       end
       it "should have a visibility" do
         subject.visibility = "public"
-        subject.visibility.should == ["public"]
+        expect(subject.visibility).to eq(["public"])
       end
       it "should have a resource_type" do
         subject.resource_type = "text"
-        subject.resource_type.should == ["text"]
+        expect(subject.resource_type).to eq(["text"])
       end
     end
 
@@ -57,35 +57,35 @@ describe DamsProvenanceCollectionPartDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx25252525"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}xx25252525")
       end
       it "should have a title" do
-        subject.titleValue.should == "May 2009"
+        expect(subject.titleValue).to eq("May 2009")
       end
       it "should have a date" do
-        subject.beginDate.should == ["2009-05-03"]
-        subject.endDate.should == ["2009-05-31"]
+        expect(subject.beginDate).to eq(["2009-05-03"])
+        expect(subject.endDate).to eq(["2009-05-31"])
       end
       it "should have a visibility" do
-        subject.visibility.should == ["public"]
+        expect(subject.visibility).to eq(["public"])
       end
       it "should have a resource_type" do
-        subject.resource_type.should == ["text"]
+        expect(subject.resource_type).to eq(["text"])
       end
 
  	  it "should index fields" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should == ["May 2009"]
-        solr_doc["date_tesim"].should == ["2009-05-03","2009-05-31"]
-        solr_doc["visibility_tesim"].should == ["public"]
-        solr_doc["resource_type_tesim"].should == ["text"]
-        solr_doc["unit_code_tesim"].should == ["rdcp"]
+        expect(solr_doc["title_tesim"]).to eq(["May 2009"])
+        expect(solr_doc["date_tesim"]).to eq(["2009-05-03","2009-05-31"])
+        expect(solr_doc["visibility_tesim"]).to eq(["public"])
+        expect(solr_doc["resource_type_tesim"]).to eq(["text"])
+        expect(solr_doc["unit_code_tesim"]).to eq(["rdcp"])
       end
  	  it "should have notes" do
         solr_doc = subject.to_solr
-        solr_doc["note_tesim"].should include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
-        solr_doc["note_tesim"].should include "#{Rails.configuration.id_namespace}xx80808080"
-        solr_doc["note_tesim"].should include "Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        expect(solr_doc["note_tesim"]).to include "Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
+        expect(solr_doc["note_tesim"]).to include "#{Rails.configuration.id_namespace}xx80808080"
+        expect(solr_doc["note_tesim"]).to include "Linked note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end
       
       it "should have index notes" do
@@ -101,13 +101,13 @@ describe DamsProvenanceCollectionPartDatastream do
 		testIndexNoteFields solr_doc, "custodialResponsibilityNote","Linked custodial responsibility note: Electronic theses and dissertations submitted by UC San Diego students as part of their degree requirements and representing all UC San Diego academic programs."
       end  
       it "should have relationship" do
-        subject.relationship.first.name.first.pid.should == "xx08080808"
-        subject.relationship.first.role.first.pid.should == "xx55639754"
+        expect(subject.relationship.first.name.first.pid).to eq("xx08080808")
+        expect(subject.relationship.first.role.first.pid).to eq("xx55639754")
         solr_doc = subject.to_solr
-        solr_doc["name_tesim"].should include "Artist, Alice, 1966-"
+        expect(solr_doc["name_tesim"]).to include "Artist, Alice, 1966-"
       end       
       def testIndexNoteFields (solr_doc,fieldName,value)
-        solr_doc["#{fieldName}_tesim"].should include "#{value}"
+        expect(solr_doc["#{fieldName}_tesim"]).to include "#{value}"
       end    	 
     end
   end

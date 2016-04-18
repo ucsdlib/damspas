@@ -41,7 +41,7 @@ describe DamsStatuteDatastream do
   </dams:Statute>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     
     describe "instance populated in-memory" do
@@ -49,43 +49,43 @@ END
       subject { DamsStatuteDatastream.new(double('inner object', :pid=>'bbXXXXXX24', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXX24"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXX24")
       end
       it "should have a citation" do
         subject.citation = "Family Education Rights and Privacy Act (FERPA)"
-        subject.citation.should == ["Family Education Rights and Privacy Act (FERPA)"]
+        expect(subject.citation).to eq(["Family Education Rights and Privacy Act (FERPA)"])
       end
       it "should have a jurisdiction" do
         subject.jurisdiction = "us"
-        subject.jurisdiction.should == ["us"]
+        expect(subject.jurisdiction).to eq(["us"])
       end
       it "should have a note" do
         subject.note = "Limits disclosure of student information."
-        subject.note.should == ["Limits disclosure of student information."]
+        expect(subject.note).to eq(["Limits disclosure of student information."])
       end
       it "should have a restriction begin date" do
         subject.restrictionBeginDate = "1993-12-31"
-        subject.restrictionBeginDate.should == ["1993-12-31"]
+        expect(subject.restrictionBeginDate).to eq(["1993-12-31"])
       end
       it "should have a restriction end date" do
         subject.restrictionEndDate = "2043-12-31"
-        subject.restrictionEndDate.should == ["2043-12-31"]
+        expect(subject.restrictionEndDate).to eq(["2043-12-31"])
       end
       it "should have a restriction type" do
         subject.restrictionType = "display"
-        subject.restrictionType.should == ["display"]
+        expect(subject.restrictionType).to eq(["display"])
       end
       it "should have a permission begin date" do
         subject.permissionBeginDate = "1993-12-31"
-        subject.permissionBeginDate.should == ["1993-12-31"]
+        expect(subject.permissionBeginDate).to eq(["1993-12-31"])
       end
       it "should have a permission end date" do
         subject.permissionEndDate = "2043-12-31"
-        subject.permissionEndDate.should == ["2043-12-31"]
+        expect(subject.permissionEndDate).to eq(["2043-12-31"])
       end
       it "should have a permission type" do
         subject.permissionType = "display"
-        subject.permissionType.should == ["display"]
+        expect(subject.permissionType).to eq(["display"])
       end
     end
 
@@ -98,31 +98,31 @@ END
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bb05050505"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bb05050505")
       end
       it "should have a citation" do
-        subject.citation.should == ["Family Education Rights and Privacy Act (FERPA)"]
+        expect(subject.citation).to eq(["Family Education Rights and Privacy Act (FERPA)"])
       end
       it "should have a jurisdiction" do
-        subject.jurisdiction.should == ["us"]
+        expect(subject.jurisdiction).to eq(["us"])
       end
       it "should have a note" do
-        subject.note.should == ["Limits disclosure of student information."]
+        expect(subject.note).to eq(["Limits disclosure of student information."])
       end
       it "should have a restriciton begin date" do
-        subject.restrictionBeginDate.should == ["1993-12-31"]
+        expect(subject.restrictionBeginDate).to eq(["1993-12-31"])
       end
       it "should have a restriciton end date" do
-        subject.restrictionEndDate.should == ["2043-12-31"]
+        expect(subject.restrictionEndDate).to eq(["2043-12-31"])
       end
       it "should have a restriction type" do
-        subject.restrictionType.should == ["display"]
+        expect(subject.restrictionType).to eq(["display"])
       end
       it "should have solr fields" do
         solr_doc = subject.to_solr
-        solr_doc["restrictionType_tesim"].should == ["display"]
-        solr_doc["restrictionBeginDate_tesim"].should == ["1993-12-31"]
-        solr_doc["restrictionEndDate_tesim"].should == ["2043-12-31"]
+        expect(solr_doc["restrictionType_tesim"]).to eq(["display"])
+        expect(solr_doc["restrictionBeginDate_tesim"]).to eq(["1993-12-31"])
+        expect(solr_doc["restrictionEndDate_tesim"]).to eq(["2043-12-31"])
       end
     end
   end

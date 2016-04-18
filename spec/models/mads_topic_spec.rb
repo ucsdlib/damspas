@@ -37,11 +37,11 @@ describe MadsTopic do
   </mads:Topic>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have topicElement" do
-    subject.topicElement.first.elementValue.should == 'Socialism'
+    expect(subject.topicElement.first.elementValue).to eq('Socialism')
   end
 
   it "should be able to build a new topicElement" do

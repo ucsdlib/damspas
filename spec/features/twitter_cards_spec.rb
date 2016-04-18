@@ -28,26 +28,26 @@ feature "twitter cards" do
     preview = file_url(@obj,'_3.jpg')
 
     # twitter card and site info
-    page.should have_css 'meta[name="twitter:card"][content="summary"]', :visible => false
-    page.should have_css 'meta[name="twitter:site"][content="@ucsdlibrary"]', :visible => false
-    page.should have_css 'meta[property="og:site_name"][content="' + site + '"]', :visible => false
-    page.should have_css 'meta[property="og:url"][content="' + dams_object_url(@obj) + '"]', :visible => false
+    expect(page).to have_css 'meta[name="twitter:card"][content="summary"]', :visible => false
+    expect(page).to have_css 'meta[name="twitter:site"][content="@ucsdlibrary"]', :visible => false
+    expect(page).to have_css 'meta[property="og:site_name"][content="' + site + '"]', :visible => false
+    expect(page).to have_css 'meta[property="og:url"][content="' + dams_object_url(@obj) + '"]', :visible => false
 
     # title and description
-    page.should have_css 'meta[name="twitter:title"][content="' + title1 + '"]', :visible => false
-    page.should have_css 'meta[property="og:title"][content="' + title2 + '"]', :visible => false
-    page.should have_css 'meta[name="twitter:description"][content="' + desc + '"]', :visible => false
-    page.should have_css 'meta[property="og:description"][content="' + desc + '"]', :visible => false
+    expect(page).to have_css 'meta[name="twitter:title"][content="' + title1 + '"]', :visible => false
+    expect(page).to have_css 'meta[property="og:title"][content="' + title2 + '"]', :visible => false
+    expect(page).to have_css 'meta[name="twitter:description"][content="' + desc + '"]', :visible => false
+    expect(page).to have_css 'meta[property="og:description"][content="' + desc + '"]', :visible => false
 
     # image preview
-    page.should have_css 'meta[name="twitter:image"][content="' + preview + '"]', :visible => false
-    page.should have_css 'meta[property="og:image"][content="' + preview + '"]', :visible => false
+    expect(page).to have_css 'meta[name="twitter:image"][content="' + preview + '"]', :visible => false
+    expect(page).to have_css 'meta[property="og:image"][content="' + preview + '"]', :visible => false
   end
   scenario "collections should have meta tags" do
     visit dams_collection_path @col
 
     desc = 'Collection from the UC San Diego Library Digital Collections'
-    page.should have_css 'meta[name="twitter:description"][content="' + desc + '"]', :visible => false
-    page.should have_css 'meta[property="og:description"][content="' + desc + '"]', :visible => false
+    expect(page).to have_css 'meta[name="twitter:description"][content="' + desc + '"]', :visible => false
+    expect(page).to have_css 'meta[property="og:description"][content="' + desc + '"]', :visible => false
   end
 end

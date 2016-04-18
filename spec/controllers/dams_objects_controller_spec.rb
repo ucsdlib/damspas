@@ -24,12 +24,12 @@ describe DamsObjectsController do
                            "timestamp":"2015-02-04T04:22:19-0500",
                            "request":"\/objects\/bb80808080\/mint_doi",
                            "status":"SUCCESS" }' )
-      subject.stub(:dams_post).and_return(json)
-      subject.stub(:authorize!).and_return(true)
+      allow(subject).to receive(:dams_post).and_return(json)
+      allow(subject).to receive(:authorize!).and_return(true)
 
       sign_in User.create({:provider => 'developer'})
       get :ezid, { id: @obj.pid }
-      flash[:notice].should include "DOI minted"
+      expect(flash[:notice]).to include "DOI minted"
     end
     it "should should report error when minting DOI fails" do
       json = JSON.parse( '{"statusCode":500,
@@ -38,12 +38,12 @@ describe DamsObjectsController do
                            "timestamp":"2015-02-04T04:22:19-0500",
                            "request":"\/objects\/bb80808080\/mint_doi",
                            "status":"ERROR"}' )
-      subject.stub(:dams_post) { json }
-      subject.stub(:authorize!).and_return(true)
+      allow(subject).to receive(:dams_post) { json }
+      allow(subject).to receive(:authorize!).and_return(true)
 
       sign_in User.create! ({:provider => 'developer'})
       get :ezid, { id: @obj.pid }
-      flash[:alert].should include "Minting DOI failed"
+      expect(flash[:alert]).to include "Minting DOI failed"
     end
   end
 
@@ -53,7 +53,7 @@ describe DamsObjectsController do
       @request.env['HTTP_REFERER'] = ref
       get :show, { id: @obj.pid, counter: 1 }
       expect(response.status).to eq( 302 )
-      response.should redirect_to action: :show, id: @obj.pid
+      expect(response).to redirect_to action: :show, id: @obj.pid
       expect(session[:search_results]).to eq(ref)
     end
     it "should handle pages with external referrers" do

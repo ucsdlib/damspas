@@ -122,7 +122,7 @@ describe MadsComplexSubjectDatastream do
   </mads:ComplexSubject>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     
 	  describe "an instance with content" do
@@ -132,11 +132,11 @@ END
 	      subject
 	    end
 	    it "should have a subject" do
-	      subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXX5"
+	      expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXX5")
 	    end
 	
 	    it "should have fields" do
-	      subject.name.should == ["Academic dissertations"]
+	      expect(subject.name).to eq(["Academic dissertations"])
 	    end
 	  end
 	  describe "an instance with an element list" do
@@ -146,20 +146,20 @@ END
 	      subject
 	    end
 	    it "should have a subject" do
-	      subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXX5"
+	      expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXX5")
 	    end
 	
 	    it "should have fields" do
 	      list = subject.componentList	      
-		  "#{list[0].class.name}".should == "MadsTopicInternal"
-          list[0].name.should == ["African Americans"]  
-          "#{list[1].class.name}".should == "MadsTopicInternal"
-          list[1].name.should == ["Relations with Mexican Americans"]   
-          "#{list[2].class.name}".should == "MadsTemporalInternal"
-          list[2].name.should == ["20th Century"]  
-          "#{list[3].class.name}".should == "MadsGenreFormInternal"
-          list[3].name.should == ["genreFormValue"]        
-          list.size.should == 4
+		  expect("#{list[0].class.name}").to eq("MadsTopicInternal")
+          expect(list[0].name).to eq(["African Americans"])  
+          expect("#{list[1].class.name}").to eq("MadsTopicInternal")
+          expect(list[1].name).to eq(["Relations with Mexican Americans"])   
+          expect("#{list[2].class.name}").to eq("MadsTemporalInternal")
+          expect(list[2].name).to eq(["20th Century"])  
+          expect("#{list[3].class.name}").to eq("MadsGenreFormInternal")
+          expect(list[3].name).to eq(["genreFormValue"])        
+          expect(list.size).to eq(4)
 	    end
 	  end
 	  
@@ -171,29 +171,29 @@ END
 	      end
 	            
 	      it "should have name" do
-	        subject.name.should == ["Galaxies--Clusters"]
+	        expect(subject.name).to eq(["Galaxies--Clusters"])
 	      end
 	 
 	      it "should have an scheme" do
-	        subject.scheme.first.pid.should == "bd9386739x"
+	        expect(subject.scheme.first.pid).to eq("bd9386739x")
 	      end
 	
 	    it "should have fields" do
 	      list = subject.componentList
-	      "#{list[0].class.name}".should == "MadsTopicInternal"
-	      list[0].name.should == ["Galaxies"]
-	      "#{list[1].class.name}".should == "MadsTopicInternal"
-	      list[1].name.should == ["Clusters"]
-	      "#{list[2].class.name}".should == "MadsGenreFormInternal"
-	      list[2].name.should == ["Film and video adaptions"]      
-	      list.size.should == 19
+	      expect("#{list[0].class.name}").to eq("MadsTopicInternal")
+	      expect(list[0].name).to eq(["Galaxies"])
+	      expect("#{list[1].class.name}").to eq("MadsTopicInternal")
+	      expect(list[1].name).to eq(["Clusters"])
+	      expect("#{list[2].class.name}").to eq("MadsGenreFormInternal")
+	      expect(list[2].name).to eq(["Film and video adaptions"])      
+	      expect(list.size).to eq(19)
 	    end
 	    
 	    it "should have fields from solr doc" do
 	        solr_doc = subject.to_solr
-	        solr_doc["complexSubject_0_0_topic_tesim"].should == ["Galaxies"]
-	        solr_doc["complexSubject_0_1_topic_tesim"].should == ["Clusters"]
-	        solr_doc["complexSubject_0_2_genreForm_tesim"].should == ["Film and video adaptions"]
+	        expect(solr_doc["complexSubject_0_0_topic_tesim"]).to eq(["Galaxies"])
+	        expect(solr_doc["complexSubject_0_1_topic_tesim"]).to eq(["Clusters"])
+	        expect(solr_doc["complexSubject_0_2_genreForm_tesim"]).to eq(["Film and video adaptions"])
 	        #solr_doc["complexSubject_0_3_genreForm_tesim"].should == ["Film and video adaptions"]  
 	        #solr_doc["complexSubject_0_4_topic_tesim"].should == ["Baseball"]          
 	        #solr_doc["complexSubject_0_5_iconography_tesim"].should == ["Madonna and Child"]

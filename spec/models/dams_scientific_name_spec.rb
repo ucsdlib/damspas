@@ -38,11 +38,11 @@ describe DamsScientificName do
   </dams:ScientificName>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have scientificNameElement" do
-    subject.scientificNameElement.first.elementValue.should == 'Western lowland gorilla (Gorilla gorilla gorilla)'
+    expect(subject.scientificNameElement.first.elementValue).to eq('Western lowland gorilla (Gorilla gorilla gorilla)')
   end
 
   it "should be able to build a new scientificNameElement" do

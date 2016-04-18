@@ -42,28 +42,28 @@ describe DamsFunctionDatastream do
   </dams:Function>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     describe "a new instance" do
       subject { DamsFunctionDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a name" do
         subject.name = "Reminder"
-        subject.name.should == ["Reminder"]
+        expect(subject.name).to eq(["Reminder"])
       end
 
       it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "Original"
         subject.functionElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Test"]
+        expect(subject.name).to eq(["Test"])
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
         subject.functionElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["Original"]
+        expect(subject.name).to eq(["Original"])
       end
     end
 
@@ -75,26 +75,26 @@ END
       end
 
       it "should have name" do
-        subject.name.should == ["Sample Function"]
+        expect(subject.name).to eq(["Sample Function"])
       end
 
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd32433374"
+        expect(subject.scheme.first.pid).to eq("bd32433374")
       end
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of Dams::DamsFunction::DamsFunctionElement
-        list[0].elementValue.should == "Sample Function"
-        list.size.should == 1
+        expect(list[0]).to be_kind_of Dams::DamsFunction::DamsFunctionElement
+        expect(list[0].elementValue).to eq("Sample Function")
+        expect(list.size).to eq(1)
       end
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["function_tesim"].should == ["Sample Function"]
-        solr_doc["function_element_tesim"].should == ["Sample Function"]
-        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd32433374"]
-        solr_doc["scheme_name_tesim"].should == ["Functions"]
+        expect(solr_doc["function_tesim"]).to eq(["Sample Function"])
+        expect(solr_doc["function_element_tesim"]).to eq(["Sample Function"])
+        expect(solr_doc["scheme_tesim"]).to eq(["#{Rails.configuration.id_namespace}bd32433374"])
+        expect(solr_doc["scheme_name_tesim"]).to eq(["Functions"])
       end
     end
 

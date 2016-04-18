@@ -42,28 +42,28 @@ describe MadsGeographicDatastream do
   </mads:Geographic>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     describe "a new instance" do
       subject { MadsGeographicDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a name" do
         subject.name = "Ness, Loch (Scotland)"
-        subject.name.should == ["Ness, Loch (Scotland)"]
+        expect(subject.name).to eq(["Ness, Loch (Scotland)"])
       end
 
       it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "Original"
         subject.geographicElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Test"]
+        expect(subject.name).to eq(["Test"])
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "Original"
         subject.geographicElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["Original"]
+        expect(subject.name).to eq(["Original"])
       end
     end
 
@@ -75,26 +75,26 @@ END
       end
 
       it "should have name" do
-        subject.name.should == ["Ness, Loch (Scotland)"]
+        expect(subject.name).to eq(["Ness, Loch (Scotland)"])
       end
 
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd9386739x"
+        expect(subject.scheme.first.pid).to eq("bd9386739x")
       end
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of MadsGeographicDatastream::MadsGeographicElement
-        list[0].elementValue.should == "Ness, Loch (Scotland)"
-        list.size.should == 1
+        expect(list[0]).to be_kind_of MadsGeographicDatastream::MadsGeographicElement
+        expect(list[0].elementValue).to eq("Ness, Loch (Scotland)")
+        expect(list.size).to eq(1)
       end
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["geographic_tesim"].should == ["Ness, Loch (Scotland)"]
-        solr_doc["geographic_element_tesim"].should == ["Ness, Loch (Scotland)"]
-        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd9386739x"]
-        solr_doc["scheme_name_tesim"].should == ["Library of Congress Subject Headings"]
+        expect(solr_doc["geographic_tesim"]).to eq(["Ness, Loch (Scotland)"])
+        expect(solr_doc["geographic_element_tesim"]).to eq(["Ness, Loch (Scotland)"])
+        expect(solr_doc["scheme_tesim"]).to eq(["#{Rails.configuration.id_namespace}bd9386739x"])
+        expect(solr_doc["scheme_name_tesim"]).to eq(["Library of Congress Subject Headings"])
       end
     end
 

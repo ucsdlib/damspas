@@ -37,11 +37,11 @@ describe MadsGenreForm do
   </mads:GenreForm>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
   
   it "should have genreFormElement" do
-    subject.genreFormElement.first.elementValue.should == 'Film and video adaptions'
+    expect(subject.genreFormElement.first.elementValue).to eq('Film and video adaptions')
   end
 
   it "should be able to build a new genreFormElement" do

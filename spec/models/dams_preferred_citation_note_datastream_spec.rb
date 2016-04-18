@@ -8,20 +8,20 @@ describe DamsPreferredCitationNoteDatastream do
     describe "a new instance" do
       subject { DamsPreferredCitationNoteDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a value" do
         subject.value = "#{Rails.configuration.id_namespace}bb80808080"
-        subject.value.should == ["#{Rails.configuration.id_namespace}bb80808080"]
+        expect(subject.value).to eq(["#{Rails.configuration.id_namespace}bb80808080"])
       end   
       it "should have type" do
         subject.type = "identifier"
-        subject.type.should == ["identifier"]
+        expect(subject.type).to eq(["identifier"])
       end   
       it "should have displayLabel" do
         subject.displayLabel = "ARK ID"
-        subject.displayLabel.should == ["ARK ID"]
+        expect(subject.displayLabel).to eq(["ARK ID"])
       end               
     end
 
@@ -33,23 +33,23 @@ describe DamsPreferredCitationNoteDatastream do
       end
            
       it "should have value" do
-        subject.value.should == ["Data at Redshift=1.4 (RD0022)"]
+        expect(subject.value).to eq(["Data at Redshift=1.4 (RD0022)"])
       end
 
       it "should have a type" do
-        subject.type.should == ["citation"]
+        expect(subject.type).to eq(["citation"])
       end
  
       it "should have a displayLabel" do
-        subject.displayLabel.should == ["Citation"]
+        expect(subject.displayLabel).to eq(["Citation"])
       end
            
          
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["preferredCitationNote_value_tesim"].should == ["Data at Redshift=1.4 (RD0022)"]
-        solr_doc["preferredCitationNote_type_tesim"].should == ["citation"]
-        solr_doc["preferredCitationNote_displayLabel_tesim"].should == ["Citation"]
+        expect(solr_doc["preferredCitationNote_value_tesim"]).to eq(["Data at Redshift=1.4 (RD0022)"])
+        expect(solr_doc["preferredCitationNote_type_tesim"]).to eq(["citation"])
+        expect(solr_doc["preferredCitationNote_displayLabel_tesim"]).to eq(["Citation"])
       end    
     end
   end

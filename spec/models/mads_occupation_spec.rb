@@ -37,11 +37,11 @@ describe MadsOccupation do
   </mads:Occupation>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have occupationElement" do
-    subject.occupationElement.first.elementValue.should == 'Pharmacist'
+    expect(subject.occupationElement.first.elementValue).to eq('Pharmacist')
   end
 
   it "should be able to build a new occupationElement" do
