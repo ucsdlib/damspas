@@ -210,27 +210,18 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test Polygon')
       expect(page).to have_selector('li', text: 'Test Unit')
 
-      expect(page).to have_selector('p', text: 'Test Note')
-      expect(page).to have_selector('p', text: 'Test Custodial Responsibility Note')
+      
       expect(page).to have_selector('p', text: 'Test Preferred Citation Note')
       expect(page).to have_selector('p', text: 'Test Scope Content Note')
-
-      expect(page).to have_selector('li', text: 'Test Built Work Place')
       expect(page).to have_selector('li', text: 'Test Cultural Context')
-      expect(page).to have_selector('li', text: 'Test Function')
-      expect(page).to have_selector('li', text: 'Test Iconography')
       expect(page).to have_selector('li', text: 'Test Common Name')
       expect(page).to have_selector('li', text: 'Test Scientific Name')
-      expect(page).to have_selector('li', text: 'Test Style Period')
-      expect(page).to have_selector('li', text: 'Test Technique')
-      expect(page).to have_selector('li', text: 'Test Complex Subject')
       expect(page).to have_selector('li', text: 'Test Conference Name')
       expect(page).to have_selector('li', text: 'Test Corporate Name')
       expect(page).to have_selector('li', text: 'Test Family Name')
       expect(page).to have_selector('li', text: 'Test Genre Form')
       expect(page).to have_selector('li', text: 'Test Geographic')
       expect(page).to have_selector('li', text: 'Test Language')
-      expect(page).to have_selector('li', text: 'Test Name')
       expect(page).to have_selector('li', text: 'Test Occupation')
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
@@ -322,28 +313,18 @@ feature 'Visitor want to look at objects' do
       
       expect(page).to have_content('Related Publications')
       
-      expect(page).to have_selector('p', text: 'Test Note')
-      expect(page).to have_selector('p', text: 'Another Test Note')
-      expect(page).to have_selector('p', text: 'Test Custodial Responsibility Note')
       expect(page).to have_selector('p', text: 'Test Preferred Citation Note')
       expect(page).to have_selector('p', text: 'Test Scope Content Note')
-
-      expect(page).to have_selector('li', text: 'Test Built Work Place')
+      
       expect(page).to have_selector('li', text: 'Test Cultural Context')
-      expect(page).to have_selector('li', text: 'Test Function')
-      expect(page).to have_selector('li', text: 'Test Iconography')
       expect(page).to have_selector('li', text: 'Test Common Name')
       expect(page).to have_selector('li', text: 'Test Scientific Name')
-      expect(page).to have_selector('li', text: 'Test Style Period')
-      expect(page).to have_selector('li', text: 'Test Technique')
-      expect(page).to have_selector('li', text: 'Test Complex Subject')
       expect(page).to have_selector('li', text: 'Test Conference Name')
       expect(page).to have_selector('li', text: 'Test Corporate Name')
       expect(page).to have_selector('li', text: 'Test Family Name')
       expect(page).to have_selector('li', text: 'Test Genre Form')
       expect(page).to have_selector('li', text: 'Test Geographic')
       expect(page).to have_selector('li', text: 'Test Language')
-      expect(page).to have_selector('li', text: 'Test Name')
       expect(page).to have_selector('li', text: 'Test Occupation')
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
@@ -605,27 +586,6 @@ describe "curator embargoed object view" do
     sign_in_developer
     visit dams_object_path(@damsEmbObj.pid)
     expect(page).to have_no_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
-  end
-end
-
-describe "Display Note fields in alphabetical order" do
- before do
-    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
-                code: "tu", uri: "http://example.com/"
-    @ctsObject = DamsObject.create(pid: "xx21171293")
-    @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
-    @ctsObject.save!
-    solr_index (@ctsObject.pid)
-  end
-  after do
-    @ctsObject.delete
-    @unit.delete
-  end
-  it "should sort the note fields" do
-    visit dams_object_path(@ctsObject.pid)
-    expect(page).to have_selector('section#metadata-fold dl dt[3]',:text=>'Description')
-    expect(page).to have_selector('section#metadata-fold dl dt[5]',:text=>'Note') 
-    expect(page).to have_selector('section#metadata-fold dl dt[7]',:text=>'Cite This Work')   
   end
 end
 
