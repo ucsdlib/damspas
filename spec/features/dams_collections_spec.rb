@@ -236,6 +236,24 @@ feature "Vistor wants to view the OSF API" do
     end
 end
 
+feature "Vistor wants to see the default value of Contributor if it is missing from DAMS" do
+  before do
+      @provCollection = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", visibility: "public"
+      @provCollection.save!
+      solr_index (@provCollection.pid)   
+    end
+    after do
+      @provCollection.delete
+    end
+    
+    scenario 'should see SHARE output' do
+      sign_in_developer
+      visit osf_api_dams_collection_path @provCollection.pid
+      expect(page).to have_content('{"name":"UC San Diego Library"}')
+    end
+end
+
+
 feature "Vistor wants to push a record to OSF Share Staging area" do
    before do
       @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
