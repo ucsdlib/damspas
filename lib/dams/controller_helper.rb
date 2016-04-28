@@ -41,7 +41,7 @@ module Dams
 		   		end
 		    end
 		  end
-		  osf_data
+		  osf_data = (osf_data.blank?) ? osf_data << {"name": "UC San Diego Library"} : osf_data
 		end
 
 		def osf_description(document)
