@@ -519,6 +519,10 @@ describe "complex object view" do
     expect(page).to have_selector('li', text: 'thale-cress')
     expect(page).to have_selector('li', text: 'thale-cress component')
   end
+  it "should display component pager" do
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('#component-pager')
+  end
 end
 
 describe "complex object component view" do
