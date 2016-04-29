@@ -500,6 +500,29 @@ describe "complex object view" do
     expect(page).to have_selector('li', text: 'thale-cress')
     expect(page).to have_selector('li', text: 'thale-cress component')
   end
+  it 'should display component pager' do
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('#component-pager')
+  end
+
+  it 'testing componenet pager functionality' do
+    Capybara.javascript_driver = :selenium
+    Capybara.current_driver = Capybara.javascript_driver
+    visit dams_object_path(@damsComplexObj.pid)
+    click_button 'component-pager-back'
+    find('#component-pager-label').should have_content('Component 1 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 2 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 3 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 4 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 4 of 4')
+    click_button 'component-pager-back'
+    find('#component-pager-label').should have_content('Component 3 of 4')
+  end
+
 end
 
 describe "complex object component view" do

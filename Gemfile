@@ -53,6 +53,7 @@ group :development, :test do
   gem 'coffee-rails', '~> 4.1.1'
   gem 'pry', '~> 0.10.3'
   gem 'capybara', '~> 2.6.0'
+  gem 'selenium-webdriver'
   gem 'launchy', '~> 2.4.3'
   gem "minitest", '~> 5.8.4'
   gem 'rspec-rails', '~> 3.0' 
