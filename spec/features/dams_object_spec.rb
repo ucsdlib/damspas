@@ -6,10 +6,10 @@ feature 'Visitor want to look at objects' do
   describe "titles and curator data views" do
     before(:all) do
       @o = DamsObject.create titleValue: 'Test Title, Test Part',
-               subtitle: 'Test Subtitle', titleNonSort: 'The',
-               titlePartName: 'Test Part', titlePartNumber: 'Test Number',
-               titleTranslationVariant: 'Test Translation Variant',
-               copyright_attributes: [{status: 'Public domain'}]
+                             subtitle: 'Test Subtitle', titleNonSort: 'The',
+                             titlePartName: 'Test Part', titlePartNumber: 'Test Number',
+                             titleTranslationVariant: 'Test Translation Variant',
+                             copyright_attributes: [{status: 'Public domain'}]
       solr_index @o.pid
     end
     after(:all) do
@@ -75,16 +75,16 @@ feature 'Visitor want to look at objects' do
     before(:all) do
       ns = Rails.configuration.id_namespace
       @acol = DamsAssembledCollection.create( titleValue: 'Test Assembled Collection',
-                  visibility: 'public' )
+                                              visibility: 'public' )
       @pcol = DamsProvenanceCollection.create( titleValue: 'Test Provenance Collection',
-                  visibility: 'public' )
+                                               visibility: 'public' )
       @part = DamsProvenanceCollectionPart.create( titleValue: 'Test Provenance Part Collection',
-                  visibility: 'public' )
+                                                   visibility: 'public' )
 
       @cart = DamsCartographics.create( point: 'Test Point', line: 'Test Line',
-              polygon: 'Test Polygon' )
+                                        polygon: 'Test Polygon' )
       @unit = DamsUnit.create( name: 'Test Unit', description: 'Test Description', code: 'tu',
-              group: 'dams-curator', uri: 'http://example.com/' )
+                               group: 'dams-curator', uri: 'http://example.com/' )
 
       @note = DamsNote.create( value: 'Test Note' )
       @cust = DamsCustodialResponsibilityNote.create( value: 'Test Custodial Responsibility Note' )
@@ -117,48 +117,48 @@ feature 'Visitor want to look at objects' do
       @topic = MadsTopic.create( name: 'Test Topic' )
 
       @lic = DamsLicense.create( note: 'Creative Commons Attribution 4.0',
-                 uri: 'https://creativecommons.org/licenses/by/4.0/' )
+                                 uri: 'https://creativecommons.org/licenses/by/4.0/' )
       @other = DamsOtherRight.create( note: 'Test Other Rights' )
       @stat = DamsStatute.create( citation: 'Test Statute' )
 
       @o = DamsObject.create( titleValue: 'Linked Metadata Test',
-           assembledCollectionURI: [ @acol.pid ],
-           provenanceCollectionURI: [ @pcol.pid ],
-           provenanceCollectionPartURI: [ @part.pid ],
-           cartographics_attributes: [{ id: RDF::URI.new("#{ns}#{@cart.pid}") }],
-           unit_attributes: [{ id: RDF::URI.new("#{ns}#{@unit.pid}") }],
-           note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }],
-           custodialResponsibilityNote_attributes: [{ id: RDF::URI.new("#{ns}#{@cust.pid}") }],
-           preferredCitationNote_attributes: [{ id: RDF::URI.new("#{ns}#{@cite.pid}") }],
-           scopeContentNote_attributes: [{ id: RDF::URI.new("#{ns}#{@scope.pid}") }],
-           builtWorkPlace_attributes: [{ id: RDF::URI.new("#{ns}#{@built.pid}") }],
-           culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
-           function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
-           iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
-           anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@ana.pid}") }],
-           lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
-           series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
-           cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],
-           commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@cci.pid}") }],
-           scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@sci.pid}") }],
-           stylePeriod_attributes: [{ id: RDF::URI.new("#{ns}#{@style.pid}") }],
-           technique_attributes: [{ id: RDF::URI.new("#{ns}#{@tech.pid}") }],
-           complexSubject_attributes: [{ id: RDF::URI.new("#{ns}#{@complex.pid}") }],
-           conferenceName_attributes: [{ id: RDF::URI.new("#{ns}#{@conf.pid}") }],
-           corporateName_attributes: [{ id: RDF::URI.new("#{ns}#{@corp.pid}") }],
-           familyName_attributes: [{ id: RDF::URI.new("#{ns}#{@family.pid}") }],
-           genreForm_attributes: [{ id: RDF::URI.new("#{ns}#{@genre.pid}") }],
-           geographic_attributes: [{ id: RDF::URI.new("#{ns}#{@geog.pid}") }],
-           language_attributes: [{ id: RDF::URI.new("#{ns}#{@lang.pid}") }],
-           name_attributes: [{ id: RDF::URI.new("#{ns}#{@name.pid}") }],
-           occupation_attributes: [{ id: RDF::URI.new("#{ns}#{@occu.pid}") }],
-           personalName_attributes: [{ id: RDF::URI.new("#{ns}#{@pers.pid}") }],
-           temporal_attributes: [{ id: RDF::URI.new("#{ns}#{@temp.pid}") }],
-           topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic.pid}") }],
-           copyright_attributes: [{status: 'Public domain'}],
-           license_attributes: [{ id: RDF::URI.new("#{ns}#{@lic.pid}") }],
-           otherRights_attributes: [{ id: RDF::URI.new("#{ns}#{@other.pid}") }],
-           statute_attributes: [{ id: RDF::URI.new("#{ns}#{@stat.pid}") }]    )
+                              assembledCollectionURI: [ @acol.pid ],
+                              provenanceCollectionURI: [ @pcol.pid ],
+                              provenanceCollectionPartURI: [ @part.pid ],
+                              cartographics_attributes: [{ id: RDF::URI.new("#{ns}#{@cart.pid}") }],
+                              unit_attributes: [{ id: RDF::URI.new("#{ns}#{@unit.pid}") }],
+                              note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }],
+                              custodialResponsibilityNote_attributes: [{ id: RDF::URI.new("#{ns}#{@cust.pid}") }],
+                              preferredCitationNote_attributes: [{ id: RDF::URI.new("#{ns}#{@cite.pid}") }],
+                              scopeContentNote_attributes: [{ id: RDF::URI.new("#{ns}#{@scope.pid}") }],
+                              builtWorkPlace_attributes: [{ id: RDF::URI.new("#{ns}#{@built.pid}") }],
+                              culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
+                              function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
+                              iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
+                              anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@ana.pid}") }],
+                              lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
+                              series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
+                              cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],
+                              commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@cci.pid}") }],
+                              scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@sci.pid}") }],
+                              stylePeriod_attributes: [{ id: RDF::URI.new("#{ns}#{@style.pid}") }],
+                              technique_attributes: [{ id: RDF::URI.new("#{ns}#{@tech.pid}") }],
+                              complexSubject_attributes: [{ id: RDF::URI.new("#{ns}#{@complex.pid}") }],
+                              conferenceName_attributes: [{ id: RDF::URI.new("#{ns}#{@conf.pid}") }],
+                              corporateName_attributes: [{ id: RDF::URI.new("#{ns}#{@corp.pid}") }],
+                              familyName_attributes: [{ id: RDF::URI.new("#{ns}#{@family.pid}") }],
+                              genreForm_attributes: [{ id: RDF::URI.new("#{ns}#{@genre.pid}") }],
+                              geographic_attributes: [{ id: RDF::URI.new("#{ns}#{@geog.pid}") }],
+                              language_attributes: [{ id: RDF::URI.new("#{ns}#{@lang.pid}") }],
+                              name_attributes: [{ id: RDF::URI.new("#{ns}#{@name.pid}") }],
+                              occupation_attributes: [{ id: RDF::URI.new("#{ns}#{@occu.pid}") }],
+                              personalName_attributes: [{ id: RDF::URI.new("#{ns}#{@pers.pid}") }],
+                              temporal_attributes: [{ id: RDF::URI.new("#{ns}#{@temp.pid}") }],
+                              topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic.pid}") }],
+                              copyright_attributes: [{status: 'Public domain'}],
+                              license_attributes: [{ id: RDF::URI.new("#{ns}#{@lic.pid}") }],
+                              otherRights_attributes: [{ id: RDF::URI.new("#{ns}#{@other.pid}") }],
+                              statute_attributes: [{ id: RDF::URI.new("#{ns}#{@stat.pid}") }]    )
 
       solr_index @o.pid
     end
@@ -210,7 +210,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test Polygon')
       expect(page).to have_selector('li', text: 'Test Unit')
 
-      
+
       expect(page).to have_selector('p', text: 'Test Preferred Citation Note')
       expect(page).to have_selector('p', text: 'Test Scope Content Note')
       expect(page).to have_selector('li', text: 'Test Cultural Context')
@@ -244,51 +244,51 @@ feature 'Visitor want to look at objects' do
   describe "internal metadata records" do
     before(:all) do
       @acol = DamsAssembledCollection.create( titleValue: 'Test Assembled Collection',
-                  visibility: 'public' )
+                                              visibility: 'public' )
       @pcol = DamsProvenanceCollection.create( titleValue: 'Test Provenance Collection',
-                  visibility: 'public' )
+                                               visibility: 'public' )
       @part = DamsProvenanceCollectionPart.create( titleValue: 'Test Provenance Part Collection',
-                  visibility: 'public' )
+                                                   visibility: 'public' )
       @o = DamsObject.create( titleValue: 'Internal Metadata Test', typeOfResource: 'image',
-        assembledCollectionURI: [ @acol.pid ],
-        provenanceCollectionURI: [ @pcol.pid ],
-        provenanceCollectionPartURI: [ @part.pid ],
-        copyright_attributes: [{status: 'Public domain'}],
-        cartographics_attributes: [{ point: 'Test Point', line: 'Test Line',
-            polygon: 'Test Polygon' }],
-        unit_attributes: [{ name: 'Test Unit', description: 'Test Description', code: 'tu',
-            group: 'dams-curator', uri: 'http://example.com/' }],
-        note_attributes: [{value: 'test related publications', type: 'related publications'}, { value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
-        custodialResponsibilityNote_attributes: [{ value: 'Test Custodial Responsibility Note' }],
-        preferredCitationNote_attributes: [{ value: 'Test Preferred Citation Note' }],
-        scopeContentNote_attributes: [{ value: 'Test Scope Content Note' }],
-        builtWorkPlace_attributes: [{ name: 'Test Built Work Place' }],
-        culturalContext_attributes: [{ name: 'Test Cultural Context' }],
-        function_attributes: [{ name: 'Test Function' }],
-        iconography_attributes: [{ name: 'Test Iconography' }],
-        lithology_attributes: [{ name: 'Test Lithology' }],
-        series_attributes: [{ name: 'Test Series' }],
-        cruise_attributes: [{ name: 'Test Cruise' }],
-        anatomy_attributes: [{ name: 'Test Anatomy' }],
-        commonName_attributes: [{ name: 'Test Common Name' }],
-        scientificName_attributes: [{ name: 'Test Scientific Name' }],
-        stylePeriod_attributes: [{ name: 'Test Style Period' }],
-        technique_attributes: [{ name: 'Test Technique' }],
-        complexSubject_attributes: [{ name: 'Test Complex Subject' }],
-        conferenceName_attributes: [{ name: 'Test Conference Name' }],
-        corporateName_attributes: [{ name: 'Test Corporate Name' }],
-        familyName_attributes: [{ name: 'Test Family Name' }],
-        genreForm_attributes: [{ name: 'Test Genre Form' }],
-        geographic_attributes: [{ name: 'Test Geographic' }],
-        language_attributes: [{ name: 'Test Language' }],
-        name_attributes: [{ name: 'Test Name' }],
-        occupation_attributes: [{ name: 'Test Occupation' }],
-        personalName_attributes: [{ name: 'Test Personal Name' }],
-        temporal_attributes: [{ name: 'Test Temporal' }],
-        topic_attributes: [{ name: 'Test Topic' }],
-        license_attributes: [{ note: 'Creative Commons Attribution 4.0',
-            uri: 'https://creativecommons.org/licenses/by/4.0/' }],
-        statute_attributes: [{ citation: 'Test Statute' }]  )
+                              assembledCollectionURI: [ @acol.pid ],
+                              provenanceCollectionURI: [ @pcol.pid ],
+                              provenanceCollectionPartURI: [ @part.pid ],
+                              copyright_attributes: [{status: 'Public domain'}],
+                              cartographics_attributes: [{ point: 'Test Point', line: 'Test Line',
+                                                           polygon: 'Test Polygon' }],
+                              unit_attributes: [{ name: 'Test Unit', description: 'Test Description', code: 'tu',
+                                                  group: 'dams-curator', uri: 'http://example.com/' }],
+                              note_attributes: [{value: 'test related publications', type: 'related publications'}, { value: 'Test Note' }, { value: 'Another Test Note' }, {value: '85-8', type: 'identifier', displayLabel: 'accession number'}],
+                              custodialResponsibilityNote_attributes: [{ value: 'Test Custodial Responsibility Note' }],
+                              preferredCitationNote_attributes: [{ value: 'Test Preferred Citation Note' }],
+                              scopeContentNote_attributes: [{ value: 'Test Scope Content Note' }],
+                              builtWorkPlace_attributes: [{ name: 'Test Built Work Place' }],
+                              culturalContext_attributes: [{ name: 'Test Cultural Context' }],
+                              function_attributes: [{ name: 'Test Function' }],
+                              iconography_attributes: [{ name: 'Test Iconography' }],
+                              lithology_attributes: [{ name: 'Test Lithology' }],
+                              series_attributes: [{ name: 'Test Series' }],
+                              cruise_attributes: [{ name: 'Test Cruise' }],
+                              anatomy_attributes: [{ name: 'Test Anatomy' }],
+                              commonName_attributes: [{ name: 'Test Common Name' }],
+                              scientificName_attributes: [{ name: 'Test Scientific Name' }],
+                              stylePeriod_attributes: [{ name: 'Test Style Period' }],
+                              technique_attributes: [{ name: 'Test Technique' }],
+                              complexSubject_attributes: [{ name: 'Test Complex Subject' }],
+                              conferenceName_attributes: [{ name: 'Test Conference Name' }],
+                              corporateName_attributes: [{ name: 'Test Corporate Name' }],
+                              familyName_attributes: [{ name: 'Test Family Name' }],
+                              genreForm_attributes: [{ name: 'Test Genre Form' }],
+                              geographic_attributes: [{ name: 'Test Geographic' }],
+                              language_attributes: [{ name: 'Test Language' }],
+                              name_attributes: [{ name: 'Test Name' }],
+                              occupation_attributes: [{ name: 'Test Occupation' }],
+                              personalName_attributes: [{ name: 'Test Personal Name' }],
+                              temporal_attributes: [{ name: 'Test Temporal' }],
+                              topic_attributes: [{ name: 'Test Topic' }],
+                              license_attributes: [{ note: 'Creative Commons Attribution 4.0',
+                                                     uri: 'https://creativecommons.org/licenses/by/4.0/' }],
+                              statute_attributes: [{ citation: 'Test Statute' }]  )
 
       solr_index @o.pid
     end
@@ -310,12 +310,12 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test Line')
       expect(page).to have_selector('p', text: 'Test Polygon')
       expect(page).to have_selector('li', text: 'Test Unit')
-      
+
       expect(page).to have_content('Related Publications')
-      
+
       expect(page).to have_selector('p', text: 'Test Preferred Citation Note')
       expect(page).to have_selector('p', text: 'Test Scope Content Note')
-      
+
       expect(page).to have_selector('li', text: 'Test Cultural Context')
       expect(page).to have_selector('li', text: 'Test Common Name')
       expect(page).to have_selector('li', text: 'Test Scientific Name')
@@ -374,7 +374,7 @@ feature 'Visitor want to look at objects' do
     before(:all) do
       @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
       @o = DamsObject.create( titleValue: 'Object Files Test', copyright_attributes: [ {status: 'Public domain'} ],
-                  assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
+                              assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
       jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
       @o.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
       @o.add_file( '<html><body><a href="/test">test link</a></body></html>', "_2_1.html", "test.html" )
@@ -466,7 +466,7 @@ end
 describe "complex object view" do
   before(:all) do
     @unit = DamsUnit.create( pid: 'xx48484848', name: 'Test Unit', description: 'Test Description',
-            code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+                             code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
     @commonName = DamsCommonName.create(pid: 'xx484848cn', name: 'thale-cress')
     @damsComplexObj = DamsObject.create(pid: "xx97626129")
     @damsComplexObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject3.rdf.xml').read
@@ -500,6 +500,30 @@ describe "complex object view" do
     expect(page).to have_selector('li', text: 'thale-cress')
     expect(page).to have_selector('li', text: 'thale-cress component')
   end
+
+  it 'should display component pager' do
+    visit dams_object_path(@damsComplexObj.pid)
+    expect(page).to have_selector('#component-pager')
+  end
+
+  it 'testing componenet pager functionality' do
+    Capybara.javascript_driver = :selenium
+    Capybara.current_driver = Capybara.javascript_driver
+    visit dams_object_path(@damsComplexObj.pid)
+    click_button 'component-pager-back'
+    find('#component-pager-label').should have_content('Component 1 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 2 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 3 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 4 of 4')
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 4 of 4')
+    click_button 'component-pager-back'
+    find('#component-pager-label').should have_content('Component 3 of 4')
+  end
+  
 end
 
 describe "complex object component view" do
@@ -568,9 +592,9 @@ end
 describe "curator embargoed object view" do
   before do
     @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
-                note: "Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object."
+                                         note: "Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object."
     @damsUnit = DamsUnit.create( pid: 'zz48484848', name: 'Test Unit', description: 'Test Description',
-            code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+                                 code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
     @damsEmbObj = DamsObject.new(pid: "zz2765588d")
     @damsEmbObj.damsMetadata.content = File.new('spec/fixtures/embargoedObject.rdf.xml').read
     @damsEmbObj.save!
@@ -590,9 +614,9 @@ describe "curator embargoed object view" do
 end
 
 describe "Display internal personal name field" do
- before do
+  before do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
-                code: "tu", uri: "http://example.com/"
+                            code: "tu", uri: "http://example.com/"
     @ctsObject = DamsObject.create(pid: "xx21171293")
     @ctsObject.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
     @ctsObject.save!
@@ -611,7 +635,7 @@ end
 describe "Curator complex object viewer" do
   before(:all) do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
-                code: "tu", uri: "http://example.com/"
+                            code: "tu", uri: "http://example.com/"
     @damsComplexObj8 = DamsObject.create(pid: "xx080808xx")
     @damsComplexObj8.damsMetadata.content = File.new('spec/fixtures/damsComplexObject8.rdf.xml').read
     @damsComplexObj8.add_file( 'dummy tiff content', "_1_1.tif", "test.tif" )
@@ -639,7 +663,7 @@ end
 describe "PDF Viewer" do
   before(:all) do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
-                code: "tu", uri: "http://example.com/"
+                            code: "tu", uri: "http://example.com/"
     @damsPdfObj = DamsObject.create(pid: "xx21171293")
     @damsPdfObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
     @damsPdfObj.save!
