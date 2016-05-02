@@ -506,7 +506,7 @@ describe "complex object view" do
     expect(page).to have_selector('#component-pager')
   end
 
-  it 'testing componenet pager functionality' do
+  xit 'testing componenet pager functionality (PENDING HEADLESS JS TESTING SOLUTION)' do
     Capybara.javascript_driver = :selenium
     Capybara.current_driver = Capybara.javascript_driver
     visit dams_object_path(@damsComplexObj.pid)
@@ -523,7 +523,7 @@ describe "complex object view" do
     click_button 'component-pager-back'
     find('#component-pager-label').should have_content('Component 3 of 4')
   end
-  
+
 end
 
 describe "complex object component view" do
