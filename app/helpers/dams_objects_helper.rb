@@ -625,15 +625,15 @@ module DamsObjectsHelper
 		icon = grabFileType(fileUse)
 		case icon
 			when 'image'
-				icon = 'icon-picture'
+				icon = 'glyphicon glyphicon-picture'
 			when 'audio'
-				icon = 'icon-music'
+				icon = 'glyphicon glyphicon-music'
 			when 'video'
-				icon = 'icon-film'
+				icon = 'glyphicon glyphicon-film'
 			when 'no-files'
-				icon = 'icon-stop'
+				icon = 'glyphicon glyphicon-stop'
 			else
-				icon ='icon-file'
+				icon ='glyphicon glyphicon-file'
 		end
 		return icon
 	end
@@ -783,7 +783,7 @@ def display_node(index)
     btnCSS += is_parent_node ? ' node-parent' : ''
     iconCSS = is_parent_node ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
     btnTitle = grabTitle(:componentIndex=> index)
-    concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
+    concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' data-index='#{index}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
   end
 
   def listComponents (component_map)
