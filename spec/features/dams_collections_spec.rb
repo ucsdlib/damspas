@@ -6,7 +6,7 @@ feature 'Visitor wants to look at collections' do
     @prov = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", provenanceCollectionPartURI: @part.pid, visibility: "public"
     @part.provenanceCollectionURI = @prov.pid
     @part.save
-    @assm = DamsAssembledCollection.create titleValue: "Sample Assembled Collection", visibility: "public"
+    @assm = DamsAssembledCollection.create titleValue: "Sample('s): Assembled Collection", visibility: "public"
     @priv = DamsProvenanceCollection.create titleValue: "curator-only collection", visibility: "curator"
 
     solr_index @prov.pid
@@ -48,12 +48,12 @@ feature 'Visitor wants to look at collections' do
 
   scenario 'collections search without query' do
     visit dams_collections_path
-    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('a', :text => "Sample('s): Assembled Collection")
     expect(page).to have_selector('a', :text => 'Sample Provenance Collection')
   end
   scenario 'collections search with query' do
     visit dams_collections_path( {:q => 'assembled'} )
-    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('a', :text => "Sample('s): Assembled Collection")
     expect(page).not_to have_selector('a', :text => 'Sample Provenance Collection')
   end
   scenario 'curator view' do
@@ -65,7 +65,7 @@ feature 'Visitor wants to look at collections' do
     sign_in_developer
     visit dams_collection_path @part.pid
     expect(page).to have_link('Sample Provenance Collection') 
-    expect(page).to have_link('Sample Assembled Collection')
+    expect(page).to have_link("Sample('s): Assembled Collection")
     expect(page).not_to have_link('Sample Provenance Part', :href => "#{dams_collection_path @part.pid}" )
     expect(page).not_to have_link('curator-only collection')
   end
@@ -236,6 +236,24 @@ feature "Vistor wants to view the OSF API" do
     end
 end
 
+feature "Vistor wants to see the default value of Contributor if it is missing from DAMS" do
+  before do
+      @provCollection = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", visibility: "public"
+      @provCollection.save!
+      solr_index (@provCollection.pid)   
+    end
+    after do
+      @provCollection.delete
+    end
+    
+    scenario 'should see SHARE output' do
+      sign_in_developer
+      visit osf_api_dams_collection_path @provCollection.pid
+      expect(page).to have_content('{"name":"UC San Diego Library"}')
+    end
+end
+
+
 feature "Vistor wants to push a record to OSF Share Staging area" do
    before do
       @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
@@ -254,7 +272,7 @@ feature "Vistor wants to push a record to OSF Share Staging area" do
       
       mock_document = double("new document")
       mock_api = double("new api")
-      ShareNotify::PushDocument.stub(:new).with("http://library.ucsd.edu/dc/collection/uu8056206n") {mock_document}
-      ShareNotify::API.stub(:new) {mock_api}
+      allow(ShareNotify::PushDocument).to receive(:new).with("http://library.ucsd.edu/dc/collection/uu8056206n") {mock_document}
+      allow(ShareNotify::API).to receive(:new) {mock_api}
     end
 end

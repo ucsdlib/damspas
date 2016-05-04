@@ -59,34 +59,34 @@ describe MadsNameDatastream do
   </mads:Name>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
 
     describe "a new instance" do
       subject { MadsNameDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a name" do
         subject.name = "Maria"
-        subject.name.should == ["Maria"]
+        expect(subject.name).to eq(["Maria"])
       end   
  
       it "element should update name" do
         subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.authLabel.should == "Test"
+        expect(subject.authLabel).to eq("Test")
       end
       it "element should not update name if name is already set" do
         subject.name = "Original"
         subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Original"]
-        subject.authLabel.should == "Original"
+        expect(subject.name).to eq(["Original"])
+        expect(subject.authLabel).to eq("Original")
       end
       it "element should not update name if element is blank" do
         subject.name = "Original"
         subject.fullNameElement_attributes = [{ elementValue: nil }]
-        subject.authLabel.should == "Original"
+        expect(subject.authLabel).to eq("Original")
       end
     end
 
@@ -99,24 +99,24 @@ END
       
       
       it "should have name" do
-        subject.name.should == ["Generic Name"]
+        expect(subject.name).to eq(["Generic Name"])
       end
  
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd0683587d"
+        expect(subject.scheme.first.pid).to eq("bd0683587d")
       end
            
       it "should have fields" do
         list = subject.elementList
-        "#{list[0].class.name}".should == "Dams::MadsNameElements::MadsNameElement"
-        list[0].elementValue.should == "Generic Name"                                  
-        list.size.should == 1        
+        expect("#{list[0].class.name}").to eq("Dams::MadsNameElements::MadsNameElement")
+        expect(list[0].elementValue).to eq("Generic Name")                                  
+        expect(list.size).to eq(1)        
       end  
       
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["name_tesim"].should == ["Generic Name"]
-        solr_doc["name_element_tesim"].should == ["Generic Name"]          
+        expect(solr_doc["name_tesim"]).to eq(["Generic Name"])
+        expect(solr_doc["name_element_tesim"]).to eq(["Generic Name"])          
       end    
     end
   end

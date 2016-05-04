@@ -46,14 +46,18 @@ gem 'nokogiri', '1.6.7.2'
 gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
 gem 'uglifier', '~> 2.7.2'
 
+gem 'newrelic_rpm'
+
 group :development, :test do
   gem 'sass-rails', '~> 5.0.4'
   gem 'coffee-rails', '~> 4.1.1'
   gem 'pry', '~> 0.10.3'
   gem 'capybara', '~> 2.6.0'
+  gem 'selenium-webdriver'
   gem 'launchy', '~> 2.4.3'
   gem "minitest", '~> 5.8.4'
-  gem 'rspec-rails', '~> 2.14.2' # locked (2.99+ breaks rspec_junit_formatter)
+  gem 'rspec-rails', '~> 3.0' 
+  gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.11.1'
   gem 'unicorn', '~> 5.0.1'
   gem 'rspec_junit_formatter', '~> 0.2.3'

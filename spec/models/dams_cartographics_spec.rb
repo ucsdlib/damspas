@@ -21,7 +21,7 @@ describe DamsCartographics do
   </dams:Cartographics>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
 
   end
 end

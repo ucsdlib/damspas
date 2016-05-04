@@ -10,30 +10,22 @@
 		 htmlClose_l = '</ul></dd>'
 	 end
 
-     if defined?(@facet_collection_resp)
-        facet_collection_names = []
-        @facet_collections = @facet_collection_resp[0].facet_counts["facet_fields"]["collection_sim"]
-        if !@facet_collections.nil? && @facet_collections.length > 0
-            @facet_collections.each_slice(2) do |collectionName, *_|
-                facet_collection_names << collectionName.strip if !collectionName.strip.eql? @document['title_tesim'].first.strip.to_s
-            end
-
-            if facet_collection_names.count > 0
-                htmlOpen %= 'Collection'.pluralize(facet_collection_names.count)
-                concat htmlOpen.html_safe
-                facet_collection_names.sort.each do |collectionName|
-                  concat htmlOpen_l.html_safe unless defined?(componentIndex)
+     if defined?(@related_collections)
+         if @related_collections.count > 0
+             htmlOpen %= 'Collection'.pluralize(@related_collections.count)
+             concat htmlOpen.html_safe
+             @related_collections.sort.map do |collectionName, id|
+                 concat htmlOpen_l.html_safe unless defined?(componentIndex)
  %>
-                  <li>
-                      <%= link_to( dams_collection_path(@collections_map[collectionName]) ) do %>
-                          <%= collectionName %>
-                      <% end %>
-                  </li>
-<%                concat htmlClose_l.html_safe unless defined?(componentIndex)
-                end 
-                concat htmlClose.html_safe if defined?(componentIndex) 
-            end
-        end
+                 <li>
+                 <%= link_to( dams_collection_path(id) ) do %>
+                     <%= collectionName %>
+                 <% end %>
+                 </li>
+<%               concat htmlClose_l.html_safe unless defined?(componentIndex)
+             end
+             concat htmlClose.html_safe if defined?(componentIndex)
+         end
      else
        fieldData = @document["#{prefix}collection_json_tesim"] || []
        fieldData.concat( @document['provenanceCollection_json_tesim'] || [] )

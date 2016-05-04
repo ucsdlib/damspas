@@ -43,33 +43,33 @@ describe MadsLanguageDatastream do
   </mads:Language>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
     describe "a new instance" do
       subject { MadsLanguageDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a name" do
         subject.name = "French"
-        subject.name.should == ["French"]
+        expect(subject.name).to eq(["French"])
       end
 
       it "should have a code" do
         subject.name = "fre"
-        subject.name.should == ["fre"]
+        expect(subject.name).to eq(["fre"])
       end
       
       it "should set the name (authoritativeLabel) when the elementList is set" do
         subject.name = "French"
         subject.languageElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Test"]
+        expect(subject.name).to eq(["Test"])
       end
       it "shouldn't set the name when the elementList doesn't have an elementValue" do
         subject.name = "French"
         subject.languageElement_attributes = [{ elementValue: nil }]
-        subject.name.should == ["French"]
+        expect(subject.name).to eq(["French"])
       end
     end
 
@@ -81,31 +81,31 @@ END
       end
 
       it "should have name" do
-        subject.name.should == ["French"]
+        expect(subject.name).to eq(["French"])
       end
 
       it "should have code" do
-        subject.code.should == ["fre"]
+        expect(subject.code).to eq(["fre"])
       end
       
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd71341600"
+        expect(subject.scheme.first.pid).to eq("bd71341600")
       end
 
       it "should have fields" do
         list = subject.elementList
-        list[0].should be_kind_of MadsLanguageDatastream::MadsLanguageElement
-        list[0].elementValue.should == "French"
-        list.size.should == 1
+        expect(list[0]).to be_kind_of MadsLanguageDatastream::MadsLanguageElement
+        expect(list[0].elementValue).to eq("French")
+        expect(list.size).to eq(1)
       end
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["language_tesim"].should == ["French"]
-        solr_doc["language_element_tesim"].should == ["French"]
-        solr_doc["code_tesim"].should == ["fre"]
-        solr_doc["scheme_tesim"].should == ["#{Rails.configuration.id_namespace}bd71341600"]
-        solr_doc["scheme_name_tesim"].should == ["ISO 639 languages"]
+        expect(solr_doc["language_tesim"]).to eq(["French"])
+        expect(solr_doc["language_element_tesim"]).to eq(["French"])
+        expect(solr_doc["code_tesim"]).to eq(["fre"])
+        expect(solr_doc["scheme_tesim"]).to eq(["#{Rails.configuration.id_namespace}bd71341600"])
+        expect(solr_doc["scheme_name_tesim"]).to eq(["ISO 639 languages"])
       end
     end
 

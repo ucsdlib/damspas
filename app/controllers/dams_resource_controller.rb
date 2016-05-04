@@ -40,7 +40,14 @@ class DamsResourceController < ApplicationController
         facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
         apply_gated_discovery( facet_collection_params, nil )
         @facet_collection_resp = get_search_results( facet_collection_params )
-        @collections_map = collections
+        facet_collection_names = []
+        @facet_collections = @facet_collection_resp[0].facet_counts["facet_fields"]["collection_sim"]
+        if !@facet_collections.nil? && @facet_collections.length > 0
+            @facet_collections.each_slice(2) do |collectionName, *_|
+                facet_collection_names << collectionName.strip if !collectionName.strip.eql? @document['title_tesim'].first.strip.to_s
+            end
+        end
+        @related_collections = related_collections_map facet_collection_names
     end
 
     @rdfxml = @document['rdfxml_ssi']
@@ -163,13 +170,23 @@ class DamsResourceController < ApplicationController
     end
   end
 
-  def collections
+  def related_collections_map (collection_names)
     colls_map = {}
-    cols_response, col_documents = get_search_results(:q => 'type_tesim:Collection', :rows => 200 )
-    cols_response.docs.each do |doc|
-        colls_map[doc['title_tesim'].first.to_s.strip] = doc['id_t'].to_s
+    if collection_names.count > 0
+        collection_names.collect! { |name| "\"#{solr_escape(name)}\"" }
+        solr_param_q = collection_names.join (' OR ')
+        solr_params = { :q => "type_tesim:Collection AND title_tesim:(#{solr_param_q})", :rows => collection_names.count }
+        cols_response, col_documents = get_search_results(solr_params, :spellcheck => "false")
+        cols_response.docs.each do |doc|
+            colls_map[doc['title_tesim'].first.to_s.strip] = doc['id_t'].to_s
+        end
     end
     colls_map
+  end
+
+  def solr_escape (str)
+    pattern = /(\+|\-|\&\&|\|\||\!|\(\)|\{\}|\[|\]|\^|\"|\~|\*|\?|\:|\\)/
+    str.gsub(pattern){|match|"\\"  + match} 
   end
 
   def osf_api

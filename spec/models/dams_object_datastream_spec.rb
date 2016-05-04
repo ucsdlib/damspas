@@ -9,7 +9,7 @@ describe DamsObjectDatastream do
     describe "a new instance" do
       subject { DamsObjectDatastream.new(double('inner object', :pid=>'xx1111111x', :new_record? =>true), 'descMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx1111111x"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}xx1111111x")
       end
 
     end
@@ -31,17 +31,17 @@ describe DamsObjectDatastream do
         @copy.delete
       end
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx1111111x"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}xx1111111x")
       end
 
       it "should have fields" do
-        subject.typeOfResource.should == ["text"]
-        subject.titleValue.should == "Chicano and black radical activism of the 1960s"
+        expect(subject.typeOfResource).to eq(["text"])
+        expect(subject.titleValue).to eq("Chicano and black radical activism of the 1960s")
       end
 
       it "should have collection" do
         #subject.collection.first.scopeContentNote.first.displayLabel == ["Scope and contents"]
-        subject.collection.first.to_s.should ==  "#{Rails.configuration.id_namespace}xxXXXXXXX3"
+        expect(subject.collection.first.to_s).to eq("#{Rails.configuration.id_namespace}xxXXXXXXX3")
       end
 
       it "should have inline subjects" do
@@ -49,22 +49,22 @@ describe DamsObjectDatastream do
         subject.complexSubject.each do |s|
           actual << s.name.first
         end
-        actual.should include "Black Panther Party--History"
-        actual.should include "Academic dissertations"
+        expect(actual).to include "Black Panther Party--History"
+        expect(actual).to include "Academic dissertations"
       end
       it "should have external subjects" do
-        subject.complexSubject[0].should_not be_external
-        subject.complexSubject[1].should be_external
-        subject.complexSubject[2].should_not be_external
+        expect(subject.complexSubject[0]).not_to be_external
+        expect(subject.complexSubject[1]).to be_external
+        expect(subject.complexSubject[2]).not_to be_external
       end
 
       it "should have relationship" do
-        subject.relationship[0].name.first.pid.should == "xxXXXXXXX2"
-        subject.relationship[0].role.first.pid.should == "bd55639754"        
+        expect(subject.relationship[0].name.first.pid).to eq("xxXXXXXXX2")
+        expect(subject.relationship[0].role.first.pid).to eq("bd55639754")        
       end
 
       it "should have date" do
-        subject.dateValue.should == ["2010"]
+        expect(subject.dateValue).to eq(["2010"])
       end
 
     end
@@ -89,138 +89,138 @@ describe DamsObjectDatastream do
         @other.delete
       end
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx80808080"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}xx80808080")
       end
       it "should have a repeated date" do
         solr_doc = subject.to_solr
-        solr_doc["date_tesim"].should include "1980-05-20"
-        solr_doc["date_tesim"].should include "1980-05-24"
-        solr_doc["decade_sim"].should include "1980s"
+        expect(solr_doc["date_tesim"]).to include "1980-05-20"
+        expect(solr_doc["date_tesim"]).to include "1980-05-24"
+        expect(solr_doc["decade_sim"]).to include "1980s"
       end
       it "should have fields" do
-        subject.typeOfResource.should == ["mixed material"]
-        subject.titleValue.should == "Sample Complex Object Record #1"
-        subject.subtitle.should == "a newspaper PDF with a single attached image"
-        subject.relatedResource.first.type.should == ["online exhibit"]
-        subject.relatedResource.first.uri.should == ["http://foo.com/1234"]
-        subject.relatedResource.first.description.should == ["Sample Complex Object Record #1: The Exhibit!"]
+        expect(subject.typeOfResource).to eq(["mixed material"])
+        expect(subject.titleValue).to eq("Sample Complex Object Record #1")
+        expect(subject.subtitle).to eq("a newspaper PDF with a single attached image")
+        expect(subject.relatedResource.first.type).to eq(["online exhibit"])
+        expect(subject.relatedResource.first.uri).to eq(["http://foo.com/1234"])
+        expect(subject.relatedResource.first.description).to eq(["Sample Complex Object Record #1: The Exhibit!"])
       end
 
 	  it "should have title" do
 	  	solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
+        expect(solr_doc["title_tesim"]).to include "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
 	  end
 	
       it "should have relationship" do
-        subject.relationship.first.personalName.first.pid.should == "xxXXXXXXX1"
-        subject.relationship.first.role.first.pid.should == "bd55639754"
+        expect(subject.relationship.first.personalName.first.pid).to eq("xxXXXXXXX1")
+        expect(subject.relationship.first.role.first.pid).to eq("bd55639754")
       end
 
       it "should have a first component with basic metadata" do
-        subject.component.first.title.first.value.should == "The Daily Guardian"
-        subject.component.first.date.first.value.should == ["Tuesday, May 20, 1980"]
-        subject.component.first.date.first.beginDate.should == ["1980-05-20"]
-        subject.component.first.date.first.endDate.should == ["1980-05-20"]
-        subject.component.first.note.first.value.should == ["1 PDF (8 p.)"]
-        subject.component.first.note.first.displayLabel.should == ["Extent"]
-        subject.component.first.note.first.type.should == ["dimensions"]
+        expect(subject.component.first.title.first.value).to eq("The Daily Guardian")
+        expect(subject.component.first.date.first.value).to eq(["Tuesday, May 20, 1980"])
+        expect(subject.component.first.date.first.beginDate).to eq(["1980-05-20"])
+        expect(subject.component.first.date.first.endDate).to eq(["1980-05-20"])
+        expect(subject.component.first.note.first.value).to eq(["1 PDF (8 p.)"])
+        expect(subject.component.first.note.first.displayLabel).to eq(["Extent"])
+        expect(subject.component.first.note.first.type).to eq(["dimensions"])
       end
       it "should create a solr document" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
-        solr_doc["date_tesim"].should include "1980-05-24"
-        solr_doc["language_tesim"].should include "English"
-        solr_doc["note_tesim"].should include "Dissertation is in English."
-        solr_doc["note_tesim"].should include "http://library.ucsd.edu/ark:/20775/xx80808080"
-        solr_doc["note_tesim"].should include "b6700311"
-        solr_doc["note_tesim"].should include "1 PDF (8 p.)"
-        solr_doc["related_resource_json_tesim"].to_s.should include "online exhibit"
-        solr_doc["related_resource_json_tesim"].to_s.should include "Sample Complex Object Record #1: The Exhibit!"
-        solr_doc["object_type_sim"].should include "text"
-        solr_doc["object_type_sim"].should include "image"
-        solr_doc["object_type_sim"].should include "mixed material"
+        expect(solr_doc["title_tesim"]).to include "Sample Complex Object Record #1: a newspaper PDF with a single attached image"
+        expect(solr_doc["date_tesim"]).to include "1980-05-24"
+        expect(solr_doc["language_tesim"]).to include "English"
+        expect(solr_doc["note_tesim"]).to include "Dissertation is in English."
+        expect(solr_doc["note_tesim"]).to include "http://library.ucsd.edu/ark:/20775/xx80808080"
+        expect(solr_doc["note_tesim"]).to include "b6700311"
+        expect(solr_doc["note_tesim"]).to include "1 PDF (8 p.)"
+        expect(solr_doc["related_resource_json_tesim"].to_s).to include "online exhibit"
+        expect(solr_doc["related_resource_json_tesim"].to_s).to include "Sample Complex Object Record #1: The Exhibit!"
+        expect(solr_doc["object_type_sim"]).to include "text"
+        expect(solr_doc["object_type_sim"]).to include "image"
+        expect(solr_doc["object_type_sim"]).to include "mixed material"
 
       end
 
       it "should have a first component with two attached files" do
-        subject.component.first.file[0].rdf_subject.should == "#{Rails.configuration.id_namespace}xx80808080/1/1.pdf"
-        subject.component.first.file[1].rdf_subject.should == "#{Rails.configuration.id_namespace}xx80808080/1/2.jpg"
+        expect(subject.component.first.file[0].rdf_subject).to eq("#{Rails.configuration.id_namespace}xx80808080/1/1.pdf")
+        expect(subject.component.first.file[1].rdf_subject).to eq("#{Rails.configuration.id_namespace}xx80808080/1/2.jpg")
       end
 	  it "should have a first component with repeating title" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "Supplementary Image"
-        solr_doc["title_tesim"].should include "Supplementary Image Foo"
+        expect(solr_doc["title_tesim"]).to include "Supplementary Image"
+        expect(solr_doc["title_tesim"]).to include "Supplementary Image Foo"
       end
 	  it "should have a second component" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should include "Part 2 of 2"
+        expect(solr_doc["title_tesim"]).to include "Part 2 of 2"
       end
 	  it "should have a dates" do
         solr_doc = subject.to_solr
-        solr_doc["date_tesim"].should include "Tuesday, May 20, 1980"
-        solr_doc["date_tesim"].should include "May 24, 1980"
-        solr_doc["date_tesim"].should include "1980-05-20"
-        solr_doc["date_tesim"].should include "1980-05-24"
+        expect(solr_doc["date_tesim"]).to include "Tuesday, May 20, 1980"
+        expect(solr_doc["date_tesim"]).to include "May 24, 1980"
+        expect(solr_doc["date_tesim"]).to include "1980-05-20"
+        expect(solr_doc["date_tesim"]).to include "1980-05-24"
       end
       it "should index repeating linked metadata" do
         solr_doc = subject.to_solr
-        solr_doc["language_tesim"].should == ["English"]
+        expect(solr_doc["language_tesim"]).to eq(["English"])
 
         # rights holder
-        solr_doc["rightsHolder_tesim"].should == ["Administrator, Bob, 1977-"]
+        expect(solr_doc["rightsHolder_tesim"]).to eq(["Administrator, Bob, 1977-"])
       end
       it "should index source capture" do
         solr_doc = subject.to_solr
-        solr_doc["component_1_files_tesim"].first.should include '"source_capture":"xx49494949"'
-        solr_doc["component_1_files_tesim"].first.should include '"scanner_manufacturer":"Epson"'
-        solr_doc["component_1_files_tesim"].first.should include '"source_type":"transmission scanner"'
-        solr_doc["component_1_files_tesim"].first.should include '"scanner_model_name":"Expression 1600"'
-        solr_doc["component_1_files_tesim"].first.should include '"image_producer":"Luna Imaging, Inc."'
-        solr_doc["component_1_files_tesim"].first.should include '"scanning_software_version":"2.10E"'
-        solr_doc["component_1_files_tesim"].first.should include '"scanning_software":"Epson Twain Pro"'
-        solr_doc["component_1_files_tesim"].first.should include '"capture_source":"B\\u0026W negative , 2 1/2 x 2 1/2"'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"source_capture":"xx49494949"'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"scanner_manufacturer":"Epson"'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"source_type":"transmission scanner"'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"scanner_model_name":"Expression 1600"'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"image_producer":"Luna Imaging, Inc."'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"scanning_software_version":"2.10E"'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"scanning_software":"Epson Twain Pro"'
+        expect(solr_doc["component_1_files_tesim"].first).to include '"capture_source":"B\\u0026W negative , 2 1/2 x 2 1/2"'
       end
       it "should index rights metadata" do
         solr_doc = subject.to_solr
 
         # copyright
-        solr_doc["copyright_tesim"].first.should include '"status":"Under copyright"'
-        solr_doc["copyright_tesim"].first.should include '"jurisdiction":"us"'
-        solr_doc["copyright_tesim"].first.should include '"note":"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."'
-        solr_doc["copyright_tesim"].first.should include '"purposeNote":"This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study."'
-        solr_doc["copyright_tesim"].first.should include '"beginDate":"1993-12-31"'
+        expect(solr_doc["copyright_tesim"].first).to include '"status":"Under copyright"'
+        expect(solr_doc["copyright_tesim"].first).to include '"jurisdiction":"us"'
+        expect(solr_doc["copyright_tesim"].first).to include '"note":"This work is protected by the U.S. Copyright Law (Title 17, U.S.C.).  Use of this work beyond that allowed by \"fair use\" requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Libraries."'
+        expect(solr_doc["copyright_tesim"].first).to include '"purposeNote":"This work is available from the UC San Diego Libraries. This digital copy of the work is intended to support research, teaching, and private study."'
+        expect(solr_doc["copyright_tesim"].first).to include '"beginDate":"1993-12-31"'
 
         # license
-        solr_doc["license_tesim"].first.should include '"id":"xx22222222"'
-        solr_doc["license_tesim"].first.should include '"note":"License note text here..."'
-        solr_doc["license_tesim"].first.should include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
-        solr_doc["license_tesim"].first.should include '"permissionType":"display"'
-        solr_doc["license_tesim"].first.should include '"permissionBeginDate":"2010-01-01"'
+        expect(solr_doc["license_tesim"].first).to include '"id":"xx22222222"'
+        expect(solr_doc["license_tesim"].first).to include '"note":"License note text here..."'
+        expect(solr_doc["license_tesim"].first).to include '"uri":"http://library.ucsd.edu/licenses/lic12341.pdf"'
+        expect(solr_doc["license_tesim"].first).to include '"permissionType":"display"'
+        expect(solr_doc["license_tesim"].first).to include '"permissionBeginDate":"2010-01-01"'
 
         # statute
-        solr_doc["statute_tesim"].first.should include '"id":"xx21212121"'
-        solr_doc["statute_tesim"].first.should include '"citation":"Family Education Rights and Privacy Act (FERPA)"'
-        solr_doc["statute_tesim"].first.should include '"jurisdiction":"us"'
-        solr_doc["statute_tesim"].first.should include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
-        solr_doc["statute_tesim"].first.should include '"restrictionType":"display"'
-        solr_doc["statute_tesim"].first.should include '"restrictionBeginDate":"1974-08-21"'
+        expect(solr_doc["statute_tesim"].first).to include '"id":"xx21212121"'
+        expect(solr_doc["statute_tesim"].first).to include '"citation":"Family Education Rights and Privacy Act (FERPA)"'
+        expect(solr_doc["statute_tesim"].first).to include '"jurisdiction":"us"'
+        expect(solr_doc["statute_tesim"].first).to include '"note":"Prohibits disclosure of educational records containing personally-identifying information except in certain circumstances."'
+        expect(solr_doc["statute_tesim"].first).to include '"restrictionType":"display"'
+        expect(solr_doc["statute_tesim"].first).to include '"restrictionBeginDate":"1974-08-21"'
 
         # other rights
-        solr_doc["otherRights_tesim"].first.should include '"id":"xx06060606"'
-        solr_doc["otherRights_tesim"].first.should include '"basis":"fair use"'
-        solr_doc["otherRights_tesim"].first.should include '"uri":"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"'
-        solr_doc["otherRights_tesim"].first.should include '"permissionType":"display"'
-        solr_doc["otherRights_tesim"].first.should include '"permissionBeginDate":"2011-09-24"'
-        solr_doc["otherRights_tesim"].first.should include "\"name\":\"#{Rails.configuration.id_namespace}xx09090909\""
-        solr_doc["otherRights_tesim"].first.should include "\"role\":\"#{Rails.configuration.id_namespace}bd3004227d\""
+        expect(solr_doc["otherRights_tesim"].first).to include '"id":"xx06060606"'
+        expect(solr_doc["otherRights_tesim"].first).to include '"basis":"fair use"'
+        expect(solr_doc["otherRights_tesim"].first).to include '"uri":"http://library.ucsd.edu/lisn/policy/2010-12-31-a.pdf"'
+        expect(solr_doc["otherRights_tesim"].first).to include '"permissionType":"display"'
+        expect(solr_doc["otherRights_tesim"].first).to include '"permissionBeginDate":"2011-09-24"'
+        expect(solr_doc["otherRights_tesim"].first).to include "\"name\":\"#{Rails.configuration.id_namespace}xx09090909\""
+        expect(solr_doc["otherRights_tesim"].first).to include "\"role\":\"#{Rails.configuration.id_namespace}bd3004227d\""
       end
       it "should index unit" do
         solr_doc = subject.to_solr
-        solr_doc["unit_json_tesim"].first.should include "Library Digital Collections"
+        expect(solr_doc["unit_json_tesim"].first).to include "Library Digital Collections"
       end
       it "should index collection" do
         solr_doc = subject.to_solr
-        solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
+        expect(solr_doc["collection_json_tesim"].join(" ")).to include "UCSD Electronic Theses and Dissertations"
       end
 #      it "should have event" do
 #        solr_doc = subject.to_solr
@@ -235,7 +235,7 @@ describe DamsObjectDatastream do
 
   describe "Date" do
     it "should have an rdf_type" do
-      DamsDate.rdf_type.should == DAMS.Date
+      expect(DamsDate.rdf_type).to eq(DAMS.Date)
     end
   end
 
@@ -269,7 +269,7 @@ describe DamsObjectDatastream do
   </dams:Object>
 </rdf:RDF>
 END
-	    subject.content.should be_equivalent_to xml
+	    expect(subject.content).to be_equivalent_to xml
 	
 	  end
   end
@@ -295,120 +295,120 @@ END
         @statute.delete
       end
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd6212468x"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bd6212468x")
       end
 
       it "should have fields" do
-        subject.titleValue.should == "Sample Object Record #8"
-        subject.subtitle.should == "Name/Note/Subject Sampler"
-        subject.titleVariant.should == ["The Whale 2", "The Whale"]
-        subject.titleTranslationVariant.should == ["Translation Variant 2", "Translation Variant"]
-	    subject.titleAbbreviationVariant.should == ["Abbreviation Variant 2", "Abbreviation Variant"]
-	    subject.titleAcronymVariant.should == ["Acronym Variant 2", "Acronym Variant"]
-	    subject.titleExpansionVariant.should == ["Expansion Variant 2", "Expansion Variant"]
+        expect(subject.titleValue).to eq("Sample Object Record #8")
+        expect(subject.subtitle).to eq("Name/Note/Subject Sampler")
+        expect(subject.titleVariant).to eq(["The Whale 2", "The Whale"])
+        expect(subject.titleTranslationVariant).to eq(["Translation Variant 2", "Translation Variant"])
+	    expect(subject.titleAbbreviationVariant).to eq(["Abbreviation Variant 2", "Abbreviation Variant"])
+	    expect(subject.titleAcronymVariant).to eq(["Acronym Variant 2", "Acronym Variant"])
+	    expect(subject.titleExpansionVariant).to eq(["Expansion Variant 2", "Expansion Variant"])
       end
       
       it "should index metadata" do
         solr_doc = subject.to_solr
 		
         #it "should index iconography" do
-        solr_doc["iconography_tesim"].should == ["Madonna and Child"]
+        expect(solr_doc["iconography_tesim"]).to eq(["Madonna and Child"])
 
         #it "should index lithology" do
-        solr_doc["lithology_tesim"].should == ["test lithology"]
+        expect(solr_doc["lithology_tesim"]).to eq(["test lithology"])
         
         #it "should index series" do
-        solr_doc["series_tesim"].should == ["test series"]
+        expect(solr_doc["series_tesim"]).to eq(["test series"])
         
         #it "should index cruise" do
-        solr_doc["cruise_tesim"].should == ["test cruise"]
+        expect(solr_doc["cruise_tesim"]).to eq(["test cruise"])
 
         #it "should index lithology" do
-        solr_doc["anatomy_tesim"].should == ["test anatomy"]
+        expect(solr_doc["anatomy_tesim"]).to eq(["test anatomy"])
                         
         #it "should index technique" do
-        solr_doc["technique_tesim"].should == ["Impasto"]
+        expect(solr_doc["technique_tesim"]).to eq(["Impasto"])
 
         #it "should index personalName" do
-        solr_doc["personalName_tesim"].should include "Burns, Jack O....."
-        solr_doc["personalName_tesim"].should include "Burns, Jack O.....2"
+        expect(solr_doc["personalName_tesim"]).to include "Burns, Jack O....."
+        expect(solr_doc["personalName_tesim"]).to include "Burns, Jack O.....2"
         
         #it "should index familyName" do
-        solr_doc["familyName_tesim"].should include "Calder (Family : 1757-1959 : N.C.)...."
+        expect(solr_doc["familyName_tesim"]).to include "Calder (Family : 1757-1959 : N.C.)...."
 
         #it "should index name" do        
-        solr_doc["name_tesim"].should include "Scripps Institute of Oceanography, Geological Collections"
-        solr_doc["name_tesim"].should include "Yañez, Angélica María"
-        solr_doc["name_tesim"].should include "Personal Name 2"
-        solr_doc["name_tesim"].should include "Name 4"
-        solr_doc["name_tesim"].should include "Conference Name 2"
-        solr_doc["name_tesim"].should include "Family Name 2"
-        solr_doc["name_tesim"].should include "Generic Name Internal"
-        solr_doc["name_tesim"].should include "American Library Association. Annual Conference...."
-        solr_doc["name_tesim"].should include "Lawrence Livermore Laboratory......"
-        solr_doc["name_tesim"].should include "Calder (Family : 1757-1959 : N.C.)...."
-        solr_doc["name_tesim"].should include "Burns, Jack O....."
-        solr_doc["name_tesim"].should include "Burns, Jack O.....2"
+        expect(solr_doc["name_tesim"]).to include "Scripps Institute of Oceanography, Geological Collections"
+        expect(solr_doc["name_tesim"]).to include "Yañez, Angélica María"
+        expect(solr_doc["name_tesim"]).to include "Personal Name 2"
+        expect(solr_doc["name_tesim"]).to include "Name 4"
+        expect(solr_doc["name_tesim"]).to include "Conference Name 2"
+        expect(solr_doc["name_tesim"]).to include "Family Name 2"
+        expect(solr_doc["name_tesim"]).to include "Generic Name Internal"
+        expect(solr_doc["name_tesim"]).to include "American Library Association. Annual Conference...."
+        expect(solr_doc["name_tesim"]).to include "Lawrence Livermore Laboratory......"
+        expect(solr_doc["name_tesim"]).to include "Calder (Family : 1757-1959 : N.C.)...."
+        expect(solr_doc["name_tesim"]).to include "Burns, Jack O....."
+        expect(solr_doc["name_tesim"]).to include "Burns, Jack O.....2"
 
         #it "should index conferenceName" do
-        solr_doc["conferenceName_tesim"].should == ["American Library Association. Annual Conference...."]
+        expect(solr_doc["conferenceName_tesim"]).to eq(["American Library Association. Annual Conference...."])
 
         #it "should index corporateName" do
-        solr_doc["corporateName_tesim"].should == ["Lawrence Livermore Laboratory......"]
+        expect(solr_doc["corporateName_tesim"]).to eq(["Lawrence Livermore Laboratory......"])
 
         #it "should index complexSubject" do
-        solr_doc["complexSubject_tesim"].should include "Test linked subject--More test"
+        expect(solr_doc["complexSubject_tesim"]).to include "Test linked subject--More test"
         
         #it "should have scopeContentNote" do
-        solr_doc["scopeContentNote_tesim"].should == ["scope content note internal value"]        
+        expect(solr_doc["scopeContentNote_tesim"]).to eq(["scope content note internal value"])        
 
         #it "should have preferredCitationNote" do
-        solr_doc["preferredCitationNote_tesim"].should == ["citation note internal value"]                
+        expect(solr_doc["preferredCitationNote_tesim"]).to eq(["citation note internal value"])                
 
         #it "should have CustodialResponsibilityNote" do
-        solr_doc["custodialResponsibilityNote_tesim"].should == ["Mandeville Special Collections Library....Internal value"]
+        expect(solr_doc["custodialResponsibilityNote_tesim"]).to eq(["Mandeville Special Collections Library....Internal value"])
 
         #it "should have note" do
-		solr_doc["note_tesim"].should include "Note internal value."
+		expect(solr_doc["note_tesim"]).to include "Note internal value."
 		
-        solr_doc["rightsHolder_tesim"].should include "Administrator, Bob, 1977- internal"
-        solr_doc["rightsHolder_tesim"].should include "UC Regents"
+        expect(solr_doc["rightsHolder_tesim"]).to include "Administrator, Bob, 1977- internal"
+        expect(solr_doc["rightsHolder_tesim"]).to include "UC Regents"
 		
-        solr_doc["cartographics_json_tesim"].first.should include "1:20000" 
+        expect(solr_doc["cartographics_json_tesim"].first).to include "1:20000" 
 
-        solr_doc["unit_json_tesim"].first.should include '"id":"xx48484848","code":"rdcp","name":"Research Data Curation Program"'
+        expect(solr_doc["unit_json_tesim"].first).to include '"id":"xx48484848","code":"rdcp","name":"Research Data Curation Program"'
         
         # title and variant titles
-        solr_doc["title_json_tesim"].first.should include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":["The Whale 2","The Whale"],"translationVariant":["Translation Variant 2","Translation Variant"],"abbreviationVariant":["Abbreviation Variant 2","Abbreviation Variant"],"acronymVariant":["Acronym Variant 2","Acronym Variant"],"expansionVariant":["Expansion Variant 2","Expansion Variant"]'
-        solr_doc["titleVariant_tesim"].should == ["The Whale 2", "The Whale"]
-        solr_doc["titleTranslationVariant_tesim"].should == ["Translation Variant 2", "Translation Variant"]
-        solr_doc["titleAbbreviationVariant_tesim"].should == ["Abbreviation Variant 2", "Abbreviation Variant"]
-        solr_doc["titleAcronymVariant_tesim"].should == ["Acronym Variant 2", "Acronym Variant"]
-        solr_doc["titleExpansionVariant_tesim"].should == ["Expansion Variant 2", "Expansion Variant"]
+        expect(solr_doc["title_json_tesim"].first).to include '"nonSort":"The","partName":"sample partname","partNumber":"sample partnumber","subtitle":"Name/Note/Subject Sampler","variant":["The Whale 2","The Whale"],"translationVariant":["Translation Variant 2","Translation Variant"],"abbreviationVariant":["Abbreviation Variant 2","Abbreviation Variant"],"acronymVariant":["Acronym Variant 2","Acronym Variant"],"expansionVariant":["Expansion Variant 2","Expansion Variant"]'
+        expect(solr_doc["titleVariant_tesim"]).to eq(["The Whale 2", "The Whale"])
+        expect(solr_doc["titleTranslationVariant_tesim"]).to eq(["Translation Variant 2", "Translation Variant"])
+        expect(solr_doc["titleAbbreviationVariant_tesim"]).to eq(["Abbreviation Variant 2", "Abbreviation Variant"])
+        expect(solr_doc["titleAcronymVariant_tesim"]).to eq(["Acronym Variant 2", "Acronym Variant"])
+        expect(solr_doc["titleExpansionVariant_tesim"]).to eq(["Expansion Variant 2", "Expansion Variant"])
 
         # subject
-        solr_doc["subject_topic_sim"].should include "Test linked subject--More test"
-        solr_doc["subject_topic_sim"].should include "Madonna and Child"
-        solr_doc["subject_topic_sim"].should include "Impasto"
-        solr_doc["subject_topic_sim"].should include "Generic Name Internal"
-        solr_doc["subject_topic_sim"].should include "American Library Association. Annual Conference...."
-        solr_doc["subject_topic_sim"].should include "Lawrence Livermore Laboratory......"
-        solr_doc["subject_topic_sim"].should include "Calder (Family : 1757-1959 : N.C.)...."
-        solr_doc["subject_topic_sim"].should include "Burns, Jack O....."
-        solr_doc["subject_topic_sim"].should include "Burns, Jack O.....2"
+        expect(solr_doc["subject_topic_sim"]).to include "Test linked subject--More test"
+        expect(solr_doc["subject_topic_sim"]).to include "Madonna and Child"
+        expect(solr_doc["subject_topic_sim"]).to include "Impasto"
+        expect(solr_doc["subject_topic_sim"]).to include "Generic Name Internal"
+        expect(solr_doc["subject_topic_sim"]).to include "American Library Association. Annual Conference...."
+        expect(solr_doc["subject_topic_sim"]).to include "Lawrence Livermore Laboratory......"
+        expect(solr_doc["subject_topic_sim"]).to include "Calder (Family : 1757-1959 : N.C.)...."
+        expect(solr_doc["subject_topic_sim"]).to include "Burns, Jack O....."
+        expect(solr_doc["subject_topic_sim"]).to include "Burns, Jack O.....2"
 
       end
 
       it "should index relationship" do
         solr_doc = subject.to_solr
-        solr_doc["relationship_json_tesim"].first.should == '{"Repository":["Conference Name 2","Family Name 2","Name 4","Personal Name 2","Scripps Institute of Oceanography, Geological Collections"],"Creator":["Yañez, Angélica María"]}'
+        expect(solr_doc["relationship_json_tesim"].first).to eq('{"Repository":["Conference Name 2","Family Name 2","Name 4","Personal Name 2","Scripps Institute of Oceanography, Geological Collections"],"Creator":["Yañez, Angélica María"]}')
       end
 	    
       it "should index collection" do
         solr_doc = subject.to_solr
-        solr_doc["collection_json_tesim"].join(" ").should include "UCSD Electronic Theses and Dissertations"
-        solr_doc["collection_json_tesim"].join(" ").should include "Scripps Institution of Oceanography, Geological Collections"
-        solr_doc["collection_json_tesim"].join(" ").should include "May 2009"
+        expect(solr_doc["collection_json_tesim"].join(" ")).to include "UCSD Electronic Theses and Dissertations"
+        expect(solr_doc["collection_json_tesim"].join(" ")).to include "Scripps Institution of Oceanography, Geological Collections"
+        expect(solr_doc["collection_json_tesim"].join(" ")).to include "May 2009"
       end
    end
 
@@ -419,13 +419,13 @@ END
         subject
       end
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bd0171551x"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bd0171551x")
       end
       it "should index title and collection" do
         solr_doc = subject.to_solr
-        solr_doc["title_json_tesim"].first.should include "RNDB11WT-74P (core, piston)"
-        solr_doc["collection_json_tesim"].first.should include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","visibility":"public","type":"ProvenanceCollection"'     
-		solr_doc["relationship_json_tesim"].first.should include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
+        expect(solr_doc["title_json_tesim"].first).to include "RNDB11WT-74P (core, piston)"
+        expect(solr_doc["collection_json_tesim"].first).to include '"id":"bd24241158","name":"Scripps Institution of Oceanography, Geological Collections","visibility":"public","type":"ProvenanceCollection"'     
+		expect(solr_doc["relationship_json_tesim"].first).to include '"Collector":["ROUNDABOUT--11","Thomas Washington"]'
       end
     end
     describe "a complex object with internal classes" do
@@ -435,20 +435,20 @@ END
         subject
       end
       it "should have a component with a first file with file metadata" do
-        subject.component.first.file.first.sourcePath.should == ["/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data"]
-        subject.component.first.file.first.sourceFileName.should == ["rndb11wt-074P_A_600-748cm_xrfdata_50kV_001.XLS"]
-        subject.component.first.file.first.formatName.should == ["bytestream"]
-        subject.component.first.file.first.formatVersion.should == ["4.0"]
-        subject.component.first.file.first.mimeType.should == ["application/octet-stream"]
-        subject.component.first.file.first.use.should == ["data-service"]
-        subject.component.first.file.first.size.should == ["212480"]
-        subject.component.first.file.first.crc32checksum.should == ["66518753"]
-        subject.component.first.file.first.md5checksum.should == ["688061e851f069bf52513210bd55eef3"]
-        subject.component.first.file.first.sha1checksum.should == ["969e1d6125cec163afd22bb3ff0878e3e5e84695"]
-        subject.component.first.file.first.dateCreated.should == ["2013-01-11T12:29:47-0800"]
-        subject.component.first.file.first.objectCategory.should == ["file"]
-        subject.component.first.file.first.compositionLevel.should == ["0"]
-        subject.component.first.file.first.preservationLevel.should == ["full"]
+        expect(subject.component.first.file.first.sourcePath).to eq(["/pub/data1/dams_staging/rci/staging/siogeocoll/RNDB_RCI_Jan2013/data/XRF_Data"])
+        expect(subject.component.first.file.first.sourceFileName).to eq(["rndb11wt-074P_A_600-748cm_xrfdata_50kV_001.XLS"])
+        expect(subject.component.first.file.first.formatName).to eq(["bytestream"])
+        expect(subject.component.first.file.first.formatVersion).to eq(["4.0"])
+        expect(subject.component.first.file.first.mimeType).to eq(["application/octet-stream"])
+        expect(subject.component.first.file.first.use).to eq(["data-service"])
+        expect(subject.component.first.file.first.size).to eq(["212480"])
+        expect(subject.component.first.file.first.crc32checksum).to eq(["66518753"])
+        expect(subject.component.first.file.first.md5checksum).to eq(["688061e851f069bf52513210bd55eef3"])
+        expect(subject.component.first.file.first.sha1checksum).to eq(["969e1d6125cec163afd22bb3ff0878e3e5e84695"])
+        expect(subject.component.first.file.first.dateCreated).to eq(["2013-01-11T12:29:47-0800"])
+        expect(subject.component.first.file.first.objectCategory).to eq(["file"])
+        expect(subject.component.first.file.first.compositionLevel).to eq(["0"])
+        expect(subject.component.first.file.first.preservationLevel).to eq(["full"])
       end
     end
   describe "Solr indexing" do
@@ -466,7 +466,7 @@ END
     it "should index a sort date" do
       # sort date
       solr_doc = subject.to_solr
-      solr_doc["object_create_dtsi"].should == "1993-12-01T00:00:00Z"
+      expect(solr_doc["object_create_dtsi"]).to eq("1993-12-01T00:00:00Z")
     end
   end
 end
