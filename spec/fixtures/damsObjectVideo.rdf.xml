@@ -1,0 +1,96 @@
+<rdf:RDF xmlns:mads="http://www.loc.gov/mads/rdf/v1#" xmlns:damsid="http://library.ucsd.edu/ark:/20775/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xxx1171293">
+    <dams:personalName>
+      <mads:PersonalName>
+        <mads:authoritativeLabel>Internal Personal Name</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FamilyNameElement>
+            <mads:elementValue>Internal Personal Name</mads:elementValue>
+          </mads:FamilyNameElement>
+        </mads:elementList>
+      </mads:PersonalName>
+    </dams:personalName>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
+<dams:hasFile>
+<dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xxx1171293/1.mov">
+<dams:compositionLevel>0</dams:compositionLevel>
+<dams:crc32checksum>92a21eb2</dams:crc32checksum>
+<dams:dateCreated>2013-05-13T12:17:30-0700</dams:dateCreated>
+<dams:duration>00:25:00</dams:duration>
+<dams:formatName>bytestream</dams:formatName>
+<dams:md5checksum>f939cedb87e6f5ece8cc7e9a595bf54a</dams:md5checksum>
+<dams:mimeType>application/octet-stream</dams:mimeType>
+<dams:objectCategory>file</dams:objectCategory>
+<dams:preservationLevel>full</dams:preservationLevel>
+<dams:quality>video: dvvideo (dvc / 0x20637664), 720x480, 28741 kb/s, 29.94 fps; audio: pcm_s16be, 48000 Hz, stereo, s16, 1536 kb/s</dams:quality>
+<dams:sha1checksum>548662a3a693dc62538fc2e563a8db4bb139d2e4</dams:sha1checksum>
+<dams:size>5676552861</dams:size>
+<dams:sourceFileName>adela_salas_castillejos_1.mov</dams:sourceFileName>
+<dams:sourcePath>/pub/data1/dams_staging/Special_Collections_Data/SpanishCivilWarMemory/adela_salas_castillejos/</dams:sourcePath>
+<dams:use>video-source</dams:use>
+</dams:File>
+</dams:hasFile>
+
+<dams:hasFile>
+<dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xxx1171293/2.mp4">
+<dams:compositionLevel>0</dams:compositionLevel>
+<dams:crc32checksum>7e3d6c08</dams:crc32checksum>
+<dams:dateCreated>2010-09-20T04:21:56-0700</dams:dateCreated>
+<dams:duration>00:24:59</dams:duration>
+<dams:formatName>bytestream</dams:formatName>
+<dams:md5checksum>2840e654962a0044018d451dea30a96e</dams:md5checksum>
+<dams:mimeType>application/octet-stream</dams:mimeType>
+<dams:objectCategory>file</dams:objectCategory>
+<dams:preservationLevel>full</dams:preservationLevel>
+<dams:quality>video: h264 (High), 1280x720, 5002 kb/s, 29.97 fps; audio: aac, 44100 Hz, stereo, fltp, 126 kb/s</dams:quality>
+<dams:sha1checksum>8ff7942a44a654d586473c86e9e0d892f1e13c8c</dams:sha1checksum>
+<dams:size>960840342</dams:size>
+<dams:sourceFileName>20775-bb39260044-0-2.mp4</dams:sourceFileName>
+<dams:sourcePath>/pub/data2/dams/localStore/bb/39/26/00/44</dams:sourcePath>
+<dams:use>video-service</dams:use>
+</dams:File>
+</dams:hasFile>
+<dams:hasFile>
+<dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xxx1171293/2.jpg">
+<dams:compositionLevel>0</dams:compositionLevel>
+<dams:crc32checksum>0a1dd085</dams:crc32checksum>
+<dams:dateCreated>2013-05-13T12:16:11-0700</dams:dateCreated>
+<dams:formatName>JPEG</dams:formatName>
+<dams:md5checksum>28f1eb16d0c1007963b5cb09ab2b96ee</dams:md5checksum>
+<dams:mimeType>image/jpeg</dams:mimeType>
+<dams:objectCategory>file</dams:objectCategory>
+<dams:preservationLevel>full</dams:preservationLevel>
+<dams:quality>320x240</dams:quality>
+<dams:sha1checksum>a59710edcc7cccc7f160fc8c8e66b57ad6c68c60</dams:sha1checksum>
+<dams:size>9842</dams:size>
+<dams:sourceFileName>20775-bb39260044-0-3.jpg</dams:sourceFileName>
+<dams:sourcePath>/pub/data2/dams/localStore/bb/39/26/00/44</dams:sourcePath>
+<dams:use>image-service</dams:use>
+</dams:File>
+</dams:hasFile>
+<dams:hasFile>
+<dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xxx1171293/3.jpg">
+<dams:compositionLevel>0</dams:compositionLevel>
+<dams:crc32checksum>0a1dd085</dams:crc32checksum>
+<dams:dateCreated>2013-05-13T12:16:11-0700</dams:dateCreated>
+<dams:formatName>JPEG</dams:formatName>
+<dams:md5checksum>28f1eb16d0c1007963b5cb09ab2b96ee</dams:md5checksum>
+<dams:mimeType>image/jpeg</dams:mimeType>
+<dams:objectCategory>file</dams:objectCategory>
+<dams:preservationLevel>full</dams:preservationLevel>
+<dams:quality>320x240</dams:quality>
+<dams:sha1checksum>a59710edcc7cccc7f160fc8c8e66b57ad6c68c60</dams:sha1checksum>
+<dams:size>9842</dams:size>
+<dams:sourceFileName>20775-bb39260044-0-3.jpg</dams:sourceFileName>
+<dams:sourcePath>/pub/data2/dams/localStore/bb/39/26/00/44</dams:sourcePath>
+<dams:use>image-preview</dams:use>
+</dams:File>
+</dams:hasFile>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+        <dams:copyrightJurisdiction>us</dams:copyrightJurisdiction>
+      </dams:Copyright>
+    </dams:copyright>
+  </dams:Object>
+</rdf:RDF>
