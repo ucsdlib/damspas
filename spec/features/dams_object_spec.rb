@@ -369,6 +369,25 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_content "The page you were looking for does not exist."
     end
   end
+  
+  describe "rendering correct file format" do
+    before(:all) do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                            code: "tu", uri: "http://example.com/"
+    @damsVideoObj = DamsObject.create(pid: "xxx1171293")
+    @damsVideoObj.damsMetadata.content = File.new('spec/fixtures/damsObjectVideo.rdf.xml').read
+    @damsVideoObj.save!
+    solr_index (@damsVideoObj.pid)
+    end
+    after(:all) do
+      @damsVideoObj.delete
+      @unit.delete
+    end
+    it "should show video tags" do
+      visit dams_object_path(@damsVideoObj.pid)
+      expect(page).to have_selector('#dams-video')
+    end
+  end
 
   describe "viewing files" do
     before(:all) do
