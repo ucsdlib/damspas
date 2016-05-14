@@ -276,7 +276,15 @@ class CatalogController < ApplicationController
       end
       (@response, @document_list) = get_search_results
 
-	  spelling_words = @response.spelling.words
+      spelling_words = []
+      @response.spelling.words.each do |word|
+        # handle Hash format for solr 5
+        if word.is_a?(Hash)
+          spelling_words << word["word"] if !word["word"].nil?
+        else
+          spelling_words << word
+        end
+      end
 	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
 		params['spellsuggestions'] = 'false'
 		if(params['spellcheck.q'].nil?)
@@ -289,12 +297,11 @@ class CatalogController < ApplicationController
 		i = 0
 		@suggestions = ([@response.spelling.collation] | spelling_words).compact
         tmp_params = params.clone
-		@suggestions.each do |word|
+		spelling_words.each do |word|
 			tmp_params[:q] = word
 			(tmp_resp, tmp_docs) = get_search_results tmp_params
-			@suggestions.delete(word) if tmp_docs.size == 0
+			spelling_words.delete(word) if tmp_docs.size == 0
 		end
-        spelling_words = @suggestions
 	  else
 		params.delete('spellsuggestions')
 		params['spellcheck.q'] = params[:q]

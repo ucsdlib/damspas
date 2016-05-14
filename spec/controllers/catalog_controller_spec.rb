@@ -23,6 +23,7 @@ describe CatalogController do
     end
   
     it "should have search results for a poor query with multiple key words" do
+      sign_in User.create({:provider => 'developer'})
       get :index, :q => '"Spellchecl Testx"', :qf => 'title_tesim'
       expect(assigns_response.spelling.words.size).to be > 0
     end
