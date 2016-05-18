@@ -456,47 +456,57 @@ module DamsObjectsHelper
 	#
 	# @param componentIndex (Optional) The component's index.
 	# @return A string that is the component's file id value
-	# @author David T.
+	# @author David T., hweng
 	#---
+
+ def required_file_use?(param)
+   (param.end_with?("document-service")||param.end_with?("video-service")||param.end_with?("audio-service"))
+ end
+
+ def file_use(parameters, types)
+   fieldData = file_data(parameters)
+    result = nil
+
+    if fieldData != nil
+      fieldData.each do |datum|
+        files = JSON.parse(datum)
+        if files["use"].end_with?("-service")
+          result = files[types]
+          if required_file_use?(files["use"])
+            break
+          end
+        end
+      end
+    end
+    return result
+ end
+
 	def grabServiceFile(parameters={})
-
-		p = {:componentIndex=>nil}.merge(parameters)
-		componentIndex = p[:componentIndex]
-
-		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
-		fieldData = @document["#{prefix}files_tesim"]
-		result = nil
-
-		if fieldData != nil
-			fieldData.each do |datum|
-				files = JSON.parse(datum)
-				if files["use"].end_with?("-service")
-					result = files["id"]
-					if(files["use"].end_with?("document-service"))
-						break
-					end
-				end
-			end
-		end
-
-		return result
+    file_use(parameters,"id")
 	end
+
+  def grabFileUse(parameters={})
+    file_use(parameters,"use")
+  end
+
+  def file_data(parameters)
+    p = {:componentIndex=>nil}.merge(parameters)
+    componentIndex = p[:componentIndex]
+
+    prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
+    fieldData = @document["#{prefix}files_tesim"]
+  end
 
 	#---
 	# Get the source file id value from the component's 'files_tesim' value.
 	#
 	# @param componentIndex (Optional) The component's index.
 	# @return A string that is the component's file id value
-	# @author escowles
+	# @author escowles, hweng
 	#---
 	def grabSourceFile(parameters={})
-
-		p = {:componentIndex=>nil}.merge(parameters)
-		componentIndex = p[:componentIndex]
-
-		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
-		fieldData = @document["#{prefix}files_tesim"]
-		result = nil
+		fieldData = file_data(parameters)
+    result = nil
 
 		if fieldData != nil
 			fieldData.each do |datum|
@@ -511,15 +521,8 @@ module DamsObjectsHelper
 		return result
 	end
 
-
-
   def grabPDFFile(parameters={})
-
-    p = {:componentIndex=>nil}.merge(parameters)
-    componentIndex = p[:componentIndex]
-
-    prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
-    fieldData = @document["#{prefix}files_tesim"]
+    fieldData = file_data(parameters)
     result = nil
 
     if fieldData != nil
@@ -535,36 +538,7 @@ module DamsObjectsHelper
     return result
   end
 
-	#---
-	# Get the file use value from the component's 'files_tesim' value. Replaces 'render_file_use'.
-	#
-	# @param componentIndex (Optional) The component's index.
-	# @return A string that is the component's file use (type/role) value. E.g., "image-service", "audio-service", etc.
-	# @author David T.
-	#---
-	def grabFileUse(parameters={})
-
-		p = {:componentIndex=>nil}.merge(parameters)
-		componentIndex = p[:componentIndex]
-
-		prefix = (componentIndex != nil) ? "component_#{componentIndex}_" : ''
-		fieldData = @document["#{prefix}files_tesim"]
-		result = nil
-
-		if fieldData != nil
-			fieldData.each do |datum|
-				files = JSON.parse(datum)
-				if files["use"].end_with?("-service")
-					result = files["use"]
-					if(result == "document-service")
-						break
-					end
-				end
-			end
-		end
-
-		return result
-	end
+	
 
 	#------------------------
 	# COMPONENT TREE METHODS
