@@ -96,7 +96,9 @@ feature 'Visitor want to look at objects' do
       @func = DamsFunction.create( name: 'Test Function' )
       @icon = DamsIconography.create( name: 'Test Iconography' )
       @ana = DamsAnatomy.create( name: 'Test Anatomy' )
+      @other_ana = DamsAnatomy.create( name: 'Test Value Anatomy' )
       @lith = DamsLithology.create( name: 'Test Lithology' )
+      @other_lith = DamsLithology.create( name: 'Test Value Lithology' )
       @ser = DamsSeries.create( name: 'Test Series' )
       @cru = DamsCruise.create( name: 'Test Cruise' )
       @cci = DamsCommonName.create( name: 'Test Common Name' )
@@ -114,6 +116,7 @@ feature 'Visitor want to look at objects' do
       @occu = MadsOccupation.create( name: 'Test Occupation' )
       @pers = MadsPersonalName.create( name: 'Test Personal Name' )
       @temp = MadsTemporal.create( name: 'Test Temporal' )
+      @other_temp = MadsTemporal.create( name: 'Test Value Temporal' )
       @topic = MadsTopic.create( name: 'Test Topic' )
 
       @lic = DamsLicense.create( note: 'Creative Commons Attribution 4.0',
@@ -135,8 +138,10 @@ feature 'Visitor want to look at objects' do
                               culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cult.pid}") }],
                               function_attributes: [{ id: RDF::URI.new("#{ns}#{@func.pid}") }],
                               iconography_attributes: [{ id: RDF::URI.new("#{ns}#{@icon.pid}") }],
-                              anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@ana.pid}") }],
-                              lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") }],
+                              anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@ana.pid}") },
+                                                   { id: RDF::URI.new("#{ns}#{@other_ana.pid}") }],
+                              lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lith.pid}") },
+                                                     { id: RDF::URI.new("#{ns}#{@other_lith.pid}") }],
                               series_attributes: [{ id: RDF::URI.new("#{ns}#{@ser.pid}") }],
                               cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cru.pid}") }],
                               commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@cci.pid}") }],
@@ -153,7 +158,8 @@ feature 'Visitor want to look at objects' do
                               name_attributes: [{ id: RDF::URI.new("#{ns}#{@name.pid}") }],
                               occupation_attributes: [{ id: RDF::URI.new("#{ns}#{@occu.pid}") }],
                               personalName_attributes: [{ id: RDF::URI.new("#{ns}#{@pers.pid}") }],
-                              temporal_attributes: [{ id: RDF::URI.new("#{ns}#{@temp.pid}") }],
+                              temporal_attributes: [{ id: RDF::URI.new("#{ns}#{@temp.pid}") },
+                                                    { id: RDF::URI.new("#{ns}#{@other_temp.pid}") }],
                               topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic.pid}") }],
                               copyright_attributes: [{status: 'Public domain'}],
                               license_attributes: [{ id: RDF::URI.new("#{ns}#{@lic.pid}") }],
@@ -196,6 +202,10 @@ feature 'Visitor want to look at objects' do
       @lic.delete
       @other.delete
       @stat.delete
+      @lith.delete
+      @other_lith.delete
+      @other_temp.delete
+      @other_ana.delete
     end
     it "should display linked metadata" do
 
@@ -225,12 +235,22 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Occupation')
       expect(page).to have_selector('li', text: 'Test Personal Name')
       expect(page).to have_selector('li', text: 'Test Temporal')
+      expect(page).to have_selector('li', text: 'Test Value Temporal')
       expect(page).to have_selector('li', text: 'Test Topic')
       expect(page).to have_selector('li', text: 'Test Lithology')
+      expect(page).to have_selector('li', text: 'Test Value Lithology')      
       expect(page).to have_selector('li', text: 'Test Series')
       expect(page).to have_selector('li', text: 'Test Cruise')
       expect(page).to have_selector('li', text: 'Test Anatomy')
-
+      expect(page).to have_selector('li', text: 'Test Value Anatomy')
+      
+      #Subject Label
+      expect(page).to_not have_selector('dt', text: 'Lithologies')
+      expect(page).to have_selector('dt', text: 'Lithology')
+      expect(page).to_not have_selector('dt', text: 'Temporals')
+      expect(page).to have_selector('dt', text: 'Temporal')
+      expect(page).to_not have_selector('dt', text: 'Anatomies')
+      expect(page).to have_selector('dt', text: 'Anatomy')          
     end
     it "should display curator-only linked metadata" do
 
