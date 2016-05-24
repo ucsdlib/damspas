@@ -4,6 +4,8 @@
     else
       url = dams_object_path(document, :counter => opts[:counter] )
     end
+
+    url = to_stats_path url
     
     restrictedNotice = grabRestrictedText(document['otherNote_json_tesim'])
 %>

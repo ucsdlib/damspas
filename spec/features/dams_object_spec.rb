@@ -691,7 +691,7 @@ describe "Curator complex object viewer" do
     sign_in_developer
     visit dams_object_path(@damsComplexObj8.pid)
     expect(page).to have_content "Component 1 Title"
-    expect(page).to have_link('', href:"/object/xx080808xx/_1_1.tif/download")
+    expect(page).to have_link('', href:"/object/xx080808xx/_1_1.tif/download?access=curator")
   end
   it "should have the label 'Components' in the component header" do
     sign_in_developer

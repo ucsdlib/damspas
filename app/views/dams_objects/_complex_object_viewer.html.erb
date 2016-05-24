@@ -45,6 +45,10 @@
 	        else
 	          download_file_path = ''
 	        end
+
+	        display_file_path = to_stats_path display_file_path
+	        service_file_path = to_stats_path service_file_path
+	        download_file_path = to_stats_path download_file_path
 		%>
 
 		<div id="component-<%= i %>" class="component <%= firstComponent %>" <%= loadFirstComponent %>>
