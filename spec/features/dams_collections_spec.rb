@@ -215,7 +215,7 @@ feature "Vistor wants to view the OSF API" do
     scenario 'should see SHARE output' do
       sign_in_developer
       visit osf_api_dams_collection_path @provCollection.pid
-      expect(page).to have_content('"Test Title : "')
+      expect(page).to have_content('"Test Title"')
       expect(page).to have_content('{"name":"test contributor"}')
       expect(page).to have_content('{"name":"test contributor2"}')
       expect(page).to have_content('{"name":"test contributor3"}')
