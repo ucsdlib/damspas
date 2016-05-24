@@ -62,6 +62,7 @@ group :development, :test do
   gem 'unicorn', '~> 5.0.1'
   gem 'rspec_junit_formatter', '~> 0.2.3'
   gem "codeclimate-test-reporter", '~> 0.4.8', require: nil
+  gem 'poltergeist'
 end
 
 group :staging do
