@@ -137,7 +137,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false},
                             primary: "flash",
-                            fallback: false
+                            fallback: true
                         });
 
 						break;
@@ -157,7 +157,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false},
                             primary: "flash",
-                            fallback: false
+                            fallback: true
                         });
 
 						break;
