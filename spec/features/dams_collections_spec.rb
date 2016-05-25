@@ -199,6 +199,23 @@ feature "Visitor wants to view a collection's page" do
   end
 end
 
+feature "Vistor wants to view the OSF API title" do
+  before(:all) do
+    @prov = DamsProvenanceCollection.create titleValue: 'Test Title',  titleTranslationVariant: 'Test Translation Variant', visibility: 'curator'
+    solr_index @prov.pid
+  end
+
+  after(:all) do
+    @prov.delete
+  end
+
+  scenario 'should see the main title and translation variant separated by colon' do
+    sign_in_developer
+    visit osf_api_dams_collection_path @prov.pid
+    expect(page).to have_content("Test Title : Test Translation Variant")
+  end
+end
+
 feature "Vistor wants to view the OSF API" do
   before do
       @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
