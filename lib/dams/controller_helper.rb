@@ -11,7 +11,7 @@ module Dams
 		    dams_data.each do |datum|
 		      title = JSON.parse(datum)
 		      osf_data = title['name'] ? title['name'] : ''
-		      osf_data += title['name'] && title['translationVariant'] ? ' : ' : ''
+		      osf_data += title['name'] && !title['translationVariant'].blank? ? ' : ' : ''
 		      title_trans = title['translationVariant'] || []
 		      if title_trans.class == Array
 		      	title_trans.each do |trans|  
