@@ -128,6 +128,8 @@ module CatalogHelper
       url = file_path parts[0], "_" + parts[1].gsub("/","_")
     end
 
+    url = to_stats_path url
+
     image_tag( url, :alt => "", :class => 'dams-search-thumbnail') unless url.blank?
   end
 

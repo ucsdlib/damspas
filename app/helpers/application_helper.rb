@@ -187,5 +187,13 @@ module ApplicationHelper
       return JSON.parse(datum)['name']
     end
   end
-    
+
+  def to_stats_path (path)
+    if !path.blank? && !session[:user_id].blank?
+      path += path.index('?').nil? ? '?' : '&'
+      path + 'access=curator'
+    else
+      path
+    end
+  end
 end 
