@@ -809,9 +809,9 @@ def display_node(index)
       nonce += "x"
     end
 
-    # load key from file
-    key= File.read Rails.configuration.wowza_directory + 'streaming.key'
-
+    # load key from environment variable
+    key = ENV.fetch('APPS_DHH_STREAMING_KEY') {'xxxxxxxxxxxxxxxx'}
+    
     # encrypt
     str="#{pid} #{fid} #{ip}"
     cipher = OpenSSL::Cipher::AES.new(128,:CBC)

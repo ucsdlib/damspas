@@ -1,0 +1,3 @@
+---
+host: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_HOST') {'https://staging.osf.io'}%>
+token: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_TOKEN') {'default'}%>
