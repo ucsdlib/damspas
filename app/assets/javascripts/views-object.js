@@ -16,7 +16,6 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	var tile_url = 'http://otile1.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png';
 	var tile_att = 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>';
 
-
 	//------
 	// LOAD
 	//------
@@ -88,14 +87,17 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 }).apply(dp.cartographics);
 
 
-//-----------------------------
-// DYNAMICALLY LOAD COMPONENTS
-//-----------------------------
+//---------------------
+// COMPLEX OBJECT VIEW
+//---------------------
 
 (function(){
 
 	var componentLoaded = [];
 
+    //-----------
+    // DYNAMICALLY LOAD COMPONENTS
+    //-----------
 	this.showComponent = function(componentIndex)
 	{
 
@@ -103,6 +105,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 		var container = componentID + " > div[data]";
 		var buttonID = "#node-btn-" + componentIndex;
 		var componentData = $(container).attr("data");
+        var pagerLabel = "Component " + componentIndex + " of " + $("#sidebar-header").attr("data-count");
 
 		if (componentData != undefined) // Dynamically load images, audio files, and video files
 		{
@@ -134,7 +137,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false},
                             primary: "flash",
-                            fallback: false
+                            fallback: true
                         });
 
 						break;
@@ -154,7 +157,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false},
                             primary: "flash",
-                            fallback: false
+                            fallback: true
                         });
 
 						break;
@@ -170,7 +173,47 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 		// Show a specific component's container and hide the others
 		$('.component').hide();
 		$(componentID).show();
+
+        // Update component pager label
+        $("#component-pager-label").html(pagerLabel);
 	}
+
+    //-----------
+    // TOGGLE COMPONENT TREE
+    //-----------
+    this.toggleTree = function()
+    {
+        if($("#sidebar-header").hasClass('tree-collapsed'))
+        {
+            $("#sidebar-header").removeClass('tree-collapsed').addClass('tree-expanded');
+            $(".node-toggle").removeClass('icon-chevron-right').addClass('icon-chevron-down');
+            $('.node-container').show();
+        }
+        else
+        {
+            $("#sidebar-header").removeClass('tree-expanded').addClass('tree-collapsed');
+            $(".node-toggle").removeClass('icon-chevron-down').addClass('icon-chevron-right');
+            $('.node-container').hide();
+        }
+    }
+
+    //-----------
+    // SHOW COMPONENT TREE
+    //-----------
+    this.showTree = function()
+    {
+        if($("#sidebar-header").hasClass('tree-collapsed'))
+        {
+            $("#sidebar-header").removeClass('tree-collapsed').addClass('tree-expanded');
+        }
+        else
+        {
+            $("#sidebar-header").removeClass('tree-expanded');
+            $("#sidebar-header").addClass('tree-expanded');
+        }
+        $(".node-toggle").removeClass('icon-chevron-right').addClass('icon-chevron-down');
+        $('.node-container').show();
+    }
 
 }).apply(dp.COV);
 
@@ -180,8 +223,8 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 
 $(document).ready(function()
 {
-	// Ensure all parent component containers are collapsed
-	$('.node-container').show();
+	// Show component tree
+    dp.COV.showTree();
 
 	// Toggle parent component containers
 	$(".node-toggle").on("click",function()
@@ -199,17 +242,30 @@ $(document).ready(function()
 	// Show/hide all components by clicking on sidebar header
 	$("#sidebar-header").on("click",function()
 	{
-		if($(this).hasClass('tree-collapsed')){
-			$(this).removeClass('tree-collapsed').addClass('tree-expanded');
-			$(".node-toggle").removeClass('icon-chevron-right').addClass('icon-chevron-down');
-			$('.node-container').show();
-		}
-		else{
-			$(this).removeClass('tree-expanded').addClass('tree-collapsed');
-			$(".node-toggle").removeClass('icon-chevron-down').addClass('icon-chevron-right');
-			$('.node-container').hide();
-		}
+        dp.COV.toggleTree();
 	});
+
+    // Component pager functionality
+    $("#component-pager-forward").on("click",function()
+    {
+        var max_index = parseInt($("#sidebar-header").attr("data-count"));
+        var current_index = parseInt($(".active-component").attr("data-index"));
+        if (current_index < max_index)
+        {
+            dp.COV.showTree();
+            dp.COV.showComponent(current_index+1);
+        }
+    });
+    $("#component-pager-back").on("click",function()
+    {
+        var min_index = 1;
+        var current_index = parseInt($(".active-component").attr("data-index"));
+        if (current_index > min_index)
+        {
+            dp.COV.showTree();
+            dp.COV.showComponent(current_index-1);
+        }
+    });
 
 	// Toggle metadata fold
 	$("#metadata-fold").on("show",function(){$(this).prev().text("Hide details");});

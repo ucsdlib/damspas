@@ -37,11 +37,11 @@ describe MadsGeographic do
   </mads:Geographic>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have geographicElement" do
-    subject.geographicElement.first.elementValue.should == 'Ness, Loch (Scotland)'
+    expect(subject.geographicElement.first.elementValue).to eq('Ness, Loch (Scotland)')
   end
 
   it "should be able to build a new geographicElement" do

@@ -38,11 +38,11 @@ describe DamsFunction do
   </dams:Function>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have functionElement" do
-    subject.functionElement.first.elementValue.should == 'Sample Function'
+    expect(subject.functionElement.first.elementValue).to eq('Sample Function')
   end
 
   it "should be able to build a new functionElement" do

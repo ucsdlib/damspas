@@ -1,0 +1,218 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/uu8056206n"> 
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
+    <dams:visibility>public</dams:visibility>
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Test Title</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Test Title</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:language>
+      <mads:Language rdf:about="http://library.ucsd.edu/ark:/20775/bd0410344f">
+        <mads:authoritativeLabel>English</mads:authoritativeLabel>
+        <mads:code>eng</mads:code>
+        <mads:isMemberOfMADSScheme>
+          <mads:MADSScheme rdf:about="http://library.ucsd.edu/ark:/20775/bd71341600">
+            <rdfs:label>ISO 639 Languages</rdfs:label>
+          </mads:MADSScheme>
+        </mads:isMemberOfMADSScheme>
+        <mads:hasExactExternalAuthority rdf:resource="http://id.loc.gov/vocabulary/languages/eng"/>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:LanguageElement>
+            <mads:elementValue>English</mads:elementValue>
+          </mads:LanguageElement>
+        </mads:elementList>
+      </mads:Language>
+    </dams:language>
+    <dams:typeOfResource>still image</dams:typeOfResource>   
+    <dams:date>
+      <dams:Date>
+        <dams:type>issued</dams:type>
+        <rdf:value>1961-1978</rdf:value>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:beginDate>1961</dams:beginDate>
+        <dams:endDate>1978</dams:endDate>
+      </dams:Date>
+    </dams:date>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Test Description Note</rdf:value>
+        <dams:type>description</dams:type>
+      </dams:Note>
+    </dams:note>  
+   <dams:topic>
+    <mads:Topic rdf:about="http://library.ucsd.edu/ark:/20775/bd53695843">
+      <mads:authoritativeLabel>Test Topic</mads:authoritativeLabel>
+      <mads:elementList rdf:parseType="Collection">
+        <mads:TopicElement>
+          <mads:elementValue>Test Topic</mads:elementValue>
+        </mads:TopicElement>
+      </mads:elementList>
+    </mads:Topic>
+  </dams:topic>
+  <dams:scientificName>
+    <dams:ScientificName rdf:about="http://library.ucsd.edu/ark:/20775/bd2775707v">
+      <mads:authoritativeLabel>Test Scientific Name</mads:authoritativeLabel>
+      <mads:elementList rdf:parseType="Collection">
+        <dams:ScientificNameElement>
+          <mads:elementValue>Test Scientific Name</mads:elementValue>
+        </dams:ScientificNameElement>
+      </mads:elementList>
+    </dams:ScientificName>
+  </dams:scientificName>
+  <dams:commonName>
+    <dams:CommonName rdf:about="http://library.ucsd.edu/ark:/20775/xx000101ac">
+      <mads:authoritativeLabel>Test Common Name</mads:authoritativeLabel>
+      <mads:elementList rdf:parseType="Collection">
+        <dams:CommonNameElement>
+          <mads:elementValue>Test Common Name</mads:elementValue>
+        </dams:CommonNameElement>
+      </mads:elementList>
+    </dams:CommonName>
+  </dams:commonName>
+  <dams:corporateName>
+    <mads:CorporateName rdf:about="http://library.ucsd.edu/ark:/20775/bd6222836m">
+      <mads:authoritativeLabel>Test Corporate Name</mads:authoritativeLabel>
+      <mads:elementList rdf:parseType="Collection">
+        <mads:NameElement>
+          <mads:elementValue>Test Corporate Name</mads:elementValue>
+        </mads:NameElement>
+      </mads:elementList>
+    </mads:CorporateName>
+  </dams:corporateName>
+  <dams:personalName>
+    <mads:PersonalName rdf:about="http://library.ucsd.edu/ark:/20775/bd87825848">
+      <mads:authoritativeLabel>Test Personal Name</mads:authoritativeLabel>
+      <mads:elementList rdf:parseType="Collection">
+        <mads:FullNameElement>
+        <mads:elementValue>Test Personal Name</mads:elementValue>
+        </mads:FullNameElement>
+      </mads:elementList>
+    </mads:PersonalName>
+  </dams:personalName>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>test principal investigator</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>test principal investigator</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>principal investigator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+          <mads:authoritativeLabel>test contributor</mads:authoritativeLabel>
+          <mads:elementList rdf:parseType="Collection">
+            <mads:FullNameElement>
+              <mads:elementValue>test contributor</mads:elementValue>
+            </mads:FullNameElement>
+          </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>contributor</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>test contributor2</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>test contributor2</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>contributor</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>test contributor3</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>test contributor3</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>contributor</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Test Creator</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Test Creator</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>creator</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>    
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>test author</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>test author</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>author</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>   
+  </dams:ProvenanceCollection>
+</rdf:RDF>

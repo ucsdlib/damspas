@@ -1,6 +1,157 @@
 module Dams
   module ControllerHelper
 
+		#Mapping for OSF API
+		def osf_title(document)
+			  field_name = "title_json_tesim"
+		    dams_data= document["#{field_name}"]
+		    osf_data=''
+
+		  if dams_data != nil
+		    dams_data.each do |datum|
+		      title = JSON.parse(datum)
+		      osf_data = title['name'] ? title['name'] : ''
+		      osf_data += title['name'] && !title['translationVariant'].blank? ? ' : ' : ''
+		      title_trans = title['translationVariant'] || []
+		      if title_trans.class == Array
+		      	title_trans.each do |trans|  
+		      		osf_data +=	trans
+		      	end
+		      elsif title_trans.class == String
+		      	osf_data +=	title_trans
+		      end
+		    end
+		  end
+		  osf_data
+		end
+
+		def osf_contributors(document)
+			field_name = "relationship_json_tesim"
+			dams_data = document["#{field_name}"]
+			osf_data =[]
+
+			if dams_data != nil
+		    dams_data.each do |datum|
+		    	
+		      relationships = JSON.parse(datum)
+		    	relationships.each do |key, value|
+		    		value.each do |v|
+		   				osf_data << {"name": v}
+		   			end
+		   		end
+		    end
+		  end
+		  osf_data = (osf_data.blank?) ? osf_data << {"name": "UC San Diego Library"} : osf_data
+		end
+
+		def osf_description(document)
+			field_name = "otherNote_json_tesim"
+			dams_data = document["#{field_name}"]
+			osf_data = ''
+
+			if dams_data != nil
+		    dams_data.each do |datum|
+		      other_note = JSON.parse(datum)
+		      osf_data = other_note['value'] if other_note['type'] == 'description'
+		    end
+		  end
+		  osf_data
+		end 
+
+		def osf_uris(document)
+			field_name = "id"
+			dams_data = document["#{field_name}"]
+			osf_data = {}
+
+			if dams_data != nil
+				url = "http://library.ucsd.edu/dc/collection/#{dams_data}"
+		    osf_data = {"canonicalUri": url, "providerUris": url}
+		  end
+		  osf_data
+		end
+
+		def osf_date(document)
+			field_name = "date_json_tesim"
+			dams_data = document["#{field_name}"]
+			osf_data = ''
+			
+			if dams_data != nil
+		    dams_data.each do |datum|
+		      date = JSON.parse(datum)
+		      if date['type'] == 'issued'
+						d_date = date['beginDate']|| ''
+						osf_data = DateTime.new(d_date.to_i,1,1) if d_date.match( '^\d{4}$' )
+					end
+		    end
+		  end
+		  osf_data = (osf_data.is_a?(Time) || osf_data.is_a?(DateTime)) ? osf_data : Time.now
+		end
+
+		def osf_languages(document)
+			field_name = "language_tesim"
+			dams_data = document["#{field_name}"]
+      langs = dams_data || []
+      osf_data = []
+
+      if langs.class == Array
+      	langs.each do |lang|  
+      		osf_data <<	lang
+      	end
+      elsif langs.class == String
+      	osf_data <<	langs
+      end
+			osf_data 
+		end
+
+		def osf_mads_fields(document)
+			osf_data = []
+
+			field_names = [
+				'geographic_tesim', 
+				'topic_tesim',
+				'commonName_tesim', 
+				'scientificName_tesim', 
+				'corporateName_tesim',
+				'personalName_tesim',
+				'subject_tesim',
+				'genreForm_tesim',
+				'anatomy_tesim',
+				'cruise_tesim',
+				'series_tesim',
+				'culturalContext_tesim',
+				'lithology_tesim'
+			]
+		  field_names.each do |field_name|
+		    dams_data = document["#{field_name}"]
+			  if dams_data.kind_of?(String)
+			  	osf_data << dams_data 
+		    elsif dams_data.kind_of?(Array)
+		    	dams_data.each do |datum| 
+		    		osf_data << datum
+		    	end
+		    end 
+		  end
+		  osf_data
+		end
+
+		def osf_publisher
+			osf_data = {"name": "UC San Diego Library, Digital Collections", "uri": "http://library.ucsd.edu/dc"}
+		end
+
+		def export_to_API(document)
+		  field_map = {
+		    'title': osf_title(document),
+		    'description': osf_description(document),
+		    'contributor': osf_contributors(document),
+		    'uris': osf_uris(document),
+		    'languages': osf_languages(document),
+		    'providerUpdatedDateTime': osf_date(document),
+		    'tags': osf_mads_fields(document),
+		    'publisher': osf_publisher
+		  }
+		  json_data = {"jsonData": field_map}
+		end
+
 # Retrieve label from solr index instead of external record from repo
  def get_linked_object_label(id)
 	  	@doc = get_search_results(:q => "id:#{id}")
@@ -196,7 +347,9 @@ module Dams
 	  	elsif !object.series[0].nil?
 	  		type = "DamsSeries"
 	  	elsif !object.cruise[0].nil?
-	  		type = "DamsCruise"	  			  			  		
+	  		type = "DamsCruise"	 
+	  	elsif !object.anatomy[0].nil?
+	  		type = "DamsAnatomy"	 			  			  		
 	  	end 	  	 		  		
 		type   
     end
@@ -232,7 +385,9 @@ module Dams
 	  	elsif !object.series[0].nil?
 	  		id = object.series.to_s.gsub(/.*\//,'')[0..9]
 	  	elsif !object.cruise[0].nil?
-	  		id = object.cruise.to_s.gsub(/.*\//,'')[0..9]	  			  			  		
+	  		id = object.cruise.to_s.gsub(/.*\//,'')[0..9]	
+	  	elsif !object.anatomy[0].nil?
+	  		id = object.anatomy.to_s.gsub(/.*\//,'')[0..9]  			  			  		
 	  	end
 		id   
     end
@@ -269,6 +424,8 @@ module Dams
 	  		value = object.series.first.name.first 	  	
 	  	elsif !object.cruise[0].nil?
 	  		value = object.cruise.first.name.first
+	  	elsif !object.anatomy[0].nil?
+	  		value = object.anatomy.first.name.first
 	  	end
 		value   
     end  
@@ -367,6 +524,12 @@ module Dams
   		  simpleSubjectArray << {
 		    :name => "Cruise", :value => get_pid(cru), :label => get_linked_object_label(get_pid(cru))
 		  }		  		
+	  	end
+
+	  	object.anatomy.each do |an|
+  		  simpleSubjectArray << {
+		    :name => "Anatomy", :value => get_pid(an), :label => get_linked_object_label(get_pid(an))
+		  }	  		
 	  	end
 	  		
 		simpleSubjectArray   

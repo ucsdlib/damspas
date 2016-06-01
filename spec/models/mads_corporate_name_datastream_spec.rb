@@ -59,34 +59,34 @@ describe MadsCorporateNameDatastream do
   </mads:CorporateName>
 </rdf:RDF>
 END
-      subject.content.should be_equivalent_to xml
+      expect(subject.content).to be_equivalent_to xml
     end
 
     describe "a new instance" do
       subject { MadsCorporateNameDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a name" do
         subject.name = "Maria"
-        subject.name.should == ["Maria"]
+        expect(subject.name).to eq(["Maria"])
       end
 
       it "element should update name" do
         subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.authLabel.should == "Test"
+        expect(subject.authLabel).to eq("Test")
       end
       it "element should not update name if name is already set" do
         subject.name = "Original"
         subject.fullNameElement_attributes = {'0' => { elementValue: "Test" }}
-        subject.name.should == ["Original"]
-        subject.authLabel.should == "Original"
+        expect(subject.name).to eq(["Original"])
+        expect(subject.authLabel).to eq("Original")
       end
       it "element should not update name if element is blank" do
         subject.name = "Original"
         subject.fullNameElement_attributes = [{ elementValue: nil }]
-        subject.authLabel.should == "Original"
+        expect(subject.authLabel).to eq("Original")
       end
     end
 
@@ -98,38 +98,38 @@ END
       end
 
       it "should have name" do
-        subject.name.should == ["Burns, Jack O., Dr., 1977-"]
+        expect(subject.name).to eq(["Burns, Jack O., Dr., 1977-"])
       end
 
       it "should have an scheme" do
-        subject.scheme.first.pid.should == "bd0683587d"
+        expect(subject.scheme.first.pid).to eq("bd0683587d")
       end
 
       it "should have fields" do
         list = subject.elementList
-        "#{list[0].class.name}".should == "Dams::MadsNameElements::MadsFullNameElement"
-        list[0].elementValue.should == "Burns, Jack O."  
-        "#{list[1].class.name}".should == "Dams::MadsNameElements::MadsFamilyNameElement"
-        list[1].elementValue.should == "Burns"   
-        "#{list[2].class.name}".should == "Dams::MadsNameElements::MadsGivenNameElement"
-        list[2].elementValue.should == "Jack O."  
-        "#{list[3].class.name}".should == "Dams::MadsNameElements::MadsDateNameElement"
-        list[3].elementValue.should == "1977-"
-        "#{list[4].class.name}".should == "Dams::MadsNameElements::MadsTermsOfAddressNameElement"
-        list[4].elementValue.should == "Dr."
-        "#{list[5].class.name}".should == "Dams::MadsNameElements::MadsNameElement"
-        list[5].elementValue.should == "Lawrence Livermore Laboratory"
-        list.size.should == 6
+        expect("#{list[0].class.name}").to eq("Dams::MadsNameElements::MadsFullNameElement")
+        expect(list[0].elementValue).to eq("Burns, Jack O.")  
+        expect("#{list[1].class.name}").to eq("Dams::MadsNameElements::MadsFamilyNameElement")
+        expect(list[1].elementValue).to eq("Burns")   
+        expect("#{list[2].class.name}").to eq("Dams::MadsNameElements::MadsGivenNameElement")
+        expect(list[2].elementValue).to eq("Jack O.")  
+        expect("#{list[3].class.name}").to eq("Dams::MadsNameElements::MadsDateNameElement")
+        expect(list[3].elementValue).to eq("1977-")
+        expect("#{list[4].class.name}").to eq("Dams::MadsNameElements::MadsTermsOfAddressNameElement")
+        expect(list[4].elementValue).to eq("Dr.")
+        expect("#{list[5].class.name}").to eq("Dams::MadsNameElements::MadsNameElement")
+        expect(list[5].elementValue).to eq("Lawrence Livermore Laboratory")
+        expect(list.size).to eq(6)
       end
 
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["corporate_name_tesim"].should == ["Burns, Jack O., Dr., 1977-"]
-        solr_doc["full_name_element_tesim"].should == ["Burns, Jack O."]
-        solr_doc["family_name_element_tesim"].should == ["Burns"]
-        solr_doc["given_name_element_tesim"].should == ["Jack O."]
-        solr_doc["date_name_element_tesim"].should == ["1977-"]
-        solr_doc["name_element_tesim"].should == ["Lawrence Livermore Laboratory"]
+        expect(solr_doc["corporate_name_tesim"]).to eq(["Burns, Jack O., Dr., 1977-"])
+        expect(solr_doc["full_name_element_tesim"]).to eq(["Burns, Jack O."])
+        expect(solr_doc["family_name_element_tesim"]).to eq(["Burns"])
+        expect(solr_doc["given_name_element_tesim"]).to eq(["Jack O."])
+        expect(solr_doc["date_name_element_tesim"]).to eq(["1977-"])
+        expect(solr_doc["name_element_tesim"]).to eq(["Lawrence Livermore Laboratory"])
       end
     end
   end

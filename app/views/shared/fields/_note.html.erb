@@ -5,6 +5,7 @@
   exclude_type = [] unless local_assigns[:exclude_type]
   exclude_label = [] unless local_assigns[:exclude_label]
   internal = false unless local_assigns[:internal]
+  custom_label = nil unless local_assigns[:custom_label]
 
   if defined?(componentIndex) # Then we're working with a component
     prefix = "component_#{componentIndex}_"
@@ -15,7 +16,7 @@
     htmlOpenTemp = "<dt>%s </dt><dd>"
     htmlClose = "</dd>"
   end
-
+    
   # parse notes
   notes = Hash.new
   
@@ -41,6 +42,7 @@
         ( exclude_type == [] || !exclude_type.include?(note_type.downcase) ) &&
         ( exclude_label == [] || !exclude_label.include?(note_label.downcase) ) &&
         ( internal == note_internal )
+         
         if !note_label.blank?
           key = note_label
         elsif !note_type.blank?
@@ -56,18 +58,28 @@
 
   if !notes.empty?
     # if type is specified, bundle all matching notes under type header
-    if type != nil
+    
+    if !custom_label.blank?
       htmlOpen = htmlOpenTemp
-      htmlOpen %= type.to_s.capitalize
+      htmlOpen %= custom_label.to_s.titleize
+      concat htmlOpen.html_safe
+    elsif type != nil 
+      htmlOpen = htmlOpenTemp
+      htmlOpen %= type.to_s.titleize
       concat htmlOpen.html_safe
     end
-    notes.each do |key, noteList| 
+    
+    notes.each do |key, noteList|
+      key = 'Publication Information' if key == 'Publication'
+     
+      
       # if no type is provided, use types from note json
-      if type == nil
+      if type == nil 
         htmlOpen = htmlOpenTemp
         htmlOpen %= key
         concat htmlOpen.html_safe
       end
+      
       noteList.each do |note|
       %>
       <p>

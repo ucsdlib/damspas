@@ -15,10 +15,10 @@ feature "Viewing a record in the wrong controller should redirect" do
   end
   scenario "An object should redirect to the object controller" do
     visit dams_collection_path(@obj.pid)
-    current_path.should == dams_object_path(@obj.pid)
+    expect(current_path).to eq(dams_object_path(@obj.pid))
   end
   scenario "A collection should redirect to the collection controller" do
     visit dams_object_path(@col.pid)
-    current_path.should == dams_collection_path(@col.pid)
+    expect(current_path).to eq(dams_collection_path(@col.pid))
   end
 end

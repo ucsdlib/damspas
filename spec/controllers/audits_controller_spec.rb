@@ -39,7 +39,7 @@ describe AuditsController do
       it "assigns all audits as @audits" do
         audit = Audit.create! valid_attributes
         get :index, {}, valid_session
-        assigns(:audits).should eq([audit])
+        expect(assigns(:audits)).to eq([audit])
       end
     end
 
@@ -47,7 +47,7 @@ describe AuditsController do
       it "assigns the requested audit as @audit" do
         audit = Audit.create! valid_attributes
         get :show, {:id => audit.to_param}, valid_session
-        assigns(:audit).should eq(audit)
+        expect(assigns(:audit)).to eq(audit)
       end
     end
 

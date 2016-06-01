@@ -1,20 +1,38 @@
 <%
 	 if defined?(componentIndex) # Then we're working with a component
 		 prefix = "component_#{componentIndex}_"
-		 htmlOpen = "<tr><td>%s</td><td><ul>"
-		 htmlClose = '</ul></td></tr>'
+     htmlOpen = "<tr><td>%s</td><td><ul>"
+     htmlClose = '</ul></td></tr>'
 	 else # We're working with an object or collection
 		 prefix = ''
-		 htmlOpen = "<dt>%s</dt><dd><ul>"
-		 htmlClose = '</ul></dd>'
+		 htmlOpen = "<dt>%s</dt>"
+     htmlOpen_l = '<ul><dd>'
+		 htmlClose_l = '</ul></dd>'
 	 end
 
-	 fieldData = @document["#{prefix}collection_json_tesim"] || []
-     fieldData.concat( @document['provenanceCollection_json_tesim'] || [] )
-     fieldData.concat( @document['part_json_tesim'] || [] )
-     fieldData.concat( @document['assembledCollection_json_tesim'] || [] )
+     if defined?(@related_collections)
+         if @related_collections.count > 0
+             htmlOpen %= 'Collection'.pluralize(@related_collections.count)
+             concat htmlOpen.html_safe
+             @related_collections.sort.map do |collectionName, id|
+                 concat htmlOpen_l.html_safe unless defined?(componentIndex)
+ %>
+                 <li>
+                 <%= link_to( dams_collection_path(id) ) do %>
+                     <%= collectionName %>
+                 <% end %>
+                 </li>
+<%               concat htmlClose_l.html_safe unless defined?(componentIndex)
+             end
+             concat htmlClose.html_safe if defined?(componentIndex)
+         end
+     else
+       fieldData = @document["#{prefix}collection_json_tesim"] || []
+       fieldData.concat( @document['provenanceCollection_json_tesim'] || [] )
+       fieldData.concat( @document['part_json_tesim'] || [] )
+       fieldData.concat( @document['assembledCollection_json_tesim'] || [] )
 
-	 if fieldData.length > 0
+       if fieldData.length > 0
 
 		 htmlOpen %= 'Collection'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
@@ -28,17 +46,19 @@
            # Check anonymous user for linked collection access 
            anons = User.anonymous(request.remote_ip)
            if current_user != nil || visibility == 'public' || visibility == anons
+            concat htmlOpen_l.html_safe unless defined?(componentIndex)
 %>
-		<li>
-			<%= link_to( dams_collection_path(collection['id']) ) do %>
-				<%= collectionName %>
-			<% end %>
-		</li>
-<%
-         end
-	 end
+        		<li>
+        			<%= link_to( dams_collection_path(collection['id']) ) do %>
+        				<%= collectionName %>
+        			<% end %>
+        		</li>
+<%          concat htmlClose_l.html_safe unless defined?(componentIndex)
+           end
+          concat htmlClose.html_safe if defined?(componentIndex)
+      end
+    end
 
-	 concat htmlClose.html_safe
 
 	 
 	 

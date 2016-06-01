@@ -17,7 +17,7 @@ describe DamsSourceCapturesController do
 	      get :show, id: @obj.id
 	      expect(response.status).to eq(200)
 	      @newobj = assigns[:dams_source_capture]
-          @newobj.scannerManufacturer.should == @obj.scannerManufacturer
+          expect(@newobj.scannerManufacturer).to eq(@obj.scannerManufacturer)
 	    end
 	  end
   end

@@ -8,24 +8,24 @@ describe DamsNoteDatastream do
     describe "a new instance" do
       subject { DamsNoteDatastream.new(double('inner object', :pid=>'bbXXXXXXXXX23', :new_record? =>true), 'damsMetadata') }
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}bbXXXXXXXXX23"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}bbXXXXXXXXX23")
       end
 
       it "should have a value" do
         subject.value = "#{Rails.configuration.id_namespace}bb80808080"
-        subject.value.should == ["#{Rails.configuration.id_namespace}bb80808080"]
+        expect(subject.value).to eq(["#{Rails.configuration.id_namespace}bb80808080"])
       end   
       it "should have type" do
         subject.type = "identifier"
-        subject.type.should == ["identifier"]
+        expect(subject.type).to eq(["identifier"])
       end   
       it "should have displayLabel" do
         subject.displayLabel = "ARK ID"
-        subject.displayLabel.should == ["ARK ID"]
+        expect(subject.displayLabel).to eq(["ARK ID"])
       end               
       it "should have internalOnly" do
         subject.internalOnly = "true"
-        subject.internalOnly.should == ["true"]
+        expect(subject.internalOnly).to eq(["true"])
       end               
     end
 
@@ -37,27 +37,27 @@ describe DamsNoteDatastream do
       end
            
       it "should have value" do
-        subject.value.should == ["#{Rails.configuration.id_namespace}bb80808080"]
+        expect(subject.value).to eq(["#{Rails.configuration.id_namespace}bb80808080"])
       end
 
       it "should have a type" do
-        subject.type.should == ["identifier"]
+        expect(subject.type).to eq(["identifier"])
       end
  
       it "should have a displayLabel" do
-        subject.displayLabel.should == ["ARK ID"]
+        expect(subject.displayLabel).to eq(["ARK ID"])
       end
       it "should have a internalOnly" do
-        subject.internalOnly.should == ["true"]
+        expect(subject.internalOnly).to eq(["true"])
       end
            
          
       it "should have a fields from solr doc" do
         solr_doc = subject.to_solr
-        solr_doc["note_value_tesim"].should == ["#{Rails.configuration.id_namespace}bb80808080"]
-        solr_doc["note_type_tesim"].should == ["identifier"]
-        solr_doc["note_displayLabel_tesim"].should == ["ARK ID"]
-        solr_doc["note_internalOnly_tesim"].should == ["true"]
+        expect(solr_doc["note_value_tesim"]).to eq(["#{Rails.configuration.id_namespace}bb80808080"])
+        expect(solr_doc["note_type_tesim"]).to eq(["identifier"])
+        expect(solr_doc["note_displayLabel_tesim"]).to eq(["ARK ID"])
+        expect(solr_doc["note_internalOnly_tesim"]).to eq(["true"])
       end    
     end
   end

@@ -13,7 +13,7 @@ describe PagesController do
       it "assigns all pages as @pages" do
         page = Page.create! valid_attributes
         get :index, {}
-        assigns(:pages).should eq([page])
+        expect(assigns(:pages)).to eq([page])
       end
     end
 
@@ -21,7 +21,7 @@ describe PagesController do
       it "assigns the requested page as @page" do
         page = Page.create! valid_attributes
         get :show, {:id => page.to_param}
-        assigns(:page).should eq(page)
+        expect(assigns(:page)).to eq(page)
       end
     end
 
@@ -29,7 +29,7 @@ describe PagesController do
       it "assigns the requested page as @page" do
         page = Page.create! valid_attributes
         get :view, {:id => page.code}
-        assigns(:page).should eq(page)
+        expect(assigns(:page)).to eq(page)
       end
     end
 
@@ -43,7 +43,7 @@ describe PagesController do
     describe "GET new" do
       it "assigns a new page as @page" do
         get :new, {}
-        assigns(:page).should be_a_new(Page)
+        expect(assigns(:page)).to be_a_new(Page)
       end
     end
   
@@ -51,7 +51,7 @@ describe PagesController do
       it "assigns the requested page as @page" do
         page = Page.create! valid_attributes
         get :edit, {:id => page.to_param}
-        assigns(:page).should eq(page)
+        expect(assigns(:page)).to eq(page)
       end
     end
   
@@ -65,29 +65,29 @@ describe PagesController do
   
         it "assigns a newly created page as @page" do
           post :create, {:page => valid_attributes}
-          assigns(:page).should be_a(Page)
-          expect(assigns(:page).persisted?).to be_true
+          expect(assigns(:page)).to be_a(Page)
+          expect(assigns(:page).persisted?).to be_truthy
         end
   
         it "redirects to the created page" do
           post :create, {:page => valid_attributes}
-          response.should redirect_to action: :index
+          expect(response).to redirect_to action: :index
         end
       end
   
       describe "with invalid params" do
         it "assigns a newly created but unsaved page as @page" do
           # Trigger the behavior that occurs when invalid params are submitted
-          Page.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Page).to receive(:save).and_return(false)
           post :create, {:page => { "code" => "invalid value" }}
-          assigns(:page).should be_a_new(Page)
+          expect(assigns(:page)).to be_a_new(Page)
         end
   
         it "re-renders the 'new' template" do
           # Trigger the behavior that occurs when invalid params are submitted
-          Page.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Page).to receive(:save).and_return(false)
           post :create, {:page => { "code" => "invalid value" }}
-          response.should render_template("new")
+          expect(response).to render_template("new")
         end
       end
     end
@@ -100,20 +100,20 @@ describe PagesController do
           # specifies that the Page created on the previous line
           # receives the :update_attributes message with whatever params are
           # submitted in the request.
-          Page.any_instance.should_receive(:update).with({ "code" => "my_code" })
+          expect_any_instance_of(Page).to receive(:update).with({ "code" => "my_code" })
           put :update, {:id => page.to_param, :page => { "code" => "my_code" }}
         end
   
         it "assigns the requested page as @page" do
           page = Page.create! valid_attributes
           put :update, {:id => page.to_param, :page => valid_attributes}
-          assigns(:page).should eq(page)
+          expect(assigns(:page)).to eq(page)
         end
   
         it "redirects to the page" do
           page = Page.create! valid_attributes
           put :update, {:id => page.to_param, :page => valid_attributes}
-          response.should redirect_to action: :edit, id: page.id
+          expect(response).to redirect_to action: :edit, id: page.id
         end
       end
   
@@ -121,17 +121,17 @@ describe PagesController do
         it "assigns the page as @page" do
           page = Page.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          Page.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Page).to receive(:save).and_return(false)
           put :update, {:id => page.to_param, :page => { "code" => "invalid value" }}
-          assigns(:page).should eq(page)
+          expect(assigns(:page)).to eq(page)
         end
   
         it "re-renders the 'edit' template" do
           page = Page.create! valid_attributes
           # Trigger the behavior that occurs when invalid params are submitted
-          Page.any_instance.stub(:save).and_return(false)
+          allow_any_instance_of(Page).to receive(:save).and_return(false)
           put :update, {:id => page.to_param, :page => { "code" => "invalid value" }}
-          response.should render_template("edit")
+          expect(response).to render_template("edit")
         end
       end
     end
@@ -147,7 +147,7 @@ describe PagesController do
       it "redirects to the pages list" do
         page = Page.create! valid_attributes
         delete :destroy, {:id => page.to_param}
-        response.should redirect_to action: :index
+        expect(response).to redirect_to action: :index
       end
     end
 

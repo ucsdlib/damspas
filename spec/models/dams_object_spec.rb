@@ -12,30 +12,30 @@ describe DamsObject do
   end
   
   it "should have the specified datastreams" do
-    @damsObj.datastreams.keys.should include("damsMetadata")
-    @damsObj.damsMetadata.should be_kind_of DamsObjectDatastream
+    expect(@damsObj.datastreams.keys).to include("damsMetadata")
+    expect(@damsObj.damsMetadata).to be_kind_of DamsObjectDatastream
   end
   
   it "should create/update a title" do
     @damsObj.title.build
     #@damsObj.titleValue.should == []
     @damsObj.titleValue = "Dams Object Title 1"
-    @damsObj.titleValue.should == "Dams Object Title 1"
+    expect(@damsObj.titleValue).to eq("Dams Object Title 1")
   
     @damsObj.titleValue = "Dams Object Title 2"
-    @damsObj.titleValue.should == "Dams Object Title 2"
+    expect(@damsObj.titleValue).to eq("Dams Object Title 2")
   end
 
   it "should create/update a subject" do
     @damsObj.topic_attributes = [{name: "topic 1"}]
-    @damsObj.topic.first.name.should == ["topic 1"]
+    expect(@damsObj.topic.first.name).to eq(["topic 1"])
     @damsObj.topic_attributes = [{name: "topic 2"}]
-    @damsObj.topic.second.name.should == ["topic 2"]
+    expect(@damsObj.topic.second.name).to eq(["topic 2"])
 
     @damsObj.topic.first.name = "topic 3"
-    @damsObj.topic.first.name.should == ["topic 3"]
+    expect(@damsObj.topic.first.name).to eq(["topic 3"])
     @damsObj.topic.second.name = "topic 4"
-    @damsObj.topic.second.name.should == ["topic 4"]
+    expect(@damsObj.topic.second.name).to eq(["topic 4"])
   end
 
   describe "Store to a repository" do
@@ -403,6 +403,6 @@ describe DamsObject do
  </mads:Variant>            
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end  
 end

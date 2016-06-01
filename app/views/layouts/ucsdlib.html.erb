@@ -9,6 +9,7 @@
 	  <script src="//libraries.ucsd.edu/jwplayer/key.js"></script>
 
 		<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? || Rails.env.staging? %>
+		<%= render :partial => 'layouts/sitetrackings' if Rails.env.production? %>
 		<% if @document != nil && @document.instance_of?(SolrDocument) %>
 			<%= auto_discovery_link_tag :rss, {:format =>"json"}, :title=>'JSON', :type=> 'application/json' %>
 			<% if @document['rdfxml_ssi'] %>

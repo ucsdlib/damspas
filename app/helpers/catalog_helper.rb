@@ -89,6 +89,26 @@ module CatalogHelper
     dateVal = dateVal.gsub(/, $/,'') if dateVal
     dateVal
   end
+
+  def display_access_control_level(document)
+
+    accessGroup = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
+    viewAccess = nil
+
+    if accessGroup != nil
+
+      if accessGroup.include?('public')
+        viewAccess = nil
+      elsif accessGroup.include?('local')
+        viewAccess = 'Restricted to UC San Diego use only'
+      else
+        viewAccess = 'Curator Only'
+      end
+
+    end
+    viewAccess
+  end
+
   def is_collection?( document )
     type = document['type_tesim']
     type != nil && type.include?("Collection")
@@ -107,6 +127,8 @@ module CatalogHelper
       parts = url.split(/\//,2)
       url = file_path parts[0], "_" + parts[1].gsub("/","_")
     end
+
+    url = to_stats_path url
 
     image_tag( url, :alt => "", :class => 'dams-search-thumbnail') unless url.blank?
   end

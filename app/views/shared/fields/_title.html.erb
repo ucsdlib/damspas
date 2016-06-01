@@ -18,23 +18,27 @@
       partName = result['partName'] || ""
       partNumber = result['partNumber'] || ""
       subtitle = result['subtitle'] || ""
-      translationVariant = result['translationVariant'] || ""
+      translationVariant = result['translationVariant'] || []
 
       subtitleVal = subtitle      
       if !partName.blank?
       	subtitleVal += (subtitleVal.blank? ? "" : ", ") + partName     	
       	subtitleVal += " " + partNumber if !partNumber.blank?
+      end      
+      
+      if translationVariant.class == Array
+        translationVariant.each do |transV|
+          subtitleVal += (subtitleVal.blank? ? "" : ", ") + transV
+        end
+      elsif translationVariant.class == String && !translationVariant.blank?      
+        subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
       end
       
-      if !translationVariant.blank?    
-          subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
-      end
-      
-      if !result['value'].blank?
-         title = getFullTitle result
+      if !result['name'].blank?
+         title = result['name'] 
         break
       else
-        title = result['name'] || ""
+        title = getFullTitle result || ""
       end
       
     end

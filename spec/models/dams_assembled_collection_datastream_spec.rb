@@ -9,23 +9,23 @@ describe DamsAssembledCollectionDatastream do
       subject { DamsAssembledCollectionDatastream.new(double('inner object', :pid=>'xx03030303', :new_record? => true), 'damsMetadata') }
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx03030303"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}xx03030303")
       end
       it "should have a title" do
         subject.titleValue = "UCSD Electronic Theses and Dissertations"
-        subject.titleValue.should == "UCSD Electronic Theses and Dissertations"
+        expect(subject.titleValue).to eq("UCSD Electronic Theses and Dissertations")
       end
       it "should have a date" do
         subject.dateValue = "2009-05-03"
-        subject.dateValue.should == ["2009-05-03"]
+        expect(subject.dateValue).to eq(["2009-05-03"])
       end
       it "should have a visibility" do
         subject.visibility = "public"
-        subject.visibility.should == ["public"]
+        expect(subject.visibility).to eq(["public"])
       end
       it "should have a resource_type" do
         subject.resource_type = "text"
-        subject.resource_type.should == ["text"]
+        expect(subject.resource_type).to eq(["text"])
       end
     end
 
@@ -52,65 +52,65 @@ describe DamsAssembledCollectionDatastream do
       end
 
       it "should have a subject" do
-        subject.rdf_subject.to_s.should == "#{Rails.configuration.id_namespace}xx03030303"
+        expect(subject.rdf_subject.to_s).to eq("#{Rails.configuration.id_namespace}xx03030303")
       end
       it "should have a title" do
-        subject.titleValue.should == "UCSD Electronic Theses and Dissertations"
+        expect(subject.titleValue).to eq("UCSD Electronic Theses and Dissertations")
       end
       it "should have a date" do
-        subject.beginDate.should == ["2009-05-03"]
+        expect(subject.beginDate).to eq(["2009-05-03"])
       end
       it "should have a visibility" do
-        subject.visibility.should == ["public"]
+        expect(subject.visibility).to eq(["public"])
       end
       it "should have a resource_type" do
-        subject.resource_type.should == ["text"]
+        expect(subject.resource_type).to eq(["text"])
       end
 
  	  it "should index title and dates" do
         solr_doc = subject.to_solr
-        solr_doc["title_tesim"].should == ["UCSD Electronic Theses and Dissertations"]
-        solr_doc["date_tesim"].should == ["2009-05-03"]
-        solr_doc["visibility_tesim"].should == ["public"]
-        solr_doc["resource_type_tesim"].should == ["text"]
+        expect(solr_doc["title_tesim"]).to eq(["UCSD Electronic Theses and Dissertations"])
+        expect(solr_doc["date_tesim"]).to eq(["2009-05-03"])
+        expect(solr_doc["visibility_tesim"]).to eq(["public"])
+        expect(solr_doc["resource_type_tesim"]).to eq(["text"])
       end
 
  	  it "should have notes" do
         solr_doc = subject.to_solr
 
         # generic notes
-        solr_doc["note_tesim"].to_s.should include "Inline generic note"
-        solr_doc["note_tesim"].to_s.should include "Linked generic note"
+        expect(solr_doc["note_tesim"].to_s).to include "Inline generic note"
+        expect(solr_doc["note_tesim"].to_s).to include "Linked generic note"
 
         # custodial responsibility notes
-		solr_doc["custodialResponsibilityNote_tesim"].to_s.should include "Inline custodial responsibility note"
-		solr_doc["custodialResponsibilityNote_tesim"].to_s.should include "Linked custodial responsibility note"
+		expect(solr_doc["custodialResponsibilityNote_tesim"].to_s).to include "Inline custodial responsibility note"
+		expect(solr_doc["custodialResponsibilityNote_tesim"].to_s).to include "Linked custodial responsibility note"
 
         # preferred citation notes
-		solr_doc["preferredCitationNote_tesim"].to_s.should include "Inline preferred citation note"
-		solr_doc["preferredCitationNote_tesim"].to_s.should include "Linked preferred citation note"
+		expect(solr_doc["preferredCitationNote_tesim"].to_s).to include "Inline preferred citation note"
+		expect(solr_doc["preferredCitationNote_tesim"].to_s).to include "Linked preferred citation note"
 
         # scope content notes
-        solr_doc["scopeContentNote_tesim"].to_s.should include "Inline scope content note"
-        solr_doc["scopeContentNote_tesim"].to_s.should include "Linked scope content note"
+        expect(solr_doc["scopeContentNote_tesim"].to_s).to include "Inline scope content note"
+        expect(solr_doc["scopeContentNote_tesim"].to_s).to include "Linked scope content note"
       end
 
       it "should have relationship" do
-        subject.relationship.first.personalName.first.pid.should == "bb08080808"
-        subject.relationship.first.role.first.pid.should == "bd55639754"
+        expect(subject.relationship.first.personalName.first.pid).to eq("bb08080808")
+        expect(subject.relationship.first.role.first.pid).to eq("bd55639754")
         solr_doc = subject.to_solr
-        solr_doc["name_tesim"].should == ["Artist, Alice, 1966-"]
+        expect(solr_doc["name_tesim"]).to eq(["Artist, Alice, 1966-"])
       end
 
       it "should index parts" do
         solr_doc = subject.to_solr
-        solr_doc["provenanceCollection_name_tesim"].should == ["Historical Dissertations"]
-        solr_doc["provenanceCollection_id_tesim"].should == ["xx24242424"]
-        solr_doc["provenanceCollection_json_tesim"].should == ['{"id":"xx24242424","name":"Historical Dissertations","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}', '{"id":"xx24241158","name":"Scripps Institution of Oceanography, Geological Collections","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}']
-        solr_doc["part_name_tesim"].should == ["May 2009"]
-        solr_doc["part_id_tesim"].should == ["xx25252525"]
-        solr_doc["part_json_tesim"].should == ['{"id":"xx25252525","name":"May 2009","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}', '{"id":"xx6110278b","name":"Sample Provenance Part","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/newsrel.jpg"}']		
-		solr_doc["unit_code_tesim"].should == ["rdcp"]
+        expect(solr_doc["provenanceCollection_name_tesim"]).to eq(["Historical Dissertations"])
+        expect(solr_doc["provenanceCollection_id_tesim"]).to eq(["xx24242424"])
+        expect(solr_doc["provenanceCollection_json_tesim"]).to eq(['{"id":"xx24242424","name":"Historical Dissertations","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}', '{"id":"xx24241158","name":"Scripps Institution of Oceanography, Geological Collections","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/siogeo.jpg"}'])
+        expect(solr_doc["part_name_tesim"]).to eq(["May 2009"])
+        expect(solr_doc["part_id_tesim"]).to eq(["xx25252525"])
+        expect(solr_doc["part_json_tesim"]).to eq(['{"id":"xx25252525","name":"May 2009","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/dmca.jpg"}', '{"id":"xx6110278b","name":"Sample Provenance Part","visibility":"public","thumbnail":"http://pontos.ucsd.edu/images/newsrel.jpg"}'])		
+		expect(solr_doc["unit_code_tesim"]).to eq(["rdcp"])
       end
 
 #      it "should have event" do

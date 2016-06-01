@@ -7,10 +7,14 @@
         <span><%= auto_link( note['value'].gsub('""', '"') ) %></span>
       </li>
     <% end %> 
-  <% end %>    
+  <% end %>
+
+  <%= render :partial => 'catalog/display_access_control_level', :locals => {:document => document} %>
+
   <% dateVal = date_list(document) %>
   <% if !dateVal.blank? %>
     <li>
+      <span class="dams-search-results-fields-label">Creation Date:</span>
       <span><%= dateVal.gsub('""', '"') %></span>
     </li>
   <% end %>

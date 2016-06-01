@@ -13,9 +13,9 @@ describe "audits/show" do
   it "renders attributes in <p>" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/User/)
-    rendered.should match(/Action/)
-    rendered.should match(/Classname/)
-    rendered.should match(/Object/)
+    expect(rendered).to match(/User/)
+    expect(rendered).to match(/Action/)
+    expect(rendered).to match(/Classname/)
+    expect(rendered).to match(/Object/)
   end
 end

@@ -6,7 +6,7 @@ feature 'Visitor wants to look at collections' do
     @prov = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", provenanceCollectionPartURI: @part.pid, visibility: "public"
     @part.provenanceCollectionURI = @prov.pid
     @part.save
-    @assm = DamsAssembledCollection.create titleValue: "Sample Assembled Collection", visibility: "public"
+    @assm = DamsAssembledCollection.create titleValue: "Sample('s): Assembled Collection", visibility: "public"
     @priv = DamsProvenanceCollection.create titleValue: "curator-only collection", visibility: "curator"
 
     solr_index @prov.pid
@@ -15,10 +15,12 @@ feature 'Visitor wants to look at collections' do
     solr_index @priv.pid
 
     @copy = DamsCopyright.create status: 'Public domain'
-    @partObj = DamsObject.create titleValue: 'Test Object in Provenance Part', provenanceCollectionPartURI: @part.pid, copyrightURI: @copy.pid
+    @partObj = DamsObject.create titleValue: 'Test Object in Provenance Part', provenanceCollectionPartURI: [@part.pid], assembledCollectionURI: [@assm.pid], copyrightURI: @copy.pid
     @provObj = DamsObject.create titleValue: 'Test Object in Provenance Collection', provenanceCollectionURI: @prov.pid, copyrightURI: @copy.pid
+    @privObj = DamsObject.create titleValue: 'Test Object in curator-only collection', provenanceCollectionURI: @priv.pid, copyrightURI: @copy.pid
     solr_index @partObj.pid
     solr_index @provObj.pid
+    solr_index @privObj.pid
   end
   after(:all) do
     @partObj.delete
@@ -46,12 +48,12 @@ feature 'Visitor wants to look at collections' do
 
   scenario 'collections search without query' do
     visit dams_collections_path
-    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('a', :text => "Sample('s): Assembled Collection")
     expect(page).to have_selector('a', :text => 'Sample Provenance Collection')
   end
   scenario 'collections search with query' do
     visit dams_collections_path( {:q => 'assembled'} )
-    expect(page).to have_selector('a', :text => 'Sample Assembled Collection')
+    expect(page).to have_selector('a', :text => "Sample('s): Assembled Collection")
     expect(page).not_to have_selector('a', :text => 'Sample Provenance Collection')
   end
   scenario 'curator view' do
@@ -59,10 +61,27 @@ feature 'Visitor wants to look at collections' do
     visit dams_collection_path @prov.pid # santa fe light cone
     expect(page).to have_link('RDF View')
   end
-  scenario 'damsProvenanceCollectionPart view with parent collection name' do
+  scenario 'damsProvenanceCollectionPart view with parent collection name and collection from faceting' do
+    sign_in_developer
     visit dams_collection_path @part.pid
     expect(page).to have_link('Sample Provenance Collection') 
-  end  
+    expect(page).to have_link("Sample('s): Assembled Collection")
+    expect(page).not_to have_link('Sample Provenance Part', :href => "#{dams_collection_path @part.pid}" )
+    expect(page).not_to have_link('curator-only collection')
+  end
+  scenario 'damsProvenanceCollection view with objects but no parent collection' do
+    sign_in_developer
+    visit dams_collection_path @priv.pid
+    expect(page).to have_selector('h1', :text => 'curator-only collection')
+    expect(page).not_to have_selector('dt', :text => 'Collections')
+  end
+
+  scenario 'search results and see access control information (curator)' do
+    sign_in_developer
+    visit dams_collections_path({:per_page=>100})
+    expect(page).to have_content('Access: Curator Only')
+  end
+
 end
 
 feature 'Visitor wants to look at the collection search results view with no issued date' do
@@ -114,6 +133,12 @@ feature 'Visitor wants to see the collection record' do
     expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Contributors')
         
   end
+
+  scenario 'should not see access control information (public)' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_no_content('AccessPublic')
+  end
+
   scenario 'should see the internal and external common names' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_selector('li', text: 'thale-cress')
@@ -148,4 +173,123 @@ feature 'COLLECTIONS IMAGES --' do
     expect(page).to have_selector("#collections-image img")
   end
 
+end
+
+#---
+
+feature "Visitor wants to view a collection's page" do
+  before(:all) do
+    @part = DamsProvenanceCollectionPart.create titleValue: 'Sample Provenance Part', visibility: 'curator'
+    @prov = DamsProvenanceCollection.create titleValue: 'Sample Provenance Collection', provenanceCollectionPartURI: @part.pid, visibility: 'curator'
+    @part.provenanceCollectionURI = @prov.pid
+    @part.save
+    solr_index @prov.pid
+    solr_index @part.pid
+  end
+
+  after(:all) do
+    @prov.delete
+    @part.delete
+  end
+
+  scenario 'should see access control information (curator)' do
+    sign_in_developer
+    visit dams_collection_path @prov.pid
+    expect(page).to have_content('AccessCurator Only')
+  end
+end
+
+feature "Vistor wants to view the OSF API title" do
+  before(:all) do
+    @prov = DamsProvenanceCollection.create titleValue: 'Test Title',  titleTranslationVariant: 'Test Translation Variant', visibility: 'curator'
+    solr_index @prov.pid
+  end
+
+  after(:all) do
+    @prov.delete
+  end
+
+  scenario 'should see the main title and translation variant separated by colon' do
+    sign_in_developer
+    visit osf_api_dams_collection_path @prov.pid
+    expect(page).to have_content("Test Title : Test Translation Variant")
+  end
+end
+
+feature "Vistor wants to view the OSF API" do
+  before do
+      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+      @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+      @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection_osf.rdf.xml').read
+      @provCollection.save!
+      solr_index (@provCollection.pid)   
+    end
+    after do
+      @provCollection.delete
+      @unit.delete
+    end
+    
+    scenario 'should see SHARE output' do
+      sign_in_developer
+      visit osf_api_dams_collection_path @provCollection.pid
+      expect(page).to have_content('"Test Title"')
+      expect(page).to have_content('{"name":"test contributor"}')
+      expect(page).to have_content('{"name":"test contributor2"}')
+      expect(page).to have_content('{"name":"test contributor3"}')
+      expect(page).to have_content('{"name":"Test Creator"}')
+      expect(page).to have_content('{"name":"test principal investigator"}')
+      expect(page).to have_content('{"name":"test author"}')
+      expect(page).to have_content("http://library.ucsd.edu/dc/collection/uu8056206n")
+      expect(page).to have_content("English")
+      expect(page).to have_content("1961")
+      expect(page).to have_content("Test Topic")
+      expect(page).to have_content("Test Common Name")
+      expect(page).to have_content("Test Scientific Name")
+      expect(page).to have_content("Test Corporate Name")
+      expect(page).to have_content("Test Corporate Name")
+      expect(page).to have_content("Test Personal Name")
+      expect(page).to have_content("UC San Diego Library, Digital Collections")
+      expect(page).to have_content("http://library.ucsd.edu/dc")
+    end
+end
+
+feature "Vistor wants to see the default value of Contributor if it is missing from DAMS" do
+  before do
+      @provCollection = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", visibility: "public"
+      @provCollection.save!
+      solr_index (@provCollection.pid)   
+    end
+    after do
+      @provCollection.delete
+    end
+    
+    scenario 'should see SHARE output' do
+      sign_in_developer
+      visit osf_api_dams_collection_path @provCollection.pid
+      expect(page).to have_content('{"name":"UC San Diego Library"}')
+    end
+end
+
+
+feature "Vistor wants to push a record to OSF Share Staging area" do
+   before do
+      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+      @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+      @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection_osf.rdf.xml').read
+      @provCollection.save!
+      solr_index (@provCollection.pid)   
+    end
+    after do
+      @provCollection.delete
+      @unit.delete
+    end
+    scenario 'should call ShareNotify' do
+      sign_in_developer
+      visit osf_push_dams_collection_path @provCollection.pid
+      
+      mock_document = double("new document")
+      mock_api = double("new api")
+      allow(ShareNotify::PushDocument).to receive(:new).with("http://library.ucsd.edu/dc/collection/uu8056206n") {mock_document}
+      allow(ShareNotify::API).to receive(:new) {mock_api}
+    end
 end

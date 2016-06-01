@@ -36,6 +36,7 @@ module Dams
 	    map.lithology(:in => DAMS, :class_name => 'DamsLithologyInternal')
 	    map.series(:in => DAMS, :class_name => 'DamsSeriesInternal')
 	    map.cruise(:in => DAMS, :class_name => 'DamsCruiseInternal')
+	    map.anatomy(:in => DAMS, :class_name => 'DamsAnatomyInternal')
 	    
         # XXX why does iconography work when mapped to a class when when other made-like additions don't?
 	    map.iconography(:in => DAMS, :class_name => 'DamsIconographyInternal')
@@ -86,7 +87,7 @@ module Dams
       								:note, :custodialResponsibilityNote, :preferredCitationNote, :scopeContentNote,  
       								:complexSubject, :builtWorkPlace, :culturalContext, :function, :genreForm, :geographic, 
       								:iconography, :occupation, :commonName, :scientificName, :stylePeriod,
-      								:technique, :temporal, :topic, :lithology, :series, :cruise,
+      								:technique, :temporal, :topic, :lithology, :series, :cruise, :anatomy,
 	    							:name, :conferenceName, :corporateName, :familyName, :personalName, :relatedResource,
 	    							:unit, :assembledCollection, :provenanceCollection, :provenanceCollectionPart, :component, :file,
 	    							:copyright, :license, :otherRights, :statute, :rightsHolderName, :rightsHolderCorporate, :rightsHolderPersonal,
@@ -366,7 +367,7 @@ module Dams
 	      Solrizer.insert_field(solr_doc, "#{prefix}files", file_json.to_json)
 	      #Solrizer.insert_field(solr_doc, "fulltext", file_json.to_json)
 	
-	      # fulltext extraction for pdfs
+	      # fulltext extraction for pdf, document, excel, html, txt, csv etc
           begin
             @parent_obj = ActiveFedora::Base.find(pid, :cast=>true) if @parent_obj.nil?
             fulltext = fulltext( @parent_obj, file, cid )
@@ -390,11 +391,11 @@ module Dams
 
       # extract fulltext from a content file
       def fulltext( object, file, cid )
-        mime_type = file.mimeType.first.to_s.gsub(/;.*/,"")
-        if ["application/pdf", "text/html", "text/plain"].include?(mime_type)
-          fid = (cid != nil) ? "_#{cid}_#{file.id}" : "_" + file.id
-          fid = extracted_text(fid) if mime_type == "application/pdf"
-          fulltext = @parent_obj.datastreams[fid]
+        mime_type = file.mimeType.first.to_s.gsub(/;.*/,"").gsub(/\s.*/,"").gsub(/\..*/,"")
+        fid = (cid != nil) ? "_#{cid}_#{file.id}" : "_" + file.id
+        if ["application/pdf", "text/html", "text/plain", "application/msword", "application/vnd"].include?(mime_type) || fid.end_with?(".doc", ".docx", ".xls",".xlsx")
+          fid = extracted_text(fid)
+          fulltext = object.datastreams[fid]
           escape_text(fulltext.content) unless fulltext.nil?
         end
       end
@@ -576,10 +577,11 @@ module Dams
 	      insertFields solr_doc, "component_#{cid}_lithology", load_lithologies(component.lithology)
 	      insertFields solr_doc, "component_#{cid}_series", load_series(component.series)
 	      insertFields solr_doc, "component_#{cid}_cruise", load_cruises(component.cruise)
+        insertFields solr_doc, "component_#{cid}_anatomy", load_anatomies(component.anatomy)
+
 	      	
 	      # facetable topics
 	      insertFacets solr_doc, "subject_topic", load_topics(component.topic)
-	      insertFacets solr_doc, "component_#{cid}_subject_topic", load_topics(component.topic)
 	      insertFacets solr_doc, "subject_topic", load_temporals(component.temporal)
 	      
 	      insertFacets solr_doc, "subject_topic", load_builtWorkPlaces(component.builtWorkPlace)
@@ -596,7 +598,17 @@ module Dams
 	      insertFacets solr_doc, "subject_topic", load_lithologies(component.lithology)
 	      insertFacets solr_doc, "subject_topic", load_series(component.series)
 	      insertFacets solr_doc, "subject_topic", load_cruises(component.cruise)
+	      insertFacets solr_doc, "subject_topic", load_anatomies(component.anatomy)
 	      	      	
+          # uncomment for subject anatomy
+          insertFacets solr_doc, "subject_anatomy", load_anatomies(component.anatomy)
+          insertFacets solr_doc, "subject_common_name", load_commonNames(component.commonName)
+          insertFacets solr_doc, "subject_cruise", load_cruises(component.cruise)
+          insertFacets solr_doc, "subject_cultural_context", load_culturalContexts(component.culturalContext)
+          insertFacets solr_doc, "subject_lithology", load_lithologies(component.lithology)
+          insertFacets solr_doc, "subject_scientific_name", load_scientificNames(component.scientificName)
+          insertFacets solr_doc, "subject_series", load_series(component.series)
+
 	      insertFields solr_doc, "component_#{cid}_name", load_names(component.name)
 	      insertFields solr_doc, "component_#{cid}_conferenceName", load_conferenceNames(component.conferenceName)
 	      insertFields solr_doc, "component_#{cid}_corporateName", load_corporateNames(component.corporateName)

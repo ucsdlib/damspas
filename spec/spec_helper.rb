@@ -45,14 +45,42 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
 #  config.order = "random"
+  config.before(:suite) do
+    cleanout_solr_and_fedora
+  end
+  config.after(:suite) do
+    cleanout_solr_and_fedora
+  end
+
+  # rspec-rails 3 will no longer automatically infer an example group's spec type
+  # from the file location. You can explicitly opt-in to the feature using this
+  # config option.
+  # To explicitly tag specs without using automatic inference, set the `:type`
+  # metadata manually:
+  #
+  #     describe ThingsController, :type => :controller do
+  #       # Equivalent to being in spec/controllers
+  #     end
+  config.infer_spec_type_from_file_location!
+end
+# This loads the Fedora and Solr config info from /config/fedora.yml
+# You can load it from a different location by passing a file path as an argument.
+def restore_spec_configuration
+  ActiveFedora.init(fedora_config_path: File.join(File.dirname(__FILE__), "..", "config", "fedora.yml"))
+end
+
+def cleanout_solr_and_fedora
+  ActiveFedora::Base.destroy_all
+  restore_spec_configuration if ActiveFedora::SolrService.instance.nil? || ActiveFedora::SolrService.instance.conn.nil?
+  ActiveFedora::SolrService.instance.conn.delete_by_query('*:*', params: {'softCommit' => true})
 end
 def test_attribute_xpath(datastream, name, xpath, value='blah')
    datastream.send(name.to_s+'=', value)
-   datastream.send(name).should == [value]
-   datastream.send(name).xpath.should == xpath
+   expect(datastream.send(name)).to eq([value])
+   expect(datastream.send(name).xpath).to eq(xpath)
 end
 def test_existing_attribute(datastream, name, value='blah')
-   datastream.send(name).should == [value]
+   expect(datastream.send(name)).to eq([value])
 end
 
 def solr_index (pid)

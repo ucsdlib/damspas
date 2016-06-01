@@ -38,11 +38,11 @@ describe DamsStylePeriod do
   </dams:StylePeriod>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have stylePeriodElement" do
-    subject.stylePeriodElement.first.elementValue.should == 'Impressionism'
+    expect(subject.stylePeriodElement.first.elementValue).to eq('Impressionism')
   end
 
   it "should be able to build a new stylePeriodElement" do

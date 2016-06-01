@@ -38,11 +38,11 @@ describe DamsIconography do
   </dams:Iconography>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have iconographyElement" do
-    subject.iconographyElement.first.elementValue.should == 'Madonna and Child'
+    expect(subject.iconographyElement.first.elementValue).to eq('Madonna and Child')
   end
 
   it "should be able to build a new iconographyElement" do

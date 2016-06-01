@@ -33,13 +33,13 @@ describe DamsCopyright do
   </dams:Copyright>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
   end
 
   it "should have date" do
-    subject.beginDate.should == ["1993-12-31"]
-    subject.endDate.should == ["1994-12-31"]
-    subject.dateValue.should == ["1993"]
+    expect(subject.beginDate).to eq(["1993-12-31"])
+    expect(subject.endDate).to eq(["1994-12-31"])
+    expect(subject.dateValue).to eq(["1993"])
   end
 
   it "should be able to build a new date" do

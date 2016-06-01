@@ -17,11 +17,11 @@ describe DamsProvenanceCollectionsController do
           get :show, id: @obj.id
           expect(response.status).to eq(200)
           @newobj = assigns[:dams_provenance_collection]
-          @newobj.titleValue.should == @obj.titleValue
-          @newobj.beginDate.should == @obj.beginDate
-          @newobj.endDate.should == @obj.endDate
-          @newobj.visibility.should == @obj.visibility
-          @newobj.resource_type.should == @obj.resource_type
+          expect(@newobj.titleValue).to eq(@obj.titleValue)
+          expect(@newobj.beginDate).to eq(@obj.beginDate)
+          expect(@newobj.endDate).to eq(@obj.endDate)
+          expect(@newobj.visibility).to eq(@obj.visibility)
+          expect(@newobj.resource_type).to eq(@obj.resource_type)
         end
       end
   end

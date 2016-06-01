@@ -21,6 +21,8 @@ Hydra::Application.routes.draw do
       get 'rdf'
       get 'rdf_nt'
       get 'rdf_ttl'
+      get 'osf_api'
+      get 'osf_push'
     end
   end
 
@@ -118,6 +120,7 @@ Hydra::Application.routes.draw do
   resources :dams_lithologies, only: [:index, :show]
   resources :dams_series, only: [:index, :show]
   resources :dams_cruises, only: [:index, :show]
+  resources :dams_anatomies, only: [:index, :show]
   
   resources :get_data do
   get 'get_linked_data', :on => :member
@@ -135,6 +138,8 @@ Hydra::Application.routes.draw do
 
   end
 
+  resources :random
+  
   # ruby-version utility
   get '/ruby-version' => 'application#ruby_version'
 

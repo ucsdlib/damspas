@@ -11,15 +11,6 @@
 
 .com.apple.timemachine.supported
 
-# ignore config files stored elsewhere
-config/database.yml
-config/fedora.yml
-config/solr.yml
-config/secrets.yml
-config/initializers/devise.rb
-config/initializers/secret_token.rb
-
-
 
 # Ignore bundler config
 /.bundle

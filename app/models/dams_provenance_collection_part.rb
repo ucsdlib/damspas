@@ -40,6 +40,8 @@ class DamsProvenanceCollectionPart < ActiveFedora::Base
     :series,
     :cruise_attributes,
     :cruise,
+    :anatomy_attributes,
+    :anatomy,
     :language_attributes,
     :language,
     :languageURI,

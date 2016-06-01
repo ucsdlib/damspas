@@ -512,7 +512,9 @@ module Dams
 		  elsif type.include? "SeriesElement"
 	        elem = DamsDatastream::List::SeriesElement.new(elementList.first.graph)
 		  elsif type.include? "CruiseElement"
-	        elem = DamsDatastream::List::CruiseElement.new(elementList.first.graph)	        	        	                                                          
+	        elem = DamsDatastream::List::CruiseElement.new(elementList.first.graph)	
+	    elsif type.include? "AnatomyElement"
+	        elem = DamsDatastream::List::AnatomyElement.new(elementList.first.graph)        	        	                                                          
 	      end
 	      elem.elementValue = val
 

@@ -1,6 +1,9 @@
 require 'net/http'
 require 'json'
+require 'open-uri'
+require 'pathname'
 
+APP_ROOT = Pathname.new File.expand_path('../../../', __FILE__)
 class DamsResourceController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
@@ -29,8 +32,27 @@ class DamsResourceController < ApplicationController
 
     # get metadata from solr
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    if @document.nil?
+        raise ActionController::RoutingError.new('Not Found')
+    end
 
-    @rdfxml = @document['rdfxml_ssi'] if !@document.nil?
+    # generate facet collection list for collection page only
+    models = @document["active_fedora_model_ssi"]
+    if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
+        facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
+        apply_gated_discovery( facet_collection_params, nil )
+        @facet_collection_resp = get_search_results( facet_collection_params )
+        facet_collection_names = []
+        @facet_collections = @facet_collection_resp[0].facet_counts["facet_fields"]["collection_sim"]
+        if !@facet_collections.nil? && @facet_collections.length > 0
+            @facet_collections.each_slice(2) do |collectionName, *_|
+                facet_collection_names << collectionName.strip if !collectionName.strip.eql? @document['title_tesim'].first.strip.to_s
+            end
+        end
+        @related_collections = related_collections_map facet_collection_names
+    end
+
+    @rdfxml = @document['rdfxml_ssi']
     if @rdfxml == nil
       @rdfxml = "<rdf:RDF xmlns:dams='http://library.ucsd.edu/ontology/dams#'
           xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
@@ -77,7 +99,7 @@ class DamsResourceController < ApplicationController
         format.nt { rdf_nt }
         format.ttl { rdf_ttl }
       end
-    elsif !@document.nil? && @document['discover_access_group_ssim'].include?("public")
+    elsif @document['discover_access_group_ssim'].include?("public")
       respond_to do |format|
         format.html { render :metadata }
         format.json { render json: @document }
@@ -147,6 +169,73 @@ class DamsResourceController < ApplicationController
         err = "Error minting DOI: Unable to process server response"
       end
       redirect_to dams_object_path(params[:id]), alert: err
+    end
+  end
+
+  def related_collections_map (collection_names)
+    colls_map = {}
+    if collection_names.count > 0
+        collection_names.collect! { |name| "\"#{solr_escape(name)}\"" }
+        solr_param_q = collection_names.join (' OR ')
+        solr_params = { :q => "type_tesim:Collection AND title_tesim:(#{solr_param_q})", :rows => collection_names.count }
+        cols_response, col_documents = get_search_results(solr_params, :spellcheck => "false")
+        cols_response.docs.each do |doc|
+            colls_map[doc['title_tesim'].first.to_s.strip] = doc['id_t'].to_s
+        end
+    end
+    colls_map
+  end
+
+  def solr_escape (str)
+    pattern = /(\+|\-|\&\&|\|\||\!|\(\)|\{\}|\[|\]|\^|\"|\~|\*|\?|\:|\\)/
+    str.gsub(pattern){|match|"\\"  + match} 
+  end
+  
+  def replace_config_file (file_name)
+    copy_config_file (file_name)
+    config ||= ERB.new(IO.read("#{APP_ROOT}/config/#{file_name}")).result(binding)
+    write_file(file_name,config)
+  end
+  
+  def copy_config_file (file_name)
+    data ||= File.read("#{APP_ROOT}/config/#{Rails.configuration.share_notify_sample}")
+    write_file(file_name,data)
+  end
+
+  def write_file(file,data)
+    File.open("#{APP_ROOT}/config/#{file}", "w") do |fi|
+      fi.write(data)
+    end
+  end
+    
+  def osf_api
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    data = export_to_API(@document)
+    render :json => data
+  end
+
+  def osf_push
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}", osf_date(@document))
+    document.title = osf_title(@document)
+    document.description = osf_description(@document)
+    document.publisher = osf_publisher
+    document.languages = osf_languages(@document)
+    document.tags = osf_mads_fields(@document)
+    osf_contributors(@document).each do |contributor|
+      document.add_contributor(contributor)
+    end
+
+    if document.valid?
+      replace_config_file ('share_notify.yml')
+      api = ShareNotify::API.new
+      api.post(document.to_share.to_json)
+      copy_config_file ('share_notify.yml') if !Rails.env.production?
+      redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share Staging area."
+    else
+      redirect_to dams_collection_path(params[:id]), alert: "Your record is not valid."
     end
   end
 

@@ -136,6 +136,14 @@ class CatalogController < ApplicationController
     config.add_facet_field 'object_type_sim', :label => 'Format' 
     config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20 
 
+    config.add_facet_field 'subject_cruise_sim', :label => 'Cruise', :limit => 20
+    config.add_facet_field 'subject_lithology_sim', :label => 'Lithology', :limit => 20
+    config.add_facet_field 'subject_common_name_sim', :label => 'Common Name', :limit => 20
+    config.add_facet_field 'subject_scientific_name_sim', :label => 'Scientific Name', :limit => 20
+    #config.add_facet_field 'subject_anatomy_sim', :label => 'Anatomy', :limit => 20
+    config.add_facet_field 'subject_series_sim', :label => 'Series', :limit => 20
+    config.add_facet_field 'subject_cultural_context_sim', :label => 'Cultural Context', :limit => 20
+
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
@@ -268,7 +276,15 @@ class CatalogController < ApplicationController
       end
       (@response, @document_list) = get_search_results
 
-	  spelling_words = @response.spelling.words
+      spelling_words = []
+      @response.spelling.words.each do |word|
+        # handle Hash format for solr 5
+        if word.is_a?(Hash)
+          spelling_words << word["word"] if !word["word"].nil?
+        else
+          spelling_words << word
+        end
+      end
 	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
 		params['spellsuggestions'] = 'false'
 		if(params['spellcheck.q'].nil?)
@@ -281,12 +297,11 @@ class CatalogController < ApplicationController
 		i = 0
 		@suggestions = ([@response.spelling.collation] | spelling_words).compact
         tmp_params = params.clone
-		@suggestions.each do |word|
+		spelling_words.each do |word|
 			tmp_params[:q] = word
 			(tmp_resp, tmp_docs) = get_search_results tmp_params
-			@suggestions.delete(word) if tmp_docs.size == 0
+			spelling_words.delete(word) if tmp_docs.size == 0
 		end
-        spelling_words = @suggestions
 	  else
 		params.delete('spellsuggestions')
 		params['spellcheck.q'] = params[:q]

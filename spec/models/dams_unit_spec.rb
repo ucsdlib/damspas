@@ -24,27 +24,27 @@ describe DamsUnit do
   </dams:Unit>
 </rdf:RDF>
 END
-    subject.damsMetadata.content.should be_equivalent_to xml
+    expect(subject.damsMetadata.content).to be_equivalent_to xml
 
   end
   
   describe "when name is not present" do
     before { subject.name = " " }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
   
   describe "when description is not present" do
     before { subject.description = " " }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
   
   describe "when code is not present" do
     before { subject.code = " " }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
   
   describe "when URI is not present" do
     before { subject.uri = " " }
-    it { should_not be_valid }
+    it { is_expected.not_to be_valid }
   end
 end

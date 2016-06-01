@@ -48,8 +48,8 @@ feature 'Visitor wants to search' do
     idx1 = page.body.index('QE8iWjhafTRpc Object 1')
     idx2 = page.body.index('QE8iWjhafTRpc Object 2')
     idx3 = page.body.index('QE8iWjhafTRpc Object 3')
-    idx2.should > idx1
-    idx3.should > idx2
+    expect(idx2).to be > idx1
+    expect(idx3).to be > idx2
 
     click_on "QE8iWjhafTRpc Object 1"
     expect(page).to have_selector('div.search-results-pager')
@@ -81,8 +81,8 @@ feature 'Visitor wants to search' do
     idx1 = page.body.index('QE8iWjhafTRpc Object 3')  # no date
     idx2 = page.body.index('QE8iWjhafTRpc Object 2')  # 1999
     idx3 = page.body.index('QE8iWjhafTRpc Object 1')  # 2000-2008
-    idx3.should >( idx2 )
-    idx2.should >( idx1 )
+    expect(idx3).to be >( idx2 )
+    expect(idx2).to be >( idx1 )
 
     click_on "QE8iWjhafTRpc Object 3"
     expect(page).to have_selector('div.search-results-pager')
@@ -102,14 +102,14 @@ feature 'Visitor wants to search' do
     expect(page).to have_selector('.btn', :text => 'Z')
     idx1 = page.body.index('ZZZ Test Subject 1')
     idx2 = page.body.index('ZZZ Test Subject 2')
-    idx2.should >( idx1 )
+    expect(idx2).to be >( idx1 )
     
     click_on("Sort 1-9", match: :first)
     expect(page).to have_link('A', href: '/search/facet/subject_topic_sim?facet.prefix=A&facet.sort=index' )
     expect(page).to have_selector('.btn', :text => 'Z')
     idx1 = page.body.index('ZZZ Test Subject 1')
     idx2 = page.body.index('ZZZ Test Subject 2')
-    idx1.should <( idx2 )
+    expect(idx1).to be <( idx2 )
   end  
 
   scenario 'search results paging' do
@@ -199,11 +199,123 @@ feature "Search and browse links and subjects" do
   end
 end
 
+feature "Search and browse custom subject facet links" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @copy = DamsCopyright.create status: "Public domain"
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    #@anatomy = DamsAnatomy.create( name: 'ZZZ Test Anatomy' )
+    @common = DamsCommonName.create( name: 'ZZZ Test Common Name' )
+    @cruise = DamsCruise.create( name: 'ZZZ Test Cruise' )
+    @cultural = DamsCulturalContext.create( name: 'ZZZ Test Cultural Context' )
+    @lithology = DamsLithology.create( name: 'ZZZ Test Lithology' )
+    @science = DamsScientificName.create( name: 'ZZZ Test Scientific Name' )
+    @series = DamsSeries.create( name: 'ZZZ Test Series' )
+    @obj = DamsObject.create( 
+        titleValue: 'QE8iWjhafTRpc Test Object', 
+        unitURI: @unit.pid, 
+        copyrightURI: @copy.pid, 
+        #anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@anatomy.pid}") }],
+        commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@common.pid}") }],
+        cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cruise.pid}") }],
+        culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cultural.pid}") }],
+        lithology_attributes: [{ id: RDF::URI.new("#{ns}#{@lithology.pid}") }],
+        scientificName_attributes: [{ id: RDF::URI.new("#{ns}#{@science.pid}") }],
+        series_attributes: [{ id: RDF::URI.new("#{ns}#{@series.pid}") }],
+        )
+
+    solr_index @obj.pid
+  end
+  after(:all) do
+    @obj.delete
+    @unit.delete
+    @copy.delete
+    #@anatomy.delete
+    @common.delete
+    @cruise.delete
+    @cultural.delete
+    @lithology.delete
+    @science.delete
+    @series.delete
+  end
+
+  skip 'Browse by anatomy' do
+    sign_in_developer
+    visit catalog_facet_path("subject_anatomy_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Anatomy')
+    click_on "ZZZ Test Anatomy"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+  scenario 'Browse by common name' do
+    sign_in_developer
+    visit catalog_facet_path("subject_common_name_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Common Name')
+    click_on "ZZZ Test Common Name"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+    scenario 'Browse by cruise' do
+    sign_in_developer
+    visit catalog_facet_path("subject_cruise_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Cruise')
+    click_on "ZZZ Test Cruise"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+  scenario 'Browse by cultural context' do
+    sign_in_developer
+    visit catalog_facet_path("subject_cultural_context_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Cultural Context')
+    click_on "ZZZ Test Cultural Context"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+    scenario 'Browse by lithology' do
+    sign_in_developer
+    visit catalog_facet_path("subject_lithology_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Lithology')
+    click_on "ZZZ Test Lithology"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end    
+  scenario 'Browse by scientific name' do
+    sign_in_developer
+    visit catalog_facet_path("subject_scientific_name_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Scientific Name')
+    click_on "ZZZ Test Scientific Name"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+  scenario 'Browse by series' do
+    sign_in_developer
+    visit catalog_facet_path("subject_series_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_content('ZZZ Test Series')
+    click_on "ZZZ Test Series"
+    expect(page).to have_content('QE8iWjhafTRpc Test Object')
+  end
+end
+
+describe "Search and browse custom subject facets from complex object" do
+  before(:all) do
+    @damsComplexObj = DamsObject.create pid: "xx808080zz"
+    @damsComplexObj.damsMetadata.content = File.new( "spec/fixtures/damsComplexObject9.rdf.xml" ).read
+    @damsComplexObj.save!
+    solr_index (@damsComplexObj.pid)
+  end
+  after(:all) do
+    @damsComplexObj.delete
+  end
+
+  it "Browse by common name should include subjects from both object and components" do
+    sign_in_developer
+    visit catalog_facet_path("subject_common_name_sim", :'facet.sort' => 'index')
+    expect(page).to have_content('ZZZ Test Common Name in Object')
+    expect(page).to have_content('ZZZ Test Common Name in Component')
+    click_on "ZZZ Test Common Name in Component"
+    expect(page).to have_content('Test Complex Object 9')
+  end
+end
+
 feature 'Visitor wants to download JSON' do
   scenario 'Performing a search' do
     visit catalog_index_path( {:q => 'sample', :format => 'json'} )
-    page.status_code.should == 200
-    page.response_headers['Content-Type'].should include 'application/json'
+    expect(page.status_code).to eq(200)
+    expect(page.response_headers['Content-Type']).to include 'application/json'
   end
 end
 
@@ -268,6 +380,54 @@ feature 'Visitor wants to see collection info in the search results view' do
     visit catalog_index_path( {:q => 'sample'} )
     expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')   
     click_on "YQu9XjFgDT4UYA7WBQRsg Object"
-    expect(page).to have_selector("dt:first", :text => 'Collection')     
+    expect(page).to have_selector("dt:first", :text => 'Collection')
   end
+
+  scenario 'should not see access control information (public) in single object viewer' do
+    visit catalog_index_path( {:q => 'sample'} )
+    expect(page).to have_selector('h3', :text => 'YQu9XjFgDT4UYA7WBQRsg Object')
+    click_on "YQu9XjFgDT4UYA7WBQRsg Object"
+    expect(page).to have_no_content('AccessPublic')
+  end
+
+end
+
+#---
+
+feature 'User wants to see search results' do
+  before(:all) do
+    @unit = DamsUnit.create name: 'Test Unit', description: 'Test Description', code: 'tu', uri: 'http://example.com/', group: 'dams-curator'
+    @copy = DamsCopyright.create status: 'Public domain'
+    @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
+    @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
+    @obj1 = DamsObject.create titleValue: 'QE8iWjhafTRpc Object 1', unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], subjectURI: [@sub1.pid]
+    @obj2 = DamsObject.create titleValue: 'QE8iWjhafTRpc Object 2', unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], subjectURI: [@sub2.pid]
+    @obj3 = DamsObject.create titleValue: 'QE8iWjhafTRpc Object 3', unitURI: @unit.pid
+    solr_index @obj1.pid
+    solr_index @obj2.pid
+    solr_index @obj3.pid
+  end
+
+  after(:all) do
+    @obj1.delete
+    @obj2.delete
+    @obj3.delete
+    @copy.delete
+    @unit.delete
+    @sub1.delete
+    @sub2.delete
+  end
+
+  scenario 'should see access control information (curator)' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_content('Access: Curator Only')
+  end
+
+  scenario 'should not see access control information (public)' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_no_content('Access: Public')
+  end
+
 end
