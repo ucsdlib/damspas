@@ -1,5 +1,5 @@
 set :stage, :staging
-set :branch, 'staging'
+set :branch, 'feature/fix_deploy'
 server 'lib-hydrahead-staging.ucsd.edu', user: 'conan', roles: %w{web app db sitemap_noping}
 set :rails_env, "staging"
 set :ssh_options, {keepalive: true, keepalive_interval: 120 }
