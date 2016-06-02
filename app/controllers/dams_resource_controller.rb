@@ -2,12 +2,13 @@ require 'net/http'
 require 'json'
 require 'open-uri'
 require 'pathname'
+require 'httparty'
 
-APP_ROOT = Pathname.new File.expand_path('../../../', __FILE__)
 class DamsResourceController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
   include CatalogHelper
+  
 
   ##############################################################################
   # solr actions ###############################################################
@@ -190,23 +191,6 @@ class DamsResourceController < ApplicationController
     pattern = /(\+|\-|\&\&|\|\||\!|\(\)|\{\}|\[|\]|\^|\"|\~|\*|\?|\:|\\)/
     str.gsub(pattern){|match|"\\"  + match} 
   end
-  
-  def replace_config_file (file_name)
-    copy_config_file (file_name)
-    config ||= ERB.new(IO.read("#{APP_ROOT}/config/#{file_name}")).result(binding)
-    write_file(file_name,config)
-  end
-  
-  def copy_config_file (file_name)
-    data ||= File.read("#{APP_ROOT}/config/#{Rails.configuration.share_notify_sample}")
-    write_file(file_name,data)
-  end
-
-  def write_file(file,data)
-    File.open("#{APP_ROOT}/config/#{file}", "w") do |fi|
-      fi.write(data)
-    end
-  end
     
   def osf_api
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
@@ -229,14 +213,24 @@ class DamsResourceController < ApplicationController
     end
 
     if document.valid?
-      replace_config_file ('share_notify.yml')
-      api = ShareNotify::API.new
-      api.post(document.to_share.to_json)
-      copy_config_file ('share_notify.yml') if !Rails.env.production?
-      redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share Staging area."
+      @headers = {'Authorization' => "Token #{share_config.fetch('token', nil)}", 
+                 'Content-Type'  => 'application/json'
+                }
+      @route = "#{share_config.fetch('host', 'https://staging.osf.io/')}api/v1/share/data"
+      @response = with_timeout { HTTParty.post(@route, body: document.to_share.to_json, headers: @headers)}
+      redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share."
     else
       redirect_to dams_collection_path(params[:id]), alert: "Your record is not valid."
     end
   end
 
+  private
+    def share_config
+      env = Rails.env || 'test'
+      @config ||= YAML.load(ERB.new(IO.read(File.join(Rails.root, 'config', 'share_notify.yml'))).result)[env].with_indifferent_access
+    end
+
+    def with_timeout(&_block)
+      Timeout.timeout(5) { yield }
+    end
 end
