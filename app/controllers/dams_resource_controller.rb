@@ -213,10 +213,11 @@ class DamsResourceController < ApplicationController
     end
 
     if document.valid?
-      @headers = {'Authorization' => "Token #{share_config.fetch('token', nil)}", 
+      @headers = {'Authorization' => "Token #{share_config.fetch('token')}", 
                  'Content-Type'  => 'application/json'
                 }
-      @route = "#{share_config.fetch('host', 'https://staging.osf.io/')}api/v1/share/data"
+
+      @route = "#{share_config.fetch('host')}api/v1/share/data"
       @response = with_timeout { HTTParty.post(@route, body: document.to_share.to_json, headers: @headers)}
       redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share."
     else

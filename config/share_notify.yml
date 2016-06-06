@@ -1,6 +1,6 @@
 defaults: &defaults
-  host: <%= ENV.fetch('APPS_DHH_STAGING_SHARE_NOTIFY_HOST') {'share_host'}%>
-  token: <%= ENV.fetch('APPS_DHH_STAGING_NOTIFY_TOKEN') {'share_token'}%>
+  host: <%= ENV.fetch('APPS_DHH_STAGING_SHARE_NOTIFY_HOST'){'https://staging.osf.io/'}%>
+  token: <%= ENV.fetch('APPS_DHH_STAGING_NOTIFY_TOKEN'){'share_token'}%> 
 
 development:
   <<: *defaults
@@ -24,6 +24,6 @@ test:
   <<: *defaults
 
 production:
-  host: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_HOST') {'share_host'}%>
-  token: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_TOKEN') {'share_token'}%>
+  host: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_HOST'){'share_host'}%>
+  token: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_TOKEN'){'share_token'}%>
 
