@@ -193,7 +193,7 @@ module CatalogHelper
       when 'image'
         icon = 'glyphicon-picture'
       when 'audio'
-        icon = 'glyphicon-music'
+        icon = 'glyphicon-volume-up'
       when 'video'
         icon = 'glyphicon-film'
       when 'no-files'
