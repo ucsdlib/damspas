@@ -21,4 +21,4 @@ database:
 
 test:
   override:
-    - bundle exec rspec ./spec/features/dams_collections_spec.rb
+    - bundle exec rspec ./spec/features/file_spec.rb
