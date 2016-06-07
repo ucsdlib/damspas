@@ -80,14 +80,17 @@ feature 'Units' do
   end
   
   scenario 'collection search' do
-    visit dams_unit_path :id => 'tu'
-    expect(page).to have_selector('h1', :text => 'Test Unit')
+    visit dams_unit_collections_path('tu')
+    expect(page).to have_content('Browse by Collection: Test Unit')
+    expect(find('#q')['placeholder']).to eq('Search Test Unit')
+	expect(page).to have_selector('a', :text => 'Test Bee Collection')
 
     # search for the collection in the unit and find it
-    visit catalog_index_path( {'f[type_sim][]' => 'Collection', 'f[unit_code_tesim][]' => 'tu', :q => 'bee'} )
-    expect(page).to have_content('Test Bee Collection')
+    fill_in 'q', :with => 'Test'
+    find('#search-button').click
+    expect(page).to have_selector('a', :text => 'Test Bee Collection')
     
     # does not find this collection because it belongs to other unit
-    expect(page).to have_no_content('Test Collection')
+    expect(page).to_not have_selector('a', :text => 'Test Collection')
   end  
 end
