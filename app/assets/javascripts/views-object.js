@@ -148,16 +148,16 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "rtmp://"+serviceFilePath},
-                                            {file: "http://"+serviceFilePath+"/playlist.m3u8"}
+                                            {file: "http://"+serviceFilePath+"/manifest.mpd"},
+                                            {file: "http://"+serviceFilePath+"/playlist.m3u8"},
+                                            {file: "rtmp://"+serviceFilePath}                                            
                                         ]
                                 }],
                             width: "100%",
                             aspectratio: "16:9",
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false},
-                            primary: "flash",
-                            fallback: true
+                            fallback: false
                         });
 
 						break;
