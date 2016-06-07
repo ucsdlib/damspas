@@ -83,7 +83,7 @@ feature 'Units' do
     visit dams_unit_collections_path('tu')
     expect(page).to have_content('Browse by Collection: Test Unit')
     expect(find('#q')['placeholder']).to eq('Search Test Unit')
-	expect(page).to have_selector('a', :text => 'Test Bee Collection')
+    expect(page).to have_selector('a', :text => 'Test Bee Collection')
 
     # search for the collection in the unit and find it
     fill_in 'q', :with => 'Test'
