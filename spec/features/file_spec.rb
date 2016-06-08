@@ -68,6 +68,11 @@ feature "Derivative download" do
     visit file_path( @obj3, '_1.txt' )
     expect(page.driver.response.status).to eq( 200 )
   end
+  scenario "should see volume-up icon when searching for audio file" do
+    visit catalog_index_path( {:q => @obj2.id} )
+    expect(page).to have_selector('a', :text => 'MP3 Test')
+    expect(page).to have_css('i.glyphicon-volume-up')
+  end  
 end
 
 describe "Download more than one master file" do

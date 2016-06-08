@@ -601,7 +601,7 @@ module DamsObjectsHelper
 			when 'image'
 				icon = 'glyphicon glyphicon-picture'
 			when 'audio'
-				icon = 'glyphicon glyphicon-music'
+				icon = 'glyphicon glyphicon-volume-up'
 			when 'video'
 				icon = 'glyphicon glyphicon-film'
 			when 'no-files'
