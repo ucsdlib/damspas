@@ -1,6 +1,8 @@
 <% if query_has_constraints? %>
     <div class="dams-search-constraints">
 
+          <%= render :partial => 'searchbox' %>
+
         <span class="dams-search-constraints-label"><%= 'There are no results for' %></span>
 
         <%#link_to t('blacklight.search.start_over'), url_for(:action=>'index'), :class => "catalog_startOverLink", :id=>"startOverLink" %>

@@ -29,6 +29,11 @@ feature 'Visitor wants to search' do
     @sub2.delete
   end
 
+  scenario 'display search box when there are no search results' do
+    visit catalog_index_path( {:q => 'fish'} )
+    expect(page).to have_selector('#search-button')
+  end
+
   scenario 'is on search results page' do
     visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_selector('h4', :text => 'Refine your search')
