@@ -216,22 +216,26 @@ feature "Vistor wants to view the OSF API title" do
   end
 end
 
-feature "Vistor wants to view the OSF API" do
+feature "Vistor wants to view the OSF API output" do
   before do
       @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
-      @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
-      @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection_osf.rdf.xml').read
-      @provCollection.save!
-      solr_index (@provCollection.pid)   
+      @provCollection1 = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+      @provCollection1.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection_osf.rdf.xml').read
+      @provCollection1.save!
+      solr_index (@provCollection1.pid)
+      @provCollection2 = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", visibility: "public"
+      @provCollection2.save!
+      solr_index (@provCollection2.pid)      
     end
     after do
-      @provCollection.delete
+      @provCollection1.delete
+      @provCollection2.delete
       @unit.delete
     end
     
-    scenario 'should see SHARE output' do
+    scenario 'should see the following fields' do
       sign_in_developer
-      visit osf_api_dams_collection_path @provCollection.pid
+      visit osf_api_dams_collection_path @provCollection1.pid
       expect(page).to have_content('"Test Title"')
       expect(page).to have_content('{"name":"test contributor"}')
       expect(page).to have_content('{"name":"test contributor2"}')
@@ -251,45 +255,10 @@ feature "Vistor wants to view the OSF API" do
       expect(page).to have_content("UC San Diego Library, Digital Collections")
       expect(page).to have_content("http://library.ucsd.edu/dc")
     end
-end
 
-feature "Vistor wants to see the default value of Contributor if it is missing from DAMS" do
-  before do
-      @provCollection = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", visibility: "public"
-      @provCollection.save!
-      solr_index (@provCollection.pid)   
-    end
-    after do
-      @provCollection.delete
-    end
-    
-    scenario 'should see SHARE output' do
+    scenario 'should see the default value of Contributor if it is missing from DAMS' do
       sign_in_developer
-      visit osf_api_dams_collection_path @provCollection.pid
+      visit osf_api_dams_collection_path @provCollection2.pid
       expect(page).to have_content('{"name":"UC San Diego Library"}')
-    end
-end
-
-
-feature "Vistor wants to push a record to OSF Share Staging area" do
-   before do
-      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
-      @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
-      @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection_osf.rdf.xml').read
-      @provCollection.save!
-      solr_index (@provCollection.pid)   
-    end
-    after do
-      @provCollection.delete
-      @unit.delete
-    end
-    scenario 'should call ShareNotify' do
-      sign_in_developer
-      visit osf_push_dams_collection_path @provCollection.pid
-      
-      mock_document = double("new document")
-      mock_api = double("new api")
-      allow(ShareNotify::PushDocument).to receive(:new).with("http://library.ucsd.edu/dc/collection/uu8056206n") {mock_document}
-      allow(ShareNotify::API).to receive(:new) {mock_api}
     end
 end

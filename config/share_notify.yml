@@ -21,9 +21,10 @@ demo:
   <<: *defaults
 
 test:
-  <<: *defaults
+  host: "https://staging.osf.io/"
+  token: "share_token"
 
 production:
-  host: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_HOST'){'share_host'}%>
+  host: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_HOST'){'https://share-registration.osf.io/'}%>
   token: <%= ENV.fetch('APPS_DHH_PROD_SHARE_NOTIFY_TOKEN'){'share_token'}%>
 
