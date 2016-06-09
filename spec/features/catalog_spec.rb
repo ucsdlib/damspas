@@ -434,5 +434,38 @@ feature 'User wants to see search results' do
     visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_no_content('Access: Public')
   end
+end
 
+feature 'Visitor wants to view icons for the objects in the search result page' do
+  before(:all) do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @obj1 = DamsObject.create( titleValue: 'Music Test', typeOfResource: 'sound recording',
+                unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    mp3_content = "//tQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA//////////////////////////////////////////////////////////////////8AAAA5TEFNRTMuOTlyAaUAAAAALf4AABRAJAaWQgAAQAAAAnEy8lFkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UMQAAAdsJSBAmMBBKIbj2JSY0QAEoeCBAABBBDYMIECBAhDwQBAMQQdSGP5QHwfB/98Tg+DgIAgCDvBx38oc/lAQd+jkAf//AgIO6wfD4mkEpBZEiRSshCoVCwJBoEiZpyIBJEiVeSJEiFPxdBBQUF/+BQUEgvhQV4UFBQSCgoKChX9BTf/+RQUFN/8QUF/8QU34oKC/0FBVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+1LEGoPAAAGkAAAAIAAANIAAAARVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=="
+    @obj1.add_file( Base64.decode64(mp3_content), "_1.mp3", "test.mp3" )
+    @obj2 = DamsObject.create pid: "xx808080zz"
+    @obj2.damsMetadata.content = File.new( "spec/fixtures/damsComplexObject9.rdf.xml" ).read
+    @obj1.save
+    @obj2.save!
+
+    solr_index  (@obj1.pid)
+    solr_index (@obj2.pid)
+  end
+  after(:all) do
+    @obj1.delete
+    @obj2.delete
+    @unit.delete
+  end
+  scenario 'rendering the folder icon for complex object which has more than one format type' do
+    sign_in_developer
+    visit catalog_index_path({:q => 'xx808080zz'})
+    expect(page).to have_selector('.glyphicon-folder-open')
+  end
+
+  scenario 'rendering the format speific icon for object which has one format type' do
+    sign_in_developer
+    visit catalog_index_path({:q => @obj1.pid})
+    expect(page).to have_selector('.glyphicon-volume-up')
+  end
 end
