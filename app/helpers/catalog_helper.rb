@@ -144,7 +144,7 @@ module CatalogHelper
     resultClass = 'thumb-simple'
     resultIcon = 'glyphicon-file'
 
-    if document['files_tesim'] != nil
+    if document['component_count_isi'].blank? && !is_collection?(document)
       # SIMPLE OBJECT: look for preview image or format-appropriate icon
       field_data = document['files_tesim']
       simpleUse = file_use_type (field_data)
