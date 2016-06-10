@@ -354,6 +354,7 @@ feature 'Visitor wants to see collection info in the search results view' do
               assembledCollectionURI: [ @acol.pid ], provenanceCollectionPartURI: [ @part.pid ],
               unit_attributes: [{ id: RDF::URI.new("#{Rails.configuration.id_namespace}#{@unit.pid}") }],
               copyright_attributes: [{status: 'Public domain'}] )
+    solr_index @acol.pid
     solr_index @obj.pid
   end
   after(:all) do
@@ -390,6 +391,12 @@ feature 'Visitor wants to see collection info in the search results view' do
     expect(page).to have_no_content('AccessPublic')
   end
 
+  scenario 'should see search this collection text in the search box' do
+    sign_in_developer
+    visit dams_collection_path @acol.pid
+    click_link('View Collection Items', match: :first)
+    expect(find('#q')['placeholder']).to eq('Search this collection...')
+  end
 end
 
 #---

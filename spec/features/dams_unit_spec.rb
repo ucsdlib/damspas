@@ -5,10 +5,12 @@ feature 'Units' do
     @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
     @copy = DamsCopyright.create status: "Public domain"
     @obj = DamsObject.create unitURI: @unit.pid, titleValue: "First Test Object", copyrightURI: @copy.pid
+    @col = DamsAssembledCollection.create(unitURI: @unit.pid, titleValue: 'Test Bee Collection', visibility: 'public', scopeContentNote_attributes:[{value:'Test scope content note'}])
 
     @unit2 = DamsUnit.create name: "Another Test Unit", description: "Another Test Description", code: "ano", uri: "http://example.com/"
     @obj2 = DamsObject.create unitURI: @unit2.pid, titleValue: "Another Test Object", copyrightURI: @copy.pid
     @col2 = DamsAssembledCollection.create(unitURI: @unit2.pid, titleValue: 'Test Collection', visibility: 'public', scopeContentNote_attributes:[{value:'Test scope content note'}])
+    solr_index @col.pid
     solr_index @col2.pid
     solr_index @unit2.pid
     solr_index @obj2.pid
@@ -18,6 +20,7 @@ feature 'Units' do
   after(:all) do
     @obj.delete
     @obj2.delete
+    @col.delete
     @col2.delete
     @copy.delete
     @unit.delete
@@ -75,4 +78,19 @@ feature 'Units' do
     expect(page).to have_selector('a', :text => 'Test Collection')
     expect(page).to have_selector('li', :text => 'Test scope content note')
   end
+  
+  scenario 'collection search' do
+    visit dams_unit_collections_path('tu')
+    expect(page).to have_content('Browse by Collection: Test Unit')
+    expect(find('#q')['placeholder']).to eq('Search Test Unit')
+    expect(page).to have_selector('a', :text => 'Test Bee Collection')
+
+    # search for the collection in the unit and find it
+    fill_in 'q', :with => 'Test'
+    find('#search-button').click
+    expect(page).to have_selector('a', :text => 'Test Bee Collection')
+    
+    # does not find this collection because it belongs to other unit
+    expect(page).to_not have_selector('a', :text => 'Test Collection')
+  end  
 end
