@@ -1,7 +1,7 @@
 <% if query_has_constraints? %>
     <div class="dams-search-constraints">
 
-          <%= render :partial => 'searchbox' %>
+          <%= render :partial => 'searchbox' , :locals => {:unit => nil, :unit_code => nil}%>
 
         <span class="dams-search-constraints-label"><%= 'There are no results for' %></span>
 
