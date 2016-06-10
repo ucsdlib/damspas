@@ -293,6 +293,12 @@ feature "Search and browse custom subject facet links" do
     click_on "ZZZ Test Series"
     expect(page).to have_content('QE8iWjhafTRpc Test Object')
   end
+  scenario 'topic faceting displays exclude lithology, common name, scientific name and cruise values' do
+    visit catalog_index_path( {'q' => @obj.pid} )
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li", :count => 2)     
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li[1]", :text => 'ZZZ Test Cultural Context') 
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li[2]", :text => 'ZZZ Test Series')
+  end   
 end
 
 describe "Search and browse custom subject facets from complex object" do
