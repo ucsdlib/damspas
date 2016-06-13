@@ -591,13 +591,9 @@ module Dams
 	      insertFacets solr_doc, "subject_topic", load_geographics(component.geographic)
 	      insertFacets solr_doc, "subject_topic", load_iconographies(component.iconography)
 	      insertFacets solr_doc, "subject_topic", load_occupations(component.occupation)
-          insertFacets solr_doc, "subject_topic", load_commonNames(component.commonName)
-	      insertFacets solr_doc, "subject_topic", load_scientificNames(component.scientificName)
 	      insertFacets solr_doc, "subject_topic", load_stylePeriods(component.stylePeriod)
 	      insertFacets solr_doc, "subject_topic", load_techniques(component.technique)
-	      insertFacets solr_doc, "subject_topic", load_lithologies(component.lithology)
 	      insertFacets solr_doc, "subject_topic", load_series(component.series)
-	      insertFacets solr_doc, "subject_topic", load_cruises(component.cruise)
 	      insertFacets solr_doc, "subject_topic", load_anatomies(component.anatomy)
 	      	      	
           # uncomment for subject anatomy

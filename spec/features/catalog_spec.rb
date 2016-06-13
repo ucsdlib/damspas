@@ -29,6 +29,11 @@ feature 'Visitor wants to search' do
     @sub2.delete
   end
 
+  scenario 'display search box when there are no search results' do
+    visit catalog_index_path( {:q => 'fish'} )
+    expect(page).to have_selector('#search-button')
+  end
+
   scenario 'is on search results page' do
     visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_selector('h4', :text => 'Refine your search')
@@ -288,6 +293,12 @@ feature "Search and browse custom subject facet links" do
     click_on "ZZZ Test Series"
     expect(page).to have_content('QE8iWjhafTRpc Test Object')
   end
+  scenario 'topic faceting displays exclude lithology, common name, scientific name and cruise values' do
+    visit catalog_index_path( {'q' => @obj.pid} )
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li", :count => 2)     
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li[1]", :text => 'ZZZ Test Cultural Context') 
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li[2]", :text => 'ZZZ Test Series')
+  end   
 end
 
 describe "Search and browse custom subject facets from complex object" do
@@ -354,6 +365,7 @@ feature 'Visitor wants to see collection info in the search results view' do
               assembledCollectionURI: [ @acol.pid ], provenanceCollectionPartURI: [ @part.pid ],
               unit_attributes: [{ id: RDF::URI.new("#{Rails.configuration.id_namespace}#{@unit.pid}") }],
               copyright_attributes: [{status: 'Public domain'}] )
+    solr_index @acol.pid
     solr_index @obj.pid
   end
   after(:all) do
@@ -390,6 +402,12 @@ feature 'Visitor wants to see collection info in the search results view' do
     expect(page).to have_no_content('AccessPublic')
   end
 
+  scenario 'should see search this collection text in the search box' do
+    sign_in_developer
+    visit dams_collection_path @acol.pid
+    click_link('View Collection Items', match: :first)
+    expect(find('#q')['placeholder']).to eq('Search this collection...')
+  end
 end
 
 #---
@@ -429,5 +447,38 @@ feature 'User wants to see search results' do
     visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_no_content('Access: Public')
   end
+end
 
+feature 'Visitor wants to view icons for the objects in the search result page' do
+  before(:all) do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @obj1 = DamsObject.create( titleValue: 'Music Test', typeOfResource: 'sound recording',
+                unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    mp3_content = "//tQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA//////////////////////////////////////////////////////////////////8AAAA5TEFNRTMuOTlyAaUAAAAALf4AABRAJAaWQgAAQAAAAnEy8lFkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UMQAAAdsJSBAmMBBKIbj2JSY0QAEoeCBAABBBDYMIECBAhDwQBAMQQdSGP5QHwfB/98Tg+DgIAgCDvBx38oc/lAQd+jkAf//AgIO6wfD4mkEpBZEiRSshCoVCwJBoEiZpyIBJEiVeSJEiFPxdBBQUF/+BQUEgvhQV4UFBQSCgoKChX9BTf/+RQUFN/8QUF/8QU34oKC/0FBVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+1LEGoPAAAGkAAAAIAAANIAAAARVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=="
+    @obj1.add_file( Base64.decode64(mp3_content), "_1.mp3", "test.mp3" )
+    @obj2 = DamsObject.create pid: "xx808080zz"
+    @obj2.damsMetadata.content = File.new( "spec/fixtures/damsComplexObject9.rdf.xml" ).read
+    @obj1.save
+    @obj2.save!
+
+    solr_index  (@obj1.pid)
+    solr_index (@obj2.pid)
+  end
+  after(:all) do
+    @obj1.delete
+    @obj2.delete
+    @unit.delete
+  end
+  scenario 'rendering the folder icon for complex object which has more than one format type' do
+    sign_in_developer
+    visit catalog_index_path({:q => 'xx808080zz'})
+    expect(page).to have_selector('.glyphicon-folder-open')
+  end
+
+  scenario 'rendering the format speific icon for object which has one format type' do
+    sign_in_developer
+    visit catalog_index_path({:q => @obj1.pid})
+    expect(page).to have_selector('.glyphicon-volume-up')
+  end
 end

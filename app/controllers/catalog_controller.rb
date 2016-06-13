@@ -346,6 +346,7 @@ class CatalogController < ApplicationController
 
       # add unit name to page
       @current_unit = lookup_unit_name( params[:id] )
+      @current_unit_code = params[:id]
     end
 
     # sort by title
