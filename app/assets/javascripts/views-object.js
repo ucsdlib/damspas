@@ -102,7 +102,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	{
 
 		var componentID = "#component-" + componentIndex;
-		var container = componentID + " > div[data]";
+		var container = componentID + " > [data]";
 		var buttonID = "#node-btn-" + componentIndex;
 		var componentData = $(container).attr("data");
         var pagerLabel = "Component " + componentIndex + " of " + $("#sidebar-header").attr("data-count");
