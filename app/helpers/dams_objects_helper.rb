@@ -20,6 +20,25 @@ module DamsObjectsHelper
      end
      data_arr
     end
+
+  def field_mapping_note(note_key, note_type)
+    data_arr=[]
+    index = getComponentIndex
+    fieldData = @document["#{index}note_json_tesim"]
+
+     if fieldData != nil
+       fieldData.each do |datum|
+        note = JSON.parse(datum)
+        if note[note_key] == note_type
+          data_arr.push(note['value'])
+        end
+        end
+      end 
+      data_arr
+  end
+
+
+  
   
  def getFieldData(fieldName)
        index = getComponentIndex
@@ -55,68 +74,16 @@ module DamsObjectsHelper
 
     #Need to update 
     def getCreator
-      # data_arr=[]
-      # get creator list from names:personal
-       fieldValue=field_mapping('name_tesim')
-      #if fieldValue != nil && fieldValue != ''
-      #  data_arr.push(fieldValue)
-      # end
-       
-      # get creator list from corporateName_tesim
-      # fieldValue=field_mapping('corporateName_tesim')
-      # if fieldValue != nil && fieldValue != ''
-      #  data_arr.push(fieldValue)
-      # end
+      data_arr=[]
     end
 
     def getFormat
        data_arr=[]
-       fieldData=getFieldData('note_json_tesim')
-       format_value=''
-       concat__note_value=''
-       concat__form_value=''
-       concat__extent_value=''
-
-       
-       if fieldData != nil
-         fieldData.each do |datum|
-          format = JSON.parse(datum)
-          if format['displayLabel'] == 'Form'
-            concat__form_value=format['value']
-          elsif format['displayLabel'] == 'Extent'
-            concat__extent_value=format['value']
-          elsif format['displayLabel'] == 'Note'
-            concat__note_value=format['value']
-          end
-         end
-
-         if concat__note_value!=''
-           format_value=concat__note_value
-         elsif concat__form_value!=''
-            format_value=concat__form_value
-            if concat__extent_value!=''
-             format_value=format_value+";"+concat__extent_value
-            end
-         end
-         data_arr.push(format_value)
-       end 
-        data_arr
     end
 
 
     def getDescription
-       data_arr=[]
-       fieldData=getFieldData('note_json_tesim')
-
-       if fieldData != nil
-         fieldData.each do |datum|
-          note = JSON.parse(datum)
-          if note['type'] == 'abstract'
-            data_arr.push(note['value'])
-          end
-          end
-        end 
-        data_arr
+       data_arr = field_mapping_note("type","abstract")
     end
     
     def getRelation
@@ -129,26 +96,6 @@ module DamsObjectsHelper
     #Need refactor code when MADS implementation is done.
     def getCoverage
        data_arr=[]
-       fieldData=getFieldData('cartographics_json_tesim')
-       coverage_value=''
-       
-       if fieldData != nil
-         fieldData.each do |datum|
-          coverage = JSON.parse(datum)
-          if coverage['scale'] != ''
-            coverage_value=coverage['scale']
-            if coverage['projection'] != ''
-              coverage_value=coverage_value+coverage['projection']
-              if coverage['coordinates'] != ''
-                coverage_value=coverage_value+coverage['coordinates']
-              end
-            end
-
-            data_arr.push(coverage_value)
-          end
-         end
-        end 
-        data_arr
     end
 
     #Need refactor code when MADS implementation is done.
@@ -156,8 +103,6 @@ module DamsObjectsHelper
 
        fieldValue=field_mapping('subject_tesim')
     end
-
-    
 
     def getDate
        data_arr=[]
@@ -182,36 +127,13 @@ module DamsObjectsHelper
     end
 
     def getIdentifier
-       data_arr=[]
-       index = getComponentIndex
-     fieldData = @document["#{index}note_json_tesim"]
-
-     if fieldData != nil
-       fieldData.each do |datum|
-          note = JSON.parse(datum)
-          if note['displayLabel'] == 'ARK'
-            data_arr.push(note['value'])
-          end
-       end
-      end
-     data_arr
+       data_arr = field_mapping_note("displayLabel","ARK")
     end
 
    #dc:publisher
    def getPublisher
-       data_arr=[]
-       fieldData=getFieldData('note_json_tesim')
-
-       if fieldData != nil
-         fieldData.each do |datum|
-          note = JSON.parse(datum)
-          if note['type'] == 'publication'
-            data_arr.push(note['value'])
-          end
-          end
-        end 
-        data_arr
-    end
+      data_arr = field_mapping_note("type","publication")
+   end
     
     def getCopyright
        data_arr=[]
@@ -270,6 +192,7 @@ module DamsObjectsHelper
   #--
   # End of openURL implementation
   #    
+
 
 
   #---
@@ -331,18 +254,22 @@ module DamsObjectsHelper
     info
   end
 
-  #---
-  # render_file_use
-  #---
-  def render_file_use( params )
+  def render_file (params)
     component = params[:component]
-		quality = params[:quality]
+    quality = params[:quality]
 
     if component=="0"
       files = select_file( :document=>@document, :quality=>quality )
     else
       files = select_file( :document=>@document, :component=>component, :quality=>quality )
     end
+  end
+
+  #---
+  # render_file_use
+  #---
+  def render_file_use( params )
+    files = render_file (params)
    
     file_info = files[:service]
     if file_info != nil
@@ -354,14 +281,7 @@ module DamsObjectsHelper
   # render_service_file
   #---
   def render_service_file( params )
-    component = params[:component]
-		quality = params[:quality]
-
-    if component=="0"
-      files = select_file( :document=>@document, :quality=>quality )
-    else
-      files = select_file( :document=>@document, :component=>component, :quality=>quality )
-    end
+    files = render_file (params)
 
     service_file = files[:service]
     if service_file != nil
@@ -373,14 +293,7 @@ module DamsObjectsHelper
   # render_display_file
   #---
   def render_display_file( params )
-    component = params[:component]
-		quality = params[:quality]
-
-    if component=="0"
-      files = select_file( :document=>@document,:quality=>quality )
-    else
-      files = select_file( :document=>@document, :component=>component, :quality=>quality )
-    end
+    files = render_file (params)
 
     if files.has_key?(:display)
       display_file = files[:display]
@@ -610,94 +523,6 @@ module DamsObjectsHelper
 				icon ='glyphicon glyphicon-file'
 		end
 		return icon
-	end
-
-	#---
-	# Renders a node of the COV component tree.
-	#
-	# @param index The object's component index.
-	# @return nil
-	# @author David T.
-	#---
-	def displayNode(index)
-
-		fileUse = grabFileUse(:componentIndex=>index)
-		btnAttrForFiles = "onClick='dp.COV.showComponent(#{index});'"
-		btnID = "node-btn-#{index}"
-		btnCSS = (fileUse) ? "node-file #{@firstButton}" : ''
-		btnCSS += (@isParent[index]) ? ' node-parent' : ''
-		iconCSS = (@isParent[index]) ? 'icon-chevron-down node-toggle' : grabIcon(fileUse)
-		btnTitle = grabTitle(:componentIndex=>index)
-
-		concat "<li>".html_safe
-		concat "<i class='#{iconCSS} node-icon'></i> <button type='button' id='#{btnID}' class='btn btn-small btn-link #{btnCSS}' #{btnAttrForFiles}>#{btnTitle}</button>".html_safe
-
-		# Display children if parent
-		if (@isParent[index])
-
-			concat "<ul class='unstyled node-container'>".html_safe
-			@document["component_#{index}_children_isim"].each do |sub|
-				displayNode sub
-				@seen.push(sub)
-			end
-			concat "</ul>".html_safe
-
-		end
-
-		concat "</li>".html_safe
-
-		@firstButton = nil
-
-	end
-
-	#---
-	# Renders the COV component tree.
-	#
-	# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
-	# @return nil
-	# @author David T.
-	#---
-	def displayComponentTree(component_count)
-		if component_count != nil && component_count > 0
-			concat '<ul class="unstyled">'.html_safe
-			for i in 1..component_count
-				if @seen.count(i) == 0
-					displayNode i
-				end
-			end
-			concat '</ul>'.html_safe
-		end
-		return nil
-	end
-
-	#---
-	# Initializes the arrays used to build the COV component tree.
-	#
-	# @param component_count An integer value representing the amount of components an object has ("component_count_isi").
-	# @return nil
-	# @author David T.
-	#---
-	def initComponentTree(component_count)
-		if component_count != nil
-			@isParent = []
-			@isChild = []
-			@seen = []
-
-			for i in 1..component_count
-				@isParent[i] = false
-				@isChild[i] = false
-			end
-
-			for i in 1..component_count
-				if @document["component_#{i}_children_isim"] != nil
-					@isParent[i] = true
-					@document["component_#{i}_children_isim"].each do |j|
-						@isChild[j] = true
-					end
-				end
-			end
-		end
-		return nil
 	end
 
 	#-------------------------------------------------------------------------------
