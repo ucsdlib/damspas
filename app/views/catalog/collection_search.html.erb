@@ -10,7 +10,7 @@
       View current collections below. Click an image or link for a full description.
     </div>
 <%
-	@current_unit =  @current_unit.gsub!("UCSD","") if @current_unit && @current_unit.instance_of?(String) && @current_unit.include?("UCSD")
+	@current_unit =  @current_unit.gsub!("UCSD ","") if @current_unit && @current_unit.instance_of?(String) && @current_unit.include?("UCSD")
 %>
     <%= render :partial => 'searchbox', :locals => {:unit => @current_unit, :unit_code => @current_unit_code}%>
     <%= render 'sort_and_per_page' %>

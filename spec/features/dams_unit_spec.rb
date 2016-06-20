@@ -10,12 +10,16 @@ feature 'Units' do
     @unit2 = DamsUnit.create name: "Another Test Unit", description: "Another Test Description", code: "ano", uri: "http://example.com/"
     @obj2 = DamsObject.create unitURI: @unit2.pid, titleValue: "Another Test Object", copyrightURI: @copy.pid
     @col2 = DamsAssembledCollection.create(unitURI: @unit2.pid, titleValue: 'Test Collection', visibility: 'public', scopeContentNote_attributes:[{value:'Test scope content note'}])
+
+    @unit3 = DamsUnit.create name: "UCSD Research Data Collections Test", description: "Test Description", code: "rdcpt", uri: "http://example.com/"
+
     solr_index @col.pid
     solr_index @col2.pid
     solr_index @unit2.pid
     solr_index @obj2.pid
     solr_index @obj.pid
     solr_index @unit.pid
+    solr_index @unit3.pid
   end
   after(:all) do
     @obj.delete
@@ -25,6 +29,7 @@ feature 'Units' do
     @copy.delete
     @unit.delete
     @unit2.delete
+    @unit3.delete
   end
 
   scenario 'is on units landing page' do
@@ -92,5 +97,11 @@ feature 'Units' do
     
     # does not find this collection because it belongs to other unit
     expect(page).to_not have_selector('a', :text => 'Test Collection')
-  end  
+  end
+  
+  scenario 'Search and browse contextually within a unit' do
+    visit dams_unit_collections_path('rdcpt')
+    expect(page).to have_content('Browse by Collection: UCSD Research Data Collections Test')
+    expect(find('#q')['placeholder']).to eq('Search Research Data Collections Test')
+  end     
 end
