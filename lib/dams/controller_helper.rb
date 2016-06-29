@@ -1,7 +1,7 @@
 module Dams
   module ControllerHelper
-
-		#Mapping for OSF API
+    
+    #Mapping for OSF API
 		def osf_title(document)
 			  field_name = "title_json_tesim"
 		    dams_data= document["#{field_name}"]

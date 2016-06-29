@@ -43,5 +43,5 @@ Hydra::Application.configure do
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'http://rohan.ucsd.edu/zoomify/'
   config.shibboleth = false
-  config.share_notify_sample = 'share_notify.yml.staging.sample'
+  config.host_name = 'http://localhost:3000'
 end
