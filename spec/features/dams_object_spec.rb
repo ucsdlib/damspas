@@ -252,7 +252,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('dt', text: 'Temporal')
       expect(page).to_not have_selector('dt', text: 'Anatomies')
       expect(page).to have_selector('dt', text: 'Anatomy')          
-    end
+    end    
     it "should display curator-only linked metadata" do
 
       sign_in_developer
@@ -261,6 +261,16 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test other rights')
       expect(page).to have_selector('p', text: 'Test Statute')
     end
+    it "should display facet links for subject types" do
+      visit dams_object_path @o
+      expect(page).to have_link('Test Corporate Name', href: catalog_index_path({'f[subject_topic_sim][]' => 'Test Corporate Name', 'id' => @o.pid}))      
+      expect(page).to have_link('Test Genre Form', href: catalog_index_path({'f[subject_topic_sim][]' => 'Test Genre Form', 'id' => @o.pid}))
+      expect(page).to have_link('Test Personal Name', href: catalog_index_path({'f[subject_topic_sim][]' => 'Test Personal Name', 'id' => @o.pid}))         
+      expect(page).to have_link('Test Common Name', href: catalog_index_path({'f[subject_common_name_sim][]' => 'Test Common Name', 'id' => @o.pid}))
+      expect(page).to have_link('Test Scientific Name', href: catalog_index_path({'f[subject_scientific_name_sim][]' => 'Test Scientific Name', 'id' => @o.pid}))
+      expect(page).to have_link('Test Lithology', href: catalog_index_path({'f[subject_lithology_sim][]' => 'Test Lithology', 'id' => @o.pid}))
+      expect(page).to have_link('Test Cruise', href: catalog_index_path({'f[subject_cruise_sim][]' => 'Test Cruise', 'id' => @o.pid}))   
+    end    
   end
   describe "internal metadata records" do
     before(:all) do
