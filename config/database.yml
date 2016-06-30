@@ -8,10 +8,10 @@ default: &default
   pool: 5
   timeout: 5000
   database: db/development.sqlite3
-  
+
 development:
   <<: *default
-  
+
 pontos:
   <<: *default
   adapter: postgresql
@@ -19,7 +19,7 @@ pontos:
   host: <%= ENV.fetch('APPS_DHH_PONTOS_DB_HOST') {'default'}%>
   username: <%= ENV.fetch('APPS_DHH_PONTOS_DB_USER') {'default'}%>
   password: <%= ENV.fetch('APPS_DHH_PONTOS_DB_PASS') {'default'}%>
-  
+
 gimili:
   <<: *default
   adapter: postgresql
@@ -27,7 +27,7 @@ gimili:
   host: <%= ENV.fetch('APPS_DHH_GIMILI_DB_HOST') {'default'}%>
   username: <%= ENV.fetch('APPS_DHH_GIMILI_DB_USER') {'default'}%>
   password: <%= ENV.fetch('APPS_DHH_GIMILI_DB_PASS') {'default'}%>
-  
+
 staging:
   <<: *default
   adapter: postgresql
@@ -52,6 +52,7 @@ demo:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  database: db/test.sqlite3
 
 production:
   <<: *default
