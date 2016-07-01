@@ -8,7 +8,8 @@
 	<%# main title container for doc partial view -%>
 	<h3>
 		<%#= t('blacklight.search.documents.counter', :counter => (document_counter + 1 + @response.params[:start].to_i)) %>
-		<%= link_to_document document, :label=>document_show_link_field, :counter => (document_counter + 1 + @response.params[:start].to_i), :sep => ': ' %>
+		<% access_val = !session[:user_id].blank? ? 'curator' : ''%>
+		<%= link_to_document document, :label=>document_show_link_field, :counter => (document_counter + 1 + @response.params[:start].to_i), :access => access_val,  :sep => ': ' %>
 	</h3>
 
 	<%# main container for doc partial view -%>
