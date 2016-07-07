@@ -10,10 +10,12 @@ dependencies:
   cache_directories:
     - vagrant
     - ~/.vagrant.d
+    - 
   pre:
     - sudo apt-get update; 
     - sudo apt-get install virtualbox
     - sudo apt-get install virtualbox-dkms
+    - sudo apt-get install vagrant
     - bash ./install-dams-vagrant.sh
   override:
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
