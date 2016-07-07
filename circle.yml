@@ -7,9 +7,6 @@ machine:
     RAILS_ENV: test
 
 dependencies:
-  cache_directories:
-    - vagrant
-    - ~/.vagrant.d
   pre:
     - bash ./install-dams-vagrant.sh
   override:

@@ -7,3 +7,4 @@ if [ ! -e vagrant ]; then
 fi
 
 cd dams-vagrant
+vagrant up
