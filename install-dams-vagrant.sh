@@ -7,7 +7,7 @@ if [ ! -e vagrant ]; then
 fi
 
 cd vagrant
-git checkout refs/tags/v1.7.2
+git checkout refs/tags/v1.8.0
 bundle install
 rake install
 
