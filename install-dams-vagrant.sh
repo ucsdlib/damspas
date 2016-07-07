@@ -7,4 +7,5 @@ if [ ! -e vagrant ]; then
 fi
 
 cd dams-vagrant
+rvm use system
 vagrant up
