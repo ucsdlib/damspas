@@ -270,6 +270,9 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_link('Test Scientific Name', href: catalog_index_path({'f[subject_scientific_name_sim][]' => 'Test Scientific Name', 'id' => @o.pid}))
       expect(page).to have_link('Test Lithology', href: catalog_index_path({'f[subject_lithology_sim][]' => 'Test Lithology', 'id' => @o.pid}))
       expect(page).to have_link('Test Cruise', href: catalog_index_path({'f[subject_cruise_sim][]' => 'Test Cruise', 'id' => @o.pid}))   
+      expect(page).to have_link('Test Anatomy', href: catalog_index_path({'f[subject_anatomy_sim][]' => 'Test Anatomy', 'id' => @o.pid}))
+      expect(page).to have_link('Test Cultural Context', href: catalog_index_path({'f[subject_cultural_context_sim][]' => 'Test Cultural Context', 'id' => @o.pid}))
+      expect(page).to have_link('Test Series', href: catalog_index_path({'f[subject_series_sim][]' => 'Test Series', 'id' => @o.pid}))
     end    
   end
   describe "internal metadata records" do
