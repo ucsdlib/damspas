@@ -13,10 +13,9 @@ dependencies:
     - 
   pre:
     - sudo apt-get update; 
-    - sudo apt-get install virtualbox
-    - sudo apt-get install virtualbox-dkms
-    - sudo apt-get install vagrant
-    - bash ./install-dams-vagrant.sh
+    - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
+    - sudo dpkg -i vagrant_1.8.4_x86_64.deb
+    - vagrant plugin install vagrant-aws
   override:
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
 
