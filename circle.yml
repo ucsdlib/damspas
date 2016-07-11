@@ -12,7 +12,9 @@ dependencies:
     - ~/.vagrant.d
     - dams-vagrant
   pre:
-    - sudo apt-get update; 
+    - sudo apt-get update;
+    - sudo apt-get install virtualbox
+    - sudo apt-get install virtualbox-dkms 
     - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
     - sudo dpkg -i vagrant_1.8.4_x86_64.deb
     - bash ./install-dams-vagrant.sh
