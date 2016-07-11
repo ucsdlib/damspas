@@ -16,6 +16,10 @@ dependencies:
     - sudo apt-get install virtualbox   
     - sudo apt-get install virtualbox-ose-dkms
     - sudo apt-get install virtualbox-dkms
+    - sudo apt-get install linux-headers-generic    
+    - sudo dpkg-reconfigure virtualbox-dkms
+    - sudo dpkg-reconfigure virtualbox
+    - sudo modprobe vboxdrv
     - VBoxManage --version 
     - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
     - sudo dpkg -i vagrant_1.8.4_x86_64.deb
