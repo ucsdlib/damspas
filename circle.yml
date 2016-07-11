@@ -10,12 +10,11 @@ dependencies:
   cache_directories:
     - vagrant
     - ~/.vagrant.d
-    - 
+    - dams-vagrant
   pre:
     - sudo apt-get update; 
     - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
     - sudo dpkg -i vagrant_1.8.4_x86_64.deb
-    - vagrant plugin install vagrant-aws
     - bash ./install-dams-vagrant.sh
   override:
     - bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
@@ -28,4 +27,4 @@ test:
   override:
     - bundle exec rspec ./spec/features/file_spec.rb
   post:
-    - vagrant destroy remote --force
+    - vagrant destroy --force
