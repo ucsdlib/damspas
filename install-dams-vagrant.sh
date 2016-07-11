@@ -7,4 +7,5 @@ if [ ! -e vagrant ]; then
 fi
 
 cd dams-vagrant
+vagrant plugin install vagrant-triggers
 vagrant up

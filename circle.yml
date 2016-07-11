@@ -7,6 +7,10 @@ machine:
     RAILS_ENV: test
 
 dependencies:
+  cache_directories:
+    - vagrant
+    - ~/.vagrant.d
+    - dams-vagrant
   pre:
     - sudo apt-get update; 
     - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
