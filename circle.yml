@@ -13,11 +13,12 @@ dependencies:
     - dams-vagrant
   pre:
     - sudo apt-get update;
+    - sudo apt-get install linux-headers-generic
     - sudo apt-get install dkms
     - wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
     - sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian precise contrib" >> /etc/apt/sources.list.d/virtualbox.list'
     - sudo apt-get update
-    - sudo apt-get install virtualbox-4.3
+    - sudo apt-get install virtualbox-4.3   
     - VBoxManage --version 
     - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
     - sudo dpkg -i vagrant_1.8.4_x86_64.deb
