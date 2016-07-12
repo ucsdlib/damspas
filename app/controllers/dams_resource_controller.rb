@@ -196,7 +196,13 @@ class DamsResourceController < ApplicationController
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     data = export_to_API(@document)
+
     render :json => data
+  end
+
+  def osf_data
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"})
+    render :json => @document
   end
 
   def osf_push

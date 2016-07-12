@@ -51,7 +51,7 @@ ARGV.each do |pid|
     d1 = t2 - t1
     dtotal += d1
     printf "OK (%d of %d), %d errors, %0.3f sec\n",indexed, ARGV.length, errors.length, d1
-  rescue Exception => e
+  rescue Exception => e 
     errors << pid
     puts e.to_s
     e.backtrace.each do |line|
