@@ -41,15 +41,16 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 	}
 
 	//------------
-	// INIT POINT
+	// INIT POINT 
 	//------------
 	this.initPoint = function()
 	{
 		var point = data.coords.split(",");
-		var map = L.map('map-canvas',{scrollWheelZoom:false}).setView(point, 4);
-		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
+		var tileLayer = MQ.tileLayer(), map;
+		map = L.map('map-canvas', {layers: tileLayer, scrollWheelZoom: false, maxZoom: 18}).setView(point, 4);
         var icon = new L.divIcon({className: 'icon-map-marker', iconSize: 13});
-		L.marker(point,{icon: icon}).addTo(map);
+		L.marker(point,{icon: icon}).addTo(map);		
+        L.control.layers({'Tile': tileLayer,'Map': MQ.mapLayer(),'Hybrid': MQ.hybridLayer(),'Satellite': MQ.satelliteLayer()}).addTo(map);
 	}
 
 	//-----------
@@ -63,9 +64,10 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 			split = points[i].split(",");
 			points[i] = [ parseFloat(split[0]), parseFloat(split[1]) ];
 		}
-		var map = L.map('map-canvas',{scrollWheelZoom:false}).fitBounds(points).zoomOut(10);
-		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
+		var tileLayer = MQ.tileLayer(), map;
+		map = L.map('map-canvas', {layers: tileLayer, scrollWheelZoom: false, maxZoom: 18}).fitBounds(points).zoomOut(10);
 		L.polyline(points).addTo(map);
+        L.control.layers({'Tile': tileLayer,'Map': MQ.mapLayer(),'Hybrid': MQ.hybridLayer(),'Satellite': MQ.satelliteLayer()}).addTo(map);
 	}
 
 	//-----------
@@ -78,10 +80,11 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 		{
 			split = points[i].split(",");
 			points[i] = [ parseFloat(split[0]), parseFloat(split[1]) ];
-		}
-		var map = L.map('map-canvas',{scrollWheelZoom:false}).fitBounds(points).zoomOut(4);
-		L.tileLayer(tile_url, {attribution: tile_att, maxZoom: 18}).addTo(map);
-		L.polygon(points).addTo(map);
+		}                
+		var tileLayer = MQ.tileLayer(), map;
+        map = L.map('map-canvas', {layers: tileLayer, scrollWheelZoom: false, maxZoom: 18}).fitBounds(points).zoomOut(4);
+        L.polygon(points).addTo(map);
+        L.control.layers({'Tile': tileLayer,'Map': MQ.mapLayer(),'Hybrid': MQ.hybridLayer(),'Satellite': MQ.satelliteLayer()}).addTo(map);
 	}
 
 }).apply(dp.cartographics);

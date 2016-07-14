@@ -755,3 +755,33 @@ describe 'User wants to see object view' do
     expect(page).to have_content('AccessCurator Only')
   end
 end
+
+describe "Cartographic Record" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @cart = DamsCartographics.create( point: '19.7667,-154.8' )
+    @unit = DamsUnit.create( name: 'Test Unit', description: 'Test Description', code: 'tu',
+                               group: 'dams-curator', uri: 'http://example.com/' )
+    @cartObj = DamsObject.create( titleValue: 'Cartographic Test',                             
+                              cartographics_attributes: [{ id: RDF::URI.new("#{ns}#{@cart.pid}") }],
+                              unit_attributes: [{ id: RDF::URI.new("#{ns}#{@unit.pid}") }]
+                             )
+    solr_index @cart.pid
+    solr_index @unit.pid
+    solr_index @cartObj.pid
+  end
+  after(:all) do
+    @cartObj.delete
+    @cart.delete
+    @unit.delete
+  end
+  it "should display cartographic map" do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver 
+    sign_in_developer
+    visit dams_object_path @cartObj
+    expect(page.status_code).to eq(200)
+    expect(page).to have_selector('div[id="map-canvas"][data=\'{"type":"point","coords":"19.7667,-154.8"}\']')
+    expect(page).to have_css('img.leaflet-tile-loaded[src="https://c.tiles.mapbox.com/v4/mapquest.streets-mb/4/0/6.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg"]')
+  end
+end
