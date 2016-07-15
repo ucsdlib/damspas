@@ -463,8 +463,8 @@ describe Ability do
     		after(:all) do
 		      @damsObjectUnit2.delete
 		    end
-    		it "should not be allowed to show" do
-		      expect(subject.can?(:show,@damsObjectUnit2)).to be_falsey
+    		it "should be allowed to show" do
+		      expect(subject.can?(:show,@damsObjectUnit2)).to be_truthy
 		    end
 		    it "should not be allowed to create" do
 		      expect(subject.can?(:create,@damsObjectUnit2)).to be_falsey
@@ -486,14 +486,14 @@ describe Ability do
 		    it "should be allowed to show" do
 		      expect(subject.can?(:show,@damsObjectUnit1)).to be_truthy
 		    end
-		    it "should be allowed to create" do
-		      expect(subject.can?(:create,@damsObjectUnit1)).to be_truthy
+		    it "should not be allowed to create" do
+		      expect(subject.can?(:create,@damsObjectUnit1)).to be_falsey
 		    end
-		    it "should be allowed to edit" do
-		      expect(subject.can?(:edit,@damsObjectUnit1)).to be_truthy
+		    it "should not be allowed to edit" do
+		      expect(subject.can?(:edit,@damsObjectUnit1)).to be_falsey
 		    end
-		    it "should be allowed to update" do
-		      expect(subject.can?(:update,@damsObjectUnit1)).to be_truthy
+		    it "should not be allowed to update" do
+		      expect(subject.can?(:update,@damsObjectUnit1)).to be_falsey
 		    end
 	    end
 	    
@@ -570,14 +570,14 @@ describe Ability do
 		    it "should be allowed to show" do
 		      expect(subject.can?(:show,@damsProvenanceCollectionUnit1)).to be_truthy
 		    end
-		    it "should be allowed to create" do
-		      expect(subject.can?(:create,@damsProvenanceCollectionUnit1)).to be_truthy
+		    it "should not be allowed to create" do
+		      expect(subject.can?(:create,@damsProvenanceCollectionUnit1)).to be_falsey
 		    end
-		    it "should be allowed edit" do
-		      expect(subject.can?(:edit,@damsProvenanceCollectionUnit1)).to be_truthy
+		    it "should not be allowed edit" do
+		      expect(subject.can?(:edit,@damsProvenanceCollectionUnit1)).to be_falsey
 		    end
-		    it "should be allowed to update" do
-		      expect(subject.can?(:update,@damsProvenanceCollectionUnit1)).to be_truthy
+		    it "should not be allowed to update" do
+		      expect(subject.can?(:update,@damsProvenanceCollectionUnit1)).to be_falsey
 		    end
 	    end
 	    
@@ -591,14 +591,14 @@ describe Ability do
 		    it "should be allowed to show" do
 		      expect(subject.can?(:show,@damsProvenanceCollectionPartUnit1)).to be_truthy
 		    end
-		    it "should be allowed to create" do
-		      expect(subject.can?(:create,@damsProvenanceCollectionPartUnit1)).to be_truthy
+		    it "should not be allowed to create" do
+		      expect(subject.can?(:create,@damsProvenanceCollectionPartUnit1)).to be_falsey
 		    end
-		    it "should be allowed edit" do
-		      expect(subject.can?(:edit,@damsProvenanceCollectionPartUnit1)).to be_truthy
+		    it "should not be allowed edit" do
+		      expect(subject.can?(:edit,@damsProvenanceCollectionPartUnit1)).to be_falsey
 		    end
-		    it "should be allowed to update" do
-		      expect(subject.can?(:update,@damsProvenanceCollectionPartUnit1)).to be_truthy
+		    it "should not be allowed to update" do
+		      expect(subject.can?(:update,@damsProvenanceCollectionPartUnit1)).to be_falsey
 		    end
 	    end
 	    
@@ -612,14 +612,14 @@ describe Ability do
 		    it "should be allowed to show" do
 		      expect(subject.can?(:show,@damsAssembledCollectionUnit16)).to be_truthy
 		    end
-		    it "should be allowed to create" do
-		      expect(subject.can?(:create,@damsAssembledCollectionUnit16)).to be_truthy
+		    it "should not be allowed to create" do
+		      expect(subject.can?(:create,@damsAssembledCollectionUnit16)).to be_falsey
 		    end
-		    it "should be allowed edit" do
-		      expect(subject.can?(:edit,@damsAssembledCollectionUnit16)).to be_truthy
+		    it "should not be allowed edit" do
+		      expect(subject.can?(:edit,@damsAssembledCollectionUnit16)).to be_falsey
 		    end
-		    it "should be allowed to update" do
-		      expect(subject.can?(:update,@damsAssembledCollectionUnit16)).to be_truthy
+		    it "should not be allowed to update" do
+		      expect(subject.can?(:update,@damsAssembledCollectionUnit16)).to be_falsey
 		    end
 	    end
 	    
@@ -729,7 +729,7 @@ describe Ability do
 	    end
     end
     
-    describe "with a dams-unit2 (unit2 curator) role" do
+    describe "with a dams-editor role" do
     	subject do
 	      @user = User.create!
 	  	  @user_groups = @user.groups
@@ -739,7 +739,7 @@ describe Ability do
 	      	@bak_user_groups << g
 	      end
 	      @user.groups.clear
-	      @user.groups << "dams-rci"
+	      @user.groups << "dams-editor"
 	      Ability.new(@user)
 	    end  
 	    
@@ -764,17 +764,17 @@ describe Ability do
     		before(:all) do
 		      @damsObjectUnit1 = mod_dams_object "ac00000100", @unit1.pid, @copy.pid
 		    end
-		    it "should not be allowed to show" do
-		      expect(subject.can?(:show,@damsObjectUnit1)).to be_falsey
+		    it "should be allowed to show" do
+		      expect(subject.can?(:show,@damsObjectUnit1)).to be_truthy
 		    end
-		    it "should not be allowed to create" do
-		      expect(subject.can?(:create,@damsObjectUnit1)).to be_falsey
+		    it "should be allowed to create" do
+		      expect(subject.can?(:create,@damsObjectUnit1)).to be_truthy
 		    end
-		    it "should not be allowed to edit" do
-		      expect(subject.can?(:edit,@damsObjectUnit1)).to be_falsey
+		    it "should be allowed to edit" do
+		      expect(subject.can?(:edit,@damsObjectUnit1)).to be_truthy
 		    end
-		    it "should not be allowed to update" do
-		      expect(subject.can?(:update,@damsObjectUnit1)).to be_falsey
+		    it "should be allowed to update" do
+		      expect(subject.can?(:update,@damsObjectUnit1)).to be_truthy
 		    end
 	    end
 	    
@@ -844,14 +844,14 @@ describe Ability do
 		    it "should be allowed to show" do
 		      expect(subject.can?(:show,@damsProvenanceCollectionUnit1)).to be_truthy
 		    end
-		    it "should not be allowed to create" do
-		      expect(subject.can?(:create,@damsProvenanceCollectionUnit1)).to be_falsey
+		    it "should be allowed to create" do
+		      expect(subject.can?(:create,@damsProvenanceCollectionUnit1)).to be_truthy
 		    end
-		    it "should not be allowed edit" do
-		      expect(subject.can?(:edit,@damsProvenanceCollectionUnit1)).to be_falsey
+		    it "should be allowed edit" do
+		      expect(subject.can?(:edit,@damsProvenanceCollectionUnit1)).to be_truthy
 		    end
-		    it "should not be allowed to update" do
-		      expect(subject.can?(:update,@damsProvenanceCollectionUnit1)).to be_falsey
+		    it "should be allowed to update" do
+		      expect(subject.can?(:update,@damsProvenanceCollectionUnit1)).to be_truthy
 		    end
 	    end
 	    
@@ -865,14 +865,14 @@ describe Ability do
 		    it "should be allowed to show" do
 		      expect(subject.can?(:show,@damsProvenanceCollectionPartUnit1)).to be_truthy
 		    end
-		    it "should not be allowed to create" do
-		      expect(subject.can?(:create,@damsProvenanceCollectionPartUnit1)).to be_falsey
+		    it "should be allowed to create" do
+		      expect(subject.can?(:create,@damsProvenanceCollectionPartUnit1)).to be_truthy
 		    end
-		    it "should not be allowed edit" do
-		      expect(subject.can?(:edit,@damsProvenanceCollectionPartUnit1)).to be_falsey
+		    it "should be allowed edit" do
+		      expect(subject.can?(:edit,@damsProvenanceCollectionPartUnit1)).to be_truthy
 		    end
-		    it "should not be allowed to update" do
-		      expect(subject.can?(:update,@damsProvenanceCollectionPartUnit1)).to be_falsey
+		    it "should be allowed to update" do
+		      expect(subject.can?(:update,@damsProvenanceCollectionPartUnit1)).to be_truthy
 		    end
 	    end
 	    
@@ -886,14 +886,14 @@ describe Ability do
 		    it "should be allowed to show" do
 		      expect(subject.can?(:show,@damsAssembledCollectionUnit13)).to be_truthy
 		    end
-		    it "should not be allowed to create" do
-		      expect(subject.can?(:create,@damsAssembledCollectionUnit13)).to be_falsey
+		    it "should be allowed to create" do
+		      expect(subject.can?(:create,@damsAssembledCollectionUnit13)).to be_truthy
 		    end
-		    it "should not be allowed edit" do
-		      expect(subject.can?(:edit,@damsAssembledCollectionUnit13)).to be_falsey
+		    it "should be allowed edit" do
+		      expect(subject.can?(:edit,@damsAssembledCollectionUnit13)).to be_truthy
 		    end
-		    it "should not be allowed to update" do
-		      expect(subject.can?(:update,@damsAssembledCollectionUnit13)).to be_falsey
+		    it "should be allowed to update" do
+		      expect(subject.can?(:update,@damsAssembledCollectionUnit13)).to be_truthy
 		    end
 	    end
 	    

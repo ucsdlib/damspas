@@ -72,7 +72,8 @@ Hydra::Application.configure do
   config.lang_vocab ="#{config.id_namespace}bb43434343"
   config.excluded_collections = "(bd5905379f OR bb13664503)"
   config.developer_groups = ['public']
-  config.curator_groups = ['dams-curator','dams-rci','dams-manager-admin']
+  config.curator_groups = ['dams-curator','dams-editor','dams-manager-admin']
+  config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'http://library.ucsd.edu/zoomify/'
