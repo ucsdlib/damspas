@@ -119,3 +119,26 @@ describe "Download file in complex object" do
     expect(page).to have_link('', href:"/object/#{@complexObj.pid}/_1_2.jpg/download?access=curator")  
   end
 end
+
+describe "Download PDF file and second file with use value ends with '-source' for complex object" do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @complexObjPdf = DamsObject.create( titleValue: 'PDF ZIP Test', typeOfResource: 'document',
+                  unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    @complexObjPdf.add_file( 'dummy pdf content', '_1_1.pdf', 'test.pdf' )
+    @complexObjPdf.add_file( 'dummy mov content', '_1_2.mov', 'test.mov')
+    @complexObjPdf.save!
+    solr_index @complexObjPdf.pid
+  end
+  after do
+    @complexObjPdf.delete
+    @unit.delete
+  end
+  it "should show two download links" do
+    sign_in_developer
+    visit dams_object_path @complexObjPdf.pid
+    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_1.pdf/download?access=curator")
+    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_2.mov/download?access=curator")    
+  end
+end
