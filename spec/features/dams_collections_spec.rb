@@ -172,10 +172,51 @@ feature 'COLLECTIONS IMAGES --' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_selector("#collections-image img")
   end
-
 end
 
 #---
+
+feature 'Collection editor tools' do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @commonName = DamsCommonName.create pid: "xx000101ac", name:"thale-cress external"
+    @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
+    @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection3.rdf.xml').read
+    @provCollection.save!
+    solr_index (@provCollection.pid)
+  end
+  after do
+    @provCollection.delete
+    @unit.delete
+    @commonName.delete
+  end
+  scenario "with anonymous access should not see the metadata tools" do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_collection_path @provCollection
+    expect(page).not_to have_link('RDF View', rdf_dams_collection_path(@provCollection.pid))
+    expect(page).not_to have_link('Data View', data_dams_collection_path(@provCollection.pid))
+    expect(page).not_to have_link('DAMS 4.2 Preview', dams42_dams_collection_path(@provCollection.pid))
+  end
+  scenario "with dams_curator role should see the metadata tools" do
+    sign_in_curator
+    visit dams_collection_path @provCollection
+    expect(page).to have_link('RDF View', rdf_dams_collection_path(@provCollection.pid))
+    expect(page).to have_link('Data View', data_dams_collection_path(@provCollection.pid))
+    expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_collection_path(@provCollection.pid))
+  end
+  scenario "with dams_curator role should not see Mint DOI and Push to OSF" do
+    sign_in_curator
+    visit dams_collection_path @provCollection
+    expect(page).not_to have_content("Mint DOI");
+    expect(page).not_to have_content("Push to OSF");
+  end
+  scenario "with dams_editor role should see Mint DOI and Push to OSF" do
+    sign_in_developer
+    visit dams_collection_path @provCollection
+    expect(page).to have_content("Mint DOI");
+    expect(page).to have_content("Push to OSF");
+  end
+end
 
 feature "Visitor wants to view a collection's page" do
   before(:all) do

@@ -70,6 +70,32 @@ feature 'Visitor want to look at objects' do
       visit dams_object_path @o
       expect(page).to have_xpath "//a[contains(@href,'/damsmanager/rdfImport.do?ark=#{@o.pid}')]"
     end
+    it "with anonymous access should not see the metadata tools" do
+      sign_in_anonymous '132.239.0.3'
+      visit dams_object_path @o
+      expect(page).not_to have_link('RDF View', rdf_dams_object_path(@o.pid))
+      expect(page).not_to have_link('Data View', data_dams_object_path(@o.pid))
+      expect(page).not_to have_link('DAMS 4.2 Preview', dams42_dams_object_path(@o.pid))
+    end
+    it "with dams_curator role should see the metadata tools" do
+      sign_in_curator
+      visit dams_object_path @o
+      expect(page).to have_link('RDF View', rdf_dams_object_path(@o.pid))
+      expect(page).to have_link('Data View', data_dams_object_path(@o.pid))
+      expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_object_path(@o.pid))
+    end
+    it "with dams_curator role should not see Mint DOI and Push to OSF" do
+      sign_in_curator
+      visit dams_object_path @o
+      expect(page).not_to have_content("Mint DOI");
+      expect(page).not_to have_content("Push to OSF");
+    end
+    it "with dams_editor role should see Mint DOI and Push to OSF" do
+      sign_in_developer
+      visit dams_object_path @o
+      expect(page).to have_content("Mint DOI");
+      expect(page).to have_content("Push to OSF");
+    end
   end
 
   describe "linked metadata records" do
