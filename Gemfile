@@ -48,6 +48,9 @@ gem 'uglifier', '~> 3.0.0'
 gem 'rspec-mocks', '3.5.0'
 gem 'newrelic_rpm', '3.16.0.318'
 
+gem 'lograge', '0.4.1'
+gem 'logstash-event', '1.2.02'
+
 group :development, :test do
   gem 'sass-rails', '~> 5.0.5'
   gem 'coffee-rails', '~> 4.2.1'
