@@ -668,6 +668,34 @@ describe "complex object component view" do
   end
 end
 
+describe "audio complex object view" do
+  before(:all) do
+    @unit = DamsUnit.create( pid: 'xx48484848', name: 'Test Unit', description: 'Test Description',
+                             code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+    @audioComplexObj = DamsObject.create( titleValue: 'Sonic Waters Archive 1981-84', typeOfResource: 'sound recording',
+                  unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    @audioComplexObj.add_file( 'dummy audio content', '_1_1.mp3', 'test.mp3' )
+    @audioComplexObj.add_file( 'dummy audio content 2', '_2_1.wav', 'test2.wav' )
+    @audioComplexObj.add_file( 'dummy audio content 3', '_3_1.mp3', 'test3.wav' )
+    @audioComplexObj.save!
+    solr_index (@audioComplexObj.pid)
+  end
+  after(:all) do
+    @audioComplexObj.delete
+    @unit.delete
+  end
+  it "should display the first component file content in the file viewing panel" do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver    
+    visit dams_object_path(@audioComplexObj.pid)
+    expect(page).to have_content "Sonic Waters Archive 1981-84"
+    expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 3')
+    expect(page).to have_content('Generic Component Title 1')
+    expect(page).to have_selector('div[id="component-1"][class="component first-component"][data="1"][style="display: block;"]')
+    expect(page).to have_selector('#dams-audio-1',:text=>'loading player')
+  end
+end
+
 describe "curator embargoed object view" do
   before do
     @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
