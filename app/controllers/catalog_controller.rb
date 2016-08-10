@@ -159,7 +159,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'name_tesim', :label => 'Name:', :highlight => config.highlighting   
     config.add_index_field 'date_tesim', :label => 'Date:', :highlight => config.highlighting
     config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => config.highlighting
-    config.add_index_field 'subject_tesim', :label => 'Topic:', :highlight => config.highlighting
+    config.add_index_field 'topic_tesim', :label => 'Topic:', :highlight => config.highlighting
 	config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
 	config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
     #config.add_index_field 'description_tesim', :label => 'Description:' 
@@ -191,7 +191,7 @@ class CatalogController < ApplicationController
     
     config.add_search_field ('Keyword (Title, Name/Creator, Topic, Notes etc.)') do |field|
 	  #field.solr_parameters = { :'qf' => 'all_fields_tesim' }
-	  field.solr_parameters = { :'qf' => 'title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id' }
+	  field.solr_parameters = { :'qf' => 'title_tesim^99 name_tesim^20 topic_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id' }
 	end 
     config.add_search_field('Title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params. 
@@ -209,9 +209,9 @@ class CatalogController < ApplicationController
     config.add_search_field ('Name/Creator') do |field|
 	  field.solr_parameters = { :'qf' => 'name_tesim' }
 	end
-    config.add_search_field('subject', :label => 'Topic') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'subject_tesim' }
-	  field.solr_parameters = { :'qf' => 'subject_tesim' }
+    config.add_search_field('Topic', :label => 'Topic') do |field|
+      field.solr_parameters = { :'spellcheck.dictionary' => 'topic_tesim' }
+	  field.solr_parameters = { :'qf' => 'topic_tesim' }
       #field.qt = 'search'
       #field.solr_local_parameters = { 
       #  :qf => '$subject_qf',
