@@ -60,7 +60,11 @@ module Hydra
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-   
+
+    # setup lograge with logstash format 
+    config.lograge.enabled = true
+    config.lograge.formatter = Lograge::Formatters::Logstash.new
+
     # DAMS-specific config 
     config.id_namespace = 'http://library.ucsd.edu/ark:/20775/'
     config.format_map = { "moving image" => "video", "still image" => "image" }

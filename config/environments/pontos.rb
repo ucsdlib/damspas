@@ -28,6 +28,12 @@ Hydra::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  # Prepend all log lines with the following tags
+  config.log_tags = [ :subdomain, :uuid ]
+
+  # Expend to set up logger with STDOUT
+  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+
   # environment-specific DAMS config
   # ip-based role assignment
   config.public_ips = []
