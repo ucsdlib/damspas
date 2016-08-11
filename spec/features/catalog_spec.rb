@@ -2,14 +2,15 @@ require 'spec_helper'
 
 feature 'Visitor wants to search' do
   before(:all) do
+    ns = Rails.configuration.id_namespace
     @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
     @copy = DamsCopyright.create status: "Public domain"
 
-    @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
-    @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
+    @topic1 = MadsTopic.create name: 'ZZZ Test Subject 1'
+    @topic2 = MadsTopic.create name: 'ZZZ Test Subject 2'
 
-    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], subjectURI: [@sub1.pid]
-    @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], subjectURI: [@sub2.pid]
+    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic1.pid}") }]
+    @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic2.pid}") }]
     @obj3 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
   
     solr_index @obj1.pid
@@ -25,8 +26,14 @@ feature 'Visitor wants to search' do
     @copy.delete
     @unit.delete
 
-    @sub1.delete
-    @sub2.delete
+    @topic1.delete
+    @topic2.delete
+  end
+
+  scenario 'result page displays topics' do
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_content('ZZZ Test Subject 1')
+    expect(page).to have_content('ZZZ Test Subject 2')
   end
 
   scenario 'display search box when there are no search results' do
@@ -35,7 +42,7 @@ feature 'Visitor wants to search' do
   end
 
   scenario 'is on search results page' do
-    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )    
     expect(page).to have_selector('h4', :text => 'Refine your search')
     expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')
     expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 2')
