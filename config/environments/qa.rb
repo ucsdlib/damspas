@@ -27,6 +27,13 @@ Hydra::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Prepend all log lines with the following tags
+  config.log_tags = [ :subdomain, :uuid ]
+
+  # Expend to set up logger with STDOUT
+  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+
   # environment-specific DAMS config
   # ip-based role assignment
   config.public_ips = []
@@ -37,7 +44,8 @@ Hydra::Application.configure do
   config.lang_vocab ="#{config.id_namespace}bb43434343"
   config.excluded_collections = "(bd5905379f OR bb13664503)"
   config.developer_groups = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user']
-  config.curator_groups = ['dams-curator','dams-rci','dams-manager-admin']
+  config.curator_groups = ['dams-curator','dams-editor','dams-manager-admin']
+  config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'http://libraryqa.ucsd.edu/zoomify/'

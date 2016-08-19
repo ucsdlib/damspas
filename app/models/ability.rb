@@ -120,18 +120,12 @@ class Ability
   end
 
   def can_create_dams_resource?(obj)
-    return true if user_groups.include? Rails.configuration.super_role
+    result = false
+    if (user_groups & Rails.configuration.editor_groups).count > 0
+      result = true
+    end
 
-    return false if (user_groups & Rails.configuration.curator_groups).empty?
-
-    unit = obj.instance_of?(DamsObject) ? obj.units : obj.damsMetadata.load_unit(obj.damsMetadata.unit)
-
-    return false if unit.nil? || unit.group.blank?
-
-    unit_group = unit.group.first
-    result = user_groups.include?(unit_group)
-
-    logger.debug("[CANCAN] #{obj.class} creation decision: #{result}: #{unit_group}")
+    logger.debug("[CANCAN] #{obj.class} creation decision: #{result}")
     result
   end
 

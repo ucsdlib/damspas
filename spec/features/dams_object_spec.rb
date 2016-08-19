@@ -70,6 +70,32 @@ feature 'Visitor want to look at objects' do
       visit dams_object_path @o
       expect(page).to have_xpath "//a[contains(@href,'/damsmanager/rdfImport.do?ark=#{@o.pid}')]"
     end
+    it "with anonymous access should not see the metadata tools" do
+      sign_in_anonymous '132.239.0.3'
+      visit dams_object_path @o
+      expect(page).not_to have_link('RDF View', rdf_dams_object_path(@o.pid))
+      expect(page).not_to have_link('Data View', data_dams_object_path(@o.pid))
+      expect(page).not_to have_link('DAMS 4.2 Preview', dams42_dams_object_path(@o.pid))
+    end
+    it "with dams_curator role should see the metadata tools" do
+      sign_in_curator
+      visit dams_object_path @o
+      expect(page).to have_link('RDF View', rdf_dams_object_path(@o.pid))
+      expect(page).to have_link('Data View', data_dams_object_path(@o.pid))
+      expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_object_path(@o.pid))
+    end
+    it "with dams_curator role should not see Mint DOI and Push to OSF" do
+      sign_in_curator
+      visit dams_object_path @o
+      expect(page).not_to have_content("Mint DOI");
+      expect(page).not_to have_content("Push to OSF");
+    end
+    it "with dams_editor role should see Mint DOI and Push to OSF" do
+      sign_in_developer
+      visit dams_object_path @o
+      expect(page).to have_content("Mint DOI");
+      expect(page).to have_content("Push to OSF");
+    end
   end
 
   describe "linked metadata records" do
@@ -252,7 +278,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('dt', text: 'Temporal')
       expect(page).to_not have_selector('dt', text: 'Anatomies')
       expect(page).to have_selector('dt', text: 'Anatomy')          
-    end
+    end    
     it "should display curator-only linked metadata" do
 
       sign_in_developer
@@ -261,6 +287,19 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test other rights')
       expect(page).to have_selector('p', text: 'Test Statute')
     end
+    it "should display facet links for subject types" do
+      visit dams_object_path @o
+      expect(page).to have_link('Test Corporate Name', href: catalog_index_path({'f[subject_topic_sim][]' => 'Test Corporate Name', 'id' => @o.pid}))      
+      expect(page).to have_link('Test Genre Form', href: catalog_index_path({'f[subject_topic_sim][]' => 'Test Genre Form', 'id' => @o.pid}))
+      expect(page).to have_link('Test Personal Name', href: catalog_index_path({'f[subject_topic_sim][]' => 'Test Personal Name', 'id' => @o.pid}))         
+      expect(page).to have_link('Test Common Name', href: catalog_index_path({'f[subject_common_name_sim][]' => 'Test Common Name', 'id' => @o.pid}))
+      expect(page).to have_link('Test Scientific Name', href: catalog_index_path({'f[subject_scientific_name_sim][]' => 'Test Scientific Name', 'id' => @o.pid}))
+      expect(page).to have_link('Test Lithology', href: catalog_index_path({'f[subject_lithology_sim][]' => 'Test Lithology', 'id' => @o.pid}))
+      expect(page).to have_link('Test Cruise', href: catalog_index_path({'f[subject_cruise_sim][]' => 'Test Cruise', 'id' => @o.pid}))   
+      expect(page).to have_link('Test Anatomy', href: catalog_index_path({'f[subject_anatomy_sim][]' => 'Test Anatomy', 'id' => @o.pid}))
+      expect(page).to have_link('Test Cultural Context', href: catalog_index_path({'f[subject_cultural_context_sim][]' => 'Test Cultural Context', 'id' => @o.pid}))
+      expect(page).to have_link('Test Series', href: catalog_index_path({'f[subject_series_sim][]' => 'Test Series', 'id' => @o.pid}))
+    end    
   end
   describe "internal metadata records" do
     before(:all) do
@@ -629,6 +668,34 @@ describe "complex object component view" do
   end
 end
 
+describe "audio complex object view" do
+  before(:all) do
+    @unit = DamsUnit.create( pid: 'xx48484848', name: 'Test Unit', description: 'Test Description',
+                             code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+    @audioComplexObj = DamsObject.create( titleValue: 'Sonic Waters Archive 1981-84', typeOfResource: 'sound recording',
+                  unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    @audioComplexObj.add_file( 'dummy audio content', '_1_1.mp3', 'test.mp3' )
+    @audioComplexObj.add_file( 'dummy audio content 2', '_2_1.wav', 'test2.wav' )
+    @audioComplexObj.add_file( 'dummy audio content 3', '_3_1.mp3', 'test3.wav' )
+    @audioComplexObj.save!
+    solr_index (@audioComplexObj.pid)
+  end
+  after(:all) do
+    @audioComplexObj.delete
+    @unit.delete
+  end
+  it "should display the first component file content in the file viewing panel" do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver    
+    visit dams_object_path(@audioComplexObj.pid)
+    expect(page).to have_content "Sonic Waters Archive 1981-84"
+    expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 3')
+    expect(page).to have_content('Generic Component Title 1')
+    expect(page).to have_selector('div[id="component-1"][class="component first-component"][data="1"][style="display: block;"]')
+    expect(page).to have_selector('#dams-audio-1',:text=>'loading player')
+  end
+end
+
 describe "curator embargoed object view" do
   before do
     @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
@@ -740,5 +807,35 @@ describe 'User wants to see object view' do
     sign_in_developer
     visit dams_object_path(@ctsObject.pid)
     expect(page).to have_content('AccessCurator Only')
+  end
+end
+
+describe "Cartographic Record" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @cart = DamsCartographics.create( point: '19.7667,-154.8' )
+    @unit = DamsUnit.create( name: 'Test Unit', description: 'Test Description', code: 'tu',
+                               group: 'dams-curator', uri: 'http://example.com/' )
+    @cartObj = DamsObject.create( titleValue: 'Cartographic Test',                             
+                              cartographics_attributes: [{ id: RDF::URI.new("#{ns}#{@cart.pid}") }],
+                              unit_attributes: [{ id: RDF::URI.new("#{ns}#{@unit.pid}") }]
+                             )
+    solr_index @cart.pid
+    solr_index @unit.pid
+    solr_index @cartObj.pid
+  end
+  after(:all) do
+    @cartObj.delete
+    @cart.delete
+    @unit.delete
+  end
+  it "should display cartographic map" do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver 
+    sign_in_developer
+    visit dams_object_path @cartObj
+    expect(page.status_code).to eq(200)
+    expect(page).to have_selector('div[id="map-canvas"][data=\'{"type":"point","coords":"19.7667,-154.8"}\']')
+    expect(page).to have_css('img.leaflet-tile-loaded[src="https://c.tiles.mapbox.com/v4/mapquest.streets-mb/4/0/6.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg"]')
   end
 end

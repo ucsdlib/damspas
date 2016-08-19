@@ -38,6 +38,7 @@
 
 	        if source_file != nil
 	          download_file_path = download_path(ark,"_#{i}_#{source_file}")
+              source_file_path = download_path(ark,"_#{i}_#{source_file}")
 	        elsif service_file != nil
 	          download_file_path = download_path(ark,"_#{i}_#{service_file}")
 	        elsif display_file != nil
@@ -49,9 +50,12 @@
 	        display_file_path = to_stats_path display_file_path
 	        service_file_path = to_stats_path service_file_path
 	        download_file_path = to_stats_path download_file_path
-		%>
+	        source_file_path = to_stats_path source_file_path
 
-		<div id="component-<%= i %>" class="component <%= firstComponent %>" <%= loadFirstComponent %>>
+            isFirstComponent = (i == 1) ? true : false
+        %>
+
+		<div id="component-<%= i %>" class="component <%= firstComponent if isFirstComponent %>" <%= loadFirstComponent if isFirstComponent %>>
 
 			<%= render :partial => 'shared/fields/title', :locals => {:componentIndex => i} %>
 
@@ -78,12 +82,12 @@
 
 		    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path, :downloadDerivativePath => service_file_path  } %>
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-		    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path  } %>
+		    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path, :sourcefilePath => source_file_path  } %>
 
 			<% elsif fileType == 'data' %>
 
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-				<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path  } %>
+				<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path, :sourcefilePath => source_file_path  } %>
 	        <% elsif fileType == 'text' %>
 		      <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
 			  <%= render :partial => 'text_viewer', :locals => {:objectType => 'complex', :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
@@ -96,7 +100,7 @@
 
 		</div>
 
-		<% firstComponent = nil %>
+		<% firstComponent = nil if isFirstComponent %>
 
 	<% end %>
 

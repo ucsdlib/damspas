@@ -2,14 +2,15 @@ require 'spec_helper'
 
 feature 'Visitor wants to search' do
   before(:all) do
+    ns = Rails.configuration.id_namespace
     @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
     @copy = DamsCopyright.create status: "Public domain"
 
-    @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
-    @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
+    @topic1 = MadsTopic.create name: 'ZZZ Test Subject 1'
+    @topic2 = MadsTopic.create name: 'ZZZ Test Subject 2'
 
-    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], subjectURI: [@sub1.pid]
-    @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], subjectURI: [@sub2.pid]
+    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic1.pid}") }]
+    @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic2.pid}") }]
     @obj3 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
   
     solr_index @obj1.pid
@@ -25,8 +26,14 @@ feature 'Visitor wants to search' do
     @copy.delete
     @unit.delete
 
-    @sub1.delete
-    @sub2.delete
+    @topic1.delete
+    @topic2.delete
+  end
+
+  scenario 'result page displays topics' do
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_content('ZZZ Test Subject 1')
+    expect(page).to have_content('ZZZ Test Subject 2')
   end
 
   scenario 'display search box when there are no search results' do
@@ -35,7 +42,7 @@ feature 'Visitor wants to search' do
   end
 
   scenario 'is on search results page' do
-    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )    
     expect(page).to have_selector('h4', :text => 'Refine your search')
     expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')
     expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 2')
@@ -139,6 +146,12 @@ feature 'Visitor wants to search' do
     expect(page).to_not have_selector('div', :text => 'Previous 3 of 3 results')
   end
 
+  scenario 'should mark curator access in document link' do
+  	sign_in_developer
+    visit catalog_index_path( {:q => '"QE8iWjhafTRpc Object 1"'} )
+    expect(page).to have_xpath "//a[contains(@href,'?counter=1&access=curator')]"
+  end
+ 
   scenario 'decade faceting displays in chronological order ' do
     visit catalog_index_path( {'q' => 'QE8iWjhafTRpc'} )
     expect(page).to have_link('2000s', href: catalog_index_path({'f[decade_sim][]' => '2000s', 'q' => 'QE8iWjhafTRpc', 'spellcheck.q' => 'QE8iWjhafTRpc'}))
@@ -209,7 +222,7 @@ feature "Search and browse custom subject facet links" do
     ns = Rails.configuration.id_namespace
     @copy = DamsCopyright.create status: "Public domain"
     @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
-    #@anatomy = DamsAnatomy.create( name: 'ZZZ Test Anatomy' )
+    @anatomy = DamsAnatomy.create( name: 'ZZZ Test Anatomy' )
     @common = DamsCommonName.create( name: 'ZZZ Test Common Name' )
     @cruise = DamsCruise.create( name: 'ZZZ Test Cruise' )
     @cultural = DamsCulturalContext.create( name: 'ZZZ Test Cultural Context' )
@@ -220,7 +233,7 @@ feature "Search and browse custom subject facet links" do
         titleValue: 'QE8iWjhafTRpc Test Object', 
         unitURI: @unit.pid, 
         copyrightURI: @copy.pid, 
-        #anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@anatomy.pid}") }],
+        anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@anatomy.pid}") }],
         commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@common.pid}") }],
         cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cruise.pid}") }],
         culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cultural.pid}") }],
@@ -235,7 +248,7 @@ feature "Search and browse custom subject facet links" do
     @obj.delete
     @unit.delete
     @copy.delete
-    #@anatomy.delete
+    @anatomy.delete
     @common.delete
     @cruise.delete
     @cultural.delete
@@ -244,7 +257,12 @@ feature "Search and browse custom subject facet links" do
     @series.delete
   end
 
-  skip 'Browse by anatomy' do
+  scenario 'should has facet Anatomy in search result' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc Test Object'} )
+    expect(page).to have_link('Anatomy', href: '#' )
+  end
+  scenario 'Browse by anatomy' do
     sign_in_developer
     visit catalog_facet_path("subject_anatomy_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
     expect(page).to have_content('ZZZ Test Anatomy')
@@ -293,11 +311,9 @@ feature "Search and browse custom subject facet links" do
     click_on "ZZZ Test Series"
     expect(page).to have_content('QE8iWjhafTRpc Test Object')
   end
-  scenario 'topic faceting displays exclude lithology, common name, scientific name and cruise values' do
+  scenario 'topic faceting displays exclude anatomy, cultureContext, series, lithology, common name, scientific name and cruise values' do
     visit catalog_index_path( {'q' => @obj.pid} )
-    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li", :count => 2)     
-    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li[1]", :text => 'ZZZ Test Cultural Context') 
-    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li[2]", :text => 'ZZZ Test Series')
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li", :count => 0)     
   end   
 end
 
