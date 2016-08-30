@@ -71,7 +71,7 @@ else
 end
 
 puts "loading listener"
-#solropts = { :autocommit => false }
+solropts = { :autocommit => false }
 
 begin
   @port = options[:port] 
@@ -105,9 +105,10 @@ begin
       begin
         if ["modifyCollection", "addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
           solrizer = Solrizer::Fedora::Solrizer.new
-          solrizer.solrize @msg.headers["pid"]
+          solrizer.solrize @msg.headers["pid"], solropts
           puts  "updated solr index for #{@msg.headers["pid"]}\n"
           if method == "modifyCollection"
+            solrizer.commit
             msg = Dams::ShareApi.share_push(pid)
             if msg == "success"
               puts  "Pushed #{pid} to OSF\n"
