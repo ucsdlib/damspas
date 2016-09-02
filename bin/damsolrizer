@@ -108,7 +108,7 @@ begin
           solrizer.solrize @msg.headers["pid"], solropts
           puts  "updated solr index for #{@msg.headers["pid"]}\n"
           if method == "modifyCollection"
-            sleep(60.minutes)
+            sleep 3600
             msg = Dams::ShareApi.share_push(pid)
             if msg == "success"
               puts  "Pushed #{pid} to OSF\n"
