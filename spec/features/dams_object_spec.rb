@@ -299,7 +299,11 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_link('Test Anatomy', href: catalog_index_path({'f[subject_anatomy_sim][]' => 'Test Anatomy', 'id' => @o.pid}))
       expect(page).to have_link('Test Cultural Context', href: catalog_index_path({'f[subject_cultural_context_sim][]' => 'Test Cultural Context', 'id' => @o.pid}))
       expect(page).to have_link('Test Series', href: catalog_index_path({'f[subject_series_sim][]' => 'Test Series', 'id' => @o.pid}))
-    end    
+    end
+    it "should display complex subject" do
+      visit dams_object_path @o
+      expect(page).to have_content('Topics Test Complex Subject')
+    end        
   end
   describe "internal metadata records" do
     before(:all) do
