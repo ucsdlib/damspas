@@ -107,18 +107,6 @@ begin
           solrizer = Solrizer::Fedora::Solrizer.new
           solrizer.solrize @msg.headers["pid"], solropts
           puts  "updated solr index for #{@msg.headers["pid"]}\n"
-          if method == "modifyCollection"
-            msg = Dams::ShareApi.share_push(pid)
-            if msg == "success"
-              puts  "Pushed #{pid} to OSF\n"
-            elsif msg == "failed"
-              puts  "The collection is not valid, #{pid} is failed to push to OSF\n"
-            elsif msg == "non-public"
-              puts  "The collection is not public, #{pid} is not pushed to OSF\n"
-            else
-              puts "System or service error, #{pid} is not pushed to OSF\n "
-            end
-          end
         elsif method == "purgeObject" || method == "purgeCollection"
           ActiveFedora::SolrService.instance.conn.delete_by_id(pid)
           puts  "removed solr index for #{@msg.headers["pid"]}\n"
