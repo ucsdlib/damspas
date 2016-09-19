@@ -299,7 +299,11 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_link('Test Anatomy', href: catalog_index_path({'f[subject_anatomy_sim][]' => 'Test Anatomy', 'id' => @o.pid}))
       expect(page).to have_link('Test Cultural Context', href: catalog_index_path({'f[subject_cultural_context_sim][]' => 'Test Cultural Context', 'id' => @o.pid}))
       expect(page).to have_link('Test Series', href: catalog_index_path({'f[subject_series_sim][]' => 'Test Series', 'id' => @o.pid}))
-    end    
+    end
+    it "should display complex subject" do
+      visit dams_object_path @o
+      expect(page).to have_content('Topics Test Complex Subject')
+    end        
   end
   describe "internal metadata records" do
     before(:all) do
@@ -665,6 +669,34 @@ describe "complex object component view" do
     visit dams_object_path(@damsComplexObj5.pid)
     expect(page).to have_selector('dt', :text=>'Creation Date')
     expect(page).to have_selector('dt', :text=>'Date Issued')
+  end
+end
+
+describe "audio complex object view" do
+  before(:all) do
+    @unit = DamsUnit.create( pid: 'xx48484848', name: 'Test Unit', description: 'Test Description',
+                             code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+    @audioComplexObj = DamsObject.create( titleValue: 'Sonic Waters Archive 1981-84', typeOfResource: 'sound recording',
+                  unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    @audioComplexObj.add_file( 'dummy audio content', '_1_1.mp3', 'test.mp3' )
+    @audioComplexObj.add_file( 'dummy audio content 2', '_2_1.wav', 'test2.wav' )
+    @audioComplexObj.add_file( 'dummy audio content 3', '_3_1.mp3', 'test3.wav' )
+    @audioComplexObj.save!
+    solr_index (@audioComplexObj.pid)
+  end
+  after(:all) do
+    @audioComplexObj.delete
+    @unit.delete
+  end
+  it "should display the first component file content in the file viewing panel" do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver    
+    visit dams_object_path(@audioComplexObj.pid)
+    expect(page).to have_content "Sonic Waters Archive 1981-84"
+    expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 3')
+    expect(page).to have_content('Generic Component Title 1')
+    expect(page).to have_selector('div[id="component-1"][class="component first-component"][data="1"][style="display: block;"]')
+    expect(page).to have_selector('#dams-audio-1',:text=>'loading player')
   end
 end
 

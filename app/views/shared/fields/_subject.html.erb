@@ -10,7 +10,7 @@
    end
 
   fieldData = []
-  bundle = ['topic_tesim']
+  bundle = ['topic_tesim','complexSubject_tesim']
   bundle.each do |field|
     values = @document["#{prefix}#{field}"]
     fieldData.concat(values) unless values.nil?

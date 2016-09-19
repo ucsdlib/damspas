@@ -40,6 +40,12 @@ Hydra::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
+  # Prepend all log lines with the following tags
+  config.log_tags = [ :subdomain, :uuid ]
+
+  # Expend to set up logger with STDOUT
+  config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
+
   # environment-specific DAMS config
   # ip-based role assignment
   config.public_ips = []

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.5.2'
+gem 'rails', '~> 4.2.7.1'
 gem 'blacklight', '~> 4.7.0' # locked
 gem 'hydra-head', '~> 6.5.2' # locked
 gem 'active-fedora', '~> 6.7.8' # locked
@@ -47,6 +47,9 @@ gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
 gem 'uglifier', '~> 3.0.0'
 gem 'rspec-mocks', '3.5.0'
 gem 'newrelic_rpm', '3.16.0.318'
+
+gem 'lograge', '0.4.1'
+gem 'logstash-event', '1.2.02'
 
 group :development, :test do
   gem 'sass-rails', '~> 5.0.5'
