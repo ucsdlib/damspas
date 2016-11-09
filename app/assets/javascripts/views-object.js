@@ -136,11 +136,10 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                         ]
                                 }],
                             width: "100%",
-                            height: 30,
+                            height: 60,
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false},
-                            primary: "flash",
-                            fallback: true
+                            fallback: false
                         });
 
 						break;
