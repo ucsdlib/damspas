@@ -131,16 +131,13 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "rtmp://"+serviceFilePath},
                                             {file: "http://"+serviceFilePath+"/playlist.m3u8"}
                                         ]
                                 }],
                             width: "100%",
-                            height: 30,
+                            height: 60,
                             rtmp: {bufferlength: 3},
-                            analytics: {enabled: false},
-                            primary: "flash",
-                            fallback: true
+                            analytics: {enabled: false}
                         });
 
 						break;
@@ -151,16 +148,14 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "http://"+serviceFilePath+"/manifest.mpd"},
                                             {file: "http://"+serviceFilePath+"/playlist.m3u8"},
-                                            {file: "rtmp://"+serviceFilePath}                                            
+                                            {file: "http://"+serviceFilePath+"/manifest.mpd"}                                            
                                         ]
                                 }],
                             width: "100%",
                             aspectratio: "16:9",
                             rtmp: {bufferlength: 3},
-                            analytics: {enabled: false},
-                            fallback: false
+                            analytics: {enabled: false}
                         });
 
 						break;
