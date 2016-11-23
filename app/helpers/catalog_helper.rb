@@ -27,6 +27,7 @@ module CatalogHelper
       url = dams_object_path(doc, :counter => opts[:counter] )
     end
 
+    url = to_stats_path url
     link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :force_label, :results_view].include? k  })
 
   end
