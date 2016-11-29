@@ -150,6 +150,7 @@ feature 'Visitor wants to search' do
   	sign_in_developer
     visit catalog_index_path( {:q => '"QE8iWjhafTRpc Object 1"'} )
     expect(page).to have_xpath "//a[contains(@href,'?counter=1&access=curator')]"
+    expect(page).to have_link('QE8iWjhafTRpc Object 1', href:"/object/#{@obj1.pid}?counter=1&access=curator")
   end
  
   scenario 'decade faceting displays in chronological order ' do
