@@ -359,7 +359,7 @@ module DamsObjectsHelper
       while file == 'no_display' && i < component_count do
         i = i + 1
 	    file = grabDisplayFile(componentIndex: i)
-        file = "_#{i}_#{file}" if file != 'no_display'
+        file = "#{i}_#{file}" if file != 'no_display'
       end
       return file
     end
