@@ -8,7 +8,7 @@
 
 A Hydra repository backed by [DAMS Repository](http://github.com/ucsdlib/damsrepo).
 
-# Setup Instructions
+# Setup Instructions 
 
 ## Windows
 _Let's not go there._
