@@ -131,7 +131,8 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "http://"+serviceFilePath+"/playlist.m3u8"}
+                                            {file: "rtmps://"+serviceFilePath},
+                                            {file: "https://"+serviceFilePath+"/playlist.m3u8"}
                                         ]
                                 }],
                             width: "100%",
@@ -148,8 +149,8 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "http://"+serviceFilePath+"/playlist.m3u8"},
-                                            {file: "http://"+serviceFilePath+"/manifest.mpd"}                                            
+                                            {file: "https://"+serviceFilePath+"/playlist.m3u8"},
+                                            {file: "https://"+serviceFilePath+"/manifest.mpd"}                                                                                
                                         ]
                                 }],
                             width: "100%",
