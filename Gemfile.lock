@@ -199,9 +199,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    mail_form (1.5.1)
-      actionmailer (>= 3.2, < 5)
-      activemodel (>= 3.2, < 5)
     marc (1.0.0)
       scrub_rb (>= 1.0.1, < 2)
       unf
@@ -437,7 +434,6 @@ DEPENDENCIES
   launchy (~> 2.4.3)
   lograge (= 0.4.1)
   logstash-event (= 1.2.02)
-  mail_form (~> 1.5.0)
   minitest (~> 5.9.0)
   newrelic_rpm (= 3.16.0.318)
   nokogiri (= 1.6.8)
@@ -470,4 +466,4 @@ DEPENDENCIES
   unicorn (~> 5.1.0)
 
 BUNDLED WITH
-   1.10.6
+   1.14.3
