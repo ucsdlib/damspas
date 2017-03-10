@@ -1,5 +1,5 @@
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
+require 'coveralls'
+Coveralls.wear!('rails')
 
 require 'rspec/matchers'
 require 'equivalent-xml'
