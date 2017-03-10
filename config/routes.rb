@@ -5,8 +5,7 @@ Hydra::Application.routes.draw do
   get '/p/:id', to: 'pages#view', :as => 'view_page'
 
   # Contact form routes
-  resources :contact_forms, :only => [:new, :create, :response]
-  post 'contact' => 'contact_forms#create'
+  resources :contact_forms, :only => [:new, :response]
   get 'contact' => 'contact_forms#new'
   get 'contact_response' => 'contact_forms#response'
 

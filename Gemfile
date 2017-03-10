@@ -24,7 +24,6 @@ gem 'equivalent-xml', '~> 0.6.0'
 
 gem 'jquery-rails', '~> 4.1.1'
 gem 'rails_autolink', '~> 1.1.6'
-gem 'mail_form', '~> 1.5.0'
 gem 'qa', '~> 0.7.0'
 gem 'sprockets', '~> 2.12.4'  # locked
 gem 'rack-dev-mark', '~> 0.7.5'
