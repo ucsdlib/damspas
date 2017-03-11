@@ -247,7 +247,7 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('p', text: 'Test Polygon')
       expect(page).to have_selector('li', text: 'Test Unit')
 
-
+      expect(page).to have_selector('p', text: 'Creative Commons Attribution 4.0')
       expect(page).to have_selector('p', text: 'Test Preferred Citation Note')
       expect(page).to have_selector('p', text: 'Test Scope Content Note')
       expect(page).to have_selector('li', text: 'Test Cultural Context')
@@ -379,6 +379,7 @@ feature 'Visitor want to look at objects' do
 
       expect(page).to have_selector('p', text: 'Test Preferred Citation Note')
       expect(page).to have_selector('p', text: 'Test Scope Content Note')
+      expect(page).to have_selector('p', text: 'Creative Commons Attribution 4.0')
 
       expect(page).to have_selector('li', text: 'Test Cultural Context')
       expect(page).to have_selector('li', text: 'Test Common Name')
