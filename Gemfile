@@ -24,7 +24,6 @@ gem 'equivalent-xml', '~> 0.6.0'
 
 gem 'jquery-rails', '~> 4.1.1'
 gem 'rails_autolink', '~> 1.1.6'
-gem 'mail_form', '~> 1.5.0'
 gem 'qa', '~> 0.7.0'
 gem 'sprockets', '~> 2.12.4'  # locked
 gem 'rack-dev-mark', '~> 0.7.5'
@@ -50,6 +49,7 @@ gem 'newrelic_rpm', '3.16.0.318'
 
 gem 'lograge', '0.4.1'
 gem 'logstash-event', '1.2.02'
+gem 'coveralls', require: false
 
 group :development, :test do
   gem 'sass-rails', '~> 5.0.5'
@@ -62,9 +62,10 @@ group :development, :test do
   gem 'rspec-rails', '3.5.0' 
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.11.2'
+  gem 'rubocop', require: false
+  gem 'rubocop-rspec'
   gem 'unicorn', '~> 5.1.0'
   gem 'rspec_junit_formatter', '~> 0.2.3'
-  gem "codeclimate-test-reporter", '~> 0.6.0', require: nil
   gem 'poltergeist', '1.10.0'
 end
 

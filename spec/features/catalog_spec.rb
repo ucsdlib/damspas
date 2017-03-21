@@ -499,3 +499,12 @@ feature 'Visitor wants to view icons for the objects in the search result page' 
     expect(page).to have_selector('.glyphicon-volume-up')
   end
 end
+
+feature 'Visitor wants to view contact form' do
+  scenario 'rendering the contact form' do
+    sign_in_developer
+    visit contact_path
+    expect(page).to have_content('Contact Us')
+    expect(page).to have_selector('#mf_placeholder')
+  end
+end
