@@ -1,7 +1,7 @@
 module Dams
   module ControllerHelper
-
-		#Mapping for OSF API
+    
+    #Mapping for OSF API
 		def osf_title(document)
 			  field_name = "title_json_tesim"
 		    dams_data= document["#{field_name}"]
@@ -11,7 +11,7 @@ module Dams
 		    dams_data.each do |datum|
 		      title = JSON.parse(datum)
 		      osf_data = title['name'] ? title['name'] : ''
-		      osf_data += title['name'] && title['translationVariant'] ? ' : ' : ''
+		      osf_data += title['name'] && !title['translationVariant'].blank? ? ' : ' : ''
 		      title_trans = title['translationVariant'] || []
 		      if title_trans.class == Array
 		      	title_trans.each do |trans|  
@@ -41,7 +41,7 @@ module Dams
 		   		end
 		    end
 		  end
-		  osf_data
+		  osf_data = (osf_data.blank?) ? osf_data << {"name": "UC San Diego Library"} : osf_data
 		end
 
 		def osf_description(document)

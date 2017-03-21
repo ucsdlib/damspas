@@ -2,14 +2,15 @@ require 'spec_helper'
 
 feature 'Visitor wants to search' do
   before(:all) do
+    ns = Rails.configuration.id_namespace
     @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
     @copy = DamsCopyright.create status: "Public domain"
 
-    @sub1 = MadsTopic.create name: 'ZZZ Test Subject 1'
-    @sub2 = MadsTopic.create name: 'ZZZ Test Subject 2'
+    @topic1 = MadsTopic.create name: 'ZZZ Test Subject 1'
+    @topic2 = MadsTopic.create name: 'ZZZ Test Subject 2'
 
-    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], subjectURI: [@sub1.pid]
-    @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], subjectURI: [@sub2.pid]
+    @obj1 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 1", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '2000-05-10', endDate: '2050-05-11', value: '2000-05-10 to 2050-05-11'}], topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic1.pid}") }]
+    @obj2 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 2", unitURI: @unit.pid, copyrightURI: @copy.pid, date_attributes: [{type: 'creation', beginDate: '1999', value: '1999'}], topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic2.pid}") }]
     @obj3 = DamsObject.create titleValue: "QE8iWjhafTRpc Object 3", unitURI: @unit.pid, copyrightURI: @copy.pid
   
     solr_index @obj1.pid
@@ -25,12 +26,23 @@ feature 'Visitor wants to search' do
     @copy.delete
     @unit.delete
 
-    @sub1.delete
-    @sub2.delete
+    @topic1.delete
+    @topic2.delete
+  end
+
+  scenario 'result page displays topics' do
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    expect(page).to have_content('ZZZ Test Subject 1')
+    expect(page).to have_content('ZZZ Test Subject 2')
+  end
+
+  scenario 'display search box when there are no search results' do
+    visit catalog_index_path( {:q => 'fish'} )
+    expect(page).to have_selector('#search-button')
   end
 
   scenario 'is on search results page' do
-    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )    
     expect(page).to have_selector('h4', :text => 'Refine your search')
     expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 1')
     expect(page).to have_selector('h3', :text => 'QE8iWjhafTRpc Object 2')
@@ -134,6 +146,13 @@ feature 'Visitor wants to search' do
     expect(page).to_not have_selector('div', :text => 'Previous 3 of 3 results')
   end
 
+  scenario 'should mark curator access in document link' do
+  	sign_in_developer
+    visit catalog_index_path( {:q => '"QE8iWjhafTRpc Object 1"'} )
+    expect(page).to have_xpath "//a[contains(@href,'?counter=1&access=curator')]"
+    expect(page).to have_link('QE8iWjhafTRpc Object 1', href:"/object/#{@obj1.pid}?counter=1&access=curator")
+  end
+ 
   scenario 'decade faceting displays in chronological order ' do
     visit catalog_index_path( {'q' => 'QE8iWjhafTRpc'} )
     expect(page).to have_link('2000s', href: catalog_index_path({'f[decade_sim][]' => '2000s', 'q' => 'QE8iWjhafTRpc', 'spellcheck.q' => 'QE8iWjhafTRpc'}))
@@ -204,7 +223,7 @@ feature "Search and browse custom subject facet links" do
     ns = Rails.configuration.id_namespace
     @copy = DamsCopyright.create status: "Public domain"
     @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
-    #@anatomy = DamsAnatomy.create( name: 'ZZZ Test Anatomy' )
+    @anatomy = DamsAnatomy.create( name: 'ZZZ Test Anatomy' )
     @common = DamsCommonName.create( name: 'ZZZ Test Common Name' )
     @cruise = DamsCruise.create( name: 'ZZZ Test Cruise' )
     @cultural = DamsCulturalContext.create( name: 'ZZZ Test Cultural Context' )
@@ -215,7 +234,7 @@ feature "Search and browse custom subject facet links" do
         titleValue: 'QE8iWjhafTRpc Test Object', 
         unitURI: @unit.pid, 
         copyrightURI: @copy.pid, 
-        #anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@anatomy.pid}") }],
+        anatomy_attributes: [{ id: RDF::URI.new("#{ns}#{@anatomy.pid}") }],
         commonName_attributes: [{ id: RDF::URI.new("#{ns}#{@common.pid}") }],
         cruise_attributes: [{ id: RDF::URI.new("#{ns}#{@cruise.pid}") }],
         culturalContext_attributes: [{ id: RDF::URI.new("#{ns}#{@cultural.pid}") }],
@@ -230,7 +249,7 @@ feature "Search and browse custom subject facet links" do
     @obj.delete
     @unit.delete
     @copy.delete
-    #@anatomy.delete
+    @anatomy.delete
     @common.delete
     @cruise.delete
     @cultural.delete
@@ -239,7 +258,12 @@ feature "Search and browse custom subject facet links" do
     @series.delete
   end
 
-  skip 'Browse by anatomy' do
+  scenario 'should has facet Anatomy in search result' do
+    sign_in_developer
+    visit catalog_index_path( {:q => 'QE8iWjhafTRpc Test Object'} )
+    expect(page).to have_link('Anatomy', href: '#' )
+  end
+  scenario 'Browse by anatomy' do
     sign_in_developer
     visit catalog_facet_path("subject_anatomy_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
     expect(page).to have_content('ZZZ Test Anatomy')
@@ -288,6 +312,10 @@ feature "Search and browse custom subject facet links" do
     click_on "ZZZ Test Series"
     expect(page).to have_content('QE8iWjhafTRpc Test Object')
   end
+  scenario 'topic faceting displays exclude anatomy, cultureContext, series, lithology, common name, scientific name and cruise values' do
+    visit catalog_index_path( {'q' => @obj.pid} )
+    expect(page).to have_selector("div.blacklight-subject_topic_sim ul li", :count => 0)     
+  end   
 end
 
 describe "Search and browse custom subject facets from complex object" do
@@ -354,6 +382,7 @@ feature 'Visitor wants to see collection info in the search results view' do
               assembledCollectionURI: [ @acol.pid ], provenanceCollectionPartURI: [ @part.pid ],
               unit_attributes: [{ id: RDF::URI.new("#{Rails.configuration.id_namespace}#{@unit.pid}") }],
               copyright_attributes: [{status: 'Public domain'}] )
+    solr_index @acol.pid
     solr_index @obj.pid
   end
   after(:all) do
@@ -390,6 +419,12 @@ feature 'Visitor wants to see collection info in the search results view' do
     expect(page).to have_no_content('AccessPublic')
   end
 
+  scenario 'should see search this collection text in the search box' do
+    sign_in_developer
+    visit dams_collection_path @acol.pid
+    click_link('View Collection Items', match: :first)
+    expect(find('#q')['placeholder']).to eq('Search this collection...')
+  end
 end
 
 #---
@@ -429,5 +464,47 @@ feature 'User wants to see search results' do
     visit catalog_index_path( {:q => 'QE8iWjhafTRpc'} )
     expect(page).to have_no_content('Access: Public')
   end
+end
 
+feature 'Visitor wants to view icons for the objects in the search result page' do
+  before(:all) do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @obj1 = DamsObject.create( titleValue: 'Music Test', typeOfResource: 'sound recording',
+                unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    mp3_content = "//tQxAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAACAAACcQCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA//////////////////////////////////////////////////////////////////8AAAA5TEFNRTMuOTlyAaUAAAAALf4AABRAJAaWQgAAQAAAAnEy8lFkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/7UMQAAAdsJSBAmMBBKIbj2JSY0QAEoeCBAABBBDYMIECBAhDwQBAMQQdSGP5QHwfB/98Tg+DgIAgCDvBx38oc/lAQd+jkAf//AgIO6wfD4mkEpBZEiRSshCoVCwJBoEiZpyIBJEiVeSJEiFPxdBBQUF/+BQUEgvhQV4UFBQSCgoKChX9BTf/+RQUFN/8QUF/8QU34oKC/0FBVTEFNRTMuOTkuNVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVX/+1LEGoPAAAGkAAAAIAAANIAAAARVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVQ=="
+    @obj1.add_file( Base64.decode64(mp3_content), "_1.mp3", "test.mp3" )
+    @obj2 = DamsObject.create pid: "xx808080zz"
+    @obj2.damsMetadata.content = File.new( "spec/fixtures/damsComplexObject9.rdf.xml" ).read
+    @obj1.save
+    @obj2.save!
+
+    solr_index  (@obj1.pid)
+    solr_index (@obj2.pid)
+  end
+  after(:all) do
+    @obj1.delete
+    @obj2.delete
+    @unit.delete
+  end
+  scenario 'rendering the folder icon for complex object which has more than one format type' do
+    sign_in_developer
+    visit catalog_index_path({:q => 'xx808080zz'})
+    expect(page).to have_selector('.glyphicon-folder-open')
+  end
+
+  scenario 'rendering the format speific icon for object which has one format type' do
+    sign_in_developer
+    visit catalog_index_path({:q => @obj1.pid})
+    expect(page).to have_selector('.glyphicon-volume-up')
+  end
+end
+
+feature 'Visitor wants to view contact form' do
+  scenario 'rendering the contact form' do
+    sign_in_developer
+    visit contact_path
+    expect(page).to have_content('Contact Us')
+    expect(page).to have_selector('#mf_placeholder')
+  end
 end

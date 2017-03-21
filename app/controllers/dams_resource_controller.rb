@@ -1,11 +1,14 @@
 require 'net/http'
 require 'json'
 require 'open-uri'
+require 'pathname'
+require 'httparty'
 
 class DamsResourceController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
   include CatalogHelper
+  
 
   ##############################################################################
   # solr actions ###############################################################
@@ -188,12 +191,18 @@ class DamsResourceController < ApplicationController
     pattern = /(\+|\-|\&\&|\|\||\!|\(\)|\{\}|\[|\]|\^|\"|\~|\*|\?|\:|\\)/
     str.gsub(pattern){|match|"\\"  + match} 
   end
-
+    
   def osf_api
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     data = export_to_API(@document)
+
     render :json => data
+  end
+
+  def osf_data
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"})
+    render :json => @document
   end
 
   def osf_push
@@ -210,12 +219,25 @@ class DamsResourceController < ApplicationController
     end
 
     if document.valid?
-      api = ShareNotify::API.new
-      api.post(document.to_share.to_json)
-      redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share Staging area."
+      @headers = {'Authorization' => "Token #{share_config.fetch('token')}", 
+                 'Content-Type'  => 'application/json'
+                }
+
+      @route = "#{share_config.fetch('host')}api/v1/share/data"
+      @response = with_timeout { HTTParty.post(@route, body: document.to_share.to_json, headers: @headers)}
+      redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share."
     else
       redirect_to dams_collection_path(params[:id]), alert: "Your record is not valid."
     end
   end
 
+  private
+    def share_config
+      env = Rails.env || 'test'
+      @config ||= YAML.load(ERB.new(IO.read(File.join(Rails.root, 'config', 'share_notify.yml'))).result)[env].with_indifferent_access
+    end
+
+    def with_timeout(&_block)
+      Timeout.timeout(5) { yield }
+    end
 end

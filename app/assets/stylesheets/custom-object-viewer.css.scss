@@ -19,7 +19,7 @@ $complexFile: #AC6F2B !default;
 #map-canvas label{width: auto;display:inline;} // fix for bootstrap conflict
 
 // COMPONENTS
-.component{display:none;background-color:$componentBG;margin:3% 0;padding:$viewerPadding;border-radius: 3px;border: 3px solid #fff;box-shadow: 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
+.component{display:none;background-color:$componentBG;margin:0 0 3% 0;padding:$viewerPadding;overflow: hidden;border:1px solid darken($objectBG,20%);border-top:none;border-radius:0 0 3px 3px;}
 .simple-object{margin:3% 0;padding:$viewerPadding;background-color:darken($objectBG,5%);border-radius: 3px;box-shadow:inset 0 0 5px rgba(0,0,0,0.25);overflow: hidden;}
 .simple-object .table th,.simple-object .table td{border-color:rgba($simpleFile,0.25)}
 .simple-object .dams-download-button{background-color: rgba($simpleFile,0.15); border-top-color: rgba($simpleFile,0.75)}
@@ -36,6 +36,12 @@ $complexFile: #AC6F2B !default;
 .component .alert,.simple-object .alert{margin-bottom:0;}
 .component .table td p,.component .table td ul,.simple-object .table td p,.simple-object .table td ul{margin:0;}
 .component .table tr td:first-child,.simple-object .table tr td:first-child{font-weight: bold;}
+
+//---
+// COMPONENTS PAGER
+//---
+#le-component{box-shadow: 0 0 5px rgba(0,0,0,0.25);border-radius:3px;}
+#component-pager{margin-top:3%;padding:1% 2%;background:lighten($componentHighlight,20%);background: linear-gradient(to right, lighten($componentHighlight,20%) 0%,lighten($componentHighlight,15%) 100%);overflow:hidden;color:darken($componentHighlight,10%);font-size:80%;border:1px solid lighten($componentHighlight,5%);border-radius:3px 3px 0 0;}
 
 //----------------------------------------------------------
 // UNITS INDEX PAGE
@@ -61,6 +67,7 @@ $complexFile: #AC6F2B !default;
 .dams-download-button{margin:0;}
 .dams-download-button p{margin: 0;text-align: center;}
 .dams-download-button .btn-mini{margin-top:5px;}
+#data-download-file{color:$componentHighlight;}
 
 // Breadcrumbs
 .dams-breadcrumbs .breadcrumb{font-size: 12px;background-color:transparent;padding: 0;}
@@ -146,17 +153,6 @@ $complexFile: #AC6F2B !default;
 .addthis_sharing_toolbox
 {
   float:right;
-  #atstbx
-  {
-    .at4-icon.aticon-compact, .at4-icon.aticon-more, .at4-icon.aticon-expanded, .at4-icon.aticon-addthis
-    {
-      background: url("../images/sharing-icon.png") no-repeat scroll center center rgba(0, 0, 0, 0) !important;
-      background-size: 15px 15px !important;
-      width: 15px !important;
-      height: 15px !important;
-    }
-    a.at-svc-compact{background-color: transparent !important;}
-  }
 }
 
 // Sidebar
@@ -202,6 +198,9 @@ $complexFile: #AC6F2B !default;
 {
   .dams-download-button .btn{display:block;float:none;}
   .dams-download-button .visible-phone{margin-top:0.75em;}
+
+  //component pager
+  #component-pager nav > button{width:48px !important;}
 }
  
 // LANDSCAPE PHONES AND DOWN (BOOTSTRAP)

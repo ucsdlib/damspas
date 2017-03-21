@@ -585,22 +585,14 @@ module Dams
 	      insertFacets solr_doc, "subject_topic", load_temporals(component.temporal)
 	      
 	      insertFacets solr_doc, "subject_topic", load_builtWorkPlaces(component.builtWorkPlace)
-	      insertFacets solr_doc, "subject_topic", load_culturalContexts(component.culturalContext)
 	      insertFacets solr_doc, "subject_topic", load_functions(component.function)
 	      insertFacets solr_doc, "subject_topic", load_genreForms(component.genreForm)
 	      insertFacets solr_doc, "subject_topic", load_geographics(component.geographic)
 	      insertFacets solr_doc, "subject_topic", load_iconographies(component.iconography)
 	      insertFacets solr_doc, "subject_topic", load_occupations(component.occupation)
-          insertFacets solr_doc, "subject_topic", load_commonNames(component.commonName)
-	      insertFacets solr_doc, "subject_topic", load_scientificNames(component.scientificName)
 	      insertFacets solr_doc, "subject_topic", load_stylePeriods(component.stylePeriod)
 	      insertFacets solr_doc, "subject_topic", load_techniques(component.technique)
-	      insertFacets solr_doc, "subject_topic", load_lithologies(component.lithology)
-	      insertFacets solr_doc, "subject_topic", load_series(component.series)
-	      insertFacets solr_doc, "subject_topic", load_cruises(component.cruise)
-	      insertFacets solr_doc, "subject_topic", load_anatomies(component.anatomy)
-	      	      	
-          # uncomment for subject anatomy
+
           insertFacets solr_doc, "subject_anatomy", load_anatomies(component.anatomy)
           insertFacets solr_doc, "subject_common_name", load_commonNames(component.commonName)
           insertFacets solr_doc, "subject_cruise", load_cruises(component.cruise)

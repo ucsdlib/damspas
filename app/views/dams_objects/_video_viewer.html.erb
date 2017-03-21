@@ -8,7 +8,7 @@
 
 <% if wowzaURL != nil %>
 
-	<div id="dams-video">Loading the player...</div>
+	<video controls="controls" id="dams-video">Loading the player...</video>
 
 	<script type="text/javascript">
 		jwplayer("dams-video").setup({
@@ -16,16 +16,14 @@
 			[{
 				sources:
 				[
-					{file: "rtmp://<%=wowzaURL%>"},
-					{file: "http://<%=wowzaURL%>/playlist.m3u8"}
+					{file: "https://<%=wowzaURL%>/playlist.m3u8"},								
+					{file: "https://<%=wowzaURL%>/manifest.mpd"}
 				]
 			}],
 			width: "100%",
 			aspectratio: "16:9",
 			rtmp: {bufferlength: 3},
-			analytics: {enabled: false},
-			primary: "flash",
-			fallback: false
+			analytics: {enabled: false}
 		});
 	</script>
 

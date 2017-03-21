@@ -46,7 +46,7 @@ feature "Derivative download" do
     sign_in_developer
     visit dams_object_path @obj1
     expect(page).to have_selector('h1', text: 'JPEG Test')
-    expect(page).to have_link('', href:"/object/#{@obj1.pid}/_1.jpg/download")
+    expect(page).to have_link('', href:"/object/#{@obj1.pid}/_1.jpg/download?access=curator")
   end
   scenario 'anonymous should not see download link for audio file' do
     visit dams_object_path @obj2
@@ -57,7 +57,7 @@ feature "Derivative download" do
     sign_in_developer
     visit dams_object_path @obj2
     expect(page).to have_selector('h1', text: 'MP3 Test')
-    expect(page).to have_link('', href:"/object/#{@obj2.pid}/_1.mp3/download")
+    expect(page).to have_link('', href:"/object/#{@obj2.pid}/_1.mp3/download?access=curator")
   end
   scenario "Anonymous shouldn't be able to access restricted object files" do
     visit file_path( @obj3, '_1.txt' )
@@ -68,6 +68,11 @@ feature "Derivative download" do
     visit file_path( @obj3, '_1.txt' )
     expect(page.driver.response.status).to eq( 200 )
   end
+  scenario "should see volume-up icon when searching for audio file" do
+    visit catalog_index_path( {:q => @obj2.id} )
+    expect(page).to have_selector('a', :text => 'MP3 Test')
+    expect(page).to have_css('i.glyphicon-volume-up')
+  end  
 end
 
 describe "Download more than one master file" do
@@ -89,8 +94,8 @@ describe "Download more than one master file" do
     
     sign_in_developer
     visit dams_object_path(@newspaper.pid)
-    expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download")
-    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download")    
+    expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download?access=curator")
+    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download?access=curator")    
   end
 end
 
@@ -111,6 +116,29 @@ describe "Download file in complex object" do
   it "should show a download button" do
     sign_in_developer
     visit dams_object_path @complexObj.pid
-    expect(page).to have_link('', href:"/object/#{@complexObj.pid}/_1_2.jpg/download")  
+    expect(page).to have_link('', href:"/object/#{@complexObj.pid}/_1_2.jpg/download?access=curator")  
+  end
+end
+
+describe "Download PDF file and second file with use value ends with '-source' for complex object" do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @complexObjPdf = DamsObject.create( titleValue: 'PDF ZIP Test', typeOfResource: 'document',
+                  unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    @complexObjPdf.add_file( 'dummy pdf content', '_1_1.pdf', 'test.pdf' )
+    @complexObjPdf.add_file( 'dummy mov content', '_1_2.mov', 'test.mov')
+    @complexObjPdf.save!
+    solr_index @complexObjPdf.pid
+  end
+  after do
+    @complexObjPdf.delete
+    @unit.delete
+  end
+  it "should show two download links" do
+    sign_in_developer
+    visit dams_object_path @complexObjPdf.pid
+    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_1.pdf/download?access=curator")
+    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_2.mov/download?access=curator")    
   end
 end

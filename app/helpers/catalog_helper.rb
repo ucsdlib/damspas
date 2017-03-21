@@ -27,6 +27,7 @@ module CatalogHelper
       url = dams_object_path(doc, :counter => opts[:counter] )
     end
 
+    url = to_stats_path url
     link_to label, url, { :'data-counter' => opts[:counter] }.merge(opts.reject { |k,v| [:label, :counter, :force_label, :results_view].include? k  })
 
   end
@@ -128,6 +129,8 @@ module CatalogHelper
       url = file_path parts[0], "_" + parts[1].gsub("/","_")
     end
 
+    url = to_stats_path url
+
     image_tag( url, :alt => "", :class => 'dams-search-thumbnail') unless url.blank?
   end
 
@@ -142,41 +145,44 @@ module CatalogHelper
     resultClass = 'thumb-simple'
     resultIcon = 'glyphicon-file'
 
-    if document['files_tesim'] != nil
-
+    if document['component_count_isi'].blank? && !is_collection?(document)
       # SIMPLE OBJECT: look for preview image or format-appropriate icon
-      fieldData = document['files_tesim']
-      simpleUse = nil
-
-      if fieldData != nil
-        fieldData.each do |datum|
-          files = JSON.parse(datum)
-          if files["use"].end_with?("-service")
-            simpleUse = files["use"]
-            break
-          end
-        end
-      end
+      field_data = document['files_tesim']
+      simpleUse = file_use_type (field_data)
       resultClass = 'thumb-simple'
       resultIcon = grabGlyphicon(simpleUse)
-
-    elsif document['component_count_isi'] != nil
-
-      # COMPLEX OBJECT: generic container icon
-      if document['component_count_isi'] > 0
+    elsif document['component_count_isi'] && document['component_count_isi'] > 0
+      # COMPLEX OBJECT: Folder icon or format-appropriate icon
+      types = document['resource_type_tesim']
+      if types && types.length >= 2
         resultClass = 'thumb-complex'
         resultIcon = 'glyphicon-folder-open'
+      else 
+        field_data = document['component_1_files_tesim']
+        simpleUse = file_use_type (field_data)
+        resultClass = 'thumb-simple'
+        resultIcon = grabGlyphicon(simpleUse)
       end
-
     elsif is_collection?(document)
-
       # COLLECTION: thumbnails URL in related resource
       resultClass = 'thumb-collection'
       resultIcon = 'glyphicon-th'
-
     end
-
     [resultClass, resultIcon]
+  end
+
+  def file_use_type (field_data)
+    simpleUse = nil
+    if field_data != nil
+      field_data.each do |datum|
+        files = JSON.parse(datum)
+        if files["use"].end_with?("-service")
+          simpleUse = files["use"]
+          break
+        end
+      end
+    end
+    simpleUse
   end
 
   # Determines which Bootstrap Glyphicon to use based on a component's file type
@@ -191,7 +197,7 @@ module CatalogHelper
       when 'image'
         icon = 'glyphicon-picture'
       when 'audio'
-        icon = 'glyphicon-music'
+        icon = 'glyphicon-volume-up'
       when 'video'
         icon = 'glyphicon-film'
       when 'no-files'

@@ -8,6 +8,15 @@
 	    </div>
     </div>
   <% end %>
+  <%
+	
+	display_file_path = to_stats_path display_file_path
+	service_file_path = to_stats_path service_file_path
+	pdf_file_path = to_stats_path pdf_file_path
+	source_file_path = to_stats_path source_file_path
+	download_derivative_path = to_stats_path download_derivative_path
+	download_file_path = to_stats_path download_file_path
+  %>
 
 	<div class="simple-object">
 		<% case fileType %>

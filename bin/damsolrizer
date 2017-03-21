@@ -101,12 +101,13 @@ begin
       max_tries = 2
       puts @msg.headers.inspect
       puts "PID: #{@msg.headers["pid"]}"
+      puts "method: #{method}"
       begin
-        if ["addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
+        if ["modifyCollection", "addDatastream", "addRelationship","ingest","modifyDatastreamByValue","modifyDatastreamByReference","modifyObject","purgeDatastream","purgeRelationship"].include? method
           solrizer = Solrizer::Fedora::Solrizer.new
           solrizer.solrize @msg.headers["pid"], solropts
           puts  "updated solr index for #{@msg.headers["pid"]}\n"
-        elsif method == "purgeObject"
+        elsif method == "purgeObject" || method == "purgeCollection"
           ActiveFedora::SolrService.instance.conn.delete_by_id(pid)
           puts  "removed solr index for #{@msg.headers["pid"]}\n"
         elsif method == "testIndexer"

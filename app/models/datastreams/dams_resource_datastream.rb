@@ -792,15 +792,13 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertComplexSubjectFields solr_doc, nil, load_complexSubjects(complexSubject)
 
     # subject - simple
-    #insertFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
-    #insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
-    #insertFields solr_doc, 'function', load_functions(function)
-    #insertFields solr_doc, 'iconography', load_iconographies(iconography)
-    #insertFields solr_doc, 'occupation', load_occupations(occupation)
-    #insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
-    #insertFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
-    #insertFields solr_doc, 'technique', load_techniques(technique)
-    #insertFields solr_doc, 'temporal', load_temporals(temporal)
+    insertFields solr_doc, 'commonName', load_commonNames(commonName)
+    insertFields solr_doc, 'scientificName', load_scientificNames(scientificName)
+    insertFields solr_doc, 'lithology', load_lithologies(lithology)
+    insertFields solr_doc, 'cruise', load_cruises(cruise)
+    insertFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
+    insertFields solr_doc, 'series', load_series(series)
+    insertFields solr_doc, 'anatomy', load_anatomies(anatomy)
 
     # subjects bundled under "Subjects" heading
     insertSubjectFields solr_doc, 'genreForm', load_genreForms(genreForm)
@@ -808,18 +806,11 @@ class DamsResourceDatastream < ActiveFedora::RdfxmlRDFDatastream
     insertSubjectFields solr_doc, 'topic', load_topics(topic)
     insertSubjectFields solr_doc, 'temporal', load_temporals(temporal)
 	insertSubjectFields solr_doc, 'builtWorkPlace', load_builtWorkPlaces(builtWorkPlace)
-    insertSubjectFields solr_doc, 'culturalContext', load_culturalContexts(culturalContext)
     insertSubjectFields solr_doc, 'function', load_functions(function)
     insertSubjectFields solr_doc, 'iconography', load_iconographies(iconography)
     insertSubjectFields solr_doc, 'occupation', load_occupations(occupation)
-    insertSubjectFields solr_doc, 'commonName', load_commonNames(commonName)
-    insertSubjectFields solr_doc, 'scientificName', load_scientificNames(scientificName)
     insertSubjectFields solr_doc, 'stylePeriod', load_stylePeriods(stylePeriod)
     insertSubjectFields solr_doc, 'technique', load_techniques(technique)    
-    insertSubjectFields solr_doc, 'lithology', load_lithologies(lithology)
-    insertSubjectFields solr_doc, 'series', load_series(series)
-    insertSubjectFields solr_doc, 'cruise', load_cruises(cruise)
-    insertSubjectFields solr_doc, 'anatomy', load_lithologies(anatomy)
   
     # subjects factets
     insertFacets solr_doc, "subject_anatomy", load_anatomies(anatomy)

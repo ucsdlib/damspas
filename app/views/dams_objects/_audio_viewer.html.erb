@@ -16,16 +16,14 @@
 				  [{
 					  sources:
 							  [
-								  {file: "rtmp://<%=wowzaURL%>"},
-								  {file: "http://<%=wowzaURL%>/playlist.m3u8"}
+							          {file: "rtmps://<%=wowzaURL%>"},
+								  {file: "https://<%=wowzaURL%>/playlist.m3u8"}
 							  ]
 				  }],
 		  width: "100%",
-		  height: 30,
+		  height: 60,
 		  rtmp: {bufferlength: 3},
-		  analytics: {enabled: false},
-		  primary: "flash",
-		  fallback: false
+		  analytics: {enabled: false}
 	  });
   </script>
 
