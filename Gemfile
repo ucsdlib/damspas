@@ -24,7 +24,7 @@ gem 'equivalent-xml', '~> 0.6.0'
 
 gem 'jquery-rails', '~> 4.1.1'
 gem 'rails_autolink', '~> 1.1.6'
-gem 'qa', '~> 0.7.0'
+gem 'qa', '~> 1.0.0'
 gem 'sprockets', '~> 2.12.4'  # locked
 gem 'rack-dev-mark', '~> 0.7.5'
 
@@ -39,7 +39,7 @@ gem "i18n", '~> 0.7.0'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
 gem "bower-rails", "~> 0.10.0"
 gem "responders", "~> 2.2.0"
-gem 'nokogiri', '1.6.8'
+gem 'nokogiri', '1.7.1'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.1', :platforms => :ruby
@@ -55,7 +55,7 @@ group :development, :test do
   gem 'sass-rails', '~> 5.0.5'
   gem 'coffee-rails', '~> 4.2.1'
   gem 'pry', '~> 0.10.3'
-  gem 'capybara', '~> 2.6.0'
+  gem 'capybara', '~> 2.6.2'
   gem 'selenium-webdriver', '2.53.4'
   gem 'launchy', '~> 2.4.3'
   gem "minitest", '~> 5.9.0'
