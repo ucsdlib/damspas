@@ -8,17 +8,17 @@ describe RandomController do
                subtitle: 'Test Subtitle', titleNonSort: 'The',
                titlePartName: 'Test Part', titlePartNumber: 'Test Number',
                titleTranslationVariant: 'Test Translation Variant',
-               copyright_attributes: [{status: 'Public domain'}]                             
+               copyright_attributes: [{status: 'Public domain'}]
     solr_index @o.pid
   end
   after(:all) do
-    @o.delete     
+    @o.delete
   end
 
   describe 'GET index' do
     before do
-      get :index, {:id => "item"}      
-      @items = "#{response.body}"
+      solr_params = {:qf=>'title_tesim^99', :fq=>'read_access_group_ssim:public', :rows=>100, :fl=>'id'}
+      @items = find_solr_records '*:*', solr_params
     end  
     it 'get the random url' do
       get :index
