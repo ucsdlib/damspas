@@ -2,9 +2,9 @@
 #home-container{font-family:'Archivo Narrow',sans-serif !important;font-weight:normal !important;}
 #home-01,#home-02{width:100%;margin:0 auto;background-color:#333;}
 #home-01{position:relative;height:640px;background-position:center center;background-size:cover;}
-#home-02{background:#399dc8 url("../images/bg-grid.png") no-repeat center top;text-align:center;border-top:1px solid #1f556d;padding:20px;}
+#home-02{background:#595c5f url("../images/bg-grid.png") no-repeat center top;text-align:center;border-top:1px solid rgba(255,255,255,0.5);padding:40px;}
 #home-02,#home-02 a{color:#fff;}
-#home-02 h2{margin:0;font-family:"Archivo Narrow";font-weight: normal;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
+#home-02 h2{margin:0;font-family:'Archivo Narrow',sans-serif;font-weight: normal;font-size:2em;color:rgba(255,255,255,0.75);line-height:normal;width:80%;margin:0 auto;}
 #home-02 h3{margin:20px;font-weight: normal;font-size:1.9em;line-height:normal;}
 #dc-logo{display:block;margin: 0 auto;padding-top:80px;}
 #dc-search-box{padding-top:0px;margin:0;}
@@ -27,19 +27,16 @@
 #bg-meta p{margin:0;text-shadow: 1px 2px 3px rgba(0,0,0,0.5);font-size:1em;line-height:normal;}
 #bg-meta a{color:#fff;color:rgba(255,255,255,0.75);text-decoration:underline;transition: all 250ms ease-in-out;outline:none;}
 #bg-meta a:hover{color:#fff;}
-.category{display:inline-block;width:48%;vertical-align: top;}
-.category a{display:block;width:240px;border-radius:240px;height:240px;margin:0 auto;box-shadow:0 0 3px rgba(0,0,0,0.5);transition:all 500ms ease-in-out;outline:none;border:1px solid #fff;}
-.category a:hover{transform:scale(1.03) rotate(-2deg);}
-.category img{display:block;}
-.category p{font-size:1.25em;margin:20px 20%;line-height:normal;}
-.cat-library{background:#f39d3d url("../images/logo-library.png") center center no-repeat;background-size:80%;}
-.cat-rci{background:#f39d3d url("../images/logo-rdcp.png") center center no-repeat;background-size:80%;}
-.invitation{font-family:"Archivo Narrow";font-weight: normal;;font-size:1em;color:rgba(255,255,255,0.75);line-height:normal;margin:1em auto;width:80%;}
+.category{display: -webkit-flex;display: -ms-flexbox;display: flex;overflow: hidden;}
+.category a{ flex: 1;  margin:0; box-shadow:0 0 3px rgba(0,0,0,0.5);transition:all 250ms ease-in-out;outline:none;border:3px solid #fff;background:#f39d3d;text-align:left;text-decoration: none;padding:20px;text-shadow: 0 1px 1px rgba(171,93,6,0.75);}
+.category a:hover{background:#E67A00;}
+.category a:nth-child(1){margin-right:20px;}
+.category a:nth-child(2){margin-left:20px;}
+.category p{font-size:1.1em;margin:0;line-height:normal;}
+.category h3{margin:0 0 5px 0!important;}
 .visually-hidden{border:0 none;clip:rect(0px,0px,0px,0px);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;}
-
 .tagline{width:80%;margin:0 auto;}
 .tagline p{text-align:center;color:#fff;color:rgba(255,255,255,0.75);padding:1.25em 0;margin:0;line-height:normal;font-size: 1.15em;}
-
 /*LOCAL OVERRIDES*/
 footer{margin-top:0;}
 .alert{border-radius:0;margin:0;}
@@ -50,25 +47,21 @@ footer{margin-top:0;}
     #home-01{height:800px;}
     #dc-search-box fieldset,#browse-by{width:60%;}
 }
-@media (min-width: 1200px)
-{
-}
+@media (min-width: 1200px){}
 @media (max-width:640px)
 {
     #dc-logo{width:80%;padding-top:50px;}
     #browse-by{font-size:95%;}
-    .category{width:100%;}
+    .category{flex-direction:         column;}
+    .category a:nth-child(1){margin:0 0 20px 0;}
+    .category a:nth-child(2){margin-left:0;}
 }
 @media (max-width:480px)
 {
     #home-01{background-color:#666;position:relative;height:480px;}
-    #home-02 h2{font-size:1.25em;}
-    #home-02 h2,.invitation{width:100%;}
-    #home-02 h3{font-size:1.75em;margin:20px 0;}
-    .category p{font-size:1.15em;margin:20px 0;}
-    .category a{width:140px;border-radius:140px;height:140px;}
-    .cat-library, .cat-rci{background-size:66%,66%;}
-    .invitation{padding:0;}
+    #home-02 h2{width:100%;}
+    .category h3{font-size:1.75em!important;}
+    .category p{font-size:1em;}
     #browse-by{text-align:center;}
     #bg-meta p{font-size:0.75em;}
     .tagline p{font-size:0.9em;}
