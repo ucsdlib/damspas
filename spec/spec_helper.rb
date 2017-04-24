@@ -1,5 +1,5 @@
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
+require 'coveralls'
+Coveralls.wear!('rails')
 
 require 'rspec/matchers'
 require 'equivalent-xml'
@@ -93,6 +93,10 @@ def solr_index (pid)
   end
 end
 
+def find_solr_records(q, params={})
+  solr_docs = ActiveFedora::SolrService.query(q, params)
+  solr_docs.map { |doc| doc["id"] }
+end
 
 def mod_dams_object (id, unit, copy)
 	DamsObject.create!(pid: id, titleValue: "Test Title -- Unit #{unit}", unitURI: unit, copyrightURI: copy)

@@ -85,8 +85,8 @@
          :exclude_label => ['digital object made available by'] }.merge(component) %>
 
 <%= render :partial => 'shared/fields/copyright', :locals => component %>
+<%= render :partial => 'shared/fields/license', :locals => component %>
 <% if can? :update, @document %>
-  <%= render :partial => 'shared/fields/license', :locals => component %>
   <%= render :partial => 'shared/fields/statute', :locals => component %>
   <%= render :partial => 'shared/fields/other_rights', :locals => component %>
 <% end %>
