@@ -72,7 +72,12 @@ feature "Derivative download" do
     visit catalog_index_path( {:q => @obj2.id} )
     expect(page).to have_selector('a', :text => 'MP3 Test')
     expect(page).to have_css('i.glyphicon-volume-up')
-  end  
+  end
+  scenario 'should have rel=nofollow for the download link' do
+    sign_in_developer
+    visit dams_object_path @obj2
+    expect(page).to have_css('a[title="Download File"][rel="nofollow"]')
+  end    
 end
 
 describe "Download more than one master file" do
