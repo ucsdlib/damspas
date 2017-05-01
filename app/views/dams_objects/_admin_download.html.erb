@@ -6,9 +6,9 @@
 	<% adl_class = 'adl pull-right' %>
 
 	<% if can? :update, @document then %>
-	  <%= link_to adl_glyph, downloadFilePath, class:adl_class, title:adl_title %>
+	  <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
 	<% elsif ucsd_local_display == 'false' && !downloadDerivativePath.nil?%>
-	  <%= link_to adl_glyph, downloadDerivativePath, class:adl_class, title:adl_title %>
+	  <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
 	<% end %>
 
 </div>
