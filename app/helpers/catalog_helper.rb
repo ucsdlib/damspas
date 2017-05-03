@@ -135,7 +135,7 @@ module CatalogHelper
   end
 
   def restricted_object_url()
-    url = "http://libraries.ucsd.edu/assets/dams/site/thumb-restricted.png"
+    url = "https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"
     
     image_tag( url, :alt => "", :class => 'dams-search-thumbnail')
   end
