@@ -79,7 +79,7 @@ Hydra::Application.configure do
   config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
   config.unknown_groups = ['unknown']
-  config.zoomify_baseurl = 'http://library.ucsd.edu/zoomify/'
+  config.zoomify_baseurl = 'https://library.ucsd.edu/zoomify/'
   config.shibboleth = true
-  config.host_name = 'http://library.ucsd.edu/dc'
+  config.host_name = 'https://library.ucsd.edu/dc'
   end

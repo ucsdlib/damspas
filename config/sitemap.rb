@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://library.ucsd.edu/dc"
+SitemapGenerator::Sitemap.default_host = "https://library.ucsd.edu/dc"
 SitemapGenerator::Sitemap.compress = :all_but_first
 
 SitemapGenerator::Sitemap.create do

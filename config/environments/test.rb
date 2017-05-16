@@ -45,7 +45,7 @@ Hydra::Application.configure do
   config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
   config.unknown_groups = ['unknown']
-  config.zoomify_baseurl = 'http://rohan.ucsd.edu/zoomify/'
+  config.zoomify_baseurl = 'https://rohan.ucsd.edu/zoomify/'
   config.shibboleth = false
   config.share_notify_sample = 'share_notify.yml.staging.sample'
 end
