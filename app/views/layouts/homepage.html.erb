@@ -4,7 +4,7 @@
 	<%= render :partial => 'layouts/head_common' %>
 	<link href="<%= opensearch_catalog_path(:format => 'xml', :only_url => false) %>" title="<%= application_name%>" type="application/opensearchdescription+xml" rel="search"/>
 	<%= render :partial => 'layouts/googleanalytics' if Rails.env.production? || Rails.env.staging? %>
-  <%= render :partial => 'layouts/sitetrackings' if Rails.env.production? %>
+  <%= render :partial => 'layouts/sitetrackings' if Rails.env.production? || Rails.env.staging? %>
 	<!-- HOME SPECIFIC -->
 	<meta name="dams_root" content="<%=root_path%>">
 	<script src="https://library.ucsd.edu/assets/dams/home-page/js/bg-data.js"></script>
