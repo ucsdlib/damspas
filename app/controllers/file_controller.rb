@@ -50,7 +50,9 @@ class FileController < ApplicationController
     disposition = params[:disposition] || 'inline'
     filename = params["filename"] || "#{objid}#{fileid}"
     headers['Content-Disposition'] = "#{disposition}; filename=#{filename}"
-    if ds.mimeType
+    if filename.include?('.jpg')
+      headers['Content-Type'] = 'image/jpeg'
+    elsif ds.mimeType
       headers['Content-Type'] = ds.mimeType
     elsif filename.include?('.xml')
       headers['Content-Type'] = 'application/xml'
