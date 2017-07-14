@@ -50,13 +50,15 @@ class FileController < ApplicationController
     disposition = params[:disposition] || 'inline'
     filename = params["filename"] || "#{objid}#{fileid}"
     headers['Content-Disposition'] = "#{disposition}; filename=#{filename}"
-    if ds.mimeType
-      headers['Content-Type'] = ds.mimeType
-    elsif filename.include?('.xml')
-      headers['Content-Type'] = 'application/xml'
-    else
-      headers['Content-Type'] = 'application/octet-stream'
-    end
+    headers['Content-Type'] = if filename.include?('.jpg')
+                                'image/jpeg'
+                              elsif ds.mimeType
+                                ds.mimeType
+                              elsif filename.include?('.xml')
+                                'application/xml'
+                              else
+                                'application/octet-stream'
+                              end
     headers['Last-Modified'] = ds.lastModifiedDate || Time.now.ctime.to_s
     if ds.size
       headers['Content-Length'] = ds.size.to_s
