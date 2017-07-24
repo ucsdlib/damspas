@@ -131,7 +131,6 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "rtmps://"+serviceFilePath},
                                             {file: "https://"+serviceFilePath+"/playlist.m3u8"}
                                         ]
                                 }],
