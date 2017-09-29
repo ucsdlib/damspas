@@ -1,0 +1,32 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/bd91298321">
+            <dams:copyright>
+       <dams:Copyright>
+        <dams:copyrightStatus>Public domain</dams:copyrightStatus>
+      </dams:Copyright>
+    </dams:copyright>  
+    <dams:date>
+      <dams:Date>
+        <rdf:value>Time period of project: 2015-09-01 - 2016-11-01</rdf:value>
+        <dams:type>creation</dams:type>
+      </dams:Date>
+    </dams:date>    
+    <dams:title>
+      <mads:Title>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Data from: Coordination-Dependent Spectroscopic Signatures of Divalent Metal Ion Binding to Carboxylate Head Groups: H&lt;sub&gt;2&lt;/sub&gt;- and He-Tagged Vibrational Spectra of M&lt;sup&gt;2+&lt;/sup&gt;·RCO&lt;sub&gt;2&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt; (M = Mg and Ca, R = −CD&lt;sub&gt;3&lt;/sub&gt;, −CD&lt;sub&gt;2&lt;/sub&gt;CD&lt;sub&gt;3&lt;/sub&gt;) Complexes</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+        <mads:authoritativeLabel>Data from: Coordination-Dependent Spectroscopic Signatures of Divalent Metal Ion Binding to Carboxylate Head Groups: H&lt;sub&gt;2&lt;/sub&gt;- and He-Tagged Vibrational Spectra of M&lt;sup&gt;2+&lt;/sup&gt;·RCO&lt;sub&gt;2&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt; (M = Mg and Ca, R = −CD&lt;sub&gt;3&lt;/sub&gt;, −CD&lt;sub&gt;2&lt;/sub&gt;CD&lt;sub&gt;3&lt;/sub&gt;) Complexes</mads:authoritativeLabel>
+      </mads:Title>
+    </dams:title>
+    
+    <dams:assembledCollection rdf:resource="http://library.ucsd.edu/ark:/20775/bd5034217p"/>
+  </dams:Object>
+</rdf:RDF>
