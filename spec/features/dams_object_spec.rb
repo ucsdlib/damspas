@@ -793,6 +793,28 @@ describe "PDF Viewer" do
   end
 end
 
+describe "object with subscripts and superscripts title" do
+  before do
+    @damsUnit = DamsUnit.create( pid: 'zz48484848', name: 'Test Unit', description: 'Test Description',
+                                 code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+    @damsObj = DamsObject.new(pid: "bd91298321")
+    @damsObj.damsMetadata.content = File.new('spec/fixtures/damsObjectSubscriptTitle.xml').read
+    @damsObj.save!
+    solr_index (@damsObj.pid)
+  end
+  after do
+    @damsObj.delete
+    @damsUnit.delete
+  end
+
+  it "should not see the view content button" do
+    sign_in_developer
+    visit dams_object_path(@damsObj.pid)
+    expect(page).to_not have_content('Data from: Coordination-Dependent Spectroscopic Signatures of Divalent Metal Ion Binding to Carboxylate Head Groups: H&lt;sub&gt;2&lt;/sub&gt;- and He-Tagged Vibrational Spectra of M&lt;sup&gt;2+&lt;/sup&gt;·RCO&lt;sub&gt;2&lt;/sub&gt;&lt;sup&gt;-&lt;/sup&gt; (M = Mg and Ca, R = −CD&lt;sub&gt;3&lt;/sub&gt;, −CD&lt;sub&gt;2&lt;/sub&gt;CD&lt;sub&gt;3&lt;/sub&gt;) Complexes')
+    expect(page).to have_content('Data from: Coordination-Dependent Spectroscopic Signatures of Divalent Metal Ion Binding to Carboxylate Head Groups: H2- and He-Tagged Vibrational Spectra of M2+·RCO2- (M = Mg and Ca, R = −CD3, −CD2CD3) Complexes Creation')
+  end
+end
+
 #---
 
 describe 'User wants to see object view' do
