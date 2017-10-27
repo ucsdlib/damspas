@@ -18,7 +18,7 @@ gem 'sitemap_generator', '~> 5.3.1'
 gem 'sqlite3', '~> 1.3.13'
 
 gem 'devise', '~> 3.5.5'
-gem 'omniauth', '~> 1.3.1' # 1.2.2 breaks test sign_in
+gem 'omniauth', '~> 1.7.1' # 1.2.2 breaks test sign_in
 gem 'omniauth-shibboleth', '~> 1.2.1'
 gem 'equivalent-xml', '~> 0.6.0'
 
