@@ -1,0 +1,109 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:AssembledCollection rdf:about="http://library.ucsd.edu/ark:/20775/xx4473712z">
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:type>related</dams:type>
+        <dams:description>SOCCOM website</dams:description>
+        <dams:uri rdf:resource="https://soccom.princeton.edu/"/>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:visibility>public</dams:visibility>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb45454545"/>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Johnson, Kenneth S; Riser, Stephen C; Boss, Emmanuel S; Talley, Lynne D; Sarmiento, Jorge L; Swift, Dana  D; Plant, Josh N; Maurer, Tanya L; Key,  Robert M; Williams, Nancy L; Wanninkhof, Richard H; Dickson, Andrew G; Feely, Richard A; Russell, Joellen L (2017): Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive. UC San Diego Library Digital Collections. http://doi.org/10.6075/J0TX3C9X</rdf:value>
+        <dams:type>preferred citation</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:typeOfResource>data</dams:typeOfResource>
+    <dams:scopeContentNote>
+      <dams:ScopeContentNote>
+        <rdf:value>Biogeochemical profiling floats in the Southern Ocean deployed by the SOCCOM program.</rdf:value>
+        <dams:type>scopeAndContent</dams:type>
+        <dams:displayLabel>Scope and Contents</dams:displayLabel>
+      </dams:ScopeContentNote>
+    </dams:scopeContentNote>
+
+    <dams:note>
+      <dams:Note>
+        <rdf:value>To develop a new observing system for carbon, nutrients, and oxygen that will complement and expand on the existing observing system for heat and freshwater, the observations team will deploy a large array (~200) of profiling floats with biogeochemical sensors throughout the Southern Ocean. This robotic float observing system will be complemented by shipboard measurements, instrument and sensor development, and data analysis, including state estimation in conjunction with the modeling program.
+
+Principal responsibility for development and deployment of the observing system will be in the hands of the Scripps Institution of Oceanography (Theme 1 Lead Lynne Talley), in partnership with the University of Washington (Co-Lead Steve Riser) and Monterey Bay Aquarium Research Institute (Associate Director Ken Johnson), who together will design and build the floats and participate in analysis of the data. Deployment opportunities with international partners are an important component to the SOCCOM observational program.</rdf:value>
+        <dams:type>description</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>http://doi.org/10.6075/J0TX3C9X</rdf:value>
+        <dams:displayLabel>DOI</dams:displayLabel>
+        <dams:type>identifier</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:date>
+      <dams:Date>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:beginDate>2014-03-27</dams:beginDate>
+        <dams:endDate>2017-04-24</dams:endDate>
+        <dams:type>collected</dams:type>
+        <rdf:value>27 March 2014 - present</rdf:value>
+      </dams:Date>
+    </dams:date>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>6 digital objects.</rdf:value>
+        <dams:type>extent</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Authors using SOCCOM float data should acknowledge that "Data were collected and made freely available by the Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Project funded by the National Science Foundation, Division of Polar Programs (NSF PLR-1425989), supplemented by NASA, and by the International Argo Program and the NOAA programs that contribute to it.  The Argo Program is part of the Global Ocean Observing System (http://doi.org/10.17882/42182, http://argo.jcommops.org)". In addition, users should reference the appropriate SOCCOM DOI, as listed on each page under Cite This Work.</rdf:value>
+        <dams:type>funding</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:date>
+      <dams:Date>
+        <rdf:value>2017</rdf:value>
+        <dams:type>issued</dams:type>
+      </dams:Date>
+    </dams:date>
+    
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Three different methods for calculating TALK, DIC, and pCO2 are available and described below: 
+LIAR: Carter, B. R., N. L. Williams, A. R. Gray, and R. A. Feely (2016), Locally interpolated alkalinity regression for global alkalinity estimation, Limnol. Oceanogr. Methods, 14(4), 268-277, https://doi.org/10.1002/lom3.10087. 
+CANYON: Sauzède;, R., Claustre, H., Pasqueron de Fommervault, O., Bittig, H., Gattuso, J.-P., Legendre, L. and K. Johnson, Estimates of water-column nutrients concentration and carbonate system parameters in the global ocean: A novel approach based on neural networks. Frontiers in Marine Science-Ocean Observation, in revision 
+MLR:
+pH, Nitrate, DIC: Williams, N.L., L. W. Juranek, K.S. Johnson, R. A. Feely, S.C. Riser, L.D. Talley, J.L. Russell, J.L. Sarmiento, R. Wanninkhof, 2016. Empirical Algorithms to Estimate Water Column pH in the Southern Ocean. Geophysical Research Letters, 43, https://doi.org/10.1002/2016GL068539. 
+TALK: Williams, N. L., et al. (2017), Calculating surface ocean pCO2 from biogeochemical Argo floats equipped with pH: An uncertainty analysis, Global Biogeochem. Cycles, 31, https://doi.org/10.1002/2016GB005541.</rdf:value>
+        <dams:type>methods</dams:type>
+      </dams:Note>
+    </dams:note>
+    
+  </dams:AssembledCollection>
+</rdf:RDF>

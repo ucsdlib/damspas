@@ -19,7 +19,7 @@ module ApplicationHelper
 		#Snippets for no default indexed fields
 		if(hitsonly && highlight_values != nil && highlight_values.count > 0)
 			highlight_values.collect! {|m|m.length < blacklight_config.hlMaxFragsize || m.ends_with?(".") ? m : m+ " ..."}
-			return highlight_values.join(sep).html_safe
+			return strip_tags(highlight_values.join(sep))
 		end
 		highlight_values = document[field] if (highlight_values.nil? || highlight_values.count==0)
 	elsif field.to_s.index('_json_')
