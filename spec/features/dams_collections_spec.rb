@@ -303,3 +303,44 @@ feature "Vistor wants to view the OSF API output" do
       expect(page).to have_content('{"name":"UC San Diego Library"}')
     end
 end
+
+feature 'Visitor wants to look at the collection item view search results' do
+  before do
+    @unit = DamsUnit.create(pid: 'bb45454545')
+    @unit.damsMetadata.content = File.new('spec/fixtures/damsUnit.rdf.xml').read
+    @unit.save!    
+    @aCollection = DamsAssembledCollection.create(pid: "xx4473712z", visibility: "public")
+    @aCollection.damsMetadata.content = File.new('spec/fixtures/soccomCollection.rdf.xml').read
+    @aCollection.save!
+    @soccomObj1 = DamsObject.create(pid: "xx2801340v")
+    @soccomObj1.damsMetadata.content = File.new('spec/fixtures/soccomObject1.rdf.xml').read
+    @soccomObj1.save!
+    @soccomObj2 = DamsObject.create(pid: "xx47126209")
+    @soccomObj2.damsMetadata.content = File.new('spec/fixtures/soccomObject2.rdf.xml').read
+    @soccomObj2.save!
+    @soccomObj3 = DamsObject.create(pid: "xx66239018")
+    @soccomObj3.damsMetadata.content = File.new('spec/fixtures/soccomObject3.rdf.xml').read
+    @soccomObj3.save!
+    solr_index (@unit.pid)
+    solr_index (@aCollection.pid)
+    solr_index (@soccomObj1.pid)
+    solr_index (@soccomObj2.pid)   
+    solr_index (@soccomObj3.pid)       
+  end
+  after do
+    @aCollection.delete
+    @unit.delete
+    @soccomObj1.delete
+    @soccomObj2.delete
+    @soccomObj3.delete
+  end 
+  scenario 'should see the collection item result page with correct indentation' do
+    visit catalog_index_path( {:q => "#{@aCollection.pid}", 'sort' => 'title_ssi asc'} )
+    expect(page).to have_content('Showing results for 1 - 4 of 4')   
+    expect(page).to have_selector('div h3 a[data-counter="1"]', :text => 'SOCCOM float data - Snapshot 2016-12-28')
+    expect(page).to have_selector('div h3 a[data-counter="2"]', :text => 'SOCCOM float data - Snapshot 2017-03-08')
+    expect(page).to have_selector('div h3 a[data-counter="3"]', :text => 'SOCCOM float data - Snapshot 2016-11-28')  
+    expect(page).to have_selector('div h3 a[data-counter="4"]', :text => 'Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive')
+  end
+
+end
