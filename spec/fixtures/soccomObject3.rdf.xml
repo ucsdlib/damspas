@@ -1,0 +1,741 @@
+<rdf:RDF
+    xmlns:mads="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:damsid="http://library.ucsd.edu/ark:/20775/"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:dams="http://library.ucsd.edu/ontology/dams#">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018">
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/6">
+        <dams:order>3</dams:order>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>High resolution data</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>High resolution data</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/7">
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/7/1.zip">
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:crc32checksum>83bfced5</dams:crc32checksum>
+                <dams:md5checksum>d9d91863fbcaaf6da5f01bb3395712a6</dams:md5checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:dateCreated>2017-04-28T01:10:44-0700</dams:dateCreated>
+                <dams:use>data-service</dams:use>
+                <dams:sourceFileName>Floats_HiResQC_08Mar2017.zip</dams:sourceFileName>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:sha1checksum>6c61252ae40eb4d4dc626e2facef82d1b31a7579</dams:sha1checksum>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:size>130400957</dams:size>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+              </dams:File>
+            </dams:hasFile>
+            <dams:order>1</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>ODVtext format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>ODVtext format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/8">
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/8/1.zip">
+                <dams:dateCreated>2017-04-28T01:10:51-0700</dams:dateCreated>
+                <dams:size>93301008</dams:size>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:md5checksum>ce85de077d09f73dcdf4eaf8b5114c3f</dams:md5checksum>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:crc32checksum>b1d5f886</dams:crc32checksum>
+                <dams:sourceFileName>Floats_HiResQC_08Mar2017.netcdf.zip</dams:sourceFileName>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:use>data-service</dams:use>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:sha1checksum>2eacc49e615bd5fb2877cc4d6d1ae5d9e93802e9</dams:sha1checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+              </dams:File>
+            </dams:hasFile>
+            <dams:order>2</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>NetCDF format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>NetCDF format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/9">
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/9/1.zip">
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:sourceFileName>Floats_HiResQC_08Mar2017.matlab.zip</dams:sourceFileName>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:size>128501169</dams:size>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:use>data-service</dams:use>
+                <dams:dateCreated>2017-04-28T01:10:58-0700</dams:dateCreated>
+                <dams:md5checksum>94247e088b2245aff0b9d6c71aefb38c</dams:md5checksum>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:crc32checksum>f1868a2d</dams:crc32checksum>
+                <dams:sha1checksum>9ad7e0a0223d87af5d96ac52f2c8abfe2a3c4abd</dams:sha1checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+              </dams:File>
+            </dams:hasFile>
+            <dams:order>3</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>Matlab format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Matlab format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+          </dams:Component>
+        </dams:hasComponent>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:note>
+      <dams:Note>
+        <dams:type>description</dams:type>
+        <rdf:value>This .zip archive contains Quality Controlled float data for biogeochemical profiling floats deployed by the Southern Ocean Carbon and Climate Observation and Modeling (SOCCOM) program.  Data were processed by the SOCCOM data management team at the Monterey Bay Aquarium Research Institute (MBARI).  Certain early archives may contain additional University of Washington/MBARI floats deployed outside of the SOCCOM array.
+
+FORMAT:
+The ascii files contained herein were formatted to be compatible with Ocean Data View (ODV). ODV is freely available at https://odv.awi.de/.  In addition, a Matlab function has been provided in each .zip archive for parsing the .txt files into data structures within Matlab (see get_FloatViz_data.m).  Please note that the data files within this .zip archive represent a snapshot of all SOCCOM float data processed at MBARI as of the date listed in the file name.  Therefore, be aware that processing updates (** AND THUS CHANGES TO THE DATA **) may have occurred since the time the snapshot was created.  For the most up-to-date files (processed every 4 hours), visit ftp://ftp.mbari.org/pub/SOCCOM/FloatVizData/ or http://www.mbari.org/science/upper-ocean-systems/chemical-sensor-group/floatviz/
+
+ALTERNATE FORMATS: NetCDF and Matlab
+Lynne Talley has provided alternate formats, NetCDF and Matlab, for the ODV text data.  Matlab and NetCDF formatted files are provided for each ODV text file.
+The Matlab format is loaded as structure, FloatViz, with the ODV parameter names as the structure's fieldnames.
+The NetCDF format is similar to ARGO Float NetCDF format in its structure.  The parameter names, however, match the ODV text parameter names.  In addition to the quality control flag strings that ARGO profiles use, an array of quality control flags is provided in the NetCDF files for programming convenience.
+
+PARAMETERS:
+For information pertaining to float identification, sensor arrays, data parameters, and quality control please refer to descriptions within the file headers.  Snapshots created after Jan 01, 2017 include estimated total alkalinity and derived carbon parameters for DIC and pCO2 using one of three algorithms (LIAR, MLR, or CANYON).  Floats without a pH sensor will not have these additional parameters within their respective data files.  See file headers for details.  Additionally, files located at the urls listed above will include carbon parameters derived using observed pH and total alkalinity estimated by the LIAR method.
+
+RESOLUTION:
+This archive contains either low resolution or high resolution data. The format is defined by the folder name: SOCCOM_LoResQC_METHOD_ddmmmyyy or SOCCOM_HiResQC_METHOD_ddmmmyyyy, where METHOD refers to one of the following algorithms used in derivation of carbon parameters: LIAR, MLR, CANYON. Note that for APEX floats, the low resolution files only report data at depths where biogeochemical sensors sample, while the high resolution files merge this low resolution data with higher resolution pressure, temperature and salinity data which is sampled every two meters in the upper 1000 meters. For NAVIS floats all biogeochemical sensors except nitrate are sampled every 2 meters in the upper 1000 m. For NAVIS floats all data is contained in the "LoResQC" files (no "HiResQC" files exist).  
+
+DISCLAIMER:
+These data are provided as-is.  We do our best to provide high-quality, complete data but make no guarantees as to the presence of errors within the data themselves or the algorithms used in the generation of derived parameters.  It is the user's responsibility to ensure that the data meets the user's needs.  However, please report any observed discrepancies in the data to the contact listed below and we will do our best to fix them.  
+
+CONTACT:
+Please report any discrepancies, problems or concerns to the following and include "FLOATVIZ SNAPSHOT PROCESSING" in the subject line of the email.
+Tanya Maurer tmaurer@mbari.org
+Josh Plant jplant@mbari.org
+SOCCOM Data Management
+MBARI
+7700 Sandholdt Road
+Moss Landing, CA 95039</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:assembledCollection rdf:resource="http://library.ucsd.edu/ark:/20775/xx4473712z"/>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1">
+        <dams:order>1</dams:order>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1/6.jpg">
+            <dams:quality>1024x853</dams:quality>
+            <dams:use>image-large</dams:use>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourceFileName>20775-xx66239018-1-6.jpg</dams:sourceFileName>
+            <dams:crc32checksum>4d9b9e7d</dams:crc32checksum>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:size>162598</dams:size>
+            <dams:md5checksum>a0de0ca8a78a4a7078cbc80887c8a56a</dams:md5checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:sha1checksum>ec2e12520d2a8da1e38933f5c14ffb996725576d</dams:sha1checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:dateCreated>2017-04-28T01:10:16-0700</dams:dateCreated>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1/1.jpg">
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+            <dams:quality>1080x900</dams:quality>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:md5checksum>4135d798739de2a3480f5e640f4d6255</dams:md5checksum>
+            <dams:use>image-source</dams:use>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:sourceFileName>Floats_08Mar2017_map.jpg</dams:sourceFileName>
+            <dams:crc32checksum>5ce3f02a</dams:crc32checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:dateCreated>2017-04-28T01:10:09-0700</dams:dateCreated>
+            <dams:sha1checksum>a15e3f5f8847ae83a7bf74543de42f8d6769a429</dams:sha1checksum>
+            <dams:size>171488</dams:size>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1/3.jpg">
+            <dams:use>image-preview</dams:use>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:dateCreated>2017-04-28T01:10:13-0700</dams:dateCreated>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:crc32checksum>967be33d</dams:crc32checksum>
+            <dams:quality>450x375</dams:quality>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:size>45667</dams:size>
+            <dams:sha1checksum>1b5ecabd16f6086ad06587bd2faf9a7527e6f7f6</dams:sha1checksum>
+            <dams:md5checksum>822ccdbf378814304fe4425446094984</dams:md5checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:sourceFileName>20775-xx66239018-1-3.jpg</dams:sourceFileName>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1/2.jpg">
+            <dams:crc32checksum>1263fd74</dams:crc32checksum>
+            <dams:quality>768x640</dams:quality>
+            <dams:dateCreated>2017-04-28T01:10:11-0700</dams:dateCreated>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:sourceFileName>20775-xx66239018-1-2.jpg</dams:sourceFileName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:md5checksum>9ec62092836a307c7db4cc39dc71afd7</dams:md5checksum>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:size>104893</dams:size>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:sha1checksum>f0d57e471fb33f70714d8b9e823d8e11045f03ba</dams:sha1checksum>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:use>image-service</dams:use>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1/4.jpg">
+            <dams:sourceFileName>20775-xx66239018-1-4.jpg</dams:sourceFileName>
+            <dams:sha1checksum>eb9d2722fb3cb8406d048284c67cdfc5add6aed2</dams:sha1checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:use>image-thumbnail</dams:use>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:dateCreated>2017-04-28T01:10:13-0700</dams:dateCreated>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:size>7269</dams:size>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:crc32checksum>a3dda8a3</dams:crc32checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+            <dams:md5checksum>abac085a4699d869f9084e559b7a45bc</dams:md5checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:quality>150x125</dams:quality>
+          </dams:File>
+        </dams:hasFile>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Map of float trajectories</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Map of float trajectories</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1/7.jpg">
+            <dams:use>image-huge</dams:use>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:size>276036</dams:size>
+            <dams:sha1checksum>9223b644f44c05546e92fdf4b930a39607019fc4</dams:sha1checksum>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:sourceFileName>20775-xx66239018-1-7.jpg</dams:sourceFileName>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:dateCreated>2017-04-28T01:10:17-0700</dams:dateCreated>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+            <dams:md5checksum>04ac5f9f70007be88eff74f740528d65</dams:md5checksum>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:crc32checksum>5187449b</dams:crc32checksum>
+            <dams:quality>1600x1333</dams:quality>
+          </dams:File>
+        </dams:hasFile>
+        <dams:hasFile>
+          <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/1/5.jpg">
+            <dams:sha1checksum>e9f3eaf9dec92fc5052107f86ae187bad5b26735</dams:sha1checksum>
+            <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+            <dams:quality>65x54</dams:quality>
+            <dams:objectCategory>file</dams:objectCategory>
+            <dams:crc32checksum>8d2b999a</dams:crc32checksum>
+            <dams:size>2083</dams:size>
+            <dams:use>image-icon</dams:use>
+            <dams:formatName>JPEG</dams:formatName>
+            <dams:mimeType>image/jpeg</dams:mimeType>
+            <dams:preservationLevel>full</dams:preservationLevel>
+            <dams:dateCreated>2017-04-28T01:10:14-0700</dams:dateCreated>
+            <dams:md5checksum>6a710355dd27195523cc3c8589773303</dams:md5checksum>
+            <dams:formatVersion>1.01</dams:formatVersion>
+            <dams:compositionLevel>0</dams:compositionLevel>
+            <dams:sourceFileName>20775-xx66239018-1-5.jpg</dams:sourceFileName>
+          </dams:File>
+        </dams:hasFile>
+        <dams:typeOfResource>still image</dams:typeOfResource>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:title>
+      <mads:Title>
+        <mads:authoritativeLabel>SOCCOM float data - Snapshot 2017-03-08</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:MainTitleElement>
+            <mads:elementValue>SOCCOM float data - Snapshot 2017-03-08</mads:elementValue>
+          </mads:MainTitleElement>
+        </mads:elementList>
+      </mads:Title>
+    </dams:title>
+    <dams:note>
+      <dams:Note>
+        <dams:type>preferred citation</dams:type>
+        <rdf:value>Johnson, Kenneth S; Riser, Stephen C; Boss, Emmanuel S; Talley, Lynne D; Sarmiento, Jorge L; Swift, Dana D; Plant, Josh N; Maurer, Tanya L; Key, Robert M; Williams, Nancy L; Wanninkhof, Richard H; Dickson, Andrew G; Feely, Richard A; Russell, Joellen L (2017): SOCCOM float data - Snapshot 2017-03-08. In Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive. UC San Diego Library Digital Collections. http://doi.org/10.6075/J09021PC</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:copyright>
+      <dams:Copyright>
+        <dams:copyrightJurisdiction>US</dams:copyrightJurisdiction>
+        <dams:copyrightStatus>Under copyright</dams:copyrightStatus>
+        <dams:copyrightPurposeNote>Use: This work is available from the UC San Diego Library. This digital copy of the work is intended to support research, teaching, and private study.</dams:copyrightPurposeNote>
+        <dams:copyrightNote>Constraint(s) on Use: This work is protected by the U.S. Copyright Law (Title 17, U.S.C.). Use of this work beyond that allowed by "fair use" requires written permission of the UC Regents. Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Library. Inquiries can be made to the UC San Diego Library program having custody of the work.</dams:copyrightNote>
+      </dams:Copyright>
+    </dams:copyright>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/10">
+        <dams:order>4</dams:order>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>MLR - Low resolution data</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>MLR - Low resolution data</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/11">
+            <dams:order>1</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>ODVtext format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>ODVtext format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/11/1.zip">
+                <dams:size>10764715</dams:size>
+                <dams:sourceFileName>SOCCOM_LoResQC_MLR_08Mar2017.zip</dams:sourceFileName>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:dateCreated>2017-04-28T01:10:19-0700</dams:dateCreated>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:use>data-service</dams:use>
+                <dams:sha1checksum>a2a72482f9b15de48553d492333eda9b4cba7f3c</dams:sha1checksum>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:crc32checksum>97eea420</dams:crc32checksum>
+                <dams:md5checksum>4691f03c0b15b54ed0e33e26ffaa2ca9</dams:md5checksum>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/12">
+            <dams:order>2</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>NetCDF format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>NetCDF format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/12/1.zip">
+                <dams:size>9107542</dams:size>
+                <dams:crc32checksum>f5a0f712</dams:crc32checksum>
+                <dams:dateCreated>2017-04-28T01:10:20-0700</dams:dateCreated>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:sourceFileName>SOCCOM_LoResQC_MLR_08Mar2017_netcdf.zip</dams:sourceFileName>
+                <dams:use>data-service</dams:use>
+                <dams:md5checksum>e01ce6aea31ec19708eaa65c59538bd3</dams:md5checksum>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:sha1checksum>a156bcecab5ec4fbbf1a3831a484c210bce19e50</dams:sha1checksum>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/13">
+            <dams:order>3</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>Matlab format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Matlab format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/13/1.zip">
+                <dams:sourceFileName>SOCCOM_LoResQC_MLR_08Mar2017_matlab.zip</dams:sourceFileName>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:dateCreated>2017-04-28T01:10:22-0700</dams:dateCreated>
+                <dams:md5checksum>3bbe1e066d236dac83d0cd606eacca8d</dams:md5checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:sha1checksum>d07cbf5c541e3604d3b94836666615b619bef7c6</dams:sha1checksum>
+                <dams:size>11383665</dams:size>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:crc32checksum>ea3d9660</dams:crc32checksum>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:use>data-service</dams:use>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:note>
+      <dams:Note>
+        <rdf:value>Research Data Curation Program, UC San Diego, La Jolla, 92093-0175 (https://lib.ucsd.edu/rdcp)</rdf:value>
+        <dams:displayLabel>digital object made available by</dams:displayLabel>
+        <dams:type>local attribution</dams:type>
+      </dams:Note>
+    </dams:note>
+    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/bb45454545"/>
+    <dams:rightsHolderCorporate>
+      <mads:CorporateName>
+        <mads:authoritativeLabel>UC Regents</mads:authoritativeLabel>
+        <mads:elementList rdf:parseType="Collection">
+          <mads:FullNameElement>
+            <mads:elementValue>UC Regents</mads:elementValue>
+          </mads:FullNameElement>
+        </mads:elementList>
+      </mads:CorporateName>
+    </dams:rightsHolderCorporate>
+    <dams:note>
+      <dams:Note>
+        <dams:type>scope and content</dams:type>
+        <rdf:value>For the latest snapshot of the float data, see the Related Resource section on the &lt;a href="http://library.ucsd.edu/dc/collection/xx4473712z"&gt;Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive&lt;/a&gt; landing page.</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:date>
+      <dams:Date>
+        <dams:encoding>w3cdtf</dams:encoding>
+        <dams:beginDate>2017-03-08</dams:beginDate>
+        <dams:endDate>2017-03-08</dams:endDate>
+        <dams:type>creation</dams:type>
+        <rdf:value>2017-03-08</rdf:value>
+      </dams:Date>
+    </dams:date>
+    <dams:note>
+      <dams:Note>
+        <dams:type>funding</dams:type>
+        <rdf:value>Authors using SOCCOM float data should acknowledge that "Data were collected and made freely available by the Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Project funded by the National Science Foundation, Division of Polar Programs (NSF PLR-1425989), supplemented by NASA, and by the International Argo Program and the NOAA programs that contribute to it.  The Argo Program is part of the Global Ocean Observing System (http://doi.org/10.17882/42182, http://argo.jcommops.org)". In addition, users should reference the appropriate SOCCOM snapshot DOI, as listed on this page under Cite This Work.</rdf:value>
+      </dams:Note>
+    </dams:note>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:type>related</dams:type>
+        <dams:description>SOCCOM website</dams:description>
+        <dams:uri rdf:resource="https://soccom.princeton.edu/"/>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/2">
+        <dams:order>2</dams:order>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>Low resolution data</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>Low resolution data</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/3">
+            <dams:order>1</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>ODVtext format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>ODVtext format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/3/1.zip">
+                <dams:sha1checksum>67b35e41ea76cbeb0d47b06a4e8092b1a2220dc8</dams:sha1checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:md5checksum>718beb5cc6b8a988d5cfa735d77bf984</dams:md5checksum>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:size>39590052</dams:size>
+                <dams:use>data-service</dams:use>
+                <dams:sourceFileName>Floats_LoResQC_08Mar2017.zip</dams:sourceFileName>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:crc32checksum>9c4584b7</dams:crc32checksum>
+                <dams:dateCreated>2017-04-28T01:10:30-0700</dams:dateCreated>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/4">
+            <dams:order>2</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>NetCDF format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>NetCDF format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/4/1.zip">
+                <dams:use>data-service</dams:use>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:dateCreated>2017-04-28T01:10:33-0700</dams:dateCreated>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:sha1checksum>62c7b4ef05fc30edddee6dd0dc48930b70790d1e</dams:sha1checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:size>31826741</dams:size>
+                <dams:sourceFileName>Floats_LoResQC_08Mar2017_netcdf.zip</dams:sourceFileName>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:md5checksum>11499a2af943478ae6b16a35d83cf029</dams:md5checksum>
+                <dams:crc32checksum>b9de6845</dams:crc32checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:formatName>bytestream</dams:formatName>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/5">
+            <dams:order>3</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>Matlab format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Matlab format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/5/1.zip">
+                <dams:dateCreated>2017-04-28T01:10:37-0700</dams:dateCreated>
+                <dams:sha1checksum>69aa8b20828c7ccef6e4601af059c0b101c7cde1</dams:sha1checksum>
+                <dams:use>data-service</dams:use>
+                <dams:sourceFileName>Floats_LoResQC_08Mar2017_matlab.zip</dams:sourceFileName>
+                <dams:size>40503369</dams:size>
+                <dams:crc32checksum>55ab4195</dams:crc32checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:md5checksum>40f55e904b3473692c133f483870d5a6</dams:md5checksum>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:formatName>bytestream</dams:formatName>
+              </dams:File>
+            </dams:hasFile>
+          </dams:Component>
+        </dams:hasComponent>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:date>
+      <dams:Date>
+        <rdf:value>2017</rdf:value>
+        <dams:type>issued</dams:type>
+      </dams:Date>
+    </dams:date>
+    <dams:relatedResource>
+      <dams:RelatedResource>
+        <dams:type>related</dams:type>
+        <dams:description>SOCCOM Publications list</dams:description>
+        <dams:uri rdf:resource="https://soccom.princeton.edu/content/soccom-publications"/>
+      </dams:RelatedResource>
+    </dams:relatedResource>
+    <dams:hasComponent>
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/14">
+        <dams:order>5</dams:order>
+        <dams:title>
+          <mads:Title>
+            <mads:authoritativeLabel>MLR - High resolution data</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:MainTitleElement>
+                <mads:elementValue>MLR - High resolution data</mads:elementValue>
+              </mads:MainTitleElement>
+            </mads:elementList>
+          </mads:Title>
+        </dams:title>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/15">
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/15/1.zip">
+                <dams:sourceFileName>SOCCOM_HiResQC_MLR_08Mar2017.zip</dams:sourceFileName>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:md5checksum>e0bc4720ef0a21d207a256bb80503632</dams:md5checksum>
+                <dams:sha1checksum>36c9abb45f4c00d3366e5184e05b8d5716d0851e</dams:sha1checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:dateCreated>2017-04-28T01:10:24-0700</dams:dateCreated>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:size>20237051</dams:size>
+                <dams:crc32checksum>263ccb91</dams:crc32checksum>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:use>data-service</dams:use>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+              </dams:File>
+            </dams:hasFile>
+            <dams:order>1</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>ODVtext format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>ODVtext format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/16">
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/16/1.zip">
+                <dams:size>16892589</dams:size>
+                <dams:sha1checksum>bf4096533c02d85846f9439912d4144a2e903b97</dams:sha1checksum>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:md5checksum>791e22e15309834921a53d9a2028b2f0</dams:md5checksum>
+                <dams:crc32checksum>abb19889</dams:crc32checksum>
+                <dams:dateCreated>2017-04-28T01:10:26-0700</dams:dateCreated>
+                <dams:sourceFileName>SOCCOM_HiResQC_MLR_08Mar2017_netcdf.zip</dams:sourceFileName>
+                <dams:use>data-service</dams:use>
+                <dams:preservationLevel>full</dams:preservationLevel>
+              </dams:File>
+            </dams:hasFile>
+            <dams:order>2</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>NetCDF format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>NetCDF format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+          </dams:Component>
+        </dams:hasComponent>
+        <dams:hasComponent>
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/17">
+            <dams:hasFile>
+              <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx66239018/17/1.zip">
+                <dams:dateCreated>2017-04-28T01:10:27-0700</dams:dateCreated>
+                <dams:preservationLevel>full</dams:preservationLevel>
+                <dams:md5checksum>fac13dedde53891d004564b4e316692d</dams:md5checksum>
+                <dams:mimeType>application/octet-stream</dams:mimeType>
+                <dams:formatName>bytestream</dams:formatName>
+                <dams:sourcePath>/pub/data2/dams/localStore/bb/66/23/90/18</dams:sourcePath>
+                <dams:size>21363051</dams:size>
+                <dams:crc32checksum>2cc3f32f</dams:crc32checksum>
+                <dams:sha1checksum>a735767e828d1f909c956ba3f0cea23a4374d5cb</dams:sha1checksum>
+                <dams:sourceFileName>SOCCOM_HiResQC_MLR_08Mar2017_matlab.zip</dams:sourceFileName>
+                <dams:compositionLevel>1</dams:compositionLevel>
+                <dams:objectCategory>file</dams:objectCategory>
+                <dams:use>data-service</dams:use>
+              </dams:File>
+            </dams:hasFile>
+            <dams:order>3</dams:order>
+            <dams:typeOfResource>data</dams:typeOfResource>
+            <dams:title>
+              <mads:Title>
+                <mads:authoritativeLabel>Matlab format</mads:authoritativeLabel>
+                <mads:elementList rdf:parseType="Collection">
+                  <mads:MainTitleElement>
+                    <mads:elementValue>Matlab format</mads:elementValue>
+                  </mads:MainTitleElement>
+                </mads:elementList>
+              </mads:Title>
+            </dams:title>
+          </dams:Component>
+        </dams:hasComponent>
+      </dams:Component>
+    </dams:hasComponent>
+    <dams:license>
+      <dams:License>
+        <dams:licenseNote>Creative Commons Attribution 4.0 International Public License</dams:licenseNote>
+        <dams:licenseURI>http://creativecommons.org/licenses/by/4.0/</dams:licenseURI>
+        <dams:permission>
+          <dams:Permission>
+            <dams:type>display</dams:type>
+          </dams:Permission>
+        </dams:permission>
+      </dams:License>
+    </dams:license>
+  </dams:Object>
+</rdf:RDF>
