@@ -334,13 +334,10 @@ feature 'Visitor wants to look at the collection item view search results' do
     @soccomObj2.delete
     @soccomObj3.delete
   end 
-  scenario 'should see the collection item result page with correct indentation' do
+  scenario 'should not see html tags for any hightlight field in the search result page' do
     visit catalog_index_path( {:q => "#{@aCollection.pid}", 'sort' => 'title_ssi asc'} )
     expect(page).to have_content('Showing results for 1 - 4 of 4')   
-    expect(page).to have_selector('div h3 a[data-counter="1"]', :text => 'SOCCOM float data - Snapshot 2016-12-28')
-    expect(page).to have_selector('div h3 a[data-counter="2"]', :text => 'SOCCOM float data - Snapshot 2017-03-08')
-    expect(page).to have_selector('div h3 a[data-counter="3"]', :text => 'SOCCOM float data - Snapshot 2016-11-28')  
-    expect(page).to have_selector('div h3 a[data-counter="4"]', :text => 'Southern Ocean Carbon and Climate Observations and Modeling (SOCCOM) Float Data Archive')
+    expect(page).to_not have_content("<a href=\"http://library.ucsd.edu/dc/collection/<span class='search-highlight'>#{@aCollection.pid}</span>\">")
   end
 
 end
