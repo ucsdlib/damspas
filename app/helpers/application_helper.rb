@@ -1,68 +1,68 @@
 module ApplicationHelper
 
-  #Retrieve the highlighting content 
+  #Retrieve the highlighting content
   def field_with_highlighting document, field, sep=field_value_separator
-	highlighting = blacklight_config.highlighting
-	if !(field.is_a? Symbol) && !(field.is_a? String)
-		options = field
-		field = options[:'field']
-		highlighting = options[:'highlight']
-		hitsonly = options[:'hitsonly']
-	end
+  highlighting = blacklight_config.highlighting
+  if !(field.is_a? Symbol) && !(field.is_a? String)
+    options = field
+    field = options[:'field']
+    highlighting = options[:'highlight']
+    hitsonly = options[:'hitsonly']
+  end
   if field == "date_tesim"
 
     return date_Val document
   end
-	if highlighting
-		highlight_values = document.highlight_field(field)
-		
-		#Snippets for no default indexed fields
-		if(hitsonly && highlight_values != nil && highlight_values.count > 0)
-			highlight_values.collect! {|m|m.length < blacklight_config.hlMaxFragsize || m.ends_with?(".") ? m : m+ " ..."}
-			return highlight_values.join(sep).html_safe
-		end
-		highlight_values = document[field] if (highlight_values.nil? || highlight_values.count==0)
-	elsif field.to_s.index('_json_')
-		highlight_values = document[field]
-	end
-	if highlight_values != nil && highlight_values.count > 0 && !hitsonly
-		if field.to_s.index('_json_')
-			if field.to_s.index('title_')
-				return parseJsonTitle highlight_values.first, sep 
-			elsif field.to_s.index('date_')
-				return parseJsonDate highlight_values.first, sep
-			else
-				return highlight_values.join(sep).html_safe
-			end
-		elsif (document[field].count > highlight_values.count)
-			#Merge the highlighting values for the view.
-			values = document[field].dup
-			for v in highlight_values do
-				vo = v.gsub(blacklight_config.hlTagPre, '').gsub(blacklight_config.hlTagPost, '')
-				i = 0
-				begin
-					if values[i].eql? vo
-						values[i] = v
-						break
-					end
-					i+=1
-				end while i < values.count
-			end
-			return values.map { |v|v }.join(sep).html_safe
-		else
+  if highlighting
+    highlight_values = document.highlight_field(field)
+
+    #Snippets for no default indexed fields
+    if(hitsonly && highlight_values != nil && highlight_values.count > 0)
+      highlight_values.collect! {|m|m.length < blacklight_config.hlMaxFragsize || m.ends_with?(".") ? m : m+ " ..."}
+      return strip_tags(highlight_values.join(sep))
+    end
+    highlight_values = document[field] if (highlight_values.nil? || highlight_values.count==0)
+  elsif field.to_s.index('_json_')
+    highlight_values = document[field]
+  end
+  if highlight_values != nil && highlight_values.count > 0 && !hitsonly
+    if field.to_s.index('_json_')
+      if field.to_s.index('title_')
+        return parseJsonTitle highlight_values.first, sep
+      elsif field.to_s.index('date_')
+        return parseJsonDate highlight_values.first, sep
+      else
+        return highlight_values.join(sep).html_safe
+      end
+    elsif (document[field].count > highlight_values.count)
+      #Merge the highlighting values for the view.
+      values = document[field].dup
+      for v in highlight_values do
+        vo = v.gsub(blacklight_config.hlTagPre, '').gsub(blacklight_config.hlTagPost, '')
+        i = 0
+        begin
+          if values[i].eql? vo
+            values[i] = v
+            break
+          end
+          i += 1
+        end while i < values.count
+      end
+      return values.map { |v|v }.join(sep).html_safe
+    else
     # if field == "date_tesim"
     #   return highlight_values.first.html_safe
     # end
-			return highlight_values.join(sep).html_safe
-		end
-	end
+      return highlight_values.join(sep).html_safe
+    end
   end
-  
+  end
+
   def date_Val document
     dateRet = ''
     i = 1
     #Looking at date_jason_tesim because the JSON allows for extrapolation of value/beginDate/endDate fields for each date
-    dates = document["date_json_tesim"]  
+    dates = document['date_json_tesim']
     if dates != nil
       dateRet = dateHelper dates
     else
@@ -71,8 +71,8 @@ module ApplicationHelper
       if dateRet.blank? && dates != nil
         dateRet = dateHelper dates
       end
-    end    
-    return dateRet 
+    end
+    return dateRet
   end
 
   def dateHelper dates
@@ -123,23 +123,23 @@ module ApplicationHelper
 
   # Parsing the json title values
   def parseJsonTitle jsonString, sep
-	titlehash = JSON.parse jsonString
-	titles = Array.new
-	titles << titlehash['value']
-	titles << titlehash['subtitle'] if (titlehash['subtitle'] != nil && !titlehash['subtitle'].blank?)
-	return titles.map { |v|v }.join(sep).html_safe
+  titlehash = JSON.parse jsonString
+  titles = []
+  titles << titlehash['value']
+  titles << titlehash['subtitle'] if (titlehash['subtitle'] != nil && !titlehash['subtitle'].blank?)
+  return titles.map { |v|v }.join(sep).html_safe
   end
-  
+
   #Parsing the json date values
   def parseJsonDate jsonString, sep
-	datehash = JSON.parse jsonString
-	dates = Array.new
-	dates << datehash['value'] unless datehash['value']==nil?
-	dates << datehash['beginDate'] unless datehash['beginDate']==nil?
-	dates << datehash['endDate'] unless datehash['endDate']==nil?
-	return dates.map { |v|v }.join(sep).html_safe
+  datehash = JSON.parse jsonString
+  dates = Array.new
+  dates << datehash['value'] unless datehash['value']==nil?
+  dates << datehash['beginDate'] unless datehash['beginDate']==nil?
+  dates << datehash['endDate'] unless datehash['endDate']==nil?
+  return dates.map { |v|v }.join(sep).html_safe
   end
-  
+
   # render page titles for all application pages using Digital Library Collections prefix
   def full_title(page_title)
     base_title = 'Library Digital Collections | UC San Diego Library'
@@ -149,7 +149,7 @@ module ApplicationHelper
       "#{page_title} | #{base_title}"
     end
   end
-  
+
   # placeholder for rendering breadcrumbs
   # TODO: what is needed? action, controller?, page title?
   # params[:action],params[:controller],...
@@ -162,7 +162,7 @@ module ApplicationHelper
     result << link_to(item.name.humanize.titlecase, association_chain[0..index])
     result << " &raquo; ".html_safe
     end
-    result << resource.name.humanize.titleize 
+    result << resource.name.humanize.titleize
   end
 
   def getFullTitle (title_json)
@@ -196,4 +196,4 @@ module ApplicationHelper
       path
     end
   end
-end 
+end
