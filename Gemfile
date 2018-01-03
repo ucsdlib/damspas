@@ -59,7 +59,7 @@ group :development, :test do
   gem 'capybara', '~> 2.14.0'
   gem 'selenium-webdriver', '3.4.0'
   gem 'launchy', '~> 2.4.3'
-  gem "minitest", '~> 5.10.2'
+  gem "minitest", '~> 5.11.1'
   gem 'rspec-rails', '3.6.0' 
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.14.1'
