@@ -72,5 +72,5 @@ end
 
 group :staging do
   gem 'activerecord-postgresql-adapter'
-  gem 'rake', '~> 12.0.0'
+  gem 'rake', '~> 12.3.0'
 end
