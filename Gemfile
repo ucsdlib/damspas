@@ -63,7 +63,7 @@ group :development, :test do
   gem 'rspec-rails', '3.6.0' 
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.14.1'
-  gem 'rubocop', '0.49.1', require: false
+  gem 'rubocop', '0.54.0', require: false
   gem 'rubocop-rspec', '1.15.1'
   gem 'unicorn', '~> 5.3.0'
   gem 'rspec_junit_formatter', '~> 0.2.3'
