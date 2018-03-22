@@ -30,7 +30,7 @@ gem 'rack-dev-mark', '~> 0.7.5'
 
 # Deploy with Capistrano
 gem 'capistrano', '~> 3.8.1'
-gem 'capistrano-rails', '~> 1.2.3'
+gem 'capistrano-rails', '~> 1.3.1'
 gem 'capistrano-rbenv', '~> 2.1.1'
 gem 'capistrano-bundler', '~> 1.2.0'
 
