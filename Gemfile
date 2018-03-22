@@ -13,7 +13,7 @@ gem 'share_notify', '~> 0.2.0'
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
 gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
-gem 'sitemap_generator', '~> 5.3.1'
+gem 'sitemap_generator', '~> 6.0.0'
 
 gem 'sqlite3', '~> 1.3.13'
 
