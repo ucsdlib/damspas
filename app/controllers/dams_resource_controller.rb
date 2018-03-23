@@ -40,6 +40,10 @@ class DamsResourceController < ApplicationController
     # generate facet collection list for collection page only
     models = @document["active_fedora_model_ssi"]
     if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
+      other_rights_query = "(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay) AND collections_tesim:#{params[:id]}"
+      @res, @doc = get_search_results(q: other_rights_query, rows: 1)
+      @metadata_only = !@res.response['numFound'].zero?
+
         facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
         apply_gated_discovery( facet_collection_params, nil )
         @facet_collection_resp = get_search_results( facet_collection_params )
