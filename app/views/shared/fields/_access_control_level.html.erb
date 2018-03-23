@@ -7,14 +7,16 @@
 	if accessGroup != nil
 
 		if accessGroup.include?('public')
-		  viewAccess = nil
-	  elsif accessGroup.include?('local')
+		    viewAccess = :public
+	        elsif accessGroup.include?('local') && @metadata_only
+		    viewAccess = 'Restricted View'		  
+	        elsif accessGroup.include?('local')
 		    viewAccess = 'Restricted to UC San Diego use only'
 		else
-		  viewAccess = 'Curator Only'
+		    viewAccess = 'Curator Only'
 		end
 
-		if viewAccess != nil
+		if viewAccess != :public
 			htmlOpen %= 'Access'
 			concat htmlOpen.html_safe
 			concat "<li>#{viewAccess}</li>".html_safe
