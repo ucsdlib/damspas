@@ -7,7 +7,7 @@ gem 'active-fedora', '~> 6.7.8' # locked
 gem 'solrizer', '~> 3.1.0' # locked
 gem 'blacklight_advanced_search', '~> 2.2.0' # locked
 gem 'kaminari', '~> 0.15.1' # locked (0.16.0+ breaks pagination)
-gem 'share_notify', '~> 0.2.0'
+gem 'share_notify', github: 'samvera-labs/share_notify', branch: 'master'
 
 # private fork of solrizer-fedora with auto-commit disabled
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK

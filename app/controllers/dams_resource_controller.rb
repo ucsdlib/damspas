@@ -209,26 +209,27 @@ class DamsResourceController < ApplicationController
     render :json => @document
   end
 
+  def osf_delete
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :show, @document
+    document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}", osf_date(@document))
+    document.title = osf_title(@document)
+    document.delete
+    share_upload(document)
+    redirect_to dams_collection_path(params[:id]), notice: "Your record has been deleted from OSF Share."
+  end
+
   def osf_push
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
     document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}", osf_date(@document))
     document.title = osf_title(@document)
-    document.description = osf_description(@document)
-    document.publisher = osf_publisher
-    document.languages = osf_languages(@document)
-    document.tags = osf_mads_fields(@document)
     osf_contributors(@document).each do |contributor|
       document.add_contributor(contributor)
     end
-
+    
     if document.valid?
-      @headers = {'Authorization' => "Token #{share_config.fetch('token')}", 
-                 'Content-Type'  => 'application/json'
-                }
-
-      @route = "#{share_config.fetch('host')}api/v1/share/data"
-      @response = with_timeout { HTTParty.post(@route, body: document.to_share.to_json, headers: @headers)}
+      share_upload(document)
       redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share."
     else
       redirect_to dams_collection_path(params[:id]), alert: "Your record is not valid."
@@ -236,6 +237,16 @@ class DamsResourceController < ApplicationController
   end
 
   private
+    def share_upload(document)
+      @headers = {
+        'Authorization' => "Bearer #{share_config.fetch('token')}",
+        'Content-Type'  => 'application/vnd.api+json'
+        }
+      @route = "#{share_config.fetch('host')}api/v2/normalizeddata/" 
+      @body = ShareNotify::Graph.new(document).to_share_v2.to_json
+      @response = with_timeout { HTTParty.post(@route, body: @body, headers: @headers)}
+    end
+
     def share_config
       env = Rails.env || 'test'
       @config ||= YAML.load(ERB.new(IO.read(File.join(Rails.root, 'config', 'share_notify.yml'))).result)[env].with_indifferent_access

@@ -54,7 +54,7 @@
               </li>
               <% } %>
               <% if can_edit then %>
-                <% links = { "ezid" => "Mint DOI", "osf_push" => "Push to OSF" }
+                <% links = { "ezid" => "Mint DOI", "osf_push" => "Push to OSF", "osf_delete" => "Delete from OSF" }
                    links.each { |key,label| %>
                      <li><%= link_to "<i class='icon-plus-sign'></i> #{label}".html_safe,
                        send("#{key}_dams_collection_path".to_sym, @document['id']),

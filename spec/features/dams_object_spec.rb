@@ -84,17 +84,19 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_link('Data View', data_dams_object_path(@o.pid))
       expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_object_path(@o.pid))
     end
-    it "with dams_curator role should not see Mint DOI and Push to OSF" do
+    it "with dams_curator role should not see Mint DOI and Push/Delete to/from OSF" do
       sign_in_curator
       visit dams_object_path @o
       expect(page).not_to have_content("Mint DOI");
       expect(page).not_to have_content("Push to OSF");
+      expect(page).not_to have_content("Delete from OSF")
     end
     it "with dams_editor role should see Mint DOI and Push to OSF" do
       sign_in_developer
       visit dams_object_path @o
       expect(page).to have_content("Mint DOI");
       expect(page).to have_content("Push to OSF");
+      expect(page).to have_content("Delete from OSF");
     end
   end
 
