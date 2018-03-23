@@ -204,17 +204,19 @@ feature 'Collection editor tools' do
     expect(page).to have_link('Data View', data_dams_collection_path(@provCollection.pid))
     expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_collection_path(@provCollection.pid))
   end
-  scenario "with dams_curator role should not see Mint DOI and Push to OSF" do
+  scenario "with dams_curator role should not see Mint DOI and Push/Delete to/from OSF" do
     sign_in_curator
     visit dams_collection_path @provCollection
     expect(page).not_to have_content("Mint DOI");
     expect(page).not_to have_content("Push to OSF");
+    expect(page).not_to have_content("Delete from OSF")
   end
   scenario "with dams_editor role should see Mint DOI and Push to OSF" do
     sign_in_developer
     visit dams_collection_path @provCollection
     expect(page).to have_content("Mint DOI");
     expect(page).to have_content("Push to OSF");
+    expect(page).to have_content("Delete from OSF");
   end
 end
 

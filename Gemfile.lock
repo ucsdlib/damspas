@@ -1,4 +1,13 @@
 GIT
+  remote: git://github.com/samvera-labs/share_notify.git
+  revision: 96c16ab13c596f479f83cb55c70b27309f4d5f2d
+  branch: master
+  specs:
+    share_notify (0.2.0)
+      activesupport
+      httparty
+
+GIT
   remote: git://github.com/ucsdlib/solrizer-fedora.git
   revision: 87c2d35e89df19bb4535e1f713a68b0dc469498a
   ref: 87c2d35e
@@ -152,8 +161,7 @@ GEM
       uber (~> 0.0.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    httparty (0.13.7)
-      json (~> 1.8)
+    httparty (0.16.1)
       multi_xml (>= 0.5.2)
     hydra-access-controls (6.5.2)
       active-fedora (~> 6.7)
@@ -212,7 +220,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.10.2)
     multi_json (1.12.1)
-    multi_xml (0.5.5)
+    multi_xml (0.6.0)
     multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -368,9 +376,6 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
-    share_notify (0.2.0)
-      activesupport
-      httparty
     simplecov (0.14.1)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -480,7 +485,7 @@ DEPENDENCIES
   rubyzip (= 1.2.1)
   sass-rails (~> 5.0.5)
   selenium-webdriver (= 3.4.0)
-  share_notify (~> 0.2.0)
+  share_notify!
   simplecov (~> 0.14.1)
   sitemap_generator (~> 5.3.1)
   solrizer (~> 3.1.0)
@@ -493,4 +498,4 @@ DEPENDENCIES
   unicorn (~> 5.3.0)
 
 BUNDLED WITH
-   1.14.3
+   1.16.1
