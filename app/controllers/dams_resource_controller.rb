@@ -210,13 +210,13 @@ class DamsResourceController < ApplicationController
   end
 
   def osf_delete
-    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    @document = get_single_doc_via_search(1, q: "id:#{params[:id]}")
     authorize! :show, @document
     document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}", osf_date(@document))
     document.title = osf_title(@document)
     document.delete
     share_upload(document)
-    redirect_to dams_collection_path(params[:id]), notice: "Your record has been deleted from OSF Share."
+    redirect_to dams_collection_path(params[:id]), notice: 'Your record has been deleted from OSF Share.'
   end
 
   def osf_push
@@ -227,7 +227,7 @@ class DamsResourceController < ApplicationController
     osf_contributors(@document).each do |contributor|
       document.add_contributor(contributor)
     end
-    
+
     if document.valid?
       share_upload(document)
       redirect_to dams_collection_path(params[:id]), notice: "Your record has been pushed to OSF Share."
@@ -241,10 +241,10 @@ class DamsResourceController < ApplicationController
       @headers = {
         'Authorization' => "Bearer #{share_config.fetch('token')}",
         'Content-Type'  => 'application/vnd.api+json'
-        }
-      @route = "#{share_config.fetch('host')}api/v2/normalizeddata/" 
+      }
+      @route = "#{share_config.fetch('host')}api/v2/normalizeddata/"
       @body = ShareNotify::Graph.new(document).to_share_v2.to_json
-      @response = with_timeout { HTTParty.post(@route, body: @body, headers: @headers)}
+      @response = with_timeout { HTTParty.post(@route, body: @body, headers: @headers) }
     end
 
     def share_config
