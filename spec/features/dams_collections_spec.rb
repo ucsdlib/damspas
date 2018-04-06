@@ -353,7 +353,7 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     @copyright = DamsCopyright.create status: 'Under copyright'
     @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @metadataDisplay.pid
     @localObj = DamsObject.create titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @localDisplay.pid
-    @obj = DamsObject.create titleValue: 'Test Object with no localDisplay, no metadataOnlyDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyrightURI: @copyright.pid
+    @obj = DamsObject.create titleValue: 'Test Object with no localDisplay, no metadataOnlyDisplay', provenanceCollectionURI: @collection.pid, copyrightURI: @copyright.pid
     solr_index @localDisplay.pid
     solr_index @metadataDisplay.pid
     solr_index @metadataOnlyCollection.pid
