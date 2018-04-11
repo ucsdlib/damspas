@@ -392,4 +392,10 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     visit dams_collection_path @collection.pid
     expect(page).to_not have_content('Restricted View')
   end
+  
+  scenario 'should see Restricted View access control information when visit browse by collection page' do
+    sign_in_anonymous '132.239.0.3'
+    visit '/collections'
+    expect(page).to have_content('Restricted View')
+  end  
 end

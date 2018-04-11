@@ -255,7 +255,7 @@ class CatalogController < ApplicationController
   end
       # get search results from the solr index
     def index
-
+      @metadata_colls = metadata_only_collections
       if params['q'] != nil
         params['q'].gsub!('""','')
         single_quote_count = params['q'].to_s.count('"') 
@@ -327,7 +327,7 @@ class CatalogController < ApplicationController
       end
     end
   def collection_search
-
+    @metadata_colls = metadata_only_collections
     # if we already have the parameters set below, then redirect to /search
     # this allows removing Collections limit, etc.
     #if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )
@@ -360,6 +360,20 @@ class CatalogController < ApplicationController
     search[:fq] = params[:fq] if params[:fq]
     search[:total] = @response.response['numFound']
     session[:search] = search
+  end
+
+  def metadata_only_collections
+    meta_colls = []
+    params = { q: 'visibility_tesim:local', fq: 'type_tesim:Collection', spellcheck: 'false' }
+    response = raw_solr(params)
+    other_rights_fquery = '(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay)'
+    response.docs.each do |doc|
+      collection_solr_params = { q: "collections_tesim:#{doc['id']}", fq: other_rights_fquery, rows: 1, spellcheck: 'false' }
+      collection_response = raw_solr(collection_solr_params)
+      metadata_only = !collection_response.response['numFound'].zero?
+      meta_colls << doc['id_t'].to_s if metadata_only
+    end
+    meta_colls
   end
 
   def lookup_unit_name( unit_code = "" )

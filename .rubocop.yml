@@ -28,6 +28,10 @@ Style/Documentation:
     - 'spec/**/*'
     - 'app/**/*'
 
+Style/ConditionalAssignment:
+  Exclude:
+    - 'app/helpers/*'
+    
 Style/Next:
   Enabled: true
 
