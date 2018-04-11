@@ -91,23 +91,21 @@ module CatalogHelper
     dateVal
   end
 
-  def display_access_control_level(document)
+  def display_access_control_level(document, metadata_colls)
+    access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
+    view_access = 'Curator Only'
+    if access_group
 
-    accessGroup = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
-    viewAccess = nil
-
-    if accessGroup != nil
-
-      if accessGroup.include?('public')
-        viewAccess = nil
-      elsif accessGroup.include?('local')
-        viewAccess = 'Restricted to UC San Diego use only'
-      else
-        viewAccess = 'Curator Only'
+      if access_group.include?('public')
+        view_access = nil
+      elsif access_group.include?('local') && metadata_colls.include?(document['id'])
+        view_access = 'Restricted View'
+      elsif access_group.include?('local')
+        view_access = 'Restricted to UC San Diego use only'
       end
 
     end
-    viewAccess
+    view_access
   end
 
   def is_collection?( document )

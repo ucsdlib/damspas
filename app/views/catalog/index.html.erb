@@ -26,7 +26,7 @@
       <%= render 'sort_and_per_page' %>
 			<%= render :partial => 'spellcheck' %>
 			<h3 class="hide-text"><%= t('blacklight.search.search_results') %></h3>
-			<%= render_document_index %>
+			<%= render :partial => 'document_list', locals: {:documents => @document_list, :metadata_colls => @metadata_colls}%>
 			<div class="dams-search-results-footer">
 				<%= render :partial => 'paginate_compact' %>
 			</div>

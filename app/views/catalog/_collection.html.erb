@@ -9,7 +9,7 @@
     <% end %> 
   <% end %>
 
-  <%= render :partial => 'catalog/display_access_control_level', :locals => {:document => document} %>
+  <%= render :partial => 'catalog/display_access_control_level', :locals => {:document => document, :metadata_colls => metadata_colls} %>
 
   <% dateVal = date_list(document) %>
   <% if !dateVal.blank? %>

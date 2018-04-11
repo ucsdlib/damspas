@@ -14,7 +14,7 @@
 
 	<%# main container for doc partial view -%>
     <% if is_collection?( document ) %>
-      <%= render :partial => 'collection', :locals => { :document => document } %>
+      <%= render :partial => 'collection', :locals => { :document => document, :metadata_colls => metadata_colls} %>
     <% else %>
 	  <%= render_document_partial document, :index %>
     <% end %>
