@@ -689,6 +689,41 @@ def display_node(index)
   end
 
   #---
+  # Check to see if an object has a "metadataDisplay or localDisplay otherRights"
+  #
+  # @return An HTML string if an object has a "metadataDisplay or localDisplay otherRights", nil otherwise
+  #---
+
+  def grab_access_text(document)
+    result = nil
+    access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
+    data = document['otherRights_tesim']
+    return result unless data && access_group
+    if access_group.include?('local') && !data.nil?
+      data.each do |datum|
+        if datum.include?('localDisplay') || datum.include?('metadataDisplay')
+          result = "<h3>Restricted View</h3><p>#{get_attribution_note(document['otherNote_json_tesim'])}</p>".html_safe
+        end
+      end
+    end
+    result
+  end
+
+  def get_attribution_note(data)
+    result = 'Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the '
+    program_email = { 'Digital Library Development Program' => 'dlp@ucsd.edu', 'Special Collections & Archives' => 'spcoll@ucsd.edu', 'Research Data Curation Program' => 'research-data-curation@ucsd.edu'}
+    return result unless data
+    data.each do |datum|
+      note = JSON.parse(datum)
+      if note['type'].start_with?('local attribution')
+        program = note['value'].split(', ').first
+        result += "#{program} at #{program_email[program]}"
+      end
+    end
+    result
+  end
+
+  #---
   # Normalized rdf view from DAMS4 REST API
   #---
 
