@@ -868,3 +868,69 @@ describe "Cartographic Record" do
     expect(page).to have_css('img.leaflet-tile-loaded[src="https://c.tiles.mapbox.com/v4/mapquest.streets-mb/4/0/6.png?access_token=pk.eyJ1IjoibWFwcXVlc3QiLCJhIjoiY2Q2N2RlMmNhY2NiZTRkMzlmZjJmZDk0NWU0ZGJlNTMifQ.mPRiEubbajc6a5y9ISgydg"]')
   end
 end
+
+describe "User wants to view a metadata-only view object" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
+    @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @metadataOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
+    @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"    
+    @collection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with no localDisplay or metadata-only visibility", visibility: "local"    
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, otherRightsURI: @metadataDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @localObj = DamsObject.create titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @localOnlyCollection.pid, otherRightsURI: @localDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @obj = DamsObject.create titleValue: 'Test Object with no localDisplay, no metadataOnlyDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyright_attributes: [{status: 'Public domain'}]
+    solr_index @note.pid
+    solr_index @localDisplay.pid
+    solr_index @metadataDisplay.pid
+    solr_index @metadataOnlyCollection.pid
+    solr_index @localOnlyCollection.pid
+    solr_index @collection.pid       
+    solr_index @metadataOnlyObj.pid
+    solr_index @localObj.pid
+    solr_index @obj.pid
+  end
+
+  after(:all) do
+    @note.delete
+    @localDisplay.delete
+    @metadataDisplay.delete
+    @metadataOnlyCollection.delete
+    @localOnlyCollection.delete
+    @collection.delete   
+    @metadataOnlyObj.delete
+    @localObj.delete
+    @obj.delete
+  end
+
+  scenario 'should see Restricted View access control information' do
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_content('Restricted View')
+    visit dams_object_path @localObj.pid
+    expect(page).to have_content('Restricted View')
+  end
+
+  scenario 'should not see Restricted View access control information' do
+    sign_in_developer
+    visit dams_object_path @obj.pid
+    expect(page).to_not have_content('Restricted View')
+  end
+
+  scenario 'should not see Restricted View access text after login' do
+    restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the "
+    restricted_note += "#{@note.value.first.split(', ')[0]} at dlp@ucsd.edu" 
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_selector('div.restricted-notice', text: restricted_note)
+  end  
+  
+  scenario 'should see Restricted View access text' do
+    restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the "
+    restricted_note += "#{@note.value.first.split(', ')[0]} at dlp@ucsd.edu" 
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_selector('div.restricted-notice', text: restricted_note)
+  end  
+end
