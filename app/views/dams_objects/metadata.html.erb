@@ -30,11 +30,18 @@
           <div class="simple-object"></div>
         <% end %>
 <%# END RESTRICTED NOTICE %>
-
+        <% accessNotice = grab_access_text(@document) %>
+        <% unless accessNotice.nil? %>
+        <div class="restricted-notice">
+	      <div>
+	        <%= accessNotice %>
+	      </div>
+        </div>
+        <div class="simple-object"></div>
+        <% end %>
 
       </section>
     </div>
-
     <div class="row-fluid">
       <section class="dams-metadata span12">
         <%= render :partial => 'shared/fields/show' %>

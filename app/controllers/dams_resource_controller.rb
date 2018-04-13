@@ -56,6 +56,8 @@ class DamsResourceController < ApplicationController
             end
         end
         @related_collections = related_collections_map facet_collection_names
+    else
+      @metadata_only = metadata_display?(@document['otherRights_tesim'])
     end
 
     @rdfxml = @document['rdfxml_ssi']

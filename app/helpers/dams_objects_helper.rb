@@ -689,6 +689,29 @@ def display_node(index)
   end
 
   #---
+  # Check to see if an object has a "metadataDisplay or localDisplay otherRights"
+  #
+  # @return An HTML string if an object has a "metadataDisplay or localDisplay otherRights", nil otherwise
+  #---
+
+  def grab_access_text(document)
+    result = nil
+    note = 'Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Digital Library Development Program at dlp@ucsd.edu'
+    access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
+    data = document['otherRights_tesim']
+    unless data.nil? && access_group.nil?
+      if access_group.include?('local') && !data.nil?
+        data.each do |datum|
+          if datum.include?('localDisplay') || datum.include?('metadataDisplay')
+            result = "<h3>Restricted View</h3><p>#{note}</p>".html_safe
+          end
+        end
+      end
+    end
+    result
+  end
+
+  #---
   # Normalized rdf view from DAMS4 REST API
   #---
 
