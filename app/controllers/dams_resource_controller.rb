@@ -40,6 +40,11 @@ class DamsResourceController < ApplicationController
     # generate facet collection list for collection page only
     models = @document["active_fedora_model_ssi"]
     if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
+        other_rights_fquery = "(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay)"
+        collection_solr_params = { :q => "collections_tesim:#{params[:id]}", :fq => other_rights_fquery, :rows => 1 }
+        collection_response, collection_documents = get_search_results(collection_solr_params, :spellcheck => "false")
+        @metadata_only = !collection_response.response['numFound'].zero?
+
         facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
         apply_gated_discovery( facet_collection_params, nil )
         @facet_collection_resp = get_search_results( facet_collection_params )
@@ -69,8 +74,7 @@ class DamsResourceController < ApplicationController
     end
 
     # enforce access controls
-    if can? :show, @document
-
+    if can?(:show, @document) || @document['discover_access_group_ssim'].include?("public")
       # find related resources
       collectionData = @document["collection_json_tesim"]
 	  @collectionDocArray = Array.new
@@ -102,7 +106,7 @@ class DamsResourceController < ApplicationController
       end
     elsif @document['discover_access_group_ssim'].include?("public")
       respond_to do |format|
-        format.html { render :metadata }
+        format.html
         format.json { render json: @document }
         format.rdf { render xml: @rdfxml }
         format.nt { rdf_nt }

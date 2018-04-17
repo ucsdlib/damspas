@@ -33,3 +33,6 @@ Style/Next:
 
 Metrics/AbcSize:
   Max: 50
+
+Metrics/LineLength:
+  Max: 150
