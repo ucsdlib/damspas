@@ -874,16 +874,14 @@ describe "User wants to view a metadata-only view object" do
     @metadataOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
     @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"    
     @collection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with no localDisplay or metadata-only visibility", visibility: "local"    
-    @copyright = DamsCopyright.create status: 'Public domain'
-    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @metadataDisplay.pid
-    @localObj = DamsObject.create titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @localDisplay.pid
-    @obj = DamsObject.create titleValue: 'Test Object with no localDisplay, no metadataOnlyDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyrightURI: @copyright.pid
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, otherRightsURI: @metadataDisplay.pid, copyright_attributes: [{status: 'Public domain'}]
+    @localObj = DamsObject.create titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @localOnlyCollection.pid, otherRightsURI: @localDisplay.pid, copyright_attributes: [{status: 'Public domain'}]
+    @obj = DamsObject.create titleValue: 'Test Object with no localDisplay, no metadataOnlyDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyright_attributes: [{status: 'Public domain'}]
     solr_index @localDisplay.pid
     solr_index @metadataDisplay.pid
     solr_index @metadataOnlyCollection.pid
     solr_index @localOnlyCollection.pid
     solr_index @collection.pid       
-    solr_index @copyright.pid
     solr_index @metadataOnlyObj.pid
     solr_index @localObj.pid
     solr_index @obj.pid
@@ -895,7 +893,6 @@ describe "User wants to view a metadata-only view object" do
     @metadataOnlyCollection.delete
     @localOnlyCollection.delete
     @collection.delete   
-    @copyright.delete
     @metadataOnlyObj.delete
     @localObj.delete
     @obj.delete
