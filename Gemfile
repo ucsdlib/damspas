@@ -25,7 +25,7 @@ gem 'equivalent-xml', '~> 0.6.0'
 gem 'jquery-rails', '~> 4.3.1'
 gem 'rails_autolink', '~> 1.1.6'
 gem 'qa', '~> 1.1.0'
-gem 'sprockets', '~> 2.12.4'  # locked
+gem 'sprockets', '~> 3.7.1'  # locked
 gem 'rack-dev-mark', '~> 0.7.5'
 
 # Deploy with Capistrano
