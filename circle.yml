@@ -24,3 +24,7 @@ dependencies:
 database:
   override:
     - bundle exec rake db:migrate
+
+test:
+  override:
+    - bundle exec rspec --seed 1234 ./spec/features/dams_object_spec.rb
