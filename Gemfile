@@ -43,7 +43,7 @@ gem 'nokogiri', '1.8.2'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', '~> 0.12.3', :platforms => :ruby
-gem 'uglifier', '~> 3.2.0'
+gem 'uglifier', '~> 4.1.8'
 gem 'rspec-mocks', '3.6.0'
 gem 'newrelic_rpm', '4.1.0.333'
 
