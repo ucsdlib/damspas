@@ -47,7 +47,7 @@ gem 'uglifier', '~> 3.2.0'
 gem 'rspec-mocks', '3.6.0'
 gem 'newrelic_rpm', '4.1.0.333'
 
-gem 'lograge', '0.5.1'
+gem 'lograge', '0.9.0'
 gem 'logstash-event', '1.2.02'
 gem 'coveralls', '0.8.21', require: false
 gem 'rubyzip', '1.2.1'
