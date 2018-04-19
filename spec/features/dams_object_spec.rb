@@ -902,7 +902,7 @@ describe "User wants to view a metadata-only view object" do
   end
 
   scenario 'should see Restricted View access control information' do
-    sign_in_anonymous '132.239.0.3'
+    sign_in_developer
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_content('Restricted View')
     visit dams_object_path @localObj.pid
