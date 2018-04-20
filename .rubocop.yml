@@ -36,3 +36,12 @@ Metrics/AbcSize:
 
 Metrics/LineLength:
   Max: 150
+
+Rails/OutputSafety:
+  Exclude:
+    - 'app/helpers/dams_objects_helper.rb'
+
+Style/SafeNavigation:
+  Exclude:
+    - 'app/helpers/dams_objects_helper.rb'
+    - 'lib/dams/controller_helper.rb'
