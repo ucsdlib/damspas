@@ -35,7 +35,7 @@ feature 'Access control' do
     visit catalog_index_path( {:q => 'object'} )
     expect(page).to have_selector('h3', 'Public Object')
     expect(page).to have_no_content('Curator Object')
-    expect(page).to have_no_content('Local Object')
+    expect(page).to have_content('Local Object')
     expect(page).to have_no_content('Hidden Object')
   end
   scenario 'anonymous user viewing public object' do
@@ -50,8 +50,7 @@ feature 'Access control' do
   end
   scenario 'anonymous user viewing local object' do
     visit dams_object_path @localObj.pid
-    expect(page).to have_selector('h1','You are not allowed to view this page.')
-    expect(page).to have_no_content('Local Object')
+    expect(page).to have_content('Local Object')
   end
   scenario 'anonymous user viewing file attached to hidden object' do
     visit file_path( @hiddenObj, '_1.txt' )

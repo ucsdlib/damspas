@@ -882,5 +882,16 @@ module Dams
         end
       end
     end
+
+
+  def metadata_display?(data)
+    result = false
+    unless data.nil?
+      data.each do |datum|
+        result = true if datum.include?('localDisplay') || datum.include?('metadataDisplay')
+      end
+    end
+    result
+  end    
   end
 end

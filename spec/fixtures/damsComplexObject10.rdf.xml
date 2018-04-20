@@ -4,12 +4,12 @@
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129">
+  <dams:Object rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999">
     
     <dams:hasComponent>
-      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/2">
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/2">
         <dams:hasComponent>
-          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/3">
+          <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/3">
             <dams:title>
               <mads:Title>
                 <mads:authoritativeLabel>Dredge photographs</mads:authoritativeLabel>
@@ -22,7 +22,7 @@
             </dams:title>
             <dams:order>1</dams:order>
             <dams:hasComponent>
-              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4">
+              <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4">
                 <dams:title>
                   <mads:Title>
                     <mads:elementList rdf:parseType="Collection">
@@ -35,7 +35,7 @@
                 </dams:title>
                 <dams:order>1</dams:order>
                 <dams:hasFile>
-                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4/4.jpg">
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4/4.jpg">
                     <dams:preservationLevel>full</dams:preservationLevel>
                     <dams:sourceFileName>jhovetmp7957176984930577534.jpg</dams:sourceFileName>
                     <dams:sha1checksum>9c06f7600e92ba5fb05446e33b0349b8e48fe261</dams:sha1checksum>
@@ -56,7 +56,7 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:hasFile>
-                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4/7.jpg">
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4/7.jpg">
                     <dams:preservationLevel>full</dams:preservationLevel>
                     <dams:crc32checksum>38f290a4</dams:crc32checksum>
                     <dams:md5checksum>d3bbfd689ccd4ce3439a3554ef05ad45</dams:md5checksum>
@@ -77,7 +77,7 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:hasFile>
-                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4/6.jpg">
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4/6.jpg">
                     <dams:objectCategory>file</dams:objectCategory>
                     <dams:md5checksum>57f33c5c6bd2da1b42a445c4523d259e</dams:md5checksum>
                     <dams:formatName>JPEG</dams:formatName>
@@ -98,7 +98,7 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:hasFile>
-                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4/2.jpg">
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4/2.jpg">
                     <dams:dateCreated>2013-12-12T08:16:47-0800</dams:dateCreated>
                     <dams:compositionLevel>0</dams:compositionLevel>
                     <dams:mimeType>image/jpeg</dams:mimeType>
@@ -119,7 +119,7 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:hasFile>
-                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4/3.jpg">
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4/3.jpg">
                     <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
                     <dams:quality>450x300</dams:quality>
                     <dams:preservationLevel>full</dams:preservationLevel>
@@ -140,7 +140,7 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:hasFile>
-                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4/5.jpg">
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4/5.jpg">
                     <dams:crc32checksum>8c0345bd</dams:crc32checksum>
                     <dams:size>14933</dams:size>
                     <dams:sourcePath>/usr/local/tomcat/temp</dams:sourcePath>
@@ -161,7 +161,7 @@
                   </dams:File>
                 </dams:hasFile>
                 <dams:hasFile>
-                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/4/1.jpg">
+                  <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/4/1.jpg">
                     <dams:md5checksum>f376fa85ff01264a9022e7d906ce255f</dams:md5checksum>
                     <dams:crc32checksum>fcbee4fd</dams:crc32checksum>
                     <dams:sourcePath>/pub/data1/dams_staging/rci/staging/siogeocoll/PPTU_RCI_Apr2013_Bag/data/PPTU/Dredge_Photos</dams:sourcePath>
@@ -212,7 +212,14 @@
         <rdf:value>SIO001701</rdf:value>
       </dams:Note>
     </dams:note>
-    
+
+    <dams:note>
+      <dams:Note>
+        <dams:type>local attribution</dams:type>
+        <dams:displayLabel>digital object made available by</dams:displayLabel>
+        <rdf:value>Research Data Curation Program, UC San Diego, La Jolla, 92093-0175 (https://lib.ucsd.edu/rdcp)</rdf:value>
+      </dams:Note>
+    </dams:note>    
     
     <dams:note>
       <dams:Note>
@@ -231,7 +238,7 @@
       </dams:Date>
     </dams:date>
     <dams:hasComponent>
-      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx97626129/1">
+      <dams:Component rdf:about="http://library.ucsd.edu/ark:/20775/xx99999999/1">
         <dams:order>1</dams:order>
         <dams:title>
           <mads:Title>
@@ -290,10 +297,10 @@
       <mads:Title>
         <mads:elementList rdf:parseType="Collection">
           <mads:MainTitleElement>
-            <mads:elementValue>PPTU04WT-027D (dredge, rock)</mads:elementValue>
+            <mads:elementValue>Test Object with metadataOnly Display</mads:elementValue>
           </mads:MainTitleElement>
         </mads:elementList>
-        <mads:authoritativeLabel>PPTU04WT-027D (dredge, rock)</mads:authoritativeLabel>
+        <mads:authoritativeLabel>Test Object with metadataOnly Display</mads:authoritativeLabel>
       </mads:Title>
     </dams:title>
     <dams:commonName>
@@ -314,7 +321,6 @@
       </dams:Note>
     </dams:note>
    
-    <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
     <dams:copyright>
       <dams:Copyright>
         <dams:copyrightStatus>Public domain</dams:copyrightStatus>
@@ -322,10 +328,10 @@
       </dams:Copyright>
     </dams:copyright>
     <dams:otherRights rdf:resource="http://library.ucsd.edu/ark:/20775/xx58718348"/>
-    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/kk91824453"/>
+    <dams:provenanceCollection rdf:resource="http://library.ucsd.edu/ark:/20775/xx91824453"/>
 
-    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx97626129/3"/>
-    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx97626129/4"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx99999999/3"/>
+    <dams:hasComponent rdf:resource="http://library.ucsd.edu/ark:/20775/xx99999999/4"/>
 
   </dams:Object>
 </rdf:RDF>

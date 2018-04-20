@@ -703,6 +703,46 @@ describe "audio complex object view" do
   end
 end
 
+describe "User wants to view a metadata-only complex object" do
+  let(:restricted_note) {'Restricted View Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Research Data Curation Program, UC San Diego, La Jolla, 92093-0175 (https://lib.ucsd.edu/rdcp)'}
+  before do
+    @otherRight = DamsOtherRight.create pid: 'xx58718348', permissionType: "metadataDisplay"
+    @metadataOnlyCollection = DamsProvenanceCollection.create pid: 'xx91824453', titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
+    @metadataOnlyObj = DamsObject.create(pid: "xx99999999")
+    @metadataOnlyObj.damsMetadata.content = File.new('spec/fixtures/damsComplexObject10.rdf.xml').read
+    @metadataOnlyObj.save!
+    solr_index @otherRight.pid
+    solr_index @metadataOnlyCollection.pid
+    solr_index @metadataOnlyObj.pid
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver  
+    sign_in_developer
+  end
+
+  after do
+    @otherRight.delete
+    @metadataOnlyCollection.delete
+    @metadataOnlyObj.delete
+  end
+
+  scenario 'should see Restricted View access control information' do
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 4')
+    expect(page).to have_content('Interval 1 (dredge, rock)')
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
+    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
+  end
+
+  scenario 'should see Restricted View access control info in other component when clicking on navigation arrow' do 
+    visit dams_object_path @metadataOnlyObj.pid
+    click_button 'component-pager-forward'
+    find('#component-pager-label').should have_content('Component 2 of 4')
+    expect(page).to have_content('Files')
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
+    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
+  end
+end
+
 describe "curator embargoed object view" do
   before do
     @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
