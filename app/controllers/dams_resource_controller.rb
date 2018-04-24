@@ -59,7 +59,7 @@ class DamsResourceController < ApplicationController
     else
       @metadata_only = metadata_display?(@document['otherRights_tesim'])
     end
-
+puts "Debug .......  @metadata_only #{@metadata_only} - #{@document['otherRights_tesim']}"
     @rdfxml = @document['rdfxml_ssi']
     if @rdfxml == nil
       @rdfxml = "<rdf:RDF xmlns:dams='http://library.ucsd.edu/ontology/dams#'
