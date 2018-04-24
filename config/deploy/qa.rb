@@ -1,5 +1,5 @@
 set :stage, :qa
-set :branch, 'develop'
+set :branch, 'feature/metadata_only_object'
 server 'lib-hydrahead-qa.ucsd.edu', user: 'conan', roles: %w{web app db sitemap_noping}
 server 'lib-hydratail-qa.ucsd.edu', user: 'conan', roles: %w{web app db sitemap_noping}
 set :rails_env, "qa"
