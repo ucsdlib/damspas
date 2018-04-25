@@ -299,6 +299,12 @@ $(document).ready(function()
         $(".simple-object, .first-component, .dams-sidebar").hide();
     }
 
+    // Hide content if "restricted view notice" present
+    if($(".restricted-notice-complex").length)
+    {
+        $(".simple-object").hide();
+    }
+    
     // Show hidden "restricted notice" objects
     $("#view-masked-object").click(function() {        
         $('.restricted-notice').hide();
