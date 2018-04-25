@@ -18,6 +18,13 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 
+  tomcat:
+    build:
+      context: .
+      dockerfile: Dockerfile-tomcat
+    ports:
+      - "8080:8080"
+
 
 volumes:
   db-data:

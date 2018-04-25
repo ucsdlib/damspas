@@ -1,5 +1,8 @@
 FROM ruby:2.3.7
 
+# Maintainer
+MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
+
 RUN apt-get update -yqq
 RUN apt-get install -yqq --no-install-recommends nodejs
 

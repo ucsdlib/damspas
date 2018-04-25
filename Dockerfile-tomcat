@@ -1,0 +1,18 @@
+# Pull base image
+From tomcat:7
+
+# Maintainer
+MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
+
+# Install solr
+COPY docker/files/solr /usr/local/tomcat/solr/
+ADD docker/files/solr.war /usr/local/tomcat/webapps/
+
+# TODO: install damsrepo
+# Clone damsrepo
+# Setup tomcat rolenames in /etc/tomcat7/tomcat-users.xml
+# Setup tomcat usernames in /etc/tomcat7/tomcat-users.xml
+#
+
+# TODO - build/install
+# ADD damsrepo.war /usr/local/tomcat/webapps/
