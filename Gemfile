@@ -15,7 +15,9 @@ gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
 gem 'sitemap_generator', '~> 5.3.1'
 
-gem 'sqlite3', '~> 1.3.13'
+# gem 'sqlite3', '~> 1.3.13'
+gem 'pg', '~> 0.18.2'
+gem 'activerecord-postgresql-adapter'
 
 gem 'devise', '~> 3.5.5'
 gem 'omniauth', '~> 1.7.1' # 1.2.2 breaks test sign_in
@@ -34,7 +36,6 @@ gem 'capistrano-rails', '~> 1.2.3'
 gem 'capistrano-rbenv', '~> 2.1.1'
 gem 'capistrano-bundler', '~> 1.2.0'
 
-gem "unicode", '0.4.4.3', :platforms => [:mri_18, :mri_19]
 gem "i18n", '~> 0.8.1'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
 gem "bower-rails", "~> 0.11.0"
@@ -71,6 +72,5 @@ group :development, :test do
 end
 
 group :staging do
-  gem 'activerecord-postgresql-adapter'
   gem 'rake', '~> 12.0.0'
 end
