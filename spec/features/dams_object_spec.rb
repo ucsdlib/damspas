@@ -869,7 +869,7 @@ describe "Cartographic Record" do
   end
 end
 
-describe "User wants to view a metadata-only view object" do
+describe "User wants to view a metadata-only view object " do
   before(:all) do
     ns = Rails.configuration.id_namespace
     @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
