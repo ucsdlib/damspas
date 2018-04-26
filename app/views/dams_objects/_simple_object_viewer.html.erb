@@ -8,6 +8,16 @@
 	    </div>
     </div>
   <% end %>
+<% if !can? :update, @document then %>
+  <% accessNotice = grab_access_text(@document) %>
+  <% unless accessNotice.nil? %>
+    <div class="restricted-notice">
+	    <div>
+	      <%= accessNotice %>
+	    </div>
+    </div>
+  <% end %>
+<% end %>  
   <%
 	
 	display_file_path = to_stats_path display_file_path
