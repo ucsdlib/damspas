@@ -7,7 +7,6 @@
 
    dataForDynamicLoad = "{\"file_type\":\"audio\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}"
 %>
-<%= render :partial => 'restricted_access', :locals => {:access_notice => access_notice } %>
 
 <% if access_notice.nil? && wowzaURL != nil %>
 

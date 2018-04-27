@@ -6,7 +6,6 @@
    wowzaURL = grabWowzaURL(fieldData,objid,cmpid)
    dataForDynamicLoad = "{\"file_type\":\"video\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}"
 %>
-<%= render :partial => 'restricted_access', :locals => {:access_notice => access_notice } %>
 
 <% if access_notice.nil? && wowzaURL != nil %>
   <video controls="controls" id="dams-video-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</video>

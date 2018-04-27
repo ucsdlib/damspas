@@ -1,4 +1,3 @@
-<%= render :partial => 'restricted_access', :locals => {:access_notice => access_notice } %>
 <% if access_notice.nil? and defined?(filePath) and defined?(displayFilePath)%>
 
   <% viewFilePath = filePath.gsub('/download', '') %>

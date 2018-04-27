@@ -1,7 +1,9 @@
-<% unless access_notice.nil? %>
-  <div class="restricted-notice-complex">
-    <div>
-      <%= access_notice %>
+<% if cannot? :update, @document then %>
+  <% unless access_notice.nil? %>
+    <div class="restricted-notice-complex">
+      <div>
+        <%= access_notice %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>

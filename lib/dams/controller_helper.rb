@@ -885,10 +885,9 @@ module Dams
 
   def metadata_display?(data)
     result = false
-    unless data.nil?
-      data.each do |datum|
-        result = true if datum.include?('localDisplay') || datum.include?('metadataDisplay')
-      end
+    return result unless data
+    data.each do |datum|
+      result = true if datum.include?('localDisplay') || datum.include?('metadataDisplay')
     end
     result
   end

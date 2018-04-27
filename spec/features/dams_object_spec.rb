@@ -685,6 +685,7 @@ describe "audio complex object view" do
     @audioComplexObj.add_file( 'dummy audio content 2', '_2_1.wav', 'test2.wav' )
     @audioComplexObj.add_file( 'dummy audio content 3', '_3_1.mp3', 'test3.wav' )
     @audioComplexObj.save!
+    solr_index (@unit.pid)
     solr_index (@audioComplexObj.pid)
   end
   after(:all) do
@@ -704,8 +705,8 @@ describe "audio complex object view" do
 end
 
 describe "User wants to view a metadata-only complex object" do
-  let(:restricted_note) {'Restricted View Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Research Data Curation Program, UC San Diego, La Jolla, 92093-0175 (https://lib.ucsd.edu/rdcp)'}
-  before do
+  let(:restricted_note) {'Restricted View Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Research Data Curation Program at research-data-curation@ucsd.edu'}
+  before(:all) do
     @otherRight = DamsOtherRight.create pid: 'xx58718348', permissionType: "metadataDisplay"
     @metadataOnlyCollection = DamsProvenanceCollection.create pid: 'xx91824453', titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
     @metadataOnlyObj = DamsObject.create(pid: "xx99999999")
@@ -716,24 +717,25 @@ describe "User wants to view a metadata-only complex object" do
     solr_index @metadataOnlyObj.pid
     Capybara.javascript_driver = :poltergeist
     Capybara.current_driver = Capybara.javascript_driver  
-    sign_in_developer
   end
 
-  after do
+  after(:all) do
     @otherRight.delete
     @metadataOnlyCollection.delete
     @metadataOnlyObj.delete
   end
 
-  scenario 'should see Restricted View access control information' do
+  scenario 'local user should see Restricted View access control info and access text' do
+    sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 4')
     expect(page).to have_content('Interval 1 (dredge, rock)')
-    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
     expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
   end
 
-  scenario 'should see Restricted View access control info in other component when clicking on navigation arrow' do 
+  scenario 'local user should see Restricted View access control info in other component when clicking on navigation arrow' do
+    sign_in_anonymous '132.239.0.3' 
     visit dams_object_path @metadataOnlyObj.pid
     click_button 'component-pager-forward'
     find('#component-pager-label').should have_content('Component 2 of 4')
@@ -741,6 +743,12 @@ describe "User wants to view a metadata-only complex object" do
     expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
     expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
   end
+  
+  scenario 'curator user should not see Restricted View access text' do
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_selector('div.restricted-notice-complex', text: restricted_note)
+  end 
 end
 
 describe "curator embargoed object view" do
