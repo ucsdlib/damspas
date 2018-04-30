@@ -1,7 +1,7 @@
 # This is a sample config file that does not have multiple solr instances. You will also need to be sure to
 # edit the fedora.yml file to match the solr URL for active-fedora. 
 development:
-  url: <%= ENV.fetch('APPS_DHH_DEV_SOLR_URL') {'http://localhost:8080/solr/blacklight'}%>
+  url: <%= ENV.fetch('APPS_DHH_DEV_SOLR_URL') {'http://tomcat:8080/solr/blacklight'}%>
 demo:
   url: <%= ENV.fetch('APPS_DHH_DEMO_SOLR_URL') {'http://localhost:8080/solr/blacklight'}%>
 pontos:

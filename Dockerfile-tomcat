@@ -12,7 +12,7 @@ RUN mv /tmp/damsrepo/dist/dams.war /pub/dams/
 RUN mv /tmp/damsrepo/src/properties/jhove.conf /pub/dams/
 RUN mv /tmp/damsrepo/src/lib2/postgresql-9.2-1002.jdbc4.jar /pub/dams/
 
-FROM tomcat:7
+FROM tomcat:7-jre8
 MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
 
 # setup config and other required files

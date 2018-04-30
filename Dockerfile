@@ -29,10 +29,6 @@ RUN echo "phantomjs binary is located at `which phantomjs`" \
 COPY Gemfile* /usr/src/app/
 WORKDIR /usr/src/app
 RUN bundle install
-RUN bundle exec rake db:create
-RUN bundle exec rake db:migrate
-RUN bundle install
-
 COPY . /usr/src/app/
 
 CMD ["rails", "s", "-b", "0.0.0.0"]

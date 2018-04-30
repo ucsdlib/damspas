@@ -26,6 +26,8 @@ services:
       dockerfile: Dockerfile-tomcat
     ports:
       - "8080:8080"
+    depends_on:
+      - database
     env_file:
       - docker/.env.dev.tomcat
 

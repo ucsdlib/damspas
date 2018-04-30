@@ -1,8 +1,8 @@
 development:
   user: <%= ENV.fetch('APPS_DHH_DEV_FEDORA_USER') {'dams'}%>
   password: <%= ENV.fetch('APPS_DHH_DEV_FEDORA_PASS') {'dams'}%>  
-  url: <%= ENV.fetch('APPS_DHH_DEV_FEDORA_URL') {'http://localhost:8080/dams/fedora'}%>  
-  proxy: <%= ENV.fetch('APPS_DHH_DEV_FEDORA_PROXY') {'http://localhost:8080'}%>
+  url: <%= ENV.fetch('APPS_DHH_DEV_FEDORA_URL') {'http://tomcat:8080/dams/fedora'}%>  
+  proxy: <%= ENV.fetch('APPS_DHH_DEV_FEDORA_PROXY') {'http://tomcat:8080'}%>
 demo:
   user: <%= ENV.fetch('APPS_DHH_DEMO_FEDORA_USER') {'dams'}%>
   password: <%= ENV.fetch('APPS_DHH_DEMO_FEDORA_PASS') {'dams'}%>  
