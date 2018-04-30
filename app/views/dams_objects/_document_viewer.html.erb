@@ -1,4 +1,4 @@
-<% if defined?(filePath) and defined?(displayFilePath)%>
+<% if access_notice.nil? and defined?(filePath) and defined?(displayFilePath)%>
 
   <% viewFilePath = filePath.gsub('/download', '') %>
   

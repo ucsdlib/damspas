@@ -103,7 +103,7 @@ $complexFile: #AC6F2B !default;
 .file-thumbnail img{margin-bottom: 20px;}
 
 // Masked Objects (Restricted, Sensitive, etc.)
-.restricted-notice
+.restricted-notice, .restricted-notice-complex
 {
   background:#b1b1b1 url(https://library.ucsd.edu/assets/dams/site/restricted.png) no-repeat center center;
   background-size:150%,150%;
