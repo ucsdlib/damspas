@@ -1,4 +1,4 @@
-<% if defined?(filePath) and defined?(displayFilePath)%>
+<% if defined?(filePath) and defined?(displayFilePath) and can? :update, @document%>
 
   <% viewFilePath = filePath.gsub('/download', '') %>
   
