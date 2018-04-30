@@ -500,6 +500,32 @@ feature 'Visitor wants to view icons for the objects in the search result page' 
   end
 end
 
+feature 'Visitor wants to view object of metadata data-only visibility collection in the search result page' do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
+    @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
+    @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"    
+    @localObj = DamsObject.create pid: 'xx909090zz', titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @localOnlyCollection.pid, otherRightsURI: @localDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    solr_index @note.pid
+    solr_index @localDisplay.pid
+    solr_index @localOnlyCollection.pid
+    solr_index @localObj.pid
+  end
+  after(:all) do
+    @note.delete
+    @localDisplay.delete
+    @localOnlyCollection.delete
+    @localObj.delete
+  end
+  scenario 'rendering the grey generic thumbnail and restricted access info' do
+    sign_in_developer
+    visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+end
+
 feature 'Visitor wants to view contact form' do
   scenario 'rendering the contact form' do
     sign_in_developer
