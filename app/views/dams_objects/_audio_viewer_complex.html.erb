@@ -8,10 +8,10 @@
    dataForDynamicLoad = "{\"file_type\":\"audio\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}"
 %>
 
-<% if wowzaURL != nil and can? :update, @document%>
+<% if access_notice.nil? && wowzaURL != nil %>
 
   <div id="dams-audio-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</div>
 
 <% end %>
 
-<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath  } if can? :update, @document%>
+<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath  } if access_notice.nil?%>

@@ -7,7 +7,7 @@
    dataForDynamicLoad = "{\"file_type\":\"video\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}"
 %>
 
-<% if wowzaURL != nil and can? :update, @document %>
+<% if access_notice.nil? && wowzaURL != nil %>
   <video controls="controls" id="dams-video-<%=componentIndex%>" data='<%=dataForDynamicLoad%>'>Loading the player...</video>
 <% end %>
-<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath  } if can? :update, @document%>
+<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath  } if access_notice.nil?%>
