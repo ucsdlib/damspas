@@ -1,5 +1,6 @@
 module CatalogHelper
   include Blacklight::CatalogHelperBehavior
+  include Dams::ControllerHelper
 
   # link_to_document(doc, :label=>'VIEW', :counter => 3)
   # Use the catalog_path RESTful route to create a link to the show page for a specific item.
@@ -93,12 +94,13 @@ module CatalogHelper
 
   def display_access_control_level(document, metadata_colls)
     access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
+    other_rights = document['otherRights_tesim']
     view_access = 'Curator Only'
     if access_group
 
       if access_group.include?('public')
         view_access = nil
-      elsif access_group.include?('local') && metadata_colls.include?(document['id'])
+      elsif access_group.include?('local') && (metadata_colls.include?(document['id']) || metadata_display?(other_rights))
         view_access = 'Restricted View'
       elsif access_group.include?('local')
         view_access = 'Restricted to UC San Diego use only'
