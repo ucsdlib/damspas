@@ -15,6 +15,7 @@
     </div>
   </div>
 <% end %>
+<% access_notice = grab_access_text(@document) if cannot? :update, @document %>
 
 <section id="le-component">
 
@@ -54,48 +55,44 @@
 
             isFirstComponent = (i == 1) ? true : false
         %>
-
 		<div id="component-<%= i %>" class="component <%= firstComponent if isFirstComponent %>" <%= loadFirstComponent if isFirstComponent %>>
 
 			<%= render :partial => 'shared/fields/title', :locals => {:componentIndex => i} %>
-
+			<%= render :partial => 'restricted_access', :locals => {:access_notice => access_notice } %>
 			<% if fileType == 'image' %>
-
+                            <% if access_notice.nil? %>
 				<% zoom_file_path = zoom_path(ark, "#{i}") %>
 				<% dataForDynamicLoad = "{\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\",\"download_file_path\":\"#{download_file_path}\"}" %>
 
 				<div data='<%=dataForDynamicLoad%>'></div>
+                            <% end %>
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
-		    <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
+		    <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } if access_notice.nil?%>
 
 		  <% elsif fileType == 'audio' %>
-
-		    <%= render :partial => 'audio_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => nil  } %>
+		    <%= render :partial => 'audio_viewer_complex', :locals => {:access_notice => access_notice, :componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => nil  } %>
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
 
 		  <% elsif fileType == 'video' %>
 
-		    <%= render :partial => 'video_viewer_complex', :locals => {:componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
+		    <%= render :partial => 'video_viewer_complex', :locals => {:access_notice => access_notice, :componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
 
 		  <% elsif fileType == 'document' %>
 
-		    <%= render :partial => 'document_viewer', :locals => {:filePath => service_file_path, :displayFilePath => display_file_path, :downloadDerivativePath => service_file_path  } %>
+		    <%= render :partial => 'document_viewer', :locals => {:access_notice => access_notice, :filePath => service_file_path, :displayFilePath => display_file_path, :downloadDerivativePath => service_file_path  } %>
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-		    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path, :sourcefilePath => source_file_path  } %>
+		    <%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path, :sourcefilePath => source_file_path  } if access_notice.nil?%>
 
 			<% elsif fileType == 'data' %>
-
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-				<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path, :sourcefilePath => source_file_path  } %>
+				<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path, :sourcefilePath => source_file_path  } if access_notice.nil?%>
 	        <% elsif fileType == 'text' %>
 		      <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-			  <%= render :partial => 'text_viewer', :locals => {:objectType => 'complex', :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } %>
+			  <%= render :partial => 'text_viewer', :locals => {:objectType => 'complex', :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } if access_notice.nil?%>
 			<% else %>
-
 				<%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
-				<%= render :partial => 'default_viewer', :locals => {:objectType => 'complex'} %>
-
+				<%= render :partial => 'default_viewer', :locals => {:objectType => 'complex'} %>				
 			<% end %>
 
 		</div>
@@ -104,4 +101,4 @@
 
 	<% end %>
 
-</section>
+</section> 

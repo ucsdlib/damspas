@@ -1,0 +1,9 @@
+<% if cannot? :update, @document then %>
+  <% if access_notice %>
+    <div class="restricted-notice-complex">
+      <div>
+        <%= access_notice %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
