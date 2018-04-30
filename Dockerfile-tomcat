@@ -29,5 +29,5 @@ RUN mkdir -p /pub/dams/xsl
 COPY docker/files/damsrepo/xsl /pub/dams/xsl/
 COPY docker/files/damsrepo/dams.properties /pub/dams/dams.properties
 COPY --from=damsrepo-builder /pub/dams/jhove.conf /pub/dams/jhove.conf
-COPY --from=damsrepo-builder /pub/dams/postgresql-9.2-1002.jdbc4.jar /pub/dams/xsl/postgresql-9.2-1002.jdbc4.jar
+COPY --from=damsrepo-builder /pub/dams/postgresql-9.2-1002.jdbc4.jar /usr/local/tomcat/lib/postgresql-9.2-1002.jdbc4.jar
 COPY --from=damsrepo-builder /pub/dams/dams.war /usr/local/tomcat/webapps/

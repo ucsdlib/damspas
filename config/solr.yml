@@ -13,7 +13,7 @@ staging:
 qa:
   url: <%= ENV.fetch('APPS_DHH_QA_SOLR_URL') {'http://localhost:8080/solr/blacklight'}%>
 test: &TEST
-  url: <%= ENV.fetch('APPS_DHH_TEST_SOLR_URL') {'http://localhost:8080/solr/blacklight'}%>
+  url: <%= ENV.fetch('APPS_DHH_DEV_SOLR_URL') {'http://tomcat:8080/solr/blacklight'}%>
 cucumber:
   <<: *TEST
 production:

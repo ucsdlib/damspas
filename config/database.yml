@@ -57,6 +57,7 @@ demo:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  database: damspas_test
 
 production:
   <<: *default
