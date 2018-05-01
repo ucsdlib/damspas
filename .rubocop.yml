@@ -11,8 +11,7 @@ AllCops:
     - 'doc/**/*'
     - 'spec/**/*'
     - 'test/**/*'
-    - 'app/helpers/application_helper.rb'
-    - 'app/helpers/dams_objects_helper.rb'
+    - 'app/helpers/**/*'
 
 Rails:
     Enabled: true
