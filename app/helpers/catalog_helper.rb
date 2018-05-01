@@ -139,7 +139,19 @@ module CatalogHelper
     
     image_tag( url, :alt => "", :class => 'dams-search-thumbnail')
   end
-    
+
+  def object_thumbnail_url(document)
+    access = grab_access_text(document)
+    restricted = grabRestrictedText(document['otherNote_json_tesim'])
+    return nil unless access || restricted || (has_thumbnail?(document) && thumbnail_url(document, nil))
+    if access || restricted
+      url = 'https://library.ucsd.edu/assets/dams/site/thumb-restricted.png'
+      image_tag(url, alt: '', class: 'dams-search-thumbnail')
+    else
+      thumbnail_url(document, nil)
+    end
+  end
+
   def document_icon( document )
     # generic default icon
     resultClass = 'thumb-simple'
