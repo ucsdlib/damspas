@@ -1,5 +1,5 @@
 set :stage, :pontos
-set :branch, 'develop'
+set :branch, (ENV['BRANCH'] || fetch(:branch, 'master'))
 server 'pontos.ucsd.edu', user: 'conan', roles: %w{app db}
 set :rails_env, "pontos"
 if ENV["CAP_SSHKEY_PONTOS"]
