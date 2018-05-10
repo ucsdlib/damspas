@@ -1,5 +1,5 @@
 set :stage, :gimili
-set :branch, 'develop'
+set :branch, (ENV['BRANCH'] || fetch(:branch, 'master'))
 server 'gimili.ucsd.edu', user: 'conan', roles: %w{app db sitemap_noping}
 set :rails_env, "gimili"
 if ENV["CAP_SSHKEY_GIMILI"]
