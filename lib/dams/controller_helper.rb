@@ -1,7 +1,7 @@
 module Dams
   module ControllerHelper
-    
-    #Mapping for OSF API
+
+#Mapping for OSF API
 		def osf_title(document)
 			  field_name = "title_json_tesim"
 		    dams_data= document["#{field_name}"]
@@ -44,6 +44,73 @@ module Dams
 		  osf_data = (osf_data.blank?) ? osf_data << {"name": "UC San Diego Library"} : osf_data
 		end
 
+		def osf_related_agents(document)
+			field_name = "relationship_json_tesim"
+			dams_data = document["#{field_name}"]
+			osf_data =[]
+
+			if dams_data != nil
+		    dams_data.each do |datum|
+		    	
+		      relationships = JSON.parse(datum)
+		    	relationships.each do |key, value|
+		    		value.each do |v|
+		   				osf_data << {agent_type: agent_type(key), type: "Person", "name": v}
+		   			end
+		   		end
+		    end
+		  end
+		  
+		  osf_data << {agent_type: "Publisher", type: "Organization", "name": "UC San Diego Library Digital Collections"}
+		end
+
+		def agent_type(type)
+			type = "principalinvestigator" if type == "principal investigator" || type == "Principal Investigator"
+
+			share_agent_type = [
+				"AGENTWORKRELATION",
+				"AgentWorkRelation",
+				"CONTRIBUTOR",
+        "CREATOR",
+        "Contributor",
+        "Creator",
+        "FUNDER",
+        "Funder",
+        "HOST",
+        "Host",
+        "PRINCIPALINVESTIGATOR",
+        "PRINCIPALINVESTIGATORCONTACT",
+        "PUBLISHER",
+        "PrincipalInvestigator",
+        "PrincipalInvestigatorContact",
+        "Publisher",
+        "agentworkrelation",
+        "contributor",
+        "creator",
+        "funder",
+        "host",
+        "principalinvestigator",
+        "principalinvestigatorcontact",
+        "publisher"
+       ]
+
+       type = (share_agent_type.include? type) ? type : "Contributor"
+		end
+
+		def osf_extra(document)
+			field_name = "otherNote_json_tesim"
+			dams_data = document["#{field_name}"]
+			osf_data = {}
+
+			if dams_data != nil
+		    dams_data.each do |datum|
+		      other_note = JSON.parse(datum)
+		      osf_data = { funding: other_note['value'] } if other_note['type'] == 'funding'
+		    end
+		  end
+		  osf_data
+		end 
+
 		def osf_description(document)
 			field_name = "otherNote_json_tesim"
 			dams_data = document["#{field_name}"]
@@ -58,19 +125,7 @@ module Dams
 		  osf_data
 		end 
 
-		def osf_uris(document)
-			field_name = "id"
-			dams_data = document["#{field_name}"]
-			osf_data = {}
-
-			if dams_data != nil
-				url = "http://library.ucsd.edu/dc/collection/#{dams_data}"
-		    osf_data = {"canonicalUri": url, "providerUris": url}
-		  end
-		  osf_data
-		end
-
-		def osf_date(document)
+		def osf_date_published(document)
 			field_name = "date_json_tesim"
 			dams_data = document["#{field_name}"]
 			osf_data = ''
@@ -133,24 +188,20 @@ module Dams
 		  end
 		  osf_data
 		end
-
-		def osf_publisher
-			osf_data = {"name": "UC San Diego Library, Digital Collections", "uri": "http://library.ucsd.edu/dc"}
-		end
-
+		
 		def export_to_API(document)
 		  field_map = {
 		    'title': osf_title(document),
 		    'description': osf_description(document),
-		    'contributor': osf_contributors(document),
-		    'uris': osf_uris(document),
+		    'related_agents': osf_related_agents(document),
 		    'languages': osf_languages(document),
-		    'providerUpdatedDateTime': osf_date(document),
+		    'date_published': osf_date_published(document),
 		    'tags': osf_mads_fields(document),
-		    'publisher': osf_publisher
+		    'ertra': osf_extra(document)
 		  }
 		  json_data = {"jsonData": field_map}
-		end
+		end    
+    
 
 # Retrieve label from solr index instead of external record from repo
  def get_linked_object_label(id)
