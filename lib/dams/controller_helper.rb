@@ -109,10 +109,10 @@ module Dams
 		    end
 		  end
 		  osf_data
-		end 
+		end
 
 		def osf_description(document)
-			field_name = "otherNote_json_tesim"
+		  field_name = "otherNote_json_tesim"
 			dams_data = document["#{field_name}"]
 			osf_data = ''
 
@@ -200,10 +200,9 @@ module Dams
 		    'ertra': osf_extra(document)
 		  }
 		  json_data = {"jsonData": field_map}
-		end    
-    
+		end
 
-# Retrieve label from solr index instead of external record from repo
+		# Retrieve label from solr index instead of external record from repo
  def get_linked_object_label(id)
 	  	@doc = get_search_results(:q => "id:#{id}")
 	  	field = "name_tesim";
