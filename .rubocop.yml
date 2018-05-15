@@ -32,6 +32,10 @@ Style/Documentation:
 Style/ConditionalAssignment:
   Exclude:
     - 'app/helpers/*'
+
+Layout/Tab:
+  Exclude:
+    - 'app/lib/dams/controller_helper.rb'
     
 Style/Next:
   Enabled: true
