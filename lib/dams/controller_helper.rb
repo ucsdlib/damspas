@@ -1,7 +1,7 @@
 module Dams
   module ControllerHelper
-
-#Mapping for OSF API
+    
+    #Mapping for OSF API
 		def osf_title(document)
 			  field_name = "title_json_tesim"
 		    dams_data= document["#{field_name}"]
@@ -60,7 +60,6 @@ module Dams
 		   		end
 		    end
 		  end
-		  
 		  osf_data << {agent_type: "Publisher", type: "Organization", "name": "UC San Diego Library Digital Collections"}
 		end
 
@@ -100,30 +99,42 @@ module Dams
 		def osf_extra(document)
 			field_name = "otherNote_json_tesim"
 			dams_data = document["#{field_name}"]
-      osf_data = {}
+			osf_data = {}
 
 			if dams_data != nil
 		    dams_data.each do |datum|
 		      other_note = JSON.parse(datum)
-          osf_data = { funding: other_note['value'] } if other_note['type'] == 'funding'
-        end
+		      osf_data = { funding: other_note['value'] } if other_note['type'] == 'funding'
+		    end
 		  end
 		  osf_data
-    end
+		end
 
-    def osf_description(document)
-      field_name = "otherNote_json_tesim"
-		  dams_data = document["#{field_name}"]
-    	osf_data = ''
+		def osf_description(document)
+			field_name = "otherNote_json_tesim"
+			dams_data = document["#{field_name}"]
+			osf_data = ''
 
 			if dams_data != nil
-        dams_data.each do |datum|
+		    dams_data.each do |datum|
 		      other_note = JSON.parse(datum)
 		      osf_data = other_note['value'] if other_note['type'] == 'description'
-        end
+		    end
 		  end
 		  osf_data
 		end 
+
+		def osf_uris(document)
+			field_name = "id"
+			dams_data = document["#{field_name}"]
+			osf_data = {}
+
+			if dams_data != nil
+				url = "http://library.ucsd.edu/dc/collection/#{dams_data}"
+		    osf_data = {"canonicalUri": url, "providerUris": url}
+		  end
+		  osf_data
+		end
 
 		def osf_date_published(document)
 			field_name = "date_json_tesim"
@@ -188,7 +199,7 @@ module Dams
 		  end
 		  osf_data
 		end
-		
+
 		def export_to_API(document)
 		  field_map = {
 		    'title': osf_title(document),
@@ -202,7 +213,7 @@ module Dams
 		  json_data = {"jsonData": field_map}
 		end
 
- # Retrieve label from solr index instead of external record from repo
+# Retrieve label from solr index instead of external record from repo
  def get_linked_object_label(id)
 	  	@doc = get_search_results(:q => "id:#{id}")
 	  	field = "name_tesim";
