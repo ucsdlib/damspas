@@ -45,3 +45,6 @@ Style/SafeNavigation:
   Exclude:
     - 'lib/dams/controller_helper.rb'
 
+Layout/Tab:
+  Enabled: false
+

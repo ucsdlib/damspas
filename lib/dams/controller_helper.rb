@@ -96,7 +96,7 @@ module Dams
 		end
 
 		def osf_extra(document)
-			field_name = 'otherNote_json_tesim'
+      field_name = 'otherNote_json_tesim'
 			dams_data = document["#{field_name}"]
 			osf_data = {}
 
