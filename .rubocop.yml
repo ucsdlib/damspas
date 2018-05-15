@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 require: rubocop-rspec
 
 AllCops:
@@ -12,7 +14,6 @@ AllCops:
     - 'spec/**/*'
     - 'test/**/*'
     - 'app/helpers/**/*'
-    - 'app/lib/dams/controller_helper.rb'
 
 Rails:
     Enabled: true
@@ -32,10 +33,6 @@ Style/Documentation:
 Style/ConditionalAssignment:
   Exclude:
     - 'app/helpers/*'
-
-Layout/Tab:
-  Exclude:
-    - 'app/lib/dams/controller_helper.rb'
     
 Style/Next:
   Enabled: true
