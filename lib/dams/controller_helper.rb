@@ -100,27 +100,27 @@ module Dams
 		def osf_extra(document)
 			field_name = "otherNote_json_tesim"
 			dams_data = document["#{field_name}"]
-			osf_data = {}
+      osf_data = {}
 
 			if dams_data != nil
 		    dams_data.each do |datum|
 		      other_note = JSON.parse(datum)
-		      osf_data = { funding: other_note['value'] } if other_note['type'] == 'funding'
-		    end
+          osf_data = { funding: other_note['value'] } if other_note['type'] == 'funding'
+        end
 		  end
 		  osf_data
-		end
+    end
 
-		def osf_description(document)
-			field_name = "otherNote_json_tesim"
-			dams_data = document["#{field_name}"]
-      osf_data = ''
+    def osf_description(document)
+      field_name = "otherNote_json_tesim"
+		  dams_data = document["#{field_name}"]
+    	osf_data = ''
 
 			if dams_data != nil
-				dams_data.each do |datum|
+        dams_data.each do |datum|
 		      other_note = JSON.parse(datum)
 		      osf_data = other_note['value'] if other_note['type'] == 'description'
-		    end
+        end
 		  end
 		  osf_data
 		end 
