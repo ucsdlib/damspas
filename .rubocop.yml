@@ -12,6 +12,7 @@ AllCops:
     - 'spec/**/*'
     - 'test/**/*'
     - 'app/helpers/**/*'
+    - 'app/lib/dams/controller_helper.rb'
 
 Rails:
     Enabled: true
@@ -40,11 +41,3 @@ Metrics/AbcSize:
 
 Metrics/LineLength:
   Max: 150
-
-Style/SafeNavigation:
-  Exclude:
-    - 'lib/dams/controller_helper.rb'
-
-Layout/Tab:
-  Enabled: false
-
