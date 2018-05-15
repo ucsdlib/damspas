@@ -92,12 +92,11 @@ module Dams
         "principalinvestigatorcontact",
         "publisher"
        ]
-
-       type = (share_agent_type.include? type) ? type : "Contributor"
+      type = (share_agent_type.include? type) ? type : "Contributor"
 		end
 
 		def osf_extra(document)
-			field_name = "otherNote_json_tesim"
+			field_name = 'otherNote_json_tesim'
 			dams_data = document["#{field_name}"]
 			osf_data = {}
 
@@ -208,7 +207,7 @@ module Dams
 		    'languages': osf_languages(document),
 		    'date_published': osf_date_published(document),
 		    'tags': osf_mads_fields(document),
-		    'ertra': osf_extra(document)
+		    'extra': osf_extra(document)
 		  }
 		  json_data = {"jsonData": field_map}
 		end
