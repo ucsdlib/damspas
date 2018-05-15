@@ -280,13 +280,14 @@ feature "Vistor wants to view the OSF API output" do
       sign_in_developer
       visit osf_api_dams_collection_path @provCollection1.pid
       expect(page).to have_content('"Test Title"')
-      expect(page).to have_content('{"name":"test contributor"}')
-      expect(page).to have_content('{"name":"test contributor2"}')
-      expect(page).to have_content('{"name":"test contributor3"}')
-      expect(page).to have_content('{"name":"Test Creator"}')
-      expect(page).to have_content('{"name":"test principal investigator"}')
-      expect(page).to have_content('{"name":"test author"}')
-      expect(page).to have_content("http://library.ucsd.edu/dc/collection/uu8056206n")
+      expect(page).to have_content('"description":"Test Description Note"')
+      expect(page).to have_content('"related_agents"')
+      expect(page).to have_content('{"agent_type":"contributor","type":"Person","name":"test contributor"}')
+      expect(page).to have_content('{"agent_type":"contributor","type":"Person","name":"test contributor2"}')
+      expect(page).to have_content('{"agent_type":"contributor","type":"Person","name":"test contributor3"}')
+      expect(page).to have_content('{"agent_type":"creator","type":"Person","name":"Test Creator"}')
+      expect(page).to have_content('{"agent_type":"Contributor","type":"Person","name":"test author"}')
+      expect(page).to have_content('{"agent_type":"principalinvestigator","type":"Person","name":"test principal investigator"}')
       expect(page).to have_content("English")
       expect(page).to have_content("1961")
       expect(page).to have_content("Test Topic")
@@ -295,14 +296,12 @@ feature "Vistor wants to view the OSF API output" do
       expect(page).to have_content("Test Corporate Name")
       expect(page).to have_content("Test Corporate Name")
       expect(page).to have_content("Test Personal Name")
-      expect(page).to have_content("UC San Diego Library, Digital Collections")
-      expect(page).to have_content("http://library.ucsd.edu/dc")
     end
 
-    scenario 'should see the default value of Contributor if it is missing from DAMS' do
+    scenario 'should see the default value of Contributor and Publisher for Data Provider' do
       sign_in_developer
       visit osf_api_dams_collection_path @provCollection2.pid
-      expect(page).to have_content('{"name":"UC San Diego Library"}')
+      expect(page).to have_content('{"agent_type":"Publisher","type":"Organization","name":"UC San Diego Library Digital Collections"}')
     end
 end
 
