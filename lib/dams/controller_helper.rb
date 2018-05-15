@@ -64,44 +64,44 @@ module Dams
 		end
 
 		def agent_type(type)
-			type = "principalinvestigator" if type == "principal investigator" || type == "Principal Investigator"
+			type = 'principalinvestigator' if type == 'principal investigator' || type == 'Principal Investigator'
 
 			share_agent_type = [
-				"AGENTWORKRELATION",
-				"AgentWorkRelation",
-				"CONTRIBUTOR",
-        "CREATOR",
-        "Contributor",
-        "Creator",
-        "FUNDER",
-        "Funder",
-        "HOST",
-        "Host",
-        "PRINCIPALINVESTIGATOR",
-        "PRINCIPALINVESTIGATORCONTACT",
-        "PUBLISHER",
-        "PrincipalInvestigator",
-        "PrincipalInvestigatorContact",
-        "Publisher",
-        "agentworkrelation",
-        "contributor",
-        "creator",
-        "funder",
-        "host",
-        "principalinvestigator",
-        "principalinvestigatorcontact",
-        "publisher"
+				'AGENTWORKRELATION',
+				'AgentWorkRelation',
+				'CONTRIBUTOR',
+        'CREATOR',
+        'Contributor',
+        'Creator',
+        'FUNDER',
+        'Funder',
+        'HOST',
+        'Host',
+        'PRINCIPALINVESTIGATOR',
+        'PRINCIPALINVESTIGATORCONTACT',
+        'PUBLISHER',
+        'PrincipalInvestigator',
+        'PrincipalInvestigatorContact',
+        'Publisher',
+        'agentworkrelation',
+        'contributor',
+        'creator',
+        'funder',
+        'host',
+        'principalinvestigator',
+        'principalinvestigatorcontact',
+        'publisher'
        ]
-      type = (share_agent_type.include? type) ? type : "Contributor"
+      type = (share_agent_type.include? type) ? type : 'Contributor'
 		end
 
 		def osf_extra(document)
       field_name = 'otherNote_json_tesim'
-			dams_data = document["#{field_name}"]
-			osf_data = {}
+      dams_data = document["#{field_name}"]
+      osf_data = {}
 
-			if dams_data != nil
-		    dams_data.each do |datum|
+			if !dams_data.nil
+        dams_data.each do |datum|
 		      other_note = JSON.parse(datum)
 		      osf_data = { funding: other_note['value'] } if other_note['type'] == 'funding'
 		    end
