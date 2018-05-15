@@ -10,7 +10,7 @@ Setup rails databases:
 - `docker-compose exec web bundle exec rake db:setup`
 
 Run damspas test suite:
-- `docker-compose exec web bundle exec rake spec'
+- `docker-compose exec web bundle exec rake spec`
 
 # Teardown
 To remove all containers:

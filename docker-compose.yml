@@ -21,15 +21,18 @@ services:
       - docker/.env.dev.database
 
   tomcat:
-    build:
-      context: .
-      dockerfile: Dockerfile-tomcat
-    ports:
-      - "8080:8080"
-    depends_on:
-      - database
-    env_file:
-      - docker/.env.dev.tomcat
+    image: ucsdlib/docker-tomcat-damsrepo
+
+  # tomcat:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile-tomcat
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - database
+  #   env_file:
+  #     - docker/.env.dev.tomcat
 
 # volumes:
 #   db-data:
