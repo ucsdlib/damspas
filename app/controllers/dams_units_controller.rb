@@ -24,6 +24,6 @@ class DamsUnitsController < ApplicationController
     @response, @document = get_search_results(:q => 'has_model_ssim:"info:fedora/afmodel:DamsUnit"' )
     count_params = { :q => "has_model_ssim:\"info:fedora/afmodel:DamsObject\"", :rows => 0 }
     apply_gated_discovery( count_params, nil )
-    @count_resp, @count_doc = get_search_results( count_params )
+    @count_resp, @count_doc = get_search_results count_params, count_params
   end
 end
