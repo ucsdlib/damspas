@@ -3,9 +3,9 @@
    objid = @document['id']
    cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
    fieldData = @document["#{prefix}files_tesim"]
-   wowzaURL = grabWowzaURL(fieldData,objid,cmpid)
+   wowzaURL = secure_token_base_url(fieldData, objid, cmpid, Rails.configuration.secure_token_audio_baseurl)
+   secure_token = secure_token(fieldData, objid, cmpid, Rails.configuration.secure_token_audio_baseurl)
 %>
-
 <% if wowzaURL != nil %>
 
   <div id="dams-audio">Loading the player...</div>
@@ -16,7 +16,7 @@
 				  [{
 					  sources:
 							  [
-								  {file: "https://<%=wowzaURL%>/playlist.m3u8"}
+								  {file: "https://<%=wowzaURL%>/playlist.m3u8?<%=secure_token%>"}
 							  ]
 				  }],
 		  width: "100%",

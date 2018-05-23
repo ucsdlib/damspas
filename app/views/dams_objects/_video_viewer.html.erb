@@ -3,7 +3,8 @@
    objid = @document['id']
    cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
    fieldData = @document["#{prefix}files_tesim"]
-   wowzaURL = grabWowzaURL(fieldData,objid,cmpid)
+   wowzaURL = secure_token_base_url(fieldData, objid, cmpid, Rails.configuration.secure_token_video_baseurl)
+   secure_token = secure_token(fieldData, objid, cmpid, Rails.configuration.secure_token_video_baseurl)
 %>
 
 <% if wowzaURL != nil %>
@@ -16,8 +17,8 @@
 			[{
 				sources:
 				[
-					{file: "https://<%=wowzaURL%>/playlist.m3u8"},								
-					{file: "https://<%=wowzaURL%>/manifest.mpd"}
+					{file: "https://<%=wowzaURL%>/playlist.m3u8?<%=secure_token%>"},
+					{file: "https://<%=wowzaURL%>/manifest.mpd?<%=secure_token%>"}
 				]
 			}],
 			width: "100%",
