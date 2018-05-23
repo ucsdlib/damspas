@@ -118,6 +118,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 				var fileType = componentData.file_type;
 				var serviceFilePath = componentData.service_file_path;
 				var displayFilePath = componentData.display_file_path;
+				var secure_token = componentData.secure_token;
 
 				switch(fileType)
 				{
@@ -131,7 +132,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "https://"+serviceFilePath+"/playlist.m3u8"}
+                                            {file: "https://"+serviceFilePath+"/playlist.m3u8?"+secure_token}                                            
                                         ]
                                 }],
                             width: "100%",
@@ -148,8 +149,8 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                 [{
                                     sources:
                                         [
-                                            {file: "https://"+serviceFilePath+"/playlist.m3u8"},
-                                            {file: "https://"+serviceFilePath+"/manifest.mpd"}                                                                                
+                                            {file: "https://"+serviceFilePath+"/playlist.m3u8?"+secure_token},
+                                            {file: "https://"+serviceFilePath+"/manifest.mpd?"+secure_token}                                                                                
                                         ]
                                 }],
                             width: "100%",

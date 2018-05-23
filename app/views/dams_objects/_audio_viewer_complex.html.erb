@@ -3,9 +3,9 @@
    objid = @document['id']
    cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
    fieldData = @document["#{prefix}files_tesim"]
-   wowzaURL = grabWowzaURL(fieldData,objid,cmpid)
-
-   dataForDynamicLoad = "{\"file_type\":\"audio\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\"}"
+   wowzaURL = secure_token_base_url(fieldData, objid, cmpid, Rails.configuration.secure_token_audio_baseurl)
+   secure_token = secure_token(fieldData, objid, cmpid, Rails.configuration.secure_token_audio_baseurl)
+   dataForDynamicLoad = "{\"file_type\":\"audio\",\"display_file_path\":\"\",\"service_file_path\":\"#{wowzaURL}\",\"secure_token\":\"#{secure_token}\"}"
 %>
 
 <% if access_notice.nil? && wowzaURL != nil %>
