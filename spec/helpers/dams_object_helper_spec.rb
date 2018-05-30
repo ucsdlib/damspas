@@ -22,7 +22,7 @@ describe DamsObjectsHelper do
     
     it 'builds secure token base URL' do
       base_url = helper.secure_token_base_url(@field_data, @obj_id, @cmp_id, Rails.configuration.secure_token_audio_baseurl)
-      expect(base_url).to include "#{Rails.configuration.secure_token_audio_baseurl}xy/76/12/55/7h/20775-xy7612557h-0-2.mp3"
+      expect(base_url).to include "#{Rails.configuration.secure_token_audio_baseurl}xy/76/12/55/7h/#{helper.ark_naan}-xy7612557h-0-2.mp3"
     end
   end
 end
