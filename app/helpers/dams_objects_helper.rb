@@ -663,7 +663,7 @@ def display_node(index)
   #---
 
   def secure_token(field_data, obj_id, cmp_id, base_url)
-    file_name = grab_file_name(field_data, cmp_id)
+    file_name = audio_video_file_name(field_data, cmp_id)
     return nil unless file_name
     end_time = secure_token_end_time
     token_hash = secure_token_hash(end_time, file_name, obj_id, base_url)
@@ -687,7 +687,7 @@ def display_node(index)
     token_params = token_params.sort
     stream = base_url.sub(%r{.*?\/}, '')
     obj_path = obj_id.scan(/.{1,2}/).join('/')
-    hash_in = "#{stream}#{obj_path}/20775-#{obj_id}-#{file_name}?#{token_params.join('&')}"
+    hash_in = "#{stream}#{obj_path}/#{ark_naan}-#{obj_id}-#{file_name}?#{token_params.join('&')}"
     hash_out = Digest::SHA2.new(256).digest(hash_in.to_s)
     hash_out = Base64.encode64(hash_out).to_s.strip
     matchers = { '+' => '-', '/' => '_' }
@@ -705,10 +705,10 @@ def display_node(index)
   #---
 
   def secure_token_base_url(field_data, obj_id, cmp_id, base_url)
-    file_name = grab_file_name(field_data, cmp_id)
+    file_name = audio_video_file_name(field_data, cmp_id)
     return nil unless file_name
     obj_path = obj_id.scan(/.{1,2}/).join('/')
-    "#{base_url}#{obj_path}/20775-#{obj_id}-#{file_name}".html_safe
+    "#{base_url}#{obj_path}/#{ark_naan}-#{obj_id}-#{file_name}".html_safe
   end
 
   #---
@@ -719,7 +719,7 @@ def display_node(index)
   # @return string or nil
   #---
 
-  def grab_file_name(field_data, cmp_id)
+  def audio_video_file_name(field_data, cmp_id)
     return nil unless field_data
     field_data.each do |datum|
       files = JSON.parse(datum)
@@ -729,6 +729,8 @@ def display_node(index)
       end
     end
   end
+
+  def ark_naan() Rails.configuration.id_namespace.sub(%r{.*ark:\/}, '')[0..4] end
 
   #---
   # Creates Wowza Token End Time
