@@ -19,7 +19,7 @@ common: &default_settings
   app_name: damspas
 
   # To disable the agent regardless of other settings, uncomment the following:
-  # agent_enabled: false
+  agent_enabled: false
 
   # Logging level for log/newrelic_agent.log
   log_level: info
@@ -56,4 +56,5 @@ qa:
 
 production:
   <<: *default_settings
+  agent_enabled: true
   app_name: Production damspas
