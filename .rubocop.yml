@@ -36,3 +36,7 @@ Metrics/AbcSize:
 
 Metrics/LineLength:
   Max: 150
+
+Style/SafeNavigation:
+  Exclude:
+    - 'lib/dams/controller_helper.rb'

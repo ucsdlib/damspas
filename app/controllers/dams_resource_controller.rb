@@ -199,7 +199,7 @@ class DamsResourceController < ApplicationController
   def osf_api
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
-    data = export_to_API(@document)
+    data = export_to_api(@document)
 
     render :json => data
   end
@@ -212,7 +212,7 @@ class DamsResourceController < ApplicationController
   def osf_delete
     @document = get_single_doc_via_search(1, q: "id:#{params[:id]}")
     authorize! :show, @document
-    document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}", osf_date(@document))
+    document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}")
     document.title = osf_title(@document)
     document.delete
     share_upload(document)
@@ -222,8 +222,15 @@ class DamsResourceController < ApplicationController
   def osf_push
     @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
     authorize! :show, @document
-    document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}", osf_date(@document))
+    document = ShareNotify::PushDocument.new("http://library.ucsd.edu/dc/collection/#{params[:id]}")
+    document.type = 'DataSet' if @document['unit_code_tesim'].first == 'rdcp'
     document.title = osf_title(@document)
+    document.description = osf_description(@document)
+    document.languages = osf_languages(@document)
+    document.date_published = osf_date_published(@document)
+    document.tags = osf_mads_fields(@document)
+    document.related_agents = osf_related_agents(@document)
+    document.extra = osf_extra(@document)
     osf_contributors(@document).each do |contributor|
       document.add_contributor(contributor)
     end
