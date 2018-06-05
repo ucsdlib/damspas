@@ -2,155 +2,170 @@ module Dams
   module ControllerHelper
     
     #Mapping for OSF API
-		def osf_title(document)
-			  field_name = "title_json_tesim"
-		    dams_data= document["#{field_name}"]
-		    osf_data=''
+    def osf_title(document)
+      dams_data = document['title_json_tesim']
+      osf_data = ''
+      unless dams_data.nil?
+        dams_data.each do |datum|
+          title = JSON.parse(datum)
+          osf_data = title['name'] ? title['name'] : ''
+          osf_data += title['name'] && title['translationVariant'].present? ? ' : ' : ''
+          title_trans = title['translationVariant'] || []
+          osf_data = osf_trans_title(title_trans, osf_data)
+        end
+      end
+      osf_data
+    end
 
-		  if dams_data != nil
-		    dams_data.each do |datum|
-		      title = JSON.parse(datum)
-		      osf_data = title['name'] ? title['name'] : ''
-		      osf_data += title['name'] && !title['translationVariant'].blank? ? ' : ' : ''
-		      title_trans = title['translationVariant'] || []
-		      if title_trans.class == Array
-		      	title_trans.each do |trans|  
-		      		osf_data +=	trans
-		      	end
-		      elsif title_trans.class == String
-		      	osf_data +=	title_trans
-		      end
-		    end
-		  end
-		  osf_data
-		end
+    def osf_trans_title(title_trans, osf_data)
+      if title_trans.class == Array
+        title_trans.each do |trans|
+          osf_data += trans
+        end
+      elsif title_trans.class == String
+        osf_data += title_trans
+      end
+      osf_data
+    end
 
-		def osf_contributors(document)
-			field_name = "relationship_json_tesim"
-			dams_data = document["#{field_name}"]
-			osf_data =[]
+    def osf_contributors(document)
+      dams_data = document['relationship_json_tesim']
+      osf_data = []
 
-			if dams_data != nil
-		    dams_data.each do |datum|
-		    	
-		      relationships = JSON.parse(datum)
-		    	relationships.each do |key, value|
-		    		value.each do |v|
-		   				osf_data << {"name": v}
-		   			end
-		   		end
-		    end
-		  end
-		  osf_data = (osf_data.blank?) ? osf_data << {"name": "UC San Diego Library"} : osf_data
-		end
+      unless dams_data.nil?
+        dams_data.each do |datum|
+          relationships = JSON.parse(datum)
+          relationships.each do |_key, value|
+            value.each do |v|
+              osf_data << { "name": v }
+            end
+          end
+        end
+      end
+      osf_data = osf_data.presence || osf_data << { 'name': 'UC San Diego Library' }
+    end
 
-		def osf_description(document)
-			field_name = "otherNote_json_tesim"
-			dams_data = document["#{field_name}"]
-			osf_data = ''
+    def osf_related_agents(document)
+      dams_data = document['relationship_json_tesim']
+      osf_data = []
 
-			if dams_data != nil
-		    dams_data.each do |datum|
-		      other_note = JSON.parse(datum)
-		      osf_data = other_note['value'] if other_note['type'] == 'description'
-		    end
-		  end
-		  osf_data
-		end 
+      unless dams_data.nil?
+        dams_data.each do |datum|
+          relationships = JSON.parse(datum)
+          relationships.each do |key, value|
+            value.each do |v|
+              osf_data << { agent_type: agent_type(key), type: 'Person', 'name': v }
+            end
+          end
+        end
+      end
+      osf_data << { agent_type: 'Publisher', type: 'Organization', 'name': 'UC San Diego Library Digital Collections' }
+    end
 
-		def osf_uris(document)
-			field_name = "id"
-			dams_data = document["#{field_name}"]
-			osf_data = {}
+    def agent_type(type)
+      type = 'principalinvestigator' if ['principal investigator', 'Principal Investigator'].include? type
+      agent_dataset ||= YAML.safe_load(ERB.new(IO.read(Rails.root.join('config', 'share_agent_type.yml'))).result)
+      has_agent_type = agent_dataset.fetch('key').include? type
+      has_agent_type ? type : 'Contributor'
+    end
 
-			if dams_data != nil
-				url = "http://library.ucsd.edu/dc/collection/#{dams_data}"
-		    osf_data = {"canonicalUri": url, "providerUris": url}
-		  end
-		  osf_data
-		end
+    def osf_extra(document)
+      dams_data = document['otherNote_json_tesim']
+      osf_data = {}
 
-		def osf_date(document)
-			field_name = "date_json_tesim"
-			dams_data = document["#{field_name}"]
-			osf_data = ''
-			
-			if dams_data != nil
-		    dams_data.each do |datum|
-		      date = JSON.parse(datum)
-		      if date['type'] == 'issued'
-						d_date = date['beginDate']|| ''
-						osf_data = DateTime.new(d_date.to_i,1,1) if d_date.match( '^\d{4}$' )
-					end
-		    end
-		  end
-		  osf_data = (osf_data.is_a?(Time) || osf_data.is_a?(DateTime)) ? osf_data : Time.now
-		end
+      unless dams_data.nil?
+        dams_data.each do |datum|
+          other_note = JSON.parse(datum)
+          osf_data = { funding: other_note['value'] } if other_note['type'] == 'funding'
+        end
+      end
+      osf_data
+    end
 
-		def osf_languages(document)
-			field_name = "language_tesim"
-			dams_data = document["#{field_name}"]
+    def osf_description(document)
+      dams_data = document['otherNote_json_tesim']
+      osf_data = ''
+
+      unless dams_data.nil?
+        dams_data.each do |datum|
+          other_note = JSON.parse(datum)
+          osf_data = other_note['value'] if other_note['type'] == 'description'
+        end
+      end
+      osf_data
+    end
+
+    def osf_uris(document)
+      dams_data = document['id']
+      osf_data = {}
+
+      unless dams_data.nil?
+        url = "http://library.ucsd.edu/dc/collection/#{dams_data}"
+        osf_data = { 'canonicalUri': url, 'providerUris': url }
+      end
+      osf_data
+    end
+
+    def osf_date_published(document)
+      dams_data = document['date_json_tesim']
+      osf_data = ''
+
+      unless dams_data.nil?
+        dams_data.each do |datum|
+          date = JSON.parse(datum)
+          if date['type'] == 'issued'
+            d_date = date['beginDate'] || ''
+            osf_data = Time.utc(d_date.to_i, 1, 1) if d_date =~ /^\d{4}$/
+          end
+        end
+      end
+      osf_data.is_a?(Time) || osf_data.is_a?(DateTime) ? osf_data : Time.now.utc
+    end
+
+    def osf_languages(document)
+      dams_data = document['language_tesim']
       langs = dams_data || []
       osf_data = []
 
       if langs.class == Array
-      	langs.each do |lang|  
-      		osf_data <<	lang
-      	end
+        langs.each do |lang|
+          osf_data << lang
+        end
       elsif langs.class == String
-      	osf_data <<	langs
+        osf_data << langs
       end
-			osf_data 
-		end
+      osf_data
+    end
 
-		def osf_mads_fields(document)
-			osf_data = []
+    def osf_mads_fields(document)
+      osf_data = []
+      mads_field ||= YAML.safe_load(ERB.new(IO.read(Rails.root.join('config', 'mads_field.yml'))).result)
+      field_names = mads_field.fetch('key')
+      field_names.each do |field_name|
+        dams_data = document[field_name.to_s]
+        if dams_data.is_a?(String)
+          osf_data << dams_data
+        elsif dams_data.is_a?(Array)
+          dams_data.each do |datum|
+            osf_data << datum
+          end
+        end
+      end
+      osf_data
+    end
 
-			field_names = [
-				'geographic_tesim', 
-				'topic_tesim',
-				'commonName_tesim', 
-				'scientificName_tesim', 
-				'corporateName_tesim',
-				'personalName_tesim',
-				'subject_tesim',
-				'genreForm_tesim',
-				'anatomy_tesim',
-				'cruise_tesim',
-				'series_tesim',
-				'culturalContext_tesim',
-				'lithology_tesim'
-			]
-		  field_names.each do |field_name|
-		    dams_data = document["#{field_name}"]
-			  if dams_data.kind_of?(String)
-			  	osf_data << dams_data 
-		    elsif dams_data.kind_of?(Array)
-		    	dams_data.each do |datum| 
-		    		osf_data << datum
-		    	end
-		    end 
-		  end
-		  osf_data
-		end
-
-		def osf_publisher
-			osf_data = {"name": "UC San Diego Library, Digital Collections", "uri": "http://library.ucsd.edu/dc"}
-		end
-
-		def export_to_API(document)
-		  field_map = {
-		    'title': osf_title(document),
-		    'description': osf_description(document),
-		    'contributor': osf_contributors(document),
-		    'uris': osf_uris(document),
-		    'languages': osf_languages(document),
-		    'providerUpdatedDateTime': osf_date(document),
-		    'tags': osf_mads_fields(document),
-		    'publisher': osf_publisher
-		  }
-		  json_data = {"jsonData": field_map}
-		end
+    def export_to_api(document)
+      field_map = {
+        'title': osf_title(document),
+        'description': osf_description(document),
+        'related_agents': osf_related_agents(document),
+        'languages': osf_languages(document),
+        'date_published': osf_date_published(document),
+        'tags': osf_mads_fields(document),
+        'extra': osf_extra(document)
+      }
+      { 'jsonData': field_map }
+    end
 
 # Retrieve label from solr index instead of external record from repo
  def get_linked_object_label(id)
