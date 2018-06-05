@@ -63,32 +63,36 @@ module Dams
 
     def agent_type(type)
       type = 'principalinvestigator' if type == 'principal investigator' || type == 'Principal Investigator'
-      share_agent_type = [
-        'AGENTWORKRELATION',
-        'AgentWorkRelation',
-        'CONTRIBUTOR',
-        'CREATOR',
-        'Contributor',
-        'Creator',
-        'FUNDER',
-        'Funder',
-        'HOST',
-        'Host',
-        'PRINCIPALINVESTIGATOR',
-        'PRINCIPALINVESTIGATORCONTACT',
-        'PUBLISHER',
-        'PrincipalInvestigator',
-        'PrincipalInvestigatorContact',
-        'Publisher',
-        'agentworkrelation',
-        'contributor',
-        'creator',
-        'funder',
-        'host',
-        'principalinvestigator',
-        'principalinvestigatorcontact',
-        'publisher'
-      ]
+      # share_agent_type = [
+      #   'AGENTWORKRELATION',
+      #   'AgentWorkRelation',
+      #   'CONTRIBUTOR',
+      #   'CREATOR',
+      #   'Contributor',
+      #   'Creator',
+      #   'FUNDER',
+      #   'Funder',
+      #   'HOST',
+      #   'Host',
+      #   'PRINCIPALINVESTIGATOR',
+      #   'PRINCIPALINVESTIGATORCONTACT',
+      #   'PUBLISHER',
+      #   'PrincipalInvestigator',
+      #   'PrincipalInvestigatorContact',
+      #   'Publisher',
+      #   'agentworkrelation',
+      #   'contributor',
+      #   'creator',
+      #   'funder',
+      #   'host',
+      #   'principalinvestigator',
+      #   'principalinvestigatorcontact',
+      #   'publisher'
+      # ]
+
+      agent_dataset ||= YAML.load(ERB.new(IO.read(File.join(Rails.root, 'config', 'share_agent_type.yml'))).result)
+      share_agent_type = agent_dataset.fetch('key')
+      
       type = (share_agent_type.include? type) ? type : 'Contributor'
     end
 
