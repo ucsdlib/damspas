@@ -1,0 +1,14 @@
+key:
+  - geographic_tesim
+  - topic_tesim
+  - commonName_tesim
+  - scientificName_tesim
+  - corporateName_tesim
+  - personalName_tesim
+  - subject_tesim
+  - genreForm_tesim
+  - anatomy_tesim
+  - cruise_tesim
+  - series_tesim
+  - culturalContext_tesim
+  - lithology_tesim
