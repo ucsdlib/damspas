@@ -1,22 +1,31 @@
-Fixes #issuenumber ; refs #issuenumber
+Fixes #issuenumber
 
-Present tense short summary (50 characters or less)
+#### Local Checklist
+- [ ] Tests written and passing locally?
+- [ ] Code style checked?
+- [ ] QA-ed locally?
+- [ ] Rebased with `master` branch?
+- [ ] Configuration updated (if needed)?
+- [ ] Documentation updated (if needed)?
 
-More detailed description, if necessary. Try to be as descriptive as you can: even if you think that the PR content is obvious, it may not be obvious to others. Include tracebacks and/or screenshots if helpful, and be sure to call out any bits of the PR that may be work-in-progress.
+#### What does this PR do?
 
-Description can have multiple paragraphs and you can use code examples inside:
+##### Why are we doing this? Any context of related work?
+References #issuenumber
 
-``` ruby
-class PostsController
-  def index
-    respond_with Post.limit(10)
-  end
-end
-```
+#### Where should a reviewer start?
 
-Changes proposed in this pull request:
-* 
-* 
-* 
+#### Manual testing steps?
+
+#### Screenshots
+
+---
+
+#### Database changes
+
+#### New ENV variables
+References #issuenumber
+
+#### Deployment Instructions
 
 @ucsdlib/developers - please review
