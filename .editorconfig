@@ -1,0 +1,36 @@
+# EditorConfig.org
+
+# if you add a project-specific file, consider whether leaving this is appropriate
+# root = true
+
+# Global settings
+[*]
+trim_trailing_whitespace = true
+insert_final_newline = true
+charset = utf-8
+indent_style = space
+indent_size = 2
+# Note we are _not_ setting this globally, git should manage it
+# end_of_line = lf
+
+[*.{md,markdown}]
+indent_size = 4
+
+[*.{java,jsp}]
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+indent_size = 4
+
+# More examples:
+
+# Indentation override for all JS under lib directory
+# [lib/**.js]
+# indent_size = 2
+
+# Matches the exact files either package.json or .travis.yml
+# [{package.json,.travis.yml}]
+# indent_style = space
+# indent_size = 2
+
