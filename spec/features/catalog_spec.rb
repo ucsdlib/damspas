@@ -155,7 +155,7 @@ feature 'Visitor wants to search' do
  
   scenario 'decade faceting displays in chronological order ' do
     visit catalog_index_path( {'q' => 'QE8iWjhafTRpc'} )
-    expect(page).to have_link('2000s', href: catalog_index_path({'f[decade_sim][]' => '2000s', 'q' => 'QE8iWjhafTRpc', 'spellcheck.q' => 'QE8iWjhafTRpc'}))
+    expect(page).to have_link('2000s', href: catalog_index_path({'f[decade_sim][]' => '2000s', 'q' => 'QE8iWjhafTRpc'}))
     expect(page).to have_selector("div.blacklight-decade_sim ul li[1]", :text => '2050s 1') 
     expect(page).to have_selector("div.blacklight-decade_sim ul li[2]", :text => '2040s 1') 
     expect(page).to have_selector("div.blacklight-decade_sim ul li[3]", :text => '2030s 1') 

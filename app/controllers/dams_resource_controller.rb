@@ -42,7 +42,7 @@ class DamsResourceController < ApplicationController
     if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
         other_rights_fquery = "(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay)"
         collection_solr_params = { :q => "collections_tesim:#{params[:id]}", :fq => other_rights_fquery, :rows => 1 }
-        collection_response, collection_documents = get_search_results(collection_solr_params, :spellcheck => "false")
+        collection_response, collection_documents = get_search_results(collection_solr_params)
         @metadata_only = !collection_response.response['numFound'].zero?
 
         facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
@@ -183,7 +183,7 @@ class DamsResourceController < ApplicationController
         collection_names.collect! { |name| "\"#{solr_escape(name)}\"" }
         solr_param_q = collection_names.join (' OR ')
         solr_params = { :q => "type_tesim:Collection AND title_tesim:(#{solr_param_q})", :rows => collection_names.count }
-        cols_response, col_documents = get_search_results(solr_params, :spellcheck => "false")
+        cols_response, col_documents = get_search_results(solr_params)
         cols_response.docs.each do |doc|
             colls_map[doc['title_tesim'].first.to_s.strip] = doc['id_t'].to_s
         end
