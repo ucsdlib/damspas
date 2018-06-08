@@ -61,7 +61,7 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
-	
+  
     config.default_solr_params = { 
       :qt => 'search',
       :rows => 20,
@@ -75,25 +75,25 @@ class CatalogController < ApplicationController
         "facet.sort" => "index" # sort by byte order of values
       }
     }
-	
-	#UCSD custom added argument config.highlighting to turn on/off hit highlighting with config.highlighting=true|false
-	#config.hlTagPre for custom highlighting fragment prefix tag
-	#config.hlTagPost for custom highlighting fragment post tag
-	#config.hlMaxFragsize override fragment size for a field
-	config.highlighting = true;
-	config.hlTagPre = '<span class=\'search-highlight\'>'
-	config.hlTagPost = '</span>'
-	config.hlMaxFragsize = 150
-	if config.highlighting
-	  config.default_solr_params['hl.fragsize'] = 0
-	  config.default_solr_params['hl.snippets'] = 100
-	  config.default_solr_params['hl.fragListBuilder'] = 'single'
-	  config.default_solr_params['hl.boundaryScanner'] = 'simple'
-	  config.default_solr_params['hl.simple.pre'] = config.hlTagPre
-	  config.default_solr_params['hl.simple.post'] = config.hlTagPost
-	  config.default_solr_params['f.note_tesim.hl.fragsize'] = config.hlMaxFragsize
-	  config.default_solr_params['hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim note_tesim' 
-	end
+  
+  #UCSD custom added argument config.highlighting to turn on/off hit highlighting with config.highlighting=true|false
+  #config.hlTagPre for custom highlighting fragment prefix tag
+  #config.hlTagPost for custom highlighting fragment post tag
+  #config.hlMaxFragsize override fragment size for a field
+  config.highlighting = true;
+  config.hlTagPre = '<span class=\'search-highlight\'>'
+  config.hlTagPost = '</span>'
+  config.hlMaxFragsize = 150
+  if config.highlighting
+    config.default_solr_params['hl.fragsize'] = 0
+    config.default_solr_params['hl.snippets'] = 100
+    config.default_solr_params['hl.fragListBuilder'] = 'single'
+    config.default_solr_params['hl.boundaryScanner'] = 'simple'
+    config.default_solr_params['hl.simple.pre'] = config.hlTagPre
+    config.default_solr_params['hl.simple.post'] = config.hlTagPost
+    config.default_solr_params['f.note_tesim.hl.fragsize'] = config.hlMaxFragsize
+    config.default_solr_params['hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim note_tesim' 
+  end
 
     # thumbnails
     config.index.thumbnail_method = :thumbnail_url
@@ -154,17 +154,17 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-	#	UCSD custom added argument :hitsonly to display the values that has hit text.
+  # UCSD custom added argument :hitsonly to display the values that has hit text.
     config.add_index_field 'collection_name_tesim', :label => 'Collection:', :highlight => config.highlighting
     config.add_index_field 'name_tesim', :label => 'Name:', :highlight => config.highlighting   
     config.add_index_field 'date_tesim', :label => 'Date:', :highlight => config.highlighting
     config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => config.highlighting
     config.add_index_field 'topic_tesim', :label => 'Topic:', :highlight => config.highlighting
-	config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
-	config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
+  config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
+  config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
     #config.add_index_field 'description_tesim', :label => 'Description:' 
-	
-	#config.add_field_configuration_to_solr_request!  
+  
+  #config.add_field_configuration_to_solr_request!  
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display 
@@ -190,13 +190,12 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise. 
     
     config.add_search_field ('Keyword (Title, Name/Creator, Topic, Notes etc.)') do |field|
-	  #field.solr_parameters = { :'qf' => 'all_fields_tesim' }
-	  field.solr_parameters = { :'qf' => 'title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id' }
-	end 
+    #field.solr_parameters = { :'qf' => 'all_fields_tesim' }
+    field.solr_parameters = { :'qf' => 'title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id' }
+  end 
     config.add_search_field('Title') do |field|
       # solr_parameters hash are sent to Solr as ordinary url query params. 
-      field.solr_parameters = { :'spellcheck.dictionary' => 'title_tesim' }
-	  field.solr_parameters = { :'qf' => 'title_tesim' }
+    field.solr_parameters = { :'qf' => 'title_tesim' }
       # :solr_local_parameters will be sent using Solr LocalParams
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
@@ -207,11 +206,10 @@ class CatalogController < ApplicationController
       #}
     end
     config.add_search_field ('Name/Creator') do |field|
-	  field.solr_parameters = { :'qf' => 'name_tesim' }
-	end
+    field.solr_parameters = { :'qf' => 'name_tesim' }
+  end
     config.add_search_field('subject', :label => 'Topic') do |field|
-      field.solr_parameters = { :'spellcheck.dictionary' => 'subject_tesim' }
-	  field.solr_parameters = { :'qf' => 'subject_tesim' }
+    field.solr_parameters = { :'qf' => 'subject_tesim' }
       #field.qt = 'search'
       #field.solr_local_parameters = { 
       #  :qf => '$subject_qf',
@@ -219,14 +217,13 @@ class CatalogController < ApplicationController
       #}
     end
     config.add_search_field ('Notes') do |field|
-	  field.solr_parameters = { :'qf' => 'note_tesim' }
-	end
+    field.solr_parameters = { :'qf' => 'note_tesim' }
+  end
     config.add_search_field ('Fulltext') do |field|
-	  field.solr_parameters = { :'qf' => 'fulltext_tesim' }
-	end
+    field.solr_parameters = { :'qf' => 'fulltext_tesim' }
+  end
 
     #config.add_search_field('author') do |field|
-    #  field.solr_parameters = { :'spellcheck.dictionary' => 'author' }
     #  field.solr_local_parameters = { 
     #    :qf => '$author_qf',
     #    :pf => '$author_pf'
@@ -249,83 +246,42 @@ class CatalogController < ApplicationController
     config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date\u00A0created\u00A0\u25BC"
    
 
-    # If there are more than this many search results, no spelling ("did you 
-    # mean") suggestion is offered.
-    config.spell_max = 5
   end
-      # get search results from the solr index
-    def index
-      @metadata_colls = metadata_only_collections
-      if params['q'] != nil
-        params['q'].gsub!('""','')
-        single_quote_count = params['q'].to_s.count('"') 
-        if(single_quote_count != nil && single_quote_count.odd?)
-          if(params['q'].to_s.end_with?('"'))
-            params['q'] = params['q'][0, params['q'].length - 1]
-      	  else
-      	   params['q'] << '"'
-      	 end
-        end
-      end
 
-      if params['xf'] != nil
-        params['f'] = JSON.parse params.delete('xf').gsub('=>', ':')
-      end
-      if params['xq'] != nil
-        params['q'] = (params['q'].blank?) ? params['xq'] : "#{params['q']} AND #{params['xq']}"
-      end
-      (@response, @document_list) = get_search_results
-
-      spelling_words = []
-      @response.spelling.words.each do |word|
-        # handle Hash format for solr 5
-        if word.is_a?(Hash)
-          spelling_words << word["word"] if !word["word"].nil?
+  # get search results from the solr index
+  def index
+    @metadata_colls = metadata_only_collections
+    if params['q'] != nil
+      params['q'].gsub!('""','')
+      single_quote_count = params['q'].to_s.count('"') 
+      if(single_quote_count != nil && single_quote_count.odd?)
+        if(params['q'].to_s.end_with?('"'))
+          params['q'] = params['q'][0, params['q'].length - 1]
         else
-          spelling_words << word
+          params['q'] << '"'
         end
-      end
-	  if(@document_list.size == 0 && params['spellsuggestions'].nil?)
-		params['spellsuggestions'] = 'false'
-		if(params['spellcheck.q'].nil?)
-			params['spellcheck.q'] = params[:q]
-		else
-			params.delete('spellcheck.q')
-		end
-		
-		# remove spelling suggestions with no results
-		i = 0
-		@suggestions = ([@response.spelling.collation] | spelling_words).compact
-        tmp_params = params.clone
-		spelling_words.each do |word|
-			tmp_params[:q] = word
-			(tmp_resp, tmp_docs) = get_search_results tmp_params
-			spelling_words.delete(word) if tmp_docs.size == 0
-		end
-	  else
-		params.delete('spellsuggestions')
-		params['spellcheck.q'] = params[:q]
-		spelling_collation = @response.spelling.collation
-		spelling_words << spelling_collation if !spelling_collation.nil? && !spelling_words.include?(@response.spelling.collation)
-	  end
-
-	  #Remove the case sensive spellcheck suggestions that should not show up
-	  spelling_words = spelling_words.dup
-	  @response.spelling.words.clear
-	  spelling_words.each do |x| 
-		if(!@response.spelling.words.include?(x.downcase))
-			@response.spelling.words << x.downcase
-		end
-	  end
-      @filters = params[:f] || []
-      
-      respond_to do |format|
-        format.html { }
-        format.json { render json: @response }
-        format.rss  { render :layout => false }
-        format.atom { render :layout => false }
       end
     end
+
+    if params['xf'] != nil
+      params['f'] = JSON.parse params.delete('xf').gsub('=>', ':')
+    end
+    if params['xq'] != nil
+      params['q'] = (params['q'].blank?) ? params['xq'] : "#{params['q']} AND #{params['xq']}"
+    end
+
+    (@response, @document_list) = get_search_results
+
+    @filters = params[:f] || []
+    
+    respond_to do |format|
+      format.html { }
+      format.json { render json: @response }
+      format.rss  { render :layout => false }
+      format.atom { render :layout => false }
+    end
+  end
+
   def collection_search
     @metadata_colls = metadata_only_collections
     # if we already have the parameters set below, then redirect to /search
@@ -364,11 +320,11 @@ class CatalogController < ApplicationController
 
   def metadata_only_collections
     meta_colls = []
-    params = { q: 'visibility_tesim:local', fq: 'type_tesim:Collection', spellcheck: 'false' }
+    params = { q: 'visibility_tesim:local', fq: 'type_tesim:Collection' }
     response = raw_solr(params)
     other_rights_fquery = '(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay)'
     response.docs.each do |doc|
-      collection_solr_params = { q: "collections_tesim:#{doc['id']}", fq: other_rights_fquery, rows: 1, spellcheck: 'false' }
+      collection_solr_params = { q: "collections_tesim:#{doc['id']}", fq: other_rights_fquery, rows: 1 }
       collection_response = raw_solr(collection_solr_params)
       metadata_only = !collection_response.response['numFound'].zero?
       meta_colls << doc['id_t'].to_s if metadata_only
