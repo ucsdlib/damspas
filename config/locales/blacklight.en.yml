@@ -224,4 +224,3 @@ en:
     entry_name:
       default: 'entry'
 
-    did_you_mean: 'Or search instead for %{options}.'
