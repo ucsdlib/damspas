@@ -38,7 +38,7 @@ class FileController < ApplicationController
       end
     end
 
-    # check permissions    
+    # check permissions
     if use.end_with?("source")
       logger.info "FileController: Master file access requires edit permission"
       authorize! :edit, @solr_doc
@@ -49,34 +49,15 @@ class FileController < ApplicationController
 
     # set headers
     disposition = params[:disposition] || 'inline'
+    # TODO: need full path for send_file, probably ENV variable
     filename = params["filename"] || "#{objid}#{fileid}"
-    headers['Content-Disposition'] = "#{disposition}; filename=#{filename}"
-    if ds.mimeType
-      headers['Content-Type'] = ds.mimeType
-    elsif filename.include?('.xml')
-      headers['Content-Type'] = 'application/xml'
-    else
-      headers['Content-Type'] = 'application/octet-stream'
-    end
-    headers['Last-Modified'] = ds.lastModifiedDate || Time.now.ctime.to_s
-    if ds.size
-      headers['Content-Length'] = ds.size.to_s
-    end
+    file_type = http_content_type(ds, filename)
 
-    # see https://github.com/cul/active_fedora_streamable/blob/master/lib/active_fedora_streamable.rb
-
-    # stream data to client (does not work in webrick)
-    parms = { :pid => objid, :dsid => fileid, :finished=>false }
-    repo = ActiveFedora::Base.connection_for_pid(parms[:pid])
-    self.response_body = Enumerator.new do |blk|
-      repo.datastream_dissemination(parms) do |res|
-        res.read_body do |seg|
-          blk << seg
-        end
-      end
-    end
-    dur = (Time.now.to_f - start) * 1000
-    logger.info sprintf("Served file #{filename} in %0.1fms", dur)
+    # hand off to apache
+    send_file(filename,
+              type: file_type,
+              disposition: disposition,
+              x_sendfile: true)
   end
 
   def create
@@ -135,4 +116,19 @@ class FileController < ApplicationController
     end
   end
 
+  private
+  # Determine http content type for a file download
+  # We have added our own localized logic when a mimeType doesn't exist, such as checking the filename suffix for xml
+  # files. This ideally should not be necessary.
+  def http_content_type(datastream, filename)
+    return 'application/octet-stream' unless datastream && filename
+
+    if datastream.mimeType
+      datastream.mimeType
+    elsif filename.include?('.xml')
+      'application/xml'
+    else
+      'application/octet-stream'
+    end
+  end
 end
