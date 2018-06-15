@@ -67,7 +67,6 @@ module Hydra
 
     # setup nginx file service
     config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect'
-    config.sendfile_prefix = 'filestore/'
 
     # DAMS-specific config
     config.id_namespace = 'http://library.ucsd.edu/ark:/20775/'

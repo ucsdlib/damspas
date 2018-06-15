@@ -28,15 +28,20 @@ class FileController < ApplicationController
       raise ActionController::RoutingError.new('Not Found')
     end
 
-    # load use value from solr
+    # extract use and path values from solr
     use = "image-source" # default use to source, which requires curator privs
+    source_path, source_filename = nil
     file_json = @solr_doc[field]
     file_json.each do |json|
       file_info = JSON.parse(json)
       if file_info["id"] == file_part
         use = file_info["use"]
+        source_path = file_info['sourcePath']
+        source_filename = file_info['sourceFileName']
       end
     end
+
+    raise ActionController::RoutingError, "Source filename and path not found in Solr record for #{field}" unless source_filename && source_path
 
     # check permissions
     if use.end_with?("source")
@@ -47,14 +52,14 @@ class FileController < ApplicationController
       raise CanCan::AccessDenied, "Download forbidden: /#{objid}/#{fileid}" unless can?(:edit, @solr_doc) || can_download?(@solr_doc, fileid)
     end
 
-    # set headers
+    # setup headers for send_file
     disposition = params[:disposition] || 'inline'
     filename = params["filename"] || "#{objid}#{fileid}"
     file_type = http_content_type(ds, filename)
 
     # hand off to nginx
-    logger.info "Sending file #{Rails.configuration.sendfile_prefix + filename} to nginx"
-    send_file(Rails.configuration.sendfile_prefix + filename,
+    logger.info "Sending file #{localstore_filename(source_path, source_filename)} to nginx"
+    send_file(localstore_filename(source_path, source_filename),
               type: file_type,
               disposition: disposition,
               x_sendfile: true)
@@ -113,22 +118,6 @@ class FileController < ApplicationController
       logger.warn "Error generating derivatives #{e.to_s}"
       flash[:alert] = e.to_s
       redirect_to dams_object_path @obj
-    end
-  end
-
-  private
-  # Determine http content type for a file download
-  # We have added our own localized logic when a mimeType doesn't exist, such as checking the filename suffix for xml
-  # files. This ideally should not be necessary.
-  def http_content_type(datastream, filename)
-    return 'application/octet-stream' unless datastream && filename
-
-    if datastream.mimeType
-      datastream.mimeType
-    elsif filename.include?('.xml')
-      'application/xml'
-    else
-      'application/octet-stream'
     end
   end
 end
