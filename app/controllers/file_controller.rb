@@ -49,12 +49,12 @@ class FileController < ApplicationController
 
     # set headers
     disposition = params[:disposition] || 'inline'
-    # TODO: need full path for send_file, probably ENV variable
     filename = params["filename"] || "#{objid}#{fileid}"
     file_type = http_content_type(ds, filename)
 
-    # hand off to apache
-    send_file(filename,
+    # hand off to nginx
+    logger.info "Sending file #{Rails.configuration.sendfile_prefix + filename} to nginx"
+    send_file(Rails.configuration.sendfile_prefix + filename,
               type: file_type,
               disposition: disposition,
               x_sendfile: true)
