@@ -9,8 +9,9 @@ RSpec.describe FileControllerHelper do
 
     describe 'with correct arguments' do
       it 'returns a localStore prefixed filename' do
+        allow(Rails).to receive(:root).and_return('/app/path')
         expect(helper.localstore_filename('/pub/data2/dams/localStore/bb/37/89/62/8p',
-                                          '20775-bb3789628p-0-4.jpg')).to eq('localStore/bb/37/89/62/8p/20775-bb3789628p-0-4.jpg')
+                                          '20775-bb3789628p-0-4.jpg')).to eq('/app/path/localStore/bb/37/89/62/8p/20775-bb3789628p-0-4.jpg')
       end
     end
   end
