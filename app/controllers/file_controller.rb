@@ -59,6 +59,9 @@ class FileController < ApplicationController
 
     # hand off to nginx
     logger.info "Sending file #{localstore_filename(source_path, source_filename)} to nginx"
+    # custom headers
+    response.headers['Content-Length'] = String(ds.size) if ds.size
+    response.headers['Last-Modified'] = ds.lastModifiedDate || Time.now.ctime
     send_file(localstore_filename(source_path, source_filename),
               type: file_type,
               disposition: disposition,
