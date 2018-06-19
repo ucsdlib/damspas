@@ -972,5 +972,103 @@ describe "User wants to view a metadata-only view object " do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_selector('div.restricted-notice', text: restricted_note)
-  end  
+  end
+end
+
+describe "User wants to view a simple ucsd-only video" do
+  before(:all) do
+    @license = DamsLicense.create permissionType: "localDisplay"
+    @otherRight = DamsOtherRight.create permissionType: "localDisplay"
+    @localCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection", visibility: "local"    
+    @obj = DamsObject.create titleValue: 'Simple Video Object with localDisplay license', typeOfResource: 'video', provenanceCollectionURI: @localCollection.pid, copyright_attributes: [{status: 'Public domain'}]
+    @obj.licenseURI = @license.pid
+    @obj.save!
+    @obj.add_file( 'video content', '_1.mp4', 'test.mp4' )
+    @obj.save!
+    @objOtherRight = DamsObject.create titleValue: 'Simple Video Object with localDisplay otherRight', typeOfResource: 'video', provenanceCollectionURI: @localCollection.pid, copyright_attributes: [{status: 'Public domain'}]
+    @objOtherRight.otherRightsURI = @otherRight.pid
+    @objOtherRight.save!
+    @objOtherRight.add_file( 'video content 2', '_1.mp4', 'test2.mp4' )
+    @objOtherRight.save!
+    solr_index @license.pid
+    solr_index @otherRight.pid
+    solr_index @localCollection.pid
+    solr_index @obj.pid
+    solr_index @objOtherRight.pid
+  end
+
+  after(:all) do
+    @otherRight.delete
+    @localCollection.delete
+    @license.delete
+    @obj.delete
+    @objOtherRight.delete
+  end
+
+  scenario 'curator user should see download link for localDisplay license object' do
+    sign_in_developer
+    visit dams_object_path @obj.pid
+    expect(page).to have_link('', href:"/object/#{@obj.id}/_1.mp4/download?access=curator")
+  end
+
+  scenario 'local user should not see download link for localDisplay license object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @obj.pid
+    expect(page).to_not have_link('', href:"/object/#{@obj.id}/_1.mp4/download")
+  end
+  
+  scenario 'curator user should see download link for localDisplay otherRights object' do
+    sign_in_developer
+    visit dams_object_path @objOtherRight.pid
+    expect(page).to have_link('', href:"/object/#{@objOtherRight.id}/_1.mp4/download?access=curator")
+  end
+
+  scenario 'local user should not see download link for localDisplay otherRights object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @objOtherRight.pid
+    expect(page).to_not have_link('', href:"/object/#{@objOtherRight.id}/_1.mp4/download")
+  end
+end
+
+describe "User wants to view a complex ucsd-only video" do
+  before(:all) do
+    @license = DamsLicense.create permissionType: "localDisplay"
+    @localCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection", visibility: "local"    
+    @obj = DamsObject.create titleValue: 'Simple Video Object with localDisplay license', typeOfResource: 'video', provenanceCollectionURI: @localCollection.pid, copyright_attributes: [{status: 'Public domain'}]
+    @obj.licenseURI = @license.pid
+    @obj.save!
+    @obj.add_file( 'video content', '_1_1.mp4', 'test.mp4' )
+    @obj.add_file( 'video content 2', '_2_1.mp4', 'test2.mp4' )
+    @obj.add_file( 'video content 3', '_3_1.mp4', 'test3.mp4' )    
+    @obj.save!
+    solr_index @license.pid
+    solr_index @localCollection.pid
+    solr_index @obj.pid
+  end
+
+  after(:all) do
+    @localCollection.delete
+    @license.delete
+    @obj.delete
+  end
+
+  scenario 'curator user should see download link for localDisplay license object' do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver
+    sign_in_developer
+    visit dams_object_path @obj.pid
+    expect(page).to have_link('', href:"/object/#{@obj.id}/_1_1.mp4/download?access=curator")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to have_link('', href:"/object/#{@obj.id}/_2_1.mp4/download?access=curator")
+  end
+
+  scenario 'local user should not see download link for localDisplay license object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @obj.pid
+    expect(page).to_not have_link('', href:"/object/#{@obj.id}/_1_1.mp4/download")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to_not have_link('', href:"/object/#{@obj.id}/_2_1.mp4/download?access=curator")
+  end
 end

@@ -1,14 +1,19 @@
 <div id="etc-menu">
 
-	<% ucsd_local_display = (@document['otherRights_tesim'] != nil && @document['otherRights_tesim'].first.to_s.include?('localDisplay')) ? 'true' : 'false' %>
-	<% adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i>'.html_safe %>
-	<% adl_title = 'Download File' %>
-	<% adl_class = 'adl pull-right' %>
+  <% local_otherRights = (@document['otherRights_tesim'] && @document['otherRights_tesim'].first.to_s.include?('localDisplay')) ? 'true' : 'false' %>
+  <% local_license = 'false'
+     if @document['resource_type_tesim'] && @document['resource_type_tesim'].first.to_s.include?('video')
+       local_license = (@document['license_tesim'] && @document['license_tesim'].first.to_s.include?('localDisplay') ) ? 'true' : 'false'
+     end 
+  %>
+  <% adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i>'.html_safe %>
+  <% adl_title = 'Download File' %>
+  <% adl_class = 'adl pull-right' %>
 
-	<% if can? :update, @document then %>
-	  <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
-	<% elsif ucsd_local_display == 'false' && !downloadDerivativePath.nil?%>
-	  <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
-	<% end %>
+  <% if can? :update, @document then %>
+    <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
+  <% elsif local_otherRights == 'false' && local_license == 'false' && !downloadDerivativePath.nil?%>
+    <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
+  <% end %>
 
 </div>
