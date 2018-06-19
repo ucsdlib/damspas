@@ -906,5 +906,20 @@ module Dams
     end
     result
   end
+
+    #---
+    # Check to see if an object allows file download
+    #
+    # @return Boolean value
+    #---
+
+    def can_download?(document)
+      local_license = false
+      local_other_rights = document['otherRights_tesim'] && document['otherRights_tesim'].first.to_s.include?('localDisplay') ? true : false
+      if document['resource_type_tesim'] && document['resource_type_tesim'].first.to_s.include?('video')
+        local_license = document['license_tesim'] && document['license_tesim'].first.to_s.include?('localDisplay') ? true : false
+      end
+      !local_other_rights && !local_license
+    end
   end
 end
