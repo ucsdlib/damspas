@@ -46,3 +46,9 @@ Metrics/LineLength:
 Style/SafeNavigation:
   Exclude:
     - 'lib/dams/controller_helper.rb'
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+
+Metrics/PerceivedComplexity:
+  Max: 8

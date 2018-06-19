@@ -1,14 +1,12 @@
 <div id="etc-menu">
+  <% adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i>'.html_safe %>
+  <% adl_title = 'Download File' %>
+  <% adl_class = 'adl pull-right' %>
 
-	<% ucsd_local_display = (@document['otherRights_tesim'] != nil && @document['otherRights_tesim'].first.to_s.include?('localDisplay')) ? 'true' : 'false' %>
-	<% adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i>'.html_safe %>
-	<% adl_title = 'Download File' %>
-	<% adl_class = 'adl pull-right' %>
-
-	<% if can? :update, @document then %>
-	  <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
-	<% elsif ucsd_local_display == 'false' && !downloadDerivativePath.nil?%>
-	  <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
-	<% end %>
+  <% if can? :update, @document then %>
+    <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
+  <% elsif can_download?(@document) && !downloadDerivativePath.nil?%>
+    <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
+  <% end %>
 
 </div>

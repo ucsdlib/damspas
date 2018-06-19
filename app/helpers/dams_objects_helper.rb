@@ -2,7 +2,7 @@ require "base64"
 require "openssl"
 
 module DamsObjectsHelper
-
+  include Dams::ControllerHelper
   #---
     # Openurl, embedded metadata support,
     # Get metadata from solr document, and parsing each field and produce openURL key-encoded value query strings.
