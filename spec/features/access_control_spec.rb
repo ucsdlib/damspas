@@ -28,6 +28,9 @@ feature 'Access control' do
     @copyPublic.delete
     @copyCurator.delete
     @otherLocal.delete
+
+    # remove localStore test files
+    system("rm -rf #{Rails.root}/localStore")
   end
 
   # anonymous
@@ -53,10 +56,10 @@ feature 'Access control' do
     expect(page).to have_content('Local Object')
   end
   scenario 'anonymous user viewing file attached to hidden object' do
+    touch_file(@hiddenObj.pid, '_1.txt')
     visit file_path( @hiddenObj, '_1.txt' )
     expect(page.driver.response.status).to eq( 200 )
     expect(response_headers['Content-Type']).to include 'text/plain'
-    expect(page).to have_content('test content')
   end
 
   # local

@@ -126,4 +126,24 @@ def mod_mads_topic (id)
 	MadsTopic.create!(pid: id, name: "Mads Topic Test Label", externalAuthority: "http://lccn.loc.gov/")
 end
 
+# This helper method will create a local file using the appropriate ark directory structure that send_file will be
+# expecting in the FileController
+# Example: /vagrant/damspas/localStore/xx/00/00/17/78/20775-xx00001778-0-1.txt
+# @param: pid is of form xx12341234
+# @param: filename is of form _1.txt'
+def touch_file(pid, filename)
+  pid_directories = pid.chars.each_slice(2).map { |s| "#{s.join}/" }.join
+  localstore_path = "#{Rails.root}/localStore/#{pid_directories}"
+  system("mkdir -p #{localstore_path}")
+
+  # append prefix if filename is like _1.jpg
+  # ignore if like _2_1.html
+  if(filename.split('.').first.length.eql?(2))
+    filename = '_0' + filename
+  end
+
+  localstore_filename = "#{localstore_path}20775-#{pid}#{filename.gsub('_','-')}"
+  system("touch #{localstore_filename}")
+end
+
 

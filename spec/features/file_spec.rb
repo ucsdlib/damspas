@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'cancan'
 
 
-feature "Derivative download" do 
+feature "Derivative download" do
   before(:all) do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
                 code: "tu", uri: "http://example.com/"
@@ -18,7 +18,7 @@ feature "Derivative download" do
     @obj2.add_file( Base64.decode64(mp3_content), "_1.mp3", "test.mp3" )
     @obj2.save
 
-    @obj3 = DamsObject.create( titleValue: 'TXT Test', typeOfResource: 'text', unitURI: [@unit.pid],
+    @obj3 = DamsObject.create( pid: 'xx12341234', titleValue: 'TXT Test', typeOfResource: 'text', unitURI: [@unit.pid],
                 copyright_attributes: [{status: 'Under copyright'}] )
     @obj3.add_file( "dummy text content", "_1.txt", "test.txt" )
     @obj3.save
@@ -26,14 +26,18 @@ feature "Derivative download" do
     solr_index @obj1.pid
     solr_index @obj2.pid
     solr_index @obj3.pid
+
   end
   after(:all) do
     @obj1.delete
     @obj2.delete
     @obj3.delete
     @unit.delete
+    # remove localStore test files
+    system("rm -rf #{Rails.root}/localStore")
   end
   scenario 'anonymous user should be able to view and download image file' do
+    touch_file(@obj1.pid, '_1.jpg')
     visit dams_object_path @obj1
     expect(page).to have_selector('h1', text: 'JPEG Test')
     expect(page).to have_link('', href:"/object/#{@obj1.pid}/_1.jpg/download")
@@ -65,6 +69,7 @@ feature "Derivative download" do
   end
   scenario "Curators should be able to access restricted object files" do
     sign_in_developer
+    touch_file(@obj3.pid, '_1.txt')
     visit file_path( @obj3, '_1.txt' )
     expect(page.driver.response.status).to eq( 200 )
   end
@@ -77,7 +82,7 @@ feature "Derivative download" do
     sign_in_developer
     visit dams_object_path @obj2
     expect(page).to have_css('a[title="Download File"][rel="nofollow"]')
-  end    
+  end
 end
 
 describe "Download more than one master file" do
@@ -87,7 +92,7 @@ describe "Download more than one master file" do
     @newspaper = DamsObject.create(pid: "xx21171293")
     @newspaper.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
     @newspaper.save!
-    solr_index (@newspaper.pid)   
+    solr_index (@newspaper.pid)
   end
   after do
     @newspaper.delete
@@ -96,11 +101,11 @@ describe "Download more than one master file" do
     visit dams_object_path(@newspaper.pid)
     expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download")
     expect(page).to_not have_link('', href:"/object/xx21171293/_2.tgz/download")
-    
+
     sign_in_developer
     visit dams_object_path(@newspaper.pid)
     expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download?access=curator")
-    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download?access=curator")    
+    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download?access=curator")
   end
 end
 
@@ -121,7 +126,7 @@ describe "Download file in complex object" do
   it "should show a download button" do
     sign_in_developer
     visit dams_object_path @complexObj.pid
-    expect(page).to have_link('', href:"/object/#{@complexObj.pid}/_1_2.jpg/download?access=curator")  
+    expect(page).to have_link('', href:"/object/#{@complexObj.pid}/_1_2.jpg/download?access=curator")
   end
 end
 
@@ -144,6 +149,6 @@ describe "Download PDF file and second file with use value ends with '-source' f
     sign_in_developer
     visit dams_object_path @complexObjPdf.pid
     expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_1.pdf/download?access=curator")
-    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_2.mov/download?access=curator")    
+    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_2.mov/download?access=curator")
   end
 end
