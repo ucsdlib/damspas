@@ -1,6 +1,7 @@
 class FileController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
+  include FileControllerHelper
 
   def show
     # load metadata
