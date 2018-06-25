@@ -13,6 +13,7 @@ AllCops:
     - 'test/**/*'
     - 'app/helpers/**/*'
     - 'app/controllers/catalog_controller.rb'
+    - 'app/controllers/file_controller.rb'
     - 'app/controllers/dams_resource_controller.rb'
 
 Rails:
@@ -33,7 +34,7 @@ Style/Documentation:
 Style/ConditionalAssignment:
   Exclude:
     - 'app/helpers/*'
-    
+
 Style/Next:
   Enabled: true
 
