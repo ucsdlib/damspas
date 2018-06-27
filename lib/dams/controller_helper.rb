@@ -914,12 +914,33 @@ module Dams
     #---
 
     def can_download?(document)
-      local_license = false
-      local_other_rights = document['otherRights_tesim'] && document['otherRights_tesim'].first.to_s.include?('localDisplay') ? true : false
-      if document['resource_type_tesim'] && document['resource_type_tesim'].first.to_s.include?('video')
-        local_license = document['license_tesim'] && document['license_tesim'].first.to_s.include?('localDisplay') ? true : false
+      license = document['license_tesim']
+      other_rights = document['otherRights_tesim']
+      return false if streaming_media_type?(document['resource_type_tesim']) && (local_display?(license) || local_display?(other_rights))
+      !metadata_only_display?(license) || !metadata_only_display?(other_rights)
+    end
+
+    def streaming_media_type?(resource_types)
+      resource_types.each do |t|
+        return true if t.include?('video') || t.include?('sound')
       end
-      !local_other_rights && !local_license
+      false
+    end
+
+    def local_display?(data)
+      return false unless data
+      data.each do |d|
+        return true if d.include?('localDisplay')
+      end
+      false
+    end
+
+    def metadata_only_display?(data)
+      return false unless data
+      data.each do |d|
+        return true if d.include?('metadataDisplay')
+      end
+      false
     end
   end
 end
