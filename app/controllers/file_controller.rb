@@ -44,6 +44,9 @@ class FileController < ApplicationController
       authorize! :edit, @solr_doc
     elsif !@solr_doc['read_access_group_ssim'].include?("public")
       authorize! :show, @solr_doc
+      unless can? :edit, @solr_doc
+        raise CanCan::AccessDenied, "User is not allowed to download file: #{field}" unless can_download?(@solr_doc)
+      end
     end
 
     # set headers
