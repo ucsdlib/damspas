@@ -898,49 +898,45 @@ module Dams
       end
     end
 
-  def metadata_display?(data)
-    result = false
-    return result unless data
-    data.each do |datum|
-      result = true if datum.include?('localDisplay') || datum.include?('metadataDisplay')
+    def metadata_display?(data)
+      result = false
+      return result unless data
+      data.each do |datum|
+        result = true if datum.include?('localDisplay') || datum.include?('metadataDisplay')
+      end
+      result
     end
-    result
-  end
 
     #---
     # Check to see if an object allows file download
     #
     # @return Boolean value
     #---
+    def can_download?(solr_doc, fileid = nil)
+      permissions = (Array(solr_doc['license_tesim']) + Array(solr_doc['otherRights_tesim'])).flatten.compact
+      return false if streaming_media_type?(solr_doc['resource_type_tesim']) && local_display?(permissions)
+      metadata_only_display = metadata_only_display?(permissions)
+      return !restricted_file?(fileid) if fileid && metadata_only_display
+      !metadata_only_display
+    end
 
-    def can_download?(document)
-      license = document['license_tesim']
-      other_rights = document['otherRights_tesim']
-      return false if streaming_media_type?(document['resource_type_tesim']) && (local_display?(license) || local_display?(other_rights))
-      !metadata_only_display?(license) || !metadata_only_display?(other_rights)
+    def restricted_file?(fileid)
+      fileid && fileid.include?('_2.jpg')
     end
 
     def streaming_media_type?(resource_types)
-      resource_types.each do |t|
-        return true if t.include?('video') || t.include?('sound')
-      end
-      false
+      return false if resource_types.blank?
+      resource_types.any? { |t| t.include?('video') || t.include?('sound') }
     end
 
     def local_display?(data)
-      return false unless data
-      data.each do |d|
-        return true if d.include?('localDisplay')
-      end
-      false
+      return false if data.blank?
+      data.any? { |t| t.include?('localDisplay') }
     end
 
     def metadata_only_display?(data)
-      return false unless data
-      data.each do |d|
-        return true if d.include?('metadataDisplay')
-      end
-      false
+      return false if data.blank?
+      data.any? { |t| t.include?('metadataDisplay') }
     end
   end
 end
