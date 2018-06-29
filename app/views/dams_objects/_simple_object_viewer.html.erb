@@ -8,7 +8,8 @@
 	    </div>
     </div>
   <% end %>
-<% if cannot? :update, @document then %>
+
+<% if current_user.nil? then %>
   <% accessNotice = grab_access_text(@document) %>
   <% if accessNotice %>
     <div class="restricted-notice">

@@ -97,10 +97,10 @@ module CatalogHelper
     view_access = 'Curator Only'
     if access_group
 
-      if access_group.include?('public')
-        view_access = nil
-      elsif access_group.include?('local') && (metadata_colls.include?(document['id']) || metadata_display?(rights_data(document)))
+      if metadata_colls.include?(document['id']) || metadata_display?(rights_data(document))
         view_access = 'Restricted View'
+      elsif access_group.include?('public')
+        view_access = nil
       elsif access_group.include?('local')
         view_access = 'Restricted to UC San Diego use only'
       end
