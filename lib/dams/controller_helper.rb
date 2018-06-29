@@ -899,12 +899,8 @@ module Dams
     end
 
     def metadata_display?(data)
-      result = false
-      return result unless data
-      data.each do |datum|
-        result = true if datum.include?('localDisplay') || datum.include?('metadataDisplay')
-      end
-      result
+      return false if data.blank?
+      data.any? { |t| t.include?('localDisplay') || t.include?('metadataDisplay') }
     end
 
     #---
@@ -914,7 +910,7 @@ module Dams
     #---
     def can_download?(solr_doc, fileid = nil)
       permissions = (Array(solr_doc['license_tesim']) + Array(solr_doc['otherRights_tesim'])).flatten.compact
-      return false if streaming_media_type?(solr_doc['resource_type_tesim']) && local_display?(permissions)
+      return false if streaming_media_type?(solr_doc['resource_type_tesim']) && metadata_display?(permissions)
       metadata_only_display = metadata_only_display?(permissions)
       return !restricted_file?(fileid) if fileid && metadata_only_display
       !metadata_only_display
@@ -927,11 +923,6 @@ module Dams
     def streaming_media_type?(resource_types)
       return false if resource_types.blank?
       resource_types.any? { |t| t.include?('video') || t.include?('sound') }
-    end
-
-    def local_display?(data)
-      return false if data.blank?
-      data.any? { |t| t.include?('localDisplay') }
     end
 
     def metadata_only_display?(data)

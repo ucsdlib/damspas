@@ -579,5 +579,124 @@ describe FileController do
       end
     end
   end
+
+  describe 'OtherRights metadataDisplay audio download' do
+    let(:obj) do
+      DamsObject.create(titleValue: 'MP3 Test', typeOfResource: 'sound recording',
+                        unitURI: [unit.pid], copyright_attributes: [{ status: 'Unknown' }])
+    end
+
+    before do
+      obj.assembledCollectionURI = [local_col.pid]
+      obj.otherRightsURI = otherRights_metadata.pid
+      obj.add_file(Base64.decode64(mp3_content), '_1.wav', 'audio_source.wav')
+      obj.add_file(Base64.decode64(mp3_content), '_2.mp3', 'audio_service.mp3')
+      obj.save
+      solr_index obj.pid
+    end
+
+    after do
+      obj.delete
+    end
+
+    describe 'curator download' do
+      it 'can download the master file' do
+        sign_in User.create!(provider: 'developer')
+        get :show, id: obj.pid, ds: '_1.wav'
+        expect(response).to have_http_status(200)
+      end
+
+      it 'can download the mp3 derivative' do
+        sign_in User.create!(provider: 'developer')
+        get :show, id: obj.pid, ds: '_2.mp3'
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    describe 'public download' do
+      it 'cannot download the master file' do
+        get :show, id: obj.pid, ds: '_1.wav'
+        expect(response).to have_http_status(403)
+      end
+
+      it 'cannot download the mp3 derivative' do
+        get :show, id: obj.pid, ds: '_2.mp3'
+        expect(response).to have_http_status(403)
+      end
+    end
+
+    describe 'campus download' do
+      it 'cannot download the master file' do
+        sign_in_anonymous '132.239.0.3'
+        get :show, id: obj.pid, ds: '_1.wav'
+        expect(response).to have_http_status(403)
+      end
+
+      it 'cannot download the mp3 derivative' do
+        sign_in_anonymous '132.239.0.3'
+        get :show, id: obj.pid, ds: '_2.mp3'
+        expect(response).to have_http_status(403)
+      end
+    end
+  end
+  describe 'OtherRights metadataDisplay video download' do
+    let(:obj) do
+      DamsObject.create(titleValue: 'Video Test', typeOfResource: 'video',
+                        unitURI: [unit.pid], copyright_attributes: [{ status: 'Unknown' }])
+    end
+
+    before do
+      obj.assembledCollectionURI = [local_col.pid]
+      obj.otherRightsURI = otherRights_metadata.pid
+      obj.add_file(Base64.decode64(mov_content), '_1.mov', 'audio_source.mov')
+      obj.add_file(Base64.decode64(mp4_content), '_2.mp4', 'audio_service.mp4')
+      obj.save
+      solr_index obj.pid
+    end
+
+    after do
+      obj.delete
+    end
+
+    describe 'curator download' do
+      it 'can download the master file' do
+        sign_in User.create!(provider: 'developer')
+        get :show, id: obj.pid, ds: '_1.mov'
+        expect(response).to have_http_status(200)
+      end
+
+      it 'can download the mp4 derivative' do
+        sign_in User.create!(provider: 'developer')
+        get :show, id: obj.pid, ds: '_2.mp4'
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    describe 'public download' do
+      it 'cannot download the master file' do
+        get :show, id: obj.pid, ds: '_1.mov'
+        expect(response).to have_http_status(403)
+      end
+
+      it 'cannot download the mp4 derivative' do
+        get :show, id: obj.pid, ds: '_2.mp4'
+        expect(response).to have_http_status(403)
+      end
+    end
+
+    describe 'campus download' do
+      it 'cannot download the master file' do
+        sign_in_anonymous '132.239.0.3'
+        get :show, id: obj.pid, ds: '_1.mov'
+        expect(response).to have_http_status(403)
+      end
+
+      it 'cannot download the mp4 derivative' do
+        sign_in_anonymous '132.239.0.3'
+        get :show, id: obj.pid, ds: '_2.mp4'
+        expect(response).to have_http_status(403)
+      end
+    end
+  end
 end
 # rubocop:enable Rails/HttpPositionalArguments, Metrics/BlockLength
