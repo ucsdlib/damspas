@@ -320,7 +320,7 @@ class CatalogController < ApplicationController
 
   def metadata_only_collections
     meta_colls = []
-    params = { q: 'visibility_tesim:local', fq: 'type_tesim:Collection' }
+    params = { q: 'visibility_tesim:local OR visibility_tesim:public', fq: 'type_tesim:Collection' }
     response = raw_solr(params)
     other_rights_fquery = '(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay)'
     response.docs.each do |doc|

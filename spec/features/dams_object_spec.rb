@@ -909,16 +909,20 @@ describe "Cartographic Record" do
   end
 end
 
-describe "User wants to view a metadata-only view object " do
+describe "User wants to view simple object for local metadata-only collection" do
   before(:all) do
     ns = Rails.configuration.id_namespace
+    @restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library."
     @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
     @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
     @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
     @metadataOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
     @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"    
     @collection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with no localDisplay or metadata-only visibility", visibility: "local"    
-    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, otherRightsURI: @metadataDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
+    @metadataOnlyObj.add_file( 'video content', '_1.mp4', 'test.mp4' )
+    @metadataOnlyObj.save!
     @localObj = DamsObject.create titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @localOnlyCollection.pid, otherRightsURI: @localDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
     @obj = DamsObject.create titleValue: 'Test Object with no localDisplay, no metadataOnlyDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyright_attributes: [{status: 'Public domain'}]
     solr_index @note.pid
@@ -944,10 +948,11 @@ describe "User wants to view a metadata-only view object " do
     @obj.delete
   end
 
-  scenario 'curator user should see Restricted View access control information' do
+  scenario 'curator user should see Restricted View access control information and download link' do
     sign_in_developer
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_content('Restricted View')
+    expect(page).to have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download?access=curator")
     visit dams_object_path @localObj.pid
     expect(page).to have_content('Restricted View')
   end
@@ -959,19 +964,190 @@ describe "User wants to view a metadata-only view object " do
   end
 
   scenario 'curator user should not see Restricted View access text' do
-    restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the "
-    restricted_note += "#{@note.value.first.split(', ')[0]} at dlp@ucsd.edu" 
     sign_in_developer
     visit dams_object_path @metadataOnlyObj.pid
-    expect(page).to_not have_selector('div.restricted-notice', text: restricted_note)
-  end  
-  
-  skip 'local user should see Restricted View access text' do
-    restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the "
-    restricted_note += "#{@note.value.first.split(', ')[0]} at dlp@ucsd.edu" 
+    expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
+  end
+
+  scenario 'local user should not see Restricted View access text or download link' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
-    expect(page).to have_selector('div.restricted-notice', text: restricted_note)
+    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
+    expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
+  end
+
+  scenario 'public user should see Restricted View access text and no download link' do
+    visit dams_object_path @metadataOnlyObj.pid
+    #puts page.body
+    expect(page).to have_content('Restricted View')
+    expect(page).to have_selector('div.restricted-notice', text: @restricted_note)
+    expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
+  end 
+end
+
+describe "User wants to view simple object for public metadata-only collection" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library."
+    @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public metadata-only Collection", visibility: "public"    
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @publicCollection.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
+    @metadataOnlyObj.add_file( 'video content', '_1.mp4', 'test.mp4' )
+    @metadataOnlyObj.save!
+    solr_index @note.pid
+    solr_index @metadataDisplay.pid
+    solr_index @publicCollection.pid
+    solr_index @metadataOnlyObj.pid
+  end
+
+  after(:all) do
+    @note.delete
+    @metadataDisplay.delete
+    @publicCollection.delete
+    @metadataOnlyObj.delete
+  end
+
+  scenario 'curator user should not see Restricted View access text' do
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
+  end
+
+  scenario 'curator user should see Restricted View access control information and download link' do
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_content('Restricted View')
+    expect(page).to have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download?access=curator")
+  end
+
+  scenario 'local user should see Access information' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_content('Restricted View')
+  end
+
+  scenario 'local user should not see Restricted View access text' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
+  end
+
+  scenario 'local user should not see download button' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
+  end
+
+  scenario 'public user should see Access Information and Restricted View access text' do
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_content('Restricted View')
+    expect(page).to have_selector('div.restricted-notice', text: @restricted_note)
+    expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
+  end
+
+  scenario 'public user should not see download button' do
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
+  end
+
+end
+
+describe "User wants to view complex object for public metadata-only collection" do
+  let (:restricted_note) { "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Digital Library Development Program at dlp@ucsd.edu" }
+
+  before(:all) do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver
+    @tif_content = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7=='
+    @jpg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD//2gAIAQEAAD8AVN//2Q=='
+    @note = { type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175" }
+
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public metadata-only Collection", visibility: "public"    
+    @complexMetaObj = DamsObject.create titleValue: 'Complex Object for Public UCSD Collection with metadataDisplay otherRights', typeOfResource: 'Still Image', note_attributes: [@note], copyright_attributes: [{status: 'Unknown'}]
+    @complexMetaObj.otherRightsURI = @metadataDisplay.pid
+    @complexMetaObj.provenanceCollectionURI = @publicCollection.pid
+    @complexMetaObj.add_file( Base64.decode64(@tif_content), '_1_1.tif', 'image_source1.tif' )
+    @complexMetaObj.add_file( Base64.decode64(@jpg_content), '_1_2.jpg', 'image_service1.jpg' )
+    @complexMetaObj.add_file( Base64.decode64(@tif_content), '_2_1.tif', 'image_source2.tif' )
+    @complexMetaObj.add_file( Base64.decode64(@jpg_content), '_2_2.jpg', 'image_service2.jpg' )
+    @complexMetaObj.save!
+
+    solr_index @metadataDisplay.pid
+    solr_index @publicCollection.pid
+    solr_index @complexMetaObj.pid
+  end
+
+  after(:all) do
+    @metadataDisplay.delete
+    @publicCollection.delete
+    @complexMetaObj.delete
+  end
+
+  scenario 'curator user should not see Restricted View access text' do
+    sign_in_developer
+    visit dams_object_path @complexMetaObj.pid
+    expect(page).to_not have_selector('div.restricted-notice-complex', text: restricted_note)
+
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
+  end
+
+  scenario 'curator user should see Access information and download link' do
+    sign_in_developer
+    visit dams_object_path @complexMetaObj.pid
+    expect(page).to have_content('Restricted View')
+    expect(page).to have_link('', href:"/object/#{@complexMetaObj.id}/_1_1.tif/download?access=curator")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to have_link('', href:"/object/#{@complexMetaObj.id}/_2_1.tif/download?access=curator")
+  end
+
+  scenario 'local user should see Access information' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @complexMetaObj.pid
+    expect(page).to have_content('Restricted View')
+  end
+
+  scenario 'local user should not see Restricted View access text' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @complexMetaObj.pid
+    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)   
+
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
+  end
+
+  scenario 'local user should not see download button' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @complexMetaObj.pid
+    expect(page).to_not have_link('', href:"/object/#{@complexMetaObj.id}/_1_2.jpg/download")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to_not have_link('', href:"/object/#{@complexMetaObj.id}/_2_2.jpg/download")
+  end
+
+  scenario 'public user should see Access Information and Restricted View access text' do
+    visit dams_object_path @complexMetaObj.pid
+    expect(page).to have_content('Restricted View')
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)   
+
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)    
+  end
+
+  scenario 'public user should not see download button' do
+    visit dams_object_path @complexMetaObj.pid
+    expect(page).to_not have_link('', href:"/object/#{@complexMetaObj.id}/_1_2.jpg/download")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to_not have_link('', href:"/object/#{@complexMetaObj.id}/_2_2.jpg/download")
   end
 end
 

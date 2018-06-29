@@ -560,3 +560,43 @@ feature 'Visitor wants to view contact form' do
     expect(page).to have_selector('#mf_placeholder')
   end
 end
+
+feature 'Visitor wants to view object for public metadata-only collection in the search result page' do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
+    @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"    
+    @localObj = DamsObject.create pid: 'xx909090zz', titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @publicCollection.pid, otherRightsURI: @localDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    solr_index @note.pid
+    solr_index @localDisplay.pid
+    solr_index @publicCollection.pid
+    solr_index @localObj.pid
+  end
+  after(:all) do
+    @note.delete
+    @localDisplay.delete
+    @publicCollection.delete
+    @localObj.delete
+  end
+
+  scenario 'public user should see the grey generic thumbnail and restricted access info' do
+    visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+
+  scenario 'local user should see the grey generic thumbnail and restricted access info' do
+    sign_in_anonymous '132.239.0.3'
+    visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+  
+  scenario 'curator user should see the grey generic thumbnail and restricted access info' do
+    sign_in_developer
+    visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+end

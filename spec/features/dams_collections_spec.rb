@@ -398,3 +398,57 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     expect(page).to have_content('Restricted View')
   end  
 end
+
+feature "Visitor wants to view a public collection's page with metadata-only objects" do
+  before(:all) do
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"    
+    @copyright = DamsCopyright.create status: 'Under copyright'
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @metadataDisplay.pid
+    solr_index @metadataDisplay.pid
+    solr_index @publicCollection.pid      
+    solr_index @copyright.pid
+    solr_index @metadataOnlyObj.pid
+  end
+
+  after(:all) do
+    @metadataDisplay.delete
+    @publicCollection.delete
+    @copyright.delete
+    @metadataOnlyObj.delete
+  end
+
+  scenario 'curator user should see Restricted View access control information' do
+    sign_in_developer
+    visit dams_collection_path @publicCollection.pid
+    expect(page).to have_content('Restricted View')
+  end
+  
+  scenario 'curator user should see Restricted View access control information when visit browse by collection page' do
+    sign_in_developer
+    visit '/collections'
+    expect(page).to have_content('Restricted View')
+  end  
+
+  scenario 'local user should see Restricted View access control information' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_collection_path @publicCollection.pid
+    expect(page).to have_content('Restricted View')
+  end
+  
+  scenario 'local user should see Restricted View access control information when visit browse by collection page' do
+    sign_in_anonymous '132.239.0.3'
+    visit '/collections'
+    expect(page).to have_content('Restricted View')
+  end
+  
+  scenario 'public user should see Restricted View access control information' do
+    visit dams_collection_path @publicCollection.pid
+    expect(page).to have_content('Restricted View')
+  end
+  
+  scenario 'public user should see Restricted View access control information when visit browse by collection page' do
+    visit '/collections'
+    expect(page).to have_content('Restricted View')
+  end 
+end
