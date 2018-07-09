@@ -3,15 +3,11 @@ FROM ruby:2.3.7
 # Maintainer
 MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
 
-RUN apt-get update -yqq
-RUN apt-get install -yqq --no-install-recommends nodejs
-
-# Dependencies we need for running phantomjs
-ENV PHANTOM_JS_DEPENDENCIES\
-  libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6
+RUN apt-get update -yqq \
+ && apt-get install -yqq --no-install-recommends nodejs libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6 \
+ && apt-get clean
 
 ENV PHANTOM_JS_TAG 2.1.1
-RUN apt-get install -fyq ${PHANTOM_JS_DEPENDENCIES}
 
 # Downloading bin, unzipping & removing zip
 WORKDIR /tmp
