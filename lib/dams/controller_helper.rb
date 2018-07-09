@@ -929,5 +929,11 @@ module Dams
       return false if data.blank?
       data.any? { |t| t.include?('metadataDisplay') }
     end
+
+    # Rights data: OtherRights and License
+    # @return [Array]
+    def rights_data(document)
+      (Array(document['otherRights_tesim']) + Array(document['license_tesim'])).flatten.compact
+    end
   end
 end

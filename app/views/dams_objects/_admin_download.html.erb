@@ -5,7 +5,7 @@
 
   <% if can? :update, @document then %>
     <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
-  <% elsif can_download?(@document) && !downloadDerivativePath.nil?%>
+  <% elsif can?(:read, @document) && can_download?(@document) && !downloadDerivativePath.nil?%>
     <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
   <% end %>
 

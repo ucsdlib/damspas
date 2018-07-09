@@ -786,18 +786,12 @@ def display_node(index)
   #---
 
   def grab_access_text(document)
-    result = nil
-    access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
-    data = document['otherRights_tesim']
-    return result unless data && access_group
-    if access_group.include?('local') && !data.nil?
-      data.each do |datum|
-        if datum.include?('localDisplay') || datum.include?('metadataDisplay')
-          result = "<h3>Restricted View</h3><p>#{get_attribution_note(document['otherNote_json_tesim'])}</p>".html_safe
-        end
-      end
-    end
-    result
+    out = []
+    data = rights_data document
+    return nil unless metadata_display?(data) && cannot?(:read, document)
+    out << content_tag(:h3, 'Restricted View')
+    out << content_tag(:p, get_attribution_note(document['otherNote_json_tesim']))
+    safe_join(out)
   end
 
   def get_attribution_note(data)
