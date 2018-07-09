@@ -975,6 +975,182 @@ describe "User wants to view a metadata-only view object " do
   end
 end
 
+describe "View simple UCSD localDisplay object" do
+  let (:restricted_note) { "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Digital Library Development Program at dlp@ucsd.edu" }
+
+  before(:all) do
+    @note = { type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175" }
+    @licenseLocalDisplay = DamsLicense.create permissionType: "localDisplay"
+    @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
+    @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Simple Object Collection with localDisplay visibility", visibility: "local"
+
+    @licenseLocalObj = DamsObject.create titleValue: 'Test Object with License localDisplay', note_attributes: [@note], copyright_attributes: [{status: 'Unknown'}]
+    @licenseLocalObj.provenanceCollectionURI = @localOnlyCollection.pid
+    @licenseLocalObj.licenseURI = @licenseLocalDisplay.pid
+    @licenseLocalObj.save
+
+    @localObj = DamsObject.create titleValue: 'Test Object with localDisplay', note_attributes: [@note], copyright_attributes: [{status: 'Unknown'}]
+    @localObj.provenanceCollectionURI = @localOnlyCollection.pid
+    @localObj.otherRightsURI = @localDisplay.pid
+    @localObj.add_file(Base64.decode64('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7=='), '_1.tif', 'image_source.tif')
+    @localObj.add_file(Base64.decode64('/9j/4AAQSkZJRgABAQEAAQABAAD//2gAIAQEAAD8AVN//2Q=='), '_2.jpg', 'image_service.jpg')
+    @localObj.save
+
+    solr_index @localDisplay.pid
+    solr_index @localOnlyCollection.pid
+    solr_index @localObj.pid
+    solr_index @licenseLocalObj.pid
+  end
+
+  after(:all) do
+    @licenseLocalDisplay.delete
+    @localDisplay.delete
+    @localOnlyCollection.delete
+    @localObj.delete
+    @licenseLocalObj.delete
+  end
+
+  scenario 'public user should see Restricted View access text in license localDisplay object' do
+    visit dams_object_path @licenseLocalObj.pid
+    expect(page).to have_selector('div.restricted-notice', text: restricted_note)
+  end
+
+  scenario 'local user should not see Restricted View access text in license localDisplay object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @licenseLocalObj.pid
+    expect(page).not_to have_selector('div.restricted-notice', text: restricted_note)
+  end
+
+  scenario 'curator user should not see Restricted View access text in license localDisplay object' do
+    sign_in_developer
+    visit dams_object_path @licenseLocalObj.pid
+    expect(page).to_not have_selector('div.restricted-notice', text: restricted_note)
+  end
+
+  scenario 'public user should see Restricted View access text in OtherRights localDisplay object' do
+    visit dams_object_path @localObj.pid
+    expect(page).to have_selector('div.restricted-notice', text: restricted_note)
+  end
+
+  scenario 'local user should not see Restricted View access text in OtherRights localDisplay object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @localObj.pid
+    expect(page).not_to have_selector('div.restricted-notice', text: restricted_note)
+  end
+
+  scenario 'curator user should not see Restricted View access text in OtherRights localDisplay object' do
+    sign_in_developer
+    visit dams_object_path @localObj.pid
+    expect(page).to_not have_selector('div.restricted-notice', text: restricted_note)
+  end
+
+  scenario 'public user should not see download button for any images in localDisplay object' do
+    visit dams_object_path @localObj.pid
+    expect(page).not_to have_link('', href:"/object/#{@localObj.pid}/_2.jpg/download")
+  end
+
+  scenario 'local user should see download button for service derivative in localDisplay object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @localObj.pid
+    expect(page).to have_link('', href:"/object/#{@localObj.pid}/_2.jpg/download")
+  end
+
+  scenario 'curator should see download button for master image in localDisplay object' do
+    sign_in_developer
+    visit dams_object_path @localObj.pid
+    expect(page).to have_link('', href:"/object/#{@localObj.pid}/_1.tif/download?access=curator")
+  end
+end
+
+describe "View complex UCSD localDisplay object" do
+  let (:restricted_note) { "Restricted View Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Digital Library Development Program at dlp@ucsd.edu" }
+
+  before(:all) do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver
+    @tif_content = 'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7=='
+    @jpg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD//2gAIAQEAAD8AVN//2Q=='
+    @note = { type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175" }
+
+    @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
+    @localCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Complex Object Collection", visibility: "local"
+    @localObj = DamsObject.create titleValue: 'Complex Object with UCSD localDisplay', typeOfResource: 'Still Image', note_attributes: [@note], copyright_attributes: [{status: 'Unknown'}]
+
+    @localObj.otherRightsURI = @localDisplay.pid
+    @localObj.provenanceCollectionURI = @localCollection.pid
+    @localObj.add_file( Base64.decode64(@tif_content), '_1_1.tif', 'image_source1.tif' )
+    @localObj.add_file( Base64.decode64(@jpg_content), '_1_2.jpg', 'image_service1.jpg' )
+    @localObj.add_file( Base64.decode64(@tif_content), '_2_1.tif', 'image_source2.tif' )
+    @localObj.add_file( Base64.decode64(@jpg_content), '_2_2.jpg', 'image_service2.jpg' )
+    @localObj.save!
+
+    solr_index @localDisplay.pid
+    solr_index @localCollection.pid
+    solr_index @localObj.pid
+  end
+
+  after(:all) do
+    @localDisplay.delete
+    @localCollection.delete
+    @localObj.delete
+  end
+
+  scenario 'public user should see Restricted View access text in localDisplay object' do
+    visit dams_object_path @localObj.pid
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
+
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
+  end
+
+  scenario 'local user should not see Restricted View access text in localDisplay object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @localObj.pid
+    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
+
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
+  end
+
+  scenario 'curator user should not see Restricted View access text in localDisplay object' do
+    sign_in_developer
+    visit dams_object_path @localObj.pid
+    expect(page).to_not have_selector('div.restricted-notice-complex', text: restricted_note)
+
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
+  end
+
+  scenario 'public user should not see download button for service derivative in localDisplay object' do
+    visit dams_object_path @localObj.pid
+    expect(page).to_not have_link('', href:"/object/#{@localObj.id}/_1_2.jpg/download")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to_not have_link('', href:"/object/#{@localObj.id}/_2_2.jpg/download")
+  end
+
+  scenario 'local user should see download button for service derivative in localDisplay object' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @localObj.pid
+    expect(page).to have_link('', href:"/object/#{@localObj.id}/_1_2.jpg/download")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to have_link('', href:"/object/#{@localObj.id}/_2_2.jpg/download")
+  end
+
+  scenario 'curator user should see download button for image source in localDisplay object' do
+    sign_in_developer
+    visit dams_object_path @localObj.pid
+    expect(page).to have_link('', href:"/object/#{@localObj.id}/_1_1.tif/download?access=curator")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to have_link('', href:"/object/#{@localObj.id}/_2_1.tif/download?access=curator")
+  end
+end
+
 describe "User wants to view a simple ucsd-only video" do
   before(:all) do
     @license = DamsLicense.create permissionType: "localDisplay"
