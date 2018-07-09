@@ -1,0 +1,57 @@
+---
+version: 2
+jobs:
+  build:
+    working_directory: ~/ucsdlib/damspas
+    parallelism: 1
+    docker:
+      - image: ruby:2.3.7
+        environment:
+          CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
+          CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
+          CIRCLE_ENV: test
+          RAILS_ENV: test
+          APPS_DHH_DEV_DB: database
+          APPS_DHH_DEV_SOLR_URL: http://localhost:8080/solr/blacklight
+          APPS_DHH_DEV_FEDORA_URL: http://localhost:8080/dams/fedora
+          APPS_DHH_DEV_DB_USER: dams
+          APPS_DHH_DEV_DB_PASS: dams
+      - image: postgres
+        environment:
+          POSTGRES_USER: dams
+          POSTGRES_PASSWORD: dams
+      - image: ucsdlib/docker-tomcat-damsrepo
+    steps:
+      - checkout
+      - run: apt-get update -yqq \
+            && apt-get install -yqq --no-install-recommends nodejs libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6 \
+            && apt-get clean
+      - run: curl --output ~/bin/phantomjs-2.0.1-linux-x86_64-dynamic https://s3.amazonaws.com/circle-support-bucket/phantomjs/phantomjs-2.0.1-linux-x86_64-dynamic
+      - run: chmod a+x ~/bin/phantomjs-2.0.1-linux-x86_64-dynamic
+      - run: sudo ln -s --force ~/bin/phantomjs-2.0.1-linux-x86_64-dynamic /usr/local/bin/phantomjs
+      - restore_cache:
+          keys:
+          # This branch if available
+          - bundle-{{ "Gemfile" }}-{{ checksum "Gemfile.lock" }}
+          - bundle- #fallback
+      - run: bundle install --path vendor/bundle --jobs 4 --retry 3
+      - save_cache:
+          key: bundle-{{ "Gemfile" }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run: bundle exec rake db:setup
+      # TODO: figure out how to do this in circle-ci context
+      - run: docker exec -i project_database_1 psql -U dams dams < docker/files/damsrepo/dams.triplestore
+      - run: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec spec
+      # Save test results
+      - store_test_results:
+          path: /tmp/circleci-test-results
+      # Save artifacts
+      - store_artifacts:
+          path: /tmp/circleci-artifacts
+      - store_artifacts:
+          path: tmp
+      - store_artifacts:
+          path: /tmp/circleci-test-results
+
+
