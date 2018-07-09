@@ -966,7 +966,7 @@ describe "User wants to view a metadata-only view object " do
     expect(page).to_not have_selector('div.restricted-notice', text: restricted_note)
   end  
   
-  scenario 'local user should see Restricted View access text' do
+  skip 'local user should see Restricted View access text' do
     restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the "
     restricted_note += "#{@note.value.first.split(', ')[0]} at dlp@ucsd.edu" 
     sign_in_anonymous '132.239.0.3'
