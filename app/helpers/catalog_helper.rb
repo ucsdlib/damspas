@@ -94,13 +94,12 @@ module CatalogHelper
 
   def display_access_control_level(document, metadata_colls)
     access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
-    other_rights = document['otherRights_tesim']
     view_access = 'Curator Only'
     if access_group
 
       if access_group.include?('public')
         view_access = nil
-      elsif access_group.include?('local') && (metadata_colls.include?(document['id']) || metadata_display?(other_rights))
+      elsif access_group.include?('local') && (metadata_colls.include?(document['id']) || metadata_display?(rights_data(document)))
         view_access = 'Restricted View'
       elsif access_group.include?('local')
         view_access = 'Restricted to UC San Diego use only'
@@ -141,10 +140,9 @@ module CatalogHelper
   end
 
   def object_thumbnail_url(document)
-    access = grab_access_text(document)
-    restricted = grabRestrictedText(document['otherNote_json_tesim'])
-    return nil unless access || restricted || (has_thumbnail?(document) && thumbnail_url(document, nil))
-    if access || restricted
+    restricted_view = metadata_display?(rights_data(document))
+    return nil unless restricted_view || (has_thumbnail?(document) && thumbnail_url(document, nil))
+    if restricted_view
       url = 'https://library.ucsd.edu/assets/dams/site/thumb-restricted.png'
       image_tag(url, alt: '', class: 'dams-search-thumbnail')
     else
