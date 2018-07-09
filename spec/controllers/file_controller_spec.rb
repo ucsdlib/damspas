@@ -21,6 +21,8 @@ describe FileController do
 
   after do
     [unit, pub_col, local_col, license_local, otherRights_metadata, otherRights_local].each(&:delete)
+    # remove localStore test files
+    system("rm -rf #{Rails.root}/localStore")
   end
 
   describe 'public object image download' do
@@ -35,10 +37,14 @@ describe FileController do
       obj.add_file(Base64.decode64(jpeg_content), '_2.jpg', 'image_service.jpg')
       obj.save
       solr_index obj.pid
+      touch_file(obj.pid, '_1.tif')
+      touch_file(obj.pid, '_2.jpg')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator' do
@@ -96,10 +102,16 @@ describe FileController do
       obj.add_file(Base64.decode64(jpeg_content), '_3.jpg', 'image_medium.jpg')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.tif')
+      touch_file(obj.pid, '_2.jpg')
+      touch_file(obj.pid, '_3.jpg')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator' do
@@ -173,10 +185,15 @@ describe FileController do
       obj.add_file(Base64.decode64(jpeg_content), '_2.jpg', 'image_service.jpg')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.tif')
+      touch_file(obj.pid, '_2.jpg')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator' do
@@ -233,10 +250,15 @@ describe FileController do
       obj.add_file(Base64.decode64(jpeg_content), '_2.jpg', 'image_service.jpg')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.tif')
+      touch_file(obj.pid, '_2.jpg')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator' do
@@ -293,10 +315,15 @@ describe FileController do
       obj.add_file(Base64.decode64(jpeg_content), '_2.jpg', 'image_service.jpg')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.tif')
+      touch_file(obj.pid, '_2.jpg')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator' do
@@ -353,10 +380,15 @@ describe FileController do
       obj.add_file(Base64.decode64(mp3_content), '_2.mp3', 'audio_service.mp3')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.wav')
+      touch_file(obj.pid, '_2.mp3')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator download' do
@@ -413,10 +445,15 @@ describe FileController do
       obj.add_file(Base64.decode64(mp3_content), '_2.mp3', 'audio_service.mp3')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.wav')
+      touch_file(obj.pid, '_2.mp3')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator download' do
@@ -473,10 +510,15 @@ describe FileController do
       obj.add_file(Base64.decode64(mp4_content), '_2.mp4', 'audio_service.mp4')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.mov')
+      touch_file(obj.pid, '_2.mp4')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator download' do
@@ -533,10 +575,15 @@ describe FileController do
       obj.add_file(Base64.decode64(mp4_content), '_2.mp4', 'audio_service.mp4')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.mov')
+      touch_file(obj.pid, '_2.mp4')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator download' do
@@ -593,10 +640,15 @@ describe FileController do
       obj.add_file(Base64.decode64(mp3_content), '_2.mp3', 'audio_service.mp3')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.wav')
+      touch_file(obj.pid, '_2.mp3')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator download' do
@@ -652,10 +704,15 @@ describe FileController do
       obj.add_file(Base64.decode64(mp4_content), '_2.mp4', 'audio_service.mp4')
       obj.save
       solr_index obj.pid
+      # setup send_file test files
+      touch_file(obj.pid, '_1.mov')
+      touch_file(obj.pid, '_2.mp4')
     end
 
     after do
       obj.delete
+      # remove localStore test files
+      system("rm -rf #{Rails.root}/localStore")
     end
 
     describe 'curator download' do
