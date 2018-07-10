@@ -16,7 +16,7 @@ jobs:
           APPS_DHH_DEV_FEDORA_URL: http://localhost:8080/dams/fedora
           APPS_DHH_DEV_DB_USER: dams
           APPS_DHH_DEV_DB_PASS: dams
-      - image: postgres
+      - image: ucsdlib/docker-postgres-damsrepo
         environment:
           POSTGRES_USER: dams
           POSTGRES_PASSWORD: dams
@@ -37,9 +37,6 @@ jobs:
           key: bundle-{{ "Gemfile" }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-      - run: bundle exec rake db:setup
-      # TODO: figure out how to do this in circle-ci context
-      - run: docker exec -i project_database_1 psql -U dams dams < docker/files/damsrepo/dams.triplestore
       - run: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec spec
       # Save test results
       - store_test_results:
