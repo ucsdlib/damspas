@@ -42,7 +42,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:setup
       - run: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec --profile 10 \
-                                                                          --out test_results/rspec.xml \
+                                                                          --out $CIRCLE_TEST_REPORTS/rspec.xml \
                                                                           --format progress \
                                                                           $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       # Save test results
