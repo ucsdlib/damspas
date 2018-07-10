@@ -3,9 +3,9 @@ version: 2
 jobs:
   build:
     working_directory: ~/ucsdlib/damspas
-    parallelism: 1
+    parallelism: 3
     docker:
-      - image: ruby:2.3.7
+      - image: circleci/ruby:2.3.7-node
         environment:
           CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
           CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
@@ -37,8 +37,14 @@ jobs:
           key: bundle-{{ "Gemfile" }}-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:setup
-      - run: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec spec
+      - run: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec --profile 10 \
+                                                                          --out test_results/rspec.xml \
+                                                                          --format progress \
+                                                                          $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       # Save test results
       - store_test_results:
           path: /tmp/circleci-test-results
