@@ -25,10 +25,10 @@ jobs:
       - run: curl --output phantomjs https://s3.amazonaws.com/circle-support-bucket/phantomjs/phantomjs-2.0.1-linux-x86_64-dynamic
       - run: chmod a+x phantomjs
       - run:
-        name: Make PhantomJS executable available on PATH
-        command: |
-          echo 'export PATH=$HOME/ucsdlib/damspas:$PATH' >> $BASH_ENV
-          source ~/.bashrc
+          name: Make PhantomJS executable available on PATH
+          command: |
+            echo 'export PATH=$HOME/ucsdlib/damspas:$PATH' >> $BASH_ENV
+            source ~/.bashrc
       - restore_cache:
           keys:
           # This branch if available
