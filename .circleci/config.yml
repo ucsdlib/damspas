@@ -24,9 +24,9 @@ jobs:
     steps:
       - checkout
       - run: apt-get update && apt-get install -yqq --no-install-recommends nodejs libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6 && apt-get clean
-      - run: curl --output ~/bin/phantomjs-2.0.1-linux-x86_64-dynamic https://s3.amazonaws.com/circle-support-bucket/phantomjs/phantomjs-2.0.1-linux-x86_64-dynamic
-      - run: chmod a+x ~/bin/phantomjs-2.0.1-linux-x86_64-dynamic
-      - run: sudo ln -s --force ~/bin/phantomjs-2.0.1-linux-x86_64-dynamic /usr/local/bin/phantomjs
+      - run: curl --output phantomjs-2.0.1-linux-x86_64-dynamic https://s3.amazonaws.com/circle-support-bucket/phantomjs/phantomjs-2.0.1-linux-x86_64-dynamic
+      - run: chmod a+x phantomjs-2.0.1-linux-x86_64-dynamic
+      - run: sudo ln -s --force phantomjs-2.0.1-linux-x86_64-dynamic /usr/local/bin/phantomjs
       - restore_cache:
           keys:
           # This branch if available
