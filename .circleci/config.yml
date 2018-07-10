@@ -7,8 +7,6 @@ jobs:
     docker:
       - image: circleci/ruby:2.3.7-node
         environment:
-          CIRCLE_ARTIFACTS: /tmp/circleci-artifacts
-          CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
           CIRCLE_ENV: test
           RAILS_ENV: test
           APPS_DHH_DEV_DB: localhost
@@ -24,9 +22,9 @@ jobs:
     steps:
       - checkout
       - run: sudo apt-get update && sudo apt-get install -yqq --no-install-recommends libicu-dev && sudo apt-get clean
-      - run: curl --output phantomjs-2.0.1-linux-x86_64-dynamic https://s3.amazonaws.com/circle-support-bucket/phantomjs/phantomjs-2.0.1-linux-x86_64-dynamic
-      - run: chmod a+x phantomjs-2.0.1-linux-x86_64-dynamic
-      - run: sudo ln -s --force phantomjs-2.0.1-linux-x86_64-dynamic /usr/local/bin/phantomjs
+      - run: curl --output phantomjs https://s3.amazonaws.com/circle-support-bucket/phantomjs/phantomjs-2.0.1-linux-x86_64-dynamic
+      - run: chmod a+x phantomjs
+      - run: echo 'export PATH=$HOME/ucsdlib/damspas:$PATH' >> $BASH_ENV
       - restore_cache:
           keys:
           # This branch if available
@@ -42,18 +40,9 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:setup
       - run: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec --profile 10 \
-                                                                          --out $CIRCLE_TEST_REPORTS/rspec.xml \
+                                                                          --out test_results/rspec.xml \
                                                                           --format progress \
                                                                           $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
       # Save test results
       - store_test_results:
-          path: /tmp/circleci-test-results
-      # Save artifacts
-      - store_artifacts:
-          path: /tmp/circleci-artifacts
-      - store_artifacts:
-          path: tmp
-      - store_artifacts:
-          path: /tmp/circleci-test-results
-
-
+          path: test_results
