@@ -11,7 +11,7 @@ jobs:
           CIRCLE_TEST_REPORTS: /tmp/circleci-test-results
           CIRCLE_ENV: test
           RAILS_ENV: test
-          APPS_DHH_DEV_DB: database
+          APPS_DHH_DEV_DB: localhost
           APPS_DHH_DEV_SOLR_URL: http://localhost:8080/solr/blacklight
           APPS_DHH_DEV_FEDORA_URL: http://localhost:8080/dams/fedora
           APPS_DHH_DEV_DB_USER: dams
