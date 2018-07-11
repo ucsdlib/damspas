@@ -50,9 +50,9 @@ Hydra::Application.configure do
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'http://rohan.ucsd.edu/zoomify/'
   config.shibboleth = false
-  config.host_name = 'http://localhost:3000'
   config.secure_token_audio_baseurl = 'lib-streaming.ucsd.edu:1936/dams4-securetoken/_definst_/mp3:'
   config.secure_token_video_baseurl = 'lib-streaming.ucsd.edu:1936/dams4-securetoken/_definst_/mp4:'
   config.secure_token_name = ENV.fetch('APPS_DHH_SECURE_TOKEN_NAME') {'default'}
   config.secure_token_secret = ENV.fetch('APPS_DHH_SECURE_TOKEN_SECRET') {'default'}
+  # config.host_name = 'http://localhost:3000'
 end
