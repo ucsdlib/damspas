@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     working_directory: ~/ucsdlib/damspas
-    parallelism: 3
+    parallelism: 1
     docker:
       - image: circleci/ruby:2.3.7-node-browsers
         environment:
@@ -39,13 +39,7 @@ jobs:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:setup
       - run:
-          name: Run rspec in parallel
-          command: |
-            COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec --profile 10 \
-                                                                         --format RspecJunitFormatter \
-                                                                         --out test_results/rspec.xml \
-                                                                         --format progress \
-                                                                         $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-      # Save test results
+          name: Run rspec
+          command: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec
       - store_test_results:
           path: test_results
