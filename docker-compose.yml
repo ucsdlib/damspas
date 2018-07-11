@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - database
+    env_file:
+      - docker/.env.dev.database
+      - docker/.env.dev.web
+
+  database:
+    image: ucsdlib/docker-postgres-damsrepo
+    # volumes:
+    #   - db-data:/var/lib/postgresql/data
+    env_file:
+      - docker/.env.dev.database
+
+  tomcat:
+    image: ucsdlib/docker-tomcat-damsrepo
+
+# volumes:
+#   db-data:
