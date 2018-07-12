@@ -904,7 +904,7 @@ module Dams
     end
 
     def local_user_public_col?(document)
-      return false unless !current_user.nil?
+      return false unless current_user
       current_user.provider.include?('anonymous') && public_collection?(document['collection_json_tesim'])
     end
 
