@@ -919,7 +919,8 @@ describe "User wants to view simple object for local metadata-only collection" d
     @metadataOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
     @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"    
     @collection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with no localDisplay or metadata-only visibility", visibility: "local"    
-    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj.provenanceCollectionURI = @metadataOnlyCollection.pid
     @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
     @metadataOnlyObj.add_file( 'video content', '_1.mp4', 'test.mp4' )
     @metadataOnlyObj.save!
@@ -993,7 +994,8 @@ describe "User wants to view simple object for public metadata-only collection" 
     @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
     @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
     @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public metadata-only Collection", visibility: "public"    
-    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @publicCollection.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object', note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj.provenanceCollectionURI = @publicCollection.pid
     @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
     @metadataOnlyObj.add_file( 'video content', '_1.mp4', 'test.mp4' )
     @metadataOnlyObj.save!
@@ -1029,10 +1031,10 @@ describe "User wants to view simple object for public metadata-only collection" 
     expect(page).to have_content('Restricted View')
   end
 
-  scenario 'local user should not see Restricted View access text' do
+  scenario 'local user should see Restricted View access text' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
-    expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
+    expect(page).to have_selector('div.restricted-notice', text: @restricted_note)
   end
 
   scenario 'local user should not see download button' do
@@ -1113,14 +1115,14 @@ describe "User wants to view complex object for public metadata-only collection"
     expect(page).to have_content('Restricted View')
   end
 
-  scenario 'local user should not see Restricted View access text' do
+  scenario 'local user should see Restricted View access text' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @complexMetaObj.pid
-    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)   
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)   
 
     click_button 'component-pager-forward'
     expect(page).to have_content('Generic Component Title 2')
-    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
+    expect(page).to have_selector('div.restricted-notice-complex', text: restricted_note)
   end
 
   scenario 'local user should not see download button' do

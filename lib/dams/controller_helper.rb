@@ -903,6 +903,16 @@ module Dams
       data.any? { |t| t.include?('localDisplay') || t.include?('metadataDisplay') }
     end
 
+    def local_user_public_col?(document)
+      return false unless !current_user.nil?
+      current_user.provider.include?('anonymous') && public_collection?(document['collection_json_tesim'])
+    end
+
+    def public_collection?(data)
+      return false if data.blank?
+      data.any? { |t| t.include?('public') }
+    end
+
     #---
     # Check to see if an object allows file download
     #

@@ -788,7 +788,7 @@ def display_node(index)
   def grab_access_text(document)
     out = []
     data = rights_data document
-    return nil unless metadata_display?(data) && current_user.nil?
+    return nil unless metadata_display?(data) && (current_user.nil? || local_user_public_col?(@document))
     out << content_tag(:h3, 'Restricted View')
     out << content_tag(:p, get_attribution_note(document['otherNote_json_tesim']))
     safe_join(out)
