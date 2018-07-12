@@ -30,7 +30,7 @@
           <div class="simple-object"></div>
         <% end %>
 <%# END RESTRICTED NOTICE %>
-    <% if current_user.nil? then %>
+    <% if current_user.nil? || local_user_public_col?(@document) then %>
         <% accessNotice = grab_access_text(@document) %>
         <% if accessNotice %>
         <div class="restricted-notice">
