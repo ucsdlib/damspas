@@ -15,7 +15,8 @@ gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
 gem 'sitemap_generator', '~> 5.3.1'
 
-gem 'sqlite3', '~> 1.3.13'
+gem 'pg', '~> 0.18.2'
+gem 'activerecord-postgresql-adapter'
 
 gem 'devise', '~> 3.5.5'
 gem 'omniauth', '~> 1.7.1' # 1.2.2 breaks test sign_in
@@ -60,7 +61,7 @@ group :development, :test do
   gem 'selenium-webdriver', '3.4.0'
   gem 'launchy', '~> 2.4.3'
   gem "minitest", '~> 5.10.2'
-  gem 'rspec-rails', '3.6.0' 
+  gem 'rspec-rails', '3.6.0'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.14.1'
   gem 'rubocop', '0.49.1', require: false
