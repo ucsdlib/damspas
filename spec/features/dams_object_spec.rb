@@ -994,7 +994,7 @@ describe "User wants to view simple object for public metadata-only collection" 
     @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
     @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
     @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public metadata-only Collection", visibility: "public"    
-    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object', note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object', note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Under copyright'}]
     @metadataOnlyObj.provenanceCollectionURI = @publicCollection.pid
     @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
     @metadataOnlyObj.add_file( 'video content', '_1.mp4', 'test.mp4' )
@@ -1069,7 +1069,7 @@ describe "User wants to view complex object for public metadata-only collection"
 
     @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
     @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public metadata-only Collection", visibility: "public"    
-    @complexMetaObj = DamsObject.create titleValue: 'Complex Object for Public UCSD Collection with metadataDisplay otherRights', typeOfResource: 'Still Image', note_attributes: [@note], copyright_attributes: [{status: 'Unknown'}]
+    @complexMetaObj = DamsObject.create titleValue: 'Complex Object for Public UCSD Collection with metadataDisplay otherRights', typeOfResource: 'Still Image', note_attributes: [@note], copyright_attributes: [{status: 'Under copyright'}]
     @complexMetaObj.otherRightsURI = @metadataDisplay.pid
     @complexMetaObj.provenanceCollectionURI = @publicCollection.pid
     @complexMetaObj.add_file( Base64.decode64(@tif_content), '_1_1.tif', 'image_source1.tif' )

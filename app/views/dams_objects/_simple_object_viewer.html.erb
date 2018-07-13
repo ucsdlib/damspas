@@ -9,7 +9,7 @@
     </div>
   <% end %>
 
-<% if current_user.nil? || local_user_public_col?(@document) then %>
+<% if cannot?(:read, @document) then %>
 
   <% accessNotice = grab_access_text(@document) %>
   <% if accessNotice %>
