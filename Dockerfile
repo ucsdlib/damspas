@@ -1,7 +1,21 @@
-FROM circleci/ruby:2.3.7-node-browsers
+FROM ruby:2.3.7
 
 # Maintainer
 MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
+
+RUN apt-get update -yqq \
+ && apt-get install -yqq --no-install-recommends nodejs libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6 \
+ && apt-get clean
+
+ENV PHANTOM_JS_TAG 2.1.1
+
+# Downloading bin, unzipping & removing zip
+WORKDIR /tmp
+RUN wget -q http://cnpmjs.org/mirrors/phantomjs/phantomjs-${PHANTOM_JS_TAG}-linux-x86_64.tar.bz2 -O phantomjs.tar.bz2 \
+  && tar xjf phantomjs.tar.bz2 \
+  && rm -rf phantomjs.tar.bz2 \
+  && mv phantomjs-* phantomjs \
+  && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin/phantomjs
 
 RUN echo "phantomjs binary is located at `which phantomjs`" \
   && echo "just run 'phantomjs' (version `phantomjs -v`)"
