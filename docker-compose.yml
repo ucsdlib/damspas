@@ -23,7 +23,7 @@ services:
 
   tomcat:
     image: ucsdlib/docker-tomcat-damsrepo
-    # command: ["dockerize", "-wait", "tcp://database:5432", "-timeout", "1m", "catalina.sh", "run"]
+    command: ["dockerize", "-wait", "tcp://database:5432", "-timeout", "1m", "catalina.sh", "run"]
     depends_on:
       - database
 
