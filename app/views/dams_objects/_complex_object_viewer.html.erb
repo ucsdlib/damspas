@@ -15,7 +15,7 @@
     </div>
   </div>
 <% end %>
-<% access_notice = grab_access_text(@document) if ( current_user.nil? || local_user_public_col?(@document)) %>
+<% access_notice = grab_access_text(@document) if cannot?(:read, @document) %>
 
 <section id="le-component">
 
