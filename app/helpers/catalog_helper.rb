@@ -96,8 +96,9 @@ module CatalogHelper
     access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
     view_access = 'Curator Only'
     if access_group
-
-      if metadata_colls.include?(document['id']) || metadata_display?(rights_data(document))
+      if metadata_colls.include?("#{document['id']}true")
+        view_access = 'Some items restricted'
+      elsif metadata_colls.include?(document['id']) || metadata_display?(rights_data(document))
         view_access = 'Restricted View'
       elsif access_group.include?('public')
         view_access = nil

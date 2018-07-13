@@ -6,7 +6,9 @@
 
 	if accessGroup != nil
 
-                if @metadata_only
+                if @mix_objects
+                    viewAccess = 'Some items restricted'
+                elsif @metadata_only
                     viewAccess = 'Restricted View'
 		elsif accessGroup.include?('public')
 		    viewAccess = :public	  

@@ -4,6 +4,7 @@ require 'rsolr'
 
 class CatalogController < ApplicationController  
   include Blacklight::Catalog
+  include Dams::ControllerHelper
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
   
@@ -250,7 +251,6 @@ class CatalogController < ApplicationController
 
   # get search results from the solr index
   def index
-    @metadata_colls = metadata_only_collections
     if params['q'] != nil
       params['q'].gsub!('""','')
       single_quote_count = params['q'].to_s.count('"') 
@@ -271,6 +271,7 @@ class CatalogController < ApplicationController
     end
 
     (@response, @document_list) = get_search_results
+    @metadata_colls = metadata_only_collections(params)
 
     @filters = params[:f] || []
     
@@ -283,7 +284,6 @@ class CatalogController < ApplicationController
   end
 
   def collection_search
-    @metadata_colls = metadata_only_collections
     # if we already have the parameters set below, then redirect to /search
     # this allows removing Collections limit, etc.
     #if (params[:sort] || (params[:fq] && params[:fq].to_s.include?('{!join')) )
@@ -316,15 +316,18 @@ class CatalogController < ApplicationController
     search[:fq] = params[:fq] if params[:fq]
     search[:total] = @response.response['numFound']
     session[:search] = search
+    @metadata_colls = metadata_only_collections(params)
   end
 
-  def metadata_only_collections
+  def metadata_only_collections(params)
     meta_colls = []
-    other_rights_fquery = '(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay)'
-    params = { fq: "{!join from=collections_tesim to=id}#{other_rights_fquery}", q: 'type_tesim:Collection', rows: 300 }
-    response = raw_solr(params)
+    solr_params = {}
+    solr_params[:fq] = ["{!join from=collections_tesim to=id}#{metadata_only_fquery}"]
+    response = raw_solr(solr_params.merge(params))
     response.docs.each do |doc|
-      meta_colls << doc['id_t']
+      mix_obj = mix_objects?(doc['id_t'])
+      val = mix_obj ? "#{doc['id_t']}#{mix_obj}" : doc['id_t']
+      meta_colls << val
     end
     meta_colls
   end
@@ -340,12 +343,7 @@ class CatalogController < ApplicationController
       logger.warn "Error looking up unit name: #{e}"
     end
   end
-  def raw_solr( params={} )
-    solr_path = blacklight_config.solr_path
-    res = blacklight_solr.send_and_receive(solr_path, :params => params)
-    solr_response = Blacklight::SolrResponse.new(force_to_utf8(res), params)
-    solr_response
-  end
+
   def solrdoc
     @obj = ActiveFedora::Base.find(params[:id], :cast=>true)
     xml = RSolr::Xml::Generator.new

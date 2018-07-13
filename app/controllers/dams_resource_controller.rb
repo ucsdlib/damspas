@@ -40,11 +40,11 @@ class DamsResourceController < ApplicationController
     # generate facet collection list for collection page only
     models = @document["active_fedora_model_ssi"]
     if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
-        other_rights_fquery = "(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay)"
-        collection_solr_params = { :q => "collections_tesim:#{params[:id]}", :fq => other_rights_fquery, :rows => 1 }
-        collection_response, collection_documents = get_search_results(collection_solr_params)
+        collection_solr_params = build_params("collections_tesim:#{params[:id]}", metadata_only_fquery)
+        collection_response = raw_solr(collection_solr_params)
         @metadata_only = !collection_response.response['numFound'].zero?
-
+        @mix_objects = mix_objects?(params[:id], collection_response.response['numFound']) if @metadata_only
+        
         facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
         apply_gated_discovery( facet_collection_params, nil )
         @facet_collection_resp = get_search_results( facet_collection_params )
@@ -57,7 +57,7 @@ class DamsResourceController < ApplicationController
         end
         @related_collections = related_collections_map facet_collection_names
     else
-      @metadata_only = metadata_display?(@document['otherRights_tesim'])
+      @metadata_only = metadata_display?(rights_data(@document))
     end
 
     @rdfxml = @document['rdfxml_ssi']

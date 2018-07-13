@@ -352,7 +352,10 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"    
     @collection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with no localDisplay or metadata-only visibility", visibility: "local"    
     @copyright = DamsCopyright.create status: 'Under copyright'
-    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @metadataOnlyCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @metadataDisplay.pid
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', copyrightURI: @copyright.pid
+    @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
+    @metadataOnlyObj.provenanceCollectionURI = @metadataOnlyCollection.pid
+    @metadataOnlyObj.save
     @localObj = DamsObject.create titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @localOnlyCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @localDisplay.pid
     @obj = DamsObject.create titleValue: 'Test Object with no localDisplay, no metadataOnlyDisplay', provenanceCollectionURI: @collection.pid, copyrightURI: @copyright.pid
     solr_index @localDisplay.pid
@@ -396,7 +399,7 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
     expect(page).to have_content('Restricted View')
-  end  
+  end
 end
 
 feature "Visitor wants to view a public collection's page with metadata-only objects" do
@@ -451,4 +454,137 @@ feature "Visitor wants to view a public collection's page with metadata-only obj
     visit '/collections'
     expect(page).to have_content('Restricted View')
   end 
+end
+
+feature "Visitor wants to view a public collection's page with mixed objects" do
+  before(:all) do
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @display = DamsOtherRight.create permissionType: "display"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"
+    @copyright = DamsCopyright.create status: 'Under copyright'
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @metadataDisplay.pid
+    @otherObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @display.pid
+    solr_index @display.pid
+    solr_index @metadataDisplay.pid
+    solr_index @publicCollection.pid      
+    solr_index @copyright.pid
+    solr_index @metadataOnlyObj.pid
+    solr_index @otherObj.pid
+  end
+
+  after(:all) do
+    @display.delete
+    @metadataDisplay.delete
+    @publicCollection.delete
+    @copyright.delete
+    @metadataOnlyObj.delete
+    @otherObj.delete
+  end
+
+  scenario 'public user should see some items restricted information' do
+    visit dams_collection_path @publicCollection.pid
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'public user should see some items restricted access information when visit browse by collection page' do
+    visit '/collections'
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+
+  scenario 'public user should see some items restricted access information when search for collection' do
+    visit catalog_index_path( {:q => @publicCollection.pid} )
+    puts "collection id #{@publicCollection.pid}"
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end  
+end
+
+feature "Visitor wants to view a local collection's page with mixed objects" do
+  before(:all) do
+    @license = DamsLicense.create permissionType: "localDisplay"
+    @otherRight = DamsOtherRight.create permissionType: "display"
+    @localCollection = DamsProvenanceCollection.create titleValue: "Test Collection", visibility: "local"
+    @copyright = DamsCopyright.create status: 'Under copyright'
+    @localObj = DamsObject.create titleValue: 'Test Object with localDisplay license', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, licenseURI: @license.pid
+    @otherObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @otherRight.pid
+    solr_index @license.pid
+    solr_index @otherRight.pid
+    solr_index @localCollection.pid      
+    solr_index @copyright.pid
+    solr_index @localObj.pid
+    solr_index @otherObj.pid
+  end
+
+  after(:all) do
+    @license.delete
+    @otherRight.delete
+    @localCollection.delete
+    @copyright.delete
+    @localObj.delete
+    @otherObj.delete
+  end
+
+  scenario 'public user should see some items restricted information' do
+    visit dams_collection_path @localCollection.pid
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'public user should see some items restricted access information when visit browse by collection page' do
+    visit '/collections'
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'public user should see some items restricted access information when search for collection' do
+    visit catalog_index_path( {:q => @localCollection.pid} )
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end  
+end
+
+feature "Visitor wants to view a metadata-only public collection's page with no mixed objects" do
+  before(:all) do
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @display = DamsOtherRight.create permissionType: "metadataDisplay"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"
+    @copyright = DamsCopyright.create status: 'Under copyright'
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @metadataDisplay.pid
+    @otherObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @display.pid
+    solr_index @display.pid
+    solr_index @metadataDisplay.pid
+    solr_index @publicCollection.pid      
+    solr_index @copyright.pid
+    solr_index @metadataOnlyObj.pid
+    solr_index @otherObj.pid
+  end
+
+  after(:all) do
+    @display.delete
+    @metadataDisplay.delete
+    @publicCollection.delete
+    @copyright.delete
+    @metadataOnlyObj.delete
+    @otherObj.delete
+  end
+  
+  scenario 'public user should not see some items restricted information' do
+    visit dams_collection_path @publicCollection.pid
+    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_content('Some items restricted')
+  end
+  
+  scenario 'public user should not see some items restricted access information when visit browse by collection page' do
+    visit '/collections'
+    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_content('Some items restricted')
+  end
+  
+  scenario 'public user should not see some items restricted access information when search for collection' do
+    visit catalog_index_path( {:q => @publicCollection.pid} )
+    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_content('Some items restricted')
+  end
 end

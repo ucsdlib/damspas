@@ -980,7 +980,6 @@ describe "User wants to view simple object for local metadata-only collection" d
 
   scenario 'public user should see Restricted View access text and no download link' do
     visit dams_object_path @metadataOnlyObj.pid
-    #puts page.body
     expect(page).to have_content('Restricted View')
     expect(page).to have_selector('div.restricted-notice', text: @restricted_note)
     expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
