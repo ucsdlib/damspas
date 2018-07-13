@@ -903,6 +903,37 @@ module Dams
       data.any? { |t| t.include?('localDisplay') || t.include?('metadataDisplay') }
     end
 
+    def total_count(collection_id)
+      solr_params = build_params("collections_tesim:#{collection_id}")
+      raw_solr(solr_params).response['numFound']
+    end
+
+    def metadata_obj_count(collection_id)
+      solr_params = build_params("collections_tesim:#{collection_id}", metadata_only_fquery)
+      raw_solr(solr_params).response['numFound']
+    end
+
+    def build_params(query, fquery = nil)
+      { q: query, fq: fquery, rows: 1 }
+    end
+
+    def metadata_only_fquery
+      '(otherRights_tesim:localDisplay OR otherRights_tesim:metadataDisplay OR license_tesim:localDisplay)'
+    end
+
+    def raw_solr(params = {})
+      solr_path = blacklight_config.solr_path
+      res = blacklight_solr.send_and_receive(solr_path, params: params)
+      solr_response = Blacklight::SolrResponse.new(force_to_utf8(res), params)
+      solr_response
+    end
+
+    def mix_objects?(collection_id, obj_count = nil)
+      obj_count = metadata_obj_count(collection_id) if obj_count.nil?
+      return false unless obj_count && !obj_count.zero?
+      total_count(collection_id) > obj_count
+    end
+
     #---
     # Check to see if an object allows file download
     #
