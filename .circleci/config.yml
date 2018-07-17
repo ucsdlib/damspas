@@ -27,13 +27,12 @@ jobs:
       - restore_cache:
           keys:
           # This branch if available
-          - bundle-{{ "Gemfile" }}-{{ checksum "Gemfile.lock" }}
-          - bundle- #fallback
-      - run: bundle install --path vendor/bundle --jobs 4 --retry 3
+          - bundle-v2-{{ checksum "Gemfile.lock" }}
+      - run: bundle check || bundle install --path vendor/bundle --jobs 4 --retry 3
       - save_cache:
-          key: bundle-{{ "Gemfile" }}-{{ checksum "Gemfile.lock" }}
+          key: bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - "vendor/bundle"
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
