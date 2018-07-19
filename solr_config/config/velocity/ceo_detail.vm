@@ -1,0 +1,399 @@
+#set($searcher=$request.searcher)
+#set($params=$request.params)
+#set($template='&v.template=search')
+#set($query='&q=' + $!params.get('q'))
+#set( $newline=" " )
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>California Explores The Ocean: Item Detail - UCSD Libraries</title>
+    <style type="text/css" media="screen"><!--
+      .pagetitle { color: #339; font-weight: bold; font-size: 18px; font-family: verdana, geneva, helvetica, sans-serif }
+      .pagetitlesubtext  { color: #4b4b4b; font-size: 11px; font-family: verdana, geneva, helvetica, sans-serif }
+      .pagelink  { color: #36c; font-size: 11px; font-family: verdana, geneva, helvetica, sans-serif; text-decoration: none }
+      .fieldLabel{font-weight: bold; width: 170px;display: inline-block;}
+      .subjectField{font-weight: bold;  width: 175px;float:left;}
+      .fieldValues {width: 400px; float:left;}
+      .detail-field {font-family: arial,helvetica; font-size:small;}
+      #objectTable tr td {padding-bottom:2px;}
+      ul.subjectValues{list-style-type:none;margin:0; padding:0; }
+      ul.subjectValues li{padding-bottom:2px;}
+    --></style>
+        <script language=javascript type='text/javascript'>
+			function popWindow(url){
+				var win = window.open("", "Window2", "width=800,height=600,scrollbars=yes");
+				if(url != null && url.length > 0)
+					win.location.href = url;
+				win.focus();
+				return win;
+			}
+			function load(url,title) {
+				var load = window.open(url,'win','scrollbars=no,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+				var tmp = load.document;
+				tmp.open("text/html","replace");
+				tmp.write('<p style="font-family: arial,helvetica; font-size:small;font-weight: bold;">'+title+'</p><img src="'+url+'" style="border-width: 0px"/>');
+				tmp.close();
+			}
+	</script>
+  </head>
+  <body itemscope itemtype="http://schema.org/ItemPage">
+  <div style="width: 600px">
+<span class="pagetitle"><span class="title">IMAGE DETAIL</span></span><br>
+<span class="pagetitlesubtext"><span class="titlesubtext">Scroll down for more information about this image.</span></span>
+<div style="text-align: right; float: right;"><b><a href="/ceo/photographs/index.html" target="_top"><span class="pagelink">New Search</span></a></b></div>
+    #foreach($doc in $response.results)
+
+## date
+#set ( $dateValue = '' )
+#foreach($value in $doc.getFieldValues('date_tesim'))
+  #if( $velocityCount == 1 && !$value.contains('T'))
+    #set ( $dateValue = $value )
+  #end
+#end
+
+## format
+#set ( $format = '' )
+#foreach($value in $doc.getFieldValues('resource_type_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $format = $value )
+  #end
+#end
+
+##title
+#foreach($value in $doc.getFieldValues('title_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $title = $value )
+  #end
+#end
+
+#foreach($value in $doc.getFieldValues('collection_name_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $category = $value )    
+  #end
+#end
+
+##resourceType
+#set( $resourceType = '' )
+#foreach($value in $doc.getFieldValues('files_tesim'))
+  #if( $value.contains('source_type'))
+    #set( $srcTypeIndex = $value.indexOf('source_type"') + 14 )
+    #set( $resourceType = $value.substring($srcTypeIndex).replace('"}','').replace('\u0026','&') )
+    #break    
+  #end
+#end
+     
+##geographic
+#set ( $geographic = '')
+#foreach($value in $doc.getFieldValues('geographic_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $geographic = $value )
+  #end
+#end
+
+##time coverage
+#set ( $timeCoverage2 = '' )
+#foreach($value in $doc.getFieldValues('temporal_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $timeCoverage2 = $value )
+  #end
+#end
+
+##rightsHolder
+#set ( $owner = '' ) 
+#foreach($value in $doc.getFieldValues('rightsHolder_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $owner = $value )    
+  #end
+#end
+
+##tmpCreator
+#set ( $creator = '' ) 
+#foreach($value in $doc.getFieldValues('relationship_json_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $creator = $value )    
+  #end
+#end
+
+##tmpSubject
+#set ( $tmpSubject = '' ) 
+#foreach($value in $doc.getFieldValues('topic_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $tmpSubject = $value )    
+  #end
+#end
+#foreach($value in $doc.getFieldValues('corporateName_tesim'))   
+  #if( $velocityCount == 1 )
+    #set ( $tmpSubject = $value )    
+  #end
+#end
+#foreach($value in $doc.getFieldValues('personalName_tesim'))   
+  #if( $velocityCount == 1 )
+    #set ( $tmpSubject = $value )    
+  #end
+#end
+
+#set( $use = '')
+#set( $constraints = '')
+#foreach($value in $doc.getFieldValues('copyright_tesim'))
+  #if( $value.contains('"purposeNote":"Use:'))
+    #set( $useIndex = $value.indexOf('"purposeNote":"Use:') + 20 )
+    #set( $tmpUse = $value.substring($useIndex) )
+    #set( $tmpUseIndex = $tmpUse.indexOf('","note":"Constraint'))
+    #set( $use = $tmpUse.substring(0,$tmpUseIndex) )
+    #set( $constrainIndex = $tmpUse.indexOf('Constraint')+21)
+    #set ( $constraintsTmp =  $tmpUse.substring($constrainIndex) ) 
+    #set( $constraintsTmpIndex = $constraintsTmp.indexOf('","'))
+    #set ( $constraints =  $constraintsTmp.substring(0,$constraintsTmpIndex).replace('\"','"') )
+    #break    
+  #end
+#end
+
+#set ($subject = $doc.getFieldValue('id'))
+#set ($collectionTitle = '')
+#set ($source = '')
+#if($category != "" && $category.startsWith('San Diego History Center Oral Histories'))
+	#set ($source = 'San Diego History Center Oral History Program')
+#elseif($category != "" && $category.startsWith('San Diego History Center Photographs'))
+	#set ($source = 'San Diego History Center')
+#elseif($category != "" && $category.startsWith('Scripps Institution of Oceanography Photographs '))
+	#set ($source = 'Scripps Institution of Oceanography Library Archives')
+	#set ($collectionTitle = 'Roger Revelle Papers, 1929-1991')
+#elseif($category != "" && $category.startsWith('Scripps Institution of Oceanography Letters, Clippings, Ships'))
+	#set ($format = 'text')
+	#set ($source = 'Scripps Institution of Oceanography Library Archives')
+#end
+
+#if($category != "" && $category.startsWith('San Diego History Center Oral Histories'))
+	#set ($imgSource = '1.jpg')
+#else
+	#set ($imgSource = '')
+#end
+	  
+#set ($audio = '')
+#set ($transcription = '')
+#set ($summary = '')
+#foreach($value in $doc.getFieldValues('otherNote_json_tesim'))    
+  #if($value != '' && $value.contains('"type":"identifier","value":"'))
+    #set( $idIndex = $value.indexOf('"type":"identifier","value":"') + 29 )
+    #set( $tmpId = $value.substring($idIndex) )
+    #set( $tmpIdIndex = $tmpId.indexOf('"'))
+    #set( $tmpIdentifier = $tmpId.substring(0,$tmpIdIndex) )
+
+    #if( $tmpIdentifier.endsWith(".html"))
+      #set ($transcription = $tmpIdentifier)
+    #elseif( $tmpIdentifier.endsWith(".mp3"))
+      #set ($audio = $tmpIdentifier)
+    #end
+  #end
+  #if($value != '' && $value.contains('"type":"","value":"'))
+    #set( $summaryIndex = $value.indexOf('"type":"","value":"') + 19 )
+    #set( $tmpSummary = $value.substring($summaryIndex) )
+    #set( $tmpSummaryIndex = $tmpSummary.indexOf('","displayLabel'))
+    #set( $summary = $tmpSummary.substring(0,$tmpSummaryIndex).replace('\n',$newline).replace('\u0026','&').replace('\"','"') )
+  #end
+  #if($value != '' && $value.contains('"type":"physical description","value"'))
+    #set( $resIndex = $value.indexOf('"type":"physical description","value"') + 39 )
+    #set( $tmpRes= $value.substring($resIndex) )
+    #set( $tmpResIndex = $tmpRes.indexOf('"'))
+    #set( $resourceType = $tmpRes.substring(0,$tmpResIndex).replace('\u0026','&') )
+  #end
+
+#end
+
+<div class="object-detail"  itemtype="http://schema.org/Photograph" itemscope itemprop="about">
+	<table border="0" id="objectTable">
+  <tr><td><div class="detail-field">
+  #if($imgSource != "")
+      <img src="/ceo/images/$imgSource" style="border-width: 0px" itemprop="image"/> 
+  #else
+      <a href="javascript:load('/dc/object/$!{subject}/_2.jpg','$!{title}')"><img src="/dc/object/$!{subject}/_3.jpg" style="border-width: 0px" itemprop="image"/></a>
+  #end
+  </div></td></tr> <tr><td>
+  <div class="detail-field"><div class="subjectField">Title:</div> <div class="fieldValues" itemprop="name">$title&nbsp;</div></div>
+  </td></tr> 
+  #if($creator != "{}")
+    <tr><td>
+    <div class="detail-field"><div class="subjectField">Creator:</div><div class="fieldValues" itemprop="creator"  itemscope itemtype="http://schema.org/Person">
+    	 <ul class="subjectValues">
+       #foreach($tmpName in $doc.getFieldValues('relationship_json_tesim'))
+          #if( $tmpName != "" && $tmpName != "{}")
+            #set($tmpName2 = $tmpName.split('"],"'))
+            #if($tmpName2 != "")
+              #foreach($attrValue in $tmpName2)
+                #if ($attrValue.contains('{"'))
+                  #set($roleIndex = $attrValue.indexOf('{"') + 2 )
+                #else
+                  #set($roleIndex = 0 )
+                #end
+                #set($tmpRoleValue = $attrValue.substring( $roleIndex , $attrValue.indexOf('":["') )  )
+
+                #set($nameIndex = $attrValue.indexOf('":["') + 4 )
+                #if ($attrValue.contains('"]'))
+                  #set($tmpModsName = $attrValue.substring( $nameIndex,  $attrValue.indexOf('"]') )  )
+                #else
+                  #set($tmpModsName = $attrValue.substring( $nameIndex)  )
+                #end
+
+                #if ($tmpModsName.contains('","'))
+                  #set($tmpName3 = $tmpModsName.split('","'))
+                  #foreach($tmpModsName2 in $tmpName3)
+                    <li itemprop="name">$!tmpModsName2, $!tmpRoleValue</li>
+                  #end
+                #else
+                  #if($tmpRoleValue != "" && $tmpModsName != "" && ($tmpRoleValue.contains('Creator') || $tmpRoleValue.contains('creator')) )
+                    <li itemprop="name">$!tmpModsName</li>
+                  #elseif($tmpModsName != "" && $tmpModsName.endsWith(","))
+                    <li itemprop="name">$!tmpModsName $!tmpRoleValue</li>
+                  #else
+                    <li itemprop="name">$!tmpModsName, $!tmpRoleValue</li>
+                  #end
+                #end
+              #end          
+            #end
+          #end
+       #end
+      
+   	</ul></div>
+    </div>  
+    </td></tr>
+  #end 
+  #if($dateValue != '')
+    <tr><td>
+    <div class="detail-field"><div class="subjectField">Date:</div> <div class="fieldValues" itemprop="dateCreated">$!dateValue &nbsp;</div></div> 
+     </td></tr> 
+  #end
+   #if($category != "" && $category.startsWith('San Diego History Center Oral Histories'))
+     #if($transcription != '' )
+ 	    <tr><td>
+  		<div class="detail-field"><div class="subjectField">Transcription:</div> <div class="fieldValues">
+      #if($audio != "" || $subject.contains('bb65199692'))
+        <a href="/dc/object/$!{subject}/_1_1.html" target="newview">$!{transcription}</a>
+      #else
+        <a href="/dc/object/$!{subject}/_1.html" target="newview">$!{transcription}</a>
+      #end
+      #if($subject.contains('bb65199692'))
+        , <a href="/dc/object/$!{subject}/_2_1.html" target="newview">OH_azevedo2.html</a>
+      #end
+      </div></div> 
+   	  </td></tr>
+     #end 
+    #if($audio != '' )
+      <tr><td>
+  		<div class="detail-field"><div class="subjectField">Audio:</div> <div class="fieldValues">
+  		#if($audio != "" && $audio != "None" && !$audio.contains(";"))
+  			<a href="/dc/object/$!{subject}/_2_1.mp3" target="newview">$!{audio}</a>
+		  #elseif($audio != "" && $audio != "None" && $audio.contains(";"))
+			  #set($audio1 = $audio.substring(0,$audio.indexOf(".mp3")) + '.mp3')
+			  #set($audio2 = $audio.substring($audio.indexOf(".mp3; "),$audio.lastIndexOf(".mp3")).replace('.mp3; ','') + '.mp3')
+  			<a href="/dc/object/$!{subject}/_2_1.mp3" target="newview">$!{audio1}</a> , 
+  			<a href="/dc/object/$!{subject}/_3_1.mp3" target="newview">$!{audio2}</a>			
+  		#else
+  			$!{audio}
+  		#end </div></div> 
+   	  </td></tr>
+    #end    
+    #if($summary != '' )
+      <tr><td>
+    		<div class="detail-field"><div class="subjectField">Summary:</div> <div class="fieldValues" itemprop="description">$!summary&nbsp;</div></div> 
+     	</td></tr>        	
+   	#end
+   #end
+   #if($tmpSubject != '')
+     <tr><td>
+     <div class="detail-field"><div class="subjectField">Subject(s):</div><div class="fieldValues" itemprop="keywords">
+        <ul class="subjectValues">
+  	  #foreach($value in $doc.getFieldValues('topic_tesim'))   
+  	  	#set($tmpValue=$value.trim())
+  	  	#if($tmpValue != "")
+  	  		<li>$tmpValue</li>	  	
+  	  	#end
+  	  #end
+      #foreach($value in $doc.getFieldValues('corporateName_tesim'))   
+        #set($tmpValue=$value.trim())
+        #if($tmpValue != "")
+          <li>$tmpValue</li>      
+        #end
+      #end
+      #foreach($value in $doc.getFieldValues('personalName_tesim'))   
+        #set($tmpValue=$value.trim())
+        #if($tmpValue != "")
+          <li>$tmpValue</li>      
+        #end
+      #end
+  	  </ul></div>
+    </div>
+    </td></tr> 
+  #end
+  #if($category != "" && !$category.startsWith('Scripps Institution of Oceanography Photographs ') &&  !$category.startsWith('Scripps Institution of Oceanography Letters, Clippings, Ships'))
+    #if($geographic != '')
+      <tr><td>
+      <div class="detail-field"><div class="subjectField">Geographic coverage:</div> <div class="fieldValues" itemprop="keywords">$!geographic&nbsp;</div></div>
+      </td></tr> 
+    #end
+    #if($timeCoverage2 != '')
+      <tr><td>
+      <div class="detail-field"><div class="subjectField">Time coverage:</div> <div class="fieldValues" itemprop="keywords">$!timeCoverage2</div></div>
+      </td></tr> 
+    #end
+  #end
+  #if($format != '')
+    <tr><td>
+    <div class="detail-field"><div class="subjectField">Resource type:</div> <div class="fieldValues">$!format &nbsp;</div></div>
+    </td></tr>
+  #end 
+  #if($resourceType != '')
+    <tr><td>
+    <div class="detail-field"><div class="subjectField">Physical description:</div> <div class="fieldValues" itemprop="description">$!resourceType &nbsp; </div></div>
+    </td></tr>
+  #end
+  <tr><td>
+   <div class="detail-field"><div class="subjectField">Identifier(s):</div><div class="fieldValues" itemprop="keywords">
+   <ul class="subjectValues">
+
+     <li>$!subject </li>
+	   #foreach($value in $doc.getFieldValues('otherNote_json_tesim'))    
+       #if($value != '' && $value.contains('"type":"identifier","value":"'))
+        #set( $idIndex = $value.indexOf('"type":"identifier","value":"') + 29 )
+        #set( $tmpId = $value.substring($idIndex) )
+        #set( $tmpIdIndex = $tmpId.indexOf('"'))
+        #set( $identifier = $tmpId.substring(0,$tmpIdIndex) )
+        #if (!$identifier.endsWith(".html") && !$identifier.endsWith(".mp3"))
+          <li>$identifier</li>
+        #end
+       #end
+     #end 
+	  </ul></div>
+  </div>  
+  </td></tr> 
+  #if($collectionTitle != '')
+    <tr><td>
+    <div class="detail-field"><div class="subjectField">Relation:</div> <div class="fieldValues">$!collectionTitle&nbsp;</div></div>
+    </td></tr> 
+  #end
+  #if($source != '')
+    <tr><td>
+     <div class="detail-field" itemscope itemtype="http://schema.org/CollectionPage"><div class="subjectField">Source:</div> <div class="fieldValues" itemprop="name">$!source&nbsp;</div></div>
+    </td></tr>
+  #end 
+  #if($owner != '')
+	  <tr><td>
+    <div class="detail-field" itemprop="http://purl.org/dc/elements/1.1/rights"  itemscope 
+        itemtype="http://schema.org/Organization"><div class="subjectField">Copyright:</div> <div class="fieldValues" itemprop="name">$!owner &nbsp;</div></div>   
+    </td></tr>    
+  #end
+  #if($use != '')
+    <tr><td>
+    <div class="detail-field" itemprop="http://purl.org/dc/elements/1.1/rights"><div class="subjectField">Use:</div> <div class="fieldValues">$!use &nbsp;</div></div>  
+      </td></tr> 
+  #end
+  #if($constraints != '') 
+    <tr><td>
+    <div class="detail-field" itemprop="http://purl.org/dc/elements/1.1/rights"><div class="subjectField">Constraints:</div> <div class="fieldValues">$!constraints  &nbsp;</div></div>  
+    </td></tr>  
+  #end    
+#end
+    </table>
+</div>
+  </body>
+</html>

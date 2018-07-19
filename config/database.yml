@@ -16,7 +16,9 @@ variables:
 development:
   <<: *default
   database: damspas_development
-  
+  username: <%= ENV.fetch('APPS_DHH_DEV_DB_USER') {'dams'}%>
+  password: <%= ENV.fetch('APPS_DHH_DEV_DB_PASS') {'dams'}%>
+
 pontos:
   <<: *default
   adapter: postgresql
@@ -24,7 +26,7 @@ pontos:
   host: <%= ENV.fetch('APPS_DHH_PONTOS_DB_HOST') {'default'}%>
   username: <%= ENV.fetch('APPS_DHH_PONTOS_DB_USER') {'default'}%>
   password: <%= ENV.fetch('APPS_DHH_PONTOS_DB_PASS') {'default'}%>
-  
+
 gimili:
   <<: *default
   adapter: postgresql
@@ -32,7 +34,7 @@ gimili:
   host: <%= ENV.fetch('APPS_DHH_GIMILI_DB_HOST') {'default'}%>
   username: <%= ENV.fetch('APPS_DHH_GIMILI_DB_USER') {'default'}%>
   password: <%= ENV.fetch('APPS_DHH_GIMILI_DB_PASS') {'default'}%>
-  
+
 staging:
   <<: *default
   adapter: postgresql
@@ -58,6 +60,8 @@ demo:
 test:
   <<: *default
   database: damspas_test
+  username: <%= ENV.fetch('APPS_DHH_DEV_DB_USER') {'dams'}%>
+  password: <%= ENV.fetch('APPS_DHH_DEV_DB_PASS') {'dams'}%>
 
 production:
   <<: *default

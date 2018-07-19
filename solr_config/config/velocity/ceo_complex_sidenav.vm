@@ -1,0 +1,61 @@
+#foreach($doc in $response.results)
+	#foreach($value in $doc.getFieldValues('subject'))
+	  #if( $velocityCount == 1 )
+	    #set ( $subject = $value )
+	  #end
+	#end
+	
+	#foreach($value in $doc.getFieldValues('attrib'))
+		#if($value.startsWith('bb0239751d xdre:numComponents|||'))
+			#set($component = $value.trim().substring(32).replace('"',''))
+		#end
+	#end
+	
+	#foreach($value in $doc.getFieldValues('MODS_Title'))
+	  #if( $velocityCount == 1 )
+	    #set ( $title = $value )
+	  #end
+	#end
+#end
+
+<html>
+<head>
+<title>Document Viewer</title>
+<STYLE TYPE="text/css">
+P {color: #666666; font-size: 8pt; font-family: Arial,helvetica,sans-serif}
+H1 {color: #FFFFFF; font-size: 18pt; font-family: Arial, helvetica, sans-serif}
+body {/*background-color:#eeffff;*/background-color:#e5eff7; }
+</STYLE>
+
+</head>
+
+<body>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr>
+
+<td>
+<p>
+&nbsp;&nbsp;<b>Select a page below:</b><br><br>
+#set($Integer = 0)
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+#foreach($count in [1..$Integer.parseInt($component)])
+<tr><td width="22" align="right"></td><td><p><a href="javascript:displayImage('$!{subject}','$!{count}','$!{title}')" STYLE="text-decoration: none;" target="view">
+Page $count</a></p></td></tr>
+#end
+</table>
+<br>
+</p>
+</td>
+
+</tr>
+</table>
+
+
+<p>
+<a href="javascript:displayDescription()" target="view">Display Metadata</a><br>
+</p>
+
+
+</body>
+</html>

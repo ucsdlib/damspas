@@ -1,0 +1,37 @@
+#set($params=$request.params)
+#set($result='/blacklight/select?wt=velocity&qf=id&v.template=ceo_detail&q='+ $!params.get('q') )
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=ISO-8859-1">
+    <style type="text/css">
+ 		body { 
+ 			margin: 0px;
+ 		}
+		#container, #mainNav {	     
+		  width: 800px ;
+		}
+		#content {
+		  margin-left:  135px;
+		  width: 650px;
+		  height: 1300px;		 
+		}
+		#navbar {
+		  float: left;
+		  width: 135px;
+		  height: 1300px;		  
+		}
+	</style>
+    <title>California Explores the Ocean</title>
+  </head>  
+    <div id="mainNav">
+    	<iframe name="CEO Header"  align="top" noresize scrolling="no" width="760" frameborder="0" height="63" src="/ceo/frames_mainnav.html"></iframe>
+    </div>
+  	<div id="container">
+	  <div id="navbar"><iframe name="CEO Side Nav"  align="top" noresize scrolling="no" width="135" height = "1300" frameborder="0" src="/ceo/photographs/photos_sidenav.html"></iframe></div>
+	  <div id="content"><iframe name="Results" align="top" src="$result" width = "620px" height = "1300" frameborder="0" noresize scrolling="no">
+		<a href="$result">Click here to go directly to included content.</a>
+	</iframe></div>
+	</div>
+</html>

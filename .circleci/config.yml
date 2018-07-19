@@ -2,43 +2,54 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/ucsdlib/damspas
-    parallelism: 1
-    docker:
-      - image: circleci/ruby:2.3.7-node-browsers
-        environment:
-          CIRCLE_ENV: test
-          RAILS_ENV: test
-          APPS_DHH_DEV_DB: localhost
-          APPS_DHH_DEV_SOLR_URL: http://localhost:8080/solr/blacklight
-          APPS_DHH_DEV_FEDORA_URL: http://localhost:8080/dams/fedora
-          APPS_DHH_DEV_DB_USER: dams
-          APPS_DHH_DEV_DB_PASS: dams
-      - image: ucsdlib/docker-postgres-damsrepo
-        environment:
-          POSTGRES_USER: dams
-          POSTGRES_PASSWORD: dams
-      - image: ucsdlib/docker-tomcat-damsrepo
+    machine: true
+    environment:
+      RAILS_ENV: test
+      APPS_DHH_DEV_DB: localhost
+      APPS_DHH_DEV_SOLR_URL: http://localhost:8983/solr/blacklight
+      APPS_DHH_DEV_FEDORA_URL: http://localhost:8080/dams/fedora
+      APPS_DHH_DEV_DB_USER: dams
+      APPS_DHH_DEV_DB_PASS: dams
     steps:
       - checkout
       - run:
-          name: Confirm PhantomJS version
-          command: phantomjs --version
+          name: Install Docker Compose
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/$COMPOSE_VERSION/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
+          environment:
+            COMPOSE_VERSION: 1.22.0
+      - run:
+          name: Install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.6.1
+      - run:
+          name: Install Dependencies
+          command: sudo apt-get update && sudo apt-get install -y libpq-dev nodejs libicu-dev libfontconfig1-dev libfontconfig libjpeg-dev libfreetype6
+      - run:
+          name: Install PhantomJS
+          command: |
+            curl -L https://circle-downloads.s3.amazonaws.com/circleci-images/cache/linux-amd64/phantomjs-latest.tar.bz2 --output /tmp/phantomjs.tar.bz2
+            tar -x -C /tmp -f /tmp/phantomjs.tar.bz2
+            sudo mv /tmp/phantomjs-*-linux-x86_64/bin/phantomjs /usr/local/bin
+            rm -rf /tmp/phantomjs.tar.bz2 /tmp/phantomjs-*
+            phantomjs --version
       - restore_cache:
           keys:
-          # This branch if available
-          - bundle-v2-{{ checksum "Gemfile.lock" }}
+          - bundle-v3-{{ checksum "Gemfile.lock" }}
       - run: bundle check || bundle install --path vendor/bundle --jobs 4 --retry 3
       - save_cache:
-          key: bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: bundle-v3-{{ checksum "Gemfile.lock" }}
           paths:
             - "vendor/bundle"
       - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rake db:setup
+          name: Run docker-compose
+          command: docker-compose -f docker/ci/docker-compose.yml up -d
       - run:
-          name: Run rspec
+          name: Setup Database
+          command: bundle exec rake db:create db:migrate
+      - run:
+          name: Run Test Suite
           command: COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN bundle exec rspec
-      - store_test_results:
-          path: test_results
