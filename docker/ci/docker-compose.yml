@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  database:
+    image: ucsdlib/docker-postgres-damsrepo
+    ports:
+      - "5432:5432"
+    # volumes:
+    #   - db-data:/var/lib/postgresql/data
+    env_file:
+      - ../.env.dev.database
+
+  solr:
+    image: solr:5.5-alpine
+    ports:
+      - "8983:8983"
+    volumes:
+    # - solr_repo:/opt/solr/server/solr/mycores
+    - "../../solr_config:/solr_config"
+    entrypoint:
+    - docker-entrypoint.sh
+    - solr-precreate
+    - blacklight
+    - "/solr_config/config"
+
+  tomcat:
+    image: ucsdlib/docker-tomcat-damsrepo
+    ports:
+      - "8080:8080"
+    command: ["dockerize", "-wait", "tcp://solr:8983", "-timeout", "1m", "-wait", "tcp://database:5432", "-timeout", "1m", "catalina.sh", "run"]
+    depends_on:
+      - database
+      - solr
+
+# volumes:
+#   db-data:

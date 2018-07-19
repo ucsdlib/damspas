@@ -1,0 +1,145 @@
+#set($searcher=$request.searcher)
+#set($params=$request.params)
+#set($template='&v.template=search')
+#set($query='&q=' + $!params.get('q'))
+
+<html>
+  <head>
+    <title>Search Results</title>
+    <style type="text/css" media="screen"><!--
+      .pagetitle { color: #339; font-weight: bold; font-size: 18px; font-family: verdana, geneva, helvetica, sans-serif }
+      .pagetitlesubtext  { color: #4b4b4b; font-size: 11px; font-family: verdana, geneva, helvetica, sans-serif }
+      .pagesubtitle { color: #339; font-weight: bold; font-size: 12px; font-family: verdana, geneva, helvetica, sans-serif; padding-bottom: 10px }
+      .pageinstructions  { color: #006; font-size: 10px; font-family: verdana, geneva, helvetica, sans-serif; padding-bottom: 10px }
+      .pagelink  { color: #36c; font-size: 11px; font-family: verdana, geneva, helvetica, sans-serif; text-decoration: none; padding-bottom: 10px }
+      .pagelink1 { color: #36c; font-size: 10px; font-family: verdana, geneva, helvetica, sans-serif; text-decoration: none; padding-bottom: 10px }
+      .pageinput  { color: #4b4b4b; font-size: 11px; font-family: verdana, geneva, helvetica, sans-serif }
+      .pagetext  { color: #4b4b4b; font-size: 11px; font-family: verdana, geneva, helvetica, sans-serif }
+
+      .object-container { vertical-align: top; height: 200px; }
+      .object-title { font-family: sans-serif; }
+      .object-thumbnail { height: 150px; width: 150px; text-align: center; }
+      .navigation { font-family: sans-serif; text-align: right; padding-top: 1em; }
+    --></style>
+    <link href="/ceo/ceo.css" rel="stylesheet" media="screen">
+  </head>
+  <body bgcolor="#ffffff">
+
+    <!-- page text and search form -->
+    <table width="610" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td class="titlesubtext" valign="top">
+          <p><span class="pagetitle"><span class="title">SEARCH RESULTS</span></span><br>
+            <br>
+            <span class="titlesubtext">Your search retrieved <b>$page.results_found</b> matching item(s).<br><br></span>
+            Click on the thumbnail or title to view the item and corresponding description.<br><br>
+            <img src="/ceo/images/tip.gif" alt="" height="20" width="31" align="top" border="0">
+            <span class="pagesubtitle"><b>Search Tips</b><br></span>
+            <img src="/ceo/images/bullet.gif" alt="" height="8" width="11" align="top" border="0"><span class="pageinstructions">Use quotation marks to search for exact phrases.</span><br>
+            <img src="/ceo/images/bullet.gif" alt="" height="8" width="11" align="top" border="0"><span class="pageinstructions">Search terms are not case sensitive.</span><br>
+            <img src="/ceo/images/bullet.gif" alt="" height="8" width="11" align="top" border="0"><span class="pageinstructions">Truncation: <b>whal*</b> finds whale, whales, whaling, etc.</span><br>
+            <img src="/ceo/images/bullet.gif" alt="" height="8" width="11" align="top" border="0"><span class="pageinstructions">It's not necessary to use &quot;and&quot; between keywords.</span>
+          </p>
+        </td>
+        <td width="15"></td>
+        <td rowspan="2" bgcolor="#d8d8d8" width="1">
+          <img src="/ceo/images/spacer.gif" alt="" height="1" width="1" border="0">
+        </td>
+        <td width="15"></td>
+        <td valign="top" width="190">
+          <table width="175" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td class="pagesubtitle" width="150">Search</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td colspan="2"><span class="pagetext">Search by keyword</span> <a href="/ceo/categories.html"><span class="pagelink1">(category list)</span></a></td>
+            </tr>
+            <tr>
+              <td width="150">
+                <form method="GET" action="/blacklight/select">
+                  <input type="hidden" name="v.template" value="ceo_search"/>
+                  <input type="hidden" name="rows" value="8"/>
+                  <input type="hidden" name="fq" value='collection_sim:("Scripps Institution of Oceanography Photographs" OR "California Explores the Ocean")'/>
+                  <input type="hidden" name="wt" value="velocity"/>
+                  <input type="hidden" name="qf" value="title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id"/>
+                  <input type="hidden" name="sort" value="title_ssi asc"/>
+                  <input type="text" name="q" size="24"/>
+                  <br><br>
+                  <span class="pagetext">Collection</span>
+                  <select class="pageinput" name="fq" size="1">
+                    <option selected='selected' value='collection_sim:("Scripps Institution of Oceanography Photographs" OR "California Explores the Ocean")'>All Collections</option>
+                    <option value='collection_sim:("California Explores the Ocean")'>-------------------------</option>
+                    <option value='collection_sim:("Scripps Institution of Oceanography Photographs" OR "California Explores the Ocean")'>San Diego Historical Society</option>
+                    <option value='collection_sim:("San Diego History Center Photographs")'>---SDHS Photographs</option>
+                    <option value='collection_sim:("San Diego History Center Oral Histories")'>---SDHS Oral Histories</option>
+                    <option value='collection_sim:("California Explores the Ocean")'>-------------------------</option>
+                    <option value='collection_sim:("California Explores the Ocean")'>SIO Archives</option>
+                    <option value='collection_sim:("Scripps Institution of Oceanography Photographs")'>---SIO Photographs</option>
+                    <option value='collection_sim:("Scripps Institution of Oceanography Letters, Clippings, Ships&#39; Logs")'>---SIO Letters, Logs, etc.</option>
+                  </select>
+              </td>
+              <td valign="top"><input type="image" src="/ceo/images/go.gif" border="0"></form></td>
+            </tr>
+            <tr>
+              <td width="150"><img src="/ceo/images/spacer.gif" alt="" height="15" width="15" border="0"></td>
+
+              <td></td>
+            </tr>
+            <tr>
+              <td class="pagetext" colspan="2" align="right">
+                
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td width="15"></td>
+        <td width="15"><img src="/ceo/images/spacer.gif" alt="" height="15" width="15" border="0"></td>
+        <td valign="bottom" width="190"></td>
+      </tr>
+      <tr>
+        <td colspan="5" bgcolor="#d8d8d8"><img src="/ceo/images/spacer.gif" alt="" height="1" width="1" border="0"></td>
+      </tr>
+
+      <tr>
+        <td colspan="5"><img src="/ceo/images/spacer.gif" alt="" height="15" width="15" border="0"></td>
+      </tr>
+    </table>
+
+    <!-- search results -->
+    <table width="600">
+      <tr>
+        #foreach($doc in $response.results)
+          #if ( $velocityCount < 5 )
+            #parse("ceo_brief.vm")
+          #end
+        #end
+      <tr>
+        #foreach($doc in $response.results)
+          #if ( $velocityCount > 4 )
+            #parse("ceo_brief.vm")
+          #end
+        #end
+      </tr>
+
+      <!-- XXX: paging -->
+      <tr>
+        <td colspan="4" class="navigation">
+          Page <span class="page-num">$page.current_page_number</span> of <span class="page-count">$page.page_count</span><br/>
+          #link_to_previous_page("Prev")
+          #foreach ( $index in [1..$page.page_count])
+            #if ( $index == $page.current_page_number )
+              <b>$index</b>
+            #elseif ( $index > 0 && $index <= $page.page_count && $index > ($page.current_page_number - 5) && $index < ($page.current_page_number + 5) )
+              #link_to_page( $index, $index )
+            #end
+          #end
+          #link_to_next_page("Next")<br/> 
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

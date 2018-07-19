@@ -1,0 +1,61 @@
+## subject
+#foreach($value in $doc.getFieldValues('id'))
+  #if( $velocityCount == 1 )
+    #set ( $subject = $value )
+  #end
+#end
+
+## title
+#foreach($value in $doc.getFieldValues('title_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $title = $value )
+  #end
+#end
+
+#foreach($value in $doc.getFieldValues('collection_name_tesim'))
+  #if( $velocityCount == 1 )
+    #set ( $category = $value )    
+  #end
+#end
+
+#set ($template = 'ceo_detail')
+
+#if($category != "" && $category.startsWith('San Diego History Center Oral Histories'))
+	#set ($source = 'icon1.jpg')
+#else
+	#set ($source = '')
+  #set ( $componentCount = '')
+  #set ( $componentCount = $doc.getFieldValue('component_count_isi') ) 
+
+	#if($componentCount != "")
+		#set ($source = '_1_4.jpg')
+		#set ($target = 'target="_blank"')
+		#set ($template = 'ceo_complex_detail_frame')
+	#end	
+#end
+
+ 
+
+<td class="object-container">
+  <a href="/blacklight/select?v.template=$template&q=$subject&wt=velocity&qf=id" $!{target}>
+  <div class="object-thumbnail">
+  #if($source != "" && $source == 'icon1.jpg')
+      <img src="/ceo/images/$source" style="border-width: 0px"/>  
+  #elseif($source != "" && $source == '_1_4.jpg')
+      <img src="/dc/object/$!{subject}/$!{source}" style="border-width: 0px"/>
+  #else
+      <img src="/dc/object/$!{subject}/_4.jpg" style="border-width: 0px"/>
+  #end
+  </div>
+    <div class="object-title">
+      <font size="-2" face="arial,helvetica" color="blue">
+      #if ( $title.length() > 80 )
+        #set ( $abbrevTitle = $title.substring(0,80) + "...")
+        <span title="$title">$abbrevTitle </span>
+      #else
+        $title
+      #end
+      </font>
+    </div>
+  </a>
+</td>

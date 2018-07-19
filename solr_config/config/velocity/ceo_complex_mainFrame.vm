@@ -1,0 +1,33 @@
+#foreach($doc in $response.results)
+	#foreach($value in $doc.getFieldValues('MODS_Title'))
+	  #if( $velocityCount == 1 )
+	    #set ( $title = $value )
+	  #end
+	#end
+#end
+
+<html>
+<head>
+<title>Compound Document Viewer</title>
+<LINK REL="stylesheet" TYPE="text/css" HREF="/ceo/client-style.css">
+<STYLE TYPE="text/css">
+body {/*background-color:#eeffff;*/background-color:#e5eff7; }
+</STYLE>
+</head>
+
+<body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+<br/>
+
+<table width="100%" bgcolor="#333333" cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td width="100%" bgcolor="#333333"><img src="/ceo/images/spacer.gif" width="1" height="3" alt="" border="0"></td>
+</tr>
+<tr>
+<td width="100%" bgcolor="#999999" align="center"><p class="emph"><b>$!title</b></p></td>
+</tr>
+<tr>
+<td width="100%" bgcolor="#333333"><img src="/ceo/images/spacer.gif" width="1" height="3" alt="" border="0"></td>
+</tr>
+</table>
+</body>
+</html>

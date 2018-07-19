@@ -1,0 +1,200 @@
+
+#macro(nl2ul $named_list)
+  <ul>
+  #foreach($kv in $named_list)
+    <li>$kv.key ($kv.value)
+      #nl2ul($kv.value)
+    </li>
+  #end
+  </ul>
+#end
+
+#macro(url_for_filters $filter_queries)
+  solr?fq=$filter_queries
+#end
+
+#macro(url_for_home)solr#end
+
+#macro(url_for_start $start)/blacklight/select?sort=title_ssi+asc&start=$start&wt=velocity&qf=all_fields_tesim&q=$!{esc.url($params.get('q'))}&v.template=$!params.get('v.template')&rows=$!params.get('rows')&fq=$!{esc.url($params.get('fq'))}#end
+
+#macro(url_for_nested_facet $field $value)solr?fq=$field:%22$value%22&v.template=search#end
+
+#macro(link_to_previous_page $text)
+  #if($page.current_page_number > 1)
+    #set($prev_start = $page.start - $page.results_per_page)
+    <a class="prev-page" href="#url_for_start($prev_start)">$text</a>
+  #end
+#end
+
+#macro(link_to_next_page $text)
+  #if($page.current_page_number < $page.page_count)
+    #set($next_start = $page.start + $page.results_per_page)
+    <a class="next-page" href="#url_for_start($next_start)">$text</a>
+  #end
+#end
+
+#macro(link_to_page $page_number $text)
+  #if($page_number == $page.current_page_number)
+    $text
+  #else
+    #if($page_number <= $page.page_count)
+      #set($page_start = $page_number * $page.results_per_page - $page.results_per_page)
+      <a class="page" href="#url_for_start($page_start)">$text</a>
+    #end
+  #end
+#end
+
+#macro(param $key)$request.params.get($key)#end
+
+#macro(navlinks)
+  <div class="results-pagination">
+    #link_to_previous_page("&lt;&lt; Prev")
+    #set ($start = $page.start + 1)
+    #set ($end = $page.start + $page.results_per_page)
+    #if( $end > $page.results_found )
+      #set($end = $page.results_found)
+    #end
+    <span class="results-found">Results $start to $end of $page.results_found</span>
+    #link_to_next_page("Next &gt;&gt;")
+  </div>
+#end
+
+## Mobile DAMS #################################################################
+## get the extension for a component
+## n.b., indentation removed to prevent spurious spacing in return value
+#macro( ext )
+## attributes
+#foreach($value in $doc.getFieldValues('attrib'))
+## file name
+#if( $value.indexOf('file:name') != -1 )
+#set ( $i1 = $value.indexOf('"') + 1 )
+#set ( $i2 = $value.indexOf('"',$i1) )
+#set ( $filename = $value.substring($i1,$i2) )
+#end
+## format name
+#if( $value.indexOf('pre:formatName') != -1 )
+#set ( $i1 = $value.indexOf('"') + 1 )
+#set ( $i2 = $value.indexOf('"',$i1) )
+#set ( $format = $value.substring($i1,$i2) )
+#end
+## components
+#if( $value.indexOf('xdre:numComponents') != -1 )
+#set ( $i1 = $value.indexOf('"') + 1 )
+#set ( $i2 = $value.indexOf('"',$i1) )
+#set ( $components = $value.substring($i1,$i2) )
+#end
+#end
+#if ( $filename )
+#set( $idx = $filename.indexOf(".") + 1 )
+#set( $ext = $filename.substring( $idx ) )
+#elseif ( $cat == "aalsicTest" || $cat == "denny" ||
+$cat == "mscl_advertisingArtwork" || $cat == "mscl_callToArms" ||
+$cat == "mscl_drSeussMagazineArt" ||  $cat =="mscl_drSeussWentTowar" ||
+$cat == "mscl_hannah" || $cat == "mscl_mission" ||
+$cat == "mscl_orphans" || $cat == "mscl_ShotsOfWar" || $cat == "sio" )
+#set( $ext = "tif" )
+#elseif ( $cat == "etd" )
+#set( $ext = "pdf" )
+#elseif ( $cat == "moving_image" )
+#set( $ext = "avi" )
+#elseif ( $cat == "mscl_spanishCivilWarMemory" || $cat == "mscl_ucsdFilm" )
+#set ( $ext = "mov" )
+#elseif ( $cat == "mscl_ucsdOralHistories" || $cat == "centerForMusic" )
+#set ($ext = "wav")
+#elseif ( $format == "TIFF"  )
+#set( $ext = "tif" )
+#elseif ( $format == "PDF"   )
+#set( $ext = "pdf" )
+#elseif ( $format == "JPEG"  )
+#set( $ext = "jpg" )
+#elseif ( $format == "WAVE"  )
+#set( $ext = "wav" )
+#elseif ( $format == "ASCII" )
+#set( $ext = "txt" )
+#elseif ( $format == "MOV"   )
+#set( $ext = "mov" )
+#elseif ( $format == "MP3"   )
+#set( $ext = "mp3" )
+#end
+$ext#end
+
+## show an image
+#macro( show $size $ext $prefix $class )
+  ## damsAccess/arkServlet config
+  ## ark servlet (/ark:/20775/$subject/$file syntax)
+  #####set( $ark1 = "/ark:/20775/" )
+  #####set( $ark2 = "/" )
+  ## damsAccess (/xdre/damsAccess?subject=$subject&file=$file syntax)
+  #set( $ark1 = "/xdre/damsAccess?subject=" )
+  #set( $ark2 = "&file=" )
+
+  ## preview and download links
+  #if ( $ext == "mp3" || $ext == "wav" )
+    #set( $pv = "/ceo/images/audio_icon.jpg" )
+    #set( $hr = "${ark1}${sub}${ark2}1${prefix}-2.mp3" )
+  #elseif ( $ext == "xml" )
+    #set( $local = $prefix )
+    #if ( ! $local )
+      #set( $local = "-1" )
+    #end
+    #set( $pv = "/ceo/images/xml_icon.png" )
+    #set( $hr = "${ark1}${sub}${ark2}1${local}.xml" )
+  #else
+    #if( $size == "medium" )
+      #set( $pv = "${ark1}${sub}${ark2}1${prefix}-3a.jpg" )
+    #elseif( $size == "thumb" )
+      #set( $pv = "${ark1}${sub}${ark2}1${prefix}-2a.jpg" )
+    #end
+
+    #if( $ext == "pdf" )
+      #if ( "$prefix" != "" )
+        #set( $local = $prefix )
+      #else
+        #set( $local = "-1" )
+      #end
+      #set( $hr = "${ark1}${sub}${ark2}1${local}.pdf" )
+    #elseif( $ext == "mp4" || $ext == "mov" || $ext == "avi" || $ext == "mpg"
+        || $ext == "wmv" )
+      #if( $cat == "moving_image" )
+        #set( $hr = "${ark1}${sub}${ark2}1${prefix}-3a.mp4" )
+      #else
+        #set( $hr = "${ark1}${sub}${ark2}1${prefix}-2a.mp4" )
+      #end
+    #else
+      #set( $hr = "${ark1}${sub}${ark2}1${prefix}-3.jpg" )
+    #end
+  #end
+
+  #if( $size == "thumb" )
+    #set( $subj = $params.get('q') )
+    #set( $comp = $prefix.substring(1) )
+    #set( $hr = "/ark:/20775/$subj?c=$comp" )
+  #end
+  ###set( $hr = "?n=$comp" )
+
+  ## display
+  <a href="$hr"><img src="$pv" class="$class"/></a>
+#end
+
+## show an image
+#macro( thumb $ext $prefix )
+  ## damsAccess/arkServlet config
+  ## ark servlet (/ark:/20775/$subject/$file syntax)
+  #####set( $ark1 = "/ark:/20775/" )
+  #####set( $ark2 = "/" )
+  ## damsAccess (/xdre/damsAccess?subject=$subject&file=$file syntax)
+  #set( $ark1 = "/xdre/damsAccess?subject=" )
+  #set( $ark2 = "&file=" )
+
+  ## preview and download links
+  #if ( $ext == "mp3" || $ext == "wav" )
+    #set( $pv = "/ceo/images/audio_icon.jpg" )
+  #elseif ( $ext == "xml" )
+    #set( $pv = "/ceo/images/xml_icon.png" )
+  #else
+    #set( $pv = "${ark1}${sub}${ark2}1${prefix}-2.jpg" )
+  #end
+
+  ## display
+  <img src="$pv" style="border: solid gray 1px;"/>
+#end
