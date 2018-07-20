@@ -23,7 +23,7 @@
   </div>
   <%# Collection controls %>
   <% if @object_count > 0 %>
-    <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
+    <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_default_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
     <div class="well collections-search-box"><%= render :partial => 'search' %></div>
   <% else %>
     <p class="alert alert-phone alert-no-dismiss"><%=no_collection_items_notice%></p>
@@ -50,7 +50,7 @@
       </div>
       <%# Collection controls %>
       <% if @object_count > 0 %>
-        <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
+        <%= link_to "<i class='icon-eye-open icon-white'></i> View Collection Items".html_safe, facet_default_uri(@collection_title,'collection_sim'), :class => 'btn btn-large btn-inverse btn-block' %>
         <div class="well collections-search-box"><%= render :partial => 'search' %></div>
       <% else %>
         <p class="alert alert-no-dismiss"><%=no_collection_items_notice%></p>

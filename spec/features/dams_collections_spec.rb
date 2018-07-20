@@ -81,7 +81,6 @@ feature 'Visitor wants to look at collections' do
     visit dams_collections_path({:per_page=>100})
     expect(page).to have_content('Access: Curator Only')
   end
-
 end
 
 feature 'Visitor wants to look at the collection search results view with no issued date' do
@@ -102,7 +101,6 @@ feature 'Visitor wants to look at the collection search results view with no iss
     expect(page).to have_selector("ul.dams-search-results-fields:first li span", :text => '1961-1978')
     expect(page).to have_no_content('1000-2015')     
   end
-
 end
 
 feature 'Visitor wants to see the collection record' do
@@ -119,11 +117,13 @@ feature 'Visitor wants to see the collection record' do
     @unit.delete
     @commonName.delete
   end 
+
   scenario 'should see the related resource with no URI' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_content('The physical materials are held at UC San Diego Library')
     expect(page).not_to have_link('The physical materials are held at UC San Diego Library', {href: ''})    
   end
+
   scenario 'should see the names in order' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Principal Investigator')  
@@ -131,7 +131,6 @@ feature 'Visitor wants to see the collection record' do
     expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Creator')
     expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Author')
     expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Contributors')
-        
   end
 
   scenario 'should not see access control information (public)' do
@@ -341,6 +340,13 @@ feature 'Visitor wants to look at the collection item view search results' do
     expect(page).to_not have_content("<a href=\"http://library.ucsd.edu/dc/collection/<span class='search-highlight'>#{@aCollection.pid}</span>\">")
   end
 
+  scenario 'should see the search result page default sort is title after click "View Collection Items"' do
+    visit dams_collection_path("#{@aCollection.pid}")
+    first(:link, "View Collection Items").click
+    
+    expect(page).to have_content("Sort: title")
+    expect(page).to_not have_content("Sort: relevance")
+  end
 end
 
 

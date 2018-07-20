@@ -58,6 +58,10 @@ module CatalogHelper
     return add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index"})
   end
 
+  def facet_default_uri(field, field_string)
+    return add_facet_params(field_string, field).merge!({"controller" => "catalog", :action=> "index", :sort=>"title_ssi asc"})
+  end
+
   #override of blacklight helper function: 
   # https://github.com/projectblacklight/blacklight/blob/master/app/helpers/blacklight/blacklight_helper_behavior.rb#L353
   # uses a semi-colon delimiter in for search result field values
