@@ -929,7 +929,7 @@ module Dams
     end
 
     def mix_objects?(collection_id, obj_count)
-      return false unless obj_count && obj_count > 0
+      return false unless obj_count && obj_count.positive?
       total_count(collection_id) > obj_count
     end
 
