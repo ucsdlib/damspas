@@ -42,8 +42,8 @@ class DamsResourceController < ApplicationController
     if models.include?("DamsAssembledCollection") || models.include?("DamsProvenanceCollection") || models.include?("DamsProvenanceCollectionPart") 
         collection_solr_params = build_params("collections_tesim:#{params[:id]}", metadata_only_fquery)
         collection_response = raw_solr(collection_solr_params)
-        @metadata_only = !collection_response.response['numFound'].zero?
-        @mix_objects = mix_objects?(params[:id], collection_response.response['numFound']) if @metadata_only
+        @metadata_only = collection_response.response['numFound'].to_i > 0
+        @mix_objects = mix_objects?(params[:id], collection_response.response['numFound'].to_i)
         
         facet_collection_params = { :f=>{"collection_sim"=>"#{@document['title_tesim'].first.to_s}"}, :id=>params[:id], :rows => 0 }
         apply_gated_discovery( facet_collection_params, nil )
