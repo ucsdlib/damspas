@@ -905,12 +905,12 @@ module Dams
 
     def total_count(collection_id)
       solr_params = build_params("collections_tesim:#{collection_id}")
-      raw_solr(solr_params).response['numFound']
+      raw_solr(solr_params).response['numFound'].to_i
     end
 
     def metadata_obj_count(collection_id)
       solr_params = build_params("collections_tesim:#{collection_id}", metadata_only_fquery)
-      raw_solr(solr_params).response['numFound']
+      raw_solr(solr_params).response['numFound'].to_i
     end
 
     def build_params(query, fquery = nil)
@@ -928,9 +928,8 @@ module Dams
       solr_response
     end
 
-    def mix_objects?(collection_id, obj_count = nil)
-      obj_count = metadata_obj_count(collection_id) if obj_count.nil?
-      return false unless obj_count && !obj_count.zero?
+    def mix_objects?(collection_id, obj_count)
+      return false unless obj_count && obj_count > 0
       total_count(collection_id) > obj_count
     end
 

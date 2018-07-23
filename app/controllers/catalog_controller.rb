@@ -325,7 +325,7 @@ class CatalogController < ApplicationController
     solr_params[:fq] = ["{!join from=collections_tesim to=id}#{metadata_only_fquery}"]
     response = raw_solr(solr_params.merge(params))
     response.docs.each do |doc|
-      mix_obj = mix_objects?(doc['id_t'])
+      mix_obj = mix_objects?(doc['id_t'], metadata_obj_count(doc['id_t']))
       val = mix_obj ? "#{doc['id_t']}#{mix_obj}" : doc['id_t']
       meta_colls << val
     end
