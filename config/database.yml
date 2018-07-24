@@ -13,7 +13,7 @@ variables:
 development:
   <<: *default
   database: damspas_development
-  host: <%= ENV.fetch('APPS_DHH_DEV_DB') %>
+  host: <%= ENV.fetch('APPS_DHH_DEV_DB') {'localhost'} %>
   username: <%= ENV.fetch('APPS_DHH_DEV_DB_USER') {'dams'}%>
   password: <%= ENV.fetch('APPS_DHH_DEV_DB_PASS') {'dams'}%>
 
@@ -58,7 +58,7 @@ demo:
 test:
   <<: *default
   database: damspas_test
-  host: <%= ENV.fetch('APPS_DHH_DEV_DB') %>
+  host: <%= ENV.fetch('APPS_DHH_DEV_DB') {'localhost'} %>
   username: <%= ENV.fetch('APPS_DHH_DEV_DB_USER') {'dams'}%>
   password: <%= ENV.fetch('APPS_DHH_DEV_DB_PASS') {'dams'}%>
 
