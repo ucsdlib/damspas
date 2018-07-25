@@ -1,4 +1,4 @@
-<% acl = display_access_control_level(document, metadata_colls) %>
+<% acl = display_access_control_level(document, metadata_colls, false, metadata_display?(rights_data(document))) %>
 <% if acl != nil %>
   <li><span class="dams-search-results-fields-label">Access:</span> <span><%= acl %></span></li>
 <% end %>

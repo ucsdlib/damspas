@@ -970,10 +970,10 @@ describe "User wants to view simple object for local metadata-only collection" d
     expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
   end
 
-  scenario 'local user should not see Restricted View access text or download link' do
+  scenario 'local user should not see Restricted View label, access text or download link' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_content('Restricted View')
     expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
     expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
   end
@@ -1024,10 +1024,10 @@ describe "User wants to view simple object for public metadata-only collection" 
     expect(page).to have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download?access=curator")
   end
 
-  scenario 'local user should see Access information' do
+  scenario 'local user should see Access label' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to have_content('AccessRestricted View')
   end
 
   scenario 'local user should see Restricted View access text' do
@@ -1054,6 +1054,49 @@ describe "User wants to view simple object for public metadata-only collection" 
     expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
   end
 
+end
+
+describe "User wants to view a PDF simple object for local metadata-only collection" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @restricted_note = "Restricted ViewContent not available. Access may granted for research purposes at the discretion of the UC San Diego Library."
+    @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @metadataOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
+    @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Under copyright'}]
+    @metadataOnlyObj.provenanceCollectionURI = @metadataOnlyCollection.pid
+    @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
+    @metadataOnlyObj.add_file( 'pdf content', '_1.pdf', 'test.pdf' )
+    @metadataOnlyObj.save!
+    solr_index @note.pid
+    solr_index @metadataDisplay.pid
+    solr_index @metadataOnlyCollection.pid
+    solr_index @metadataOnlyObj.pid
+  end
+
+  after(:all) do
+    @note.delete
+    @metadataDisplay.delete
+    @metadataOnlyCollection.delete
+    @metadataOnlyObj.delete
+  end
+
+  scenario 'curator user should see download link' do
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.pdf/download?access=curator")
+  end
+
+  scenario 'local user should not see download link' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.pdf/download")
+  end
+
+  scenario 'public user should not see download link' do
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.pdf/download")
+  end 
 end
 
 describe "User wants to view complex object for public metadata-only collection" do
@@ -1108,7 +1151,7 @@ describe "User wants to view complex object for public metadata-only collection"
     expect(page).to have_link('', href:"/object/#{@complexMetaObj.id}/_2_1.tif/download?access=curator")
   end
 
-  scenario 'local user should see Access information' do
+  scenario 'local user should see Access label' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @complexMetaObj.pid
     expect(page).to have_content('Restricted View')

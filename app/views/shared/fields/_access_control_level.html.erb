@@ -1,29 +1,13 @@
 <%
 	htmlOpen = "<dt>%s</dt><dd><ul>"
 	htmlClose = '</ul></dd>'
-	accessGroup = @document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
-	viewAccess = nil
 
-	if accessGroup != nil
+    viewAccess = display_access_control_level(@document, [], @mix_objects, @metadata_only)
 
-                if @mix_objects
-                    viewAccess = 'Some items restricted'
-                elsif @metadata_only
-                    viewAccess = 'Restricted View'
-		elsif accessGroup.include?('public')
-		    viewAccess = :public	  
-	        elsif accessGroup.include?('local')
-		    viewAccess = 'Restricted to UC San Diego use only'
-		else
-		    viewAccess = 'Curator Only'
-		end
-
-		if viewAccess != :public
-			htmlOpen %= 'Access'
-			concat htmlOpen.html_safe
-			concat "<li>#{viewAccess}</li>".html_safe
-			concat htmlClose.html_safe
-		end
-
-	end
+    if viewAccess
+        htmlOpen %= 'Access'
+        concat htmlOpen.html_safe
+        concat "<li>#{viewAccess}</li>".html_safe
+        concat htmlClose.html_safe
+    end
 %>

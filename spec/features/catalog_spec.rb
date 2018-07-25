@@ -518,11 +518,25 @@ feature 'Visitor wants to view object of metadata data-only visibility collectio
     @localOnlyCollection.delete
     @localObj.delete
   end
-  scenario 'rendering the grey generic thumbnail and restricted access info' do
-    sign_in_developer
+
+  scenario 'public user should see the grey generic thumbnail and restricted access info' do
     visit catalog_index_path({:q => 'xx909090zz'})
     expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
     expect(page).to have_content('Restricted View')
+  end
+
+  scenario 'curator user should not see the grey generic thumbnail and still see restricted access info' do
+    sign_in_developer
+    visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+  
+  scenario 'local user should not see the grey generic thumbnail and restricted access info' do
+    sign_in_anonymous '132.239.0.3'
+    visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to_not have_content('Restricted View')
   end
 end
 
@@ -544,8 +558,21 @@ feature 'Visitor wants to view localDisplay License object in UCSD local collect
     @localOnlyCollection.delete
     @localObj.delete
   end
-  scenario 'rendering the grey generic thumbnail and restricted access info' do
+  scenario 'curator user should not see the grey generic thumbnail and still see restricted access info' do
     sign_in_developer
+    visit catalog_index_path({:q => @localObj.pid})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+
+  scenario 'local user should not see the grey generic thumbnail and restricted access info' do
+    sign_in_anonymous '132.239.0.3'
+    visit catalog_index_path({:q => @localObj.pid})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to_not have_content('Restricted View')
+  end
+  
+  scenario 'public user should see the grey generic thumbnail and restricted access info' do
     visit catalog_index_path({:q => @localObj.pid})
     expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
     expect(page).to have_content('Restricted View')
@@ -567,7 +594,7 @@ feature 'Visitor wants to view object for public metadata-only collection in the
     @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
     @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
     @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"    
-    @localObj = DamsObject.create pid: 'xx909090zz', titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @publicCollection.pid, otherRightsURI: @localDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Public domain'}]
+    @localObj = DamsObject.create pid: 'xx909090zz', titleValue: 'Test Object with localDisplay', provenanceCollectionURI: @publicCollection.pid, otherRightsURI: @localDisplay.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Under Copyright'}]
     solr_index @note.pid
     solr_index @localDisplay.pid
     solr_index @publicCollection.pid
@@ -586,17 +613,60 @@ feature 'Visitor wants to view object for public metadata-only collection in the
     expect(page).to have_content('Restricted View')
   end
 
-  scenario 'local user should see the grey generic thumbnail and restricted access info' do
+  scenario 'local user should not see the grey generic thumbnail and still see restricted access info' do
     sign_in_anonymous '132.239.0.3'
     visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to_not have_content('Restricted View')
+  end
+  
+  scenario 'curator user should not see the grey generic thumbnail and still see restricted access info' do
+    sign_in_developer
+    visit catalog_index_path({:q => 'xx909090zz'})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+end
+
+feature 'Visitor wants to view metdatadataDisplay object for public collection in the search result page' do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @note = DamsNote.create type: "local attribution", value: "Digital Library Development Program, UC San Diego, La Jolla, 92093-0175"
+    @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"    
+    @obj = DamsObject.create pid: 'xx909090yy', titleValue: 'Test Object with localDisplay', note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Under Copyright'}]
+    @obj.otherRightsURI = @metadataDisplay.pid
+    @obj.provenanceCollectionURI = @publicCollection.pid
+    @obj.save
+    solr_index @note.pid
+    solr_index @metadataDisplay.pid
+    solr_index @publicCollection.pid
+    solr_index @obj.pid
+  end
+  after(:all) do
+    @note.delete
+    @metadataDisplay.delete
+    @publicCollection.delete
+    @obj.delete
+  end
+
+  scenario 'public user should see the grey generic thumbnail and restricted access info' do
+    visit catalog_index_path({:q => 'xx909090yy'})
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    expect(page).to have_content('Restricted View')
+  end
+
+  scenario 'local user should see the grey generic thumbnail and still see restricted access info' do
+    sign_in_anonymous '132.239.0.3'
+    visit catalog_index_path({:q => 'xx909090yy'})
     expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
     expect(page).to have_content('Restricted View')
   end
   
-  scenario 'curator user should see the grey generic thumbnail and restricted access info' do
+  scenario 'curator user should not see the grey generic thumbnail and still see restricted access info' do
     sign_in_developer
-    visit catalog_index_path({:q => 'xx909090zz'})
-    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+    visit catalog_index_path({:q => 'xx909090yy'})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
     expect(page).to have_content('Restricted View')
   end
 end
