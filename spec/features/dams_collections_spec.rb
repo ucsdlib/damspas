@@ -387,12 +387,12 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     @obj.delete
   end
 
-  scenario 'should see Restricted View access control information' do
+  scenario 'local user should not see Restricted View access label' do
     sign_in_anonymous '132.239.0.3'
     visit dams_collection_path @metadataOnlyCollection.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_content('Restricted View')
     visit dams_collection_path @localOnlyCollection.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_content('Restricted View')
   end
 
   scenario 'should not see Restricted View access control information' do
@@ -401,10 +401,10 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     expect(page).to_not have_content('Restricted View')
   end
   
-  scenario 'should see Restricted View access control information when visit browse by collection page' do
+  scenario 'local user should not see Restricted View access label when visit browse by collection page' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
-    expect(page).to have_content('Restricted View')
+    expect(page).to_not have_content('Restricted View')
   end
 end
 
@@ -445,7 +445,7 @@ feature "Visitor wants to view a public collection's page with metadata-only obj
     expect(page).to have_content('Restricted View')
   end
   
-  scenario 'local user should see Restricted View access control information when visit browse by collection page' do
+  scenario 'local user should see Restricted View access label when visit browse by collection page' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
     expect(page).to have_content('Restricted View')
@@ -501,10 +501,27 @@ feature "Visitor wants to view a public collection's page with mixed objects" do
 
   scenario 'public user should see some items restricted access information when search for collection' do
     visit catalog_index_path( {:q => @publicCollection.pid} )
-    puts "collection id #{@publicCollection.pid}"
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
-  end  
+  end
+  
+  scenario 'local user should see access label when visit browse by collection page or search for collection' do
+    sign_in_anonymous '132.239.0.3'
+    visit '/collections'
+    expect(page).to have_content('Some items restricted')
+
+    visit catalog_index_path( {:q => @publicCollection.pid} )
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'curator user should see access label when visit browse by collection page or search for collection' do
+    sign_in_developer
+    visit '/collections'
+    expect(page).to have_content('Some items restricted')
+
+    visit catalog_index_path( {:q => @publicCollection.pid} )
+    expect(page).to have_content('Some items restricted')
+  end
 end
 
 feature "Visitor wants to view a local collection's page with mixed objects" do
@@ -547,6 +564,26 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
   scenario 'public user should see some items restricted access information when search for collection' do
     visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'local user should not see access label when visit browse by collection page or search for collection' do
+    sign_in_anonymous '132.239.0.3'
+    visit '/collections'
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to_not have_content('Some items restricted')
+
+    visit catalog_index_path( {:q => @localCollection.pid} )
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to_not have_content('Some items restricted')
+  end
+  
+  scenario 'curator user should see access label when visit browse by collection page or search for collection' do
+    sign_in_developer
+    visit '/collections'
+    expect(page).to have_content('Some items restricted')
+
+    visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to have_content('Some items restricted')
   end  
 end
@@ -593,4 +630,22 @@ feature "Visitor wants to view a metadata-only public collection's page with no 
     expect(page).to have_content('Restricted View')
     expect(page).to_not have_content('Some items restricted')
   end
+  
+  scenario 'local user should see access label when visit browse by collection page or search for collection' do
+    sign_in_anonymous '132.239.0.3'
+    visit '/collections'
+    expect(page).to have_content('Restricted View')
+
+    visit catalog_index_path( {:q => @publicCollection.pid} )
+    expect(page).to have_content('Restricted View')
+  end
+  
+  scenario 'curator user should see access label when visit browse by collection page or search for collection' do
+    sign_in_developer
+    visit '/collections'
+    expect(page).to have_content('Restricted View')
+
+    visit catalog_index_path( {:q => @publicCollection.pid} )
+    expect(page).to have_content('Restricted View')
+  end 
 end

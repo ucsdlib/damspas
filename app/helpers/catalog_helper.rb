@@ -96,14 +96,14 @@ module CatalogHelper
     dateVal
   end
 
-  def display_access_control_level(document, metadata_colls)
+  def display_access_control_level(document, metadata_colls, mix_obj, meta_only_obj)
     access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
     view_access = 'Curator Only'
     if access_group
-      if metadata_colls.include?("#{document['id']}true")
-        view_access = 'Some items restricted'
-      elsif metadata_colls.include?(document['id']) || metadata_display?(rights_data(document))
-        view_access = 'Restricted View'
+      if metadata_colls.include?("#{document['id']}true") || mix_obj
+        view_access = hide_label?(document) ? nil : 'Some items restricted'
+      elsif metadata_colls.include?(document['id']) || meta_only_obj
+        view_access = hide_label?(document) ? nil : 'Restricted View'
       elsif access_group.include?('public')
         view_access = nil
       elsif access_group.include?('local')
@@ -147,7 +147,7 @@ module CatalogHelper
   def object_thumbnail_url(document)
     restricted_view = metadata_display?(rights_data(document))
     return nil unless restricted_view || (has_thumbnail?(document) && thumbnail_url(document, nil))
-    if restricted_view
+    if restricted_view && cannot?(:read, document)
       url = 'https://library.ucsd.edu/assets/dams/site/thumb-restricted.png'
       image_tag(url, alt: '', class: 'dams-search-thumbnail')
     else
