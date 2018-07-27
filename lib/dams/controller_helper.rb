@@ -940,7 +940,7 @@ module Dams
     #---
     def can_download?(solr_doc, fileid = nil)
       permissions = (Array(solr_doc['license_tesim']) + Array(solr_doc['otherRights_tesim'])).flatten.compact
-      return false if streaming_media_type?(solr_doc['resource_type_tesim']) && metadata_display?(permissions)
+      return false if streaming_media_type?(solr_doc['resource_type_tesim'], fileid) && metadata_display?(permissions)
       metadata_only_display = metadata_only_display?(permissions)
       return !restricted_file?(fileid) if fileid && metadata_only_display
       !metadata_only_display
@@ -950,9 +950,11 @@ module Dams
       fileid && fileid.include?('_2.jpg')
     end
 
-    def streaming_media_type?(resource_types)
+    def streaming_media_type?(resource_types, fileid = nil)
       return false if resource_types.blank?
-      resource_types.any? { |t| t.include?('video') || t.include?('sound') }
+      video_type = resource_types.any? { |t| t.include?('video') || t.include?('sound') }
+      return video_type unless video_type && fileid
+      fileid.end_with?('.mp4', '.mp3')
     end
 
     def metadata_only_display?(data)

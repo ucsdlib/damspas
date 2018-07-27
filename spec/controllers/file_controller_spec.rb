@@ -471,6 +471,7 @@ describe FileController do
       obj.licenseURI = license_local.pid
       obj.add_file(Base64.decode64(mov_content), '_1.mov', 'audio_source.mov')
       obj.add_file(Base64.decode64(mp4_content), '_2.mp4', 'audio_service.mp4')
+      obj.add_file(Base64.decode64(jpeg_content), '_4.jpg', 'image_icon.jpg')
       obj.save
       solr_index obj.pid
     end
@@ -491,6 +492,12 @@ describe FileController do
         get :show, id: obj.pid, ds: '_2.mp4'
         expect(response).to have_http_status(200)
       end
+
+      it 'can download the image icon' do
+        sign_in User.create!(provider: 'developer')
+        get :show, id: obj.pid, ds: '_4.jpg'
+        expect(response).to have_http_status(200)
+      end
     end
 
     describe 'public download' do
@@ -501,6 +508,11 @@ describe FileController do
 
       it 'cannot download the mp4 derivative' do
         get :show, id: obj.pid, ds: '_2.mp4'
+        expect(response).to have_http_status(403)
+      end
+
+      it 'cannot download the image icon' do
+        get :show, id: obj.pid, ds: '_4.jpg'
         expect(response).to have_http_status(403)
       end
     end
@@ -516,6 +528,12 @@ describe FileController do
         sign_in_anonymous '132.239.0.3'
         get :show, id: obj.pid, ds: '_2.mp4'
         expect(response).to have_http_status(403)
+      end
+
+      it 'can download the image icon' do
+        sign_in_anonymous '132.239.0.3'
+        get :show, id: obj.pid, ds: '_4.jpg'
+        expect(response).to have_http_status(200)
       end
     end
   end
@@ -531,6 +549,7 @@ describe FileController do
       obj.otherRightsURI = otherRights_local.pid
       obj.add_file(Base64.decode64(mov_content), '_1.mov', 'audio_source.mov')
       obj.add_file(Base64.decode64(mp4_content), '_2.mp4', 'audio_service.mp4')
+      obj.add_file(Base64.decode64(jpeg_content), '_4.jpg', 'image_icon.jpg')
       obj.save
       solr_index obj.pid
     end
@@ -551,6 +570,12 @@ describe FileController do
         get :show, id: obj.pid, ds: '_2.mp4'
         expect(response).to have_http_status(200)
       end
+
+      it 'can download the image icon' do
+        sign_in User.create!(provider: 'developer')
+        get :show, id: obj.pid, ds: '_4.jpg'
+        expect(response).to have_http_status(200)
+      end
     end
 
     describe 'public download' do
@@ -561,6 +586,11 @@ describe FileController do
 
       it 'cannot download the mp4 derivative' do
         get :show, id: obj.pid, ds: '_2.mp4'
+        expect(response).to have_http_status(403)
+      end
+
+      it 'cannot download the image icon' do
+        get :show, id: obj.pid, ds: '_4.jpg'
         expect(response).to have_http_status(403)
       end
     end
@@ -576,6 +606,12 @@ describe FileController do
         sign_in_anonymous '132.239.0.3'
         get :show, id: obj.pid, ds: '_2.mp4'
         expect(response).to have_http_status(403)
+      end
+
+      it 'can download the image icon' do
+        sign_in_anonymous '132.239.0.3'
+        get :show, id: obj.pid, ds: '_4.jpg'
+        expect(response).to have_http_status(200)
       end
     end
   end
@@ -650,6 +686,7 @@ describe FileController do
       obj.otherRightsURI = otherRights_metadata.pid
       obj.add_file(Base64.decode64(mov_content), '_1.mov', 'audio_source.mov')
       obj.add_file(Base64.decode64(mp4_content), '_2.mp4', 'audio_service.mp4')
+      obj.add_file(Base64.decode64(jpeg_content), '_4.jpg', 'image_icon.jpg')
       obj.save
       solr_index obj.pid
     end
@@ -670,6 +707,12 @@ describe FileController do
         get :show, id: obj.pid, ds: '_2.mp4'
         expect(response).to have_http_status(200)
       end
+
+      it 'can download the image icon' do
+        sign_in User.create!(provider: 'developer')
+        get :show, id: obj.pid, ds: '_4.jpg'
+        expect(response).to have_http_status(200)
+      end
     end
 
     describe 'public download' do
@@ -680,6 +723,11 @@ describe FileController do
 
       it 'cannot download the mp4 derivative' do
         get :show, id: obj.pid, ds: '_2.mp4'
+        expect(response).to have_http_status(403)
+      end
+
+      it 'cannot download the image icon' do
+        get :show, id: obj.pid, ds: '_4.jpg'
         expect(response).to have_http_status(403)
       end
     end
@@ -695,6 +743,12 @@ describe FileController do
         sign_in_anonymous '132.239.0.3'
         get :show, id: obj.pid, ds: '_2.mp4'
         expect(response).to have_http_status(403)
+      end
+
+      it 'can download the image icon' do
+        sign_in_anonymous '132.239.0.3'
+        get :show, id: obj.pid, ds: '_4.jpg'
+        expect(response).to have_http_status(200)
       end
     end
   end
