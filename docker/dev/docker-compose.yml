@@ -17,6 +17,8 @@ services:
 
   database:
     image: ucsdlib/docker-postgres-damsrepo
+    ports:
+      - "5432:5432"
     # volumes:
     #   - db-data:/var/lib/postgresql/data
     env_file:
@@ -36,7 +38,10 @@ services:
     - "/solr_config/config"
 
   tomcat:
-    image: ucsdlib/docker-tomcat-damsrepo
+    # TODO: remove tag
+    image: ucsdlib/docker-tomcat-damsrepo:vadd-im-and-ffmpeg
+    ports:
+      - "8080:8080"
     command: ["dockerize", "-wait", "tcp://solr:8983", "-timeout", "1m", "-wait", "tcp://database:5432", "-timeout", "1m", "catalina.sh", "run"]
     depends_on:
       - database

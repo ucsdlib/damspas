@@ -12,9 +12,9 @@ You have two choices for running damspas with Docker:
 
 Setup rails databases:
 - Self contained:
-    - `docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake db:setup`
+    - `docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake db:create db:migrate`
 - Dependencies only:
-    - `bundle exec rake db:setup`
+    - `bundle exec rake db:create db:migrate`
 
 Run damspas test suite:
 - Self contained:

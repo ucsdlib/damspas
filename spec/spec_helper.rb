@@ -10,9 +10,17 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 
+
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+# Capybara defaults
+require 'capybara/rails'
+require 'capybara/rspec'
+Capybara.server = :webrick
+Capybara.default_driver = :rack_test
+Capybara.javascript_driver = :selenium_chrome_headless
 
 RSpec.configure do |config|
   # ## Mock Framework
