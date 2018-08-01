@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/samvera-labs/share_notify.git
+  remote: https://github.com/samvera-labs/share_notify
   revision: 96c16ab13c596f479f83cb55c70b27309f4d5f2d
   branch: master
   specs:
@@ -8,7 +8,7 @@ GIT
       httparty
 
 GIT
-  remote: git://github.com/ucsdlib/solrizer-fedora.git
+  remote: https://github.com/ucsdlib/solrizer-fedora
   revision: 87c2d35e89df19bb4535e1f713a68b0dc469498a
   ref: 87c2d35e
   specs:
@@ -161,7 +161,7 @@ GEM
       uber (~> 0.0.4)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    httparty (0.16.1)
+    httparty (0.16.2)
       multi_xml (>= 0.5.2)
     hydra-access-controls (6.5.2)
       active-fedora (~> 6.7)
@@ -199,7 +199,6 @@ GEM
     kgio (2.11.0)
     launchy (2.4.3)
       addressable (~> 2.3)
-    libv8 (3.16.14.19)
     logger (1.2.8)
     lograge (0.5.1)
       actionpack (>= 4, < 5.2)
@@ -309,7 +308,6 @@ GEM
       rdf-xsd (>= 1.0)
     rdf-xsd (1.1.2)
       rdf (~> 1.1)
-    ref (2.0.0)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -406,9 +404,6 @@ GEM
     stomp (1.3.4)
     term-ansicolor (1.6.0)
       tins (~> 1.0)
-    therubyracer (0.12.3)
-      libv8 (~> 3.16.14.15)
-      ref
     thor (0.19.4)
     thread_safe (0.3.6)
     tilt (1.4.1)
@@ -421,7 +416,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.1)
-    unicode (0.4.4.3)
     unicode-display_width (1.2.1)
     unicorn (5.3.0)
       kgio (~> 2.6)
@@ -491,10 +485,8 @@ DEPENDENCIES
   solrizer (~> 3.1.0)
   solrizer-fedora!
   sprockets (~> 2.12.4)
-  therubyracer (~> 0.12.3)
   uglifier (~> 3.2.0)
-  unicode (= 0.4.4.3)
   unicorn (~> 5.3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.3

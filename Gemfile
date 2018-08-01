@@ -7,11 +7,11 @@ gem 'active-fedora', '~> 6.7.8' # locked
 gem 'solrizer', '~> 3.1.0' # locked
 gem 'blacklight_advanced_search', '~> 2.2.0' # locked
 gem 'kaminari', '~> 0.15.1' # locked (0.16.0+ breaks pagination)
-gem 'share_notify', github: 'samvera-labs/share_notify', branch: 'master'
+gem 'share_notify', git: 'https://github.com/samvera-labs/share_notify', branch: 'master'
 
 # private fork of solrizer-fedora with auto-commit disabled
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
-gem "solrizer-fedora", github: 'ucsdlib/solrizer-fedora', ref: '87c2d35e'
+gem "solrizer-fedora", git: 'https://github.com/ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
 gem 'sitemap_generator', '~> 5.3.1'
 
@@ -35,15 +35,12 @@ gem 'capistrano-rails', '~> 1.2.3'
 gem 'capistrano-rbenv', '~> 2.1.1'
 gem 'capistrano-bundler', '~> 1.2.0'
 
-gem "unicode", '0.4.4.3', :platforms => [:mri_18, :mri_19]
 gem "i18n", '~> 0.8.1'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
 gem "bower-rails", "~> 0.11.0"
 gem "responders", "~> 2.4.0"
 gem 'nokogiri', '1.8.2'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer', '~> 0.12.3', :platforms => :ruby
 gem 'uglifier', '~> 3.2.0'
 gem 'rspec-mocks', '3.6.0'
 gem 'newrelic_rpm', '4.1.0.333'
@@ -72,6 +69,5 @@ group :development, :test do
 end
 
 group :staging do
-  gem 'activerecord-postgresql-adapter'
   gem 'rake', '~> 12.0.0'
 end
