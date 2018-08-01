@@ -1,24 +1,33 @@
-FROM ruby:2.3.7
+FROM ruby:2.3.7-alpine
 
 # Maintainer
 MAINTAINER "Matt Critchlow <mcritchlow@ucsd.edu">
 
-RUN apt-get update -yqq \
- && apt-get install -yqq --no-install-recommends nodejs libicu-dev libfontconfig1-dev libjpeg-dev libfreetype6 \
- && apt-get clean
+RUN apk add --no-cache \
+  build-base \
+  busybox \
+  ca-certificates \
+  curl \
+  git \
+  gnupg1 \
+  gpgme \
+  less \
+  libffi-dev \
+  libxml2-dev \
+  libxslt-dev \
+  linux-headers \
+  libsodium-dev \
+  nodejs \
+  openssh-client \
+  postgresql-dev \
+  tzdata \
+  rsync \
+  wget
 
-ENV PHANTOM_JS_TAG 2.1.1
-
-# Downloading bin, unzipping & removing zip
-WORKDIR /tmp
-RUN wget -q http://cnpmjs.org/mirrors/phantomjs/phantomjs-${PHANTOM_JS_TAG}-linux-x86_64.tar.bz2 -O phantomjs.tar.bz2 \
-  && tar xjf phantomjs.tar.bz2 \
-  && rm -rf phantomjs.tar.bz2 \
-  && mv phantomjs-* phantomjs \
-  && mv /tmp/phantomjs/bin/phantomjs /usr/local/bin/phantomjs
-
-RUN echo "phantomjs binary is located at `which phantomjs`" \
-  && echo "just run 'phantomjs' (version `phantomjs -v`)"
+# Install phantomjs
+RUN wget -qO- "https://github.com/dustinblackman/phantomized/releases/download/2.1.1a/dockerized-phantomjs.tar.gz" | tar xz -C / \
+  && npm config set user 0 \
+  && npm install -g phantomjs-prebuilt
 
 # Trick to copy in Gemfile before other files.
 # This way bundle install step only runs again if THOSE files change

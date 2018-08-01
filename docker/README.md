@@ -12,15 +12,40 @@ You have two choices for running damspas with Docker:
 
 Setup rails databases:
 - Self contained:
-    - `docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake db:setup`
+    - `docker-compose -f docker/dev/docker-compose.yml exec -e RAILS_ENV=test web bundle exec rake db:create db:migrate`
 - Dependencies only:
-    - `bundle exec rake db:setup`
+    - `RAILS_ENV=test bundle exec rake db:create db:migrate`
 
 Run damspas test suite:
 - Self contained:
     - `docker-compose -f docker/dev/docker-compose.yml exec web bundle exec rake spec`
 - Dependencies only:
     - `bundle exec rake spec`
+
+# Development Workflow
+If you make changes to the damspas codebase that you want to test, you will need to rebuild the `web`
+container which hosts the damspas application. This can be done as follows:
+
+- Kill/stop the running docker-compose session
+- Rebuild web container: `docker-compose -f docker/dev/docker-compose.yml build`
+- Start docker-compose session again: `docker-compose -f docker/dev/docker-compose.yml up`
+- This should only rebuild what is necessary. And won't run `bundle install`
+  unless you change the Gemfile
+
+## Errors w/ the web container
+
+If you get an error like:
+```
+web_1 | A server is already running. Check /usr/src/app/tmp/pids/server.pid.
+```
+
+You probably didn't cleanly shut down the web container, leaving `tmp` files in
+the container and your local repo that prevent a clean start again. In this case, you should remove any files in `tmp/pids` on your local machine/host.
+
+Now recreate the container so it removes the internal temp files:
+```
+docker-compose -f docker/dev/docker-compose.yml up --force-recreate
+```
 
 # Teardown
 To remove all containers:
