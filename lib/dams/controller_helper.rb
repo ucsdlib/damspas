@@ -905,7 +905,7 @@ module Dams
     def local_collection?(document)
       data = (Array(document['collection_json_tesim']) + Array(document['visibility_tesim'])).flatten.compact
       return false if data.blank?
-      data.any? { |t| t.include?('local')}
+      data.any? { |t| t.include?('local') }
     end
 
     def local_display?(data)
