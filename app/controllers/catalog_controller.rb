@@ -271,7 +271,7 @@ class CatalogController < ApplicationController
     end
 
     (@response, @document_list) = get_search_results
-    @metadata_colls = metadata_only_collections(params)
+    @metadata_colls = metadata_only_collections(@document_list)
 
     @filters = params[:f] || []
     
@@ -316,17 +316,22 @@ class CatalogController < ApplicationController
     search[:fq] = params[:fq] if params[:fq]
     search[:total] = @response.response['numFound']
     session[:search] = search
-    @metadata_colls = metadata_only_collections(params)
+    @metadata_colls = metadata_only_collections(@document_list)
   end
 
-  def metadata_only_collections(params)
-    meta_colls = []
-    solr_params = { q: "{!join from=collections_tesim to=id}#{metadata_only_fquery}", fq: 'type_tesim:Collection', rows: 300 }
-    response = raw_solr(solr_params.merge(params))
-    response.docs.each do |doc|
-      mix_obj = mix_objects?(doc['id_t'], metadata_obj_count(doc['id_t']))
-      val = mix_obj ? "#{doc['id_t']}#{mix_obj}" : doc['id_t']
-      meta_colls << val
+  def metadata_only_collections(docs)
+    meta_colls = Array.new
+    docs.each do |doc|
+      if !doc['has_model_ssim'].include?('DamsObject')
+        coll_solr_params = build_params("collections_tesim:#{doc['id']}", metadata_only_fquery)
+        coll_response = raw_solr(coll_solr_params)
+        metadata_only = coll_response.response['numFound'].to_i > 0
+        if metadata_only
+          mix_obj = mix_objects?(doc['id'], metadata_obj_count(doc['id']))
+          val = mix_obj ? "#{doc['id']}#{mix_obj}" : doc['id']
+          meta_colls << val
+        end
+      end
     end
     meta_colls
   end

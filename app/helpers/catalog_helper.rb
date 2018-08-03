@@ -100,14 +100,14 @@ module CatalogHelper
     access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
     view_access = 'Curator Only'
     if access_group
-      if metadata_colls.include?("#{document['id']}true") || mix_obj
+      if access_group.include?('local') && !mix_obj && !metadata_colls.include?("#{document['id']}true")
+        view_access = 'Restricted to UC San Diego use only'
+      elsif metadata_colls.include?("#{document['id']}true") || mix_obj
         view_access = hide_label?(document) ? nil : 'Some items restricted'
       elsif metadata_colls.include?(document['id']) || meta_only_obj
         view_access = hide_label?(document) ? nil : 'Restricted View'
       elsif access_group.include?('public')
         view_access = nil
-      elsif access_group.include?('local')
-        view_access = 'Restricted to UC San Diego use only'
       end
 
     end

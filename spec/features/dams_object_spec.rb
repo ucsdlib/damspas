@@ -726,20 +726,20 @@ describe "Curator User wants to view a metadata-only complex object" do
     @metadataOnlyObj.delete
   end
 
-  scenario 'should see Restricted View access control information but not banner access text' do
+  scenario 'should see Restricted access control information but not banner access text' do
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 4')
     expect(page).to have_content('Interval 1 (dredge, rock)')
-    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
+    expect(page).to have_selector('div.file-metadata', text: 'Restricted to UC San Diego use only')
     expect(page).to_not have_selector('div.restricted-notice-complex', text: restricted_note)
   end
 
-  scenario 'should see Restricted View access control info in other component' do 
+  scenario 'should see Restricted access control info in other component' do 
     visit dams_object_path @metadataOnlyObj.pid
     click_button 'component-pager-forward'
     find('#component-pager-label').should have_content('Component 2 of 4')
     expect(page).to have_content('Files')
-    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
+    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted to UC San Diego use only')
   end
 end
 
@@ -960,13 +960,13 @@ describe "User wants to view simple object for local metadata-only collection" d
     @obj.delete
   end
 
-  scenario 'curator user should see Restricted View access control information and download link' do
+  scenario 'curator user should see Restricted access control information and download link' do
     sign_in_developer
     visit dams_object_path @metadataOnlyObj.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to have_content('Restricted to UC San Diego use only')
     expect(page).to have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download?access=curator")
     visit dams_object_path @localObj.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to have_content('Restricted to UC San Diego use only')
   end
 
   scenario 'curator user should not see Restricted View access control information' do
@@ -1564,20 +1564,17 @@ describe "User wants to view cultural sensitive object for public collection" do
   scenario 'curator user should not see the grey generic thumbnail' do
     sign_in_developer
     visit catalog_index_path({:q => @sensitiveObj.pid})
-    #puts page.body
     expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
   end  
 
   scenario 'local user should see the grey generic thumbnail' do
     sign_in_anonymous '132.239.0.3'
     visit catalog_index_path({:q => @sensitiveObj.pid})
-    #puts page.body
     expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
   end
   
   scenario 'public user should see the grey generic thumbnail' do
     visit catalog_index_path({:q => @sensitiveObj.pid})
-    #puts page.body
     expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
   end 
 end
