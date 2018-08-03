@@ -613,7 +613,7 @@ feature 'Visitor wants to view object for public metadata-only collection in the
     expect(page).to have_content('Restricted View')
   end
 
-  scenario 'local user should not see the grey generic thumbnail and still see restricted access info' do
+  scenario 'local user should not see the grey generic thumbnail and restricted access label' do
     sign_in_anonymous '132.239.0.3'
     visit catalog_index_path({:q => 'xx909090zz'})
     expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
