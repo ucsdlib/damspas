@@ -406,6 +406,15 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     visit '/collections'
     expect(page).to_not have_content('Restricted View')
   end
+  
+  scenario 'curator user should not see Restricted View access label' do
+    sign_in_developer
+    visit catalog_index_path( {:q => @localOnlyCollection.pid} )
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Restricted to UC San Diego use only')
+    visit dams_collection_path @localOnlyCollection.pid
+    expect(page).to have_content('Restricted to UC San Diego use only')
+  end
 end
 
 feature "Visitor wants to view a public collection's page with metadata-only objects" do
@@ -648,4 +657,72 @@ feature "Visitor wants to view a metadata-only public collection's page with no 
     visit catalog_index_path( {:q => @publicCollection.pid} )
     expect(page).to have_content('Restricted View')
   end 
+end
+
+feature "Visitor wants to view a local collection's page with mixed objects" do
+  before(:all) do
+    @otherRight = DamsOtherRight.create restrictionType: "display"
+    @localDisplay = DamsOtherRight.create permissionType: "localDisplay", basis: "fair use (UCSD)"
+    @localCollection = DamsProvenanceCollection.create titleValue: "ABCD Visibility Testing Collection [Local collection/Mixed]", visibility: "local"
+    @copyright = DamsCopyright.create status: 'Under copyright'
+    @otherObj = DamsObject.create titleValue: 'UCSD IP / Campus Access Only', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @localDisplay.pid
+    @dogObj = DamsObject.create titleValue: 'Curator and Dogs Only', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @otherRight.pid
+    @catObj = DamsObject.create titleValue: 'Curator and Cats Only', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @otherRight.pid
+    
+    solr_index @otherRight.pid
+    solr_index @localDisplay.pid
+    solr_index @localCollection.pid      
+    solr_index @copyright.pid
+    solr_index @otherObj.pid
+    solr_index @dogObj.pid
+    solr_index @catObj.pid
+  end
+
+  after(:all) do
+    @otherRight.delete
+    @localDisplay.delete
+    @localCollection.delete
+    @copyright.delete
+    @otherObj.delete
+    @dogObj.delete
+    @catObj.delete
+  end
+
+  scenario 'public user should see some items restricted information' do
+    visit dams_collection_path @localCollection.pid
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'public user should see some items restricted access information when visit browse by collection page' do
+    visit '/collections'
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'public user should see some items restricted access information when search for collection' do
+    visit catalog_index_path( {:q => @localCollection.pid} )
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to have_content('Some items restricted')
+  end
+  
+  scenario 'local user should not see access label when visit browse by collection page or search for collection' do
+    sign_in_anonymous '132.239.0.3'
+    visit '/collections'
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to_not have_content('Some items restricted')
+
+    visit catalog_index_path( {:q => @localCollection.pid} )
+    expect(page).to_not have_content('Restricted View')
+    expect(page).to_not have_content('Some items restricted')
+  end
+  
+  scenario 'curator user should see access label when visit browse by collection page or search for collection' do
+    sign_in_developer
+    visit '/collections'
+    expect(page).to have_content('Some items restricted')
+
+    visit catalog_index_path( {:q => @localCollection.pid} )
+    expect(page).to have_content('Some items restricted')
+  end  
 end
