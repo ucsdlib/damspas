@@ -43,7 +43,7 @@ gem 'nokogiri', '1.8.4'
 
 gem 'uglifier', '~> 3.2.0'
 gem 'rspec-mocks', '3.6.0'
-gem 'newrelic_rpm', '4.1.0.333'
+gem 'newrelic_rpm', '5.3.0.346'
 
 gem 'lograge', '0.5.1'
 gem 'logstash-event', '1.2.02'
