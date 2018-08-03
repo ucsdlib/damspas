@@ -1468,3 +1468,32 @@ describe "User wants to view a complex ucsd-only video" do
     expect(page).to_not have_link('', href:"/object/#{@obj.id}/_2_1.mp4/download?access=curator")
   end
 end
+
+describe "curator culturally sensitive restricted object view" do
+  let (:restricted_note) { "Restricted View Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Digital Library Development Program at dlp@ucsd.edu" }
+  before(:all) do
+    @damsUnit = DamsUnit.create( pid: 'zz48484848', name: 'Test Unit', description: 'Test Description',
+                                 code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
+    
+    @sensitiveObj = DamsObject.new(pid: "zz2765588d")
+    @sensitiveObj.damsMetadata.content = File.new('spec/fixtures/culturalRestrictedObject.rdf.xml').read
+    @sensitiveObj.save!
+    solr_index (@sensitiveObj.pid)
+  end
+  after(:all) do
+    @sensitiveObj.delete
+    @damsUnit.delete
+  end
+
+  it "should see the view content button" do
+    sign_in_developer
+    visit dams_object_path(@sensitiveObj.pid)
+  end
+
+  it "should not see Restricted View banner and label" do
+    sign_in_developer
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
+    expect(page).not_to have_content('Restricted View')
+  end
+end
