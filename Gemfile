@@ -33,7 +33,7 @@ gem 'rack-dev-mark', '~> 0.7.5'
 gem 'capistrano', '~> 3.8.1'
 gem 'capistrano-rails', '~> 1.2.3'
 gem 'capistrano-rbenv', '~> 2.1.1'
-gem 'capistrano-bundler', '~> 1.2.0'
+gem 'capistrano-bundler', '~> 1.3.0'
 
 gem "i18n", '~> 0.8.1'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
