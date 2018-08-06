@@ -58,7 +58,7 @@ group :development, :test do
   gem 'selenium-webdriver', '3.4.0'
   gem 'launchy', '~> 2.4.3'
   gem "minitest", '~> 5.10.2'
-  gem 'rspec-rails', '3.6.0'
+  gem 'rspec-rails', '3.6.1'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'simplecov', '~> 0.14.1'
   gem 'rubocop', '0.58.2', require: false
