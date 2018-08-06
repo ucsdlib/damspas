@@ -48,11 +48,11 @@ docker-compose -f docker/dev/docker-compose.yml up --force-recreate
 ```
 
 # Teardown
-To remove all containers:
-`docker-compose rm`
+To remove all containers and associated anonymous volumes:
+`docker-compose rm -v`
 
 To completely remove all unused containers, volumes, networks, etc:
-`docker system prune`
+`docker system prune -f --all --volumes`
 
 # Persisting data for local development
 By default the data stored in the postgres database will be removed when the
