@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '~> 4.2.10'
 gem 'blacklight', '~> 4.7.0' # locked
 gem 'hydra-head', '~> 6.5.2' # locked
-gem 'active-fedora', '~> 6.7.8' # locked
+gem 'active-fedora', '~> 6.8.0' # locked
 gem 'solrizer', '~> 3.1.0' # locked
 gem 'blacklight_advanced_search', '~> 2.2.0' # locked
 gem 'kaminari', '~> 0.15.1' # locked (0.16.0+ breaks pagination)
