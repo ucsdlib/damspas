@@ -1469,7 +1469,7 @@ describe "User wants to view a complex ucsd-only video" do
   end
 end
 
-describe "curator culturally sensitive restricted object view" do
+describe "culturally sensitive restricted object view" do
   let (:restricted_note) { "Restricted View Content not available. Access may granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Digital Library Development Program at dlp@ucsd.edu" }
   before(:all) do
     @damsUnit = DamsUnit.create( pid: 'zz48484848', name: 'Test Unit', description: 'Test Description',
@@ -1485,15 +1485,27 @@ describe "curator culturally sensitive restricted object view" do
     @damsUnit.delete
   end
 
-  it "should see the view content button" do
+  it "curator user should see the view content button" do
     sign_in_developer
     visit dams_object_path(@sensitiveObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
   end
 
-  it "should not see Restricted View banner and label" do
+  it "curator user should not see Restricted View banner and label" do
     sign_in_developer
     visit dams_object_path(@sensitiveObj.pid)
     expect(page).not_to have_selector('div.restricted-notice-complex', text: restricted_note)
     expect(page).not_to have_content('Restricted View')
+  end
+  
+  it "public user should see Response Status Code 404 - not found page" do
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page.driver.response.status).to eq( 404 )
+  end
+  
+  scenario 'local user should see Response Status Code 404 - not found page' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page.driver.response.status).to eq( 404 )
   end
 end
