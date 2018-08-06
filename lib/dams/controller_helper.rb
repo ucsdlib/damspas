@@ -918,6 +918,12 @@ module Dams
       data.any? { |t| t.include?('localDisplay') || t.include?('metadataDisplay') }
     end
 
+    def cultural_sensitive?(document)
+      data = Array(document['otherNote_json_tesim']).flatten.compact
+      return false if data.blank?
+      data.any? { |t| t.include?('Culturally sensitive content:') }
+    end
+
     def total_count(collection_id)
       solr_params = build_params("collections_tesim:#{collection_id}")
       raw_solr(solr_params).response['numFound'].to_i

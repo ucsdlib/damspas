@@ -162,18 +162,6 @@
         <dams:preservationLevel>full</dams:preservationLevel>
       </dams:File>
     </dams:hasFile>
-    <dams:otherRights>
-		 <dams:OtherRights>
-		
-		    <dams:permission>
-		      <dams:Permission>
-		        <dams:type>metadataDisplay</dams:type>
-		      </dams:Permission>
-		    </dams:permission>
-		    <dams:otherRightsNote>Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object.</dams:otherRightsNote>
-		    <dams:otherRightsBasis>fair use</dams:otherRightsBasis>
-		  </dams:OtherRights> 
-    </dams:otherRights>
     <dams:typeOfResource>still image</dams:typeOfResource>
     <dams:hasFile>
       <dams:File rdf:about="http://library.ucsd.edu/ark:/20775/zz2765588d/5.jpg">

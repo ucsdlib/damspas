@@ -7,13 +7,15 @@
 %>
 
 <%# CHECK FOR RESTRICTED NOTICE %>
-<% restrictedNotice = grabRestrictedText(@document['otherNote_json_tesim']) %>
-<% unless restrictedNotice.nil? %>
-  <div class="restricted-notice">
-    <div>
-      <%= restrictedNotice %>
+<% if cannot?(:read, @document) || cultural_sensitive?(@document) then %>
+  <% restrictedNotice = grabRestrictedText(@document['otherNote_json_tesim']) %>
+  <% unless restrictedNotice.nil? %>
+    <div class="restricted-notice">
+      <div>
+        <%= restrictedNotice %>
+      </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 <% access_notice = grab_access_text(@document) if cannot?(:read, @document) %>
 
