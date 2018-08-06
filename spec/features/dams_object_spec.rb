@@ -744,9 +744,8 @@ describe "Curator User wants to view a metadata-only complex object" do
 end
 
 describe "curator embargoed object view" do
+  let (:embargo_note) { "Image not available due to cultural sensitivities of the community depicted. Access may be granted for research purposes at the discretion of the UC San Diego Library. For more information please contact the Special Collections & Archives at spcoll@ucsd.edu or (858) 534-2533." }
   before do
-    @otherRights = DamsOtherRight.create pid: 'zz58718348', permissionType: "metadataDisplay", basis: "fair use",
-                                         note: "Please contact Mandeville Special Collections &amp; Archives at spcoll@ucsd.edu or (858) 534-2533 for more information about this object."
     @damsUnit = DamsUnit.create( pid: 'zz48484848', name: 'Test Unit', description: 'Test Description',
                                  code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
     @damsEmbObj = DamsObject.new(pid: "zz2765588d")
@@ -756,15 +755,27 @@ describe "curator embargoed object view" do
   end
   after do
     @damsEmbObj.delete
-    @otherRights.delete
     @damsUnit.delete
   end
 
-  it "should not see the view content button" do
+  it "curator should not see the embargo banner and view content button" do
     sign_in_developer
     visit dams_object_path(@damsEmbObj.pid)
+    expect(page).to have_no_selector('div.restricted-notice', text: embargo_note)
     expect(page).to have_no_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
   end
+
+  it "public user should see Response Status Code 404 - not found page" do
+    visit dams_object_path(@damsEmbObj.pid)
+    expect(page.driver.response.status).to eq( 404 )
+  end
+  
+  scenario 'local user should see Response Status Code 404 - not found page' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path(@damsEmbObj.pid)
+    expect(page.driver.response.status).to eq( 404 )
+  end
+
 end
 
 describe "Display internal personal name field" do
