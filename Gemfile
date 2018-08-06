@@ -18,7 +18,7 @@ gem 'sitemap_generator', '~> 5.3.1'
 gem 'pg', '~> 0.18.2'
 gem 'activerecord-postgresql-adapter'
 
-gem 'devise', '~> 3.5.5'
+gem 'devise', '~> 4.4.3'
 gem 'omniauth', '~> 1.7.1' # 1.2.2 breaks test sign_in
 gem 'omniauth-shibboleth', '~> 1.2.1'
 gem 'equivalent-xml', '~> 0.6.0'
