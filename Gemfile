@@ -52,7 +52,7 @@ gem 'rubyzip', '1.2.1'
 
 group :development, :test do
   gem 'sass-rails', '~> 5.0.5' # locked
-  gem 'coffee-rails', '~> 4.2.1'
+  gem 'coffee-rails', '~> 4.2.2'
   gem 'pry', '~> 0.10.4'
   gem 'capybara', '~> 2.14.0'
   gem 'selenium-webdriver', '3.4.0'
