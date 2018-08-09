@@ -65,7 +65,7 @@ group :development, :test do
   gem 'rubocop-rspec', '1.15.1'
   gem 'unicorn', '~> 5.3.0'
   gem 'rspec_junit_formatter', '~> 0.2.3'
-  gem 'poltergeist', '1.15.0'
+  gem 'poltergeist', '1.18.1'
 end
 
 group :staging do
