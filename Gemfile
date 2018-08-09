@@ -6,7 +6,7 @@ gem 'hydra-head', '~> 6.5.2' # locked
 gem 'active-fedora', '~> 6.7.8' # locked
 gem 'solrizer', '~> 3.1.0' # locked
 gem 'blacklight_advanced_search', '~> 2.2.0' # locked
-gem 'kaminari', '~> 0.15.1' # locked (0.16.0+ breaks pagination)
+gem 'kaminari', '~> 0.17.0' # locked (0.16.0+ breaks pagination)
 gem 'share_notify', git: 'https://github.com/samvera-labs/share_notify', branch: 'master'
 
 # private fork of solrizer-fedora with auto-commit disabled
