@@ -51,7 +51,7 @@ gem 'coveralls', '0.8.21', require: false
 gem 'rubyzip', '1.2.1'
 
 group :development, :test do
-  gem 'sass-rails', '~> 5.0.5' # locked
+  gem 'sass-rails', '~> 5.0.7' # locked
   gem 'coffee-rails', '~> 4.2.1'
   gem 'pry', '~> 0.10.4'
   gem 'capybara', '~> 2.14.0'
