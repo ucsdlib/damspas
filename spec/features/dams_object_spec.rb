@@ -1520,3 +1520,64 @@ describe "culturally sensitive restricted object view" do
     expect(page.driver.response.status).to eq( 404 )
   end
 end
+
+describe "User wants to view cultural sensitive object for public collection" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @note = DamsNote.create value: "Culturally sensitive content: This is an image of a person or persons now deceased. In some Aboriginal Communities, hearing names or seeing images of deceased persons may cause sadness or distress, particularly to the relatives of these people."
+    @license = DamsLicense.create permissionType: "display"
+    @otherRight = DamsOtherRight.create basis: "cultural sensitivity" , permissionType: "display"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"    
+    @sensitiveObj = DamsObject.create titleValue: 'Click-thru: Cultural Sensitivity for Public', provenanceCollectionURI: @publicCollection.pid, otherRightsURI: @otherRight.pid, licenseURI: @license.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Under copyright'}]
+    solr_index @note.pid
+    solr_index @sensitiveObj.pid
+    solr_index @publicCollection.pid
+    solr_index @otherRight.pid
+    solr_index @license.pid
+  end
+
+  after(:all) do
+    @note.delete
+    @otherRight.delete
+    @publicCollection.delete
+    @sensitiveObj.delete
+    @license.delete
+  end
+
+  it "curator user should see the view content button" do
+    sign_in_developer
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
+  
+  it "public user should see the view content button" do
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
+  
+  scenario 'local user should see the view content button' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
+  
+  scenario 'curator user should not see the grey generic thumbnail' do
+    sign_in_developer
+    visit catalog_index_path({:q => @sensitiveObj.pid})
+    #puts page.body
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+  end  
+
+  scenario 'local user should see the grey generic thumbnail' do
+    sign_in_anonymous '132.239.0.3'
+    visit catalog_index_path({:q => @sensitiveObj.pid})
+    #puts page.body
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+  end
+  
+  scenario 'public user should see the grey generic thumbnail' do
+    visit catalog_index_path({:q => @sensitiveObj.pid})
+    #puts page.body
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+  end 
+end

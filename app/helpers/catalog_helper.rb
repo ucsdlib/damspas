@@ -146,8 +146,8 @@ module CatalogHelper
 
   def object_thumbnail_url(document)
     restricted_view = metadata_display?(rights_data(document))
-    return nil unless restricted_view || (has_thumbnail?(document) && thumbnail_url(document, nil))
-    if restricted_view && cannot?(:read, document)
+    return nil unless restricted_view || (has_thumbnail?(document) && thumbnail_url(document, nil)) || cultural_sensitive?(document)
+    if (restricted_view && cannot?(:read, document)) || (cultural_sensitive?(document) && cannot?(:edit, document)) 
       url = 'https://library.ucsd.edu/assets/dams/site/thumb-restricted.png'
       image_tag(url, alt: '', class: 'dams-search-thumbnail')
     else
