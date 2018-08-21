@@ -5,28 +5,29 @@
    fieldData = @document["#{prefix}files_tesim"]
    wowzaURL = secure_token_base_url(fieldData, objid, cmpid, Rails.configuration.secure_token_video_baseurl)
    secure_token = secure_token(fieldData, objid, cmpid, Rails.configuration.secure_token_video_baseurl)
+   embed_url = "#{root_url}embed/#{objid}/#{cmpid}"
 %>
 
 <% if wowzaURL != nil %>
 
-	<video controls="controls" id="dams-video">Loading the player...</video>
+  <video controls="controls" id="dams-video">Loading the player...</video>
 
-	<script type="text/javascript">
-		jwplayer("dams-video").setup({
-			playlist:
-			[{
-				sources:
-				[
-					{file: "https://<%=wowzaURL%>/playlist.m3u8?<%=secure_token%>"},
-					{file: "https://<%=wowzaURL%>/manifest.mpd?<%=secure_token%>"}
-				]
-			}],
-			width: "100%",
-			aspectratio: "16:9",
-			rtmp: {bufferlength: 3},
-			analytics: {enabled: false}
-		});
-	</script>
+  <script type="text/javascript">
+	  jwplayer("dams-video").setup({
+		  playlist:
+				  [{
+					  sources:
+							  [
+								  {file: "https://<%=wowzaURL%>/playlist.m3u8?<%=secure_token%>"},
+								  {file: "https://<%=wowzaURL%>/manifest.mpd?<%=secure_token%>"}
+							  ]
+				  }],
+		  width: "100%",
+		  aspectratio: "16:9",
+		  rtmp: {bufferlength: 3},
+		  analytics: {enabled: false}
+	  });
+  </script>
 
 <% end %>
-<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath } %>
+<%= render :partial => 'admin_download', :locals => {:cmpID => cmpid, :embedURL => embed_url, :downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath, :wowzaURL => wowzaURL, :secure_token => secure_token } %>
