@@ -981,6 +981,12 @@ describe "User wants to view simple object for local metadata-only collection" d
     expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
   end
 
+  scenario 'curator user should see the collection link' do
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_link('Test UCSD IP only Collection with metadata-only visibility', :href => "#{dams_collection_path @metadataOnlyCollection.pid}")
+  end
+
   scenario 'local user should not see Restricted View label, access text or download link' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
@@ -989,12 +995,23 @@ describe "User wants to view simple object for local metadata-only collection" d
     expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
   end
 
+  scenario 'local user should see the collection link' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_link('Test UCSD IP only Collection with metadata-only visibility', :href => "#{dams_collection_path @metadataOnlyCollection.pid}")
+  end
+
   scenario 'public user should see Restricted View access text and no download link' do
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_content('Restricted View')
     expect(page).to have_selector('div.restricted-notice', text: @restricted_note)
     expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
   end 
+
+  scenario 'public user should see the collection link' do
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_link('Test UCSD IP only Collection with metadata-only visibility', :href => "#{dams_collection_path @metadataOnlyCollection.pid}")
+  end
 end
 
 describe "User wants to view simple object for public metadata-only collection" do
