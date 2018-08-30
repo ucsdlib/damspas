@@ -103,7 +103,7 @@ module CatalogHelper
       if access_group.include?('local') && !mix_obj && !metadata_colls.include?("#{document['id']}true")
         view_access = 'Restricted to UC San Diego use only'
       elsif metadata_colls.include?("#{document['id']}true") || mix_obj
-        view_access = hide_label?(document) ? nil : 'Some items restricted'
+        view_access = 'Some items restricted'
       elsif metadata_colls.include?(document['id']) || meta_only_obj
         view_access = hide_label?(document) ? nil : 'Restricted View'
       elsif access_group.include?('public')
