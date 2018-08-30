@@ -44,8 +44,7 @@
            visibility = collection['visibility']
 
            # Check anonymous user for linked collection access 
-           anons = User.anonymous(request.remote_ip)
-           if current_user != nil || visibility == 'public' || visibility == anons
+           if current_user != nil || visibility == 'public' || visibility == 'local'
             concat htmlOpen_l.html_safe unless defined?(componentIndex)
 %>
         		<li>
