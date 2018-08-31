@@ -48,7 +48,7 @@ gem 'newrelic_rpm', '5.3.0.346'
 gem 'lograge', '0.5.1'
 gem 'logstash-event', '1.2.02'
 gem 'coveralls', '0.8.21', require: false
-gem 'rubyzip', '1.2.1'
+gem 'rubyzip', '1.2.2'
 
 group :development, :test do
   gem 'sass-rails', '~> 5.0.5' # locked
