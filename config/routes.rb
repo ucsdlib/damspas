@@ -74,6 +74,11 @@ Hydra::Application.routes.draw do
   #post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
+
+  # EMBED UI
+  get "embed/:id/:cmp", :to => 'dams_objects#embed', :as => 'embed'
+  # EMBED UI END
+
   get "object/:id/edit", :to => 'dams_objects#edit', :as => 'edit'
   put "object/:id", :to => 'dams_objects#update', :as => 'update'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'
@@ -123,25 +128,25 @@ Hydra::Application.routes.draw do
   resources :dams_series, only: [:index, :show]
   resources :dams_cruises, only: [:index, :show]
   resources :dams_anatomies, only: [:index, :show]
-  
+
   resources :get_data do
   get 'get_linked_data', :on => :member
   post 'get_linked_data', :on => :member
   get 'get_name', :on => :member
-  post 'get_name', :on => :member 
+  post 'get_name', :on => :member
   get 'get_subject', :on => :member
   post 'get_subject', :on => :member
   get 'get_creator', :on => :member
   post 'get_creator', :on => :member
-  get 'get_ark', :on => :member 
-  get 'get_new_objects'   
+  get 'get_ark', :on => :member
+  get 'get_new_objects'
   get 'get_dams_data', :on => :member
-  post 'get_dams_data', :on => :member  
+  post 'get_dams_data', :on => :member
 
   end
 
   resources :random
-  
+
   # ruby-version utility
   get '/ruby-version' => 'application#ruby_version'
 

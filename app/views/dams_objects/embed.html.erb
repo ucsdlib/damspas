@@ -1,0 +1,34 @@
+<%
+   prefix = (defined?(componentIndex)) ? "component_#{componentIndex}_" : ''
+   objid = @document['id']
+   cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
+   fieldData = @document["#{prefix}files_tesim"]
+
+   wowzaURL = secure_token_base_url(fieldData, objid, cmpid, Rails.configuration.secure_token_video_baseurl)
+   secure_token = secure_token(fieldData, objid, cmpid, Rails.configuration.secure_token_video_baseurl)
+%>
+
+<% if wowzaURL != nil %>
+
+
+  <video controls="controls" id="dams-video">Loading the player...</video>
+
+  <script type="text/javascript">
+	  jwplayer("dams-video").setup({
+		  playlist:
+				  [{
+					  sources:
+							  [
+								  {file: "https://<%=wowzaURL%>/playlist.m3u8?<%=secure_token%>"},
+								  {file: "https://<%=wowzaURL%>/manifest.mpd?<%=secure_token%>"}
+							  ]
+				  }],
+		  width: "100%",
+		  aspectratio: "16:9",
+		  rtmp: {bufferlength: 3},
+		  analytics: {enabled: false}
+	  });
+  </script>
+
+<% end %>
+
