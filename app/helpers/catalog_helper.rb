@@ -100,14 +100,14 @@ module CatalogHelper
     access_group = document['read_access_group_ssim'] # "public" > "local" > "dams-curator" == "dams-rci" == default
     view_access = 'Curator Only'
     if access_group
-      if metadata_colls.include?("#{document['id']}true") || mix_obj
-        view_access = hide_label?(document) ? nil : 'Some items restricted'
+      if access_group.include?('local') && !mix_obj && !metadata_colls.include?("#{document['id']}true")
+        view_access = 'Restricted to UC San Diego use only'
+      elsif metadata_colls.include?("#{document['id']}true") || mix_obj
+        view_access = 'Some items restricted'
       elsif metadata_colls.include?(document['id']) || meta_only_obj
         view_access = hide_label?(document) ? nil : 'Restricted View'
       elsif access_group.include?('public')
         view_access = nil
-      elsif access_group.include?('local')
-        view_access = 'Restricted to UC San Diego use only'
       end
 
     end
@@ -146,8 +146,8 @@ module CatalogHelper
 
   def object_thumbnail_url(document)
     restricted_view = metadata_display?(rights_data(document))
-    return nil unless restricted_view || (has_thumbnail?(document) && thumbnail_url(document, nil))
-    if restricted_view && cannot?(:read, document)
+    return nil unless restricted_view || (has_thumbnail?(document) && thumbnail_url(document, nil)) || cultural_sensitive?(document)
+    if (restricted_view && cannot?(:read, document)) || (cultural_sensitive?(document) && cannot?(:edit, document)) 
       url = 'https://library.ucsd.edu/assets/dams/site/thumb-restricted.png'
       image_tag(url, alt: '', class: 'dams-search-thumbnail')
     else

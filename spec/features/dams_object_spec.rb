@@ -439,12 +439,12 @@ feature 'Visitor want to look at objects' do
 
   describe "rendering correct file format" do
     before(:all) do
-    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
-                            code: "tu", uri: "http://example.com/"
-    @damsVideoObj = DamsObject.create(pid: "xxx1171293")
-    @damsVideoObj.damsMetadata.content = File.new('spec/fixtures/damsObjectVideo.rdf.xml').read
-    @damsVideoObj.save!
-    solr_index (@damsVideoObj.pid)
+      @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                              code: "tu", uri: "http://example.com/"
+      @damsVideoObj = DamsObject.create(pid: "xxx1171293")
+      @damsVideoObj.damsMetadata.content = File.new('spec/fixtures/damsObjectVideo.rdf.xml').read
+      @damsVideoObj.save!
+      solr_index (@damsVideoObj.pid)
     end
     after(:all) do
       @damsVideoObj.delete
@@ -680,7 +680,7 @@ describe "audio complex object view" do
     @unit = DamsUnit.create( pid: 'xx48484848', name: 'Test Unit', description: 'Test Description',
                              code: 'tu', group: 'dams-curator', uri: 'http://example.com/' )
     @audioComplexObj = DamsObject.create( titleValue: 'Sonic Waters Archive 1981-84', typeOfResource: 'sound recording',
-                  unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+                                          unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
     @audioComplexObj.add_file( 'dummy audio content', '_1_1.mp3', 'test.mp3' )
     @audioComplexObj.add_file( 'dummy audio content 2', '_2_1.wav', 'test2.wav' )
     @audioComplexObj.add_file( 'dummy audio content 3', '_3_1.mp3', 'test3.wav' )
@@ -726,20 +726,20 @@ describe "Curator User wants to view a metadata-only complex object" do
     @metadataOnlyObj.delete
   end
 
-  scenario 'should see Restricted View access control information but not banner access text' do
+  scenario 'should see Restricted access control information but not banner access text' do
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 4')
     expect(page).to have_content('Interval 1 (dredge, rock)')
-    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
+    expect(page).to have_selector('div.file-metadata', text: 'Restricted to UC San Diego use only')
     expect(page).to_not have_selector('div.restricted-notice-complex', text: restricted_note)
   end
 
-  scenario 'should see Restricted View access control info in other component' do
+  scenario 'should see Restricted access control info in other component' do
     visit dams_object_path @metadataOnlyObj.pid
     click_button 'component-pager-forward'
     find('#component-pager-label').should have_content('Component 2 of 4')
     expect(page).to have_content('Files')
-    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted View')
+    expect(page).to have_selector('div.file-metadata', text: 'Access Restricted to UC San Diego use only')
   end
 end
 
@@ -895,11 +895,11 @@ describe "Cartographic Record" do
     ns = Rails.configuration.id_namespace
     @cart = DamsCartographics.create( point: '19.7667,-154.8' )
     @unit = DamsUnit.create( name: 'Test Unit', description: 'Test Description', code: 'tu',
-                               group: 'dams-curator', uri: 'http://example.com/' )
+                             group: 'dams-curator', uri: 'http://example.com/' )
     @cartObj = DamsObject.create( titleValue: 'Cartographic Test',
-                              cartographics_attributes: [{ id: RDF::URI.new("#{ns}#{@cart.pid}") }],
-                              unit_attributes: [{ id: RDF::URI.new("#{ns}#{@unit.pid}") }]
-                             )
+                                  cartographics_attributes: [{ id: RDF::URI.new("#{ns}#{@cart.pid}") }],
+                                  unit_attributes: [{ id: RDF::URI.new("#{ns}#{@unit.pid}") }]
+    )
     solr_index @cart.pid
     solr_index @unit.pid
     solr_index @cartObj.pid
@@ -960,13 +960,13 @@ describe "User wants to view simple object for local metadata-only collection" d
     @obj.delete
   end
 
-  scenario 'curator user should see Restricted View access control information and download link' do
+  scenario 'curator user should see Restricted access control information and download link' do
     sign_in_developer
     visit dams_object_path @metadataOnlyObj.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to have_content('Restricted to UC San Diego use only')
     expect(page).to have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download?access=curator")
     visit dams_object_path @localObj.pid
-    expect(page).to have_content('Restricted View')
+    expect(page).to have_content('Restricted to UC San Diego use only')
   end
 
   scenario 'curator user should not see Restricted View access control information' do
@@ -981,6 +981,12 @@ describe "User wants to view simple object for local metadata-only collection" d
     expect(page).to_not have_selector('div.restricted-notice', text: @restricted_note)
   end
 
+  scenario 'curator user should see the collection link' do
+    sign_in_developer
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_link('Test UCSD IP only Collection with metadata-only visibility', :href => "#{dams_collection_path @metadataOnlyCollection.pid}")
+  end
+
   scenario 'local user should not see Restricted View label, access text or download link' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @metadataOnlyObj.pid
@@ -989,11 +995,22 @@ describe "User wants to view simple object for local metadata-only collection" d
     expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
   end
 
+  scenario 'local user should see the collection link' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_link('Test UCSD IP only Collection with metadata-only visibility', :href => "#{dams_collection_path @metadataOnlyCollection.pid}")
+  end
+
   scenario 'public user should see Restricted View access text and no download link' do
     visit dams_object_path @metadataOnlyObj.pid
     expect(page).to have_content('Restricted View')
     expect(page).to have_selector('div.restricted-notice', text: @restricted_note)
     expect(page).to_not have_link('', href:"/object/#{@metadataOnlyObj.id}/_1.mp4/download")
+  end
+
+  scenario 'public user should see the collection link' do
+    visit dams_object_path @metadataOnlyObj.pid
+    expect(page).to have_link('Test UCSD IP only Collection with metadata-only visibility', :href => "#{dams_collection_path @metadataOnlyCollection.pid}")
   end
 end
 
@@ -1412,11 +1429,6 @@ describe "User wants to view a simple ucsd-only video" do
     @objOtherRight.delete
   end
 
-  scenario 'user should see an embed link' do
-    visit dams_object_path @obj.pid
-    expect(page).to have_css("a", :text => "Embed")
-  end
-
   scenario 'curator user should see download link for localDisplay license object' do
     sign_in_developer
     visit dams_object_path @obj.pid
@@ -1439,6 +1451,11 @@ describe "User wants to view a simple ucsd-only video" do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path @objOtherRight.pid
     expect(page).to_not have_link('', href:"/object/#{@objOtherRight.id}/_1.mp4/download")
+  end
+
+  scenario 'user should see an embed link' do
+    visit dams_object_path @obj.pid
+    expect(page).to have_css("a", :text => "Embed")
   end
 end
 
@@ -1464,17 +1481,6 @@ describe "User wants to view a complex ucsd-only video" do
     @obj.delete
   end
 
-  scenario 'user should see an embed link' do
-    Capybara.javascript_driver = :poltergeist
-    Capybara.current_driver = Capybara.javascript_driver
-    sign_in_developer
-    visit dams_object_path @obj.pid
-    expect(page).to have_css("a", :text => "Embed")
-    click_button 'component-pager-forward'
-    expect(page).to have_content('Generic Component Title 2')
-    expect(page).to have_css("a", :text => "Embed")
-  end
-  
   scenario 'curator user should see download link for localDisplay license object' do
     Capybara.javascript_driver = :poltergeist
     Capybara.current_driver = Capybara.javascript_driver
@@ -1494,6 +1500,18 @@ describe "User wants to view a complex ucsd-only video" do
     expect(page).to have_content('Generic Component Title 2')
     expect(page).to_not have_link('', href:"/object/#{@obj.id}/_2_1.mp4/download?access=curator")
   end
+
+  scenario 'user should see an embed link' do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver
+    sign_in_developer
+    visit dams_object_path @obj.pid
+    expect(page).to have_css("a", :text => "Embed")
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    expect(page).to have_css("a", :text => "Embed")
+  end
+
 end
 
 describe "culturally sensitive restricted object view" do
@@ -1534,5 +1552,63 @@ describe "culturally sensitive restricted object view" do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path(@sensitiveObj.pid)
     expect(page.driver.response.status).to eq( 404 )
+  end
+end
+
+describe "User wants to view cultural sensitive object for public collection" do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @note = DamsNote.create value: "Culturally sensitive content: This is an image of a person or persons now deceased. In some Aboriginal Communities, hearing names or seeing images of deceased persons may cause sadness or distress, particularly to the relatives of these people."
+    @license = DamsLicense.create permissionType: "display"
+    @otherRight = DamsOtherRight.create basis: "cultural sensitivity" , permissionType: "display"
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"
+    @sensitiveObj = DamsObject.create titleValue: 'Click-thru: Cultural Sensitivity for Public', provenanceCollectionURI: @publicCollection.pid, otherRightsURI: @otherRight.pid, licenseURI: @license.pid, note_attributes: [{ id: RDF::URI.new("#{ns}#{@note.pid}") }], copyright_attributes: [{status: 'Under copyright'}]
+    solr_index @note.pid
+    solr_index @sensitiveObj.pid
+    solr_index @publicCollection.pid
+    solr_index @otherRight.pid
+    solr_index @license.pid
+  end
+
+  after(:all) do
+    @note.delete
+    @otherRight.delete
+    @publicCollection.delete
+    @sensitiveObj.delete
+    @license.delete
+  end
+
+  it "curator user should see the view content button" do
+    sign_in_developer
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
+
+  it "public user should see the view content button" do
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
+
+  scenario 'local user should see the view content button' do
+    sign_in_anonymous '132.239.0.3'
+    visit dams_object_path(@sensitiveObj.pid)
+    expect(page).to have_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
+  end
+
+  scenario 'curator user should not see the grey generic thumbnail' do
+    sign_in_developer
+    visit catalog_index_path({:q => @sensitiveObj.pid})
+    expect(page).to_not have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+  end
+
+  scenario 'local user should see the grey generic thumbnail' do
+    sign_in_anonymous '132.239.0.3'
+    visit catalog_index_path({:q => @sensitiveObj.pid})
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+  end
+
+  scenario 'public user should see the grey generic thumbnail' do
+    visit catalog_index_path({:q => @sensitiveObj.pid})
+    expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
   end
 end
