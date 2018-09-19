@@ -148,13 +148,13 @@ $complexFile: #AC6F2B !default;
   a
   {
     display:block;
-    color:rgba(0,0,0,0.3);
+    color:rgba(0,0,0,0.666);
     margin-left:1em;
-    border: 1px solid #ccc;
+    border: 1px solid #999;
     padding: 0px 5px;
     font-size: 0.75em;
     border-radius: 3px;
-    &:hover{text-decoration: none;color:rgba(0,0,0,0.5);border-color:rgba(0,0,0,0.5);}
+    &:hover{text-decoration: none;color:rgba(0,0,0,0.8);border-color:rgba(0,0,0,0.8);}
     &:focus{text-decoration: none;outline:0;}
   }
 

@@ -40,6 +40,8 @@ class DamsObjectsController < DamsResourceController
 
   # EMBED UI
   def embed
+    response.headers.delete "X-Frame-Options"
+
     # check ip for unauthenticated users
     if current_user == nil
       current_user = User.anonymous(request.ip)
