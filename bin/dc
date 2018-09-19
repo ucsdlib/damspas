@@ -1,3 +1,5 @@
 #!/bin/bash
 
+# This script is to reduce the amount of typing that goes in to docker compose commands
+
 docker-compose -f docker/dev/docker-compose.yml "$@"
