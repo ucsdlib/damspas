@@ -32,6 +32,19 @@ container which hosts the damspas application. This can be done as follows:
 - This should only rebuild what is necessary. And won't run `bundle install`
   unless you change the Gemfile
 
+## Debugging w/ byebug
+If you need to use byebug (or similar), ensure you are using the
+`docker/dev/docker-compose.yml` file as it contains support for attaching and
+running a tty in the running container.
+
+If the current web app container is damspas_web_1  then when a byebug breakpoint
+is hit, open a terminal/tab and run:
+```
+docker attach damspas_web_1
+```
+This will give you a prompt for interacting with byebug
+
+
 ## Errors w/ the web container
 
 If you get an error like:
