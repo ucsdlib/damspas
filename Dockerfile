@@ -18,6 +18,7 @@ RUN apk add --no-cache \
   linux-headers \
   libsodium-dev \
   nodejs \
+  nodejs-npm \
   openssh-client \
   postgresql-dev \
   tzdata \
