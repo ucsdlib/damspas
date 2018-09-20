@@ -51,6 +51,7 @@ gem 'coveralls', '0.8.21', require: false
 gem 'rubyzip', '1.2.2'
 
 group :development, :test do
+  gem 'byebug'
   gem 'sass-rails', '~> 5.0.5' # locked
   gem 'coffee-rails', '~> 4.2.1'
   gem 'pry', '~> 0.10.4'
