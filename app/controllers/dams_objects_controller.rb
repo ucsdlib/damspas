@@ -1,7 +1,7 @@
 class DamsObjectsController < DamsResourceController
   DamsObjectsController.solr_search_params_logic += [:add_access_controls_to_solr_params]
 
-  def check_type( document )
+  def check_type(document)
     # redirect to collection path if it is a type of collection record
     arr_of_col = [ "DamsAssembledCollection",
                    "DamsProvenanceCollection",
@@ -12,7 +12,7 @@ class DamsObjectsController < DamsResourceController
     end
   end
 
-  def find_linked_documents( document )
+  def find_linked_documents(document)
     @relResourceHash = get_related_resources(document)
   end
 
