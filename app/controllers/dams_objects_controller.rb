@@ -40,15 +40,15 @@ class DamsObjectsController < DamsResourceController
 
   # EMBED UI
   def embed
-    response.headers.delete "X-Frame-Options"
+    response.headers.delete 'X-Frame-Options'
 
     # check ip for unauthenticated users
-    if current_user == nil
+    if current_user.nil?
       current_user = User.anonymous(request.ip)
     end
 
     # get metadata from solr
-    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    @document = get_single_doc_via_search(1, q: "id:#{params[:id]}")
 
     # enforce access controls
     authorize! :show, @document
@@ -59,6 +59,4 @@ class DamsObjectsController < DamsResourceController
     render layout: 'stand_alone_video_player'
   end
   # EMBED UI END
-
-
 end
