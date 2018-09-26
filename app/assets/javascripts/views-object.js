@@ -126,7 +126,6 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 						$(container).html( '<a href="'+serviceFilePath+'" alt=""><img src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
-
                         jwplayer("dams-audio-"+componentIndex).setup({
                             playlist:
                                 [{
@@ -135,12 +134,17 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                             {file: "https://"+serviceFilePath+"/playlist.m3u8?"+secure_token}                                            
                                         ]
                                 }],
-                            width: "100%",
-                            height: 60,
+                            width: 300,
+                            height: 40,
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false}
                         });
-
+                        jwplayer("dams-audio-"+componentIndex).on('ready', function() {
+                            resize("dams-audio-"+componentIndex);
+                            window.onresize = function() {
+                                resize("dams-audio-"+componentIndex);
+                            };    
+                        });
 						break;
 					case "video":
 
