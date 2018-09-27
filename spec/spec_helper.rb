@@ -76,8 +76,8 @@ Capybara.register_driver :poltergeist do |app|
                                           debug: false
                                        })
 end
-#Capybara.server_port = 3003
-#Capybara.app_host = 'http://application-test.lvh.me:3003' # lvh.me always resolves to 127.0.0.1
+Capybara.server_port = 3003
+Capybara.app_host = 'http://application-test.lvh.me:3003' # lvh.me always resolves to 127.0.0.1
 Capybara.javascript_driver = :poltergeist
 Capybara.current_driver = :poltergeist
 #Capybara.default_wait_time = 5
