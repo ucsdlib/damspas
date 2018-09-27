@@ -42,11 +42,6 @@ class DamsObjectsController < DamsResourceController
   def embed
     response.headers.delete 'X-Frame-Options'
 
-    # check ip for unauthenticated users
-    if current_user.nil?
-      current_user = User.anonymous(request.ip)
-    end
-
     # get metadata from solr
     @document = get_single_doc_via_search(1, q: "id:#{params[:id]}")
 
