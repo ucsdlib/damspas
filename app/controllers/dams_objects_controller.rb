@@ -3,9 +3,7 @@ class DamsObjectsController < DamsResourceController
 
   def check_type(document)
     # redirect to collection path if it is a type of collection record
-    arr_of_col = [ "DamsAssembledCollection",
-                   "DamsProvenanceCollection",
-                   "DamsProvenanceCollectionPart"]
+    arr_of_col = ['DamsAssembledCollection', 'DamsProvenanceCollection', 'DamsProvenanceCollectionPart']
 
     if !document.nil? && arr_of_col.include?(document["active_fedora_model_ssi"])
       return dams_collection_path(params[:id])
