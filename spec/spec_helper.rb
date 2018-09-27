@@ -70,12 +70,12 @@ def restore_spec_configuration
   ActiveFedora.init(fedora_config_path: File.join(File.dirname(__FILE__), "..", "config", "fedora.yml"))
 end
 
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {js_errors: false,
-                                          phantomjs_options: ['--debug=no', '--load-images=no', '--ignore-ssl-errors=yes', '--ssl-protocol=any'],
-                                          debug: false
-                                       })
-end
+#Capybara.register_driver :poltergeist do |app|
+#  Capybara::Poltergeist::Driver.new(app, {js_errors: false,
+#                                          phantomjs_options: ['--debug=no', '--load-images=no', '--ignore-ssl-errors=yes', '--ssl-protocol=any'],
+#                                          debug: false
+#                                       })
+#end
 #Capybara.server_port = 3003
 #Capybara.app_host = 'http://application-test.lvh.me:3003' # lvh.me always resolves to 127.0.0.1
 #Capybara.javascript_driver = :poltergeist
