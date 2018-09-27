@@ -693,9 +693,6 @@ describe "audio complex object view" do
     @unit.delete
   end
   it "should display the first component file content in the file viewing panel" do
-    Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, {:js_errors => false})
-    end
     Capybara.javascript_driver = :poltergeist
     Capybara.current_driver = Capybara.javascript_driver    
     visit dams_object_path(@audioComplexObj.pid)

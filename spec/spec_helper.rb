@@ -9,6 +9,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -68,6 +69,20 @@ end
 def restore_spec_configuration
   ActiveFedora.init(fedora_config_path: File.join(File.dirname(__FILE__), "..", "config", "fedora.yml"))
 end
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {js_errors: false,
+                                          phantomjs_logger: Rails.logger,
+                                          logger: nil,
+                                          phantomjs_options: ['--debug=no', '--load-images=no', '--ignore-ssl-errors=yes', '--ssl-protocol=TLSv1'],
+                                          debug: true
+                                       })
+end
+Capybara.server_port = 3003
+Capybara.app_host = 'http://application-test.lvh.me:3003' # lvh.me always resolves to 127.0.0.1
+Capybara.javascript_driver = :poltergeist
+Capybara.current_driver = :poltergeist
+Capybara.default_wait_time = 5
 
 def cleanout_solr_and_fedora
   ActiveFedora::Base.destroy_all
