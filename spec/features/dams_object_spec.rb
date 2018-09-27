@@ -696,10 +696,10 @@ describe "audio complex object view" do
     Capybara.register_driver :poltergeist do |app|
       Capybara::Poltergeist::Driver.new(app, js_errors: false)
     end
-    browser = Capybara.current_session
+    Capybara.current_driver = :poltergeist
 #    Capybara.javascript_driver = :poltergeist
 #    Capybara.current_driver = Capybara.javascript_driver
-    browser.visit dams_object_path(@audioComplexObj.pid)
+    visit dams_object_path(@audioComplexObj.pid)
     expect(page).to have_content "Sonic Waters Archive 1981-84"
     expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 3')
     expect(page).to have_content('Generic Component Title 1')
