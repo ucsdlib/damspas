@@ -693,12 +693,8 @@ describe "audio complex object view" do
     @unit.delete
   end
   it "should display the first component file content in the file viewing panel" do
-    Capybara.register_driver :poltergeist do |app|
-      Capybara::Poltergeist::Driver.new(app, js_errors: false)
-    end
-    Capybara.current_driver = :poltergeist
-#    Capybara.javascript_driver = :poltergeist
-#    Capybara.current_driver = Capybara.javascript_driver
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver
     visit dams_object_path(@audioComplexObj.pid)
     expect(page).to have_content "Sonic Waters Archive 1981-84"
     expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 3')
