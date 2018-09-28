@@ -692,10 +692,10 @@ describe "audio complex object view" do
     @audioComplexObj.delete
     @unit.delete
   end
-  it "should display the first component file content in the file viewing panel" do
+  it "should display the first component file content in the file viewing panel", js_errors: false do
     Capybara.javascript_driver = :poltergeist
     Capybara.current_driver = Capybara.javascript_driver
-    page.driver.browser.js_errors = false
+    #page.driver.browser.js_errors = false
     visit dams_object_path(@audioComplexObj.pid)
     expect(page).to have_content "Sonic Waters Archive 1981-84"
     expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 3')
@@ -1480,7 +1480,7 @@ describe "User wants to view a complex ucsd-only video" do
   scenario 'curator user should see download link for localDisplay license object' do
     Capybara.javascript_driver = :poltergeist
     Capybara.current_driver = Capybara.javascript_driver
-    page.driver.browser.js_errors = false
+    #page.driver.browser.js_errors = false
     sign_in_developer
     visit dams_object_path @obj.pid
     expect(page).to have_link('', href:"/object/#{@obj.id}/_1_1.mp4/download?access=curator")
