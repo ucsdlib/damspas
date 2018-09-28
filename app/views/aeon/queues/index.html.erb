@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Aeon Queues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Count</th>
+      <th>Properties</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aeon_queues.each do |aeon_queue| %>
+      <tr>
+        <td><%= link_to aeon_queue.name, aeon_queue %></td>
+        <td><%= aeon_queue.requests.size %>
+        <td><%= aeon_queue.properties %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
