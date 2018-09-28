@@ -70,12 +70,12 @@ def restore_spec_configuration
   ActiveFedora.init(fedora_config_path: File.join(File.dirname(__FILE__), "..", "config", "fedora.yml"))
 end
 
-Capybara.javascript_driver = :poltergeist
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, {js_errors: false, phantomjs_logger: "/dev/null"})
-end
+#Capybara.javascript_driver = :poltergeist
+#Capybara.register_driver :poltergeist do |app|
+#  Capybara::Poltergeist::Driver.new(app, {js_errors: false, phantomjs_logger: "/dev/null"})
+#end
 
-Capybara.current_driver = :poltergeist
+#Capybara.current_driver = :poltergeist
     
 #Capybara.register_driver :poltergeist do |app|
 #  Capybara::Poltergeist::Driver.new(app, {js_errors: false,
