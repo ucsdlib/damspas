@@ -8,6 +8,17 @@
 
 A Hydra repository backed by [DAMS Repository](http://github.com/ucsdlib/damsrepo).
 
+# Docker
+  You can below in Setup Instructions, or you can just do this:
+
+  ``` sh
+    $ ./bin/dc up
+    $ ./bin/dc exec web rake db:setup
+  ```
+
+  Then navigate to localhost:3000
+
+  
 # Setup Instructions 
 
 ## Windows
