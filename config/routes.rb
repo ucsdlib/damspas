@@ -51,11 +51,14 @@ Hydra::Application.routes.draw do
   # :show and :update are for backwards-compatibility with catalog_url named routes
   resources :catalog, :only => [:show, :update]
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, skip: [:sessions], :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
     get '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
     get '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
+    get '/login', :to => "users/email_sessions#email_new", :as => :new_user_email_session
+    post '/users/email_sessions', :to => "users/email_sessions#create", :as => :user_email_session
+    get '/logout', :to => "users/email_sessions#destroy", :as => :destroy_user_email_session
   end
 
   resources :dams_subjects, :only => [:show]
@@ -123,25 +126,25 @@ Hydra::Application.routes.draw do
   resources :dams_series, only: [:index, :show]
   resources :dams_cruises, only: [:index, :show]
   resources :dams_anatomies, only: [:index, :show]
-  
+
   resources :get_data do
   get 'get_linked_data', :on => :member
   post 'get_linked_data', :on => :member
   get 'get_name', :on => :member
-  post 'get_name', :on => :member 
+  post 'get_name', :on => :member
   get 'get_subject', :on => :member
   post 'get_subject', :on => :member
   get 'get_creator', :on => :member
   post 'get_creator', :on => :member
-  get 'get_ark', :on => :member 
-  get 'get_new_objects'   
+  get 'get_ark', :on => :member
+  get 'get_new_objects'
   get 'get_dams_data', :on => :member
-  post 'get_dams_data', :on => :member  
+  post 'get_dams_data', :on => :member
 
   end
 
   resources :random
-  
+
   # ruby-version utility
   get '/ruby-version' => 'application#ruby_version'
 

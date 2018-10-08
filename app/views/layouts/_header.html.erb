@@ -54,10 +54,11 @@
             </li>
           <% else %>
             <li><%= link_to 'Sign In', new_user_session_path %></li>
+            <li><%= link_to 'Login via Email', new_user_email_session_path %></li>
           <% end %>
 
           <li><%= link_to 'The Library', 'https://library.ucsd.edu/' %></li>
- 
+
         </ul>
       </nav>
     </div>
