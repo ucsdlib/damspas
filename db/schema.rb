@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181203221615) do
+ActiveRecord::Schema.define(version: 20181008165025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,5 +81,4 @@ ActiveRecord::Schema.define(version: 20181203221615) do
     t.integer  "aeon_id"
     t.string   "error"
   end
-
 end
