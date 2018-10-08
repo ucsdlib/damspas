@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   around_action :anonymous_user
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def anonymous_user
     # check ip for unauthenticated users
@@ -32,16 +33,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Adds a few additional behaviors into the application controller 
+  # Adds a few additional behaviors into the application controller
    include Blacklight::Controller
-   include Hydra::Controller::ControllerBehavior 
-  # Please be sure to impelement current_user and user_session. Blacklight depends on 
-  # these methods in order to perform user specific actions. 
+   include Hydra::Controller::ControllerBehavior
+  # Please be sure to impelement current_user and user_session. Blacklight depends on
+  # these methods in order to perform user specific actions.
 
   layout 'ucsdlib'
 
-  # Adds a few additional behaviors into the application controller   
-# Adds Hydra behaviors into the application controller 
+  # Adds a few additional behaviors into the application controller
+# Adds Hydra behaviors into the application controller
 
   protect_from_forgery with: :exception
 #  before_filter :authenticate_user!
@@ -53,5 +54,9 @@ class ApplicationController < ActionController::Base
   # custom 404 error page
   rescue_from ActionController::RoutingError do |exception|
     render file: "#{Rails.root}/public/404", formats: [:html], status: 404, layout: false
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
   end
 end
