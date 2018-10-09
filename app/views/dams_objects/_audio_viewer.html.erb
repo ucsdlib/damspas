@@ -11,19 +11,31 @@
   <div id="dams-audio">Loading the player...</div>
 
   <script type="text/javascript">
-	  jwplayer("dams-audio").setup({
-		  playlist:
-				  [{
-					  sources:
-							  [
-								  {file: "https://<%=wowzaURL%>/playlist.m3u8?<%=secure_token%>"}
-							  ]
-				  }],
-		  width: "100%",
-		  height: 60,
-		  rtmp: {bufferlength: 3},
-		  analytics: {enabled: false}
-	  });
+    let newWidth = 0.94;
+    let parent = document.getElementById('dams-audio').parentElement;
+    jwplayer("dams-audio").setup({
+      playlist:
+          [{
+            sources:
+                [
+                  {file: "https://<%=wowzaURL%>/playlist.m3u8?<%=secure_token%>"}
+                ]
+          }],
+      width: "100%",
+      height: 40,
+      rtmp: {bufferlength: 3},
+      analytics: {enabled: false}
+    });
+    jwplayer().on('ready', function() {
+      resize();
+      window.onresize = function() {
+        resize();
+      };    
+    });
+    function resize() {
+      let currentWidth = parent.offsetWidth;
+      jwplayer().resize(currentWidth * newWidth, 40);
+    }
   </script>
 
 <% end %>
