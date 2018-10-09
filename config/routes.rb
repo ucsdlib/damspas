@@ -60,7 +60,6 @@ Hydra::Application.routes.draw do
     get '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
     get '/login', :to => "users/email_sessions#email_new", :as => :new_user_email_session
     post '/users/email_sessions', :to => "users/email_sessions#create", :as => :user_email_session
-    get '/logout', :to => "users/email_sessions#destroy", :as => :destroy_user_email_session
   end
 
   resources :dams_subjects, :only => [:show]
