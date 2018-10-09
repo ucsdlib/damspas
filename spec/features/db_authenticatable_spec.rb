@@ -3,7 +3,7 @@ require 'spec_helper'
 feature "User can login" do
   scenario "using an email and password" do
     create_db_authenticatable_user
-    visit "/login"
+    visit new_user_email_session_path
 
     fill_in "Email", :with => "test@example.com"
     fill_in "Password", :with => "password"
@@ -21,7 +21,7 @@ end
 feature "User can logout" do
   scenario "of a db_authenticatable user" do
     create_db_authenticatable_user
-    visit "/login"
+    visit new_user_email_session_path
 
     fill_in "Email", :with => "test@example.com"
     fill_in "Password", :with => "password"
