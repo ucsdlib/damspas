@@ -126,8 +126,8 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 						$(container).html( '<a href="'+serviceFilePath+'" alt=""><img src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
-                        let newWidth = 0.94;
-                        let parent = document.getElementById("dams-audio-"+componentIndex).parentElement;
+                        /*let newWidth = 0.94;
+                        let parent = document.getElementById("dams-audio-"+componentIndex).parentElement;*/
                         jwplayer("dams-audio-"+componentIndex).setup({
                             playlist:
                                 [{
