@@ -141,7 +141,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false}
                         });
-                        jwplayer("dams-audio-"+componentIndex).on('ready', function() {
+                        /*jwplayer("dams-audio-"+componentIndex).on('ready', function() {
                             resize();
                             window.onresize = function() {
                                 resize();
@@ -150,7 +150,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                         function resize() {
                             let currentWidth = parent.offsetWidth;
                             jwplayer("dams-audio-"+componentIndex).resize(currentWidth * newWidth, 40);
-                        }
+                        }*/
 
 						break;
 					case "video":
