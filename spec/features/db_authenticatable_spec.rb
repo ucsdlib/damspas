@@ -46,7 +46,7 @@ feature "User can reset their password" do
     visit new_user_password_path
 
     fill_in "Email", :with => "test@example.com"
-    click_button "Send me reset password instructions"
+    click_on "Send me reset password instructions"
 
     expect(page).to have_text("You will receive an email with instructions about how to reset your password in a few minutes")
   end
