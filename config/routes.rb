@@ -51,7 +51,7 @@ Hydra::Application.routes.draw do
   # :show and :update are for backwards-compatibility with catalog_url named routes
   resources :catalog, :only => [:show, :update]
 
-  devise_for :users, skip: [:sessions], :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, skip: [:sessions], :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :passwords => 'passwords' }
 
   devise_scope :user do
     get '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session

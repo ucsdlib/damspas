@@ -55,4 +55,7 @@ Hydra::Application.configure do
   config.secure_token_name = ENV.fetch('APPS_DHH_SECURE_TOKEN_NAME') {'default'}
   config.secure_token_secret = ENV.fetch('APPS_DHH_SECURE_TOKEN_SECRET') {'default'}
   # config.host_name = 'http://localhost:3000'
+
+  Rails.application.routes.default_url_options[:host] = "localhost:3000"
+
 end
