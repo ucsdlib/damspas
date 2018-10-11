@@ -1,9 +1,17 @@
 class Users::SessionsController < Devise::SessionsController
+  # TODO: Potentially add a validation here to detect where the user
+  # arrives, whether they are a omniauth user or a email user
   def new
-    redirect_to user_omniauth_authorize_path(Devise.omniauth_configs.keys.first)
+    if params[:email]
+      super
+    else
+      redirect_to user_omniauth_authorize_path(Devise.omniauth_configs.keys.first)
+    end
   end
 
-  
+  # TODO: Add create method to differentiate between omniauth
+  # and db_authenticatable users signing in to fix a redirect
+  # bug when a user has invalid credentials
 
   # DELETE /resource/sign_out
   def destroy
@@ -18,5 +26,4 @@ class Users::SessionsController < Devise::SessionsController
       format.any(*navigational_formats) { redirect_to redirect_path }
     end
   end
-
  end
