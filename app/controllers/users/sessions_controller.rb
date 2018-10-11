@@ -1,4 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
+  # TODO: Potentially add a validation here to detect where the user
+  # arrives, whether they are a omniauth user or a email user
   def new
     if params[:auth_token] && params[:email]
       authenticate_user_from_token!
@@ -52,3 +54,4 @@ class Users::SessionsController < Devise::SessionsController
       end
     end
 end
+
