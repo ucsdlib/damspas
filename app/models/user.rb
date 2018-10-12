@@ -2,7 +2,6 @@ require 'rest-client'
 require 'json'
 
 class User < ActiveRecord::Base
-<<<<<<< HEAD
   # Connects this user object to Hydra behaviors.
   include Hydra::User
   # Connects this user object to Blacklights Bookmarks.
@@ -13,16 +12,7 @@ class User < ActiveRecord::Base
   devise :trackable, :omniauthable
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, if: proc { |u| u.provider == 'auth_link' }
   has_many :work_authorizations, dependent: :destroy
-=======
-# Connects this user object to Hydra behaviors.
- include Hydra::User
-# Connects this user object to Blacklights Bookmarks.
- include Blacklight::User
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
-  devise :trackable, :omniauthable, :database_authenticatable, :recoverable
->>>>>>> adds migration for devise email auth
+  before_save :ensure_authentication_token
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin
@@ -49,10 +39,6 @@ class User < ActiveRecord::Base
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
       name = access_token['info']['name']
-<<<<<<< HEAD
-=======
-
->>>>>>> adds migration for devise email auth
     rescue Exception => e
       logger.warn "shibboleth: #{e.to_s}"
     end
@@ -157,7 +143,6 @@ class User < ActiveRecord::Base
   end
 
   private
-
     def generate_authentication_token
       loop do
         token = Devise.friendly_token

@@ -36,7 +36,6 @@ def create_auth_link_user
   user
 end
 
-
 # remove need for redundant tests for flash messages, using "have_TYPE_message"
 # replace this: should have_selector('div.alert.alert-error', text: 'Invalid
 # with this: should have_error_message('Invalid')
