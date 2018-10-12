@@ -126,8 +126,6 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 						$(container).html( '<a href="'+serviceFilePath+'" alt=""><img src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
-                        /*let newWidth = 0.94;
-                        let parent = document.getElementById("dams-audio-"+componentIndex).parentElement;*/
                         jwplayer("dams-audio-"+componentIndex).setup({
                             playlist:
                                 [{
@@ -141,17 +139,12 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false}
                         });
-                        /*jwplayer("dams-audio-"+componentIndex).on('ready', function() {
-                            resize();
+                        jwplayer("dams-audio-"+componentIndex).on('ready', function() {
+                            resize("dams-audio-"+componentIndex);
                             window.onresize = function() {
-                                resize();
-                            };    
+                                resize("dams-audio-"+componentIndex);
+                            };
                         });
-                        function resize() {
-                            let currentWidth = parent.offsetWidth;
-                            jwplayer("dams-audio-"+componentIndex).resize(currentWidth * newWidth, 40);
-                        }*/
-
 						break;
 					case "video":
 
@@ -339,4 +332,3 @@ $(document).ready(function()
           msg.innerHTML = '<div class="flash_messages"><div class="alert alert-alert">Error Generating Derivatives! <a class="close" data-dismiss="alert" href="#">&times;</a></div>';
 		})
 });
-

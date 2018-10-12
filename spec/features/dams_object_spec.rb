@@ -701,7 +701,6 @@ describe "audio complex object view" do
     expect(page).to have_selector('#component-pager-label', :text=>'Component 1 of 3')
     expect(page).to have_content('Generic Component Title 1')
     expect(page).to have_selector('div[id="component-1"][class="component first-component"][data="1"][style="display: block;"]')
-    expect(page).to have_selector('#dams-audio-1',:text=>'loading player')
   end
 end
 

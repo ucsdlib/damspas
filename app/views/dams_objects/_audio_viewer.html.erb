@@ -11,8 +11,6 @@
   <div id="dams-audio">Loading the player...</div>
 
   <script type="text/javascript">
-    let newWidth = 0.94;
-    let parent = document.getElementById('dams-audio').parentElement;
     jwplayer("dams-audio").setup({
       playlist:
           [{
@@ -27,15 +25,11 @@
       analytics: {enabled: false}
     });
     jwplayer().on('ready', function() {
-      resize();
+      resize('dams-audio');
       window.onresize = function() {
-        resize();
+        resize('dams-audio');
       };    
     });
-    function resize() {
-      let currentWidth = parent.offsetWidth;
-      jwplayer().resize(currentWidth * newWidth, 40);
-    }
   </script>
 
 <% end %>
