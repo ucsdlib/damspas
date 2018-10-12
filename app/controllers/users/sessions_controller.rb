@@ -1,17 +1,11 @@
 class Users::SessionsController < Devise::SessionsController
-  # TODO: Potentially add a validation here to detect where the user
-  # arrives, whether they are a omniauth user or a email user
   def new
-    if params[:email]
-      super
+    if params[:auth_token]
+      authenticate_user_from_token!
     else
       redirect_to user_omniauth_authorize_path(Devise.omniauth_configs.keys.first)
     end
   end
-
-  # TODO: Add create method to differentiate between omniauth
-  # and db_authenticatable users signing in to fix a redirect
-  # bug when a user has invalid credentials
 
   # DELETE /resource/sign_out
   def destroy
@@ -24,6 +18,29 @@ class Users::SessionsController < Devise::SessionsController
     respond_to do |format|
       format.all { head :no_content }
       format.any(*navigational_formats) { redirect_to redirect_path }
+    end
+  end
+
+  def new_invite
+    render 'devise/invites/new.html.erb'
+  end
+
+  def create_invite
+  end
+
+  private
+
+  def authenticate_user_from_token!
+    user_email = params[:email].presence
+    user       = user_email && User.find_by_email(user_email)
+    # Notice how we use Devise.secure_compare to compare the token
+    # in the database with the token given in the params, mitigating
+    # timing attacks.
+    if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
+      redirect_to root_path, notice: 'signed_in'
+      sign_in user
+    else
+      redirect_to root_path, alert: 'invalid_token'
     end
   end
  end

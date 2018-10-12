@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
-  devise :trackable, :omniauthable, :database_authenticatable, :recoverable
+  devise :trackable, :omniauthable
+  before_save :ensure_authentication_token
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin
@@ -128,5 +129,20 @@ class User < ActiveRecord::Base
   # the account.
   def to_s
     uid
+  end
+
+  def ensure_authentication_token
+    if authentication_token.blank?
+      self.authentication_token = generate_authentication_token
+    end
+  end
+
+  private
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
   end
 end
