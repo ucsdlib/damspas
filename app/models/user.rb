@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable
-  before_save :ensure_authentication_token
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin

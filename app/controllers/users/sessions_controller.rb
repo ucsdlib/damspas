@@ -26,6 +26,18 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def create_invite
+    if params[:user][:email] != ''
+      @user = User.new(
+        email: params[:user][:email],
+        provider: 'invited',
+        uid: SecureRandom::uuid
+      )
+      @user.ensure_authentication_token
+      @user.save!
+      redirect_to root_path, notice: 'user_invited'
+    else
+      redirect_to new_invite_path, alert: 'Please enter a valid email address'
+    end
   end
 
   private
