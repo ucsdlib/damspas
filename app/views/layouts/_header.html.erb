@@ -50,11 +50,11 @@
           <!-- use an image bug to keep the Shibboleth session alive -->
               <img src="https://a4.ucsd.edu/tritON/imagebug">
             <li><%= link_to 'Bookmarks', bookmarks_path %></li>
-            <li><%= link_to 'Sign Out', destroy_user_session_path %>
-            </li>
+            <li><%= link_to 'Invite Users', new_invite_path %></li>
+            <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
           <% else %>
             <li><%= link_to 'Sign In', new_user_session_path %></li>
-            <li><%= link_to 'Login via Email', new_user_session_path(email: true) %></li>
+            <li><%= link_to 'Login', new_user_session_path(email: 'qa@example.com', auth_token: 'axA281ZduMZhGdTXt7K_') %></li>
           <% end %>
 
           <li><%= link_to 'The Library', 'https://library.ucsd.edu/' %></li>
