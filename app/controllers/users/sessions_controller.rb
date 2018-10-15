@@ -1,6 +1,6 @@
 class Users::SessionsController < Devise::SessionsController
   def new
-    if params[:auth_token]
+    if params[:auth_token] && params[:email]
       authenticate_user_from_token!
     else
       redirect_to user_omniauth_authorize_path(Devise.omniauth_configs.keys.first)
@@ -34,6 +34,7 @@ class Users::SessionsController < Devise::SessionsController
       )
       @user.ensure_authentication_token
       @user.save!
+      puts (root_url + new_user_session_path + "?email=" + @user.email).to_s
       redirect_to root_path, notice: 'user_invited'
     else
       redirect_to new_invite_path, alert: 'Please enter a valid email address'

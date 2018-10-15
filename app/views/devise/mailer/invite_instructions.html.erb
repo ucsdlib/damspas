@@ -1,0 +1,9 @@
+<p>Hello <%= @resource.email %>!</p>
+
+<p>Someone has invited you to join a repository for UCSD Virtual Libraries!</p>
+
+<p>To sign in, click the link below:</p>
+
+<p><%= link_to 'Sign in', new_user_session(@resource, :email => @resource.email) %></p>
+
+<p><%= @resource %></p>
