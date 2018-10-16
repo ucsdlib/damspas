@@ -1,8 +1,0 @@
-<h2>Invite new user</h2>
-
-<%= form_for(:user, :url => create_invite_path) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.text_field :email %></div>
-
-  <div><%= f.submit "Invite" %></div>
-<% end %>

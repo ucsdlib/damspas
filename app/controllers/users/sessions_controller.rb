@@ -21,23 +21,28 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
-  def new_invite
-    render 'devise/invites/new.html.erb'
+  def new_auth_link
+    render 'devise/auth_link/new.html.erb'
   end
 
-  def create_invite
-    if params[:user][:email] != ''
+  def create_auth_link
+    email = params[:user][:email]
+    if User.find_by(email: email).nil? && email != ''
       @user = User.new(
-        email: params[:user][:email],
-        provider: 'invited',
+        email: email,
+        provider: 'auth_link',
         uid: SecureRandom::uuid
       )
       @user.ensure_authentication_token
-      @user.save!
-      puts (root_url + new_user_session_path + "?email=" + @user.email).to_s
-      redirect_to root_path, notice: 'user_invited'
+      if @user.valid?
+        @user.save!
+        puts (root_url + new_user_session_path + "?auth_token=" + @user.authentication_token + "&email=" + @user.email).to_s
+        redirect_to root_path, notice: 'user_invited'
+      else
+        redirect_to new_auth_link_path, alert: 'Please enter a valid email address'
+      end
     else
-      redirect_to new_invite_path, alert: 'Please enter a valid email address'
+      redirect_to new_auth_link_path, alert: 'User already exists'
     end
   end
 
