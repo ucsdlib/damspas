@@ -58,8 +58,8 @@ Hydra::Application.routes.draw do
   devise_scope :user do
     get '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
     get '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
-    get '/users/invite', :to => "users/sessions#new_invite", :as => :new_invite
-    post '/users/invite/create', :to => "users/sessions#create_invite", :as => :create_invite
+    get '/users/auth_link', :to => "users/sessions#new_auth_link", :as => :new_auth_link
+    post '/users/auth_link/create', :to => "users/sessions#create_auth_link", :as => :create_auth_link
   end
 
   resources :dams_subjects, :only => [:show]
