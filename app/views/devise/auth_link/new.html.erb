@@ -3,6 +3,5 @@
 <%= form_for(:user, :url => create_auth_link_path) do |f| %>
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
-
   <div><%= f.submit "Send link" %></div>
 <% end %>
