@@ -1,4 +1,4 @@
-require "rails_helper"
+require "spec_helper"
 
 RSpec.describe AuthMailer, type: :mailer do
   describe "send_link" do

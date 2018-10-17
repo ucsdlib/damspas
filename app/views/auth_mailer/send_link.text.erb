@@ -1,3 +1,5 @@
-AuthMailer#send_link
+Hello <%= @user.email %>!
 
-<%= @greeting %>, find me in app/views/auth_mailer/send_link.text.erb
+Here is your link to sign in to UCSD Digital Library:
+
+<%= URI.join(root_url, new_user_session_path).to_s + "?auth_token=" + @user.authentication_token + "&email=" + @user.email %>
