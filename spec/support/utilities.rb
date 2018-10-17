@@ -24,17 +24,6 @@ def sign_in_curator
     login_as user
 end
 
-# def create_db_authenticatable_user
-#   user_attributes = {
-#     email: 'test@example.com',
-#     password: 'password',
-#     provider: 'email',
-#     uid: SecureRandom::uuid
-#   }
-#   user = User.new(user_attributes)
-#   user.save
-# end
-
 #remove need for redundant tests for flash messages, using "have_TYPE_message"
 #￼replace this: should have_selector('div.alert.alert-error', text: 'Invalid
 # with this: should have_error_message('Invalid')
