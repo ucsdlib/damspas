@@ -1,5 +1,5 @@
 class AuthMailer < ApplicationMailer
-default from: 'ucsd@example.com'
+default from: 'dams@ucsd.edu'
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
