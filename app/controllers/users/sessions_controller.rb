@@ -26,23 +26,13 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def create_auth_link
-    email = params[:user][:email]
-    if User.find_by(email: email).nil? && email != ''
-      @user = User.new(
-        email: email,
-        provider: 'auth_link',
-        uid: SecureRandom::uuid
-      )
-      @user.ensure_authentication_token
-      if @user.valid?
-        @user.save!
-        puts (root_url + new_user_session_path + "?auth_token=" + @user.authentication_token + "&email=" + @user.email).to_s
-        redirect_to root_path, notice: 'user_invited'
-      else
-        redirect_to new_auth_link_path, alert: 'Please enter a valid email address'
-      end
+    @email = params[:user][:email]
+    @user = User.where(email: @email).first
+    if @user.present? && @user.authentication_token != nil
+      AuthMailer.send_link(@user).deliver_later
+      redirect_to root_path, notice: 'Email sent successfully! Check your inbox for the link.'
     else
-      redirect_to new_auth_link_path, alert: 'User already exists'
+      redirect_to new_auth_link_path, alert: "User doesn't exist."
     end
   end
 
@@ -55,10 +45,10 @@ class Users::SessionsController < Devise::SessionsController
     # in the database with the token given in the params, mitigating
     # timing attacks.
     if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
-      redirect_to root_path, notice: 'signed_in'
+      redirect_to root_path, notice: 'Successfully authenticated from email account.'
       sign_in user
     else
-      redirect_to root_path, alert: 'invalid_token'
+      redirect_to root_path, alert: 'Authentication failed: Your credentials were invalid.'
     end
   end
  end
