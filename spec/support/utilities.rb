@@ -29,9 +29,11 @@ def create_auth_link_user
     email: 'test@example.com',
     provider: 'auth_link',
     uid: SecureRandom::uuid,
-    authentication_token: 'secret'
   }
   user = User.new(user_attributes)
+  user.ensure_authentication_token
+  user.save
+  user
 end
 
 #remove need for redundant tests for flash messages, using "have_TYPE_message"
