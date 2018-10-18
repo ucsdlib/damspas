@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
-    unless: Proc.new { |u| u.provider = 'developer' || u.provider = 'anonymous' }
+    unless: Proc.new { |u| u.provider == 'developer' || u.provider == 'anonymous' }
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin
