@@ -134,7 +134,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
                                             {file: "https://"+serviceFilePath+"/playlist.m3u8?"+secure_token}                                            
                                         ]
                                 }],
-                            width: 300,
+                            width: "100%",
                             height: 40,
                             rtmp: {bufferlength: 3},
                             analytics: {enabled: false}
