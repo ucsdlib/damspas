@@ -1,3 +1,5 @@
-AuthMailer#send_link
+Hello test@example.com!
 
-Hi, find me in app/views/auth_mailer/send_link
+Here is your link to sign in to UCSD Digital Library:
+
+Click Here

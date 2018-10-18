@@ -52,4 +52,7 @@ Hydra::Application.configure do
   config.secure_token_video_baseurl = 'lib-streaming.ucsd.edu:1936/dams4-securetoken/_definst_/mp4:'
   config.secure_token_name = ENV.fetch('APPS_DHH_SECURE_TOKEN_NAME') {'default'}
   config.secure_token_secret = ENV.fetch('APPS_DHH_SECURE_TOKEN_SECRET') {'default'}
+
+  Rails.application.routes.default_url_options[:host] = "localhost:3000"
+
 end
