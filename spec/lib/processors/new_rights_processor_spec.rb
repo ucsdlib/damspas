@@ -129,4 +129,3 @@ describe Processors::NewRightsProcessor do
     end
   end
 end
-
