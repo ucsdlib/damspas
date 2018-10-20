@@ -5,23 +5,25 @@ module Processors
     end
 
     def process
-      puts 'anything good please'
+      puts 'begin task'
       email = @request_attributes[:email]
       if email
-        user = User.where(email: email).first_or_create do |user|
+        user = User.where(email: email).first_or_initialize do |user| # only hits the do on initialize
           user.provider = 'auth_link',
           user.uid = SecureRandom::uuid
+          user.provider = JSON.parse(user.provider)[0] # Line 12 sets user.provider to a hash containing the values of both provider and the uid for a currently unknown reason
+          user.ensure_authentication_token
         end
-        user.ensure_authentication_token
         if user.valid?
           user.save!
           AuthMailer.send_link(user).deliver_later
+          puts "email sent!"
         end
       end
       if user && user.valid?
-        puts "you did it!"
+        puts ">>>>>> Task succeeded!"
       else
-        puts "you did not do it!"
+        puts ">>>>>> TASK FAILED"
       end
     end
   end
