@@ -58,6 +58,7 @@ module Processors
           user.provider = 'auth_link'
           user.uid = SecureRandom.uuid
           user.ensure_authentication_token
+          puts 'new user created'
         end
         @user.save
         @user
