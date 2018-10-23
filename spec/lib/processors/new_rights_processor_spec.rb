@@ -37,6 +37,17 @@ describe Processors::NewRightsProcessor do
         expect(user.authentication_token).to_not be_empty
       end
 
+      it "does not alter the attributes of an existing user" do
+        before_rake_user = create_auth_link_user # creates user w/ same email as option {0}
+        obj.process
+        after_rake_user = obj.instance_variable_get(:@user)
+
+        expect(after_rake_user.id).to eq(before_rake_user.id)
+        expect(after_rake_user.email).to eq(before_rake_user.email)
+        expect(after_rake_user.uid).to eq(before_rake_user.uid)
+        expect(after_rake_user.provider).to eq(before_rake_user.provider)
+      end
+
       it "sends email to user on success" do
         expect { obj.process }.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
@@ -56,6 +67,9 @@ describe Processors::NewRightsProcessor do
     context "when email is blank" do
       let!(:option){ 2 }
       it "validates the presence of an email" do
+        User.where(email: '').first_or_create! # protect against if a user w/ a blank email already exists in db
+
+        expect { obj.process }.to_not raise_error
         expect { obj.process }.to change { User.count }.by(0)
       end
 
