@@ -2,6 +2,9 @@ Hydra::Application.routes.draw do
   namespace :aeon do
     resources :queues
   end
+
+  get 'work_authorizations/index'
+
   resources :audits, :only => [:index, :show]
   resources :pages
   get '/p/:id', to: 'pages#view', :as => 'view_page'
