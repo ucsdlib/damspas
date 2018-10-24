@@ -7,7 +7,13 @@ default from: 'dams@ucsd.edu'
   #
   def send_link(user)
     @user = user
-    @url = sprintf("%1$s%2$s%3$s%4$s%5$s", new_user_session_url, "?auth_token=", @user.authentication_token, "&email=", @user.email)
+    @url = sprintf(
+      "%1$s%2$s%3$s%4$s%5$s",
+      new_user_session_url,
+      "?auth_token=",
+      @user.authentication_token,
+      "&email=",
+      @user.email)
 
     mail to: @user.email, subject: "Login Link Request"
   end

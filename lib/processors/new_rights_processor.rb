@@ -7,6 +7,7 @@ module Processors
     def process
       puts 'begin task'
       email = @request_attributes[:email]
+      work_title = @request_attributes[:work_title]
       if email.present? # User.email defaults to blank string; won't create a user with a blank email
         @user = User.where(email: email).first_or_initialize do |user| # only hits the do on initialize
           user.provider = 'auth_link'
@@ -16,6 +17,8 @@ module Processors
         end
         if @user.valid?
           @user.save!
+          @user.work_authorizations.create(work_title: work_title)
+          puts 'work authorized'
           AuthMailer.send_link(@user).deliver_later
           puts 'email sent!'
         end
