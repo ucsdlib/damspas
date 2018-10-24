@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   devise :trackable, :omniauthable
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
     if: Proc.new { |u| u.provider == 'auth_link' }
+  has_many :work_authorizations
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin
