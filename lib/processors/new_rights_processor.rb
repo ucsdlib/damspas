@@ -76,6 +76,8 @@ module Processors
         end
       elsif email == ''
         puts 'email cannot be blank'
+      else
+        puts 'invalid email'
       end
 
       def create_work_authorization
