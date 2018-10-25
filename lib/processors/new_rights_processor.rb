@@ -17,15 +17,20 @@ module Processors
         end
         if @user.valid?
           @user.save!
-          @user.work_authorizations.create(work_title: work_title)
-          puts 'work authorized'
-          AuthMailer.send_link(@user).deliver_later
-          puts 'email sent!'
+          if @user.work_authorizations.create(work_title: work_title) && @user.valid?
+            puts 'work authorized'
+          else
+            puts 'work authorization failed'
+          end
         end
       elsif email == ''
         puts 'email cannot be blank'
+      else
+        puts 'invalid email'
       end
       if @user && @user.valid?
+        AuthMailer.send_link(@user).deliver_later
+        puts 'email sent!'
         puts '>>>>>> Task succeeded!'
       else
         puts '>>>>>> TASK FAILED'
