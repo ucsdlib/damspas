@@ -50,6 +50,7 @@
           <!-- use an image bug to keep the Shibboleth session alive -->
               <img src="https://a4.ucsd.edu/tritON/imagebug">
             <li><%= link_to 'Bookmarks', bookmarks_path %></li>
+            <li><%= link_to 'Authorized Works', work_authorizations_path %></li>
             <li><%= link_to 'Sign Out', destroy_user_session_path %></li>
           <% else %>
             <li class="dropdown">
