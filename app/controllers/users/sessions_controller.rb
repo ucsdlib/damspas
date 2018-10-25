@@ -45,7 +45,7 @@ class Users::SessionsController < Devise::SessionsController
     # in the database with the token given in the params, mitigating
     # timing attacks.
     if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
-      redirect_to root_path, notice: 'Successfully authenticated from email account.'
+      redirect_to work_authorizations_path, notice: 'Successfully authenticated from email account.'
       sign_in user
     else
       redirect_to root_path, alert: 'Authentication failed: Your credentials were invalid.'
