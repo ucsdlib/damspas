@@ -1,31 +1,30 @@
 require 'spec_helper'
 
 describe Processors::NewRightsProcessor do
-  let!(:option){ }
-  let!(:response) { [{email: 'test@example.com'}, {email: 'invalid_email_format'}, {email: ''}] }
-  let!(:obj) { Processors::NewRightsProcessor.new(response[option]) }
+  let!(:options){ [[{email: "test@example.com"}, {email: "invalid_email_format"}, {email: ""}], [{work_title: "test_title"}, {work_title: nil}]] }
+  let!(:obj){ Processors::NewRightsProcessor.new(response) }
 
   describe "initialize" do
     context "if rake task is run with valid credentials" do
-      let!(:option){ 0 }
+      let!(:response){ select_response_options(0,0) } # arguments correspond to positions of values in the options array (email and work_title respectively)
       it "runs successfully" do
         expect(obj).to be_instance_of(Processors::NewRightsProcessor)
       end
     end
 
     context "if rake task is run with invalid credentials" do
-      let!(:option){ 1 }
+      let!(:response){ select_response_options(1,1) }
       it "fails quietly" do
-        expect { obj.process }.to_not raise_error
+        expect{ obj.process }.to_not raise_error
       end
     end
   end
 
   describe "process" do
     context "when credentials are valid" do
-      let!(:option){ 0 }
+      let!(:response){ select_response_options(0,0) }
       it "runs successfully" do
-        expect { obj.process }.to_not raise_error
+        expect{ obj.process }.to_not raise_error
       end
 
       it "sets user attributes correctly" do
@@ -49,32 +48,32 @@ describe Processors::NewRightsProcessor do
       end
 
       it "sends email to user on success" do
-        expect { obj.process }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(1)
       end
     end
 
     context "when email has an invalid format" do
-      let!(:option){ 1 }
+      let!(:response){ select_response_options(1,0) }
       it "fails with invalid attributes" do
-        expect { obj.process }.to change { User.count }.by(0)
+        expect{ obj.process }.to change{ User.count }.by(0)
       end
 
       it "does not send email on failure" do
-        expect { obj.process }.to change { ActionMailer::Base.deliveries.count }.by(0)
+        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
     context "when email is blank" do
-      let!(:option){ 2 }
+      let!(:response){ select_response_options(2,0) }
       it "validates the presence of an email" do
         User.where(email: '').first_or_create! # protect against if a user w/ a blank email already exists in db
 
-        expect { obj.process }.to_not raise_error
-        expect { obj.process }.to change { User.count }.by(0)
+        expect{ obj.process }.to_not raise_error
+        expect{ obj.process }.to change{ User.count }.by(0)
       end
 
       it "does not send an email" do
-        expect { obj.process }.to change { ActionMailer::Base.deliveries.count }.by(0)
+        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
   end
