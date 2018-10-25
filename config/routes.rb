@@ -3,7 +3,7 @@ Hydra::Application.routes.draw do
     resources :queues
   end
 
-  get 'work_authorizations/index'
+  get 'work_authorizations', to: 'work_authorizations#index', :as => 'work_authorizations'
 
   resources :audits, :only => [:index, :show]
   resources :pages

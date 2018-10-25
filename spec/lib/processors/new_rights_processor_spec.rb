@@ -6,7 +6,7 @@ describe Processors::NewRightsProcessor do
 
   describe "initialize" do
     context "if rake task is run with valid credentials" do
-      let!(:response){ select_response_options(0,0) } # arguments correspond to positions of values in the options array (email and work_title respectively)
+      let!(:response){ select_response_options(0,0) } # arguments correspond to positions of values in the options array (email and work_title arrays, respectively)
       it "runs successfully" do
         expect(obj).to be_instance_of(Processors::NewRightsProcessor)
       end
@@ -47,6 +47,13 @@ describe Processors::NewRightsProcessor do
         expect(after_rake_user.provider).to eq(before_rake_user.provider)
       end
 
+      it "authorizes the work for the user" do
+        obj.process
+        user = obj.instance_variable_get(:@user)
+
+        expect(user.work_authorizations.count).to eq(1)
+      end
+
       it "sends email to user on success" do
         expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(1)
       end
@@ -70,6 +77,24 @@ describe Processors::NewRightsProcessor do
 
         expect{ obj.process }.to_not raise_error
         expect{ obj.process }.to change{ User.count }.by(0)
+      end
+
+      it "does not send an email" do
+        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+      end
+    end
+
+    context "when work title is missing" do
+      let!(:response){ select_response_options(0,1) }
+      it "fails quietly" do
+        expect{ obj.process }.to_not raise_error
+      end
+
+      it "does not assign a work to a user" do
+        obj.process
+        user = obj.instance_variable_get(:@user)
+
+        expect(user.work_authorizations.count).to eq(0)
       end
 
       it "does not send an email" do
