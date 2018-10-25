@@ -64,6 +64,13 @@ describe Processors::NewRightsProcessor do
         expect{ processor.authorize }.to change{ user.reload and user.work_authorizations.length }.from(0).to(1)
       end
 
+      it "authorizes the work for the user" do
+        obj.process
+        user = obj.instance_variable_get(:@user)
+
+        expect(user.work_authorizations.count).to eq(1)
+      end
+
       it "sends email to user on success" do
         expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(1)
       end
@@ -125,6 +132,24 @@ describe Processors::NewRightsProcessor do
 
       it "does not send an email" do
         expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+      end
+    end
+
+    context "when work title is missing" do
+      let!(:response){ select_response_options(0,1) }
+      it "fails quietly" do
+        expect{ obj.process }.to_not raise_error
+      end
+
+      it "does not assign a work to a user" do
+        obj.process
+        user = obj.instance_variable_get(:@user)
+
+        expect(user.work_authorizations.count).to eq(0)
+      end
+
+      it "does not send an email" do
+        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
   end
