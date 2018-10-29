@@ -65,6 +65,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
+        create_test_dams_object
         obj.process
         user = obj.instance_variable_get(:@user)
 
