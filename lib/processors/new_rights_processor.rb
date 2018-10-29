@@ -7,7 +7,8 @@ module Processors
     def process
       puts 'begin task'
       email = @request_attributes[:email]
-      work_title = @request_attributes[:work_title]
+      work_pid = @request_attributes[:work_pid]
+      work_obj = DamsObject.where(pid: work_pid).first
       if email.present? # User.email defaults to blank string; won't create a user with a blank email
         @user = User.where(email: email).first_or_initialize do |user| # only hits the do on initialize
           user.provider = 'auth_link'
@@ -17,7 +18,9 @@ module Processors
         end
         if @user.valid?
           @user.save!
-          if @user.work_authorizations.create(work_title: work_title) && @user.valid?
+          if work_obj != nil && @user.work_authorizations.create(work_title: work_obj.titleValue) && @user.valid?
+            work_obj.read_users = [@user.user_key]
+            work_obj.save
             puts 'work authorized'
           else
             puts 'work authorization failed'
@@ -28,7 +31,7 @@ module Processors
       else
         puts 'invalid email'
       end
-      if @user && @user.valid?
+      if @user && @user.valid? && work_obj != nil
         AuthMailer.send_link(@user).deliver_later
         puts 'email sent!'
         puts '>>>>>> Task succeeded!'
