@@ -15,7 +15,6 @@ describe Processors::NewRightsProcessor do
     allow_any_instance_of(Aeon::Request).to receive(:set_to_active).and_return(true)
     allow_any_instance_of(Aeon::Request).to receive(:set_to_processing).and_return(true)
   end
-
   describe "initialize" do
     context "if rake task is run with valid credentials" do
       let!(:response){ good_email.merge(good_pid) }
@@ -65,11 +64,11 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
-        create_test_dams_object
         obj.process
         user = obj.instance_variable_get(:@user)
 
         expect(user.work_authorizations.count).to eq(1)
+        expect(@test_dams_obj.read_users).to be_present
       end
 
       it "sends email to user on success" do
@@ -136,8 +135,26 @@ describe Processors::NewRightsProcessor do
       end
     end
 
-    context "when work title is missing" do
+    context "when requested work doesn't exist" do
       let!(:response){ select_response_options(0,1) }
+      it "fails quietly" do
+        expect{ obj.process }.to_not raise_error
+      end
+
+      it "does not assign a work to a user" do
+        obj.process
+        user = obj.instance_variable_get(:@user)
+
+        expect(user.work_authorizations.count).to eq(0)
+      end
+
+      it "does not send an email" do
+        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+      end
+    end
+
+    context "when work pid is nil" do
+      let!(:response){ select_response_options(0,2) }
       it "fails quietly" do
         expect{ obj.process }.to_not raise_error
       end
