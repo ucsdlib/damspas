@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Processors::NewRightsProcessor do
-  let!(:options){ [[{email: "test@example.com"}, {email: "invalid_email_format"}, {email: ""}], [{work_title: "test_title"}, {work_title: nil}]] }
+  let!(:options){ [[{email: "test@example.com"}, {email: "invalid_email_format"}, {email: ""}], [{work_pid: "test_pid"}, {work_pid: 'bad_pid'}]] }
   let!(:obj){ Processors::NewRightsProcessor.new(response) }
 
   describe "initialize" do
@@ -48,6 +48,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
+        create_test_dams_object
         obj.process
         user = obj.instance_variable_get(:@user)
 
@@ -55,6 +56,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "sends email to user on success" do
+        create_test_dams_object
         expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(1)
       end
     end
