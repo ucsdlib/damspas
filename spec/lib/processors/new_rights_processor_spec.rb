@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Processors::NewRightsProcessor do
-  let!(:options){ [[{email: "test@example.com"}, {email: "invalid_email_format"}, {email: ""}], [{work_pid: "test_pid"}, {work_pid: 'bad_pid'}]] }
+  let!(:options){ [[{email: "test@example.com"}, {email: "invalid_email_format"}, {email: ""}], [{work_pid: "test_pid"}, {work_pid: 'bad_pid'}, {work_pid: nil}]] }
   let!(:obj){ Processors::NewRightsProcessor.new(response) }
 
   describe "initialize" do
@@ -21,6 +21,9 @@ describe Processors::NewRightsProcessor do
   end
 
   describe "process" do
+    before(:example) do
+      @test_dams_obj = create_test_dams_object
+    end
     context "when credentials are valid" do
       let!(:response){ select_response_options(0,0) }
       it "runs successfully" do
@@ -48,15 +51,14 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
-        create_test_dams_object
         obj.process
         user = obj.instance_variable_get(:@user)
 
         expect(user.work_authorizations.count).to eq(1)
+        expect(@test_dams_obj.read_users).to be_present
       end
 
       it "sends email to user on success" do
-        create_test_dams_object
         expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(1)
       end
     end
@@ -86,8 +88,26 @@ describe Processors::NewRightsProcessor do
       end
     end
 
-    context "when work title is missing" do
+    context "when requested work doesn't exist" do
       let!(:response){ select_response_options(0,1) }
+      it "fails quietly" do
+        expect{ obj.process }.to_not raise_error
+      end
+
+      it "does not assign a work to a user" do
+        obj.process
+        user = obj.instance_variable_get(:@user)
+
+        expect(user.work_authorizations.count).to eq(0)
+      end
+
+      it "does not send an email" do
+        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+      end
+    end
+
+    context "when work pid is nil" do
+      let!(:response){ select_response_options(0,2) }
       it "fails quietly" do
         expect{ obj.process }.to_not raise_error
       end
