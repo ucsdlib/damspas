@@ -11,15 +11,34 @@ def sign_in_developer
   fill_in "email", :with => "email@email.com"
   click_on "Sign In"
 end
+
 def sign_in_anonymous(ip)
   login_as( User.anonymous(ip), scope: :user)
 end
+
 # sign in as a curator only
 def sign_in_curator
     user_attributes = { email: 'test@example.com' }
     user = User.new(user_attributes) { |u| u.save(validate: false) }
     user.groups = ['dams-curator']
     login_as user
+end
+
+def create_auth_link_user
+  user_attributes = {
+    email: 'test@example.com',
+    provider: 'auth_link',
+    uid: SecureRandom::uuid,
+  }
+  user = User.new(user_attributes)
+  user.ensure_authentication_token
+  user.save
+  user
+end
+
+def create_test_dams_object
+  test_obj = DamsObject.create(pid: 'test_pid', titleValue: 'test_title')
+  test_obj
 end
 
 #remove need for redundant tests for flash messages, using "have_TYPE_message"

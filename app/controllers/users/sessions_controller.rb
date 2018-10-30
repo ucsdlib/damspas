@@ -1,9 +1,11 @@
 class Users::SessionsController < Devise::SessionsController
   def new
-    redirect_to user_omniauth_authorize_path(Devise.omniauth_configs.keys.first)
+    if params[:auth_token] && params[:email]
+      authenticate_user_from_token!
+    else
+      redirect_to user_omniauth_authorize_path(Devise.omniauth_configs.keys.first)
+    end
   end
-
-  
 
   # DELETE /resource/sign_out
   def destroy
@@ -19,4 +21,34 @@ class Users::SessionsController < Devise::SessionsController
     end
   end
 
+  def new_auth_link
+    render 'devise/auth_link/new.html.erb'
+  end
+
+  def create_auth_link
+    @email = params[:user][:email]
+    @user = User.where(email: @email).first
+    if @user.present? && @user.authentication_token != nil
+      AuthMailer.send_link(@user).deliver_later
+      redirect_to root_path, notice: 'Email sent successfully! Check your inbox for the link.'
+    else
+      redirect_to new_auth_link_path, alert: "User doesn't exist."
+    end
+  end
+
+  private
+
+  def authenticate_user_from_token!
+    user_email = params[:email].presence
+    user       = user_email && User.find_by_email(user_email)
+    # Notice how we use Devise.secure_compare to compare the token
+    # in the database with the token given in the params, mitigating
+    # timing attacks.
+    if user && Devise.secure_compare(user.authentication_token, params[:auth_token])
+      redirect_to work_authorizations_path, notice: 'Successfully authenticated from email account.'
+      sign_in user
+    else
+      redirect_to root_path, alert: 'Authentication failed: Your credentials were invalid.'
+    end
+  end
  end

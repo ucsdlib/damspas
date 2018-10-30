@@ -2,21 +2,24 @@ require 'rest-client'
 require 'json'
 
 class User < ActiveRecord::Base
-# Connects this user object to Hydra behaviors. 
+# Connects this user object to Hydra behaviors.
  include Hydra::User
-# Connects this user object to Blacklights Bookmarks. 
+# Connects this user object to Blacklights Bookmarks.
  include Blacklight::User
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :trackable, :omniauthable
+  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP },
+    if: Proc.new { |u| u.provider == 'auth_link' }
+  has_many :work_authorizations
 
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin
       uid = access_token.uid
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
-      name = access_token['info']['name'] 
+      name = access_token['info']['name']
     rescue Exception => e
       logger.warn "developer: #{e.to_s}"
       uid = 1
@@ -35,8 +38,8 @@ class User < ActiveRecord::Base
       uid = access_token.uid
       email = access_token['info']['email'] || "#{uid}@ucsd.edu"
       provider = access_token.provider
-      name = access_token['info']['name'] 
-      
+      name = access_token['info']['name']
+
     rescue Exception => e
       logger.warn "shibboleth: #{e.to_s}"
     end
@@ -125,8 +128,27 @@ class User < ActiveRecord::Base
 
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
-  # the account. 
+  # the account.
   def to_s
+    user_key
+  end
+
+  def user_key
     uid
+  end
+
+  def ensure_authentication_token
+    if authentication_token.blank?
+      self.authentication_token = generate_authentication_token
+    end
+  end
+
+  private
+
+  def generate_authentication_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(authentication_token: token).first
+    end
   end
 end

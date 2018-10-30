@@ -16,6 +16,16 @@ Hydra::Application.configure do
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '82bef5c2919600',
+    :password => '56f73cf64eb2f5',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
+
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
@@ -55,4 +65,7 @@ Hydra::Application.configure do
   config.secure_token_name = ENV.fetch('APPS_DHH_SECURE_TOKEN_NAME') {'default'}
   config.secure_token_secret = ENV.fetch('APPS_DHH_SECURE_TOKEN_SECRET') {'default'}
   # config.host_name = 'http://localhost:3000'
+
+  Rails.application.routes.default_url_options[:host] = "localhost:3000"
+
 end

@@ -1,0 +1,9 @@
+<h1>Work Authorizations</h1>
+
+<% if @work_authorizations.present? %>
+  <% @work_authorizations.each do |work_authorization| %>
+    <p>Work title: <%= work_authorization.work_title %></p>
+  <% end %>
+<% else %>
+  <p>No work authorizations to show</p>
+<% end %>

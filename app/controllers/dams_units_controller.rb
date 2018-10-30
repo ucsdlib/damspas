@@ -15,7 +15,7 @@ class DamsUnitsController < ApplicationController
     @current_unit = @document['unit_name_tesim']
     @carousel_resp, @carousel = get_search_results( :q => "title_tesim:carousel AND unit_code_tesim:#{params[:id]}", :qt=>"standard")
   end
-  
+
   def index
     # hydra index
     #@dams_units = DamsUnit.all( :order=>"system_create_dtsi asc" )
