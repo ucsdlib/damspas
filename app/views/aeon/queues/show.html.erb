@@ -1,4 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_aeon_queue_path(@aeon_queue) %> |
+<h3><%= @aeon_queue.name %> Requests</h3>
+<table class='table table-striped'>
+  <tr>
+    <th>Aeon Ref. ID</th>
+    <th>User Email</th>
+    <th>Work</th>
+  </tr>
+  <% @aeon_queue.requests.each do |request| %>
+    <tr>
+      <td><%= request["id"] %></td>
+      <td><%= request["username"] %></td>
+      <td><%= request["itemTitle"] %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Edit', edit_aeon_queue_path(@aeon_queue.id) %> |
 <%= link_to 'Back', aeon_queues_path %>
