@@ -74,10 +74,6 @@ module Processors
           authorization.aeon_id = @request_attributes.id
           authorization.work_title = @work_title
         end
-      elsif email == ''
-        puts 'email cannot be blank'
-      else
-        puts 'invalid email'
       end
 
       def create_work_authorization
