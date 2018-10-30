@@ -105,4 +105,28 @@ describe User do
       expect(@auth_link_user.user_key).to eq(@auth_link_user.uid)
     end
   end
+
+  describe ".to_s" do
+    it "should be the value of the user's user_key" do
+      @dev_user = User.first_or_initialize(:uid => "test_user", :provider => "developer")
+      @shibboleth_user = User.first_or_initialize(:uid => "test_user", :provider => "shibboleth")
+      @auth_link_user = create_auth_link_user
+
+      expect(@dev_user.to_s).to eq(@dev_user.user_key)
+      expect(@shibboleth_user.to_s).to eq(@shibboleth_user.user_key)
+      expect(@auth_link_user.to_s).to eq(@auth_link_user.user_key)
+    end
+  end
+
+  describe ".user_key" do
+    it "should be the value of the user's uid" do
+      @dev_user = User.first_or_initialize(:uid => "test_user", :provider => "developer")
+      @shibboleth_user = User.first_or_initialize(:uid => "test_user", :provider => "shibboleth")
+      @auth_link_user = create_auth_link_user
+
+      expect(@dev_user.user_key).to eq(@dev_user.uid)
+      expect(@shibboleth_user.user_key).to eq(@shibboleth_user.uid)
+      expect(@auth_link_user.user_key).to eq(@auth_link_user.uid)
+    end
+  end
 end
