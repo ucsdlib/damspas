@@ -1,10 +1,9 @@
 namespace :aeon_requests do
   desc "Processes new aeon permission requests"
   task :process_new => :environment do
-    puts 'rake started successfully'
-    hardcoded_response = [{email: 'rake@example.com', work_pid: 'xx77777777'}]
-    hardcoded_response.each do |response|
-      results = Processors::NewRightsProcessor.new(response).process
+    queue = Aeon::Queue.find(Aeon::Queue.NEW_STATUS)
+    queue.requests.each do |request|
+      Processors::NewRightsProcessor.new(request).process
     end
   end
 end

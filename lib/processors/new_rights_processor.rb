@@ -6,7 +6,6 @@ module Processors
     end
 
     def process
-      puts 'begin task'
       return unless @request_attributes[:email].present? && user.valid? && @work_pid.present? && work_obj
       create_work_authorization
       send_email
