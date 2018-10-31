@@ -1,8 +1,15 @@
 Hydra::Application.routes.draw do
   namespace :aeon do
     resources :queues
+    resources :requests do
+      member do
+        get 'set_to_complete'
+        get 'set_to_in_process'
+      end
+    end
   end
-  get 'work_authorizations', to: 'work_authorizations#index', :as => 'work_authorizations'
+  get 'work_authorizations', to: 'work_authorizations#index', :as => 'work_authorizations' do
+  end
   resources :audits, :only => [:index, :show]
   resources :pages
   get '/p/:id', to: 'pages#view', :as => 'view_page'
