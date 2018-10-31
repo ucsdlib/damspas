@@ -14,12 +14,20 @@ module Aeon
       self.transactionNumber = value
     end
 
+    def email
+      self.username
+    end
+
+    def set_to_new
+      update_status(Aeon::Queue::NEW_STATUS)
+    end
+
     def set_to_processing
-      update_status(Queue::PROCESSING_STATUS)
+      update_status(Aeon::Queue::PROCESSING_STATUS)
     end
 
     def set_to_completed
-      update_status(Queue::COMPLETED_STATUS)
+      update_status(Aeon::Queue::COMPLETED_STATUS)
     end
 
     def available_routes
@@ -27,7 +35,7 @@ module Aeon
     end
 
     def get_from_server
-      client["/Requests/#{self.id}"].get
+      Aeon::Request.new(JSON.parse(client["/Requests/#{self.id}"].get))
     end
 
     private

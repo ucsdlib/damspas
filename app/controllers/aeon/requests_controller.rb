@@ -1,0 +1,22 @@
+class Aeon::RequestsController < ApplicationController
+  before_action :set_aeon_queue, only: [:show, :edit, :update, :destroy]
+
+  def set_to_complete
+    request = Aeon::Request.new.tap{|r| r.id = params[:id]}
+    request.set_to_completed
+    redirect_to aeon_queue_path(Aeon::Queue::PROCESSING_STATUS)
+  end
+
+  def set_to_in_process
+    request = Aeon::Request.new.tap{|r| r.id = params[:id]}
+    updated_request = request.get_from_server
+
+    ## DEV
+    updated_request[:work_pid] = 'xx77777777'
+
+    updated_request.set_to_processing
+    Processors::NewRightsProcessor.new(updated_request).process
+    updated_request.set_to_completed
+    redirect_to aeon_queue_path(Aeon::Queue::NEW_STATUS)
+  end
+end

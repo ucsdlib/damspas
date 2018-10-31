@@ -6,15 +6,22 @@
     <th>Aeon Ref. ID</th>
     <th>User Email</th>
     <th>Work</th>
+    <th>Actions</th>
   </tr>
   <% @aeon_queue.requests.each do |request| %>
     <tr>
-      <td><%= request["id"] %></td>
-      <td><%= request["username"] %></td>
-      <td><%= request["itemTitle"] %></td>
+      <td><%= request.id %></td>
+      <td><%= request.email %></td>
+      <td><%= request.itemTitle %></td>
+      <td>
+        <% if request.transactionStatus == Aeon::Queue::PROCESSING_STATUS %>
+          <%= link_to "Archive", set_to_complete_aeon_request_path(request.id), class: 'btn' %>
+        <% elsif request.transactionStatus == Aeon::Queue::NEW_STATUS %>
+          <%= link_to "Process", set_to_in_process_aeon_request_path(request.id), class: 'btn btn-primary' %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
 
-<%= link_to 'Edit', edit_aeon_queue_path(@aeon_queue.id) %> |
 <%= link_to 'Back', aeon_queues_path %>
