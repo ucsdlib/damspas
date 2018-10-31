@@ -50,6 +50,11 @@ module Processors
       raise e
     end
 
+    def revoke 
+      return unless user && wor_obj
+      delete_work_authorization
+    end
+
     private
 
       def user
