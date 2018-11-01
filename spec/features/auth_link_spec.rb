@@ -67,4 +67,19 @@ feature 'Auth link' do
 
     expect { event.deliver_later }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
+
+  scenario 'user who has authorized works can see the relevant nav tab' do
+    create_test_dams_object
+    user.work_authorizations.create(work_title: 'test_title', work_pid: 'test_pid')
+
+    visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
+
+    expect(page).to have_text("Authorized Works")
+  end
+
+  scenario 'user who does not have authorized works cannot see the relevant nav tab' do
+    visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
+
+    expect(page).to_not have_text("Authorized Works")
+  end
 end
