@@ -22,12 +22,17 @@ module Processors
     def initialize(request_attributes)
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
+<<<<<<< HEAD
       @work_pid = if ['development'].include? Rails.env
                     DamsObject.last.pid
                   else
                     @request_attributes[:subLocation]
                   end
       @email = @request_attributes[:email].presence || @request_attributes[:username]
+=======
+      @work_pid = @request_attributes[:work_pid]
+      @email = @request_attributes[:email]
+>>>>>>> clean up / refactor specs
     end
 
     def authorize
@@ -50,7 +55,7 @@ module Processors
       raise e
     end
 
-    def revoke 
+    def revoke
       return unless user && wor_obj
       delete_work_authorization
     end

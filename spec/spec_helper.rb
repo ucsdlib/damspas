@@ -130,10 +130,3 @@ end
 def mod_mads_topic (id)
 	MadsTopic.create!(pid: id, name: "Mads Topic Test Label", externalAuthority: "http://lccn.loc.gov/")
 end
-
-def select_response_options(email_position, work_pid_position)
-  r = []
-  r << options[0][email_position]
-  r << options[1][work_pid_position]
-  r.dig(0).merge(r.dig(1))
-end

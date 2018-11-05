@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Processors::NewRightsProcessor do
-
   # calling Hashie::Mash.new allows us to use the
   # .id method from the Aeon::Request model
   let(:good_email){ Hashie::Mash.new({email: 'test@example.com'}) }
@@ -137,7 +136,7 @@ describe Processors::NewRightsProcessor do
     end
 
     context "when requested work doesn't exist" do
-      let!(:response){ select_response_options(0,1) }
+      let!(:response){ {email: "test@example.com", work_pid: "bad_pid"} }
       it "fails quietly" do
         expect{ obj.process }.to_not raise_error
       end
@@ -152,7 +151,7 @@ describe Processors::NewRightsProcessor do
     end
 
     context "when work pid is nil" do
-      let!(:response){ select_response_options(0,2) }
+      let!(:response){ {email: "test@example.com", work_pid: nil} }
       it "fails quietly" do
         expect{ obj.process }.to_not raise_error
       end
