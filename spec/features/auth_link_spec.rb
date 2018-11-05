@@ -82,4 +82,19 @@ feature 'Auth link' do
 
     expect(page).to_not have_text("Authorized Works")
   end
+
+  scenario 'user without authorized works tries to view work_authorizations_path' do
+    visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
+
+    expect(page).to have_text("Library Collections").and have_text("Research Data Collections")
+  end
+
+  scenario 'user with authorized works tries to view work_authorizations_path' do
+    create_test_dams_object
+    user.work_authorizations.create(work_title: 'test_title', work_pid: 'test_pid')
+
+    visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
+
+    expect(page).to have_text("Work Authorizations")
+  end
 end
