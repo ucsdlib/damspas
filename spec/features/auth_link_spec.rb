@@ -3,6 +3,7 @@ require 'spec_helper'
 feature 'Auth link' do
   let!(:user) { create_auth_link_user }
 
+  # Requesting auth link
   scenario 'existing user requests sign in link' do
     visit new_auth_link_path
 
@@ -30,6 +31,7 @@ feature 'Auth link' do
     expect(page).to have_text("User doesn't exist")
   end
 
+  # Sign in via auth link
   scenario 'user can sign in with a valid email and auth token' do
     visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
 
@@ -60,6 +62,7 @@ feature 'Auth link' do
     expect(page).to have_text("You are already signed in")
   end
 
+  # Emails user with auth token
   scenario 'sends an email if credentials are valid' do
     event = AuthMailer.send_link(user)
 
@@ -68,6 +71,7 @@ feature 'Auth link' do
     expect { event.deliver_later }.to change { ActionMailer::Base.deliveries.count }.by(1)
   end
 
+  # What users can view
   scenario 'user who has authorized works can see the relevant nav tab' do
     create_test_dams_object
     user.work_authorizations.create(work_title: 'test_title', work_pid: 'test_pid')
@@ -83,13 +87,14 @@ feature 'Auth link' do
     expect(page).to_not have_text("Authorized Works")
   end
 
-  scenario 'user without authorized works tries to view work_authorizations_path' do
+  # WorkAuthorizationsController#index
+  scenario 'user without authorized work tries to view work_authorizations_path' do
     visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
 
     expect(page).to have_text("Library Collections").and have_text("Research Data Collections")
   end
 
-  scenario 'user with authorized works tries to view work_authorizations_path' do
+  scenario 'user with authorized work tries to view work_authorizations_path' do
     create_test_dams_object
     user.work_authorizations.create(work_title: 'test_title', work_pid: 'test_pid')
 

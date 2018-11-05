@@ -4,7 +4,7 @@ module Processors
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
       @work_pid = @request_attributes[:work_pid]
-      @email = @request_attributes.email
+      @email = @request_attributes[:email]
     end
 
     def process
@@ -13,7 +13,7 @@ module Processors
       send_email
     end
 
-    def revoke 
+    def revoke
       return unless user && wor_obj
       delete_work_authorization
     end
