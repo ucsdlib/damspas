@@ -30,6 +30,10 @@ module Aeon
       update_status(Aeon::Queue::COMPLETED_STATUS)
     end
 
+    def set_to_expired
+      update_status(Aeon::Queue::EXPIRED_STATUS)
+    end
+
     def available_routes
       client["/Requests/#{self.id}/routes"].get
     end

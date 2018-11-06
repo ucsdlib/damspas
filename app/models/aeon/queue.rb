@@ -8,7 +8,8 @@ module Aeon
     NEW_STATUS = 70
     PROCESSING_STATUS = 32
     COMPLETED_STATUS = 34
-    ALL_IDS = [70, 32, 34]
+    EXPIRED_STATUS = 99
+    ALL_IDS = [70, 32, 34, 99]
 
     attr_accessor :id, :properties, :name
 
