@@ -1,6 +1,12 @@
 class Aeon::RequestsController < ApplicationController
   before_action :set_aeon_queue, only: [:show, :edit, :update, :destroy]
 
+  def set_to_expire
+    request = Aeon::Request.new.tap{|r| r.id = params[:id]}
+    request.set_to_expired
+    redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
+  end
+
   def set_to_complete
     request = Aeon::Request.new.tap{|r| r.id = params[:id]}
     request.set_to_completed

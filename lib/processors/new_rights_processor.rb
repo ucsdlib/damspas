@@ -14,7 +14,7 @@ module Processors
     end
 
     def revoke
-      return unless user && wor_obj
+      return unless user && work_obj
       delete_work_authorization
     end
 
