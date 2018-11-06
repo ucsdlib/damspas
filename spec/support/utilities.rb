@@ -36,10 +36,6 @@ def create_auth_link_user
   user
 end
 
-def create_test_dams_object
-  test_obj = DamsObject.create(pid: 'test_pid', titleValue: 'test_title')
-  test_obj
-end
 
 #remove need for redundant tests for flash messages, using "have_TYPE_message"
 #￼replace this: should have_selector('div.alert.alert-error', text: 'Invalid
