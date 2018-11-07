@@ -15,8 +15,8 @@ namespace :aeon_requests do
   end
 
   task :revoke_old => :environment do
-    WorkAuthorizations.where("updated_at < ?", 1.month.ago).each do |auth|
-      params = {work_pid: auth.work_pid, email: auth.user.email}
+    WorkAuthorization.where("updated_at < ?", 1.month.ago).each do |auth|
+      params = {work_pid: auth.work_pid, email: auth.user.email, aeon_id: auth.aeon_id}
       request = Processors::NewRightsProcessor.new(params)
       request.revoke
       request.set_to_expired
