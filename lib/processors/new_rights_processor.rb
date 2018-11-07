@@ -16,7 +16,7 @@ module Processors
     def revoke
       return unless user && work_obj
       delete_work_authorization
-      expire_request
+      expire_request(@work_pid)
     end
 
     private
@@ -64,8 +64,8 @@ module Processors
         AuthMailer.send_link(user).deliver_later
       end
 
-      def expire_request
-        Aeon::Request.set_to_expired
+      def expire_request(work_id)
+        Aeon::Request.find(@work_pid).set_to_expired
       end
   end
 end
