@@ -22,17 +22,12 @@ module Processors
     def initialize(request_attributes)
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
-<<<<<<< HEAD
       @work_pid = if ['development'].include? Rails.env
                     DamsObject.last.pid
                   else
                     @request_attributes[:subLocation]
                   end
       @email = @request_attributes[:email].presence || @request_attributes[:username]
-=======
-      @work_pid = @request_attributes[:work_pid]
-      @email = @request_attributes[:email]
->>>>>>> clean up / refactor specs
     end
 
     def authorize
@@ -105,6 +100,7 @@ module Processors
         AuthMailer.send_link(user).deliver_later
       end
 
+<<<<<<< HEAD
       def process_request(request_id)
         Aeon::Request.find(request_id).set_to_processing
       end
@@ -115,6 +111,10 @@ module Processors
 
       def activate_request(request_id)
         Aeon::Request.find(request_id).set_to_active
+=======
+      def expire_request(work_id)
+        Aeon::Request.find(@work_pid).set_to_expired
+>>>>>>> target correct request
       end
   end
 end
