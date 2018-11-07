@@ -19,7 +19,6 @@ namespace :aeon_requests do
       params = {work_pid: auth.work_pid, email: auth.user.email, aeon_id: auth.aeon_id}
       request = Processors::NewRightsProcessor.new(params)
       request.revoke
-      request.set_to_expired
     end
   end
 end
