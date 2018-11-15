@@ -1,19 +1,28 @@
 require 'spec_helper'
 
 describe Processors::NewRightsProcessor do
-  let!(:options){ [[{email: "test@example.com"}, {email: "invalid_email_format"}, {email: ""}], [{work_pid: "test_pid"}, {work_pid: 'bad_pid'}, {work_pid: nil}]] }
   let!(:obj){ Processors::NewRightsProcessor.new(response) }
+
+  let(:good_email){ {email: 'test@example.com'} }
+  let(:bad_email){ {email: 'invalid_email_format'} }
+  let(:no_email){ {email: ''} }
+
+  let(:good_pid){ {work_pid: 'test_pid'} }
+  let(:bad_pid){ {work_pid: 'bad_pid'} }
+  let(:nil_pid){ {work_pid: nil} }
+
+
 
   describe "initialize" do
     context "if rake task is run with valid credentials" do
-      let!(:response){ select_response_options(0,0) } # arguments correspond to positions of values in the options array (email and work_title arrays, respectively)
+      let!(:response){ good_email.merge(good_pid) }
       it "runs successfully" do
         expect(obj).to be_instance_of(Processors::NewRightsProcessor)
       end
     end
 
     context "if rake task is run with invalid credentials" do
-      let!(:response){ select_response_options(1,1) }
+      let!(:response){ bad_email.merge(bad_pid) }
       it "fails quietly" do
         expect{ obj.process }.to_not raise_error
       end
@@ -21,11 +30,10 @@ describe Processors::NewRightsProcessor do
   end
 
   describe "process" do
-    before(:example) do
-      create_test_dams_object
-    end
+    let!(:dams_object){ DamsObject.create(pid: 'test_pid', titleValue: 'test_title') }
+
     context "when credentials are valid" do
-      let!(:response){ select_response_options(0,0) }
+      let!(:response){ good_email.merge(good_pid) }
       it "runs successfully" do
         expect{ obj.process }.to_not raise_error
       end
@@ -54,9 +62,7 @@ describe Processors::NewRightsProcessor do
         obj.process
         user = obj.instance_variable_get(:@user)
 
-        expect(user.work_authorizations.count).to eq(1)
-        # expect(DamsObject.last.read_users).to be_present
-        # harder to test than it looks -- this is a value stored only in Solr
+        expect(user.work_authorizations.length).to eq(1)
       end
 
       it "sends email to user on success" do
@@ -65,7 +71,7 @@ describe Processors::NewRightsProcessor do
     end
 
     context "when email has an invalid format" do
-      let!(:response){ select_response_options(1,0) }
+      let!(:response){ bad_email.merge(good_pid) }
       it "fails with invalid attributes" do
         expect{ obj.process }.to change{ User.count }.by(0)
       end
@@ -76,7 +82,7 @@ describe Processors::NewRightsProcessor do
     end
 
     context "when email is blank" do
-      let!(:response){ select_response_options(2,0) }
+      let!(:response){ no_email.merge(good_pid) }
       it "validates the presence of an email" do
         User.where(email: '').first_or_create! # protect against if a user w/ a blank email already exists in db
 
@@ -90,7 +96,7 @@ describe Processors::NewRightsProcessor do
     end
 
     context "when requested work doesn't exist" do
-      let!(:response){ select_response_options(0,1) }
+      let!(:response){ good_email.merge(bad_pid) }
       it "fails quietly" do
         expect{ obj.process }.to_not raise_error
       end
@@ -105,7 +111,7 @@ describe Processors::NewRightsProcessor do
     end
 
     context "when work pid is nil" do
-      let!(:response){ select_response_options(0,2) }
+      let!(:response){ good_email.merge(nil_pid) }
       it "fails quietly" do
         expect{ obj.process }.to_not raise_error
       end
@@ -120,3 +126,4 @@ describe Processors::NewRightsProcessor do
     end
   end
 end
+
