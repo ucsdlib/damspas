@@ -63,6 +63,23 @@ describe User do
       expect{@user.save}.to_not raise_error
       expect(@user.provider).to eq("auth_link") # protect against bug that sets :provider => "developer" on save
     end
+    it "should default to having 0 authorized works" do
+      expect(@user.work_authorizations.count).to eq(0)
+      expect(@user.work_authorizations_count).to eq(0)
+    end
+    it "should increment a counter when a work is authorized" do
+      create_test_dams_object
+
+      expect{@user.work_authorizations.create(work_title: 'test_title', work_pid: 'test_pid')}.to change(@user, :work_authorizations_count).by(1)
+      expect(@user.work_authorizations.count).to eq(@user.work_authorizations_count)
+    end
+    it "should decrement a counter when a work authorization expires" do
+      create_test_dams_object
+      @user.work_authorizations.create(work_title: 'test_title', work_pid: 'test_pid')
+
+      expect{@user.work_authorizations.last.destroy && @user.reload}.to change(@user, :work_authorizations_count).by(-1)
+      expect(@user.work_authorizations.count).to eq(@user.work_authorizations_count)
+    end
   end
 
   describe ".to_s" do
