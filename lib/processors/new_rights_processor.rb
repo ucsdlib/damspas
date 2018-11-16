@@ -13,7 +13,7 @@ module Processors
       send_email
     end
 
-    def revoke 
+    def revoke
       return unless user && wor_obj
       delete_work_authorization
     end

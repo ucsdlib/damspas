@@ -125,5 +125,3 @@ end
 def mod_mads_topic (id)
 	MadsTopic.create!(pid: id, name: "Mads Topic Test Label", externalAuthority: "http://lccn.loc.gov/")
 end
-
-
