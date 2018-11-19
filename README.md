@@ -210,12 +210,4 @@ Production deployment is typically done using Passenger (mod_rails) paired with 
 
     DAMS PAS will be available at http://localhost/damspas/
 
-### TODO
-- Lookup works
 
-- Rename processor
-- move loop from rake run in processor
-- conditional work authorizations link in header
-
-#### Aeon queues
-- link in footer to aeon queue if have permission
