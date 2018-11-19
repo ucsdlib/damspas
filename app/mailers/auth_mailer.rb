@@ -1,5 +1,5 @@
 class AuthMailer < ApplicationMailer
-default from: 'dams@ucsd.edu'
+default from: 'spcoll-request@ucsd.edu'
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -15,6 +15,6 @@ default from: 'dams@ucsd.edu'
       "&email=",
       @user.email)
 
-    mail to: @user.email, subject: "Login Link Request"
+    mail to: @user.email, subject: "Access to UC San Diego SC&A Virtual Reading Room"
   end
 end
