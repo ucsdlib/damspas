@@ -14,10 +14,12 @@
       <td><%= request.email %></td>
       <td><%= request.itemTitle %></td>
       <td>
-        <% if request.transactionStatus == Aeon::Queue::PROCESSING_STATUS %>
-          <%= link_to "Archive", set_to_complete_aeon_request_path(request.id), class: 'btn' %>
-        <% elsif request.transactionStatus == Aeon::Queue::NEW_STATUS %>
-          <%= link_to "Process", set_to_in_process_aeon_request_path(request.id), class: 'btn btn-primary' %>
+        <% if request.transactionStatus == Aeon::Queue::NEW_STATUS %>
+          <%= link_to "Activate", set_to_active_aeon_request_path(request.id), class: 'btn btn-primary' %>
+        <% elsif request.transactionStatus == Aeon::Queue::ACTIVE_STATUS %>
+          <%= link_to "Expire", set_to_expire_aeon_request_path(request.id), class: 'btn btn-primary' %>
+        <% elsif request.transactionStatus == Aeon::Queue::EXPIRED_STATUS %>
+          <%= link_to "Renew", set_to_aeon_request_path(request.id), class: 'btn btn-primary' %>
         <% end %>
       </td>
     </tr>

@@ -1,9 +1,30 @@
 module Processors
   class NewRightsProcessor
+    def self.process_new
+      queue = Aeon::Queue.find(Aeon::Queue::NEW_STATUS)
+      queue.requests.each do |request|
+
+        ## DEV
+        request[:subLocation] = 'xx77777777'
+
+        request.set_to_processing
+        Processors::NewRightsProcessor.new(request).process
+        request.set_to_active
+      end
+    end
+
+    def self.revoke_old
+      WorkAuthorization.where("updated_at < ?", 1.month.ago).each do |auth|
+        params = {work_pid: auth.work_pid, email: auth.user.email, aeon_id: auth.aeon_id}
+        request = Processors::NewRightsProcessor.new(params)
+        request.revoke
+      end
+    end
+
     def initialize(request_attributes)
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
-      @work_pid = @request_attributes[:work_pid]
+      @work_pid = @request_attributes[:subLocation]
       @email = @request_attributes[:email]
     end
 
@@ -14,8 +35,9 @@ module Processors
     end
 
     def revoke
-      return unless user && wor_obj
+      return unless user && work_obj
       delete_work_authorization
+      expire_request(@work_pid)
     end
 
     private
@@ -60,7 +82,11 @@ module Processors
       end
 
       def send_email
-        AuthMailer.send_link(user).deliver_later
+        AuthMailer.send_link(user).deliver_now
+      end
+
+      def expire_request(work_id)
+        Aeon::Request.find(@work_pid).set_to_expired
       end
   end
 end

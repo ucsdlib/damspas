@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20181101205810) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "work_pid"
+    t.integer  "aeon_id"
   end
 
 end
