@@ -41,6 +41,10 @@ module Aeon
       JSON.parse(Aeon::Queue.new.client['/Queues'].get)
     end
 
+    def self.all!
+      JSON.parse(Aeon::Queue.new.client["/Queues"].get)
+    end
+
     def self.find(id)
       Aeon::Queue.new(id: id)
     end
