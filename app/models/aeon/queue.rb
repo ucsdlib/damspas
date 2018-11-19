@@ -6,10 +6,15 @@ module Aeon
     include Aeon::ApiAccessor
 
     NEW_STATUS = 70
-    PROCESSING_STATUS = 32
-    COMPLETED_STATUS = 34
-    EXPIRED_STATUS = 99
-    ALL_IDS = [70, 32, 34, 99]
+    PROCESSING_STATUS = 71 
+    COMPLETED_STATUS = 72
+    EXPIRED_STATUS = 73
+    ALL_IDS = [
+      NEW_STATUS,
+      PROCESSING_STATUS,
+      COMPLETED_STATUS,
+      EXPIRED_STATUS
+    ]
 
     attr_accessor :id, :properties, :name
 
@@ -22,6 +27,10 @@ module Aeon
         end
       end
       return @@all
+    end
+
+    def self.all!
+      JSON.parse(Aeon::Queue.new.client["/Queues"].get)
     end
 
     def self.find(id)
