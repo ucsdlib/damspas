@@ -63,11 +63,13 @@ class Ability
       can [:read], MadsAuthority
       can [:read], MadsLanguage
       can [:read], MadsVariant
+      can [:create], WorkAuthorization 
       cannot [:create], DamsObject
       cannot [:create], DamsAssembledCollection
       cannot [:create], DamsProvenanceCollection
       cannot [:create], DamsProvenanceCollectionPart
       cannot [:create], Page
+      cannot [:manage], WorkAuthorization 
     else  # curators
       can [:read], Audit
       can [:read], DamsAssembledCollection
@@ -109,6 +111,7 @@ class Ability
       can [:read, :create, :update], MadsLanguage
       can [:read, :create, :update], MadsVariant
       can [:read, :create, :update, :destroy], Page
+      can [:manage], WorkAuthorization 
     end
 
     # DamsUnit is a special case: super-user only

@@ -3,8 +3,8 @@ module Processors
     def initialize(request_attributes)
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
-      @work_pid = @request_attributes[:work_pid]
-      @email = @request_attributes[:email]
+      @work_pid = @request_attributes[:subLocation]
+      @email = @request_attributes[:email].present? ? @request_attributes[:email] : @request_attributes[:username]
     end
 
     def process

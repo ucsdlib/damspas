@@ -1,4 +1,6 @@
 class Aeon::QueuesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authorize_user
   before_action :set_aeon_queue, only: [:show, :edit, :update, :destroy]
 
   # GET /aeon/queues
@@ -54,5 +56,9 @@ class Aeon::QueuesController < ApplicationController
     # Only allow a trusted parameter "white list" through.
     def aeon_queue_params
       params[:aeon_queue]
+    end
+
+    def authorize_user
+      raise CanCan::AccessDenied unless can? :create, WorkAuthorization 
     end
 end
