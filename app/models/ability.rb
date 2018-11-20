@@ -63,13 +63,13 @@ class Ability
       can [:read], MadsAuthority
       can [:read], MadsLanguage
       can [:read], MadsVariant
-      can [:create], WorkAuthorization 
+      can [:read], WorkAuthorization 
       cannot [:create], DamsObject
       cannot [:create], DamsAssembledCollection
       cannot [:create], DamsProvenanceCollection
       cannot [:create], DamsProvenanceCollectionPart
       cannot [:create], Page
-      cannot [:manage], WorkAuthorization 
+      cannot [:create], WorkAuthorization 
     else  # curators
       can [:read], Audit
       can [:read], DamsAssembledCollection
