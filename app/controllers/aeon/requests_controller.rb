@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module Aeon
   class RequestsController < ApplicationController
     before_action :authenticate_user!
@@ -43,4 +42,15 @@ module Aeon
         raise CanCan::AccessDenied unless can? :create, WorkAuthorization
       end
   end
+
+  def set_to_expire
+    request = Aeon::Request.new.tap{|r| r.id = params[:id]}
+    request.set_to_expired
+    redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
+  end
+
+  private
+    def authorize_user
+      raise CanCan::AccessDenied unless can? :create, WorkAuthorization 
+    end
 end

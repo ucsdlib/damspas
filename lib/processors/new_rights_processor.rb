@@ -100,7 +100,6 @@ module Processors
         AuthMailer.send_link(user).deliver_later
       end
 
-<<<<<<< HEAD
       def process_request(request_id)
         Aeon::Request.find(request_id).set_to_processing
       end
@@ -111,10 +110,6 @@ module Processors
 
       def activate_request(request_id)
         Aeon::Request.find(request_id).set_to_active
-=======
-      def expire_request(work_id)
-        Aeon::Request.find(@work_pid).set_to_expired
->>>>>>> target correct request
       end
   end
 end

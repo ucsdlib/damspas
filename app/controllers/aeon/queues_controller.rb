@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 module Aeon
   class QueuesController < ApplicationController
     before_action :authenticate_user!

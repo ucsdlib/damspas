@@ -6,6 +6,15 @@
   <% end %>
 </ul>
 
+
+<ul class='nav nav-tabs'>
+  <% Aeon::Queue::QUEUE_LOCAL_NAMES.each do |key, value| %>
+    <li role="presentation" class="<%= 'active' if params[:id] == key.to_i %>">
+      <%= link_to value, aeon_queue_path(key) %>
+    </li>
+  <% end %>
+</ul>
+
 <h3><%= @aeon_queue.name %> Requests</h3>
 <table class='table table-striped'>
   <tr>
