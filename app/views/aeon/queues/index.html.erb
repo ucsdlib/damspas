@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Aeon Queues</h1>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Count</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aeon_queues.each do |aeon_queue| %>
+      <tr>
+        <td><%= link_to aeon_queue.name, aeon_queue_path(aeon_queue.id) %></td>
+        <td><%= aeon_queue.requests.size %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

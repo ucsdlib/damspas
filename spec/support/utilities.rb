@@ -11,9 +11,11 @@ def sign_in_developer
   fill_in "email", :with => "email@email.com"
   click_on "Sign In"
 end
+
 def sign_in_anonymous(ip)
   login_as( User.anonymous(ip), scope: :user)
 end
+
 # sign in as a curator only
 def sign_in_curator
     user_attributes = { email: 'test@example.com' }
@@ -21,6 +23,19 @@ def sign_in_curator
     user.groups = ['dams-curator']
     login_as user
 end
+
+def create_auth_link_user
+  user_attributes = {
+    email: 'test@example.com',
+    provider: 'auth_link',
+    uid: SecureRandom::uuid,
+  }
+  user = User.new(user_attributes)
+  user.ensure_authentication_token
+  user.save
+  user
+end
+
 
 #remove need for redundant tests for flash messages, using "have_TYPE_message"
 #￼replace this: should have_selector('div.alert.alert-error', text: 'Invalid
