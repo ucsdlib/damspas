@@ -15,6 +15,12 @@ module Aeon
       COMPLETED_STATUS,
       EXPIRED_STATUS
     ]
+    QUEUE_LOCAL_NAMES={
+      70 => "New",
+      71 => "Processing",
+      72 => "Active",
+      73 => "Expired"
+    }
 
     attr_accessor :id, :properties, :name
 
