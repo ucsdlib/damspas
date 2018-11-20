@@ -88,6 +88,11 @@ Hydra::Application.routes.draw do
   #post "object/:id/upload", :to => 'file#create', :as => 'upload'
   post "object/:id/deriv/:ds", :to => 'file#deriv', :as => 'deriv'
   get "object/:id/zoom/:cmp", :to => 'dams_objects#zoom', :as => 'zoom'
+
+  # EMBED UI
+  get "embed/:id/:cmp", :to => 'dams_objects#embed', :as => 'embed'
+  # EMBED UI END
+
   get "object/:id/edit", :to => 'dams_objects#edit', :as => 'edit'
   put "object/:id", :to => 'dams_objects#update', :as => 'update'
   get "object/:id/:ds", :to => 'file#show', :constraints => { :ds => /[^\/]+/ }, :as => 'file'

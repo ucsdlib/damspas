@@ -1,12 +1,38 @@
-<div id="etc-menu">
-  <% adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i>'.html_safe %>
-  <% adl_title = 'Download File' %>
-  <% adl_class = 'adl pull-right' %>
+<%
+	component_id = (defined?(cmpID)) ? "#{cmpID}" : ''
+	embed_url = (defined?(embedURL)) ? "#{embedURL}" : ''
+	etc_menu_item_class = 'pull-right'
+	embed_glyph =  '<i class="glyphicon glyphicon-share-alt"></i> Embed'.html_safe
+	adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i> Download File'.html_safe
+%>
+
+<div class="etc-menu">
+
+  <%= link_to embed_glyph, "#embedLink-#{component_id}", class:etc_menu_item_class, role:'button', :data => { :toggle => 'modal' }, title:'Embed' %>
 
   <% if can? :update, @document then %>
-    <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
+    <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
   <% elsif can?(:read, @document) && can_download?(@document) && !downloadDerivativePath.nil?%>
-    <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:adl_class, title:adl_title %>
+    <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
   <% end %>
 
 </div>
+
+<!-- BEGIN_EMBED_MODAL -->
+<div id="embedLink-<%=component_id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="embedLinkLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="embedLinkLabel">Embed</h3>
+  </div>
+  <div class="modal-body">
+    <h4>Embed URL</h4>
+    <input class="embedCode" readonly="readonly" type="text" onclick="this.focus();this.select()" value="<%=embed_url%>">
+    <h4>Embed Video</h4>
+    <input class="embedCode" readonly="readonly" type="text" onclick="this.focus();this.select()" value='&lt;iframe src="<%=embed_url%>" width="560" height="315" frameborder="0"&gt;&lt;/iframe&gt;'>
+    <p><em>By embedding Digital Collections videos on your site, you are agreeing to our Terms of Service.</em></p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+  </div>
+</div>
+<!-- /END_EMBED_MODAL -->
