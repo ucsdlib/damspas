@@ -1,5 +1,14 @@
 <p id="notice"><%= notice %></p>
 
+
+<ul class='nav nav-tabs'>
+  <% Aeon::Queue::QUEUE_LOCAL_NAMES.each do |key, value| %>
+    <li role="presentation" class="<%= 'active' if params[:id] == key.to_i %>">
+      <%= link_to value, aeon_queue_path(key) %>
+    </li>
+  <% end %>
+</ul>
+
 <h3><%= @aeon_queue.name %> Requests</h3>
 <table class='table table-striped'>
   <tr>
@@ -17,9 +26,10 @@
         <% if request.transactionStatus == Aeon::Queue::NEW_STATUS %>
           <%= link_to "Activate", set_to_active_aeon_request_path(request.id), class: 'btn btn-primary' %>
         <% elsif request.transactionStatus == Aeon::Queue::ACTIVE_STATUS %>
-          <%= link_to "Expire", set_to_expire_aeon_request_path(request.id), class: 'btn btn-primary' %>
+          <%= link_to "Expire", set_to_expire_aeon_request_path(request.id), class: 'btn btn-warning' %>
+          <%= link_to "Renew", set_to_new_aeon_request_path(request.id), class: 'btn btn-success' %>
         <% elsif request.transactionStatus == Aeon::Queue::EXPIRED_STATUS %>
-          <%= link_to "Renew", set_to_aeon_request_path(request.id), class: 'btn btn-primary' %>
+          <%= link_to "Renew", set_to_new_aeon_request_path(request.id), class: 'btn btn-primary' %>
         <% end %>
       </td>
     </tr>

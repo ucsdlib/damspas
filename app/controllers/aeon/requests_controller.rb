@@ -1,4 +1,6 @@
 class Aeon::RequestsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authorize_user
   before_action :set_aeon_queue, only: [:show, :edit, :update, :destroy]
 
   def set_to_new
@@ -25,4 +27,10 @@ class Aeon::RequestsController < ApplicationController
     request.set_to_expired
     redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
   end
+
+  private
+    def authorize_user
+      raise CanCan::AccessDenied unless can? :create, WorkAuthorization 
+    end
+
 end

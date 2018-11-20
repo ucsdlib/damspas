@@ -25,7 +25,7 @@ module Processors
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
       @work_pid = @request_attributes[:subLocation]
-      @email = @request_attributes[:email]
+      @email = @request_attributes[:email].present? ? @request_attributes[:email] : @request_attributes[:username]
     end
 
     def process
