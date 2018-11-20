@@ -140,14 +140,28 @@ $complexFile: #AC6F2B !default;
 #restricted-object {background: none repeat scroll 0 0 #FFFAEE; display: inline-block;font-size: 12px;height: 350px;padding: 15px;width: 390px;vertical-align: middle;padding-top: 50px}
 
 //admin download
-#etc-menu{margin-top:3%;}
-
-.adl
+.etc-menu
 {
-  display:block;
-  color:rgba(0,0,0,0.3);
-  &:hover{text-decoration: none;color:rgba(0,0,0,0.5);}
+  margin-top:3%;
+  overflow: hidden;
+
+  a
+  {
+    display:block;
+    color:rgba(0,0,0,0.666);
+    margin-left:1em;
+    border: 1px solid #999;
+    padding: 0px 5px;
+    font-size: 0.75em;
+    border-radius: 3px;
+    &:hover{text-decoration: none;color:rgba(0,0,0,0.8);border-color:rgba(0,0,0,0.8);}
+    &:focus{text-decoration: none;outline:0;}
+  }
+
 }
+
+
+.embedCode{font-family:monospace;padding:1em!important;width:100%;box-sizing:border-box;cursor:default!important;}
 
 // AddThis Sharing Menu
 .addthis_sharing_toolbox
@@ -202,7 +216,7 @@ $complexFile: #AC6F2B !default;
   //component pager
   #component-pager nav > button{width:48px !important;}
 }
- 
+
 // LANDSCAPE PHONES AND DOWN (BOOTSTRAP)
 @media (max-width: 480px)
 {

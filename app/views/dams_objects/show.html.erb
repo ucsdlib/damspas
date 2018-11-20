@@ -4,7 +4,14 @@
 %>
 
 <%= javascript_tag "var sensitive_popup = '#{@sensitive_msg}';" %>
-  
+<script type="text/javascript">
+    function resize(id) {
+        let newWidth = 0.94;
+        let parent = document.getElementById(id).parentElement;
+        let currentWidth = parent.offsetWidth;
+        jwplayer(id).resize(currentWidth * newWidth, 40);
+    }
+</script>
 <% @ds = flash[:deriv] %>
 <%# if @ds != nil %>
   <%#= button_to( "Generate Derivatives", deriv_path( @document['id'], @ds ), remote: true, data: {disable_with: 'Generating...'}, form: {id: "generate_derivatives"}, class: 'btn' ) %>
