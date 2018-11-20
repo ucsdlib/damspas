@@ -63,8 +63,8 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
-        obj.process
-        user = obj.instance_variable_get(:@user)
+        processor.process
+        user = processor.instance_variable_get(:@user)
 
         expect(user.work_authorizations.length).to eq(1)
       end
@@ -135,31 +135,33 @@ describe Processors::NewRightsProcessor do
 
     context "when requested work doesn't exist" do
       let!(:response){ good_email.merge(bad_pid) }
+      let!(:processor){ Processors::NewRightsProcessor.new(response) }
       it "fails quietly" do
-        expect{ obj.process }.to_not raise_error
+        expect{ processor.process }.to_not raise_error
       end
 
       it "does not assign a work to a user" do
-        expect{ obj.process }.to change{ WorkAuthorization.all.length }.by(0)
+        expect{ processor.process }.to change{ WorkAuthorization.all.length }.by(0)
       end
 
       it "does not send an email" do
-        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
     context "when work pid is nil" do
       let!(:response){ good_email.merge(nil_pid) }
+      let!(:processor){ Processors::NewRightsProcessor.new(response) }
       it "fails quietly" do
-        expect{ obj.process }.to_not raise_error
+        expect{ processor.process }.to_not raise_error
       end
 
       it "does not assign a work to a user" do
-        expect{ obj.process }.to change{ WorkAuthorization.all.length }.by(0)
+        expect{ processor.process }.to change{ WorkAuthorization.all.length }.by(0)
       end
 
       it "does not send an email" do
-        expect{ obj.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.process }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
   end
