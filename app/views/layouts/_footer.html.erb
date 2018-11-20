@@ -1,20 +1,24 @@
 <footer>
-	<section>
-		<address>
-			<strong>UC San Diego</strong>
-			9500 Gilman Dr.
-			La Jolla, CA 92093
-			(858) 534-2230
-		</address>
-		<p>Copyright © 2013 Regents of the University of California. All rights reserved.</p>
-		<ul class="inline">
-			<li><a href="http://www.ucsd.edu/_about/legal/index.html">Terms &amp; Conditions</a></li>
-			<li class="muted">|</li>
-			<li><%= link_to 'Feedback', contact_path %></li>
-			<li class="muted">|</li>
-		  <li><a href="https://library.ucsd.edu/">Library Home</a></li>
-		</ul>
-	</section>
+  <section>
+    <address>
+      <strong>UC San Diego</strong>
+        9500 Gilman Dr.
+        La Jolla, CA 92093
+        (858) 534-2230
+    </address>
+    <p>Copyright © 2013 Regents of the University of California. All rights reserved.</p>
+    <ul class="inline">
+      <li><a href="http://www.ucsd.edu/_about/legal/index.html">Terms &amp; Conditions</a></li>
+      <li class="muted">|</li>
+      <li><%= link_to 'Feedback', contact_path %></li>
+      <li class="muted">|</li>
+      <li><a href="https://library.ucsd.edu/">Library Home</a></li>
+      <% if can? :manage, WorkAuthorization %>
+        <li class="muted">|</li>
+        <li><%= link_to 'Aeon', aeon_queues_path %></li>
+      <% end %>
+    </ul>
+  </section>
 </footer>
 
 <div id="ajax-modal" class="modal hide fade" tabindex="-1"></div>
