@@ -3,10 +3,6 @@ module Processors
     def self.process_new
       queue = Aeon::Queue.find(Aeon::Queue::NEW_STATUS)
       queue.requests.each do |request|
-
-        ## DEV
-        request[:subLocation] = 'xx77777777'
-
         request.set_to_processing
         Processors::NewRightsProcessor.new(request).process
         request.set_to_active

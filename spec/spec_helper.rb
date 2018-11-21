@@ -98,6 +98,10 @@ def find_solr_records(q, params={})
   solr_docs.map { |doc| doc["id"] }
 end
 
+def create_test_dams_object id='test_pid', title='test_title'
+  DamsObject.create!(pid: id, titleValue: title)
+end
+
 def mod_dams_object (id, unit, copy)
 	DamsObject.create!(pid: id, titleValue: "Test Title -- Unit #{unit}", unitURI: unit, copyrightURI: copy)
 end
@@ -122,6 +126,9 @@ end
 def mod_mads_personal_name (id)
 	MadsPersonalName.create!(pid: id,name: "Mads Personal Name Test ", externalAuthority: "http://lccn.loc.gov/n90694888")
 end
+
 def mod_mads_topic (id)
 	MadsTopic.create!(pid: id, name: "Mads Topic Test Label", externalAuthority: "http://lccn.loc.gov/")
 end
+
+
