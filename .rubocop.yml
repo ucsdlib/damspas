@@ -53,3 +53,7 @@ Metrics/CyclomaticComplexity:
 
 Metrics/PerceivedComplexity:
   Max: 8
+
+Layout/IndentationConsistency:
+  Exclude:
+    - 'app/models/user.rb'
