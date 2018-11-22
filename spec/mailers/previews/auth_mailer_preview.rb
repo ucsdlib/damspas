@@ -6,7 +6,7 @@ class AuthMailerPreview < ActionMailer::Preview
     user_attributes = {
       email: 'test@example.com',
       provider: 'email',
-      uid: SecureRandom::uuid,
+      uid: SecureRandom.uuid,
       authentication_token: 'secret'
     }
     user = User.new(user_attributes)
