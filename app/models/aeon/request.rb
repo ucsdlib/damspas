@@ -43,9 +43,10 @@ module Aeon
     end
 
     private
-      def update_status status
-        client["/Requests/#{self.id}/route"].post({
-          "newStatus" => status
+
+      def update_status(status)
+        client["/Requests/#{id}/route"].post({
+          'newStatus' => status
         }.to_json)
       end
   end
