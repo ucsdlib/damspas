@@ -3,7 +3,7 @@ module Aeon
     include Aeon::ApiAccessor
 
     def self.find(id)
-      Aeon::Request.new(id: id)
+      Aeon::Request.new.tap{|r| r.id = id}
     end
 
     def id
