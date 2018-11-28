@@ -20,20 +20,26 @@ module Processors
     def initialize(request_attributes)
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
-      @work_pid = @request_attributes[:subLocation]
+      if ['development'].include? Rails.env
+        @work_pid = DamsObject.last.pid
+      else
+        @work_pid = @request_attributes[:subLocation]
+      end
       @email = @request_attributes[:email].presence || @request_attributes[:username]
     end
 
-    def process
+    def authorize
       return unless @email.present? && user.valid? && @work_pid.present? && work_obj
+      set_to_processing(@request_attributes.id)
       create_work_authorization
+      activate_request(@request_attributes.id)
       send_email
     end
 
     def revoke
       return unless user && work_obj
       delete_work_authorization
-      expire_request(@work_pid)
+      expire_request(@request_attributes.id)
     end
 
     private
@@ -66,15 +72,13 @@ module Processors
         # touch to get the updated authorizations
         # disable rubocop because we run validations before calling .touch
         work_authorization.touch # rubocop:disable SkipsModelValidations
-        new_list = work_obj.read_users + [user.user_key]
-        work_obj.read_users = new_list.uniq
+        work_obj.set_read_users([user.user_key], [user.user_key])
         work_obj.save
       end
 
       def delete_work_authorization
         work_authorization.destroy
-        new_list = work_obj.read_users - [user.user_key]
-        work_obj.read_users = new_list.uniq
+        work_obj.set_read_users([], [user.user_key])
         work_obj.save
       end
 
@@ -82,8 +86,16 @@ module Processors
         AuthMailer.send_link(user).deliver_now
       end
 
-      def expire_request(work_id)
-        Aeon::Request.find(work_id).set_to_expired
+      def set_to_processing(request_id)
+        Aeon::Request.find(request_id).set_to_processing
+      end
+
+      def expire_request(request_id)
+        Aeon::Request.find(request_id).set_to_expired
+      end
+
+      def activate_request(request_id)
+        Aeon::Request.find(request_id).set_to_active
       end
   end
 end
