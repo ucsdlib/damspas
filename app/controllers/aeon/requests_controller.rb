@@ -45,7 +45,8 @@ module Aeon
 
   def set_to_expire
     request = Aeon::Request.new.tap{|r| r.id = params[:id]}
-    request.set_to_expired
+    updated_request = request.get_from_server
+    Processors::NewRightsProcessor.new(updated_request).revoke
     redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
   end
 
