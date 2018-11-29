@@ -34,12 +34,12 @@ describe Processors::NewRightsProcessor do
       let!(:response){ good_email.merge(good_pid) }
       let!(:processor){ Processors::NewRightsProcessor.new(response) }
       it "runs successfully" do
-        expect{ (allow(processor).to receive(:set_to_processing).and_return(true)) }.to_not raise_error
+        expect{ (allow(processor).to receive(:authorize).and_return(true)) }.to_not raise_error
       end
 
       it "sets user attributes correctly" do
-        allow(processor).to receive(:set_to_processing).and_return(true)
-        # @user is not set in module until process method is run
+        allow(processor).to receive(:authorize).and_return(processor.send(:user))
+        # @user is not set in module until authorize method is run
         user = processor.instance_variable_get(:@user)
 
         expect(user.provider).to eq('auth_link')
@@ -49,7 +49,7 @@ describe Processors::NewRightsProcessor do
 
       it "does not alter the attributes of an existing user" do
         before_rake_user = create_auth_link_user # creates user w/ same email as option {0}
-        allow(processor).to receive(:set_to_processing).and_return(true)
+        allow(processor).to receive(:authorize).and_return(processor.send(:user))
         # processor.authorize
         after_rake_user = processor.instance_variable_get(:@user)
 
@@ -60,7 +60,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
-        allow(processor).to receive(:set_to_processing).and_return(true)
+        allow(processor).to receive(:authorize).and_return(processor.send(:user)).and_return(processor.send(:create_work_authorization))
         # processor.authorize
         user = processor.instance_variable_get(:@user)
 
@@ -68,7 +68,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "sends email to user on success" do
-        expect{ (allow(processor).to receive(:set_to_processing).and_return(true)) }.to change{ ActionMailer::Base.deliveries.count }.by(1)
+        expect{ (allow(processor).to receive(:authorize).and_return(processor.send(:user)).and_return(processor.send(:send_email))) }.to change{ ActionMailer::Base.deliveries.count }.by(1)
       end
     end
 
