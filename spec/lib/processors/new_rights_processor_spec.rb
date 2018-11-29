@@ -39,7 +39,7 @@ describe Processors::NewRightsProcessor do
 
       it "sets user attributes correctly" do
         allow(processor).to receive(:authorize).and_return(processor.send(:user))
-        # @user is not set in module until authorize method is run
+        # @user is not set in processor object until authorize method is run
         user = processor.instance_variable_get(:@user)
 
         expect(user.provider).to eq('auth_link')
@@ -48,9 +48,8 @@ describe Processors::NewRightsProcessor do
       end
 
       it "does not alter the attributes of an existing user" do
-        before_rake_user = create_auth_link_user # creates user w/ same email as option {0}
+        before_rake_user = create_auth_link_user # creates user w/ same email as response
         allow(processor).to receive(:authorize).and_return(processor.send(:user))
-        # processor.authorize
         after_rake_user = processor.instance_variable_get(:@user)
 
         expect(after_rake_user.id).to eq(before_rake_user.id)
@@ -60,8 +59,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
-        allow(processor).to receive(:authorize).and_return(processor.send(:user)).and_return(processor.send(:create_work_authorization))
-        # processor.authorize
+        allow(processor).to receive(:authorize).and_return(processor.send(:create_work_authorization))
         user = processor.instance_variable_get(:@user)
 
         expect(user.work_authorizations.length).to eq(1)
