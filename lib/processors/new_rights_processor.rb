@@ -28,10 +28,6 @@ module Processors
       @email = @request_attributes[:email].presence || @request_attributes[:username]
     end
 
-    def request_attributes?
-      @request_attributes
-    end
-
     def authorize
       return unless @email.present? && user.valid? && @work_pid.present? && work_obj
       process_request(@request_attributes[:subLocation])
@@ -65,7 +61,6 @@ module Processors
       end
 
       def work_authorization
-        # TODO:  using work_pid, which isn't on an aeon request
         @work_authorization ||= user.work_authorizations.where(work_pid: @work_pid).first_or_create do |authorization|
           authorization.work_title = @work_title
         end
