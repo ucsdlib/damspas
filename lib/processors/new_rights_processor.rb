@@ -30,10 +30,6 @@ module Processors
       @email = @request_attributes[:email].presence || @request_attributes[:username]
     end
 
-    def request_attributes?
-      @request_attributes
-    end
-
     def authorize
       return unless @email.present? && user.valid? && @work_pid.present? && work_obj
       process_request(@request_attributes.id)

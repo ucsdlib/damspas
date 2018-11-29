@@ -63,7 +63,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
-        allow(processor).to receive(:set_to_processing).and_return(true)
+        allow(processor).to receive(:authorize).and_return(processor.send(:user)).and_return(processor.send(:create_work_authorization))
         # processor.authorize
         user = processor.instance_variable_get(:@user)
 
