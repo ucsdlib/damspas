@@ -30,11 +30,15 @@ module Processors
       @email = @request_attributes[:email].presence || @request_attributes[:username]
     end
 
+    def request_attributes?
+      @request_attributes
+    end
+
     def authorize
       return unless @email.present? && user.valid? && @work_pid.present? && work_obj
       process_request(@request_attributes.id)
       create_work_authorization
-      activate_request(@request_attributes.id)
+      activate_request(@request_attributes[:subLocation])
       send_email
     rescue => e # rescue all errors to handle them manually
       work_authorization.update_error 'Unable to Authorize Request'
