@@ -12,19 +12,14 @@ class Aeon::RequestsController < ApplicationController
   def set_to_active
     request = Aeon::Request.new.tap{|r| r.id = params[:id]}
     updated_request = request.get_from_server
-
-    ## DEV
-    updated_request[:subLocation] = 'xx77777777'
-
-    updated_request.set_to_processing
-    Processors::NewRightsProcessor.new(updated_request).process
-    updated_request.set_to_active
+    Processors::NewRightsProcessor.new(updated_request).authorize
     redirect_to aeon_queue_path(Aeon::Queue::NEW_STATUS)
   end
 
   def set_to_expire
     request = Aeon::Request.new.tap{|r| r.id = params[:id]}
-    request.set_to_expired
+    updated_request = request.get_from_server
+    Processors::NewRightsProcessor.new(updated_request).revoke
     redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
   end
 
