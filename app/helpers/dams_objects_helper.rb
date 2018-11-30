@@ -652,66 +652,6 @@ def display_node(index)
   end
 
   #---
-  # Builds Wowza Secure Token
-  #
-  # @param field_data "files_tesim" data (JSON)
-  # @param obj_id Object ID (String)
-  # @param cmp_id Component ID (String)
-  # @param base_url (String)
-  # @return string or nil
-  # @author Vivian
-  #---
-
-  def secure_token(field_data, obj_id, cmp_id, base_url)
-    file_name = audio_video_file_name(field_data, cmp_id)
-    return nil unless file_name
-    end_time = secure_token_end_time
-    token_hash = secure_token_hash(end_time, file_name, obj_id, base_url)
-    "#{Rails.configuration.secure_token_name}endtime=#{end_time}&#{Rails.configuration.secure_token_name}hash=#{token_hash}".html_safe
-  end
-
-  #---
-  # Builds Wowza Token Hash
-  #
-  # @param file_name (String)
-  # @param end_time (Integer)
-  # @param obj_id (String)
-  # @param base_url (String)
-  # @return string
-  #---
-
-  def secure_token_hash(end_time, file_name, obj_id, base_url)
-    token_params = []
-    token_params << Rails.configuration.secure_token_secret
-    token_params << "#{Rails.configuration.secure_token_name}endtime=#{end_time}"
-    token_params = token_params.sort
-    stream = base_url.sub(%r{.*?\/}, '')
-    obj_path = obj_id.scan(/.{1,2}/).join('/')
-    hash_in = "#{stream}#{obj_path}/#{ark_naan}-#{obj_id}-#{file_name}?#{token_params.join('&')}"
-    hash_out = Digest::SHA2.new(256).digest(hash_in.to_s)
-    hash_out = Base64.encode64(hash_out).to_s.strip
-    matchers = { '+' => '-', '/' => '_' }
-    hash_out.gsub(/\+|\//) { |match| matchers[match] }
-  end
-
-  #---
-  # Builds Wowza Secure Token Base URL
-  #
-  # @param field_data "files_tesim" data (JSON)
-  # @param obj_id Object ID (String)
-  # @param cmp_id Component ID (String)
-  # @param base_url (String)
-  # @return string or nil
-  #---
-
-  def secure_token_base_url(field_data, obj_id, cmp_id, base_url)
-    file_name = audio_video_file_name(field_data, cmp_id)
-    return nil unless file_name
-    obj_path = obj_id.scan(/.{1,2}/).join('/')
-    "#{base_url}#{obj_path}/#{ark_naan}-#{obj_id}-#{file_name}".html_safe
-  end
-
-  #---
   # Get file name
   #
   # @param field_data "files_tesim" data (JSON)
@@ -728,19 +668,6 @@ def display_node(index)
         return file_name
       end
     end
-  end
-
-  def ark_naan() Rails.configuration.id_namespace.sub(%r{.*ark:\/}, '')[0..4] end
-
-  #---
-  # Creates Wowza Token End Time
-  #
-  # @return Integer
-  #---
-
-  def secure_token_end_time
-    Time.zone = 'America/Los_Angeles'
-    Time.now.to_i + 48.hours
   end
 
   #------------
