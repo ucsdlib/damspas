@@ -14,6 +14,7 @@ describe Processors::NewRightsProcessor do
     allow_any_instance_of(Aeon::Request).to receive(:set_to_active).and_return(true)
     allow_any_instance_of(Aeon::Request).to receive(:set_to_processing).and_return(true)
   end
+
   describe "initialize" do
     context "if rake task is run with valid credentials" do
       let!(:response){ good_email.merge(good_pid) }
@@ -63,10 +64,7 @@ describe Processors::NewRightsProcessor do
       end
 
       it "authorizes the work for the user" do
-        allow(processor).to receive(:authorize).and_return(processor.send(:create_work_authorization))
-        user = processor.instance_variable_get(:@user)
-
-        expect(user.work_authorizations.length).to eq(1)
+        expect{ processor.authorize }.to change{ user.reload and user.work_authorizations.length }.from(0).to(1)
       end
 
       it "sends email to user on success" do
