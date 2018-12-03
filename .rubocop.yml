@@ -57,3 +57,7 @@ Metrics/PerceivedComplexity:
 Layout/IndentationConsistency:
   Exclude:
     - 'app/models/user.rb'
+
+Layout/IndentHash:
+  Exclude:
+    - 'app/models/concerns/aeon/api_accessor.rb'
