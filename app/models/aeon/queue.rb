@@ -73,16 +73,16 @@ module Aeon
       @requests = requests_json.map do |request|
         Aeon::Request.new(request)
       end
-      return @requests
+      @requests
     end
 
     # For active model
     def persisted?
       false
     end
+
     def to_model
       self
     end
-
   end
 end
