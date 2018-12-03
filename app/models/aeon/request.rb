@@ -7,15 +7,15 @@ module Aeon
     end
 
     def id
-      self.transactionNumber
+      transactionNumber
     end
 
-    def id= value
+    def id=(value)
       self.transactionNumber = value
     end
 
     def email
-      self.username
+      username
     end
 
     def set_to_new
@@ -35,11 +35,11 @@ module Aeon
     end
 
     def available_routes
-      client["/Requests/#{self.id}/routes"].get
+      client["/Requests/#{id}/routes"].get
     end
 
     def get_from_server
-      Aeon::Request.new(JSON.parse(client["/Requests/#{self.id}"].get))
+      Aeon::Request.new(JSON.parse(client["/Requests/#{id}"].get))
     end
 
     private
