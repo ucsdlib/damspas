@@ -4,7 +4,7 @@ module Processors
       queue = Aeon::Queue.find(Aeon::Queue::NEW_STATUS)
       queue.requests.each do |request|
         request.set_to_processing
-        Processors::NewRightsProcessor.new(request).process
+        Processors::NewRightsProcessor.new(request).authorize
         request.set_to_active
       end
     end
@@ -30,16 +30,16 @@ module Processors
 
     def authorize
       return unless @email.present? && user.valid? && @work_pid.present? && work_obj
-      set_to_processing(@request_attributes.id)
+      process_request(@request_attributes[:subLocation])
       create_work_authorization
-      activate_request(@request_attributes.id)
+      activate_request(@request_attributes[:subLocation])
       send_email
     end
 
     def revoke
       return unless user && work_obj
       delete_work_authorization
-      expire_request(@request_attributes.id)
+      expire_request(@request_attributes[:subLocation])
     end
 
     private
@@ -61,7 +61,6 @@ module Processors
       end
 
       def work_authorization
-        # TODO:  using work_pid, which isn't on an aeon request
         @work_authorization ||= user.work_authorizations.where(work_pid: @work_pid).first_or_create do |authorization|
           authorization.work_title = @work_title
         end
@@ -86,7 +85,7 @@ module Processors
         AuthMailer.send_link(user).deliver_now
       end
 
-      def set_to_processing(request_id)
+      def process_request(request_id)
         Aeon::Request.find(request_id).set_to_processing
       end
 
