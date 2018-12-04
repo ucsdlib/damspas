@@ -24,14 +24,14 @@ module Aeon
       73 => 'Expired'
     }.freeze
 
-    attr_accessor :id, :properties, :name
+    attr_accessor :id
 
-    @@all = []
+    @@all = [] # rubocop:disable ClassVars
 
     def self.all(refresh = false)
       if refresh || @@all.blank?
-        @@all = ALL_IDS.map do |id|
-          self.find(id)
+        @@all = ALL_IDS.map do |id| # rubocop:disable ClassVars
+          find(id)
         end
       end
       @@all
@@ -51,21 +51,21 @@ module Aeon
       end
     end
 
-    def get_from_server
-      client["/Queues/#{self.id}"].get
+    def get_from_server # rubocop:disable AccessorMethodName
+      client["/Queues/#{id}"].get
     end
 
     def properties
       return @properties if @properties.present?
-      @properties = JSON.parse(self.get_from_server)
+      @properties = JSON.parse(get_from_server)
     end
 
     def name
-      @name ||= self.properties['queueName']
+      @name ||= properties['queueName']
     end
 
-    def get_requests_from_server
-      client["/Queues/#{self.id}/requests"].get
+    def get_requests_from_server # rubocop:disable AccessorMethodName
+      client["/Queues/#{id}/requests"].get
     end
 
     def requests(refresh = false)
