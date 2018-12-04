@@ -1,8 +1,13 @@
 Hydra::Application.routes.draw do
   namespace :aeon do
-    resources :queues
+    resources :queues do
+      collection do
+        get 'errors'
+      end
+    end
     resources :requests do
       member do
+        get 'set_to_new'
         get 'set_to_expire'
         get 'set_to_complete'
         get 'set_to_in_process'

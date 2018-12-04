@@ -30,17 +30,23 @@ module Processors
 
     def authorize
       return unless @email.present? && user.valid? && @work_pid.present? && work_obj
-      process_request(@request_attributes[:subLocation])
+      process_request(@request_attributes.id)
       create_work_authorization
-      activate_request(@request_attributes[:subLocation])
+      activate_request(@request_attributes.id)
       send_email
+    rescue => e
+      work_authorization.update_error "Unable to Authorize Request"
+      raise e 
     end
 
     def revoke
       return unless user && work_obj
       delete_work_authorization
-      expire_request(@request_attributes[:subLocation])
-    end
+      expire_request(@request_attributes.id)
+    rescue => e
+      work_authorization.update_error "Unable to Revoke Request"
+      raise e
+   end
 
     private
 
@@ -62,6 +68,7 @@ module Processors
 
       def work_authorization
         @work_authorization ||= user.work_authorizations.where(work_pid: @work_pid).first_or_create do |authorization|
+          authorization.aeon_id = @request_attributes.id
           authorization.work_title = @work_title
         end
       end
