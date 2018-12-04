@@ -42,16 +42,4 @@ module Aeon
         raise CanCan::AccessDenied unless can? :create, WorkAuthorization
       end
   end
-
-  def set_to_expire
-    request = Aeon::Request.new.tap{|r| r.id = params[:id]}
-    updated_request = request.get_from_server
-    Processors::NewRightsProcessor.new(updated_request).revoke
-    redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
-  end
-
-  private
-    def authorize_user
-      raise CanCan::AccessDenied unless can? :create, WorkAuthorization 
-    end
 end

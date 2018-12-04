@@ -4,17 +4,13 @@ class WorkAuthorization < ActiveRecord::Base
   belongs_to :user, counter_cache: true
   validates :work_pid, presence: true
 
-  scope :in_error, -> { where("error <> ''") }
+  scope :in_error, ->{ where("error <> ''") }
 
-  def update_error(error_string)
-    # skip model validations because if there was
-    # an error, we want to log it no matter what
-    update_attribute(:error, error_string) # rubocop:disable SkipsModelValidations
+  def update_error error_string
+    update_attribute :error, error_string 
   end
 
-  def clear_error
-    # skip model validations because if there was
-    # an error, we want to log it no matter what
-    update_attribute(:error, nil) # rubocop:disable SkipsModelValidations
+  def clear_error 
+    update_attribute :error, nil
   end
 end

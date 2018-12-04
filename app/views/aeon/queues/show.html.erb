@@ -6,7 +6,6 @@
   <% end %>
 </ul>
 
-
 <ul class='nav nav-tabs'>
   <% Aeon::Queue::QUEUE_LOCAL_NAMES.each do |key, queue_name| %>
     <li role="presentation" class="<%= 'active' if params[:id] == key.to_s %>">
