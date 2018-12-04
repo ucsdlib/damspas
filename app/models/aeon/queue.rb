@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Aeon
   class Queue
     extend ActiveModel::Naming
@@ -6,7 +8,7 @@ module Aeon
     include Aeon::ApiAccessor
 
     NEW_STATUS = 70
-    PROCESSING_STATUS = 71 
+    PROCESSING_STATUS = 71
     ACTIVE_STATUS = 72
     EXPIRED_STATUS = 73
     ALL_IDS = [
@@ -14,29 +16,29 @@ module Aeon
       PROCESSING_STATUS,
       ACTIVE_STATUS,
       EXPIRED_STATUS
-    ]
-    QUEUE_LOCAL_NAMES={
-      70 => "New",
-      71 => "Processing",
-      72 => "Active",
-      73 => "Expired"
-    }
+    ].freeze
+    QUEUE_LOCAL_NAMES = {
+      70 => 'New',
+      71 => 'Processing',
+      72 => 'Active',
+      73 => 'Expired'
+    }.freeze
 
-    attr_accessor :id, :properties, :name
+    attr_accessor :id
 
-    @@all = []
+    @@all = [] # rubocop:disable ClassVars
 
-    def self.all(refresh=false)
+    def self.all(refresh = false)
       if refresh || @@all.blank?
-        @@all = ALL_IDS.map do |id|
-          self.find(id)
+        @@all = ALL_IDS.map do |id| # rubocop:disable ClassVars
+          find(id)
         end
       end
-      return @@all
+      @@all
     end
 
     def self.all!
-      JSON.parse(Aeon::Queue.new.client["/Queues"].get)
+      JSON.parse(Aeon::Queue.new.client['/Queues'].get)
     end
 
     def self.find(id)
@@ -44,29 +46,29 @@ module Aeon
     end
 
     def initialize(args = {})
-      args.each do |k,v|
+      args.each do |k, v|
         send("#{k}=", v)
       end
     end
 
-    def get_from_server
-      client["/Queues/#{self.id}"].get
+    def get_from_server # rubocop:disable AccessorMethodName
+      client["/Queues/#{id}"].get
     end
 
     def properties
       return @properties if @properties.present?
-      @properties = JSON.parse(self.get_from_server)
+      @properties = JSON.parse(get_from_server)
     end
 
     def name
-      @name ||= self.properties['queueName']
+      @name ||= properties['queueName']
     end
 
-    def get_requests_from_server
-      client["/Queues/#{self.id}/requests"].get
+    def get_requests_from_server # rubocop:disable AccessorMethodName
+      client["/Queues/#{id}/requests"].get
     end
 
-    def requests(refresh=false)
+    def requests(refresh = false)
       return @requests if @requests.present? && !refresh
 
       requests_json = JSON.parse(get_requests_from_server)
