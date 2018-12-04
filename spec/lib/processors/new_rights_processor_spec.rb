@@ -2,12 +2,14 @@ require 'spec_helper'
 
 describe Processors::NewRightsProcessor do
 
-  let(:good_email){ {email: 'test@example.com'} }
-  let(:bad_email){ {email: 'invalid_email_format'} }
-  let(:no_email){ {email: ''} }
-  let(:good_pid){ {subLocation: 'test_pid'} }
-  let(:bad_pid){ {subLocation: 'bad_pid'} }
-  let(:nil_pid){ {subLocation: nil} }
+  # calling Hashie::Mash.new allows us to use the
+  # .id method from the Aeon::Request model
+  let(:good_email){ Hashie::Mash.new({email: 'test@example.com'}) }
+  let(:bad_email){ Hashie::Mash.new({email: 'invalid_email_format'}) }
+  let(:no_email){ Hashie::Mash.new({email: ''}) }
+  let(:good_pid){ Hashie::Mash.new({subLocation: 'test_pid'}) }
+  let(:bad_pid){ Hashie::Mash.new({subLocation: 'bad_pid'}) }
+  let(:nil_pid){ Hashie::Mash.new({subLocation: nil}) }
 
   before do
     allow_any_instance_of(Aeon::Request).to receive(:set_to_active).and_return(true)
