@@ -12,6 +12,10 @@ class Aeon::QueuesController < ApplicationController
   def show
   end
 
+  def errors
+    @errors = WorkAuthorization.in_error
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_aeon_queue
