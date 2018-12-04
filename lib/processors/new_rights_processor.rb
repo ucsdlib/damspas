@@ -54,10 +54,10 @@ module Processors
       return unless user && work_obj
       delete_work_authorization
       expire_request(@request_attributes.id)
-    rescue => e
-      work_authorization.update_error "Unable to Revoke Request"
+    rescue => e # rescue all errors to handle them manually
+      work_authorization.update_error 'Unable to Revoke Request'
       raise e
-   end
+    end
 
     private
 
