@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Processors
   class NewRightsProcessor
     def self.process_new
@@ -20,11 +22,11 @@ module Processors
     def initialize(request_attributes)
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
-      if ['development'].include? Rails.env
-        @work_pid = DamsObject.last.pid
-      else
-        @work_pid = @request_attributes[:subLocation]
-      end
+      @work_pid = if ['development'].include? Rails.env
+                    DamsObject.last.pid
+                  else
+                    @request_attributes[:subLocation]
+                  end
       @email = @request_attributes[:email].presence || @request_attributes[:username]
     end
 
@@ -34,19 +36,19 @@ module Processors
       create_work_authorization
       activate_request(@request_attributes.id)
       send_email
-    rescue => e
-      work_authorization.update_error "Unable to Authorize Request"
-      raise e 
+    rescue => e # rescue all errors to handle them manually
+      work_authorization.update_error 'Unable to Authorize Request'
+      raise e
     end
 
     def revoke
       return unless user && work_obj
       delete_work_authorization
       expire_request(@request_attributes.id)
-    rescue => e
-      work_authorization.update_error "Unable to Revoke Request"
+    rescue => e # rescue all errors to handle them manually
+      work_authorization.update_error 'Unable to Revoke Request'
       raise e
-   end
+    end
 
     private
 

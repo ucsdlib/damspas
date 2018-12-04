@@ -59,6 +59,11 @@ Layout/IndentationConsistency:
     - 'app/models/user.rb'
     - 'app/models/aeon/*'
     - 'app/controllers/aeon/*'
+    - 'lib/processors/new_rights_processor.rb'
+
+Layout/IndentationWidth:
+  Exclude:
+    - 'lib/processors/new_rights_processor.rb'
 
 Layout/IndentHash:
   Exclude:
@@ -67,3 +72,4 @@ Layout/IndentHash:
 Style/RescueStandardError:
   Exclude:
     - 'app/controllers/aeon/requests_controller.rb'
+    - 'lib/processors/new_rights_processor.rb'
