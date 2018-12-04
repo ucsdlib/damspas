@@ -61,9 +61,6 @@ Layout/IndentationConsistency:
     - 'app/controllers/aeon/*'
     - 'lib/processors/new_rights_processor.rb'
 
-Layout/IndentationWidth:
-  Exclude:
-    - 'lib/processors/new_rights_processor.rb'
 
 Layout/IndentHash:
   Exclude:
