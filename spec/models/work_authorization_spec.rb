@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.describe WorkAuthorization, type: :model do
   describe 'adding errors' do
-    let(:authorization) { WorkAuthorization.new(work_pid: 'test_pid') }
+    let(:authorization) { WorkAuthorization.new }
     it 'should add the error' do
       authorization.update_error 'test error'
       expect(authorization.error).to eq('test error')
