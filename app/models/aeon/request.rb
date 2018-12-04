@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Aeon
   class Request < Hashie::Mash
     include Aeon::ApiAccessor
 
     def self.find(id)
-      Aeon::Request.new.tap{|r| r.id = id}
+      Aeon::Request.new.tap { |r| r.id = id }
     end
 
     def id
