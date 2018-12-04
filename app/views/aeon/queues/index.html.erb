@@ -18,7 +18,10 @@
         <td><%= aeon_queue.requests.size %>
       </tr>
     <% end %>
+    <tr>
+      <td><%= link_to 'Errors', errors_aeon_queues_path %></td>
+      <td><%= WorkAuthorization.in_error.count %></td>
+    </tr>
   </tbody>
 </table>
 
-<br>
