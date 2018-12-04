@@ -4,7 +4,6 @@ module Aeon
   class QueuesController < ApplicationController
     before_action :authenticate_user!
     before_action :authorize_user
-    before_action :set_aeon_queue, only: %i[show edit update destroy]
 
     # GET /aeon/queues
     def index
