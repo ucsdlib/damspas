@@ -25,7 +25,7 @@
       <td>
         <% if request.transactionStatus == Aeon::Queue::NEW_STATUS %>
           <%= link_to "Activate", set_to_active_aeon_request_path(request.id), class: 'btn btn-primary' %>
-        <% elsif request.transactionStatus == Aeon::Queue::ACTIVE_STATUS %>
+        <% elsif request.transactionStatus == Aeon::Queue::COMPLETED_STATUS %>
           <%= link_to "Expire", set_to_expire_aeon_request_path(request.id), class: 'btn btn-warning' %>
           <%= link_to "Renew", set_to_new_aeon_request_path(request.id), class: 'btn btn-success' %>
         <% elsif request.transactionStatus == Aeon::Queue::EXPIRED_STATUS %>
