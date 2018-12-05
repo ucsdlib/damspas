@@ -4,7 +4,7 @@ module Aeon
   class QueuesController < ApplicationController
     before_action :authenticate_user!
     before_action :authorize_user
-    before_action :set_aeon_queue, only: %i[show edit update destroy]
+    before_action :set_aeon_queue, only: :show
 
     # GET /aeon/queues
     def index
@@ -18,7 +18,6 @@ module Aeon
       @errors = WorkAuthorization.in_error
     end
 
-    # rubocop:disable Layout/IndentationWidth
     private
 
       # Use callbacks to share common setup or constraints between actions.
@@ -29,6 +28,5 @@ module Aeon
       def authorize_user
         raise CanCan::AccessDenied unless can? :create, WorkAuthorization
       end
-    # rubocop:enable Layout/IndentationWidth
   end
 end

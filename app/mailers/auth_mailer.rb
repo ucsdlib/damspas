@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AuthMailer < ApplicationMailer
   default from: 'spcoll-request@ucsd.edu'
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -7,14 +9,8 @@ class AuthMailer < ApplicationMailer
   #
   def send_link(user)
     @user = user
-    @url = sprintf(
-      "%1$s%2$s%3$s%4$s%5$s",
-      new_user_session_url,
-      "?auth_token=",
-      @user.authentication_token,
-      "&email=",
-      @user.email)
+    @url = new_user_session_url(auth_token: @user.authentication_token, email: @user.email)
 
-    mail to: @user.email, subject: "Access to UC San Diego SC&A Virtual Reading Room"
+    mail to: @user.email, subject: 'Access to UC San Diego SC&A Virtual Reading Room'
   end
 end
