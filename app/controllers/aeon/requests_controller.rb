@@ -37,12 +37,10 @@ module Aeon
       redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
     end
 
-    # rubocop:disable Layout/IndentationWidth
     private
 
       def authorize_user
         raise CanCan::AccessDenied unless can? :create, WorkAuthorization
       end
-    # rubocop:enable Layout/IndentationWidth
   end
 end
