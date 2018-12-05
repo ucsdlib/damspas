@@ -44,7 +44,6 @@ module Aeon
       Aeon::Request.new(JSON.parse(client["/Requests/#{id}"].get))
     end
 
-    # rubocop:disable Layout/IndentationWidth
     private
 
       def update_status(status)
@@ -52,6 +51,5 @@ module Aeon
           'newStatus' => status
         }.to_json)
       end
-    # rubocop:enable Layout/IndentationWidth
   end
 end
