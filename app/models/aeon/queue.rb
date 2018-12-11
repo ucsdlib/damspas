@@ -14,7 +14,7 @@ module Aeon
     ALL_IDS = [
       NEW_STATUS,
       PROCESSING_STATUS,
-      COMPLETED_STATUS,
+      ACTIVE_STATUS,
       EXPIRED_STATUS
     ].freeze
     QUEUE_LOCAL_NAMES = {

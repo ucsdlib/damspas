@@ -32,6 +32,10 @@ module Aeon
       update_status(Aeon::Queue::COMPLETED_STATUS)
     end
 
+    def set_to_active
+      update_status(Aeon::Queue::ACTIVE_STATUS)
+    end
+
     def set_to_expired
       update_status(Aeon::Queue::EXPIRED_STATUS)
     end
