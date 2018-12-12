@@ -11,6 +11,7 @@ Hydra::Application.routes.draw do
         get 'set_to_complete'
         get 'set_to_in_process'
         get 'set_to_new'
+        get 'set_to_active'
       end
     end
   end
