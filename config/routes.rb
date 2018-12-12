@@ -10,6 +10,7 @@ Hydra::Application.routes.draw do
         get 'set_to_expire'
         get 'set_to_complete'
         get 'set_to_in_process'
+        get 'set_to_new'
       end
     end
   end
