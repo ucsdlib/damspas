@@ -6,14 +6,6 @@
   <% end %>
 </ul>
 
-<ul class='nav nav-tabs'>
-  <% Aeon::Queue::QUEUE_LOCAL_NAMES.each do |key, queue_name| %>
-    <li role="presentation" class="<%= 'active' if params[:id] == key.to_s %>">
-      <%= link_to queue_name, aeon_queue_path(key) %>
-    </li>
-  <% end %>
-</ul>
-
 <h3><%= @aeon_queue.name %> Requests</h3>
 <table class='table table-striped'>
   <tr>
@@ -26,11 +18,11 @@
     <tr>
       <td><%= request.id %></td>
       <td><%= request.email %></td>
-      <td><%= request.itemTitle %></td>
+      <td><%= truncate(request.itemTitle, length: 70) %></td>
       <td>
         <% if request.transactionStatus == Aeon::Queue::NEW_STATUS %>
           <%= link_to "Activate", set_to_active_aeon_request_path(request.id), class: 'btn btn-primary' %>
-        <% elsif request.transactionStatus == Aeon::Queue::COMPLETED_STATUS %>
+        <% elsif [Aeon::Queue::ACTIVE_STATUS, Aeon::Queue::PROCESSING_STATUS].include?(request.transactionStatus) %>
           <%= link_to "Expire", set_to_expire_aeon_request_path(request.id), class: 'btn btn-warning' %>
           <%= link_to "Renew", set_to_new_aeon_request_path(request.id), class: 'btn btn-success' %>
         <% elsif request.transactionStatus == Aeon::Queue::EXPIRED_STATUS %>

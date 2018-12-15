@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }, if: proc { |u| u.provider == 'auth_link' }
   has_many :work_authorizations, dependent: :destroy
   before_save :ensure_authentication_token
+
   def self.find_or_create_for_developer(access_token, signed_in_resource=nil)
     begin
       uid = access_token.uid

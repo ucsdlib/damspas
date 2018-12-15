@@ -50,15 +50,6 @@ module Processors
       raise e
     end
 
-    def revoke
-      return unless user && work_obj
-      delete_work_authorization
-      expire_request(@request_attributes.id)
-    rescue => e # rescue all errors to handle them manually
-      work_authorization.update_error 'Unable to Revoke Request'
-      raise e
-    end
-
     private
 
       def user
@@ -67,7 +58,6 @@ module Processors
           user.provider = 'auth_link'
           user.uid = SecureRandom.uuid
           user.ensure_authentication_token
-          puts 'new user created'
         end
         @user.save
         @user

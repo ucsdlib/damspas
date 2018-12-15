@@ -14,7 +14,7 @@ module Aeon
     ALL_IDS = [
       NEW_STATUS,
       PROCESSING_STATUS,
-      COMPLETED_STATUS,
+      ACTIVE_STATUS,
       EXPIRED_STATUS
     ].freeze
     QUEUE_LOCAL_NAMES = {
@@ -35,10 +35,6 @@ module Aeon
         end
       end
       @@all
-    end
-
-    def self.all!
-      JSON.parse(Aeon::Queue.new.client['/Queues'].get)
     end
 
     def self.all!

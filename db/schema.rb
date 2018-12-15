@@ -81,4 +81,14 @@ ActiveRecord::Schema.define(version: 20181203221615) do
     t.integer  "aeon_id"
     t.string   "error"
   end
+
+  create_table "work_authorizations", force: :cascade do |t|
+    t.string   "work_title"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "work_pid"
+    t.integer  "aeon_id"
+    t.string   "error"
+  end
 end

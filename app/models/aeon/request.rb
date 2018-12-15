@@ -28,8 +28,8 @@ module Aeon
       update_status(Aeon::Queue::PROCESSING_STATUS)
     end
 
-    def set_to_completed
-      update_status(Aeon::Queue::COMPLETED_STATUS)
+    def set_to_active
+      update_status(Aeon::Queue::ACTIVE_STATUS)
     end
 
     def set_to_expired
