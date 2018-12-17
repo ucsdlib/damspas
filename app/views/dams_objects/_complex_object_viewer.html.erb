@@ -38,7 +38,8 @@
 			fileType = grabFileType(fileUse)
 			loadFirstComponent = (firstComponent != nil) ? "data=#{i}" : ''
 			source_file = grabSourceFile(:componentIndex=>i)
-
+            objid = @document['id']
+            embed_url = "#{root_url}embed/#{objid}/#{i}" 
 	        if source_file != nil
 	          download_file_path = download_path(ark,"_#{i}_#{source_file}")
               source_file_path = download_path(ark,"_#{i}_#{source_file}")
@@ -69,7 +70,7 @@
 				<div data='<%=dataForDynamicLoad%>'></div>
                             <% end %>
 		    <%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
-		    <%= render :partial => 'admin_download', :locals => {:downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } if access_notice.nil?%>
+		    <%= render :partial => 'admin_download', :locals => {:embedURL => embed_url, :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path, :format => fileType  } if access_notice.nil?%>
 
 		  <% elsif fileType == 'audio' %>
 		    <%= render :partial => 'audio_viewer_complex', :locals => {:access_notice => access_notice, :componentIndex => i, :downloadFilePath => download_file_path, :downloadDerivativePath => nil  } %>
@@ -91,7 +92,7 @@
 				<%= render :partial => 'data_viewer', :locals => {:objectType => 'complex', :filePath => service_file_path, :downloadDerivativePath => service_file_path, :sourcefilePath => source_file_path  } if access_notice.nil?%>
 	        <% elsif fileType == 'text' %>
 		      <%= render :partial => 'metadata_component', :locals => {:componentIndex => i, :fileMetadata => true, :fileName => service_file} %>
-			  <%= render :partial => 'text_viewer', :locals => {:objectType => 'complex', :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path  } if access_notice.nil?%>
+			  <%= render :partial => 'text_viewer', :locals => {:objectType => 'complex', :downloadFilePath => download_file_path, :downloadDerivativePath => service_file_path, :embedURL => embed_url, :format => fileType  } if access_notice.nil?%>
 			<% else %>
 				<%= render :partial => 'metadata_component', :locals => {:componentIndex => i} %>
 				<%= render :partial => 'default_viewer', :locals => {:objectType => 'complex'} %>				

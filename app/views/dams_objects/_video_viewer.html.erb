@@ -5,6 +5,7 @@
    fieldData = @document["#{prefix}files_tesim"]
    wowzaURL = grabWowzaURL(fieldData,objid,cmpid)
    embed_url = "#{root_url}embed/#{objid}/#{cmpid}"
+   file_type = grabFileType(grabFileUse)
 %>
 
 <% if wowzaURL != nil %>
@@ -29,4 +30,4 @@
   </script>
 
 <% end %>
-<%= render :partial => 'admin_download', :locals => {:cmpID => cmpid, :embedURL => embed_url, :downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath, :wowzaURL => wowzaURL } %>
+<%= render :partial => 'admin_download', :locals => {:cmpID => cmpid, :embedURL => embed_url, :downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath, :wowzaURL => wowzaURL, :format => file_type } %>
