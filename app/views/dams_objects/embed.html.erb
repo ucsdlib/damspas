@@ -4,10 +4,16 @@
    prefix = (component_id != '0') ? "component_#{component_id}_" : ''
    field_data = @document["#{prefix}files_tesim"]
    wowza_url = grabWowzaURL(field_data, object_id, component_id)
+   file_type = grabFileType(grabFileUse)
 %>
 
-<% if wowza_url != nil %>
-
+<% if file_type.include?("image") %>
+<%
+  display_file = grabServiceFile
+  display_file_path = (display_file != 'no_display') ? file_path(object_id,"_#{display_file}") : ''
+%>
+  <%= image_tag(display_file_path, :alt => '') %>
+<% elsif wowza_url != nil%>
   <video controls="controls" id="dams-video">Loading the player...</video>
 
   <script type="text/javascript">
@@ -25,6 +31,20 @@
 		  rtmp: {bufferlength: 3},
 		  analytics: {enabled: false}
 	  });
+    <% if file_type.include?("audio") %>
+      jwplayer().on('ready', function() {
+        resize('dams-video');
+        window.onresize = function() {
+          resize('dams-video');
+        };    
+      });
+      function resize(id) {
+        let newWidth = 0.94;
+        let parent = document.getElementById(id).parentElement;
+        let currentWidth = parent.offsetWidth;
+        jwplayer(id).resize(currentWidth * newWidth, 40);
+      }
+    <% end %>
   </script>
 
 <% end %>

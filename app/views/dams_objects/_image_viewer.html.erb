@@ -1,4 +1,10 @@
 <% title=render_document_show_field_value(:document=>@document, :field=>'title_tesim') %>
+<% 
+   objid = @document['id']
+   cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
+   embed_url = "#{root_url}embed/#{objid}/#{cmpid}"
+   file_type = grabFileType(grabFileUse)
+%>
 <% if displayFilePath.length > 0 && getFilesType != "PDF"%>
    <%= link_to image_tag(displayFilePath, :alt => ''), zoomFilePath %>
 <% else %>
@@ -14,4 +20,4 @@
 		<%= link_to image_tag(filePath, :alt => ''), zoomFilePath %>
 	<% end %>
 <% end %>
-<%= render :partial => 'admin_download', :locals => {:downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath} %>
+<%= render :partial => 'admin_download', :locals => {:embedURL => embed_url, :downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath, :format => file_type} %>
