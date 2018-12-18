@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class WorkAuthorization < ActiveRecord::Base
+class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   belongs_to :user, counter_cache: true
   validates :work_pid, presence: true
 
