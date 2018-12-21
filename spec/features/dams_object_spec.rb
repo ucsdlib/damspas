@@ -1463,7 +1463,6 @@ describe "User wants to view a simple ucsd-only video" do
     sign_in_anonymous '132.239.0.3'
     visit embed_path @obj.pid, '0'
     expect(page).to have_selector(:css, 'video#dams-video')
-    expect(page.body).to match(/20775-#{@obj.pid}-0-1.mp4/)
   end
 end
 
@@ -1526,7 +1525,6 @@ describe "User wants to view a complex ucsd-only video" do
     sign_in_developer
     visit embed_path @obj.pid, '2'
     expect(page).to have_selector(:css, 'video#dams-video')
-    expect(page.body).to match(/20775-#{@obj.pid}-2-1.mp4/)
   end
 end
 
