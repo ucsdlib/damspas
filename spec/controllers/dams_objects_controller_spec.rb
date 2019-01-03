@@ -47,6 +47,36 @@ describe DamsObjectsController do
     end
   end
 
+  describe "ezid_update" do
+    it "should call damsrepo to update DOI" do
+      json = JSON.parse( '{"statusCode":200,
+                           "message":"Updated DOI: http://doi.org/10.1234/XX123",
+                           "timestamp":"2015-02-04T04:22:19-0500",
+                           "request":"\/objects\/bb80808080\/update_doi",
+                           "status":"SUCCESS" }' )
+      allow(subject).to receive(:dams_post).and_return(json)
+      allow(subject).to receive(:authorize!).and_return(true)
+
+      sign_in User.create({:provider => 'developer'})
+      get :ezid_update, { id: @obj.pid }
+      expect(flash[:notice]).to include "DOI updated"
+    end
+    it "should should report error when minting DOI fails" do
+      json = JSON.parse( '{"statusCode":500,
+                           "message":"Error updating DOI",
+                           "exception":"stacktrace here",
+                           "timestamp":"2015-02-04T04:22:19-0500",
+                           "request":"\/objects\/bb80808080\/update_doi",
+                           "status":"ERROR"}' )
+      allow(subject).to receive(:dams_post) { json }
+      allow(subject).to receive(:authorize!).and_return(true)
+
+      sign_in User.create! ({:provider => 'developer'})
+      get :ezid_update, { id: @obj.pid }
+      expect(flash[:alert]).to include "Updating DOI failed"
+    end
+  end
+
   describe "search results counter" do
     it "should redirect requests with a counter param" do
       ref = 'http://test.host/search?q=test'

@@ -179,6 +179,30 @@ class DamsResourceController < ApplicationController
     end
   end
 
+  def ezid_update
+    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
+    authorize! :create, @document
+
+    # update doi
+    begin
+      json = dams_post "#{dams_api_path}/api/objects/#{params[:id]}/update_doi?format=json"
+      if json['statusCode'] == 200
+        logger.info json['message']
+        redirect_to dams_object_path(params[:id]), notice: "DOI updated"
+      else
+        redirect_to dams_object_path(params[:id]), alert: "Updating DOI failed: #{json['message']}"
+      end
+    rescue Exception => e
+      begin
+        resp = JSON.parse( e.response.body )
+        err = resp["message"]
+      rescue
+        err = "Error updating DOI: Unable to process server response"
+      end
+      redirect_to dams_object_path(params[:id]), alert: err
+    end
+  end
+
   def related_collections_map (collection_names)
     colls_map = {}
     if collection_names.count > 0
