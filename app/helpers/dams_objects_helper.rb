@@ -710,7 +710,7 @@ def display_node(index)
     return nil unless data
     data.each do |datum|
       note = JSON.parse(datum)
-      return true if note['displayLabel'] == 'DOI'
+      return true if note['type'] == 'preferred citation' && note['value'].include?('doi.org')
     end
     nil
   end
