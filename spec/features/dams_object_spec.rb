@@ -1675,7 +1675,7 @@ end
 describe "View an object that has DOI identifier" do
 
   before(:all) do
-    @note = { type: "identifier", value: "http://doi.org/10.5072/FK12345678", displayLabel: "DOI" }
+    @note = { type: "preferred citation", value: "UC San Diego Library Digital Collections. http://doi.org/10.5072/FK12345678"}
  
     @doiObj = DamsObject.create titleValue: 'Test Object with DOI minted', note_attributes: [@note], copyright_attributes: [{status: 'Public'}]
 

@@ -223,7 +223,7 @@ end
 feature 'Collection that has DOI identifier' do
   before do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
-    @note = { type: "identifier", value: "http://doi.org/10.5072/FK12345678", displayLabel: "DOI" }
+    @note = { type: "preferred citation", value: "UC San Diego Library Digital Collections. http://doi.org/10.5072/FK12345678"}
     @provCollection = DamsProvenanceCollection.create(titleValue: 'Test Colleciton with DOI minted', visibility: "public", note_attributes: [@note])
     solr_index (@provCollection.pid)
   end
