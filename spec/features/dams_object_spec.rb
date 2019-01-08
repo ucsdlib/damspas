@@ -92,11 +92,10 @@ feature 'Visitor want to look at objects' do
       expect(page).not_to have_content("Push to OSF");
       expect(page).not_to have_content("Delete from OSF")
     end
-    it "with dams_editor role should see Mint DOI, Update DOI, and Push to OSF" do
+    it "with dams_editor role should see Mint DOI, and Push to OSF" do
       sign_in_developer
       visit dams_object_path @o
       expect(page).to have_content("Mint DOI");
-      expect(page).to have_content("Update DOI record");
       expect(page).to have_content("Push to OSF");
       expect(page).to have_content("Delete from OSF");
     end
@@ -1670,5 +1669,47 @@ describe "User wants to view an Image object" do
       expect(page.body).to match(/embed\/#{@obj.id}\/0/)
       expect(page).to have_selector('textarea', text: 'width="560" height="315"')
     end
+  end
+end
+
+describe "View an object that has DOI identifier" do
+
+  before(:all) do
+    @note = { type: "identifier", value: "http://doi.org/10.5072/FK12345678", displayLabel: "DOI" }
+ 
+    @doiObj = DamsObject.create titleValue: 'Test Object with DOI minted', note_attributes: [@note], copyright_attributes: [{status: 'Public'}]
+
+    solr_index @doiObj.pid
+  end
+
+  after(:all) do
+    @doiObj.delete
+  end
+
+  scenario 'curator user should see Update DOI record link and no Mint DOI link' do
+    sign_in_developer
+    visit dams_object_path @doiObj.pid
+    expect(page).to have_content("Update DOI record")
+    expect(page).not_to have_content("Mint DOI")
+  end
+end
+
+describe "View an object that has no DOI identifier" do
+
+  before(:all) do 
+    @noDoiObj = DamsObject.create titleValue: 'Test Object with no DOI minted', copyright_attributes: [{status: 'Public'}]
+
+    solr_index @noDoiObj.pid
+  end
+
+  after(:all) do
+    @noDoiObj.delete
+  end
+
+  scenario 'curator user should see Mint DOI link and no Update DOI record link' do
+    sign_in_developer
+    visit dams_object_path @noDoiObj.pid
+    expect(page).to have_content("Mint DOI")
+    expect(page).not_to have_content("Update DOI record")
   end
 end

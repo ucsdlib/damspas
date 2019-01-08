@@ -706,6 +706,15 @@ def display_node(index)
 
   end
 
+  def doi?(data)
+    return nil unless data
+    data.each do |datum|
+      note = JSON.parse(datum)
+      return true if note['displayLabel'] == 'DOI'
+    end
+    nil
+  end
+
   #---
   # Check to see if an object has a "metadataDisplay or localDisplay otherRights"
   #
