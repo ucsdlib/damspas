@@ -112,7 +112,7 @@ class Ability
       can [:read, :create, :update, :destroy], Page
     end
 
-    if (user_groups & Rails.configuration.vrr_role).present? # rubocop:disable GuardClause, IfUnlessModifier
+    if (user_groups & Rails.configuration.vrr_role).present? # rubocop:disable IfUnlessModifier
       can [:manage], WorkAuthorization
     end
 
