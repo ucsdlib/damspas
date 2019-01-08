@@ -211,13 +211,51 @@ feature 'Collection editor tools' do
     expect(page).not_to have_content("Push to OSF");
     expect(page).not_to have_content("Delete from OSF")
   end
-  scenario "with dams_editor role should see Mint DOI, Update DOI, and Push to OSF" do
+  scenario "with dams_editor role should see Mint DOI, and Push to OSF" do
     sign_in_developer
     visit dams_collection_path @provCollection
     expect(page).to have_content("Mint DOI");
-    expect(page).to have_content("Update DOI record");
     expect(page).to have_content("Push to OSF");
     expect(page).to have_content("Delete from OSF");
+  end
+end
+
+feature 'Collection that has DOI identifier' do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @note = { type: "identifier", value: "http://doi.org/10.5072/FK12345678", displayLabel: "DOI" }
+    @provCollection = DamsProvenanceCollection.create(titleValue: 'Test Colleciton with DOI minted', visibility: "public", note_attributes: [@note])
+    solr_index (@provCollection.pid)
+  end
+  after do
+    @provCollection.delete
+    @unit.delete
+  end
+
+  scenario 'curator user should see Update DOI record link and no Mint DOI link' do
+    sign_in_developer
+    visit dams_collection_path @provCollection
+    expect(page).to have_content("Update DOI record")
+    expect(page).not_to have_content("Mint DOI")
+  end
+end
+
+feature 'Collection that has no DOI identifier' do
+  before do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @provCollection = DamsProvenanceCollection.create(titleValue: 'Test Colleciton with No DOI minted', visibility: "public")
+    solr_index (@provCollection.pid)
+  end
+  after do
+    @provCollection.delete
+    @unit.delete
+  end
+
+  scenario 'curator user should see Mint DOI link and no Update DOI record link' do
+    sign_in_developer
+    visit dams_collection_path @provCollection
+    expect(page).to have_content("Mint DOI")
+    expect(page).not_to have_content("Update DOI record")
   end
 end
 
