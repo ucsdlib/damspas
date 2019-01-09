@@ -69,7 +69,6 @@ class Ability
       cannot [:create], DamsProvenanceCollection
       cannot [:create], DamsProvenanceCollectionPart
       cannot [:create], Page
-      cannot [:create], WorkAuthorization
     else  # curators
       can [:read], Audit
       can [:read], DamsAssembledCollection
@@ -111,6 +110,9 @@ class Ability
       can [:read, :create, :update], MadsLanguage
       can [:read, :create, :update], MadsVariant
       can [:read, :create, :update, :destroy], Page
+    end
+
+    if (user_groups & Rails.configuration.vrr_role).present? # rubocop:disable IfUnlessModifier
       can [:manage], WorkAuthorization
     end
 

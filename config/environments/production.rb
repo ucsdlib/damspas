@@ -78,6 +78,7 @@ Hydra::Application.configure do
   config.curator_groups = ['dams-curator','dams-editor','dams-manager-admin']
   config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
+  config.vrr_role = ['dams-vrr']
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'https://library.ucsd.edu/zoomify/'
   config.shibboleth = true
