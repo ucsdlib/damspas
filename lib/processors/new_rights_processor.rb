@@ -5,6 +5,7 @@ module Processors
     def self.process_new
       queue = Aeon::Queue.find(Aeon::Queue::NEW_STATUS)
       queue.requests.each do |request|
+        Rails.logger.debug("*** started processing #{request.id}")
         request.set_to_processing
         Processors::NewRightsProcessor.new(request).authorize
         request.set_to_active
@@ -28,14 +29,20 @@ module Processors
                     @request_attributes[:subLocation]
                   end
       @email = @request_attributes[:email].presence || @request_attributes[:username]
+      Rails.logger.debug("*** created processor #{@work_title} - #{@work_pid} - #{@email}")
     end
 
     def authorize
-      return unless @email.present? && user.valid? && @work_pid.present? && work_obj
+      raise "email missing" unless @email.present?
+      raise "user invalid" unless user.valid?
+      raise "work pid missing" unless @work_pid.present?
+      raise "work object missing" unless work_obj
       process_request(@request_attributes.id)
       create_work_authorization
       activate_request(@request_attributes.id)
+      Rails.logger.debug("*** request activated #{@request_attributes.id}")
       send_email
+      Rails.logger.debug("*** email sent #{@request_attributes.id}")
     rescue => e # rescue all errors to handle them manually
       work_authorization.update_error 'Unable to Authorize Request'
       raise e
