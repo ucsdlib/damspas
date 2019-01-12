@@ -2,6 +2,9 @@
 
 module Processors
   class NewRightsProcessor
+    class UserError < RuntimeError; end
+    class WorkError < RuntimeError; end
+
     def self.process_new
       queue = Aeon::Queue.find(Aeon::Queue::NEW_STATUS)
       queue.requests.each do |request|
@@ -33,18 +36,21 @@ module Processors
     end
 
     def authorize
-      raise "email missing" unless @email.present?
-      raise "user invalid" unless user.valid?
-      raise "work pid missing" unless @work_pid.present?
-      raise "work object missing" unless work_obj
+      raise NewRightsProcessor::UserError.new('email missing') if @email.blank?
+      raise NewRightsProcessor::UserError.new('user invalid') unless user.valid? && !user.new_record?
+      raise NewRightsProcessor::WorkError.new('work pid missing') if @work_pid.blank?
+      raise NewRightsProcessor::WorkError.new('work object missing') unless work_obj
       process_request(@request_attributes.id)
       create_work_authorization
       activate_request(@request_attributes.id)
       Rails.logger.debug("*** request activated #{@request_attributes.id}")
       send_email
       Rails.logger.debug("*** email sent #{@request_attributes.id}")
+    rescue NewRightsProcessor::UserError => e
+      work_authorization(false).update_error e.message
+      raise e
     rescue => e # rescue all errors to handle them manually
-      work_authorization.update_error 'Unable to Authorize Request'
+      work_authorization.update_error e.message
       raise e
     end
 
@@ -75,10 +81,17 @@ module Processors
         @work_obj = DamsObject.where(pid: @work_pid).first if @work_pid
       end
 
-      def work_authorization
-        @work_authorization ||= user.work_authorizations.where(work_pid: @work_pid).first_or_create do |authorization|
-          authorization.aeon_id = @request_attributes.id
-          authorization.work_title = @work_title
+      def work_authorization(with_user = true)
+        if with_user
+          @work_authorization ||= user.work_authorizations.where(work_pid: @work_pid).first_or_create do |authorization|
+            authorization.aeon_id = @request_attributes.id
+            authorization.work_title = @work_title
+          end
+        else
+          WorkAuthorization.where(work_pid: @work_pid).first_or_create do |authorization|
+            authorization.aeon_id = @request_attributes.try(:id)
+            authorization.work_title = @work_title
+          end
         end
       end
 

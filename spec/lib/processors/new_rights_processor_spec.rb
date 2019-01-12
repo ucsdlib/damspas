@@ -28,7 +28,7 @@ describe Processors::NewRightsProcessor do
       let!(:response){ bad_email.merge(bad_pid) }
       let!(:processor){ Processors::NewRightsProcessor.new(response) }
       it "fails quietly" do
-        expect{ processor.authorize }.to_not raise_error
+        expect{ processor.authorize }.to raise_error('user invalid')
       end
     end
   end
@@ -76,11 +76,11 @@ describe Processors::NewRightsProcessor do
       let!(:response){ bad_email.merge(good_pid) }
       let!(:processor){ Processors::NewRightsProcessor.new(response) }
       it "fails with invalid attributes" do
-        expect{ processor.authorize }.to change{ User.count }.by(0)
+        expect{ processor.authorize rescue nil }.to change{ User.count }.by(0)
       end
 
       it "does not send email on failure" do
-        expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.authorize rescue nil }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
@@ -90,78 +90,69 @@ describe Processors::NewRightsProcessor do
       it "validates the presence of an email" do
         User.where(email: '').first_or_create! # protect against if a user w/ a blank email already exists in db
 
-        expect{ processor.authorize }.to_not raise_error
-        expect{ processor.authorize }.to change{ User.count }.by(0)
+        expect{ processor.authorize }.to raise_error('email missing')
+        expect{ processor.authorize rescue nil }.to change{ User.count }.by(0)
       end
 
       it "does not send an email" do
-        expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.authorize rescue nil }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
     context "when requested work doesn't exist" do
       let!(:response){ good_email.merge(bad_pid) }
       let!(:processor){ Processors::NewRightsProcessor.new(response) }
-      it "fails quietly" do
-        expect{ processor.authorize }.to_not raise_error
-      end
-
       it "does not assign a work to a user" do
-        expect{ processor.authorize }.to change{ WorkAuthorization.all.length }.by(0)
+        expect{ processor.authorize }.to raise_error('work object missing')
+        expect{ processor.authorize rescue nil }.to change{ WorkAuthorization.all.length }.by(0)
       end
 
       it "does not send an email" do
-        expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.authorize }.to raise_error('work object missing')
+        expect{ processor.authorize rescue nil }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
     context "when work pid is nil" do
       let!(:response){ good_email.merge(nil_pid) }
       let!(:processor){ Processors::NewRightsProcessor.new(response) }
-      it "fails quietly" do
-        expect{ processor.authorize }.to_not raise_error
-      end
-
       it "does not assign a work to a user" do
-        expect{ processor.authorize }.to change{ WorkAuthorization.all.length }.by(0)
+        expect{ processor.authorize }.to raise_error('work pid missing')
+        expect{ processor.authorize rescue nil }.to change{ WorkAuthorization.all.length }.by(0)
       end
 
       it "does not send an email" do
-        expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.authorize }.to raise_error('work pid missing')
+        expect{ processor.authorize rescue nil }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
     context "when requested work doesn't exist" do
       let!(:response){ good_email.merge(bad_pid) }
       let!(:processor){ Processors::NewRightsProcessor.new(response) }
-      it "fails quietly" do
-        expect{ processor.authorize }.to_not raise_error
-      end
-
       it "does not assign a work to a user" do
-        expect{ processor.authorize }.to change{ WorkAuthorization.all.length }.by(0)
+        expect{ processor.authorize }.to raise_error('work object missing')
+        expect{ processor.authorize rescue nil }.to change{ WorkAuthorization.all.length }.by(0)
       end
 
       it "does not send an email" do
-        expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.authorize }.to raise_error('work object missing')
+        expect{ processor.authorize rescue nil }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
     context "when work pid is nil" do
       let!(:response){ good_email.merge(nil_pid) }
       let!(:processor){ Processors::NewRightsProcessor.new(response) }
-      it "fails quietly" do
-        expect{ processor.authorize }.to_not raise_error
-      end
-
       it "does not assign a work to a user" do
-        expect{ processor.authorize }.to change{ WorkAuthorization.all.length }.by(0)
+        expect{ processor.authorize }.to raise_error('work pid missing')
+        expect{ processor.authorize rescue nil }.to change{ WorkAuthorization.all.length }.by(0)
       end
 
       it "does not send an email" do
-        expect{ processor.authorize }.to change{ ActionMailer::Base.deliveries.count }.by(0)
+        expect{ processor.authorize }.to raise_error('work pid missing')
+        expect{ processor.authorize rescue nil }.to change{ ActionMailer::Base.deliveries.count }.by(0)
       end
     end
   end
 end
-
