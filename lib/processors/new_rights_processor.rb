@@ -36,10 +36,10 @@ module Processors
     end
 
     def authorize
-      raise NewRightsProcessor::UserError.new('email missing') if @email.blank?
-      raise NewRightsProcessor::UserError.new('user invalid') unless user.valid? && !user.new_record?
-      raise NewRightsProcessor::WorkError.new('work pid missing') if @work_pid.blank?
-      raise NewRightsProcessor::WorkError.new('work object missing') unless work_obj
+      raise NewRightsProcessor::UserError, 'email missing' if @email.blank?
+      raise NewRightsProcessor::UserError, 'user invalid' if !user.valid? || user.new_record?
+      raise NewRightsProcessor::WorkError, 'work pid missing' if @work_pid.blank?
+      raise NewRightsProcessor::WorkError, 'work object missing' if work_obj.blank?
       process_request(@request_attributes.id)
       create_work_authorization
       activate_request(@request_attributes.id)
