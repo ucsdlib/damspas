@@ -53,10 +53,10 @@ describe Processors::NewRightsProcessor do
 
       it "does not alter the attributes of an existing user" do
         user.reload
-        expect{processor.authorize}.to_not change{user.id}
-        expect{processor.authorize}.to_not change{user.email}
-        expect{processor.authorize}.to_not change{user.uid}
-        expect{processor.authorize}.to_not change{user.provider}
+        expect{ processor.authorize }.to_not(change{ user.id })
+        expect{ processor.authorize }.to_not(change{ user.email })
+        expect{ processor.authorize }.to_not(change{ user.uid })
+        expect{ processor.authorize }.to_not(change{ user.provider })
       end
 
       it "authorizes the work for the user" do

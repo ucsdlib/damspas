@@ -30,6 +30,7 @@ Style/Documentation:
   Exclude:
     - 'spec/**/*'
     - 'app/**/*'
+    - 'lib/processors/new_rights_processor.rb'
 
 Style/ConditionalAssignment:
   Exclude:
@@ -47,6 +48,14 @@ Metrics/LineLength:
 Style/SafeNavigation:
   Exclude:
     - 'lib/dams/controller_helper.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'lib/processors/new_rights_processor.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'lib/processors/new_rights_processor.rb'
 
 Metrics/CyclomaticComplexity:
   Max: 8
@@ -73,3 +82,11 @@ Style/RescueStandardError:
   Exclude:
     - 'app/controllers/aeon/requests_controller.rb'
     - 'lib/processors/new_rights_processor.rb'
+
+Style/RaiseArgs:
+  Exclude:
+    - 'lib/processors/new_rights_processor.rb'
+
+Style/RescueModifier:
+  Exclude:
+    - 'spec/lib/processors/new_rights_processor.rb'
