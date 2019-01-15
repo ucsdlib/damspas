@@ -2,11 +2,11 @@
 namespace :aeon_requests do
   desc 'Processes new aeon permission requests'
   task process_new: :environment do
-    Processes::NewRightsProcessor.process_new
+    Processors::NewRightsProcessor.process_new
   end
 
   desc 'Remove expired aeon derived permissions'
   task revoke_old: :environment do
-    Processes::NewRightsProcessor.revoke_old
+    Processors::NewRightsProcessor.revoke_old
   end
 end
