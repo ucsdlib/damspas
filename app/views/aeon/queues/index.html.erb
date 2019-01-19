@@ -14,7 +14,7 @@
     <% @aeon_queues.each do |aeon_queue| %>
       <tr>
         <td><%= link_to aeon_queue.name, aeon_queue_path(aeon_queue.id) %></td>
-        <td><%= aeon_queue.requests.size %>
+        <td><%= aeon_queue.requests(true).size %>
       </tr>
     <% end %>
     <tr>
