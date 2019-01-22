@@ -12,7 +12,7 @@
         <%= work_authorization.work_pid %>
       </td>
       <td>
-        <%= work_authorization.user.email %>
+        <%= work_authorization.user.try(:email) %>
       </td>
       <td>
         <%= work_authorization.aeon_id %>
