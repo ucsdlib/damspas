@@ -16,8 +16,12 @@ module Aeon
       self.transactionNumber = value
     end
 
+    def user
+      @user ||= JSON.parse(client["/Users/#{username}"].get)
+    end
+
     def email
-      username
+      @email ||= user["eMailAddress"] if user.present? && user.is_a?(Hash)
     end
 
     def set_to_new
