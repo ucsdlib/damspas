@@ -4,6 +4,9 @@
 	etc_menu_item_class = 'pull-right'
 	embed_glyph =  '<i class="glyphicon glyphicon-share-alt"></i> Embed'.html_safe
 	adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i> Download File'.html_safe
+  file_format = (defined?(format)) ? "#{format.capitalize}" : ''
+  embed_width = (format == 'audio') ? '629' : '560'
+  embed_height = (format == 'audio') ? '46' : '315'
 %>
 
 <div class="etc-menu">
@@ -27,9 +30,8 @@
   <div class="modal-body">
     <h4>Embed URL</h4>
     <input class="embedCode" readonly="readonly" type="text" onclick="this.focus();this.select()" value="<%=embed_url%>">
-    <h4>Embed Video</h4>
-    <input class="embedCode" readonly="readonly" type="text" onclick="this.focus();this.select()" value='&lt;iframe src="<%=embed_url%>" width="560" height="315" frameborder="0"&gt;&lt;/iframe&gt;'>
-    <p><em>By embedding Digital Collections videos on your site, you are agreeing to our Terms of Service.</em></p>
+    <h4>Embed <%= file_format %></h4>
+    <textarea class="embedCode" readonly="readonly" rows="2" wrap="hard" onclick="this.focus();this.select()">&lt;iframe src="<%=embed_url%>" width="<%= embed_width%>" height="<%= embed_height%>" frameborder="0"&gt;&lt;/iframe&gt;</textarea>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

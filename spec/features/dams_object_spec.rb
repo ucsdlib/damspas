@@ -84,14 +84,15 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_link('Data View', data_dams_object_path(@o.pid))
       expect(page).to have_link('DAMS 4.2 Preview', dams42_dams_object_path(@o.pid))
     end
-    it "with dams_curator role should not see Mint DOI and Push/Delete to/from OSF" do
+    it "with dams_curator role should not see Mint DOI, Update DOI, and Push/Delete to/from OSF" do
       sign_in_curator
       visit dams_object_path @o
       expect(page).not_to have_content("Mint DOI");
+      expect(page).not_to have_content("Update DOI record");
       expect(page).not_to have_content("Push to OSF");
       expect(page).not_to have_content("Delete from OSF")
     end
-    it "with dams_editor role should see Mint DOI and Push to OSF" do
+    it "with dams_editor role should see Mint DOI, and Push to OSF" do
       sign_in_developer
       visit dams_object_path @o
       expect(page).to have_content("Mint DOI");
@@ -1398,6 +1399,20 @@ describe "View complex UCSD localDisplay object" do
     expect(page).to have_content('Generic Component Title 2')
     expect(page).to have_link('', href:"/object/#{@localObj.id}/_2_1.tif/download?access=curator")
   end
+  
+  scenario 'show a popup embed modal when user clicks on embed link' do
+    sign_in_developer
+    visit dams_object_path @localObj.pid
+    click_button 'component-pager-forward'
+    expect(page).to have_content('Generic Component Title 2')
+    click_link('Embed', :match => :first)
+    within('.modal-body', :match => :first) do
+      expect(page).to have_content('Embed URL')
+      expect(page).to have_content('Embed Image')
+      expect(page.body).to match(/embed\/#{@localObj.id}\/2/)
+      expect(page).to have_selector('textarea', text: 'width="560" height="315"')
+    end
+  end
 end
 
 describe "User wants to view a simple ucsd-only video" do
@@ -1624,5 +1639,77 @@ describe "User wants to view cultural sensitive object for public collection" do
   scenario 'public user should see the grey generic thumbnail' do
     visit catalog_index_path({:q => @sensitiveObj.pid})
     expect(page).to have_css('img.dams-search-thumbnail[src="https://library.ucsd.edu/assets/dams/site/thumb-restricted.png"]')
+  end
+end
+
+describe "User wants to view an Image object" do
+  before(:all) do
+    @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
+    @obj = DamsObject.create( titleValue: 'Object Files Test', copyright_attributes: [ {status: 'Public domain'} ],
+                              assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
+    jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
+    @obj.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
+    @obj.save
+    solr_index @col.pid
+    solr_index @obj.pid
+  end
+  after(:all) do
+    @obj.delete
+    @col.delete
+  end
+  scenario 'show a popup embed modal when user clicks on embed link' do
+    Capybara.javascript_driver = :poltergeist
+    Capybara.current_driver = Capybara.javascript_driver
+    sign_in_developer
+    visit dams_object_path @obj.pid  
+    click_link 'Embed'
+    within('.modal-body') do
+      expect(page).to have_content('Embed URL')
+      expect(page).to have_content('Embed Image')
+      expect(page.body).to match(/embed\/#{@obj.id}\/0/)
+      expect(page).to have_selector('textarea', text: 'width="560" height="315"')
+    end
+  end
+end
+
+describe "View an object that has DOI identifier" do
+
+  before(:all) do
+    @note = { type: "preferred citation", value: "UC San Diego Library Digital Collections. http://doi.org/10.5072/FK12345678"}
+ 
+    @doiObj = DamsObject.create titleValue: 'Test Object with DOI minted', note_attributes: [@note], copyright_attributes: [{status: 'Public'}]
+
+    solr_index @doiObj.pid
+  end
+
+  after(:all) do
+    @doiObj.delete
+  end
+
+  scenario 'curator user should see Update DOI record link and no Mint DOI link' do
+    sign_in_developer
+    visit dams_object_path @doiObj.pid
+    expect(page).to have_content("Update DOI record")
+    expect(page).not_to have_content("Mint DOI")
+  end
+end
+
+describe "View an object that has no DOI identifier" do
+
+  before(:all) do 
+    @noDoiObj = DamsObject.create titleValue: 'Test Object with no DOI minted', copyright_attributes: [{status: 'Public'}]
+
+    solr_index @noDoiObj.pid
+  end
+
+  after(:all) do
+    @noDoiObj.delete
+  end
+
+  scenario 'curator user should see Mint DOI link and no Update DOI record link' do
+    sign_in_developer
+    visit dams_object_path @noDoiObj.pid
+    expect(page).to have_content("Mint DOI")
+    expect(page).not_to have_content("Update DOI record")
   end
 end

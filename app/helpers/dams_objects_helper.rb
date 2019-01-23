@@ -706,6 +706,15 @@ def display_node(index)
 
   end
 
+  def doi?(data)
+    return nil unless data
+    data.each do |datum|
+      note = JSON.parse(datum)
+      return true if note['type'] == 'preferred citation' && note['value'].include?('doi.org')
+    end
+    nil
+  end
+
   #---
   # Check to see if an object has a "metadataDisplay or localDisplay otherRights"
   #

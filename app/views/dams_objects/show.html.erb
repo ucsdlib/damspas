@@ -61,12 +61,15 @@
               </li>
               <% } %>
               <% if can_edit then %>
-                <% links = { "ezid" => "Mint DOI", "osf_push" => "Push to OSF", "osf_delete" => "Delete from OSF" }
+                <% doi = doi?(@document['otherNote_json_tesim'])
+                   links = { "ezid" => "Mint DOI", "ezid_update" => "Update DOI record", "osf_push" => "Push to OSF", "osf_delete" => "Delete from OSF" }
                    links.each { |key,label| %>
-                     <li><%= link_to "<i class='icon-plus-sign'></i> #{label}".html_safe,
-                       send("#{key}_dams_collection_path".to_sym, @document['id']),
-                       class: "btn btn-block btn-small btn-link" %>
-                     </li>
+                     <% if key.include?('osf') || (key == 'ezid' && !doi) || (key == 'ezid_update' && doi) %>
+                       <li><%= link_to "<i class='icon-plus-sign'></i> #{label}".html_safe,
+                         send("#{key}_dams_collection_path".to_sym, @document['id']),
+                         class: "btn btn-block btn-small btn-link" %>
+                       </li>
+                     <% end %>
                 <% } %>
               <% end %>
 		    </ul>
