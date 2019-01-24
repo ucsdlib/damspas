@@ -8,18 +8,26 @@ module Processors
     def self.process_new
       queue = Aeon::Queue.find(Aeon::Queue::NEW_STATUS)
       queue.requests.each do |request|
-        Rails.logger.debug("*** started processing #{request.id}")
-        request.set_to_processing
-        Processors::NewRightsProcessor.new(request).authorize
-        request.set_to_active
+        begin
+          Rails.logger.debug("*** started processing #{request.id}")
+          request.set_to_processing
+          Processors::NewRightsProcessor.new(request).authorize
+          request.set_to_active
+        rescue => e
+          Rails.logger.error "Work auth failed for reason #{e.message}\n #{e.backtrace}"
+        end
       end
     end
 
     def self.revoke_old
       WorkAuthorization.where('updated_at < ?', 1.month.ago).each do |auth|
-        params = { work_pid: auth.work_pid, email: auth.user.email, aeon_id: auth.aeon_id }
-        request = Processors::NewRightsProcessor.new(params)
-        request.revoke
+        begin
+          params = { work_pid: auth.work_pid, email: auth.user.email, aeon_id: auth.aeon_id }
+          request = Processors::NewRightsProcessor.new(params)
+          request.revoke
+        rescue => e
+          Rails.logger.error "Revoke on #{auth.id} failed #{e.message}\n#{e.backtrace}"
+        end
       end
     end
 
@@ -67,13 +75,11 @@ module Processors
 
       def user
         return @user if @user
-        @user = User.where(email: @email).first_or_initialize do |user| # only hits the do on initialize
+        @user = User.where(email: @email).first_or_create do |user| # only hits the do on initialize
           user.provider = 'auth_link'
           user.uid = SecureRandom.uuid
           user.ensure_authentication_token
         end
-        @user.save
-        @user
       end
 
       def work_obj
