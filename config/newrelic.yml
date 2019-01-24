@@ -40,7 +40,7 @@ pontos:
   <<: *default_settings
   app_name: Pontos damspas
   developer_mode: true
-  
+
 test:
   <<: *default_settings
   # It doesn't make sense to report to New Relic from automated test runs.
@@ -48,6 +48,7 @@ test:
 
 staging:
   <<: *default_settings
+  agent_enabled: true
   app_name: Staging damspas
 
 qa:
