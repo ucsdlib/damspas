@@ -1410,7 +1410,6 @@ describe "View complex UCSD localDisplay object" do
       expect(page).to have_content('Embed URL')
       expect(page).to have_content('Embed Image')
       expect(page.body).to match(/embed\/#{@localObj.id}\/2/)
-      expect(page).to have_selector('textarea', text: 'width="560" height="315"')
     end
   end
 end
@@ -1667,7 +1666,6 @@ describe "User wants to view an Image object" do
       expect(page).to have_content('Embed URL')
       expect(page).to have_content('Embed Image')
       expect(page.body).to match(/embed\/#{@obj.id}\/0/)
-      expect(page).to have_selector('textarea', text: 'width="560" height="315"')
     end
   end
 end
