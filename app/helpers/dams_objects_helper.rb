@@ -410,6 +410,10 @@ module DamsObjectsHelper
     fieldData = @document["#{prefix}files_tesim"]
   end
 
+  def grabFileSize(parameters={})
+    file_use(parameters,"quality")
+  end
+  
 	#---
 	# Get the source file id value from the component's 'files_tesim' value.
 	#
