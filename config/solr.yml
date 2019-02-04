@@ -10,6 +10,8 @@ gimili:
   url: <%= ENV.fetch('APPS_DHH_GIMILI_SOLR_URL') {'http://localhost:8080/solr/blacklight'}%>
 staging:
   url: <%= ENV.fetch('APPS_DHH_STAGING_SOLR_URL') {'http://localhost:8080/solr/blacklight'}%>
+  read_timeout: 600
+  open_timeout: 600
 qa:
   url: <%= ENV.fetch('APPS_DHH_QA_SOLR_URL') {'http://localhost:8080/solr/blacklight'}%>
 test: &TEST
