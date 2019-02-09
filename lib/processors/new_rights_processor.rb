@@ -105,6 +105,7 @@ module Processors
         return unless work_authorization.valid?
         # touch to get the updated authorizations
         # disable rubocop because we run validations before calling .touch
+        work_authorization.clear_error
         work_authorization.touch # rubocop:disable SkipsModelValidations
         work_obj.set_read_users([user.user_key], [user.user_key])
         work_obj.save
