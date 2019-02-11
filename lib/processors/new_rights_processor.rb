@@ -39,7 +39,7 @@ module Processors
                   else
                     @request_attributes[:subLocation]
                   end
-      @email = @request_attributes[:email].presence || @request_attributes[:username]
+      @email = @request_attributes.email || @request_attributes.username
       Rails.logger.debug("*** created processor #{@work_title} - #{@work_pid} - #{@email}")
     end
 
