@@ -3,6 +3,7 @@ Hydra::Application.routes.draw do
     resources :queues do
       collection do
         get 'errors'
+        delete 'clear_errors'
       end
     end
     resources :requests do

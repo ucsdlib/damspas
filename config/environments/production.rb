@@ -40,6 +40,12 @@ Hydra::Application.configure do
   # set up logger with STDOUT
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
 
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = {host: 'library.ucsd.edu/dc'}
+
+
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
