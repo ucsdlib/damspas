@@ -32,7 +32,12 @@ module Aeon
       Processors::NewRightsProcessor.new(updated_request).revoke
       flash[:alert] = 'Authorization request set to expired'
     rescue # rescue all errors to handle them manually
-      flash[:notice] = 'Unable complete request'
+      begin
+        request.set_to_expired
+        flash[:alert] = 'Authorization request errored, but set to expired anyway'
+      rescue
+        flash[:notice] = 'Unable complete request'
+      end
     ensure
       redirect_to aeon_queue_path(Aeon::Queue::EXPIRED_STATUS)
     end

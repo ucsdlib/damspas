@@ -18,6 +18,15 @@ module Aeon
       @errors = WorkAuthorization.in_error
     end
 
+    def clear_errors
+      @errors = WorkAuthorization.in_error
+      @errors.each do |e|
+        e.destroy
+      end
+      flash[:notice] = 'Errors Cleared'
+      redirect_to errors_aeon_queues_path
+    end
+
     private
 
       # Use callbacks to share common setup or constraints between actions.

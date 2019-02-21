@@ -27,12 +27,10 @@ Hydra::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += ['home-page.js','home-page.css']
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = {host: 'librarytest.ucsd.edu'}
+  config.action_mailer.default_url_options = {host: 'librarytest.ucsd.edu/dc'}
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
