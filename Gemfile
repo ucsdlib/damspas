@@ -13,7 +13,7 @@ gem 'share_notify', git: 'https://github.com/samvera-labs/share_notify', branch:
 #gem 'solrizer-fedora', '3.0.0.pre1' # PRE-LOCK
 gem "solrizer-fedora", git: 'https://github.com/ucsdlib/solrizer-fedora', ref: '87c2d35e'
 
-gem 'sitemap_generator', '~> 5.3.1'
+gem 'sitemap_generator', '~> 6.0.2'
 
 gem 'pg', '~> 0.18.2'
 gem 'activerecord-postgresql-adapter'
