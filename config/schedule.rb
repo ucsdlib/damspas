@@ -1,3 +1,5 @@
+env 'RAILS_RELATIVE_URL_ROOT', '/dc'
+
 every 1.hour do
   rake "aeon_requests:process_new"
 end
