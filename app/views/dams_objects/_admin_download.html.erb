@@ -1,12 +1,18 @@
 <%
-	component_id = (defined?(cmpID)) ? "#{cmpID}" : ''
-	embed_url = (defined?(embedURL)) ? "#{embedURL}" : ''
+	component_id = (defined?(cmpID)) ? "#{cmpID}" : nil
+	embed_url = (defined?(embedURL)) ? "#{embedURL}" : nil
 	etc_menu_item_class = 'pull-right'
 	embed_glyph =  '<i class="glyphicon glyphicon-share-alt"></i> Embed'.html_safe
 	adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i> Download File'.html_safe
   file_format = (defined?(format)) ? "#{format.capitalize}" : ''
   embed_width = (format == 'audio') ? '629' : '560'
   embed_height = (format == 'audio') ? '46' : '315'
+  file_size = (format == 'image') ? grabFileSize(:componentIndex=>component_id) : nil
+  if file_size
+    dim = file_size.split("x")
+    embed_width = dim[0]
+    embed_height = dim[1]
+  end
 %>
 
 <div class="etc-menu">
