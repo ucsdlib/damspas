@@ -18,7 +18,7 @@
         <%= work_authorization.aeon_id %>
       </td>
       <td>
-        <%= work_authorization.error %>
+        <%= work_authorization.error.to_s.split("\n").first %>
       </td>
     </tr>
   <% end %>

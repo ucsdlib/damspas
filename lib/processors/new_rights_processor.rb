@@ -14,7 +14,8 @@ module Processors
           Processors::NewRightsProcessor.new(request).authorize
           request.set_to_active
         rescue => e
-          Rails.logger.error "Work auth failed for reason #{e.message}\n #{e.backtrace}"
+          Rails.logger.error "Work auth failed for reason #{e.message}\n #{e.backtrace.join("
+")}"
         end
       end
     end
@@ -26,7 +27,8 @@ module Processors
           request = Processors::NewRightsProcessor.new(params)
           request.revoke
         rescue => e
-          Rails.logger.error "Revoke on #{auth.id} failed #{e.message}\n#{e.backtrace}"
+          Rails.logger.error "Revoke on #{auth.id} failed #{e.message}\n#{e.backtrace.join("
+")}"
         end
       end
     end
@@ -55,10 +57,10 @@ module Processors
       send_email
       Rails.logger.debug("*** email sent #{@request_attributes.id}")
     rescue NewRightsProcessor::UserError => e
-      work_authorization(false).update_error e.message
+      work_authorization(false).update_error "#{e.message}\n #{e.backtrace.join("\n")}"
       raise e
     rescue => e # rescue all errors to handle them manually
-      work_authorization.update_error e.message
+      work_authorization.update_error "#{e.message}\n #{e.backtrace.join("\n")}"
       raise e
     end
 
@@ -67,7 +69,7 @@ module Processors
       delete_work_authorization
       expire_request(@request_attributes.id)
     rescue => e # rescue all errors to handle them manually
-      work_authorization.update_error 'Unable to Revoke Request'
+      work_authorization.update_error "Unable to Revoke Request\n#{e.message}\n#{e.backtrace.join("\n")}"
       raise e
     end
 

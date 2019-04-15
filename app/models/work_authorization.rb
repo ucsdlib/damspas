@@ -15,6 +15,6 @@ class WorkAuthorization < ActiveRecord::Base # rubocop:disable ApplicationRecord
   def clear_error
     # skip model validations because if there was
     # an error, we want to log it no matter what
-    update_attribute(:error, nil) # rubocop:disable SkipsModelValidations
+    update_attribute(:error, '') # rubocop:disable SkipsModelValidations
   end
 end

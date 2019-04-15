@@ -11,7 +11,7 @@ RSpec.describe WorkAuthorization, type: :model do
     it 'should clear error' do
       authorization.update_error 'test error'
       authorization.clear_error
-      expect(authorization.error).to eq(nil)
+      expect(authorization.error).to eq('')
     end
   end
 end
