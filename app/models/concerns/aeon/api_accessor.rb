@@ -5,9 +5,8 @@ module Aeon
     extend ActiveSupport::Concern
 
     def client
-      # TODO: move to ENV vars
-      api_url = 'https://spcoll-request.ucsd.edu/nonshib/api'
-      api_key = 'c4aa6d6a-7d67-4e56-85c5-a704f0749907'
+      api_url = ENV.fetch('APPS_DHH_AEON_API') { :no_aeon_api_provided }
+      api_key = ENV.fetch('APPS_DHH_AEON_KEY') { :no_aeon_key_provided }
 
       @client ||= RestClient::Resource.new(api_url, headers: {
         'X-AEON-API-KEY' => api_key,
