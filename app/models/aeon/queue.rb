@@ -7,10 +7,12 @@ module Aeon
     include ActiveModel::Model
     include Aeon::ApiAccessor
 
-    NEW_STATUS = 70
-    PROCESSING_STATUS = 71
-    ACTIVE_STATUS = 72
-    EXPIRED_STATUS = 73
+    # These correspond to the Aeon queue IDs
+    NEW_STATUS = ENV.fetch('APPS_DHH_VRR_NEW_STATUS', 1).to_i
+    PROCESSING_STATUS = ENV.fetch('APPS_DHH_VRR_PROCESSING_STATUS', 2).to_i
+    ACTIVE_STATUS = ENV.fetch('APPS_DHH_VRR_ACTIVE_STATUS', 3).to_i
+    EXPIRED_STATUS = ENV.fetch('APPS_DHH_VRR_EXPIRED_STATUS', 4).to_i
+
     ALL_IDS = [
       NEW_STATUS,
       PROCESSING_STATUS,
@@ -18,10 +20,10 @@ module Aeon
       EXPIRED_STATUS
     ].freeze
     QUEUE_LOCAL_NAMES = {
-      70 => 'New',
-      71 => 'Processing',
-      72 => 'Active',
-      73 => 'Expired'
+      NEW_STATUS => 'New',
+      PROCESSING_STATUS => 'Processing',
+      ACTIVE_STATUS => 'Active',
+      EXPIRED_STATUS => 'Expired'
     }.freeze
 
     attr_accessor :id
