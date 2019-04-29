@@ -64,7 +64,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.14.1'
   gem 'rubocop', '0.58.2', require: false
   gem 'rubocop-rspec', '1.15.1'
-  gem 'unicorn', '~> 5.3.0'
+  gem 'unicorn', '~> 5.5.0'
   gem 'rspec_junit_formatter', '~> 0.2.3'
   gem 'poltergeist', '1.15.0'
 end
