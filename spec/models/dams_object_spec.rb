@@ -46,6 +46,64 @@ describe DamsObject do
       #loadedObj = DamsObject.find(@damsObj.pid)
       #loadedObj.titleValue.should == "Chicano and black radical activism of the 1960s"
     end
+
+    it "should presist work_authorization permissions between saves" do
+      @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
+      users = User.all
+      user_1 = users[0]
+      user_2 = users[1]
+
+      WorkAuthorization.create!(work_pid: @damsObj.pid, user: user_1)
+      WorkAuthorization.create!(work_pid: @damsObj.pid, user: user_2)
+
+      @damsObj.save!
+      found_user_1 = nil
+      found_user_2 = nil
+      @damsObj.permissions.each do |permission|
+        if permission.type == "user" && permission.name == user_1.user_key
+          found_user_1 = true
+        end
+        if permission.type == "user" && permission.name == user_2.user_key
+          found_user_2 = true
+        end
+      end
+      expect(found_user_1).to be_truthy
+      expect(found_user_2).to be_truthy
+
+      damsObjReload = DamsObject.find(@damsObj.id)
+      found_user_1 = nil
+      found_user_2 = nil
+      damsObjReload.permissions.each do |permission|
+        if permission.type == "user" && permission.name == user_1.user_key
+          found_user_1 = true
+        end
+        if permission.type == "user" && permission.name == user_2.user_key
+          found_user_2 = true
+        end
+      end
+      expect(found_user_1).to be_truthy
+      expect(found_user_2).to be_truthy
+    end
+
+    it "should include user permissions in to_solr" do
+      @damsObj.damsMetadata.content = File.new('spec/fixtures/dissertation.rdf.xml').read
+      users = User.all
+      user_1 = users[0]
+      user_2 = users[1]
+
+      WorkAuthorization.create!(work_pid: @damsObj.pid, user: user_1)
+      WorkAuthorization.create!(work_pid: @damsObj.pid, user: user_2)
+      @damsObj.save!
+
+      expect(@damsObj.to_solr.keys).to include("read_access_person_ssim")
+      expect(@damsObj.to_solr["read_access_person_ssim"]).to include(user_1.user_key)
+      expect(@damsObj.to_solr["read_access_person_ssim"]).to include(user_2.user_key)
+
+      damsObjReload = DamsObject.find(@damsObj.id)
+      expect(damsObjReload.to_solr.keys).to include("read_access_person_ssim")
+      expect(damsObjReload.to_solr["read_access_person_ssim"]).to include(user_1.user_key)
+      expect(damsObjReload.to_solr["read_access_person_ssim"]).to include(user_2.user_key)
+    end
   end
 
 	exturi = RDF::Resource.new "http://id.loc.gov/authorities/subjects/sh85148221"
