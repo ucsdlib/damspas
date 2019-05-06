@@ -109,13 +109,11 @@ module Processors
         # disable rubocop because we run validations before calling .touch
         work_authorization.clear_error
         work_authorization.touch # rubocop:disable SkipsModelValidations
-        work_obj.set_read_users([user.user_key], [user.user_key])
         work_obj.save
       end
 
       def delete_work_authorization
         work_authorization.destroy
-        work_obj.set_read_users([], [user.user_key])
         work_obj.save
       end
 
