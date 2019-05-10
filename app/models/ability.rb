@@ -63,6 +63,7 @@ class Ability
       can [:read], MadsAuthority
       can [:read], MadsLanguage
       can [:read], MadsVariant
+      can [:read], WorkAuthorization
       cannot [:create], DamsObject
       cannot [:create], DamsAssembledCollection
       cannot [:create], DamsProvenanceCollection
@@ -109,6 +110,10 @@ class Ability
       can [:read, :create, :update], MadsLanguage
       can [:read, :create, :update], MadsVariant
       can [:read, :create, :update, :destroy], Page
+    end
+
+    if (user_groups & Rails.configuration.vrr_role).present? # rubocop:disable IfUnlessModifier
+      can [:manage], WorkAuthorization
     end
 
     # DamsUnit is a special case: super-user only

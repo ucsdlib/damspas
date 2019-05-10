@@ -1,0 +1,29 @@
+<h3>Errors</h3>
+<table class='table table-striped'>
+  <tr>
+    <th>Work PID</th>
+    <th>User Email</th>
+    <th>Aeon ID</th>
+    <th>Error</th>
+  </tr>
+  <% @errors.each do |work_authorization| %>
+    <tr>
+      <td>
+        <%= work_authorization.work_pid %>
+      </td>
+      <td>
+        <%= work_authorization.user.try(:email) %>
+      </td>
+      <td>
+        <%= work_authorization.aeon_id %>
+      </td>
+      <td>
+        <%= work_authorization.error.to_s.split("\n").first %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Clear Errors', clear_errors_aeon_queues_path, method: :delete %> |
+
+<%= link_to 'Back', aeon_queues_path %>

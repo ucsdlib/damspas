@@ -1,10 +1,14 @@
 class DamsObject < ActiveFedora::Base
   include Hydra::AccessControls::Permissions
   include Hydra::ModelMethods
+
+  after_initialize :setup_read_users
+  after_save :setup_read_users
+
   has_metadata 'damsMetadata', :type => DamsObjectDatastream
   has_attributes :assembledCollection_attributes,
-  	:assembledCollection,
-    :assembledCollectionURI, 
+    :assembledCollection,
+    :assembledCollectionURI,
     :beginDate,
     :builtWorkPlace_attributes,
     :builtWorkPlace,
@@ -37,7 +41,7 @@ class DamsObject < ActiveFedora::Base
     :dateValue,
     :endDate,
     :event,
-    :familyName_attributes, 
+    :familyName_attributes,
     :familyName,
     :file_attributes,
     :file,
@@ -48,7 +52,7 @@ class DamsObject < ActiveFedora::Base
     :geographic_attributes,
     :geographic,
     :iconography_attributes,
-    :iconography,    
+    :iconography,
     :lithology_attributes,
     :lithology,
     :series_attributes,
@@ -60,7 +64,7 @@ class DamsObject < ActiveFedora::Base
     :language_attributes,
     :language,
     :languageURI,
-    :license_attributes, 
+    :license_attributes,
     :license,
     :licenseURI,
     :name_attributes,
@@ -69,12 +73,12 @@ class DamsObject < ActiveFedora::Base
     :nameURI,
     :note_attributes,
     :note,
-    :noteDisplayLabel, 
-    :noteType, 
-    :occupation_attributes, 
+    :noteDisplayLabel,
+    :noteType,
+    :occupation_attributes,
     :occupation,
     :otherRights_attributes,
-    :otherRights, 
+    :otherRights,
     :otherRightsURI,
     :personalName_attributes,
     :personalName,
@@ -82,14 +86,14 @@ class DamsObject < ActiveFedora::Base
     :preferredCitationNote_attributes,
     :relatedResource_attributes,
     :relatedResource,
-    :relatedResourceDescription, 
-    :relatedResourceType, 
+    :relatedResourceDescription,
+    :relatedResourceType,
     :relatedResourceUri,
     :relResourceURI,
     :relationship_attributes,
     :relationship,
-    :relationshipNameType, 
-    :relationshipNameURI, 
+    :relationshipNameType,
+    :relationshipNameURI,
     :relationshipRoleURI,
     :rightsHolderCorporate_attributes,
     :rightsHolderCorporate,
@@ -98,7 +102,7 @@ class DamsObject < ActiveFedora::Base
     :rightsHolderConference_attributes,
     :rightsHolderConference,
     :rightsHolderFamily_attributes,
-    :rightsHolderFamily,        
+    :rightsHolderFamily,
     :rightsHolderURI,
     :rightsHolderName_attributes,
     :rightsHolderName,
@@ -108,7 +112,7 @@ class DamsObject < ActiveFedora::Base
     :scientificName,
     :scopeContentNote_attributes,
     :scopeContentNote,
-    :simpleSubjectURI, 
+    :simpleSubjectURI,
     :sourceCapture,
     :statute_attributes,
     :statute,
@@ -123,7 +127,7 @@ class DamsObject < ActiveFedora::Base
     :technique,
     :temporal_attributes,
     :temporal,
-    :title_attributes,    
+    :title_attributes,
     :title,
     :titleNonSort,
     :titlePartName,
@@ -139,7 +143,7 @@ class DamsObject < ActiveFedora::Base
     :typeOfResource,
     :provenanceCollection_attributes,
     :provenanceCollection,
-    :provenanceCollectionPart_attributes,    
+    :provenanceCollectionPart_attributes,
     :provenanceCollectionPart,
     :provenanceCollectionPartURI,
     :provenanceCollectionURI,
@@ -149,7 +153,7 @@ class DamsObject < ActiveFedora::Base
     :commonName_attributes,
     :commonName,
       datastream: :damsMetadata, multiple: true
-  
+
   def languages
     damsMetadata.load_languages damsMetadata.language
   end
@@ -194,47 +198,61 @@ class DamsObject < ActiveFedora::Base
   end
   def scientificNames
     damsMetadata.load_scientificNames
-  end  
+  end
   def techniques
     damsMetadata.load_techniques
-  end    
+  end
   def occupations
     damsMetadata.load_occupations
-  end    
+  end
   def geographics
     damsMetadata.load_geographics
-  end 
+  end
   def temporals
     damsMetadata.load_temporals
-  end 
+  end
   def culturalContexts
     damsMetadata.load_culturalContexts
-  end   
+  end
   def stylePeriods
     damsMetadata.load_stylePeriods
-  end    
+  end
   def topics
     damsMetadata.load_topics
-  end      
+  end
   def functions
     damsMetadata.load_functions
-  end   
+  end
   def genreForms
     damsMetadata.load_genreForms
-  end   
+  end
   def personalNames
     damsMetadata.load_personalNames
-  end   
+  end
   def familyNames
     damsMetadata.load_familyNames
-  end      
+  end
   def names
     damsMetadata.load_names
-  end   
+  end
   def conferenceNames
     damsMetadata.load_conferenceNames
-  end    
+  end
   def corporateNames
     damsMetadata.load_corporateNames
-  end          
+  end
+
+  def setup_read_users
+    authorized_users.each do |user|
+      self.set_read_users([user.user_key], [user.user_key])
+    end
+  end
+
+  def work_authorizations
+    @work_authorizations = WorkAuthorization.where(work_pid: self.pid)
+  end
+
+  def authorized_users
+    work_authorizations.map &:user
+  end
 end

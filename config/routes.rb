@@ -1,4 +1,23 @@
 Hydra::Application.routes.draw do
+  namespace :aeon do
+    resources :queues do
+      collection do
+        get 'errors'
+        delete 'clear_errors'
+      end
+    end
+    resources :requests do
+      member do
+        get 'set_to_new'
+        get 'set_to_expire'
+        get 'set_to_in_process'
+        get 'set_to_new'
+        get 'set_to_active'
+      end
+    end
+  end
+
+  get 'work_authorizations', to: 'work_authorizations#index', :as => 'work_authorizations'
 
   resources :audits, :only => [:index, :show]
   resources :pages
@@ -52,11 +71,13 @@ Hydra::Application.routes.draw do
   # :show and :update are for backwards-compatibility with catalog_url named routes
   resources :catalog, :only => [:show, :update]
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, skip: [:sessions], :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :passwords => 'passwords' }
 
   devise_scope :user do
     get '/users/sign_in', :to => "users/sessions#new", :as => :new_user_session
     get '/users/sign_out', :to => "users/sessions#destroy", :as => :destroy_user_session
+    get '/users/auth_link', :to => "users/sessions#new_auth_link", :as => :new_auth_link
+    post '/users/auth_link/create', :to => "users/sessions#create_auth_link", :as => :create_auth_link
   end
 
   resources :dams_subjects, :only => [:show]

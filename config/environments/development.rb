@@ -15,6 +15,17 @@ Hydra::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default_url_options = {host: 'librarytest.ucsd.edu/dc'}
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => '82bef5c2919600',
+    :password => '56f73cf64eb2f5',
+    :address => 'smtp.mailtrap.io',
+    :domain => 'smtp.mailtrap.io',
+    :port => '2525',
+    :authentication => :cram_md5
+  }
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -43,12 +54,16 @@ Hydra::Application.configure do
   config.role_vocab = "#{config.id_namespace}bb14141414"
   config.lang_vocab ="#{config.id_namespace}bb43434343"
   config.excluded_collections = "(bd5905379f OR bb13664503)"
-  config.developer_groups = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user']
+  config.developer_groups = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user', 'dams-vrr']
   config.curator_groups = ['dams-curator','dams-editor','dams-manager-admin']
   config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
+  config.vrr_role = ['dams-vrr']
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'http://rohan.ucsd.edu/zoomify/'
   config.shibboleth = false
   # config.host_name = 'http://localhost:3000'
+
+  Rails.application.routes.default_url_options[:host] = "localhost:3000"
+
 end

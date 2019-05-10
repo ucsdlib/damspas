@@ -1,8 +1,8 @@
-#include Helper specs here
-#eg. include DamsUnitsHelper
+# include Helper specs here
+# eg. include DamsUnitsHelper
 include Warden::Test::Helpers
 
-#define methods to reuse across various tests, they are included by default in RSPEC
+# define methods to reuse across various tests, they are included by default in RSPEC
 
 # sign in as a developer
 def sign_in_developer
@@ -11,9 +11,11 @@ def sign_in_developer
   fill_in "email", :with => "email@email.com"
   click_on "Sign In"
 end
+
 def sign_in_anonymous(ip)
-  login_as( User.anonymous(ip), scope: :user)
+  login_as(User.anonymous(ip), scope: :user)
 end
+
 # sign in as a curator only
 def sign_in_curator
     user_attributes = { email: 'test@example.com' }
@@ -22,8 +24,20 @@ def sign_in_curator
     login_as user
 end
 
-#remove need for redundant tests for flash messages, using "have_TYPE_message"
-#￼replace this: should have_selector('div.alert.alert-error', text: 'Invalid
+def create_auth_link_user
+  user_attributes = {
+    email: 'test@example.com',
+    provider: 'auth_link',
+    uid: SecureRandom.uuid
+  }
+  user = User.new(user_attributes)
+  user.ensure_authentication_token
+  user.save
+  user
+end
+
+# remove need for redundant tests for flash messages, using "have_TYPE_message"
+# replace this: should have_selector('div.alert.alert-error', text: 'Invalid
 # with this: should have_error_message('Invalid')
 RSpec::Matchers.define :have_error_message do |message|
   match do |page|

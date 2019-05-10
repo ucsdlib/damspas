@@ -40,6 +40,12 @@ Hydra::Application.configure do
   # set up logger with STDOUT
   config.logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
 
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = {host: 'library.ucsd.edu'}
+
+
   # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
@@ -78,6 +84,7 @@ Hydra::Application.configure do
   config.curator_groups = ['dams-curator','dams-editor','dams-manager-admin']
   config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
+  config.vrr_role = ['dams-vrr']
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'https://library.ucsd.edu/zoomify/'
   config.shibboleth = true

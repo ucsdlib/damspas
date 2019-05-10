@@ -27,8 +27,10 @@ Hydra::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   config.assets.precompile += ['home-page.js','home-page.css']
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = {host: 'librarytest.ucsd.edu'}
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
@@ -55,10 +57,11 @@ Hydra::Application.configure do
   config.role_vocab = "#{config.id_namespace}bb14141414"
   config.lang_vocab ="#{config.id_namespace}bb43434343"
   config.excluded_collections = "(bd5905379f OR bb13664503)"
-  config.developer_groups = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user']
+  config.developer_groups = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user', 'dams-vrr']
   config.curator_groups = ['dams-curator','dams-editor','dams-manager-admin']
   config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
+  config.vrr_role = ['dams-vrr']
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'https://librarytest.ucsd.edu/zoomify/'
   config.shibboleth = true

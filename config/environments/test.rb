@@ -40,12 +40,15 @@ Hydra::Application.configure do
   config.role_vocab = "#{config.id_namespace}bb14141414"
   config.lang_vocab ="#{config.id_namespace}bb43434343"
   config.excluded_collections = "(bd5905379f OR bb13664503)"
-  config.developer_groups = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user']
+  config.developer_groups = ['developer-authenticated','dams-curator','dams-manager-admin', 'dams-manager-user', 'dams-vrr']
   config.curator_groups = ['dams-curator','dams-editor','dams-manager-admin']
   config.editor_groups = ['dams-editor','dams-manager-admin']
   config.super_role = 'dams-manager-admin'
+  config.vrr_role = ['dams-vrr']
   config.unknown_groups = ['unknown']
   config.zoomify_baseurl = 'https://rohan.ucsd.edu/zoomify/'
   config.shibboleth = false
   config.share_notify_sample = 'share_notify.yml.staging.sample'
+
+  Rails.application.routes.default_url_options[:host] = "localhost:3000"
 end
