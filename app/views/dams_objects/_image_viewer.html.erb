@@ -6,7 +6,7 @@
    file_type = grabFileType(grabFileUse)
 %>
 <% if displayFilePath.length > 0 && getFilesType != "PDF"%>
-   <%= link_to image_tag(displayFilePath, :alt => ''), zoomFilePath %>
+   <%= link_to image_tag(displayFilePath, :alt => "#{@page_title[0..125]}"), zoomFilePath %>
 <% else %>
 	<% if getFilesType == "PDF" %>
 		<% if displayFilePath.to_s == ''%> 
