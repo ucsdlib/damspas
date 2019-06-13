@@ -118,11 +118,13 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 				var fileType = componentData.file_type;
 				var serviceFilePath = componentData.service_file_path;
 				var displayFilePath = componentData.display_file_path;
+        var alt_txt = componentData.alt_text;
 
 				switch(fileType)
 				{
 					case "image":
-						$(container).html( '<a href="'+serviceFilePath+'" alt=""><img src="'+displayFilePath+'"></a>' );
+					  alt_txt = alt_txt[0..125] if alt_txt.length > 126
+						$(container).html( '<a href="'+serviceFilePath+'" alt=''><img alt="'+alt_txt+'" src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
                         jwplayer("dams-audio-"+componentIndex).setup({
