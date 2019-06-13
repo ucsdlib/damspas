@@ -65,7 +65,7 @@
 			<% if fileType == 'image' %>
                             <% if access_notice.nil? %>
 				<% zoom_file_path = zoom_path(ark, "#{i}") %>
-				<% dataForDynamicLoad = "{\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\",\"download_file_path\":\"#{download_file_path}\"}" %>
+				<% dataForDynamicLoad = "{\"alt_text\":\"#{@page_title}\",\"file_type\":\"image\",\"display_file_path\":\"#{display_file_path}\",\"service_file_path\":\"#{zoom_file_path}\",\"download_file_path\":\"#{download_file_path}\"}" %>
 
 				<div data='<%=dataForDynamicLoad%>'></div>
                             <% end %>
