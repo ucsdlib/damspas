@@ -1643,8 +1643,9 @@ end
 
 describe "User wants to view an Image object" do
   before(:all) do
+    @long_title = 'Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test'
     @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
-    @obj = DamsObject.create( titleValue: 'Object Files Test', copyright_attributes: [ {status: 'Public domain'} ],
+    @obj = DamsObject.create( titleValue: @long_title, copyright_attributes: [ {status: 'Public domain'} ],
                               assembledCollectionURI: [ @col.pid ], typeOfResource: 'image' )
     jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
     @obj.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
@@ -1667,6 +1668,11 @@ describe "User wants to view an Image object" do
       expect(page).to have_content('Embed Image')
       expect(page.body).to match(/embed\/#{@obj.id}\/0/)
     end
+  end  
+  scenario 'have image alt text' do
+    sign_in_developer
+    visit dams_object_path @obj.pid
+    expect(page).to have_css("div.simple-object a img[alt='#{@long_title[0..124]}']")
   end
 end
 

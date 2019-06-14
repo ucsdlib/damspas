@@ -4,7 +4,7 @@
    cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
    embed_url = "#{root_url}embed/#{objid}/#{cmpid}"
    file_type = grabFileType(grabFileUse)
-   alt_txt = @page_title.length > 126 ? @page_title[0..125] : @page_title
+   alt_txt = @page_title.length > 125 ? @page_title[0..124] : @page_title
 %>
 <% if displayFilePath.length > 0 && getFilesType != "PDF"%>
    <%= link_to image_tag(displayFilePath, :alt => "#{alt_txt}"), zoomFilePath %>
@@ -13,12 +13,12 @@
 		<% if displayFilePath.to_s == ''%> 
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => filePath} %>
 		<% else %>
-				<%= link_to image_tag(displayFilePath, :alt => ''), zoomFilePath %>
+				<%= link_to image_tag(displayFilePath, :alt => "#{alt_txt}"), zoomFilePath %>
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
 		<% end %>
 		<%= render :partial => 'data_viewer', :locals => {:filePath => pdfFilePath, :objectType => 'simple', :displayFilePath => displayFilePath} %>
 	<% else %>
-		<%= link_to image_tag(filePath, :alt => ''), zoomFilePath %>
+		<%= link_to image_tag(filePath, :alt => "#{alt_txt}"), zoomFilePath %>
 	<% end %>
 <% end %>
 <%= render :partial => 'admin_download', :locals => {:embedURL => embed_url, :downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath, :format => file_type} %>
