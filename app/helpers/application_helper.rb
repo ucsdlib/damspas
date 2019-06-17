@@ -1,4 +1,10 @@
 module ApplicationHelper
+  # Use the ActionView truncate helper for generating consistent alt tag text
+  # Length is set at 125
+  # see: https://github.com/ucsdlib/damspas/issues/648
+  def alt_tag_text(copy)
+    truncate(copy, length: 125)
+  end
 
   #Retrieve the highlighting content
   def field_with_highlighting document, field, sep=field_value_separator
