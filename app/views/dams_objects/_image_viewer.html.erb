@@ -4,7 +4,7 @@
    cmpid = (defined?(componentIndex)) ? "#{componentIndex}" : '0'
    embed_url = "#{root_url}embed/#{objid}/#{cmpid}"
    file_type = grabFileType(grabFileUse)
-   alt_txt = @page_title.length > 125 ? @page_title[0..124] : @page_title
+   alt_txt = alt_tag_text(@page_title)
 %>
 <% if displayFilePath.length > 0 && getFilesType != "PDF"%>
    <%= link_to image_tag(displayFilePath, :alt => "#{alt_txt}"), zoomFilePath %>
