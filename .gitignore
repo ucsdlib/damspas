@@ -11,6 +11,7 @@
 
 .com.apple.timemachine.supported
 
+.byebug_history
 
 # Ignore bundler config
 /.bundle
@@ -44,4 +45,6 @@ public/sitemap*
 # version
 public/version.txt
 
+# Local IDE/Editor project files
 .project
+vimrc.local
