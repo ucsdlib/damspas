@@ -1672,7 +1672,7 @@ describe "User wants to view an Image object" do
   scenario 'have image alt text' do
     sign_in_developer
     visit dams_object_path @obj.pid
-    expect(page).to have_css("div.simple-object a img[alt='#{@long_title[0..124]}']")
+    expect(find("div.simple-object a img")['alt']).to eq('Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files T...')
   end
 end
 

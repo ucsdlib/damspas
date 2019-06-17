@@ -119,9 +119,6 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 				var serviceFilePath = componentData.service_file_path;
 				var displayFilePath = componentData.display_file_path;
         var alt_txt = componentData.alt_text;
-        if(alt_txt && alt_txt.length > 125) {
-          alt_txt = alt_txt.substring(0, 124);
-        }
 
 				switch(fileType)
 				{
