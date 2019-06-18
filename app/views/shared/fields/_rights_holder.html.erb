@@ -16,10 +16,10 @@
 		 htmlOpen %= 'Rights Holder'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
 
-		 fieldData.each do |datum|
+		 fieldData.sort_by(&:downcase).each do |datum|
 			 rightsHolder = datum
 %>
-		<li><%= rightsHolder %></li>
+		<li><%= rightsHolder.upcase_first %></li>
 	<%
 		 end
 

@@ -16,10 +16,10 @@
 		 htmlOpen %= 'Other Name'.pluralize(fieldData.count)
 		 concat htmlOpen.html_safe
 
-		 fieldData.each do |datum|
+		 fieldData.sort_by(&:downcase).each do |datum|
 	 		name = datum
 %>
-		<li><%= name %></li>
+		<li><%= name.upcase_first %></li>
 <%
 		 end
 

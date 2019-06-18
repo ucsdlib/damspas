@@ -64,7 +64,7 @@ feature 'Visitor wants to look at collections' do
   scenario 'damsProvenanceCollectionPart view with parent collection name and collection from faceting' do
     sign_in_developer
     visit dams_collection_path @part.pid
-    expect(page).to have_link('Sample Provenance Collection') 
+    expect(page).to have_link('Sample Provenance Collection')
     expect(page).to have_link("Sample('s): Assembled Collection")
     expect(page).not_to have_link('Sample Provenance Part', :href => "#{dams_collection_path @part.pid}" )
     expect(page).not_to have_link('curator-only collection')
@@ -89,17 +89,17 @@ feature 'Visitor wants to look at the collection search results view with no iss
     @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
     @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection3.rdf.xml').read
     @provCollection.save!
-    solr_index (@provCollection.pid)   
+    solr_index (@provCollection.pid)
   end
   after do
     @provCollection.delete
     @unit.delete
-  end 
+  end
   scenario 'should see the collection result page with no issued date' do
     visit catalog_index_path( {:q => "#{@provCollection.pid}"} )
-    expect(page).to have_selector('h3', :text => 'Heavy Metals in the Ocean Insect, Halobates')   
+    expect(page).to have_selector('h3', :text => 'Heavy Metals in the Ocean Insect, Halobates')
     expect(page).to have_selector("ul.dams-search-results-fields:first li span", :text => '1961-1978')
-    expect(page).to have_no_content('1000-2015')     
+    expect(page).to have_no_content('1000-2015')
   end
 end
 
@@ -110,23 +110,23 @@ feature 'Visitor wants to see the collection record' do
     @provCollection = DamsProvenanceCollection.create(pid: "uu8056206n", visibility: "public")
     @provCollection.damsMetadata.content = File.new('spec/fixtures/damsProvenanceCollection3.rdf.xml').read
     @provCollection.save!
-    solr_index (@provCollection.pid)   
+    solr_index (@provCollection.pid)
   end
   after do
     @provCollection.delete
     @unit.delete
     @commonName.delete
-  end 
+  end
 
   scenario 'should see the related resource with no URI' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_content('The physical materials are held at UC San Diego Library')
-    expect(page).not_to have_link('The physical materials are held at UC San Diego Library', {href: ''})    
+    expect(page).not_to have_link('The physical materials are held at UC San Diego Library', {href: ''})
   end
 
   scenario 'should see the names in order' do
     visit dams_collection_path("#{@provCollection.pid}")
-    expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Principal Investigator')  
+    expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Principal Investigator')
     expect(page).to have_selector("div.span8 dl dt[3]", :text => 'Co Principal Investigator')
     expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Creator')
     expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Author')
@@ -140,8 +140,8 @@ feature 'Visitor wants to see the collection record' do
 
   scenario 'should see the internal and external common names' do
     visit dams_collection_path("#{@provCollection.pid}")
-    expect(page).to have_selector('li', text: 'thale-cress')
-    expect(page).to have_selector('li', text: 'thale-cress external')
+    expect(page).to have_selector('li', text: 'Thale-cress')
+    expect(page).to have_selector('li', text: 'Thale-cress external')
   end
 end
 
@@ -308,14 +308,14 @@ feature "Vistor wants to view the OSF API output" do
       solr_index (@provCollection1.pid)
       @provCollection2 = DamsProvenanceCollection.create titleValue: "Sample Provenance Collection", visibility: "public"
       @provCollection2.save!
-      solr_index (@provCollection2.pid)      
+      solr_index (@provCollection2.pid)
     end
     after do
       @provCollection1.delete
       @provCollection2.delete
       @unit.delete
     end
-    
+
     scenario 'should see the following fields' do
       sign_in_developer
       visit osf_api_dams_collection_path @provCollection1.pid
@@ -335,7 +335,7 @@ feature "Vistor wants to view the OSF API output" do
       expect(page).to have_content("Test Scientific Name")
       expect(page).to have_content("Test Corporate Name")
       expect(page).to have_content("Test Corporate Name")
-      expect(page).to have_content("Test Personal Name")      
+      expect(page).to have_content("Test Personal Name")
     end
 
     scenario 'should see the default value of Contributor and Publisher for Data Provider' do
@@ -349,7 +349,7 @@ feature 'Visitor wants to look at the collection item view search results' do
   before do
     @unit = DamsUnit.create(pid: 'bb45454545')
     @unit.damsMetadata.content = File.new('spec/fixtures/damsUnit.rdf.xml').read
-    @unit.save!    
+    @unit.save!
     @aCollection = DamsAssembledCollection.create(pid: "xx4473712z", visibility: "public")
     @aCollection.damsMetadata.content = File.new('spec/fixtures/soccomCollection.rdf.xml').read
     @aCollection.save!
@@ -365,8 +365,8 @@ feature 'Visitor wants to look at the collection item view search results' do
     solr_index (@unit.pid)
     solr_index (@aCollection.pid)
     solr_index (@soccomObj1.pid)
-    solr_index (@soccomObj2.pid)   
-    solr_index (@soccomObj3.pid)       
+    solr_index (@soccomObj2.pid)
+    solr_index (@soccomObj3.pid)
   end
   after do
     @aCollection.delete
@@ -374,17 +374,17 @@ feature 'Visitor wants to look at the collection item view search results' do
     @soccomObj1.delete
     @soccomObj2.delete
     @soccomObj3.delete
-  end 
+  end
   scenario 'should not see html tags for any hightlight field in the search result page' do
     visit catalog_index_path( {:q => "#{@aCollection.pid}", 'sort' => 'title_ssi asc'} )
-    expect(page).to have_content('Showing results for 1 - 4 of 4')   
+    expect(page).to have_content('Showing results for 1 - 4 of 4')
     expect(page).to_not have_content("<a href=\"http://library.ucsd.edu/dc/collection/<span class='search-highlight'>#{@aCollection.pid}</span>\">")
   end
 
   scenario 'should see the search result page default sort is title after click "View Collection Items"' do
     visit dams_collection_path("#{@aCollection.pid}")
     first(:link, "View Collection Items").click
-    
+
     expect(page).to have_content("Sort: title")
     expect(page).to_not have_content("Sort: relevance")
   end
@@ -395,9 +395,9 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
   before(:all) do
     @localDisplay = DamsOtherRight.create permissionType: "localDisplay"
     @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
-    @metadataOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"    
-    @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"    
-    @collection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with no localDisplay or metadata-only visibility", visibility: "local"    
+    @metadataOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with metadata-only visibility", visibility: "local"
+    @localOnlyCollection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with localDisplay visibility", visibility: "local"
+    @collection = DamsProvenanceCollection.create titleValue: "Test UCSD IP only Collection with no localDisplay or metadata-only visibility", visibility: "local"
     @copyright = DamsCopyright.create status: 'Under copyright'
     @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', copyrightURI: @copyright.pid
     @metadataOnlyObj.otherRightsURI = @metadataDisplay.pid
@@ -409,7 +409,7 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     solr_index @metadataDisplay.pid
     solr_index @metadataOnlyCollection.pid
     solr_index @localOnlyCollection.pid
-    solr_index @collection.pid       
+    solr_index @collection.pid
     solr_index @copyright.pid
     solr_index @metadataOnlyObj.pid
     solr_index @localObj.pid
@@ -421,7 +421,7 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     @metadataDisplay.delete
     @metadataOnlyCollection.delete
     @localOnlyCollection.delete
-    @collection.delete   
+    @collection.delete
     @copyright.delete
     @metadataOnlyObj.delete
     @localObj.delete
@@ -441,13 +441,13 @@ feature "Visitor wants to view a UCSD IP only collection's page with metadata-on
     visit dams_collection_path @collection.pid
     expect(page).to_not have_content('Restricted View')
   end
-  
+
   scenario 'local user should not see Restricted View access label when visit browse by collection page' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
     expect(page).to_not have_content('Restricted View')
   end
-  
+
   scenario 'curator user should not see Restricted View access label' do
     sign_in_developer
     visit catalog_index_path( {:q => @localOnlyCollection.pid} )
@@ -461,11 +461,11 @@ end
 feature "Visitor wants to view a public collection's page with metadata-only objects" do
   before(:all) do
     @metadataDisplay = DamsOtherRight.create permissionType: "metadataDisplay"
-    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"    
+    @publicCollection = DamsProvenanceCollection.create titleValue: "Test Public Collection", visibility: "public"
     @copyright = DamsCopyright.create status: 'Under copyright'
     @metadataOnlyObj = DamsObject.create titleValue: 'Test Object with metadataOnly Display', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @metadataDisplay.pid
     solr_index @metadataDisplay.pid
-    solr_index @publicCollection.pid      
+    solr_index @publicCollection.pid
     solr_index @copyright.pid
     solr_index @metadataOnlyObj.pid
   end
@@ -482,34 +482,34 @@ feature "Visitor wants to view a public collection's page with metadata-only obj
     visit dams_collection_path @publicCollection.pid
     expect(page).to have_content('Restricted View')
   end
-  
+
   scenario 'curator user should see Restricted View access control information when visit browse by collection page' do
     sign_in_developer
     visit '/collections'
     expect(page).to have_content('Restricted View')
-  end  
+  end
 
   scenario 'local user should see Restricted View access control information' do
     sign_in_anonymous '132.239.0.3'
     visit dams_collection_path @publicCollection.pid
     expect(page).to have_content('Restricted View')
   end
-  
+
   scenario 'local user should see Restricted View access label when visit browse by collection page' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
     expect(page).to have_content('Restricted View')
   end
-  
+
   scenario 'public user should see Restricted View access control information' do
     visit dams_collection_path @publicCollection.pid
     expect(page).to have_content('Restricted View')
   end
-  
+
   scenario 'public user should see Restricted View access control information when visit browse by collection page' do
     visit '/collections'
     expect(page).to have_content('Restricted View')
-  end 
+  end
 end
 
 feature "Visitor wants to view a public collection's page with mixed objects" do
@@ -522,7 +522,7 @@ feature "Visitor wants to view a public collection's page with mixed objects" do
     @otherObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @display.pid
     solr_index @display.pid
     solr_index @metadataDisplay.pid
-    solr_index @publicCollection.pid      
+    solr_index @publicCollection.pid
     solr_index @copyright.pid
     solr_index @metadataOnlyObj.pid
     solr_index @otherObj.pid
@@ -542,7 +542,7 @@ feature "Visitor wants to view a public collection's page with mixed objects" do
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'public user should see some items restricted access information when visit browse by collection page' do
     visit '/collections'
     expect(page).to_not have_content('Restricted View')
@@ -554,7 +554,7 @@ feature "Visitor wants to view a public collection's page with mixed objects" do
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'local user should see access label when visit browse by collection page or search for collection' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
@@ -563,7 +563,7 @@ feature "Visitor wants to view a public collection's page with mixed objects" do
     visit catalog_index_path( {:q => @publicCollection.pid} )
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'curator user should see access label when visit browse by collection page or search for collection' do
     sign_in_developer
     visit '/collections'
@@ -584,7 +584,7 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
     @otherObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @otherRight.pid
     solr_index @license.pid
     solr_index @otherRight.pid
-    solr_index @localCollection.pid      
+    solr_index @localCollection.pid
     solr_index @copyright.pid
     solr_index @localObj.pid
     solr_index @otherObj.pid
@@ -604,19 +604,19 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'public user should see some items restricted access information when visit browse by collection page' do
     visit '/collections'
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'public user should see some items restricted access information when search for collection' do
     visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'local user should see access label when visit browse by collection page or search for collection' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
@@ -625,7 +625,7 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
     visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'curator user should see access label when visit browse by collection page or search for collection' do
     sign_in_developer
     visit '/collections'
@@ -633,7 +633,7 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
 
     visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to have_content('Some items restricted')
-  end  
+  end
 end
 
 feature "Visitor wants to view a metadata-only public collection's page with no mixed objects" do
@@ -646,7 +646,7 @@ feature "Visitor wants to view a metadata-only public collection's page with no 
     @otherObj = DamsObject.create titleValue: 'Test Object', provenanceCollectionURI: @publicCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @display.pid
     solr_index @display.pid
     solr_index @metadataDisplay.pid
-    solr_index @publicCollection.pid      
+    solr_index @publicCollection.pid
     solr_index @copyright.pid
     solr_index @metadataOnlyObj.pid
     solr_index @otherObj.pid
@@ -660,25 +660,25 @@ feature "Visitor wants to view a metadata-only public collection's page with no 
     @metadataOnlyObj.delete
     @otherObj.delete
   end
-  
+
   scenario 'public user should not see some items restricted information' do
     visit dams_collection_path @publicCollection.pid
     expect(page).to have_content('Restricted View')
     expect(page).to_not have_content('Some items restricted')
   end
-  
+
   scenario 'public user should not see some items restricted access information when visit browse by collection page' do
     visit '/collections'
     expect(page).to have_content('Restricted View')
     expect(page).to_not have_content('Some items restricted')
   end
-  
+
   scenario 'public user should not see some items restricted access information when search for collection' do
     visit catalog_index_path( {:q => @publicCollection.pid} )
     expect(page).to have_content('Restricted View')
     expect(page).to_not have_content('Some items restricted')
   end
-  
+
   scenario 'local user should see access label when visit browse by collection page or search for collection' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
@@ -687,7 +687,7 @@ feature "Visitor wants to view a metadata-only public collection's page with no 
     visit catalog_index_path( {:q => @publicCollection.pid} )
     expect(page).to have_content('Restricted View')
   end
-  
+
   scenario 'curator user should see access label when visit browse by collection page or search for collection' do
     sign_in_developer
     visit '/collections'
@@ -695,7 +695,7 @@ feature "Visitor wants to view a metadata-only public collection's page with no 
 
     visit catalog_index_path( {:q => @publicCollection.pid} )
     expect(page).to have_content('Restricted View')
-  end 
+  end
 end
 
 feature "Visitor wants to view a local collection's page with mixed objects" do
@@ -707,10 +707,10 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
     @otherObj = DamsObject.create titleValue: 'UCSD IP / Campus Access Only', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @localDisplay.pid
     @dogObj = DamsObject.create titleValue: 'Curator and Dogs Only', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @otherRight.pid
     @catObj = DamsObject.create titleValue: 'Curator and Cats Only', provenanceCollectionURI: @localCollection.pid, copyrightURI: @copyright.pid, otherRightsURI: @otherRight.pid
-    
+
     solr_index @otherRight.pid
     solr_index @localDisplay.pid
-    solr_index @localCollection.pid      
+    solr_index @localCollection.pid
     solr_index @copyright.pid
     solr_index @otherObj.pid
     solr_index @dogObj.pid
@@ -732,19 +732,19 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'public user should see some items restricted access information when visit browse by collection page' do
     visit '/collections'
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'public user should see some items restricted access information when search for collection' do
     visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to_not have_content('Restricted View')
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'local user should see access label when visit browse by collection page or search for collection' do
     sign_in_anonymous '132.239.0.3'
     visit '/collections'
@@ -753,7 +753,7 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
     visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to have_content('Some items restricted')
   end
-  
+
   scenario 'curator user should see access label when visit browse by collection page or search for collection' do
     sign_in_developer
     visit '/collections'
@@ -761,5 +761,5 @@ feature "Visitor wants to view a local collection's page with mixed objects" do
 
     visit catalog_index_path( {:q => @localCollection.pid} )
     expect(page).to have_content('Some items restricted')
-  end  
+  end
 end

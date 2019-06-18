@@ -10,7 +10,7 @@ if @document['resource_type_tesim'] != nil && !defined?(componentIndex)
 </dt>
 <dd>
   <ul class='unstyled glyphicon-list glyphicon-list-tag'>
-    <% fieldData.each do |resource_type|
+    <% fieldData.sort_by(&:downcase).each do |resource_type|
       facet_uri_list['f'].merge!({'object_type_sim'=>["#{resource_type}"]}) %>
       <li><%= link_to resource_type, facet_uri_list %></li>
     <% end %>
