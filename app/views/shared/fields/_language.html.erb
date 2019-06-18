@@ -21,31 +21,29 @@
 	 	if lang.count > 0
 	 		htmlOpen %= 'Language'.pluralize(lang.count)
 	 		concat htmlOpen.html_safe
-	 		i = 0
-	 		while( i < lang.count )
+      lang.sort_by(&:downcase).each do |l|
 %>
-					<li><%= lang[i] %></li>
+        <li><%= l.upcase_first %></li>
 <%
-				i += 1
-			end
+      end
 		end
 		concat htmlClose.html_safe
 
-	else 
+	else
 		language = @document["#{prefix}language_tesim"]
 
 		 if (language != nil && language.first.downcase != "no linguistic content")
-	
+
 			 htmlOpen %= 'Language'
 			 concat htmlOpen.html_safe
 %>
-	
+
 					<li><%= language.first %></li>
 
 <%
 			 concat htmlClose.html_safe
-	
+
 		 end
-		
+
 	end
 %>
