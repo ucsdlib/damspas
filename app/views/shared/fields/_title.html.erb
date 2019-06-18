@@ -13,37 +13,37 @@
 <% if fieldData != nil %>
 
 	<hgroup>
-	<% fieldData.each do |datum| 
+	<% fieldData.each do |datum|
       result = JSON.parse(datum)
       partName = result['partName'] || ""
       partNumber = result['partNumber'] || ""
       subtitle = result['subtitle'] || ""
       translationVariant = result['translationVariant'] || []
 
-      subtitleVal = subtitle      
+      subtitleVal = subtitle
       if !partName.blank?
-      	subtitleVal += (subtitleVal.blank? ? "" : ", ") + partName     	
+      	subtitleVal += (subtitleVal.blank? ? "" : ", ") + partName
       	subtitleVal += " " + partNumber if !partNumber.blank?
-      end      
-      
+      end
+
       if translationVariant.class == Array
         translationVariant.each do |transV|
           subtitleVal += (subtitleVal.blank? ? "" : ", ") + transV
         end
-      elsif translationVariant.class == String && !translationVariant.blank?      
+      elsif translationVariant.class == String && !translationVariant.blank?
         subtitleVal += (subtitleVal.blank? ? "" : ", ") + translationVariant
       end
-      
+
       if !result['name'].blank?
-         title = result['name'] 
+         title = result['name']
         break
       else
         title = getFullTitle result || ""
       end
-      
+
     end
   %>
-    
+
 	<h1><%= title.html_safe %></h1>
     <h2><%= subtitleVal.html_safe %></h2>
 	</hgroup>

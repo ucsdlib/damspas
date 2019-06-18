@@ -584,8 +584,8 @@ describe "complex object view" do
   end
   it "should display iternal and external reference common names in object level and components" do
     visit dams_object_path(@damsComplexObj.pid)
-    expect(page).to have_selector('li', text: 'thale-cress')
-    expect(page).to have_selector('li', text: 'thale-cress component')
+    expect(page).to have_selector('li', text: 'Thale-cress')
+    expect(page).to have_selector('li', text: 'Thale-cress component')
   end
 
   it 'should display component pager' do
@@ -1399,7 +1399,7 @@ describe "View complex UCSD localDisplay object" do
     expect(page).to have_content('Generic Component Title 2')
     expect(page).to have_link('', href:"/object/#{@localObj.id}/_2_1.tif/download?access=curator")
   end
-  
+
   scenario 'show a popup embed modal when user clicks on embed link' do
     sign_in_developer
     visit dams_object_path @localObj.pid
@@ -1661,14 +1661,14 @@ describe "User wants to view an Image object" do
     Capybara.javascript_driver = :poltergeist
     Capybara.current_driver = Capybara.javascript_driver
     sign_in_developer
-    visit dams_object_path @obj.pid  
+    visit dams_object_path @obj.pid
     click_link 'Embed'
     within('.modal-body') do
       expect(page).to have_content('Embed URL')
       expect(page).to have_content('Embed Image')
       expect(page.body).to match(/embed\/#{@obj.id}\/0/)
     end
-  end  
+  end
   scenario 'have image alt text' do
     sign_in_developer
     visit dams_object_path @obj.pid
@@ -1680,7 +1680,7 @@ describe "View an object that has DOI identifier" do
 
   before(:all) do
     @note = { type: "preferred citation", value: "UC San Diego Library Digital Collections. http://doi.org/10.5072/FK12345678"}
- 
+
     @doiObj = DamsObject.create titleValue: 'Test Object with DOI minted', note_attributes: [@note], copyright_attributes: [{status: 'Public'}]
 
     solr_index @doiObj.pid
@@ -1700,7 +1700,7 @@ end
 
 describe "View an object that has no DOI identifier" do
 
-  before(:all) do 
+  before(:all) do
     @noDoiObj = DamsObject.create titleValue: 'Test Object with no DOI minted', copyright_attributes: [{status: 'Public'}]
 
     solr_index @noDoiObj.pid
