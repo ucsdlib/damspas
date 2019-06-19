@@ -4,7 +4,7 @@
 %>
 
 	<ul class="unstyled glyphicon-list glyphicon-list-tag">
-		<% value.each do |name| %>
+		<% value.sort_by(&:downcase).each do |name| %>
 			<li><%= link_to name.upcase_first, facet_uri(name, 'creator_sim') %></li>
 		<% end %>
 	</ul>
