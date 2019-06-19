@@ -2,12 +2,12 @@
 require 'blacklight/catalog'
 require 'rsolr'
 
-class CatalogController < ApplicationController  
+class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Dams::ControllerHelper
   # Extend Blacklight::Catalog with Hydra behaviors (primarily editing).
   include Hydra::Controller::ControllerBehavior
-  
+
   # support boolean operators, even in basic search
   include BlacklightAdvancedSearch::ParseBasicQ
 
@@ -29,7 +29,7 @@ class CatalogController < ApplicationController
   # convert unit joins to normal facet queries (unless type=collection)
   CatalogController.solr_search_params_logic += [:transform_unit_scope]
 
- 
+
   def discovery_permissions
     @discovery_permissions ||= ["discover"]
   end
@@ -62,13 +62,13 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
-  
-    config.default_solr_params = { 
+
+    config.default_solr_params = {
       :qt => 'search',
       :rows => 20,
       :qf => 'title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id',
     }
-  
+
   config.advanced_search = {
       :form_solr_parameters => {
         "facet.field" => ["collection_sim", "object_type_sim", "unit_sim"],
@@ -76,7 +76,7 @@ class CatalogController < ApplicationController
         "facet.sort" => "index" # sort by byte order of values
       }
     }
-  
+
   #UCSD custom added argument config.highlighting to turn on/off hit highlighting with config.highlighting=true|false
   #config.hlTagPre for custom highlighting fragment prefix tag
   #config.hlTagPost for custom highlighting fragment post tag
@@ -93,7 +93,7 @@ class CatalogController < ApplicationController
     config.default_solr_params['hl.simple.pre'] = config.hlTagPre
     config.default_solr_params['hl.simple.post'] = config.hlTagPost
     config.default_solr_params['f.note_tesim.hl.fragsize'] = config.hlMaxFragsize
-    config.default_solr_params['hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim note_tesim' 
+    config.default_solr_params['hl.fl'] = 'title_json_tesim name_json_tesim subject_json_tesim date_json_tesim unit_name_tesim collection_1_name_tesim id name_tesim subject_tesim date_tesim note_tesim'
   end
 
     # thumbnails
@@ -118,24 +118,24 @@ class CatalogController < ApplicationController
     # * If left unset, then all facet values returned by solr will be displayed.
     # * If set to an integer, then "f.somefield.facet.limit" will be added to
     # solr request, with actual solr request being +1 your configured limit --
-    # you configure the number of items you actually want _displayed_ in a page.    
+    # you configure the number of items you actually want _displayed_ in a page.
     # * If set to 'true', then no additional parameters will be sent to solr,
     # but any 'sniffed' request limit parameters will be used for paging, with
-    # paging at requested limit -1. Can sniff from facet.limit or 
+    # paging at requested limit -1. Can sniff from facet.limit or
     # f.specific_field.facet.limit solr request params. This 'true' config
     # can be used if you set limits in :default_solr_params, or as defaults
     # on the solr side in the request handler itself. Request handler defaults
     # sniffing requires solr requests to be made with "echoParams=all", for
-    # app code to actually have it echo'd back to see it.  
+    # app code to actually have it echo'd back to see it.
     #
-    # :show may be set to false if you don't want the facet to be drawn in the 
+    # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
     config.add_facet_field 'unit_sim', :label => 'Repository'
     config.add_facet_field 'collection_sim', :label => 'Collection', :limit => 20
-    config.add_facet_field 'creator_sim', :label => 'Creator', :limit => 20 
+    config.add_facet_field 'creator_sim', :label => 'Creator', :limit => 20
     config.add_facet_field 'decade_sim', :label => 'Decade', :limit => 20
-    config.add_facet_field 'object_type_sim', :label => 'Format' 
-    config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20 
+    config.add_facet_field 'object_type_sim', :label => 'Format'
+    config.add_facet_field 'subject_topic_sim', :label => 'Topic', :limit => 20
 
     config.add_facet_field 'subject_cruise_sim', :label => 'Cruise', :limit => 20
     config.add_facet_field 'subject_lithology_sim', :label => 'Lithology', :limit => 20
@@ -157,18 +157,18 @@ class CatalogController < ApplicationController
     #   The ordering of the field names is the order of the display
   # UCSD custom added argument :hitsonly to display the values that has hit text.
     config.add_index_field 'collection_name_tesim', :label => 'Collection:', :highlight => config.highlighting
-    config.add_index_field 'name_tesim', :label => 'Name:', :highlight => config.highlighting   
+    config.add_index_field 'name_tesim', :label => 'Name:', :highlight => config.highlighting
     config.add_index_field 'date_tesim', :label => 'Date:', :highlight => config.highlighting
     config.add_index_field 'unit_name_tesim', :label => 'Unit:', :highlight => config.highlighting
     config.add_index_field 'topic_tesim', :label => 'Topic:', :highlight => config.highlighting
-  config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true   
+  config.add_index_field 'note_tesim', :label => 'Note:', :highlight => config.highlighting, :hitsonly => true
   config.add_index_field 'resource_type_tesim', :label => 'Format:', :highlight => config.highlighting
-    #config.add_index_field 'description_tesim', :label => 'Description:' 
-  
-  #config.add_field_configuration_to_solr_request!  
+    #config.add_index_field 'description_tesim', :label => 'Description:'
+
+  #config.add_field_configuration_to_solr_request!
 
     # solr fields to be displayed in the show (single result) view
-    #   The ordering of the field names is the order of the display 
+    #   The ordering of the field names is the order of the display
     #config.add_show_field 'date_tesim', :label => 'Date:'
     #config.add_show_field 'subject_tesim', :label => 'Subject:'
 
@@ -184,24 +184,24 @@ class CatalogController < ApplicationController
     # The :key is what will be used to identify this BL search field internally,
     # as well as in URLs -- so changing it after deployment may break bookmarked
     # urls.  A display label will be automatically calculated from the :key,
-    # or can be specified manually to be different. 
+    # or can be specified manually to be different.
 
     # This one uses all the defaults set by the solr request handler. Which
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
-    # since we aren't specifying it otherwise. 
-    
+    # since we aren't specifying it otherwise.
+
     config.add_search_field ('Keyword (Title, Name/Creator, Topic, Notes etc.)') do |field|
     #field.solr_parameters = { :'qf' => 'all_fields_tesim' }
     field.solr_parameters = { :'qf' => 'title_tesim^99 name_tesim^20 subject_tesim^10 scopeContentNote_tesim^6 all_fields_tesim fulltext_tesim id' }
-  end 
+  end
     config.add_search_field('Title') do |field|
-      # solr_parameters hash are sent to Solr as ordinary url query params. 
+      # solr_parameters hash are sent to Solr as ordinary url query params.
     field.solr_parameters = { :'qf' => 'title_tesim' }
       # :solr_local_parameters will be sent using Solr LocalParams
       # syntax, as eg {! qf=$title_qf }. This is neccesary to use
       # Solr parameter de-referencing like $title_qf.
       # See: http://wiki.apache.org/solr/LocalParams
-      #field.solr_local_parameters = { 
+      #field.solr_local_parameters = {
       #  :qf => '$title_qf',
       #  :pf => '$title_pf'
       #}
@@ -212,7 +212,7 @@ class CatalogController < ApplicationController
     config.add_search_field('subject', :label => 'Topic') do |field|
     field.solr_parameters = { :'qf' => 'subject_tesim' }
       #field.qt = 'search'
-      #field.solr_local_parameters = { 
+      #field.solr_local_parameters = {
       #  :qf => '$subject_qf',
       #  :pf => '$subject_pf'
       #}
@@ -225,7 +225,7 @@ class CatalogController < ApplicationController
   end
 
     #config.add_search_field('author') do |field|
-    #  field.solr_local_parameters = { 
+    #  field.solr_local_parameters = {
     #    :qf => '$author_qf',
     #    :pf => '$author_pf'
     #  }
@@ -245,7 +245,7 @@ class CatalogController < ApplicationController
     config.add_sort_field 'title_ssi asc', :label => 'title'
     config.add_sort_field 'object_create_dtsi asc, title_ssi asc', :label => "date\u00A0created\u00A0\u25B2"
     config.add_sort_field 'object_create_dtsi desc, title_ssi asc', :label => "date\u00A0created\u00A0\u25BC"
-   
+
 
   end
 
@@ -253,7 +253,7 @@ class CatalogController < ApplicationController
   def index
     if params['q'] != nil
       params['q'].gsub!('""','')
-      single_quote_count = params['q'].to_s.count('"') 
+      single_quote_count = params['q'].to_s.count('"')
       if(single_quote_count != nil && single_quote_count.odd?)
         if(params['q'].to_s.end_with?('"'))
           params['q'] = params['q'][0, params['q'].length - 1]
@@ -274,7 +274,7 @@ class CatalogController < ApplicationController
     @metadata_colls = metadata_only_collections(@document_list)
 
     @filters = params[:f] || []
-    
+
     respond_to do |format|
       format.html { }
       format.json { render json: @response }
@@ -307,6 +307,10 @@ class CatalogController < ApplicationController
 
     # sort by title
     params[:sort] = 'title_ssi asc' unless params[:sort]
+
+    # RDCP prefers their collections sorted by most recently created first
+    # Therefore, we're sorting by modified date rather than title
+    params[:sort] = 'system_modified_dtsi desc, title_ssi asc' if params[:id].eql? 'rdcp'
     (@response, @document_list) = get_search_results params, params
 
     # update session
@@ -358,25 +362,25 @@ class CatalogController < ApplicationController
   # used to paginate through a single facet field's values
   # /catalog/facet/language_facet
   def get_facet_pagination(facet_field, user_params=params || {}, extra_controller_params={})
-    
+
     solr_params = solr_facet_params(facet_field, user_params, extra_controller_params)
-        
+
     solr_params[:"facet.prefix"] = user_params['facet.prefix'] if (!user_params['facet.prefix'].nil? && user_params['facet.prefix'].to_s.length > 0)
-    
+
     # Make the solr call
     response =find(blacklight_config.qt, solr_params)
 
     limit = solr_params[:"f.#{facet_field}.facet.limit"] -1
-      
+
     # Actually create the paginator!
     # NOTE: The sniffing of the proper sort from the solr response is not
     # currently tested for, tricky to figure out how to test, since the
-    # default setup we test against doesn't use this feature. 
-    return     Blacklight::Solr::FacetPaginator.new(response.facets.first.items, 
-      :offset => solr_params[:"f.#{facet_field}.facet.offset"], 
+    # default setup we test against doesn't use this feature.
+    return     Blacklight::Solr::FacetPaginator.new(response.facets.first.items,
+      :offset => solr_params[:"f.#{facet_field}.facet.offset"],
       :limit => limit,
       :sort => response["responseHeader"]["params"][:"f.#{facet_field}.facet.sort"] || response["responseHeader"]["params"]["facet.sort"]
     )
   end
 
-end 
+end
