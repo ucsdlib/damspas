@@ -68,6 +68,7 @@ group :development, :test do
   gem 'unicorn', '~> 5.3.0'
   gem 'rspec_junit_formatter', '~> 0.2.3'
   gem 'poltergeist', '1.15.0'
+  gem 'timecop'
 end
 
 group :staging do
