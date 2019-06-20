@@ -4,8 +4,8 @@
     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:owl="http://www.w3.org/2002/07/owl#"
     xmlns:dams="http://library.ucsd.edu/ontology/dams#">
-  <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/uu8056206n">    
-    <dams:typeOfResource>still image</dams:typeOfResource>   
+  <dams:ProvenanceCollection rdf:about="http://library.ucsd.edu/ark:/20775/uu8056206n">
+    <dams:typeOfResource>still image</dams:typeOfResource>
     <dams:date>
       <dams:Date>
         <dams:type>collected</dams:type>
@@ -15,7 +15,7 @@
         <dams:endDate>1978</dams:endDate>
       </dams:Date>
     </dams:date>
-   
+
     <dams:commonName>
       <dams:CommonName>
         <mads:authoritativeLabel>thale-cress</mads:authoritativeLabel>
@@ -45,16 +45,16 @@
       </dams:Date>
     </dams:date>
     <dams:unit rdf:resource="http://library.ucsd.edu/ark:/20775/xx48484848"/>
-   
+
     <dams:visibility>public</dams:visibility>
-    
+
     <dams:note>
       <dams:Note>
         <rdf:value>Cheng, Lanna; Schulz-Baldes, Meinhard; Alexander, George V; Franco, Paul J; Ott, John (2015): Heavy Metals in the Ocean Insect, Halobates. UC San Diego Library Digital Collections. </rdf:value>
         <dams:type>preferred citation</dams:type>
       </dams:Note>
-    </dams:note>  
-    <dams:typeOfResource>data</dams:typeOfResource>  
+    </dams:note>
+    <dams:typeOfResource>data</dams:typeOfResource>
     <dams:title>
       <mads:Title>
         <mads:authoritativeLabel>Heavy Metals in the Ocean Insect, Halobates</mads:authoritativeLabel>
@@ -77,7 +77,45 @@
         <dams:description>The physical materials are held at UC San Diego Library</dams:description>
         <dams:type>related</dams:type>
       </dams:RelatedResource>
-    </dams:relatedResource>   
+    </dams:relatedResource>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Highly, Paid</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Highly, Paid</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>laboratory director</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
+    <dams:relationship>
+      <dams:Relationship>
+        <dams:personalName>
+          <mads:PersonalName>
+            <mads:authoritativeLabel>Credit, I get the</mads:authoritativeLabel>
+            <mads:elementList rdf:parseType="Collection">
+              <mads:FullNameElement>
+                <mads:elementValue>Credit, I get the</mads:elementValue>
+              </mads:FullNameElement>
+            </mads:elementList>
+          </mads:PersonalName>
+        </dams:personalName>
+        <dams:role>
+          <mads:Authority>
+            <mads:authoritativeLabel>thesis advisor</mads:authoritativeLabel>
+          </mads:Authority>
+        </dams:role>
+      </dams:Relationship>
+    </dams:relationship>
     <dams:relationship>
       <dams:Relationship>
         <dams:personalName>
@@ -191,7 +229,7 @@
           </mads:Authority>
         </dams:role>
       </dams:Relationship>
-    </dams:relationship>    
+    </dams:relationship>
     <dams:relationship>
       <dams:Relationship>
         <dams:personalName>
@@ -210,6 +248,6 @@
           </mads:Authority>
         </dams:role>
       </dams:Relationship>
-    </dams:relationship>   
+    </dams:relationship>
   </dams:ProvenanceCollection>
 </rdf:RDF>
