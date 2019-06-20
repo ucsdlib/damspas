@@ -1,28 +1,38 @@
 <%
-	if defined?(componentIndex) # Then we're working with a component
-		prefix = "component_#{componentIndex}_"
-		htmlOpen = '<tr><td>%s</td><td>'
-		htmlClose = '</td></tr>'
-	else # We're working with an object or collection
-		prefix = ''
-		htmlOpen = '<dt>%s</dt><dd>'
-		htmlClose = '</dd>'
-	end
-  
-    names = ['Principal investigator','principal investigator','Co-principal investigator','co-principal investigator', 'Creator', 'creator']	
-	fieldData = @document["#{prefix}relationship_json_tesim"] || {}
-%>
-    <% fieldData.each do |datum| %>
-    <% relationship = JSON.parse(datum).sort.to_h %>
-        <% names.each do |n| %>
-            <% if relationship.has_key?(n)%>
-                <%= render :partial => 'shared/fields/relationships_data', :locals => {key: n, value: relationship[n], htmlOpen: htmlOpen, htmlClose: htmlClose} %>
-                <% relationship.delete(n) %>
-		    <% end %>
-	    <% end %>
-        <% relationship.each do |key, value| %>
-            <%= render :partial => 'shared/fields/relationships_data', :locals => {key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose} %>
-        <% end %>
-    <% end %>
+if defined?(componentIndex) # Then we're working with a component
+  prefix = "component_#{componentIndex}_"
+  htmlOpen = '<tr><td>%s</td><td>'
+  htmlClose = '</td></tr>'
+else # We're working with an object or collection
+  prefix = ''
+  htmlOpen = '<dt>%s</dt><dd>'
+  htmlClose = '</dd>'
+end
 
-		
+
+fieldData = @document["#{prefix}relationship_json_tesim"] || {}
+fieldData.each do |datum|
+  relationship = JSON.parse(datum).sort.to_h
+  ORDERED_ROLES.each do |n|
+    role =
+      if relationship.has_key?(n)
+        n
+      elsif relationship.has_key?(n.upcase_first)
+        n.upcase_first
+      end
+    if role
+%>
+      <%= render :partial => 'shared/fields/relationships_data', :locals => {key: role, value: relationship[role], htmlOpen: htmlOpen, htmlClose: htmlClose} %>
+<%
+      relationship.delete(n)
+    end
+  end
+  relationship.each do |key, value|
+%>
+    <%= render :partial => 'shared/fields/relationships_data', :locals => {key: key, value: value, htmlOpen: htmlOpen, htmlClose: htmlClose} %>
+<%
+   end
+end
+%>
+
+

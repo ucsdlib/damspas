@@ -126,11 +126,13 @@ feature 'Visitor wants to see the collection record' do
 
   scenario 'should see the names in order' do
     visit dams_collection_path("#{@provCollection.pid}")
-    expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Principal Investigator')
-    expect(page).to have_selector("div.span8 dl dt[3]", :text => 'Co Principal Investigator')
-    expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Creator')
-    expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Author')
-    expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Contributors')
+    expect(page).to have_selector("div.span8 dl dt[1]", :text => 'Creator')
+    expect(page).to have_selector("div.span8 dl dt[3]", :text => 'Author')
+    expect(page).to have_selector("div.span8 dl dt[5]", :text => 'Principal Investigator')
+    expect(page).to have_selector("div.span8 dl dt[7]", :text => 'Co Principal Investigator')
+    expect(page).to have_selector("div.span8 dl dt[9]", :text => 'Laboratory Director')
+    expect(page).to have_selector("div.span8 dl dt[11]", :text => 'Thesis Advisor')
+    expect(page).to have_selector("div.span8 dl dt[13]", :text => 'Contributors')
   end
 
   scenario 'should not see access control information (public)' do
