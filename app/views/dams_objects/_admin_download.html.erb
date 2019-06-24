@@ -15,17 +15,20 @@
   end
 %>
 
-<div class="etc-menu">
 
-  <%= link_to embed_glyph, "#embedLink-#{component_id}", class:etc_menu_item_class, role:'button', :data => { :toggle => 'modal' }, title:'Embed' %>
+  <% if !(current_user && current_user.work_authorizations_count > 0) %>
+    <div class="etc-menu">
 
-  <% if can? :update, @document then %>
-    <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
-  <% elsif can?(:read, @document) && can_download?(@document) && !downloadDerivativePath.nil?%>
-    <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
+      <%= link_to embed_glyph, "#embedLink-#{component_id}", class:etc_menu_item_class, role:'button', :data => { :toggle => 'modal' }, title:'Embed' %>
+
+      <% if can? :update, @document then %>
+        <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
+      <% elsif can?(:read, @document) && can_download?(@document) && !downloadDerivativePath.nil?%>
+        <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
+      <% end %>
+   </div>
   <% end %>
 
-</div>
 
 <!-- BEGIN_EMBED_MODAL -->
 <div id="embedLink-<%=component_id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="embedLinkLabel" aria-hidden="true">

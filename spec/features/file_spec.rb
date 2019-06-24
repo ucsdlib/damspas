@@ -34,6 +34,7 @@ feature "Derivative download" do
     @unit.delete
   end
   scenario 'anonymous user should be able to view and download image file' do
+    sign_in_anonymous '132.239.0.3'
     visit dams_object_path @obj1
     expect(page).to have_selector('h1', text: 'JPEG Test')
     expect(page).to have_link('', href:"/object/#{@obj1.pid}/_1.jpg/download")

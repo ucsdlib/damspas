@@ -841,6 +841,7 @@ describe "PDF Viewer" do
     @unit.delete
   end
   it "should show a 'View file' button and a 'Download file' button " do
+    sign_in_curator
     visit dams_object_path(@damsPdfObj.pid)
     expect(page).to have_selector('#data-view-file')
     expect(page).to have_selector('#data-download-file')
@@ -1469,6 +1470,7 @@ describe "User wants to view a simple ucsd-only video" do
   end
 
   scenario 'user should see an embed link' do
+    sign_in_curator
     visit dams_object_path @obj.pid
     expect(page).to have_css("a", :text => "Embed")
   end
