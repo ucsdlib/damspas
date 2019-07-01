@@ -216,7 +216,7 @@ GEM
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    kgio (2.11.0)
+    kgio (2.11.2)
     launchy (2.4.3)
       addressable (~> 2.3)
     libhoney (1.13.0)
@@ -325,7 +325,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (3.0.0)
-    raindrops (0.18.0)
+    raindrops (0.19.0)
     rake (12.3.1)
     rdf (1.1.1.1)
     rdf-rdfxml (1.0.1)
@@ -444,7 +444,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.6)
     unicode-display_width (1.4.0)
-    unicorn (5.3.0)
+    unicorn (5.5.1)
       kgio (~> 2.6)
       raindrops (~> 0.7)
     warden (1.2.6)
@@ -517,7 +517,7 @@ DEPENDENCIES
   sprockets (~> 2.12.4)
   timecop
   uglifier (~> 3.2.0)
-  unicorn (~> 5.3.0)
+  unicorn (~> 5.5.1)
   whenever
 
 BUNDLED WITH
