@@ -23,7 +23,9 @@ module Processors
     def self.revoke_old
       WorkAuthorization.where('updated_at < ?', 1.month.ago).each do |auth|
         begin
-          params = { work_pid: auth.work_pid, email: auth.user.email, aeon_id: auth.aeon_id }
+          params = Hashie::Mash.new(work_pid: auth.work_pid,
+                                    email: auth.user.email,
+                                    aeon_id: auth.aeon_id)
           request = Processors::NewRightsProcessor.new(params)
           request.revoke
         rescue => e
@@ -33,11 +35,15 @@ module Processors
       end
     end
 
+    # Initialize a rights processor for authorizing or revoking access
+    # @param request_attributes [Hashie:Mash] list of attributes for request
     def initialize(request_attributes)
       @request_attributes = request_attributes
       @work_title = @request_attributes[:itemTitle]
       @work_pid = if ['development'].include? Rails.env
                     DamsObject.last.pid
+                  elsif @request_attributes.work_pid?
+                    @request_attributes.work_pid
                   else
                     @request_attributes[:subLocation]
                   end

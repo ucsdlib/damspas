@@ -33,6 +33,22 @@ describe Processors::NewRightsProcessor do
     end
   end
 
+  describe ".revoke_old" do
+    let!(:dams_object){ DamsObject.create(pid: 'revoke_pid', titleValue: 'test_title') }
+    let!(:user){ create_auth_link_user }
+    context "when there are work authorizations to expire" do
+      it "deletes them" do
+        allow_any_instance_of(described_class).to receive(:expire_request).with(anything)
+        Timecop.freeze(Date.today - 31) do
+          WorkAuthorization.create(work_pid: dams_object.pid, aeon_id: '1234567', user: user)
+        end
+        expect(WorkAuthorization.count).to be(1)
+        described_class.revoke_old
+        expect(WorkAuthorization.count).to be(0)
+      end
+    end
+  end
+
   describe "authorize" do
     let!(:dams_object){ DamsObject.create(pid: 'test_pid', titleValue: 'test_title') }
     context "when credentials are valid" do
