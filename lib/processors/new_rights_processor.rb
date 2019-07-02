@@ -25,7 +25,7 @@ module Processors
         begin
           params = Hashie::Mash.new(work_pid: auth.work_pid,
                                     email: auth.user.email,
-                                    aeon_id: auth.aeon_id)
+                                    id: auth.aeon_id)
           request = Processors::NewRightsProcessor.new(params)
           request.revoke
         rescue => e
