@@ -1719,3 +1719,32 @@ describe "View an object that has no DOI identifier" do
     expect(page).not_to have_content("Update DOI record")
   end
 end
+
+describe "vrr user who has authorized works should not see Download File and Embed" do
+  let!(:user) { create_auth_link_user }
+
+  before(:all) do
+    @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
+                code: "tu", uri: "http://example.com/"
+    @obj = DamsObject.create( titleValue: 'vrr_test', typeOfResource: 'image',
+                unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
+    jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
+    @obj.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
+    @obj.save
+
+    solr_index @obj.pid
+  end
+  after(:all) do
+    @obj.delete
+  end
+
+  scenario "user with authorized work tries to view work_authorizations_path" do
+    user.work_authorizations.create(work_title: 'vrr_test', work_pid: @obj.pid)
+
+    visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
+    click_link "View"
+
+    expect(page).not_to have_text("Download File")
+    expect(page).not_to have_text("Embed")
+  end
+end
