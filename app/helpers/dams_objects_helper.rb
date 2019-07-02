@@ -718,6 +718,10 @@ def display_node(index)
     end
     nil
   end
+  
+  def vrr_user?
+    return !(current_user && current_user.work_authorizations_count > 0)
+  end
 
   #---
   # Check to see if an object has a "metadataDisplay or localDisplay otherRights"
