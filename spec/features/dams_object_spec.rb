@@ -1720,31 +1720,46 @@ describe "View an object that has no DOI identifier" do
   end
 end
 
-describe "vrr user who has authorized works should not see Download File and Embed" do
+describe "vrr user who has authorized works should not see Download File and Embed button" do
   let!(:user) { create_auth_link_user }
 
   before(:all) do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
                 code: "tu", uri: "http://example.com/"
-    @obj = DamsObject.create( titleValue: 'vrr_test', typeOfResource: 'image',
+
+    @imgObj = DamsObject.create( titleValue: 'vrr_test', typeOfResource: 'image',
                 unitURI: [ @unit.pid ], copyright_attributes: [{status: 'Public domain'}] )
     jpeg_content = '/9j/4AAQSkZJRgABAQEAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AVN//2Q=='
-    @obj.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
-    @obj.save
+    @imgObj.add_file( Base64.decode64(jpeg_content), "_1.jpg", "test.jpg" )
+    @imgObj.save
+    solr_index @imgObj.pid
 
-    solr_index @obj.pid
+    @pdfObj = DamsObject.create(pid: "xx21171293")
+    @pdfObj.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
+    @pdfObj.save
+    solr_index @pdfObj.pid
   end
   after(:all) do
-    @obj.delete
+    @imgObj.delete
+    @pdfObj.delete
   end
 
-  scenario "user with authorized work tries to view work_authorizations_path" do
-    user.work_authorizations.create(work_title: 'vrr_test', work_pid: @obj.pid)
+  scenario "the admin_download viewer should not show Download File and Embed button" do
+    user.work_authorizations.create(work_title: 'vrr_test', work_pid: @imgObj.pid)
 
     visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
     click_link "View"
 
     expect(page).not_to have_text("Download File")
     expect(page).not_to have_text("Embed")
+  end
+
+  scenario "the data_viewer for pdf should not show Download file button" do
+    user.work_authorizations.create(work_title: 'California Review', work_pid: @pdfObj.pid)
+
+    visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
+    click_link "View"
+
+    expect(page).not_to have_text("Download file")
   end
 end
