@@ -42,9 +42,9 @@ describe Processors::NewRightsProcessor do
         Timecop.freeze(Date.today - 31) do
           WorkAuthorization.create(work_pid: dams_object.pid, aeon_id: '1234567', user: user)
         end
-        expect(WorkAuthorization.count).to be(1)
+        expect(WorkAuthorization.count).to eq(1)
         described_class.revoke_old
-        expect(WorkAuthorization.count).to be(0)
+        expect(WorkAuthorization.count).to eq(0)
       end
     end
   end
