@@ -1740,6 +1740,7 @@ describe "vrr user who has authorized works should not see Download File and Emb
     solr_index @pdfObj.pid
   end
   after(:all) do
+    @unit.delete
     @imgObj.delete
     @pdfObj.delete
   end
