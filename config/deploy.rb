@@ -45,6 +45,13 @@ namespace :deploy do
     end
   end
 
+  desc 'Restart damsolrizer'
+  task :restart_damsolrizer do
+    on roles(:app), in: :sequence do
+      execute "sh $HOME/bin/damsolrizer.sh"
+    end
+  end
+
   desc "Write the current version to public/version.txt"
   task :write_version do
     on roles(:app), in: :sequence do
@@ -58,5 +65,6 @@ namespace :deploy do
   after :finishing, 'deploy:assets:precompile'
   after :finishing, 'deploy:migrate'
   after :finishing, 'deploy:restart'
+  after :finishing, 'deploy:restart_damsolrizer'
 
 end
