@@ -13,7 +13,7 @@
 	%>
 
 	
-		<% if vrr_user? %>
+		<% if !vrr_user? %>
 			<div class="form-actions dams-download-button">
 	    	<% if can?(:edit, @document) || can?(:read, @document) && can_download?(@document)%>
 			    <a id="data-view-file" class="btn <%=btnColor%> pull-right" href="<%= viewFilePath %>"><i class="glyphicon glyphicon-eye-open icon-white"></i> View file</a>

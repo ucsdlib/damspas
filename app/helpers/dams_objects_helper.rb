@@ -720,7 +720,7 @@ def display_node(index)
   end
   
   def vrr_user?
-    return !(current_user && current_user.work_authorizations_count > 0)
+    return current_user && current_user.work_authorizations_count > 0
   end
 
   #---

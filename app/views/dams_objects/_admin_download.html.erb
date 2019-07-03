@@ -16,7 +16,7 @@
 %>
 
 
-<% if vrr_user? %>
+<% if !vrr_user? %>
   <div class="etc-menu">
 
     <%= link_to embed_glyph, "#embedLink-#{component_id}", class:etc_menu_item_class, role:'button', :data => { :toggle => 'modal' }, title:'Embed' %>
