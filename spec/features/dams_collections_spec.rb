@@ -135,6 +135,14 @@ feature 'Visitor wants to see the collection record' do
     expect(page).to have_selector("div.span8 dl dt[13]", :text => 'Contributors')
   end
 
+  scenario 'should not see duplicated role names' do
+    visit dams_collection_path("#{@provCollection.pid}")
+    expect(page).to have_link("Cheng, Lanna", count: 1)
+    expect(page).to have_link("Schulz-Baldes, Meinhard", count: 1)
+    expect(page).to have_link("Credit, I get the", count: 1)
+    expect(page).to have_link("Alexander, George V.", count: 1)
+  end
+
   scenario 'should not see access control information (public)' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_no_content('AccessPublic')
