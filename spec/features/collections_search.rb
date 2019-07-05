@@ -20,14 +20,14 @@ feature 'Visitor wants to browse by unit collections' do
       @oldest_collection.delete
       @newest_collection.delete
     end
-    it 'should sort by most recent collection by default, descending to oldest' do
+    xit 'should sort by most recent collection by default, descending to oldest' do
       visit dams_unit_collections_path('rdcp')
       old_collection_sort_order = page.body.index('A Old Collection')
       new_collection_sort_order = page.body.index('The New Collection')
       expect(old_collection_sort_order).to be > new_collection_sort_order
     end
 
-    it 'should still allow user selected sort options' do
+    xit 'should still allow user selected sort options' do
       visit dams_unit_collections_path('rdcp', { sort: 'title_ssi asc' })
       old_collection_sort_order = page.body.index('A Old Collection')
       new_collection_sort_order = page.body.index('The New Collection')
