@@ -11,6 +11,9 @@ when 'production'
   every 1.day do
     rake "aeon_requests:revoke_old"
   end
+  every 1.day, at: '2:00 am' do
+    rake "sitemap:refresh"
+  end
 when 'staging'
   every '50 * * * *' do
     rake "aeon_requests:process_new"
