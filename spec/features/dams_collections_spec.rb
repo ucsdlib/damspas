@@ -183,7 +183,7 @@ feature 'COLLECTIONS IMAGES --' do
     expect(find("#collections-image img")['alt']).to eq('Heavy Metals in the Ocean Insect, Halobates')
   end
   
-  scenario 'PAGE SHOULD HAVE COLLECTION IMAGE TITLE ATTRIBUTE IN DESKTOP VIEW' do
+  scenario 'page should have collection image title attribute' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(find("#collections-image img")['title']).to eq('Heavy Metals in the Ocean Insect, Halobates')
   end
