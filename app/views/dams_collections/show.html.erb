@@ -46,7 +46,7 @@
     <div class="hidden-phone">
       <%# Collection image %>
       <div id="collections-image" class="hidden-phone">
-        <img src="/assets/dams/collections/img/<%=@document['id']%>.jpg" alt="<%=alt_tag_text(@collection_title)%>">
+        <img src="/assets/dams/collections/img/<%=@document['id']%>.jpg" alt="<%=alt_tag_text(@collection_title)%>" title="<%=alt_tag_text(@collection_title)%>">
       </div>
       <%# Collection controls %>
       <% if @object_count > 0 %>

@@ -1645,6 +1645,7 @@ end
 
 describe "User wants to view an Image object" do
   before(:all) do
+    @truncate_title = 'Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files T...'
     @long_title = 'Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test'
     @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
     @obj = DamsObject.create( titleValue: @long_title, copyright_attributes: [ {status: 'Public domain'} ],
@@ -1671,10 +1672,11 @@ describe "User wants to view an Image object" do
       expect(page.body).to match(/embed\/#{@obj.id}\/0/)
     end
   end
-  scenario 'have image alt text' do
+  scenario 'have image alt text and title' do
     sign_in_developer
     visit dams_object_path @obj.pid
-    expect(find("div.simple-object a img")['alt']).to eq('Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files Test Object Files T...')
+    expect(find("div.simple-object a img")['alt']).to eq(@truncate_title)
+    expect(find("div.simple-object a img")['title']).to eq(@truncate_title)
   end
 end
 

@@ -123,7 +123,7 @@ dp.cartographics = {}; // CARTOGRAPHICS DISPLAY
 				switch(fileType)
 				{
 					case "image":
-            $(container).html( '<a href="'+serviceFilePath+'" alt=""><img alt="' + alt_txt + '" src="'+displayFilePath+'"></a>' );
+            $(container).html( '<a href="'+serviceFilePath+'" alt=""><img alt="' + alt_txt + '" title="' + alt_txt + '" src="'+displayFilePath+'"></a>' );
 						break;
 					case "audio":
                         jwplayer("dams-audio-"+componentIndex).setup({
