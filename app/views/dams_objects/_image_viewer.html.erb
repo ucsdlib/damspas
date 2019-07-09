@@ -7,18 +7,18 @@
    alt_txt = alt_tag_text(@page_title)
 %>
 <% if displayFilePath.length > 0 && getFilesType != "PDF"%>
-   <%= link_to image_tag(displayFilePath, :alt => "#{alt_txt}"), zoomFilePath %>
+   <%= link_to image_tag(displayFilePath, :alt => "#{alt_txt}", :title => "#{alt_txt}"), zoomFilePath %>
 <% else %>
 	<% if getFilesType == "PDF" %>
 		<% if displayFilePath.to_s == ''%> 
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => filePath} %>
 		<% else %>
-				<%= link_to image_tag(displayFilePath, :alt => "#{alt_txt}"), zoomFilePath %>
+				<%= link_to image_tag(displayFilePath, :alt => "#{alt_txt}", :title => "#{alt_txt}"), zoomFilePath %>
 			<%= render :partial => 'metadata_data_file', :locals => {:fileName => service_file} %>
 		<% end %>
 		<%= render :partial => 'data_viewer', :locals => {:filePath => pdfFilePath, :objectType => 'simple', :displayFilePath => displayFilePath} %>
 	<% else %>
-		<%= link_to image_tag(filePath, :alt => "#{alt_txt}"), zoomFilePath %>
+		<%= link_to image_tag(filePath, :alt => "#{alt_txt}", :title => "#{alt_txt}"), zoomFilePath %>
 	<% end %>
 <% end %>
 <%= render :partial => 'admin_download', :locals => {:embedURL => embed_url, :downloadFilePath => downloadFilePath, :downloadDerivativePath => downloadDerivativePath, :format => file_type} %>
