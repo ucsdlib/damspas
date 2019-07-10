@@ -1,0 +1,11 @@
+<%
+if @document["active_fedora_model_ssi"].eql? "DamsObject"
+  htmlOpen = "<dt>%s</dt><dd>"
+  htmlClose = '</dd>'
+  last_modified = Time.zone.parse(@document["system_modified_dtsi"]).strftime("%Y-%m-%d")
+  htmlOpen %= 'Last Modified'
+  concat htmlOpen.html_safe
+  concat "<p>#{last_modified}</p>".html_safe
+  concat htmlClose.html_safe
+end
+%>
