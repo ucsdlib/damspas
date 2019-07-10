@@ -309,6 +309,9 @@ class CatalogController < ApplicationController
     unless params[:sort]
       # sort by title
       params[:sort] = 'title_ssi asc'
+      # RDCP prefers their collections sorted by most recently created first
+      # Therefore, we're sorting by modified date rather than title
+      params[:sort] = 'system_create_dtsi desc' if params[:id].eql? 'rdcp'
     end
 
     (@response, @document_list) = get_search_results params, params
