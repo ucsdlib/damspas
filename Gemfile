@@ -55,7 +55,8 @@ group :development, :test do
   gem 'byebug'
   gem 'sass-rails', '~> 5.0.5' # locked
   gem 'coffee-rails', '~> 4.2.1'
-  gem 'pry', '~> 0.10.4'
+  gem 'pry'
+  gem 'pry-byebug'
   gem 'capybara', '~> 2.14.0'
   gem 'selenium-webdriver', '3.4.0'
   gem 'launchy', '~> 2.4.3'
