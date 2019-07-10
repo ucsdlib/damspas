@@ -274,6 +274,10 @@ feature 'Visitor want to look at objects' do
       expect(page).to have_selector('li', text: 'Test Anatomy')
       expect(page).to have_selector('li', text: 'Test Value Anatomy')
 
+      # Last Modified
+      expect(page).to have_selector('dt', text: 'Last Modified')
+      expect(page).to have_selector('p', text: Time.now.strftime("%Y-%m-%d"))
+
       #Subject Label
       expect(page).to_not have_selector('dt', text: 'Lithologies')
       expect(page).to have_selector('dt', text: 'Lithology')

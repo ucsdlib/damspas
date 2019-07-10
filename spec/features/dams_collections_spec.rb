@@ -118,6 +118,11 @@ feature 'Visitor wants to see the collection record' do
     @commonName.delete
   end
 
+  scenario 'should not see a last modified metadata entry' do
+    visit dams_collections_path("#{@provCollection.pid}")
+    expect(page).to_not have_selector('dt', text: 'Last Modified')
+  end
+
   scenario 'should see the related resource with no URI' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(page).to have_content('The physical materials are held at UC San Diego Library')
@@ -182,7 +187,7 @@ feature 'COLLECTIONS IMAGES --' do
     expect(page).to have_selector("#collections-image img")
     expect(find("#collections-image img")['alt']).to eq('Heavy Metals in the Ocean Insect, Halobates')
   end
-  
+
   scenario 'page should have collection image title attribute' do
     visit dams_collection_path("#{@provCollection.pid}")
     expect(find("#collections-image img")['title']).to eq('Heavy Metals in the Ocean Insect, Halobates')

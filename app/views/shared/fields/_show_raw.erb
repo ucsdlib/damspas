@@ -51,7 +51,7 @@
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'arrangement'}.merge(component) %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'technical details'}.merge(component) %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'note'}.merge(component) %>
-<%= render :partial => 'shared/fields/note', :locals => {:type => 'related publications'}.merge(component) %>      
+<%= render :partial => 'shared/fields/note', :locals => {:type => 'related publications'}.merge(component) %>
 <%= render :partial => 'shared/fields/related_resource',
         :locals => {:collectionDoc => @document, :docType => 'object'}.merge(component) %>
 <%= render :partial => 'shared/fields/note', :locals => {:type => 'publication information'}.merge(component) %>
@@ -92,6 +92,7 @@
 <% end %>
 
 <%= render :partial => 'shared/fields/rights_holder', :locals => component %>
+<%= render :partial => 'shared/fields/last_modified' %>
 
 
 
