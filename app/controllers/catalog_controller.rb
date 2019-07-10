@@ -358,6 +358,32 @@ class CatalogController < ApplicationController
     render xml: xml.add( @obj.to_solr )
   end
 
+  # displays values and pagination links for a single facet field
+  def facet
+    @pagination = get_facet_pagination(params[:id], params)
+    total_pages_count(@pagination, params)
+
+    respond_to do |format|
+      # Draw the facet selector for users who have javascript disabled:
+      format.html
+      format.json { render json: render_facet_list_as_json }
+
+      # Draw the partial for the "more" facet modal window:
+      format.js { render layout: false }
+    end
+  end
+
+  def total_pages_count(pagination, params)
+    tmp_params = { q: '*', rows: 0, facet: 'true', 'facet.limit': '-1', 'facet.field': params[:id], wt: 'json' }
+    facet_response = raw_solr(tmp_params.merge(params))
+    count = 0
+    if facet_response.facet_counts['facet_fields'][params[:id]]
+      facet_count = facet_response.facet_counts['facet_fields'][params[:id]].size / 2
+      count = (facet_count.to_f / pagination.limit_value.to_f).ceil
+    end
+    pagination.pages_count(count)
+  end
+
   # a solr query method
   # used to paginate through a single facet field's values
   # /catalog/facet/language_facet

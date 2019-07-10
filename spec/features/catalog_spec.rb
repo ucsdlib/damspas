@@ -665,3 +665,85 @@ feature 'Visitor wants to view metdatadataDisplay object for public collection i
     expect(page).to have_content('Restricted View')
   end
 end
+
+feature 'Visitor wants to visit Browse by Topic page' do
+  before(:all) do
+    ns = Rails.configuration.id_namespace
+    @unit = DamsUnit.create name: "Test Unit", description: "Test Description", code: "tu", uri: "http://example.com/"
+    @copy = DamsCopyright.create status: "Public domain"
+
+    @topic1 = MadsTopic.create name: 'ZZZ Test Subject 1'
+    @topic2 = MadsTopic.create name: 'ZZZ Test Subject 2'
+    @topic3 = MadsTopic.create name: 'ZZZ Test Subject 3'
+    @topic4 = MadsTopic.create name: 'ZZZ Test Subject 4'
+    @topic5 = MadsTopic.create name: 'ZZZ Test Subject 5'
+    @topic6 = MadsTopic.create name: 'ZZZ Test Subject 6'
+    @topic7 = MadsTopic.create name: 'ZZZ Test Subject 7'
+    @topic8 = MadsTopic.create name: 'ZZZ Test Subject 8'
+    @topic9 = MadsTopic.create name: 'ZZZ Test Subject 9'
+    @topic10 = MadsTopic.create name: 'ZZZ Test Subject 10'
+    @topic11 = MadsTopic.create name: 'ZZZ Test Subject 11'
+    @topic12 = MadsTopic.create name: 'ZZZ Test Subject 12'
+    @topic13 = MadsTopic.create name: 'ZZZ Test Subject 13'
+    @topic14 = MadsTopic.create name: 'ZZZ Test Subject 14'
+    @topic15 = MadsTopic.create name: 'ZZZ Test Subject 15'
+    @topic16 = MadsTopic.create name: 'ZZZ Test Subject 16'
+    @topic17 = MadsTopic.create name: 'ZZZ Test Subject 17'
+    @topic18 = MadsTopic.create name: 'ZZZ Test Subject 18'
+    @topic19 = MadsTopic.create name: 'ZZZ Test Subject 19'
+    @topic20 = MadsTopic.create name: 'ZZZ Test Subject 20'
+    @topic21 = MadsTopic.create name: 'ZZZ Test Subject 21'
+    @objTopic = DamsObject.create titleValue: "Test Object 4", unitURI: @unit.pid, copyrightURI: @copy.pid, 
+            topic_attributes: [{ id: RDF::URI.new("#{ns}#{@topic3.pid}") },{ id: RDF::URI.new("#{ns}#{@topic4.pid}") },{ id: RDF::URI.new("#{ns}#{@topic5.pid}") },{ id: RDF::URI.new("#{ns}#{@topic6.pid}") },
+                              { id: RDF::URI.new("#{ns}#{@topic7.pid}") },{ id: RDF::URI.new("#{ns}#{@topic8.pid}") },{ id: RDF::URI.new("#{ns}#{@topic9.pid}") },{ id: RDF::URI.new("#{ns}#{@topic10.pid}") },
+                              { id: RDF::URI.new("#{ns}#{@topic11.pid}") },{ id: RDF::URI.new("#{ns}#{@topic12.pid}") },{ id: RDF::URI.new("#{ns}#{@topic13.pid}") },{ id: RDF::URI.new("#{ns}#{@topic14.pid}") },
+                              { id: RDF::URI.new("#{ns}#{@topic15.pid}") },{ id: RDF::URI.new("#{ns}#{@topic16.pid}") },{ id: RDF::URI.new("#{ns}#{@topic17.pid}") },{ id: RDF::URI.new("#{ns}#{@topic18.pid}") },
+                              { id: RDF::URI.new("#{ns}#{@topic19.pid}") },{ id: RDF::URI.new("#{ns}#{@topic20.pid}") },{ id: RDF::URI.new("#{ns}#{@topic21.pid}") },{ id: RDF::URI.new("#{ns}#{@topic1.pid}") },{ id: RDF::URI.new("#{ns}#{@topic2.pid}") }]
+  
+    solr_index @objTopic.pid
+  end
+  after(:all) do
+    @objTopic.delete
+
+    @copy.delete
+    @unit.delete
+
+    @topic1.delete
+    @topic2.delete
+    @topic3.delete
+    @topic4.delete
+    @topic5.delete
+    @topic6.delete
+    @topic7.delete
+    @topic8.delete
+    @topic9.delete
+    @topic10.delete
+    @topic11.delete
+    @topic12.delete
+    @topic13.delete
+    @topic14.delete
+    @topic15.delete
+    @topic16.delete
+    @topic17.delete
+    @topic18.delete
+    @topic19.delete
+    @topic20.delete
+    @topic21.delete  
+  end
+
+  scenario 'with paging' do
+    visit catalog_facet_path("subject_topic_sim", :'facet.sort' => 'index', :'facet.prefix' => 'Z')
+    expect(page).to have_selector('.btn', :text => 'Z')
+    expect(page).to have_content("ZZZ Test Subject 1")
+    expect(page).to_not have_content("ZZZ Test Subject 9")   
+    expect(page).to have_css('div.pagination-toolbar div.btn-group a.btn[2]', text: '1')
+    expect(page).to have_css('div.pagination-toolbar div.btn-group a.btn[3]', text: '2')
+    
+    # pager should remain when paging through results
+    find("div.pagination-toolbar div.btn-group a.btn[3]").click
+    expect(page).to have_content("ZZZ Test Subject 9")
+    expect(page).to_not have_content("ZZZ Test Subject 1") 
+    expect(page).to have_css('div.pagination-toolbar div.btn-group a.btn[2]', text: '1')
+    expect(page).to have_css('div.pagination-toolbar div.btn-group a.btn[3]', text: '2')     
+  end  
+end
