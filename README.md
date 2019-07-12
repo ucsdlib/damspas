@@ -1,8 +1,5 @@
-[![Code Climate](https://codeclimate.com/github/ucsdlib/damspas/badges/gpa.svg)](https://codeclimate.com/github/ucsdlib/damspas)
-
-[![Test Coverage](https://codeclimate.com/github/ucsdlib/damspas/badges/coverage.svg)](https://codeclimate.com/github/ucsdlib/damspas/coverage)
-
-[![Dependency Status](https://gemnasium.com/ucsdlib/damspas.svg)](https://gemnasium.com/ucsdlib/damspas)
+[![CircleCI](https://circleci.com/gh/ucsdlib/damspas.svg?style=svg)](https://circleci.com/gh/ucsdlib/damspas)
+[![Coverage Status](https://coveralls.io/repos/github/ucsdlib/damspas/badge.svg?branch=master)](https://coveralls.io/github/ucsdlib/damspas?branch=master)
 
 [UC San Diego Library](https://library.ucsd.edu/ "UC San Diego Library") Digital Collections Public Access System.
 
