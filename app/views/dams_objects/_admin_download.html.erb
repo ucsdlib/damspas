@@ -3,7 +3,7 @@
 	embed_url = (defined?(embedURL)) ? "#{embedURL}" : nil
 	etc_menu_item_class = 'pull-right'
 	embed_glyph =  '<i class="glyphicon glyphicon-share-alt"></i> Embed'.html_safe
-	adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i> Download File'.html_safe
+	adl_glyph =  '<i class="glyphicon glyphicon-download-alt"></i> Download file'.html_safe
   file_format = (defined?(format)) ? "#{format.capitalize}" : ''
   embed_width = (format == 'audio') ? '629' : '560'
   embed_height = (format == 'audio') ? '46' : '315'
@@ -22,12 +22,12 @@
     <%= link_to embed_glyph, "#embedLink-#{component_id}", class:etc_menu_item_class, role:'button', :data => { :toggle => 'modal' }, title:'Embed' %>
 
     <% if can? :update, @document then %>
-      <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
+      <%= link_to adl_glyph, downloadFilePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download file' %>
     <% elsif can?(:read, @document) && can_download?(@document) && !downloadDerivativePath.nil?%>
-      <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download File' %>
+      <%= link_to adl_glyph, downloadDerivativePath, :rel => 'nofollow', class:etc_menu_item_class, title:'Download file' %>
     <% end %>
  </div>
-  
+
   <!-- BEGIN_EMBED_MODAL -->
   <div id="embedLink-<%=component_id%>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="embedLinkLabel" aria-hidden="true">
     <div class="modal-header">

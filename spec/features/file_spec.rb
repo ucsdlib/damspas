@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'cancan'
 
 
-feature "Derivative download" do 
+feature "Derivative download" do
   before(:all) do
     @unit = DamsUnit.create pid: 'xx48484848', name: "Test Unit", description: "Test Description",
                 code: "tu", uri: "http://example.com/"
@@ -77,8 +77,8 @@ feature "Derivative download" do
   scenario 'should have rel=nofollow for the download link' do
     sign_in_developer
     visit dams_object_path @obj2
-    expect(page).to have_css('a[title="Download File"][rel="nofollow"]')
-  end    
+    expect(page).to have_css('a[title="Download file"][rel="nofollow"]')
+  end
 end
 
 describe "Download more than one master file" do
@@ -88,7 +88,7 @@ describe "Download more than one master file" do
     @newspaper = DamsObject.create(pid: "xx21171293")
     @newspaper.damsMetadata.content = File.new('spec/fixtures/damsObjectNewspaper.rdf.xml').read
     @newspaper.save!
-    solr_index (@newspaper.pid)   
+    solr_index (@newspaper.pid)
   end
   after do
     @newspaper.delete
@@ -97,11 +97,11 @@ describe "Download more than one master file" do
     visit dams_object_path(@newspaper.pid)
     expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download")
     expect(page).to_not have_link('', href:"/object/xx21171293/_2.tgz/download")
-    
+
     sign_in_developer
     visit dams_object_path(@newspaper.pid)
     expect(page).to have_link('', href:"/object/xx21171293/_1.pdf/download?access=curator")
-    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download?access=curator")    
+    expect(page).to have_link('', href:"/object/xx21171293/_2.tgz/download?access=curator")
   end
 end
 
@@ -122,7 +122,7 @@ describe "Download file in complex object" do
   it "should show a download button" do
     sign_in_developer
     visit dams_object_path @complexObj.pid
-    expect(page).to have_link('', href:"/object/#{@complexObj.pid}/_1_2.jpg/download?access=curator")  
+    expect(page).to have_link('', href:"/object/#{@complexObj.pid}/_1_2.jpg/download?access=curator")
   end
 end
 
@@ -145,6 +145,6 @@ describe "Download PDF file and second file with use value ends with '-source' f
     sign_in_developer
     visit dams_object_path @complexObjPdf.pid
     expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_1.pdf/download?access=curator")
-    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_2.mov/download?access=curator")    
+    expect(page).to have_link('', href:"/object/#{@complexObjPdf.pid}/_1_2.mov/download?access=curator")
   end
 end
