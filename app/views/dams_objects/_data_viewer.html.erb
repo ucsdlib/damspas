@@ -1,31 +1,32 @@
 <% if defined?(filePath) %>
 
-	<%
-	  btnColor = ''
-		if defined?(objectType)
-			btnColor = case objectType
-				when 'simple' then 'btn-primary'
-				when 'complex' then 'btn-inverse'
-			end
-		end
+  <%
+    btnColor = ''
+    if defined?(objectType)
+      btnColor = case objectType
+        when 'simple' then 'btn-primary'
+        when 'complex' then 'btn-inverse'
+      end
+    end
 
-		 viewFilePath = filePath.gsub('/download', '')
-	%>
+     viewFilePath = filePath.gsub('/download', '')
+  %>
 
-	
-		<% if !vrr_user? %>
-			<div class="form-actions dams-download-button">
-	    	<% if can?(:edit, @document) || can?(:read, @document) && can_download?(@document)%>
-			    <a id="data-view-file" class="btn <%=btnColor%> pull-right" href="<%= viewFilePath %>"><i class="glyphicon glyphicon-eye-open icon-white"></i> View file</a>
-			    <a id="data-download-file" class="btn btn-link pull-left btn-mini hidden-phone" href="<%= filePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt"></i> Download file</a>
-			    <a id="data-download-file-phone" class="btn pull-left btn-mini visible-phone" href="<%= filePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt"></i> Download file</a>
-	    	<% end %>
-	   	  <% if can? :update, @document%>
-		    	<% if (defined?(sourcefilePath) && !sourcefilePath.nil? && sourcefilePath != filePath)%>
-		      <a class="btn btn-link pull-left btn-mini hidden-phone" href="<%= sourcefilePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> source</a>
-		      <a class="btn pull-left btn-mini visible-phone" href="<%= sourcefilePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> source</a>
-		    	<% end %>
-		  	<% end %>
-			</div>
-		<% end %>
-	<% end %>
+    <% if !vrr_user? %>
+      <div class="form-actions dams-download-button">
+        <% if can?(:edit, @document) || can?(:read, @document) && can_download?(@document)%>
+          <div class="pull-right">
+            <a id="data-download-file" class="btn <%=btnColor%> hidden-phone" href="<%= filePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt icon-white"></i> Download file</a>
+            <a id="data-view-file" class="btn <%=btnColor%>" href="<%= viewFilePath %>"><i class="glyphicon glyphicon-eye-open icon-white"></i> View file</a>
+            <a id="data-download-file-phone" class="btn <%=btnColor%> visible-phone" href="<%= filePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt icon-white"></i> Download file</a>
+          </div>
+        <% end %>
+        <% if can? :update, @document%>
+          <% if (defined?(sourcefilePath) && !sourcefilePath.nil? && sourcefilePath != filePath)%>
+          <a class="btn btn-link pull-left btn-mini hidden-phone" href="<%= sourcefilePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> source</a>
+          <a class="btn pull-left btn-mini visible-phone" href="<%= sourcefilePath %>" rel="nofollow"><i class="glyphicon glyphicon-download-alt"></i> Download <%= File.extname(sourcefilePath.gsub('/download','')).upcase.gsub('.','')%> source</a>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
