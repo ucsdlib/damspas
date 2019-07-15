@@ -1722,7 +1722,7 @@ describe "View an object that has no DOI identifier" do
   end
 end
 
-describe "vrr user who has authorized works should not see Download File and Embed button" do
+describe "vrr user who has authorized works should not see Download file and Embed button" do
   let!(:user) { create_auth_link_user }
 
   before(:all) do
@@ -1747,13 +1747,13 @@ describe "vrr user who has authorized works should not see Download File and Emb
     @pdfObj.delete
   end
 
-  scenario "the admin_download viewer should not show Download File and Embed button" do
+  scenario "the admin_download viewer should not show Download file and Embed button" do
     user.work_authorizations.create(work_title: 'vrr_test', work_pid: @imgObj.pid)
 
     visit new_user_session_path(email: user.email, auth_token: user.authentication_token)
     click_link "View"
 
-    expect(page).not_to have_text("Download File")
+    expect(page).not_to have_text("Download file")
     expect(page).not_to have_text("Embed")
   end
 
