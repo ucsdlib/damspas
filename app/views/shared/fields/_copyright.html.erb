@@ -10,6 +10,8 @@
 	 end
 
 	 fieldData = @document["#{prefix}copyright_tesim"]
+	 rights_holder = @document["#{prefix}rightsHolder_tesim"]
+	 unit_code = @document["#{prefix}unit_code_tesim"]
 
 	 if fieldData != nil
 
@@ -24,7 +26,16 @@
 			<p><strong><%= copyright['status'].gsub(/--/, ' – ') %></strong></p>
 		<% end %>
 		<p><%= copyright['purposeNote'] %></p>
-		<p><%= copyright['note'] %></p>
+    
+    <% if unit_code == "rdcp" %>
+			<% if rights_holder && rights_holder == "UC Regents"%>
+			  <p>This work is protected by U.S. Copyright Law (Title 17, U.S.C.), and made available under a Creative Commons (CC) license. Use of this work beyond that allowed by "fair use" or the CC license requires written permission of UC San Diego. Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Library. Inquiries can be made to the UC San Diego Library program having custody of the work.</p>
+			<% else %>
+			  <p>This work is protected by U.S. Copyright Law (Title 17, U.S.C.), and made available under a Creative Commons (CC) license. Use of this work beyond that allowed by "fair use" or the CC license requires written permission of the copyright holder(s). Responsibility for obtaining permissions and any use and distribution of this work rests exclusively with the user and not the UC San Diego Library. Inquiries can be made to the UC San Diego Library program having custody of the work.</p>
+			 <% end %>
+		<% else %>
+		  <p><%= copyright['note'] %></p>
+		<% end %>
 	<%
 
 		 concat htmlClose.html_safe
