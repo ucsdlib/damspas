@@ -1770,3 +1770,20 @@ describe "vrr user who has authorized works should not see Download file and Emb
     expect(page).not_to have_text("Download file")
   end
 end
+
+describe "RDCP copyrights" do
+  before(:all) do
+    @rdcpObj = DamsObject.create(pid: "xx21171200")
+    @rdcpObj.damsMetadata.content = File.new('spec/fixtures/damsObjectCopyrights.rdf.xml').read
+    @rdcpObj.save
+    solr_index @rdcpObj.pid
+  end
+  after(:all) do
+    @rdcpObj.delete
+  end
+  scenario 'should show boilerplate copyrights text' do
+    sign_in_developer
+    visit dams_object_path @rdcpObj.pid
+    expect(page).to have_content('the CC license requires written permission of UC San Diego.')
+  end
+end
