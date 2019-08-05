@@ -1,6 +1,6 @@
-if ENV['APPS_DHH_HONEYCOMB_KEY'].present?
+if ENV['HONEYCOMB_KEY'].present?
   Honeycomb.configure do |config|
-    config.write_key = ENV.fetch('APPS_DHH_HONEYCOMB_KEY') { 'default' }
+    config.write_key = ENV.fetch('HONEYCOMB_KEY') { 'default' }
     config.dataset = ENV.fetch('APPS_DHH_HONEYCOMB_DATASET') { 'default' }
     config.notification_events = %w[
       sql.active_record
