@@ -39,7 +39,7 @@ gem "i18n", '~> 0.8.1'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
 gem "bower-rails", "~> 0.11.0"
 gem "responders", "~> 2.4.0"
-gem 'nokogiri', '1.10.3'
+gem 'nokogiri', '1.10.4'
 
 gem 'uglifier', '~> 3.2.0'
 gem 'rspec-mocks', '3.6.0'
