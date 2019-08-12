@@ -41,7 +41,7 @@ gem "bower-rails", "~> 0.11.0"
 gem "responders", "~> 2.4.0"
 gem 'nokogiri', '1.10.4'
 
-gem 'uglifier', '~> 3.2.0'
+gem 'uglifier', '~> 4.1.20'
 gem 'rspec-mocks', '3.6.0'
 
 gem 'honeycomb-beeline'
