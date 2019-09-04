@@ -1,4 +1,4 @@
-Fixes #issuenumber
+References #issuenumber
 
 #### Local Checklist
 - [ ] Tests written and passing locally?
