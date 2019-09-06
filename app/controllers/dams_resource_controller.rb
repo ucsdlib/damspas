@@ -31,11 +31,15 @@ class DamsResourceController < ApplicationController
       setup_next_and_previous_documents if controllers.include?(refcon)
     end
 
+    doc_solr_params = build_params("id:#{params[:id]}")
+    doc_response = raw_solr(doc_solr_params).docs.first
+
+    raise ActionController::RoutingError.new('Not Found') if doc_response.nil?
+    raise CanCan::AccessDenied if !can?(:show, doc_response['id']) && !doc_response['discover_access_group_ssim'].include?('public')
+
     # get metadata from solr
-    @document = get_single_doc_via_search(1, {:q => "id:#{params[:id]}"} )
-    if @document.nil?
-        raise ActionController::RoutingError.new('Not Found')
-    end
+    @document = get_single_doc_via_search(1, q: "id:#{params[:id]}")
+    raise CanCan::AccessDenied if @document.nil?
 
     # generate facet collection list for collection page only
     models = @document["active_fedora_model_ssi"]

@@ -428,9 +428,10 @@ feature 'Visitor want to look at objects' do
   end
 
   describe "viewing non-existing records" do
-    it 'should show an error when viewing a non-existing record' do
+    it 'should show an error and response status code 404 when viewing a non-existing record' do
       visit dams_object_path('xxx')
       expect(page).to have_content 'The page you were looking for does not exist.'
+      expect(page.driver.response.status).to eq( 404 )
     end
     it 'should show an error when viewing a file from a non-existing object' do
       visit file_path('xxx','xxx')
@@ -771,15 +772,15 @@ describe "curator embargoed object view" do
     expect(page).to have_no_selector('button#view-masked-object',:text=>'Yes, I would like to view this content.')
   end
 
-  it "public user should see Response Status Code 404 - not found page" do
+  it "public user should see Response Status Code 403 - Forbidden page" do
     visit dams_object_path(@damsEmbObj.pid)
-    expect(page.driver.response.status).to eq( 404 )
+    expect(page.driver.response.status).to eq( 403 )
   end
 
-  scenario 'local user should see Response Status Code 404 - not found page' do
+  scenario 'local user should see Response Status Code 403 - Forbidden page' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path(@damsEmbObj.pid)
-    expect(page.driver.response.status).to eq( 404 )
+    expect(page.driver.response.status).to eq( 403 )
   end
 
 end
@@ -1577,15 +1578,15 @@ describe "culturally sensitive restricted object view" do
     expect(page).not_to have_content('Restricted View')
   end
 
-  it "public user should see Response Status Code 404 - not found page" do
+  it "public user should see Response Status Code 403 - Forbidden page" do
     visit dams_object_path(@sensitiveObj.pid)
-    expect(page.driver.response.status).to eq( 404 )
+    expect(page.driver.response.status).to eq( 403 )
   end
 
-  scenario 'local user should see Response Status Code 404 - not found page' do
+  scenario 'local user should see Response Status Code 403 - Forbidden page' do
     sign_in_anonymous '132.239.0.3'
     visit dams_object_path(@sensitiveObj.pid)
-    expect(page.driver.response.status).to eq( 404 )
+    expect(page.driver.response.status).to eq( 403 )
   end
 end
 
