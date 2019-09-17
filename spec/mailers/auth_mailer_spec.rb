@@ -8,6 +8,7 @@ RSpec.describe AuthMailer, type: :mailer do
       expect(mail.subject).to eq("Access to UC San Diego SC&A Virtual Reading Room")
       expect(mail.to).to eq(["test@example.com"])
       expect(mail.from).to eq(["spcoll-request@ucsd.edu"])
+      expect(mail.bcc).to eq(["spcoll-request@ucsd.edu"])
     end
 
     it "renders the body" do
