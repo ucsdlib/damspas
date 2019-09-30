@@ -48,7 +48,7 @@ gem 'honeycomb-beeline'
 gem 'lograge', '0.5.1'
 gem 'logstash-event', '1.2.02'
 gem 'coveralls', '0.8.21', require: false
-gem 'rubyzip', '1.2.2'
+gem 'rubyzip', '1.3.0'
 gem 'whenever', require: false
 
 group :development, :test do
