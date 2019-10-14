@@ -1,4 +1,5 @@
 <%
+  type = nil unless local_assigns[:type]
 	if defined?(componentIndex) # Then we're working with a component
 		prefix = "component_#{componentIndex}_"
 		htmlOpenTemp = "<tr><td>%s</td><td><ul class = 'unstyled'>"
@@ -17,8 +18,9 @@
 
 		fieldData.each do |datum|
 			date = JSON.parse(datum)
+			date_type = date['type']
 %>
-	     <% if date['type']!=nil && date['type']!=''&& date['value']!=nil &&date['value']!=''%>
+	     <% if date['type']!=nil && date['type']!='' && type == date_type && date['value']!=nil &&date['value']!=''%>
 	     
 		    <%
 		      date_labels = t('date_labels')
@@ -30,16 +32,7 @@
 			<% concat htmlOpen.html_safe %>
 			<li><%= date['value'].gsub('""', '"') %></li>
 			<% concat htmlClose.html_safe %>
-		 
-		 <% elsif date['value']!=nil && date['value']!=''  %>
-         	<% htmlOpen = htmlOpenTemp %>
-         	<% htmlOpen %= 'Date' %>
-         	<% concat htmlOpen.html_safe %>
-		 	<li><%= date['value'].gsub('""', '"') %></li>
-		 	<% concat htmlClose.html_safe %>
-		 
-		 
-		 
+			<% break %>
 		 <% end %>
 			
 <%
