@@ -1790,15 +1790,13 @@ describe "RDCP copyrights" do
 end
 
 describe "Object with description note containing HTML tags" do
-  let(:html_note_value) { 'Description note with HTML tags <table><tr><th>Cell Type</th><th>% intense</th></tr></table> embedded.' }
-
   before(:all) do
-    @noteDescription = { type: "description", value: 'Description note with HTML tags <table><tr><th>Cell Type</th><th>% intense</th></tr></table> embedded.' }
-    @noteOther = { type: "note", value: 'Other note with HTML tags <table><tr><th>Cell Type</th><th>% intense</th></tr></table> embedded.' }
+    @html_note_value = 'Description note with HTML tags <table><tr><th>Cell Type</th><th>% intense</th></tr></table> embedded.'
+    @note_description = { type: "description", value: @html_note_value }
     @title = 'Object Test with HTML tag in note'
     @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
     @obj = DamsObject.create( titleValue: @title, copyright_attributes: [ {status: 'Public domain'} ],
-                              assembledCollectionURI: [ @col.pid ], typeOfResource: 'image', note_attributes: [@noteDescription] )
+                              assembledCollectionURI: [ @col.pid ], typeOfResource: 'image', note_attributes: [@note_description] )
 
     solr_index @col.pid
     solr_index @obj.pid
@@ -1812,15 +1810,14 @@ describe "Object with description note containing HTML tags" do
   scenario 'it should retain the HTML tags for description note' do
     sign_in_developer
     visit dams_object_path @obj.pid
-    expect(page).to have_selector('p', text: html_note_value)
+    expect(page).to have_selector('p', text: @html_note_value)
   end
 end
 
 describe "Object with other note containing HTML tags" do
-  let(:html_note_value) { 'Other note with HTML tags <table><tr><th>Cell Type</th><th>% intense</th></tr></table> embedded.' }
-
   before(:all) do
-    @note = { type: "note", value: 'Other note with HTML tags <table><tr><th>Cell Type</th><th>% intense</th></tr></table> embedded.' }
+    @note_value = 'Other note with HTML tags <table><tr><th>Cell Type</th><th>% intense</th></tr></table> embedded.'
+    @note = { type: "note", value: @note_value }
     @title = 'Object Test with HTML tag in note'
     @col = DamsAssembledCollection.create( titleValue: 'Test Collection', visibility: 'public' )
     @obj = DamsObject.create( titleValue: @title, copyright_attributes: [ {status: 'Public domain'} ],
@@ -1838,7 +1835,7 @@ describe "Object with other note containing HTML tags" do
   scenario 'it should sanitize the HTML tags for notes other than description note' do
     sign_in_developer
     visit dams_object_path @obj.pid
-    expect(page).not_to have_selector('p', text: html_note_value)
+    expect(page).not_to have_selector('p', text: @note_value)
     expect(page).to have_selector('p', text: 'Other note with HTML tags Cell Type% intense embedded.')
   end
 end
