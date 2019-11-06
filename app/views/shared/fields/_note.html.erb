@@ -91,7 +91,7 @@
         <% if note['displayLabel'] == 'event id' %>
           <%= link_to note['value'], catalog_index_path({'f[event_ssi][]' => note['value']}) %>
         <% else %>
-          <%= auto_link(note['value'].gsub('""', '"').gsub('\n','<br/>'), :sanitize => sanitizeHtmlTags)%>
+          <%= auto_link(note['value'].gsub('""', '"').gsub('\n','<br/>'), :sanitize => sanitizeHtmlTags).html_safe %>
         <% end %>
       </p>
       <%

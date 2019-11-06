@@ -1807,10 +1807,11 @@ describe "Object with description note containing HTML tags" do
     @obj.delete
   end
 
-  scenario 'it should retain the HTML tags for description note' do
+  scenario 'it should retain the HTML tags in the description note' do
     sign_in_developer
     visit dams_object_path @obj.pid
-    expect(page).to have_selector('p', text: @html_note_value)
+    expect(page).to have_selector('th', text: 'Cell Type')
+    expect(page).to have_selector('th', text: '% intense')
   end
 end
 
@@ -1835,7 +1836,7 @@ describe "Object with other note containing HTML tags" do
   scenario 'it should sanitize the HTML tags for notes other than description note' do
     sign_in_developer
     visit dams_object_path @obj.pid
-    expect(page).not_to have_selector('p', text: @note_value)
+    expect(page).not_to have_selector('th', text: 'Cell Type')
     expect(page).to have_selector('p', text: 'Other note with HTML tags Cell Type% intense embedded.')
   end
 end
