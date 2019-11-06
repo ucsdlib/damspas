@@ -71,8 +71,10 @@
     
     notes.each do |key, noteList|
       key = 'Publication Information' if key == 'Publication'
-     
-      
+
+      # Don't sanitize description notes that need to display html contents
+      sanitizeHtmlTags = key == 'Description' ? false : true
+
       # if no type is provided, use types from note json
       if type == nil 
         htmlOpen = htmlOpenTemp
@@ -89,7 +91,7 @@
         <% if note['displayLabel'] == 'event id' %>
           <%= link_to note['value'], catalog_index_path({'f[event_ssi][]' => note['value']}) %>
         <% else %>
-          <%= auto_link(note['value'].gsub('""', '"').gsub("\n","<br/>"))%>
+          <%= auto_link(note['value'].gsub('""', '"').gsub('\n','<br/>'), :sanitize => sanitizeHtmlTags)%>
         <% end %>
       </p>
       <%
