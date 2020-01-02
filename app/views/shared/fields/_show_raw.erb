@@ -2,7 +2,13 @@
 <% collectionsView = defined?(greetingsFromCollectionsView) %>
 <% notesToExclude = ['performers','extent','abstract','table of contents','identifier',
         'existence and location of originals','general physical description', 'dimensions',
-        'digital origin', 'physical description', 'edition', 'site', 'funding', 'related publications', 'inscription', 'material details', 'material details:relationship to other loci', 'material details:storage method', 'material details:water depth', 'methods', 'biography', 'arrangement', 'technical details', 'publication information', 'venue', 'statement of responsibility', 'scope and content', 'note', 'location of originals', 'description', 'preferred citation', 'credits'] %>
+        'digital origin', 'physical description', 'edition', 'site', 'funding', 'related publications',
+        'inscription', 'material details', 'material details:relationship to other loci',
+        'material details:storage method', 'material details:water depth', 'methods',
+        'biography', 'arrangement', 'technical details', 'publication information', 'venue',
+        'statement of responsibility', 'scope and content', 'note', 'location of originals',
+        'description', 'preferred citation', 'credits', 'bibliography', 'classification', 'custodial history',
+        'publication', 'series', 'thesis'] %>
 <% unit_code = @document["unit_code_tesim"][0] if @document["unit_code_tesim"] %>
 
 <%= render :partial => 'shared/fields/access_control_level' %>
