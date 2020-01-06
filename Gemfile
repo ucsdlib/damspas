@@ -58,7 +58,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'capybara', '~> 2.14.0'
-  gem 'selenium-webdriver', '3.4.0'
+  gem 'selenium-webdriver', '3.142.7'
   gem 'launchy', '~> 2.4.3'
   gem "minitest", '~> 5.10.2'
   gem 'rspec-rails', '3.6.0'
