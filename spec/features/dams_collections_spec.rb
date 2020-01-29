@@ -239,6 +239,11 @@ feature 'Collection editor tools' do
     expect(page).to have_content("Push to OSF");
     expect(page).to have_content("Delete from OSF");
   end
+  scenario "should contain damsmanger url for RDF Edit" do
+    sign_in_developer
+    visit dams_collection_path @provCollection
+    expect(page).to have_xpath "//a[contains(@href,'/damsmanager/rdfImport.do?ark=#{@provCollection.pid}')]"
+  end
 end
 
 feature 'Collection that has DOI identifier' do
