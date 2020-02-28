@@ -73,5 +73,5 @@ group :development, :test do
 end
 
 group :staging do
-  gem 'rake', '~> 12.3.1'
+  gem 'rake', '~> 12.3.3'
 end
