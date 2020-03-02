@@ -29,12 +29,6 @@ gem 'qa', '~> 1.1.0'
 gem 'sprockets', '~> 2.12.4'  # locked
 gem 'rack-dev-mark', '~> 0.7.5'
 
-# Deploy with Capistrano
-gem 'capistrano', '~> 3.8.1'
-gem 'capistrano-rails', '~> 1.2.3'
-gem 'capistrano-rbenv', '~> 2.1.1'
-gem 'capistrano-bundler', '~> 1.2.0'
-
 gem "i18n", '~> 0.8.1'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
 gem "bower-rails", "~> 0.11.0"
@@ -50,6 +44,14 @@ gem 'logstash-event', '1.2.02'
 gem 'coveralls', '0.8.21', require: false
 gem 'rubyzip', '1.3.0'
 gem 'whenever', require: false
+
+# Deploy with Capistrano
+group :deploy do
+  gem 'capistrano', '~> 3.8.1'
+  gem 'capistrano-rails', '~> 1.2.3'
+  gem 'capistrano-rbenv', '~> 2.1.1'
+  gem 'capistrano-bundler', '~> 1.2.0'
+end
 
 group :development, :test do
   gem 'byebug'
