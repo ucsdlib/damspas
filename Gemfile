@@ -27,7 +27,7 @@ gem 'jquery-rails', '~> 4.3.1'
 gem 'rails_autolink', '~> 1.1.6'
 gem 'qa', '~> 1.1.0'
 gem 'sprockets', '~> 2.12.4'  # locked
-gem 'rack-dev-mark', '~> 0.7.5'
+gem 'rack-dev-mark', '~> 0.7.8'
 
 gem "i18n", '~> 0.8.1'
 gem "bootstrap-sass", '~> 2.3.2.2' # locked because blacklight 4.7
