@@ -288,8 +288,8 @@ GEM
       rails (>= 4.2.0, < 6.0)
       rdf
     rack (1.6.13)
-    rack-dev-mark (0.7.5)
-      rack (>= 1.1)
+    rack-dev-mark (0.7.8)
+      rack (>= 1.1, < 2.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.11.1)
@@ -490,7 +490,7 @@ DEPENDENCIES
   pry
   pry-byebug
   qa (~> 1.1.0)
-  rack-dev-mark (~> 0.7.5)
+  rack-dev-mark (~> 0.7.8)
   rails (~> 4.2.11)
   rails_autolink (~> 1.1.6)
   rake (~> 12.3.3)
