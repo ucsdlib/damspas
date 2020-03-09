@@ -19,7 +19,7 @@ gem 'pg', '~> 0.18.2'
 gem 'activerecord-postgresql-adapter'
 
 gem 'devise', '~> 3.5.5'
-gem 'omniauth', '~> 1.7.1' # 1.2.2 breaks test sign_in
+gem 'omniauth', '~> 1.9.1' # 1.2.2 breaks test sign_in
 gem 'omniauth-shibboleth', '~> 1.2.1'
 gem 'equivalent-xml', '~> 0.6.0'
 
